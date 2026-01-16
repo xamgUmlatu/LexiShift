@@ -1,0 +1,11 @@
+{
+  "name": "vocab-replacer",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build:bd": "node betterdiscord_plugin/build_plugin.js",
+    "watch:bd": "node betterdiscord_plugin/watch_plugin.js",
+    "sync:bd": "node betterdiscord_plugin/sync_plugin.js",
+    "build-and-sync:bd": "node betterdiscord_plugin/build_plugin.js && node betterdiscord_plugin/sync_plugin.js"
+  }
+}

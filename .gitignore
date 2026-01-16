@@ -1,0 +1,48 @@
+# --- Python / Byte-compiled ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv
+venv/
+env/
+build/
+dist/
+*.spec
+
+# --- OS Generated ---
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# --- IDEs / Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- GUI / Assets ---
+# If you generate icons or temporary UI files via PySide6
+*_rc.py
+*_ui.py
+
+# --- Browser Extension & BetterDiscord ---
+# Ignore local node modules if you add them later
+node_modules/
+.chrome-extension-key.pem
+*.log
+
+# --- Project Specific ---
+# Ignore the generated build/dist folders from your packaging scripts
+/packaging/output/
+/packaging/build/
+
+# Ignore local test vocabulary exports (prevent leaking personal word lists)
+TestVocabPool.json
+local_test_*.json
+
+# --- Environment / Secrets ---
+.env
+*.local

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VocabReplacer Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>VocabReplacer</h1>
+        <p>Configure replacement rules for the content script.</p>
+      </header>
+      <section class="card">
+        <label class="toggle">
+          <input id="enabled" type="checkbox" />
+          <span>Enable replacements</span>
+        </label>
+      </section>
+      <section class="card">
+        <h2>Rules (JSON)</h2>
+        <p class="hint">Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]</p>
+        <textarea id="rules" rows="16" spellcheck="false"></textarea>
+        <div class="actions">
+          <button id="save">Save</button>
+          <span id="status"></span>
+        </div>
+      </section>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: #f6f3ee;
+  color: #2c2a26;
+  margin: 0;
+}
+
+.container {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+header h1 {
+  margin-bottom: 6px;
+  font-size: 32px;
+}
+
+header p {
+  margin-top: 0;
+  color: #55514a;
+}
+
+.card {
+  background: #fffaf2;
+  border: 1px solid #e3dccf;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(54, 47, 38, 0.08);
+}
+
+.toggle {
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+  align-items: center;
+}
+
+.hint {
+  font-size: 14px;
+  color: #6c675f;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cfc6b5;
+  background: #fffefb;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+button {
+  background: #2c2a26;
+  color: #fef8ee;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1c1a17;
+}
+
+#status {
+  font-size: 14px;
+  color: #6c675f;
+}
