@@ -1,4 +1,4 @@
-# VocabReplacer
+# LexiShift
 
 Purpose
 - Replace words and phrases in text using a curated vocabulary pool.
@@ -11,24 +11,25 @@ Design goals
 - Precompute static vocab pools (inflections, expansions) so runtime is fast.
 
 Project layout
-- `gui_app/`: PySide6 GUI scaffold.
-  - `gui_app/main.py`: main window, toolbar actions, preview integration.
-  - `gui_app/state.py`: app state + dirty tracking.
-  - `gui_app/models.py`: list/table models for profiles and rules.
-  - `gui_app/dialogs.py`: profiles, metadata, settings dialogs.
-  - `gui_app/preview.py`: preview worker + highlighter.
-- `chrome_extension/`: Chrome extension (content script + options UI).
-- `betterdiscord_plugin/`: BetterDiscord plugin (message replacement).
-- `vocab_replacer/core.py`: tokenization, normalization, rules, trie, and replacer.
-- `vocab_replacer/inflect.py`: conservative inflection generation and phrase expansion.
-- `vocab_replacer/builder.py`: expand rules into inflected variants and build pools.
-- `vocab_replacer/pipeline.py`: compile exact vs meaning-aware replacers.
-- `vocab_replacer/storage.py`: dataset persistence + GUI-facing settings scaffolding.
-- `vocab_replacer/import_export.py`: import/export helpers, including "export as code".
-- `vocab_replacer/settings.py`: app-level profiles and import/export settings.
-- `vocab_replacer/__init__.py`: public API exports.
-- `tools.py`: convenience re-export of the same public API.
-- `tests/`: unit tests for replacement, storage, inflection, builder, settings, import/export.
+- `apps/gui/src/`: PySide6 GUI scaffold.
+  - `apps/gui/src/main.py`: main window, toolbar actions, preview integration.
+  - `apps/gui/src/state.py`: app state + dirty tracking.
+  - `apps/gui/src/models.py`: list/table models for profiles and rules.
+  - `apps/gui/src/dialogs.py`: profiles, metadata, settings dialogs.
+  - `apps/gui/src/preview.py`: preview worker + highlighter.
+- `apps/chrome-extension/`: Chrome extension (content script + options UI).
+- `apps/betterdiscord-plugin/`: BetterDiscord plugin (message replacement).
+- `core/lexishift_core/core.py`: tokenization, normalization, rules, trie, and replacer.
+- `core/lexishift_core/inflect.py`: conservative inflection generation and phrase expansion.
+- `core/lexishift_core/builder.py`: expand rules into inflected variants and build pools.
+- `core/lexishift_core/pipeline.py`: compile exact vs meaning-aware replacers.
+- `core/lexishift_core/storage.py`: dataset persistence + GUI-facing settings scaffolding.
+- `core/lexishift_core/import_export.py`: import/export helpers, including "export as code".
+- `core/lexishift_core/settings.py`: app-level profiles and import/export settings.
+- `core/lexishift_core/__init__.py`: public API exports.
+- `data/`: schema definitions and sample vocab pools.
+- `scripts/dev_utils.py`: convenience re-export of the same public API.
+- `core/tests/`: unit tests for replacement, storage, inflection, builder, settings, import/export.
 
 Core concepts
 - Tokenization
@@ -50,7 +51,7 @@ Core concepts
 
 Primary usage (exact replacement)
 ```python
-from vocab_replacer import VocabPool, Replacer, VocabRule
+from lexishift_core import VocabPool, Replacer, VocabRule
 
 rules = [
     VocabRule(source_phrase="twilight", replacement="gloaming"),
@@ -63,7 +64,7 @@ print(replacer.replace_text("At twilight, she was stunned into silence."))
 
 Inflection generation (precompute)
 ```python
-from vocab_replacer import (
+from lexishift_core import (
     VocabRule,
     BuildOptions,
     InflectionSpec,
@@ -84,7 +85,7 @@ print(replacer.replace_text("Twilight's colors fade."))
 
 Meaning-aware mode (optional, precomputed)
 ```python
-from vocab_replacer import (
+from lexishift_core import (
     VocabRule,
     MeaningRule,
     VocabPool,
@@ -133,14 +134,13 @@ Import/export (including "export as code")
 - `export_app_settings_code` / `import_app_settings_code` export/load app settings as a compact code string.
 
 Testing
-- `python -m unittest`
-- Tests add the repo root to `sys.path` for local runs.
+- `python -m unittest discover -s core/tests`
+- Tests add the core directory to `sys.path` for local runs.
 
 GUI scaffold (PySide6)
 - Entry points:
-  - `python -m gui_app` (recommended)
-  - `python -m gui_app.main`
-  - `python gui_app/main.py` (works from repo root or from `gui_app/`)
+  - `python apps/gui/src/main.py` (recommended)
+  - `python apps/gui/src` (runs `apps/gui/src/__main__.py`)
 - Features (initial scaffold):
   - Profile list (with active/disabled indicators).
   - Profile manager dialog (add/remove/edit profiles).
@@ -151,14 +151,14 @@ GUI scaffold (PySide6)
   - Per-row delete column in the rule table.
 
 Chrome extension
-- Load `chrome_extension/` as an unpacked extension in Chrome.
+- Load `apps/chrome-extension/` as an unpacked extension in Chrome.
 - Configure rules in the extension options page (JSON array).
 - Replaces visible text on all pages, skips editable fields.
 
 BetterDiscord plugin
-- Copy `betterdiscord_plugin/VocabReplacer.plugin.js` into your BetterDiscord plugins folder.
+- Copy `apps/betterdiscord-plugin/VocabReplacer.plugin.js` into your BetterDiscord plugins folder.
 - Configure rules in the plugin settings (JSON array).
-- Plugin source is modularized under `betterdiscord_plugin/src/`; rebuild with `node betterdiscord_plugin/build_plugin.js`.
+- Plugin source is modularized under `apps/betterdiscord-plugin/src/`; rebuild with `node apps/betterdiscord-plugin/build_plugin.js`.
 - Dev scripts:
   - `npm run build:bd`
   - `npm run watch:bd`
@@ -171,10 +171,10 @@ BetterDiscord plugin
 
 Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
-- Build: `pyinstaller --clean --noconfirm packaging/pyinstaller.spec`
+- Build: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
 - Output:
-  - macOS: `dist/VocabReplacer.app` (bundle icon uses `ttbn.icns`)
-  - Windows: `dist/VocabReplacer.exe` (requires a `.ico` at `packaging/ttbn.ico`)
+  - macOS: `dist/LexiShift.app` (bundle icon uses `apps/gui/resources/ttbn.icns`)
+  - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)
 - Note: build Windows binaries on Windows (PyInstaller does not cross-compile).
 
 Current limitations

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Iterable, Mapping, Optional
 
-from .core import MeaningRule, Replacer, SynonymNormalizer, VocabPool
+from lexishift_core.core import MeaningRule, Replacer, SynonymNormalizer, VocabPool
 
 
 class ReplacementMode(Enum):

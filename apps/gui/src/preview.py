@@ -6,7 +6,7 @@ from typing import Iterable, List, Sequence
 from PySide6.QtCore import QObject, QThread, Signal
 from PySide6.QtGui import QColor, QTextCharFormat, QSyntaxHighlighter
 
-from vocab_replacer import Match, Replacer, VocabDataset, build_vocab_pool_from_dataset
+from lexishift_core import Match, Replacer, VocabDataset, build_vocab_pool_from_dataset
 
 
 @dataclass(frozen=True)

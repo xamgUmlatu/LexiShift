@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from vocab_replacer import (
+from lexishift_core import (
     InflectionSettings,
     InflectionSpec,
     LearningSettings,
@@ -16,7 +16,7 @@ from vocab_replacer import (
     VocabRule,
     VocabSettings,
 )
-from vocab_replacer.storage import VocabDataset, load_vocab_dataset, save_vocab_dataset
+from lexishift_core.storage import VocabDataset, load_vocab_dataset, save_vocab_dataset
 
 
 class StorageTests(unittest.TestCase):

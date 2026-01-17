@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import os
 import sys
 from dataclasses import replace
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", "..", ".."))
+CORE_ROOT = os.path.join(REPO_ROOT, "core")
+GUI_ROOT = os.path.join(REPO_ROOT, "apps", "gui", "src")
+for path in (CORE_ROOT, GUI_ROOT):
+    if path not in sys.path:
+        sys.path.insert(0, path)
 
 from PySide6.QtCore import QStandardPaths, Qt, QTimer
 from PySide6.QtGui import QAction
@@ -25,7 +30,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
-from vocab_replacer import (
+from lexishift_core import (
     AppSettings,
     Profile,
     VocabDataset,
@@ -43,7 +48,7 @@ from vocab_replacer import (
     SynonymSources,
 )
 
-from gui_app.dialogs import (
+from dialogs import (
     BulkRulesDialog,
     CodeDialog,
     CreateProfileDialog,
@@ -52,9 +57,9 @@ from gui_app.dialogs import (
     RuleMetadataDialog,
     SettingsDialog,
 )
-from gui_app.models import ProfilesListModel, RulesTableModel
-from gui_app.preview import PreviewController, ReplacementHighlighter
-from gui_app.state import AppState
+from models import ProfilesListModel, RulesTableModel
+from preview import PreviewController, ReplacementHighlighter
+from state import AppState
 
 
 class MainWindow(QMainWindow):

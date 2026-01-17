@@ -6,7 +6,7 @@ from typing import Optional
 from PySide6.QtCore import QAbstractListModel, QAbstractTableModel, QModelIndex, Qt, Signal
 from PySide6.QtGui import QColor, QFont
 
-from vocab_replacer import Profile, VocabRule
+from lexishift_core import Profile, VocabRule
 
 
 class ProfilesListModel(QAbstractListModel):

@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from vocab_replacer import (
+from lexishift_core import (
     AppSettings,
     ImportExportSettings,
     InflectionSettings,

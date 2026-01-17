@@ -6,7 +6,15 @@ from typing import Optional
 
 from PySide6.QtCore import QObject, Signal
 
-from vocab_replacer import AppSettings, Profile, VocabDataset, load_app_settings, load_vocab_dataset, save_app_settings, save_vocab_dataset
+from lexishift_core import (
+    AppSettings,
+    Profile,
+    VocabDataset,
+    load_app_settings,
+    load_vocab_dataset,
+    save_app_settings,
+    save_vocab_dataset,
+)
 
 
 class AppState(QObject):
