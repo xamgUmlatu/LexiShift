@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QFileDialog,
     QFormLayout,
+    QFrame,
     QHBoxLayout,
     QLabel,
     QLineEdit,
@@ -19,6 +20,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QPushButton,
     QPlainTextEdit,
+    QScrollArea,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -48,6 +50,7 @@ class ProfilesDialog(QDialog):
     ) -> None:
         super().__init__(parent)
         self.setWindowTitle("Manage Profiles")
+        self.setSizeGripEnabled(True)
         self._default_dir = default_dir
         self._profiles = list(profiles)
         self._active_profile_id = active_profile_id
@@ -86,6 +89,7 @@ class ProfilesDialog(QDialog):
         path_row.addWidget(self.path_browse_button)
 
         form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow("Profile ID", self.id_edit)
         form.addRow("Name", self.name_edit)
         form.addRow("Dataset Path", path_row)
@@ -108,7 +112,9 @@ class ProfilesDialog(QDialog):
 
         layout = QVBoxLayout(self)
         layout.addLayout(main_row)
-        layout.addWidget(QLabel("Active profile is the selected row when saving."))
+        hint_label = QLabel("Active profile is the selected row when saving.")
+        hint_label.setWordWrap(True)
+        layout.addWidget(hint_label)
         layout.addWidget(button_box)
 
         self.id_edit.editingFinished.connect(self._commit_current)
@@ -245,6 +251,7 @@ class RuleMetadataDialog(QDialog):
     def __init__(self, rule: VocabRule, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Rule Metadata")
+        self.setSizeGripEnabled(True)
         self._rule = rule
 
         self.label_edit = QLineEdit()
@@ -254,6 +261,7 @@ class RuleMetadataDialog(QDialog):
         self.source_edit = QLineEdit()
 
         form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow("Label", self.label_edit)
         form.addRow("Description", self.description_edit)
         form.addRow("Examples (one per line)", self.examples_edit)
@@ -304,6 +312,7 @@ class CreateProfileDialog(QDialog):
     def __init__(self, default_dir: Path, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Create Profile")
+        self.setSizeGripEnabled(True)
         self._default_dir = default_dir
 
         self.name_edit = QLineEdit()
@@ -319,6 +328,7 @@ class CreateProfileDialog(QDialog):
         path_row.addWidget(self.path_button)
 
         form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow("Name", self.name_edit)
         form.addRow("Profile ID", self.id_edit)
         form.addRow("Dataset Path", path_row)
@@ -387,6 +397,7 @@ class SettingsDialog(QDialog):
     ) -> None:
         super().__init__(parent)
         self.setWindowTitle("Settings")
+        self.setSizeGripEnabled(True)
         self._app_settings = app_settings
         self._dataset_settings = dataset_settings or VocabSettings(
             inflections=InflectionSettings(),
@@ -398,8 +409,8 @@ class SettingsDialog(QDialog):
         learning = self._dataset_settings.learning or LearningSettings()
 
         tabs = QTabWidget()
-        tabs.addTab(self._build_app_tab(), "App")
-        tabs.addTab(self._build_dataset_tab(), "Dataset")
+        tabs.addTab(self._wrap_tab(self._build_app_tab()), "App")
+        tabs.addTab(self._wrap_tab(self._build_dataset_tab()), "Dataset")
 
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
@@ -482,6 +493,7 @@ class SettingsDialog(QDialog):
         wordnet_row.addWidget(self.wordnet_browse_button)
 
         form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow("", self.allow_code_export_check)
         form.addRow("Default export format", self.default_export_format)
         form.addRow(QLabel("Synonym sources"))
@@ -513,6 +525,7 @@ class SettingsDialog(QDialog):
         }
 
         inflection_form = QFormLayout()
+        inflection_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         inflection_form.addRow("", self.inflections_enabled_check)
         inflection_form.addRow("", self.inflections_strict_check)
         inflection_form.addRow("", self.include_generated_tag_check)
@@ -532,6 +545,7 @@ class SettingsDialog(QDialog):
         self.highlight_replacements_check = QCheckBox("Highlight replacements")
 
         learning_form = QFormLayout()
+        learning_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         learning_form.addRow("", self.learning_enabled_check)
         learning_form.addRow("", self.show_original_check)
         learning_form.addRow("Show original mode", self.show_original_mode_combo)
@@ -549,6 +563,13 @@ class SettingsDialog(QDialog):
         panel = QWidget()
         panel.setLayout(layout)
         return panel
+
+    def _wrap_tab(self, panel: QWidget) -> QWidget:
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+        scroll.setWidget(panel)
+        return scroll
 
     def _apply_import_export(self, settings: ImportExportSettings) -> None:
         self.allow_code_export_check.setChecked(settings.allow_code_export)
@@ -593,6 +614,7 @@ class CodeDialog(QDialog):
     def __init__(self, title: str, *, code: str = "", read_only: bool = False, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle(title)
+        self.setSizeGripEnabled(True)
         self.code_edit = QPlainTextEdit()
         self.code_edit.setPlainText(code)
         self.code_edit.setReadOnly(read_only)
@@ -617,11 +639,13 @@ class BulkRulesDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Synonym Bulk Add")
+        self.setSizeGripEnabled(True)
 
         self.targets_edit = QPlainTextEdit()
         self.targets_edit.setPlaceholderText("Paste target words (delimiters: space, comma, newline, semicolon).")
 
         form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow("Targets", self.targets_edit)
         form.addRow(QLabel("Synonyms are generated from configured WordNet/Moby sources."))
 

@@ -132,6 +132,19 @@ class RulesTableModel(QAbstractTableModel):
             return None
         rule = self._rules[index.row()]
         column = index.column()
+        if role == Qt.ToolTipRole:
+            if column == self.COLUMN_ENABLED:
+                return "Enabled" if rule.enabled else "Disabled"
+            if column == self.COLUMN_SOURCE:
+                return rule.source_phrase
+            if column == self.COLUMN_REPLACEMENT:
+                return rule.replacement
+            if column == self.COLUMN_PRIORITY:
+                return str(rule.priority)
+            if column == self.COLUMN_TAGS:
+                return ", ".join(rule.tags)
+            if column == self.COLUMN_DELETE:
+                return "Delete rule"
         if column == self.COLUMN_ENABLED and role == Qt.CheckStateRole:
             return Qt.Checked if rule.enabled else Qt.Unchecked
         if role in (Qt.DisplayRole, Qt.EditRole):

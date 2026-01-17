@@ -13,12 +13,13 @@ for path in (CORE_ROOT, GUI_ROOT):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from PySide6.QtCore import QStandardPaths, Qt, QTimer
+from PySide6.QtCore import QByteArray, QCoreApplication, QSettings, QStandardPaths, Qt, QTimer
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
     QFileDialog,
+    QHeaderView,
     QListView,
     QMainWindow,
     QMessageBox,
@@ -65,7 +66,8 @@ from state import AppState
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("VocabReplacer")
+        self.setWindowTitle("LexiShift")
+        self._ui_settings = QSettings()
 
         settings_path = _settings_path()
         self.state = AppState(settings_path=settings_path)
@@ -88,7 +90,15 @@ class MainWindow(QMainWindow):
 
         self.rules_table = QTableView()
         self.rules_table.setModel(self.rules_model)
-        self.rules_table.horizontalHeader().setStretchLastSection(True)
+        header = self.rules_table.horizontalHeader()
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_ENABLED, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_PRIORITY, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_DELETE, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_SOURCE, QHeaderView.Stretch)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_REPLACEMENT, QHeaderView.Stretch)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_TAGS, QHeaderView.Stretch)
+        self.rules_table.verticalHeader().setVisible(False)
         self.rules_table.clicked.connect(self._on_rule_table_clicked)
 
         self.input_edit = QPlainTextEdit()
@@ -110,12 +120,14 @@ class MainWindow(QMainWindow):
         splitter.addWidget(editor_panel)
         splitter.addWidget(preview_panel)
         splitter.setStretchFactor(1, 1)
+        self._splitter = splitter
 
         self.setCentralWidget(splitter)
 
         self._setup_toolbar()
         self._setup_preview()
         self._load_active_profile()
+        self._restore_window_state()
 
         self.state.datasetChanged.connect(self._on_dataset_loaded)
         self.state.dirtyChanged.connect(self._on_dirty_changed)
@@ -206,6 +218,26 @@ class MainWindow(QMainWindow):
         self._export_profiles_code_action = export_profiles_code_action
         self._update_rule_actions()
         self._apply_import_export_settings()
+
+    def _restore_window_state(self) -> None:
+        geometry = self._ui_settings.value("main_window/geometry", type=QByteArray)
+        if geometry:
+            self.restoreGeometry(geometry)
+        else:
+            self.resize(1100, 700)
+        splitter_state = self._ui_settings.value("main_window/splitter", type=QByteArray)
+        if splitter_state:
+            self._splitter.restoreState(splitter_state)
+        else:
+            self._splitter.setSizes([320, 780])
+
+    def _save_window_state(self) -> None:
+        self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
+        self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
+
+    def closeEvent(self, event) -> None:
+        self._save_window_state()
+        super().closeEvent(event)
 
     def _setup_preview(self) -> None:
         self._preview_controller = PreviewController()
@@ -558,9 +590,10 @@ def _default_dataset_path() -> Path:
 
 
 def main() -> None:
+    QCoreApplication.setOrganizationName("LexiShift")
+    QCoreApplication.setApplicationName("LexiShift")
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.resize(1100, 700)
     window.show()
     sys.exit(app.exec())
 
