@@ -21,10 +21,11 @@ from PySide6.QtCore import (
     QSettings,
     QSortFilterProxyModel,
     QStandardPaths,
+    QSize,
     Qt,
     QTimer,
 )
-from PySide6.QtGui import QAction, QActionGroup
+from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter
 from PySide6.QtWidgets import (
     QApplication,
     QComboBox,
@@ -39,7 +40,9 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QPushButton,
     QSplitter,
+    QStyledItemDelegate,
     QTableView,
+    QStyle,
     QWidget,
     QVBoxLayout,
 )
@@ -77,6 +80,25 @@ from preview import PreviewController, ReplacementHighlighter
 from state import AppState
 
 
+class DeleteButtonDelegate(QStyledItemDelegate):
+    def paint(self, painter: QPainter, option, index) -> None:
+        painter.save()
+        rect = option.rect.adjusted(6, 4, -6, -4)
+        hover = option.state & QStyle.State_MouseOver
+        color = QColor("#D64545") if not hover else QColor("#C73C3C")
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(color)
+        painter.setPen(Qt.NoPen)
+        painter.drawRoundedRect(rect, 4, 4)
+        painter.setPen(Qt.white)
+        painter.drawText(rect, Qt.AlignCenter, "Delete")
+        painter.restore()
+
+    def sizeHint(self, option, index):
+        size = super().sizeHint(option, index)
+        return size.expandedTo(QSize(64, size.height()))
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -104,6 +126,8 @@ class MainWindow(QMainWindow):
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
         self.manage_profiles_button = QPushButton("Manage...")
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
+        self.save_profiles_button = QPushButton("Save Profiles")
+        self.save_profiles_button.clicked.connect(self._save_profiles)
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
@@ -111,10 +135,18 @@ class MainWindow(QMainWindow):
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
         self.open_ruleset_button = QPushButton("Select...")
         self.open_ruleset_button.clicked.connect(self._open_dataset)
+        self.save_ruleset_button = QPushButton("Save Ruleset")
+        self.save_ruleset_button.clicked.connect(self._save_dataset)
+        self.save_ruleset_button.setEnabled(False)
 
         self.rules_table = QTableView()
         self.rules_table.setModel(self._rules_proxy)
         self.rules_table.setSortingEnabled(True)
+        self.rules_table.setMouseTracking(True)
+        self.rules_table.setItemDelegateForColumn(
+            RulesTableModel.COLUMN_DELETE,
+            DeleteButtonDelegate(self.rules_table),
+        )
         header = self.rules_table.horizontalHeader()
         header.setSortIndicatorShown(True)
         header.setStretchLastSection(False)
@@ -179,6 +211,9 @@ class MainWindow(QMainWindow):
 
         self._manage_profiles_action = QAction("Manage Profiles...", self)
         self._manage_profiles_action.triggered.connect(self._manage_profiles)
+
+        self._save_profiles_action = QAction("Save Profiles", self)
+        self._save_profiles_action.triggered.connect(self._save_profiles)
 
         self._add_rule_action = QAction("Add Rule", self)
         self._add_rule_action.triggered.connect(self._add_rule)
@@ -253,6 +288,7 @@ class MainWindow(QMainWindow):
 
         profiles_menu = menu_bar.addMenu("Profiles")
         profiles_menu.addAction(self._manage_profiles_action)
+        profiles_menu.addAction(self._save_profiles_action)
         profiles_menu.addSeparator()
 
         self._profiles_menu = profiles_menu
@@ -277,6 +313,7 @@ class MainWindow(QMainWindow):
         left_layout.addWidget(profile_label)
         left_layout.addWidget(self.profile_combo, 1)
         left_layout.addWidget(self.manage_profiles_button)
+        left_layout.addWidget(self.save_profiles_button)
         left_widget = QWidget()
         left_widget.setLayout(left_layout)
 
@@ -285,6 +322,7 @@ class MainWindow(QMainWindow):
         right_layout.addWidget(ruleset_label)
         right_layout.addWidget(self.ruleset_combo, 1)
         right_layout.addWidget(self.open_ruleset_button)
+        right_layout.addWidget(self.save_ruleset_button)
         right_widget = QWidget()
         right_widget.setLayout(right_layout)
 
@@ -359,6 +397,23 @@ class MainWindow(QMainWindow):
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
 
     def closeEvent(self, event) -> None:
+        if self.state.dirty:
+            choice = QMessageBox(self)
+            choice.setIcon(QMessageBox.Warning)
+            choice.setWindowTitle("Unsaved Changes")
+            choice.setText("Save changes to the current ruleset before quitting?")
+            choice.setInformativeText("Your edits will be lost if you don't save.")
+            choice.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+            choice.setDefaultButton(QMessageBox.Save)
+            result = choice.exec()
+            if result == QMessageBox.Save:
+                self._save_dataset()
+                if self.state.dirty:
+                    event.ignore()
+                    return
+            elif result == QMessageBox.Cancel:
+                event.ignore()
+                return
         self._save_window_state()
         super().closeEvent(event)
 
@@ -497,6 +552,25 @@ class MainWindow(QMainWindow):
         row = self._current_source_row()
         if row < 0:
             return
+        self._confirm_and_delete_rule(row=row)
+
+    def _confirm_and_delete_rule(self, *, row: int, skip_confirm: bool = False) -> None:
+        if row < 0:
+            return
+        if not skip_confirm:
+            rule = self.rules_model.rule_at(row)
+            if rule is None:
+                return
+            message = f"Delete this rule?\n\n{rule.source_phrase} -> {rule.replacement}\n\nThis cannot be undone."
+            reply = QMessageBox.question(
+                self,
+                "Delete Rule",
+                message,
+                QMessageBox.Yes | QMessageBox.Cancel,
+                QMessageBox.Cancel,
+            )
+            if reply != QMessageBox.Yes:
+                return
         self.rules_model.remove_rule(row)
 
     def _edit_rule_metadata(self) -> None:
@@ -514,7 +588,8 @@ class MainWindow(QMainWindow):
         if index.column() == self.rules_model.COLUMN_DELETE:
             row = self._current_source_row(index=index)
             if row >= 0:
-                self.rules_model.remove_rule(row)
+                skip_confirm = bool(QApplication.keyboardModifiers() & Qt.AltModifier)
+                self._confirm_and_delete_rule(row=row, skip_confirm=skip_confirm)
 
     def _generate_synonym_rules(self, targets: list[str]) -> list[VocabRule]:
         settings = self.state.settings.synonyms
@@ -742,6 +817,7 @@ class MainWindow(QMainWindow):
 
     def _on_dirty_changed(self, dirty: bool) -> None:
         self._save_action.setEnabled(dirty)
+        self.save_ruleset_button.setEnabled(dirty)
 
     def _on_profiles_changed(self, profiles) -> None:
         self._refresh_profiles_ui()
@@ -774,6 +850,9 @@ class MainWindow(QMainWindow):
             return
         self._export_code_action.setEnabled(settings.allow_code_export)
         self._export_profiles_code_action.setEnabled(settings.allow_code_export)
+
+    def _save_profiles(self) -> None:
+        self.state.save_settings()
 
     def _refresh_profiles_ui(self) -> None:
         profiles = self.state.settings.profiles

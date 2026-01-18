@@ -12,7 +12,7 @@ Design goals
 
 Project layout
 - `apps/gui/src/`: PySide6 GUI scaffold.
-  - `apps/gui/src/main.py`: main window, toolbar actions, preview integration.
+  - `apps/gui/src/main.py`: main window, menu actions, preview integration.
   - `apps/gui/src/state.py`: app state + dirty tracking.
   - `apps/gui/src/models.py`: list/table models for profiles and rules.
   - `apps/gui/src/dialogs.py`: profiles, metadata, settings dialogs.
@@ -119,8 +119,8 @@ Synonym sources (local)
 - Moby Thesaurus: point to a comma-separated thesaurus file (headword, synonym, ...).
 - Configure paths and options in the Settings dialog (App tab).
 
-Profiles and app settings (GUI scaffolding)
-- `Profile` lists dataset path + metadata (name, tags, enabled).
+Profiles, rulesets, and app settings (GUI scaffolding)
+- `Profile` is a named project that owns one or more rulesets (JSON files) and tracks the active ruleset.
 - `AppSettings` holds profiles and active profile id.
 - `ImportExportSettings` stores user preferences for exporting datasets.
 - `SynonymSourceSettings` stores local synonym resource paths and options.
@@ -142,8 +142,8 @@ GUI scaffold (PySide6)
   - `python apps/gui/src/main.py` (recommended)
   - `python apps/gui/src` (runs `apps/gui/src/__main__.py`)
 - Features (initial scaffold):
-  - Profile list (with active/disabled indicators).
-  - Profile manager dialog (add/remove/edit profiles).
+  - Profile selector + ruleset selector header; profile manager dialog for adding/removing/editing profiles.
+  - Per-profile ruleset list with active ruleset selection and Finder/Explorer reveal.
   - First-run welcome flow for creating a profile.
   - Rule editor backed by `QAbstractTableModel`.
   - Add/delete rules and edit rule metadata.
@@ -171,7 +171,8 @@ BetterDiscord plugin
 
 Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
-- Build: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
+- Build: `python scripts/build_gui_app.py`
+  - Equivalent: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
 - Output:
   - macOS: `dist/LexiShift.app` (bundle icon uses `apps/gui/resources/ttbn.icns`)
   - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)

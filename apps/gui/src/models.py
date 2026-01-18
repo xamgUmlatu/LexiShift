@@ -150,7 +150,7 @@ class RulesTableModel(QAbstractTableModel):
             if column == self.COLUMN_TAGS:
                 return ", ".join(rule.tags)
             if column == self.COLUMN_DELETE:
-                return "Delete rule"
+                return "Delete rule (Alt+click to skip confirmation)"
         if column == self.COLUMN_ENABLED and role == Qt.CheckStateRole:
             return Qt.Checked if rule.enabled else Qt.Unchecked
         if role in (Qt.DisplayRole, Qt.EditRole):
