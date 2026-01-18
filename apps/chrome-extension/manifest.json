@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "VocabReplacer",
   "version": "0.1.0",
-  "description": "Replace visible text using a configurable vocab pool.",
+  "description": "Replace visible text using a configurable ruleset.",
   "permissions": ["storage"],
   "options_page": "options.html",
   "content_scripts": [

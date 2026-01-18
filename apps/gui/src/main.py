@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import os
+import subprocess
 import sys
 from dataclasses import replace
 from pathlib import Path
+from typing import Optional
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", "..", ".."))
@@ -25,13 +27,17 @@ from PySide6.QtCore import (
 from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtWidgets import (
     QApplication,
+    QComboBox,
     QDialog,
     QFileDialog,
     QHeaderView,
-    QListView,
+    QHBoxLayout,
+    QLabel,
     QMainWindow,
+    QMenu,
     QMessageBox,
     QPlainTextEdit,
+    QPushButton,
     QSplitter,
     QTableView,
     QWidget,
@@ -40,6 +46,7 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import (
     AppSettings,
+    ImportExportSettings,
     Profile,
     VocabDataset,
     VocabRule,
@@ -65,7 +72,7 @@ from dialogs import (
     RuleMetadataDialog,
     SettingsDialog,
 )
-from models import ProfilesListModel, RulesTableModel
+from models import RulesTableModel
 from preview import PreviewController, ReplacementHighlighter
 from state import AppState
 
@@ -84,10 +91,6 @@ class MainWindow(QMainWindow):
             if not self._run_first_time_setup(first_run=first_run):
                 self._seed_default_profile()
 
-        self.profile_model = ProfilesListModel(
-            self.state.settings.profiles,
-            active_profile_id=self.state.settings.active_profile_id,
-        )
         self.rules_model = RulesTableModel([])
         self.rules_model.rulesChanged.connect(self._on_rules_changed)
         self._rules_proxy = QSortFilterProxyModel(self)
@@ -96,9 +99,18 @@ class MainWindow(QMainWindow):
         self._rules_proxy.setSortCaseSensitivity(Qt.CaseInsensitive)
         self._rules_proxy.setDynamicSortFilter(True)
 
-        self.profile_list = QListView()
-        self.profile_list.setModel(self.profile_model)
-        self.profile_list.clicked.connect(self._on_profile_selected)
+        self._profile_combo_updating = False
+        self.profile_combo = QComboBox()
+        self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
+        self.manage_profiles_button = QPushButton("Manage...")
+        self.manage_profiles_button.clicked.connect(self._manage_profiles)
+        self._ruleset_combo_updating = False
+        self.ruleset_combo = QComboBox()
+        self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
+        self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
+        self.open_ruleset_button = QPushButton("Select...")
+        self.open_ruleset_button.clicked.connect(self._open_dataset)
 
         self.rules_table = QTableView()
         self.rules_table.setModel(self._rules_proxy)
@@ -123,7 +135,7 @@ class MainWindow(QMainWindow):
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
-        editor_layout.addWidget(self.profile_list)
+        editor_layout.addWidget(self._build_profile_header())
         editor_layout.addWidget(self.rules_table)
 
         preview_panel = QWidget()
@@ -143,6 +155,7 @@ class MainWindow(QMainWindow):
         self._setup_menu()
         self._setup_preview()
         self._load_active_profile()
+        self._refresh_profiles_ui()
         self._restore_window_state()
 
         self.state.datasetChanged.connect(self._on_dataset_loaded)
@@ -151,13 +164,13 @@ class MainWindow(QMainWindow):
         self.state.activeProfileChanged.connect(self._select_active_profile)
 
     def _setup_actions(self) -> None:
-        self._open_action = QAction("Open...", self)
+        self._open_action = QAction("Open Ruleset...", self)
         self._open_action.triggered.connect(self._open_dataset)
 
-        self._save_action = QAction("Save", self)
+        self._save_action = QAction("Save Ruleset", self)
         self._save_action.triggered.connect(self._save_dataset)
 
-        self._save_as_action = QAction("Save As...", self)
+        self._save_as_action = QAction("Save Ruleset As...", self)
         self._save_as_action.triggered.connect(self._save_dataset_as)
 
         self._settings_action = QAction("Settings...", self)
@@ -179,10 +192,10 @@ class MainWindow(QMainWindow):
         self._edit_metadata_action = QAction("Edit Metadata...", self)
         self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
-        self._export_json_action = QAction("Export Vocab Pool (JSON)...", self)
+        self._export_json_action = QAction("Export Ruleset (JSON)...", self)
         self._export_json_action.triggered.connect(self._export_json)
 
-        self._export_code_action = QAction("Export Vocab Pool (Code)...", self)
+        self._export_code_action = QAction("Export Ruleset (Code)...", self)
         self._export_code_action.triggered.connect(self._export_code)
 
         self._export_profiles_json_action = QAction("Export Profiles (JSON)...", self)
@@ -191,10 +204,10 @@ class MainWindow(QMainWindow):
         self._export_profiles_code_action = QAction("Export Profiles (Code)...", self)
         self._export_profiles_code_action.triggered.connect(self._export_profiles_code)
 
-        self._import_json_action = QAction("Import Vocab Pool (JSON)...", self)
+        self._import_json_action = QAction("Import Ruleset (JSON)...", self)
         self._import_json_action.triggered.connect(self._import_json)
 
-        self._import_code_action = QAction("Import Vocab Pool (Code)...", self)
+        self._import_code_action = QAction("Import Ruleset (Code)...", self)
         self._import_code_action.triggered.connect(self._import_code)
 
         self._import_profiles_json_action = QAction("Import Profiles (JSON)...", self)
@@ -255,12 +268,79 @@ class MainWindow(QMainWindow):
         edit_menu.addAction(self._edit_metadata_action)
         edit_menu.addAction(self._delete_rule_action)
 
+    def _build_profile_header(self) -> QWidget:
+        profile_label = QLabel("Profile")
+        ruleset_label = QLabel("Ruleset")
+
+        left_layout = QHBoxLayout()
+        left_layout.setContentsMargins(0, 0, 0, 0)
+        left_layout.addWidget(profile_label)
+        left_layout.addWidget(self.profile_combo, 1)
+        left_layout.addWidget(self.manage_profiles_button)
+        left_widget = QWidget()
+        left_widget.setLayout(left_layout)
+
+        right_layout = QHBoxLayout()
+        right_layout.setContentsMargins(0, 0, 0, 0)
+        right_layout.addWidget(ruleset_label)
+        right_layout.addWidget(self.ruleset_combo, 1)
+        right_layout.addWidget(self.open_ruleset_button)
+        right_widget = QWidget()
+        right_widget.setLayout(right_layout)
+
+        header_layout = QHBoxLayout()
+        header_layout.setContentsMargins(0, 0, 0, 0)
+        header_layout.addWidget(left_widget, 1)
+        header_layout.addStretch(1)
+        header_layout.addWidget(right_widget, 2)
+
+        header = QWidget()
+        header.setLayout(header_layout)
+        return header
+
     def _current_source_row(self, *, index=None) -> int:
         view_index = index or self.rules_table.currentIndex()
         if not view_index.isValid():
             return -1
         source_index = self._rules_proxy.mapToSource(view_index)
         return source_index.row()
+
+    def _default_import_dir(self) -> str:
+        settings = self.state.settings.import_export
+        if settings and settings.last_import_path:
+            return settings.last_import_path
+        return str(_app_data_dir())
+
+    def _default_export_dir(self) -> str:
+        settings = self.state.settings.import_export
+        if settings and settings.last_export_path:
+            return settings.last_export_path
+        return str(_app_data_dir())
+
+    def _remember_import_path(self, path: Path) -> None:
+        settings = self.state.settings
+        import_settings = settings.import_export or ImportExportSettings()
+        updated = replace(import_settings, last_import_path=str(path.parent))
+        self.state.update_settings(replace(settings, import_export=updated))
+
+    def _remember_export_path(self, path: Path) -> None:
+        settings = self.state.settings
+        import_settings = settings.import_export or ImportExportSettings()
+        updated = replace(import_settings, last_export_path=str(path.parent))
+        self.state.update_settings(replace(settings, import_export=updated))
+
+    def _reveal_path(self, path: str) -> None:
+        if not path:
+            return
+        target = os.path.abspath(os.path.expanduser(path))
+        if sys.platform == "darwin":
+            subprocess.run(["open", "-R", target], check=False)
+            return
+        if sys.platform.startswith("win"):
+            subprocess.run(["explorer", "/select,", target], check=False)
+            return
+        directory = target if os.path.isdir(target) else os.path.dirname(target)
+        subprocess.run(["xdg-open", directory], check=False)
 
     def _restore_window_state(self) -> None:
         geometry = self._ui_settings.value("main_window/geometry", type=QByteArray)
@@ -308,7 +388,14 @@ class MainWindow(QMainWindow):
 
     def _seed_default_profile(self) -> None:
         default_dataset = _default_dataset_path()
-        profile = Profile(profile_id="default", name="Default", dataset_path=str(default_dataset))
+        dataset_path = str(default_dataset)
+        profile = Profile(
+            profile_id="default",
+            name="Default",
+            dataset_path=dataset_path,
+            rulesets=(dataset_path,),
+            active_ruleset=dataset_path,
+        )
         settings = AppSettings(profiles=(profile,), active_profile_id="default")
         self.state.set_profiles(settings.profiles, active_profile_id=settings.active_profile_id)
         if not default_dataset.exists():
@@ -325,12 +412,13 @@ class MainWindow(QMainWindow):
     def _open_dataset(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Open Dataset", str(_default_dataset_path()), "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(self, "Select Ruleset", self._default_import_dir(), "JSON Files (*.json)")
         if not path:
             return
         dataset_path = Path(path)
+        self._set_active_ruleset_path(dataset_path)
         self.state.load_dataset(dataset_path)
-        self._update_active_profile_path(dataset_path)
+        self._remember_import_path(dataset_path)
 
     def _manage_profiles(self) -> None:
         if not self._confirm_discard_changes():
@@ -473,31 +561,34 @@ class MainWindow(QMainWindow):
         self.state.save_dataset()
 
     def _save_dataset_as(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Save Dataset", str(_default_dataset_path()), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(self, "Save Ruleset As", self._default_export_dir(), "JSON Files (*.json)")
         if not path:
             return
         dataset_path = Path(path)
         self.state.save_dataset(path=dataset_path)
-        self._update_active_profile_path(dataset_path)
+        self._set_active_ruleset_path(dataset_path)
+        self._remember_export_path(dataset_path)
 
     def _export_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Export Dataset JSON", "", "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(self, "Export Ruleset JSON", self._default_export_dir(), "JSON Files (*.json)")
         if not path:
             return
         payload = export_dataset_json(self.state.dataset)
         Path(path).write_text(payload, encoding="utf-8")
+        self._remember_export_path(Path(path))
 
     def _export_code(self) -> None:
         payload = export_dataset_code(self.state.dataset)
-        dialog = CodeDialog("Export Vocab Pool Code", code=payload, read_only=True, parent=self)
+        dialog = CodeDialog("Export Ruleset Code", code=payload, read_only=True, parent=self)
         dialog.exec()
 
     def _export_profiles_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Export Profiles JSON", "", "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(self, "Export Profiles JSON", self._default_export_dir(), "JSON Files (*.json)")
         if not path:
             return
         payload = export_app_settings_json(self.state.settings)
         Path(path).write_text(payload, encoding="utf-8")
+        self._remember_export_path(Path(path))
 
     def _export_profiles_code(self) -> None:
         payload = export_app_settings_code(self.state.settings)
@@ -507,17 +598,18 @@ class MainWindow(QMainWindow):
     def _import_json(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Import Dataset JSON", "", "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(self, "Import Ruleset JSON", self._default_import_dir(), "JSON Files (*.json)")
         if not path:
             return
         payload = Path(path).read_text(encoding="utf-8")
         dataset = import_dataset_json(payload)
         self.state.update_dataset(dataset)
+        self._remember_import_path(Path(path))
 
     def _import_code(self) -> None:
         if not self._confirm_discard_changes():
             return
-        dialog = CodeDialog("Import Vocab Pool Code", parent=self)
+        dialog = CodeDialog("Import Ruleset Code", parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         dataset = import_dataset_code(dialog.code())
@@ -526,13 +618,14 @@ class MainWindow(QMainWindow):
     def _import_profiles_json(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Import Profiles JSON", "", "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(self, "Import Profiles JSON", self._default_import_dir(), "JSON Files (*.json)")
         if not path:
             return
         payload = Path(path).read_text(encoding="utf-8")
         settings = import_app_settings_json(payload)
         self.state.update_settings(settings)
         self._load_active_profile()
+        self._remember_import_path(Path(path))
 
     def _import_profiles_code(self) -> None:
         if not self._confirm_discard_changes():
@@ -556,13 +649,26 @@ class MainWindow(QMainWindow):
         return reply == QMessageBox.Yes
 
     def _load_profile(self, profile: Profile) -> None:
-        dataset_path = Path(profile.dataset_path)
+        dataset_path = Path(self._active_ruleset_path(profile))
         self.state.load_dataset(dataset_path)
         settings = self.state.settings
         if settings.active_profile_id != profile.profile_id:
             self.state.set_profiles(settings.profiles, active_profile_id=profile.profile_id)
 
-    def _update_active_profile_path(self, dataset_path: Path) -> None:
+    def _active_ruleset_path(self, profile: Profile) -> str:
+        if profile.active_ruleset:
+            return profile.active_ruleset
+        if profile.rulesets:
+            return profile.rulesets[0]
+        if profile.dataset_path:
+            return profile.dataset_path
+        return str(_default_dataset_path())
+
+    def _activate_ruleset_for_profile(self, profile: Profile, path: Path) -> None:
+        self._set_active_ruleset_path(path)
+        self.state.load_dataset(path)
+
+    def _set_active_ruleset_path(self, dataset_path: Path) -> None:
         settings = self.state.settings
         active_id = settings.active_profile_id
         if not active_id:
@@ -571,24 +677,63 @@ class MainWindow(QMainWindow):
         updated = False
         for profile in settings.profiles:
             if profile.profile_id == active_id:
-                updated_profiles.append(replace(profile, dataset_path=str(dataset_path)))
+                rulesets = list(profile.rulesets)
+                path_str = str(dataset_path)
+                if path_str not in rulesets:
+                    rulesets.append(path_str)
+                updated_profiles.append(
+                    replace(
+                        profile,
+                        dataset_path=path_str,
+                        rulesets=tuple(rulesets),
+                        active_ruleset=path_str,
+                    )
+                )
                 updated = True
             else:
                 updated_profiles.append(profile)
         if updated:
             self.state.set_profiles(tuple(updated_profiles), active_profile_id=active_id)
 
-    def _on_profile_selected(self, index) -> None:
-        profile = self.profile_model.data(index, Qt.UserRole)
+    def _on_profile_selected(self, index: int) -> None:
+        if self._profile_combo_updating:
+            return
+        profile = self.profile_combo.itemData(index)
         if profile is None:
             return
         if not self._confirm_discard_changes():
+            self._refresh_profiles_ui()
             return
         self._load_profile(profile)
+
+    def _on_ruleset_selected(self, index: int) -> None:
+        if self._ruleset_combo_updating:
+            return
+        profile = self._current_profile()
+        if profile is None:
+            return
+        path = self.ruleset_combo.itemData(index)
+        if not path:
+            return
+        if not self._confirm_discard_changes():
+            self._refresh_ruleset_ui()
+            return
+        self._activate_ruleset_for_profile(profile, Path(path))
+
+    def _ruleset_context_menu(self, position) -> None:
+        path = self.ruleset_combo.currentData()
+        if not path:
+            return
+        menu = QMenu(self)
+        reveal_action = menu.addAction("Reveal in Finder")
+        action = menu.exec(self.ruleset_combo.mapToGlobal(position))
+        if action == reveal_action:
+            self._reveal_path(path)
 
     def _on_dataset_loaded(self, dataset: VocabDataset) -> None:
         self.rules_model.set_rules(list(dataset.rules))
         self._schedule_preview()
+        self._refresh_ruleset_ui()
 
     def _on_rules_changed(self, rules) -> None:
         dataset = replace(self.state.dataset, rules=tuple(rules))
@@ -633,15 +778,54 @@ class MainWindow(QMainWindow):
     def _refresh_profiles_ui(self) -> None:
         profiles = self.state.settings.profiles
         active_id = self.state.settings.active_profile_id
-        self.profile_model.set_profiles(profiles)
-        self.profile_model.set_active_profile_id(active_id)
-        if not active_id:
-            return
-        for row, profile in enumerate(profiles):
+        self._profile_combo_updating = True
+        self.profile_combo.blockSignals(True)
+        self.profile_combo.clear()
+        active_index = -1
+        for idx, profile in enumerate(profiles):
+            label = profile.name or profile.profile_id
+            self.profile_combo.addItem(label, profile)
             if profile.profile_id == active_id:
-                index = self.profile_model.index(row, 0)
-                self.profile_list.setCurrentIndex(index)
-                break
+                active_index = idx
+        if active_index >= 0:
+            self.profile_combo.setCurrentIndex(active_index)
+        self.profile_combo.blockSignals(False)
+        self._profile_combo_updating = False
+        self._refresh_ruleset_ui()
+
+    def _current_profile(self) -> Optional[Profile]:
+        active_id = self.state.settings.active_profile_id
+        for profile in self.state.settings.profiles:
+            if profile.profile_id == active_id:
+                return profile
+        return None
+
+    def _refresh_ruleset_ui(self) -> None:
+        profile = self._current_profile()
+        self._ruleset_combo_updating = True
+        self.ruleset_combo.blockSignals(True)
+        self.ruleset_combo.clear()
+        if profile is None:
+            self.ruleset_combo.blockSignals(False)
+            self._ruleset_combo_updating = False
+            return
+        active_path = self._active_ruleset_path(profile)
+        active_index = -1
+        for idx, path in enumerate(profile.rulesets or (active_path,)):
+            if not path:
+                continue
+            label = str(Path(path).name) or path
+            display = label
+            if not Path(path).exists():
+                display = f"{label} (missing)"
+            self.ruleset_combo.addItem(display, path)
+            self.ruleset_combo.setItemData(idx, path, Qt.ToolTipRole)
+            if path == active_path:
+                active_index = idx
+        if active_index >= 0:
+            self.ruleset_combo.setCurrentIndex(active_index)
+        self.ruleset_combo.blockSignals(False)
+        self._ruleset_combo_updating = False
 
     def _rebuild_profiles_menu(self) -> None:
         if not hasattr(self, "_profiles_menu"):

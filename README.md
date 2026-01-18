@@ -1,14 +1,14 @@
 # LexiShift
 
 Purpose
-- Replace words and phrases in text using a curated vocabulary pool.
+- Replace words and phrases in text using a curated ruleset.
 - Primary use case: full-text replacement (input text is already complete).
 - Secondary (future) use case: live text stream replacement.
 
 Design goals
 - Deterministic, conservative behavior by default.
 - Extensible architecture for GUI tooling and plugins/extensions later.
-- Precompute static vocab pools (inflections, expansions) so runtime is fast.
+- Precompute static ruleset expansions (inflections, phrase variants) so runtime is fast.
 
 Project layout
 - `apps/gui/src/`: PySide6 GUI scaffold.
@@ -27,7 +27,7 @@ Project layout
 - `core/lexishift_core/import_export.py`: import/export helpers, including "export as code".
 - `core/lexishift_core/settings.py`: app-level profiles and import/export settings.
 - `core/lexishift_core/__init__.py`: public API exports.
-- `data/`: schema definitions and sample vocab pools.
+- `data/`: schema definitions and sample rulesets.
 - `scripts/dev_utils.py`: convenience re-export of the same public API.
 - `core/tests/`: unit tests for replacement, storage, inflection, builder, settings, import/export.
 
@@ -129,7 +129,7 @@ Profiles and app settings (GUI scaffolding)
 Import/export (including "export as code")
 - Code export is a compact, reversible string (compressed JSON encoded with a URL-safe alphabet).
 - `export_dataset_json` / `import_dataset_json` operate on JSON strings.
-- `export_dataset_code` / `import_dataset_code` export/load the vocab pool as a compact code string.
+- `export_dataset_code` / `import_dataset_code` export/load the ruleset as a compact code string.
 - `export_app_settings_json` / `import_app_settings_json` operate on app settings JSON.
 - `export_app_settings_code` / `import_app_settings_code` export/load app settings as a compact code string.
 
@@ -166,7 +166,7 @@ BetterDiscord plugin
   - Settings dialog for app import/export defaults and dataset inflection/learning options.
   - Dirty-state tracking to control Save prompts.
   - Preview pane with background worker (`QThread`) and highlight overlay.
-  - Import/export for vocab pools (JSON/Code).
+  - Import/export for rulesets (JSON/Code).
   - Import/export for profile settings (JSON/Code).
 
 Packaging (PyInstaller)

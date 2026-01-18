@@ -11,11 +11,12 @@ class Profile:
     profile_id: str
     name: str
     dataset_path: str
-    enabled: bool = True
     description: Optional[str] = None
     tags: Sequence[str] = field(default_factory=tuple)
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
+    rulesets: Sequence[str] = field(default_factory=tuple)
+    active_ruleset: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -82,28 +83,36 @@ def settings_to_dict(settings: AppSettings) -> dict[str, Any]:
 
 
 def _profile_from_dict(data: Mapping[str, Any]) -> Profile:
+    dataset_path = str(data.get("dataset_path", ""))
+    rulesets = tuple(data.get("rulesets", []))
+    if not rulesets and dataset_path:
+        rulesets = (dataset_path,)
+    active_ruleset = data.get("active_ruleset") or dataset_path or (rulesets[0] if rulesets else None)
     return Profile(
         profile_id=str(data.get("profile_id", "")),
         name=str(data.get("name", "")),
-        dataset_path=str(data.get("dataset_path", "")),
-        enabled=bool(data.get("enabled", True)),
+        dataset_path=str(active_ruleset or dataset_path),
         description=data.get("description"),
         tags=tuple(data.get("tags", [])),
         created_at=data.get("created_at"),
         updated_at=data.get("updated_at"),
+        rulesets=rulesets,
+        active_ruleset=active_ruleset,
     )
 
 
 def _profile_to_dict(profile: Profile) -> dict[str, Any]:
+    dataset_path = profile.dataset_path or profile.active_ruleset or (profile.rulesets[0] if profile.rulesets else "")
     data: dict[str, Any] = {
         "profile_id": profile.profile_id,
         "name": profile.name,
-        "dataset_path": profile.dataset_path,
-        "enabled": profile.enabled,
+        "dataset_path": dataset_path,
         "description": profile.description,
         "tags": list(profile.tags),
         "created_at": profile.created_at,
         "updated_at": profile.updated_at,
+        "rulesets": list(profile.rulesets),
+        "active_ruleset": profile.active_ruleset,
     }
     return {key: value for key, value in data.items() if value not in (None, [], "")}
 
