@@ -54,6 +54,7 @@ def expand_vocab_rules(
                 enabled=rule.enabled,
                 tags=new_tags,
                 metadata=rule.metadata,
+                created_at=rule.created_at,
             )
             _append_rule(expanded_rule, expanded, seen_sources)
     return tuple(expanded)

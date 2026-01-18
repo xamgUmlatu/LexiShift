@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import datetime, timezone
 from typing import Optional
 
 from PySide6.QtCore import QAbstractListModel, QAbstractTableModel, QModelIndex, Qt, Signal
@@ -63,8 +64,9 @@ class RulesTableModel(QAbstractTableModel):
     COLUMN_SOURCE = 1
     COLUMN_REPLACEMENT = 2
     COLUMN_PRIORITY = 3
-    COLUMN_TAGS = 4
-    COLUMN_DELETE = 5
+    COLUMN_CREATED = 4
+    COLUMN_TAGS = 5
+    COLUMN_DELETE = 6
 
     def __init__(self, rules: Optional[list[VocabRule]] = None) -> None:
         super().__init__()
@@ -86,6 +88,7 @@ class RulesTableModel(QAbstractTableModel):
     def add_rule(self, rule: Optional[VocabRule] = None) -> None:
         if rule is None:
             rule = VocabRule(source_phrase="", replacement="")
+        rule = _ensure_created(rule)
         row = len(self._rules)
         self.beginInsertRows(QModelIndex(), row, row)
         self._rules.append(rule)
@@ -113,7 +116,7 @@ class RulesTableModel(QAbstractTableModel):
         return 0 if parent.isValid() else len(self._rules)
 
     def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        return 0 if parent.isValid() else 6
+        return 0 if parent.isValid() else 7
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int = Qt.DisplayRole):
         if orientation != Qt.Horizontal or role != Qt.DisplayRole:
@@ -123,6 +126,7 @@ class RulesTableModel(QAbstractTableModel):
             self.COLUMN_SOURCE: "Source",
             self.COLUMN_REPLACEMENT: "Replacement",
             self.COLUMN_PRIORITY: "Priority",
+            self.COLUMN_CREATED: "Created",
             self.COLUMN_TAGS: "Tags",
             self.COLUMN_DELETE: "Delete",
         }.get(section)
@@ -132,6 +136,8 @@ class RulesTableModel(QAbstractTableModel):
             return None
         rule = self._rules[index.row()]
         column = index.column()
+        if role == Qt.UserRole:
+            return _sort_value(rule, column)
         if role == Qt.ToolTipRole:
             if column == self.COLUMN_ENABLED:
                 return "Enabled" if rule.enabled else "Disabled"
@@ -141,6 +147,8 @@ class RulesTableModel(QAbstractTableModel):
                 return rule.replacement
             if column == self.COLUMN_PRIORITY:
                 return str(rule.priority)
+            if column == self.COLUMN_CREATED:
+                return rule.created_at or ""
             if column == self.COLUMN_TAGS:
                 return ", ".join(rule.tags)
             if column == self.COLUMN_DELETE:
@@ -156,6 +164,8 @@ class RulesTableModel(QAbstractTableModel):
                 return rule.replacement
             if column == self.COLUMN_PRIORITY:
                 return str(rule.priority)
+            if column == self.COLUMN_CREATED:
+                return _format_created_at(rule.created_at)
             if column == self.COLUMN_TAGS:
                 return ", ".join(rule.tags)
             if column == self.COLUMN_DELETE:
@@ -169,6 +179,8 @@ class RulesTableModel(QAbstractTableModel):
         if index.column() == self.COLUMN_ENABLED:
             return flags | Qt.ItemIsUserCheckable
         if index.column() == self.COLUMN_DELETE:
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        if index.column() == self.COLUMN_CREATED:
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
         return flags | Qt.ItemIsEditable
 
@@ -208,9 +220,43 @@ class RulesTableModel(QAbstractTableModel):
     def add_rules(self, rules: list[VocabRule]) -> None:
         if not rules:
             return
+        normalized = [_ensure_created(rule) for rule in rules]
         start = len(self._rules)
-        end = start + len(rules) - 1
+        end = start + len(normalized) - 1
         self.beginInsertRows(QModelIndex(), start, end)
-        self._rules.extend(rules)
+        self._rules.extend(normalized)
         self.endInsertRows()
         self.rulesChanged.emit(self.rules())
+
+
+def _ensure_created(rule: VocabRule) -> VocabRule:
+    if rule.created_at:
+        return rule
+    created = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return replace(rule, created_at=created)
+
+
+def _format_created_at(value: Optional[str]) -> str:
+    if not value:
+        return ""
+    if "T" in value:
+        return value.split("T", 1)[0]
+    if " " in value:
+        return value.split(" ", 1)[0]
+    return value
+
+
+def _sort_value(rule: VocabRule, column: int):
+    if column == RulesTableModel.COLUMN_ENABLED:
+        return 1 if rule.enabled else 0
+    if column == RulesTableModel.COLUMN_SOURCE:
+        return rule.source_phrase.lower()
+    if column == RulesTableModel.COLUMN_REPLACEMENT:
+        return rule.replacement.lower()
+    if column == RulesTableModel.COLUMN_PRIORITY:
+        return rule.priority
+    if column == RulesTableModel.COLUMN_CREATED:
+        return rule.created_at or ""
+    if column == RulesTableModel.COLUMN_TAGS:
+        return ", ".join(rule.tags).lower()
+    return ""

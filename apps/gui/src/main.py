@@ -13,7 +13,15 @@ for path in (CORE_ROOT, GUI_ROOT):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from PySide6.QtCore import QByteArray, QCoreApplication, QSettings, QStandardPaths, Qt, QTimer
+from PySide6.QtCore import (
+    QByteArray,
+    QCoreApplication,
+    QSettings,
+    QSortFilterProxyModel,
+    QStandardPaths,
+    Qt,
+    QTimer,
+)
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QApplication,
@@ -83,17 +91,25 @@ class MainWindow(QMainWindow):
         )
         self.rules_model = RulesTableModel([])
         self.rules_model.rulesChanged.connect(self._on_rules_changed)
+        self._rules_proxy = QSortFilterProxyModel(self)
+        self._rules_proxy.setSourceModel(self.rules_model)
+        self._rules_proxy.setSortRole(Qt.UserRole)
+        self._rules_proxy.setSortCaseSensitivity(Qt.CaseInsensitive)
+        self._rules_proxy.setDynamicSortFilter(True)
 
         self.profile_list = QListView()
         self.profile_list.setModel(self.profile_model)
         self.profile_list.clicked.connect(self._on_profile_selected)
 
         self.rules_table = QTableView()
-        self.rules_table.setModel(self.rules_model)
+        self.rules_table.setModel(self._rules_proxy)
+        self.rules_table.setSortingEnabled(True)
         header = self.rules_table.horizontalHeader()
+        header.setSortIndicatorShown(True)
         header.setStretchLastSection(False)
         header.setSectionResizeMode(RulesTableModel.COLUMN_ENABLED, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(RulesTableModel.COLUMN_PRIORITY, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(RulesTableModel.COLUMN_CREATED, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(RulesTableModel.COLUMN_DELETE, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(RulesTableModel.COLUMN_SOURCE, QHeaderView.Stretch)
         header.setSectionResizeMode(RulesTableModel.COLUMN_REPLACEMENT, QHeaderView.Stretch)
@@ -219,6 +235,13 @@ class MainWindow(QMainWindow):
         self._update_rule_actions()
         self._apply_import_export_settings()
 
+    def _current_source_row(self, *, index=None) -> int:
+        view_index = index or self.rules_table.currentIndex()
+        if not view_index.isValid():
+            return -1
+        source_index = self._rules_proxy.mapToSource(view_index)
+        return source_index.row()
+
     def _restore_window_state(self) -> None:
         geometry = self._ui_settings.value("main_window/geometry", type=QByteArray)
         if geometry:
@@ -341,9 +364,11 @@ class MainWindow(QMainWindow):
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
         row = self.rules_model.rowCount() - 1
-        index = self.rules_model.index(row, self.rules_model.COLUMN_SOURCE)
-        self.rules_table.setCurrentIndex(index)
-        self.rules_table.edit(index)
+        source_index = self.rules_model.index(row, self.rules_model.COLUMN_SOURCE)
+        proxy_index = self._rules_proxy.mapFromSource(source_index)
+        if proxy_index.isValid():
+            self.rules_table.setCurrentIndex(proxy_index)
+            self.rules_table.edit(proxy_index)
 
     def _bulk_add_rules(self) -> None:
         dialog = BulkRulesDialog(parent=self)
@@ -359,13 +384,13 @@ class MainWindow(QMainWindow):
         self.rules_model.add_rules(rules)
 
     def _delete_rule(self) -> None:
-        row = self.rules_table.currentIndex().row()
+        row = self._current_source_row()
         if row < 0:
             return
         self.rules_model.remove_rule(row)
 
     def _edit_rule_metadata(self) -> None:
-        row = self.rules_table.currentIndex().row()
+        row = self._current_source_row()
         rule = self.rules_model.rule_at(row)
         if rule is None:
             return
@@ -377,7 +402,9 @@ class MainWindow(QMainWindow):
 
     def _on_rule_table_clicked(self, index) -> None:
         if index.column() == self.rules_model.COLUMN_DELETE:
-            self.rules_model.remove_rule(index.row())
+            row = self._current_source_row(index=index)
+            if row >= 0:
+                self.rules_model.remove_rule(row)
 
     def _generate_synonym_rules(self, targets: list[str]) -> list[VocabRule]:
         settings = self.state.settings.synonyms

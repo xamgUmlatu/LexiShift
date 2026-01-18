@@ -65,6 +65,7 @@ class VocabRule:
     enabled: bool = True
     tags: Sequence[str] = field(default_factory=tuple)
     metadata: Optional[RuleMetadata] = None
+    created_at: Optional[str] = None
 
     def tokens(self, tokenizer: Tokenizer, normalizer: Normalizer) -> List[str]:
         words = [t.text for t in tokenizer.tokenize(self.source_phrase) if t.kind == "word"]

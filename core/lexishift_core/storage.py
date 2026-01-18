@@ -121,6 +121,7 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
 
 
 def _rule_from_dict(data: Mapping[str, Any]) -> VocabRule:
+    created_at = data.get("created_at")
     return VocabRule(
         source_phrase=str(data.get("source_phrase", "")),
         replacement=str(data.get("replacement", "")),
@@ -129,6 +130,7 @@ def _rule_from_dict(data: Mapping[str, Any]) -> VocabRule:
         enabled=bool(data.get("enabled", True)),
         tags=tuple(data.get("tags", [])),
         metadata=_metadata_from_dict(data.get("metadata")),
+        created_at=str(created_at) if created_at else None,
     )
 
 
@@ -141,6 +143,8 @@ def _rule_to_dict(rule: VocabRule) -> dict[str, Any]:
         "enabled": rule.enabled,
         "tags": list(rule.tags),
     }
+    if rule.created_at:
+        data["created_at"] = rule.created_at
     metadata = _metadata_to_dict(rule.metadata)
     if metadata:
         data["metadata"] = metadata
