@@ -22,7 +22,7 @@ from PySide6.QtCore import (
     Qt,
     QTimer,
 )
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -34,7 +34,6 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QSplitter,
     QTableView,
-    QToolBar,
     QWidget,
     QVBoxLayout,
 )
@@ -140,7 +139,8 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(splitter)
 
-        self._setup_toolbar()
+        self._setup_actions()
+        self._setup_menu()
         self._setup_preview()
         self._load_active_profile()
         self._restore_window_state()
@@ -150,90 +150,110 @@ class MainWindow(QMainWindow):
         self.state.profilesChanged.connect(self._on_profiles_changed)
         self.state.activeProfileChanged.connect(self._select_active_profile)
 
-    def _setup_toolbar(self) -> None:
-        toolbar = QToolBar("Main")
-        self.addToolBar(toolbar)
+    def _setup_actions(self) -> None:
+        self._open_action = QAction("Open...", self)
+        self._open_action.triggered.connect(self._open_dataset)
 
-        open_action = QAction("Open", self)
-        open_action.triggered.connect(self._open_dataset)
-        toolbar.addAction(open_action)
+        self._save_action = QAction("Save", self)
+        self._save_action.triggered.connect(self._save_dataset)
 
-        save_action = QAction("Save", self)
-        save_action.triggered.connect(self._save_dataset)
-        toolbar.addAction(save_action)
+        self._save_as_action = QAction("Save As...", self)
+        self._save_as_action.triggered.connect(self._save_dataset_as)
 
-        save_as_action = QAction("Save As", self)
-        save_as_action.triggered.connect(self._save_dataset_as)
-        toolbar.addAction(save_as_action)
+        self._settings_action = QAction("Settings...", self)
+        self._settings_action.setMenuRole(QAction.PreferencesRole)
+        self._settings_action.triggered.connect(self._open_settings)
 
-        settings_action = QAction("Settings", self)
-        settings_action.triggered.connect(self._open_settings)
-        toolbar.addAction(settings_action)
+        self._manage_profiles_action = QAction("Manage Profiles...", self)
+        self._manage_profiles_action.triggered.connect(self._manage_profiles)
 
-        new_profile_action = QAction("New Profile", self)
-        new_profile_action.triggered.connect(self._create_profile)
-        toolbar.addAction(new_profile_action)
+        self._add_rule_action = QAction("Add Rule", self)
+        self._add_rule_action.triggered.connect(self._add_rule)
 
-        profiles_action = QAction("Profiles", self)
-        profiles_action.triggered.connect(self._manage_profiles)
-        toolbar.addAction(profiles_action)
+        self._bulk_add_action = QAction("Synonym Bulk Add...", self)
+        self._bulk_add_action.triggered.connect(self._bulk_add_rules)
 
-        add_rule_action = QAction("Add Rule", self)
-        add_rule_action.triggered.connect(self._add_rule)
-        toolbar.addAction(add_rule_action)
+        self._delete_rule_action = QAction("Delete Rule", self)
+        self._delete_rule_action.triggered.connect(self._delete_rule)
 
-        bulk_add_action = QAction("Synonym Bulk Add", self)
-        bulk_add_action.triggered.connect(self._bulk_add_rules)
-        toolbar.addAction(bulk_add_action)
+        self._edit_metadata_action = QAction("Edit Metadata...", self)
+        self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
-        delete_rule_action = QAction("Delete Rule", self)
-        delete_rule_action.triggered.connect(self._delete_rule)
-        toolbar.addAction(delete_rule_action)
+        self._export_json_action = QAction("Export Vocab Pool (JSON)...", self)
+        self._export_json_action.triggered.connect(self._export_json)
 
-        edit_metadata_action = QAction("Edit Metadata", self)
-        edit_metadata_action.triggered.connect(self._edit_rule_metadata)
-        toolbar.addAction(edit_metadata_action)
+        self._export_code_action = QAction("Export Vocab Pool (Code)...", self)
+        self._export_code_action.triggered.connect(self._export_code)
 
-        export_json_action = QAction("Export Vocab Pool (JSON)", self)
-        export_json_action.triggered.connect(self._export_json)
-        toolbar.addAction(export_json_action)
+        self._export_profiles_json_action = QAction("Export Profiles (JSON)...", self)
+        self._export_profiles_json_action.triggered.connect(self._export_profiles_json)
 
-        export_code_action = QAction("Export Vocab Pool (Code)", self)
-        export_code_action.triggered.connect(self._export_code)
-        toolbar.addAction(export_code_action)
+        self._export_profiles_code_action = QAction("Export Profiles (Code)...", self)
+        self._export_profiles_code_action.triggered.connect(self._export_profiles_code)
 
-        export_profiles_json_action = QAction("Export Profiles (JSON)", self)
-        export_profiles_json_action.triggered.connect(self._export_profiles_json)
-        toolbar.addAction(export_profiles_json_action)
+        self._import_json_action = QAction("Import Vocab Pool (JSON)...", self)
+        self._import_json_action.triggered.connect(self._import_json)
 
-        export_profiles_code_action = QAction("Export Profiles (Code)", self)
-        export_profiles_code_action.triggered.connect(self._export_profiles_code)
-        toolbar.addAction(export_profiles_code_action)
+        self._import_code_action = QAction("Import Vocab Pool (Code)...", self)
+        self._import_code_action.triggered.connect(self._import_code)
 
-        import_json_action = QAction("Import Vocab Pool (JSON)", self)
-        import_json_action.triggered.connect(self._import_json)
-        toolbar.addAction(import_json_action)
+        self._import_profiles_json_action = QAction("Import Profiles (JSON)...", self)
+        self._import_profiles_json_action.triggered.connect(self._import_profiles_json)
 
-        import_code_action = QAction("Import Vocab Pool (Code)", self)
-        import_code_action.triggered.connect(self._import_code)
-        toolbar.addAction(import_code_action)
+        self._import_profiles_code_action = QAction("Import Profiles (Code)...", self)
+        self._import_profiles_code_action.triggered.connect(self._import_profiles_code)
 
-        import_profiles_json_action = QAction("Import Profiles (JSON)", self)
-        import_profiles_json_action.triggered.connect(self._import_profiles_json)
-        toolbar.addAction(import_profiles_json_action)
-
-        import_profiles_code_action = QAction("Import Profiles (Code)", self)
-        import_profiles_code_action.triggered.connect(self._import_profiles_code)
-        toolbar.addAction(import_profiles_code_action)
-
-        self._save_action = save_action
         self._save_action.setEnabled(False)
-        self._edit_metadata_action = edit_metadata_action
-        self._delete_rule_action = delete_rule_action
-        self._export_code_action = export_code_action
-        self._export_profiles_code_action = export_profiles_code_action
         self._update_rule_actions()
         self._apply_import_export_settings()
+
+    def _setup_menu(self) -> None:
+        menu_bar = self.menuBar()
+
+        file_menu = menu_bar.addMenu("File")
+        file_menu.addAction(self._open_action)
+        file_menu.addAction(self._save_action)
+        file_menu.addAction(self._save_as_action)
+
+        import_menu = file_menu.addMenu("Import")
+        import_menu.addAction(self._import_json_action)
+        import_menu.addAction(self._import_code_action)
+        import_menu.addSeparator()
+        import_menu.addAction(self._import_profiles_json_action)
+        import_menu.addAction(self._import_profiles_code_action)
+
+        export_menu = file_menu.addMenu("Export")
+        export_menu.addAction(self._export_json_action)
+        export_menu.addAction(self._export_code_action)
+        export_menu.addSeparator()
+        export_menu.addAction(self._export_profiles_json_action)
+        export_menu.addAction(self._export_profiles_code_action)
+
+        file_menu.addSeparator()
+        file_menu.addAction(self._settings_action)
+        file_menu.addSeparator()
+
+        self._quit_action = QAction("Quit", self)
+        self._quit_action.setMenuRole(QAction.QuitRole)
+        self._quit_action.triggered.connect(self.close)
+        file_menu.addAction(self._quit_action)
+
+        profiles_menu = menu_bar.addMenu("Profiles")
+        profiles_menu.addAction(self._manage_profiles_action)
+        profiles_menu.addSeparator()
+
+        self._profiles_menu = profiles_menu
+        self._profiles_action_group = QActionGroup(self)
+        self._profiles_action_group.setExclusive(True)
+        self._profile_actions: list[QAction] = []
+        self._rebuild_profiles_menu()
+
+        edit_menu = menu_bar.addMenu("Edit")
+        edit_menu.addAction(self._add_rule_action)
+        edit_menu.addAction(self._bulk_add_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(self._edit_metadata_action)
+        edit_menu.addAction(self._delete_rule_action)
 
     def _current_source_row(self, *, index=None) -> int:
         view_index = index or self.rules_table.currentIndex()
@@ -308,7 +328,9 @@ class MainWindow(QMainWindow):
         path, _ = QFileDialog.getOpenFileName(self, "Open Dataset", str(_default_dataset_path()), "JSON Files (*.json)")
         if not path:
             return
-        self.state.load_dataset(Path(path))
+        dataset_path = Path(path)
+        self.state.load_dataset(dataset_path)
+        self._update_active_profile_path(dataset_path)
 
     def _manage_profiles(self) -> None:
         if not self._confirm_discard_changes():
@@ -454,7 +476,9 @@ class MainWindow(QMainWindow):
         path, _ = QFileDialog.getSaveFileName(self, "Save Dataset", str(_default_dataset_path()), "JSON Files (*.json)")
         if not path:
             return
-        self.state.save_dataset(path=Path(path))
+        dataset_path = Path(path)
+        self.state.save_dataset(path=dataset_path)
+        self._update_active_profile_path(dataset_path)
 
     def _export_json(self) -> None:
         path, _ = QFileDialog.getSaveFileName(self, "Export Dataset JSON", "", "JSON Files (*.json)")
@@ -538,6 +562,22 @@ class MainWindow(QMainWindow):
         if settings.active_profile_id != profile.profile_id:
             self.state.set_profiles(settings.profiles, active_profile_id=profile.profile_id)
 
+    def _update_active_profile_path(self, dataset_path: Path) -> None:
+        settings = self.state.settings
+        active_id = settings.active_profile_id
+        if not active_id:
+            return
+        updated_profiles = []
+        updated = False
+        for profile in settings.profiles:
+            if profile.profile_id == active_id:
+                updated_profiles.append(replace(profile, dataset_path=str(dataset_path)))
+                updated = True
+            else:
+                updated_profiles.append(profile)
+        if updated:
+            self.state.set_profiles(tuple(updated_profiles), active_profile_id=active_id)
+
     def _on_profile_selected(self, index) -> None:
         profile = self.profile_model.data(index, Qt.UserRole)
         if profile is None:
@@ -560,6 +600,7 @@ class MainWindow(QMainWindow):
 
     def _on_profiles_changed(self, profiles) -> None:
         self._refresh_profiles_ui()
+        self._rebuild_profiles_menu()
 
     def _schedule_preview(self) -> None:
         self._preview_timer.start()
@@ -573,9 +614,10 @@ class MainWindow(QMainWindow):
 
     def _select_active_profile(self, *_args) -> None:
         self._refresh_profiles_ui()
+        self._rebuild_profiles_menu()
 
     def _update_rule_actions(self) -> None:
-        has_selection = self.rules_table.currentIndex().row() >= 0
+        has_selection = self._current_source_row() >= 0
         self._delete_rule_action.setEnabled(has_selection)
         self._edit_metadata_action.setEnabled(has_selection)
 
@@ -600,6 +642,36 @@ class MainWindow(QMainWindow):
                 index = self.profile_model.index(row, 0)
                 self.profile_list.setCurrentIndex(index)
                 break
+
+    def _rebuild_profiles_menu(self) -> None:
+        if not hasattr(self, "_profiles_menu"):
+            return
+        for action in self._profile_actions:
+            self._profiles_menu.removeAction(action)
+            self._profiles_action_group.removeAction(action)
+        self._profile_actions = []
+
+        settings = self.state.settings
+        active_id = settings.active_profile_id
+        for profile in settings.profiles:
+            label = profile.name or profile.profile_id
+            action = QAction(label, self)
+            action.setCheckable(True)
+            action.setChecked(profile.profile_id == active_id)
+            action.triggered.connect(
+                lambda checked, p=profile: self._switch_profile_from_menu(p, checked)
+            )
+            self._profiles_action_group.addAction(action)
+            self._profiles_menu.addAction(action)
+            self._profile_actions.append(action)
+
+    def _switch_profile_from_menu(self, profile: Profile, checked: bool) -> None:
+        if not checked:
+            return
+        if not self._confirm_discard_changes():
+            self._rebuild_profiles_menu()
+            return
+        self._load_profile(profile)
 
 
 def _app_data_dir() -> Path:
