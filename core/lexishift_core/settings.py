@@ -34,6 +34,10 @@ class SynonymSourceSettings:
     max_synonyms: int = 30
     include_phrases: bool = False
     lower_case: bool = True
+    require_consensus: bool = False
+    use_embeddings: bool = False
+    embedding_path: Optional[str] = None
+    embedding_threshold: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -150,6 +154,10 @@ def _synonym_sources_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[Sy
         max_synonyms=int(data.get("max_synonyms", 30)),
         include_phrases=bool(data.get("include_phrases", False)),
         lower_case=bool(data.get("lower_case", True)),
+        require_consensus=bool(data.get("require_consensus", False)),
+        use_embeddings=bool(data.get("use_embeddings", False)),
+        embedding_path=data.get("embedding_path"),
+        embedding_threshold=float(data.get("embedding_threshold", 0.0)),
     )
 
 
@@ -162,6 +170,10 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
         "max_synonyms": settings.max_synonyms,
         "include_phrases": settings.include_phrases,
         "lower_case": settings.lower_case,
+        "require_consensus": settings.require_consensus,
+        "use_embeddings": settings.use_embeddings,
+        "embedding_path": settings.embedding_path,
+        "embedding_threshold": settings.embedding_threshold,
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [], "")}
     return trimmed or None

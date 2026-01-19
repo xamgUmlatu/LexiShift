@@ -26,6 +26,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QPlainTextEdit,
     QScrollArea,
+    QSlider,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -566,12 +567,17 @@ class SettingsDialog(QDialog):
             last_export_path=self._import_settings.last_export_path,
         )
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
+        embedding_threshold = self.embedding_threshold_slider.value() / 100.0
         synonyms = SynonymSourceSettings(
             moby_path=self.moby_path_edit.text().strip() or None,
             wordnet_dir=self.wordnet_dir_edit.text().strip() or None,
             max_synonyms=max_synonyms,
             include_phrases=self.include_phrases_check.isChecked(),
             lower_case=self.lower_case_check.isChecked(),
+            require_consensus=self.require_consensus_check.isChecked(),
+            use_embeddings=self.use_embeddings_check.isChecked(),
+            embedding_path=self.embedding_path_edit.text().strip() or None,
+            embedding_threshold=embedding_threshold,
         )
         return replace(self._app_settings, import_export=import_settings, synonyms=synonyms)
 
@@ -613,10 +619,21 @@ class SettingsDialog(QDialog):
         self.max_synonyms_edit = QLineEdit()
         self.include_phrases_check = QCheckBox("Include multi-word synonyms")
         self.lower_case_check = QCheckBox("Lowercase synonyms")
+        self.require_consensus_check = QCheckBox("Require consensus between sources")
+        self.require_consensus_check.setToolTip("Only keep synonyms found in every configured source.")
+        self.use_embeddings_check = QCheckBox("Rank synonyms with embeddings")
+        self.embedding_path_edit = QLineEdit()
+        self.embedding_browse_button = QPushButton("Browse")
+        self.embedding_threshold_slider = QSlider(Qt.Horizontal)
+        self.embedding_threshold_slider.setRange(0, 100)
+        self.embedding_threshold_value = QLabel("0.00")
         self.moby_browse_button = QPushButton("Browse")
         self.wordnet_browse_button = QPushButton("Browse")
         self.moby_browse_button.clicked.connect(self._browse_moby)
         self.wordnet_browse_button.clicked.connect(self._browse_wordnet)
+        self.embedding_browse_button.clicked.connect(self._browse_embeddings)
+        self.embedding_threshold_slider.valueChanged.connect(self._update_embedding_threshold_label)
+        self.use_embeddings_check.toggled.connect(self._toggle_embedding_fields)
 
         moby_row = QHBoxLayout()
         moby_row.addWidget(self.moby_path_edit)
@@ -625,6 +642,16 @@ class SettingsDialog(QDialog):
         wordnet_row = QHBoxLayout()
         wordnet_row.addWidget(self.wordnet_dir_edit)
         wordnet_row.addWidget(self.wordnet_browse_button)
+
+        embedding_row = QHBoxLayout()
+        embedding_row.addWidget(self.embedding_path_edit)
+        embedding_row.addWidget(self.embedding_browse_button)
+
+        threshold_row = QHBoxLayout()
+        threshold_row.addWidget(self.embedding_threshold_slider, 1)
+        threshold_row.addWidget(self.embedding_threshold_value)
+        threshold_widget = QWidget()
+        threshold_widget.setLayout(threshold_row)
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
@@ -636,6 +663,10 @@ class SettingsDialog(QDialog):
         form.addRow("Max synonyms", self.max_synonyms_edit)
         form.addRow("", self.include_phrases_check)
         form.addRow("", self.lower_case_check)
+        form.addRow("", self.require_consensus_check)
+        form.addRow("", self.use_embeddings_check)
+        form.addRow("Embeddings file", embedding_row)
+        form.addRow("Similarity threshold", threshold_widget)
 
         panel = QWidget()
         panel.setLayout(form)
@@ -714,6 +745,13 @@ class SettingsDialog(QDialog):
         self.max_synonyms_edit.setText(str(synonym_settings.max_synonyms))
         self.include_phrases_check.setChecked(synonym_settings.include_phrases)
         self.lower_case_check.setChecked(synonym_settings.lower_case)
+        self.require_consensus_check.setChecked(synonym_settings.require_consensus)
+        self.use_embeddings_check.setChecked(synonym_settings.use_embeddings)
+        self.embedding_path_edit.setText(synonym_settings.embedding_path or "")
+        threshold = int(round(synonym_settings.embedding_threshold * 100))
+        self.embedding_threshold_slider.setValue(max(0, min(100, threshold)))
+        self._update_embedding_threshold_label(self.embedding_threshold_slider.value())
+        self._toggle_embedding_fields(self.use_embeddings_check.isChecked())
 
     def _apply_inflections(self, settings: InflectionSettings) -> None:
         self.inflections_enabled_check.setChecked(settings.enabled)
@@ -742,6 +780,26 @@ class SettingsDialog(QDialog):
         if not path:
             return
         self.wordnet_dir_edit.setText(path)
+
+    def _browse_embeddings(self) -> None:
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Embeddings File",
+            "",
+            "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;All Files (*)",
+        )
+        if not path:
+            return
+        self.embedding_path_edit.setText(path)
+
+    def _update_embedding_threshold_label(self, value: int) -> None:
+        self.embedding_threshold_value.setText(f"{value / 100:.2f}")
+
+    def _toggle_embedding_fields(self, enabled: bool) -> None:
+        self.embedding_path_edit.setEnabled(enabled)
+        self.embedding_browse_button.setEnabled(enabled)
+        self.embedding_threshold_slider.setEnabled(enabled)
+        self.embedding_threshold_value.setEnabled(enabled)
 
 
 class CodeDialog(QDialog):

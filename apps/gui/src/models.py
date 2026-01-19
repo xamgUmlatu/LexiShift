@@ -110,6 +110,22 @@ class RulesTableModel(QAbstractTableModel):
         self.dataChanged.emit(top_left, bottom_right)
         self.rulesChanged.emit(self.rules())
 
+    def update_rules_bulk(self, updates: list[tuple[int, VocabRule]]) -> None:
+        if not updates:
+            return
+        rows = []
+        for row, rule in updates:
+            if row < 0 or row >= len(self._rules):
+                continue
+            self._rules[row] = rule
+            rows.append(row)
+        if not rows:
+            return
+        top_left = self.index(min(rows), 0)
+        bottom_right = self.index(max(rows), self.columnCount() - 1)
+        self.dataChanged.emit(top_left, bottom_right)
+        self.rulesChanged.emit(self.rules())
+
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
         return 0 if parent.isValid() else len(self._rules)
 

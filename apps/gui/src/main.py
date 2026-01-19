@@ -22,7 +22,9 @@ from PySide6.QtCore import (
     QSortFilterProxyModel,
     QStandardPaths,
     QSize,
+    QThread,
     Qt,
+    Signal,
     QTimer,
 )
 from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter
@@ -34,11 +36,15 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QHBoxLayout,
     QLabel,
+    QListWidget,
+    QListWidgetItem,
     QMainWindow,
     QMenu,
     QMessageBox,
     QPlainTextEdit,
     QPushButton,
+    QProgressBar,
+    QSlider,
     QSplitter,
     QStyledItemDelegate,
     QTableView,
@@ -65,6 +71,7 @@ from lexishift_core import (
     SynonymOptions,
     SynonymSources,
 )
+from lexishift_core.synonyms import EmbeddingIndex
 
 from dialogs import (
     BulkRulesDialog,
@@ -97,6 +104,23 @@ class DeleteButtonDelegate(QStyledItemDelegate):
     def sizeHint(self, option, index):
         size = super().sizeHint(option, index)
         return size.expandedTo(QSize(64, size.height()))
+
+
+class EmbeddingLoaderThread(QThread):
+    loaded = Signal(object, str)
+
+    def __init__(self, path: Path, *, lower_case: bool, parent=None) -> None:
+        super().__init__(parent)
+        self._path = path
+        self._lower_case = lower_case
+
+    def run(self) -> None:
+        try:
+            index = EmbeddingIndex(self._path, lower_case=self._lower_case)
+        except Exception as exc:
+            self.loaded.emit(None, str(exc))
+            return
+        self.loaded.emit(index, "")
 
 
 class MainWindow(QMainWindow):
@@ -160,6 +184,28 @@ class MainWindow(QMainWindow):
         self.rules_table.verticalHeader().setVisible(False)
         self.rules_table.clicked.connect(self._on_rule_table_clicked)
 
+        self._replacement_thresholds: dict[str, float] = {}
+        self._replacement_slider_updating = False
+        self._embedding_index: Optional[EmbeddingIndex] = None
+        self._embedding_thread: Optional[EmbeddingLoaderThread] = None
+        self._embedding_loading = False
+        self._embedding_load_error: Optional[str] = None
+        self._embedding_load_id = 0
+        self.replacement_list = QListWidget()
+        self.replacement_list.currentItemChanged.connect(self._on_replacement_selected)
+        self.replacement_selected_label = QLabel("Select a replacement to filter synonyms.")
+        self.replacement_threshold_slider = QSlider(Qt.Horizontal)
+        self.replacement_threshold_slider.setRange(0, 100)
+        self.replacement_threshold_slider.valueChanged.connect(self._on_replacement_threshold_changed)
+        self.replacement_threshold_value = QLabel("0.00")
+        self.replacement_hint_label = QLabel("Enable embeddings in Settings to rank synonyms.")
+        self.replacement_hint_label.setWordWrap(True)
+        self.embedding_progress = QProgressBar()
+        self.embedding_progress.setRange(0, 0)
+        self.embedding_progress.setTextVisible(True)
+        self.embedding_progress.setFormat("Loading embeddings...")
+        self.embedding_progress.hide()
+
         self.input_edit = QPlainTextEdit()
         self.preview_edit = QPlainTextEdit()
         self.preview_edit.setReadOnly(True)
@@ -175,9 +221,15 @@ class MainWindow(QMainWindow):
         preview_layout.addWidget(self.input_edit)
         preview_layout.addWidget(self.preview_edit)
 
+        right_panel = QSplitter(Qt.Vertical)
+        right_panel.addWidget(self._build_replacement_panel())
+        right_panel.addWidget(preview_panel)
+        right_panel.setStretchFactor(1, 1)
+        self._right_splitter = right_panel
+
         splitter = QSplitter()
         splitter.addWidget(editor_panel)
-        splitter.addWidget(preview_panel)
+        splitter.addWidget(right_panel)
         splitter.setStretchFactor(1, 1)
         self._splitter = splitter
 
@@ -186,14 +238,15 @@ class MainWindow(QMainWindow):
         self._setup_actions()
         self._setup_menu()
         self._setup_preview()
-        self._load_active_profile()
-        self._refresh_profiles_ui()
-        self._restore_window_state()
-
+        self._refresh_embedding_index()
         self.state.datasetChanged.connect(self._on_dataset_loaded)
         self.state.dirtyChanged.connect(self._on_dirty_changed)
         self.state.profilesChanged.connect(self._on_profiles_changed)
         self.state.activeProfileChanged.connect(self._select_active_profile)
+
+        self._load_active_profile()
+        self._refresh_profiles_ui()
+        self._restore_window_state()
 
     def _setup_actions(self) -> None:
         self._open_action = QAction("Open Ruleset...", self)
@@ -336,6 +389,30 @@ class MainWindow(QMainWindow):
         header.setLayout(header_layout)
         return header
 
+    def _build_replacement_panel(self) -> QWidget:
+        title = QLabel("Replacements")
+        slider_label = QLabel("Similarity threshold")
+
+        slider_row = QHBoxLayout()
+        slider_row.setContentsMargins(0, 0, 0, 0)
+        slider_row.addWidget(self.replacement_threshold_slider, 1)
+        slider_row.addWidget(self.replacement_threshold_value)
+        slider_widget = QWidget()
+        slider_widget.setLayout(slider_row)
+
+        layout = QVBoxLayout()
+        layout.addWidget(title)
+        layout.addWidget(self.replacement_list, 1)
+        layout.addWidget(self.replacement_selected_label)
+        layout.addWidget(slider_label)
+        layout.addWidget(slider_widget)
+        layout.addWidget(self.embedding_progress)
+        layout.addWidget(self.replacement_hint_label)
+
+        panel = QWidget()
+        panel.setLayout(layout)
+        return panel
+
     def _current_source_row(self, *, index=None) -> int:
         view_index = index or self.rules_table.currentIndex()
         if not view_index.isValid():
@@ -391,10 +468,16 @@ class MainWindow(QMainWindow):
             self._splitter.restoreState(splitter_state)
         else:
             self._splitter.setSizes([320, 780])
+        right_splitter_state = self._ui_settings.value("main_window/right_splitter", type=QByteArray)
+        if right_splitter_state:
+            self._right_splitter.restoreState(right_splitter_state)
+        else:
+            self._right_splitter.setSizes([280, 420])
 
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
+        self._ui_settings.setValue("main_window/right_splitter", self._right_splitter.saveState())
 
     def closeEvent(self, event) -> None:
         if self.state.dirty:
@@ -524,6 +607,7 @@ class MainWindow(QMainWindow):
         dataset = replace(self.state.dataset, settings=dialog.result_dataset_settings())
         self.state.update_dataset(dataset)
         self._apply_import_export_settings()
+        self._refresh_embedding_index()
         self._schedule_preview()
 
     def _add_rule(self) -> None:
@@ -616,6 +700,10 @@ class MainWindow(QMainWindow):
             max_synonyms=settings.max_synonyms,
             include_phrases=settings.include_phrases,
             lower_case=settings.lower_case,
+            require_consensus=settings.require_consensus,
+            use_embeddings=settings.use_embeddings,
+            embedding_path=Path(settings.embedding_path) if settings.embedding_path else None,
+            embedding_threshold=settings.embedding_threshold,
         )
         generator = SynonymGenerator(sources, options=options)
         if generator.total_entries() == 0:
@@ -627,7 +715,10 @@ class MainWindow(QMainWindow):
             )
             return []
         pairs = generator.generate_rules(targets, avoid_duplicates=True)
-        return [VocabRule(source_phrase=source, replacement=target) for source, target in pairs]
+        return [
+            VocabRule(source_phrase=source, replacement=target, tags=("synonym",))
+            for source, target in pairs
+        ]
 
     def _save_dataset(self) -> None:
         if self.state.dataset_path is None:
@@ -699,6 +790,7 @@ class MainWindow(QMainWindow):
         payload = Path(path).read_text(encoding="utf-8")
         settings = import_app_settings_json(payload)
         self.state.update_settings(settings)
+        self._refresh_embedding_index()
         self._load_active_profile()
         self._remember_import_path(Path(path))
 
@@ -710,6 +802,7 @@ class MainWindow(QMainWindow):
             return
         settings = import_app_settings_code(dialog.code())
         self.state.update_settings(settings)
+        self._refresh_embedding_index()
         self._load_active_profile()
 
     def _confirm_discard_changes(self) -> bool:
@@ -809,11 +902,13 @@ class MainWindow(QMainWindow):
         self.rules_model.set_rules(list(dataset.rules))
         self._schedule_preview()
         self._refresh_ruleset_ui()
+        self._refresh_replacement_list()
 
     def _on_rules_changed(self, rules) -> None:
         dataset = replace(self.state.dataset, rules=tuple(rules))
         self.state.update_dataset(dataset)
         self._schedule_preview()
+        self._refresh_replacement_list()
 
     def _on_dirty_changed(self, dirty: bool) -> None:
         self._save_action.setEnabled(dirty)
@@ -853,6 +948,182 @@ class MainWindow(QMainWindow):
 
     def _save_profiles(self) -> None:
         self.state.save_settings()
+
+    def _refresh_embedding_index(self) -> None:
+        self._embedding_index = None
+        self._embedding_load_error = None
+        self._embedding_loading = False
+        settings = self.state.settings.synonyms
+        if not settings or not settings.use_embeddings or not settings.embedding_path:
+            self._update_replacement_filter_state()
+            return
+        embedding_path = Path(settings.embedding_path)
+        if not embedding_path.exists():
+            self._embedding_load_error = "Embeddings file not found."
+            self._update_replacement_filter_state()
+            return
+        self._embedding_loading = True
+        self._embedding_load_id += 1
+        load_id = self._embedding_load_id
+        self._embedding_thread = EmbeddingLoaderThread(
+            embedding_path,
+            lower_case=settings.lower_case,
+            parent=self,
+        )
+        self._embedding_thread.loaded.connect(
+            lambda index, error, load_id=load_id: self._on_embeddings_loaded(load_id, index, error)
+        )
+        self._embedding_thread.start()
+        self._update_replacement_filter_state()
+
+    def _update_replacement_filter_state(self) -> None:
+        has_embeddings = self._embedding_index is not None
+        replacement = self._selected_replacement()
+        has_selection = replacement is not None
+        scope = self._replacement_filter_scope(replacement)
+        enabled = has_embeddings and has_selection and scope != "none" and not self._embedding_loading
+        self.replacement_threshold_slider.setEnabled(enabled)
+        self.replacement_threshold_value.setEnabled(enabled)
+        self.embedding_progress.setVisible(self._embedding_loading)
+        if self._embedding_loading:
+            self.replacement_hint_label.setText("Loading embeddings...")
+            self.replacement_hint_label.setVisible(True)
+        elif self._embedding_load_error:
+            self.replacement_hint_label.setText(self._embedding_load_error)
+            self.replacement_hint_label.setVisible(True)
+        elif not has_embeddings:
+            self.replacement_hint_label.setText("Enable embeddings in Settings to rank synonyms.")
+            self.replacement_hint_label.setVisible(True)
+        elif scope == "all":
+            self.replacement_hint_label.setText("No synonym tags found; filtering all rules for this replacement.")
+            self.replacement_hint_label.setVisible(True)
+        else:
+            self.replacement_hint_label.setVisible(False)
+
+    def _refresh_replacement_list(self) -> None:
+        selected = self._selected_replacement()
+        replacement_counts: dict[str, tuple[int, int, int]] = {}
+        for rule in self.rules_model.rules():
+            replacement = rule.replacement.strip()
+            if not replacement:
+                continue
+            syn_total, syn_enabled, total = replacement_counts.get(replacement, (0, 0, 0))
+            total += 1
+            if "synonym" in rule.tags:
+                syn_total += 1
+                if rule.enabled:
+                    syn_enabled += 1
+            replacement_counts[replacement] = (syn_total, syn_enabled, total)
+        self.replacement_list.blockSignals(True)
+        self.replacement_list.clear()
+        for replacement in sorted(replacement_counts.keys(), key=str.lower):
+            syn_total, syn_enabled, total = replacement_counts[replacement]
+            if syn_total:
+                label = f"{replacement} ({syn_enabled}/{syn_total})"
+            else:
+                label = replacement
+            item = QListWidgetItem(label)
+            item.setData(Qt.UserRole, replacement)
+            if syn_total:
+                item.setToolTip(f"{syn_enabled} enabled of {syn_total} synonym rules ({total} total)")
+            self.replacement_list.addItem(item)
+        restored = False
+        if selected:
+            for row in range(self.replacement_list.count()):
+                item = self.replacement_list.item(row)
+                if item and item.data(Qt.UserRole) == selected:
+                    self.replacement_list.setCurrentRow(row)
+                    restored = True
+                    break
+        self.replacement_list.blockSignals(False)
+        if selected and not restored:
+            self.replacement_selected_label.setText("Select a replacement to filter synonyms.")
+        self._update_replacement_filter_state()
+
+    def _selected_replacement(self) -> Optional[str]:
+        item = self.replacement_list.currentItem()
+        if not item:
+            return None
+        return item.data(Qt.UserRole)
+
+    def _replacement_filter_scope(self, replacement: Optional[str]) -> str:
+        if not replacement:
+            return "none"
+        has_any = False
+        for rule in self.rules_model.rules():
+            if rule.replacement != replacement:
+                continue
+            has_any = True
+            if "synonym" in rule.tags:
+                return "synonyms"
+        return "all" if has_any else "none"
+
+    def _default_embedding_threshold(self) -> float:
+        settings = self.state.settings.synonyms
+        if settings:
+            return settings.embedding_threshold
+        return 0.0
+
+    def _on_replacement_selected(self, current: Optional[QListWidgetItem], _previous: Optional[QListWidgetItem]) -> None:
+        replacement = current.data(Qt.UserRole) if current else None
+        if replacement:
+            threshold = self._replacement_thresholds.get(replacement, self._default_embedding_threshold())
+            self._replacement_slider_updating = True
+            self.replacement_threshold_slider.setValue(int(round(threshold * 100)))
+            self.replacement_threshold_value.setText(f"{threshold:.2f}")
+            self._replacement_slider_updating = False
+            scope = self._replacement_filter_scope(replacement)
+            if scope == "all":
+                self.replacement_selected_label.setText(f"Filtering rules for: {replacement}")
+            else:
+                self.replacement_selected_label.setText(f"Filtering synonyms for: {replacement}")
+        else:
+            self.replacement_selected_label.setText("Select a replacement to filter synonyms.")
+        self._update_replacement_filter_state()
+
+    def _on_replacement_threshold_changed(self, value: int) -> None:
+        if self._replacement_slider_updating:
+            return
+        replacement = self._selected_replacement()
+        if not replacement:
+            return
+        threshold = value / 100.0
+        self.replacement_threshold_value.setText(f"{threshold:.2f}")
+        self._replacement_thresholds[replacement] = threshold
+        self._apply_replacement_threshold(replacement, threshold)
+
+    def _on_embeddings_loaded(self, load_id: int, index: Optional[EmbeddingIndex], error: str) -> None:
+        if load_id != self._embedding_load_id:
+            return
+        self._embedding_loading = False
+        self._embedding_index = index
+        self._embedding_load_error = error or None
+        if self._embedding_thread:
+            self._embedding_thread.quit()
+            self._embedding_thread = None
+        self._update_replacement_filter_state()
+
+    def _apply_replacement_threshold(self, replacement: str, threshold: float) -> None:
+        if self._embedding_index is None:
+            return
+        scope = self._replacement_filter_scope(replacement)
+        if scope == "none":
+            return
+        updates: list[tuple[int, VocabRule]] = []
+        for row, rule in enumerate(self.rules_model.rules()):
+            if rule.replacement != replacement:
+                continue
+            if scope == "synonyms" and "synonym" not in rule.tags:
+                continue
+            score = self._embedding_index.similarity(rule.source_phrase, replacement)
+            if score is None:
+                enabled = threshold <= 0.0
+            else:
+                enabled = score >= threshold
+            if rule.enabled != enabled:
+                updates.append((row, replace(rule, enabled=enabled)))
+        if updates:
+            self.rules_model.update_rules_bulk(updates)
 
     def _refresh_profiles_ui(self) -> None:
         profiles = self.state.settings.profiles

@@ -118,6 +118,10 @@ Synonym sources (local)
 - WordNet: point to a directory containing `data.noun`, `data.verb`, `data.adj`, `data.adv`.
 - Moby Thesaurus: point to a comma-separated thesaurus file (headword, synonym, ...).
 - Configure paths and options in the Settings dialog (App tab).
+- Embeddings (optional ranking):
+  - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
+    - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
+  - Point “Embeddings file” in Settings to the `.db`/`.sqlite` output.
 
 Profiles, rulesets, and app settings (GUI scaffolding)
 - `Profile` is a named project that owns one or more rulesets (JSON files) and tracks the active ruleset.
