@@ -714,11 +714,33 @@ class MainWindow(QMainWindow):
                 f"No entries loaded from sources (WordNet={stats.get('wordnet', 0)}, Moby={stats.get('moby', 0)}).",
             )
             return []
-        pairs = generator.generate_rules(targets, avoid_duplicates=True)
-        return [
-            VocabRule(source_phrase=source, replacement=target, tags=("synonym",))
-            for source, target in pairs
-        ]
+        rules: list[VocabRule] = []
+        seen_sources: set[str] = set()
+        duplicate_count = 0
+        for target in targets:
+            synonyms = generator.synonyms_for(target)
+            for synonym in synonyms:
+                if synonym in seen_sources:
+                    duplicate_count += 1
+                    tags = ("synonym", "conflict")
+                    rules.append(
+                        VocabRule(
+                            source_phrase=synonym,
+                            replacement=target,
+                            enabled=False,
+                            tags=tags,
+                        )
+                    )
+                    continue
+                seen_sources.add(synonym)
+                rules.append(VocabRule(source_phrase=synonym, replacement=target, tags=("synonym",)))
+        if duplicate_count:
+            QMessageBox.information(
+                self,
+                "Synonym Bulk Add",
+                f"{duplicate_count} duplicate source phrases were added as disabled rules.",
+            )
+        return rules
 
     def _save_dataset(self) -> None:
         if self.state.dataset_path is None:
