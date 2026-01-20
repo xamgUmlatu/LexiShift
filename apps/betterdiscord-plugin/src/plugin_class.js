@@ -13,11 +13,22 @@
 			}
 
 			onStart () {
-				rules = BDFDB.DataUtils.load(this, "rules");
-				if (!Array.isArray(rules)) rules = [];
-				trie = buildTrie(normalizeRules(rules));
-				oldMessages = {};
 				this._loadPreferences();
+				if (this._useFileRules && this._rulesFilePath) {
+					const loaded = this._loadRulesFromFile(this._rulesFilePath);
+					if (!loaded.ok) {
+						rules = BDFDB.DataUtils.load(this, "rules");
+						if (!Array.isArray(rules)) rules = [];
+						trie = buildTrie(normalizeRules(rules));
+						oldMessages = {};
+					}
+				}
+				else {
+					rules = BDFDB.DataUtils.load(this, "rules");
+					if (!Array.isArray(rules)) rules = [];
+					trie = buildTrie(normalizeRules(rules));
+					oldMessages = {};
+				}
 				this._installStyle();
 				this._startMarkerObserver();
 				this.requestRefresh();
@@ -124,11 +135,18 @@
 				const prefs = BDFDB.DataUtils.load(this, "prefs") || {};
 				this._highlightReplacements = prefs.highlightReplacements !== false;
 				this._highlightColor = prefs.highlightColor || "#9AA0A6";
+				this._useFileRules = prefs.useFileRules === true;
+				this._rulesFilePath = prefs.rulesFilePath || "";
 			}
 
 			_savePreferences () {
 				BDFDB.DataUtils.save(
-					{highlightReplacements: this._highlightReplacements, highlightColor: this._highlightColor},
+					{
+						highlightReplacements: this._highlightReplacements,
+						highlightColor: this._highlightColor,
+						useFileRules: this._useFileRules,
+						rulesFilePath: this._rulesFilePath
+					},
 					this,
 					"prefs"
 				);
@@ -154,6 +172,48 @@
 				this._savePreferences();
 				this._applyHighlightToDom();
 				this.requestRefresh();
+			}
+
+			getUseFileRules () {
+				return this._useFileRules === true;
+			}
+
+			setUseFileRules (value, skipLoad) {
+				this._useFileRules = Boolean(value);
+				this._savePreferences();
+				if (!skipLoad && this._useFileRules && this._rulesFilePath) {
+					this._loadRulesFromFile(this._rulesFilePath);
+				}
+				this.requestRefresh();
+			}
+
+			getRulesFilePath () {
+				return this._rulesFilePath || "";
+			}
+
+			setRulesFilePath (path) {
+				this._rulesFilePath = String(path || "");
+				this._savePreferences();
+			}
+
+			loadRulesFromFile (path) {
+				return this._loadRulesFromFile(path);
+			}
+
+			_loadRulesFromFile (path) {
+				try {
+					const fs = require("fs");
+					const payload = fs.readFileSync(path, "utf8");
+					const parsed = JSON.parse(payload);
+					rules = extractRules(parsed);
+					BDFDB.DataUtils.save(rules, this, "rules");
+					trie = buildTrie(normalizeRules(rules));
+					oldMessages = {};
+					return {ok: true};
+				}
+				catch (error) {
+					return {ok: false, error};
+				}
 			}
 
 			_installStyle () {

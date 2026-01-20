@@ -1025,9 +1025,53 @@ function buildSettingsPanel(plugin) {
 	panel.style.minHeight = "520px";
 
 	const description = document.createElement("div");
-	description.textContent = "Paste a rules JSON array or a full dataset JSON with a rules field.";
+	description.textContent = "Choose a rules source: paste JSON or load a local file.";
 	description.style.marginBottom = "8px";
 	panel.appendChild(description);
+
+	const sourceRow = document.createElement("label");
+	sourceRow.style.display = "flex";
+	sourceRow.style.alignItems = "center";
+	sourceRow.style.gap = "8px";
+	sourceRow.style.marginBottom = "8px";
+	sourceRow.style.cursor = "pointer";
+	const sourceCheckbox = document.createElement("input");
+	sourceCheckbox.type = "checkbox";
+	sourceCheckbox.checked = plugin.getUseFileRules();
+	const sourceText = document.createElement("span");
+	sourceText.textContent = "Load rules from file (read-only)";
+	sourceRow.appendChild(sourceCheckbox);
+	sourceRow.appendChild(sourceText);
+	panel.appendChild(sourceRow);
+
+	const fileRow = document.createElement("div");
+	fileRow.style.display = "flex";
+	fileRow.style.alignItems = "center";
+	fileRow.style.gap = "8px";
+	fileRow.style.marginBottom = "12px";
+
+	const hasOpenDialog = BdApi && typeof BdApi.openDialog === "function";
+
+	const filePathInput = document.createElement("input");
+	filePathInput.type = "text";
+	filePathInput.readOnly = false;
+	filePathInput.placeholder = hasOpenDialog ? "No rules file selected" : "Paste a rules file path";
+	filePathInput.value = plugin.getRulesFilePath();
+	filePathInput.style.flex = "1";
+	fileRow.appendChild(filePathInput);
+
+	const browseButton = document.createElement("button");
+	browseButton.textContent = "Choose File";
+	browseButton.className = BDFDB.disCN.button;
+	browseButton.disabled = !hasOpenDialog;
+	fileRow.appendChild(browseButton);
+
+	const reloadButton = document.createElement("button");
+	reloadButton.textContent = "Load";
+	reloadButton.className = BDFDB.disCN.button;
+	fileRow.appendChild(reloadButton);
+
+	panel.appendChild(fileRow);
 
 	const highlightRow = document.createElement("label");
 	highlightRow.style.display = "flex";
@@ -1146,6 +1190,11 @@ function buildSettingsPanel(plugin) {
 	codeButtons.appendChild(copyButton);
 
 	saveButton.onclick = _ => {
+		if (sourceCheckbox.checked) {
+			status.textContent = "Disable file mode to edit JSON.";
+			status.style.color = "var(--text-danger)";
+			return;
+		}
 		try {
 			const parsed = JSON.parse(textarea.value || "[]");
 			rules = extractRules(parsed);
@@ -1197,6 +1246,11 @@ function buildSettingsPanel(plugin) {
 	};
 
 	importButton.onclick = _ => {
+		if (sourceCheckbox.checked) {
+			status.textContent = "Disable file mode to import a code.";
+			status.style.color = "var(--text-danger)";
+			return;
+		}
 		try {
 			const decodedRules = decodeRulesCode(codeInput.value || "", codeModeCheckbox.checked);
 			if (!Array.isArray(decodedRules)) throw new Error("Decoded rules are not a list.");
@@ -1255,6 +1309,89 @@ function buildSettingsPanel(plugin) {
 	colorInput.disabled = !highlightCheckbox.checked;
 	colorValue.disabled = !highlightCheckbox.checked;
 
+	const setStatus = (message, color) => {
+		status.textContent = message;
+		status.style.color = color;
+	};
+
+	const applySourceState = () => {
+		const fileMode = sourceCheckbox.checked;
+		textarea.disabled = fileMode;
+		saveButton.disabled = fileMode;
+		reloadButton.textContent = fileMode ? "Reload" : "Load";
+		reloadButton.disabled = !filePathInput.value;
+	};
+
+	const loadFromFile = path => {
+		if (!path) return;
+		plugin.setRulesFilePath(path);
+		if (!sourceCheckbox.checked) {
+			sourceCheckbox.checked = true;
+			plugin.setUseFileRules(true, true);
+		}
+		const result = plugin.loadRulesFromFile(path);
+		if (result && result.ok) {
+			textarea.value = JSON.stringify(rules, null, 2);
+			setStatus(`Loaded ${rules.length} rules from file.`, "var(--text-positive)");
+		}
+		else {
+			const message = result && result.error ? result.error.message : "Failed to load file.";
+			setStatus(message, "var(--text-danger)");
+		}
+		applySourceState();
+	};
+
+	const selectFile = () => {
+		if (!BdApi || typeof BdApi.openDialog !== "function") {
+			setStatus("File picker is not available. Paste a path and click Load.", "var(--text-danger)");
+			return;
+		}
+		const dialogResult = BdApi.openDialog({
+			title: "Select LexiShift rules JSON",
+			filters: [{name: "JSON", extensions: ["json"]}],
+			properties: ["openFile"]
+		});
+		const handlePaths = paths => {
+			if (!paths || !paths.length) return;
+			const path = paths[0];
+			filePathInput.value = path;
+			loadFromFile(path);
+		};
+		if (dialogResult && typeof dialogResult.then === "function") {
+			dialogResult.then(handlePaths);
+		}
+		else {
+			handlePaths(dialogResult);
+		}
+	};
+
+	sourceCheckbox.onchange = _ => {
+		plugin.setUseFileRules(sourceCheckbox.checked);
+		if (sourceCheckbox.checked && filePathInput.value) {
+			loadFromFile(filePathInput.value);
+		}
+		else {
+			setStatus("Rules source updated.", "var(--text-positive)");
+		}
+		applySourceState();
+	};
+
+	browseButton.onclick = _ => {
+		selectFile();
+	};
+
+	reloadButton.onclick = _ => {
+		if (!filePathInput.value) return;
+		loadFromFile(filePathInput.value);
+	};
+
+	filePathInput.oninput = _ => {
+		plugin.setRulesFilePath(filePathInput.value.trim());
+		applySourceState();
+	};
+
+	applySourceState();
+
 	return panel;
 }
 
@@ -1273,11 +1410,22 @@ function buildSettingsPanel(plugin) {
 			}
 
 			onStart () {
-				rules = BDFDB.DataUtils.load(this, "rules");
-				if (!Array.isArray(rules)) rules = [];
-				trie = buildTrie(normalizeRules(rules));
-				oldMessages = {};
 				this._loadPreferences();
+				if (this._useFileRules && this._rulesFilePath) {
+					const loaded = this._loadRulesFromFile(this._rulesFilePath);
+					if (!loaded.ok) {
+						rules = BDFDB.DataUtils.load(this, "rules");
+						if (!Array.isArray(rules)) rules = [];
+						trie = buildTrie(normalizeRules(rules));
+						oldMessages = {};
+					}
+				}
+				else {
+					rules = BDFDB.DataUtils.load(this, "rules");
+					if (!Array.isArray(rules)) rules = [];
+					trie = buildTrie(normalizeRules(rules));
+					oldMessages = {};
+				}
 				this._installStyle();
 				this._startMarkerObserver();
 				this.requestRefresh();
@@ -1384,11 +1532,18 @@ function buildSettingsPanel(plugin) {
 				const prefs = BDFDB.DataUtils.load(this, "prefs") || {};
 				this._highlightReplacements = prefs.highlightReplacements !== false;
 				this._highlightColor = prefs.highlightColor || "#9AA0A6";
+				this._useFileRules = prefs.useFileRules === true;
+				this._rulesFilePath = prefs.rulesFilePath || "";
 			}
 
 			_savePreferences () {
 				BDFDB.DataUtils.save(
-					{highlightReplacements: this._highlightReplacements, highlightColor: this._highlightColor},
+					{
+						highlightReplacements: this._highlightReplacements,
+						highlightColor: this._highlightColor,
+						useFileRules: this._useFileRules,
+						rulesFilePath: this._rulesFilePath
+					},
 					this,
 					"prefs"
 				);
@@ -1414,6 +1569,48 @@ function buildSettingsPanel(plugin) {
 				this._savePreferences();
 				this._applyHighlightToDom();
 				this.requestRefresh();
+			}
+
+			getUseFileRules () {
+				return this._useFileRules === true;
+			}
+
+			setUseFileRules (value, skipLoad) {
+				this._useFileRules = Boolean(value);
+				this._savePreferences();
+				if (!skipLoad && this._useFileRules && this._rulesFilePath) {
+					this._loadRulesFromFile(this._rulesFilePath);
+				}
+				this.requestRefresh();
+			}
+
+			getRulesFilePath () {
+				return this._rulesFilePath || "";
+			}
+
+			setRulesFilePath (path) {
+				this._rulesFilePath = String(path || "");
+				this._savePreferences();
+			}
+
+			loadRulesFromFile (path) {
+				return this._loadRulesFromFile(path);
+			}
+
+			_loadRulesFromFile (path) {
+				try {
+					const fs = require("fs");
+					const payload = fs.readFileSync(path, "utf8");
+					const parsed = JSON.parse(payload);
+					rules = extractRules(parsed);
+					BDFDB.DataUtils.save(rules, this, "rules");
+					trie = buildTrie(normalizeRules(rules));
+					oldMessages = {};
+					return {ok: true};
+				}
+				catch (error) {
+					return {ok: false, error};
+				}
 			}
 
 			_installStyle () {
