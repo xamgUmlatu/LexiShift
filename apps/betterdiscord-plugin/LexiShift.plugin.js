@@ -1,5 +1,5 @@
 /**
- * @name VocabReplacer
+ * @name LexiShift
  * @author myuurin
  * @version 0.1.0
  * @description Replace message text using vocab rules.
@@ -58,6 +58,30 @@ const WORD_RE = /^[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*$/;
 
 var CJK_BASE_START = 0x4E00;
 var CJK_BASE = 16384;
+
+const MARKER_START = "\uE000LS:";
+const MARKER_MID = "\uE001";
+const MARKER_END = "\uE002";
+const STYLE_ID = "lexishift-replacements";
+const STYLE_RULES = `
+.ls-replaced {
+	cursor: pointer;
+}
+.ls-replaced.ls-highlight {
+	color: var(--text-muted);
+	transition: color 120ms ease;
+}
+.ls-replaced .ls-original {
+	display: none;
+}
+.ls-replaced.ls-show-original .ls-replacement {
+	display: none;
+}
+.ls-replaced.ls-show-original .ls-original {
+	display: inline;
+	color: var(--text-normal);
+}
+`;
 
 let rules = [];
 let trie = null;
@@ -664,6 +688,176 @@ function decodeRulesCode(code, preferCjk) {
 	}
 }
 
+function encodeMarkerPayload(text) {
+	try {
+		return btoa(unescape(encodeURIComponent(text)));
+	}
+	catch (error) {
+		return "";
+	}
+}
+
+function decodeMarkerPayload(text) {
+	try {
+		return decodeURIComponent(escape(atob(text)));
+	}
+	catch (error) {
+		return "";
+	}
+}
+
+function wrapReplacement(replacement, original) {
+	const payload = encodeMarkerPayload(original);
+	return `${MARKER_START}${payload}${MARKER_MID}${replacement}${MARKER_END}`;
+}
+
+function createReplacementElement(replacement, original, plugin) {
+	const React = BdApi.React;
+	const highlight = plugin && plugin.getHighlightReplacements && plugin.getHighlightReplacements();
+	const className = highlight ? "ls-replaced ls-highlight" : "ls-replaced";
+	const style = highlight && plugin && plugin.getHighlightColor ? {color: plugin.getHighlightColor()} : null;
+	const onEnter = event => {
+		event.currentTarget.classList.add("ls-hover");
+	};
+	const onLeave = event => {
+		event.currentTarget.classList.remove("ls-hover");
+	};
+	const onClick = event => {
+		event.currentTarget.classList.toggle("ls-show-original");
+	};
+	return React.createElement(
+		"span",
+		{
+			className,
+			style,
+			"data-original": original,
+			onMouseEnter: onEnter,
+			onMouseLeave: onLeave,
+			onClick
+		},
+		React.createElement("span", {className: "ls-replacement"}, replacement),
+		React.createElement("span", {className: "ls-original"}, original)
+	);
+}
+
+function splitMarkers(text, plugin) {
+	if (text.indexOf(MARKER_START) === -1) return text;
+	const parts = [];
+	let cursor = 0;
+	while (cursor < text.length) {
+		const start = text.indexOf(MARKER_START, cursor);
+		if (start === -1) break;
+		const mid = text.indexOf(MARKER_MID, start + MARKER_START.length);
+		const end = text.indexOf(MARKER_END, mid + MARKER_MID.length);
+		if (mid === -1 || end === -1) break;
+		if (start > cursor) parts.push(text.slice(cursor, start));
+		const payload = text.slice(start + MARKER_START.length, mid);
+		const original = decodeMarkerPayload(payload);
+		const replacement = text.slice(mid + MARKER_MID.length, end);
+		parts.push(createReplacementElement(replacement, original, plugin));
+		cursor = end + MARKER_END.length;
+	}
+	if (cursor < text.length) parts.push(text.slice(cursor));
+	return parts;
+}
+
+function replaceMarkersInTree(node, plugin) {
+	const React = BdApi.React;
+	if (node == null || typeof node === "boolean") return node;
+	if (typeof node === "string") return splitMarkers(node, plugin);
+	if (Array.isArray(node)) {
+		const mapped = [];
+		for (const child of node) {
+			const replaced = replaceMarkersInTree(child, plugin);
+			if (Array.isArray(replaced)) mapped.push(...replaced);
+			else mapped.push(replaced);
+		}
+		return mapped;
+	}
+	if (React.isValidElement(node) && node.props && node.props.children) {
+		const replacedChildren = replaceMarkersInTree(node.props.children, plugin);
+		if (replacedChildren !== node.props.children) {
+			return React.cloneElement(node, Object.assign({}, node.props), replacedChildren);
+		}
+	}
+	return node;
+}
+
+function createReplacementNode(replacement, original, plugin) {
+	const span = document.createElement("span");
+	span.className = plugin && plugin.getHighlightReplacements && plugin.getHighlightReplacements()
+		? "ls-replaced ls-highlight"
+		: "ls-replaced";
+	if (plugin && plugin.getHighlightReplacements && plugin.getHighlightReplacements() && plugin.getHighlightColor) {
+		span.style.color = plugin.getHighlightColor();
+	}
+	span.dataset.original = original;
+	const replacementSpan = document.createElement("span");
+	replacementSpan.className = "ls-replacement";
+	replacementSpan.textContent = replacement;
+	const originalSpan = document.createElement("span");
+	originalSpan.className = "ls-original";
+	originalSpan.textContent = original;
+	span.appendChild(replacementSpan);
+	span.appendChild(originalSpan);
+	span.addEventListener("mouseenter", event => {
+		event.currentTarget.classList.add("ls-hover");
+	});
+	span.addEventListener("mouseleave", event => {
+		event.currentTarget.classList.remove("ls-hover");
+	});
+	span.addEventListener("click", event => {
+		event.currentTarget.classList.toggle("ls-show-original");
+	});
+	return span;
+}
+
+function splitMarkersToNodes(text, plugin) {
+	if (text.indexOf(MARKER_START) === -1) return null;
+	const parts = [];
+	let cursor = 0;
+	while (cursor < text.length) {
+		const start = text.indexOf(MARKER_START, cursor);
+		if (start === -1) break;
+		const mid = text.indexOf(MARKER_MID, start + MARKER_START.length);
+		const end = text.indexOf(MARKER_END, mid + MARKER_MID.length);
+		if (mid === -1 || end === -1) break;
+		if (start > cursor) parts.push(text.slice(cursor, start));
+		const payload = text.slice(start + MARKER_START.length, mid);
+		const original = decodeMarkerPayload(payload);
+		const replacement = text.slice(mid + MARKER_MID.length, end);
+		parts.push(createReplacementNode(replacement, original, plugin));
+		cursor = end + MARKER_END.length;
+	}
+	if (cursor < text.length) parts.push(text.slice(cursor));
+	return parts;
+}
+
+function replaceMarkersInElement(element, plugin) {
+	if (!element || !element.querySelectorAll) return;
+	const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+	const nodes = [];
+	let node = walker.nextNode();
+	while (node) {
+		if (node.nodeValue && node.nodeValue.indexOf(MARKER_START) !== -1) {
+			nodes.push(node);
+		}
+		node = walker.nextNode();
+	}
+	for (const textNode of nodes) {
+		const parts = splitMarkersToNodes(textNode.nodeValue || "", plugin);
+		if (!parts) continue;
+		const fragment = document.createDocumentFragment();
+		for (const part of parts) {
+			if (typeof part === "string") fragment.appendChild(document.createTextNode(part));
+			else fragment.appendChild(part);
+		}
+		if (textNode.parentNode) {
+			textNode.parentNode.replaceChild(fragment, textNode);
+		}
+	}
+}
+
 function normalizeRules(rules) {
 	return (rules || []).map(rule => ({
 		source_phrase: String(rule.source_phrase || ""),
@@ -774,8 +968,9 @@ function findLongestMatch(trie, words, gapOk, startIndex) {
 	return {startWordIndex: startIndex, endWordIndex: bestEnd, rule: bestRule};
 }
 
-function replaceText(text, trie) {
+function replaceText(text, trie, options = {}) {
 	if (!trie) return text;
+	const annotate = options.annotate === true;
 	const tokens = tokenize(text);
 	const wordPositions = [];
 	const wordTexts = [];
@@ -807,7 +1002,14 @@ function replaceText(text, trie) {
 			output += tokens[i].text;
 		}
 		const sourceWords = wordTexts.slice(match.startWordIndex, match.endWordIndex + 1);
-		output += applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
+		const replacement = applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
+		if (annotate) {
+			const original = sourceWords.join(" ");
+			output += wrapReplacement(replacement, original);
+		}
+		else {
+			output += replacement;
+		}
 		tokenCursor = endTokenIdx + 1;
 	}
 	for (let i = tokenCursor; i < tokens.length; i += 1) {
@@ -819,11 +1021,51 @@ function replaceText(text, trie) {
 function buildSettingsPanel(plugin) {
 	const panel = document.createElement("div");
 	panel.style.padding = "10px";
+	panel.style.minWidth = "520px";
+	panel.style.minHeight = "520px";
 
 	const description = document.createElement("div");
 	description.textContent = "Paste a rules JSON array or a full dataset JSON with a rules field.";
 	description.style.marginBottom = "8px";
 	panel.appendChild(description);
+
+	const highlightRow = document.createElement("label");
+	highlightRow.style.display = "flex";
+	highlightRow.style.alignItems = "center";
+	highlightRow.style.gap = "8px";
+	highlightRow.style.marginBottom = "12px";
+	highlightRow.style.cursor = "pointer";
+	const highlightCheckbox = document.createElement("input");
+	highlightCheckbox.type = "checkbox";
+	highlightCheckbox.checked = plugin.getHighlightReplacements();
+	const highlightText = document.createElement("span");
+	highlightText.textContent = "Highlight replaced words (click to toggle original)";
+	highlightRow.appendChild(highlightCheckbox);
+	highlightRow.appendChild(highlightText);
+	panel.appendChild(highlightRow);
+
+	const colorRow = document.createElement("div");
+	colorRow.style.display = "flex";
+	colorRow.style.alignItems = "center";
+	colorRow.style.gap = "8px";
+	colorRow.style.marginBottom = "12px";
+
+	const colorLabel = document.createElement("span");
+	colorLabel.textContent = "Highlight color";
+	colorRow.appendChild(colorLabel);
+
+	const colorInput = document.createElement("input");
+	colorInput.type = "color";
+	colorInput.value = plugin.getHighlightColor();
+	colorRow.appendChild(colorInput);
+
+	const colorValue = document.createElement("input");
+	colorValue.type = "text";
+	colorValue.value = plugin.getHighlightColor();
+	colorValue.style.width = "90px";
+	colorRow.appendChild(colorValue);
+
+	panel.appendChild(colorRow);
 
 	const textarea = document.createElement("textarea");
 	textarea.style.width = "100%";
@@ -988,10 +1230,35 @@ function buildSettingsPanel(plugin) {
 		status.style.color = "var(--text-positive)";
 	};
 
+	highlightCheckbox.onchange = _ => {
+		plugin.setHighlightReplacements(highlightCheckbox.checked);
+		colorInput.disabled = !highlightCheckbox.checked;
+		colorValue.disabled = !highlightCheckbox.checked;
+		status.textContent = "Display preference saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorInput.onchange = _ => {
+		colorValue.value = colorInput.value;
+		plugin.setHighlightColor(colorInput.value);
+		status.textContent = "Highlight color saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorValue.onchange = _ => {
+		colorInput.value = colorValue.value;
+		plugin.setHighlightColor(colorValue.value);
+		status.textContent = "Highlight color saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorInput.disabled = !highlightCheckbox.checked;
+	colorValue.disabled = !highlightCheckbox.checked;
+
 	return panel;
 }
 
-		return class VocabReplacer extends Plugin {
+		return class LexiShift extends Plugin {
 			onLoad () {
 				this.defaults = {
 					general: {
@@ -1010,10 +1277,15 @@ function buildSettingsPanel(plugin) {
 				if (!Array.isArray(rules)) rules = [];
 				trie = buildTrie(normalizeRules(rules));
 				oldMessages = {};
+				this._loadPreferences();
+				this._installStyle();
+				this._startMarkerObserver();
 				this.requestRefresh();
 			}
 
 			onStop () {
+				this._removeStyle();
+				this._stopMarkerObserver();
 				this.requestRefresh();
 			}
 
@@ -1059,7 +1331,15 @@ function buildSettingsPanel(plugin) {
 			}
 
 			processMessageContent (e) {
-				return;
+				if (!this.settings.general.targetMessages) return;
+				if (!e || !e.returnvalue) return;
+				const replaced = replaceMarkersInTree(e.returnvalue, this);
+				if (Array.isArray(replaced)) {
+					e.returnvalue = BdApi.React.createElement(BdApi.React.Fragment, null, ...replaced);
+				}
+				else {
+					e.returnvalue = replaced;
+				}
 			}
 
 			checkMessage (stream, message) {
@@ -1081,7 +1361,7 @@ function buildSettingsPanel(plugin) {
 				let embeds = [].concat(message.embeds || []);
 				let changed = false;
 				if (content && typeof content == "string") {
-					let replaced = replaceText(content, trie);
+					let replaced = replaceText(content, trie, {annotate: true});
 					if (replaced !== content) {
 						content = replaced;
 						changed = true;
@@ -1091,13 +1371,110 @@ function buildSettingsPanel(plugin) {
 					embeds = embeds.map(embed => {
 						let raw = embed.rawDescription || embed.description;
 						if (!raw || typeof raw !== "string") return embed;
-						let replaced = replaceText(raw, trie);
+						let replaced = replaceText(raw, trie, {annotate: false});
 						if (replaced === raw) return embed;
 						changed = true;
 						return Object.assign({}, embed, {rawDescription: replaced, description: replaced});
 					});
 				}
 				return {changed, content, embeds};
+			}
+
+			_loadPreferences () {
+				const prefs = BDFDB.DataUtils.load(this, "prefs") || {};
+				this._highlightReplacements = prefs.highlightReplacements !== false;
+				this._highlightColor = prefs.highlightColor || "#9AA0A6";
+			}
+
+			_savePreferences () {
+				BDFDB.DataUtils.save(
+					{highlightReplacements: this._highlightReplacements, highlightColor: this._highlightColor},
+					this,
+					"prefs"
+				);
+			}
+
+			getHighlightReplacements () {
+				return this._highlightReplacements !== false;
+			}
+
+			setHighlightReplacements (value) {
+				this._highlightReplacements = Boolean(value);
+				this._savePreferences();
+				this._applyHighlightToDom();
+				this.requestRefresh();
+			}
+
+			getHighlightColor () {
+				return this._highlightColor || "#9AA0A6";
+			}
+
+			setHighlightColor (value) {
+				this._highlightColor = value || "#9AA0A6";
+				this._savePreferences();
+				this._applyHighlightToDom();
+				this.requestRefresh();
+			}
+
+			_installStyle () {
+				if (BdApi.DOM && typeof BdApi.DOM.addStyle === "function") {
+					BdApi.DOM.addStyle(STYLE_ID, STYLE_RULES);
+				}
+			}
+
+			_removeStyle () {
+				if (BdApi.DOM && typeof BdApi.DOM.removeStyle === "function") {
+					BdApi.DOM.removeStyle(STYLE_ID);
+				}
+			}
+
+			_startMarkerObserver () {
+				if (this._markerObserver || !document || !document.body) return;
+				this._markerObserver = new MutationObserver(mutations => {
+					if (this._markerReplacing) return;
+					this._markerReplacing = true;
+					try {
+						for (const mutation of mutations) {
+							for (const node of mutation.addedNodes) {
+								if (node && node.nodeType === Node.ELEMENT_NODE) {
+									replaceMarkersInElement(node, this);
+								}
+								else if (node && node.nodeType === Node.TEXT_NODE && node.nodeValue) {
+									if (node.nodeValue.indexOf(MARKER_START) !== -1 && node.parentNode) {
+										replaceMarkersInElement(node.parentNode, this);
+									}
+								}
+							}
+						}
+					}
+					finally {
+						this._markerReplacing = false;
+					}
+				});
+				this._markerObserver.observe(document.body, {childList: true, subtree: true});
+				replaceMarkersInElement(document.body, this);
+			}
+
+			_stopMarkerObserver () {
+				if (!this._markerObserver) return;
+				this._markerObserver.disconnect();
+				this._markerObserver = null;
+			}
+
+			_applyHighlightToDom () {
+				if (!document) return;
+				const highlight = this.getHighlightReplacements();
+				const color = this.getHighlightColor();
+				for (const node of document.querySelectorAll(".ls-replaced")) {
+					if (highlight) {
+						node.classList.add("ls-highlight");
+						node.style.color = color;
+					}
+					else {
+						node.classList.remove("ls-highlight");
+						node.style.color = "";
+					}
+				}
 			}
 		};
 

@@ -122,6 +122,7 @@ Synonym sources (local)
   - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
     - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
   - Point “Embeddings file” in Settings to the `.db`/`.sqlite` output.
+  - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
 
 Profiles, rulesets, and app settings (GUI scaffolding)
 - `Profile` is a named project that owns one or more rulesets (JSON files) and tracks the active ruleset.
@@ -160,7 +161,7 @@ Chrome extension
 - Replaces visible text on all pages, skips editable fields.
 
 BetterDiscord plugin
-- Copy `apps/betterdiscord-plugin/VocabReplacer.plugin.js` into your BetterDiscord plugins folder.
+- Copy `apps/betterdiscord-plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
 - Configure rules in the plugin settings (JSON array).
 - Plugin source is modularized under `apps/betterdiscord-plugin/src/`; rebuild with `node apps/betterdiscord-plugin/build_plugin.js`.
 - Dev scripts:

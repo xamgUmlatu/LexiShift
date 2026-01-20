@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const srcDir = path.join(__dirname, "src");
-const outPath = path.join(__dirname, "VocabReplacer.plugin.js");
+const outPath = path.join(__dirname, "LexiShift.plugin.js");
 
 const parts = [
 	"header.js",
@@ -10,6 +10,7 @@ const parts = [
 	"state.js",
 	"lzstring.js",
 	"cjk_codec.js",
+	"annotations.js",
 	"replacer.js",
 	"ui.js",
 	"plugin_class.js",

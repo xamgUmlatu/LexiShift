@@ -27,7 +27,7 @@ from PySide6.QtCore import (
     Signal,
     QTimer,
 )
-from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter
+from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QApplication,
     QComboBox,
@@ -48,6 +48,7 @@ from PySide6.QtWidgets import (
     QSplitter,
     QStyledItemDelegate,
     QTableView,
+    QTextEdit,
     QStyle,
     QWidget,
     QVBoxLayout,
@@ -210,16 +211,21 @@ class MainWindow(QMainWindow):
         self.preview_edit = QPlainTextEdit()
         self.preview_edit.setReadOnly(True)
         self.highlighter = ReplacementHighlighter(self.preview_edit.document())
+        self.log_edit = QTextEdit()
+        self.log_edit.setReadOnly(True)
+        self.log_edit.setPlaceholderText("Bulk add logs and similarity notes appear here.")
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
         editor_layout.addWidget(self._build_profile_header())
         editor_layout.addWidget(self.rules_table)
 
-        preview_panel = QWidget()
-        preview_layout = QVBoxLayout(preview_panel)
-        preview_layout.addWidget(self.input_edit)
-        preview_layout.addWidget(self.preview_edit)
+        preview_panel = QSplitter(Qt.Vertical)
+        preview_panel.addWidget(self.input_edit)
+        preview_panel.addWidget(self.preview_edit)
+        preview_panel.addWidget(self._build_log_panel())
+        preview_panel.setStretchFactor(1, 1)
+        self._preview_splitter = preview_panel
 
         right_panel = QSplitter(Qt.Vertical)
         right_panel.addWidget(self._build_replacement_panel())
@@ -413,6 +419,16 @@ class MainWindow(QMainWindow):
         panel.setLayout(layout)
         return panel
 
+    def _build_log_panel(self) -> QWidget:
+        title = QLabel("Log")
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(title)
+        layout.addWidget(self.log_edit)
+        panel = QWidget()
+        panel.setLayout(layout)
+        return panel
+
     def _current_source_row(self, *, index=None) -> int:
         view_index = index or self.rules_table.currentIndex()
         if not view_index.isValid():
@@ -473,11 +489,17 @@ class MainWindow(QMainWindow):
             self._right_splitter.restoreState(right_splitter_state)
         else:
             self._right_splitter.setSizes([280, 420])
+        preview_splitter_state = self._ui_settings.value("main_window/preview_splitter", type=QByteArray)
+        if preview_splitter_state:
+            self._preview_splitter.restoreState(preview_splitter_state)
+        else:
+            self._preview_splitter.setSizes([200, 300, 150])
 
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
         self._ui_settings.setValue("main_window/right_splitter", self._right_splitter.saveState())
+        self._ui_settings.setValue("main_window/preview_splitter", self._preview_splitter.saveState())
 
     def closeEvent(self, event) -> None:
         if self.state.dirty:
@@ -626,6 +648,7 @@ class MainWindow(QMainWindow):
         targets = dialog.targets()
         if not targets:
             return
+        self._append_log(f"Bulk add: {len(targets)} target(s).")
         rules = self._generate_synonym_rules(targets)
         if not rules:
             QMessageBox.information(self, "Synonym Bulk Add", "No synonyms found for the provided targets.")
@@ -704,6 +727,7 @@ class MainWindow(QMainWindow):
             use_embeddings=settings.use_embeddings,
             embedding_path=Path(settings.embedding_path) if settings.embedding_path else None,
             embedding_threshold=settings.embedding_threshold,
+            embedding_fallback=settings.embedding_fallback,
         )
         generator = SynonymGenerator(sources, options=options)
         if generator.total_entries() == 0:
@@ -718,7 +742,25 @@ class MainWindow(QMainWindow):
         seen_sources: set[str] = set()
         duplicate_count = 0
         for target in targets:
-            synonyms = generator.synonyms_for(target)
+            synonyms, used_fallback = generator.synonyms_for_detail(target)
+            if not synonyms:
+                self._append_log(f"No synonyms found for: {target}", color=QColor("#C73C3C"))
+                if settings and settings.use_embeddings and settings.embedding_fallback:
+                    if not generator.has_embeddings():
+                        self._append_log(f"Embeddings not loaded; fallback skipped for: {target}")
+                    elif not generator.embeddings_support_neighbors():
+                        self._append_log(
+                            "Embeddings file does not support neighbor lookup (reconvert to SQLite or use .vec/.bin)."
+                        )
+                    elif not generator.embeddings_has_vector(target):
+                        self._append_log(f"No embedding vector for: {target}")
+                    else:
+                        self._append_log(f"Embeddings fallback returned 0 neighbors for: {target}")
+            else:
+                if used_fallback:
+                    self._append_log(f"Embeddings fallback for {target}: {len(synonyms)}")
+                else:
+                    self._append_log(f"Synonyms found for {target}: {len(synonyms)}")
             for synonym in synonyms:
                 if synonym in seen_sources:
                     duplicate_count += 1
@@ -735,11 +777,9 @@ class MainWindow(QMainWindow):
                 seen_sources.add(synonym)
                 rules.append(VocabRule(source_phrase=synonym, replacement=target, tags=("synonym",)))
         if duplicate_count:
-            QMessageBox.information(
-                self,
-                "Synonym Bulk Add",
-                f"{duplicate_count} duplicate source phrases were added as disabled rules.",
-            )
+            message = f"{duplicate_count} duplicate source phrases were added as disabled rules."
+            QMessageBox.information(self, "Synonym Bulk Add", message)
+            self._append_log(message)
         return rules
 
     def _save_dataset(self) -> None:
@@ -1146,6 +1186,19 @@ class MainWindow(QMainWindow):
                 updates.append((row, replace(rule, enabled=enabled)))
         if updates:
             self.rules_model.update_rules_bulk(updates)
+
+    def _append_log(self, message: str, *, color: Optional[QColor] = None) -> None:
+        if not message:
+            return
+        cursor = self.log_edit.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        fmt = QTextCharFormat()
+        if color:
+            fmt.setForeground(color)
+        cursor.setCharFormat(fmt)
+        cursor.insertText(message + "\n")
+        self.log_edit.setTextCursor(cursor)
+        self.log_edit.ensureCursorVisible()
 
     def _refresh_profiles_ui(self) -> None:
         profiles = self.state.settings.profiles

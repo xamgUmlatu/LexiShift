@@ -235,7 +235,15 @@ class ProfilesDialog(QDialog):
     def _load_rulesets(self, profile: Profile) -> None:
         self.ruleset_list.clear()
         active_ruleset = profile.active_ruleset or profile.dataset_path
-        rulesets = profile.rulesets or (profile.dataset_path,)
+        rulesets: list[str] = []
+        for path in profile.rulesets:
+            if path and path not in rulesets:
+                rulesets.append(path)
+        for path in (profile.dataset_path, profile.active_ruleset):
+            if path and path not in rulesets:
+                rulesets.append(path)
+        if not rulesets and active_ruleset:
+            rulesets.append(active_ruleset)
         active_index = -1
         for path in rulesets:
             if not path:
@@ -578,6 +586,7 @@ class SettingsDialog(QDialog):
             use_embeddings=self.use_embeddings_check.isChecked(),
             embedding_path=self.embedding_path_edit.text().strip() or None,
             embedding_threshold=embedding_threshold,
+            embedding_fallback=self.embedding_fallback_check.isChecked(),
         )
         return replace(self._app_settings, import_export=import_settings, synonyms=synonyms)
 
@@ -627,6 +636,10 @@ class SettingsDialog(QDialog):
         self.embedding_threshold_slider = QSlider(Qt.Horizontal)
         self.embedding_threshold_slider.setRange(0, 100)
         self.embedding_threshold_value = QLabel("0.00")
+        self.embedding_fallback_check = QCheckBox("Use embeddings when no synonyms found")
+        self.embedding_fallback_check.setToolTip(
+            "Requires embeddings file with neighbor support (.vec/.bin or SQLite built via convert_embeddings.py)."
+        )
         self.moby_browse_button = QPushButton("Browse")
         self.wordnet_browse_button = QPushButton("Browse")
         self.moby_browse_button.clicked.connect(self._browse_moby)
@@ -667,6 +680,7 @@ class SettingsDialog(QDialog):
         form.addRow("", self.use_embeddings_check)
         form.addRow("Embeddings file", embedding_row)
         form.addRow("Similarity threshold", threshold_widget)
+        form.addRow("", self.embedding_fallback_check)
 
         panel = QWidget()
         panel.setLayout(form)
@@ -751,6 +765,7 @@ class SettingsDialog(QDialog):
         threshold = int(round(synonym_settings.embedding_threshold * 100))
         self.embedding_threshold_slider.setValue(max(0, min(100, threshold)))
         self._update_embedding_threshold_label(self.embedding_threshold_slider.value())
+        self.embedding_fallback_check.setChecked(synonym_settings.embedding_fallback)
         self._toggle_embedding_fields(self.use_embeddings_check.isChecked())
 
     def _apply_inflections(self, settings: InflectionSettings) -> None:
@@ -800,6 +815,7 @@ class SettingsDialog(QDialog):
         self.embedding_browse_button.setEnabled(enabled)
         self.embedding_threshold_slider.setEnabled(enabled)
         self.embedding_threshold_value.setEnabled(enabled)
+        self.embedding_fallback_check.setEnabled(enabled)
 
 
 class CodeDialog(QDialog):

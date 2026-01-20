@@ -1,11 +1,51 @@
 function buildSettingsPanel(plugin) {
 	const panel = document.createElement("div");
 	panel.style.padding = "10px";
+	panel.style.minWidth = "520px";
+	panel.style.minHeight = "520px";
 
 	const description = document.createElement("div");
 	description.textContent = "Paste a rules JSON array or a full dataset JSON with a rules field.";
 	description.style.marginBottom = "8px";
 	panel.appendChild(description);
+
+	const highlightRow = document.createElement("label");
+	highlightRow.style.display = "flex";
+	highlightRow.style.alignItems = "center";
+	highlightRow.style.gap = "8px";
+	highlightRow.style.marginBottom = "12px";
+	highlightRow.style.cursor = "pointer";
+	const highlightCheckbox = document.createElement("input");
+	highlightCheckbox.type = "checkbox";
+	highlightCheckbox.checked = plugin.getHighlightReplacements();
+	const highlightText = document.createElement("span");
+	highlightText.textContent = "Highlight replaced words (click to toggle original)";
+	highlightRow.appendChild(highlightCheckbox);
+	highlightRow.appendChild(highlightText);
+	panel.appendChild(highlightRow);
+
+	const colorRow = document.createElement("div");
+	colorRow.style.display = "flex";
+	colorRow.style.alignItems = "center";
+	colorRow.style.gap = "8px";
+	colorRow.style.marginBottom = "12px";
+
+	const colorLabel = document.createElement("span");
+	colorLabel.textContent = "Highlight color";
+	colorRow.appendChild(colorLabel);
+
+	const colorInput = document.createElement("input");
+	colorInput.type = "color";
+	colorInput.value = plugin.getHighlightColor();
+	colorRow.appendChild(colorInput);
+
+	const colorValue = document.createElement("input");
+	colorValue.type = "text";
+	colorValue.value = plugin.getHighlightColor();
+	colorValue.style.width = "90px";
+	colorRow.appendChild(colorValue);
+
+	panel.appendChild(colorRow);
 
 	const textarea = document.createElement("textarea");
 	textarea.style.width = "100%";
@@ -169,6 +209,31 @@ function buildSettingsPanel(plugin) {
 		status.textContent = "Copied.";
 		status.style.color = "var(--text-positive)";
 	};
+
+	highlightCheckbox.onchange = _ => {
+		plugin.setHighlightReplacements(highlightCheckbox.checked);
+		colorInput.disabled = !highlightCheckbox.checked;
+		colorValue.disabled = !highlightCheckbox.checked;
+		status.textContent = "Display preference saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorInput.onchange = _ => {
+		colorValue.value = colorInput.value;
+		plugin.setHighlightColor(colorInput.value);
+		status.textContent = "Highlight color saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorValue.onchange = _ => {
+		colorInput.value = colorValue.value;
+		plugin.setHighlightColor(colorValue.value);
+		status.textContent = "Highlight color saved.";
+		status.style.color = "var(--text-positive)";
+	};
+
+	colorInput.disabled = !highlightCheckbox.checked;
+	colorValue.disabled = !highlightCheckbox.checked;
 
 	return panel;
 }

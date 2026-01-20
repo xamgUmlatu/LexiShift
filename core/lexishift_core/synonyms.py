@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import heapq
+import json
 import math
 import re
 import sqlite3
@@ -24,6 +26,7 @@ class SynonymOptions:
     use_embeddings: bool = False
     embedding_path: Optional[Path] = None
     embedding_threshold: float = 0.0
+    embedding_fallback: bool = True
 
 
 class SynonymGenerator:
@@ -37,6 +40,25 @@ class SynonymGenerator:
         self._load_embeddings()
 
     def synonyms_for(self, word: str) -> list[str]:
+        return self._synonyms_for_detail(word)[0]
+
+    def synonyms_for_detail(self, word: str) -> tuple[list[str], bool]:
+        return self._synonyms_for_detail(word)
+
+    def has_embeddings(self) -> bool:
+        return self._embeddings is not None
+
+    def embeddings_support_neighbors(self) -> bool:
+        if not self._embeddings:
+            return False
+        return self._embeddings.supports_neighbors()
+
+    def embeddings_has_vector(self, word: str) -> bool:
+        if not self._embeddings:
+            return False
+        return self._embeddings.has_vector(word)
+
+    def _synonyms_for_detail(self, word: str) -> tuple[list[str], bool]:
         key = word.lower() if self._options.lower_case else word
         synonyms = self._synonyms.get(key, set()).copy()
         if not self._options.include_phrases:
@@ -46,7 +68,24 @@ class SynonymGenerator:
         else:
             synonyms.discard(word)
         results = sorted(synonyms)
-        if self._embeddings and self._embeddings.has_vector(key):
+        used_fallback = False
+        if (
+            not results
+            and self._embeddings
+            and self._options.embedding_fallback
+            and self._embeddings.supports_neighbors()
+        ):
+            neighbors = self._embeddings.nearest_neighbors(
+                key,
+                limit=self._options.max_synonyms,
+                min_score=0.0,
+            )
+            fallback = [word for word, _score in neighbors]
+            if not self._options.include_phrases:
+                fallback = [item for item in fallback if " " not in item]
+            results = fallback
+            used_fallback = True
+        if not used_fallback and self._embeddings and self._embeddings.has_vector(key):
             scored = []
             unknown: list[str] = []
             for synonym in synonyms:
@@ -63,7 +102,7 @@ class SynonymGenerator:
                 results.extend(sorted(unknown))
         if self._options.max_synonyms > 0:
             results = results[: self._options.max_synonyms]
-        return results
+        return results, used_fallback
 
     def generate_rules(self, targets: Iterable[str], *, avoid_duplicates: bool = True) -> list[tuple[str, str]]:
         seen_sources: set[str] = set()
@@ -206,6 +245,7 @@ class EmbeddingIndex:
         self._phrase_cache: dict[str, Optional[list[float]]] = {}
         self._dim: Optional[int] = None
         self._sqlite_conn: Optional[sqlite3.Connection] = None
+        self._lsh_indices: Optional[list[int]] = None
         self._load()
 
     def has_vector(self, word: str) -> bool:
@@ -224,6 +264,30 @@ class EmbeddingIndex:
         for idx in range(len(vec_a)):
             dot += vec_a[idx] * vec_b[idx]
         return dot / (norm_a * norm_b)
+
+    def nearest_neighbors(
+        self,
+        term: str,
+        *,
+        limit: int = 30,
+        min_score: float = 0.0,
+    ) -> list[tuple[str, float]]:
+        if limit <= 0:
+            return []
+        vec = self._vector_for_term(term)
+        if vec is None:
+            return []
+        term_key = term.lower() if self._lower_case else term
+        if self._sqlite_conn and self._lsh_indices:
+            return self._nearest_neighbors_sqlite(term_key, vec, limit, min_score)
+        if self._sqlite_conn:
+            return []
+        return self._nearest_neighbors_memory(term_key, vec, limit, min_score)
+
+    def supports_neighbors(self) -> bool:
+        if self._sqlite_conn:
+            return self._lsh_indices is not None
+        return True
 
     def _load(self) -> None:
         if self._path.suffix.lower() in {".db", ".sqlite", ".sqlite3"}:
@@ -354,6 +418,101 @@ class EmbeddingIndex:
                 self._dim = int(row[0])
             except (TypeError, ValueError):
                 self._dim = None
+        lsh_row = None
+        try:
+            lsh_row = self._sqlite_conn.execute(
+                "SELECT value FROM meta WHERE key = 'lsh_indices' LIMIT 1"
+            ).fetchone()
+        except sqlite3.Error:
+            lsh_row = None
+        if lsh_row and lsh_row[0]:
+            try:
+                indices = json.loads(lsh_row[0])
+                if isinstance(indices, list) and all(isinstance(idx, int) for idx in indices):
+                    self._lsh_indices = indices
+            except (TypeError, ValueError, json.JSONDecodeError):
+                self._lsh_indices = None
+
+    def _nearest_neighbors_memory(
+        self,
+        term_key: str,
+        vec: list[float],
+        limit: int,
+        min_score: float,
+    ) -> list[tuple[str, float]]:
+        norm_a = math.sqrt(sum(value * value for value in vec))
+        if norm_a <= 0.0:
+            return []
+        heap: list[tuple[float, str]] = []
+        for word, vec_b in self._vectors.items():
+            if word == term_key:
+                continue
+            norm_b = self._norms.get(word)
+            if not norm_b:
+                continue
+            dot = 0.0
+            for idx in range(len(vec)):
+                dot += vec[idx] * vec_b[idx]
+            score = dot / (norm_a * norm_b)
+            if score < min_score:
+                continue
+            if len(heap) < limit:
+                heapq.heappush(heap, (score, word))
+            else:
+                heapq.heappushpop(heap, (score, word))
+        heap.sort(reverse=True)
+        return [(word, score) for score, word in heap]
+
+    def _nearest_neighbors_sqlite(
+        self,
+        term_key: str,
+        vec: list[float],
+        limit: int,
+        min_score: float,
+    ) -> list[tuple[str, float]]:
+        if not self._sqlite_conn or not self._lsh_indices:
+            return []
+        norm_a = math.sqrt(sum(value * value for value in vec))
+        if norm_a <= 0.0:
+            return []
+        sig = self._lsh_signature(vec)
+        sigs = [sig] + [sig ^ (1 << bit) for bit in range(len(self._lsh_indices))]
+        placeholders = ", ".join(["?"] * len(sigs))
+        query = f"SELECT word, vector, norm FROM vectors WHERE lsh_sig IN ({placeholders})"
+        rows = self._sqlite_conn.execute(query, sigs).fetchall()
+        heap: list[tuple[float, str]] = []
+        for word, blob, norm_b in rows:
+            if not word or not blob or not norm_b:
+                continue
+            if self._lower_case:
+                if word.lower() == term_key:
+                    continue
+            elif word == term_key:
+                continue
+            dim = self._dim or (len(blob) // 4)
+            vec_b = list(struct.unpack(f"<{dim}f", blob))
+            dot = 0.0
+            length = min(len(vec), len(vec_b))
+            for idx in range(length):
+                dot += vec[idx] * vec_b[idx]
+            score = dot / (norm_a * norm_b)
+            if score < min_score:
+                continue
+            if len(heap) < limit:
+                heapq.heappush(heap, (score, word))
+            else:
+                heapq.heappushpop(heap, (score, word))
+        heap.sort(reverse=True)
+        return [(word, score) for score, word in heap]
+
+    def _lsh_signature(self, vec: list[float]) -> int:
+        if not self._lsh_indices:
+            return 0
+        sig = 0
+        for bit, idx in enumerate(self._lsh_indices):
+            if idx < len(vec) and vec[idx] >= 0.0:
+                sig |= 1 << bit
+        return sig
 
     def _load_word2vec_binary(self) -> None:
         with self._path.open("rb") as handle:

@@ -1,5 +1,5 @@
 /**
- * @name VocabReplacer
+ * @name LexiShift
  * @author myuurin
  * @version 0.1.0
  * @description Replace message text using vocab rules.

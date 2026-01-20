@@ -1,11 +1,11 @@
-## VocabReplacer (BetterDiscord plugin)
+## LexiShift (BetterDiscord plugin)
 
 Purpose
 - Replace message text in Discord using a JSON rule list.
 - Applies to message content and embed descriptions.
 
 Install
-1) Copy `betterdiscord_plugin/VocabReplacer.plugin.js` into your BetterDiscord plugins folder.
+1) Copy `betterdiscord_plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
 2) Reload Discord or toggle the plugin on.
 3) If prompted, allow the BDFDB library plugin download.
 
@@ -44,7 +44,7 @@ Development
   - Override location with `BD_PLUGINS_DIR`.
 
 End-to-end example
-1) Install the plugin by copying `betterdiscord_plugin/VocabReplacer.plugin.js` into your BetterDiscord plugins folder.
+1) Install the plugin by copying `betterdiscord_plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
 2) Enable the plugin in BetterDiscord.
 3) Open the plugin settings and paste this JSON into the rules box:
 ```json
@@ -59,6 +59,6 @@ End-to-end example
    - Output: `At gloaming, she was overawed.`
 
 What the code does
-- Settings panel stores JSON rules and rebuilds the trie (see `getSettingsPanel` in `betterdiscord_plugin/VocabReplacer.plugin.js`).
+- Settings panel stores JSON rules and rebuilds the trie (see `getSettingsPanel` in `betterdiscord_plugin/LexiShift.plugin.js`).
 - Message replacement runs in `processMessages` and `parseMessage`, applying `replaceText` to message content and embeds.
 - The trie matcher uses word tokenization and only allows whitespace between words in a phrase.

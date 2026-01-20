@@ -1,4 +1,4 @@
-		return class VocabReplacer extends Plugin {
+		return class LexiShift extends Plugin {
 			onLoad () {
 				this.defaults = {
 					general: {
@@ -17,10 +17,15 @@
 				if (!Array.isArray(rules)) rules = [];
 				trie = buildTrie(normalizeRules(rules));
 				oldMessages = {};
+				this._loadPreferences();
+				this._installStyle();
+				this._startMarkerObserver();
 				this.requestRefresh();
 			}
 
 			onStop () {
+				this._removeStyle();
+				this._stopMarkerObserver();
 				this.requestRefresh();
 			}
 
@@ -66,7 +71,15 @@
 			}
 
 			processMessageContent (e) {
-				return;
+				if (!this.settings.general.targetMessages) return;
+				if (!e || !e.returnvalue) return;
+				const replaced = replaceMarkersInTree(e.returnvalue, this);
+				if (Array.isArray(replaced)) {
+					e.returnvalue = BdApi.React.createElement(BdApi.React.Fragment, null, ...replaced);
+				}
+				else {
+					e.returnvalue = replaced;
+				}
 			}
 
 			checkMessage (stream, message) {
@@ -88,7 +101,7 @@
 				let embeds = [].concat(message.embeds || []);
 				let changed = false;
 				if (content && typeof content == "string") {
-					let replaced = replaceText(content, trie);
+					let replaced = replaceText(content, trie, {annotate: true});
 					if (replaced !== content) {
 						content = replaced;
 						changed = true;
@@ -98,12 +111,109 @@
 					embeds = embeds.map(embed => {
 						let raw = embed.rawDescription || embed.description;
 						if (!raw || typeof raw !== "string") return embed;
-						let replaced = replaceText(raw, trie);
+						let replaced = replaceText(raw, trie, {annotate: false});
 						if (replaced === raw) return embed;
 						changed = true;
 						return Object.assign({}, embed, {rawDescription: replaced, description: replaced});
 					});
 				}
 				return {changed, content, embeds};
+			}
+
+			_loadPreferences () {
+				const prefs = BDFDB.DataUtils.load(this, "prefs") || {};
+				this._highlightReplacements = prefs.highlightReplacements !== false;
+				this._highlightColor = prefs.highlightColor || "#9AA0A6";
+			}
+
+			_savePreferences () {
+				BDFDB.DataUtils.save(
+					{highlightReplacements: this._highlightReplacements, highlightColor: this._highlightColor},
+					this,
+					"prefs"
+				);
+			}
+
+			getHighlightReplacements () {
+				return this._highlightReplacements !== false;
+			}
+
+			setHighlightReplacements (value) {
+				this._highlightReplacements = Boolean(value);
+				this._savePreferences();
+				this._applyHighlightToDom();
+				this.requestRefresh();
+			}
+
+			getHighlightColor () {
+				return this._highlightColor || "#9AA0A6";
+			}
+
+			setHighlightColor (value) {
+				this._highlightColor = value || "#9AA0A6";
+				this._savePreferences();
+				this._applyHighlightToDom();
+				this.requestRefresh();
+			}
+
+			_installStyle () {
+				if (BdApi.DOM && typeof BdApi.DOM.addStyle === "function") {
+					BdApi.DOM.addStyle(STYLE_ID, STYLE_RULES);
+				}
+			}
+
+			_removeStyle () {
+				if (BdApi.DOM && typeof BdApi.DOM.removeStyle === "function") {
+					BdApi.DOM.removeStyle(STYLE_ID);
+				}
+			}
+
+			_startMarkerObserver () {
+				if (this._markerObserver || !document || !document.body) return;
+				this._markerObserver = new MutationObserver(mutations => {
+					if (this._markerReplacing) return;
+					this._markerReplacing = true;
+					try {
+						for (const mutation of mutations) {
+							for (const node of mutation.addedNodes) {
+								if (node && node.nodeType === Node.ELEMENT_NODE) {
+									replaceMarkersInElement(node, this);
+								}
+								else if (node && node.nodeType === Node.TEXT_NODE && node.nodeValue) {
+									if (node.nodeValue.indexOf(MARKER_START) !== -1 && node.parentNode) {
+										replaceMarkersInElement(node.parentNode, this);
+									}
+								}
+							}
+						}
+					}
+					finally {
+						this._markerReplacing = false;
+					}
+				});
+				this._markerObserver.observe(document.body, {childList: true, subtree: true});
+				replaceMarkersInElement(document.body, this);
+			}
+
+			_stopMarkerObserver () {
+				if (!this._markerObserver) return;
+				this._markerObserver.disconnect();
+				this._markerObserver = null;
+			}
+
+			_applyHighlightToDom () {
+				if (!document) return;
+				const highlight = this.getHighlightReplacements();
+				const color = this.getHighlightColor();
+				for (const node of document.querySelectorAll(".ls-replaced")) {
+					if (highlight) {
+						node.classList.add("ls-highlight");
+						node.style.color = color;
+					}
+					else {
+						node.classList.remove("ls-highlight");
+						node.style.color = "";
+					}
+				}
 			}
 		};

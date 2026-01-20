@@ -108,8 +108,9 @@ function findLongestMatch(trie, words, gapOk, startIndex) {
 	return {startWordIndex: startIndex, endWordIndex: bestEnd, rule: bestRule};
 }
 
-function replaceText(text, trie) {
+function replaceText(text, trie, options = {}) {
 	if (!trie) return text;
+	const annotate = options.annotate === true;
 	const tokens = tokenize(text);
 	const wordPositions = [];
 	const wordTexts = [];
@@ -141,7 +142,14 @@ function replaceText(text, trie) {
 			output += tokens[i].text;
 		}
 		const sourceWords = wordTexts.slice(match.startWordIndex, match.endWordIndex + 1);
-		output += applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
+		const replacement = applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
+		if (annotate) {
+			const original = sourceWords.join(" ");
+			output += wrapReplacement(replacement, original);
+		}
+		else {
+			output += replacement;
+		}
 		tokenCursor = endTokenIdx + 1;
 	}
 	for (let i = tokenCursor; i < tokens.length; i += 1) {

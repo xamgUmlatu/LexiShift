@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 
-const pluginName = "VocabReplacer.plugin.js";
+const pluginName = "LexiShift.plugin.js";
 const sourcePath = path.join(__dirname, pluginName);
 
 function defaultPluginsDir() {

@@ -1,6 +1,8 @@
 import argparse
+import json
 import math
 import os
+import random
 import sqlite3
 import sys
 import time
@@ -19,6 +21,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--input", required=True, help="Path to .vec/.txt/.bin embeddings file.")
     parser.add_argument("--output", required=True, help="Path to output .db/.sqlite file.")
     parser.add_argument("--lowercase-words", action="store_true", help="Store words lowercased.")
+    parser.add_argument("--lsh-bits", type=int, default=16, help="Number of LSH bits to store (0 to disable).")
+    parser.add_argument("--lsh-seed", type=int, default=1337, help="Random seed for LSH bit selection.")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite output if it exists.")
     parser.add_argument("--limit", type=int, default=0, help="Limit number of rows (debug).")
     parser.add_argument("--batch", type=int, default=5000, help="Batch size for inserts.")
@@ -40,10 +44,12 @@ def _init_db(path: Path) -> sqlite3.Connection:
         "word_lc TEXT NOT NULL, "
         "dim INTEGER NOT NULL, "
         "norm REAL NOT NULL, "
+        "lsh_sig INTEGER, "
         "vector BLOB NOT NULL"
         ")"
     )
     conn.execute("CREATE INDEX IF NOT EXISTS idx_vectors_word_lc ON vectors(word_lc)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_vectors_lsh_sig ON vectors(lsh_sig)")
     return conn
 
 
@@ -60,7 +66,8 @@ def _pack_vector(values: list[float]) -> bytes:
 
 def _insert_batch(conn: sqlite3.Connection, batch: list[tuple]) -> None:
     conn.executemany(
-        "INSERT OR REPLACE INTO vectors (word, word_lc, dim, norm, vector) VALUES (?, ?, ?, ?, ?)",
+        "INSERT OR REPLACE INTO vectors (word, word_lc, dim, norm, lsh_sig, vector) "
+        "VALUES (?, ?, ?, ?, ?, ?)",
         batch,
     )
 
@@ -70,11 +77,14 @@ def _convert_text(
     path: Path,
     *,
     lowercase_words: bool,
+    lsh_bits: int,
+    lsh_seed: int,
     limit: int,
     batch_size: int,
     progress_every: int,
 ) -> None:
     dim = None
+    lsh_indices: list[int] = []
     batch = []
     count = 0
     start = time.time()
@@ -85,14 +95,17 @@ def _convert_text(
         parts = first.strip().split()
         if _is_header(parts):
             dim = int(parts[1])
+            lsh_indices = _build_lsh_indices(dim, bits=lsh_bits, seed=lsh_seed)
         else:
             dim = len(parts) - 1
+            lsh_indices = _build_lsh_indices(dim, bits=lsh_bits, seed=lsh_seed)
             _process_vector_line(
                 conn,
                 parts,
                 dim,
                 batch,
                 lowercase_words=lowercase_words,
+                lsh_indices=lsh_indices,
             )
             count += 1
         for line in handle:
@@ -109,6 +122,7 @@ def _convert_text(
                 dim,
                 batch,
                 lowercase_words=lowercase_words,
+                lsh_indices=lsh_indices,
             )
             count += 1
             if limit and count >= limit:
@@ -126,6 +140,11 @@ def _convert_text(
         batch.clear()
     if dim is not None:
         conn.execute("INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)", ("dim", str(dim)))
+        if lsh_indices:
+            conn.execute(
+                "INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)",
+                ("lsh_indices", json.dumps(lsh_indices)),
+            )
         conn.commit()
 
 
@@ -136,6 +155,7 @@ def _process_vector_line(
     batch: list[tuple],
     *,
     lowercase_words: bool,
+    lsh_indices: list[int],
 ) -> None:
     word = parts[0]
     if lowercase_words:
@@ -151,7 +171,8 @@ def _process_vector_line(
     if norm <= 0.0:
         return
     blob = _pack_vector(values)
-    batch.append((word, word_lc, dim, norm, blob))
+    lsh_sig = _lsh_signature(values, lsh_indices) if lsh_indices else None
+    batch.append((word, word_lc, dim, norm, lsh_sig, blob))
 
 
 def _convert_binary(
@@ -159,6 +180,8 @@ def _convert_binary(
     path: Path,
     *,
     lowercase_words: bool,
+    lsh_bits: int,
+    lsh_seed: int,
     limit: int,
     batch_size: int,
     progress_every: int,
@@ -175,6 +198,7 @@ def _convert_binary(
             return
         vocab_size = int(parts[0])
         dim = int(parts[1])
+        lsh_indices = _build_lsh_indices(dim, bits=lsh_bits, seed=lsh_seed)
         for _ in range(vocab_size):
             word = _read_binary_word(handle)
             if not word:
@@ -189,7 +213,8 @@ def _convert_binary(
             if norm <= 0.0:
                 continue
             blob = _pack_vector(vector)
-            batch.append((word, word_lc, dim, norm, blob))
+            lsh_sig = _lsh_signature(vector, lsh_indices) if lsh_indices else None
+            batch.append((word, word_lc, dim, norm, lsh_sig, blob))
             count += 1
             if limit and count >= limit:
                 break
@@ -205,7 +230,29 @@ def _convert_binary(
         conn.commit()
         batch.clear()
     conn.execute("INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)", ("dim", str(dim)))
+    if lsh_indices:
+        conn.execute(
+            "INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)",
+            ("lsh_indices", json.dumps(lsh_indices)),
+        )
     conn.commit()
+
+
+def _build_lsh_indices(dim: int, *, bits: int, seed: int) -> list[int]:
+    if bits <= 0 or dim <= 0:
+        return []
+    if bits > dim:
+        bits = dim
+    rng = random.Random(seed)
+    return rng.sample(range(dim), bits)
+
+
+def _lsh_signature(values: list[float], indices: list[int]) -> int:
+    sig = 0
+    for bit, idx in enumerate(indices):
+        if idx < len(values) and values[idx] >= 0.0:
+            sig |= 1 << bit
+    return sig
 
 
 def main() -> int:
@@ -229,6 +276,8 @@ def main() -> int:
             conn,
             input_path,
             lowercase_words=args.lowercase_words,
+            lsh_bits=args.lsh_bits,
+            lsh_seed=args.lsh_seed,
             limit=args.limit,
             batch_size=args.batch,
             progress_every=args.progress,
@@ -238,6 +287,8 @@ def main() -> int:
             conn,
             input_path,
             lowercase_words=args.lowercase_words,
+            lsh_bits=args.lsh_bits,
+            lsh_seed=args.lsh_seed,
             limit=args.limit,
             batch_size=args.batch,
             progress_every=args.progress,
