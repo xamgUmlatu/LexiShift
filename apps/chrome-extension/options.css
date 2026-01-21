@@ -37,9 +37,62 @@ header p {
   align-items: center;
 }
 
+.radio-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.radio {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+}
+
 .hint {
   font-size: 14px;
   color: #6c675f;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.field-row input[type="color"] {
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 32px;
+  background: transparent;
+}
+
+.field-row input[type="text"] {
+  width: 110px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #cfc6b5;
+  background: #fffefb;
+  font-family: "Courier New", monospace;
+}
+
+#debug-focus-word {
+  width: 200px;
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.file-row input[type="file"] {
+  flex: 1;
 }
 
 textarea {
@@ -73,6 +126,15 @@ button {
 
 button:hover {
   background: #1c1a17;
+}
+
+#share-code {
+  margin-top: 10px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 #status {

@@ -1,15 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "VocabReplacer",
+  "name": "LexiShift",
   "version": "0.1.0",
-  "description": "Replace visible text using a configurable ruleset.",
+  "description": "Replace visible text using a configurable ruleset with optional highlighting.",
   "permissions": ["storage"],
   "options_page": "options.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content_script.js"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": true,
+      "match_about_blank": true
     }
   ]
 }
