@@ -12,76 +12,95 @@
         <h1>LexiShift</h1>
         <p>Configure replacement rules for the content script.</p>
       </header>
-      <section class="card">
-        <label class="toggle">
-          <input id="enabled" type="checkbox" />
-          <span>Enable replacements</span>
-        </label>
-      </section>
-      <section class="card">
-        <h2>Display</h2>
-        <label class="toggle">
-          <input id="highlight-enabled" type="checkbox" />
-          <span>Highlight replaced words (click to toggle original)</span>
-        </label>
-        <div class="field-row">
-          <label for="highlight-color">Highlight color</label>
-          <input id="highlight-color" type="color" />
-          <input id="highlight-color-text" type="text" />
-        </div>
-        <label class="toggle">
-          <input id="debug-enabled" type="checkbox" />
-          <span>Enable debug logs (console)</span>
-        </label>
-        <p class="hint">Logs appear in each page's developer console.</p>
-        <div class="field-row">
-          <label for="debug-focus-word">Debug focus word</label>
-          <input id="debug-focus-word" type="text" placeholder="e.g. twilight" />
-        </div>
-        <p class="hint">When set, logs include nodes containing this exact word.</p>
-      </section>
-      <section class="card">
-        <h2>Rules Source</h2>
-        <div class="radio-group">
-          <label class="radio">
-            <input type="radio" name="rules-source" value="editor" />
-            <span>Edit JSON</span>
+      <div class="layout">
+        <section class="card">
+          <h2>Quick Controls</h2>
+          <label class="toggle">
+            <input id="enabled" type="checkbox" />
+            <span>Enable replacements</span>
           </label>
-          <label class="radio">
-            <input type="radio" name="rules-source" value="file" />
-            <span>Import JSON file</span>
+        </section>
+        <section class="card">
+          <h2>Rules Source</h2>
+          <div class="radio-group">
+            <label class="radio">
+              <input type="radio" name="rules-source" value="editor" />
+              <span>Edit JSON</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="rules-source" value="file" />
+              <span>Import JSON file</span>
+            </label>
+          </div>
+          <div class="file-row">
+            <input id="rules-file" type="file" accept=".json,application/json" />
+            <button id="import-file">Import</button>
+            <button id="export-file">Export</button>
+          </div>
+          <div class="meta-row">
+            <div>
+              <span class="meta-label">Last updated</span>
+              <span id="rules-updated" class="meta-value">—</span>
+            </div>
+            <div>
+              <span class="meta-label">Rules</span>
+              <span id="rules-count" class="meta-value">0</span>
+            </div>
+          </div>
+          <p id="file-status" class="hint">No file imported yet. Re-import after changes.</p>
+        </section>
+        <section class="card">
+          <h2>Display</h2>
+          <label class="toggle">
+            <input id="highlight-enabled" type="checkbox" />
+            <span>Highlight replaced words (click to toggle original)</span>
           </label>
-        </div>
-        <div class="file-row">
-          <input id="rules-file" type="file" accept=".json,application/json" />
-          <button id="import-file">Import</button>
-          <button id="export-file">Export</button>
-        </div>
-        <p id="file-status" class="hint">No file imported yet. Re-import after changes.</p>
-      </section>
-      <section class="card">
-        <h2>Rules (JSON)</h2>
-        <p class="hint">Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]</p>
-        <textarea id="rules" rows="16" spellcheck="false"></textarea>
-        <div class="actions">
-          <button id="save">Save</button>
-          <span id="status"></span>
-        </div>
-      </section>
-      <section class="card">
-        <h2>Share Code</h2>
-        <p class="hint">Generate a compressed code for sharing rules across devices.</p>
-        <textarea id="share-code" rows="6" spellcheck="false"></textarea>
-        <label class="toggle">
-          <input id="share-code-cjk" type="checkbox" checked />
-          <span>Short code (CJK)</span>
-        </label>
-        <div class="actions">
-          <button id="generate-code">Generate</button>
-          <button id="import-code">Import</button>
-          <button id="copy-code">Copy</button>
-        </div>
-      </section>
+          <div class="field-row">
+            <label for="highlight-color">Highlight color</label>
+            <input id="highlight-color" type="color" />
+            <input id="highlight-color-text" type="text" />
+          </div>
+        </section>
+        <section class="card">
+          <h2>Share Code</h2>
+          <p class="hint">Generate a compressed code for sharing rules across devices.</p>
+          <textarea id="share-code" rows="6" spellcheck="false"></textarea>
+          <label class="toggle">
+            <input id="share-code-cjk" type="checkbox" checked />
+            <span>Short code (CJK)</span>
+          </label>
+          <div class="actions">
+            <button id="generate-code">Generate</button>
+            <button id="import-code">Import</button>
+            <button id="copy-code">Copy</button>
+          </div>
+        </section>
+        <section class="card span-2">
+          <h2>Rules (JSON)</h2>
+          <p class="hint">Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]</p>
+          <textarea id="rules" rows="16" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="save">Save</button>
+            <span id="status"></span>
+          </div>
+        </section>
+        <section class="card span-2">
+          <h2>Advanced</h2>
+          <details class="advanced">
+            <summary>Debug tools</summary>
+            <label class="toggle">
+              <input id="debug-enabled" type="checkbox" />
+              <span>Enable debug logs (console)</span>
+            </label>
+            <p class="hint">Logs appear in each page's developer console.</p>
+            <div class="field-row">
+              <label for="debug-focus-word">Debug focus word</label>
+              <input id="debug-focus-word" type="text" placeholder="e.g. twilight" />
+            </div>
+            <p class="hint">When set, logs include nodes containing this exact word.</p>
+          </details>
+        </section>
+      </div>
     </main>
     <script src="lzstring.js"></script>
     <script src="cjk_codec.js"></script>

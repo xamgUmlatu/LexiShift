@@ -6,7 +6,8 @@ const DEFAULT_SETTINGS = {
   debugEnabled: false,
   debugFocusWord: "",
   rulesSource: "editor",
-  rulesFileName: ""
+  rulesFileName: "",
+  rulesUpdatedAt: ""
 };
 
 const enabledInput = document.getElementById("enabled");
@@ -23,6 +24,8 @@ const rulesFileInput = document.getElementById("rules-file");
 const importFileButton = document.getElementById("import-file");
 const exportFileButton = document.getElementById("export-file");
 const fileStatus = document.getElementById("file-status");
+const rulesUpdated = document.getElementById("rules-updated");
+const rulesCount = document.getElementById("rules-count");
 const shareCodeInput = document.getElementById("share-code");
 const shareCodeCjk = document.getElementById("share-code-cjk");
 const generateCodeButton = document.getElementById("generate-code");
@@ -46,6 +49,26 @@ function setStatus(message, color) {
         status.textContent = "";
       }
     }, 2000);
+  }
+}
+
+function formatTimestamp(value) {
+  if (!value) {
+    return "—";
+  }
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "—";
+  }
+  return date.toLocaleString();
+}
+
+function updateRulesMeta(rules, updatedAt) {
+  if (rulesCount) {
+    rulesCount.textContent = Array.isArray(rules) ? String(rules.length) : "0";
+  }
+  if (rulesUpdated) {
+    rulesUpdated.textContent = formatTimestamp(updatedAt);
   }
 }
 
@@ -86,8 +109,10 @@ function saveRules() {
     return;
   }
   currentRules = rules;
-  chrome.storage.local.set({ rules, rulesSource: "editor" }, () => {
+  const updatedAt = new Date().toISOString();
+  chrome.storage.local.set({ rules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
     updateRulesSourceUI("editor");
+    updateRulesMeta(rules, updatedAt);
     setStatus("Rules saved.", "#3c5a2a");
   });
 }
@@ -105,10 +130,12 @@ function importFromFile() {
       const rules = extractRules(parsed);
       currentRules = rules;
       rulesInput.value = JSON.stringify(rules, null, 2);
+      const updatedAt = new Date().toISOString();
       chrome.storage.local.set(
-        { rules, rulesSource: "file", rulesFileName: file.name },
+        { rules, rulesSource: "file", rulesFileName: file.name, rulesUpdatedAt: updatedAt },
         () => {
           updateRulesSourceUI("file");
+          updateRulesMeta(rules, updatedAt);
           fileStatus.textContent = `Last imported: ${file.name}`;
           setStatus(`Imported ${rules.length} rules.`, "#3c5a2a");
         }
@@ -169,8 +196,10 @@ function importShareCode() {
     }
     currentRules = decodedRules;
     rulesInput.value = JSON.stringify(decodedRules, null, 2);
-    chrome.storage.local.set({ rules: decodedRules, rulesSource: "editor" }, () => {
+    const updatedAt = new Date().toISOString();
+    chrome.storage.local.set({ rules: decodedRules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
       updateRulesSourceUI("editor");
+      updateRulesMeta(decodedRules, updatedAt);
       setStatus("Code imported.", "#3c5a2a");
     });
   } catch (err) {
@@ -210,6 +239,7 @@ function load() {
     fileStatus.textContent = items.rulesFileName
       ? `Last imported: ${items.rulesFileName}`
       : "No file imported yet. Re-import after changes.";
+    updateRulesMeta(currentRules, items.rulesUpdatedAt);
   });
 }
 

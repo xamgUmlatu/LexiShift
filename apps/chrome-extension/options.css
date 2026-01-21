@@ -1,14 +1,38 @@
 body {
   font-family: "Georgia", "Times New Roman", serif;
-  background: #f6f3ee;
+  background: radial-gradient(circle at 20% 20%, #fbf7f0, #f1ece4 55%, #e8e0d4 100%);
   color: #2c2a26;
   margin: 0;
 }
 
 .container {
-  max-width: 760px;
+  max-width: 1040px;
   margin: 40px auto;
-  padding: 0 20px 60px;
+  padding: 0 28px 70px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(420px, 1.4fr);
+  gap: 18px;
+}
+
+.layout .card {
+  margin-bottom: 0;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 820px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .span-2 {
+    grid-column: span 1;
+  }
 }
 
 header h1 {
@@ -22,12 +46,30 @@ header p {
 }
 
 .card {
+  position: relative;
   background: #fffaf2;
   border: 1px solid #e3dccf;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 8px 20px rgba(54, 47, 38, 0.08);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(44, 42, 38, 0.2), rgba(44, 42, 38, 0));
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: 0.01em;
 }
 
 .toggle {
@@ -61,6 +103,7 @@ header p {
   align-items: center;
   gap: 10px;
   margin-top: 12px;
+  flex-wrap: wrap;
 }
 
 .field-row input[type="color"] {
@@ -88,11 +131,31 @@ header p {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .file-row input[type="file"] {
   flex: 1;
+}
+
+.meta-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.meta-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #827a70;
+}
+
+.meta-value {
+  font-weight: 600;
+  color: #2c2a26;
 }
 
 textarea {
@@ -105,6 +168,7 @@ textarea {
   font-family: "Courier New", monospace;
   font-size: 14px;
   line-height: 1.5;
+  box-sizing: border-box;
 }
 
 .actions {
@@ -130,6 +194,7 @@ button:hover {
 
 #share-code {
   margin-top: 10px;
+  max-width: 520px;
 }
 
 button:disabled {
@@ -140,4 +205,18 @@ button:disabled {
 #status {
   font-size: 14px;
   color: #6c675f;
+}
+
+.advanced {
+  border: 1px dashed #e1d6c6;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fffdf8;
+}
+
+.advanced summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #4d473f;
+  margin-bottom: 8px;
 }
