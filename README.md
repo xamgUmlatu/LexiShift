@@ -123,6 +123,13 @@ Synonym sources (local)
     - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
   - Point “Embeddings file” in Settings to the `.db`/`.sqlite` output.
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
+Language packs (Settings -> App)
+- Language packs list is shown inside Settings (App tab), with a Download button per pack.
+- Each row shows language, source, and size (size is listed in the rightmost column).
+- Downloads are saved to the app data folder (use the "Open local directory" button at the top of the section).
+- If a download fails, the UI shows a "there was a problem" message plus a Wayback mirror link.
+- Placeholder pack entries live in `apps/gui/src/dialogs.py` (`LANGUAGE_PACKS`); replace URLs and sizes with real values.
+- After download, point WordNet/Moby fields at the downloaded files as needed (auto-wiring can be added later).
 
 Profiles, rulesets, and app settings (GUI scaffolding)
 - `Profile` is a named project that owns one or more rulesets (JSON files) and tracks the active ruleset.
@@ -189,6 +196,12 @@ Current limitations
 - No streaming adapter yet (planned).
 - No POS/NER gating yet (possible future accuracy upgrade).
 - Inflection generator is conservative and avoids ambiguous doubling.
+- TODO (CJK / no-space languages):
+  - Detect whether input is likely a no-space language (CJK) using lightweight heuristics.
+  - If CJK, choose between:
+    - character/n-gram tokenization with a trie that matches sequences, or
+    - exact substring replacement without token boundaries.
+  - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
 Roadmap (short)
 - Add streaming/liveness adapter for live text replacement.

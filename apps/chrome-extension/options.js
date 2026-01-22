@@ -1,19 +1,24 @@
-const DEFAULT_SETTINGS = {
-  enabled: true,
-  rules: [],
-  highlightEnabled: true,
-  highlightColor: "#9AA0A6",
-  debugEnabled: false,
-  debugFocusWord: "",
-  rulesSource: "editor",
-  rulesFileName: "",
-  rulesUpdatedAt: ""
-};
+const DEFAULT_SETTINGS =
+  (globalThis.LexiShift && globalThis.LexiShift.defaults) || {
+    enabled: true,
+    rules: [],
+    highlightEnabled: true,
+    highlightColor: "#9AA0A6",
+    maxOnePerTextBlock: false,
+    allowAdjacentReplacements: true,
+    debugEnabled: false,
+    debugFocusWord: "",
+    rulesSource: "editor",
+    rulesFileName: "",
+    rulesUpdatedAt: ""
+  };
 
 const enabledInput = document.getElementById("enabled");
 const highlightEnabledInput = document.getElementById("highlight-enabled");
 const highlightColorInput = document.getElementById("highlight-color");
 const highlightColorText = document.getElementById("highlight-color-text");
+const maxOnePerBlockInput = document.getElementById("max-one-per-block");
+const allowAdjacentInput = document.getElementById("allow-adjacent");
 const debugEnabledInput = document.getElementById("debug-enabled");
 const debugFocusInput = document.getElementById("debug-focus-word");
 const rulesInput = document.getElementById("rules");
@@ -88,6 +93,14 @@ function saveDisplaySettings() {
   const debugFocusWord = debugFocusInput.value.trim();
   chrome.storage.local.set({ highlightEnabled, highlightColor, debugEnabled, debugFocusWord }, () => {
     setStatus("Display settings saved.", "#3c5a2a");
+  });
+}
+
+function saveReplacementSettings() {
+  const maxOnePerTextBlock = maxOnePerBlockInput.checked;
+  const allowAdjacentReplacements = allowAdjacentInput.checked;
+  chrome.storage.local.set({ maxOnePerTextBlock, allowAdjacentReplacements }, () => {
+    setStatus("Replacement settings saved.", "#3c5a2a");
   });
 }
 
@@ -230,6 +243,8 @@ function load() {
     highlightColorText.value = highlightColorInput.value;
     highlightColorInput.disabled = !highlightEnabledInput.checked;
     highlightColorText.disabled = !highlightEnabledInput.checked;
+    maxOnePerBlockInput.checked = items.maxOnePerTextBlock === true;
+    allowAdjacentInput.checked = items.allowAdjacentReplacements !== false;
     debugEnabledInput.checked = items.debugEnabled === true;
     debugFocusInput.value = items.debugFocusWord || "";
     debugFocusInput.disabled = !debugEnabledInput.checked;
@@ -275,6 +290,14 @@ highlightColorText.addEventListener("change", () => {
     highlightColorInput.value = value;
     saveDisplaySettings();
   }
+});
+
+maxOnePerBlockInput.addEventListener("change", () => {
+  saveReplacementSettings();
+});
+
+allowAdjacentInput.addEventListener("change", () => {
+  saveReplacementSettings();
 });
 
 debugEnabledInput.addEventListener("change", () => {

@@ -62,6 +62,19 @@
           </div>
         </section>
         <section class="card">
+          <h2>Replacement Behavior</h2>
+          <label class="toggle">
+            <input id="max-one-per-block" type="checkbox" />
+            <span>Replace max 1 word per text block</span>
+          </label>
+          <p class="hint">Limits each text node to a single replacement.</p>
+          <label class="toggle">
+            <input id="allow-adjacent" type="checkbox" />
+            <span>Allow replacing adjacent words</span>
+          </label>
+          <p class="hint">When disabled, prevents back-to-back word replacements.</p>
+        </section>
+        <section class="card">
           <h2>Share Code</h2>
           <p class="hint">Generate a compressed code for sharing rules across devices.</p>
           <textarea id="share-code" rows="6" spellcheck="false"></textarea>
@@ -102,6 +115,7 @@
         </section>
       </div>
     </main>
+    <script src="shared/settings_defaults.js"></script>
     <script src="lzstring.js"></script>
     <script src="cjk_codec.js"></script>
     <script src="options.js"></script>

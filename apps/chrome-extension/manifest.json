@@ -8,7 +8,15 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content_script.js"],
+      "js": [
+        "shared/settings_defaults.js",
+        "content/tokenizer.js",
+        "content/matcher.js",
+        "content/replacements.js",
+        "content/ui.js",
+        "content/utils.js",
+        "content_script.js"
+      ],
       "run_at": "document_idle",
       "all_frames": true,
       "match_about_blank": true

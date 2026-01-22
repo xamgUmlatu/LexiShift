@@ -1,0 +1,36 @@
+flowchart TB
+  %% Diagram 1: Synonym Generation
+  subgraph Synonym_Generation
+    A["Seed words"] --> B["Local sources\nWordNet / Moby / Embeddings"]
+    B --> C[Candidate list]
+    C --> D{"Consensus filter optional"}
+    D -->|pass| E[Similarity ranking]
+    D -->|fail| X[Discard]
+    E --> F["Threshold slider\n(0.00 - 1.00)"]
+    F --> G["Enabled synonym rules"]
+    G --> H["Ruleset (synonym layer)"]
+  end
+
+  %% Diagram 2: Ruleset Definition
+  subgraph Ruleset_Definition
+    R1["Manual rules"] --> R5["Rule list"]
+    R2["Synonym rules"] --> R5
+    R3["Imported JSON / Code"] --> R5
+    R5 --> R6["Normalize fields\ncase policy / priority / enabled"]
+    R6 --> R7{"Inflection expansion optional"}
+    R7 -->|yes| R8[Expanded variants]
+    R7 -->|no| R9[As-is rules]
+    R8 --> R10[Compiled ruleset]
+    R9 --> R10
+  end
+
+  %% Diagram 3: Input Text -> Output Text
+  subgraph Input_To_Output
+    T1["Input text"] --> T2["Tokenizer"]
+    T2 --> T3["Token stream\nword / space / punct"]
+    T2 --> T3c["CJK mode\ncharacter-level tokens\nor n-gram segments"]
+    T3 --> T4["Longest-match engine\n(trie)"]
+    T3c --> T4
+    T4 --> T5[Apply case policy]
+    T5 --> T6[Output text]
+  end
