@@ -157,22 +157,24 @@ GUI scaffold (PySide6)
 
 Chrome extension
 - Load `apps/chrome-extension/` as an unpacked extension in Chrome.
-- Configure rules in the extension options page (JSON array).
-- Replaces visible text on all pages, skips editable fields.
+- Configure rules in the extension options page (JSON array or file import).
+- Display options include highlight color and click-to-toggle original text.
+- Share code import/export supports compressed codes (CJK short codes).
+- Advanced debug tools are tucked under a collapsible section (optional).
+- Replaces visible text on all pages (including frames), skips editable fields.
+- Notes:
+  - File import is a one-time read; re-import after changes.
+  - Reload pages to apply rule changes immediately.
 
 BetterDiscord plugin
 - Copy `apps/betterdiscord-plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
-- Configure rules in the plugin settings (JSON array).
+- Configure rules in the plugin settings (JSON array, share code, or local file path).
+- Optional highlight + color, and click-to-toggle original text.
 - Plugin source is modularized under `apps/betterdiscord-plugin/src/`; rebuild with `node apps/betterdiscord-plugin/build_plugin.js`.
 - Dev scripts:
   - `npm run build:bd`
   - `npm run watch:bd`
   - `npm run sync:bd`
-  - Settings dialog for app import/export defaults and dataset inflection/learning options.
-  - Dirty-state tracking to control Save prompts.
-  - Preview pane with background worker (`QThread`) and highlight overlay.
-  - Import/export for rulesets (JSON/Code).
-  - Import/export for profile settings (JSON/Code).
 
 Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
