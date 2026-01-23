@@ -169,16 +169,17 @@ Dictionary metadata (current + planned)
   - After download: `wnjpn-all.tab.gz` decompresses to `wnjpn-all.tab`.
 - JMDict (Japanese → English)
   - URL: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-  - Size: 18.2 MB
+  - Size: 61.6 MB (Unzipped)
   - Format: gzipped XML dictionary.
 - CC-CEDICT (Chinese → English)
-  - URL: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip
-  - Size: 10.5 MB
+  - URL: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
+  - Size: 9.7 MB (Unzipped)
   - Format: zip with `cedict_ts.u8` entries.
 - Wiktionary translations (English)
   - URL: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
   - Size: 2.3 GB
   - Format: JSONL with per-entry translations.
+  - Status: planned (paused), not exposed in the UI yet.
 - Notes:
   - Wired into synonym generation: WordNet (classic + JSON), Moby, OpenThesaurus, JP WordNet, JMDict.
   - Not wired yet: CC-CEDICT, Wiktionary translations (future translation layer).
@@ -207,9 +208,8 @@ Installed/Planned Packs (current app list)
 | Moby Thesaurus | MONO | EN | https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt | 24.9 MB | CSV-like text (headword, synonym, ...) |
 | OpenThesaurus | MONO | DE | https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false | 2.6 MB | Semicolon-separated synonym lines |
 | Japanese WordNet | MONO | JA | https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz | 29.2 MB | Tab-separated synset_id, word, source |
-| JMDict | X-LANG | JA→EN | https://www.edrdg.org/pub/Nihongo/JMdict_e.gz | 18.2 MB | gzipped XML dictionary |
-| CC-CEDICT | X-LANG | ZH→EN | https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip | 10.5 MB | zip with `cedict_ts.u8` |
-| Wiktionary translations | X-LANG | Multi | https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz | 2.3 GB | JSONL translations |
+| JMDict | X-LANG | JA→EN | https://www.edrdg.org/pub/Nihongo/JMdict_e.gz | 61.6 MB (Unzipped) | gzipped XML dictionary |
+| CC-CEDICT | X-LANG | ZH→EN | https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip | 9.7 MB (Unzipped) | zip with `cedict_ts.u8` |
 
 Cross-lingual dictionary options (future)
 | Source | Type | Coverage | Notes |
