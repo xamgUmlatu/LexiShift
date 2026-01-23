@@ -15,7 +15,11 @@ Project layout
   - `apps/gui/src/main.py`: main window, menu actions, preview integration.
   - `apps/gui/src/state.py`: app state + dirty tracking.
   - `apps/gui/src/models.py`: list/table models for profiles and rules.
-  - `apps/gui/src/dialogs.py`: profiles, metadata, settings dialogs.
+  - `apps/gui/src/dialogs.py`: settings + rule metadata dialogs.
+  - `apps/gui/src/dialogs_profiles.py`: profile manager + first-run dialogs.
+  - `apps/gui/src/dialogs_code.py`: code export/import and bulk rules dialogs.
+  - `apps/gui/src/settings_language_packs.py`: language pack manager UI.
+  - `apps/gui/src/utils_paths.py`: cross-platform "reveal in Finder/Explorer" helper.
   - `apps/gui/src/preview.py`: preview worker + highlighter.
 - `apps/chrome-extension/`: Chrome extension (content script + options UI).
 - `apps/betterdiscord-plugin/`: BetterDiscord plugin (message replacement).
@@ -115,9 +119,10 @@ Dataset settings (GUI scaffolding)
 - `VocabSettings`: container for all dataset-level settings.
 
 Synonym sources (local)
-- WordNet: point to a directory containing `data.noun`, `data.verb`, `data.adj`, `data.adv`.
+- WordNet: point to a directory containing either classic `data.*` files or JSON bundles (`entries-*.json`, `noun.*.json`, `verb.*.json`, `adj.*.json`).
 - Moby Thesaurus: point to a comma-separated thesaurus file (headword, synonym, ...).
 - Configure paths and options in the Settings dialog (App tab).
+- Language packs manager (Settings -> App) handles downloads, validation, and linking.
 - Embeddings (optional ranking):
   - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
     - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
@@ -128,12 +133,8 @@ Language packs (Settings -> App)
 - Each row shows language, source, and size (size is listed in the rightmost column).
 - Downloads are saved to the app data folder (use the "Open local directory" button at the top of the section).
 - If a download fails, the UI shows a "there was a problem" message plus a Wayback mirror link.
-- Placeholder pack entries live in `apps/gui/src/dialogs.py` (`LANGUAGE_PACKS`); replace URLs and sizes with real values.
-- After download, point WordNet/Moby fields at the downloaded files as needed (auto-wiring can be added later).
-Planned: auto-hook downloaded dictionaries
-- Downloaded packs should be auto-linked as their local resource.
-- Archive packs should be extracted and validated on completion, then the Settings UI should show the resolved path.
-- Validation rules (per pack) should map to the expected file layout; we may need structure notes for each pack.
+- Pack definitions live in `apps/gui/src/language_packs.py` (`LANGUAGE_PACKS`).
+- Downloads are extracted, validated, and auto-linked when possible; manual overrides are available via "Select...".
 
 Planned: language selection UX for synonym generation
 - Add a language checklist for Replacement-word generation, using the installed language packs.
@@ -147,7 +148,7 @@ Planned: profiles + rulesets sharing into clients
 - Profile metadata + ruleset lists should be selectable from the Chrome extension and BetterDiscord plugin.
 - Goal: quick switching between practice scopes (e.g., Spanish practice ruleset vs. domain-specific ruleset).
 
-Dictionary metadata (planned sources)
+Dictionary metadata (current + planned)
 - See [Dictionary sources (detailed)](#dictionary-sources-detailed) for structured tables and visual labels.
 - WordNet (English, JSON bundle)
   - URL: https://en-word.net/static/english-wordnet-2025-json.zip
@@ -159,16 +160,28 @@ Dictionary metadata (planned sources)
   - Format: CSV-style lines (headword, synonym, synonym, ...)
 - OpenThesaurus (German)
   - URL: https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
-  - Size: (fill exact size)
+  - Size: 2.6 MB
   - Format: semicolon-delimited synonym groups (one line = one synset).
 - Japanese WordNet (Japanese)
   - URL: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
-  - Size: (fill exact size)
+  - Size: 29.2 MB
   - Format: tab-delimited lines: `synset_id<TAB>word<TAB>source` (example source tags: `hand`, `mono`, `XXXX`).
   - After download: `wnjpn-all.tab.gz` decompresses to `wnjpn-all.tab`.
+- JMDict (Japanese → English)
+  - URL: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+  - Size: 18.2 MB
+  - Format: gzipped XML dictionary.
+- CC-CEDICT (Chinese → English)
+  - URL: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip
+  - Size: 10.5 MB
+  - Format: zip with `cedict_ts.u8` entries.
+- Wiktionary translations (English)
+  - URL: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
+  - Size: 2.3 GB
+  - Format: JSONL with per-entry translations.
 - Notes:
-  - These are not wired into synonym generation yet (except English WordNet/Moby).
-  - The app should auto-link downloaded packs after extraction + validation.
+  - Wired into synonym generation: WordNet (classic + JSON), Moby, OpenThesaurus, JP WordNet, JMDict.
+  - Not wired yet: CC-CEDICT, Wiktionary translations (future translation layer).
 
 Dictionary effectiveness (notes)
 - WordNet (EN): strong semantic coverage for English synonyms; good baseline for formal/standard words, but may miss slang or modern variants.
@@ -194,6 +207,9 @@ Installed/Planned Packs (current app list)
 | Moby Thesaurus | MONO | EN | https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt | 24.9 MB | CSV-like text (headword, synonym, ...) |
 | OpenThesaurus | MONO | DE | https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false | 2.6 MB | Semicolon-separated synonym lines |
 | Japanese WordNet | MONO | JA | https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz | 29.2 MB | Tab-separated synset_id, word, source |
+| JMDict | X-LANG | JA→EN | https://www.edrdg.org/pub/Nihongo/JMdict_e.gz | 18.2 MB | gzipped XML dictionary |
+| CC-CEDICT | X-LANG | ZH→EN | https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip | 10.5 MB | zip with `cedict_ts.u8` |
+| Wiktionary translations | X-LANG | Multi | https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz | 2.3 GB | JSONL translations |
 
 Cross-lingual dictionary options (future)
 | Source | Type | Coverage | Notes |
@@ -294,9 +310,10 @@ Current limitations
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
 Roadmap (short)
-- Add streaming/liveness adapter for live text replacement.
-- Add schema documentation and sample JSON for the GUI.
-- Add per-rule exception patterns or context gates if needed.
+Plans (ordered by ease/priority)
+1. Add schema documentation and sample JSON for the GUI.
+2. Add per-rule exception patterns or context gates if needed.
+3. Add streaming/liveness adapter for live text replacement.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.
