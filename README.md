@@ -232,6 +232,13 @@ Testing
 - `python -m unittest discover -s core/tests`
 - Tests add the core directory to `sys.path` for local runs.
 
+Development health
+- Install dev tools: `pip install -r requirements-dev.txt`
+- Format Python: `ruff format .`
+- Typecheck core: `mypy core/lexishift_core`
+- Pre-commit hooks: `pre-commit install`
+- CI: `.github/workflows/ci.yml` runs core tests + typecheck on push/PR.
+
 GUI scaffold (PySide6)
 - Entry points:
   - `python apps/gui/src/main.py` (recommended)
