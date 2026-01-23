@@ -311,9 +311,6 @@ Current limitations
 
 Roadmap (short)
 Plans (ordered by ease/priority)
-1. Add schema documentation and sample JSON for the GUI.
-2. Add per-rule exception patterns or context gates if needed.
-3. Add streaming/liveness adapter for live text replacement.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.
