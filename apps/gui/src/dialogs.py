@@ -3,12 +3,18 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Optional
 
-from PySide6.QtCore import Qt
+import gzip
+import shutil
+import urllib.request
+import zipfile
+
+from PySide6.QtCore import QStandardPaths, QThread, Qt, Signal
 from PySide6.QtWidgets import (
+    QAbstractItemView,
     QCheckBox,
     QComboBox,
     QDialog,
@@ -17,6 +23,7 @@ from PySide6.QtWidgets import (
     QFormLayout,
     QFrame,
     QHBoxLayout,
+    QHeaderView,
     QLabel,
     QLineEdit,
     QListWidget,
@@ -27,6 +34,8 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QScrollArea,
     QSlider,
+    QTableWidget,
+    QTableWidgetItem,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -44,6 +53,122 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
+
+
+@dataclass(frozen=True)
+class LanguagePackInfo:
+    pack_id: str
+    name: str
+    language: str
+    source: str
+    size: str
+    url: str
+    wayback_url: str
+    filename: str
+    local_kind: str
+    required_files: tuple[str, ...] = ()
+
+
+@dataclass
+class LanguagePackRow:
+    row: int
+    status_item: QTableWidgetItem
+    download_button: QPushButton
+
+
+LANGUAGE_PACKS = [
+    LanguagePackInfo(
+        pack_id="wordnet-en",
+        name="WordNet",
+        language="English",
+        source="Princeton",
+        size="72.5 MB",
+        url="https://en-word.net/static/english-wordnet-2025-json.zip",
+        wayback_url="https://web.archive.org/web/*/https://en-word.net/static/english-wordnet-2025-json.zip",
+        filename="english-wordnet-2025-json.zip",
+        local_kind="dir",
+        required_files=("data.noun", "data.verb", "data.adj", "data.adv"),
+    ),
+    LanguagePackInfo(
+        pack_id="moby-en",
+        name="Moby Thesaurus",
+        language="English",
+        source="Moby",
+        size="24.9 MB",
+        url="https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt",
+        wayback_url="https://web.archive.org/web/*/https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt",
+        filename="mthesaur.txt",
+        local_kind="file",
+    ),
+    LanguagePackInfo(
+        pack_id="openthesaurus-de",
+        name="OpenThesaurus",
+        language="German",
+        source="OpenThesaurus",
+        size="48 MB",
+        url="https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false",
+        wayback_url="https://web.archive.org/web/*/https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false",
+        filename="openthesaurus.txt",
+        local_kind="file",
+    ),
+    LanguagePackInfo(
+        pack_id="jp-wordnet",
+        name="Japanese WordNet",
+        language="Japanese",
+        source="NTT",
+        size="120 MB",
+        url="https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz",
+        wayback_url="https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz",
+        filename="wnjpn-all.tab.gz",
+        local_kind="file",
+    ),
+]
+
+
+class LanguagePackDownloadThread(QThread):
+    progress = Signal(str, int, int)
+    completed = Signal(str, str)
+    failed = Signal(str, str)
+
+    def __init__(self, pack_id: str, url: str, dest_path: str, parent=None) -> None:
+        super().__init__(parent)
+        self._pack_id = pack_id
+        self._url = url
+        self._dest_path = dest_path
+
+    def run(self) -> None:
+        try:
+            request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
+            with urllib.request.urlopen(request, timeout=30) as response:
+                total = int(response.headers.get("Content-Length") or 0)
+                downloaded = 0
+                os.makedirs(os.path.dirname(self._dest_path), exist_ok=True)
+                with open(self._dest_path, "wb") as handle:
+                    while True:
+                        chunk = response.read(1024 * 128)
+                        if not chunk:
+                            break
+                        handle.write(chunk)
+                        downloaded += len(chunk)
+                        self.progress.emit(self._pack_id, downloaded, total)
+            final_path = self._postprocess_download(self._dest_path)
+            self.completed.emit(self._pack_id, final_path)
+        except Exception as exc:
+            self.failed.emit(self._pack_id, str(exc))
+
+    def _postprocess_download(self, dest_path: str) -> str:
+        if dest_path.endswith(".zip"):
+            target_dir = os.path.splitext(dest_path)[0]
+            os.makedirs(target_dir, exist_ok=True)
+            with zipfile.ZipFile(dest_path, "r") as archive:
+                archive.extractall(target_dir)
+            return target_dir
+        if dest_path.endswith(".gz"):
+            target_path = os.path.splitext(dest_path)[0]
+            with gzip.open(dest_path, "rb") as source, open(target_path, "wb") as output:
+                shutil.copyfileobj(source, output)
+            return target_path
+        return dest_path
 
 
 class ProfilesDialog(QDialog):
@@ -541,6 +666,8 @@ class SettingsDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("Settings")
         self.setSizeGripEnabled(True)
+        self.setMinimumSize(900, 680)
+        self.resize(980, 720)
         self._app_settings = app_settings
         self._dataset_settings = dataset_settings or VocabSettings(
             inflections=InflectionSettings(),
@@ -550,6 +677,11 @@ class SettingsDialog(QDialog):
         self._import_settings = app_settings.import_export or ImportExportSettings()
         inflections = self._dataset_settings.inflections or InflectionSettings()
         learning = self._dataset_settings.learning or LearningSettings()
+        self._language_pack_dir = _language_pack_dir()
+        self._language_pack_info = {pack.pack_id: pack for pack in LANGUAGE_PACKS}
+        self._language_pack_rows: dict[str, LanguagePackRow] = {}
+        self._language_pack_threads: list[LanguagePackDownloadThread] = []
+        self._language_pack_paths: dict[str, str] = {}
 
         tabs = QTabWidget()
         tabs.addTab(self._wrap_tab(self._build_app_tab()), "App")
@@ -576,9 +708,11 @@ class SettingsDialog(QDialog):
         )
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
         embedding_threshold = self.embedding_threshold_slider.value() / 100.0
+        wordnet_dir = self._language_pack_paths.get("wordnet-en")
+        moby_path = self._language_pack_paths.get("moby-en")
         synonyms = SynonymSourceSettings(
-            moby_path=self.moby_path_edit.text().strip() or None,
-            wordnet_dir=self.wordnet_dir_edit.text().strip() or None,
+            moby_path=moby_path.strip() if moby_path else None,
+            wordnet_dir=wordnet_dir.strip() if wordnet_dir else None,
             max_synonyms=max_synonyms,
             include_phrases=self.include_phrases_check.isChecked(),
             lower_case=self.lower_case_check.isChecked(),
@@ -587,6 +721,7 @@ class SettingsDialog(QDialog):
             embedding_path=self.embedding_path_edit.text().strip() or None,
             embedding_threshold=embedding_threshold,
             embedding_fallback=self.embedding_fallback_check.isChecked(),
+            language_packs=self._language_pack_paths,
         )
         return replace(self._app_settings, import_export=import_settings, synonyms=synonyms)
 
@@ -623,8 +758,6 @@ class SettingsDialog(QDialog):
         self.default_export_format = QComboBox()
         self.default_export_format.addItems(["json", "code"])
 
-        self.moby_path_edit = QLineEdit()
-        self.wordnet_dir_edit = QLineEdit()
         self.max_synonyms_edit = QLineEdit()
         self.include_phrases_check = QCheckBox("Include multi-word synonyms")
         self.lower_case_check = QCheckBox("Lowercase synonyms")
@@ -640,21 +773,9 @@ class SettingsDialog(QDialog):
         self.embedding_fallback_check.setToolTip(
             "Requires embeddings file with neighbor support (.vec/.bin or SQLite built via convert_embeddings.py)."
         )
-        self.moby_browse_button = QPushButton("Browse")
-        self.wordnet_browse_button = QPushButton("Browse")
-        self.moby_browse_button.clicked.connect(self._browse_moby)
-        self.wordnet_browse_button.clicked.connect(self._browse_wordnet)
         self.embedding_browse_button.clicked.connect(self._browse_embeddings)
         self.embedding_threshold_slider.valueChanged.connect(self._update_embedding_threshold_label)
         self.use_embeddings_check.toggled.connect(self._toggle_embedding_fields)
-
-        moby_row = QHBoxLayout()
-        moby_row.addWidget(self.moby_path_edit)
-        moby_row.addWidget(self.moby_browse_button)
-
-        wordnet_row = QHBoxLayout()
-        wordnet_row.addWidget(self.wordnet_dir_edit)
-        wordnet_row.addWidget(self.wordnet_browse_button)
 
         embedding_row = QHBoxLayout()
         embedding_row.addWidget(self.embedding_path_edit)
@@ -668,11 +789,12 @@ class SettingsDialog(QDialog):
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
+        form.setContentsMargins(12, 8, 12, 16)
+        form.setHorizontalSpacing(12)
+        form.setVerticalSpacing(8)
         form.addRow("", self.allow_code_export_check)
         form.addRow("Default export format", self.default_export_format)
-        form.addRow(QLabel("Synonym sources"))
-        form.addRow("Moby thesaurus", moby_row)
-        form.addRow("WordNet directory", wordnet_row)
+        form.addRow(QLabel("Synonym generation"))
         form.addRow("Max synonyms", self.max_synonyms_edit)
         form.addRow("", self.include_phrases_check)
         form.addRow("", self.lower_case_check)
@@ -682,8 +804,14 @@ class SettingsDialog(QDialog):
         form.addRow("Similarity threshold", threshold_widget)
         form.addRow("", self.embedding_fallback_check)
 
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(12)
+        layout.addWidget(self._build_language_pack_panel())
+        layout.addLayout(form)
+
         panel = QWidget()
-        panel.setLayout(form)
+        panel.setLayout(layout)
         return panel
 
     def _build_dataset_tab(self) -> QWidget:
@@ -705,6 +833,9 @@ class SettingsDialog(QDialog):
 
         inflection_form = QFormLayout()
         inflection_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
+        inflection_form.setContentsMargins(12, 8, 12, 16)
+        inflection_form.setHorizontalSpacing(12)
+        inflection_form.setVerticalSpacing(8)
         inflection_form.addRow("", self.inflections_enabled_check)
         inflection_form.addRow("", self.inflections_strict_check)
         inflection_form.addRow("", self.include_generated_tag_check)
@@ -725,6 +856,9 @@ class SettingsDialog(QDialog):
 
         learning_form = QFormLayout()
         learning_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
+        learning_form.setContentsMargins(12, 8, 12, 16)
+        learning_form.setHorizontalSpacing(12)
+        learning_form.setVerticalSpacing(8)
         learning_form.addRow("", self.learning_enabled_check)
         learning_form.addRow("", self.show_original_check)
         learning_form.addRow("Show original mode", self.show_original_mode_combo)
@@ -734,6 +868,8 @@ class SettingsDialog(QDialog):
         learning_panel.setLayout(learning_form)
 
         layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(12)
         layout.addWidget(QLabel("Inflections"))
         layout.addWidget(inflection_panel)
         layout.addWidget(QLabel("Learning"))
@@ -743,19 +879,76 @@ class SettingsDialog(QDialog):
         panel.setLayout(layout)
         return panel
 
+    def _build_language_pack_panel(self) -> QWidget:
+        self.open_language_pack_button = QPushButton("Open local directory")
+        self.open_language_pack_button.clicked.connect(self._open_language_pack_dir)
+
+        self.language_pack_table = QTableWidget()
+        self.language_pack_table.setColumnCount(7)
+        self.language_pack_table.setHorizontalHeaderLabels(
+            ["Pack", "Language", "Source", "Status", "Download", "Local", "Size"]
+        )
+        self.language_pack_table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.language_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.language_pack_table.setAlternatingRowColors(True)
+        self.language_pack_table.verticalHeader().setVisible(False)
+        header = self.language_pack_table.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.Stretch)
+        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
+        self.language_pack_table.setMinimumHeight(320)
+
+        self.language_pack_status = QLabel("")
+        self.language_pack_status.setWordWrap(True)
+        self.language_pack_status.setOpenExternalLinks(True)
+
+        self._populate_language_packs()
+
+        header_row = QHBoxLayout()
+        header_row.addWidget(QLabel("Downloads"))
+        header_row.addStretch(1)
+        header_row.addWidget(self.open_language_pack_button)
+
+        layout = QVBoxLayout()
+        layout.addLayout(header_row)
+        layout.addWidget(self.language_pack_table)
+        layout.addWidget(self.language_pack_status)
+
+        panel = QWidget()
+        panel.setLayout(layout)
+        return panel
+
     def _wrap_tab(self, panel: QWidget) -> QWidget:
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QFrame.NoFrame)
-        scroll.setWidget(panel)
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        container = QWidget()
+        container.setObjectName("settingsTabContainer")
+        container.setStyleSheet(
+            "QWidget#settingsTabContainer {"
+            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+            "stop:0 #FBF8F3, stop:1 #EFE7DC);"
+            "border-radius: 10px;"
+            "}"
+        )
+        panel.setStyleSheet("background: transparent;")
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(16, 16, 16, 20)
+        layout.addWidget(panel)
+        scroll.setWidget(container)
         return scroll
 
     def _apply_import_export(self, settings: ImportExportSettings) -> None:
         self.allow_code_export_check.setChecked(settings.allow_code_export)
         self.default_export_format.setCurrentText(settings.default_export_format)
         synonym_settings = self._app_settings.synonyms or SynonymSourceSettings()
-        self.moby_path_edit.setText(synonym_settings.moby_path or "")
-        self.wordnet_dir_edit.setText(synonym_settings.wordnet_dir or "")
         self.max_synonyms_edit.setText(str(synonym_settings.max_synonyms))
         self.include_phrases_check.setChecked(synonym_settings.include_phrases)
         self.lower_case_check.setChecked(synonym_settings.lower_case)
@@ -767,6 +960,8 @@ class SettingsDialog(QDialog):
         self._update_embedding_threshold_label(self.embedding_threshold_slider.value())
         self.embedding_fallback_check.setChecked(synonym_settings.embedding_fallback)
         self._toggle_embedding_fields(self.use_embeddings_check.isChecked())
+        self._seed_language_pack_paths(synonym_settings)
+        self._refresh_language_pack_table()
 
     def _apply_inflections(self, settings: InflectionSettings) -> None:
         self.inflections_enabled_check.setChecked(settings.enabled)
@@ -783,18 +978,6 @@ class SettingsDialog(QDialog):
         self.show_original_check.setChecked(settings.show_original)
         self.show_original_mode_combo.setCurrentText(settings.show_original_mode)
         self.highlight_replacements_check.setChecked(settings.highlight_replacements)
-
-    def _browse_moby(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(self, "Select Moby Thesaurus", "", "Text Files (*.txt);;All Files (*)")
-        if not path:
-            return
-        self.moby_path_edit.setText(path)
-
-    def _browse_wordnet(self) -> None:
-        path = QFileDialog.getExistingDirectory(self, "Select WordNet Directory")
-        if not path:
-            return
-        self.wordnet_dir_edit.setText(path)
 
     def _browse_embeddings(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
@@ -816,6 +999,223 @@ class SettingsDialog(QDialog):
         self.embedding_threshold_slider.setEnabled(enabled)
         self.embedding_threshold_value.setEnabled(enabled)
         self.embedding_fallback_check.setEnabled(enabled)
+
+    def _populate_language_packs(self) -> None:
+        self._language_pack_rows.clear()
+        self.language_pack_table.setRowCount(len(LANGUAGE_PACKS))
+        for row, pack in enumerate(LANGUAGE_PACKS):
+            name_item = QTableWidgetItem(pack.name)
+            language_item = QTableWidgetItem(pack.language)
+            source_item = QTableWidgetItem(pack.source)
+            status_item = QTableWidgetItem("Available")
+            download_button = QPushButton("Download")
+            download_button.clicked.connect(
+                lambda checked=False, pack_id=pack.pack_id: self._download_language_pack(pack_id)
+            )
+            local_button = QPushButton("Select...")
+            local_button.clicked.connect(
+                lambda checked=False, pack_id=pack.pack_id: self._select_language_pack_path(pack_id)
+            )
+            size_item = QTableWidgetItem(pack.size)
+            size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
+
+            self.language_pack_table.setItem(row, 0, name_item)
+            self.language_pack_table.setItem(row, 1, language_item)
+            self.language_pack_table.setItem(row, 2, source_item)
+            self.language_pack_table.setItem(row, 3, status_item)
+            self.language_pack_table.setCellWidget(row, 4, download_button)
+            self.language_pack_table.setCellWidget(row, 5, local_button)
+            self.language_pack_table.setItem(row, 6, size_item)
+
+            self._language_pack_rows[pack.pack_id] = LanguagePackRow(
+                row=row,
+                status_item=status_item,
+                download_button=download_button,
+            )
+        self._refresh_language_pack_table()
+
+    def _open_language_pack_dir(self) -> None:
+        _reveal_path(self._language_pack_dir)
+
+    def _seed_language_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
+        self._language_pack_paths = dict(getattr(synonym_settings, "language_packs", {}) or {})
+        if synonym_settings.wordnet_dir:
+            self._language_pack_paths.setdefault("wordnet-en", synonym_settings.wordnet_dir)
+        if synonym_settings.moby_path:
+            self._language_pack_paths.setdefault("moby-en", synonym_settings.moby_path)
+
+    def _refresh_language_pack_table(self) -> None:
+        for pack_id, row in self._language_pack_rows.items():
+            pack = self._language_pack_info.get(pack_id)
+            if not pack:
+                continue
+            row.status_item.setToolTip("")
+            dest_path = os.path.join(self._language_pack_dir, pack.filename)
+            local_path = self._language_pack_paths.get(pack_id)
+            if local_path:
+                valid, message = self._validate_language_pack_path(pack, local_path)
+                if valid:
+                    row.status_item.setText("Local OK")
+                    row.status_item.setToolTip(local_path)
+                else:
+                    row.status_item.setText("Invalid")
+                    row.status_item.setToolTip(message)
+            elif os.path.exists(dest_path):
+                row.status_item.setText("Downloaded")
+                row.status_item.setToolTip(dest_path)
+            else:
+                row.status_item.setText("Available")
+            if os.path.exists(dest_path):
+                row.download_button.setText("Redownload")
+            else:
+                row.download_button.setText("Download")
+
+    def _download_language_pack(self, pack_id: str) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        row = self._language_pack_rows.get(pack_id)
+        if not pack or not row:
+            return
+        dest_path = os.path.join(self._language_pack_dir, pack.filename)
+        row.status_item.setText("Downloading...")
+        row.download_button.setEnabled(False)
+        self.language_pack_status.setStyleSheet("")
+        self.language_pack_status.setText(f"Downloading {pack.name}...")
+        thread = LanguagePackDownloadThread(pack.pack_id, pack.url, dest_path, self)
+        thread.progress.connect(self._on_language_pack_progress)
+        thread.completed.connect(self._on_language_pack_completed)
+        thread.failed.connect(self._on_language_pack_failed)
+        thread.finished.connect(lambda: self._cleanup_language_pack_thread(thread))
+        self._language_pack_threads.append(thread)
+        thread.start()
+
+    def _select_language_pack_path(self, pack_id: str) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        if not pack:
+            return
+        if pack.local_kind == "dir":
+            path = QFileDialog.getExistingDirectory(self, f"Select {pack.name} Directory")
+        else:
+            path, _ = QFileDialog.getOpenFileName(
+                self,
+                f"Select {pack.name} File",
+                "",
+                "All Files (*)",
+            )
+        if not path:
+            return
+        if pack.pack_id == "wordnet-en":
+            path = self._normalize_wordnet_path(path)
+        valid, message = self._validate_language_pack_path(pack, path)
+        if not valid:
+            QMessageBox.warning(self, "Invalid Resource", message)
+            self.language_pack_status.setStyleSheet("color: #A03030;")
+            self.language_pack_status.setText(message)
+            self._language_pack_paths.pop(pack_id, None)
+            self._refresh_language_pack_table()
+            return
+        self._language_pack_paths[pack_id] = path
+        self.language_pack_status.setStyleSheet("color: #2F6B2F;")
+        self.language_pack_status.setText(f"{pack.name} linked to {path}")
+        self._refresh_language_pack_table()
+
+    def _validate_language_pack_path(self, pack: LanguagePackInfo, path: str) -> tuple[bool, str]:
+        if pack.local_kind == "dir":
+            if not os.path.isdir(path):
+                return False, f"{pack.name} expects a directory."
+            if pack.pack_id == "wordnet-en":
+                if self._has_wordnet_classic(path) or self._has_wordnet_json(path):
+                    return True, ""
+                return False, (
+                    "WordNet directory must contain data.noun/data.verb/data.adj/data.adv "
+                    "or JSON files like entries-a.json and noun.act.json."
+                )
+            missing = [
+                name for name in pack.required_files if not os.path.exists(os.path.join(path, name))
+            ]
+            if missing:
+                missing_str = ", ".join(missing)
+                return False, f"{pack.name} is missing required files: {missing_str}."
+            return True, ""
+        if not os.path.isfile(path):
+            return False, f"{pack.name} expects a file."
+        return True, ""
+
+    def _has_wordnet_classic(self, path: str) -> bool:
+        required = ("data.noun", "data.verb", "data.adj", "data.adv")
+        return all(os.path.exists(os.path.join(path, name)) for name in required)
+
+    def _has_wordnet_json(self, path: str) -> bool:
+        markers = ("entries-a.json", "adj.all.json", "adv.all.json", "noun.act.json", "verb.body.json")
+        return any(os.path.exists(os.path.join(path, name)) for name in markers)
+
+    def _normalize_wordnet_path(self, path: str) -> str:
+        if not os.path.isdir(path):
+            return path
+        if self._has_wordnet_classic(path) or self._has_wordnet_json(path):
+            return path
+        entries = [entry for entry in os.listdir(path) if os.path.isdir(os.path.join(path, entry))]
+        if len(entries) == 1:
+            candidate = os.path.join(path, entries[0])
+            if self._has_wordnet_classic(candidate) or self._has_wordnet_json(candidate):
+                return candidate
+        return path
+
+    def _on_language_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
+        row = self._language_pack_rows.get(pack_id)
+        if not row:
+            return
+        if total > 0:
+            pct = int((downloaded / total) * 100)
+            row.status_item.setText(f"Downloading {pct}%")
+        else:
+            row.status_item.setText("Downloading...")
+
+    def _on_language_pack_completed(self, pack_id: str, dest_path: str) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        row = self._language_pack_rows.get(pack_id)
+        if not pack or not row:
+            return
+        if pack.pack_id == "wordnet-en":
+            dest_path = self._normalize_wordnet_path(dest_path)
+        valid, message = self._validate_language_pack_path(pack, dest_path)
+        if valid:
+            self._language_pack_paths[pack_id] = dest_path
+            row.status_item.setText("Local OK")
+            row.status_item.setToolTip(dest_path)
+            self.language_pack_status.setStyleSheet("color: #2F6B2F;")
+            self.language_pack_status.setText(f"Downloaded and linked {pack.name} to {dest_path}")
+        else:
+            self._language_pack_paths.pop(pack_id, None)
+            row.status_item.setText("Downloaded")
+            row.status_item.setToolTip(dest_path)
+            self.language_pack_status.setStyleSheet("color: #A03030;")
+            self.language_pack_status.setText(
+                f"Downloaded {pack.name}, but validation failed: {message}"
+            )
+        row.download_button.setEnabled(True)
+        row.download_button.setText("Redownload")
+        self._refresh_language_pack_table()
+
+    def _on_language_pack_failed(self, pack_id: str, message: str) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        row = self._language_pack_rows.get(pack_id)
+        if not pack or not row:
+            return
+        row.status_item.setText("Failed")
+        row.download_button.setEnabled(True)
+        row.download_button.setText("Retry")
+        link = pack.wayback_url
+        self.language_pack_status.setStyleSheet("color: #A03030;")
+        self.language_pack_status.setText(
+            "There was a problem downloading "
+            f"{pack.name}. Error: {message}. "
+            f'Try the Wayback mirror: <a href="{link}">{link}</a>'
+        )
+
+    def _cleanup_language_pack_thread(self, thread: LanguagePackDownloadThread) -> None:
+        if thread in self._language_pack_threads:
+            self._language_pack_threads.remove(thread)
+        thread.deleteLater()
 
 
 class CodeDialog(QDialog):
@@ -904,6 +1304,14 @@ def _parse_int(value: str, *, default: int) -> int:
     except (TypeError, ValueError):
         return default
     return parsed if parsed > 0 else default
+
+
+def _language_pack_dir() -> str:
+    base_dir = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+    base_dir = base_dir or os.path.expanduser("~")
+    target = os.path.join(base_dir, "language_packs")
+    os.makedirs(target, exist_ok=True)
+    return target
 
 
 def _reveal_path(path: str) -> None:

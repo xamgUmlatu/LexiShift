@@ -176,11 +176,19 @@ def _load_moby_thesaurus(path: Path) -> dict[str, set[str]]:
 
 def _load_wordnet(directory: Path) -> dict[str, set[str]]:
     mapping: dict[str, set[str]] = {}
-    for filename in ("data.noun", "data.verb", "data.adj", "data.adv"):
-        path = directory / filename
-        if not path.exists():
-            continue
-        _parse_wordnet_data(path, mapping)
+    classic_files = ("data.noun", "data.verb", "data.adj", "data.adv")
+    has_classic = any((directory / name).exists() for name in classic_files)
+    if has_classic:
+        for filename in classic_files:
+            path = directory / filename
+            if not path.exists():
+                continue
+            _parse_wordnet_data(path, mapping)
+        return mapping
+
+    json_files = list(directory.glob("*.json"))
+    if json_files:
+        return _load_wordnet_json(json_files)
     return mapping
 
 
@@ -208,6 +216,32 @@ def _parse_wordnet_data(path: Path, mapping: dict[str, set[str]]) -> None:
             for synonym in words:
                 if synonym != word:
                     bucket.add(synonym)
+
+
+def _load_wordnet_json(paths: Iterable[Path]) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    for path in paths:
+        name = path.name
+        if name.startswith("entries-") or name == "frames.json":
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(data, dict):
+            continue
+        for entry in data.values():
+            if not isinstance(entry, dict):
+                continue
+            members = entry.get("members")
+            if not members:
+                continue
+            for word in members:
+                bucket = mapping.setdefault(word, set())
+                for synonym in members:
+                    if synonym != word:
+                        bucket.add(synonym)
+    return mapping
 
 
 def _apply_consensus_filter(

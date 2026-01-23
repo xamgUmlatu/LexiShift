@@ -1,0 +1,35 @@
+LexiShift Language Pack URLs
+
+Fill in the URLs and sizes below. One block per pack.
+
+pack_id: wordnet-en
+name: WordNet
+size: 72.5 MB (english-wordnet-2025-json)
+url: https://en-word.net/static/english-wordnet-2025-json.zip
+wayback_url: https://web.archive.org/web/*/https://en-word.net/static/english-wordnet-2025-json.zip
+filename: english-wordnet-2025-json.zip
+notes: expected dir with data.noun, data.verb, data.adj, data.adv
+
+pack_id: moby-en
+name: Moby Thesaurus
+size: 24.9 MB (mthesaur.txt)
+url: https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
+wayback_url: https://web.archive.org/web/*/https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
+filename: mthesaur.txt
+notes: file path
+
+pack_id: openthesaurus-de
+name: OpenThesaurus
+size: (e.g., 48 MB)
+url: https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
+wayback_url: https://web.archive.org/web/*/https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
+filename: openthesaurus.txt
+notes: file path
+
+pack_id: jp-wordnet
+name: Japanese WordNet
+size: (e.g., 120 MB)
+url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
+wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
+filename: wnjpn-all.tab.gz
+notes: file path

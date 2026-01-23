@@ -130,6 +130,89 @@ Language packs (Settings -> App)
 - If a download fails, the UI shows a "there was a problem" message plus a Wayback mirror link.
 - Placeholder pack entries live in `apps/gui/src/dialogs.py` (`LANGUAGE_PACKS`); replace URLs and sizes with real values.
 - After download, point WordNet/Moby fields at the downloaded files as needed (auto-wiring can be added later).
+Planned: auto-hook downloaded dictionaries
+- Downloaded packs should be auto-linked as their local resource.
+- Archive packs should be extracted and validated on completion, then the Settings UI should show the resolved path.
+- Validation rules (per pack) should map to the expected file layout; we may need structure notes for each pack.
+
+Planned: language selection UX for synonym generation
+- Add a language checklist for Replacement-word generation, using the installed language packs.
+- Separate toggles for:
+  - Monolingual synonyms (same-language replacement).
+  - Translation synonyms (cross-language replacement).
+- UX hint: use monolingual for in-language rulesets (English→English, Japanese→Japanese).
+- Use translation when building cross-language study rulesets (English→Japanese, Chinese→Spanish).
+
+Planned: profiles + rulesets sharing into clients
+- Profile metadata + ruleset lists should be selectable from the Chrome extension and BetterDiscord plugin.
+- Goal: quick switching between practice scopes (e.g., Spanish practice ruleset vs. domain-specific ruleset).
+
+Dictionary metadata (planned sources)
+- See [Dictionary sources (detailed)](#dictionary-sources-detailed) for structured tables and visual labels.
+- WordNet (English, JSON bundle)
+  - URL: https://en-word.net/static/english-wordnet-2025-json.zip
+  - Size: 72.5 MB
+  - Format: JSON files such as `entries-a.json`, `adj.all.json`, `noun.act.json`, `verb.body.json`.
+- Moby Thesaurus (English)
+  - URL: https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
+  - Size: 24.9 MB
+  - Format: CSV-style lines (headword, synonym, synonym, ...)
+- OpenThesaurus (German)
+  - URL: https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
+  - Size: (fill exact size)
+  - Format: semicolon-delimited synonym groups (one line = one synset).
+- Japanese WordNet (Japanese)
+  - URL: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
+  - Size: (fill exact size)
+  - Format: tab-delimited lines: `synset_id<TAB>word<TAB>source` (example source tags: `hand`, `mono`, `XXXX`).
+  - After download: `wnjpn-all.tab.gz` decompresses to `wnjpn-all.tab`.
+- Notes:
+  - These are not wired into synonym generation yet (except English WordNet/Moby).
+  - The app should auto-link downloaded packs after extraction + validation.
+
+Dictionary effectiveness (notes)
+- WordNet (EN): strong semantic coverage for English synonyms; good baseline for formal/standard words, but may miss slang or modern variants.
+- Moby (EN): large list of synonyms but noisy/dated; good for breadth, weaker for precision.
+- OpenThesaurus (DE): solid German coverage; can be dated depending on snapshot, good for monolingual German rulesets.
+- Japanese WordNet: useful for structured Japanese synonyms, but limited coverage vs. modern corpora.
+- For higher accuracy/coverage, consider:
+  - Wiktionary exports (multilingual, high recall but requires cleanup).
+  - Open Multilingual WordNet for cross-lingual synset alignment.
+  - Language-specific resources (e.g., CC-CEDICT for Chinese, JMDict for Japanese).
+  - Embedding-based neighbors as a fallback for rare words (with ranking threshold).
+
+## Dictionary Sources (Detailed)
+
+Legend
+- <span style="background:#E8F5E9;color:#1B5E20;padding:2px 6px;border-radius:6px;">MONO</span> = monolingual synonyms
+- <span style="background:#E3F2FD;color:#0D47A1;padding:2px 6px;border-radius:6px;">X-LANG</span> = cross-lingual translation
+
+Installed/Planned Packs (current app list)
+| Source | Type | Lang | URL | Size | Format |
+| --- | --- | --- | --- | --- | --- |
+| WordNet (JSON) | MONO | EN | https://en-word.net/static/english-wordnet-2025-json.zip | 72.5 MB | JSON synset files (`entries-*.json`, `noun.*.json`, `verb.*.json`, `adj.*.json`) |
+| Moby Thesaurus | MONO | EN | https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt | 24.9 MB | CSV-like text (headword, synonym, ...) |
+| OpenThesaurus | MONO | DE | https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false | TBD | Semicolon-separated synonym lines |
+| Japanese WordNet | MONO | JA | https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz | TBD | Tab-separated synset_id, word, source |
+
+Cross-lingual dictionary options (future)
+| Source | Type | Coverage | Notes |
+| --- | --- | --- | --- |
+| Open Multilingual WordNet | X-LANG | Many | Synset-aligned across languages (clean semantic mapping). |
+| Wiktionary translations | X-LANG | Many | Very broad coverage, requires cleanup and normalization. |
+| PanLex | X-LANG | Many | Massive bilingual lexicon, good for mapping but not synonyms. |
+| Apertium lexicons | X-LANG | Limited | High-quality bilingual pairs where available. |
+| JMDict / CC-CEDICT | X-LANG | JA/EN, ZH/EN | Strong bilingual dictionaries for learning workflows. |
+
+Effectiveness summary (quick guidance)
+| Source | Precision | Coverage | Notes |
+| --- | --- | --- | --- |
+| WordNet (EN) | High | Medium | Great for core synonyms, weak on slang/modern terms. |
+| Moby (EN) | Medium | High | Broad but noisy; needs filtering. |
+| OpenThesaurus (DE) | Medium-High | Medium | Good monolingual German; snapshot can be dated. |
+| JP WordNet | Medium | Medium | Structured but limited vs. modern corpora. |
+| Wiktionary | Medium | Very High | Best multilingual breadth, but requires cleanup. |
+| PanLex | Medium | Very High | Excellent cross-lingual mapping, not synonym quality. |
 
 Profiles, rulesets, and app settings (GUI scaffolding)
 - `Profile` is a named project that owns one or more rulesets (JSON files) and tracks the active ruleset.
