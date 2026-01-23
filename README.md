@@ -309,8 +309,21 @@ Current limitations
     - exact substring replacement without token boundaries.
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
-Roadmap (short)
 Plans (ordered by ease/priority)
+1. Complete language pack work end-to-end:
+   - Finalize URLs, sizes, and Wayback mirrors for all packs.
+   - Add pack-specific validators and extractors (including nested archive layouts).
+   - Ensure every pack can be auto-linked on download and manually overridden.
+   - Store and display resolved local paths per pack with clear status.
+2. Wire remaining language packs into generation:
+   - Add CC-CEDICT + Wiktionary translation loaders.
+   - Add monolingual vs translation toggles and per-profile language selection.
+   - Persist language selection in app settings.
+3. Scale large pack handling:
+   - Background indexing for large packs (progress + cancel).
+   - Optional cached indexes for fast reloads.
+4. Add per-rule exception patterns or context gates if needed.
+5. Add streaming/liveness adapter for live text replacement.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.
