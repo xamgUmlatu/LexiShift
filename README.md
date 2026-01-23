@@ -123,6 +123,7 @@ Synonym sources (local)
 - Moby Thesaurus: point to a comma-separated thesaurus file (headword, synonym, ...).
 - Configure paths and options in the Settings dialog (App tab).
 - Language packs manager (Settings -> App) handles downloads, validation, and linking.
+- Supported packs via language packs: OpenThesaurus (DE), JP WordNet, JMDict, CC-CEDICT.
 - Embeddings (optional ranking):
   - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
     - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
@@ -181,13 +182,13 @@ Dictionary metadata (current + planned)
   - Format: JSONL with per-entry translations.
   - Status: planned (paused), not exposed in the UI yet.
 - Notes:
-  - Wired into synonym generation: WordNet (classic + JSON), Moby, OpenThesaurus, JP WordNet, JMDict.
-  - Not wired yet: CC-CEDICT, Wiktionary translations (future translation layer).
+  - Wired into synonym generation: WordNet (classic + JSON), Moby, OpenThesaurus, JP WordNet, JMDict, CC-CEDICT.
+  - Not wired yet: Wiktionary translations (future translation layer).
 
 Dictionary effectiveness (notes)
 - WordNet (EN): strong semantic coverage for English synonyms; good baseline for formal/standard words, but may miss slang or modern variants.
 - Moby (EN): large list of synonyms but noisy/dated; good for breadth, weaker for precision.
-- OpenThesaurus (DE): solid German coverage; can be dated depending on snapshot, good for monolingual German rulesets.
+- OpenThesaurus (DE): solid German coverage; can be dated depending on snapshot, good for monolingual German rulesets (DE→DE working well).
 - Japanese WordNet: useful for structured Japanese synonyms, but limited coverage vs. modern corpora.
 - For higher accuracy/coverage, consider:
   - Wiktionary exports (multilingual, high recall but requires cleanup).
@@ -310,23 +311,27 @@ Current limitations
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
 Plans (ordered by ease/priority)
-1. Complete language pack work end-to-end:
-   - Finalize URLs, sizes, and Wayback mirrors for all packs.
-   - Add pack-specific validators and extractors (including nested archive layouts).
-   - Ensure every pack can be auto-linked on download and manually overridden.
-   - Store and display resolved local paths per pack with clear status.
-2. Wire remaining language packs into generation:
-   - Add CC-CEDICT + Wiktionary translation loaders.
-   - Add monolingual vs translation toggles and per-profile language selection.
-   - Persist language selection in app settings.
-3. Scale large pack handling:
+1. Persist all GUI knowledge inside profiles/rulesets:
+   - Store per-profile dictionary selection (mono vs cross-lingual) and language choices.
+   - Store synonym settings (thresholds, embeddings) per profile or ruleset where appropriate.
+2. Sync profiles/rulesets into clients:
+   - Export active profile + ruleset list + language pack selection to Chrome/BD.
+   - Add profile/ruleset switcher in extension/plugin settings.
+3. Finish language pack UX polish:
+   - Pack-specific validators for edge layouts.
+   - Clear handling for external/manual paths vs. app-managed files.
+   - Re-enable Wiktionary when we are ready to handle large downloads.
+4. Add language selection controls tied to profiles/rulesets:
+   - Monolingual vs cross-lingual toggle per profile or per ruleset.
+   - Persist target/source language choices for bulk generation.
+5. Scale large pack handling:
    - Background indexing for large packs (progress + cancel).
    - Optional cached indexes for fast reloads.
-4. Add per-rule exception patterns or context gates if needed.
-5. Add streaming/liveness adapter for live text replacement.
-6. Localize the GUI app, extension, and BetterDiscord plugin for multiple languages.
-7. Make color/background themes more customizable and selectable.
-8. Consider larger Σ symbol spaces for Share Code to shorten codes.
+6. Add per-rule exception patterns or context gates if needed.
+7. Add streaming/liveness adapter for live text replacement.
+8. Localize the GUI app, extension, and BetterDiscord plugin for multiple languages.
+9. Make color/background themes more customizable and selectable.
+10. Consider larger Σ symbol spaces for Share Code to shorten codes.
 
 Known inconsistencies / friction points
 - Embedding similarity is English-centric today; multi-language ranking will need language detection + per-language embeddings or a multilingual model.

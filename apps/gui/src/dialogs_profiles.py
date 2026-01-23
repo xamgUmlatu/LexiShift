@@ -24,6 +24,7 @@ from PySide6.QtWidgets import (
 )
 
 from lexishift_core import Profile
+from i18n import t
 from utils_paths import reveal_path
 
 
@@ -36,7 +37,7 @@ class ProfilesDialog(QDialog):
         parent=None,
     ) -> None:
         super().__init__(parent)
-        self.setWindowTitle("Manage Profiles")
+        self.setWindowTitle(t("dialogs.manage_profiles.title"))
         self.setSizeGripEnabled(True)
         self._default_dir = default_dir
         self._profiles = list(profiles)
@@ -52,8 +53,8 @@ class ProfilesDialog(QDialog):
         self.list_widget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_widget.customContextMenuRequested.connect(self._profile_context_menu)
 
-        self.add_button = QPushButton("Add")
-        self.remove_button = QPushButton("Remove")
+        self.add_button = QPushButton(t("buttons.add"))
+        self.remove_button = QPushButton(t("buttons.remove"))
         self.add_button.clicked.connect(self._add_profile)
         self.remove_button.clicked.connect(self._remove_profile)
 
@@ -73,9 +74,9 @@ class ProfilesDialog(QDialog):
         self.ruleset_list.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_list.customContextMenuRequested.connect(self._ruleset_context_menu)
 
-        self.ruleset_add_button = QPushButton("Add Ruleset")
-        self.ruleset_remove_button = QPushButton("Remove")
-        self.ruleset_set_active_button = QPushButton("Set Active")
+        self.ruleset_add_button = QPushButton(t("buttons.add_ruleset"))
+        self.ruleset_remove_button = QPushButton(t("buttons.remove"))
+        self.ruleset_set_active_button = QPushButton(t("buttons.set_active"))
         self.ruleset_add_button.clicked.connect(self._add_ruleset)
         self.ruleset_remove_button.clicked.connect(self._remove_ruleset)
         self.ruleset_set_active_button.clicked.connect(self._set_active_ruleset)
@@ -88,12 +89,12 @@ class ProfilesDialog(QDialog):
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        form.addRow("Profile ID", self.id_edit)
-        form.addRow("Name", self.name_edit)
-        form.addRow("Rulesets", self.ruleset_list)
+        form.addRow(t("labels.profile_id"), self.id_edit)
+        form.addRow(t("labels.name"), self.name_edit)
+        form.addRow(t("labels.rulesets"), self.ruleset_list)
         form.addRow("", ruleset_button_row)
-        form.addRow("Tags (comma)", self.tags_edit)
-        form.addRow("Description", self.description_edit)
+        form.addRow(t("labels.tags_comma"), self.tags_edit)
+        form.addRow(t("labels.description"), self.description_edit)
 
         right_panel = QWidget()
         right_panel.setLayout(form)
@@ -110,7 +111,7 @@ class ProfilesDialog(QDialog):
 
         layout = QVBoxLayout(self)
         layout.addLayout(main_row)
-        hint_label = QLabel("Active profile is the selected row when saving.")
+        hint_label = QLabel(t("dialogs.manage_profiles.active_hint"))
         hint_label.setWordWrap(True)
         layout.addWidget(hint_label)
         layout.addWidget(button_box)
@@ -136,18 +137,22 @@ class ProfilesDialog(QDialog):
 
     def _validate_profiles(self) -> bool:
         if not self._profiles:
-            QMessageBox.warning(self, "Profiles", "At least one profile is required.")
+            QMessageBox.warning(self, t("dialogs.profiles.title"), t("dialogs.profiles.required"))
             return False
         ids = [profile.profile_id.strip() for profile in self._profiles]
         if any(not profile_id for profile_id in ids):
-            QMessageBox.warning(self, "Profile ID", "Profile ID cannot be empty.")
+            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.empty"))
             return False
         if len(set(ids)) != len(ids):
-            QMessageBox.warning(self, "Profile ID", "Profile IDs must be unique.")
+            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.unique"))
             return False
         for profile in self._profiles:
             if not profile.rulesets:
-                QMessageBox.warning(self, "Rulesets", f"At least one ruleset is required for '{profile.name}'.")
+                QMessageBox.warning(
+                    self,
+                    t("dialogs.rulesets.title"),
+                    t("dialogs.rulesets.required_for", name=profile.name),
+                )
                 return False
         return True
 
@@ -192,7 +197,7 @@ class ProfilesDialog(QDialog):
         profile = self._profiles[self._current_index]
         profile_id = self.id_edit.text().strip() or profile.profile_id
         if profile_id != profile.profile_id and self._profile_id_exists(profile_id):
-            QMessageBox.warning(self, "Profile ID", "Profile ID already exists.")
+            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
             profile_id = profile.profile_id
             self.id_edit.setText(profile.profile_id)
         tags = tuple(tag.strip() for tag in self.tags_edit.text().split(",") if tag.strip())
@@ -258,11 +263,16 @@ class ProfilesDialog(QDialog):
 
     def _ruleset_label(self, path: str, active: Optional[str]) -> str:
         if path == active:
-            return f"{path} (Active)"
+            return t("ruleset.active_label", path=path)
         return path
 
     def _add_ruleset(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Add Ruleset", str(self._default_dir), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self,
+            t("dialogs.add_ruleset.title"),
+            str(self._default_dir),
+            t("filters.json"),
+        )
         if not path:
             return
         rulesets = self._collect_rulesets()
@@ -313,7 +323,7 @@ class ProfilesDialog(QDialog):
             return
         path = item.data(Qt.UserRole) or item.text()
         menu = QMenu(self)
-        reveal_action = menu.addAction("Reveal in Finder")
+        reveal_action = menu.addAction(t("menu.reveal_in_finder"))
         action = menu.exec(self.ruleset_list.mapToGlobal(position))
         if action == reveal_action:
             reveal_path(path)
@@ -328,7 +338,7 @@ class ProfilesDialog(QDialog):
         profile = self._profiles[row]
         active_path = profile.active_ruleset or profile.dataset_path
         menu = QMenu(self)
-        reveal_action = menu.addAction("Reveal Ruleset in Finder")
+        reveal_action = menu.addAction(t("menu.reveal_ruleset_in_finder"))
         if not active_path:
             reveal_action.setEnabled(False)
         action = menu.exec(self.list_widget.mapToGlobal(position))
@@ -357,7 +367,7 @@ class ProfilesDialog(QDialog):
         if row < 0 or row >= len(self._profiles):
             return
         if len(self._profiles) <= 1:
-            QMessageBox.information(self, "Profiles", "At least one profile is required.")
+            QMessageBox.information(self, t("dialogs.profiles.title"), t("dialogs.profiles.required"))
             return
         self._profiles.pop(row)
         self.list_widget.takeItem(row)
@@ -369,14 +379,14 @@ class ProfilesDialog(QDialog):
 class CreateProfileDialog(QDialog):
     def __init__(self, default_dir: Path, parent=None) -> None:
         super().__init__(parent)
-        self.setWindowTitle("Create Profile")
+        self.setWindowTitle(t("dialogs.create_profile.title"))
         self.setSizeGripEnabled(True)
         self._default_dir = default_dir
 
         self.name_edit = QLineEdit()
         self.id_edit = QLineEdit()
         self.path_edit = QLineEdit()
-        self.path_button = QPushButton("Browse")
+        self.path_button = QPushButton(t("buttons.browse"))
         self.path_button.clicked.connect(self._browse_path)
 
         self.name_edit.textChanged.connect(self._sync_id)
@@ -387,9 +397,9 @@ class CreateProfileDialog(QDialog):
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        form.addRow("Name", self.name_edit)
-        form.addRow("Profile ID", self.id_edit)
-        form.addRow("Ruleset Path", path_row)
+        form.addRow(t("labels.name"), self.name_edit)
+        form.addRow(t("labels.profile_id"), self.id_edit)
+        form.addRow(t("labels.ruleset_path"), path_row)
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
@@ -429,7 +439,12 @@ class CreateProfileDialog(QDialog):
         self.path_edit.setText(str(self._default_dir / f"{profile_id}.json"))
 
     def _browse_path(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Select Ruleset Path", str(self._default_dir), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self,
+            t("dialogs.select_ruleset_path.title"),
+            str(self._default_dir),
+            t("filters.json"),
+        )
         if not path:
             return
         self.path_edit.setText(path)
@@ -438,10 +453,9 @@ class CreateProfileDialog(QDialog):
 class FirstRunDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
-        self.setWindowTitle("Welcome to LexiShift")
+        self.setWindowTitle(t("dialogs.first_run.title"))
         label = QLabel(
-            "Create your first profile to start managing rulesets.\n"
-            "You can always add more profiles later."
+            t("dialogs.first_run.message")
         )
         label.setWordWrap(True)
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -471,4 +485,3 @@ def _slugify(value: str) -> str:
     while "--" in slug:
         slug = slug.replace("--", "-")
     return slug
-

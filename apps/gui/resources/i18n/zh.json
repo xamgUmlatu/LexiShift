@@ -1,0 +1,369 @@
+{
+  "app": {
+    "window_title": "LexiShift"
+  },
+  "tabs": {
+    "app": "应用",
+    "appearance": "外观",
+    "dataset": "数据集"
+  },
+  "buttons": {
+    "manage_profiles": "管理...",
+    "save_profiles": "保存配置文件",
+    "select_ruleset": "选择...",
+    "save_ruleset": "保存规则集",
+    "delete": "删除",
+    "close": "关闭",
+    "generate": "生成",
+    "download": "下载",
+    "redownload": "重新下载",
+    "retry": "重试",
+    "select": "选择...",
+    "browse": "浏览",
+    "add": "添加",
+    "remove": "移除",
+    "add_ruleset": "添加规则集",
+    "set_active": "设为活动"
+  },
+  "menu": {
+    "file": "文件",
+    "import": "导入",
+    "export": "导出",
+    "quit": "退出",
+    "profiles": "配置文件",
+    "edit": "编辑",
+    "settings": "设置...",
+    "open_ruleset": "打开规则集...",
+    "save_ruleset": "保存规则集",
+    "save_ruleset_as": "另存规则集...",
+    "manage_profiles": "管理配置文件...",
+    "save_profiles": "保存配置文件",
+    "add_rule": "添加规则",
+    "bulk_add": "批量添加同义词...",
+    "delete_rule": "删除规则",
+    "edit_metadata": "编辑元数据...",
+    "export_ruleset_json": "导出规则集（JSON）...",
+    "export_ruleset_code": "导出规则集（代码）...",
+    "export_profiles_json": "导出配置文件（JSON）...",
+    "export_profiles_code": "导出配置文件（代码）...",
+    "import_ruleset_json": "导入规则集（JSON）...",
+    "import_ruleset_code": "导入规则集（代码）...",
+    "import_profiles_json": "导入配置文件（JSON）...",
+    "import_profiles_code": "导入配置文件（代码）...",
+    "reveal_in_finder": "在 Finder 中显示",
+    "reveal_ruleset_in_finder": "在 Finder 中显示规则集"
+  },
+  "labels": {
+    "profile": "配置文件",
+    "ruleset": "规则集",
+    "profile_id": "配置文件ID",
+    "name": "名称",
+    "rulesets": "规则集",
+    "tags_comma": "标签（逗号分隔）",
+    "description": "描述",
+    "ruleset_path": "规则集路径"
+  },
+  "dialogs": {
+    "unsaved": {
+      "title": "未保存的更改",
+      "text": "退出前保存当前规则集吗？",
+      "informative": "如果不保存，编辑内容将丢失。",
+      "discard": "有未保存的更改。是否丢弃？"
+    },
+    "profile_id": {
+      "title": "配置文件ID",
+      "exists": "配置文件ID已存在。",
+      "empty": "配置文件ID不能为空。",
+      "unique": "配置文件ID必须唯一。"
+    },
+    "profiles": {
+      "title": "配置文件",
+      "required": "至少需要一个配置文件。"
+    },
+    "rulesets": {
+      "title": "规则集",
+      "required_for": "“{name}”至少需要一个规则集。"
+    },
+    "delete_rule": {
+      "title": "删除规则",
+      "message": "删除此规则？\n\n{source} -> {replacement}\n\n无法撤销。"
+    },
+    "bulk_add": {
+      "title": "批量添加同义词",
+      "select_dictionary": "请至少选择一个用于同义词生成的词典。",
+      "no_synonyms": "未找到所提供目标的同义词。",
+      "duplicates": "{count} 个重复的源词已作为禁用规则添加。",
+      "placeholder": "粘贴目标词（分隔符：空格、逗号、换行、分号）。",
+      "targets_label": "目标",
+      "choose_dictionaries": "选择用于本次生成的词典。",
+      "mono_group": "单语词典",
+      "cross_group": "跨语言词典",
+      "none_configured": "未配置。"
+    },
+    "open_ruleset": {
+      "title": "选择规则集"
+    },
+    "save_ruleset_as": {
+      "title": "另存规则集"
+    },
+    "export_ruleset_json": {
+      "title": "导出规则集 JSON"
+    },
+    "export_ruleset_code": {
+      "title": "导出规则集代码"
+    },
+    "export_profiles_json": {
+      "title": "导出配置文件 JSON"
+    },
+    "export_profiles_code": {
+      "title": "导出配置文件代码"
+    },
+    "import_ruleset_json": {
+      "title": "导入规则集 JSON"
+    },
+    "import_ruleset_code": {
+      "title": "导入规则集代码"
+    },
+    "import_profiles_json": {
+      "title": "导入配置文件 JSON"
+    },
+    "import_profiles_code": {
+      "title": "导入配置文件代码"
+    },
+    "synonym_expansion": {
+      "title": "同义词扩展",
+      "configure_sources": "请先在设置中配置同义词来源。",
+      "select_configured": "请在对话框中选择已配置的词典。",
+      "missing_sources": "缺少来源：{sources}",
+      "no_entries": "从来源中未加载到任何条目（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}）。"
+    },
+    "select_embeddings": {
+      "title": "选择嵌入文件"
+    },
+    "rule_metadata": {
+      "title": "规则元数据",
+      "label": "标签",
+      "description": "描述",
+      "examples": "例子（每行一个）",
+      "notes": "备注",
+      "source": "来源"
+    },
+    "settings": {
+      "title": "设置"
+    },
+    "manage_profiles": {
+      "title": "管理配置文件",
+      "active_hint": "保存时所选行即为活动配置文件。"
+    },
+    "add_ruleset": {
+      "title": "添加规则集"
+    },
+    "select_ruleset_path": {
+      "title": "选择规则集路径"
+    },
+    "create_profile": {
+      "title": "创建配置文件"
+    },
+    "first_run": {
+      "title": "欢迎使用 LexiShift",
+      "message": "创建第一个配置文件以开始管理规则集。\n之后也可添加更多配置文件。"
+    },
+    "invalid_resource": {
+      "title": "无效资源"
+    },
+    "select_pack_directory": "选择 {name} 目录",
+    "select_pack_file": "选择 {name} 文件"
+  },
+  "settings": {
+    "allow_code_export": "允许导出为代码",
+    "include_phrases": "包含多词同义词",
+    "lower_case": "同义词转小写",
+    "require_consensus": "需要来源一致",
+    "require_consensus_tip": "仅保留在所有已配置来源中出现的同义词。",
+    "use_embeddings": "使用嵌入对同义词排序",
+    "embedding_fallback": "当找不到同义词时使用嵌入",
+    "embedding_fallback_tip": "需要支持邻居查询的嵌入文件（.vec/.bin 或由 convert_embeddings.py 生成的 SQLite）。",
+    "default_export_format": "默认导出格式",
+    "synonym_generation": "同义词生成",
+    "max_synonyms": "最大同义词数",
+    "embeddings_file": "嵌入文件",
+    "similarity_threshold": "相似度阈值",
+    "inflections_enabled": "启用词形变化",
+    "inflections_strict": "严格词形变化",
+    "include_generated_tag": "为生成形式添加标签",
+    "include_original": "包含原短语",
+    "learning_enabled": "启用学习模式",
+    "show_original": "显示原文",
+    "highlight_replacements": "高亮替换",
+    "inflections_section": "词形变化",
+    "learning_section": "学习"
+  },
+  "formats": {
+    "json": "JSON",
+    "code": "代码"
+  },
+  "appearance": {
+    "theme": {
+      "light_sand": "浅沙",
+      "chalk": "粉笔",
+      "dusk": "暮色",
+      "night_slate": "夜岩",
+      "label": "主题"
+    },
+    "language": {
+      "label": "语言",
+      "system_default": "系统默认"
+    },
+    "hint": "主题只应用于设置界面。语言更改需重启生效。"
+  },
+  "inflections": {
+    "apply_last_word": "最后一个词",
+    "apply_all_words": "所有词",
+    "forms": {
+      "plural": "复数",
+      "possessive": "所有格",
+      "past": "过去式",
+      "gerund": "现在分词",
+      "third_person": "第三人称单数"
+    },
+    "generated_tag": "生成标签",
+    "apply_to": "应用于"
+  },
+  "learning": {
+    "mode": {
+      "tooltip": "提示",
+      "inline": "行内",
+      "side_by_side": "并排"
+    },
+    "show_original_mode": "原文显示方式"
+  },
+  "replacement": {
+    "select_hint": "选择一个替换词以筛选同义词。",
+    "enable_embeddings_hint": "在设置中启用嵌入以对同义词排序。",
+    "loading_embeddings": "正在加载嵌入...",
+    "embeddings_missing": "找不到嵌入文件。",
+    "no_synonym_tags": "未找到同义词标签；将对该替换词筛选全部规则。",
+    "panel_title": "替换词",
+    "threshold_label": "相似度阈值",
+    "list_label": "{replacement} ({enabled}/{total})",
+    "tooltip_counts": "{enabled} / {total} 同义词规则已启用（总计 {overall}）",
+    "filter_rules": "筛选规则：{replacement}",
+    "filter_synonyms": "筛选同义词：{replacement}"
+  },
+  "logs": {
+    "title": "日志",
+    "placeholder": "批量添加日志和相似度说明显示在此处。",
+    "bulk_add_targets": "批量添加：{count} 个目标。",
+    "dictionaries": "词典：{dictionaries}",
+    "no_synonyms_for": "未找到同义词：{target}",
+    "embeddings_not_loaded": "嵌入未加载，跳过：{target}",
+    "embeddings_no_neighbors": "嵌入文件不支持邻居查询（请转换为 SQLite 或使用 .vec/.bin）。",
+    "no_embedding_vector": "无嵌入向量：{target}",
+    "embeddings_zero_neighbors": "嵌入回退返回 0 个邻居：{target}",
+    "embeddings_fallback_count": "嵌入回退 {target}: {count}",
+    "synonyms_found": "找到同义词 {target}: {count}"
+  },
+  "profiles": {
+    "default_name": "默认",
+    "active_label": "{name}（活动）"
+  },
+  "rules_table": {
+    "headers": {
+      "enabled": "启用",
+      "source": "源词",
+      "replacement": "替换",
+      "priority": "优先级",
+      "created": "创建时间",
+      "tags": "标签",
+      "delete": "删除"
+    },
+    "enabled": "启用",
+    "disabled": "禁用",
+    "delete_tooltip": "删除规则（Alt+点击跳过确认）"
+  },
+  "ruleset": {
+    "missing": "{label}（缺失）",
+    "active_label": "{path}（活动）"
+  },
+  "language_packs": {
+    "title": "语言包",
+    "open_directory": "打开本地目录",
+    "headers": {
+      "pack": "包",
+      "language": "语言",
+      "source": "来源",
+      "status": "状态",
+      "download": "下载",
+      "local": "本地",
+      "delete": "删除",
+      "size": "大小"
+    },
+    "status": {
+      "local_ok": "本地正常",
+      "invalid": "无效",
+      "downloaded": "已下载",
+      "available": "可用",
+      "downloading": "正在下载...",
+      "downloading_pct": "正在下载 {percent}%",
+      "cancelled": "已取消",
+      "failed": "失败"
+    },
+    "downloading": "正在下载 {name}...",
+    "linked": "{name} 已链接到 {path}",
+    "no_local_files": "未找到 {name} 的本地文件。",
+    "unlink_confirm": "取消链接 {name}？\n\n不会删除外部文件。",
+    "delete_confirm": "删除 {name} 文件？\n\n将移除应用文件夹中的下载数据并取消链接。",
+    "delete_title": "删除语言包",
+    "removed": "{name} 已移除。",
+    "validation": {
+      "expected_dir": "{name} 需要目录。",
+      "wordnet": "WordNet 目录必须包含 data.noun/data.verb/data.adj/data.adv，或 entries-a.json 与 noun.act.json 等 JSON 文件。",
+      "missing_files": "{name} 缺少必要文件：{files}。",
+      "expected_file": "{name} 需要文件。"
+    },
+    "downloaded_linked": "已下载并将 {name} 链接到 {path}",
+    "downloaded_invalid": "已下载 {name}，但验证失败：{message}",
+    "download_failed": "下载 {name} 时出现问题。错误：{error}。请尝试 Wayback 镜像：<a href=\"{link}\">{link}</a>"
+  },
+  "sources": {
+    "wordnet_dir": "WordNet 目录",
+    "moby_file": "Moby 同义词文件",
+    "openthesaurus_file": "OpenThesaurus 文件",
+    "jp_wordnet_file": "日语 WordNet 文件",
+    "jmdict_file": "JMDict 文件",
+    "cc_cedict_file": "CC-CEDICT 文件"
+  },
+  "languages": {
+    "english": "英语",
+    "german": "德语",
+    "japanese": "日语",
+    "japanese_english": "日语 -> 英语",
+    "chinese_english": "中文 -> 英语"
+  },
+  "providers": {
+    "princeton": "Princeton",
+    "moby": "Moby",
+    "openthesaurus": "OpenThesaurus",
+    "ntt": "NTT",
+    "edrdg": "EDRDG",
+    "mdbg": "MDBG"
+  },
+  "packs": {
+    "wordnet": "WordNet",
+    "moby": "Moby Thesaurus",
+    "openthesaurus": "OpenThesaurus",
+    "jp_wordnet": "Japanese WordNet",
+    "jmdict": "JMDict",
+    "cc_cedict": "CC-CEDICT",
+    "label": "{name}（{language}）"
+  },
+  "common": {
+    "yes": "是",
+    "no": "否"
+  },
+  "filters": {
+    "json": "JSON 文件 (*.json)",
+    "embeddings": "嵌入文件 (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;所有文件 (*)",
+    "all": "所有文件 (*)"
+  }
+}

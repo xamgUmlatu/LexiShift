@@ -1,0 +1,369 @@
+{
+  "app": {
+    "window_title": "LexiShift"
+  },
+  "tabs": {
+    "app": "アプリ",
+    "appearance": "外観",
+    "dataset": "データセット"
+  },
+  "buttons": {
+    "manage_profiles": "管理...",
+    "save_profiles": "プロファイルを保存",
+    "select_ruleset": "選択...",
+    "save_ruleset": "ルールセットを保存",
+    "delete": "削除",
+    "close": "閉じる",
+    "generate": "生成",
+    "download": "ダウンロード",
+    "redownload": "再ダウンロード",
+    "retry": "再試行",
+    "select": "選択...",
+    "browse": "参照",
+    "add": "追加",
+    "remove": "削除",
+    "add_ruleset": "ルールセットを追加",
+    "set_active": "アクティブに設定"
+  },
+  "menu": {
+    "file": "ファイル",
+    "import": "インポート",
+    "export": "エクスポート",
+    "quit": "終了",
+    "profiles": "プロファイル",
+    "edit": "編集",
+    "settings": "設定...",
+    "open_ruleset": "ルールセットを開く...",
+    "save_ruleset": "ルールセットを保存",
+    "save_ruleset_as": "別名でルールセットを保存...",
+    "manage_profiles": "プロファイルを管理...",
+    "save_profiles": "プロファイルを保存",
+    "add_rule": "ルールを追加",
+    "bulk_add": "同義語の一括追加...",
+    "delete_rule": "ルールを削除",
+    "edit_metadata": "メタデータを編集...",
+    "export_ruleset_json": "ルールセットをエクスポート（JSON）...",
+    "export_ruleset_code": "ルールセットをエクスポート（コード）...",
+    "export_profiles_json": "プロファイルをエクスポート（JSON）...",
+    "export_profiles_code": "プロファイルをエクスポート（コード）...",
+    "import_ruleset_json": "ルールセットをインポート（JSON）...",
+    "import_ruleset_code": "ルールセットをインポート（コード）...",
+    "import_profiles_json": "プロファイルをインポート（JSON）...",
+    "import_profiles_code": "プロファイルをインポート（コード）...",
+    "reveal_in_finder": "Finderで表示",
+    "reveal_ruleset_in_finder": "ルールセットをFinderで表示"
+  },
+  "labels": {
+    "profile": "プロファイル",
+    "ruleset": "ルールセット",
+    "profile_id": "プロファイルID",
+    "name": "名前",
+    "rulesets": "ルールセット",
+    "tags_comma": "タグ（カンマ区切り）",
+    "description": "説明",
+    "ruleset_path": "ルールセットのパス"
+  },
+  "dialogs": {
+    "unsaved": {
+      "title": "未保存の変更",
+      "text": "終了前に現在のルールセットを保存しますか？",
+      "informative": "保存しない場合、編集内容は失われます。",
+      "discard": "未保存の変更があります。破棄しますか？"
+    },
+    "profile_id": {
+      "title": "プロファイルID",
+      "exists": "プロファイルIDは既に存在します。",
+      "empty": "プロファイルIDは空にできません。",
+      "unique": "プロファイルIDは一意である必要があります。"
+    },
+    "profiles": {
+      "title": "プロファイル",
+      "required": "少なくとも1つのプロファイルが必要です。"
+    },
+    "rulesets": {
+      "title": "ルールセット",
+      "required_for": "'{name}' には少なくとも1つのルールセットが必要です。"
+    },
+    "delete_rule": {
+      "title": "ルールを削除",
+      "message": "このルールを削除しますか？\n\n{source} -> {replacement}\n\n元に戻せません。"
+    },
+    "bulk_add": {
+      "title": "同義語の一括追加",
+      "select_dictionary": "同義語生成に使う辞書を少なくとも1つ選択してください。",
+      "no_synonyms": "指定したターゲットに対する同義語が見つかりませんでした。",
+      "duplicates": "{count} 件の重複した元語が無効化されたルールとして追加されました。",
+      "placeholder": "ターゲット語を貼り付け（区切り：空白、カンマ、改行、セミコロン）。",
+      "targets_label": "ターゲット",
+      "choose_dictionaries": "この生成に使う辞書を選択してください。",
+      "mono_group": "単言語辞書",
+      "cross_group": "対訳辞書",
+      "none_configured": "設定済みの辞書がありません。"
+    },
+    "open_ruleset": {
+      "title": "ルールセットを選択"
+    },
+    "save_ruleset_as": {
+      "title": "別名でルールセットを保存"
+    },
+    "export_ruleset_json": {
+      "title": "ルールセットJSONをエクスポート"
+    },
+    "export_ruleset_code": {
+      "title": "ルールセットコードをエクスポート"
+    },
+    "export_profiles_json": {
+      "title": "プロファイルJSONをエクスポート"
+    },
+    "export_profiles_code": {
+      "title": "プロファイルコードをエクスポート"
+    },
+    "import_ruleset_json": {
+      "title": "ルールセットJSONをインポート"
+    },
+    "import_ruleset_code": {
+      "title": "ルールセットコードをインポート"
+    },
+    "import_profiles_json": {
+      "title": "プロファイルJSONをインポート"
+    },
+    "import_profiles_code": {
+      "title": "プロファイルコードをインポート"
+    },
+    "synonym_expansion": {
+      "title": "同義語展開",
+      "configure_sources": "まず設定で同義語ソースを設定してください。",
+      "select_configured": "ダイアログで設定済みの辞書を選択してください。",
+      "missing_sources": "不足しているソース: {sources}",
+      "no_entries": "ソースから読み込まれたエントリがありません（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}）。"
+    },
+    "select_embeddings": {
+      "title": "埋め込みファイルを選択"
+    },
+    "rule_metadata": {
+      "title": "ルールメタデータ",
+      "label": "ラベル",
+      "description": "説明",
+      "examples": "例（1行に1つ）",
+      "notes": "メモ",
+      "source": "ソース"
+    },
+    "settings": {
+      "title": "設定"
+    },
+    "manage_profiles": {
+      "title": "プロファイル管理",
+      "active_hint": "保存時に選択されている行がアクティブプロファイルになります。"
+    },
+    "add_ruleset": {
+      "title": "ルールセットを追加"
+    },
+    "select_ruleset_path": {
+      "title": "ルールセットのパスを選択"
+    },
+    "create_profile": {
+      "title": "プロファイル作成"
+    },
+    "first_run": {
+      "title": "LexiShiftへようこそ",
+      "message": "最初のプロファイルを作成してルールセットの管理を開始しましょう。\n後から追加することもできます。"
+    },
+    "invalid_resource": {
+      "title": "無効なリソース"
+    },
+    "select_pack_directory": "「{name}」のディレクトリを選択",
+    "select_pack_file": "「{name}」のファイルを選択"
+  },
+  "settings": {
+    "allow_code_export": "コードとしてエクスポートを許可",
+    "include_phrases": "複数語の同義語を含める",
+    "lower_case": "同義語を小文字化",
+    "require_consensus": "ソース間の一致を必須にする",
+    "require_consensus_tip": "設定済みのすべてのソースに存在する同義語のみ残します。",
+    "use_embeddings": "埋め込みで同義語をランク付け",
+    "embedding_fallback": "同義語が見つからない場合に埋め込みを使用",
+    "embedding_fallback_tip": "近傍検索に対応した埋め込み（.vec/.bin または convert_embeddings.py で作成した SQLite）が必要です。",
+    "default_export_format": "既定のエクスポート形式",
+    "synonym_generation": "同義語生成",
+    "max_synonyms": "最大同義語数",
+    "embeddings_file": "埋め込みファイル",
+    "similarity_threshold": "類似度しきい値",
+    "inflections_enabled": "語形変化を有効化",
+    "inflections_strict": "厳密な語形変化",
+    "include_generated_tag": "生成形にタグを付与",
+    "include_original": "元のフレーズを含める",
+    "learning_enabled": "学習モードを有効化",
+    "show_original": "元のテキストを表示",
+    "highlight_replacements": "置換をハイライト",
+    "inflections_section": "語形変化",
+    "learning_section": "学習"
+  },
+  "formats": {
+    "json": "JSON",
+    "code": "コード"
+  },
+  "appearance": {
+    "theme": {
+      "light_sand": "ライトサンド",
+      "chalk": "チョーク",
+      "dusk": "ダスク",
+      "night_slate": "ナイトスレート",
+      "label": "テーマ"
+    },
+    "language": {
+      "label": "言語",
+      "system_default": "システム既定"
+    },
+    "hint": "テーマは設定画面に適用されます。言語変更は再起動後に反映されます。"
+  },
+  "inflections": {
+    "apply_last_word": "最後の単語",
+    "apply_all_words": "全単語",
+    "forms": {
+      "plural": "複数形",
+      "possessive": "所有格",
+      "past": "過去形",
+      "gerund": "動名詞",
+      "third_person": "三人称単数"
+    },
+    "generated_tag": "生成タグ",
+    "apply_to": "適用対象"
+  },
+  "learning": {
+    "mode": {
+      "tooltip": "ツールチップ",
+      "inline": "インライン",
+      "side_by_side": "並列"
+    },
+    "show_original_mode": "元表示の方式"
+  },
+  "replacement": {
+    "select_hint": "置換語を選択して同義語をフィルタしてください。",
+    "enable_embeddings_hint": "同義語をランク付けするには設定で埋め込みを有効にしてください。",
+    "loading_embeddings": "埋め込みを読み込み中...",
+    "embeddings_missing": "埋め込みファイルが見つかりません。",
+    "no_synonym_tags": "同義語タグが見つかりません。今回の置換語について全ルールをフィルタします。",
+    "panel_title": "置換語",
+    "threshold_label": "類似度しきい値",
+    "list_label": "{replacement} ({enabled}/{total})",
+    "tooltip_counts": "同義語ルール {total} 件中 {enabled} 件が有効（合計 {overall} 件）",
+    "filter_rules": "次のルールをフィルタ: {replacement}",
+    "filter_synonyms": "次の同義語をフィルタ: {replacement}"
+  },
+  "logs": {
+    "title": "ログ",
+    "placeholder": "一括追加ログと類似度メモがここに表示されます。",
+    "bulk_add_targets": "一括追加: {count} 件のターゲット。",
+    "dictionaries": "辞書: {dictionaries}",
+    "no_synonyms_for": "同義語が見つかりません: {target}",
+    "embeddings_not_loaded": "埋め込み未読み込みのためスキップ: {target}",
+    "embeddings_no_neighbors": "埋め込みファイルは近傍検索に対応していません（SQLiteに変換するか .vec/.bin を使用）。",
+    "no_embedding_vector": "埋め込みベクトルがありません: {target}",
+    "embeddings_zero_neighbors": "埋め込みフォールバックで0件: {target}",
+    "embeddings_fallback_count": "埋め込みフォールバック {target}: {count}",
+    "synonyms_found": "同義語が見つかりました {target}: {count}"
+  },
+  "profiles": {
+    "default_name": "デフォルト",
+    "active_label": "{name}（アクティブ）"
+  },
+  "rules_table": {
+    "headers": {
+      "enabled": "有効",
+      "source": "元語",
+      "replacement": "置換",
+      "priority": "優先度",
+      "created": "作成日",
+      "tags": "タグ",
+      "delete": "削除"
+    },
+    "enabled": "有効",
+    "disabled": "無効",
+    "delete_tooltip": "ルールを削除（Alt+クリックで確認を省略）"
+  },
+  "ruleset": {
+    "missing": "{label}（見つかりません）",
+    "active_label": "{path}（アクティブ）"
+  },
+  "language_packs": {
+    "title": "言語パック",
+    "open_directory": "ローカルディレクトリを開く",
+    "headers": {
+      "pack": "パック",
+      "language": "言語",
+      "source": "ソース",
+      "status": "状態",
+      "download": "ダウンロード",
+      "local": "ローカル",
+      "delete": "削除",
+      "size": "サイズ"
+    },
+    "status": {
+      "local_ok": "ローカルOK",
+      "invalid": "無効",
+      "downloaded": "ダウンロード済み",
+      "available": "利用可能",
+      "downloading": "ダウンロード中...",
+      "downloading_pct": "ダウンロード中 {percent}%",
+      "cancelled": "キャンセル済み",
+      "failed": "失敗"
+    },
+    "downloading": "「{name}」をダウンロード中...",
+    "linked": "{name} を {path} にリンクしました",
+    "no_local_files": "{name} のローカルファイルが見つかりません。",
+    "unlink_confirm": "{name} のリンクを解除しますか？\n\n外部ファイルは削除されません。",
+    "delete_confirm": "{name} のファイルを削除しますか？\n\nアプリのフォルダ内のデータを削除し、リンクを解除します。",
+    "delete_title": "言語パックを削除",
+    "removed": "{name} を削除しました。",
+    "validation": {
+      "expected_dir": "{name} はディレクトリが必要です。",
+      "wordnet": "WordNetディレクトリには data.noun/data.verb/data.adj/data.adv または entries-a.json や noun.act.json などのJSONファイルが必要です。",
+      "missing_files": "{name} に必要なファイルがありません: {files}。",
+      "expected_file": "{name} はファイルが必要です。"
+    },
+    "downloaded_linked": "「{name}」をダウンロードして {path} にリンクしました",
+    "downloaded_invalid": "「{name}」をダウンロードしましたが、検証に失敗しました: {message}",
+    "download_failed": "「{name}」のダウンロードで問題が発生しました。エラー: {error}。Wayback ミラーを試してください: <a href=\"{link}\">{link}</a>"
+  },
+  "sources": {
+    "wordnet_dir": "WordNet ディレクトリ",
+    "moby_file": "Moby シソーラスファイル",
+    "openthesaurus_file": "OpenThesaurus ファイル",
+    "jp_wordnet_file": "日本語 WordNet ファイル",
+    "jmdict_file": "JMDict ファイル",
+    "cc_cedict_file": "CC-CEDICT ファイル"
+  },
+  "languages": {
+    "english": "英語",
+    "german": "ドイツ語",
+    "japanese": "日本語",
+    "japanese_english": "日本語 -> 英語",
+    "chinese_english": "中国語 -> 英語"
+  },
+  "providers": {
+    "princeton": "Princeton",
+    "moby": "Moby",
+    "openthesaurus": "OpenThesaurus",
+    "ntt": "NTT",
+    "edrdg": "EDRDG",
+    "mdbg": "MDBG"
+  },
+  "packs": {
+    "wordnet": "WordNet",
+    "moby": "Moby Thesaurus",
+    "openthesaurus": "OpenThesaurus",
+    "jp_wordnet": "Japanese WordNet",
+    "jmdict": "JMDict",
+    "cc_cedict": "CC-CEDICT",
+    "label": "{name}（{language}）"
+  },
+  "common": {
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "filters": {
+    "json": "JSON ファイル (*.json)",
+    "embeddings": "埋め込みファイル (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;すべてのファイル (*)",
+    "all": "すべてのファイル (*)"
+  }
+}

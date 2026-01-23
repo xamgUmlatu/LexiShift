@@ -34,13 +34,14 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
+from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
 
 
 class RuleMetadataDialog(QDialog):
     def __init__(self, rule: VocabRule, parent=None) -> None:
         super().__init__(parent)
-        self.setWindowTitle("Rule Metadata")
+        self.setWindowTitle(t("dialogs.rule_metadata.title"))
         self.setSizeGripEnabled(True)
         self._rule = rule
 
@@ -52,11 +53,11 @@ class RuleMetadataDialog(QDialog):
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        form.addRow("Label", self.label_edit)
-        form.addRow("Description", self.description_edit)
-        form.addRow("Examples (one per line)", self.examples_edit)
-        form.addRow("Notes", self.notes_edit)
-        form.addRow("Source", self.source_edit)
+        form.addRow(t("dialogs.rule_metadata.label"), self.label_edit)
+        form.addRow(t("dialogs.rule_metadata.description"), self.description_edit)
+        form.addRow(t("dialogs.rule_metadata.examples"), self.examples_edit)
+        form.addRow(t("dialogs.rule_metadata.notes"), self.notes_edit)
+        form.addRow(t("dialogs.rule_metadata.source"), self.source_edit)
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
@@ -165,7 +166,7 @@ class SettingsDialog(QDialog):
         parent=None,
     ) -> None:
         super().__init__(parent)
-        self.setWindowTitle("Settings")
+        self.setWindowTitle(t("dialogs.settings.title"))
         self.setSizeGripEnabled(True)
         self.setMinimumSize(900, 680)
         self.resize(980, 720)
@@ -183,10 +184,12 @@ class SettingsDialog(QDialog):
         theme_id = theme_id if theme_id in self.THEMES else "light_sand"
         self._theme_id = theme_id
         self._theme = self.THEMES[self._theme_id]
+        locale_pref = self._ui_settings.value("appearance/locale", "system")
+        self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
         tabs = QTabWidget()
-        tabs.addTab(self._wrap_tab(self._build_app_tab()), "App")
-        tabs.addTab(self._wrap_tab(self._build_appearance_tab()), "Appearance")
-        tabs.addTab(self._wrap_tab(self._build_dataset_tab()), "Dataset")
+        tabs.addTab(self._wrap_tab(self._build_app_tab()), t("tabs.app"))
+        tabs.addTab(self._wrap_tab(self._build_appearance_tab()), t("tabs.appearance"))
+        tabs.addTab(self._wrap_tab(self._build_dataset_tab()), t("tabs.dataset"))
 
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
@@ -202,9 +205,11 @@ class SettingsDialog(QDialog):
         self._apply_theme()
 
     def result_app_settings(self) -> AppSettings:
+        export_format = self.default_export_format.currentData()
+        export_format = export_format or self.default_export_format.currentText()
         import_settings = ImportExportSettings(
             allow_code_export=self.allow_code_export_check.isChecked(),
-            default_export_format=self.default_export_format.currentText(),
+            default_export_format=str(export_format),
             last_import_path=self._import_settings.last_import_path,
             last_export_path=self._import_settings.last_export_path,
         )
@@ -232,7 +237,7 @@ class SettingsDialog(QDialog):
         forms = {key for key, checkbox in self._form_checks.items() if checkbox.isChecked()}
         spec = InflectionSpec(
             forms=frozenset(forms),
-            apply_to=self.apply_to_combo.currentText(),
+            apply_to=str(self.apply_to_combo.currentData() or self.apply_to_combo.currentText()),
             include_original=self.include_original_check.isChecked(),
         )
         inflections = InflectionSettings(
@@ -251,7 +256,7 @@ class SettingsDialog(QDialog):
         learning = LearningSettings(
             enabled=self.learning_enabled_check.isChecked(),
             show_original=self.show_original_check.isChecked(),
-            show_original_mode=self.show_original_mode_combo.currentText(),
+            show_original_mode=str(self.show_original_mode_combo.currentData() or self.show_original_mode_combo.currentText()),
             highlight_replacements=self.highlight_replacements_check.isChecked(),
         )
         return VocabSettings(inflections=inflections, learning=learning)
@@ -263,47 +268,56 @@ class SettingsDialog(QDialog):
     def _build_appearance_tab(self) -> QWidget:
         self.theme_combo = QComboBox()
         theme_labels = {
-            "light_sand": "Light Sand",
-            "chalk": "Chalk",
-            "dusk": "Dusk",
-            "night_slate": "Night Slate",
+            "light_sand": t("appearance.theme.light_sand"),
+            "chalk": t("appearance.theme.chalk"),
+            "dusk": t("appearance.theme.dusk"),
+            "night_slate": t("appearance.theme.night_slate"),
         }
         for theme_id, label in theme_labels.items():
             self.theme_combo.addItem(label, theme_id)
         self._set_theme_combo(self._theme_id)
         self.theme_combo.currentIndexChanged.connect(self._on_theme_changed)
 
+        self.language_combo = QComboBox()
+        self.language_combo.addItem(t("appearance.language.system_default"), "system")
+        for locale, label in sorted(available_locales().items(), key=lambda item: item[1].lower()):
+            self.language_combo.addItem(label, locale)
+        self._set_language_combo(self._locale_pref)
+        self.language_combo.currentIndexChanged.connect(self._on_language_changed)
+
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.setContentsMargins(12, 8, 12, 16)
         form.setHorizontalSpacing(12)
         form.setVerticalSpacing(8)
-        form.addRow("Theme", self.theme_combo)
-        form.addRow(QLabel("Themes apply to Settings. App-wide theming is planned."))
+        form.addRow(t("appearance.theme.label"), self.theme_combo)
+        form.addRow(t("appearance.language.label"), self.language_combo)
+        form.addRow(QLabel(t("appearance.hint")))
 
         panel = QWidget()
         panel.setLayout(form)
         return panel
 
     def _build_app_tab(self) -> QWidget:
-        self.allow_code_export_check = QCheckBox("Allow export as code")
+        self.allow_code_export_check = QCheckBox(t("settings.allow_code_export"))
         self.default_export_format = QComboBox()
-        self.default_export_format.addItems(["json", "code"])
+        self.default_export_format.addItem(t("formats.json"), "json")
+        self.default_export_format.addItem(t("formats.code"), "code")
 
         self.max_synonyms_edit = QLineEdit()
-        self.include_phrases_check = QCheckBox("Include multi-word synonyms")
-        self.lower_case_check = QCheckBox("Lowercase synonyms")
-        self.require_consensus_check = QCheckBox("Require consensus between sources")
-        self.require_consensus_check.setToolTip("Only keep synonyms found in every configured source.")
-        self.use_embeddings_check = QCheckBox("Rank synonyms with embeddings")
+        self.include_phrases_check = QCheckBox(t("settings.include_phrases"))
+        self.lower_case_check = QCheckBox(t("settings.lower_case"))
+        self.require_consensus_check = QCheckBox(t("settings.require_consensus"))
+        self.require_consensus_check.setToolTip(t("settings.require_consensus_tip"))
+        self.use_embeddings_check = QCheckBox(t("settings.use_embeddings"))
         self.embedding_path_edit = QLineEdit()
-        self.embedding_browse_button = QPushButton("Browse")
+        self.embedding_browse_button = QPushButton(t("buttons.browse"))
         self.embedding_threshold_slider = QSlider(Qt.Horizontal)
         self.embedding_threshold_slider.setRange(0, 100)
         self.embedding_threshold_value = QLabel("0.00")
-        self.embedding_fallback_check = QCheckBox("Use embeddings when no synonyms found")
+        self.embedding_fallback_check = QCheckBox(t("settings.embedding_fallback"))
         self.embedding_fallback_check.setToolTip(
-            "Requires embeddings file with neighbor support (.vec/.bin or SQLite built via convert_embeddings.py)."
+            t("settings.embedding_fallback_tip")
         )
         self.embedding_browse_button.clicked.connect(self._browse_embeddings)
         self.embedding_threshold_slider.valueChanged.connect(self._update_embedding_threshold_label)
@@ -325,17 +339,17 @@ class SettingsDialog(QDialog):
         form.setHorizontalSpacing(12)
         form.setVerticalSpacing(8)
         form.addRow("", self.allow_code_export_check)
-        form.addRow("Default export format", self.default_export_format)
-        synonym_label = QLabel("Synonym generation")
+        form.addRow(t("settings.default_export_format"), self.default_export_format)
+        synonym_label = QLabel(t("settings.synonym_generation"))
         synonym_label.setObjectName("sectionLabel")
         form.addRow(synonym_label)
-        form.addRow("Max synonyms", self.max_synonyms_edit)
+        form.addRow(t("settings.max_synonyms"), self.max_synonyms_edit)
         form.addRow("", self.include_phrases_check)
         form.addRow("", self.lower_case_check)
         form.addRow("", self.require_consensus_check)
         form.addRow("", self.use_embeddings_check)
-        form.addRow("Embeddings file", embedding_row)
-        form.addRow("Similarity threshold", threshold_widget)
+        form.addRow(t("settings.embeddings_file"), embedding_row)
+        form.addRow(t("settings.similarity_threshold"), threshold_widget)
         form.addRow("", self.embedding_fallback_check)
 
         layout = QVBoxLayout()
@@ -349,20 +363,21 @@ class SettingsDialog(QDialog):
         return panel
 
     def _build_dataset_tab(self) -> QWidget:
-        self.inflections_enabled_check = QCheckBox("Enable inflections")
-        self.inflections_strict_check = QCheckBox("Strict inflections")
-        self.include_generated_tag_check = QCheckBox("Tag generated forms")
+        self.inflections_enabled_check = QCheckBox(t("settings.inflections_enabled"))
+        self.inflections_strict_check = QCheckBox(t("settings.inflections_strict"))
+        self.include_generated_tag_check = QCheckBox(t("settings.include_generated_tag"))
         self.generated_tag_edit = QLineEdit()
         self.apply_to_combo = QComboBox()
-        self.apply_to_combo.addItems(["last_word", "all_words"])
-        self.include_original_check = QCheckBox("Include original phrase")
+        self.apply_to_combo.addItem(t("inflections.apply_last_word"), "last_word")
+        self.apply_to_combo.addItem(t("inflections.apply_all_words"), "all_words")
+        self.include_original_check = QCheckBox(t("settings.include_original"))
 
         self._form_checks = {
-            "plural": QCheckBox("Plural"),
-            "possessive": QCheckBox("Possessive"),
-            "past": QCheckBox("Past"),
-            "gerund": QCheckBox("Gerund"),
-            "third_person": QCheckBox("Third person"),
+            "plural": QCheckBox(t("inflections.forms.plural")),
+            "possessive": QCheckBox(t("inflections.forms.possessive")),
+            "past": QCheckBox(t("inflections.forms.past")),
+            "gerund": QCheckBox(t("inflections.forms.gerund")),
+            "third_person": QCheckBox(t("inflections.forms.third_person")),
         }
 
         inflection_form = QFormLayout()
@@ -373,8 +388,8 @@ class SettingsDialog(QDialog):
         inflection_form.addRow("", self.inflections_enabled_check)
         inflection_form.addRow("", self.inflections_strict_check)
         inflection_form.addRow("", self.include_generated_tag_check)
-        inflection_form.addRow("Generated tag", self.generated_tag_edit)
-        inflection_form.addRow("Apply to", self.apply_to_combo)
+        inflection_form.addRow(t("inflections.generated_tag"), self.generated_tag_edit)
+        inflection_form.addRow(t("inflections.apply_to"), self.apply_to_combo)
         inflection_form.addRow("", self.include_original_check)
         for checkbox in self._form_checks.values():
             inflection_form.addRow("", checkbox)
@@ -382,11 +397,13 @@ class SettingsDialog(QDialog):
         inflection_panel = QWidget()
         inflection_panel.setLayout(inflection_form)
 
-        self.learning_enabled_check = QCheckBox("Enable learning mode")
-        self.show_original_check = QCheckBox("Show original text")
+        self.learning_enabled_check = QCheckBox(t("settings.learning_enabled"))
+        self.show_original_check = QCheckBox(t("settings.show_original"))
         self.show_original_mode_combo = QComboBox()
-        self.show_original_mode_combo.addItems(["tooltip", "inline", "side-by-side"])
-        self.highlight_replacements_check = QCheckBox("Highlight replacements")
+        self.show_original_mode_combo.addItem(t("learning.mode.tooltip"), "tooltip")
+        self.show_original_mode_combo.addItem(t("learning.mode.inline"), "inline")
+        self.show_original_mode_combo.addItem(t("learning.mode.side_by_side"), "side-by-side")
+        self.highlight_replacements_check = QCheckBox(t("settings.highlight_replacements"))
 
         learning_form = QFormLayout()
         learning_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
@@ -395,7 +412,7 @@ class SettingsDialog(QDialog):
         learning_form.setVerticalSpacing(8)
         learning_form.addRow("", self.learning_enabled_check)
         learning_form.addRow("", self.show_original_check)
-        learning_form.addRow("Show original mode", self.show_original_mode_combo)
+        learning_form.addRow(t("learning.show_original_mode"), self.show_original_mode_combo)
         learning_form.addRow("", self.highlight_replacements_check)
 
         learning_panel = QWidget()
@@ -404,11 +421,11 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(12)
-        inflections_label = QLabel("Inflections")
+        inflections_label = QLabel(t("settings.inflections_section"))
         inflections_label.setObjectName("sectionLabel")
         layout.addWidget(inflections_label)
         layout.addWidget(inflection_panel)
-        learning_label = QLabel("Learning")
+        learning_label = QLabel(t("settings.learning_section"))
         learning_label.setObjectName("sectionLabel")
         layout.addWidget(learning_label)
         layout.addWidget(learning_panel)
@@ -509,7 +526,7 @@ class SettingsDialog(QDialog):
 
     def _apply_import_export(self, settings: ImportExportSettings) -> None:
         self.allow_code_export_check.setChecked(settings.allow_code_export)
-        self.default_export_format.setCurrentText(settings.default_export_format)
+        self._set_combo_value(self.default_export_format, settings.default_export_format)
         synonym_settings = self._app_settings.synonyms or SynonymSourceSettings()
         self.max_synonyms_edit.setText(str(synonym_settings.max_synonyms))
         self.include_phrases_check.setChecked(synonym_settings.include_phrases)
@@ -529,7 +546,7 @@ class SettingsDialog(QDialog):
         self.inflections_strict_check.setChecked(settings.strict)
         self.include_generated_tag_check.setChecked(settings.include_generated_tag)
         self.generated_tag_edit.setText(settings.generated_tag)
-        self.apply_to_combo.setCurrentText(settings.spec.apply_to)
+        self._set_combo_value(self.apply_to_combo, settings.spec.apply_to)
         self.include_original_check.setChecked(settings.spec.include_original)
         for key, checkbox in self._form_checks.items():
             checkbox.setChecked(key in settings.spec.forms)
@@ -537,7 +554,7 @@ class SettingsDialog(QDialog):
     def _apply_learning(self, settings: LearningSettings) -> None:
         self.learning_enabled_check.setChecked(settings.enabled)
         self.show_original_check.setChecked(settings.show_original)
-        self.show_original_mode_combo.setCurrentText(settings.show_original_mode)
+        self._set_combo_value(self.show_original_mode_combo, settings.show_original_mode)
         self.highlight_replacements_check.setChecked(settings.highlight_replacements)
 
     def _on_theme_changed(self) -> None:
@@ -549,18 +566,33 @@ class SettingsDialog(QDialog):
         self._ui_settings.setValue("appearance/theme", theme_id)
         self._apply_theme()
 
+    def _on_language_changed(self) -> None:
+        locale = self.language_combo.currentData()
+        if not locale:
+            return
+        self._ui_settings.setValue("appearance/locale", str(locale))
+
     def _set_theme_combo(self, theme_id: str) -> None:
         for idx in range(self.theme_combo.count()):
             if self.theme_combo.itemData(idx) == theme_id:
                 self.theme_combo.setCurrentIndex(idx)
                 return
 
+    def _set_language_combo(self, locale: str) -> None:
+        self._set_combo_value(self.language_combo, locale or "system")
+
+    def _set_combo_value(self, combo: QComboBox, value: str) -> None:
+        for idx in range(combo.count()):
+            if combo.itemData(idx) == value or combo.itemText(idx) == value:
+                combo.setCurrentIndex(idx)
+                return
+
     def _browse_embeddings(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
             self,
-            "Select Embeddings File",
+            t("dialogs.select_embeddings.title"),
             "",
-            "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;All Files (*)",
+            t("filters.embeddings"),
         )
         if not path:
             return

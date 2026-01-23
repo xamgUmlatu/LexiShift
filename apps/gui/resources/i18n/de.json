@@ -1,0 +1,369 @@
+{
+  "app": {
+    "window_title": "LexiShift"
+  },
+  "tabs": {
+    "app": "App",
+    "appearance": "Erscheinungsbild",
+    "dataset": "Datensatz"
+  },
+  "buttons": {
+    "manage_profiles": "Verwalten...",
+    "save_profiles": "Profile speichern",
+    "select_ruleset": "Auswählen...",
+    "save_ruleset": "Regelsatz speichern",
+    "delete": "Löschen",
+    "close": "Schließen",
+    "generate": "Erzeugen",
+    "download": "Herunterladen",
+    "redownload": "Erneut herunterladen",
+    "retry": "Erneut versuchen",
+    "select": "Auswählen...",
+    "browse": "Durchsuchen",
+    "add": "Hinzufügen",
+    "remove": "Entfernen",
+    "add_ruleset": "Regelsatz hinzufügen",
+    "set_active": "Als aktiv setzen"
+  },
+  "menu": {
+    "file": "Datei",
+    "import": "Importieren",
+    "export": "Exportieren",
+    "quit": "Beenden",
+    "profiles": "Profile",
+    "edit": "Bearbeiten",
+    "settings": "Einstellungen...",
+    "open_ruleset": "Regelsatz öffnen...",
+    "save_ruleset": "Regelsatz speichern",
+    "save_ruleset_as": "Regelsatz speichern unter...",
+    "manage_profiles": "Profile verwalten...",
+    "save_profiles": "Profile speichern",
+    "add_rule": "Regel hinzufügen",
+    "bulk_add": "Synonyme gesammelt hinzufügen...",
+    "delete_rule": "Regel löschen",
+    "edit_metadata": "Metadaten bearbeiten...",
+    "export_ruleset_json": "Regelsatz exportieren (JSON)...",
+    "export_ruleset_code": "Regelsatz exportieren (Code)...",
+    "export_profiles_json": "Profile exportieren (JSON)...",
+    "export_profiles_code": "Profile exportieren (Code)...",
+    "import_ruleset_json": "Regelsatz importieren (JSON)...",
+    "import_ruleset_code": "Regelsatz importieren (Code)...",
+    "import_profiles_json": "Profile importieren (JSON)...",
+    "import_profiles_code": "Profile importieren (Code)...",
+    "reveal_in_finder": "Im Finder anzeigen",
+    "reveal_ruleset_in_finder": "Regelsatz im Finder anzeigen"
+  },
+  "labels": {
+    "profile": "Profil",
+    "ruleset": "Regelsatz",
+    "profile_id": "Profil-ID",
+    "name": "Name",
+    "rulesets": "Regelsätze",
+    "tags_comma": "Tags (Komma)",
+    "description": "Beschreibung",
+    "ruleset_path": "Regelsatzpfad"
+  },
+  "dialogs": {
+    "unsaved": {
+      "title": "Ungespeicherte Änderungen",
+      "text": "Änderungen am aktuellen Regelsatz vor dem Beenden speichern?",
+      "informative": "Ihre Änderungen gehen verloren, wenn Sie nicht speichern.",
+      "discard": "Ungespeicherte Änderungen vorhanden. Verwerfen?"
+    },
+    "profile_id": {
+      "title": "Profil-ID",
+      "exists": "Profil-ID existiert bereits.",
+      "empty": "Profil-ID darf nicht leer sein.",
+      "unique": "Profil-IDs müssen eindeutig sein."
+    },
+    "profiles": {
+      "title": "Profile",
+      "required": "Mindestens ein Profil ist erforderlich."
+    },
+    "rulesets": {
+      "title": "Regelsätze",
+      "required_for": "Für '{name}' ist mindestens ein Regelsatz erforderlich."
+    },
+    "delete_rule": {
+      "title": "Regel löschen",
+      "message": "Diese Regel löschen?\n\n{source} -> {replacement}\n\nDies kann nicht rückgängig gemacht werden."
+    },
+    "bulk_add": {
+      "title": "Synonyme gesammelt hinzufügen",
+      "select_dictionary": "Wählen Sie mindestens ein Wörterbuch für die Synonym-Erzeugung.",
+      "no_synonyms": "Für die angegebenen Ziele wurden keine Synonyme gefunden.",
+      "duplicates": "{count} doppelte Ausgangsphrasen wurden als deaktivierte Regeln hinzugefügt.",
+      "placeholder": "Zielwörter einfügen (Trenner: Leerzeichen, Komma, Zeilenumbruch, Semikolon).",
+      "targets_label": "Ziele",
+      "choose_dictionaries": "Wörterbücher für diese Erzeugung auswählen.",
+      "mono_group": "Einsprachige Wörterbücher",
+      "cross_group": "Mehrsprachige Wörterbücher",
+      "none_configured": "Keine konfiguriert."
+    },
+    "open_ruleset": {
+      "title": "Regelsatz auswählen"
+    },
+    "save_ruleset_as": {
+      "title": "Regelsatz speichern unter"
+    },
+    "export_ruleset_json": {
+      "title": "Regelsatz-JSON exportieren"
+    },
+    "export_ruleset_code": {
+      "title": "Regelsatz-Code exportieren"
+    },
+    "export_profiles_json": {
+      "title": "Profile-JSON exportieren"
+    },
+    "export_profiles_code": {
+      "title": "Profile-Code exportieren"
+    },
+    "import_ruleset_json": {
+      "title": "Regelsatz-JSON importieren"
+    },
+    "import_ruleset_code": {
+      "title": "Regelsatz-Code importieren"
+    },
+    "import_profiles_json": {
+      "title": "Profile-JSON importieren"
+    },
+    "import_profiles_code": {
+      "title": "Profile-Code importieren"
+    },
+    "synonym_expansion": {
+      "title": "Synonym-Erweiterung",
+      "configure_sources": "Konfigurieren Sie zuerst die Synonymquellen in den Einstellungen.",
+      "select_configured": "Wählen Sie im Dialog konfigurierte Wörterbücher.",
+      "missing_sources": "Fehlende Quellen: {sources}",
+      "no_entries": "Keine Einträge aus Quellen geladen (WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict})."
+    },
+    "select_embeddings": {
+      "title": "Einbettungsdatei auswählen"
+    },
+    "rule_metadata": {
+      "title": "Regelmetadaten",
+      "label": "Label",
+      "description": "Beschreibung",
+      "examples": "Beispiele (eine pro Zeile)",
+      "notes": "Notizen",
+      "source": "Quelle"
+    },
+    "settings": {
+      "title": "Einstellungen"
+    },
+    "manage_profiles": {
+      "title": "Profile verwalten",
+      "active_hint": "Das ausgewählte Profil wird beim Speichern aktiv."
+    },
+    "add_ruleset": {
+      "title": "Regelsatz hinzufügen"
+    },
+    "select_ruleset_path": {
+      "title": "Regelsatzpfad auswählen"
+    },
+    "create_profile": {
+      "title": "Profil erstellen"
+    },
+    "first_run": {
+      "title": "Willkommen bei LexiShift",
+      "message": "Erstellen Sie Ihr erstes Profil, um Regelsätze zu verwalten.\nSie können später weitere Profile hinzufügen."
+    },
+    "invalid_resource": {
+      "title": "Ungültige Ressource"
+    },
+    "select_pack_directory": "Verzeichnis für {name} auswählen",
+    "select_pack_file": "Datei für {name} auswählen"
+  },
+  "settings": {
+    "allow_code_export": "Export als Code erlauben",
+    "include_phrases": "Mehrwort-Synonyme einschließen",
+    "lower_case": "Synonyme kleinschreiben",
+    "require_consensus": "Übereinstimmung zwischen Quellen verlangen",
+    "require_consensus_tip": "Nur Synonyme behalten, die in allen konfigurierten Quellen vorkommen.",
+    "use_embeddings": "Synonyme mit Einbettungen ranken",
+    "embedding_fallback": "Einbettungen verwenden, wenn keine Synonyme gefunden werden",
+    "embedding_fallback_tip": "Erfordert Einbettungsdatei mit Nachbarschaftssuche (.vec/.bin oder SQLite aus convert_embeddings.py).",
+    "default_export_format": "Standard-Exportformat",
+    "synonym_generation": "Synonymerzeugung",
+    "max_synonyms": "Max. Synonyme",
+    "embeddings_file": "Einbettungsdatei",
+    "similarity_threshold": "Ähnlichkeitsschwelle",
+    "inflections_enabled": "Flexionen aktivieren",
+    "inflections_strict": "Strenge Flexionen",
+    "include_generated_tag": "Generierte Formen taggen",
+    "include_original": "Originalphrase einschließen",
+    "learning_enabled": "Lernmodus aktivieren",
+    "show_original": "Originaltext anzeigen",
+    "highlight_replacements": "Ersetzungen hervorheben",
+    "inflections_section": "Flexionen",
+    "learning_section": "Lernen"
+  },
+  "formats": {
+    "json": "JSON",
+    "code": "Code"
+  },
+  "appearance": {
+    "theme": {
+      "light_sand": "Heller Sand",
+      "chalk": "Kreide",
+      "dusk": "Dämmerung",
+      "night_slate": "Nachtschiefer",
+      "label": "Thema"
+    },
+    "language": {
+      "label": "Sprache",
+      "system_default": "Systemstandard"
+    },
+    "hint": "Themes gelten nur für die Einstellungen. Neustart erforderlich, um Sprachänderungen zu übernehmen."
+  },
+  "inflections": {
+    "apply_last_word": "Letztes Wort",
+    "apply_all_words": "Alle Wörter",
+    "forms": {
+      "plural": "Plural",
+      "possessive": "Genitiv",
+      "past": "Vergangenheit",
+      "gerund": "Gerundium",
+      "third_person": "Dritte Person"
+    },
+    "generated_tag": "Generiertes Tag",
+    "apply_to": "Anwenden auf"
+  },
+  "learning": {
+    "mode": {
+      "tooltip": "Tooltip",
+      "inline": "Inline",
+      "side_by_side": "Nebeneinander"
+    },
+    "show_original_mode": "Original anzeigen als"
+  },
+  "replacement": {
+    "select_hint": "Wählen Sie eine Ersetzung aus, um Synonyme zu filtern.",
+    "enable_embeddings_hint": "Aktivieren Sie Einbettungen in den Einstellungen, um Synonyme zu ranken.",
+    "loading_embeddings": "Einbettungen werden geladen...",
+    "embeddings_missing": "Einbettungsdatei nicht gefunden.",
+    "no_synonym_tags": "Keine Synonym-Tags gefunden; es werden alle Regeln für diese Ersetzung gefiltert.",
+    "panel_title": "Ersetzungen",
+    "threshold_label": "Ähnlichkeitsschwelle",
+    "list_label": "{replacement} ({enabled}/{total})",
+    "tooltip_counts": "{enabled} von {total} Synonymregeln aktiviert ({overall} insgesamt)",
+    "filter_rules": "Regeln filtern für: {replacement}",
+    "filter_synonyms": "Synonyme filtern für: {replacement}"
+  },
+  "logs": {
+    "title": "Log",
+    "placeholder": "Logs für Bulk-Add und Ähnlichkeitsnotizen erscheinen hier.",
+    "bulk_add_targets": "Bulk-Add: {count} Ziel(e).",
+    "dictionaries": "Wörterbücher: {dictionaries}",
+    "no_synonyms_for": "Keine Synonyme gefunden für: {target}",
+    "embeddings_not_loaded": "Einbettungen nicht geladen; Fallback übersprungen für: {target}",
+    "embeddings_no_neighbors": "Einbettungsdatei unterstützt keine Nachbarschaftssuche (in SQLite konvertieren oder .vec/.bin verwenden).",
+    "no_embedding_vector": "Kein Einbettungsvektor für: {target}",
+    "embeddings_zero_neighbors": "Einbettungs-Fallback lieferte 0 Nachbarn für: {target}",
+    "embeddings_fallback_count": "Einbettungs-Fallback für {target}: {count}",
+    "synonyms_found": "Synonyme gefunden für {target}: {count}"
+  },
+  "profiles": {
+    "default_name": "Standard",
+    "active_label": "{name} (Aktiv)"
+  },
+  "rules_table": {
+    "headers": {
+      "enabled": "Aktiv",
+      "source": "Quelle",
+      "replacement": "Ersetzung",
+      "priority": "Priorität",
+      "created": "Erstellt",
+      "tags": "Tags",
+      "delete": "Löschen"
+    },
+    "enabled": "Aktiv",
+    "disabled": "Inaktiv",
+    "delete_tooltip": "Regel löschen (Alt+Klick überspringt Bestätigung)"
+  },
+  "ruleset": {
+    "missing": "{label} (fehlend)",
+    "active_label": "{path} (Aktiv)"
+  },
+  "language_packs": {
+    "title": "Sprachpakete",
+    "open_directory": "Lokales Verzeichnis öffnen",
+    "headers": {
+      "pack": "Paket",
+      "language": "Sprache",
+      "source": "Quelle",
+      "status": "Status",
+      "download": "Download",
+      "local": "Lokal",
+      "delete": "Löschen",
+      "size": "Größe"
+    },
+    "status": {
+      "local_ok": "Lokal OK",
+      "invalid": "Ungültig",
+      "downloaded": "Heruntergeladen",
+      "available": "Verfügbar",
+      "downloading": "Wird heruntergeladen...",
+      "downloading_pct": "Wird heruntergeladen {percent}%",
+      "cancelled": "Abgebrochen",
+      "failed": "Fehlgeschlagen"
+    },
+    "downloading": "{name} wird heruntergeladen...",
+    "linked": "{name} verknüpft mit {path}",
+    "no_local_files": "Keine lokalen Dateien für {name} gefunden.",
+    "unlink_confirm": "{name} trennen?\n\nExterne Dateien werden nicht gelöscht.",
+    "delete_confirm": "{name}-Dateien löschen?\n\nEntfernt heruntergeladene Daten aus dem App-Ordner und trennt die Verknüpfung.",
+    "delete_title": "Sprachpaket löschen",
+    "removed": "{name} entfernt.",
+    "validation": {
+      "expected_dir": "{name} erwartet ein Verzeichnis.",
+      "wordnet": "Das WordNet-Verzeichnis muss data.noun/data.verb/data.adj/data.adv oder JSON-Dateien wie entries-a.json und noun.act.json enthalten.",
+      "missing_files": "{name} fehlen erforderliche Dateien: {files}.",
+      "expected_file": "{name} erwartet eine Datei."
+    },
+    "downloaded_linked": "{name} heruntergeladen und mit {path} verknüpft",
+    "downloaded_invalid": "{name} heruntergeladen, aber Validierung fehlgeschlagen: {message}",
+    "download_failed": "Beim Herunterladen von {name} ist ein Problem aufgetreten. Fehler: {error}. Versuchen Sie den Wayback-Spiegel: <a href=\"{link}\">{link}</a>"
+  },
+  "sources": {
+    "wordnet_dir": "WordNet-Verzeichnis",
+    "moby_file": "Moby-Thesaurus-Datei",
+    "openthesaurus_file": "OpenThesaurus-Datei",
+    "jp_wordnet_file": "Japanische WordNet-Datei",
+    "jmdict_file": "JMDict-Datei",
+    "cc_cedict_file": "CC-CEDICT-Datei"
+  },
+  "languages": {
+    "english": "Englisch",
+    "german": "Deutsch",
+    "japanese": "Japanisch",
+    "japanese_english": "Japanisch -> Englisch",
+    "chinese_english": "Chinesisch -> Englisch"
+  },
+  "providers": {
+    "princeton": "Princeton",
+    "moby": "Moby",
+    "openthesaurus": "OpenThesaurus",
+    "ntt": "NTT",
+    "edrdg": "EDRDG",
+    "mdbg": "MDBG"
+  },
+  "packs": {
+    "wordnet": "WordNet",
+    "moby": "Moby Thesaurus",
+    "openthesaurus": "OpenThesaurus",
+    "jp_wordnet": "Japanese WordNet",
+    "jmdict": "JMDict",
+    "cc_cedict": "CC-CEDICT",
+    "label": "{name} ({language})"
+  },
+  "common": {
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "filters": {
+    "json": "JSON-Dateien (*.json)",
+    "embeddings": "Einbettungsdateien (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;Alle Dateien (*)",
+    "all": "Alle Dateien (*)"
+  }
+}

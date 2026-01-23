@@ -18,6 +18,7 @@ for path in (CORE_ROOT, GUI_ROOT):
 from PySide6.QtCore import (
     QByteArray,
     QCoreApplication,
+    QLocale,
     QSettings,
     QSortFilterProxyModel,
     QStandardPaths,
@@ -77,6 +78,7 @@ from lexishift_core.synonyms import EmbeddingIndex
 from dialogs import RuleMetadataDialog, SettingsDialog
 from dialogs_code import BulkRulesDialog, CodeDialog
 from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
+from i18n import set_locale, t
 from models import RulesTableModel
 from preview import PreviewController, ReplacementHighlighter
 from state import AppState
@@ -93,7 +95,7 @@ class DeleteButtonDelegate(QStyledItemDelegate):
         painter.setPen(Qt.NoPen)
         painter.drawRoundedRect(rect, 4, 4)
         painter.setPen(Qt.white)
-        painter.drawText(rect, Qt.AlignCenter, "Delete")
+        painter.drawText(rect, Qt.AlignCenter, t("buttons.delete"))
         painter.restore()
 
     def sizeHint(self, option, index):
@@ -121,7 +123,7 @@ class EmbeddingLoaderThread(QThread):
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("LexiShift")
+        self.setWindowTitle(t("app.window_title"))
         self._ui_settings = QSettings()
 
         settings_path = _settings_path()
@@ -144,18 +146,18 @@ class MainWindow(QMainWindow):
         self._profile_combo_updating = False
         self.profile_combo = QComboBox()
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
-        self.manage_profiles_button = QPushButton("Manage...")
+        self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
-        self.save_profiles_button = QPushButton("Save Profiles")
+        self.save_profiles_button = QPushButton(t("buttons.save_profiles"))
         self.save_profiles_button.clicked.connect(self._save_profiles)
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
         self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
-        self.open_ruleset_button = QPushButton("Select...")
+        self.open_ruleset_button = QPushButton(t("buttons.select_ruleset"))
         self.open_ruleset_button.clicked.connect(self._open_dataset)
-        self.save_ruleset_button = QPushButton("Save Ruleset")
+        self.save_ruleset_button = QPushButton(t("buttons.save_ruleset"))
         self.save_ruleset_button.clicked.connect(self._save_dataset)
         self.save_ruleset_button.setEnabled(False)
 
@@ -189,17 +191,17 @@ class MainWindow(QMainWindow):
         self._embedding_load_id = 0
         self.replacement_list = QListWidget()
         self.replacement_list.currentItemChanged.connect(self._on_replacement_selected)
-        self.replacement_selected_label = QLabel("Select a replacement to filter synonyms.")
+        self.replacement_selected_label = QLabel(t("replacement.select_hint"))
         self.replacement_threshold_slider = QSlider(Qt.Horizontal)
         self.replacement_threshold_slider.setRange(0, 100)
         self.replacement_threshold_slider.valueChanged.connect(self._on_replacement_threshold_changed)
         self.replacement_threshold_value = QLabel("0.00")
-        self.replacement_hint_label = QLabel("Enable embeddings in Settings to rank synonyms.")
+        self.replacement_hint_label = QLabel(t("replacement.enable_embeddings_hint"))
         self.replacement_hint_label.setWordWrap(True)
         self.embedding_progress = QProgressBar()
         self.embedding_progress.setRange(0, 0)
         self.embedding_progress.setTextVisible(True)
-        self.embedding_progress.setFormat("Loading embeddings...")
+        self.embedding_progress.setFormat(t("replacement.loading_embeddings"))
         self.embedding_progress.hide()
 
         self.input_edit = QPlainTextEdit()
@@ -208,7 +210,7 @@ class MainWindow(QMainWindow):
         self.highlighter = ReplacementHighlighter(self.preview_edit.document())
         self.log_edit = QTextEdit()
         self.log_edit.setReadOnly(True)
-        self.log_edit.setPlaceholderText("Bulk add logs and similarity notes appear here.")
+        self.log_edit.setPlaceholderText(t("logs.placeholder"))
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -250,59 +252,59 @@ class MainWindow(QMainWindow):
         self._restore_window_state()
 
     def _setup_actions(self) -> None:
-        self._open_action = QAction("Open Ruleset...", self)
+        self._open_action = QAction(t("menu.open_ruleset"), self)
         self._open_action.triggered.connect(self._open_dataset)
 
-        self._save_action = QAction("Save Ruleset", self)
+        self._save_action = QAction(t("menu.save_ruleset"), self)
         self._save_action.triggered.connect(self._save_dataset)
 
-        self._save_as_action = QAction("Save Ruleset As...", self)
+        self._save_as_action = QAction(t("menu.save_ruleset_as"), self)
         self._save_as_action.triggered.connect(self._save_dataset_as)
 
-        self._settings_action = QAction("Settings...", self)
+        self._settings_action = QAction(t("menu.settings"), self)
         self._settings_action.setMenuRole(QAction.PreferencesRole)
         self._settings_action.triggered.connect(self._open_settings)
 
-        self._manage_profiles_action = QAction("Manage Profiles...", self)
+        self._manage_profiles_action = QAction(t("menu.manage_profiles"), self)
         self._manage_profiles_action.triggered.connect(self._manage_profiles)
 
-        self._save_profiles_action = QAction("Save Profiles", self)
+        self._save_profiles_action = QAction(t("menu.save_profiles"), self)
         self._save_profiles_action.triggered.connect(self._save_profiles)
 
-        self._add_rule_action = QAction("Add Rule", self)
+        self._add_rule_action = QAction(t("menu.add_rule"), self)
         self._add_rule_action.triggered.connect(self._add_rule)
 
-        self._bulk_add_action = QAction("Synonym Bulk Add...", self)
+        self._bulk_add_action = QAction(t("menu.bulk_add"), self)
         self._bulk_add_action.triggered.connect(self._bulk_add_rules)
 
-        self._delete_rule_action = QAction("Delete Rule", self)
+        self._delete_rule_action = QAction(t("menu.delete_rule"), self)
         self._delete_rule_action.triggered.connect(self._delete_rule)
 
-        self._edit_metadata_action = QAction("Edit Metadata...", self)
+        self._edit_metadata_action = QAction(t("menu.edit_metadata"), self)
         self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
-        self._export_json_action = QAction("Export Ruleset (JSON)...", self)
+        self._export_json_action = QAction(t("menu.export_ruleset_json"), self)
         self._export_json_action.triggered.connect(self._export_json)
 
-        self._export_code_action = QAction("Export Ruleset (Code)...", self)
+        self._export_code_action = QAction(t("menu.export_ruleset_code"), self)
         self._export_code_action.triggered.connect(self._export_code)
 
-        self._export_profiles_json_action = QAction("Export Profiles (JSON)...", self)
+        self._export_profiles_json_action = QAction(t("menu.export_profiles_json"), self)
         self._export_profiles_json_action.triggered.connect(self._export_profiles_json)
 
-        self._export_profiles_code_action = QAction("Export Profiles (Code)...", self)
+        self._export_profiles_code_action = QAction(t("menu.export_profiles_code"), self)
         self._export_profiles_code_action.triggered.connect(self._export_profiles_code)
 
-        self._import_json_action = QAction("Import Ruleset (JSON)...", self)
+        self._import_json_action = QAction(t("menu.import_ruleset_json"), self)
         self._import_json_action.triggered.connect(self._import_json)
 
-        self._import_code_action = QAction("Import Ruleset (Code)...", self)
+        self._import_code_action = QAction(t("menu.import_ruleset_code"), self)
         self._import_code_action.triggered.connect(self._import_code)
 
-        self._import_profiles_json_action = QAction("Import Profiles (JSON)...", self)
+        self._import_profiles_json_action = QAction(t("menu.import_profiles_json"), self)
         self._import_profiles_json_action.triggered.connect(self._import_profiles_json)
 
-        self._import_profiles_code_action = QAction("Import Profiles (Code)...", self)
+        self._import_profiles_code_action = QAction(t("menu.import_profiles_code"), self)
         self._import_profiles_code_action.triggered.connect(self._import_profiles_code)
 
         self._save_action.setEnabled(False)
@@ -312,19 +314,19 @@ class MainWindow(QMainWindow):
     def _setup_menu(self) -> None:
         menu_bar = self.menuBar()
 
-        file_menu = menu_bar.addMenu("File")
+        file_menu = menu_bar.addMenu(t("menu.file"))
         file_menu.addAction(self._open_action)
         file_menu.addAction(self._save_action)
         file_menu.addAction(self._save_as_action)
 
-        import_menu = file_menu.addMenu("Import")
+        import_menu = file_menu.addMenu(t("menu.import"))
         import_menu.addAction(self._import_json_action)
         import_menu.addAction(self._import_code_action)
         import_menu.addSeparator()
         import_menu.addAction(self._import_profiles_json_action)
         import_menu.addAction(self._import_profiles_code_action)
 
-        export_menu = file_menu.addMenu("Export")
+        export_menu = file_menu.addMenu(t("menu.export"))
         export_menu.addAction(self._export_json_action)
         export_menu.addAction(self._export_code_action)
         export_menu.addSeparator()
@@ -335,12 +337,12 @@ class MainWindow(QMainWindow):
         file_menu.addAction(self._settings_action)
         file_menu.addSeparator()
 
-        self._quit_action = QAction("Quit", self)
+        self._quit_action = QAction(t("menu.quit"), self)
         self._quit_action.setMenuRole(QAction.QuitRole)
         self._quit_action.triggered.connect(self.close)
         file_menu.addAction(self._quit_action)
 
-        profiles_menu = menu_bar.addMenu("Profiles")
+        profiles_menu = menu_bar.addMenu(t("menu.profiles"))
         profiles_menu.addAction(self._manage_profiles_action)
         profiles_menu.addAction(self._save_profiles_action)
         profiles_menu.addSeparator()
@@ -351,7 +353,7 @@ class MainWindow(QMainWindow):
         self._profile_actions: list[QAction] = []
         self._rebuild_profiles_menu()
 
-        edit_menu = menu_bar.addMenu("Edit")
+        edit_menu = menu_bar.addMenu(t("menu.edit"))
         edit_menu.addAction(self._add_rule_action)
         edit_menu.addAction(self._bulk_add_action)
         edit_menu.addSeparator()
@@ -359,8 +361,8 @@ class MainWindow(QMainWindow):
         edit_menu.addAction(self._delete_rule_action)
 
     def _build_profile_header(self) -> QWidget:
-        profile_label = QLabel("Profile")
-        ruleset_label = QLabel("Ruleset")
+        profile_label = QLabel(t("labels.profile"))
+        ruleset_label = QLabel(t("labels.ruleset"))
 
         left_layout = QHBoxLayout()
         left_layout.setContentsMargins(0, 0, 0, 0)
@@ -391,8 +393,8 @@ class MainWindow(QMainWindow):
         return header
 
     def _build_replacement_panel(self) -> QWidget:
-        title = QLabel("Replacements")
-        slider_label = QLabel("Similarity threshold")
+        title = QLabel(t("replacement.panel_title"))
+        slider_label = QLabel(t("replacement.threshold_label"))
 
         slider_row = QHBoxLayout()
         slider_row.setContentsMargins(0, 0, 0, 0)
@@ -415,7 +417,7 @@ class MainWindow(QMainWindow):
         return panel
 
     def _build_log_panel(self) -> QWidget:
-        title = QLabel("Log")
+        title = QLabel(t("logs.title"))
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(title)
@@ -500,9 +502,9 @@ class MainWindow(QMainWindow):
         if self.state.dirty:
             choice = QMessageBox(self)
             choice.setIcon(QMessageBox.Warning)
-            choice.setWindowTitle("Unsaved Changes")
-            choice.setText("Save changes to the current ruleset before quitting?")
-            choice.setInformativeText("Your edits will be lost if you don't save.")
+            choice.setWindowTitle(t("dialogs.unsaved.title"))
+            choice.setText(t("dialogs.unsaved.text"))
+            choice.setInformativeText(t("dialogs.unsaved.informative"))
             choice.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
             choice.setDefaultButton(QMessageBox.Save)
             result = choice.exec()
@@ -546,7 +548,7 @@ class MainWindow(QMainWindow):
         dataset_path = str(default_dataset)
         profile = Profile(
             profile_id="default",
-            name="Default",
+            name=t("profiles.default_name"),
             dataset_path=dataset_path,
             rulesets=(dataset_path,),
             active_ruleset=dataset_path,
@@ -567,7 +569,12 @@ class MainWindow(QMainWindow):
     def _open_dataset(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Select Ruleset", self._default_import_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.open_ruleset.title"),
+            self._default_import_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         dataset_path = Path(path)
@@ -600,7 +607,7 @@ class MainWindow(QMainWindow):
             return False
         profile = dialog.profile()
         if any(existing.profile_id == profile.profile_id for existing in self.state.settings.profiles):
-            QMessageBox.warning(self, "Profile ID", "Profile ID already exists.")
+            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
             return False
         profiles = tuple(self.state.settings.profiles) + (profile,)
         self.state.set_profiles(profiles, active_profile_id=profile.profile_id)
@@ -648,14 +655,18 @@ class MainWindow(QMainWindow):
         if not selected_pack_ids:
             QMessageBox.information(
                 self,
-                "Synonym Bulk Add",
-                "Select at least one dictionary to use for synonym generation.",
+                t("dialogs.bulk_add.title"),
+                t("dialogs.bulk_add.select_dictionary"),
             )
             return
-        self._append_log(f"Bulk add: {len(targets)} target(s).")
+        self._append_log(t("logs.bulk_add_targets", count=len(targets)))
         rules = self._generate_synonym_rules(targets, selected_pack_ids=selected_pack_ids)
         if not rules:
-            QMessageBox.information(self, "Synonym Bulk Add", "No synonyms found for the provided targets.")
+            QMessageBox.information(
+                self,
+                t("dialogs.bulk_add.title"),
+                t("dialogs.bulk_add.no_synonyms"),
+            )
             return
         self.rules_model.add_rules(rules)
 
@@ -687,10 +698,14 @@ class MainWindow(QMainWindow):
             rule = self.rules_model.rule_at(row)
             if rule is None:
                 return
-            message = f"Delete this rule?\n\n{rule.source_phrase} -> {rule.replacement}\n\nThis cannot be undone."
+            message = t(
+                "dialogs.delete_rule.message",
+                source=rule.source_phrase,
+                replacement=rule.replacement,
+            )
             reply = QMessageBox.question(
                 self,
-                "Delete Rule",
+                t("dialogs.delete_rule.title"),
                 message,
                 QMessageBox.Yes | QMessageBox.Cancel,
                 QMessageBox.Cancel,
@@ -727,7 +742,11 @@ class MainWindow(QMainWindow):
         selected_pack_ids = set(selected_pack_ids or [])
         language_packs = settings.language_packs if settings else {}
         if not settings:
-            QMessageBox.warning(self, "Synonym Expansion", "Configure synonym sources in Settings first.")
+            QMessageBox.warning(
+                self,
+                t("dialogs.synonym_expansion.title"),
+                t("dialogs.synonym_expansion.configure_sources"),
+            )
             return []
         use_wordnet = "wordnet-en" in selected_pack_ids
         use_moby = "moby-en" in selected_pack_ids
@@ -752,43 +771,49 @@ class MainWindow(QMainWindow):
                 use_cc_cedict and cc_cedict_path,
             ]
         ):
-            QMessageBox.warning(self, "Synonym Expansion", "Select configured dictionaries in the dialog.")
+            QMessageBox.warning(
+                self,
+                t("dialogs.synonym_expansion.title"),
+                t("dialogs.synonym_expansion.select_configured"),
+            )
             return []
         missing_sources = []
         if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
-            missing_sources.append("WordNet directory")
+            missing_sources.append(t("sources.wordnet_dir"))
         if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
-            missing_sources.append("Moby thesaurus file")
+            missing_sources.append(t("sources.moby_file"))
         if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
-            missing_sources.append("OpenThesaurus file")
+            missing_sources.append(t("sources.openthesaurus_file"))
         if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
-            missing_sources.append("Japanese WordNet file")
+            missing_sources.append(t("sources.jp_wordnet_file"))
         if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
-            missing_sources.append("JMDict file")
+            missing_sources.append(t("sources.jmdict_file"))
         if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
-            missing_sources.append("CC-CEDICT file")
+            missing_sources.append(t("sources.cc_cedict_file"))
         if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
-            missing_sources.append("CC-CEDICT file")
+            missing_sources.append(t("sources.cc_cedict_file"))
         if missing_sources:
             QMessageBox.warning(
                 self,
-                "Synonym Expansion",
-                "Missing sources: " + ", ".join(missing_sources),
+                t("dialogs.synonym_expansion.title"),
+                t("dialogs.synonym_expansion.missing_sources", sources=", ".join(missing_sources)),
             )
             return []
         selected_labels = []
         label_map = {
-            "wordnet-en": "WordNet",
-            "moby-en": "Moby Thesaurus",
-            "openthesaurus-de": "OpenThesaurus",
-            "jp-wordnet": "Japanese WordNet",
-            "jmdict-ja-en": "JMDict",
-            "cc-cedict-zh-en": "CC-CEDICT",
+            "wordnet-en": t("packs.wordnet"),
+            "moby-en": t("packs.moby"),
+            "openthesaurus-de": t("packs.openthesaurus"),
+            "jp-wordnet": t("packs.jp_wordnet"),
+            "jmdict-ja-en": t("packs.jmdict"),
+            "cc-cedict-zh-en": t("packs.cc_cedict"),
         }
         for pack_id in selected_pack_ids:
             selected_labels.append(label_map.get(pack_id, pack_id))
         if selected_labels:
-            self._append_log("Dictionaries: " + ", ".join(sorted(selected_labels)))
+            self._append_log(
+                t("logs.dictionaries", dictionaries=", ".join(sorted(selected_labels)))
+            )
         cc_cedict_file = (
             Path(cc_cedict_path)
             if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_file()
@@ -817,14 +842,16 @@ class MainWindow(QMainWindow):
             stats = generator.stats()
             QMessageBox.information(
                 self,
-                "Synonym Expansion",
-                "No entries loaded from sources ("
-                f"WordNet={stats.get('wordnet', 0)}, "
-                f"Moby={stats.get('moby', 0)}, "
-                f"OpenThesaurus={stats.get('openthesaurus', 0)}, "
-                f"JP WordNet={stats.get('jp_wordnet', 0)}, "
-                f"JMDict={stats.get('jmdict', 0)}, "
-                f"CC-CEDICT={stats.get('cc_cedict', 0)}).",
+                t("dialogs.synonym_expansion.title"),
+                t(
+                    "dialogs.synonym_expansion.no_entries",
+                    wordnet=stats.get("wordnet", 0),
+                    moby=stats.get("moby", 0),
+                    openthesaurus=stats.get("openthesaurus", 0),
+                    jp_wordnet=stats.get("jp_wordnet", 0),
+                    jmdict=stats.get("jmdict", 0),
+                    cc_cedict=stats.get("cc_cedict", 0),
+                ),
             )
             return []
         rules: list[VocabRule] = []
@@ -833,23 +860,30 @@ class MainWindow(QMainWindow):
         for target in targets:
             synonyms, used_fallback = generator.synonyms_for_detail(target)
             if not synonyms:
-                self._append_log(f"No synonyms found for: {target}", color=QColor("#C73C3C"))
+                self._append_log(
+                    t("logs.no_synonyms_for", target=target),
+                    color=QColor("#C73C3C"),
+                )
                 if settings and settings.use_embeddings and settings.embedding_fallback:
                     if not generator.has_embeddings():
-                        self._append_log(f"Embeddings not loaded; fallback skipped for: {target}")
+                        self._append_log(t("logs.embeddings_not_loaded", target=target))
                     elif not generator.embeddings_support_neighbors():
                         self._append_log(
-                            "Embeddings file does not support neighbor lookup (reconvert to SQLite or use .vec/.bin)."
+                            t("logs.embeddings_no_neighbors")
                         )
                     elif not generator.embeddings_has_vector(target):
-                        self._append_log(f"No embedding vector for: {target}")
+                        self._append_log(t("logs.no_embedding_vector", target=target))
                     else:
-                        self._append_log(f"Embeddings fallback returned 0 neighbors for: {target}")
+                        self._append_log(t("logs.embeddings_zero_neighbors", target=target))
             else:
                 if used_fallback:
-                    self._append_log(f"Embeddings fallback for {target}: {len(synonyms)}")
+                    self._append_log(
+                        t("logs.embeddings_fallback_count", target=target, count=len(synonyms))
+                    )
                 else:
-                    self._append_log(f"Synonyms found for {target}: {len(synonyms)}")
+                    self._append_log(
+                        t("logs.synonyms_found", target=target, count=len(synonyms))
+                    )
             for synonym in synonyms:
                 if synonym in seen_sources:
                     duplicate_count += 1
@@ -866,8 +900,8 @@ class MainWindow(QMainWindow):
                 seen_sources.add(synonym)
                 rules.append(VocabRule(source_phrase=synonym, replacement=target, tags=("synonym",)))
         if duplicate_count:
-            message = f"{duplicate_count} duplicate source phrases were added as disabled rules."
-            QMessageBox.information(self, "Synonym Bulk Add", message)
+            message = t("dialogs.bulk_add.duplicates", count=duplicate_count)
+            QMessageBox.information(self, t("dialogs.bulk_add.title"), message)
             self._append_log(message)
         return rules
 
@@ -878,7 +912,12 @@ class MainWindow(QMainWindow):
         self.state.save_dataset()
 
     def _save_dataset_as(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Save Ruleset As", self._default_export_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self,
+            t("dialogs.save_ruleset_as.title"),
+            self._default_export_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         dataset_path = Path(path)
@@ -887,7 +926,12 @@ class MainWindow(QMainWindow):
         self._remember_export_path(dataset_path)
 
     def _export_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Export Ruleset JSON", self._default_export_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self,
+            t("dialogs.export_ruleset_json.title"),
+            self._default_export_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         payload = export_dataset_json(self.state.dataset)
@@ -896,11 +940,16 @@ class MainWindow(QMainWindow):
 
     def _export_code(self) -> None:
         payload = export_dataset_code(self.state.dataset)
-        dialog = CodeDialog("Export Ruleset Code", code=payload, read_only=True, parent=self)
+        dialog = CodeDialog(t("dialogs.export_ruleset_code.title"), code=payload, read_only=True, parent=self)
         dialog.exec()
 
     def _export_profiles_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(self, "Export Profiles JSON", self._default_export_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self,
+            t("dialogs.export_profiles_json.title"),
+            self._default_export_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         payload = export_app_settings_json(self.state.settings)
@@ -909,13 +958,18 @@ class MainWindow(QMainWindow):
 
     def _export_profiles_code(self) -> None:
         payload = export_app_settings_code(self.state.settings)
-        dialog = CodeDialog("Export Profiles Code", code=payload, read_only=True, parent=self)
+        dialog = CodeDialog(t("dialogs.export_profiles_code.title"), code=payload, read_only=True, parent=self)
         dialog.exec()
 
     def _import_json(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Import Ruleset JSON", self._default_import_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.import_ruleset_json.title"),
+            self._default_import_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         payload = Path(path).read_text(encoding="utf-8")
@@ -926,7 +980,7 @@ class MainWindow(QMainWindow):
     def _import_code(self) -> None:
         if not self._confirm_discard_changes():
             return
-        dialog = CodeDialog("Import Ruleset Code", parent=self)
+        dialog = CodeDialog(t("dialogs.import_ruleset_code.title"), parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         dataset = import_dataset_code(dialog.code())
@@ -935,7 +989,12 @@ class MainWindow(QMainWindow):
     def _import_profiles_json(self) -> None:
         if not self._confirm_discard_changes():
             return
-        path, _ = QFileDialog.getOpenFileName(self, "Import Profiles JSON", self._default_import_dir(), "JSON Files (*.json)")
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.import_profiles_json.title"),
+            self._default_import_dir(),
+            t("filters.json"),
+        )
         if not path:
             return
         payload = Path(path).read_text(encoding="utf-8")
@@ -948,7 +1007,7 @@ class MainWindow(QMainWindow):
     def _import_profiles_code(self) -> None:
         if not self._confirm_discard_changes():
             return
-        dialog = CodeDialog("Import Profiles Code", parent=self)
+        dialog = CodeDialog(t("dialogs.import_profiles_code.title"), parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         settings = import_app_settings_code(dialog.code())
@@ -961,8 +1020,8 @@ class MainWindow(QMainWindow):
             return True
         reply = QMessageBox.question(
             self,
-            "Unsaved Changes",
-            "You have unsaved changes. Discard them?",
+            t("dialogs.unsaved.title"),
+            t("dialogs.unsaved.discard"),
             QMessageBox.Yes | QMessageBox.No,
         )
         return reply == QMessageBox.Yes
@@ -1044,7 +1103,7 @@ class MainWindow(QMainWindow):
         if not path:
             return
         menu = QMenu(self)
-        reveal_action = menu.addAction("Reveal in Finder")
+        reveal_action = menu.addAction(t("menu.reveal_in_finder"))
         action = menu.exec(self.ruleset_combo.mapToGlobal(position))
         if action == reveal_action:
             self._reveal_path(path)
@@ -1110,7 +1169,7 @@ class MainWindow(QMainWindow):
             return
         embedding_path = Path(settings.embedding_path)
         if not embedding_path.exists():
-            self._embedding_load_error = "Embeddings file not found."
+            self._embedding_load_error = t("replacement.embeddings_missing")
             self._update_replacement_filter_state()
             return
         self._embedding_loading = True
@@ -1137,16 +1196,16 @@ class MainWindow(QMainWindow):
         self.replacement_threshold_value.setEnabled(enabled)
         self.embedding_progress.setVisible(self._embedding_loading)
         if self._embedding_loading:
-            self.replacement_hint_label.setText("Loading embeddings...")
+            self.replacement_hint_label.setText(t("replacement.loading_embeddings"))
             self.replacement_hint_label.setVisible(True)
         elif self._embedding_load_error:
             self.replacement_hint_label.setText(self._embedding_load_error)
             self.replacement_hint_label.setVisible(True)
         elif not has_embeddings:
-            self.replacement_hint_label.setText("Enable embeddings in Settings to rank synonyms.")
+            self.replacement_hint_label.setText(t("replacement.enable_embeddings_hint"))
             self.replacement_hint_label.setVisible(True)
         elif scope == "all":
-            self.replacement_hint_label.setText("No synonym tags found; filtering all rules for this replacement.")
+            self.replacement_hint_label.setText(t("replacement.no_synonym_tags"))
             self.replacement_hint_label.setVisible(True)
         else:
             self.replacement_hint_label.setVisible(False)
@@ -1170,13 +1229,25 @@ class MainWindow(QMainWindow):
         for replacement in sorted(replacement_counts.keys(), key=str.lower):
             syn_total, syn_enabled, total = replacement_counts[replacement]
             if syn_total:
-                label = f"{replacement} ({syn_enabled}/{syn_total})"
+                label = t(
+                    "replacement.list_label",
+                    replacement=replacement,
+                    enabled=syn_enabled,
+                    total=syn_total,
+                )
             else:
                 label = replacement
             item = QListWidgetItem(label)
             item.setData(Qt.UserRole, replacement)
             if syn_total:
-                item.setToolTip(f"{syn_enabled} enabled of {syn_total} synonym rules ({total} total)")
+                item.setToolTip(
+                    t(
+                        "replacement.tooltip_counts",
+                        enabled=syn_enabled,
+                        total=syn_total,
+                        overall=total,
+                    )
+                )
             self.replacement_list.addItem(item)
         restored = False
         if selected:
@@ -1188,7 +1259,7 @@ class MainWindow(QMainWindow):
                     break
         self.replacement_list.blockSignals(False)
         if selected and not restored:
-            self.replacement_selected_label.setText("Select a replacement to filter synonyms.")
+            self.replacement_selected_label.setText(t("replacement.select_hint"))
         self._update_replacement_filter_state()
 
     def _selected_replacement(self) -> Optional[str]:
@@ -1225,11 +1296,15 @@ class MainWindow(QMainWindow):
             self._replacement_slider_updating = False
             scope = self._replacement_filter_scope(replacement)
             if scope == "all":
-                self.replacement_selected_label.setText(f"Filtering rules for: {replacement}")
+                self.replacement_selected_label.setText(
+                    t("replacement.filter_rules", replacement=replacement)
+                )
             else:
-                self.replacement_selected_label.setText(f"Filtering synonyms for: {replacement}")
+                self.replacement_selected_label.setText(
+                    t("replacement.filter_synonyms", replacement=replacement)
+                )
         else:
-            self.replacement_selected_label.setText("Select a replacement to filter synonyms.")
+            self.replacement_selected_label.setText(t("replacement.select_hint"))
         self._update_replacement_filter_state()
 
     def _on_replacement_threshold_changed(self, value: int) -> None:
@@ -1331,7 +1406,7 @@ class MainWindow(QMainWindow):
             label = str(Path(path).name) or path
             display = label
             if not Path(path).exists():
-                display = f"{label} (missing)"
+                display = t("ruleset.missing", label=label)
             self.ruleset_combo.addItem(display, path)
             self.ruleset_combo.setItemData(idx, path, Qt.ToolTipRole)
             if path == active_path:
@@ -1454,6 +1529,11 @@ def main() -> None:
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     app = QApplication(sys.argv)
+    ui_settings = QSettings()
+    locale_pref = ui_settings.value("appearance/locale", "system")
+    if locale_pref == "system":
+        locale_pref = QLocale.system().name()
+    set_locale(str(locale_pref))
     window = MainWindow()
     window.show()
     sys.exit(app.exec())

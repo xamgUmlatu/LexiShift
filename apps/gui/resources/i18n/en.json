@@ -1,0 +1,369 @@
+{
+  "app": {
+    "window_title": "LexiShift"
+  },
+  "tabs": {
+    "app": "App",
+    "appearance": "Appearance",
+    "dataset": "Dataset"
+  },
+  "buttons": {
+    "manage_profiles": "Manage...",
+    "save_profiles": "Save Profiles",
+    "select_ruleset": "Select...",
+    "save_ruleset": "Save Ruleset",
+    "delete": "Delete",
+    "close": "Close",
+    "generate": "Generate",
+    "download": "Download",
+    "redownload": "Redownload",
+    "retry": "Retry",
+    "select": "Select...",
+    "browse": "Browse",
+    "add": "Add",
+    "remove": "Remove",
+    "add_ruleset": "Add Ruleset",
+    "set_active": "Set Active"
+  },
+  "menu": {
+    "file": "File",
+    "import": "Import",
+    "export": "Export",
+    "quit": "Quit",
+    "profiles": "Profiles",
+    "edit": "Edit",
+    "settings": "Settings...",
+    "open_ruleset": "Open Ruleset...",
+    "save_ruleset": "Save Ruleset",
+    "save_ruleset_as": "Save Ruleset As...",
+    "manage_profiles": "Manage Profiles...",
+    "save_profiles": "Save Profiles",
+    "add_rule": "Add Rule",
+    "bulk_add": "Synonym Bulk Add...",
+    "delete_rule": "Delete Rule",
+    "edit_metadata": "Edit Metadata...",
+    "export_ruleset_json": "Export Ruleset (JSON)...",
+    "export_ruleset_code": "Export Ruleset (Code)...",
+    "export_profiles_json": "Export Profiles (JSON)...",
+    "export_profiles_code": "Export Profiles (Code)...",
+    "import_ruleset_json": "Import Ruleset (JSON)...",
+    "import_ruleset_code": "Import Ruleset (Code)...",
+    "import_profiles_json": "Import Profiles (JSON)...",
+    "import_profiles_code": "Import Profiles (Code)...",
+    "reveal_in_finder": "Reveal in Finder",
+    "reveal_ruleset_in_finder": "Reveal Ruleset in Finder"
+  },
+  "labels": {
+    "profile": "Profile",
+    "ruleset": "Ruleset",
+    "profile_id": "Profile ID",
+    "name": "Name",
+    "rulesets": "Rulesets",
+    "tags_comma": "Tags (comma)",
+    "description": "Description",
+    "ruleset_path": "Ruleset Path"
+  },
+  "dialogs": {
+    "unsaved": {
+      "title": "Unsaved Changes",
+      "text": "Save changes to the current ruleset before quitting?",
+      "informative": "Your edits will be lost if you don't save.",
+      "discard": "You have unsaved changes. Discard them?"
+    },
+    "profile_id": {
+      "title": "Profile ID",
+      "exists": "Profile ID already exists.",
+      "empty": "Profile ID cannot be empty.",
+      "unique": "Profile IDs must be unique."
+    },
+    "profiles": {
+      "title": "Profiles",
+      "required": "At least one profile is required."
+    },
+    "rulesets": {
+      "title": "Rulesets",
+      "required_for": "At least one ruleset is required for '{name}'."
+    },
+    "delete_rule": {
+      "title": "Delete Rule",
+      "message": "Delete this rule?\n\n{source} -> {replacement}\n\nThis cannot be undone."
+    },
+    "bulk_add": {
+      "title": "Synonym Bulk Add",
+      "select_dictionary": "Select at least one dictionary to use for synonym generation.",
+      "no_synonyms": "No synonyms found for the provided targets.",
+      "duplicates": "{count} duplicate source phrases were added as disabled rules.",
+      "placeholder": "Paste target words (delimiters: space, comma, newline, semicolon).",
+      "targets_label": "Targets",
+      "choose_dictionaries": "Choose dictionaries to use for this generation.",
+      "mono_group": "Monolingual dictionaries",
+      "cross_group": "Cross-lingual dictionaries",
+      "none_configured": "None configured."
+    },
+    "open_ruleset": {
+      "title": "Select Ruleset"
+    },
+    "save_ruleset_as": {
+      "title": "Save Ruleset As"
+    },
+    "export_ruleset_json": {
+      "title": "Export Ruleset JSON"
+    },
+    "export_ruleset_code": {
+      "title": "Export Ruleset Code"
+    },
+    "export_profiles_json": {
+      "title": "Export Profiles JSON"
+    },
+    "export_profiles_code": {
+      "title": "Export Profiles Code"
+    },
+    "import_ruleset_json": {
+      "title": "Import Ruleset JSON"
+    },
+    "import_ruleset_code": {
+      "title": "Import Ruleset Code"
+    },
+    "import_profiles_json": {
+      "title": "Import Profiles JSON"
+    },
+    "import_profiles_code": {
+      "title": "Import Profiles Code"
+    },
+    "synonym_expansion": {
+      "title": "Synonym Expansion",
+      "configure_sources": "Configure synonym sources in Settings first.",
+      "select_configured": "Select configured dictionaries in the dialog.",
+      "missing_sources": "Missing sources: {sources}",
+      "no_entries": "No entries loaded from sources (WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict})."
+    },
+    "select_embeddings": {
+      "title": "Select Embeddings File"
+    },
+    "rule_metadata": {
+      "title": "Rule Metadata",
+      "label": "Label",
+      "description": "Description",
+      "examples": "Examples (one per line)",
+      "notes": "Notes",
+      "source": "Source"
+    },
+    "settings": {
+      "title": "Settings"
+    },
+    "manage_profiles": {
+      "title": "Manage Profiles",
+      "active_hint": "Active profile is the selected row when saving."
+    },
+    "add_ruleset": {
+      "title": "Add Ruleset"
+    },
+    "select_ruleset_path": {
+      "title": "Select Ruleset Path"
+    },
+    "create_profile": {
+      "title": "Create Profile"
+    },
+    "first_run": {
+      "title": "Welcome to LexiShift",
+      "message": "Create your first profile to start managing rulesets.\nYou can always add more profiles later."
+    },
+    "invalid_resource": {
+      "title": "Invalid Resource"
+    },
+    "select_pack_directory": "Select {name} Directory",
+    "select_pack_file": "Select {name} File"
+  },
+  "settings": {
+    "allow_code_export": "Allow export as code",
+    "include_phrases": "Include multi-word synonyms",
+    "lower_case": "Lowercase synonyms",
+    "require_consensus": "Require consensus between sources",
+    "require_consensus_tip": "Only keep synonyms found in every configured source.",
+    "use_embeddings": "Rank synonyms with embeddings",
+    "embedding_fallback": "Use embeddings when no synonyms found",
+    "embedding_fallback_tip": "Requires embeddings file with neighbor support (.vec/.bin or SQLite built via convert_embeddings.py).",
+    "default_export_format": "Default export format",
+    "synonym_generation": "Synonym generation",
+    "max_synonyms": "Max synonyms",
+    "embeddings_file": "Embeddings file",
+    "similarity_threshold": "Similarity threshold",
+    "inflections_enabled": "Enable inflections",
+    "inflections_strict": "Strict inflections",
+    "include_generated_tag": "Tag generated forms",
+    "include_original": "Include original phrase",
+    "learning_enabled": "Enable learning mode",
+    "show_original": "Show original text",
+    "highlight_replacements": "Highlight replacements",
+    "inflections_section": "Inflections",
+    "learning_section": "Learning"
+  },
+  "formats": {
+    "json": "JSON",
+    "code": "Code"
+  },
+  "appearance": {
+    "theme": {
+      "light_sand": "Light Sand",
+      "chalk": "Chalk",
+      "dusk": "Dusk",
+      "night_slate": "Night Slate",
+      "label": "Theme"
+    },
+    "language": {
+      "label": "Language",
+      "system_default": "System default"
+    },
+    "hint": "Themes apply to Settings. Restart to apply language changes."
+  },
+  "inflections": {
+    "apply_last_word": "Last word",
+    "apply_all_words": "All words",
+    "forms": {
+      "plural": "Plural",
+      "possessive": "Possessive",
+      "past": "Past",
+      "gerund": "Gerund",
+      "third_person": "Third person"
+    },
+    "generated_tag": "Generated tag",
+    "apply_to": "Apply to"
+  },
+  "learning": {
+    "mode": {
+      "tooltip": "Tooltip",
+      "inline": "Inline",
+      "side_by_side": "Side-by-side"
+    },
+    "show_original_mode": "Show original mode"
+  },
+  "replacement": {
+    "select_hint": "Select a replacement to filter synonyms.",
+    "enable_embeddings_hint": "Enable embeddings in Settings to rank synonyms.",
+    "loading_embeddings": "Loading embeddings...",
+    "embeddings_missing": "Embeddings file not found.",
+    "no_synonym_tags": "No synonym tags found; filtering all rules for this replacement.",
+    "panel_title": "Replacements",
+    "threshold_label": "Similarity threshold",
+    "list_label": "{replacement} ({enabled}/{total})",
+    "tooltip_counts": "{enabled} enabled of {total} synonym rules ({overall} total)",
+    "filter_rules": "Filtering rules for: {replacement}",
+    "filter_synonyms": "Filtering synonyms for: {replacement}"
+  },
+  "logs": {
+    "title": "Log",
+    "placeholder": "Bulk add logs and similarity notes appear here.",
+    "bulk_add_targets": "Bulk add: {count} target(s).",
+    "dictionaries": "Dictionaries: {dictionaries}",
+    "no_synonyms_for": "No synonyms found for: {target}",
+    "embeddings_not_loaded": "Embeddings not loaded; fallback skipped for: {target}",
+    "embeddings_no_neighbors": "Embeddings file does not support neighbor lookup (reconvert to SQLite or use .vec/.bin).",
+    "no_embedding_vector": "No embedding vector for: {target}",
+    "embeddings_zero_neighbors": "Embeddings fallback returned 0 neighbors for: {target}",
+    "embeddings_fallback_count": "Embeddings fallback for {target}: {count}",
+    "synonyms_found": "Synonyms found for {target}: {count}"
+  },
+  "profiles": {
+    "default_name": "Default",
+    "active_label": "{name} (Active)"
+  },
+  "rules_table": {
+    "headers": {
+      "enabled": "Enabled",
+      "source": "Source",
+      "replacement": "Replacement",
+      "priority": "Priority",
+      "created": "Created",
+      "tags": "Tags",
+      "delete": "Delete"
+    },
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "delete_tooltip": "Delete rule (Alt+click to skip confirmation)"
+  },
+  "ruleset": {
+    "missing": "{label} (missing)",
+    "active_label": "{path} (Active)"
+  },
+  "language_packs": {
+    "title": "Language packs",
+    "open_directory": "Open local directory",
+    "headers": {
+      "pack": "Pack",
+      "language": "Language",
+      "source": "Source",
+      "status": "Status",
+      "download": "Download",
+      "local": "Local",
+      "delete": "Delete",
+      "size": "Size"
+    },
+    "status": {
+      "local_ok": "Local OK",
+      "invalid": "Invalid",
+      "downloaded": "Downloaded",
+      "available": "Available",
+      "downloading": "Downloading...",
+      "downloading_pct": "Downloading {percent}%",
+      "cancelled": "Cancelled",
+      "failed": "Failed"
+    },
+    "downloading": "Downloading {name}...",
+    "linked": "{name} linked to {path}",
+    "no_local_files": "No local files found for {name}.",
+    "unlink_confirm": "Unlink {name}?\n\nThis will not delete external files.",
+    "delete_confirm": "Delete {name} files?\n\nThis removes downloaded data from the app folder and unlinks the pack.",
+    "delete_title": "Delete Language Pack",
+    "removed": "{name} removed.",
+    "validation": {
+      "expected_dir": "{name} expects a directory.",
+      "wordnet": "WordNet directory must contain data.noun/data.verb/data.adj/data.adv or JSON files like entries-a.json and noun.act.json.",
+      "missing_files": "{name} is missing required files: {files}.",
+      "expected_file": "{name} expects a file."
+    },
+    "downloaded_linked": "Downloaded and linked {name} to {path}",
+    "downloaded_invalid": "Downloaded {name}, but validation failed: {message}",
+    "download_failed": "There was a problem downloading {name}. Error: {error}. Try the Wayback mirror: <a href=\"{link}\">{link}</a>"
+  },
+  "sources": {
+    "wordnet_dir": "WordNet directory",
+    "moby_file": "Moby thesaurus file",
+    "openthesaurus_file": "OpenThesaurus file",
+    "jp_wordnet_file": "Japanese WordNet file",
+    "jmdict_file": "JMDict file",
+    "cc_cedict_file": "CC-CEDICT file"
+  },
+  "languages": {
+    "english": "English",
+    "german": "German",
+    "japanese": "Japanese",
+    "japanese_english": "Japanese -> English",
+    "chinese_english": "Chinese -> English"
+  },
+  "providers": {
+    "princeton": "Princeton",
+    "moby": "Moby",
+    "openthesaurus": "OpenThesaurus",
+    "ntt": "NTT",
+    "edrdg": "EDRDG",
+    "mdbg": "MDBG"
+  },
+  "packs": {
+    "wordnet": "WordNet",
+    "moby": "Moby Thesaurus",
+    "openthesaurus": "OpenThesaurus",
+    "jp_wordnet": "Japanese WordNet",
+    "jmdict": "JMDict",
+    "cc_cedict": "CC-CEDICT",
+    "label": "{name} ({language})"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "filters": {
+    "json": "JSON Files (*.json)",
+    "embeddings": "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;All Files (*)",
+    "all": "All Files (*)"
+  }
+}

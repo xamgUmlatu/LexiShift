@@ -8,6 +8,7 @@ from PySide6.QtCore import QAbstractListModel, QAbstractTableModel, QModelIndex,
 from PySide6.QtGui import QFont
 
 from lexishift_core import Profile, VocabRule
+from i18n import t
 
 
 class ProfilesListModel(QAbstractListModel):
@@ -43,7 +44,7 @@ class ProfilesListModel(QAbstractListModel):
         is_active = profile.profile_id == self._active_profile_id
         if role in (Qt.DisplayRole, Qt.EditRole):
             name = profile.name or profile.profile_id
-            return f"{name} (Active)" if is_active else name
+            return t("profiles.active_label", name=name) if is_active else name
         if role == Qt.UserRole:
             return profile
         if role == Qt.ToolTipRole:
@@ -136,13 +137,13 @@ class RulesTableModel(QAbstractTableModel):
         if orientation != Qt.Horizontal or role != Qt.DisplayRole:
             return None
         return {
-            self.COLUMN_ENABLED: "Enabled",
-            self.COLUMN_SOURCE: "Source",
-            self.COLUMN_REPLACEMENT: "Replacement",
-            self.COLUMN_PRIORITY: "Priority",
-            self.COLUMN_CREATED: "Created",
-            self.COLUMN_TAGS: "Tags",
-            self.COLUMN_DELETE: "Delete",
+            self.COLUMN_ENABLED: t("rules_table.headers.enabled"),
+            self.COLUMN_SOURCE: t("rules_table.headers.source"),
+            self.COLUMN_REPLACEMENT: t("rules_table.headers.replacement"),
+            self.COLUMN_PRIORITY: t("rules_table.headers.priority"),
+            self.COLUMN_CREATED: t("rules_table.headers.created"),
+            self.COLUMN_TAGS: t("rules_table.headers.tags"),
+            self.COLUMN_DELETE: t("rules_table.headers.delete"),
         }.get(section)
 
     def data(self, index: QModelIndex, role: int = Qt.DisplayRole):
@@ -154,7 +155,7 @@ class RulesTableModel(QAbstractTableModel):
             return _sort_value(rule, column)
         if role == Qt.ToolTipRole:
             if column == self.COLUMN_ENABLED:
-                return "Enabled" if rule.enabled else "Disabled"
+                return t("rules_table.enabled") if rule.enabled else t("rules_table.disabled")
             if column == self.COLUMN_SOURCE:
                 return rule.source_phrase
             if column == self.COLUMN_REPLACEMENT:
@@ -166,12 +167,12 @@ class RulesTableModel(QAbstractTableModel):
             if column == self.COLUMN_TAGS:
                 return ", ".join(rule.tags)
             if column == self.COLUMN_DELETE:
-                return "Delete rule (Alt+click to skip confirmation)"
+                return t("rules_table.delete_tooltip")
         if column == self.COLUMN_ENABLED and role == Qt.CheckStateRole:
             return Qt.Checked if rule.enabled else Qt.Unchecked
         if role in (Qt.DisplayRole, Qt.EditRole):
             if column == self.COLUMN_ENABLED:
-                return "Yes" if rule.enabled else "No"
+                return t("common.yes") if rule.enabled else t("common.no")
             if column == self.COLUMN_SOURCE:
                 return rule.source_phrase
             if column == self.COLUMN_REPLACEMENT:
@@ -183,7 +184,7 @@ class RulesTableModel(QAbstractTableModel):
             if column == self.COLUMN_TAGS:
                 return ", ".join(rule.tags)
             if column == self.COLUMN_DELETE:
-                return "Delete"
+                return t("buttons.delete")
         return None
 
     def flags(self, index: QModelIndex) -> Qt.ItemFlags:
