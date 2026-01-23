@@ -1,35 +1,118 @@
 LexiShift Language Pack URLs
 
-Fill in the URLs and sizes below. One block per pack.
+Format:
+pack_id: <stable id>
+name: <display name>
+type: monolingual | translation
+languages: <source_langs> -> <target_langs> (use same for monolingual)
+size: <exact size>
+url: <download url>
+wayback_url: <wayback wildcard url>
+filename: <downloaded filename>
+unzipped_name: <final filename or dir after extraction, if any>
+layout: <brief structure description>
+parse_hint: <delimiter/columns>
+notes: <optional>
 
+-- Monolingual Synonyms --
 pack_id: wordnet-en
-name: WordNet
-size: 72.5 MB (english-wordnet-2025-json)
+name: WordNet (JSON)
+type: monolingual
+languages: en -> en
+size: 72.5 MB
 url: https://en-word.net/static/english-wordnet-2025-json.zip
 wayback_url: https://web.archive.org/web/*/https://en-word.net/static/english-wordnet-2025-json.zip
 filename: english-wordnet-2025-json.zip
-notes: expected dir with data.noun, data.verb, data.adj, data.adv
+unzipped_name: english-wordnet-2025-json/
+layout: JSON synset files (entries-*.json, noun.*.json, verb.*.json, adj.*.json)
+parse_hint: read members[] from each synset object
+notes: validated via JSON marker files
 
 pack_id: moby-en
 name: Moby Thesaurus
-size: 24.9 MB (mthesaur.txt)
+type: monolingual
+languages: en -> en
+size: 24.9 MB
 url: https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
 wayback_url: https://web.archive.org/web/*/https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
 filename: mthesaur.txt
-notes: file path
+unzipped_name: mthesaur.txt
+layout: one file
+parse_hint: CSV-like line: headword,synonym,synonym,...
+notes: noisy but broad
 
 pack_id: openthesaurus-de
 name: OpenThesaurus
-size: (e.g., 48 MB)
+type: monolingual
+languages: de -> de
+size: 2.6 MB
 url: https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
 wayback_url: https://web.archive.org/web/*/https://gitlab.htl-perg.ac.at/20180016/hue_junit/-/raw/master/Thesaurus/src/openthesaurus.txt?inline=false
 filename: openthesaurus.txt
-notes: file path
+unzipped_name: openthesaurus.txt
+layout: one file
+parse_hint: semicolon-delimited synonym groups (one line = synset)
+notes: German thesaurus
 
 pack_id: jp-wordnet
 name: Japanese WordNet
-size: (e.g., 120 MB)
+type: monolingual
+languages: ja -> ja
+size: 29.2 MB
 url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
 wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn-all.tab.gz
 filename: wnjpn-all.tab.gz
-notes: file path
+unzipped_name: wnjpn-all.tab
+layout: one file (after gzip)
+parse_hint: tab-delimited: synset_id<TAB>word<TAB>source
+notes: source tags include hand/mono/XXXX
+
+-- Cross-lingual Translation --
+pack_id: jmdict-ja-en
+name: JMDict
+type: translation
+languages: ja -> en
+size: 18.2 MB (Compressed) / ~130 MB (Unzipped)
+url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+wayback_url: https://web.archive.org/web/20250101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+filename: JMdict_e.gz
+unzipped_name: JMdict_e
+layout: XML (Standard EDRDG DTD)
+parse_hint: Extract <entry> nodes; map <reb> (reading) and <keb> (kanji) to <gloss> (English senses).
+notes: The _e version contains English glosses only. If you need multi-lingual, use JMdict.gz.
+
+pack_id: cc-cedict-zh-en
+name: CC-CEDICT
+type: translation
+languages: zh -> en
+size: 10.5 MB (Compressed) / ~35 MB (Unzipped)
+url: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip
+wayback_url: https://web.archive.org/web/20250110/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf8_mdbg.zip
+filename: cedict_1_0_ts_utf8_mdbg.zip
+unzipped_name: cedict_ts.u8
+layout: Plain text (One entry per line)
+parse_hint: Format: Traditional Simplified [pinyin] /gloss1/gloss2/
+notes: Highly stable format, easy to parse with a simple regex.
+
+pack_id: wiktionary-xlang
+name: Wiktionary Translations (dump)
+type: translation
+languages: multi -> multi
+size: 2.3 GB (Gzipped) / 20.1 GB (Unzipped JSONL)
+url: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
+wayback_url: https://web.archive.org/web/20260115/https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
+filename: wiktionary-eng.jsonl.gz
+unzipped_name: kaikki.org-dictionary-English.jsonl
+layout: JSONL (One JSON object per line)
+parse_hint: Filter objects by the translations key; each object represents a lemma.
+notes: This is the Kaikki "English Wiktionary" dump, which contains English glosses for words in over 4,000 languages.
+
+-- Info Needed From You --
+1) Which translation packs to prioritize (JMDict/CC-CEDICT/Wiktionary/etc.).
+2) Confirmation of any preferred language pairs beyond JP/EN and ZH/EN.
+3) If a download is an archive, the top-level layout name (folder) if not obvious.
+
+-- Answers --
+1) We want to make it inclusive, eventually expanding to more and more... for now, prioritize the easiest
+2) JP->JP, EN->EN, EN->JP, JP->EN, EN->DE, DE->EN
+3) Done 

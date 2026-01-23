@@ -74,15 +74,9 @@ from lexishift_core import (
 )
 from lexishift_core.synonyms import EmbeddingIndex
 
-from dialogs import (
-    BulkRulesDialog,
-    CodeDialog,
-    CreateProfileDialog,
-    FirstRunDialog,
-    ProfilesDialog,
-    RuleMetadataDialog,
-    SettingsDialog,
-)
+from dialogs import RuleMetadataDialog, SettingsDialog
+from dialogs_code import BulkRulesDialog, CodeDialog
+from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
 from models import RulesTableModel
 from preview import PreviewController, ReplacementHighlighter
 from state import AppState
@@ -134,6 +128,7 @@ class MainWindow(QMainWindow):
         self.state = AppState(settings_path=settings_path)
         first_run = not settings_path.exists()
         self.state.load_settings()
+        self._migrate_ruleset_paths()
         if not self.state.settings.profiles:
             if not self._run_first_time_setup(first_run=first_run):
                 self._seed_default_profile()
@@ -586,7 +581,7 @@ class MainWindow(QMainWindow):
         dialog = ProfilesDialog(
             profiles=self.state.settings.profiles,
             active_profile_id=self.state.settings.active_profile_id,
-            default_dir=_app_data_dir(),
+            default_dir=_rulesets_dir(),
             parent=self,
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
@@ -600,7 +595,7 @@ class MainWindow(QMainWindow):
     def _create_profile(self) -> bool:
         if not self._confirm_discard_changes():
             return False
-        dialog = CreateProfileDialog(default_dir=_app_data_dir(), parent=self)
+        dialog = CreateProfileDialog(default_dir=_rulesets_dir(), parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return False
         profile = dialog.profile()
@@ -700,7 +695,17 @@ class MainWindow(QMainWindow):
 
     def _generate_synonym_rules(self, targets: list[str]) -> list[VocabRule]:
         settings = self.state.settings.synonyms
-        if not settings or (not settings.wordnet_dir and not settings.moby_path):
+        language_packs = settings.language_packs if settings else {}
+        openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
+        jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
+        jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
+        if not settings or (
+            not settings.wordnet_dir
+            and not settings.moby_path
+            and not openthesaurus_path
+            and not jp_wordnet_path
+            and not jmdict_path
+        ):
             QMessageBox.warning(self, "Synonym Expansion", "Configure synonym sources in Settings first.")
             return []
         missing_sources = []
@@ -708,6 +713,12 @@ class MainWindow(QMainWindow):
             missing_sources.append("WordNet directory")
         if settings.moby_path and not Path(settings.moby_path).exists():
             missing_sources.append("Moby thesaurus file")
+        if openthesaurus_path and not Path(openthesaurus_path).exists():
+            missing_sources.append("OpenThesaurus file")
+        if jp_wordnet_path and not Path(jp_wordnet_path).exists():
+            missing_sources.append("Japanese WordNet file")
+        if jmdict_path and not Path(jmdict_path).exists():
+            missing_sources.append("JMDict file")
         if missing_sources:
             QMessageBox.warning(
                 self,
@@ -718,6 +729,9 @@ class MainWindow(QMainWindow):
         sources = SynonymSources(
             wordnet_dir=Path(settings.wordnet_dir) if settings.wordnet_dir else None,
             moby_path=Path(settings.moby_path) if settings.moby_path else None,
+            openthesaurus_path=Path(openthesaurus_path) if openthesaurus_path else None,
+            jp_wordnet_path=Path(jp_wordnet_path) if jp_wordnet_path else None,
+            jmdict_path=Path(jmdict_path) if jmdict_path else None,
         )
         options = SynonymOptions(
             max_synonyms=settings.max_synonyms,
@@ -735,7 +749,12 @@ class MainWindow(QMainWindow):
             QMessageBox.information(
                 self,
                 "Synonym Expansion",
-                f"No entries loaded from sources (WordNet={stats.get('wordnet', 0)}, Moby={stats.get('moby', 0)}).",
+                "No entries loaded from sources ("
+                f"WordNet={stats.get('wordnet', 0)}, "
+                f"Moby={stats.get('moby', 0)}, "
+                f"OpenThesaurus={stats.get('openthesaurus', 0)}, "
+                f"JP WordNet={stats.get('jp_wordnet', 0)}, "
+                f"JMDict={stats.get('jmdict', 0)}).",
             )
             return []
         rules: list[VocabRule] = []
@@ -1282,6 +1301,64 @@ class MainWindow(QMainWindow):
             return
         self._load_profile(profile)
 
+    def _migrate_ruleset_paths(self) -> None:
+        settings = self.state.settings
+        if not settings.profiles:
+            return
+        base_dir = os.path.abspath(str(_app_data_dir()))
+        rulesets_dir = os.path.abspath(str(_rulesets_dir()))
+        changed = False
+        updated_profiles: list[Profile] = []
+
+        def migrate_path(path: Optional[str]) -> tuple[Optional[str], bool]:
+            if not path:
+                return path, False
+            expanded = os.path.abspath(os.path.expanduser(path))
+            if expanded.startswith(rulesets_dir + os.sep):
+                return path, False
+            try:
+                if os.path.commonpath([expanded, base_dir]) != base_dir:
+                    return path, False
+            except ValueError:
+                return path, False
+            if not os.path.exists(expanded):
+                return path, False
+            new_path = os.path.join(rulesets_dir, os.path.basename(expanded))
+            if expanded != new_path:
+                os.makedirs(rulesets_dir, exist_ok=True)
+                if not os.path.exists(new_path):
+                    try:
+                        os.replace(expanded, new_path)
+                    except OSError:
+                        return path, False
+                return new_path, True
+            return path, False
+
+        for profile in settings.profiles:
+            dataset_path, changed_dataset = migrate_path(profile.dataset_path)
+            active_ruleset, changed_active = migrate_path(profile.active_ruleset)
+            rulesets = []
+            changed_rulesets = False
+            for ruleset_path in profile.rulesets:
+                migrated, changed_rule = migrate_path(ruleset_path)
+                rulesets.append(migrated or ruleset_path)
+                changed_rulesets = changed_rulesets or changed_rule
+            if changed_dataset or changed_active or changed_rulesets:
+                changed = True
+                updated_profiles.append(
+                    replace(
+                        profile,
+                        dataset_path=dataset_path or profile.dataset_path,
+                        active_ruleset=active_ruleset or profile.active_ruleset,
+                        rulesets=tuple(rulesets),
+                    )
+                )
+            else:
+                updated_profiles.append(profile)
+
+        if changed:
+            self.state.update_settings(replace(settings, profiles=tuple(updated_profiles)))
+
 
 def _app_data_dir() -> Path:
     base_dir = Path(QStandardPaths.writableLocation(QStandardPaths.AppDataLocation))
@@ -1289,12 +1366,18 @@ def _app_data_dir() -> Path:
     return base_dir
 
 
+def _rulesets_dir() -> Path:
+    target = Path(os.path.join(str(_app_data_dir()), "rulesets"))
+    target.mkdir(parents=True, exist_ok=True)
+    return target
+
+
 def _settings_path() -> Path:
     return _app_data_dir() / "settings.json"
 
 
 def _default_dataset_path() -> Path:
-    return _app_data_dir() / "vocab.json"
+    return _rulesets_dir() / "vocab.json"
 
 
 def main() -> None:

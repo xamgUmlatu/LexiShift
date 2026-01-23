@@ -9,12 +9,16 @@ import sqlite3
 import struct
 from pathlib import Path
 from typing import Iterable, Mapping, Optional
+from xml.etree import ElementTree
 
 
 @dataclass(frozen=True)
 class SynonymSources:
     wordnet_dir: Optional[Path] = None
     moby_path: Optional[Path] = None
+    openthesaurus_path: Optional[Path] = None
+    jp_wordnet_path: Optional[Path] = None
+    jmdict_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)
@@ -34,7 +38,7 @@ class SynonymGenerator:
         self._sources = sources
         self._options = options or SynonymOptions()
         self._synonyms = {}
-        self._stats = {"moby": 0, "wordnet": 0}
+        self._stats = {"moby": 0, "wordnet": 0, "openthesaurus": 0, "jp_wordnet": 0, "jmdict": 0}
         self._embeddings = None
         self._load_sources()
         self._load_embeddings()
@@ -132,6 +136,18 @@ class SynonymGenerator:
             mapping = _load_wordnet(self._sources.wordnet_dir)
             self._stats["wordnet"] = len(mapping)
             mappings.append(mapping)
+        if self._sources.openthesaurus_path:
+            mapping = _load_openthesaurus(self._sources.openthesaurus_path)
+            self._stats["openthesaurus"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.jp_wordnet_path:
+            mapping = _load_jp_wordnet(self._sources.jp_wordnet_path)
+            self._stats["jp_wordnet"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.jmdict_path:
+            mapping = _load_jmdict(self._sources.jmdict_path)
+            self._stats["jmdict"] = len(mapping)
+            mappings.append(mapping)
         if not mappings:
             return
         if self._options.require_consensus and len(mappings) > 1:
@@ -171,6 +187,84 @@ def _load_moby_thesaurus(path: Path) -> dict[str, set[str]]:
             continue
         head, *synonyms = parts
         mapping.setdefault(head, set()).update(synonyms)
+    return mapping
+
+
+def _load_openthesaurus(path: Path) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    for raw in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = [part.strip() for part in line.split(";") if part.strip()]
+        if len(parts) < 2:
+            continue
+        for word in parts:
+            bucket = mapping.setdefault(word, set())
+            for synonym in parts:
+                if synonym != word:
+                    bucket.add(synonym)
+    return mapping
+
+
+def _load_jp_wordnet(path: Path) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    synsets: dict[str, set[str]] = {}
+    for raw in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split("\t")
+        if len(parts) < 2:
+            continue
+        synset_id = parts[0].strip()
+        word = parts[1].strip()
+        if not synset_id or not word:
+            continue
+        synsets.setdefault(synset_id, set()).add(word)
+    for words in synsets.values():
+        if len(words) < 2:
+            continue
+        for word in words:
+            bucket = mapping.setdefault(word, set())
+            for synonym in words:
+                if synonym != word:
+                    bucket.add(synonym)
+    return mapping
+
+
+def _load_jmdict(path: Path) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    try:
+        root = ElementTree.parse(path).getroot()
+    except ElementTree.ParseError:
+        return mapping
+    for entry in root.findall("entry"):
+        glosses = [
+            gloss.text.strip()
+            for gloss in entry.findall("sense/gloss")
+            if gloss.text and gloss.text.strip()
+        ]
+        if not glosses:
+            continue
+        jp_terms = []
+        for elem in entry.findall("k_ele/keb"):
+            if elem.text and elem.text.strip():
+                jp_terms.append(elem.text.strip())
+        for elem in entry.findall("r_ele/reb"):
+            if elem.text and elem.text.strip():
+                jp_terms.append(elem.text.strip())
+        if not jp_terms:
+            continue
+        for jp_term in jp_terms:
+            bucket = mapping.setdefault(jp_term, set())
+            bucket.update(glosses)
     return mapping
 
 
