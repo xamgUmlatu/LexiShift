@@ -19,6 +19,7 @@ class SynonymSources:
     openthesaurus_path: Optional[Path] = None
     jp_wordnet_path: Optional[Path] = None
     jmdict_path: Optional[Path] = None
+    cc_cedict_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)
@@ -38,7 +39,14 @@ class SynonymGenerator:
         self._sources = sources
         self._options = options or SynonymOptions()
         self._synonyms = {}
-        self._stats = {"moby": 0, "wordnet": 0, "openthesaurus": 0, "jp_wordnet": 0, "jmdict": 0}
+        self._stats = {
+            "moby": 0,
+            "wordnet": 0,
+            "openthesaurus": 0,
+            "jp_wordnet": 0,
+            "jmdict": 0,
+            "cc_cedict": 0,
+        }
         self._embeddings = None
         self._load_sources()
         self._load_embeddings()
@@ -147,6 +155,10 @@ class SynonymGenerator:
         if self._sources.jmdict_path:
             mapping = _load_jmdict(self._sources.jmdict_path)
             self._stats["jmdict"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.cc_cedict_path:
+            mapping = _load_cc_cedict(self._sources.cc_cedict_path)
+            self._stats["cc_cedict"] = len(mapping)
             mappings.append(mapping)
         if not mappings:
             return
@@ -264,6 +276,28 @@ def _load_jmdict(path: Path) -> dict[str, set[str]]:
             continue
         for jp_term in jp_terms:
             bucket = mapping.setdefault(jp_term, set())
+            bucket.update(glosses)
+    return mapping
+
+
+def _load_cc_cedict(path: Path) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    pattern = re.compile(r"^(\S+)\s+(\S+)\s+\[.+?\]\s+/(.+)/")
+    for raw in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        match = pattern.match(line)
+        if not match:
+            continue
+        trad, simp, glosses_raw = match.groups()
+        glosses = [gloss.strip() for gloss in glosses_raw.split("/") if gloss.strip()]
+        if not glosses:
+            continue
+        for term in (trad, simp):
+            bucket = mapping.setdefault(term, set())
             bucket.update(glosses)
     return mapping
 

@@ -129,7 +129,7 @@ Synonym sources (local)
   - Point “Embeddings file” in Settings to the `.db`/`.sqlite` output.
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
 Language packs (Settings -> App)
-- Language packs list is shown inside Settings (App tab), with a Download button per pack.
+- Language packs list is shown inside Settings (App tab), with Download/Delete buttons per pack.
 - Each row shows language, source, and size (size is listed in the rightmost column).
 - Downloads are saved to the app data folder (use the "Open local directory" button at the top of the section).
 - If a download fails, the UI shows a "there was a problem" message plus a Wayback mirror link.
@@ -265,7 +265,7 @@ GUI scaffold (PySide6)
   - First-run welcome flow for creating a profile.
   - Rule editor backed by `QAbstractTableModel`.
   - Add/delete rules and edit rule metadata.
-  - Synonym bulk add from a delimiter-split list of target words/phrases (uses local sources from Settings).
+  - Synonym bulk add from a delimiter-split list of target words/phrases (select dictionaries per run).
   - Per-row delete column in the rule table.
 
 Chrome extension
@@ -324,6 +324,19 @@ Plans (ordered by ease/priority)
    - Optional cached indexes for fast reloads.
 4. Add per-rule exception patterns or context gates if needed.
 5. Add streaming/liveness adapter for live text replacement.
+6. Localize the GUI app, extension, and BetterDiscord plugin for multiple languages.
+7. Make color/background themes more customizable and selectable.
+8. Consider larger Σ symbol spaces for Share Code to shorten codes.
+
+Known inconsistencies / friction points
+- Embedding similarity is English-centric today; multi-language ranking will need language detection + per-language embeddings or a multilingual model.
+- Cross-lingual dictionaries (JMDict/CC-CEDICT) are translations, not strict synonyms; they should be surfaced separately in UX and labeling.
+- Language determination is missing for CJK/no-space text; replacement quality is limited until CJK tokenization or substring mode is added.
+- WordNet classic vs JSON layouts can diverge; validation allows both, but pack-specific parsing rules may be needed.
+- Manual language pack paths can point outside the app folder; Delete only removes app-managed files, so UX should clarify that.
+- Embeddings fallback requires neighbor-capable formats; SQLite builds without LSH won’t support fallback lookup.
+- Profiles support multiple rulesets, but extensions/plugins still take one ruleset at a time; profile sync is still conceptual.
+- Settings theme selection applies to the Settings dialog only, not the full app UI yet.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.

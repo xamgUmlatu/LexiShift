@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import os
+import shutil
 from dataclasses import dataclass
+from typing import Optional
 
 from PySide6.QtCore import QStandardPaths, Qt
 from PySide6.QtGui import QColor
@@ -30,6 +32,7 @@ class LanguagePackRow:
     row: int
     status_item: QTableWidgetItem
     download_button: QPushButton
+    delete_button: QPushButton
 
 
 class LanguagePackPanel(QWidget):
@@ -45,21 +48,13 @@ class LanguagePackPanel(QWidget):
         self.open_language_pack_button = QPushButton("Open local directory")
         self.open_language_pack_button.setIcon(self.style().standardIcon(QStyle.SP_DirOpenIcon))
         self.open_language_pack_button.setMinimumHeight(34)
-        self.open_language_pack_button.setStyleSheet(
-            "QPushButton {"
-            "background: #2F2F2F;"
-            "color: #FFFFFF;"
-            "padding: 6px 14px;"
-            "border-radius: 6px;"
-            "}"
-            "QPushButton:hover { background: #232323; }"
-        )
+        self.open_language_pack_button.setObjectName("settingsPrimaryButton")
         self.open_language_pack_button.clicked.connect(self._open_language_pack_dir)
 
         self.language_pack_table = QTableWidget()
-        self.language_pack_table.setColumnCount(7)
+        self.language_pack_table.setColumnCount(8)
         self.language_pack_table.setHorizontalHeaderLabels(
-            ["Pack", "Language", "Source", "Status", "Download", "Local", "Size"]
+            ["Pack", "Language", "Source", "Status", "Download", "Local", "Delete", "Size"]
         )
         self.language_pack_table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.language_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -73,6 +68,7 @@ class LanguagePackPanel(QWidget):
         header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
         self.language_pack_table.setMinimumHeight(320)
 
         self.language_pack_status = QLabel("")
@@ -95,6 +91,7 @@ class LanguagePackPanel(QWidget):
 
     def apply_synonym_settings(self, synonym_settings: SynonymSourceSettings) -> None:
         self._seed_language_pack_paths(synonym_settings)
+        self._auto_link_downloaded_packs()
         self._refresh_language_pack_table()
 
     def paths(self) -> dict[str, str]:
@@ -123,7 +120,8 @@ class LanguagePackPanel(QWidget):
                 continue
             row.status_item.setToolTip("")
             row.status_item.setForeground(QColor("#2C2C2C"))
-            dest_path = os.path.join(self._language_pack_dir, pack.filename)
+            dest_path = self._download_archive_path(pack)
+            resolved_path = self._resolve_downloaded_path(pack)
             local_path = self._language_pack_paths.get(pack_id)
             if local_path:
                 valid, message = self._validate_language_pack_path(pack, local_path)
@@ -135,14 +133,16 @@ class LanguagePackPanel(QWidget):
                     row.status_item.setText("Invalid")
                     row.status_item.setForeground(QColor("#A03030"))
                     row.status_item.setToolTip(message)
-            elif os.path.exists(dest_path):
+            elif resolved_path:
                 row.status_item.setText("Downloaded")
                 row.status_item.setForeground(QColor("#8A6D1D"))
-                row.status_item.setToolTip(dest_path)
+                row.status_item.setToolTip(resolved_path)
             else:
                 row.status_item.setText("Available")
                 row.status_item.setForeground(QColor("#5C5C5C"))
-            if os.path.exists(dest_path):
+            download_exists = dest_path and os.path.exists(dest_path)
+            row.delete_button.setEnabled(bool(local_path or resolved_path or download_exists))
+            if download_exists or resolved_path:
                 row.download_button.setText("Redownload")
             else:
                 row.download_button.setText("Download")
@@ -163,6 +163,10 @@ class LanguagePackPanel(QWidget):
             local_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._select_language_pack_path(pack_id)
             )
+            delete_button = QPushButton("Delete")
+            delete_button.clicked.connect(
+                lambda checked=False, pack_id=pack.pack_id: self._delete_language_pack(pack_id)
+            )
             size_item = QTableWidgetItem(pack.size)
             size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
@@ -172,12 +176,14 @@ class LanguagePackPanel(QWidget):
             self.language_pack_table.setItem(row, 3, status_item)
             self.language_pack_table.setCellWidget(row, 4, download_button)
             self.language_pack_table.setCellWidget(row, 5, local_button)
-            self.language_pack_table.setItem(row, 6, size_item)
+            self.language_pack_table.setCellWidget(row, 6, delete_button)
+            self.language_pack_table.setItem(row, 7, size_item)
 
             self._language_pack_rows[pack.pack_id] = LanguagePackRow(
                 row=row,
                 status_item=status_item,
                 download_button=download_button,
+                delete_button=delete_button,
             )
         self._refresh_language_pack_table()
 
@@ -186,7 +192,7 @@ class LanguagePackPanel(QWidget):
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
             return
-        dest_path = os.path.join(self._language_pack_dir, pack.filename)
+        dest_path = self._download_archive_path(pack)
         row.status_item.setText("Downloading...")
         row.download_button.setEnabled(False)
         self.language_pack_status.setStyleSheet("")
@@ -229,6 +235,51 @@ class LanguagePackPanel(QWidget):
         self.language_pack_status.setText(f"{pack.name} linked to {path}")
         self._refresh_language_pack_table()
 
+    def _delete_language_pack(self, pack_id: str) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        row = self._language_pack_rows.get(pack_id)
+        if not pack or not row:
+            return
+        local_path = self._language_pack_paths.get(pack_id)
+        archive_path = self._download_archive_path(pack)
+        resolved_path = self._resolve_downloaded_path(pack)
+        delete_paths = []
+        if local_path and self._is_app_data_path(local_path):
+            delete_paths.append(local_path)
+        if archive_path and os.path.exists(archive_path) and self._is_app_data_path(archive_path):
+            delete_paths.append(archive_path)
+        if resolved_path and os.path.exists(resolved_path) and self._is_app_data_path(resolved_path):
+            delete_paths.append(resolved_path)
+        delete_paths = list(dict.fromkeys(delete_paths))
+        unlink_only = local_path and not delete_paths
+        if not delete_paths and not unlink_only:
+            QMessageBox.information(self, "Language Pack", f"No local files found for {pack.name}.")
+            self._language_pack_paths.pop(pack_id, None)
+            self._refresh_language_pack_table()
+            return
+        if unlink_only:
+            message = f"Unlink {pack.name}?\n\nThis will not delete external files."
+        else:
+            message = (
+                f"Delete {pack.name} files?\n\n"
+                "This removes downloaded data from the app folder and unlinks the pack."
+            )
+        reply = QMessageBox.question(
+            self,
+            "Delete Language Pack",
+            message,
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        if reply != QMessageBox.Yes:
+            return
+        self._language_pack_paths.pop(pack_id, None)
+        for path in delete_paths:
+            self._remove_path(path)
+        self.language_pack_status.setStyleSheet("")
+        self.language_pack_status.setText(f"{pack.name} removed.")
+        self._refresh_language_pack_table()
+
     def _validate_language_pack_path(self, pack: LanguagePackInfo, path: str) -> tuple[bool, str]:
         if pack.local_kind == "dir":
             if not os.path.isdir(path):
@@ -250,6 +301,51 @@ class LanguagePackPanel(QWidget):
         if not os.path.isfile(path):
             return False, f"{pack.name} expects a file."
         return True, ""
+
+    def _auto_link_downloaded_packs(self) -> None:
+        for pack_id, pack in self._language_pack_info.items():
+            if pack_id in self._language_pack_paths:
+                continue
+            candidate = self._resolve_downloaded_path(pack)
+            if not candidate:
+                continue
+            valid, _message = self._validate_language_pack_path(pack, candidate)
+            if valid:
+                self._language_pack_paths[pack_id] = candidate
+
+    def _download_archive_path(self, pack: LanguagePackInfo) -> str:
+        return os.path.join(self._language_pack_dir, pack.filename)
+
+    def _resolve_downloaded_path(self, pack: LanguagePackInfo) -> Optional[str]:
+        archive_path = self._download_archive_path(pack)
+        if archive_path.endswith(".zip"):
+            extracted = os.path.splitext(archive_path)[0]
+            if os.path.isdir(extracted):
+                return extracted
+        if archive_path.endswith(".gz"):
+            extracted = os.path.splitext(archive_path)[0]
+            if os.path.exists(extracted):
+                return extracted
+        if os.path.exists(archive_path):
+            return archive_path
+        return None
+
+    def _is_app_data_path(self, path: str) -> bool:
+        base = os.path.abspath(self._language_pack_dir)
+        target = os.path.abspath(os.path.expanduser(path))
+        try:
+            return os.path.commonpath([base, target]) == base
+        except ValueError:
+            return False
+
+    def _remove_path(self, path: str) -> None:
+        try:
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            elif os.path.exists(path):
+                os.remove(path)
+        except OSError:
+            pass
 
     def _has_wordnet_classic(self, path: str) -> bool:
         required = ("data.noun", "data.verb", "data.adj", "data.adv")

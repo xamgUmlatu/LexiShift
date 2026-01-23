@@ -637,18 +637,42 @@ class MainWindow(QMainWindow):
             self.rules_table.edit(proxy_index)
 
     def _bulk_add_rules(self) -> None:
-        dialog = BulkRulesDialog(parent=self)
+        default_pack_ids = self._default_bulk_pack_ids()
+        dialog = BulkRulesDialog(default_pack_ids=default_pack_ids, parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         targets = dialog.targets()
         if not targets:
             return
+        selected_pack_ids = dialog.selected_pack_ids()
+        if not selected_pack_ids:
+            QMessageBox.information(
+                self,
+                "Synonym Bulk Add",
+                "Select at least one dictionary to use for synonym generation.",
+            )
+            return
         self._append_log(f"Bulk add: {len(targets)} target(s).")
-        rules = self._generate_synonym_rules(targets)
+        rules = self._generate_synonym_rules(targets, selected_pack_ids=selected_pack_ids)
         if not rules:
             QMessageBox.information(self, "Synonym Bulk Add", "No synonyms found for the provided targets.")
             return
         self.rules_model.add_rules(rules)
+
+    def _default_bulk_pack_ids(self) -> set[str]:
+        settings = self.state.settings.synonyms
+        pack_ids: set[str] = set()
+        if not settings:
+            return pack_ids
+        if settings.wordnet_dir:
+            pack_ids.add("wordnet-en")
+        if settings.moby_path:
+            pack_ids.add("moby-en")
+        language_packs = settings.language_packs or {}
+        for pack_id in ("openthesaurus-de", "jp-wordnet", "jmdict-ja-en", "cc-cedict-zh-en"):
+            if language_packs.get(pack_id):
+                pack_ids.add(pack_id)
+        return pack_ids
 
     def _delete_rule(self) -> None:
         row = self._current_source_row()
@@ -693,32 +717,58 @@ class MainWindow(QMainWindow):
                 skip_confirm = bool(QApplication.keyboardModifiers() & Qt.AltModifier)
                 self._confirm_and_delete_rule(row=row, skip_confirm=skip_confirm)
 
-    def _generate_synonym_rules(self, targets: list[str]) -> list[VocabRule]:
+    def _generate_synonym_rules(
+        self,
+        targets: list[str],
+        *,
+        selected_pack_ids: set[str] | None = None,
+    ) -> list[VocabRule]:
         settings = self.state.settings.synonyms
+        selected_pack_ids = set(selected_pack_ids or [])
         language_packs = settings.language_packs if settings else {}
+        if not settings:
+            QMessageBox.warning(self, "Synonym Expansion", "Configure synonym sources in Settings first.")
+            return []
+        use_wordnet = "wordnet-en" in selected_pack_ids
+        use_moby = "moby-en" in selected_pack_ids
+        use_openthesaurus = "openthesaurus-de" in selected_pack_ids
+        use_jp_wordnet = "jp-wordnet" in selected_pack_ids
+        use_jmdict = "jmdict-ja-en" in selected_pack_ids
+        use_cc_cedict = "cc-cedict-zh-en" in selected_pack_ids
         openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
-        if not settings or (
-            not settings.wordnet_dir
-            and not settings.moby_path
-            and not openthesaurus_path
-            and not jp_wordnet_path
-            and not jmdict_path
+        cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
+        if cc_cedict_path and Path(cc_cedict_path).is_dir():
+            candidate = Path(cc_cedict_path) / "cedict_ts.u8"
+            cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
+        if not any(
+            [
+                use_wordnet and settings.wordnet_dir,
+                use_moby and settings.moby_path,
+                use_openthesaurus and openthesaurus_path,
+                use_jp_wordnet and jp_wordnet_path,
+                use_jmdict and jmdict_path,
+                use_cc_cedict and cc_cedict_path,
+            ]
         ):
-            QMessageBox.warning(self, "Synonym Expansion", "Configure synonym sources in Settings first.")
+            QMessageBox.warning(self, "Synonym Expansion", "Select configured dictionaries in the dialog.")
             return []
         missing_sources = []
-        if settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
+        if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
             missing_sources.append("WordNet directory")
-        if settings.moby_path and not Path(settings.moby_path).exists():
+        if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
             missing_sources.append("Moby thesaurus file")
-        if openthesaurus_path and not Path(openthesaurus_path).exists():
+        if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
             missing_sources.append("OpenThesaurus file")
-        if jp_wordnet_path and not Path(jp_wordnet_path).exists():
+        if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
             missing_sources.append("Japanese WordNet file")
-        if jmdict_path and not Path(jmdict_path).exists():
+        if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
             missing_sources.append("JMDict file")
+        if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
+            missing_sources.append("CC-CEDICT file")
+        if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
+            missing_sources.append("CC-CEDICT file")
         if missing_sources:
             QMessageBox.warning(
                 self,
@@ -726,12 +776,31 @@ class MainWindow(QMainWindow):
                 "Missing sources: " + ", ".join(missing_sources),
             )
             return []
+        selected_labels = []
+        label_map = {
+            "wordnet-en": "WordNet",
+            "moby-en": "Moby Thesaurus",
+            "openthesaurus-de": "OpenThesaurus",
+            "jp-wordnet": "Japanese WordNet",
+            "jmdict-ja-en": "JMDict",
+            "cc-cedict-zh-en": "CC-CEDICT",
+        }
+        for pack_id in selected_pack_ids:
+            selected_labels.append(label_map.get(pack_id, pack_id))
+        if selected_labels:
+            self._append_log("Dictionaries: " + ", ".join(sorted(selected_labels)))
+        cc_cedict_file = (
+            Path(cc_cedict_path)
+            if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_file()
+            else None
+        )
         sources = SynonymSources(
-            wordnet_dir=Path(settings.wordnet_dir) if settings.wordnet_dir else None,
-            moby_path=Path(settings.moby_path) if settings.moby_path else None,
-            openthesaurus_path=Path(openthesaurus_path) if openthesaurus_path else None,
-            jp_wordnet_path=Path(jp_wordnet_path) if jp_wordnet_path else None,
-            jmdict_path=Path(jmdict_path) if jmdict_path else None,
+            wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
+            moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
+            openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
+            jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
+            jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
+            cc_cedict_path=cc_cedict_file,
         )
         options = SynonymOptions(
             max_synonyms=settings.max_synonyms,
@@ -754,7 +823,8 @@ class MainWindow(QMainWindow):
                 f"Moby={stats.get('moby', 0)}, "
                 f"OpenThesaurus={stats.get('openthesaurus', 0)}, "
                 f"JP WordNet={stats.get('jp_wordnet', 0)}, "
-                f"JMDict={stats.get('jmdict', 0)}).",
+                f"JMDict={stats.get('jmdict', 0)}, "
+                f"CC-CEDICT={stats.get('cc_cedict', 0)}).",
             )
             return []
         rules: list[VocabRule] = []

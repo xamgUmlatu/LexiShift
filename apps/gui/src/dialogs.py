@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import replace
 from typing import Optional
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSettings, Qt
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -99,6 +99,65 @@ class RuleMetadataDialog(QDialog):
 
 
 class SettingsDialog(QDialog):
+    THEMES = {
+        "light_sand": {
+            "bg": "#F6F2EB",
+            "panel_top": "#FBF8F3",
+            "panel_bottom": "#EFE7DC",
+            "panel_border": "#D8CDBD",
+            "text": "#1F1F1F",
+            "muted": "#5C5C5C",
+            "accent": "#9A6A2B",
+            "accent_soft": "#E9D6BF",
+            "primary": "#2F2F2F",
+            "primary_hover": "#232323",
+            "table_bg": "#FFFFFF",
+            "table_sel_bg": "#E7D9C6",
+        },
+        "chalk": {
+            "bg": "#F2F2EE",
+            "panel_top": "#F7F7F2",
+            "panel_bottom": "#E5E2DB",
+            "panel_border": "#CBC4BA",
+            "text": "#1B1A18",
+            "muted": "#5A5752",
+            "accent": "#4B6B5D",
+            "accent_soft": "#D9E3DE",
+            "primary": "#3A3A3A",
+            "primary_hover": "#2E2E2E",
+            "table_bg": "#FFFFFF",
+            "table_sel_bg": "#DDE7E0",
+        },
+        "dusk": {
+            "bg": "#1F1E1C",
+            "panel_top": "#2A2724",
+            "panel_bottom": "#1D1B19",
+            "panel_border": "#3B352F",
+            "text": "#E9E2DA",
+            "muted": "#B0A79D",
+            "accent": "#D1A56F",
+            "accent_soft": "#3B2F23",
+            "primary": "#4A443E",
+            "primary_hover": "#5A534C",
+            "table_bg": "#24211E",
+            "table_sel_bg": "#3F352D",
+        },
+        "night_slate": {
+            "bg": "#151A1F",
+            "panel_top": "#1E242B",
+            "panel_bottom": "#12171C",
+            "panel_border": "#2B333C",
+            "text": "#E3E8EE",
+            "muted": "#9AA5B1",
+            "accent": "#7CA6C8",
+            "accent_soft": "#1F2C36",
+            "primary": "#2B3947",
+            "primary_hover": "#344454",
+            "table_bg": "#171C22",
+            "table_sel_bg": "#233040",
+        },
+    }
+
     def __init__(
         self,
         app_settings: AppSettings,
@@ -119,8 +178,14 @@ class SettingsDialog(QDialog):
         self._import_settings = app_settings.import_export or ImportExportSettings()
         inflections = self._dataset_settings.inflections or InflectionSettings()
         learning = self._dataset_settings.learning or LearningSettings()
+        self._ui_settings = QSettings()
+        theme_id = self._ui_settings.value("appearance/theme", "light_sand")
+        theme_id = theme_id if theme_id in self.THEMES else "light_sand"
+        self._theme_id = theme_id
+        self._theme = self.THEMES[self._theme_id]
         tabs = QTabWidget()
         tabs.addTab(self._wrap_tab(self._build_app_tab()), "App")
+        tabs.addTab(self._wrap_tab(self._build_appearance_tab()), "Appearance")
         tabs.addTab(self._wrap_tab(self._build_dataset_tab()), "Dataset")
 
         self._apply_import_export(self._import_settings)
@@ -134,6 +199,7 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.addWidget(tabs)
         layout.addWidget(button_box)
+        self._apply_theme()
 
     def result_app_settings(self) -> AppSettings:
         import_settings = ImportExportSettings(
@@ -194,6 +260,31 @@ class SettingsDialog(QDialog):
         self.language_pack_panel.cancel_downloads()
         super().closeEvent(event)
 
+    def _build_appearance_tab(self) -> QWidget:
+        self.theme_combo = QComboBox()
+        theme_labels = {
+            "light_sand": "Light Sand",
+            "chalk": "Chalk",
+            "dusk": "Dusk",
+            "night_slate": "Night Slate",
+        }
+        for theme_id, label in theme_labels.items():
+            self.theme_combo.addItem(label, theme_id)
+        self._set_theme_combo(self._theme_id)
+        self.theme_combo.currentIndexChanged.connect(self._on_theme_changed)
+
+        form = QFormLayout()
+        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
+        form.setContentsMargins(12, 8, 12, 16)
+        form.setHorizontalSpacing(12)
+        form.setVerticalSpacing(8)
+        form.addRow("Theme", self.theme_combo)
+        form.addRow(QLabel("Themes apply to Settings. App-wide theming is planned."))
+
+        panel = QWidget()
+        panel.setLayout(form)
+        return panel
+
     def _build_app_tab(self) -> QWidget:
         self.allow_code_export_check = QCheckBox("Allow export as code")
         self.default_export_format = QComboBox()
@@ -235,7 +326,9 @@ class SettingsDialog(QDialog):
         form.setVerticalSpacing(8)
         form.addRow("", self.allow_code_export_check)
         form.addRow("Default export format", self.default_export_format)
-        form.addRow(QLabel("Synonym generation"))
+        synonym_label = QLabel("Synonym generation")
+        synonym_label.setObjectName("sectionLabel")
+        form.addRow(synonym_label)
         form.addRow("Max synonyms", self.max_synonyms_edit)
         form.addRow("", self.include_phrases_check)
         form.addRow("", self.lower_case_check)
@@ -311,9 +404,13 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(12)
-        layout.addWidget(QLabel("Inflections"))
+        inflections_label = QLabel("Inflections")
+        inflections_label.setObjectName("sectionLabel")
+        layout.addWidget(inflections_label)
         layout.addWidget(inflection_panel)
-        layout.addWidget(QLabel("Learning"))
+        learning_label = QLabel("Learning")
+        learning_label.setObjectName("sectionLabel")
+        layout.addWidget(learning_label)
         layout.addWidget(learning_panel)
 
         panel = QWidget()
@@ -333,19 +430,82 @@ class SettingsDialog(QDialog):
 
         container = QWidget()
         container.setObjectName("settingsTabContainer")
-        container.setStyleSheet(
-            "QWidget#settingsTabContainer {"
-            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
-            "stop:0 #FBF8F3, stop:1 #EFE7DC);"
-            "border-radius: 10px;"
-            "}"
-        )
         panel.setStyleSheet("background: transparent;")
         layout = QVBoxLayout(container)
         layout.setContentsMargins(16, 16, 16, 20)
         layout.addWidget(panel)
         scroll.setWidget(container)
         return scroll
+
+    def _apply_theme(self) -> None:
+        theme = self._theme
+        self.setStyleSheet(
+            "QDialog {"
+            f"background: {theme['bg']};"
+            f"color: {theme['text']};"
+            "}"
+            "QLabel {"
+            f"color: {theme['text']};"
+            "}"
+            "QWidget#settingsTabContainer {"
+            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+            f"stop:0 {theme['panel_top']}, stop:1 {theme['panel_bottom']});"
+            f"border: 1px solid {theme['panel_border']};"
+            "border-radius: 10px;"
+            "}"
+            "QLabel#sectionLabel {"
+            f"color: {theme['accent']};"
+            "font-weight: 600;"
+            "font-size: 13px;"
+            "margin-top: 8px;"
+            "}"
+            "QTabWidget::pane {"
+            f"border: 1px solid {theme['panel_border']};"
+            "border-radius: 8px;"
+            "}"
+            "QTabBar::tab {"
+            f"background: {theme['panel_bottom']};"
+            f"color: {theme['muted']};"
+            "padding: 6px 12px;"
+            "margin-right: 4px;"
+            "border-top-left-radius: 6px;"
+            "border-top-right-radius: 6px;"
+            "}"
+            "QTabBar::tab:selected {"
+            f"background: {theme['panel_top']};"
+            f"color: {theme['text']};"
+            "}"
+            "QComboBox, QLineEdit, QPlainTextEdit {"
+            f"background: {theme['table_bg']};"
+            f"color: {theme['text']};"
+            f"border: 1px solid {theme['panel_border']};"
+            "border-radius: 6px;"
+            "padding: 4px 6px;"
+            "}"
+            "QHeaderView::section {"
+            f"background: {theme['accent_soft']};"
+            f"color: {theme['text']};"
+            "padding: 6px;"
+            "border: none;"
+            "}"
+            "QTableWidget {"
+            f"background: {theme['table_bg']};"
+            f"gridline-color: {theme['panel_border']};"
+            "}"
+            "QTableWidget::item:selected {"
+            f"background: {theme['table_sel_bg']};"
+            f"color: {theme['text']};"
+            "}"
+            "QPushButton#settingsPrimaryButton {"
+            f"background: {theme['primary']};"
+            "color: #FFFFFF;"
+            "padding: 6px 14px;"
+            "border-radius: 6px;"
+            "}"
+            "QPushButton#settingsPrimaryButton:hover {"
+            f"background: {theme['primary_hover']};"
+            "}"
+        )
 
     def _apply_import_export(self, settings: ImportExportSettings) -> None:
         self.allow_code_export_check.setChecked(settings.allow_code_export)
@@ -379,6 +539,21 @@ class SettingsDialog(QDialog):
         self.show_original_check.setChecked(settings.show_original)
         self.show_original_mode_combo.setCurrentText(settings.show_original_mode)
         self.highlight_replacements_check.setChecked(settings.highlight_replacements)
+
+    def _on_theme_changed(self) -> None:
+        theme_id = self.theme_combo.currentData()
+        if not theme_id or theme_id not in self.THEMES:
+            return
+        self._theme_id = theme_id
+        self._theme = self.THEMES[theme_id]
+        self._ui_settings.setValue("appearance/theme", theme_id)
+        self._apply_theme()
+
+    def _set_theme_combo(self, theme_id: str) -> None:
+        for idx in range(self.theme_combo.count()):
+            if self.theme_combo.itemData(idx) == theme_id:
+                self.theme_combo.setCurrentIndex(idx)
+                return
 
     def _browse_embeddings(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
