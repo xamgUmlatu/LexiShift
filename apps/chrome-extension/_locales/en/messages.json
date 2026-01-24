@@ -1,0 +1,209 @@
+{
+  "app_name": {
+    "message": "LexiShift"
+  },
+  "app_description": {
+    "message": "Replace visible text using a configurable ruleset with optional highlighting."
+  },
+  "options_title": {
+    "message": "LexiShift Options"
+  },
+  "header_title": {
+    "message": "LexiShift"
+  },
+  "header_subtitle": {
+    "message": "Configure replacement rules for the content script."
+  },
+  "section_quick_controls": {
+    "message": "Quick Controls"
+  },
+  "toggle_enable_replacements": {
+    "message": "Enable replacements"
+  },
+  "section_rules_source": {
+    "message": "Rules Source"
+  },
+  "radio_edit_json": {
+    "message": "Edit JSON"
+  },
+  "radio_import_json": {
+    "message": "Import JSON file"
+  },
+  "button_import": {
+    "message": "Import"
+  },
+  "button_export": {
+    "message": "Export"
+  },
+  "meta_last_updated": {
+    "message": "Last updated"
+  },
+  "meta_rules": {
+    "message": "Rules"
+  },
+  "file_status_empty": {
+    "message": "No file imported yet. Re-import after changes."
+  },
+  "section_display": {
+    "message": "Display"
+  },
+  "toggle_highlight": {
+    "message": "Highlight replaced words (click to toggle original)"
+  },
+  "label_highlight_color": {
+    "message": "Highlight color"
+  },
+  "section_replacement_behavior": {
+    "message": "Replacement Behavior"
+  },
+  "toggle_max_one": {
+    "message": "Replace max 1 word per text block"
+  },
+  "hint_max_one": {
+    "message": "Limits each text node to a single replacement."
+  },
+  "toggle_allow_adjacent": {
+    "message": "Allow replacing adjacent words"
+  },
+  "hint_allow_adjacent": {
+    "message": "When disabled, prevents back-to-back word replacements."
+  },
+  "section_share_code": {
+    "message": "Share Code"
+  },
+  "hint_share_code": {
+    "message": "Generate a compressed code for sharing rules across devices."
+  },
+  "toggle_share_code_cjk": {
+    "message": "Short code (CJK)"
+  },
+  "button_generate": {
+    "message": "Generate"
+  },
+  "button_import_code": {
+    "message": "Import"
+  },
+  "button_copy": {
+    "message": "Copy"
+  },
+  "section_rules_json": {
+    "message": "Rules (JSON)"
+  },
+  "hint_rules_format": {
+    "message": "Format: [{\"source_phrase\":\"twilight\",\"replacement\":\"gloaming\",\"priority\":0,\"case_policy\":\"match\",\"enabled\":true}]"
+  },
+  "button_save": {
+    "message": "Save"
+  },
+  "section_advanced": {
+    "message": "Advanced"
+  },
+  "advanced_summary": {
+    "message": "Debug tools"
+  },
+  "toggle_debug_enabled": {
+    "message": "Enable debug logs (console)"
+  },
+  "hint_debug_logs": {
+    "message": "Logs appear in each page's developer console."
+  },
+  "label_debug_focus_word": {
+    "message": "Debug focus word"
+  },
+  "placeholder_debug_focus_word": {
+    "message": "e.g. twilight"
+  },
+  "hint_debug_focus_word": {
+    "message": "When set, logs include nodes containing this exact word."
+  },
+  "status_display_saved": {
+    "message": "Display settings saved."
+  },
+  "status_replacement_saved": {
+    "message": "Replacement settings saved."
+  },
+  "status_switch_edit_json": {
+    "message": "Switch to Edit JSON to save changes."
+  },
+  "status_rules_saved": {
+    "message": "Rules saved."
+  },
+  "status_choose_json_file": {
+    "message": "Choose a JSON file first."
+  },
+  "status_imported_rules": {
+    "message": "Imported $1 rules."
+  },
+  "status_invalid_json": {
+    "message": "Invalid JSON file."
+  },
+  "status_read_failed": {
+    "message": "Failed to read file."
+  },
+  "status_exported_rules": {
+    "message": "Exported rules."
+  },
+  "status_generated_code": {
+    "message": "Code generated ($1 chars)."
+  },
+  "error_generated_code_empty": {
+    "message": "Generated code is empty."
+  },
+  "status_generate_failed": {
+    "message": "Failed to generate code."
+  },
+  "error_rules_expected_array": {
+    "message": "Expected a JSON array or an object with a rules array."
+  },
+  "error_decoded_not_list": {
+    "message": "Decoded rules are not a list."
+  },
+  "error_decoded_empty": {
+    "message": "Decoded rules are empty."
+  },
+  "status_code_imported": {
+    "message": "Code imported."
+  },
+  "status_invalid_code": {
+    "message": "Invalid code."
+  },
+  "status_copied": {
+    "message": "Copied."
+  },
+  "status_rules_source_updated": {
+    "message": "Rules source updated."
+  },
+  "status_extension_updated": {
+    "message": "Extension updated."
+  },
+  "file_status_last_imported": {
+    "message": "Last imported: $1"
+  },
+  "section_language": {
+    "message": "Language"
+  },
+  "label_language": {
+    "message": "Interface language"
+  },
+  "option_language_system": {
+    "message": "System default"
+  },
+  "option_language_en": {
+    "message": "English"
+  },
+  "option_language_ja": {
+    "message": "日本語"
+  },
+  "option_language_zh": {
+    "message": "简体中文"
+  },
+  "option_language_de": {
+    "message": "Deutsch"
+  },
+  "hint_language": {
+    "message": "Overrides the options page language; content script follows browser UI language."
+  },
+  "status_language_updated": {
+    "message": "Language updated."
+  }
+}

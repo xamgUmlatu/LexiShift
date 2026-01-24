@@ -3,114 +3,145 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LexiShift Options</title>
+    <title data-i18n="options_title">LexiShift Options</title>
     <link rel="stylesheet" href="options.css" />
   </head>
   <body>
     <main class="container">
       <header>
-        <h1>LexiShift</h1>
-        <p>Configure replacement rules for the content script.</p>
+        <h1 data-i18n="header_title">LexiShift</h1>
+        <p data-i18n="header_subtitle">Configure replacement rules for the content script.</p>
       </header>
       <div class="layout">
         <section class="card">
-          <h2>Quick Controls</h2>
+          <h2 data-i18n="section_quick_controls">Quick Controls</h2>
           <label class="toggle">
             <input id="enabled" type="checkbox" />
-            <span>Enable replacements</span>
+            <span data-i18n="toggle_enable_replacements">Enable replacements</span>
           </label>
         </section>
         <section class="card">
-          <h2>Rules Source</h2>
+          <h2 data-i18n="section_language">Language</h2>
+          <div class="field-row">
+            <label for="ui-language" data-i18n="label_language">Interface language</label>
+            <select id="ui-language">
+              <option value="system" data-i18n="option_language_system">System default</option>
+              <option value="en" data-i18n="option_language_en">English</option>
+              <option value="ja" data-i18n="option_language_ja">日本語</option>
+              <option value="zh" data-i18n="option_language_zh">简体中文</option>
+              <option value="de" data-i18n="option_language_de">Deutsch</option>
+            </select>
+          </div>
+          <p class="hint" data-i18n="hint_language">
+            Overrides the options page language; content script follows browser UI language.
+          </p>
+        </section>
+        <section class="card">
+          <h2 data-i18n="section_rules_source">Rules Source</h2>
           <div class="radio-group">
             <label class="radio">
               <input type="radio" name="rules-source" value="editor" />
-              <span>Edit JSON</span>
+              <span data-i18n="radio_edit_json">Edit JSON</span>
             </label>
             <label class="radio">
               <input type="radio" name="rules-source" value="file" />
-              <span>Import JSON file</span>
+              <span data-i18n="radio_import_json">Import JSON file</span>
             </label>
           </div>
           <div class="file-row">
             <input id="rules-file" type="file" accept=".json,application/json" />
-            <button id="import-file">Import</button>
-            <button id="export-file">Export</button>
+            <button id="import-file" data-i18n="button_import">Import</button>
+            <button id="export-file" data-i18n="button_export">Export</button>
           </div>
           <div class="meta-row">
             <div>
-              <span class="meta-label">Last updated</span>
+              <span class="meta-label" data-i18n="meta_last_updated">Last updated</span>
               <span id="rules-updated" class="meta-value">—</span>
             </div>
             <div>
-              <span class="meta-label">Rules</span>
+              <span class="meta-label" data-i18n="meta_rules">Rules</span>
               <span id="rules-count" class="meta-value">0</span>
             </div>
           </div>
-          <p id="file-status" class="hint">No file imported yet. Re-import after changes.</p>
+          <p id="file-status" class="hint" data-i18n="file_status_empty">
+            No file imported yet. Re-import after changes.
+          </p>
         </section>
         <section class="card">
-          <h2>Display</h2>
+          <h2 data-i18n="section_display">Display</h2>
           <label class="toggle">
             <input id="highlight-enabled" type="checkbox" />
-            <span>Highlight replaced words (click to toggle original)</span>
+            <span data-i18n="toggle_highlight">Highlight replaced words (click to toggle original)</span>
           </label>
           <div class="field-row">
-            <label for="highlight-color">Highlight color</label>
+            <label for="highlight-color" data-i18n="label_highlight_color">Highlight color</label>
             <input id="highlight-color" type="color" />
             <input id="highlight-color-text" type="text" />
           </div>
         </section>
         <section class="card">
-          <h2>Replacement Behavior</h2>
+          <h2 data-i18n="section_replacement_behavior">Replacement Behavior</h2>
           <label class="toggle">
             <input id="max-one-per-block" type="checkbox" />
-            <span>Replace max 1 word per text block</span>
+            <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
           </label>
-          <p class="hint">Limits each text node to a single replacement.</p>
+          <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
           <label class="toggle">
             <input id="allow-adjacent" type="checkbox" />
-            <span>Allow replacing adjacent words</span>
+            <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
           </label>
-          <p class="hint">When disabled, prevents back-to-back word replacements.</p>
+          <p class="hint" data-i18n="hint_allow_adjacent">
+            When disabled, prevents back-to-back word replacements.
+          </p>
         </section>
         <section class="card">
-          <h2>Share Code</h2>
-          <p class="hint">Generate a compressed code for sharing rules across devices.</p>
+          <h2 data-i18n="section_share_code">Share Code</h2>
+          <p class="hint" data-i18n="hint_share_code">
+            Generate a compressed code for sharing rules across devices.
+          </p>
           <textarea id="share-code" rows="6" spellcheck="false"></textarea>
           <label class="toggle">
             <input id="share-code-cjk" type="checkbox" checked />
-            <span>Short code (CJK)</span>
+            <span data-i18n="toggle_share_code_cjk">Short code (CJK)</span>
           </label>
           <div class="actions">
-            <button id="generate-code">Generate</button>
-            <button id="import-code">Import</button>
-            <button id="copy-code">Copy</button>
+            <button id="generate-code" data-i18n="button_generate">Generate</button>
+            <button id="import-code" data-i18n="button_import_code">Import</button>
+            <button id="copy-code" data-i18n="button_copy">Copy</button>
           </div>
         </section>
         <section class="card span-2">
-          <h2>Rules (JSON)</h2>
-          <p class="hint">Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]</p>
+          <h2 data-i18n="section_rules_json">Rules (JSON)</h2>
+          <p class="hint" data-i18n="hint_rules_format">
+            Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]
+          </p>
           <textarea id="rules" rows="16" spellcheck="false"></textarea>
           <div class="actions">
-            <button id="save">Save</button>
+            <button id="save" data-i18n="button_save">Save</button>
             <span id="status"></span>
           </div>
         </section>
         <section class="card span-2">
-          <h2>Advanced</h2>
+          <h2 data-i18n="section_advanced">Advanced</h2>
           <details class="advanced">
-            <summary>Debug tools</summary>
+            <summary data-i18n="advanced_summary">Debug tools</summary>
             <label class="toggle">
               <input id="debug-enabled" type="checkbox" />
-              <span>Enable debug logs (console)</span>
+              <span data-i18n="toggle_debug_enabled">Enable debug logs (console)</span>
             </label>
-            <p class="hint">Logs appear in each page's developer console.</p>
+            <p class="hint" data-i18n="hint_debug_logs">Logs appear in each page's developer console.</p>
             <div class="field-row">
-              <label for="debug-focus-word">Debug focus word</label>
-              <input id="debug-focus-word" type="text" placeholder="e.g. twilight" />
+              <label for="debug-focus-word" data-i18n="label_debug_focus_word">Debug focus word</label>
+              <input
+                id="debug-focus-word"
+                type="text"
+                placeholder="e.g. twilight"
+                data-i18n-placeholder="placeholder_debug_focus_word"
+              />
             </div>
-            <p class="hint">When set, logs include nodes containing this exact word.</p>
+            <p class="hint" data-i18n="hint_debug_focus_word">
+              When set, logs include nodes containing this exact word.
+            </p>
           </details>
         </section>
       </div>

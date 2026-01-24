@@ -260,7 +260,7 @@ GUI scaffold (PySide6)
 - Entry points:
   - `python apps/gui/src/main.py` (recommended)
   - `python apps/gui/src` (runs `apps/gui/src/__main__.py`)
-- Features (initial scaffold):
+- Features:
   - Profile selector + ruleset selector header; profile manager dialog for adding/removing/editing profiles.
   - Per-profile ruleset list with active ruleset selection and Finder/Explorer reveal.
   - First-run welcome flow for creating a profile.
@@ -268,6 +268,8 @@ GUI scaffold (PySide6)
   - Add/delete rules and edit rule metadata.
   - Synonym bulk add from a delimiter-split list of target words/phrases (select dictionaries per run).
   - Per-row delete column in the rule table.
+  - Appearance tab with theme selection + “Open themes folder”.
+  - Custom themes loaded from `themes/` with per-screen backgrounds and sample assets.
 
 Chrome extension
 - Load `apps/chrome-extension/` as an unpacked extension in Chrome.
@@ -275,6 +277,7 @@ Chrome extension
 - Display options include highlight color and click-to-toggle original text.
 - Share code import/export supports compressed codes (CJK short codes).
 - Advanced debug tools are tucked under a collapsible section (optional).
+- Options page is fully localized and includes a language selector for the UI.
 - Replaces visible text on all pages (including frames), skips editable fields.
 - Notes:
   - File import is a one-time read; re-import after changes.
@@ -354,9 +357,8 @@ Plans (ordered by ease/priority)
    - Optional cached indexes for fast reloads.
 6. Add per-rule exception patterns or context gates if needed.
 7. Add streaming/liveness adapter for live text replacement.
-8. Localize the GUI app, extension, and BetterDiscord plugin for multiple languages.
-9. Make color/background themes more customizable and selectable.
-10. Consider larger Σ symbol spaces for Share Code to shorten codes.
+8. Localize the BetterDiscord plugin for multiple languages.
+9. Consider larger Σ symbol spaces for Share Code to shorten codes.
 
 Known inconsistencies / friction points
 - Embedding similarity is English-centric today; multi-language ranking will need language detection + per-language embeddings or a multilingual model.
@@ -367,11 +369,9 @@ Known inconsistencies / friction points
 - Embeddings fallback requires neighbor-capable formats; SQLite builds without LSH won’t support fallback lookup.
 - Profile vs ruleset ownership is still fuzzy in UX; Manage menu ruleset population should make the relationship explicit and consistent.
 - Profiles support multiple rulesets, but extensions/plugins still take one ruleset at a time; profile sync is still conceptual.
-- Settings theme selection applies to the Settings dialog only, not the full app UI yet.
 - GUI spacing/padding is not tuned for all locales; layout density needs a pass.
 - Theme colors still need refinement for contrast and visual polish.
-- Custom user themes are not yet supported; draft schema lives in `docs/theme_schema.md` and should include background image slots.
-- Code dialog backgrounds may appear hidden by opaque editor widgets; consider transparent panels or inset chrome if the image should remain visible.
+- Theme coverage varies by widget; code editor/backgrounds may be obscured by opaque controls.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.

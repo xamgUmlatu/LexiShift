@@ -1,0 +1,209 @@
+{
+  "app_name": {
+    "message": "LexiShift"
+  },
+  "app_description": {
+    "message": "Sichtbaren Text anhand eines konfigurierbaren Regelwerks ersetzen, optional hervorgehoben."
+  },
+  "options_title": {
+    "message": "LexiShift Optionen"
+  },
+  "header_title": {
+    "message": "LexiShift"
+  },
+  "header_subtitle": {
+    "message": "Ersetzen von Text im Inhaltsskript konfigurieren."
+  },
+  "section_quick_controls": {
+    "message": "Schnellzugriff"
+  },
+  "toggle_enable_replacements": {
+    "message": "Ersetzungen aktivieren"
+  },
+  "section_rules_source": {
+    "message": "Regelquelle"
+  },
+  "radio_edit_json": {
+    "message": "JSON bearbeiten"
+  },
+  "radio_import_json": {
+    "message": "JSON-Datei importieren"
+  },
+  "button_import": {
+    "message": "Importieren"
+  },
+  "button_export": {
+    "message": "Exportieren"
+  },
+  "meta_last_updated": {
+    "message": "Zuletzt aktualisiert"
+  },
+  "meta_rules": {
+    "message": "Regeln"
+  },
+  "file_status_empty": {
+    "message": "Noch keine Datei importiert. Nach Änderungen erneut importieren."
+  },
+  "section_display": {
+    "message": "Anzeige"
+  },
+  "toggle_highlight": {
+    "message": "Ersetzte Wörter hervorheben (Klick schaltet Original um)"
+  },
+  "label_highlight_color": {
+    "message": "Hervorhebungsfarbe"
+  },
+  "section_replacement_behavior": {
+    "message": "Ersetzungsverhalten"
+  },
+  "toggle_max_one": {
+    "message": "Max. 1 Wort pro Textblock ersetzen"
+  },
+  "hint_max_one": {
+    "message": "Begrenzt jeden Textknoten auf eine Ersetzung."
+  },
+  "toggle_allow_adjacent": {
+    "message": "Benachbarte Wörter ersetzen erlauben"
+  },
+  "hint_allow_adjacent": {
+    "message": "Wenn deaktiviert, werden aufeinanderfolgende Ersetzungen verhindert."
+  },
+  "section_share_code": {
+    "message": "Share-Code"
+  },
+  "hint_share_code": {
+    "message": "Erzeuge einen kompakten Code zum Teilen der Regeln."
+  },
+  "toggle_share_code_cjk": {
+    "message": "Kurzer Code (CJK)"
+  },
+  "button_generate": {
+    "message": "Generieren"
+  },
+  "button_import_code": {
+    "message": "Importieren"
+  },
+  "button_copy": {
+    "message": "Kopieren"
+  },
+  "section_rules_json": {
+    "message": "Regeln (JSON)"
+  },
+  "hint_rules_format": {
+    "message": "Format: [{\"source_phrase\":\"twilight\",\"replacement\":\"gloaming\",\"priority\":0,\"case_policy\":\"match\",\"enabled\":true}]"
+  },
+  "button_save": {
+    "message": "Speichern"
+  },
+  "section_advanced": {
+    "message": "Erweitert"
+  },
+  "advanced_summary": {
+    "message": "Debug-Tools"
+  },
+  "toggle_debug_enabled": {
+    "message": "Debug-Logs aktivieren (Konsole)"
+  },
+  "hint_debug_logs": {
+    "message": "Logs erscheinen in der Entwicklerkonsole jeder Seite."
+  },
+  "label_debug_focus_word": {
+    "message": "Debug-Fokuswort"
+  },
+  "placeholder_debug_focus_word": {
+    "message": "z. B. twilight"
+  },
+  "hint_debug_focus_word": {
+    "message": "Wenn gesetzt, werden Knoten mit diesem Wort geloggt."
+  },
+  "status_display_saved": {
+    "message": "Anzeigeeinstellungen gespeichert."
+  },
+  "status_replacement_saved": {
+    "message": "Ersetzungseinstellungen gespeichert."
+  },
+  "status_switch_edit_json": {
+    "message": "Zum Speichern auf „JSON bearbeiten“ wechseln."
+  },
+  "status_rules_saved": {
+    "message": "Regeln gespeichert."
+  },
+  "status_choose_json_file": {
+    "message": "Bitte zuerst eine JSON-Datei auswählen."
+  },
+  "status_imported_rules": {
+    "message": "$1 Regeln importiert."
+  },
+  "status_invalid_json": {
+    "message": "Ungültige JSON-Datei."
+  },
+  "status_read_failed": {
+    "message": "Datei konnte nicht gelesen werden."
+  },
+  "status_exported_rules": {
+    "message": "Regeln exportiert."
+  },
+  "status_generated_code": {
+    "message": "Code generiert ($1 Zeichen)."
+  },
+  "error_generated_code_empty": {
+    "message": "Der erzeugte Code ist leer."
+  },
+  "status_generate_failed": {
+    "message": "Code konnte nicht erstellt werden."
+  },
+  "error_rules_expected_array": {
+    "message": "Erwartet wurde ein JSON-Array oder ein Objekt mit einem rules-Array."
+  },
+  "error_decoded_not_list": {
+    "message": "Dekodierte Regeln sind keine Liste."
+  },
+  "error_decoded_empty": {
+    "message": "Dekodierte Regeln sind leer."
+  },
+  "status_code_imported": {
+    "message": "Code importiert."
+  },
+  "status_invalid_code": {
+    "message": "Ungültiger Code."
+  },
+  "status_copied": {
+    "message": "Kopiert."
+  },
+  "status_rules_source_updated": {
+    "message": "Regelquelle aktualisiert."
+  },
+  "status_extension_updated": {
+    "message": "Erweiterung aktualisiert."
+  },
+  "file_status_last_imported": {
+    "message": "Zuletzt importiert: $1"
+  },
+  "section_language": {
+    "message": "Sprache"
+  },
+  "label_language": {
+    "message": "Oberflächensprache"
+  },
+  "option_language_system": {
+    "message": "Systemstandard"
+  },
+  "option_language_en": {
+    "message": "English"
+  },
+  "option_language_ja": {
+    "message": "日本語"
+  },
+  "option_language_zh": {
+    "message": "简体中文"
+  },
+  "option_language_de": {
+    "message": "Deutsch"
+  },
+  "hint_language": {
+    "message": "Überschreibt nur die Optionsseite; das Inhaltsskript folgt der Browsersprache."
+  },
+  "status_language_updated": {
+    "message": "Sprache aktualisiert."
+  }
+}

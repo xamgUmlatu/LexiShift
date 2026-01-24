@@ -9,6 +9,7 @@
     allowAdjacentReplacements: true,
     debugEnabled: false,
     debugFocusWord: "",
+    uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",
     rulesUpdatedAt: ""

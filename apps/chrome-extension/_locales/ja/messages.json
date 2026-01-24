@@ -1,0 +1,209 @@
+{
+  "app_name": {
+    "message": "LexiShift"
+  },
+  "app_description": {
+    "message": "設定可能なルールで表示テキストを置換し、ハイライト可能。"
+  },
+  "options_title": {
+    "message": "LexiShift オプション"
+  },
+  "header_title": {
+    "message": "LexiShift"
+  },
+  "header_subtitle": {
+    "message": "コンテンツスクリプト用の置換ルールを設定します。"
+  },
+  "section_quick_controls": {
+    "message": "クイック操作"
+  },
+  "toggle_enable_replacements": {
+    "message": "置換を有効化"
+  },
+  "section_rules_source": {
+    "message": "ルールのソース"
+  },
+  "radio_edit_json": {
+    "message": "JSONを編集"
+  },
+  "radio_import_json": {
+    "message": "JSONファイルをインポート"
+  },
+  "button_import": {
+    "message": "インポート"
+  },
+  "button_export": {
+    "message": "エクスポート"
+  },
+  "meta_last_updated": {
+    "message": "最終更新"
+  },
+  "meta_rules": {
+    "message": "ルール"
+  },
+  "file_status_empty": {
+    "message": "まだファイルをインポートしていません。変更後に再インポートしてください。"
+  },
+  "section_display": {
+    "message": "表示"
+  },
+  "toggle_highlight": {
+    "message": "置換語をハイライト（クリックで元に切替）"
+  },
+  "label_highlight_color": {
+    "message": "ハイライト色"
+  },
+  "section_replacement_behavior": {
+    "message": "置換の挙動"
+  },
+  "toggle_max_one": {
+    "message": "テキストブロックごとに最大1語を置換"
+  },
+  "hint_max_one": {
+    "message": "各テキストノードにつき1回だけ置換します。"
+  },
+  "toggle_allow_adjacent": {
+    "message": "隣接する語の置換を許可"
+  },
+  "hint_allow_adjacent": {
+    "message": "無効にすると連続した置換を防ぎます。"
+  },
+  "section_share_code": {
+    "message": "共有コード"
+  },
+  "hint_share_code": {
+    "message": "ルールを共有するための圧縮コードを生成します。"
+  },
+  "toggle_share_code_cjk": {
+    "message": "短いコード（CJK）"
+  },
+  "button_generate": {
+    "message": "生成"
+  },
+  "button_import_code": {
+    "message": "インポート"
+  },
+  "button_copy": {
+    "message": "コピー"
+  },
+  "section_rules_json": {
+    "message": "ルール（JSON）"
+  },
+  "hint_rules_format": {
+    "message": "形式: [{\"source_phrase\":\"twilight\",\"replacement\":\"gloaming\",\"priority\":0,\"case_policy\":\"match\",\"enabled\":true}]"
+  },
+  "button_save": {
+    "message": "保存"
+  },
+  "section_advanced": {
+    "message": "詳細"
+  },
+  "advanced_summary": {
+    "message": "デバッグツール"
+  },
+  "toggle_debug_enabled": {
+    "message": "デバッグログを有効化（コンソール）"
+  },
+  "hint_debug_logs": {
+    "message": "ログは各ページの開発者コンソールに表示されます。"
+  },
+  "label_debug_focus_word": {
+    "message": "デバッグ対象語"
+  },
+  "placeholder_debug_focus_word": {
+    "message": "例: twilight"
+  },
+  "hint_debug_focus_word": {
+    "message": "設定すると、その語を含むノードをログします。"
+  },
+  "status_display_saved": {
+    "message": "表示設定を保存しました。"
+  },
+  "status_replacement_saved": {
+    "message": "置換設定を保存しました。"
+  },
+  "status_switch_edit_json": {
+    "message": "保存するには「JSONを編集」に切り替えてください。"
+  },
+  "status_rules_saved": {
+    "message": "ルールを保存しました。"
+  },
+  "status_choose_json_file": {
+    "message": "JSONファイルを選択してください。"
+  },
+  "status_imported_rules": {
+    "message": "$1件のルールをインポートしました。"
+  },
+  "status_invalid_json": {
+    "message": "無効なJSONファイルです。"
+  },
+  "status_read_failed": {
+    "message": "ファイルの読み込みに失敗しました。"
+  },
+  "status_exported_rules": {
+    "message": "ルールをエクスポートしました。"
+  },
+  "status_generated_code": {
+    "message": "コードを生成しました（$1文字）。"
+  },
+  "error_generated_code_empty": {
+    "message": "生成されたコードが空です。"
+  },
+  "status_generate_failed": {
+    "message": "コードの生成に失敗しました。"
+  },
+  "error_rules_expected_array": {
+    "message": "JSON配列、またはrules配列を持つオブジェクトが必要です。"
+  },
+  "error_decoded_not_list": {
+    "message": "デコード結果がリストではありません。"
+  },
+  "error_decoded_empty": {
+    "message": "デコード結果が空です。"
+  },
+  "status_code_imported": {
+    "message": "コードをインポートしました。"
+  },
+  "status_invalid_code": {
+    "message": "無効なコードです。"
+  },
+  "status_copied": {
+    "message": "コピーしました。"
+  },
+  "status_rules_source_updated": {
+    "message": "ルールのソースを更新しました。"
+  },
+  "status_extension_updated": {
+    "message": "拡張機能を更新しました。"
+  },
+  "file_status_last_imported": {
+    "message": "最終インポート: $1"
+  },
+  "section_language": {
+    "message": "言語"
+  },
+  "label_language": {
+    "message": "表示言語"
+  },
+  "option_language_system": {
+    "message": "システム設定"
+  },
+  "option_language_en": {
+    "message": "English"
+  },
+  "option_language_ja": {
+    "message": "日本語"
+  },
+  "option_language_zh": {
+    "message": "简体中文"
+  },
+  "option_language_de": {
+    "message": "Deutsch"
+  },
+  "hint_language": {
+    "message": "オプション画面の言語のみ変更します。コンテンツ側はブラウザ言語に従います。"
+  },
+  "status_language_updated": {
+    "message": "言語を更新しました。"
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "app_name": {
+    "message": "LexiShift"
+  },
+  "app_description": {
+    "message": "使用可配置规则替换可见文本，并可选高亮。"
+  },
+  "options_title": {
+    "message": "LexiShift 选项"
+  },
+  "header_title": {
+    "message": "LexiShift"
+  },
+  "header_subtitle": {
+    "message": "配置内容脚本的替换规则。"
+  },
+  "section_quick_controls": {
+    "message": "快速控制"
+  },
+  "toggle_enable_replacements": {
+    "message": "启用替换"
+  },
+  "section_rules_source": {
+    "message": "规则来源"
+  },
+  "radio_edit_json": {
+    "message": "编辑 JSON"
+  },
+  "radio_import_json": {
+    "message": "导入 JSON 文件"
+  },
+  "button_import": {
+    "message": "导入"
+  },
+  "button_export": {
+    "message": "导出"
+  },
+  "meta_last_updated": {
+    "message": "上次更新"
+  },
+  "meta_rules": {
+    "message": "规则"
+  },
+  "file_status_empty": {
+    "message": "尚未导入文件。修改后请重新导入。"
+  },
+  "section_display": {
+    "message": "显示"
+  },
+  "toggle_highlight": {
+    "message": "高亮替换词（点击切换原词）"
+  },
+  "label_highlight_color": {
+    "message": "高亮颜色"
+  },
+  "section_replacement_behavior": {
+    "message": "替换行为"
+  },
+  "toggle_max_one": {
+    "message": "每个文本块最多替换 1 个词"
+  },
+  "hint_max_one": {
+    "message": "限制每个文本节点只进行一次替换。"
+  },
+  "toggle_allow_adjacent": {
+    "message": "允许替换相邻词"
+  },
+  "hint_allow_adjacent": {
+    "message": "禁用时避免连续替换。"
+  },
+  "section_share_code": {
+    "message": "分享代码"
+  },
+  "hint_share_code": {
+    "message": "生成压缩代码以便跨设备共享规则。"
+  },
+  "toggle_share_code_cjk": {
+    "message": "短代码（CJK）"
+  },
+  "button_generate": {
+    "message": "生成"
+  },
+  "button_import_code": {
+    "message": "导入"
+  },
+  "button_copy": {
+    "message": "复制"
+  },
+  "section_rules_json": {
+    "message": "规则（JSON）"
+  },
+  "hint_rules_format": {
+    "message": "格式: [{\"source_phrase\":\"twilight\",\"replacement\":\"gloaming\",\"priority\":0,\"case_policy\":\"match\",\"enabled\":true}]"
+  },
+  "button_save": {
+    "message": "保存"
+  },
+  "section_advanced": {
+    "message": "高级"
+  },
+  "advanced_summary": {
+    "message": "调试工具"
+  },
+  "toggle_debug_enabled": {
+    "message": "启用调试日志（控制台）"
+  },
+  "hint_debug_logs": {
+    "message": "日志会显示在每个页面的开发者控制台。"
+  },
+  "label_debug_focus_word": {
+    "message": "调试关注词"
+  },
+  "placeholder_debug_focus_word": {
+    "message": "例如 twilight"
+  },
+  "hint_debug_focus_word": {
+    "message": "设置后会记录包含该词的节点。"
+  },
+  "status_display_saved": {
+    "message": "显示设置已保存。"
+  },
+  "status_replacement_saved": {
+    "message": "替换设置已保存。"
+  },
+  "status_switch_edit_json": {
+    "message": "请切换到“编辑 JSON”后再保存。"
+  },
+  "status_rules_saved": {
+    "message": "规则已保存。"
+  },
+  "status_choose_json_file": {
+    "message": "请先选择 JSON 文件。"
+  },
+  "status_imported_rules": {
+    "message": "已导入 $1 条规则。"
+  },
+  "status_invalid_json": {
+    "message": "无效的 JSON 文件。"
+  },
+  "status_read_failed": {
+    "message": "读取文件失败。"
+  },
+  "status_exported_rules": {
+    "message": "规则已导出。"
+  },
+  "status_generated_code": {
+    "message": "代码已生成（$1 字符）。"
+  },
+  "error_generated_code_empty": {
+    "message": "生成的代码为空。"
+  },
+  "status_generate_failed": {
+    "message": "生成代码失败。"
+  },
+  "error_rules_expected_array": {
+    "message": "需要 JSON 数组或包含 rules 数组的对象。"
+  },
+  "error_decoded_not_list": {
+    "message": "解码后的规则不是列表。"
+  },
+  "error_decoded_empty": {
+    "message": "解码后的规则为空。"
+  },
+  "status_code_imported": {
+    "message": "代码已导入。"
+  },
+  "status_invalid_code": {
+    "message": "无效的代码。"
+  },
+  "status_copied": {
+    "message": "已复制。"
+  },
+  "status_rules_source_updated": {
+    "message": "规则来源已更新。"
+  },
+  "status_extension_updated": {
+    "message": "扩展已更新。"
+  },
+  "file_status_last_imported": {
+    "message": "上次导入：$1"
+  },
+  "section_language": {
+    "message": "语言"
+  },
+  "label_language": {
+    "message": "界面语言"
+  },
+  "option_language_system": {
+    "message": "系统默认"
+  },
+  "option_language_en": {
+    "message": "English"
+  },
+  "option_language_ja": {
+    "message": "日本語"
+  },
+  "option_language_zh": {
+    "message": "简体中文"
+  },
+  "option_language_de": {
+    "message": "Deutsch"
+  },
+  "hint_language": {
+    "message": "仅覆盖选项页语言；内容脚本仍跟随浏览器语言。"
+  },
+  "status_language_updated": {
+    "message": "语言已更新。"
+  }
+}

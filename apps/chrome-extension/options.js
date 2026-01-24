@@ -8,10 +8,108 @@ const DEFAULT_SETTINGS =
     allowAdjacentReplacements: true,
     debugEnabled: false,
     debugFocusWord: "",
+    uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",
     rulesUpdatedAt: ""
   };
+
+let localeMessages = null;
+let activeLocale = "system";
+
+function t(key, substitutions, fallback) {
+  if (localeMessages && localeMessages[key] && localeMessages[key].message) {
+    return formatMessage(localeMessages[key].message, substitutions);
+  }
+  if (globalThis.chrome && chrome.i18n) {
+    const message = chrome.i18n.getMessage(key, substitutions);
+    if (message) {
+      return message;
+    }
+  }
+  return fallback || key;
+}
+
+function formatMessage(message, substitutions) {
+  if (!substitutions) {
+    return message;
+  }
+  const values = Array.isArray(substitutions) ? substitutions : [substitutions];
+  return message.replace(/\$([1-9]\d*)/g, (match, index) => {
+    const value = values[Number(index) - 1];
+    return value !== undefined ? String(value) : match;
+  });
+}
+
+function applyI18n() {
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const key = node.getAttribute("data-i18n");
+    if (!key) return;
+    const message = t(key, null, "");
+    if (message) {
+      node.textContent = message;
+    }
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    const key = node.getAttribute("data-i18n-placeholder");
+    if (!key) return;
+    const message = t(key, null, "");
+    if (message) {
+      node.setAttribute("placeholder", message);
+    }
+  });
+  const title = t("options_title", null, "");
+  if (title) {
+    document.title = title;
+  }
+}
+
+function resolveLocale(value) {
+  if (!value || value === "system") {
+    const systemLocale = (globalThis.chrome && chrome.i18n && chrome.i18n.getUILanguage())
+      || navigator.language
+      || "en";
+    value = systemLocale.toLowerCase();
+  }
+  const normalized = value.toLowerCase();
+  if (normalized.startsWith("ja")) return "ja";
+  if (normalized.startsWith("zh")) return "zh";
+  if (normalized.startsWith("de")) return "de";
+  return "en";
+}
+
+async function loadLocaleMessages(locale) {
+  activeLocale = locale || "system";
+  if (activeLocale === "system") {
+    localeMessages = null;
+    applyI18n();
+    return;
+  }
+  const resolved = resolveLocale(activeLocale);
+  try {
+    const url = chrome.runtime.getURL(`_locales/${resolved}/messages.json`);
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load locale: ${resolved}`);
+    }
+    localeMessages = await response.json();
+  } catch (err) {
+    localeMessages = null;
+  }
+  applyI18n();
+}
+
+function errorMessage(err, fallbackKey, fallbackText) {
+  if (err instanceof SyntaxError) {
+    return t(fallbackKey, null, fallbackText);
+  }
+  if (err && err.message) {
+    return err.message;
+  }
+  return t(fallbackKey, null, fallbackText);
+}
+
+applyI18n();
 
 const enabledInput = document.getElementById("enabled");
 const highlightEnabledInput = document.getElementById("highlight-enabled");
@@ -21,6 +119,7 @@ const maxOnePerBlockInput = document.getElementById("max-one-per-block");
 const allowAdjacentInput = document.getElementById("allow-adjacent");
 const debugEnabledInput = document.getElementById("debug-enabled");
 const debugFocusInput = document.getElementById("debug-focus-word");
+const languageSelect = document.getElementById("ui-language");
 const rulesInput = document.getElementById("rules");
 const saveButton = document.getElementById("save");
 const status = document.getElementById("status");
@@ -42,7 +141,13 @@ let currentRules = [];
 function extractRules(input) {
   if (Array.isArray(input)) return input;
   if (input && typeof input === "object" && Array.isArray(input.rules)) return input.rules;
-  throw new Error("Expected a JSON array or an object with a rules array.");
+  throw new Error(
+    t(
+      "error_rules_expected_array",
+      null,
+      "Expected a JSON array or an object with a rules array."
+    )
+  );
 }
 
 function setStatus(message, color) {
@@ -92,7 +197,7 @@ function saveDisplaySettings() {
   const debugEnabled = debugEnabledInput.checked;
   const debugFocusWord = debugFocusInput.value.trim();
   chrome.storage.local.set({ highlightEnabled, highlightColor, debugEnabled, debugFocusWord }, () => {
-    setStatus("Display settings saved.", "#3c5a2a");
+    setStatus(t("status_display_saved", null, "Display settings saved."), "#3c5a2a");
   });
 }
 
@@ -100,7 +205,7 @@ function saveReplacementSettings() {
   const maxOnePerTextBlock = maxOnePerBlockInput.checked;
   const allowAdjacentReplacements = allowAdjacentInput.checked;
   chrome.storage.local.set({ maxOnePerTextBlock, allowAdjacentReplacements }, () => {
-    setStatus("Replacement settings saved.", "#3c5a2a");
+    setStatus(t("status_replacement_saved", null, "Replacement settings saved."), "#3c5a2a");
   });
 }
 
@@ -111,14 +216,17 @@ function parseRulesFromEditor() {
 
 function saveRules() {
   if (rulesInput.disabled) {
-    setStatus("Switch to Edit JSON to save changes.", "#b42318");
+    setStatus(
+      t("status_switch_edit_json", null, "Switch to Edit JSON to save changes."),
+      "#b42318"
+    );
     return;
   }
   let rules;
   try {
     rules = parseRulesFromEditor();
   } catch (err) {
-    setStatus(err.message, "#b42318");
+    setStatus(errorMessage(err, "status_invalid_json", "Invalid JSON file."), "#b42318");
     return;
   }
   currentRules = rules;
@@ -126,14 +234,14 @@ function saveRules() {
   chrome.storage.local.set({ rules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
     updateRulesSourceUI("editor");
     updateRulesMeta(rules, updatedAt);
-    setStatus("Rules saved.", "#3c5a2a");
+    setStatus(t("status_rules_saved", null, "Rules saved."), "#3c5a2a");
   });
 }
 
 function importFromFile() {
   const file = rulesFileInput.files && rulesFileInput.files[0];
   if (!file) {
-    setStatus("Choose a JSON file first.", "#b42318");
+    setStatus(t("status_choose_json_file", null, "Choose a JSON file first."), "#b42318");
     return;
   }
   const reader = new FileReader();
@@ -149,16 +257,26 @@ function importFromFile() {
         () => {
           updateRulesSourceUI("file");
           updateRulesMeta(rules, updatedAt);
-          fileStatus.textContent = `Last imported: ${file.name}`;
-          setStatus(`Imported ${rules.length} rules.`, "#3c5a2a");
+          fileStatus.textContent = t(
+            "file_status_last_imported",
+            file.name,
+            `Last imported: ${file.name}`
+          );
+          setStatus(
+            t("status_imported_rules", String(rules.length), `Imported ${rules.length} rules.`),
+            "#3c5a2a"
+          );
         }
       );
     } catch (err) {
-      setStatus(err.message || "Invalid JSON file.", "#b42318");
+      setStatus(
+        errorMessage(err, "status_invalid_json", "Invalid JSON file."),
+        "#b42318"
+      );
     }
   };
   reader.onerror = () => {
-    setStatus("Failed to read file.", "#b42318");
+    setStatus(t("status_read_failed", null, "Failed to read file."), "#b42318");
   };
   reader.readAsText(file);
 }
@@ -174,7 +292,7 @@ function exportToFile() {
   anchor.click();
   anchor.remove();
   URL.revokeObjectURL(url);
-  setStatus("Exported rules.", "#3c5a2a");
+  setStatus(t("status_exported_rules", null, "Exported rules."), "#3c5a2a");
 }
 
 function getActiveRulesForCode() {
@@ -190,11 +308,21 @@ function generateShareCode() {
     const useCjk = shareCodeCjk.checked;
     shareCodeInput.value = encodeRulesCode(rules, useCjk);
     if (!shareCodeInput.value) {
-      throw new Error("Generated code is empty.");
+      throw new Error(t("error_generated_code_empty", null, "Generated code is empty."));
     }
-    setStatus(`Code generated (${shareCodeInput.value.length} chars).`, "#3c5a2a");
+    setStatus(
+      t(
+        "status_generated_code",
+        String(shareCodeInput.value.length),
+        `Code generated (${shareCodeInput.value.length} chars).`
+      ),
+      "#3c5a2a"
+    );
   } catch (err) {
-    setStatus(err.message || "Failed to generate code.", "#b42318");
+    setStatus(
+      err && err.message ? err.message : t("status_generate_failed", null, "Failed to generate code."),
+      "#b42318"
+    );
   }
 }
 
@@ -202,10 +330,10 @@ function importShareCode() {
   try {
     const decodedRules = decodeRulesCode(shareCodeInput.value || "", shareCodeCjk.checked);
     if (!Array.isArray(decodedRules)) {
-      throw new Error("Decoded rules are not a list.");
+      throw new Error(t("error_decoded_not_list", null, "Decoded rules are not a list."));
     }
     if (!decodedRules.length) {
-      throw new Error("Decoded rules are empty.");
+      throw new Error(t("error_decoded_empty", null, "Decoded rules are empty."));
     }
     currentRules = decodedRules;
     rulesInput.value = JSON.stringify(decodedRules, null, 2);
@@ -213,10 +341,13 @@ function importShareCode() {
     chrome.storage.local.set({ rules: decodedRules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
       updateRulesSourceUI("editor");
       updateRulesMeta(decodedRules, updatedAt);
-      setStatus("Code imported.", "#3c5a2a");
+      setStatus(t("status_code_imported", null, "Code imported."), "#3c5a2a");
     });
   } catch (err) {
-    setStatus(err.message || "Invalid code.", "#b42318");
+    setStatus(
+      err && err.message ? err.message : t("status_invalid_code", null, "Invalid code."),
+      "#b42318"
+    );
   }
 }
 
@@ -226,13 +357,13 @@ function copyShareCode() {
   }
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(shareCodeInput.value).then(() => {
-      setStatus("Copied.", "#3c5a2a");
+      setStatus(t("status_copied", null, "Copied."), "#3c5a2a");
     });
     return;
   }
   shareCodeInput.select();
   document.execCommand("copy");
-  setStatus("Copied.", "#3c5a2a");
+  setStatus(t("status_copied", null, "Copied."), "#3c5a2a");
 }
 
 function load() {
@@ -248,13 +379,25 @@ function load() {
     debugEnabledInput.checked = items.debugEnabled === true;
     debugFocusInput.value = items.debugFocusWord || "";
     debugFocusInput.disabled = !debugEnabledInput.checked;
+    if (languageSelect) {
+      languageSelect.value = items.uiLanguage || "system";
+    }
     currentRules = items.rules || [];
     rulesInput.value = JSON.stringify(currentRules, null, 2);
     updateRulesSourceUI(items.rulesSource || "editor");
     fileStatus.textContent = items.rulesFileName
-      ? `Last imported: ${items.rulesFileName}`
-      : "No file imported yet. Re-import after changes.";
+      ? t(
+          "file_status_last_imported",
+          items.rulesFileName,
+          `Last imported: ${items.rulesFileName}`
+        )
+      : t(
+          "file_status_empty",
+          null,
+          "No file imported yet. Re-import after changes."
+        );
     updateRulesMeta(currentRules, items.rulesUpdatedAt);
+    loadLocaleMessages(items.uiLanguage || "system");
   });
 }
 
@@ -268,7 +411,7 @@ rulesSourceInputs.forEach((input) => {
     const value = selected ? selected.value : "editor";
     chrome.storage.local.set({ rulesSource: value }, () => {
       updateRulesSourceUI(value);
-      setStatus("Rules source updated.", "#3c5a2a");
+      setStatus(t("status_rules_source_updated", null, "Rules source updated."), "#3c5a2a");
     });
   });
 });
@@ -311,9 +454,19 @@ debugFocusInput.addEventListener("change", () => {
 
 enabledInput.addEventListener("change", () => {
   chrome.storage.local.set({ enabled: enabledInput.checked }, () => {
-    setStatus("Extension updated.", "#3c5a2a");
+    setStatus(t("status_extension_updated", null, "Extension updated."), "#3c5a2a");
   });
 });
+
+if (languageSelect) {
+  languageSelect.addEventListener("change", () => {
+    const value = languageSelect.value || "system";
+    chrome.storage.local.set({ uiLanguage: value }, () => {
+      loadLocaleMessages(value);
+      setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
+    });
+  });
+}
 
 generateCodeButton.addEventListener("click", generateShareCode);
 importCodeButton.addEventListener("click", importShareCode);
