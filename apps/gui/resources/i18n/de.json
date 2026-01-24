@@ -23,7 +23,8 @@
     "add": "Hinzufügen",
     "remove": "Entfernen",
     "add_ruleset": "Regelsatz hinzufügen",
-    "set_active": "Als aktiv setzen"
+    "set_active": "Als aktiv setzen",
+    "open_themes_folder": "Themenordner öffnen"
   },
   "menu": {
     "file": "Datei",
@@ -214,7 +215,10 @@
       "label": "Sprache",
       "system_default": "Systemstandard"
     },
-    "hint": "Themes gelten nur für die Einstellungen. Neustart erforderlich, um Sprachänderungen zu übernehmen."
+    "hint": "Themes gelten nur für die Einstellungen. Neustart erforderlich, um Sprachänderungen zu übernehmen.",
+    "themes_folder": {
+      "label": "Themenordner"
+    }
   },
   "inflections": {
     "apply_last_word": "Letztes Wort",

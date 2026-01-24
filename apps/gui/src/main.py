@@ -82,6 +82,11 @@ from i18n import set_locale, t
 from models import RulesTableModel
 from preview import PreviewController, ReplacementHighlighter
 from state import AppState
+from theme_assets import ensure_sample_images, ensure_sample_themes
+from theme_loader import theme_dir
+from theme_logger import set_log_handler
+from theme_manager import build_base_styles, resolve_current_theme
+from theme_widgets import ThemedBackgroundWidget, apply_theme_background
 
 
 class DeleteButtonDelegate(QStyledItemDelegate):
@@ -211,6 +216,7 @@ class MainWindow(QMainWindow):
         self.log_edit = QTextEdit()
         self.log_edit.setReadOnly(True)
         self.log_edit.setPlaceholderText(t("logs.placeholder"))
+        set_log_handler(lambda message: self._append_log(message, color=QColor("#A03030")))
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -236,7 +242,11 @@ class MainWindow(QMainWindow):
         splitter.setStretchFactor(1, 1)
         self._splitter = splitter
 
-        self.setCentralWidget(splitter)
+        self._theme_container = ThemedBackgroundWidget()
+        container_layout = QVBoxLayout(self._theme_container)
+        container_layout.setContentsMargins(12, 12, 12, 12)
+        container_layout.addWidget(splitter)
+        self.setCentralWidget(self._theme_container)
 
         self._setup_actions()
         self._setup_menu()
@@ -250,6 +260,7 @@ class MainWindow(QMainWindow):
         self._load_active_profile()
         self._refresh_profiles_ui()
         self._restore_window_state()
+        self._apply_theme()
 
     def _setup_actions(self) -> None:
         self._open_action = QAction(t("menu.open_ruleset"), self)
@@ -492,6 +503,14 @@ class MainWindow(QMainWindow):
         else:
             self._preview_splitter.setSizes([200, 300, 150])
 
+    def _apply_theme(self) -> None:
+        theme = resolve_current_theme(screen_id="main_window")
+        apply_theme_background(self._theme_container, theme)
+        self.setStyleSheet(build_base_styles(theme))
+        self._splitter.setStyleSheet("background: transparent;")
+        self._right_splitter.setStyleSheet("background: transparent;")
+        self._preview_splitter.setStyleSheet("background: transparent;")
+
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
@@ -633,6 +652,7 @@ class MainWindow(QMainWindow):
         self._apply_import_export_settings()
         self._refresh_embedding_index()
         self._schedule_preview()
+        self._apply_theme()
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -1529,6 +1549,9 @@ def main() -> None:
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     app = QApplication(sys.argv)
+    theme_dir()
+    ensure_sample_images()
+    ensure_sample_themes()
     ui_settings = QSettings()
     locale_pref = ui_settings.value("appearance/locale", "system")
     if locale_pref == "system":

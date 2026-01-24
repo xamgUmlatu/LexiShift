@@ -1,0 +1,107 @@
+{
+  "id": "backgrounds_theme",
+  "name": "Background Images Example Theme",
+  "version": 1,
+  "colors": {
+    "bg": "#FBF6FF",
+    "panel_top": "#FFF7FD",
+    "panel_bottom": "#EFE6F5",
+    "panel_border": "#D8CBE6",
+    "text": "#2B2433",
+    "muted": "#6A5F75",
+    "accent": "#7C5BA6",
+    "accent_soft": "#E6D9F5",
+    "primary": "#9C6FD6",
+    "primary_hover": "#8B5FCA",
+    "table_bg": "#FFFFFF",
+    "table_sel_bg": "#E8DDF6"
+  },
+  "background": {
+    "image_path": "sample_images/ocean.jpg",
+    "opacity": 0.12,
+    "position": "center",
+    "size": "cover",
+    "repeat": "no-repeat",
+    "blend_mode": "normal"
+  },
+  "screen_overrides": {
+    "main_window": {
+      "colors": {
+        "accent": "#6FA6E6",
+        "accent_soft": "#D9E9FB",
+        "table_sel_bg": "#DCEBFF"
+      },
+      "background": {
+        "image_path": "sample_images/ocean.jpg",
+        "opacity": 0.12,
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat",
+        "blend_mode": "normal"
+      }
+    },
+    "profiles_dialog": {
+      "colors": {
+        "accent": "#6BC2A7",
+        "accent_soft": "#D7F1E9",
+        "primary": "#6BC2A7",
+        "primary_hover": "#58B195"
+      },
+      "background": {
+        "image_path": "sample_images/forest.jpg",
+        "opacity": 0.1,
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat",
+        "blend_mode": "normal"
+      }
+    },
+    "settings_dialog": {
+      "colors": {
+        "accent": "#7C5BA6",
+        "accent_soft": "#E6D9F5"
+      },
+      "background": {
+        "image_path": "sample_images/clouds.jpg",
+        "opacity": 0.1,
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat",
+        "blend_mode": "normal"
+      }
+    },
+    "code_dialog": {
+      "colors": {
+        "panel_top": "#FFF6FA",
+        "panel_bottom": "#F2E1ED",
+        "table_bg": "#FFF9FD",
+        "table_sel_bg": "#F1DFF0"
+      },
+      "background": {
+        "image_path": "sample_images/desert.jpg",
+        "opacity": 0.08,
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat",
+        "blend_mode": "normal"
+      }
+    },
+    "first_run_dialog": {
+      "colors": {
+        "panel_top": "#FFF6FB",
+        "panel_bottom": "#F2E2F0",
+        "primary": "#E27FCB",
+        "primary_hover": "#D06FB8"
+      },
+      "background": {
+        "image_path": "sample_images/sunset.jpg",
+        "opacity": 0.12,
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat",
+        "blend_mode": "normal"
+      }
+    }
+  },
+  "notes": "Example theme using bundled sample_images/*.jpg"
+}

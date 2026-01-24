@@ -299,6 +299,31 @@ Packaging (PyInstaller)
   - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)
 - Note: build Windows binaries on Windows (PyInstaller does not cross-compile).
 
+Installers (macOS DMG / Windows EXE)
+- Build installers: `python scripts/build_installer.py`
+  - macOS: creates a `.dmg` in `apps/gui/dist/installers/`
+  - Windows: creates an Inno Setup `.exe` in `apps/gui/dist/installers/`
+- Windows dependency: install Inno Setup and ensure `iscc` is on PATH.
+- Unsigned builds will trigger Gatekeeper/SmartScreen warnings; use signing for distribution.
+
+Code signing & notarization (optional but recommended)
+- macOS signing (Developer ID):
+  - Obtain a “Developer ID Application” certificate in your Apple Developer account.
+  - Build with: `python scripts/build_installer.py --mac-sign-identity "Developer ID Application: Your Name (TEAMID)"`
+- macOS notarization:
+  - Create an app‑specific password in Apple ID.
+  - Run with: `python scripts/build_installer.py --mac-sign-identity "Developer ID Application: ..." --notarize --apple-id you@domain.com --team-id TEAMID --notary-password APP_SPECIFIC_PASSWORD`
+  - The script submits the DMG to notarytool and staples it.
+- Windows signing (Authenticode):
+  - Obtain a code signing cert (.pfx) and install the Windows SDK (signtool).
+  - Run with: `python scripts/build_installer.py --win-sign-pfx C:\\path\\cert.pfx --win-sign-password YOUR_PASSWORD`
+  - Timestamp defaults to `http://timestamp.digicert.com` (override with `--timestamp-url`).
+
+Localization (GUI)
+- Locale catalogs live in `apps/gui/resources/i18n/` (base in `en.json`).
+- `apps/gui/resources/i18n/locales.json` lists available locales for Settings > Appearance.
+- Restart the GUI app after switching language.
+
 Current limitations
 - No streaming adapter yet (planned).
 - No POS/NER gating yet (possible future accuracy upgrade).
@@ -340,8 +365,13 @@ Known inconsistencies / friction points
 - WordNet classic vs JSON layouts can diverge; validation allows both, but pack-specific parsing rules may be needed.
 - Manual language pack paths can point outside the app folder; Delete only removes app-managed files, so UX should clarify that.
 - Embeddings fallback requires neighbor-capable formats; SQLite builds without LSH won’t support fallback lookup.
+- Profile vs ruleset ownership is still fuzzy in UX; Manage menu ruleset population should make the relationship explicit and consistent.
 - Profiles support multiple rulesets, but extensions/plugins still take one ruleset at a time; profile sync is still conceptual.
 - Settings theme selection applies to the Settings dialog only, not the full app UI yet.
+- GUI spacing/padding is not tuned for all locales; layout density needs a pass.
+- Theme colors still need refinement for contrast and visual polish.
+- Custom user themes are not yet supported; draft schema lives in `docs/theme_schema.md` and should include background image slots.
+- Code dialog backgrounds may appear hidden by opaque editor widgets; consider transparent panels or inset chrome if the image should remain visible.
 
 Notes for future AI contributors
 - Keep modules small and composable; avoid mixing GUI concerns into core logic.

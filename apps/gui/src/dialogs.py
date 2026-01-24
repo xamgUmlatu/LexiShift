@@ -3,7 +3,8 @@ from __future__ import annotations
 from dataclasses import replace
 from typing import Optional
 
-from PySide6.QtCore import QSettings, Qt
+from PySide6.QtCore import QPoint, QSettings, Qt
+from PySide6.QtGui import QPainter, QPixmap
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -36,6 +37,10 @@ from lexishift_core import (
 )
 from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
+from theme_loader import load_user_themes, theme_dir, THEME_COLOR_KEYS
+from theme_manager import resolve_theme
+from theme_registry import BUILTIN_THEMES
+from utils_paths import reveal_path
 
 
 class RuleMetadataDialog(QDialog):
@@ -100,65 +105,6 @@ class RuleMetadataDialog(QDialog):
 
 
 class SettingsDialog(QDialog):
-    THEMES = {
-        "light_sand": {
-            "bg": "#F6F2EB",
-            "panel_top": "#FBF8F3",
-            "panel_bottom": "#EFE7DC",
-            "panel_border": "#D8CDBD",
-            "text": "#1F1F1F",
-            "muted": "#5C5C5C",
-            "accent": "#9A6A2B",
-            "accent_soft": "#E9D6BF",
-            "primary": "#2F2F2F",
-            "primary_hover": "#232323",
-            "table_bg": "#FFFFFF",
-            "table_sel_bg": "#E7D9C6",
-        },
-        "chalk": {
-            "bg": "#F2F2EE",
-            "panel_top": "#F7F7F2",
-            "panel_bottom": "#E5E2DB",
-            "panel_border": "#CBC4BA",
-            "text": "#1B1A18",
-            "muted": "#5A5752",
-            "accent": "#4B6B5D",
-            "accent_soft": "#D9E3DE",
-            "primary": "#3A3A3A",
-            "primary_hover": "#2E2E2E",
-            "table_bg": "#FFFFFF",
-            "table_sel_bg": "#DDE7E0",
-        },
-        "dusk": {
-            "bg": "#1F1E1C",
-            "panel_top": "#2A2724",
-            "panel_bottom": "#1D1B19",
-            "panel_border": "#3B352F",
-            "text": "#E9E2DA",
-            "muted": "#B0A79D",
-            "accent": "#D1A56F",
-            "accent_soft": "#3B2F23",
-            "primary": "#4A443E",
-            "primary_hover": "#5A534C",
-            "table_bg": "#24211E",
-            "table_sel_bg": "#3F352D",
-        },
-        "night_slate": {
-            "bg": "#151A1F",
-            "panel_top": "#1E242B",
-            "panel_bottom": "#12171C",
-            "panel_border": "#2B333C",
-            "text": "#E3E8EE",
-            "muted": "#9AA5B1",
-            "accent": "#7CA6C8",
-            "accent_soft": "#1F2C36",
-            "primary": "#2B3947",
-            "primary_hover": "#344454",
-            "table_bg": "#171C22",
-            "table_sel_bg": "#233040",
-        },
-    }
-
     def __init__(
         self,
         app_settings: AppSettings,
@@ -180,10 +126,11 @@ class SettingsDialog(QDialog):
         inflections = self._dataset_settings.inflections or InflectionSettings()
         learning = self._dataset_settings.learning or LearningSettings()
         self._ui_settings = QSettings()
+        self._themes, self._theme_labels = self._load_themes()
         theme_id = self._ui_settings.value("appearance/theme", "light_sand")
-        theme_id = theme_id if theme_id in self.THEMES else "light_sand"
+        theme_id = theme_id if theme_id in self._themes else "light_sand"
         self._theme_id = theme_id
-        self._theme = self.THEMES[self._theme_id]
+        self._theme = self._themes[self._theme_id]
         locale_pref = self._ui_settings.value("appearance/locale", "system")
         self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
         tabs = QTabWidget()
@@ -267,16 +214,13 @@ class SettingsDialog(QDialog):
 
     def _build_appearance_tab(self) -> QWidget:
         self.theme_combo = QComboBox()
-        theme_labels = {
-            "light_sand": t("appearance.theme.light_sand"),
-            "chalk": t("appearance.theme.chalk"),
-            "dusk": t("appearance.theme.dusk"),
-            "night_slate": t("appearance.theme.night_slate"),
-        }
-        for theme_id, label in theme_labels.items():
+        for theme_id, label in self._theme_labels.items():
             self.theme_combo.addItem(label, theme_id)
         self._set_theme_combo(self._theme_id)
         self.theme_combo.currentIndexChanged.connect(self._on_theme_changed)
+
+        self.open_themes_button = QPushButton(t("buttons.open_themes_folder"))
+        self.open_themes_button.clicked.connect(self._open_themes_folder)
 
         self.language_combo = QComboBox()
         self.language_combo.addItem(t("appearance.language.system_default"), "system")
@@ -291,12 +235,16 @@ class SettingsDialog(QDialog):
         form.setHorizontalSpacing(12)
         form.setVerticalSpacing(8)
         form.addRow(t("appearance.theme.label"), self.theme_combo)
+        form.addRow(t("appearance.themes_folder.label"), self.open_themes_button)
         form.addRow(t("appearance.language.label"), self.language_combo)
         form.addRow(QLabel(t("appearance.hint")))
 
         panel = QWidget()
         panel.setLayout(form)
         return panel
+
+    def _open_themes_folder(self) -> None:
+        reveal_path(theme_dir())
 
     def _build_app_tab(self) -> QWidget:
         self.allow_code_export_check = QCheckBox(t("settings.allow_code_export"))
@@ -445,17 +393,31 @@ class SettingsDialog(QDialog):
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        container = QWidget()
+        container = _ThemedTabContainer()
         container.setObjectName("settingsTabContainer")
         panel.setStyleSheet("background: transparent;")
         layout = QVBoxLayout(container)
         layout.setContentsMargins(16, 16, 16, 20)
         layout.addWidget(panel)
         scroll.setWidget(container)
+        if not hasattr(self, "_tab_containers"):
+            self._tab_containers = []
+        self._tab_containers.append(container)
         return scroll
 
     def _apply_theme(self) -> None:
-        theme = self._theme
+        theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
+        background = theme.get("_background", {})
+        background_path = theme.get("_background_path")
+        if hasattr(self, "_tab_containers"):
+            for container in self._tab_containers:
+                container.set_background(
+                    image_path=background_path,
+                    opacity=_coerce_float(background.get("opacity"), default=1.0),
+                    position=str(background.get("position") or "center"),
+                    size=str(background.get("size") or "cover"),
+                    repeat=str(background.get("repeat") or "no-repeat"),
+                )
         self.setStyleSheet(
             "QDialog {"
             f"background: {theme['bg']};"
@@ -541,6 +503,27 @@ class SettingsDialog(QDialog):
         self._toggle_embedding_fields(self.use_embeddings_check.isChecked())
         self.language_pack_panel.apply_synonym_settings(synonym_settings)
 
+    def _browse_embeddings(self) -> None:
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.select_embeddings.title"),
+            "",
+            t("filters.embeddings"),
+        )
+        if not path:
+            return
+        self.embedding_path_edit.setText(path)
+
+    def _update_embedding_threshold_label(self, value: int) -> None:
+        self.embedding_threshold_value.setText(f"{value / 100:.2f}")
+
+    def _toggle_embedding_fields(self, enabled: bool) -> None:
+        self.embedding_path_edit.setEnabled(enabled)
+        self.embedding_browse_button.setEnabled(enabled)
+        self.embedding_threshold_slider.setEnabled(enabled)
+        self.embedding_threshold_value.setEnabled(enabled)
+        self.embedding_fallback_check.setEnabled(enabled)
+
     def _apply_inflections(self, settings: InflectionSettings) -> None:
         self.inflections_enabled_check.setChecked(settings.enabled)
         self.inflections_strict_check.setChecked(settings.strict)
@@ -559,10 +542,10 @@ class SettingsDialog(QDialog):
 
     def _on_theme_changed(self) -> None:
         theme_id = self.theme_combo.currentData()
-        if not theme_id or theme_id not in self.THEMES:
+        if not theme_id or theme_id not in self._themes:
             return
         self._theme_id = theme_id
-        self._theme = self.THEMES[theme_id]
+        self._theme = self._themes[theme_id]
         self._ui_settings.setValue("appearance/theme", theme_id)
         self._apply_theme()
 
@@ -587,26 +570,116 @@ class SettingsDialog(QDialog):
                 combo.setCurrentIndex(idx)
                 return
 
-    def _browse_embeddings(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.select_embeddings.title"),
-            "",
-            t("filters.embeddings"),
-        )
-        if not path:
+    def _load_themes(self) -> tuple[dict[str, dict], dict[str, str]]:
+        themes = dict(BUILTIN_THEMES)
+        labels = {
+            "light_sand": t("appearance.theme.light_sand"),
+            "chalk": t("appearance.theme.chalk"),
+            "dusk": t("appearance.theme.dusk"),
+            "night_slate": t("appearance.theme.night_slate"),
+        }
+        for theme_id, theme in load_user_themes().items():
+            theme_label = str(theme.get("_name") or theme_id)
+            themes[theme_id] = _merge_theme(themes.get("light_sand", {}), theme)
+            labels[theme_id] = theme_label
+        return themes, labels
+
+
+class _ThemedTabContainer(QWidget):
+    def __init__(self) -> None:
+        super().__init__()
+        self._bg_pixmap: QPixmap | None = None
+        self._bg_opacity = 1.0
+        self._bg_position = "center"
+        self._bg_size = "cover"
+        self._bg_repeat = "no-repeat"
+
+    def set_background(
+        self,
+        *,
+        image_path: str | None,
+        opacity: float,
+        position: str,
+        size: str,
+        repeat: str,
+    ) -> None:
+        if image_path:
+            pixmap = QPixmap(image_path)
+            self._bg_pixmap = pixmap if not pixmap.isNull() else None
+        else:
+            self._bg_pixmap = None
+        self._bg_opacity = max(0.0, min(1.0, opacity))
+        self._bg_position = position
+        self._bg_size = size
+        self._bg_repeat = repeat
+        self.update()
+
+    def paintEvent(self, event) -> None:
+        super().paintEvent(event)
+        if not self._bg_pixmap:
             return
-        self.embedding_path_edit.setText(path)
+        painter = QPainter(self)
+        painter.setOpacity(self._bg_opacity)
+        rect = self.rect()
+        if self._bg_repeat == "repeat":
+            painter.drawTiledPixmap(rect, self._bg_pixmap)
+            return
+        target = _scale_pixmap(self._bg_pixmap, rect.size(), self._bg_size)
+        pos = _position_pixmap(rect, target.size(), self._bg_position)
+        painter.drawPixmap(pos, target)
 
-    def _update_embedding_threshold_label(self, value: int) -> None:
-        self.embedding_threshold_value.setText(f"{value / 100:.2f}")
 
-    def _toggle_embedding_fields(self, enabled: bool) -> None:
-        self.embedding_path_edit.setEnabled(enabled)
-        self.embedding_browse_button.setEnabled(enabled)
-        self.embedding_threshold_slider.setEnabled(enabled)
-        self.embedding_threshold_value.setEnabled(enabled)
-        self.embedding_fallback_check.setEnabled(enabled)
+def _merge_theme(base: dict, override: dict) -> dict:
+    merged = dict(base)
+    for key in THEME_COLOR_KEYS:
+        if key in override:
+            merged[key] = override[key]
+    for key in ("_background", "_background_path", "_name", "_source", "_base_dir", "_screen_overrides"):
+        if key in override:
+            merged[key] = override[key]
+    return merged
+
+
+def _scale_pixmap(pixmap: QPixmap, target_size, mode: str) -> QPixmap:
+    if mode == "contain":
+        return pixmap.scaled(target_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+    if mode == "cover":
+        return pixmap.scaled(target_size, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
+    if mode.endswith("%"):
+        try:
+            pct = max(1, min(100, int(mode[:-1])))
+        except ValueError:
+            return pixmap
+        w = int(target_size.width() * pct / 100)
+        h = int(target_size.height() * pct / 100)
+        return pixmap.scaled(w, h, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+    return pixmap
+
+
+def _position_pixmap(rect, size, position: str) -> QPoint:
+    pos = position.lower().split()
+    if not pos:
+        pos = ["center"]
+    if "left" in pos:
+        x = rect.left()
+    elif "right" in pos:
+        x = rect.right() - size.width()
+    else:
+        x = rect.center().x() - size.width() // 2
+    if "top" in pos:
+        y = rect.top()
+    elif "bottom" in pos:
+        y = rect.bottom() - size.height()
+    else:
+        y = rect.center().y() - size.height() // 2
+    return QPoint(int(x), int(y))
+
+
+def _coerce_float(value, *, default: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
 
 
 def _parse_int(value: str, *, default: int) -> int:

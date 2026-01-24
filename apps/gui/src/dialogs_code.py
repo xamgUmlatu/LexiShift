@@ -12,6 +12,8 @@ from PySide6.QtWidgets import (
 )
 
 from i18n import t
+from theme_manager import apply_dialog_theme
+from theme_widgets import ThemedBackgroundWidget
 
 try:
     from language_packs import LANGUAGE_PACKS
@@ -37,13 +39,22 @@ class CodeDialog(QDialog):
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
         layout.addWidget(self.code_edit)
         layout.addWidget(button_box)
 
         if read_only:
             button_box.button(QDialogButtonBox.Ok).setText(t("buttons.close"))
             button_box.button(QDialogButtonBox.Cancel).hide()
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="code_dialog")
 
     def code(self) -> str:
         return self.code_edit.toPlainText().strip()
@@ -84,11 +95,20 @@ class BulkRulesDialog(QDialog):
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
         layout.addLayout(form)
         layout.addWidget(button_box)
 
         button_box.button(QDialogButtonBox.Ok).setText(t("buttons.generate"))
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="code_dialog")
 
     def selected_pack_ids(self) -> set[str]:
         return {pack_id for pack_id, checkbox in self._pack_checkboxes.items() if checkbox.isChecked()}

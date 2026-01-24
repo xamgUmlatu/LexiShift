@@ -23,7 +23,8 @@
     "add": "追加",
     "remove": "削除",
     "add_ruleset": "ルールセットを追加",
-    "set_active": "アクティブに設定"
+    "set_active": "アクティブに設定",
+    "open_themes_folder": "テーマフォルダを開く"
   },
   "menu": {
     "file": "ファイル",
@@ -214,7 +215,10 @@
       "label": "言語",
       "system_default": "システム既定"
     },
-    "hint": "テーマは設定画面に適用されます。言語変更は再起動後に反映されます。"
+    "hint": "テーマは設定画面に適用されます。言語変更は再起動後に反映されます。",
+    "themes_folder": {
+      "label": "テーマフォルダ"
+    }
   },
   "inflections": {
     "apply_last_word": "最後の単語",

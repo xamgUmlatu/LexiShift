@@ -23,7 +23,8 @@
     "add": "Add",
     "remove": "Remove",
     "add_ruleset": "Add Ruleset",
-    "set_active": "Set Active"
+    "set_active": "Set Active",
+    "open_themes_folder": "Open themes folder"
   },
   "menu": {
     "file": "File",
@@ -214,7 +215,10 @@
       "label": "Language",
       "system_default": "System default"
     },
-    "hint": "Themes apply to Settings. Restart to apply language changes."
+    "hint": "Themes apply to Settings. Restart to apply language changes.",
+    "themes_folder": {
+      "label": "Themes folder"
+    }
   },
   "inflections": {
     "apply_last_word": "Last word",

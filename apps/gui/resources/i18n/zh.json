@@ -23,7 +23,8 @@
     "add": "添加",
     "remove": "移除",
     "add_ruleset": "添加规则集",
-    "set_active": "设为活动"
+    "set_active": "设为活动",
+    "open_themes_folder": "打开主题文件夹"
   },
   "menu": {
     "file": "文件",
@@ -214,7 +215,10 @@
       "label": "语言",
       "system_default": "系统默认"
     },
-    "hint": "主题只应用于设置界面。语言更改需重启生效。"
+    "hint": "主题只应用于设置界面。语言更改需重启生效。",
+    "themes_folder": {
+      "label": "主题文件夹"
+    }
   },
   "inflections": {
     "apply_last_word": "最后一个词",

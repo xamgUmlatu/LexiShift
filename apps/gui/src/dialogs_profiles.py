@@ -25,6 +25,8 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile
 from i18n import t
+from theme_manager import apply_dialog_theme
+from theme_widgets import ThemedBackgroundWidget
 from utils_paths import reveal_path
 
 
@@ -109,7 +111,12 @@ class ProfilesDialog(QDialog):
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
         layout.addLayout(main_row)
         hint_label = QLabel(t("dialogs.manage_profiles.active_hint"))
         hint_label.setWordWrap(True)
@@ -129,6 +136,10 @@ class ProfilesDialog(QDialog):
                         initial_index = idx
                         break
             self.list_widget.setCurrentRow(initial_index)
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="profiles_dialog")
 
     def accept(self) -> None:
         self._commit_current()
@@ -405,13 +416,22 @@ class CreateProfileDialog(QDialog):
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
         layout.addLayout(form)
         layout.addWidget(button_box)
 
         self._sync_id()
         if not self.path_edit.text():
             self._apply_default_path()
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="profiles_dialog")
 
     def profile(self) -> Profile:
         profile_id = self.id_edit.text().strip() or _slugify(self.name_edit.text()) or "profile"
@@ -461,9 +481,18 @@ class FirstRunDialog(QDialog):
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
-        layout = QVBoxLayout(self)
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
         layout.addWidget(label)
         layout.addWidget(button_box)
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="first_run_dialog")
 
 
 def _profile_display(profile: Profile) -> str:
