@@ -135,6 +135,13 @@ const shareCodeCjk = document.getElementById("share-code-cjk");
 const generateCodeButton = document.getElementById("generate-code");
 const importCodeButton = document.getElementById("import-code");
 const copyCodeButton = document.getElementById("copy-code");
+const openDesktopAppButton = document.getElementById("open-desktop-app");
+const openBdPluginButton = document.getElementById("open-bd-plugin");
+
+const INTEGRATION_LINKS = {
+  app: "https://lexishift.app/download",
+  plugin: "https://lexishift.app/betterdiscord"
+};
 
 let currentRules = [];
 
@@ -465,6 +472,18 @@ if (languageSelect) {
       loadLocaleMessages(value);
       setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
     });
+  });
+}
+
+if (openDesktopAppButton) {
+  openDesktopAppButton.addEventListener("click", () => {
+    window.open(INTEGRATION_LINKS.app, "_blank", "noopener");
+  });
+}
+
+if (openBdPluginButton) {
+  openBdPluginButton.addEventListener("click", () => {
+    window.open(INTEGRATION_LINKS.plugin, "_blank", "noopener");
   });
 }
 

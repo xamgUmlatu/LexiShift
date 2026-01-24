@@ -205,5 +205,17 @@
   },
   "status_language_updated": {
     "message": "Sprache aktualisiert."
+  },
+  "section_integrations": {
+    "message": "Integrationen"
+  },
+  "hint_integrations": {
+    "message": "Installiere LexiShift auf mehreren Geräten, um Rulesets zu teilen."
+  },
+  "button_get_app": {
+    "message": "Desktop-App holen"
+  },
+  "button_get_plugin": {
+    "message": "BetterDiscord-Plugin holen"
   }
 }

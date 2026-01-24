@@ -205,5 +205,17 @@
   },
   "status_language_updated": {
     "message": "语言已更新。"
+  },
+  "section_integrations": {
+    "message": "集成"
+  },
+  "hint_integrations": {
+    "message": "在多设备安装 LexiShift 以共享规则集。"
+  },
+  "button_get_app": {
+    "message": "获取桌面应用"
+  },
+  "button_get_plugin": {
+    "message": "获取 BetterDiscord 插件"
   }
 }

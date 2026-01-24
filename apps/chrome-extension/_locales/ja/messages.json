@@ -205,5 +205,17 @@
   },
   "status_language_updated": {
     "message": "言語を更新しました。"
+  },
+  "section_integrations": {
+    "message": "連携"
+  },
+  "hint_integrations": {
+    "message": "複数の端末に導入してルールセットを共有します。"
+  },
+  "button_get_app": {
+    "message": "デスクトップアプリを入手"
+  },
+  "button_get_plugin": {
+    "message": "BetterDiscordプラグインを入手"
   }
 }

@@ -5,7 +5,8 @@
   "tabs": {
     "app": "应用",
     "appearance": "外观",
-    "dataset": "数据集"
+    "dataset": "数据集",
+    "integrations": "集成"
   },
   "buttons": {
     "manage_profiles": "管理...",
@@ -369,5 +370,12 @@
     "json": "JSON 文件 (*.json)",
     "embeddings": "嵌入文件 (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;所有文件 (*)",
     "all": "所有文件 (*)"
+  },
+  "integrations": {
+    "title": "在各处使用 LexiShift",
+    "description": "安装桌面应用、Chrome 扩展和 BetterDiscord 插件以同步规则集。",
+    "app_button": "下载桌面应用",
+    "extension_button": "获取 Chrome 扩展",
+    "plugin_button": "获取 BetterDiscord 插件"
   }
 }

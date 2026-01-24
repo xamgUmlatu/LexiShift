@@ -41,6 +41,7 @@ from theme_loader import load_user_themes, theme_dir, THEME_COLOR_KEYS
 from theme_manager import resolve_theme
 from theme_registry import BUILTIN_THEMES
 from utils_paths import reveal_path
+from integrations import open_integration_link
 
 
 class RuleMetadataDialog(QDialog):
@@ -137,6 +138,7 @@ class SettingsDialog(QDialog):
         tabs.addTab(self._wrap_tab(self._build_app_tab()), t("tabs.app"))
         tabs.addTab(self._wrap_tab(self._build_appearance_tab()), t("tabs.appearance"))
         tabs.addTab(self._wrap_tab(self._build_dataset_tab()), t("tabs.dataset"))
+        tabs.addTab(self._wrap_tab(self._build_integrations_tab()), t("tabs.integrations"))
 
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
@@ -305,6 +307,37 @@ class SettingsDialog(QDialog):
         layout.setSpacing(12)
         layout.addWidget(self._build_language_pack_panel())
         layout.addLayout(form)
+
+        panel = QWidget()
+        panel.setLayout(layout)
+        return panel
+
+    def _build_integrations_tab(self) -> QWidget:
+        title = QLabel(t("integrations.title"))
+        title.setObjectName("sectionLabel")
+        description = QLabel(t("integrations.description"))
+        description.setWordWrap(True)
+
+        app_button = QPushButton(t("integrations.app_button"))
+        extension_button = QPushButton(t("integrations.extension_button"))
+        plugin_button = QPushButton(t("integrations.plugin_button"))
+
+        app_button.clicked.connect(lambda: open_integration_link("app_download"))
+        extension_button.clicked.connect(lambda: open_integration_link("chrome_extension"))
+        plugin_button.clicked.connect(lambda: open_integration_link("betterdiscord_plugin"))
+
+        buttons = QHBoxLayout()
+        buttons.addWidget(app_button)
+        buttons.addWidget(extension_button)
+        buttons.addWidget(plugin_button)
+        buttons.addStretch()
+
+        layout = QVBoxLayout()
+        layout.setSpacing(12)
+        layout.addWidget(title)
+        layout.addWidget(description)
+        layout.addLayout(buttons)
+        layout.addStretch()
 
         panel = QWidget()
         panel.setLayout(layout)

@@ -5,7 +5,8 @@
   "tabs": {
     "app": "App",
     "appearance": "Erscheinungsbild",
-    "dataset": "Datensatz"
+    "dataset": "Datensatz",
+    "integrations": "Integrationen"
   },
   "buttons": {
     "manage_profiles": "Verwalten...",
@@ -369,5 +370,12 @@
     "json": "JSON-Dateien (*.json)",
     "embeddings": "Einbettungsdateien (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;Alle Dateien (*)",
     "all": "Alle Dateien (*)"
+  },
+  "integrations": {
+    "title": "LexiShift überall nutzen",
+    "description": "Installiere Desktop-App, Chrome-Erweiterung und BetterDiscord-Plugin, um Rulesets zu synchronisieren.",
+    "app_button": "Desktop-App herunterladen",
+    "extension_button": "Chrome-Erweiterung holen",
+    "plugin_button": "BetterDiscord-Plugin holen"
   }
 }

@@ -205,5 +205,17 @@
   },
   "status_language_updated": {
     "message": "Language updated."
+  },
+  "section_integrations": {
+    "message": "Integrations"
+  },
+  "hint_integrations": {
+    "message": "Install LexiShift across your devices for shared rulesets."
+  },
+  "button_get_app": {
+    "message": "Get Desktop App"
+  },
+  "button_get_plugin": {
+    "message": "Get BetterDiscord Plugin"
   }
 }

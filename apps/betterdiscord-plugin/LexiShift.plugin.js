@@ -1029,6 +1029,32 @@ function buildSettingsPanel(plugin) {
 	description.style.marginBottom = "8px";
 	panel.appendChild(description);
 
+	const integrationsTitle = document.createElement("div");
+	integrationsTitle.textContent = "Integrations";
+	integrationsTitle.style.marginTop = "6px";
+	integrationsTitle.style.marginBottom = "6px";
+	integrationsTitle.style.fontWeight = "600";
+	panel.appendChild(integrationsTitle);
+
+	const integrationsRow = document.createElement("div");
+	integrationsRow.style.display = "flex";
+	integrationsRow.style.gap = "10px";
+	integrationsRow.style.marginBottom = "12px";
+
+	const appButton = document.createElement("button");
+	appButton.textContent = "Get Desktop App";
+	appButton.className = BDFDB.disCN.button;
+	appButton.onclick = _ => window.open("https://lexishift.app/download", "_blank", "noopener");
+	integrationsRow.appendChild(appButton);
+
+	const extButton = document.createElement("button");
+	extButton.textContent = "Get Chrome Extension";
+	extButton.className = BDFDB.disCN.button;
+	extButton.onclick = _ => window.open("https://lexishift.app/extension", "_blank", "noopener");
+	integrationsRow.appendChild(extButton);
+
+	panel.appendChild(integrationsRow);
+
 	const sourceRow = document.createElement("label");
 	sourceRow.style.display = "flex";
 	sourceRow.style.alignItems = "center";

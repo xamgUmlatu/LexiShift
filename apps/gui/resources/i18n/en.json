@@ -5,7 +5,8 @@
   "tabs": {
     "app": "App",
     "appearance": "Appearance",
-    "dataset": "Dataset"
+    "dataset": "Dataset",
+    "integrations": "Integrations"
   },
   "buttons": {
     "manage_profiles": "Manage...",
@@ -369,5 +370,12 @@
     "json": "JSON Files (*.json)",
     "embeddings": "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;All Files (*)",
     "all": "All Files (*)"
+  },
+  "integrations": {
+    "title": "Get LexiShift Everywhere",
+    "description": "Install the desktop app, Chrome extension, and BetterDiscord plugin to sync your rulesets across platforms.",
+    "app_button": "Download Desktop App",
+    "extension_button": "Get Chrome Extension",
+    "plugin_button": "Get BetterDiscord Plugin"
   }
 }

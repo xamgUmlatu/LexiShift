@@ -5,7 +5,8 @@
   "tabs": {
     "app": "アプリ",
     "appearance": "外観",
-    "dataset": "データセット"
+    "dataset": "データセット",
+    "integrations": "連携"
   },
   "buttons": {
     "manage_profiles": "管理...",
@@ -369,5 +370,12 @@
     "json": "JSON ファイル (*.json)",
     "embeddings": "埋め込みファイル (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;すべてのファイル (*)",
     "all": "すべてのファイル (*)"
+  },
+  "integrations": {
+    "title": "LexiShift をどこでも使う",
+    "description": "デスクトップアプリ、Chrome拡張、BetterDiscordプラグインを導入してルールセットを同期します。",
+    "app_button": "デスクトップアプリを入手",
+    "extension_button": "Chrome拡張を入手",
+    "plugin_button": "BetterDiscordプラグインを入手"
   }
 }
