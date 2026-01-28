@@ -33,8 +33,8 @@ name: Moby Thesaurus
 type: monolingual
 languages: en -> en
 size: 24.9 MB
-url: https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
-wayback_url: https://web.archive.org/web/*/https://archive.org/download/mobythesauruslis03202gut/mthesaur.txt
+url: https://dn790001.ca.archive.org/0/items/mobythesauruslis03202gut/mthesaur.txt
+wayback_url: https://web.archive.org/web/*/https://dn790001.ca.archive.org/0/items/mobythesauruslis03202gut/mthesaur.txt
 filename: mthesaur.txt
 unzipped_name: mthesaur.txt
 layout: one file
@@ -65,14 +65,27 @@ filename: wnjpn-all.tab.gz
 unzipped_name: wnjpn-all.tab
 layout: one file (after gzip)
 parse_hint: tab-delimited: synset_id<TAB>word<TAB>source
-notes: source tags include hand/mono/XXXX
+notes: legacy tab format; source tags include hand/mono/XXXX
+
+pack_id: jp-wordnet-sqlite
+name: Japanese WordNet (SQLite)
+type: monolingual
+languages: ja -> ja
+size: 58 MB (gzipped) / 194 MB (db)
+url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+filename: wnjpn.db.gz
+unzipped_name: wnjpn.db
+layout: SQLite database
+parse_hint: sense.wordid -> word.lemma grouped by sense.synset (lang=jpn)
+notes: primary JP pack
 
 -- Cross-lingual Translation --
 pack_id: jmdict-ja-en
 name: JMDict
 type: translation
 languages: ja -> en
-size: 61.6 MB (Unzipped)
+size: 61.6 MB
 url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
 wayback_url: https://web.archive.org/web/20250101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
 filename: JMdict_e.gz
@@ -81,11 +94,37 @@ layout: XML (Standard EDRDG DTD)
 parse_hint: Extract <entry> nodes; map <reb> (reading) and <keb> (kanji) to <gloss> (English senses).
 notes: The _e version contains English glosses only. If you need multi-lingual, use JMdict.gz.
 
+pack_id: freedict-de-en
+name: FreeDict (DE->EN)
+type: translation
+languages: de -> en
+size: 449.6 MB
+url: https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz
+wayback_url: https://web.archive.org/web/*/https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz
+filename: freedict-deu-eng-1.9-fd1.src.tar.xz
+unzipped_name: deu-eng.tei
+layout: TEI XML
+parse_hint: form/orth (DE headword) -> cit type=trans / quote xml:lang="en"
+notes: source archive contains multiple files; use deu-eng.tei
+
+pack_id: freedict-en-de
+name: FreeDict (EN->DE)
+type: translation
+languages: en -> de
+size: 364 MB
+url: https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz
+wayback_url: https://web.archive.org/web/*/https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz
+filename: freedict-eng-deu-1.9-fd1.src.tar.xz
+unzipped_name: eng-deu.tei
+layout: TEI XML
+parse_hint: form/orth (EN headword) -> cit type=trans / quote xml:lang="de"
+notes: source archive contains multiple files; use eng-deu.tei
+
 pack_id: cc-cedict-zh-en
 name: CC-CEDICT
 type: translation
 languages: zh -> en
-size: 9.7 MB (Unzipped)
+size: 9.7 MB
 url: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
 wayback_url: https://web.archive.org/web/20250110/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
 filename: cedict_1_0_ts_utf-8_mdbg.zip
@@ -107,12 +146,68 @@ layout: JSONL (One JSON object per line)
 parse_hint: Filter objects by the translations key; each object represents a lemma.
 notes: TODO (paused). This is the Kaikki "English Wiktionary" dump, which contains English glosses for words in over 4,000 languages.
 
+
+---------
+
+1. Monolingual Synonym Sources (Thesauri)
+pack_id: wordnet-en-2025
+name: Open English WordNet (2025 Edition)
+size: ~11 MB (Compressed) / 38 MB (Unzipped)
+url: https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/english_wordnet.zip
+wayback_url: https://web.archive.org/web/20260101/https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/english_wordnet.zip
+filename: english_wordnet.zip
+notes: The 2025 edition is the "living" successor to Princeton 3.1. It adds thousands of modern terms and corrected relations.
+
+pack_id: odenet-de
+name: OdeNet (Open German WordNet)
+size: ~15 MB
+url: https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
+wayback_url: https://web.archive.org/web/20251101/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
+filename: OdeNet.xml
+notes: Merges OpenThesaurus with the WordNet structure. High-quality German synonyms with POS tags and English synset mapping.
+
+pack_id: jp-wordnet-sqlite
+name: Japanese WordNet (v1.1)
+size: 194 MB
+url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+filename: wnjpn.db.gz
+notes: Primary JP pack. SQLite file for instant lookups (wnjpn.db).
+
+2. Cross-Lingual Translation Dictionaries
+pack_id: jmdict-ja-en
+name: JMDict (Japanese-English)
+size: 18.2 MB
+url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+wayback_url: https://web.archive.org/web/20260101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+filename: JMdict_e.gz
+notes: The gold standard for JP<->EN. Includes POS tags and specific sense indicators.
+
+pack_id: freedict-de-en
+name: FreeDict (German-English / English-German)
+size: 449.6 MB (deu-eng.tei, unzipped)
+url_de_en: https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz
+url_en_de: https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz
+filename: deu-eng.zip
+notes: TEI XML format. Files are deu-eng.tei and eng-deu.tei (confirm EN->DE size later).
+
+3. Aligned Embeddings (Similarity Ranking)
+Use these to find synonyms across languages (e.g., finding the German nearest-neighbor for an English word).
+Pack ID | Language | Download URL (fastText Aligned)
+align-en | English | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
+align-de | German | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
+align-ja | Japanese | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
+Parsing Tip: These are large text files. The first line is [num_words] [dimensions]. Each following line is [word] [300 floats...].
+
+Final Summary Table
+Goal | Best Choice 2026 | Format | License
+EN Synonyms | Open WordNet 2025 | JSON/XML | WordNet
+DE Synonyms | OdeNet | XML | CC-BY-SA
+JP Synonyms | WN-Ja | SQLite | BSD
+Translations | JMDict / FreeDict | XML | CC-BY-SA
+Similarity | Aligned fastText.vec (Text) | CC-BY-SA
+
+
 -- Info Needed From You --
 1) wiktionary-xlang: if/when we resume, confirm desired Kaikki dump (English vs another), exact compressed size, and preferred Wayback mirror.
-
--- Answers --
-1) openthesaurus-de: use the URL/mirror listed above.
-2) wordnet-en: unzip folder is english-wordnet-2025-json.
-3) jmdict-ja-en: unzips to JMdict_e; size is 61.6 MB (show unzipped size).
-4) cc-cedict-zh-en: URLs updated as above; size is 9.7 MB (unzipped).
-5) wiktionary-xlang: paused for now; keep as TODO.
+2) Kaikki/Wiktionary is backlog for now.

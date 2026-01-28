@@ -11,15 +11,20 @@ from pathlib import Path
 from typing import Iterable, Mapping, Optional
 from xml.etree import ElementTree
 
+from lexishift_core.db_handlers import load_synonyms_from_db
 
 @dataclass(frozen=True)
 class SynonymSources:
     wordnet_dir: Optional[Path] = None
     moby_path: Optional[Path] = None
     openthesaurus_path: Optional[Path] = None
+    odenet_path: Optional[Path] = None
     jp_wordnet_path: Optional[Path] = None
+    jp_wordnet_sqlite_path: Optional[Path] = None
     jmdict_path: Optional[Path] = None
     cc_cedict_path: Optional[Path] = None
+    freedict_de_en_path: Optional[Path] = None
+    freedict_en_de_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)
@@ -43,9 +48,12 @@ class SynonymGenerator:
             "moby": 0,
             "wordnet": 0,
             "openthesaurus": 0,
+            "odenet": 0,
             "jp_wordnet": 0,
             "jmdict": 0,
             "cc_cedict": 0,
+            "freedict_de_en": 0,
+            "freedict_en_de": 0,
         }
         self._embeddings = None
         self._load_sources()
@@ -148,9 +156,17 @@ class SynonymGenerator:
             mapping = _load_openthesaurus(self._sources.openthesaurus_path)
             self._stats["openthesaurus"] = len(mapping)
             mappings.append(mapping)
+        if self._sources.odenet_path:
+            mapping = _load_odenet(self._sources.odenet_path)
+            self._stats["odenet"] = len(mapping)
+            mappings.append(mapping)
         if self._sources.jp_wordnet_path:
             mapping = _load_jp_wordnet(self._sources.jp_wordnet_path)
             self._stats["jp_wordnet"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.jp_wordnet_sqlite_path:
+            mapping = load_synonyms_from_db(self._sources.jp_wordnet_sqlite_path)
+            self._stats["jp_wordnet"] += len(mapping)
             mappings.append(mapping)
         if self._sources.jmdict_path:
             mapping = _load_jmdict(self._sources.jmdict_path)
@@ -159,6 +175,14 @@ class SynonymGenerator:
         if self._sources.cc_cedict_path:
             mapping = _load_cc_cedict(self._sources.cc_cedict_path)
             self._stats["cc_cedict"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.freedict_de_en_path:
+            mapping = _load_freedict_tei(self._sources.freedict_de_en_path, target_lang="en")
+            self._stats["freedict_de_en"] = len(mapping)
+            mappings.append(mapping)
+        if self._sources.freedict_en_de_path:
+            mapping = _load_freedict_tei(self._sources.freedict_en_de_path, target_lang="de")
+            self._stats["freedict_en_de"] = len(mapping)
             mappings.append(mapping)
         if not mappings:
             return
@@ -221,6 +245,66 @@ def _load_openthesaurus(path: Path) -> dict[str, set[str]]:
     return mapping
 
 
+def _load_odenet(path: Path) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    synsets: dict[str, set[str]] = {}
+    try:
+        current_word: Optional[str] = None
+        current_synsets: list[str] = []
+        for event, elem in ElementTree.iterparse(path, events=("start", "end")):
+            tag = elem.tag
+            if tag.endswith("LexicalEntry"):
+                if event == "start":
+                    current_word = None
+                    current_synsets = []
+                else:
+                    if current_word and current_synsets:
+                        for synset_id in current_synsets:
+                            synsets.setdefault(synset_id, set()).add(current_word)
+                    current_word = None
+                    current_synsets = []
+                    elem.clear()
+                continue
+            if event == "start" and tag.endswith("Lemma"):
+                current_word = elem.get("writtenForm") or current_word
+                continue
+            if event == "start" and tag.endswith("Sense"):
+                synset_id = elem.get("synset")
+                if synset_id:
+                    current_synsets.append(synset_id)
+    except ElementTree.ParseError:
+        # Fallback: OdeNet oneline XML can contain mismatched tags; use a tolerant scan.
+        try:
+            raw = path.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            return mapping
+        for chunk in raw.split("</LexicalEntry>"):
+            if "<LexicalEntry" not in chunk:
+                continue
+            lemma_match = re.search(r'writtenForm="([^"]+)"', chunk)
+            if not lemma_match:
+                continue
+            word = lemma_match.group(1).strip()
+            if not word:
+                continue
+            synset_ids = re.findall(r'synset="([^"]+)"', chunk)
+            if not synset_ids:
+                continue
+            for synset_id in synset_ids:
+                synsets.setdefault(synset_id, set()).add(word)
+    for words in synsets.values():
+        if len(words) < 2:
+            continue
+        for word in words:
+            bucket = mapping.setdefault(word, set())
+            for synonym in words:
+                if synonym != word:
+                    bucket.add(synonym)
+    return mapping
+
+
 def _load_jp_wordnet(path: Path) -> dict[str, set[str]]:
     mapping: dict[str, set[str]] = {}
     if not path.exists():
@@ -246,6 +330,42 @@ def _load_jp_wordnet(path: Path) -> dict[str, set[str]]:
             for synonym in words:
                 if synonym != word:
                     bucket.add(synonym)
+    return mapping
+
+
+def _load_freedict_tei(path: Path, *, target_lang: str) -> dict[str, set[str]]:
+    mapping: dict[str, set[str]] = {}
+    if not path.exists():
+        return mapping
+    ns = {"tei": "http://www.tei-c.org/ns/1.0"}
+    xml_lang_key = "{http://www.w3.org/XML/1998/namespace}lang"
+    try:
+        for _event, elem in ElementTree.iterparse(path, events=("end",)):
+            if elem.tag != f"{{{ns['tei']}}}entry":
+                continue
+            headwords = [
+                orth.text.strip()
+                for orth in elem.findall("tei:form/tei:orth", ns)
+                if orth.text and orth.text.strip()
+            ]
+            if not headwords:
+                elem.clear()
+                continue
+            translations = set()
+            for quote in elem.findall(".//tei:cit[@type='trans']/tei:quote", ns):
+                if not quote.text or not quote.text.strip():
+                    continue
+                lang = quote.get(xml_lang_key)
+                if lang and lang != target_lang:
+                    continue
+                translations.add(quote.text.strip())
+            if translations:
+                for headword in headwords:
+                    bucket = mapping.setdefault(headword, set())
+                    bucket.update(translations)
+            elem.clear()
+    except (ElementTree.ParseError, OSError):
+        return {}
     return mapping
 
 

@@ -22,8 +22,15 @@ except ImportError:  # pragma: no cover
 
 
 PACK_INFO = {pack.pack_id: pack for pack in LANGUAGE_PACKS}
-MONO_PACK_IDS = ("wordnet-en", "moby-en", "openthesaurus-de", "jp-wordnet")
-XLANG_PACK_IDS = ("jmdict-ja-en", "cc-cedict-zh-en")
+MONO_PACK_IDS = (
+    "wordnet-en",
+    "moby-en",
+    "openthesaurus-de",
+    "odenet-de",
+    "jp-wordnet",
+    "jp-wordnet-sqlite",
+)
+XLANG_PACK_IDS = ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en")
 
 
 class CodeDialog(QDialog):

@@ -40,6 +40,7 @@ class SynonymSourceSettings:
     embedding_threshold: float = 0.0
     embedding_fallback: bool = True
     language_packs: Mapping[str, str] = field(default_factory=dict)
+    last_selected_pack_ids: Sequence[str] = field(default_factory=tuple)
 
 
 @dataclass(frozen=True)
@@ -162,6 +163,7 @@ def _synonym_sources_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[Sy
         embedding_threshold=float(data.get("embedding_threshold", 0.0)),
         embedding_fallback=bool(data.get("embedding_fallback", True)),
         language_packs=dict(data.get("language_packs", {})),
+        last_selected_pack_ids=tuple(data.get("last_selected_pack_ids", [])),
     )
 
 
@@ -180,6 +182,7 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
         "embedding_threshold": settings.embedding_threshold,
         "embedding_fallback": settings.embedding_fallback,
         "language_packs": dict(settings.language_packs or {}),
+        "last_selected_pack_ids": list(settings.last_selected_pack_ids or []),
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [], "")}
     return trimmed or None

@@ -137,7 +137,7 @@
       "configure_sources": "请先在设置中配置同义词来源。",
       "select_configured": "请在对话框中选择已配置的词典。",
       "missing_sources": "缺少来源：{sources}",
-      "no_entries": "从来源中未加载到任何条目（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}）。"
+      "no_entries": "从来源中未加载到任何条目（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de}）。"
     },
     "select_embeddings": {
       "title": "选择嵌入文件"
@@ -266,7 +266,11 @@
     "no_embedding_vector": "无嵌入向量：{target}",
     "embeddings_zero_neighbors": "嵌入回退返回 0 个邻居：{target}",
     "embeddings_fallback_count": "嵌入回退 {target}: {count}",
-    "synonyms_found": "找到同义词 {target}: {count}"
+    "synonyms_found": "找到同义词 {target}: {count}",
+    "source_loaded": "已加载 {name}: {count} 条",
+    "source_empty": "已加载 {name}: 0 条（路径: {path}, 大小: {size}）",
+    "odenet_probe": "OdeNet 检查：LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
+    "odenet_parse_error": "OdeNet 解析错误: {error}"
   },
   "profiles": {
     "default_name": "默认",
@@ -324,7 +328,8 @@
       "expected_dir": "{name} 需要目录。",
       "wordnet": "WordNet 目录必须包含 data.noun/data.verb/data.adj/data.adv，或 entries-a.json 与 noun.act.json 等 JSON 文件。",
       "missing_files": "{name} 缺少必要文件：{files}。",
-      "expected_file": "{name} 需要文件。"
+      "expected_file": "{name} 需要文件。",
+      "sqlite": "{name} 需要 SQLite 数据库文件。"
     },
     "downloaded_linked": "已下载并将 {name} 链接到 {path}",
     "downloaded_invalid": "已下载 {name}，但验证失败：{message}",
@@ -334,32 +339,44 @@
     "wordnet_dir": "WordNet 目录",
     "moby_file": "Moby 同义词文件",
     "openthesaurus_file": "OpenThesaurus 文件",
+    "odenet_file": "OdeNet 文件",
     "jp_wordnet_file": "日语 WordNet 文件",
+    "jp_wordnet_sqlite_file": "日语 WordNet (SQLite) 文件",
     "jmdict_file": "JMDict 文件",
-    "cc_cedict_file": "CC-CEDICT 文件"
+    "cc_cedict_file": "CC-CEDICT 文件",
+    "freedict_de_en_file": "FreeDict (DE->EN) 文件",
+    "freedict_en_de_file": "FreeDict (EN->DE) 文件"
   },
   "languages": {
     "english": "英语",
     "german": "德语",
     "japanese": "日语",
     "japanese_english": "日语 -> 英语",
-    "chinese_english": "中文 -> 英语"
+    "chinese_english": "中文 -> 英语",
+    "german_english": "德语 -> 英语",
+    "english_german": "英语 -> 德语"
   },
   "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "ntt": "NTT",
     "edrdg": "EDRDG",
-    "mdbg": "MDBG"
+    "mdbg": "MDBG",
+    "freedict": "FreeDict"
   },
   "packs": {
     "wordnet": "WordNet",
     "moby": "Moby Thesaurus",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "jp_wordnet": "Japanese WordNet",
+    "jp_wordnet_sqlite": "日语 WordNet (SQLite)",
     "jmdict": "JMDict",
     "cc_cedict": "CC-CEDICT",
+    "freedict_de_en": "FreeDict (DE->EN)",
+    "freedict_en_de": "FreeDict (EN->DE)",
     "label": "{name}（{language}）"
   },
   "common": {

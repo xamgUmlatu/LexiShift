@@ -209,7 +209,7 @@ class LanguagePackPanel(QWidget):
         self.language_pack_status.setText(
             t("language_packs.downloading", name=pack.display_name())
         )
-        thread = LanguagePackDownloadThread(pack.pack_id, pack.url, dest_path, self)
+        thread = LanguagePackDownloadThread(pack, dest_path, self)
         thread.progress.connect(self._on_language_pack_progress)
         thread.completed.connect(self._on_language_pack_completed)
         thread.failed.connect(self._on_language_pack_failed)
@@ -319,6 +319,9 @@ class LanguagePackPanel(QWidget):
             return True, ""
         if not os.path.isfile(path):
             return False, t("language_packs.validation.expected_file", name=pack.display_name())
+        if pack.pack_id == "jp-wordnet-sqlite":
+            if not self._is_sqlite_db(path):
+                return False, t("language_packs.validation.sqlite")
         return True, ""
 
     def _auto_link_downloaded_packs(self) -> None:
@@ -339,6 +342,14 @@ class LanguagePackPanel(QWidget):
         archive_path = self._download_archive_path(pack)
         if archive_path.endswith(".zip"):
             extracted = os.path.splitext(archive_path)[0]
+            if os.path.isdir(extracted):
+                return extracted
+        if archive_path.endswith((".tar.gz", ".tgz", ".tar.xz", ".txz")):
+            extracted = archive_path
+            for suffix in (".tar.gz", ".tgz", ".tar.xz", ".txz"):
+                if extracted.endswith(suffix):
+                    extracted = extracted[: -len(suffix)]
+                    break
             if os.path.isdir(extracted):
                 return extracted
         if archive_path.endswith(".gz"):
@@ -385,6 +396,14 @@ class LanguagePackPanel(QWidget):
             if self._has_wordnet_classic(candidate) or self._has_wordnet_json(candidate):
                 return candidate
         return path
+
+    def _is_sqlite_db(self, path: str) -> bool:
+        try:
+            with open(path, "rb") as handle:
+                header = handle.read(16)
+            return header.startswith(b"SQLite format 3")
+        except OSError:
+            return False
 
     def _on_language_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
         row = self._language_pack_rows.get(pack_id)

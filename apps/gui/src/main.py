@@ -679,6 +679,7 @@ class MainWindow(QMainWindow):
                 t("dialogs.bulk_add.select_dictionary"),
             )
             return
+        self._remember_bulk_pack_selection(selected_pack_ids)
         self._append_log(t("logs.bulk_add_targets", count=len(targets)))
         rules = self._generate_synonym_rules(targets, selected_pack_ids=selected_pack_ids)
         if not rules:
@@ -699,11 +700,26 @@ class MainWindow(QMainWindow):
             pack_ids.add("wordnet-en")
         if settings.moby_path:
             pack_ids.add("moby-en")
+        if settings.last_selected_pack_ids:
+            return set(settings.last_selected_pack_ids)
         language_packs = settings.language_packs or {}
-        for pack_id in ("openthesaurus-de", "jp-wordnet", "jmdict-ja-en", "cc-cedict-zh-en"):
+        if language_packs.get("odenet-de"):
+            pack_ids.add("odenet-de")
+        elif language_packs.get("openthesaurus-de"):
+            pack_ids.add("openthesaurus-de")
+        if language_packs.get("jp-wordnet-sqlite"):
+            pack_ids.add("jp-wordnet-sqlite")
+        elif language_packs.get("jp-wordnet"):
+            pack_ids.add("jp-wordnet")
+        for pack_id in ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en"):
             if language_packs.get(pack_id):
                 pack_ids.add(pack_id)
         return pack_ids
+
+    def _remember_bulk_pack_selection(self, selected_pack_ids: set[str]) -> None:
+        settings = self.state.settings.synonyms or SynonymSourceSettings()
+        updated = replace(settings, last_selected_pack_ids=tuple(sorted(selected_pack_ids)))
+        self.state.update_settings(replace(self.state.settings, synonyms=updated))
 
     def _delete_rule(self) -> None:
         row = self._current_source_row()
@@ -771,23 +787,43 @@ class MainWindow(QMainWindow):
         use_wordnet = "wordnet-en" in selected_pack_ids
         use_moby = "moby-en" in selected_pack_ids
         use_openthesaurus = "openthesaurus-de" in selected_pack_ids
+        use_odenet = "odenet-de" in selected_pack_ids
         use_jp_wordnet = "jp-wordnet" in selected_pack_ids
+        use_jp_wordnet_sqlite = "jp-wordnet-sqlite" in selected_pack_ids
         use_jmdict = "jmdict-ja-en" in selected_pack_ids
+        use_freedict_de_en = "freedict-de-en" in selected_pack_ids
+        use_freedict_en_de = "freedict-en-de" in selected_pack_ids
         use_cc_cedict = "cc-cedict-zh-en" in selected_pack_ids
         openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
+        odenet_path = language_packs.get("odenet-de") if language_packs else None
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
+        jp_wordnet_sqlite_path = (
+            language_packs.get("jp-wordnet-sqlite") if language_packs else None
+        )
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
+        freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
+        freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
         cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
         if cc_cedict_path and Path(cc_cedict_path).is_dir():
             candidate = Path(cc_cedict_path) / "cedict_ts.u8"
             cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
+        if freedict_de_en_path and Path(freedict_de_en_path).is_dir():
+            candidate = Path(freedict_de_en_path) / "deu-eng.tei"
+            freedict_de_en_path = str(candidate) if candidate.exists() else freedict_de_en_path
+        if freedict_en_de_path and Path(freedict_en_de_path).is_dir():
+            candidate = Path(freedict_en_de_path) / "eng-deu.tei"
+            freedict_en_de_path = str(candidate) if candidate.exists() else freedict_en_de_path
         if not any(
             [
                 use_wordnet and settings.wordnet_dir,
                 use_moby and settings.moby_path,
                 use_openthesaurus and openthesaurus_path,
+                use_odenet and odenet_path,
                 use_jp_wordnet and jp_wordnet_path,
+                use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
                 use_jmdict and jmdict_path,
+                use_freedict_de_en and freedict_de_en_path,
+                use_freedict_en_de and freedict_en_de_path,
                 use_cc_cedict and cc_cedict_path,
             ]
         ):
@@ -804,10 +840,18 @@ class MainWindow(QMainWindow):
             missing_sources.append(t("sources.moby_file"))
         if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
             missing_sources.append(t("sources.openthesaurus_file"))
+        if use_odenet and odenet_path and not Path(odenet_path).exists():
+            missing_sources.append(t("sources.odenet_file"))
         if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
             missing_sources.append(t("sources.jp_wordnet_file"))
+        if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path and not Path(jp_wordnet_sqlite_path).exists():
+            missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
         if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
             missing_sources.append(t("sources.jmdict_file"))
+        if use_freedict_de_en and freedict_de_en_path and not Path(freedict_de_en_path).exists():
+            missing_sources.append(t("sources.freedict_de_en_file"))
+        if use_freedict_en_de and freedict_en_de_path and not Path(freedict_en_de_path).exists():
+            missing_sources.append(t("sources.freedict_en_de_file"))
         if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
             missing_sources.append(t("sources.cc_cedict_file"))
         if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
@@ -824,8 +868,12 @@ class MainWindow(QMainWindow):
             "wordnet-en": t("packs.wordnet"),
             "moby-en": t("packs.moby"),
             "openthesaurus-de": t("packs.openthesaurus"),
+            "odenet-de": t("packs.odenet"),
             "jp-wordnet": t("packs.jp_wordnet"),
+            "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
             "jmdict-ja-en": t("packs.jmdict"),
+            "freedict-de-en": t("packs.freedict_de_en"),
+            "freedict-en-de": t("packs.freedict_en_de"),
             "cc-cedict-zh-en": t("packs.cc_cedict"),
         }
         for pack_id in selected_pack_ids:
@@ -843,8 +891,24 @@ class MainWindow(QMainWindow):
             wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
             moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
             openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
+            odenet_path=Path(odenet_path) if use_odenet and odenet_path else None,
             jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
+            jp_wordnet_sqlite_path=(
+                Path(jp_wordnet_sqlite_path)
+                if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
+                else None
+            ),
             jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
+            freedict_de_en_path=(
+                Path(freedict_de_en_path)
+                if use_freedict_de_en and freedict_de_en_path
+                else None
+            ),
+            freedict_en_de_path=(
+                Path(freedict_en_de_path)
+                if use_freedict_en_de and freedict_en_de_path
+                else None
+            ),
             cc_cedict_path=cc_cedict_file,
         )
         options = SynonymOptions(
@@ -858,6 +922,7 @@ class MainWindow(QMainWindow):
             embedding_fallback=settings.embedding_fallback,
         )
         generator = SynonymGenerator(sources, options=options)
+        self._log_source_stats(selected_pack_ids, generator.stats())
         if generator.total_entries() == 0:
             stats = generator.stats()
             QMessageBox.information(
@@ -868,9 +933,12 @@ class MainWindow(QMainWindow):
                     wordnet=stats.get("wordnet", 0),
                     moby=stats.get("moby", 0),
                     openthesaurus=stats.get("openthesaurus", 0),
+                    odenet=stats.get("odenet", 0),
                     jp_wordnet=stats.get("jp_wordnet", 0),
                     jmdict=stats.get("jmdict", 0),
                     cc_cedict=stats.get("cc_cedict", 0),
+                    freedict_de_en=stats.get("freedict_de_en", 0),
+                    freedict_en_de=stats.get("freedict_en_de", 0),
                 ),
             )
             return []
@@ -924,6 +992,110 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, t("dialogs.bulk_add.title"), message)
             self._append_log(message)
         return rules
+
+    def _log_source_stats(self, selected_pack_ids: set[str], stats: dict[str, int]) -> None:
+        if not selected_pack_ids:
+            return
+        settings = self.state.settings.synonyms or SynonymSourceSettings()
+        language_packs = settings.language_packs or {}
+        pack_to_stat = {
+            "wordnet-en": "wordnet",
+            "moby-en": "moby",
+            "openthesaurus-de": "openthesaurus",
+            "odenet-de": "odenet",
+            "jp-wordnet": "jp_wordnet",
+            "jp-wordnet-sqlite": "jp_wordnet",
+            "jmdict-ja-en": "jmdict",
+            "cc-cedict-zh-en": "cc_cedict",
+            "freedict-de-en": "freedict_de_en",
+            "freedict-en-de": "freedict_en_de",
+        }
+        pack_to_path = {
+            "wordnet-en": settings.wordnet_dir,
+            "moby-en": settings.moby_path,
+            "openthesaurus-de": language_packs.get("openthesaurus-de"),
+            "odenet-de": language_packs.get("odenet-de"),
+            "jp-wordnet": language_packs.get("jp-wordnet"),
+            "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
+            "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
+            "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
+            "freedict-de-en": language_packs.get("freedict-de-en"),
+            "freedict-en-de": language_packs.get("freedict-en-de"),
+        }
+        label_map = {
+            "wordnet-en": t("packs.wordnet"),
+            "moby-en": t("packs.moby"),
+            "openthesaurus-de": t("packs.openthesaurus"),
+            "odenet-de": t("packs.odenet"),
+            "jp-wordnet": t("packs.jp_wordnet"),
+            "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
+            "jmdict-ja-en": t("packs.jmdict"),
+            "cc-cedict-zh-en": t("packs.cc_cedict"),
+            "freedict-de-en": t("packs.freedict_de_en"),
+            "freedict-en-de": t("packs.freedict_en_de"),
+        }
+        for pack_id in sorted(selected_pack_ids):
+            stat_key = pack_to_stat.get(pack_id)
+            if not stat_key:
+                continue
+            count = stats.get(stat_key, 0)
+            if count > 0:
+                self._append_log(
+                    t("logs.source_loaded", name=label_map.get(pack_id, pack_id), count=count)
+                )
+            else:
+                path = pack_to_path.get(pack_id) or ""
+                size = ""
+                if path and Path(path).exists():
+                    try:
+                        size = str(Path(path).stat().st_size)
+                    except OSError:
+                        size = ""
+                self._append_log(
+                    t(
+                        "logs.source_empty",
+                        name=label_map.get(pack_id, pack_id),
+                        path=path,
+                        size=size,
+                    ),
+                    color=QColor("#C73C3C"),
+                )
+                if pack_id == "odenet-de" and path:
+                    probe = self._probe_odenet(path)
+                    if probe:
+                        self._append_log(
+                            t(
+                                "logs.odenet_probe",
+                                entries=probe.get("entries", 0),
+                                lemmas=probe.get("lemmas", 0),
+                                senses=probe.get("senses", 0),
+                            ),
+                            color=QColor("#C73C3C"),
+                        )
+                        if probe.get("parse_error"):
+                            self._append_log(
+                                t("logs.odenet_parse_error", error=probe.get("parse_error")),
+                                color=QColor("#C73C3C"),
+                            )
+
+    def _probe_odenet(self, path: str) -> dict[str, int]:
+        from xml.etree import ElementTree
+
+        try:
+            text = Path(path).read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            return {}
+        data: dict[str, int | str] = {
+            "entries": text.count("LexicalEntry"),
+            "lemmas": text.count("Lemma"),
+            "senses": text.count("Sense"),
+        }
+        try:
+            for _event, _elem in ElementTree.iterparse(path, events=("end",)):
+                pass
+        except ElementTree.ParseError as exc:
+            data["parse_error"] = str(exc)
+        return data
 
     def _save_dataset(self) -> None:
         if self.state.dataset_path is None:

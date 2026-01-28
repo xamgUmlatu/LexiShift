@@ -137,7 +137,7 @@
       "configure_sources": "まず設定で同義語ソースを設定してください。",
       "select_configured": "ダイアログで設定済みの辞書を選択してください。",
       "missing_sources": "不足しているソース: {sources}",
-      "no_entries": "ソースから読み込まれたエントリがありません（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}）。"
+      "no_entries": "ソースから読み込まれたエントリがありません（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de}）。"
     },
     "select_embeddings": {
       "title": "埋め込みファイルを選択"
@@ -266,7 +266,11 @@
     "no_embedding_vector": "埋め込みベクトルがありません: {target}",
     "embeddings_zero_neighbors": "埋め込みフォールバックで0件: {target}",
     "embeddings_fallback_count": "埋め込みフォールバック {target}: {count}",
-    "synonyms_found": "同義語が見つかりました {target}: {count}"
+    "synonyms_found": "同義語が見つかりました {target}: {count}",
+    "source_loaded": "{name} を読み込み: {count} 件",
+    "source_empty": "{name} を読み込み: 0 件（path: {path}, size: {size}）",
+    "odenet_probe": "OdeNet 確認: LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
+    "odenet_parse_error": "OdeNet 解析エラー: {error}"
   },
   "profiles": {
     "default_name": "デフォルト",
@@ -324,7 +328,8 @@
       "expected_dir": "{name} はディレクトリが必要です。",
       "wordnet": "WordNetディレクトリには data.noun/data.verb/data.adj/data.adv または entries-a.json や noun.act.json などのJSONファイルが必要です。",
       "missing_files": "{name} に必要なファイルがありません: {files}。",
-      "expected_file": "{name} はファイルが必要です。"
+      "expected_file": "{name} はファイルが必要です。",
+      "sqlite": "{name} は SQLite データベースファイルが必要です。"
     },
     "downloaded_linked": "「{name}」をダウンロードして {path} にリンクしました",
     "downloaded_invalid": "「{name}」をダウンロードしましたが、検証に失敗しました: {message}",
@@ -334,32 +339,44 @@
     "wordnet_dir": "WordNet ディレクトリ",
     "moby_file": "Moby シソーラスファイル",
     "openthesaurus_file": "OpenThesaurus ファイル",
+    "odenet_file": "OdeNet ファイル",
     "jp_wordnet_file": "日本語 WordNet ファイル",
+    "jp_wordnet_sqlite_file": "日本語 WordNet (SQLite) ファイル",
     "jmdict_file": "JMDict ファイル",
-    "cc_cedict_file": "CC-CEDICT ファイル"
+    "cc_cedict_file": "CC-CEDICT ファイル",
+    "freedict_de_en_file": "FreeDict (DE->EN) ファイル",
+    "freedict_en_de_file": "FreeDict (EN->DE) ファイル"
   },
   "languages": {
     "english": "英語",
     "german": "ドイツ語",
     "japanese": "日本語",
     "japanese_english": "日本語 -> 英語",
-    "chinese_english": "中国語 -> 英語"
+    "chinese_english": "中国語 -> 英語",
+    "german_english": "ドイツ語 -> 英語",
+    "english_german": "英語 -> ドイツ語"
   },
   "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "ntt": "NTT",
     "edrdg": "EDRDG",
-    "mdbg": "MDBG"
+    "mdbg": "MDBG",
+    "freedict": "FreeDict"
   },
   "packs": {
     "wordnet": "WordNet",
     "moby": "Moby Thesaurus",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "jp_wordnet": "Japanese WordNet",
+    "jp_wordnet_sqlite": "日本語 WordNet (SQLite)",
     "jmdict": "JMDict",
     "cc_cedict": "CC-CEDICT",
+    "freedict_de_en": "FreeDict (DE->EN)",
+    "freedict_en_de": "FreeDict (EN->DE)",
     "label": "{name}（{language}）"
   },
   "common": {

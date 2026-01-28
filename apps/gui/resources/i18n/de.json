@@ -137,7 +137,7 @@
       "configure_sources": "Konfigurieren Sie zuerst die Synonymquellen in den Einstellungen.",
       "select_configured": "Wählen Sie im Dialog konfigurierte Wörterbücher.",
       "missing_sources": "Fehlende Quellen: {sources}",
-      "no_entries": "Keine Einträge aus Quellen geladen (WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict})."
+      "no_entries": "Keine Einträge aus Quellen geladen (WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de})."
     },
     "select_embeddings": {
       "title": "Einbettungsdatei auswählen"
@@ -266,7 +266,11 @@
     "no_embedding_vector": "Kein Einbettungsvektor für: {target}",
     "embeddings_zero_neighbors": "Einbettungs-Fallback lieferte 0 Nachbarn für: {target}",
     "embeddings_fallback_count": "Einbettungs-Fallback für {target}: {count}",
-    "synonyms_found": "Synonyme gefunden für {target}: {count}"
+    "synonyms_found": "Synonyme gefunden für {target}: {count}",
+    "source_loaded": "{name} geladen: {count} Einträge",
+    "source_empty": "{name} geladen: 0 Einträge (Pfad: {path}, Größe: {size})",
+    "odenet_probe": "OdeNet-Prüfung: LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
+    "odenet_parse_error": "OdeNet-Parsefehler: {error}"
   },
   "profiles": {
     "default_name": "Standard",
@@ -324,7 +328,8 @@
       "expected_dir": "{name} erwartet ein Verzeichnis.",
       "wordnet": "Das WordNet-Verzeichnis muss data.noun/data.verb/data.adj/data.adv oder JSON-Dateien wie entries-a.json und noun.act.json enthalten.",
       "missing_files": "{name} fehlen erforderliche Dateien: {files}.",
-      "expected_file": "{name} erwartet eine Datei."
+      "expected_file": "{name} erwartet eine Datei.",
+      "sqlite": "{name} erwartet eine SQLite-Datenbankdatei."
     },
     "downloaded_linked": "{name} heruntergeladen und mit {path} verknüpft",
     "downloaded_invalid": "{name} heruntergeladen, aber Validierung fehlgeschlagen: {message}",
@@ -334,32 +339,44 @@
     "wordnet_dir": "WordNet-Verzeichnis",
     "moby_file": "Moby-Thesaurus-Datei",
     "openthesaurus_file": "OpenThesaurus-Datei",
+    "odenet_file": "OdeNet-Datei",
     "jp_wordnet_file": "Japanische WordNet-Datei",
+    "jp_wordnet_sqlite_file": "Japanische WordNet-Datei (SQLite)",
     "jmdict_file": "JMDict-Datei",
-    "cc_cedict_file": "CC-CEDICT-Datei"
+    "cc_cedict_file": "CC-CEDICT-Datei",
+    "freedict_de_en_file": "FreeDict DE->EN-Datei",
+    "freedict_en_de_file": "FreeDict EN->DE-Datei"
   },
   "languages": {
     "english": "Englisch",
     "german": "Deutsch",
     "japanese": "Japanisch",
     "japanese_english": "Japanisch -> Englisch",
-    "chinese_english": "Chinesisch -> Englisch"
+    "chinese_english": "Chinesisch -> Englisch",
+    "german_english": "Deutsch -> Englisch",
+    "english_german": "Englisch -> Deutsch"
   },
   "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "ntt": "NTT",
     "edrdg": "EDRDG",
-    "mdbg": "MDBG"
+    "mdbg": "MDBG",
+    "freedict": "FreeDict"
   },
   "packs": {
     "wordnet": "WordNet",
     "moby": "Moby Thesaurus",
     "openthesaurus": "OpenThesaurus",
+    "odenet": "OdeNet",
     "jp_wordnet": "Japanese WordNet",
+    "jp_wordnet_sqlite": "Japanisches WordNet (SQLite)",
     "jmdict": "JMDict",
     "cc_cedict": "CC-CEDICT",
+    "freedict_de_en": "FreeDict (DE->EN)",
+    "freedict_en_de": "FreeDict (EN->DE)",
     "label": "{name} ({language})"
   },
   "common": {
