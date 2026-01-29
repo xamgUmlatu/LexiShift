@@ -10,7 +10,6 @@ from PySide6.QtWidgets import (
     QComboBox,
     QDialog,
     QDialogButtonBox,
-    QFileDialog,
     QFormLayout,
     QFrame,
     QHBoxLayout,
@@ -50,6 +49,7 @@ class RuleMetadataDialog(QDialog):
         self.setWindowTitle(t("dialogs.rule_metadata.title"))
         self.setSizeGripEnabled(True)
         self._rule = rule
+        self._language_pair = rule.metadata.language_pair if rule.metadata else None
 
         self.label_edit = QLineEdit()
         self.description_edit = QPlainTextEdit()
@@ -93,6 +93,7 @@ class RuleMetadataDialog(QDialog):
             examples=examples,
             notes=notes,
             source=source,
+            language_pair=self._language_pair,
         )
 
     def _load_metadata(self, metadata: Optional[RuleMetadata]) -> None:
@@ -103,6 +104,7 @@ class RuleMetadataDialog(QDialog):
         self.examples_edit.setPlainText("\n".join(metadata.examples))
         self.notes_edit.setPlainText(metadata.notes or "")
         self.source_edit.setText(metadata.source or "")
+        self._language_pair = metadata.language_pair
 
 
 class SettingsDialog(QDialog):
@@ -165,6 +167,9 @@ class SettingsDialog(QDialog):
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
         embedding_threshold = self.embedding_threshold_slider.value() / 100.0
         language_pack_paths = self.language_pack_panel.paths()
+        embedding_pack_paths = self.language_pack_panel.embedding_paths()
+        embedding_pair_paths = self.language_pack_panel.embedding_pair_paths()
+        embedding_pair_enabled = self.language_pack_panel.embedding_pair_enabled()
         wordnet_dir = language_pack_paths.get("wordnet-en")
         moby_path = language_pack_paths.get("moby-en")
         synonyms = SynonymSourceSettings(
@@ -175,10 +180,12 @@ class SettingsDialog(QDialog):
             lower_case=self.lower_case_check.isChecked(),
             require_consensus=self.require_consensus_check.isChecked(),
             use_embeddings=self.use_embeddings_check.isChecked(),
-            embedding_path=self.embedding_path_edit.text().strip() or None,
             embedding_threshold=embedding_threshold,
             embedding_fallback=self.embedding_fallback_check.isChecked(),
             language_packs=language_pack_paths,
+            embedding_packs=embedding_pack_paths,
+            embedding_pair_paths=embedding_pair_paths,
+            embedding_pair_enabled=embedding_pair_enabled,
         )
         return replace(self._app_settings, import_export=import_settings, synonyms=synonyms)
 
@@ -260,8 +267,6 @@ class SettingsDialog(QDialog):
         self.require_consensus_check = QCheckBox(t("settings.require_consensus"))
         self.require_consensus_check.setToolTip(t("settings.require_consensus_tip"))
         self.use_embeddings_check = QCheckBox(t("settings.use_embeddings"))
-        self.embedding_path_edit = QLineEdit()
-        self.embedding_browse_button = QPushButton(t("buttons.browse"))
         self.embedding_threshold_slider = QSlider(Qt.Horizontal)
         self.embedding_threshold_slider.setRange(0, 100)
         self.embedding_threshold_value = QLabel("0.00")
@@ -269,13 +274,8 @@ class SettingsDialog(QDialog):
         self.embedding_fallback_check.setToolTip(
             t("settings.embedding_fallback_tip")
         )
-        self.embedding_browse_button.clicked.connect(self._browse_embeddings)
         self.embedding_threshold_slider.valueChanged.connect(self._update_embedding_threshold_label)
         self.use_embeddings_check.toggled.connect(self._toggle_embedding_fields)
-
-        embedding_row = QHBoxLayout()
-        embedding_row.addWidget(self.embedding_path_edit)
-        embedding_row.addWidget(self.embedding_browse_button)
 
         threshold_row = QHBoxLayout()
         threshold_row.addWidget(self.embedding_threshold_slider, 1)
@@ -298,7 +298,6 @@ class SettingsDialog(QDialog):
         form.addRow("", self.lower_case_check)
         form.addRow("", self.require_consensus_check)
         form.addRow("", self.use_embeddings_check)
-        form.addRow(t("settings.embeddings_file"), embedding_row)
         form.addRow(t("settings.similarity_threshold"), threshold_widget)
         form.addRow("", self.embedding_fallback_check)
 
@@ -528,7 +527,6 @@ class SettingsDialog(QDialog):
         self.lower_case_check.setChecked(synonym_settings.lower_case)
         self.require_consensus_check.setChecked(synonym_settings.require_consensus)
         self.use_embeddings_check.setChecked(synonym_settings.use_embeddings)
-        self.embedding_path_edit.setText(synonym_settings.embedding_path or "")
         threshold = int(round(synonym_settings.embedding_threshold * 100))
         self.embedding_threshold_slider.setValue(max(0, min(100, threshold)))
         self._update_embedding_threshold_label(self.embedding_threshold_slider.value())
@@ -536,23 +534,10 @@ class SettingsDialog(QDialog):
         self._toggle_embedding_fields(self.use_embeddings_check.isChecked())
         self.language_pack_panel.apply_synonym_settings(synonym_settings)
 
-    def _browse_embeddings(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.select_embeddings.title"),
-            "",
-            t("filters.embeddings"),
-        )
-        if not path:
-            return
-        self.embedding_path_edit.setText(path)
-
     def _update_embedding_threshold_label(self, value: int) -> None:
         self.embedding_threshold_value.setText(f"{value / 100:.2f}")
 
     def _toggle_embedding_fields(self, enabled: bool) -> None:
-        self.embedding_path_edit.setEnabled(enabled)
-        self.embedding_browse_button.setEnabled(enabled)
         self.embedding_threshold_slider.setEnabled(enabled)
         self.embedding_threshold_value.setEnabled(enabled)
         self.embedding_fallback_check.setEnabled(enabled)

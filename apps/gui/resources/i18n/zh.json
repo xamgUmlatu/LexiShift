@@ -25,7 +25,8 @@
     "remove": "移除",
     "add_ruleset": "添加规则集",
     "set_active": "设为活动",
-    "open_themes_folder": "打开主题文件夹"
+    "open_themes_folder": "打开主题文件夹",
+    "use_embedding": "使用"
   },
   "menu": {
     "file": "文件",
@@ -139,9 +140,6 @@
       "missing_sources": "缺少来源：{sources}",
       "no_entries": "从来源中未加载到任何条目（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de}）。"
     },
-    "select_embeddings": {
-      "title": "选择嵌入文件"
-    },
     "rule_metadata": {
       "title": "规则元数据",
       "label": "标签",
@@ -188,7 +186,6 @@
     "default_export_format": "默认导出格式",
     "synonym_generation": "同义词生成",
     "max_synonyms": "最大同义词数",
-    "embeddings_file": "嵌入文件",
     "similarity_threshold": "相似度阈值",
     "inflections_enabled": "启用词形变化",
     "inflections_strict": "严格词形变化",
@@ -297,6 +294,12 @@
   "language_packs": {
     "title": "语言包",
     "open_directory": "打开本地目录",
+    "embeddings_title": "嵌入（可选）",
+    "embeddings_help": "嵌入用于同义词相似度排序。可选功能，可在之后下载启用。",
+    "embeddings_description": "嵌入是可选附加功能。V1 不需要，但之后可用于相似度排序。",
+    "cross_embeddings_title": "跨语种嵌入（可选）",
+    "cross_embeddings_help": "对齐嵌入用于跨语种相似度（翻译）。实验性功能，通常需要成对下载两种语言。",
+    "cross_embeddings_description": "仅用于跨语种相似度实验（例如 DE↔EN）。V1 不需要。",
     "headers": {
       "pack": "包",
       "language": "语言",
@@ -304,11 +307,13 @@
       "status": "状态",
       "download": "下载",
       "local": "本地",
+      "use": "使用",
       "delete": "删除",
       "size": "大小"
     },
     "status": {
       "local_ok": "本地正常",
+      "active": "已启用",
       "invalid": "无效",
       "downloaded": "已下载",
       "available": "可用",
@@ -351,6 +356,9 @@
     "english": "英语",
     "german": "德语",
     "japanese": "日语",
+    "english_aligned": "英语（对齐）",
+    "german_aligned": "德语（对齐）",
+    "japanese_aligned": "日语（对齐）",
     "japanese_english": "日语 -> 英语",
     "chinese_english": "中文 -> 英语",
     "german_english": "德语 -> 英语",
@@ -364,7 +372,16 @@
     "ntt": "NTT",
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
-    "freedict": "FreeDict"
+    "freedict": "FreeDict",
+    "fasttext": "fastText"
+  },
+  "embeddings": {
+    "fasttext_en": "fastText 英语（Common Crawl）",
+    "fasttext_de": "fastText 德语（Common Crawl）",
+    "fasttext_ja": "fastText 日语（Common Crawl）",
+    "fasttext_en_aligned": "fastText 英语（对齐）",
+    "fasttext_de_aligned": "fastText 德语（对齐）",
+    "fasttext_ja_aligned": "fastText 日语（对齐）"
   },
   "packs": {
     "wordnet": "WordNet",

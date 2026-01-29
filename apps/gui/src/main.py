@@ -59,6 +59,8 @@ from lexishift_core import (
     AppSettings,
     ImportExportSettings,
     Profile,
+    RuleMetadata,
+    SynonymSourceSettings,
     VocabDataset,
     VocabRule,
     export_app_settings_code,
@@ -109,20 +111,21 @@ class DeleteButtonDelegate(QStyledItemDelegate):
 
 
 class EmbeddingLoaderThread(QThread):
-    loaded = Signal(object, str)
+    loaded = Signal(str, object, str)
 
-    def __init__(self, path: Path, *, lower_case: bool, parent=None) -> None:
+    def __init__(self, pair_key: str, paths: list[Path], *, lower_case: bool, parent=None) -> None:
         super().__init__(parent)
-        self._path = path
+        self._pair_key = pair_key
+        self._paths = paths
         self._lower_case = lower_case
 
     def run(self) -> None:
         try:
-            index = EmbeddingIndex(self._path, lower_case=self._lower_case)
+            index = EmbeddingIndex(self._paths, lower_case=self._lower_case)
         except Exception as exc:
-            self.loaded.emit(None, str(exc))
+            self.loaded.emit(self._pair_key, None, str(exc))
             return
-        self.loaded.emit(index, "")
+        self.loaded.emit(self._pair_key, index, "")
 
 
 class MainWindow(QMainWindow):
@@ -189,10 +192,11 @@ class MainWindow(QMainWindow):
 
         self._replacement_thresholds: dict[str, float] = {}
         self._replacement_slider_updating = False
-        self._embedding_index: Optional[EmbeddingIndex] = None
+        self._embedding_indices: dict[str, EmbeddingIndex] = {}
         self._embedding_thread: Optional[EmbeddingLoaderThread] = None
         self._embedding_loading = False
         self._embedding_load_error: Optional[str] = None
+        self._embedding_loading_pair: Optional[str] = None
         self._embedding_load_id = 0
         self.replacement_list = QListWidget()
         self.replacement_list.currentItemChanged.connect(self._on_replacement_selected)
@@ -784,16 +788,12 @@ class MainWindow(QMainWindow):
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
-        use_wordnet = "wordnet-en" in selected_pack_ids
-        use_moby = "moby-en" in selected_pack_ids
-        use_openthesaurus = "openthesaurus-de" in selected_pack_ids
-        use_odenet = "odenet-de" in selected_pack_ids
-        use_jp_wordnet = "jp-wordnet" in selected_pack_ids
-        use_jp_wordnet_sqlite = "jp-wordnet-sqlite" in selected_pack_ids
-        use_jmdict = "jmdict-ja-en" in selected_pack_ids
-        use_freedict_de_en = "freedict-de-en" in selected_pack_ids
-        use_freedict_en_de = "freedict-en-de" in selected_pack_ids
-        use_cc_cedict = "cc-cedict-zh-en" in selected_pack_ids
+        packs_by_pair: dict[str, set[str]] = {}
+        for pack_id in selected_pack_ids:
+            pair_key = self._pair_for_pack(pack_id)
+            if not pair_key:
+                continue
+            packs_by_pair.setdefault(pair_key, set()).add(pack_id)
         openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
         odenet_path = language_packs.get("odenet-de") if language_packs else None
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
@@ -813,180 +813,208 @@ class MainWindow(QMainWindow):
         if freedict_en_de_path and Path(freedict_en_de_path).is_dir():
             candidate = Path(freedict_en_de_path) / "eng-deu.tei"
             freedict_en_de_path = str(candidate) if candidate.exists() else freedict_en_de_path
-        if not any(
-            [
-                use_wordnet and settings.wordnet_dir,
-                use_moby and settings.moby_path,
-                use_openthesaurus and openthesaurus_path,
-                use_odenet and odenet_path,
-                use_jp_wordnet and jp_wordnet_path,
-                use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
-                use_jmdict and jmdict_path,
-                use_freedict_de_en and freedict_de_en_path,
-                use_freedict_en_de and freedict_en_de_path,
-                use_cc_cedict and cc_cedict_path,
-            ]
-        ):
+        rules: list[VocabRule] = []
+        seen_sources: set[str] = set()
+        duplicate_count = 0
+        for pair_key, pack_ids in sorted(packs_by_pair.items()):
+            use_wordnet = "wordnet-en" in pack_ids
+            use_moby = "moby-en" in pack_ids
+            use_openthesaurus = "openthesaurus-de" in pack_ids
+            use_odenet = "odenet-de" in pack_ids
+            use_jp_wordnet = "jp-wordnet" in pack_ids
+            use_jp_wordnet_sqlite = "jp-wordnet-sqlite" in pack_ids
+            use_jmdict = "jmdict-ja-en" in pack_ids
+            use_freedict_de_en = "freedict-de-en" in pack_ids
+            use_freedict_en_de = "freedict-en-de" in pack_ids
+            use_cc_cedict = "cc-cedict-zh-en" in pack_ids
+
+            if not any(
+                [
+                    use_wordnet and settings.wordnet_dir,
+                    use_moby and settings.moby_path,
+                    use_openthesaurus and openthesaurus_path,
+                    use_odenet and odenet_path,
+                    use_jp_wordnet and jp_wordnet_path,
+                    use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
+                    use_jmdict and jmdict_path,
+                    use_freedict_de_en and freedict_de_en_path,
+                    use_freedict_en_de and freedict_en_de_path,
+                    use_cc_cedict and cc_cedict_path,
+                ]
+            ):
+                continue
+
+            missing_sources = []
+            if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
+                missing_sources.append(t("sources.wordnet_dir"))
+            if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
+                missing_sources.append(t("sources.moby_file"))
+            if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
+                missing_sources.append(t("sources.openthesaurus_file"))
+            if use_odenet and odenet_path and not Path(odenet_path).exists():
+                missing_sources.append(t("sources.odenet_file"))
+            if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
+                missing_sources.append(t("sources.jp_wordnet_file"))
+            if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path and not Path(jp_wordnet_sqlite_path).exists():
+                missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
+            if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
+                missing_sources.append(t("sources.jmdict_file"))
+            if use_freedict_de_en and freedict_de_en_path and not Path(freedict_de_en_path).exists():
+                missing_sources.append(t("sources.freedict_de_en_file"))
+            if use_freedict_en_de and freedict_en_de_path and not Path(freedict_en_de_path).exists():
+                missing_sources.append(t("sources.freedict_en_de_file"))
+            if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
+                missing_sources.append(t("sources.cc_cedict_file"))
+            if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
+                missing_sources.append(t("sources.cc_cedict_file"))
+            if missing_sources:
+                QMessageBox.warning(
+                    self,
+                    t("dialogs.synonym_expansion.title"),
+                    t("dialogs.synonym_expansion.missing_sources", sources=", ".join(missing_sources)),
+                )
+                return []
+
+            selected_labels = []
+            label_map = {
+                "wordnet-en": t("packs.wordnet"),
+                "moby-en": t("packs.moby"),
+                "openthesaurus-de": t("packs.openthesaurus"),
+                "odenet-de": t("packs.odenet"),
+                "jp-wordnet": t("packs.jp_wordnet"),
+                "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
+                "jmdict-ja-en": t("packs.jmdict"),
+                "freedict-de-en": t("packs.freedict_de_en"),
+                "freedict-en-de": t("packs.freedict_en_de"),
+                "cc-cedict-zh-en": t("packs.cc_cedict"),
+            }
+            for pack_id in pack_ids:
+                selected_labels.append(label_map.get(pack_id, pack_id))
+            if selected_labels:
+                self._append_log(
+                    t("logs.dictionaries", dictionaries=", ".join(sorted(selected_labels)))
+                )
+
+            cc_cedict_file = (
+                Path(cc_cedict_path)
+                if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_file()
+                else None
+            )
+            sources = SynonymSources(
+                wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
+                moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
+                openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
+                odenet_path=Path(odenet_path) if use_odenet and odenet_path else None,
+                jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
+                jp_wordnet_sqlite_path=(
+                    Path(jp_wordnet_sqlite_path)
+                    if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
+                    else None
+                ),
+                jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
+                freedict_de_en_path=(
+                    Path(freedict_de_en_path)
+                    if use_freedict_de_en and freedict_de_en_path
+                    else None
+                ),
+                freedict_en_de_path=(
+                    Path(freedict_en_de_path)
+                    if use_freedict_en_de and freedict_en_de_path
+                    else None
+                ),
+                cc_cedict_path=cc_cedict_file,
+            )
+            embedding_paths = self._embedding_paths_for_pair(settings, pair_key)
+            options = SynonymOptions(
+                max_synonyms=settings.max_synonyms,
+                include_phrases=settings.include_phrases,
+                lower_case=settings.lower_case,
+                require_consensus=settings.require_consensus,
+                use_embeddings=settings.use_embeddings,
+                embedding_paths=embedding_paths,
+                embedding_pair=pair_key,
+                embedding_threshold=settings.embedding_threshold,
+                embedding_fallback=settings.embedding_fallback,
+            )
+            generator = SynonymGenerator(sources, options=options)
+            self._log_source_stats(pack_ids, generator.stats())
+            if generator.total_entries() == 0:
+                stats = generator.stats()
+                QMessageBox.information(
+                    self,
+                    t("dialogs.synonym_expansion.title"),
+                    t(
+                        "dialogs.synonym_expansion.no_entries",
+                        wordnet=stats.get("wordnet", 0),
+                        moby=stats.get("moby", 0),
+                        openthesaurus=stats.get("openthesaurus", 0),
+                        odenet=stats.get("odenet", 0),
+                        jp_wordnet=stats.get("jp_wordnet", 0),
+                        jmdict=stats.get("jmdict", 0),
+                        cc_cedict=stats.get("cc_cedict", 0),
+                        freedict_de_en=stats.get("freedict_de_en", 0),
+                        freedict_en_de=stats.get("freedict_en_de", 0),
+                    ),
+                )
+                continue
+
+            for target in targets:
+                synonyms, used_fallback = generator.synonyms_for_detail(target)
+                if not synonyms:
+                    self._append_log(
+                        t("logs.no_synonyms_for", target=target),
+                        color=QColor("#C73C3C"),
+                    )
+                    if settings and settings.use_embeddings and settings.embedding_fallback:
+                        if not generator.has_embeddings():
+                            self._append_log(t("logs.embeddings_not_loaded", target=target))
+                        elif not generator.embeddings_support_neighbors():
+                            self._append_log(
+                                t("logs.embeddings_no_neighbors")
+                            )
+                        elif not generator.embeddings_has_vector(target):
+                            self._append_log(t("logs.no_embedding_vector", target=target))
+                        else:
+                            self._append_log(t("logs.embeddings_zero_neighbors", target=target))
+                else:
+                    if used_fallback:
+                        self._append_log(
+                            t("logs.embeddings_fallback_count", target=target, count=len(synonyms))
+                        )
+                    else:
+                        self._append_log(
+                            t("logs.synonyms_found", target=target, count=len(synonyms))
+                        )
+                for synonym in synonyms:
+                    if synonym in seen_sources:
+                        duplicate_count += 1
+                        tags = ("synonym", "conflict")
+                        rules.append(
+                            VocabRule(
+                                source_phrase=synonym,
+                                replacement=target,
+                                enabled=False,
+                                tags=tags,
+                                metadata=RuleMetadata(language_pair=pair_key),
+                            )
+                        )
+                        continue
+                    seen_sources.add(synonym)
+                    rules.append(
+                        VocabRule(
+                            source_phrase=synonym,
+                            replacement=target,
+                            tags=("synonym",),
+                            metadata=RuleMetadata(language_pair=pair_key),
+                        )
+                    )
+        if not rules and selected_pack_ids:
             QMessageBox.warning(
                 self,
                 t("dialogs.synonym_expansion.title"),
                 t("dialogs.synonym_expansion.select_configured"),
             )
             return []
-        missing_sources = []
-        if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
-            missing_sources.append(t("sources.wordnet_dir"))
-        if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
-            missing_sources.append(t("sources.moby_file"))
-        if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
-            missing_sources.append(t("sources.openthesaurus_file"))
-        if use_odenet and odenet_path and not Path(odenet_path).exists():
-            missing_sources.append(t("sources.odenet_file"))
-        if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
-            missing_sources.append(t("sources.jp_wordnet_file"))
-        if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path and not Path(jp_wordnet_sqlite_path).exists():
-            missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
-        if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
-            missing_sources.append(t("sources.jmdict_file"))
-        if use_freedict_de_en and freedict_de_en_path and not Path(freedict_de_en_path).exists():
-            missing_sources.append(t("sources.freedict_de_en_file"))
-        if use_freedict_en_de and freedict_en_de_path and not Path(freedict_en_de_path).exists():
-            missing_sources.append(t("sources.freedict_en_de_file"))
-        if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
-            missing_sources.append(t("sources.cc_cedict_file"))
-        if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
-            missing_sources.append(t("sources.cc_cedict_file"))
-        if missing_sources:
-            QMessageBox.warning(
-                self,
-                t("dialogs.synonym_expansion.title"),
-                t("dialogs.synonym_expansion.missing_sources", sources=", ".join(missing_sources)),
-            )
-            return []
-        selected_labels = []
-        label_map = {
-            "wordnet-en": t("packs.wordnet"),
-            "moby-en": t("packs.moby"),
-            "openthesaurus-de": t("packs.openthesaurus"),
-            "odenet-de": t("packs.odenet"),
-            "jp-wordnet": t("packs.jp_wordnet"),
-            "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
-            "jmdict-ja-en": t("packs.jmdict"),
-            "freedict-de-en": t("packs.freedict_de_en"),
-            "freedict-en-de": t("packs.freedict_en_de"),
-            "cc-cedict-zh-en": t("packs.cc_cedict"),
-        }
-        for pack_id in selected_pack_ids:
-            selected_labels.append(label_map.get(pack_id, pack_id))
-        if selected_labels:
-            self._append_log(
-                t("logs.dictionaries", dictionaries=", ".join(sorted(selected_labels)))
-            )
-        cc_cedict_file = (
-            Path(cc_cedict_path)
-            if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_file()
-            else None
-        )
-        sources = SynonymSources(
-            wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
-            moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
-            openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
-            odenet_path=Path(odenet_path) if use_odenet and odenet_path else None,
-            jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
-            jp_wordnet_sqlite_path=(
-                Path(jp_wordnet_sqlite_path)
-                if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
-                else None
-            ),
-            jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
-            freedict_de_en_path=(
-                Path(freedict_de_en_path)
-                if use_freedict_de_en and freedict_de_en_path
-                else None
-            ),
-            freedict_en_de_path=(
-                Path(freedict_en_de_path)
-                if use_freedict_en_de and freedict_en_de_path
-                else None
-            ),
-            cc_cedict_path=cc_cedict_file,
-        )
-        options = SynonymOptions(
-            max_synonyms=settings.max_synonyms,
-            include_phrases=settings.include_phrases,
-            lower_case=settings.lower_case,
-            require_consensus=settings.require_consensus,
-            use_embeddings=settings.use_embeddings,
-            embedding_path=Path(settings.embedding_path) if settings.embedding_path else None,
-            embedding_threshold=settings.embedding_threshold,
-            embedding_fallback=settings.embedding_fallback,
-        )
-        generator = SynonymGenerator(sources, options=options)
-        self._log_source_stats(selected_pack_ids, generator.stats())
-        if generator.total_entries() == 0:
-            stats = generator.stats()
-            QMessageBox.information(
-                self,
-                t("dialogs.synonym_expansion.title"),
-                t(
-                    "dialogs.synonym_expansion.no_entries",
-                    wordnet=stats.get("wordnet", 0),
-                    moby=stats.get("moby", 0),
-                    openthesaurus=stats.get("openthesaurus", 0),
-                    odenet=stats.get("odenet", 0),
-                    jp_wordnet=stats.get("jp_wordnet", 0),
-                    jmdict=stats.get("jmdict", 0),
-                    cc_cedict=stats.get("cc_cedict", 0),
-                    freedict_de_en=stats.get("freedict_de_en", 0),
-                    freedict_en_de=stats.get("freedict_en_de", 0),
-                ),
-            )
-            return []
-        rules: list[VocabRule] = []
-        seen_sources: set[str] = set()
-        duplicate_count = 0
-        for target in targets:
-            synonyms, used_fallback = generator.synonyms_for_detail(target)
-            if not synonyms:
-                self._append_log(
-                    t("logs.no_synonyms_for", target=target),
-                    color=QColor("#C73C3C"),
-                )
-                if settings and settings.use_embeddings and settings.embedding_fallback:
-                    if not generator.has_embeddings():
-                        self._append_log(t("logs.embeddings_not_loaded", target=target))
-                    elif not generator.embeddings_support_neighbors():
-                        self._append_log(
-                            t("logs.embeddings_no_neighbors")
-                        )
-                    elif not generator.embeddings_has_vector(target):
-                        self._append_log(t("logs.no_embedding_vector", target=target))
-                    else:
-                        self._append_log(t("logs.embeddings_zero_neighbors", target=target))
-            else:
-                if used_fallback:
-                    self._append_log(
-                        t("logs.embeddings_fallback_count", target=target, count=len(synonyms))
-                    )
-                else:
-                    self._append_log(
-                        t("logs.synonyms_found", target=target, count=len(synonyms))
-                    )
-            for synonym in synonyms:
-                if synonym in seen_sources:
-                    duplicate_count += 1
-                    tags = ("synonym", "conflict")
-                    rules.append(
-                        VocabRule(
-                            source_phrase=synonym,
-                            replacement=target,
-                            enabled=False,
-                            tags=tags,
-                        )
-                    )
-                    continue
-                seen_sources.add(synonym)
-                rules.append(VocabRule(source_phrase=synonym, replacement=target, tags=("synonym",)))
         if duplicate_count:
             message = t("dialogs.bulk_add.duplicates", count=duplicate_count)
             QMessageBox.information(self, t("dialogs.bulk_add.title"), message)
@@ -1352,36 +1380,53 @@ class MainWindow(QMainWindow):
         self.state.save_settings()
 
     def _refresh_embedding_index(self) -> None:
-        self._embedding_index = None
+        self._embedding_indices.clear()
         self._embedding_load_error = None
         self._embedding_loading = False
-        settings = self.state.settings.synonyms
-        if not settings or not settings.use_embeddings or not settings.embedding_path:
+        self._embedding_loading_pair = None
+        self._update_replacement_filter_state()
+        self._ensure_embedding_loaded_for_selection()
+
+    def _ensure_embedding_loaded_for_selection(self) -> None:
+        pair_key = self._embedding_pair_for_replacement(self._selected_replacement())
+        if not pair_key:
             self._update_replacement_filter_state()
             return
-        embedding_path = Path(settings.embedding_path)
-        if not embedding_path.exists():
+        self._ensure_embedding_loaded(pair_key)
+
+    def _ensure_embedding_loaded(self, pair_key: str) -> None:
+        if pair_key in self._embedding_indices:
+            self._update_replacement_filter_state()
+            return
+        settings = self.state.settings.synonyms
+        paths = self._embedding_paths_for_pair(settings, pair_key)
+        if not settings or not settings.use_embeddings or not paths:
             self._embedding_load_error = t("replacement.embeddings_missing")
             self._update_replacement_filter_state()
             return
         self._embedding_loading = True
+        self._embedding_loading_pair = pair_key
         self._embedding_load_id += 1
         load_id = self._embedding_load_id
         self._embedding_thread = EmbeddingLoaderThread(
-            embedding_path,
+            pair_key,
+            paths,
             lower_case=settings.lower_case,
             parent=self,
         )
         self._embedding_thread.loaded.connect(
-            lambda index, error, load_id=load_id: self._on_embeddings_loaded(load_id, index, error)
+            lambda loaded_pair, index, error, load_id=load_id: self._on_embeddings_loaded(
+                load_id, loaded_pair, index, error
+            )
         )
         self._embedding_thread.start()
         self._update_replacement_filter_state()
 
     def _update_replacement_filter_state(self) -> None:
-        has_embeddings = self._embedding_index is not None
         replacement = self._selected_replacement()
         has_selection = replacement is not None
+        pair_key = self._embedding_pair_for_replacement(replacement)
+        has_embeddings = bool(pair_key and pair_key in self._embedding_indices)
         scope = self._replacement_filter_scope(replacement)
         enabled = has_embeddings and has_selection and scope != "none" and not self._embedding_loading
         self.replacement_threshold_slider.setEnabled(enabled)
@@ -1460,6 +1505,58 @@ class MainWindow(QMainWindow):
             return None
         return item.data(Qt.UserRole)
 
+    def _normalize_pair(self, lang_a: str, lang_b: str) -> str:
+        if lang_a == lang_b:
+            return f"{lang_a}-{lang_b}"
+        return "-".join(sorted([lang_a, lang_b]))
+
+    def _pair_for_pack(self, pack_id: str) -> Optional[str]:
+        if pack_id in {"wordnet-en", "moby-en"}:
+            return "en-en"
+        if pack_id in {"openthesaurus-de", "odenet-de"}:
+            return "de-de"
+        if pack_id in {"jp-wordnet", "jp-wordnet-sqlite"}:
+            return "ja-ja"
+        if pack_id == "freedict-de-en" or pack_id == "freedict-en-de":
+            return "de-en"
+        if pack_id == "jmdict-ja-en":
+            return "en-ja"
+        if pack_id == "cc-cedict-zh-en":
+            return "en-zh"
+        return None
+
+    def _embedding_pair_for_replacement(self, replacement: Optional[str]) -> Optional[str]:
+        if not replacement:
+            return None
+        counts: dict[str, int] = {}
+        for rule in self.rules_model.rules():
+            if rule.replacement != replacement:
+                continue
+            pair = rule.metadata.language_pair if rule.metadata else None
+            if not pair:
+                continue
+            counts[pair] = counts.get(pair, 0) + 1
+        if not counts:
+            return None
+        return max(counts.items(), key=lambda item: item[1])[0]
+
+    def _embedding_paths_for_pair(
+        self,
+        settings: Optional[SynonymSourceSettings],
+        pair_key: Optional[str],
+    ) -> list[Path]:
+        if not settings or not settings.use_embeddings or not pair_key:
+            return []
+        enabled = dict(settings.embedding_pair_enabled or {})
+        if pair_key in enabled and not enabled[pair_key]:
+            return []
+        pair_paths = dict(settings.embedding_pair_paths or {}).get(pair_key)
+        paths: list[Path] = []
+        if pair_paths:
+            paths = [Path(path) for path in pair_paths if path]
+        existing = [path for path in paths if path.exists()]
+        return existing
+
     def _replacement_filter_scope(self, replacement: Optional[str]) -> str:
         if not replacement:
             return "none"
@@ -1497,6 +1594,7 @@ class MainWindow(QMainWindow):
                 )
         else:
             self.replacement_selected_label.setText(t("replacement.select_hint"))
+        self._ensure_embedding_loaded_for_selection()
         self._update_replacement_filter_state()
 
     def _on_replacement_threshold_changed(self, value: int) -> None:
@@ -1510,19 +1608,25 @@ class MainWindow(QMainWindow):
         self._replacement_thresholds[replacement] = threshold
         self._apply_replacement_threshold(replacement, threshold)
 
-    def _on_embeddings_loaded(self, load_id: int, index: Optional[EmbeddingIndex], error: str) -> None:
+    def _on_embeddings_loaded(self, load_id: int, pair_key: str, index: Optional[EmbeddingIndex], error: str) -> None:
         if load_id != self._embedding_load_id:
             return
         self._embedding_loading = False
-        self._embedding_index = index
+        if index is not None:
+            self._embedding_indices[pair_key] = index
         self._embedding_load_error = error or None
+        self._embedding_loading_pair = None
         if self._embedding_thread:
             self._embedding_thread.quit()
             self._embedding_thread = None
         self._update_replacement_filter_state()
 
     def _apply_replacement_threshold(self, replacement: str, threshold: float) -> None:
-        if self._embedding_index is None:
+        pair_key = self._embedding_pair_for_replacement(replacement)
+        if not pair_key:
+            return
+        index = self._embedding_indices.get(pair_key)
+        if index is None:
             return
         scope = self._replacement_filter_scope(replacement)
         if scope == "none":
@@ -1533,7 +1637,7 @@ class MainWindow(QMainWindow):
                 continue
             if scope == "synonyms" and "synonym" not in rule.tags:
                 continue
-            score = self._embedding_index.similarity(rule.source_phrase, replacement)
+            score = index.similarity(rule.source_phrase, replacement)
             if score is None:
                 enabled = threshold <= 0.0
             else:

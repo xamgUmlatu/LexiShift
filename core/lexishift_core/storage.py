@@ -103,6 +103,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         examples=examples,
         notes=data.get("notes"),
         source=data.get("source"),
+        language_pair=data.get("language_pair"),
     )
 
 
@@ -115,6 +116,7 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
         "examples": list(metadata.examples),
         "notes": metadata.notes,
         "source": metadata.source,
+        "language_pair": metadata.language_pair,
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [])}
     return trimmed or None

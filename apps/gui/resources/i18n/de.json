@@ -25,7 +25,8 @@
     "remove": "Entfernen",
     "add_ruleset": "Regelsatz hinzufügen",
     "set_active": "Als aktiv setzen",
-    "open_themes_folder": "Themenordner öffnen"
+    "open_themes_folder": "Themenordner öffnen",
+    "use_embedding": "Verwenden"
   },
   "menu": {
     "file": "Datei",
@@ -139,9 +140,6 @@
       "missing_sources": "Fehlende Quellen: {sources}",
       "no_entries": "Keine Einträge aus Quellen geladen (WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de})."
     },
-    "select_embeddings": {
-      "title": "Einbettungsdatei auswählen"
-    },
     "rule_metadata": {
       "title": "Regelmetadaten",
       "label": "Label",
@@ -188,7 +186,6 @@
     "default_export_format": "Standard-Exportformat",
     "synonym_generation": "Synonymerzeugung",
     "max_synonyms": "Max. Synonyme",
-    "embeddings_file": "Einbettungsdatei",
     "similarity_threshold": "Ähnlichkeitsschwelle",
     "inflections_enabled": "Flexionen aktivieren",
     "inflections_strict": "Strenge Flexionen",
@@ -297,6 +294,12 @@
   "language_packs": {
     "title": "Sprachpakete",
     "open_directory": "Lokales Verzeichnis öffnen",
+    "embeddings_title": "Embeddings (optional)",
+    "embeddings_help": "Embeddings liefern Ähnlichkeits-Rankings für Synonyme. Optional und später nachladbar.",
+    "embeddings_description": "Embeddings sind optionale Add-ons. Für V1 nicht erforderlich, aber später für Ähnlichkeits-Ranking aktivierbar.",
+    "cross_embeddings_title": "Cross-linguale Embeddings (optional)",
+    "cross_embeddings_help": "Ausgerichtete Embeddings ermöglichen sprachübergreifende Ähnlichkeit für Übersetzungen. Experimentell und meist nur sinnvoll, wenn beide Sprachen eines Paares geladen sind.",
+    "cross_embeddings_description": "Nur für Experimente mit sprachübergreifender Ähnlichkeit (z. B. DE↔EN). Für V1 nicht erforderlich.",
     "headers": {
       "pack": "Paket",
       "language": "Sprache",
@@ -304,11 +307,13 @@
       "status": "Status",
       "download": "Download",
       "local": "Lokal",
+      "use": "Verwenden",
       "delete": "Löschen",
       "size": "Größe"
     },
     "status": {
       "local_ok": "Lokal OK",
+      "active": "Aktiv",
       "invalid": "Ungültig",
       "downloaded": "Heruntergeladen",
       "available": "Verfügbar",
@@ -351,6 +356,9 @@
     "english": "Englisch",
     "german": "Deutsch",
     "japanese": "Japanisch",
+    "english_aligned": "Englisch (ausgerichtet)",
+    "german_aligned": "Deutsch (ausgerichtet)",
+    "japanese_aligned": "Japanisch (ausgerichtet)",
     "japanese_english": "Japanisch -> Englisch",
     "chinese_english": "Chinesisch -> Englisch",
     "german_english": "Deutsch -> Englisch",
@@ -364,7 +372,16 @@
     "ntt": "NTT",
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
-    "freedict": "FreeDict"
+    "freedict": "FreeDict",
+    "fasttext": "fastText"
+  },
+  "embeddings": {
+    "fasttext_en": "fastText Englisch (Common Crawl)",
+    "fasttext_de": "fastText Deutsch (Common Crawl)",
+    "fasttext_ja": "fastText Japanisch (Common Crawl)",
+    "fasttext_en_aligned": "fastText Englisch (ausgerichtet)",
+    "fasttext_de_aligned": "fastText Deutsch (ausgerichtet)",
+    "fasttext_ja_aligned": "fastText Japanisch (ausgerichtet)"
   },
   "packs": {
     "wordnet": "WordNet",

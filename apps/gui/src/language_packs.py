@@ -28,6 +28,7 @@ class LanguagePackInfo:
     name_key: str | None = None
     language_key: str | None = None
     source_key: str | None = None
+    pair_key: str | None = None
 
     def display_name(self) -> str:
         return t(self.name_key) if self.name_key else self.name
@@ -182,6 +183,102 @@ LANGUAGE_PACKS = [
         name_key="packs.cc_cedict",
         language_key="languages.chinese_english",
         source_key="providers.mdbg",
+    ),
+]
+
+EMBEDDING_PACKS = [
+    LanguagePackInfo(
+        pack_id="embed-en-cc",
+        name="fastText English (Common Crawl)",
+        language="English",
+        source="fastText",
+        size="4.5 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz",
+        filename="cc.en.300.vec.gz",
+        local_kind="file",
+        name_key="embeddings.fasttext_en",
+        language_key="languages.english",
+        source_key="providers.fasttext",
+        pair_key="en-en",
+    ),
+    LanguagePackInfo(
+        pack_id="embed-de-cc",
+        name="fastText German (Common Crawl)",
+        language="German",
+        source="fastText",
+        size="4.5 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz",
+        filename="cc.de.300.vec.gz",
+        local_kind="file",
+        name_key="embeddings.fasttext_de",
+        language_key="languages.german",
+        source_key="providers.fasttext",
+        pair_key="de-de",
+    ),
+    LanguagePackInfo(
+        pack_id="embed-ja-cc",
+        name="fastText Japanese (Common Crawl)",
+        language="Japanese",
+        source="fastText",
+        size="4.2 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz",
+        filename="cc.ja.300.vec.gz",
+        local_kind="file",
+        name_key="embeddings.fasttext_ja",
+        language_key="languages.japanese",
+        source_key="providers.fasttext",
+        pair_key="ja-ja",
+    ),
+]
+
+CROSS_EMBEDDING_PACKS = [
+    LanguagePackInfo(
+        pack_id="embed-xling-en",
+        name="fastText English (Aligned)",
+        language="English (Aligned)",
+        source="fastText",
+        size="1.6 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec",
+        filename="wiki.en.align.vec",
+        local_kind="file",
+        name_key="embeddings.fasttext_en_aligned",
+        language_key="languages.english_aligned",
+        source_key="providers.fasttext",
+        pair_key="de-en",
+    ),
+    LanguagePackInfo(
+        pack_id="embed-xling-de",
+        name="fastText German (Aligned)",
+        language="German (Aligned)",
+        source="fastText",
+        size="1.4 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec",
+        filename="wiki.de.align.vec",
+        local_kind="file",
+        name_key="embeddings.fasttext_de_aligned",
+        language_key="languages.german_aligned",
+        source_key="providers.fasttext",
+        pair_key="de-en",
+    ),
+    LanguagePackInfo(
+        pack_id="embed-xling-ja",
+        name="fastText Japanese (Aligned)",
+        language="Japanese (Aligned)",
+        source="fastText",
+        size="1.2 GB",
+        url="https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec",
+        wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec",
+        filename="wiki.ja.align.vec",
+        local_kind="file",
+        name_key="embeddings.fasttext_ja_aligned",
+        language_key="languages.japanese_aligned",
+        source_key="providers.fasttext",
+        pair_key="en-ja",
     ),
 ]
 

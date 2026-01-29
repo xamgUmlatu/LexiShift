@@ -3,7 +3,7 @@ LexiShift Language Pack URLs
 Format:
 pack_id: <stable id>
 name: <display name>
-type: monolingual | translation
+type: monolingual | translation | embeddings
 languages: <source_langs> -> <target_langs> (use same for monolingual)
 size: <exact size>
 url: <download url>
@@ -41,6 +41,19 @@ layout: one file
 parse_hint: CSV-like line: headword,synonym,synonym,...
 notes: noisy but broad
 
+pack_id: odenet-de
+name: OdeNet
+type: monolingual
+languages: de -> de
+size: ~15 MB
+url: https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
+wayback_url: https://web.archive.org/web/20251101/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
+filename: odenet_oneline.xml
+unzipped_name: odenet_oneline.xml
+layout: XML (OMW-LMF, oneline)
+parse_hint: LexicalEntry/Lemma/Sense synset mapping (tolerant parser)
+notes: primary DE synonyms; OpenThesaurus remains optional
+
 pack_id: openthesaurus-de
 name: OpenThesaurus
 type: monolingual
@@ -52,10 +65,23 @@ filename: openthesaurus.txt
 unzipped_name: openthesaurus.txt
 layout: one file
 parse_hint: semicolon-delimited synonym groups (one line = synset)
-notes: German thesaurus
+notes: optional DE synonyms
+
+pack_id: jp-wordnet-sqlite
+name: Japanese WordNet (SQLite)
+type: monolingual
+languages: ja -> ja
+size: 194 MB
+url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
+filename: wnjpn.db.gz
+unzipped_name: wnjpn.db
+layout: SQLite database
+parse_hint: sense.wordid -> word.lemma grouped by sense.synset (lang=jpn)
+notes: primary JP pack
 
 pack_id: jp-wordnet
-name: Japanese WordNet
+name: Japanese WordNet (tab)
 type: monolingual
 languages: ja -> ja
 size: 29.2 MB
@@ -65,35 +91,9 @@ filename: wnjpn-all.tab.gz
 unzipped_name: wnjpn-all.tab
 layout: one file (after gzip)
 parse_hint: tab-delimited: synset_id<TAB>word<TAB>source
-notes: legacy tab format; source tags include hand/mono/XXXX
-
-pack_id: jp-wordnet-sqlite
-name: Japanese WordNet (SQLite)
-type: monolingual
-languages: ja -> ja
-size: 58 MB (gzipped) / 194 MB (db)
-url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
-wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
-filename: wnjpn.db.gz
-unzipped_name: wnjpn.db
-layout: SQLite database
-parse_hint: sense.wordid -> word.lemma grouped by sense.synset (lang=jpn)
-notes: primary JP pack
+notes: legacy tab format; optional
 
 -- Cross-lingual Translation --
-pack_id: jmdict-ja-en
-name: JMDict
-type: translation
-languages: ja -> en
-size: 61.6 MB
-url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-wayback_url: https://web.archive.org/web/20250101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-filename: JMdict_e.gz
-unzipped_name: JMdict_e
-layout: XML (Standard EDRDG DTD)
-parse_hint: Extract <entry> nodes; map <reb> (reading) and <keb> (kanji) to <gloss> (English senses).
-notes: The _e version contains English glosses only. If you need multi-lingual, use JMdict.gz.
-
 pack_id: freedict-de-en
 name: FreeDict (DE->EN)
 type: translation
@@ -120,6 +120,19 @@ layout: TEI XML
 parse_hint: form/orth (EN headword) -> cit type=trans / quote xml:lang="de"
 notes: source archive contains multiple files; use eng-deu.tei
 
+pack_id: jmdict-ja-en
+name: JMDict
+type: translation
+languages: ja -> en
+size: 61.6 MB
+url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+wayback_url: https://web.archive.org/web/20250101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+filename: JMdict_e.gz
+unzipped_name: JMdict_e
+layout: XML (Standard EDRDG DTD)
+parse_hint: Extract <entry> nodes; map <reb> (reading) and <keb> (kanji) to <gloss> (English senses).
+notes: optional in V1; _e version contains English glosses only
+
 pack_id: cc-cedict-zh-en
 name: CC-CEDICT
 type: translation
@@ -129,84 +142,93 @@ url: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
 wayback_url: https://web.archive.org/web/20250110/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
 filename: cedict_1_0_ts_utf-8_mdbg.zip
 unzipped_name: cedict_ts.u8
-layout: Plain text (One entry per line)
-parse_hint: Format: Traditional Simplified [pinyin] /gloss1/gloss2/
-notes: Highly stable format, easy to parse with a simple regex.
+layout: Plain text (one entry per line)
+parse_hint: Traditional Simplified [pinyin] /gloss1/gloss2/
+notes: optional; outside V1 scope
 
 pack_id: wiktionary-xlang
-name: Wiktionary Translations (dump)
+name: Wiktionary Translations (Kaikki dump)
 type: translation
 languages: multi -> multi
-size: 2.3 GB (Gzipped) / 20.1 GB (Unzipped JSONL)
+size: 2.3 GB
 url: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
 wayback_url: https://web.archive.org/web/20260115/https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
 filename: wiktionary-eng.jsonl.gz
 unzipped_name: kaikki.org-dictionary-English.jsonl
-layout: JSONL (One JSON object per line)
-parse_hint: Filter objects by the translations key; each object represents a lemma.
-notes: TODO (paused). This is the Kaikki "English Wiktionary" dump, which contains English glosses for words in over 4,000 languages.
+layout: JSONL
+parse_hint: Filter objects by the translations key; each object represents a lemma
+notes: backlog
 
+-- Embeddings (Optional Add-on) --
+These are optional downloads to improve ranking; no embeddings are required for V1.
 
----------
+pack_id: align-en-cc
+name: fastText English (Common Crawl)
+type: embeddings
+languages: en -> en
+size: 4.5 GB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz
+filename: cc.en.300.vec.gz
+notes: optional EN similarity
 
-1. Monolingual Synonym Sources (Thesauri)
-pack_id: wordnet-en-2025
-name: Open English WordNet (2025 Edition)
-size: ~11 MB (Compressed) / 38 MB (Unzipped)
-url: https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/english_wordnet.zip
-wayback_url: https://web.archive.org/web/20260101/https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/english_wordnet.zip
-filename: english_wordnet.zip
-notes: The 2025 edition is the "living" successor to Princeton 3.1. It adds thousands of modern terms and corrected relations.
+pack_id: align-de-cc
+name: fastText German (Common Crawl)
+type: embeddings
+languages: de -> de
+size: 4.5 GB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz
+filename: cc.de.300.vec.gz
+notes: optional DE similarity
 
-pack_id: odenet-de
-name: OdeNet (Open German WordNet)
-size: ~15 MB
-url: https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
-wayback_url: https://web.archive.org/web/20251101/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
-filename: OdeNet.xml
-notes: Merges OpenThesaurus with the WordNet structure. High-quality German synonyms with POS tags and English synset mapping.
+pack_id: align-ja-cc
+name: fastText Japanese (Common Crawl)
+type: embeddings
+languages: ja -> ja
+size: 4.2 GB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
+filename: cc.ja.300.vec.gz
+notes: optional JP similarity
 
-pack_id: jp-wordnet-sqlite
-name: Japanese WordNet (v1.1)
-size: 194 MB
-url: https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
-wayback_url: https://web.archive.org/web/*/https://github.com/bond-lab/wnja/releases/download/v1.1/wnjpn.db.gz
-filename: wnjpn.db.gz
-notes: Primary JP pack. SQLite file for instant lookups (wnjpn.db).
+pack_id: align-en-wiki
+name: fastText English (Aligned)
+type: embeddings
+languages: en -> en
+size: ~620 MB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
+filename: wiki.en.align.vec
+notes: optional cross-lingual experiments
 
-2. Cross-Lingual Translation Dictionaries
-pack_id: jmdict-ja-en
-name: JMDict (Japanese-English)
-size: 18.2 MB
-url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-wayback_url: https://web.archive.org/web/20260101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-filename: JMdict_e.gz
-notes: The gold standard for JP<->EN. Includes POS tags and specific sense indicators.
+pack_id: align-de-wiki
+name: fastText German (Aligned)
+type: embeddings
+languages: de -> de
+size: ~500 MB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
+filename: wiki.de.align.vec
+notes: optional cross-lingual experiments
 
-pack_id: freedict-de-en
-name: FreeDict (German-English / English-German)
-size: 449.6 MB (deu-eng.tei, unzipped)
-url_de_en: https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz
-url_en_de: https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz
-filename: deu-eng.zip
-notes: TEI XML format. Files are deu-eng.tei and eng-deu.tei (confirm EN->DE size later).
-
-3. Aligned Embeddings (Similarity Ranking)
-Use these to find synonyms across languages (e.g., finding the German nearest-neighbor for an English word).
-Pack ID | Language | Download URL (fastText Aligned)
-align-en | English | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
-align-de | German | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
-align-ja | Japanese | https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
-Parsing Tip: These are large text files. The first line is [num_words] [dimensions]. Each following line is [word] [300 floats...].
+pack_id: align-ja-wiki
+name: fastText Japanese (Aligned)
+type: embeddings
+languages: ja -> ja
+size: ~400 MB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
+wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
+filename: wiki.ja.align.vec
+notes: optional cross-lingual experiments
 
 Final Summary Table
 Goal | Best Choice 2026 | Format | License
 EN Synonyms | Open WordNet 2025 | JSON/XML | WordNet
 DE Synonyms | OdeNet | XML | CC-BY-SA
 JP Synonyms | WN-Ja | SQLite | BSD
-Translations | JMDict / FreeDict | XML | CC-BY-SA
-Similarity | Aligned fastText.vec (Text) | CC-BY-SA
-
+Translations (V1) | FreeDict (DE↔EN) | XML | GPLv3/AGPLv3
+Similarity (Optional) | fastText vectors | Text | CC-BY-SA
 
 -- Info Needed From You --
 1) wiktionary-xlang: if/when we resume, confirm desired Kaikki dump (English vs another), exact compressed size, and preferred Wayback mirror.

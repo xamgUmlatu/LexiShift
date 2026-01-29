@@ -25,7 +25,8 @@
     "remove": "削除",
     "add_ruleset": "ルールセットを追加",
     "set_active": "アクティブに設定",
-    "open_themes_folder": "テーマフォルダを開く"
+    "open_themes_folder": "テーマフォルダを開く",
+    "use_embedding": "使用"
   },
   "menu": {
     "file": "ファイル",
@@ -139,9 +140,6 @@
       "missing_sources": "不足しているソース: {sources}",
       "no_entries": "ソースから読み込まれたエントリがありません（WordNet={wordnet}, Moby={moby}, OpenThesaurus={openthesaurus}, OdeNet={odenet}, JP WordNet={jp_wordnet}, JMDict={jmdict}, CC-CEDICT={cc_cedict}, FreeDict DE->EN={freedict_de_en}, FreeDict EN->DE={freedict_en_de}）。"
     },
-    "select_embeddings": {
-      "title": "埋め込みファイルを選択"
-    },
     "rule_metadata": {
       "title": "ルールメタデータ",
       "label": "ラベル",
@@ -188,7 +186,6 @@
     "default_export_format": "既定のエクスポート形式",
     "synonym_generation": "同義語生成",
     "max_synonyms": "最大同義語数",
-    "embeddings_file": "埋め込みファイル",
     "similarity_threshold": "類似度しきい値",
     "inflections_enabled": "語形変化を有効化",
     "inflections_strict": "厳密な語形変化",
@@ -297,6 +294,12 @@
   "language_packs": {
     "title": "言語パック",
     "open_directory": "ローカルディレクトリを開く",
+    "embeddings_title": "埋め込み（任意）",
+    "embeddings_help": "埋め込みは同義語の類似度ランキングに使用します。任意で、後からダウンロードできます。",
+    "embeddings_description": "埋め込みは任意の追加機能です。V1では不要ですが、後で有効にすると類似度ランキングが利用できます。",
+    "cross_embeddings_title": "クロスリンガル埋め込み（任意）",
+    "cross_embeddings_help": "アライン済み埋め込みは翻訳向けの言語間類似度に使えます。実験的で、通常は両言語のダウンロードが必要です。",
+    "cross_embeddings_description": "言語間類似度（例: DE↔EN）の実験用途のみ。V1では不要です。",
     "headers": {
       "pack": "パック",
       "language": "言語",
@@ -304,11 +307,13 @@
       "status": "状態",
       "download": "ダウンロード",
       "local": "ローカル",
+      "use": "使用",
       "delete": "削除",
       "size": "サイズ"
     },
     "status": {
       "local_ok": "ローカルOK",
+      "active": "アクティブ",
       "invalid": "無効",
       "downloaded": "ダウンロード済み",
       "available": "利用可能",
@@ -351,6 +356,9 @@
     "english": "英語",
     "german": "ドイツ語",
     "japanese": "日本語",
+    "english_aligned": "英語（アライン）",
+    "german_aligned": "ドイツ語（アライン）",
+    "japanese_aligned": "日本語（アライン）",
     "japanese_english": "日本語 -> 英語",
     "chinese_english": "中国語 -> 英語",
     "german_english": "ドイツ語 -> 英語",
@@ -364,7 +372,16 @@
     "ntt": "NTT",
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
-    "freedict": "FreeDict"
+    "freedict": "FreeDict",
+    "fasttext": "fastText"
+  },
+  "embeddings": {
+    "fasttext_en": "fastText 英語（Common Crawl）",
+    "fasttext_de": "fastText ドイツ語（Common Crawl）",
+    "fasttext_ja": "fastText 日本語（Common Crawl）",
+    "fasttext_en_aligned": "fastText 英語（アライン）",
+    "fasttext_de_aligned": "fastText ドイツ語（アライン）",
+    "fasttext_ja_aligned": "fastText 日本語（アライン）"
   },
   "packs": {
     "wordnet": "WordNet",

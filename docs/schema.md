@@ -165,10 +165,12 @@ Top-level fields
 - `lower_case` (bool, optional, default: true)
 - `require_consensus` (bool, optional, default: false)
 - `use_embeddings` (bool, optional, default: false)
-- `embedding_path` (string, optional)
 - `embedding_threshold` (float, optional, default: 0.0)
 - `embedding_fallback` (bool, optional, default: true)
 - `language_packs` (object map, optional; pack_id -> local path)
+- `embedding_packs` (object map, optional; pack_id -> local path)
+- `embedding_pair_paths` (object map, optional; pair_key -> list of embedding paths)
+- `embedding_pair_enabled` (object map, optional; pair_key -> bool)
 
 Example (minimal)
 ```json

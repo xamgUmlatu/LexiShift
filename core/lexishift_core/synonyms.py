@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import heapq
 import json
 import math
@@ -8,7 +8,7 @@ import re
 import sqlite3
 import struct
 from pathlib import Path
-from typing import Iterable, Mapping, Optional
+from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
 from lexishift_core.db_handlers import load_synonyms_from_db
@@ -34,7 +34,8 @@ class SynonymOptions:
     lower_case: bool = True
     require_consensus: bool = False
     use_embeddings: bool = False
-    embedding_path: Optional[Path] = None
+    embedding_paths: Sequence[Path] = field(default_factory=tuple)
+    embedding_pair: Optional[str] = None
     embedding_threshold: float = 0.0
     embedding_fallback: bool = True
 
@@ -202,12 +203,15 @@ class SynonymGenerator:
             bucket.update(values)
 
     def _load_embeddings(self) -> None:
-        if not self._options.use_embeddings or not self._options.embedding_path:
+        if not self._options.use_embeddings:
             return
-        path = Path(self._options.embedding_path)
-        if not path.exists():
+        paths = [Path(item) for item in self._options.embedding_paths if item] if self._options.embedding_paths else []
+        if not paths:
             return
-        self._embeddings = EmbeddingIndex(path, lower_case=self._options.lower_case)
+        existing = [path for path in paths if path.exists()]
+        if not existing:
+            return
+        self._embeddings = EmbeddingIndex(existing, lower_case=self._options.lower_case)
 
 
 def _load_moby_thesaurus(path: Path) -> dict[str, set[str]]:
@@ -519,8 +523,12 @@ def _apply_consensus_filter(
 
 
 class EmbeddingIndex:
-    def __init__(self, path: Path, *, lower_case: bool) -> None:
-        self._path = path
+    def __init__(self, path: Path | Iterable[Path], *, lower_case: bool) -> None:
+        if isinstance(path, (list, tuple, set)):
+            self._paths = [Path(item) for item in path]
+        else:
+            self._paths = [Path(path)]
+        self._path = self._paths[0] if self._paths else Path()
         self._lower_case = lower_case
         self._vectors: dict[str, list[float]] = {}
         self._norms: dict[str, float] = {}
@@ -572,19 +580,39 @@ class EmbeddingIndex:
         return True
 
     def _load(self) -> None:
-        if self._path.suffix.lower() in {".db", ".sqlite", ".sqlite3"}:
+        if not self._paths:
+            return
+        if len(self._paths) == 1:
+            self._load_single(self._paths[0])
+            return
+        for path in self._paths:
+            if path.suffix.lower() in {".db", ".sqlite", ".sqlite3", ".bin"}:
+                self._load_single(path)
+                return
+        for path in self._paths:
+            self._load_text_vectors(path)
+
+    def _load_single(self, path: Path) -> None:
+        if path.suffix.lower() in {".db", ".sqlite", ".sqlite3"}:
+            self._path = path
             self._load_sqlite()
             return
-        if self._path.suffix.lower() == ".bin":
+        if path.suffix.lower() == ".bin":
+            self._path = path
             self._load_word2vec_binary()
             return
-        with self._path.open("r", encoding="utf-8", errors="ignore") as handle:
+        self._load_text_vectors(path)
+
+    def _load_text_vectors(self, path: Path) -> None:
+        with path.open("r", encoding="utf-8", errors="ignore") as handle:
             first_line = handle.readline()
             if not first_line:
                 return
             parts = first_line.strip().split()
             if self._is_header(parts):
-                self._dim = int(parts[1])
+                dim = int(parts[1])
+                if self._dim is None:
+                    self._dim = dim
             else:
                 self._parse_vector_line(parts)
             for line in handle:
