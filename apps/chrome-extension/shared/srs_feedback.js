@@ -23,6 +23,21 @@
     };
   }
 
+  function buildEntryFromSpan(target, rating, url) {
+    if (!target) {
+      return null;
+    }
+    return {
+      rating,
+      lemma: String(target.dataset.replacement || target.textContent || ""),
+      replacement: String(target.dataset.replacement || target.textContent || ""),
+      original: String(target.dataset.original || ""),
+      language_pair: target.dataset.languagePair || "",
+      source_phrase: target.dataset.source || "",
+      url: url || (window.location ? window.location.href : "")
+    };
+  }
+
   function recordFeedback(entry) {
     const payload = sanitizeEntry(entry);
     if (!payload || !payload.rating) {
@@ -40,5 +55,5 @@
     });
   }
 
-  root.srsFeedback = { recordFeedback };
+  root.srsFeedback = { recordFeedback, buildEntryFromSpan };
 })();

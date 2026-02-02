@@ -8,7 +8,10 @@
     maxOnePerTextBlock: false,
     allowAdjacentReplacements: true,
     debugEnabled: false,
-    debugFocusWord: ""
+    debugFocusWord: "",
+    srsFeedbackSrsEnabled: true,
+    srsFeedbackRulesEnabled: false,
+    srsExposureLoggingEnabled: true
   };
 
   if (!root.tokenizer || !root.matcher || !root.replacements || !root.ui || !root.utils) {
@@ -28,8 +31,10 @@
     setFeedbackSoundEnabled
   } = root.ui;
   const { describeElement, shorten, describeCodepoints, countOccurrences, collectTextNodes } = root.utils;
-  const srsSelector = root.srsSelector;
+  const srsGate = root.srsGate;
   const srsFeedback = root.srsFeedback;
+  const lemmatizer = root.lemmatizer;
+  const srsMetrics = root.srsMetrics;
 
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
@@ -208,6 +213,29 @@
       const parent = node.parentNode;
       if (parent) {
         parent.replaceChild(result.fragment, node);
+        if (srsMetrics
+          && currentSettings.srsExposureLoggingEnabled !== false
+          && result.details
+          && result.details.length
+        ) {
+          const exposures = result.details.map((detail) => {
+            const origin = currentSettings._srsActiveLemmas &&
+              currentSettings._srsActiveLemmas.has(String(detail.replacement || "").toLowerCase())
+              ? "srs"
+              : "ruleset";
+            return srsMetrics.buildExposure(
+              detail,
+              origin,
+              window.location ? window.location.href : "",
+              lemmatizer ? lemmatizer.lemmatize : null
+            );
+          });
+          srsMetrics.recordExposureBatch(exposures).then((saved) => {
+            if (currentSettings.debugEnabled && saved && saved.length) {
+              log(`Recorded ${saved.length} exposure(s).`);
+            }
+          });
+        }
         if (counter) {
           counter.replacements += result.replacements;
           counter.nodes += 1;
@@ -431,43 +459,23 @@
   async function applySettings(settings) {
     const token = (applyToken += 1);
     currentSettings = { ...defaults, ...settings };
+    const hasNewFeedbackFlags = typeof settings.srsFeedbackSrsEnabled === "boolean"
+      || typeof settings.srsFeedbackRulesEnabled === "boolean";
+    if (!hasNewFeedbackFlags && typeof settings.srsFeedbackEnabled === "boolean") {
+      currentSettings.srsFeedbackSrsEnabled = true;
+      currentSettings.srsFeedbackRulesEnabled = !settings.srsFeedbackEnabled;
+    }
     processedNodes = new WeakMap();
     const normalizedRules = normalizeRules(currentSettings.rules);
     const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
     let activeRules = enabledRules;
     currentSettings._srsActiveLemmas = null;
     let srsStats = null;
-    if (currentSettings.srsEnabled && srsSelector && typeof srsSelector.selectActiveItems === "function") {
-      try {
-        const result = await srsSelector.selectActiveItems(currentSettings);
-        srsStats = result && result.stats ? result.stats : null;
-        const total = srsStats && Number.isFinite(srsStats.total) ? srsStats.total : 0;
-        if (!total) {
-          if (currentSettings.debugEnabled) {
-            log("SRS dataset unavailable; falling back to full rules.");
-          }
-          activeRules = enabledRules;
-        } else {
-          const activeLemmas = new Set(
-            (result && result.lemmas ? result.lemmas : []).map((lemma) => String(lemma).toLowerCase())
-          );
-          if (activeLemmas.size) {
-            activeRules = enabledRules.filter((rule) =>
-              activeLemmas.has(String(rule.replacement || "").toLowerCase())
-            );
-            currentSettings._srsActiveLemmas = activeLemmas;
-            if (currentSettings.debugEnabled) {
-              const sample = Array.from(activeLemmas).slice(0, 5);
-              log(`SRS active lemmas (sample): ${sample.join(", ")}`);
-            }
-          } else {
-            activeRules = [];
-          }
-        }
-      } catch (err) {
-        log("SRS selection failed; falling back to full rules.", err);
-        activeRules = enabledRules;
-      }
+    if (currentSettings.srsEnabled && srsGate && typeof srsGate.buildSrsGate === "function") {
+      const gate = await srsGate.buildSrsGate(currentSettings, enabledRules, currentSettings.debugEnabled ? log : null);
+      activeRules = gate.activeRules || enabledRules;
+      currentSettings._srsActiveLemmas = gate.activeLemmas || null;
+      srsStats = gate.stats || null;
     }
     if (token !== applyToken) {
       return;
@@ -522,8 +530,15 @@
       setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
     }
     attachClickListener();
+    const feedbackOrigins = [];
+    if (currentSettings.srsFeedbackSrsEnabled !== false) {
+      feedbackOrigins.push("srs");
+    }
+    if (currentSettings.srsFeedbackRulesEnabled === true) {
+      feedbackOrigins.push("ruleset");
+    }
     attachFeedbackListener((payload) => handleFeedback(payload, focusWord), {
-      allowOrigins: currentSettings.srsFeedbackEnabled === false ? ["srs", "ruleset"] : ["srs"]
+      allowOrigins: feedbackOrigins
     });
     applyHighlightToDom(currentSettings.highlightEnabled);
 
@@ -553,15 +568,17 @@
       return;
     }
     const target = payload.target;
-    const entry = {
-      rating: payload.rating,
-      lemma: String(target.dataset.replacement || target.textContent || ""),
-      replacement: String(target.dataset.replacement || target.textContent || ""),
-      original: String(target.dataset.original || ""),
-      language_pair: target.dataset.languagePair || "",
-      source_phrase: target.dataset.source || "",
-      url: window.location ? window.location.href : ""
-    };
+    const entry = srsFeedback && typeof srsFeedback.buildEntryFromSpan === "function"
+      ? srsFeedback.buildEntryFromSpan(target, payload.rating, window.location ? window.location.href : "")
+      : {
+          rating: payload.rating,
+          lemma: String(target.dataset.replacement || target.textContent || ""),
+          replacement: String(target.dataset.replacement || target.textContent || ""),
+          original: String(target.dataset.original || ""),
+          language_pair: target.dataset.languagePair || "",
+          source_phrase: target.dataset.source || "",
+          url: window.location ? window.location.href : ""
+        };
     if (srsFeedback && typeof srsFeedback.recordFeedback === "function") {
       srsFeedback.recordFeedback(entry).then((saved) => {
         if (currentSettings.debugEnabled) {
@@ -649,12 +666,33 @@
       nextSettings.srsHighlightColor = changes.srsHighlightColor.newValue;
       needsHighlight = true;
     }
-    if (changes.srsFeedbackEnabled) {
-      nextSettings.srsFeedbackEnabled = changes.srsFeedbackEnabled.newValue;
+    if (changes.srsFeedbackSrsEnabled) {
+      nextSettings.srsFeedbackSrsEnabled = changes.srsFeedbackSrsEnabled.newValue;
+    }
+    if (changes.srsFeedbackRulesEnabled) {
+      nextSettings.srsFeedbackRulesEnabled = changes.srsFeedbackRulesEnabled.newValue;
+    }
+    if (changes.srsFeedbackSrsEnabled || changes.srsFeedbackRulesEnabled) {
       currentSettings = { ...currentSettings, ...nextSettings };
+      const feedbackOrigins = [];
+      if (currentSettings.srsFeedbackSrsEnabled !== false) {
+        feedbackOrigins.push("srs");
+      }
+      if (currentSettings.srsFeedbackRulesEnabled === true) {
+        feedbackOrigins.push("ruleset");
+      }
       attachFeedbackListener((payload) => handleFeedback(payload, getFocusWord(currentSettings)), {
-        allowOrigins: currentSettings.srsFeedbackEnabled === false ? ["srs", "ruleset"] : ["srs"]
+        allowOrigins: feedbackOrigins
       });
+    }
+    if (changes.srsExposureLoggingEnabled) {
+      nextSettings.srsExposureLoggingEnabled = changes.srsExposureLoggingEnabled.newValue;
+      currentSettings = { ...currentSettings, ...nextSettings };
+      if (currentSettings.debugEnabled) {
+        log(
+          `SRS exposure logging ${currentSettings.srsExposureLoggingEnabled === false ? "disabled" : "enabled"}.`
+        );
+      }
     }
     if (changes.debugEnabled) {
       nextSettings.debugEnabled = changes.debugEnabled.newValue;

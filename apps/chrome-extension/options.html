@@ -132,8 +132,12 @@
             <input id="srs-highlight-color-text" type="text" class="color-text" />
           </div>
           <label class="toggle">
-            <input id="srs-feedback-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_feedback">Enable feedback on SRS words only</span>
+            <input id="srs-feedback-srs-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
+          </label>
+          <label class="toggle">
+            <input id="srs-feedback-rules-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
           </label>
           <label class="toggle">
             <input id="srs-sound-enabled" type="checkbox" />
@@ -191,6 +195,16 @@
             </div>
             <p class="hint" data-i18n="hint_debug_focus_word">
               When set, logs include nodes containing this exact word.
+            </p>
+          </details>
+          <details class="advanced">
+            <summary data-i18n="advanced_logging_summary">Logging</summary>
+            <label class="toggle">
+              <input id="srs-exposure-logging-enabled" type="checkbox" />
+              <span data-i18n="toggle_exposure_logging">Log replacement exposure events</span>
+            </label>
+            <p class="hint" data-i18n="hint_exposure_logging">
+              Stores exposure events in extension storage. This is independent of debug logs.
             </p>
           </details>
         </section>

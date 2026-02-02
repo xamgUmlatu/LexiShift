@@ -89,11 +89,20 @@
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
-  "toggle_srs_feedback": {
-    "message": "Feedback nur für SRS-Wörter aktivieren"
+  "toggle_srs_feedback_srs": {
+    "message": "Feedback für SRS-Wörter aktivieren"
+  },
+  "toggle_srs_feedback_rules": {
+    "message": "Feedback für Regeln-Wörter aktivieren"
   },
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
+  },
+  "toggle_exposure_logging": {
+    "message": "Ersetzungs-Expositionen protokollieren"
+  },
+  "hint_exposure_logging": {
+    "message": "Speichert Expositionsereignisse im Erweiterungsspeicher. Unabhängig von Debug-Logs."
   },
   "button_srs_sample": {
     "message": "Aktive Wörter testen…"
@@ -139,6 +148,9 @@
   },
   "advanced_summary": {
     "message": "Debug-Tools"
+  },
+  "advanced_logging_summary": {
+    "message": "Protokollierung"
   },
   "toggle_debug_enabled": {
     "message": "Debug-Logs aktivieren (Konsole)"

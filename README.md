@@ -277,7 +277,11 @@ Chrome extension
 - Configure rules in the extension options page (JSON array or file import).
 - Display options include highlight color and click-to-toggle original text.
 - Share code import/export supports compressed codes (CJK short codes).
-- Advanced debug tools are tucked under a collapsible section (optional).
+- SRS mode (test dataset) can gate rules by active lemmas; includes feedback popup + sound.
+- Feedback can be enabled separately for SRS words and ruleset words.
+- “Sample active words…” uses the selector to show candidate SRS words.
+- Advanced → Debug tools exposes console logging + focus word diagnostics.
+- Advanced → Logging stores exposure events in `chrome.storage.local` (independent of debug logs).
 - Options page is fully localized and includes a language selector for the UI.
 - Replaces visible text on all pages (including frames), skips editable fields.
 - Notes:

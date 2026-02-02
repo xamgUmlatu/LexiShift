@@ -89,11 +89,20 @@
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
-  "toggle_srs_feedback": {
-    "message": "SRS単語のみフィードバックを有効化"
+  "toggle_srs_feedback_srs": {
+    "message": "SRS単語へのフィードバックを有効化"
+  },
+  "toggle_srs_feedback_rules": {
+    "message": "ルール単語へのフィードバックを有効化"
   },
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
+  },
+  "toggle_exposure_logging": {
+    "message": "置換の露出イベントを記録"
+  },
+  "hint_exposure_logging": {
+    "message": "露出イベントを拡張機能の保存領域に記録します。デバッグログとは独立です。"
   },
   "button_srs_sample": {
     "message": "アクティブ語をサンプル…"
@@ -139,6 +148,9 @@
   },
   "advanced_summary": {
     "message": "デバッグツール"
+  },
+  "advanced_logging_summary": {
+    "message": "ログ"
   },
   "toggle_debug_enabled": {
     "message": "デバッグログを有効化（コンソール）"

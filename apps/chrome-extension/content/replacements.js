@@ -114,7 +114,8 @@
           replacement: replacementText,
           source: match.rule.source_phrase || "",
           priority: match.rule.priority,
-          case_policy: match.rule.case_policy || "match"
+          case_policy: match.rule.case_policy || "match",
+          language_pair: match.rule.metadata ? match.rule.metadata.language_pair : ""
         });
       }
       tokenCursor = endTokenIdx + 1;

@@ -89,11 +89,20 @@
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
-  "toggle_srs_feedback": {
-    "message": "Enable feedback on SRS words only"
+  "toggle_srs_feedback_srs": {
+    "message": "Enable feedback for SRS words"
+  },
+  "toggle_srs_feedback_rules": {
+    "message": "Enable feedback for ruleset words"
   },
   "toggle_srs_sound": {
     "message": "Play feedback sound"
+  },
+  "toggle_exposure_logging": {
+    "message": "Log replacement exposure events"
+  },
+  "hint_exposure_logging": {
+    "message": "Stores exposure events in extension storage. This is independent of debug logs."
   },
   "button_srs_sample": {
     "message": "Sample active words…"
@@ -139,6 +148,9 @@
   },
   "advanced_summary": {
     "message": "Debug tools"
+  },
+  "advanced_logging_summary": {
+    "message": "Logging"
   },
   "toggle_debug_enabled": {
     "message": "Enable debug logs (console)"

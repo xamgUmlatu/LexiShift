@@ -10,7 +10,7 @@ This document captures what should sync across the desktop app, Chrome extension
 
 ## Clients & Capabilities
 - **GUI App**: Source of truth for profiles, rulesets, language packs, and synonym generation.
-- **Chrome Extension**: Applies replacements on web pages; options UI for basic settings + share code.
+- **Chrome Extension**: Applies replacements on web pages; options UI for rules, SRS controls, share code, and logging.
 - **BetterDiscord Plugin**: Applies replacements in Discord; options UI for basic settings + share code.
 
 ## Data Model to Sync

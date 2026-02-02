@@ -89,11 +89,20 @@
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
-  "toggle_srs_feedback": {
-    "message": "仅对 SRS 词启用反馈"
+  "toggle_srs_feedback_srs": {
+    "message": "对 SRS 词启用反馈"
+  },
+  "toggle_srs_feedback_rules": {
+    "message": "对规则词启用反馈"
   },
   "toggle_srs_sound": {
     "message": "播放反馈音效"
+  },
+  "toggle_exposure_logging": {
+    "message": "记录替换曝光事件"
+  },
+  "hint_exposure_logging": {
+    "message": "将曝光事件保存到扩展存储中，与调试日志无关。"
   },
   "button_srs_sample": {
     "message": "抽样活跃词…"
@@ -139,6 +148,9 @@
   },
   "advanced_summary": {
     "message": "调试工具"
+  },
+  "advanced_logging_summary": {
+    "message": "日志"
   },
   "toggle_debug_enabled": {
     "message": "启用调试日志（控制台）"

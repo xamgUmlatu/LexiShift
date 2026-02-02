@@ -17,7 +17,9 @@ const DEFAULT_SETTINGS =
     srsMaxActive: 40,
     srsSoundEnabled: true,
     srsHighlightColor: "#2F74D0",
-    srsFeedbackEnabled: true
+    srsFeedbackSrsEnabled: true,
+    srsFeedbackRulesEnabled: false,
+    srsExposureLoggingEnabled: true
   };
 
 let localeMessages = null;
@@ -135,7 +137,9 @@ const srsMaxActiveInput = document.getElementById("srs-max-active");
 const srsSoundInput = document.getElementById("srs-sound-enabled");
 const srsHighlightInput = document.getElementById("srs-highlight-color");
 const srsHighlightTextInput = document.getElementById("srs-highlight-color-text");
-const srsFeedbackInput = document.getElementById("srs-feedback-enabled");
+const srsFeedbackSrsInput = document.getElementById("srs-feedback-srs-enabled");
+const srsFeedbackRulesInput = document.getElementById("srs-feedback-rules-enabled");
+const srsExposureLoggingInput = document.getElementById("srs-exposure-logging-enabled");
 const srsSampleButton = document.getElementById("srs-sample");
 const srsSampleOutput = document.getElementById("srs-sample-output");
 const languageSelect = document.getElementById("ui-language");
@@ -249,7 +253,11 @@ function saveSrsSettings() {
   const srsHighlightColor = srsHighlightInput
     ? (srsHighlightInput.value || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0")
     : (DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0");
-  const srsFeedbackEnabled = srsFeedbackInput ? srsFeedbackInput.checked : true;
+  const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
+  const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
+  const srsExposureLoggingEnabled = srsExposureLoggingInput
+    ? srsExposureLoggingInput.checked
+    : true;
   srsMaxActiveInput.value = String(srsMaxActive);
   if (srsHighlightInput) {
     srsHighlightInput.value = srsHighlightColor;
@@ -258,18 +266,30 @@ function saveSrsSettings() {
     srsHighlightTextInput.value = srsHighlightColor;
   }
   chrome.storage.local.set(
-    { srsEnabled, srsPair, srsMaxActive, srsSoundEnabled, srsHighlightColor, srsFeedbackEnabled },
-    () => {
-    setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
-    logOptions("SRS settings saved.", {
+    {
       srsEnabled,
       srsPair,
       srsMaxActive,
       srsSoundEnabled,
       srsHighlightColor,
-      srsFeedbackEnabled
-    });
-  });
+      srsFeedbackSrsEnabled,
+      srsFeedbackRulesEnabled,
+      srsExposureLoggingEnabled
+    },
+    () => {
+      setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
+      logOptions("SRS settings saved.", {
+        srsEnabled,
+        srsPair,
+        srsMaxActive,
+        srsSoundEnabled,
+        srsHighlightColor,
+        srsFeedbackSrsEnabled,
+        srsFeedbackRulesEnabled,
+        srsExposureLoggingEnabled
+      });
+    }
+  );
 }
 
 function parseRulesFromEditor() {
@@ -460,8 +480,21 @@ function load() {
     if (srsHighlightTextInput) {
       srsHighlightTextInput.value = srsHighlightInput ? srsHighlightInput.value : "#2F74D0";
     }
-    if (srsFeedbackInput) {
-      srsFeedbackInput.checked = items.srsFeedbackEnabled !== false;
+    const hasNewFeedbackFlags = typeof items.srsFeedbackSrsEnabled === "boolean"
+      || typeof items.srsFeedbackRulesEnabled === "boolean";
+    const legacyFeedbackOnlySrs = items.srsFeedbackEnabled === true;
+    if (srsFeedbackSrsInput) {
+      srsFeedbackSrsInput.checked = hasNewFeedbackFlags
+        ? items.srsFeedbackSrsEnabled !== false
+        : true;
+    }
+    if (srsFeedbackRulesInput) {
+      srsFeedbackRulesInput.checked = hasNewFeedbackFlags
+        ? items.srsFeedbackRulesEnabled === true
+        : !legacyFeedbackOnlySrs;
+    }
+    if (srsExposureLoggingInput) {
+      srsExposureLoggingInput.checked = items.srsExposureLoggingEnabled !== false;
     }
     if (srsSampleOutput) {
       srsSampleOutput.textContent = "";
@@ -588,8 +621,14 @@ if (srsHighlightTextInput) {
     }
   });
 }
-if (srsFeedbackInput) {
-  srsFeedbackInput.addEventListener("change", saveSrsSettings);
+if (srsFeedbackSrsInput) {
+  srsFeedbackSrsInput.addEventListener("change", saveSrsSettings);
+}
+if (srsFeedbackRulesInput) {
+  srsFeedbackRulesInput.addEventListener("change", saveSrsSettings);
+}
+if (srsExposureLoggingInput) {
+  srsExposureLoggingInput.addEventListener("change", saveSrsSettings);
 }
 if (srsSampleButton) {
   srsSampleButton.addEventListener("click", sampleActiveWords);

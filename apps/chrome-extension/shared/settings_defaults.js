@@ -18,6 +18,8 @@
     srsMaxActive: 40,
     srsSoundEnabled: true,
     srsHighlightColor: "#2F74D0",
-    srsFeedbackEnabled: true
+    srsFeedbackSrsEnabled: true,
+    srsFeedbackRulesEnabled: false,
+    srsExposureLoggingEnabled: true
   };
 })();

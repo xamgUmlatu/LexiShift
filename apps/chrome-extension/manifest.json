@@ -17,8 +17,11 @@
       "matches": ["<all_urls>"],
       "js": [
         "shared/settings_defaults.js",
+        "shared/lemmatizer.js",
         "shared/srs_selector.js",
         "shared/srs_feedback.js",
+        "shared/srs_gate.js",
+        "shared/srs_metrics.js",
         "content/tokenizer.js",
         "content/matcher.js",
         "content/replacements.js",

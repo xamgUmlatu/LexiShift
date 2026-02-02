@@ -14,6 +14,13 @@ Module layout
   - Selects active SRS lemmas for gating.
 - `apps/chrome-extension/shared/srs_feedback.js`
   - Persists SRS feedback events to `chrome.storage.local` (`srsFeedbackLog`).
+  - Provides helper to build feedback entries from replacement spans.
+- `apps/chrome-extension/shared/srs_gate.js`
+  - Filters rules using the active SRS lemma set (gating).
+- `apps/chrome-extension/shared/lemmatizer.js`
+  - Stub lemmatizer for early data collection (identity for JP, lowercase for EN/DE).
+- `apps/chrome-extension/shared/srs_metrics.js`
+  - Records replacement exposures to `chrome.storage.local` (`srsExposureLog`).
 - `apps/chrome-extension/content/tokenizer.js`
   - Tokenization utilities (word/space/punct) and normalization helpers.
   - Exposes `tokenize`, `normalize`, `textHasToken`, `computeGapOk`.
@@ -47,13 +54,23 @@ Settings flow
 - Content script reads settings on boot and reacts to `chrome.storage.onChanged`.
 - Highlight/visual settings apply immediately; rules changes trigger a rescan.
 
+Options UI tools (extension)
+- SRS: “Sample active words…” button uses the current selector + pair to show 5 candidates.
+- Debug focus word: highlights whether a token was seen or replaced.
+- Share code: export/import compressed rules.
+- Logging controls (Advanced):
+  - Debug logs → console only (`debugEnabled`).
+  - Exposure logging → stored in `chrome.storage.local` (`srsExposureLog`).
+
 SRS settings (extension)
 - `srsEnabled` (bool): enables SRS gating.
 - `srsPair` (string): `en-en`, `de-de`, `ja-ja`, or `all`.
 - `srsMaxActive` (int): max active lemmas to allow.
 - `srsHighlightColor` (hex): highlight color for SRS-origin spans.
-- `srsFeedbackEnabled` (bool): if true, feedback popup only appears on SRS words.
+- `srsFeedbackSrsEnabled` (bool): allow feedback popup on SRS-origin spans.
+- `srsFeedbackRulesEnabled` (bool): allow feedback popup on ruleset-origin spans.
 - `srsSoundEnabled` (bool): enable/disable feedback sound.
+- `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
 
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
@@ -85,7 +102,15 @@ SRS feedback UX (extension)
   - 4 (blue) = Easy
 - Keyboard shortcuts: **Ctrl+1/2/3/4**.
 - Feedback is stored in `chrome.storage.local` (`srsFeedbackLog`, max 500 entries).
-- If `srsFeedbackEnabled` is true, the popup is restricted to SRS-origin spans only.
+- Feedback popup appears when the origin is enabled:
+  - SRS words: `srsFeedbackSrsEnabled`
+  - Ruleset words: `srsFeedbackRulesEnabled`
+
+Exposure tracking (extension)
+- Each replacement detail is logged with origin (`srs` or `ruleset`).
+- Logged fields: lemma, replacement, original, language pair, source phrase, URL.
+- Stored in `chrome.storage.local` as `srsExposureLog` (max 2000 entries).
+- Logging is skipped when `srsExposureLoggingEnabled` is false (Advanced → Logging).
 
 Observer strategy
 - A MutationObserver watches for added/edited nodes and rescans only the new content.
