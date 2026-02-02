@@ -1,5 +1,7 @@
 # Synonym Generation Technical Notes
 
+See also: `docs/rule_generation_technical.md` (precomputed rules + confidence scoring).
+
 ## Scope
 This document describes how LexiShift generates synonym-based rules today, how language pairs are assigned, and how optional embeddings affect ranking and fallback. It also calls out current assumptions and limitations.
 
@@ -134,4 +136,3 @@ Below is a consolidated list of automation ideas for synonym generation, annotat
 ### MVP alignment (current stance)
 - Keep automation minimal: consensus + embeddings.
 - Defer heavy heuristics until we have reliable POS/sense data.
-

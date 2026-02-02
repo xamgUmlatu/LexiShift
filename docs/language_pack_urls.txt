@@ -230,6 +230,29 @@ JP Synonyms | WN-Ja | SQLite | BSD
 Translations (V1) | FreeDict (DE↔EN) | XML | GPLv3/AGPLv3
 Similarity (Optional) | fastText vectors | Text | CC-BY-SA
 
+
+-- Word Frequencies --
+
+English Word Frequency (COCA 2026)
+The Corpus of Contemporary American English (COCA) remains the industry standard. For 2026, the "Free 5,000" has been expanded in community mirrors to include more modern web-culture terms.
+pack_id: freq-en-coca
+name: COCA English Frequency List (Lemmatized)
+size: ~2.5 MB (CSV/TSV)
+url: https://www.wordfrequency.info/samples/lemmas_60k.txt
+backup_url: https://web.archive.org/web/20210127204059/https://www.wordfrequency.info/samples/lemmas_60k.txt
+filename: en_freq_coca.csv
+notes: Includes rank, lemma, pos, and frequency. This is the lemmatized version (e.g., "running" and "ran" are both under "run").
+
+Japanese Word Frequency (BCCWJ)
+The Balanced Corpus of Contemporary Written Japanese (BCCWJ) is the gold standard from NINJAL. Unlike most lists, it explicitly provides Short Unit Words (SUW) and Long Unit Words (LUW), which is vital for parsing Japanese compound nouns.
+pack_id: freq-ja-bccwj
+name: BCCWJ Japanese Lemma Frequency
+size: 13 MB (SUW) / 115 MB (LUW)
+url: https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip
+backup_url: https://web.archive.org/web/0/https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip
+filename: bccwj_suw_freq.zip
+notes: Contains columns for Lemma, Etymology (Native/Sino-Japanese), and Freq. It uses UniDic-style lemmatization, which is the most accurate for NLP tasks in 2026.
+
 -- Info Needed From You --
 1) wiktionary-xlang: if/when we resume, confirm desired Kaikki dump (English vs another), exact compressed size, and preferred Wayback mirror.
 2) Kaikki/Wiktionary is backlog for now.

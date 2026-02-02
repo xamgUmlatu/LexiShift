@@ -12,6 +12,7 @@ from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
 from lexishift_core.db_handlers import load_synonyms_from_db
+from lexishift_core.dict_loaders import load_jmdict_glosses
 
 @dataclass(frozen=True)
 class SynonymSources:
@@ -374,34 +375,7 @@ def _load_freedict_tei(path: Path, *, target_lang: str) -> dict[str, set[str]]:
 
 
 def _load_jmdict(path: Path) -> dict[str, set[str]]:
-    mapping: dict[str, set[str]] = {}
-    if not path.exists():
-        return mapping
-    try:
-        root = ElementTree.parse(path).getroot()
-    except ElementTree.ParseError:
-        return mapping
-    for entry in root.findall("entry"):
-        glosses = [
-            gloss.text.strip()
-            for gloss in entry.findall("sense/gloss")
-            if gloss.text and gloss.text.strip()
-        ]
-        if not glosses:
-            continue
-        jp_terms = []
-        for elem in entry.findall("k_ele/keb"):
-            if elem.text and elem.text.strip():
-                jp_terms.append(elem.text.strip())
-        for elem in entry.findall("r_ele/reb"):
-            if elem.text and elem.text.strip():
-                jp_terms.append(elem.text.strip())
-        if not jp_terms:
-            continue
-        for jp_term in jp_terms:
-            bucket = mapping.setdefault(jp_term, set())
-            bucket.update(glosses)
-    return mapping
+    return load_jmdict_glosses(path)
 
 
 def _load_cc_cedict(path: Path) -> dict[str, set[str]]:

@@ -100,6 +100,7 @@ Build a non‑destructive SRS Practice Layer that grows a set **S** of learning 
 - Export/import of SRS settings + store
 
 Everything else (consensus, embeddings, user streams) can be layered on later via plug‑ins.
+See also: `docs/rule_generation_technical.md` for precomputed rule + confidence plans.
 
 ---
 
@@ -108,7 +109,8 @@ Everything else (consensus, embeddings, user streams) can be layered on later vi
 ### Workstream A — Practice gate + scheduling ✅
 - Core SRS models, scheduler, gate, and GUI preview integration are in place.
 - Chrome Extension: SRS mode can gate rules using the fixed selector dataset (test only).
-- No UI feedback capture yet.
+- Extension feedback UI + logging are implemented (Ctrl+1/2/3/4 popup).
+- Exposure logging is available (Advanced → Logging).
 
 ### Workstream B — S growth (seed + expansion) ⏳
 - **Seed with frequency lists** (not implemented).
@@ -123,6 +125,7 @@ Everything else (consensus, embeddings, user streams) can be layered on later vi
 
 ### Workstream D — Quality & confidence scoring ⏳
 - Consensus + embedding ranking are planned but not wired into SRS growth yet.
+ - Rule generation confidence scaffolding exists; see `docs/rule_generation_technical.md`.
 
 ### Workstream E — Sync/export ⏳
 - Bundle format exists; export/import UI + wiring pending.

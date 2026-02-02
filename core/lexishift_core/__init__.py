@@ -91,6 +91,35 @@ from lexishift_core.srs_selector import (
     score_candidate,
 )
 from lexishift_core.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
+from lexishift_core.dict_loaders import load_jmdict_glosses
+from lexishift_core.frequency import (
+    FrequencyLexicon,
+    FrequencySourceConfig,
+    build_frequency_provider,
+    load_frequency_lexicon,
+)
+from lexishift_core.rule_generation import (
+    MappingCandidateSource,
+    RuleCandidate,
+    RuleConfidenceSignals,
+    RuleGenerationConfig,
+    RuleGenerationPipeline,
+    RuleGenerationResult,
+    RuleScorer,
+    RuleScoreWeights,
+    SimpleSignalProvider,
+)
+from lexishift_core.rule_generation_utils import (
+    BasicStringNormalizer,
+    InflectionVariantExpander,
+    NonEmptyFilter,
+)
+from lexishift_core.rule_generation_ja_en import (
+    JaEnRulegenConfig,
+    build_ja_en_pipeline,
+    generate_ja_en_results,
+    generate_ja_en_rules,
+)
 from lexishift_core.storage import (
     InflectionSettings,
     LearningSettings,
@@ -172,6 +201,27 @@ __all__ = [
     "SynonymGenerator",
     "SynonymOptions",
     "SynonymSources",
+    "load_jmdict_glosses",
+    "FrequencyLexicon",
+    "FrequencySourceConfig",
+    "build_frequency_provider",
+    "load_frequency_lexicon",
+    "MappingCandidateSource",
+    "RuleCandidate",
+    "RuleConfidenceSignals",
+    "RuleGenerationConfig",
+    "RuleGenerationPipeline",
+    "RuleGenerationResult",
+    "RuleScorer",
+    "RuleScoreWeights",
+    "SimpleSignalProvider",
+    "BasicStringNormalizer",
+    "InflectionVariantExpander",
+    "NonEmptyFilter",
+    "JaEnRulegenConfig",
+    "build_ja_en_pipeline",
+    "generate_ja_en_results",
+    "generate_ja_en_rules",
     "PracticeGateState",
     "SrsHistoryEntry",
     "SrsItem",

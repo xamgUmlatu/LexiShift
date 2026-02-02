@@ -9,6 +9,11 @@ Introduce a non‑destructive SRS “Practice Layer” that sits above the exist
 - **Portable**: SRS state and settings are exportable/importable across app, extension, and plugin.
 - **Pair‑aware**: items are tagged with language pairs and only used in matching contexts.
 
+## Status notes (current implementation)
+- Chrome Extension supports SRS gating with a fixed selector dataset (test only).
+- Feedback popup (Ctrl+1/2/3/4) is implemented and persisted in extension storage.
+- Exposure logging is available (Advanced → Logging).
+
 ## Architecture Overview
 ```
 Ruleset Engine (unchanged)
@@ -84,4 +89,3 @@ Filters (pluggable):
 - Pair‑specific thresholds.
 - Preview UI for upcoming items.
 - Cross‑platform sync.
-

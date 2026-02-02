@@ -54,7 +54,9 @@ class RuleMetadata:
     examples: Sequence[str] = field(default_factory=tuple)
     notes: Optional[str] = None
     source: Optional[str] = None
+    source_type: Optional[str] = None
     language_pair: Optional[str] = None
+    confidence: Optional[float] = None
 
 
 @dataclass(frozen=True)

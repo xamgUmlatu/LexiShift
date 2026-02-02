@@ -39,6 +39,9 @@ Top-level fields
 - `examples` (array of string, optional)
 - `notes` (string, optional)
 - `source` (string, optional)
+- `source_type` (string, optional)
+- `language_pair` (string, optional; e.g., `en-en`, `de-en`)
+- `confidence` (float, optional; 0–1)
 
 ### VocabSettings
 - `inflections` (object, optional; `InflectionSettings`)

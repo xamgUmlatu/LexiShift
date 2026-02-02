@@ -35,6 +35,13 @@ Project layout
 - `scripts/dev_utils.py`: convenience re-export of the same public API.
 - `core/tests/`: unit tests for replacement, storage, inflection, builder, settings, import/export.
 
+Documentation
+- `docs/chrome_extension_technical.md`: content script + options architecture, SRS gate, logging.
+- `docs/srs_roadmap.md`: SRS workstreams and current status.
+- `docs/srs_schema.md`: SRS data schema (settings/items/store).
+- `docs/rule_generation_technical.md`: precomputed rule generation + confidence scoring.
+- `docs/synonym_generation_technical.md`: synonym generation pipeline notes.
+
 Core concepts
 - Tokenization
   - `Tokenizer` splits text into `Token` objects (word/space/punct).
