@@ -127,7 +127,8 @@ Synonym sources (local)
 - Embeddings (optional ranking):
   - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
     - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
-  - Point “Embeddings file” in Settings to the `.db`/`.sqlite` output.
+  - Enable embeddings per language-pair in Settings -> App -> Embeddings / Cross-lingual Embeddings (Use button).
+  - For cross-lingual similarity, load aligned vectors for both languages in the pair (e.g., `wiki.en.align.vec` + `wiki.de.align.vec`).
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
 Language packs (Settings -> App)
 - Language packs list is shown inside Settings (App tab), with Download/Delete buttons per pack.
@@ -341,7 +342,7 @@ Current limitations
 Plans (ordered by ease/priority)
 1. Persist all GUI knowledge inside profiles/rulesets:
    - Store per-profile dictionary selection (mono vs cross-lingual) and language choices.
-   - Store synonym settings (thresholds, embeddings) per profile or ruleset where appropriate.
+   - Store synonym settings (thresholds, embeddings) per profile or ruleset where appropriate (currently global).
 2. Sync profiles/rulesets into clients:
    - Export active profile + ruleset list + language pack selection to Chrome/BD.
    - Add profile/ruleset switcher in extension/plugin settings.
@@ -361,7 +362,7 @@ Plans (ordered by ease/priority)
 9. Consider larger Σ symbol spaces for Share Code to shorten codes.
 
 Known inconsistencies / friction points
-- Embedding similarity is English-centric today; multi-language ranking will need language detection + per-language embeddings or a multilingual model.
+- Embedding similarity depends on the selected language pair; auto language detection is still missing.
 - Cross-lingual dictionaries (JMDict/CC-CEDICT) are translations, not strict synonyms; they should be surfaced separately in UX and labeling.
 - Language determination is missing for CJK/no-space text; replacement quality is limited until CJK tokenization or substring mode is added.
 - WordNet classic vs JSON layouts can diverge; validation allows both, but pack-specific parsing rules may be needed.

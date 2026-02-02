@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable, List, Sequence
+from typing import Iterable, List, Optional, Sequence
 
 from PySide6.QtCore import QObject, QThread, Signal
 from PySide6.QtGui import QColor, QTextCharFormat, QSyntaxHighlighter
 
-from lexishift_core import Match, Replacer, VocabDataset, build_vocab_pool_from_dataset
+from lexishift_core import Match, PracticeGate, Replacer, VocabDataset, build_vocab_pool_from_dataset
 
 
 @dataclass(frozen=True)
@@ -19,14 +19,21 @@ class ReplacementSpan:
 class PreviewWorker(QThread):
     previewReady = Signal(int, str, object)
 
-    def __init__(self, job_id: int, dataset: VocabDataset, text: str) -> None:
+    def __init__(
+        self,
+        job_id: int,
+        dataset: VocabDataset,
+        text: str,
+        practice_gate: Optional[PracticeGate] = None,
+    ) -> None:
         super().__init__()
         self._job_id = job_id
         self._dataset = dataset
         self._text = text
+        self._practice_gate = practice_gate
 
     def run(self) -> None:
-        pool = build_vocab_pool_from_dataset(self._dataset)
+        pool = build_vocab_pool_from_dataset(self._dataset, practice_gate=self._practice_gate)
         replacer = Replacer(pool)
         output, spans = apply_replacements_with_spans(replacer, self._text)
         self.previewReady.emit(self._job_id, output, spans)
@@ -40,9 +47,9 @@ class PreviewController(QObject):
         self._job_id = 0
         self._workers: List[PreviewWorker] = []
 
-    def request(self, dataset: VocabDataset, text: str) -> None:
+    def request(self, dataset: VocabDataset, text: str, *, practice_gate: Optional[PracticeGate] = None) -> None:
         self._job_id += 1
-        worker = PreviewWorker(self._job_id, dataset, text)
+        worker = PreviewWorker(self._job_id, dataset, text, practice_gate=practice_gate)
         worker.previewReady.connect(self._handle_preview)
         worker.finished.connect(lambda: self._cleanup(worker))
         self._workers.append(worker)

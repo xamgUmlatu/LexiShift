@@ -9,10 +9,13 @@ from PySide6.QtCore import QObject, Signal
 from lexishift_core import (
     AppSettings,
     Profile,
+    SrsStore,
     VocabDataset,
     load_app_settings,
+    load_srs_store,
     load_vocab_dataset,
     save_app_settings,
+    save_srs_store,
     save_vocab_dataset,
 )
 
@@ -26,9 +29,11 @@ class AppState(QObject):
     def __init__(self, settings_path: Path) -> None:
         super().__init__()
         self._settings_path = settings_path
+        self._srs_store_path = settings_path.parent / "srs_store.json"
         self._settings = AppSettings()
         self._dataset = VocabDataset()
         self._dataset_path: Optional[Path] = None
+        self._srs_store = SrsStore()
         self._dirty = False
 
     @property
@@ -38,6 +43,10 @@ class AppState(QObject):
     @property
     def dataset(self) -> VocabDataset:
         return self._dataset
+
+    @property
+    def srs_store(self) -> SrsStore:
+        return self._srs_store
 
     @property
     def dataset_path(self) -> Optional[Path]:
@@ -53,12 +62,28 @@ class AppState(QObject):
         else:
             self._settings = AppSettings()
             self.save_settings()
+        self._load_srs_store()
         self.profilesChanged.emit(self._settings.profiles)
         self.activeProfileChanged.emit(self._settings.active_profile_id)
 
     def save_settings(self) -> None:
         self._settings_path.parent.mkdir(parents=True, exist_ok=True)
         save_app_settings(self._settings, self._settings_path)
+
+    def _load_srs_store(self) -> None:
+        if self._srs_store_path.exists():
+            self._srs_store = load_srs_store(self._srs_store_path)
+        else:
+            self._srs_store = SrsStore()
+            self.save_srs_store()
+
+    def save_srs_store(self) -> None:
+        self._srs_store_path.parent.mkdir(parents=True, exist_ok=True)
+        save_srs_store(self._srs_store, self._srs_store_path)
+
+    def update_srs_store(self, store: SrsStore) -> None:
+        self._srs_store = store
+        self.save_srs_store()
 
     def set_profiles(self, profiles: tuple[Profile, ...], *, active_profile_id: Optional[str]) -> None:
         self._settings = replace(self._settings, profiles=profiles, active_profile_id=active_profile_id)

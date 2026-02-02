@@ -105,3 +105,33 @@ The system does **not** automatically detect the language of input words or bloc
 - Clearer UI indicators for active pair and embedding state.
 - Pair‑specific thresholds and pair‑scoped UI feedback.
 
+## Automation Ideas (Notes + Feedback)
+Below is a consolidated list of automation ideas for synonym generation, annotated with current preferences and constraints.
+
+### Accepted / Likely
+- **Consensus filter** (already supported): keep synonyms that appear in multiple sources.
+- **Embedding ranking** (already supported): use similarity to filter candidates.
+- **SRS weighting by confidence** (extra credit): lower confidence candidates appear less often in SRS mode.
+- **POS consistency**: potentially important if reliable POS data is available.
+- **Sense filter**: potentially useful, but difficult to do correctly; may be very hard to implement well.
+- **Human review mode**: optional preview list with accept/reject could meaningfully improve quality.
+
+### Conditional / Research Needed
+- **Source‑confidence weighting**: plausible, but requires research/validation.
+- **Pair‑type consistency (cross‑lingual)**: unclear; keep as a research topic.
+
+### De‑emphasized / Not Needed
+- **Morphology normalization / lemma filtering**: not needed because SRS items are expected to be lemmatized already.
+- **Punctuation/format cleanup**: not needed given lemmatized inputs for S.
+- **Frequency gating**: low priority for now; possible later if frequency data is available.
+- **Noise suppression heuristics** (e.g., hyphens/markers): not preferred.
+- **Auto‑choosing dictionary sources**: not desired; users should explicitly select dictionaries.
+
+### Dictionary selection policy
+- Manual selection is preferred.
+- If data is sparse, the system may optionally enforce a minimal core dictionary (configurable).
+
+### MVP alignment (current stance)
+- Keep automation minimal: consensus + embeddings.
+- Defer heavy heuristics until we have reliable POS/sense data.
+

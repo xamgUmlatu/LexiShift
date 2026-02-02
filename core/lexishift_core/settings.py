@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
+from lexishift_core.srs import SrsSettings, srs_settings_from_dict, srs_settings_to_dict
+
 
 @dataclass(frozen=True)
 class Profile:
@@ -51,6 +53,7 @@ class AppSettings:
     active_profile_id: Optional[str] = None
     import_export: Optional[ImportExportSettings] = None
     synonyms: Optional[SynonymSourceSettings] = None
+    srs: Optional[SrsSettings] = None
     version: int = 1
 
 
@@ -70,11 +73,13 @@ def settings_from_dict(data: Mapping[str, Any]) -> AppSettings:
     profiles = tuple(_profile_from_dict(item) for item in data.get("profiles", []))
     import_export = _import_export_from_dict(data.get("import_export"))
     synonyms = _synonym_sources_from_dict(data.get("synonyms"))
+    srs = _srs_settings_from_dict(data.get("srs"))
     return AppSettings(
         profiles=profiles,
         active_profile_id=data.get("active_profile_id"),
         import_export=import_export,
         synonyms=synonyms,
+        srs=srs,
         version=int(data.get("version", 1)),
     )
 
@@ -86,6 +91,7 @@ def settings_to_dict(settings: AppSettings) -> dict[str, Any]:
         "active_profile_id": settings.active_profile_id,
         "import_export": _import_export_to_dict(settings.import_export),
         "synonyms": _synonym_sources_to_dict(settings.synonyms),
+        "srs": _srs_settings_to_dict(settings.srs),
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [], {})}
     return trimmed
@@ -198,3 +204,15 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [], "")}
     return trimmed or None
+
+
+def _srs_settings_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[SrsSettings]:
+    if not data:
+        return None
+    return srs_settings_from_dict(data)
+
+
+def _srs_settings_to_dict(settings: Optional[SrsSettings]) -> Optional[dict[str, Any]]:
+    if settings is None:
+        return None
+    return srs_settings_to_dict(settings)

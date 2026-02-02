@@ -138,6 +138,7 @@ Top-level fields
 - `active_profile_id` (string, optional)
 - `import_export` (object, optional; `ImportExportSettings`)
 - `synonyms` (object, optional; `SynonymSourceSettings`)
+- `srs` (object, optional; `SrsSettings` — see `docs/srs_schema.md`)
 
 ### Profile
 - `profile_id` (string, required)

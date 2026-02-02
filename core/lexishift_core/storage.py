@@ -331,8 +331,12 @@ def build_vocab_pool_from_dataset(
     *,
     tokenizer=None,
     normalizer=None,
+    practice_gate=None,
 ) -> VocabPool:
     from lexishift_core.builder import build_vocab_pool
 
+    rules = dataset.rules
+    if practice_gate is not None:
+        rules = practice_gate.filter_rules(rules)
     options = build_options_from_settings(dataset.settings)
-    return build_vocab_pool(dataset.rules, options=options, tokenizer=tokenizer, normalizer=normalizer)
+    return build_vocab_pool(rules, options=options, tokenizer=tokenizer, normalizer=normalizer)

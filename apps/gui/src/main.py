@@ -59,7 +59,9 @@ from lexishift_core import (
     AppSettings,
     ImportExportSettings,
     Profile,
+    PracticeGate,
     RuleMetadata,
+    SrsSettings,
     SynonymSourceSettings,
     VocabDataset,
     VocabRule,
@@ -71,6 +73,7 @@ from lexishift_core import (
     import_app_settings_json,
     import_dataset_code,
     import_dataset_json,
+    select_active_items,
     SynonymGenerator,
     SynonymOptions,
     SynonymSources,
@@ -1351,8 +1354,38 @@ class MainWindow(QMainWindow):
     def _schedule_preview(self) -> None:
         self._preview_timer.start()
 
+    def _build_practice_gate(self) -> Optional[PracticeGate]:
+        settings = self.state.settings.srs
+        if not settings or not settings.enabled:
+            return None
+        active_items = self._select_active_srs_items(settings)
+        return PracticeGate(
+            active_items=active_items,
+            include_unpaired_rules=True,
+            include_all_if_empty=True,
+        )
+
+    def _select_active_srs_items(self, settings: SrsSettings):
+        allowed_pairs = self._allowed_srs_pairs(settings)
+        return select_active_items(
+            self.state.srs_store.items,
+            max_active=settings.max_active_items,
+            allowed_pairs=allowed_pairs,
+        )
+
+    def _allowed_srs_pairs(self, settings: SrsSettings) -> Optional[list[str]]:
+        if not settings.pair_rules:
+            return None
+        allowed = [pair for pair, rule in settings.pair_rules.items() if rule.enabled]
+        return allowed or None
+
     def _run_preview(self) -> None:
-        self._preview_controller.request(self.state.dataset, self.input_edit.toPlainText())
+        practice_gate = self._build_practice_gate()
+        self._preview_controller.request(
+            self.state.dataset,
+            self.input_edit.toPlainText(),
+            practice_gate=practice_gate,
+        )
 
     def _apply_preview(self, output: str, spans) -> None:
         self.preview_edit.setPlainText(output)
