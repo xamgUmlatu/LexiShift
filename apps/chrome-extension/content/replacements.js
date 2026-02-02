@@ -3,7 +3,7 @@
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
 
-  function createReplacementSpan(originalText, replacementText, rule, highlightEnabled) {
+  function createReplacementSpan(originalText, replacementText, rule, highlightEnabled, origin) {
     const span = document.createElement("span");
     span.className = "lexishift-replacement";
     if (highlightEnabled) {
@@ -13,6 +13,17 @@
     span.dataset.original = originalText;
     span.dataset.replacement = replacementText;
     span.dataset.state = "replacement";
+    if (origin) {
+      span.dataset.origin = origin;
+    }
+    if (rule) {
+      if (rule.source_phrase) {
+        span.dataset.source = String(rule.source_phrase);
+      }
+      if (rule.metadata && rule.metadata.language_pair) {
+        span.dataset.languagePair = String(rule.metadata.language_pair);
+      }
+    }
 
     let tooltip = "Click to toggle original";
     if (rule && rule.metadata && rule.metadata.description) {
@@ -44,7 +55,7 @@
     return matches;
   }
 
-  function buildReplacementFragment(text, trie, settings, onTextNode) {
+  function buildReplacementFragment(text, trie, settings, onTextNode, originResolver) {
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
     const tokens = tokenize(text);
@@ -93,7 +104,10 @@
       const sourceWords = wordTexts.slice(match.startWordIndex, match.endWordIndex + 1);
       const originalText = tokens.slice(startTokenIdx, endTokenIdx + 1).map((t) => t.text).join("");
       const replacementText = applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
-      fragment.appendChild(createReplacementSpan(originalText, replacementText, match.rule, settings.highlightEnabled));
+      const origin = originResolver ? originResolver(match.rule, replacementText) : null;
+      fragment.appendChild(
+        createReplacementSpan(originalText, replacementText, match.rule, settings.highlightEnabled, origin)
+      );
       if (details) {
         details.push({
           original: originalText,

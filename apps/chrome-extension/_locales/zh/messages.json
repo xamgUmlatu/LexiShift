@@ -68,6 +68,45 @@
   "hint_allow_adjacent": {
     "message": "禁用时避免连续替换。"
   },
+  "section_srs": {
+    "message": "SRS 练习"
+  },
+  "toggle_srs_enabled": {
+    "message": "启用 SRS 练习模式"
+  },
+  "hint_srs_dataset": {
+    "message": "目前使用固定测试数据集（无需外部下载）。"
+  },
+  "label_srs_pair": {
+    "message": "语言对"
+  },
+  "option_srs_all_pairs": {
+    "message": "全部语言对"
+  },
+  "label_srs_max_active": {
+    "message": "最大激活词数"
+  },
+  "label_srs_highlight_color": {
+    "message": "SRS 高亮颜色"
+  },
+  "toggle_srs_feedback": {
+    "message": "仅对 SRS 词启用反馈"
+  },
+  "toggle_srs_sound": {
+    "message": "播放反馈音效"
+  },
+  "button_srs_sample": {
+    "message": "抽样活跃词…"
+  },
+  "status_srs_sampling": {
+    "message": "正在抽样…"
+  },
+  "status_srs_sample_empty": {
+    "message": "暂无可用词。"
+  },
+  "status_srs_sample_failed": {
+    "message": "SRS 抽样失败。"
+  },
   "section_share_code": {
     "message": "分享代码"
   },
@@ -121,6 +160,9 @@
   },
   "status_replacement_saved": {
     "message": "替换设置已保存。"
+  },
+  "status_srs_saved": {
+    "message": "SRS 设置已保存。"
   },
   "status_switch_edit_json": {
     "message": "请切换到“编辑 JSON”后再保存。"

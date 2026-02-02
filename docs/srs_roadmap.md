@@ -107,7 +107,8 @@ Everything else (consensus, embeddings, user streams) can be layered on later vi
 
 ### Workstream A — Practice gate + scheduling ✅
 - Core SRS models, scheduler, gate, and GUI preview integration are in place.
-- No UI toggles or feedback capture yet.
+- Chrome Extension: SRS mode can gate rules using the fixed selector dataset (test only).
+- No UI feedback capture yet.
 
 ### Workstream B — S growth (seed + expansion) ⏳
 - **Seed with frequency lists** (not implemented).

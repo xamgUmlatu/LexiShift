@@ -86,7 +86,7 @@
           <div class="field-row">
             <label for="highlight-color" data-i18n="label_highlight_color">Highlight color</label>
             <input id="highlight-color" type="color" />
-            <input id="highlight-color-text" type="text" />
+            <input id="highlight-color-text" type="text" class="color-text" />
           </div>
         </section>
         <section class="card">
@@ -103,6 +103,46 @@
           <p class="hint" data-i18n="hint_allow_adjacent">
             When disabled, prevents back-to-back word replacements.
           </p>
+        </section>
+        <section class="card">
+          <h2 data-i18n="section_srs">SRS Practice</h2>
+          <label class="toggle">
+            <input id="srs-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_enabled">Enable SRS practice mode</span>
+          </label>
+          <p class="hint" data-i18n="hint_srs_dataset">
+            Uses a fixed test dataset for now (no external downloads).
+          </p>
+          <div class="field-row">
+            <label for="srs-pair" data-i18n="label_srs_pair">Language pair</label>
+            <select id="srs-pair">
+              <option value="en-en">EN → EN</option>
+              <option value="de-de">DE → DE</option>
+              <option value="ja-ja">JP → JP</option>
+              <option value="all" data-i18n="option_srs_all_pairs">All pairs</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
+            <input id="srs-max-active" type="number" min="1" max="200" step="1" />
+          </div>
+          <div class="field-row">
+            <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
+            <input id="srs-highlight-color" type="color" />
+            <input id="srs-highlight-color-text" type="text" class="color-text" />
+          </div>
+          <label class="toggle">
+            <input id="srs-feedback-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_feedback">Enable feedback on SRS words only</span>
+          </label>
+          <label class="toggle">
+            <input id="srs-sound-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_sound">Play feedback sound</span>
+          </label>
+          <div class="actions">
+            <button id="srs-sample" data-i18n="button_srs_sample">Sample active words…</button>
+            <span id="srs-sample-output" class="hint"></span>
+          </div>
         </section>
         <section class="card">
           <h2 data-i18n="section_share_code">Share Code</h2>
@@ -157,6 +197,7 @@
       </div>
     </main>
     <script src="shared/settings_defaults.js"></script>
+    <script src="shared/srs_selector.js"></script>
     <script src="lzstring.js"></script>
     <script src="cjk_codec.js"></script>
     <script src="options.js"></script>

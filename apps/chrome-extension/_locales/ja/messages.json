@@ -68,6 +68,45 @@
   "hint_allow_adjacent": {
     "message": "無効にすると連続した置換を防ぎます。"
   },
+  "section_srs": {
+    "message": "SRS練習"
+  },
+  "toggle_srs_enabled": {
+    "message": "SRS練習モードを有効にする"
+  },
+  "hint_srs_dataset": {
+    "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
+  },
+  "label_srs_pair": {
+    "message": "言語ペア"
+  },
+  "option_srs_all_pairs": {
+    "message": "すべてのペア"
+  },
+  "label_srs_max_active": {
+    "message": "同時にアクティブな語数"
+  },
+  "label_srs_highlight_color": {
+    "message": "SRSハイライト色"
+  },
+  "toggle_srs_feedback": {
+    "message": "SRS単語のみフィードバックを有効化"
+  },
+  "toggle_srs_sound": {
+    "message": "フィードバック音を再生"
+  },
+  "button_srs_sample": {
+    "message": "アクティブ語をサンプル…"
+  },
+  "status_srs_sampling": {
+    "message": "サンプリング中…"
+  },
+  "status_srs_sample_empty": {
+    "message": "候補がありません。"
+  },
+  "status_srs_sample_failed": {
+    "message": "SRSサンプルに失敗しました。"
+  },
   "section_share_code": {
     "message": "共有コード"
   },
@@ -121,6 +160,9 @@
   },
   "status_replacement_saved": {
     "message": "置換設定を保存しました。"
+  },
+  "status_srs_saved": {
+    "message": "SRS設定を保存しました。"
   },
   "status_switch_edit_json": {
     "message": "保存するには「JSONを編集」に切り替えてください。"

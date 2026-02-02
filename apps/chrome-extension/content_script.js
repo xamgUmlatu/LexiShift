@@ -19,8 +19,17 @@
   const { textHasToken } = root.tokenizer;
   const { buildTrie, normalizeRules } = root.matcher;
   const { buildReplacementFragment } = root.replacements;
-  const { ensureStyle, applyHighlightToDom, clearReplacements, attachClickListener } = root.ui;
+  const {
+    ensureStyle,
+    applyHighlightToDom,
+    clearReplacements,
+    attachClickListener,
+    attachFeedbackListener,
+    setFeedbackSoundEnabled
+  } = root.ui;
   const { describeElement, shorten, describeCodepoints, countOccurrences, collectTextNodes } = root.utils;
+  const srsSelector = root.srsSelector;
+  const srsFeedback = root.srsFeedback;
 
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
@@ -28,6 +37,7 @@
   let observer = null;
   let applyingChanges = false;
   let observedBody = null;
+  let applyToken = 0;
 
   function log(...args) {
     if (!currentSettings.debugEnabled) {
@@ -183,9 +193,17 @@
         counter.focusDetailTruncated = true;
       }
     }
+    const originResolver = currentSettings.srsEnabled
+      ? (rule, replacementText) => {
+          const key = String(replacementText || "").toLowerCase();
+          return currentSettings._srsActiveLemmas && currentSettings._srsActiveLemmas.has(key)
+            ? "srs"
+            : "ruleset";
+        }
+      : null;
     const result = buildReplacementFragment(node.nodeValue, currentTrie, currentSettings, (textNode) => {
       processedNodes.set(textNode, textNode.nodeValue);
-    });
+    }, originResolver);
     if (result) {
       const parent = node.parentNode;
       if (parent) {
@@ -410,11 +428,50 @@
     }
   }
 
-  function applySettings(settings) {
+  async function applySettings(settings) {
+    const token = (applyToken += 1);
     currentSettings = { ...defaults, ...settings };
     processedNodes = new WeakMap();
     const normalizedRules = normalizeRules(currentSettings.rules);
     const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
+    let activeRules = enabledRules;
+    currentSettings._srsActiveLemmas = null;
+    let srsStats = null;
+    if (currentSettings.srsEnabled && srsSelector && typeof srsSelector.selectActiveItems === "function") {
+      try {
+        const result = await srsSelector.selectActiveItems(currentSettings);
+        srsStats = result && result.stats ? result.stats : null;
+        const total = srsStats && Number.isFinite(srsStats.total) ? srsStats.total : 0;
+        if (!total) {
+          if (currentSettings.debugEnabled) {
+            log("SRS dataset unavailable; falling back to full rules.");
+          }
+          activeRules = enabledRules;
+        } else {
+          const activeLemmas = new Set(
+            (result && result.lemmas ? result.lemmas : []).map((lemma) => String(lemma).toLowerCase())
+          );
+          if (activeLemmas.size) {
+            activeRules = enabledRules.filter((rule) =>
+              activeLemmas.has(String(rule.replacement || "").toLowerCase())
+            );
+            currentSettings._srsActiveLemmas = activeLemmas;
+            if (currentSettings.debugEnabled) {
+              const sample = Array.from(activeLemmas).slice(0, 5);
+              log(`SRS active lemmas (sample): ${sample.join(", ")}`);
+            }
+          } else {
+            activeRules = [];
+          }
+        }
+      } catch (err) {
+        log("SRS selection failed; falling back to full rules.", err);
+        activeRules = enabledRules;
+      }
+    }
+    if (token !== applyToken) {
+      return;
+    }
     const focusWord = getFocusWord(currentSettings);
     const focusRules = focusWord
       ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord)
@@ -427,9 +484,21 @@
       highlightColor: currentSettings.highlightColor,
       maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
       allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
+      srsEnabled: currentSettings.srsEnabled === true,
+      srsPair: currentSettings.srsPair || "",
+      srsMaxActive: currentSettings.srsMaxActive,
       debugEnabled: currentSettings.debugEnabled,
       debugFocusWord: focusWord || ""
     });
+    if (currentSettings.srsEnabled && currentSettings.debugEnabled) {
+      log("SRS selector stats:", srsStats || { total: 0, filtered: 0 });
+      log(`SRS rules active: ${activeRules.length}`);
+      if (!srsStats || srsStats.datasetLoaded === false) {
+        log("SRS dataset not loaded.", srsStats && srsStats.error ? srsStats.error : "");
+      } else if (activeRules.length === 0) {
+        log("SRS mode active but no matching rules for current dataset/pair.");
+      }
+    }
     if (currentSettings.debugEnabled) {
       log("Context info:", Object.assign({ readyState: document.readyState }, getFrameInfo()));
       if (document.body) {
@@ -445,8 +514,17 @@
     if (focusWord && !focusRules.length) {
       log(`No enabled rule found for focus word "${focusWord}".`);
     }
-    ensureStyle(currentSettings.highlightColor || defaults.highlightColor);
+    ensureStyle(
+      currentSettings.highlightColor || defaults.highlightColor,
+      currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
+    );
+    if (setFeedbackSoundEnabled) {
+      setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
+    }
     attachClickListener();
+    attachFeedbackListener((payload) => handleFeedback(payload, focusWord), {
+      allowOrigins: currentSettings.srsFeedbackEnabled === false ? ["srs", "ruleset"] : ["srs"]
+    });
     applyHighlightToDom(currentSettings.highlightEnabled);
 
     applyingChanges = true;
@@ -457,7 +535,7 @@
         log("Replacements are disabled.");
         return;
       }
-      currentTrie = buildTrie(normalizedRules);
+      currentTrie = buildTrie(activeRules);
       processDocument();
     } finally {
       applyingChanges = false;
@@ -470,9 +548,40 @@
     });
   }
 
+  function handleFeedback(payload, focusWord) {
+    if (!payload || !payload.target) {
+      return;
+    }
+    const target = payload.target;
+    const entry = {
+      rating: payload.rating,
+      lemma: String(target.dataset.replacement || target.textContent || ""),
+      replacement: String(target.dataset.replacement || target.textContent || ""),
+      original: String(target.dataset.original || ""),
+      language_pair: target.dataset.languagePair || "",
+      source_phrase: target.dataset.source || "",
+      url: window.location ? window.location.href : ""
+    };
+    if (srsFeedback && typeof srsFeedback.recordFeedback === "function") {
+      srsFeedback.recordFeedback(entry).then((saved) => {
+        if (currentSettings.debugEnabled) {
+          log("SRS feedback saved.", saved);
+        }
+      });
+    }
+    if (currentSettings.debugEnabled) {
+      log(
+        `SRS feedback: ${entry.rating} for "${entry.replacement}" (${entry.language_pair || "unpaired"})`
+      );
+      if (focusWord && entry.replacement.toLowerCase() === focusWord) {
+        log(`SRS feedback applied to focus word "${focusWord}".`);
+      }
+    }
+  }
+
   async function boot() {
     const settings = await loadSettings();
-    applySettings(settings);
+    await applySettings(settings);
     observeChanges();
     window.addEventListener("load", () => {
       ensureObserver();
@@ -518,6 +627,35 @@
       nextSettings.allowAdjacentReplacements = changes.allowAdjacentReplacements.newValue;
       needsRebuild = true;
     }
+    if (changes.srsEnabled) {
+      nextSettings.srsEnabled = changes.srsEnabled.newValue;
+      needsRebuild = true;
+    }
+    if (changes.srsPair) {
+      nextSettings.srsPair = changes.srsPair.newValue;
+      needsRebuild = true;
+    }
+    if (changes.srsMaxActive) {
+      nextSettings.srsMaxActive = changes.srsMaxActive.newValue;
+      needsRebuild = true;
+    }
+    if (changes.srsSoundEnabled) {
+      nextSettings.srsSoundEnabled = changes.srsSoundEnabled.newValue;
+      if (setFeedbackSoundEnabled) {
+        setFeedbackSoundEnabled(nextSettings.srsSoundEnabled);
+      }
+    }
+    if (changes.srsHighlightColor) {
+      nextSettings.srsHighlightColor = changes.srsHighlightColor.newValue;
+      needsHighlight = true;
+    }
+    if (changes.srsFeedbackEnabled) {
+      nextSettings.srsFeedbackEnabled = changes.srsFeedbackEnabled.newValue;
+      currentSettings = { ...currentSettings, ...nextSettings };
+      attachFeedbackListener((payload) => handleFeedback(payload, getFocusWord(currentSettings)), {
+        allowOrigins: currentSettings.srsFeedbackEnabled === false ? ["srs", "ruleset"] : ["srs"]
+      });
+    }
     if (changes.debugEnabled) {
       nextSettings.debugEnabled = changes.debugEnabled.newValue;
       currentSettings = { ...currentSettings, ...nextSettings };
@@ -536,7 +674,10 @@
 
     if (needsHighlight) {
       currentSettings = { ...currentSettings, ...nextSettings };
-      ensureStyle(currentSettings.highlightColor || defaults.highlightColor);
+      ensureStyle(
+        currentSettings.highlightColor || defaults.highlightColor,
+        currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
+      );
       applyHighlightToDom(currentSettings.highlightEnabled);
     }
     if (needsRebuild) {

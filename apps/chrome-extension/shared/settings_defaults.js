@@ -12,6 +12,12 @@
     uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",
-    rulesUpdatedAt: ""
+    rulesUpdatedAt: "",
+    srsEnabled: false,
+    srsPair: "en-en",
+    srsMaxActive: 40,
+    srsSoundEnabled: true,
+    srsHighlightColor: "#2F74D0",
+    srsFeedbackEnabled: true
   };
 })();

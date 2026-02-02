@@ -113,6 +113,28 @@ header p {
   font-family: "Courier New", monospace;
 }
 
+.field-row input[type="text"].color-text,
+.field-row input[type="text"][id$="highlight-color-text"] {
+  width: 130px;
+}
+
+.field-row input[type="number"] {
+  width: 110px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #cfc6b5;
+  background: #fffefb;
+  font-family: "Courier New", monospace;
+}
+
+.field-row select {
+  min-width: 150px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #cfc6b5;
+  background: #fffefb;
+}
+
 #debug-focus-word {
   width: 200px;
 }
@@ -166,6 +188,11 @@ textarea {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+#srs-sample-output {
+  font-size: 13px;
+  color: #5f594f;
 }
 
 button {

@@ -68,6 +68,45 @@
   "hint_allow_adjacent": {
     "message": "Wenn deaktiviert, werden aufeinanderfolgende Ersetzungen verhindert."
   },
+  "section_srs": {
+    "message": "SRS-Training"
+  },
+  "toggle_srs_enabled": {
+    "message": "SRS-Übungsmodus aktivieren"
+  },
+  "hint_srs_dataset": {
+    "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
+  },
+  "label_srs_pair": {
+    "message": "Sprachpaar"
+  },
+  "option_srs_all_pairs": {
+    "message": "Alle Paare"
+  },
+  "label_srs_max_active": {
+    "message": "Max. aktive Wörter"
+  },
+  "label_srs_highlight_color": {
+    "message": "SRS-Hervorhebungsfarbe"
+  },
+  "toggle_srs_feedback": {
+    "message": "Feedback nur für SRS-Wörter aktivieren"
+  },
+  "toggle_srs_sound": {
+    "message": "Feedback-Sound abspielen"
+  },
+  "button_srs_sample": {
+    "message": "Aktive Wörter testen…"
+  },
+  "status_srs_sampling": {
+    "message": "Stichprobe läuft…"
+  },
+  "status_srs_sample_empty": {
+    "message": "Keine Wörter verfügbar."
+  },
+  "status_srs_sample_failed": {
+    "message": "SRS-Stichprobe fehlgeschlagen."
+  },
   "section_share_code": {
     "message": "Share-Code"
   },
@@ -121,6 +160,9 @@
   },
   "status_replacement_saved": {
     "message": "Ersetzungseinstellungen gespeichert."
+  },
+  "status_srs_saved": {
+    "message": "SRS-Einstellungen gespeichert."
   },
   "status_switch_edit_json": {
     "message": "Zum Speichern auf „JSON bearbeiten“ wechseln."

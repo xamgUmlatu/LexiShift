@@ -68,6 +68,45 @@
   "hint_allow_adjacent": {
     "message": "When disabled, prevents back-to-back word replacements."
   },
+  "section_srs": {
+    "message": "SRS Practice"
+  },
+  "toggle_srs_enabled": {
+    "message": "Enable SRS practice mode"
+  },
+  "hint_srs_dataset": {
+    "message": "Uses a fixed test dataset for now (no external downloads)."
+  },
+  "label_srs_pair": {
+    "message": "Language pair"
+  },
+  "option_srs_all_pairs": {
+    "message": "All pairs"
+  },
+  "label_srs_max_active": {
+    "message": "Max active words"
+  },
+  "label_srs_highlight_color": {
+    "message": "SRS highlight color"
+  },
+  "toggle_srs_feedback": {
+    "message": "Enable feedback on SRS words only"
+  },
+  "toggle_srs_sound": {
+    "message": "Play feedback sound"
+  },
+  "button_srs_sample": {
+    "message": "Sample active words…"
+  },
+  "status_srs_sampling": {
+    "message": "Sampling…"
+  },
+  "status_srs_sample_empty": {
+    "message": "No words available."
+  },
+  "status_srs_sample_failed": {
+    "message": "SRS sample failed."
+  },
   "section_share_code": {
     "message": "Share Code"
   },
@@ -121,6 +160,9 @@
   },
   "status_replacement_saved": {
     "message": "Replacement settings saved."
+  },
+  "status_srs_saved": {
+    "message": "SRS settings saved."
   },
   "status_switch_edit_json": {
     "message": "Switch to Edit JSON to save changes."

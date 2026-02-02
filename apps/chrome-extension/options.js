@@ -11,7 +11,13 @@ const DEFAULT_SETTINGS =
     uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",
-    rulesUpdatedAt: ""
+    rulesUpdatedAt: "",
+    srsEnabled: false,
+    srsPair: "en-en",
+    srsMaxActive: 40,
+    srsSoundEnabled: true,
+    srsHighlightColor: "#2F74D0",
+    srsFeedbackEnabled: true
   };
 
 let localeMessages = null;
@@ -39,6 +45,10 @@ function formatMessage(message, substitutions) {
     const value = values[Number(index) - 1];
     return value !== undefined ? String(value) : match;
   });
+}
+
+function logOptions(...args) {
+  console.log("[LexiShift][Options]", ...args);
 }
 
 function applyI18n() {
@@ -119,6 +129,15 @@ const maxOnePerBlockInput = document.getElementById("max-one-per-block");
 const allowAdjacentInput = document.getElementById("allow-adjacent");
 const debugEnabledInput = document.getElementById("debug-enabled");
 const debugFocusInput = document.getElementById("debug-focus-word");
+const srsEnabledInput = document.getElementById("srs-enabled");
+const srsPairInput = document.getElementById("srs-pair");
+const srsMaxActiveInput = document.getElementById("srs-max-active");
+const srsSoundInput = document.getElementById("srs-sound-enabled");
+const srsHighlightInput = document.getElementById("srs-highlight-color");
+const srsHighlightTextInput = document.getElementById("srs-highlight-color-text");
+const srsFeedbackInput = document.getElementById("srs-feedback-enabled");
+const srsSampleButton = document.getElementById("srs-sample");
+const srsSampleOutput = document.getElementById("srs-sample-output");
 const languageSelect = document.getElementById("ui-language");
 const rulesInput = document.getElementById("rules");
 const saveButton = document.getElementById("save");
@@ -213,6 +232,43 @@ function saveReplacementSettings() {
   const allowAdjacentReplacements = allowAdjacentInput.checked;
   chrome.storage.local.set({ maxOnePerTextBlock, allowAdjacentReplacements }, () => {
     setStatus(t("status_replacement_saved", null, "Replacement settings saved."), "#3c5a2a");
+  });
+}
+
+function saveSrsSettings() {
+  if (!srsEnabledInput || !srsPairInput || !srsMaxActiveInput) {
+    return;
+  }
+  const srsEnabled = srsEnabledInput.checked;
+  const srsPair = srsPairInput.value || DEFAULT_SETTINGS.srsPair || "en-en";
+  const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
+  const srsMaxActive = Number.isFinite(maxActiveRaw)
+    ? Math.max(1, maxActiveRaw)
+    : (DEFAULT_SETTINGS.srsMaxActive || 40);
+  const srsSoundEnabled = srsSoundInput ? srsSoundInput.checked : true;
+  const srsHighlightColor = srsHighlightInput
+    ? (srsHighlightInput.value || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0")
+    : (DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0");
+  const srsFeedbackEnabled = srsFeedbackInput ? srsFeedbackInput.checked : true;
+  srsMaxActiveInput.value = String(srsMaxActive);
+  if (srsHighlightInput) {
+    srsHighlightInput.value = srsHighlightColor;
+  }
+  if (srsHighlightTextInput) {
+    srsHighlightTextInput.value = srsHighlightColor;
+  }
+  chrome.storage.local.set(
+    { srsEnabled, srsPair, srsMaxActive, srsSoundEnabled, srsHighlightColor, srsFeedbackEnabled },
+    () => {
+    setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
+    logOptions("SRS settings saved.", {
+      srsEnabled,
+      srsPair,
+      srsMaxActive,
+      srsSoundEnabled,
+      srsHighlightColor,
+      srsFeedbackEnabled
+    });
   });
 }
 
@@ -386,6 +442,30 @@ function load() {
     debugEnabledInput.checked = items.debugEnabled === true;
     debugFocusInput.value = items.debugFocusWord || "";
     debugFocusInput.disabled = !debugEnabledInput.checked;
+    if (srsEnabledInput) {
+      srsEnabledInput.checked = items.srsEnabled === true;
+    }
+    if (srsPairInput) {
+      srsPairInput.value = items.srsPair || DEFAULT_SETTINGS.srsPair || "en-en";
+    }
+    if (srsMaxActiveInput) {
+      srsMaxActiveInput.value = String(items.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40);
+    }
+    if (srsSoundInput) {
+      srsSoundInput.checked = items.srsSoundEnabled !== false;
+    }
+    if (srsHighlightInput) {
+      srsHighlightInput.value = items.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0";
+    }
+    if (srsHighlightTextInput) {
+      srsHighlightTextInput.value = srsHighlightInput ? srsHighlightInput.value : "#2F74D0";
+    }
+    if (srsFeedbackInput) {
+      srsFeedbackInput.checked = items.srsFeedbackEnabled !== false;
+    }
+    if (srsSampleOutput) {
+      srsSampleOutput.textContent = "";
+    }
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
     }
@@ -406,6 +486,35 @@ function load() {
     updateRulesMeta(currentRules, items.rulesUpdatedAt);
     loadLocaleMessages(items.uiLanguage || "system");
   });
+}
+
+async function sampleActiveWords() {
+  if (!srsSampleButton || !srsSampleOutput) {
+    return;
+  }
+  const selector = globalThis.LexiShift && globalThis.LexiShift.srsSelector;
+  if (!selector || typeof selector.selectSampledItems !== "function") {
+    srsSampleOutput.textContent = t("status_srs_sample_failed", null, "SRS selector not available.");
+    return;
+  }
+  const srsPair = srsPairInput ? (srsPairInput.value || DEFAULT_SETTINGS.srsPair || "en-en") : "en-en";
+  srsSampleButton.disabled = true;
+  srsSampleOutput.textContent = t("status_srs_sampling", null, "Sampling…");
+  try {
+    const result = await selector.selectSampledItems({ srsPair }, 5);
+    const lemmas = result && result.lemmas ? result.lemmas : [];
+    if (!lemmas.length) {
+      srsSampleOutput.textContent = t("status_srs_sample_empty", null, "No words available.");
+    } else {
+      srsSampleOutput.textContent = lemmas.join(", ");
+    }
+    logOptions("SRS sample", { pair: srsPair, lemmas });
+  } catch (err) {
+    srsSampleOutput.textContent = t("status_srs_sample_failed", null, "SRS sample failed.");
+    logOptions("SRS sample failed.", err);
+  } finally {
+    srsSampleButton.disabled = false;
+  }
 }
 
 saveButton.addEventListener("click", saveRules);
@@ -449,6 +558,42 @@ maxOnePerBlockInput.addEventListener("change", () => {
 allowAdjacentInput.addEventListener("change", () => {
   saveReplacementSettings();
 });
+
+if (srsEnabledInput) {
+  srsEnabledInput.addEventListener("change", saveSrsSettings);
+}
+if (srsPairInput) {
+  srsPairInput.addEventListener("change", saveSrsSettings);
+}
+if (srsMaxActiveInput) {
+  srsMaxActiveInput.addEventListener("change", saveSrsSettings);
+}
+if (srsSoundInput) {
+  srsSoundInput.addEventListener("change", saveSrsSettings);
+}
+if (srsHighlightInput) {
+  srsHighlightInput.addEventListener("change", () => {
+    if (srsHighlightTextInput) {
+      srsHighlightTextInput.value = srsHighlightInput.value;
+    }
+    saveSrsSettings();
+  });
+}
+if (srsHighlightTextInput) {
+  srsHighlightTextInput.addEventListener("change", () => {
+    const value = srsHighlightTextInput.value.trim();
+    if (value) {
+      srsHighlightInput.value = value;
+      saveSrsSettings();
+    }
+  });
+}
+if (srsFeedbackInput) {
+  srsFeedbackInput.addEventListener("change", saveSrsSettings);
+}
+if (srsSampleButton) {
+  srsSampleButton.addEventListener("click", sampleActiveWords);
+}
 
 debugEnabledInput.addEventListener("change", () => {
   debugFocusInput.disabled = !debugEnabledInput.checked;

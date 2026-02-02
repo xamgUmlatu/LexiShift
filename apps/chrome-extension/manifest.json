@@ -17,6 +17,8 @@
       "matches": ["<all_urls>"],
       "js": [
         "shared/settings_defaults.js",
+        "shared/srs_selector.js",
+        "shared/srs_feedback.js",
         "content/tokenizer.js",
         "content/matcher.js",
         "content/replacements.js",
@@ -27,6 +29,12 @@
       "run_at": "document_idle",
       "all_frames": true,
       "match_about_blank": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["shared/srs_selector_test_dataset.json"],
+      "matches": ["<all_urls>"]
     }
   ]
 }

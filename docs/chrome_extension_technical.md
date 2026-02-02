@@ -9,6 +9,11 @@ Module layout
 - `apps/chrome-extension/shared/settings_defaults.js`
   - Central default settings used by both the options UI and content script.
   - Avoids drift when new settings are added.
+- `apps/chrome-extension/shared/srs_selector.js`
+  - Loads the fixed SRS test dataset and scores candidates.
+  - Selects active SRS lemmas for gating.
+- `apps/chrome-extension/shared/srs_feedback.js`
+  - Persists SRS feedback events to `chrome.storage.local` (`srsFeedbackLog`).
 - `apps/chrome-extension/content/tokenizer.js`
   - Tokenization utilities (word/space/punct) and normalization helpers.
   - Exposes `tokenize`, `normalize`, `textHasToken`, `computeGapOk`.
@@ -20,8 +25,10 @@ Module layout
   - Builds a `DocumentFragment` with replacement spans for a text node.
   - Filters matches based on settings (max-one-per-block, allow-adjacent).
   - Keeps optional replacement detail logs for debug mode.
+  - Adds `data-origin`, `data-language-pair`, and `data-source` for downstream UI control.
 - `apps/chrome-extension/content/ui.js`
   - Handles highlight styles, click-to-toggle behavior, and cleanup.
+  - Provides SRS feedback popup and keyboard shortcuts (Ctrl+1/2/3/4).
   - Separates DOM mutation concerns from parsing and matching.
 - `apps/chrome-extension/content/utils.js`
   - Logging helpers: element descriptors, codepoint snippets, node traversal.
@@ -40,18 +47,45 @@ Settings flow
 - Content script reads settings on boot and reacts to `chrome.storage.onChanged`.
 - Highlight/visual settings apply immediately; rules changes trigger a rescan.
 
+SRS settings (extension)
+- `srsEnabled` (bool): enables SRS gating.
+- `srsPair` (string): `en-en`, `de-de`, `ja-ja`, or `all`.
+- `srsMaxActive` (int): max active lemmas to allow.
+- `srsHighlightColor` (hex): highlight color for SRS-origin spans.
+- `srsFeedbackEnabled` (bool): if true, feedback popup only appears on SRS words.
+- `srsSoundEnabled` (bool): enable/disable feedback sound.
+
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
-2. Normalize rules and build a trie of word tokens.
-3. Collect all text nodes using a TreeWalker.
-4. For each node:
+2. Normalize rules.
+3. If SRS is enabled, load the fixed test dataset and select active lemmas.
+4. Filter rules to those whose `replacement` is in the active lemma set.
+5. Build a trie of word tokens from the filtered rules.
+6. Collect all text nodes using a TreeWalker.
+7. For each node:
    - Skip if empty, whitespace-only, in editable fields, excluded tags, or already replaced.
    - Tokenize and find longest matches via the trie.
    - Optionally filter matches:
      - `maxOnePerTextBlock`: keep only the first match in the text node.
      - `allowAdjacentReplacements=false`: skip back-to-back word matches.
    - Replace the node with a fragment containing spans and text nodes.
-5. Track processed nodes in a `WeakMap` to avoid repeated replacements.
+   - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
+8. Track processed nodes in a `WeakMap` to avoid repeated replacements.
+
+SRS gating behavior (extension)
+- The selector uses a fixed test dataset (`shared/srs_selector_test_dataset.json`).
+- The active lemma set gates rules by **replacement lemma**.
+- If the dataset fails to load, the extension falls back to full rules and logs the error (debug only).
+
+SRS feedback UX (extension)
+- Right click on a replacement shows a popup with 4 colored choices:
+  - 1 (red) = Again / Failed
+  - 2 (orange) = Hard
+  - 3 (yellow) = Good
+  - 4 (blue) = Easy
+- Keyboard shortcuts: **Ctrl+1/2/3/4**.
+- Feedback is stored in `chrome.storage.local` (`srsFeedbackLog`, max 500 entries).
+- If `srsFeedbackEnabled` is true, the popup is restricted to SRS-origin spans only.
 
 Observer strategy
 - A MutationObserver watches for added/edited nodes and rescans only the new content.
