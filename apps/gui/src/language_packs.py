@@ -7,11 +7,12 @@ import tarfile
 import urllib.request
 import zipfile
 from pathlib import Path
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from PySide6.QtCore import QThread, Signal
 
 from i18n import t
+from lexishift_core.frequency_sqlite import ParseConfig, convert_frequency_to_sqlite
 
 @dataclass(frozen=True)
 class LanguagePackInfo:
@@ -39,6 +40,33 @@ class LanguagePackInfo:
     def display_source(self) -> str:
         return t(self.source_key) if self.source_key else self.source
 
+
+@dataclass(frozen=True)
+class FrequencyPackInfo:
+    pack_id: str
+    name: str
+    language: str
+    source: str
+    size: str
+    url: str
+    wayback_url: str
+    filename: str
+    sqlite_filename: str
+    source_filename: str | None = None
+    parse_config: ParseConfig = field(default_factory=ParseConfig)
+    index_column: str = "lemma"
+    name_key: str | None = None
+    language_key: str | None = None
+    source_key: str | None = None
+
+    def display_name(self) -> str:
+        return t(self.name_key) if self.name_key else self.name
+
+    def display_language(self) -> str:
+        return t(self.language_key) if self.language_key else self.language
+
+    def display_source(self) -> str:
+        return t(self.source_key) if self.source_key else self.source
 
 LANGUAGE_PACKS = [
     LanguagePackInfo(
@@ -88,7 +116,7 @@ LANGUAGE_PACKS = [
         name="OdeNet",
         language="German",
         source="OdeNet",
-        size="~15 MB",
+        size="15 MB",
         url="https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml",
         wayback_url="https://web.archive.org/web/20251101/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml",
         filename="odenet_oneline.xml",
@@ -282,6 +310,50 @@ CROSS_EMBEDDING_PACKS = [
     ),
 ]
 
+FREQUENCY_PACKS = [
+    FrequencyPackInfo(
+        pack_id="freq-en-coca",
+        name="COCA English Frequency (Lemmas)",
+        language="English",
+        source="COCA",
+        size="2 MB",
+        url="https://www.wordfrequency.info/samples/lemmas_60k.txt",
+        wayback_url="https://web.archive.org/web/20210127204059/https://www.wordfrequency.info/samples/lemmas_60k.txt",
+        filename="lemmas_60k.txt",
+        sqlite_filename="freq-en-coca.sqlite",
+        parse_config=ParseConfig(
+            delimiter="\t",
+            header_starts_with="rank",
+            skip_prefixes=("*", "-----"),
+        ),
+        index_column="lemma",
+        name_key="packs.freq_en_coca",
+        language_key="languages.english",
+        source_key="providers.coca",
+    ),
+    FrequencyPackInfo(
+        pack_id="freq-ja-bccwj",
+        name="BCCWJ Japanese Frequency (SUW)",
+        language="Japanese",
+        source="NINJAL",
+        size="50 MB",
+        url="https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip",
+        wayback_url="https://web.archive.org/web/0/https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip",
+        filename="BCCWJ_frequencylist_suw_ver1_0.zip",
+        sqlite_filename="freq-ja-bccwj.sqlite",
+        source_filename="BCCWJ_frequencylist_suw_ver1_0.tsv",
+        parse_config=ParseConfig(
+            delimiter="\t",
+            header_starts_with="rank",
+            skip_prefixes=(),
+        ),
+        index_column="lemma",
+        name_key="packs.freq_ja_bccwj",
+        language_key="languages.japanese",
+        source_key="providers.ninjal",
+    ),
+]
+
 
 class LanguagePackDownloadThread(QThread):
     progress = Signal(str, int, int)
@@ -386,6 +458,140 @@ class LanguagePackDownloadThread(QThread):
         try:
             if os.path.exists(archive_path):
                 os.remove(archive_path)
+        except OSError:
+            pass
+
+    def _cleanup_partial(self, path: str) -> None:
+        try:
+            if os.path.exists(path):
+                os.remove(path)
+        except OSError:
+            pass
+
+
+class FrequencyPackDownloadThread(QThread):
+    progress = Signal(str, int, int)
+    completed = Signal(str, str)
+    failed = Signal(str, str)
+
+    def __init__(
+        self,
+        pack: FrequencyPackInfo,
+        archive_path: str,
+        sqlite_path: str,
+        parent=None,
+    ) -> None:
+        super().__init__(parent)
+        self._pack = pack
+        self._pack_id = pack.pack_id
+        self._url = pack.url
+        self._archive_path = archive_path
+        self._sqlite_path = sqlite_path
+
+    def run(self) -> None:
+        try:
+            request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
+            with urllib.request.urlopen(request, timeout=30) as response:
+                total = int(response.headers.get("Content-Length") or 0)
+                downloaded = 0
+                os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
+                with open(self._archive_path, "wb") as handle:
+                    while True:
+                        if self.isInterruptionRequested():
+                            self._cleanup_partial(self._archive_path)
+                            self.failed.emit(self._pack_id, "cancelled")
+                            return
+                        chunk = response.read(1024 * 128)
+                        if not chunk:
+                            break
+                        handle.write(chunk)
+                        downloaded += len(chunk)
+                        self.progress.emit(self._pack_id, downloaded, total)
+            if self.isInterruptionRequested():
+                self._cleanup_partial(self._archive_path)
+                self.failed.emit(self._pack_id, "cancelled")
+                return
+            sqlite_path = self._convert_to_sqlite(self._archive_path)
+            self.completed.emit(self._pack_id, sqlite_path)
+        except Exception as exc:
+            self._cleanup_partial(self._sqlite_path)
+            self.failed.emit(self._pack_id, str(exc))
+
+    def _convert_to_sqlite(self, archive_path: str) -> str:
+        source_path, cleanup_paths = self._prepare_source(archive_path)
+        os.makedirs(os.path.dirname(self._sqlite_path), exist_ok=True)
+        try:
+            convert_frequency_to_sqlite(
+                Path(source_path),
+                Path(self._sqlite_path),
+                overwrite=True,
+                config=self._pack.parse_config,
+                index_column=self._pack.index_column,
+            )
+        finally:
+            for path in cleanup_paths:
+                self._cleanup_path(path)
+        return self._sqlite_path
+
+    def _prepare_source(self, archive_path: str) -> tuple[str, list[str]]:
+        cleanup_paths: list[str] = []
+        if archive_path.endswith(".zip"):
+            target_dir = os.path.splitext(archive_path)[0]
+            os.makedirs(target_dir, exist_ok=True)
+            with zipfile.ZipFile(archive_path, "r") as archive:
+                archive.extractall(target_dir)
+            cleanup_paths.extend([archive_path, target_dir])
+            source_path = self._locate_source_file(target_dir)
+            cleanup_paths.append(source_path)
+            return source_path, cleanup_paths
+        if archive_path.endswith((".tar.gz", ".tgz", ".tar.xz", ".txz")):
+            target_dir = archive_path
+            for suffix in (".tar.gz", ".tgz", ".tar.xz", ".txz"):
+                if target_dir.endswith(suffix):
+                    target_dir = target_dir[: -len(suffix)]
+                    break
+            os.makedirs(target_dir, exist_ok=True)
+            with tarfile.open(archive_path, "r:*") as archive:
+                archive.extractall(target_dir)
+            cleanup_paths.extend([archive_path, target_dir])
+            source_path = self._locate_source_file(target_dir)
+            cleanup_paths.append(source_path)
+            return source_path, cleanup_paths
+        if archive_path.endswith(".gz"):
+            target_path = os.path.splitext(archive_path)[0]
+            with gzip.open(archive_path, "rb") as source, open(target_path, "wb") as output:
+                shutil.copyfileobj(source, output)
+            cleanup_paths.extend([archive_path, target_path])
+            return target_path, cleanup_paths
+        cleanup_paths.append(archive_path)
+        return archive_path, cleanup_paths
+
+    def _locate_source_file(self, root: str) -> str:
+        if self._pack.source_filename:
+            for dirpath, _dirnames, filenames in os.walk(root):
+                if self._pack.source_filename in filenames:
+                    return os.path.join(dirpath, self._pack.source_filename)
+        candidates = []
+        for dirpath, _dirnames, filenames in os.walk(root):
+            for name in filenames:
+                candidates.append(os.path.join(dirpath, name))
+        if not candidates:
+            raise FileNotFoundError(f"No files found in extracted archive for {self._pack_id}.")
+        if len(candidates) == 1:
+            return candidates[0]
+        preferred = [path for path in candidates if path.lower().endswith((".tsv", ".txt", ".csv"))]
+        preferred.sort()
+        if preferred:
+            return preferred[0]
+        candidates.sort()
+        return candidates[0]
+
+    def _cleanup_path(self, path: str) -> None:
+        try:
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            elif os.path.exists(path):
+                os.remove(path)
         except OSError:
             pass
 

@@ -167,6 +167,7 @@ class SettingsDialog(QDialog):
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
         embedding_threshold = self.embedding_threshold_slider.value() / 100.0
         language_pack_paths = self.language_pack_panel.paths()
+        frequency_pack_paths = self.language_pack_panel.frequency_paths()
         embedding_pack_paths = self.language_pack_panel.embedding_paths()
         embedding_pair_paths = self.language_pack_panel.embedding_pair_paths()
         embedding_pair_enabled = self.language_pack_panel.embedding_pair_enabled()
@@ -183,6 +184,7 @@ class SettingsDialog(QDialog):
             embedding_threshold=embedding_threshold,
             embedding_fallback=self.embedding_fallback_check.isChecked(),
             language_packs=language_pack_paths,
+            frequency_packs=frequency_pack_paths,
             embedding_packs=embedding_pack_paths,
             embedding_pair_paths=embedding_pair_paths,
             embedding_pair_enabled=embedding_pair_enabled,

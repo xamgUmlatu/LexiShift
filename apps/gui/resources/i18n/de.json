@@ -294,6 +294,9 @@
   "language_packs": {
     "title": "Sprachpakete",
     "open_directory": "Lokales Verzeichnis öffnen",
+    "frequency_title": "Frequenzpakete",
+    "frequency_description": "Frequenzpakete liefern Wortgewichte für Lernen und SRS-Auswahl.",
+    "frequency_open_directory": "Frequenzverzeichnis öffnen",
     "embeddings_title": "Embeddings (optional)",
     "embeddings_help": "Embeddings liefern Ähnlichkeits-Rankings für Synonyme. Optional und später nachladbar.",
     "embeddings_description": "Embeddings sind optionale Add-ons. Für V1 nicht erforderlich, aber später für Ähnlichkeits-Ranking aktivierbar.",
@@ -373,7 +376,9 @@
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
     "freedict": "FreeDict",
-    "fasttext": "fastText"
+    "fasttext": "fastText",
+    "coca": "COCA",
+    "ninjal": "NINJAL"
   },
   "embeddings": {
     "fasttext_en": "fastText Englisch (Common Crawl)",
@@ -394,6 +399,8 @@
     "cc_cedict": "CC-CEDICT",
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
+    "freq_en_coca": "COCA Englisch-Häufigkeit (Lemmata)",
+    "freq_ja_bccwj": "BCCWJ Japanisch-Häufigkeit (SUW)",
     "label": "{name} ({language})"
   },
   "common": {

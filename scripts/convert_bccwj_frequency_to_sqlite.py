@@ -3,13 +3,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-import sys
-
-
-SCRIPT_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(SCRIPT_DIR))
-
-from convert_frequency_to_sqlite import ParseConfig, convert_to_sqlite
+from lexishift_core.frequency_sqlite import ParseConfig, convert_frequency_to_sqlite
 
 
 def main() -> None:
@@ -26,7 +20,7 @@ def main() -> None:
         header_starts_with="rank",
         skip_prefixes=(),
     )
-    convert_to_sqlite(
+    convert_frequency_to_sqlite(
         args.input,
         args.output,
         table=args.table,

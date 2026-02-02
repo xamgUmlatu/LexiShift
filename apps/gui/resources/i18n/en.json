@@ -295,6 +295,9 @@
   "language_packs": {
     "title": "Language packs",
     "open_directory": "Open local directory",
+    "frequency_title": "Frequency packs",
+    "frequency_description": "Frequency packs power word-level weighting for learning and SRS selection.",
+    "frequency_open_directory": "Open frequency directory",
     "headers": {
       "pack": "Pack",
       "language": "Language",
@@ -374,7 +377,9 @@
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
     "freedict": "FreeDict",
-    "fasttext": "fastText"
+    "fasttext": "fastText",
+    "coca": "COCA",
+    "ninjal": "NINJAL"
   },
   "embeddings": {
     "fasttext_en": "fastText English (Common Crawl)",
@@ -395,6 +400,8 @@
     "cc_cedict": "CC-CEDICT",
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
+    "freq_en_coca": "COCA English Frequency (Lemmas)",
+    "freq_ja_bccwj": "BCCWJ Japanese Frequency (SUW)",
     "label": "{name} ({language})"
   },
   "common": {

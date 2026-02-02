@@ -123,14 +123,14 @@ Open questions
 Next steps (current workstream focus)
 1) **Frequency provider for EN glosses (JA→EN)**
    - Why: use high‑frequency English glosses to generate rules that actually appear in text.
-   - Needed from you: a frequency dataset for English words (single‑word, no phrases).
+   - Status: COCA lemmas list downloaded and converted to SQLite via the GUI frequency pack flow.
    - Output: a `frequency_provider(candidate)` function that returns 0–1 weight.
-   - Conversion: use `scripts/convert_frequency_to_sqlite.py` for long‑term local use.
+   - Pack size (SQLite): ~2 MB.
 
 2) **JA frequency list (for JP target weighting)**
    - Why: lets SRS and rulegen favor common JP targets or allow rare ones intentionally.
-   - Needed from you: BCCWJ SUW TSV (or equivalent).
-   - Conversion: use `scripts/convert_bccwj_frequency_to_sqlite.py`.
+   - Status: BCCWJ SUW downloaded and converted to SQLite via the GUI frequency pack flow.
+   - Pack size (SQLite): ~50 MB.
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.
    - Needed from you: preferred output path + any S test list you want to use.

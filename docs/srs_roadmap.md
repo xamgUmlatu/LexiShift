@@ -137,7 +137,7 @@ See also: `docs/rule_generation_technical.md` for precomputed rule + confidence 
 ### Required (for MVP S growth)
 1) **Monolingual frequency lists** (EN, DE, JP)
    - Used to seed S with top‑N lemmas.
-   - **Status:** not bundled in repo.
+   - **Status:** EN + JP downloaded and converted to SQLite via GUI frequency packs. DE still pending.
 
 2) **Language‑aware tokenization/segmentation**
    - EN/DE: word tokenization is already available in the engine.

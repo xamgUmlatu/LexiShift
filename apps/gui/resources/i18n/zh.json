@@ -294,6 +294,9 @@
   "language_packs": {
     "title": "语言包",
     "open_directory": "打开本地目录",
+    "frequency_title": "词频包",
+    "frequency_description": "词频包用于学习和 SRS 选择的词汇权重。",
+    "frequency_open_directory": "打开词频目录",
     "embeddings_title": "嵌入（可选）",
     "embeddings_help": "嵌入用于同义词相似度排序。可选功能，可在之后下载启用。",
     "embeddings_description": "嵌入是可选附加功能。V1 不需要，但之后可用于相似度排序。",
@@ -373,7 +376,9 @@
     "edrdg": "EDRDG",
     "mdbg": "MDBG",
     "freedict": "FreeDict",
-    "fasttext": "fastText"
+    "fasttext": "fastText",
+    "coca": "COCA",
+    "ninjal": "NINJAL"
   },
   "embeddings": {
     "fasttext_en": "fastText 英语（Common Crawl）",
@@ -394,6 +399,8 @@
     "cc_cedict": "CC-CEDICT",
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
+    "freq_en_coca": "COCA 英语词频（词元）",
+    "freq_ja_bccwj": "BCCWJ 日语词频（SUW）",
     "label": "{name}（{language}）"
   },
   "common": {
