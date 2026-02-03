@@ -149,6 +149,9 @@ const srsSampleButton = document.getElementById("srs-sample");
 const srsSampleOutput = document.getElementById("srs-sample-output");
 const srsRulegenButton = document.getElementById("srs-rulegen-preview");
 const srsRulegenOutput = document.getElementById("srs-rulegen-output");
+const helperStatusLabel = document.getElementById("helper-status");
+const helperLastSyncLabel = document.getElementById("helper-last-sync");
+const helperRefreshButton = document.getElementById("helper-refresh");
 const languageSelect = document.getElementById("ui-language");
 const rulesInput = document.getElementById("rules");
 const saveButton = document.getElementById("save");
@@ -208,6 +211,15 @@ function formatTimestamp(value) {
     return "—";
   }
   return date.toLocaleString();
+}
+
+function setHelperStatus(status, lastSync) {
+  if (helperStatusLabel) {
+    helperStatusLabel.textContent = status || "—";
+  }
+  if (helperLastSyncLabel) {
+    helperLastSyncLabel.textContent = formatTimestamp(lastSync);
+  }
 }
 
 function updateRulesMeta(rules, updatedAt) {
@@ -595,6 +607,7 @@ function load() {
     if (srsRulegenOutput) {
       srsRulegenOutput.textContent = "";
     }
+    setHelperStatus("", "");
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
     }
@@ -615,6 +628,38 @@ function load() {
     updateRulesMeta(currentRules, items.rulesUpdatedAt);
     loadLocaleMessages(items.uiLanguage || "system");
   });
+}
+
+async function refreshHelperStatus() {
+  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
+  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
+  if (!HelperClient || !helperTransport) {
+    setHelperStatus(t("status_helper_missing", null, "Helper unavailable."), "");
+    return;
+  }
+  const client = new HelperClient(helperTransport);
+  setHelperStatus(t("status_helper_connecting", null, "Connecting…"), "");
+  try {
+    const response = await client.getStatus();
+    if (!response || response.ok === false) {
+      const message = response && response.error && response.error.message
+        ? response.error.message
+        : t("status_helper_failed", null, "Helper error.");
+      setHelperStatus(message, "");
+      return;
+    }
+    const data = response.data || {};
+    const lastRun = data.last_run_at || "";
+    const lastError = data.last_error;
+    if (lastError) {
+      setHelperStatus(t("status_helper_error", null, "Helper error."), lastRun);
+    } else {
+      setHelperStatus(t("status_helper_ok", null, "Helper connected."), lastRun);
+    }
+  } catch (err) {
+    setHelperStatus(t("status_helper_failed", null, "Helper error."), "");
+    logOptions("Helper status failed.", err);
+  }
 }
 
 function buildRuleIndex(rules) {
@@ -708,15 +753,9 @@ async function previewSrsRulegen() {
   if (!srsRulegenButton || !srsRulegenOutput) {
     return;
   }
-  const selector = globalThis.LexiShift && globalThis.LexiShift.srsSelector;
-  if (!selector || typeof selector.selectActiveItems !== "function") {
-    srsRulegenOutput.textContent = t(
-      "status_srs_rulegen_failed",
-      null,
-      "Rule preview failed."
-    );
-    return;
-  }
+  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
+  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
+  const helperClient = HelperClient ? new HelperClient(helperTransport) : null;
   const sourceLanguage = sourceLanguageInput
     ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
     : (DEFAULT_SETTINGS.sourceLanguage || "en");
@@ -724,10 +763,6 @@ async function previewSrsRulegen() {
     ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
     : (DEFAULT_SETTINGS.targetLanguage || "en");
   const srsPair = resolvePairFromInputs();
-  const maxActiveRaw = srsMaxActiveInput ? parseInt(srsMaxActiveInput.value, 10) : NaN;
-  const srsMaxActive = Number.isFinite(maxActiveRaw)
-    ? Math.max(1, maxActiveRaw)
-    : (DEFAULT_SETTINGS.srsMaxActive || 40);
   srsRulegenButton.disabled = true;
   srsRulegenOutput.textContent = t(
     "status_srs_rulegen_loading",
@@ -735,23 +770,41 @@ async function previewSrsRulegen() {
     "Building rule preview…"
   );
   try {
-    const result = await selector.selectActiveItems(
-      { srsPair, sourceLanguage, targetLanguage, srsPairAuto: true, srsMaxActive }
-    );
-    const lemmas = result && Array.isArray(result.lemmas) ? result.lemmas : [];
-    const rules = getActiveRulesForCode();
-    const ruleIndex = buildRuleIndex(rules);
-    const preview = formatRulegenPreview(lemmas, ruleIndex);
-    if (!preview) {
-      srsRulegenOutput.textContent = t(
-        "status_srs_rulegen_empty",
-        null,
-        "No rules found for current active words."
-      );
-    } else {
-      srsRulegenOutput.textContent = preview;
+    if (helperClient) {
+      const response = await helperClient.getSnapshot(srsPair);
+      if (!response || response.ok === false) {
+        const message = response && response.error && response.error.message
+          ? response.error.message
+          : t("status_srs_rulegen_failed", null, "Rule preview failed.");
+        srsRulegenOutput.textContent = message;
+        return;
+      }
+      const snapshot = response.data || {};
+      const targets = Array.isArray(snapshot.targets) ? snapshot.targets : [];
+      if (!targets.length) {
+        srsRulegenOutput.textContent = t(
+          "status_srs_rulegen_empty",
+          null,
+          "No rules found for current active words."
+        );
+      } else {
+        const lines = targets.map((entry) => {
+          const lemma = String(entry.lemma || "").trim();
+          const sources = Array.isArray(entry.sources) ? entry.sources : [];
+          if (!lemma) return null;
+          if (!sources.length) return `${lemma} → (no rules)`;
+          return `${lemma} → ${sources.join(", ")}`;
+        }).filter(Boolean);
+        srsRulegenOutput.textContent = lines.join("\n");
+      }
+      logOptions("SRS rulegen preview (helper)", { pair: srsPair, targets: targets.length });
+      return;
     }
-    logOptions("SRS rulegen preview", { pair: srsPair, count: lemmas.length });
+    srsRulegenOutput.textContent = t(
+      "status_srs_rulegen_failed",
+      null,
+      "Rule preview failed."
+    );
   } catch (err) {
     srsRulegenOutput.textContent = t(
       "status_srs_rulegen_failed",
@@ -847,6 +900,9 @@ if (srsSampleButton) {
 if (srsRulegenButton) {
   srsRulegenButton.addEventListener("click", previewSrsRulegen);
 }
+if (helperRefreshButton) {
+  helperRefreshButton.addEventListener("click", refreshHelperStatus);
+}
 
 debugEnabledInput.addEventListener("change", () => {
   debugFocusInput.disabled = !debugEnabledInput.checked;
@@ -897,3 +953,4 @@ importCodeButton.addEventListener("click", importShareCode);
 copyCodeButton.addEventListener("click", copyShareCode);
 
 load();
+refreshHelperStatus();

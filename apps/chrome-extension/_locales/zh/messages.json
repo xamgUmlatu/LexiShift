@@ -101,6 +101,30 @@
   "toggle_srs_sound": {
     "message": "播放反馈音效"
   },
+  "label_helper_status": {
+    "message": "Helper 状态"
+  },
+  "label_helper_last_sync": {
+    "message": "上次同步"
+  },
+  "button_helper_refresh": {
+    "message": "刷新 Helper 状态"
+  },
+  "status_helper_connecting": {
+    "message": "连接中…"
+  },
+  "status_helper_ok": {
+    "message": "Helper 已连接。"
+  },
+  "status_helper_error": {
+    "message": "Helper 错误。"
+  },
+  "status_helper_failed": {
+    "message": "Helper 错误。"
+  },
+  "status_helper_missing": {
+    "message": "Helper 不可用。"
+  },
   "toggle_exposure_logging": {
     "message": "记录替换曝光事件"
   },

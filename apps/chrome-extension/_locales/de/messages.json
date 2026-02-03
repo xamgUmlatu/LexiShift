@@ -101,6 +101,30 @@
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
   },
+  "label_helper_status": {
+    "message": "Helper-Status"
+  },
+  "label_helper_last_sync": {
+    "message": "Letzte Synchronisation"
+  },
+  "button_helper_refresh": {
+    "message": "Helper-Status aktualisieren"
+  },
+  "status_helper_connecting": {
+    "message": "Verbinden…"
+  },
+  "status_helper_ok": {
+    "message": "Helper verbunden."
+  },
+  "status_helper_error": {
+    "message": "Helper-Fehler."
+  },
+  "status_helper_failed": {
+    "message": "Helper-Fehler."
+  },
+  "status_helper_missing": {
+    "message": "Helper nicht verfügbar."
+  },
   "toggle_exposure_logging": {
     "message": "Ersetzungs-Expositionen protokollieren"
   },

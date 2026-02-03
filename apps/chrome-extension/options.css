@@ -207,6 +207,14 @@ textarea {
   line-height: 1.5;
 }
 
+.helper-status {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #efe3d4;
+  background: #fffaf2;
+}
+
 button {
   background: #2c2a26;
   color: #fef8ee;

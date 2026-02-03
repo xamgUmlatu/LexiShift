@@ -101,6 +101,30 @@
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
   },
+  "label_helper_status": {
+    "message": "ヘルパー状態"
+  },
+  "label_helper_last_sync": {
+    "message": "最終同期"
+  },
+  "button_helper_refresh": {
+    "message": "ヘルパー状態を更新"
+  },
+  "status_helper_connecting": {
+    "message": "接続中…"
+  },
+  "status_helper_ok": {
+    "message": "ヘルパーに接続しました。"
+  },
+  "status_helper_error": {
+    "message": "ヘルパーエラー。"
+  },
+  "status_helper_failed": {
+    "message": "ヘルパーエラー。"
+  },
+  "status_helper_missing": {
+    "message": "ヘルパーが利用できません。"
+  },
   "toggle_exposure_logging": {
     "message": "置換の露出イベントを記録"
   },

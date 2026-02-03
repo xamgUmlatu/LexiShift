@@ -27,11 +27,11 @@ Status key:
 - [x] Add handshake (`hello`) and version checks.
 
 ## Phase 3 — Extension Client
-- [ ] Add helper bridge client (getStatus/getSnapshot/getRuleset).
-- [ ] Options: “Helper status” + “Refresh now”.
-- [ ] Replace rulegen preview button to read helper snapshot.
-- [ ] Content script: fetch helper ruleset when SRS enabled.
-- [ ] Fallback to cached ruleset if helper offline.
+- [x] Add helper bridge client (getStatus/getSnapshot/getRuleset).
+- [x] Options: “Helper status” + “Refresh now”.
+- [x] Replace rulegen preview button to read helper snapshot.
+- [x] Content script: fetch helper ruleset when SRS enabled.
+- [~] Fallback to cached ruleset if helper offline.
 
 ## Phase 4 — Background Scheduling
 - [ ] Start helper at login (LaunchAgent / Task Scheduler).

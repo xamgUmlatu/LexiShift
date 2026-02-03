@@ -101,6 +101,30 @@
   "toggle_srs_sound": {
     "message": "Play feedback sound"
   },
+  "label_helper_status": {
+    "message": "Helper status"
+  },
+  "label_helper_last_sync": {
+    "message": "Last sync"
+  },
+  "button_helper_refresh": {
+    "message": "Refresh helper status"
+  },
+  "status_helper_connecting": {
+    "message": "Connecting…"
+  },
+  "status_helper_ok": {
+    "message": "Helper connected."
+  },
+  "status_helper_error": {
+    "message": "Helper error."
+  },
+  "status_helper_failed": {
+    "message": "Helper error."
+  },
+  "status_helper_missing": {
+    "message": "Helper unavailable."
+  },
   "toggle_exposure_logging": {
     "message": "Log replacement exposure events"
   },

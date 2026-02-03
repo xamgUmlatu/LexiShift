@@ -35,6 +35,8 @@
   const srsFeedback = root.srsFeedback;
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
+  const HelperClient = root.helperClient;
+  const helperTransport = root.helperTransportExtension;
 
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
@@ -43,6 +45,26 @@
   let applyingChanges = false;
   let observedBody = null;
   let applyToken = 0;
+  let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
+  let helperRulesCache = new Map();
+
+  function cacheHelperRules(pair, rules) {
+    if (!pair) {
+      return;
+    }
+    helperRulesCache.set(pair, Array.isArray(rules) ? rules : []);
+  }
+
+  async function fetchHelperRules(pair) {
+    if (!helperClient) {
+      return null;
+    }
+    const response = await helperClient.getRuleset(pair);
+    if (!response || response.ok === false) {
+      return null;
+    }
+    return response.data || null;
+  }
 
   function log(...args) {
     if (!currentSettings.debugEnabled) {
@@ -469,7 +491,31 @@
       currentSettings.srsFeedbackRulesEnabled = !settings.srsFeedbackEnabled;
     }
     processedNodes = new WeakMap();
-    const normalizedRules = normalizeRules(currentSettings.rules);
+    let rulesSource = "local";
+    let rawRules = currentSettings.rules;
+    if (currentSettings.srsEnabled && helperClient) {
+      try {
+        const helperRuleset = await fetchHelperRules(currentSettings.srsPair);
+        if (helperRuleset && Array.isArray(helperRuleset.rules)) {
+          rawRules = helperRuleset.rules;
+          rulesSource = "helper";
+          cacheHelperRules(currentSettings.srsPair, rawRules);
+        } else {
+          const fallback = helperRulesCache.get(currentSettings.srsPair);
+          if (fallback) {
+            rawRules = fallback;
+            rulesSource = "helper-cache";
+          }
+        }
+      } catch (error) {
+        const fallback = helperRulesCache.get(currentSettings.srsPair);
+        if (fallback) {
+          rawRules = fallback;
+          rulesSource = "helper-cache";
+        }
+      }
+    }
+    const normalizedRules = normalizeRules(rawRules);
     const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
     let activeRules = enabledRules;
     currentSettings._srsActiveLemmas = null;
@@ -495,6 +541,7 @@
       highlightColor: currentSettings.highlightColor,
       maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
       allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
+      rulesSource,
       srsEnabled: currentSettings.srsEnabled === true,
       srsPair: currentSettings.srsPair || "",
       srsMaxActive: currentSettings.srsMaxActive,

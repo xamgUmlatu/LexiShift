@@ -19,6 +19,8 @@
         "shared/language_prefs.js",
         "shared/settings_defaults.js",
         "shared/lemmatizer.js",
+        "shared/helper_transport_extension.js",
+        "shared/helper_client.js",
         "shared/srs_selector.js",
         "shared/srs_store.js",
         "shared/srs_feedback.js",

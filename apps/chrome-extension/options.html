@@ -152,6 +152,21 @@
             <input id="srs-sound-enabled" type="checkbox" />
             <span data-i18n="toggle_srs_sound">Play feedback sound</span>
           </label>
+          <div class="helper-status">
+            <div class="meta-row">
+              <div>
+                <span class="meta-label" data-i18n="label_helper_status">Helper status</span>
+                <span id="helper-status" class="meta-value">—</span>
+              </div>
+              <div>
+                <span class="meta-label" data-i18n="label_helper_last_sync">Last sync</span>
+                <span id="helper-last-sync" class="meta-value">—</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button id="helper-refresh" data-i18n="button_helper_refresh">Refresh helper status</button>
+            </div>
+          </div>
           <div class="actions">
             <button id="srs-sample" data-i18n="button_srs_sample">Sample active words…</button>
             <span id="srs-sample-output" class="hint"></span>
@@ -226,6 +241,8 @@
     <script src="shared/language_prefs.js"></script>
     <script src="shared/settings_defaults.js"></script>
     <script src="shared/srs_selector.js"></script>
+    <script src="shared/helper_transport_extension.js"></script>
+    <script src="shared/helper_client.js"></script>
     <script src="lzstring.js"></script>
     <script src="cjk_codec.js"></script>
     <script src="options.js"></script>
