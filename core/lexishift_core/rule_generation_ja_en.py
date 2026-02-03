@@ -22,8 +22,13 @@ from lexishift_core.rule_generation import (
 from lexishift_core.rule_generation_utils import (
     BasicStringNormalizer,
     InflectionVariantExpander,
+    InflectionArtifactFilter,
+    LengthFilter,
     NonEmptyFilter,
+    PossessiveFilter,
+    PunctuationFilter,
     SingleWordFilter,
+    StopwordFilter,
 )
 from lexishift_core.weighting import GlossDecay
 
@@ -43,6 +48,16 @@ class JaEnRulegenConfig:
     variant_penalty: float = 0.2
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
+    enable_punctuation_filter: bool = True
+    enable_possessive_filter: bool = True
+    enable_inflection_filter: bool = True
+    enable_stopword_filter: bool = True
+    enable_length_filter: bool = True
+    min_source_length: int = 2
+    max_source_length: Optional[int] = None
+    stopwords: Optional[set[str]] = None
+    inflection_suffixes: Sequence[str] = ("s", "es", "ed", "ing")
+    allow_hyphen: bool = True
     frequency_config: Optional[FrequencySourceConfig] = None
     frequency_lexicon: Optional[FrequencyLexicon] = None
     frequency_provider: Optional[Callable[[RuleCandidate], float]] = None
@@ -88,7 +103,7 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
         sources=[source],
         normalizers=normalizers,
         expanders=expanders,
-        filters=_build_filters(config),
+        filters=_build_filters(config, mapping),
         scorer=RuleScorer(),
         signal_provider=signal_provider,
     )
@@ -117,7 +132,7 @@ def generate_ja_en_rules(
 
 
 class JmdictCandidateSource:
-    def __init__(self, *, mapping: dict[str, set[str]], source_dict: str, source_type: str) -> None:
+    def __init__(self, *, mapping: Mapping[str, Sequence[str]], source_dict: str, source_type: str) -> None:
         self._mapping = mapping
         self._source_dict = source_dict
         self._source_type = source_type
@@ -140,8 +155,106 @@ class JmdictCandidateSource:
                 )
 
 
-def _build_filters(config: JaEnRulegenConfig) -> list:
+def _build_filters(config: JaEnRulegenConfig, mapping: Mapping[str, Sequence[str]]) -> list:
     filters = [NonEmptyFilter()]
     if not config.allow_multiword_glosses:
-        filters.append(SingleWordFilter())
+        filters.append(SingleWordFilter(allow_hyphen=config.allow_hyphen))
+    if config.enable_length_filter:
+        filters.append(LengthFilter(min_length=config.min_source_length, max_length=config.max_source_length))
+    if config.enable_punctuation_filter:
+        filters.append(PunctuationFilter())
+    if config.enable_possessive_filter:
+        filters.append(PossessiveFilter())
+    if config.enable_stopword_filter:
+        stopwords = config.stopwords or DEFAULT_STOPWORDS
+        filters.append(StopwordFilter(stopwords=stopwords))
+    if config.enable_inflection_filter:
+        base_forms = _build_gloss_base_forms(mapping)
+        filters.append(
+            InflectionArtifactFilter(
+                suffixes=config.inflection_suffixes,
+                base_forms=base_forms,
+            )
+        )
     return filters
+
+
+def _build_gloss_base_forms(mapping: Mapping[str, Sequence[str]]) -> set[str]:
+    base_forms: set[str] = set()
+    for glosses in mapping.values():
+        for gloss in glosses:
+            base_forms.add(str(gloss).strip().lower())
+    return base_forms
+
+
+DEFAULT_STOPWORDS = {
+    "a",
+    "an",
+    "the",
+    "and",
+    "or",
+    "but",
+    "if",
+    "while",
+    "since",
+    "for",
+    "to",
+    "of",
+    "in",
+    "on",
+    "at",
+    "by",
+    "with",
+    "from",
+    "as",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "am",
+    "i",
+    "me",
+    "my",
+    "you",
+    "your",
+    "he",
+    "she",
+    "it",
+    "they",
+    "them",
+    "we",
+    "us",
+    "this",
+    "that",
+    "these",
+    "those",
+    "here",
+    "there",
+    "what",
+    "which",
+    "who",
+    "whom",
+    "whose",
+    "do",
+    "does",
+    "did",
+    "done",
+    "have",
+    "has",
+    "had",
+    "will",
+    "would",
+    "can",
+    "could",
+    "shall",
+    "should",
+    "may",
+    "might",
+    "must",
+    "not",
+    "no",
+    "yes",
+}
