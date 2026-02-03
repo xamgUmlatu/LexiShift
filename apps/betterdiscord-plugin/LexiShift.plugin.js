@@ -53,8 +53,155 @@ module.exports = (_ => {
 		}
 	} : (([Plugin, BDFDB]) => {
 
-const TOKEN_RE = /[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*|\s+|[^\w\s]+/g;
-const WORD_RE = /^[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*$/;
+(() => {
+  const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+
+  const TOKEN_RE = /[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*|\s+|[^\w\s]+/g;
+  const WORD_RE = /^[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*$/;
+
+  function tokenize(text) {
+    const tokens = [];
+    const matches = text.matchAll(TOKEN_RE);
+    for (const match of matches) {
+      const chunk = match[0];
+      let kind = "punct";
+      if (WORD_RE.test(chunk)) {
+        kind = "word";
+      } else if (/^\s+$/.test(chunk)) {
+        kind = "space";
+      }
+      tokens.push({ text: chunk, kind });
+    }
+    return tokens;
+  }
+
+  function normalize(word) {
+    return word.toLowerCase();
+  }
+
+  function textHasToken(text, token) {
+    if (!text || !token) {
+      return false;
+    }
+    const tokens = tokenize(text);
+    return tokens.some((item) => item.kind === "word" && item.text.toLowerCase() === token);
+  }
+
+  function computeGapOk(tokens, wordPositions) {
+    const gapOk = [];
+    for (let i = 0; i < wordPositions.length - 1; i += 1) {
+      const start = wordPositions[i] + 1;
+      const end = wordPositions[i + 1];
+      let ok = true;
+      for (let j = start; j < end; j += 1) {
+        if (tokens[j].kind !== "space") {
+          ok = false;
+          break;
+        }
+      }
+      gapOk.push(ok);
+    }
+    return gapOk;
+  }
+
+  root.tokenizer = { TOKEN_RE, WORD_RE, tokenize, normalize, textHasToken, computeGapOk };
+})();
+
+(() => {
+  const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const { tokenize, normalize } = root.tokenizer || {};
+
+  function buildTrie(rules) {
+    const rootNode = { children: Object.create(null), bestRule: null };
+    for (const rule of rules) {
+      if (rule.enabled === false) {
+        continue;
+      }
+      const words = tokenize(rule.source_phrase || "").filter((t) => t.kind === "word");
+      if (!words.length) {
+        continue;
+      }
+      let node = rootNode;
+      for (const word of words) {
+        const key = normalize(word.text);
+        node.children[key] = node.children[key] || { children: Object.create(null), bestRule: null };
+        node = node.children[key];
+      }
+      if (!node.bestRule || rule.priority > node.bestRule.priority) {
+        node.bestRule = rule;
+      }
+    }
+    return rootNode;
+  }
+
+  function findLongestMatch(trie, words, gapOk, startIndex) {
+    let node = trie;
+    let bestRule = null;
+    let bestEnd = null;
+    let bestPriority = -1;
+
+    for (let idx = startIndex; idx < words.length; idx += 1) {
+      if (idx > startIndex && !gapOk[idx - 1]) {
+        break;
+      }
+      const normalized = normalize(words[idx]);
+      node = node.children[normalized];
+      if (!node) {
+        break;
+      }
+      if (node.bestRule && node.bestRule.priority >= bestPriority) {
+        if (node.bestRule.priority > bestPriority || bestEnd === null || idx > bestEnd) {
+          bestRule = node.bestRule;
+          bestEnd = idx;
+          bestPriority = node.bestRule.priority;
+        }
+      }
+    }
+
+    if (!bestRule || bestEnd === null) {
+      return null;
+    }
+    return { startWordIndex: startIndex, endWordIndex: bestEnd, rule: bestRule };
+  }
+
+  function applyCase(replacement, sourceWords, policy) {
+    if (policy === "as-is") {
+      return replacement;
+    }
+    if (policy === "lower") {
+      return replacement.toLowerCase();
+    }
+    if (policy === "upper") {
+      return replacement.toUpperCase();
+    }
+    if (policy === "title") {
+      return replacement.replace(/\b\w/g, (m) => m.toUpperCase());
+    }
+    if (policy === "match") {
+      const sourceText = sourceWords.join(" ");
+      if (sourceText === sourceText.toUpperCase()) {
+        return replacement.toUpperCase();
+      }
+      if (sourceWords.length && sourceWords[0][0] && sourceWords[0][0] === sourceWords[0][0].toUpperCase()) {
+        return replacement.replace(/\b\w/g, (m) => m.toUpperCase());
+      }
+    }
+    return replacement;
+  }
+
+  function normalizeRules(rules) {
+    return (rules || []).map((rule) => ({
+      source_phrase: String(rule.source_phrase || ""),
+      replacement: String(rule.replacement || ""),
+      priority: Number.isFinite(rule.priority) ? rule.priority : 0,
+      case_policy: rule.case_policy || "match",
+      enabled: rule.enabled !== false,
+      metadata: rule.metadata || null
+    }));
+  }
+
+  root.matcher = { buildTrie, findLongestMatch, applyCase, normalizeRules };
+})();
 
 var CJK_BASE_START = 0x4E00;
 var CJK_BASE = 16384;
@@ -858,14 +1005,12 @@ function replaceMarkersInElement(element, plugin) {
 	}
 }
 
-function normalizeRules(rules) {
-	return (rules || []).map(rule => ({
-		source_phrase: String(rule.source_phrase || ""),
-		replacement: String(rule.replacement || ""),
-		priority: Number.isFinite(rule.priority) ? rule.priority : 0,
-		case_policy: rule.case_policy || "match",
-		enabled: rule.enabled !== false
-	}));
+const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+const { tokenize, computeGapOk } = root.tokenizer || {};
+const { buildTrie, findLongestMatch, applyCase, normalizeRules } = root.matcher || {};
+
+if (!tokenize || !computeGapOk || !buildTrie || !findLongestMatch || !applyCase || !normalizeRules) {
+	throw new Error("[LexiShift] Shared tokenizer/matcher not loaded. Rebuild the plugin.");
 }
 
 function extractRules(input) {
@@ -874,98 +1019,6 @@ function extractRules(input) {
 		if (Array.isArray(input.rules)) return input.rules;
 	}
 	throw new Error("Expected a JSON array or an object with a rules array.");
-}
-
-function buildTrie(rules) {
-	const root = {children: Object.create(null), bestRule: null};
-	for (const rule of rules) {
-		if (!rule.enabled) continue;
-		const words = tokenize(rule.source_phrase).filter(t => t.kind === "word");
-		if (!words.length) continue;
-		let node = root;
-		for (const word of words) {
-			const key = normalize(word.text);
-			node.children[key] = node.children[key] || {children: Object.create(null), bestRule: null};
-			node = node.children[key];
-		}
-		if (!node.bestRule || rule.priority > node.bestRule.priority) {
-			node.bestRule = rule;
-		}
-	}
-	return root;
-}
-
-function tokenize(text) {
-	const tokens = [];
-	const matches = text.matchAll(TOKEN_RE);
-	for (const match of matches) {
-		const chunk = match[0];
-		let kind = "punct";
-		if (WORD_RE.test(chunk)) kind = "word";
-		else if (/^\s+$/.test(chunk)) kind = "space";
-		tokens.push({text: chunk, kind});
-	}
-	return tokens;
-}
-
-function normalize(word) {
-	return word.toLowerCase();
-}
-
-function computeGapOk(tokens, wordPositions) {
-	const gapOk = [];
-	for (let i = 0; i < wordPositions.length - 1; i += 1) {
-		const start = wordPositions[i] + 1;
-		const end = wordPositions[i + 1];
-		let ok = true;
-		for (let j = start; j < end; j += 1) {
-			if (tokens[j].kind !== "space") {
-				ok = false;
-				break;
-			}
-		}
-		gapOk.push(ok);
-	}
-	return gapOk;
-}
-
-function applyCase(replacement, sourceWords, policy) {
-	if (policy === "as-is") return replacement;
-	if (policy === "lower") return replacement.toLowerCase();
-	if (policy === "upper") return replacement.toUpperCase();
-	if (policy === "title") return replacement.replace(/\b\w/g, m => m.toUpperCase());
-	if (policy === "match") {
-		const sourceText = sourceWords.join(" ");
-		if (sourceText === sourceText.toUpperCase()) return replacement.toUpperCase();
-		if (sourceWords.length && sourceWords[0][0] && sourceWords[0][0] === sourceWords[0][0].toUpperCase()) {
-			return replacement.replace(/\b\w/g, m => m.toUpperCase());
-		}
-	}
-	return replacement;
-}
-
-function findLongestMatch(trie, words, gapOk, startIndex) {
-	let node = trie;
-	let bestRule = null;
-	let bestEnd = null;
-	let bestPriority = -1;
-
-	for (let idx = startIndex; idx < words.length; idx += 1) {
-		if (idx > startIndex && !gapOk[idx - 1]) break;
-		const normalized = normalize(words[idx]);
-		node = node.children[normalized];
-		if (!node) break;
-		if (node.bestRule && node.bestRule.priority >= bestPriority) {
-			if (node.bestRule.priority > bestPriority || bestEnd === null || idx > bestEnd) {
-				bestRule = node.bestRule;
-				bestEnd = idx;
-				bestPriority = node.bestRule.priority;
-			}
-		}
-	}
-
-	if (!bestRule || bestEnd === null) return null;
-	return {startWordIndex: startIndex, endWordIndex: bestEnd, rule: bestRule};
 }
 
 function replaceText(text, trie, options = {}) {
@@ -1136,6 +1189,21 @@ function buildSettingsPanel(plugin) {
 	colorRow.appendChild(colorValue);
 
 	panel.appendChild(colorRow);
+
+	const debugRow = document.createElement("label");
+	debugRow.style.display = "flex";
+	debugRow.style.alignItems = "center";
+	debugRow.style.gap = "8px";
+	debugRow.style.marginBottom = "12px";
+	debugRow.style.cursor = "pointer";
+	const debugCheckbox = document.createElement("input");
+	debugCheckbox.type = "checkbox";
+	debugCheckbox.checked = plugin.getDebugLogs ? plugin.getDebugLogs() : false;
+	const debugText = document.createElement("span");
+	debugText.textContent = "Enable debug logs";
+	debugRow.appendChild(debugCheckbox);
+	debugRow.appendChild(debugText);
+	panel.appendChild(debugRow);
 
 	const textarea = document.createElement("textarea");
 	textarea.style.width = "100%";
@@ -1335,6 +1403,14 @@ function buildSettingsPanel(plugin) {
 	colorInput.disabled = !highlightCheckbox.checked;
 	colorValue.disabled = !highlightCheckbox.checked;
 
+	debugCheckbox.onchange = _ => {
+		if (plugin.setDebugLogs) {
+			plugin.setDebugLogs(debugCheckbox.checked);
+			status.textContent = "Debug logs preference saved.";
+			status.style.color = "var(--text-positive)";
+		}
+	};
+
 	const setStatus = (message, color) => {
 		status.textContent = message;
 		status.style.color = color;
@@ -1437,19 +1513,24 @@ function buildSettingsPanel(plugin) {
 
 			onStart () {
 				this._loadPreferences();
+				this._log("Starting plugin.");
 				if (this._useFileRules && this._rulesFilePath) {
 					const loaded = this._loadRulesFromFile(this._rulesFilePath);
 					if (!loaded.ok) {
 						rules = BDFDB.DataUtils.load(this, "rules");
 						if (!Array.isArray(rules)) rules = [];
-						trie = buildTrie(normalizeRules(rules));
+						const normalized = normalizeRules(rules);
+						trie = buildTrie(normalized);
+						this._log("Loaded fallback rules from storage.", {count: normalized.length});
 						oldMessages = {};
 					}
 				}
 				else {
 					rules = BDFDB.DataUtils.load(this, "rules");
 					if (!Array.isArray(rules)) rules = [];
-					trie = buildTrie(normalizeRules(rules));
+					const normalized = normalizeRules(rules);
+					trie = buildTrie(normalized);
+					this._log("Loaded rules from storage.", {count: normalized.length});
 					oldMessages = {};
 				}
 				this._installStyle();
@@ -1534,11 +1615,13 @@ function buildSettingsPanel(plugin) {
 				let content = message.content;
 				let embeds = [].concat(message.embeds || []);
 				let changed = false;
+				let replacementCount = 0;
 				if (content && typeof content == "string") {
 					let replaced = replaceText(content, trie, {annotate: true});
 					if (replaced !== content) {
 						content = replaced;
 						changed = true;
+						replacementCount += countMarkers(replaced);
 					}
 				}
 				if (embeds.length) {
@@ -1548,8 +1631,12 @@ function buildSettingsPanel(plugin) {
 						let replaced = replaceText(raw, trie, {annotate: false});
 						if (replaced === raw) return embed;
 						changed = true;
+						replacementCount += 1;
 						return Object.assign({}, embed, {rawDescription: replaced, description: replaced});
 					});
+				}
+				if (changed) {
+					this._log("Message replaced.", {id: message.id, replacements: replacementCount});
 				}
 				return {changed, content, embeds};
 			}
@@ -1560,6 +1647,7 @@ function buildSettingsPanel(plugin) {
 				this._highlightColor = prefs.highlightColor || "#9AA0A6";
 				this._useFileRules = prefs.useFileRules === true;
 				this._rulesFilePath = prefs.rulesFilePath || "";
+				this._debugLogs = prefs.debugLogs === true;
 			}
 
 			_savePreferences () {
@@ -1568,11 +1656,32 @@ function buildSettingsPanel(plugin) {
 						highlightReplacements: this._highlightReplacements,
 						highlightColor: this._highlightColor,
 						useFileRules: this._useFileRules,
-						rulesFilePath: this._rulesFilePath
+						rulesFilePath: this._rulesFilePath,
+						debugLogs: this._debugLogs === true
 					},
 					this,
 					"prefs"
 				);
+			}
+
+			_log (message, payload) {
+				if (!this._debugLogs) return;
+				if (payload !== undefined) {
+					console.log("[LexiShift][BD]", message, payload);
+				}
+				else {
+					console.log("[LexiShift][BD]", message);
+				}
+			}
+
+			getDebugLogs () {
+				return this._debugLogs === true;
+			}
+
+			setDebugLogs (value) {
+				this._debugLogs = Boolean(value);
+				this._savePreferences();
+				this._log("Debug logs enabled.");
 			}
 
 			getHighlightReplacements () {
@@ -1630,11 +1739,14 @@ function buildSettingsPanel(plugin) {
 					const parsed = JSON.parse(payload);
 					rules = extractRules(parsed);
 					BDFDB.DataUtils.save(rules, this, "rules");
-					trie = buildTrie(normalizeRules(rules));
+					const normalized = normalizeRules(rules);
+					trie = buildTrie(normalized);
+					this._log("Loaded rules from file.", {path, count: normalized.length});
 					oldMessages = {};
 					return {ok: true};
 				}
 				catch (error) {
+					this._log("Failed to load rules from file.", {path, error: error && error.message ? error.message : String(error)});
 					return {ok: false, error};
 				}
 			}
@@ -1700,6 +1812,19 @@ function buildSettingsPanel(plugin) {
 				}
 			}
 		};
+
+		function countMarkers(text) {
+			if (!text) return 0;
+			let count = 0;
+			let idx = 0;
+			while (true) {
+				idx = text.indexOf(MARKER_START, idx);
+				if (idx === -1) break;
+				count += 1;
+				idx += MARKER_START.length;
+			}
+			return count;
+		}
 
 	})(window.BDFDB_Global.PluginUtils.buildPlugin(changeLog));
 })();

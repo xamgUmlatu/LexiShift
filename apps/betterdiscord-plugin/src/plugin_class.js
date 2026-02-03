@@ -14,19 +14,24 @@
 
 			onStart () {
 				this._loadPreferences();
+				this._log("Starting plugin.");
 				if (this._useFileRules && this._rulesFilePath) {
 					const loaded = this._loadRulesFromFile(this._rulesFilePath);
 					if (!loaded.ok) {
 						rules = BDFDB.DataUtils.load(this, "rules");
 						if (!Array.isArray(rules)) rules = [];
-						trie = buildTrie(normalizeRules(rules));
+						const normalized = normalizeRules(rules);
+						trie = buildTrie(normalized);
+						this._log("Loaded fallback rules from storage.", {count: normalized.length});
 						oldMessages = {};
 					}
 				}
 				else {
 					rules = BDFDB.DataUtils.load(this, "rules");
 					if (!Array.isArray(rules)) rules = [];
-					trie = buildTrie(normalizeRules(rules));
+					const normalized = normalizeRules(rules);
+					trie = buildTrie(normalized);
+					this._log("Loaded rules from storage.", {count: normalized.length});
 					oldMessages = {};
 				}
 				this._installStyle();
@@ -111,11 +116,13 @@
 				let content = message.content;
 				let embeds = [].concat(message.embeds || []);
 				let changed = false;
+				let replacementCount = 0;
 				if (content && typeof content == "string") {
 					let replaced = replaceText(content, trie, {annotate: true});
 					if (replaced !== content) {
 						content = replaced;
 						changed = true;
+						replacementCount += countMarkers(replaced);
 					}
 				}
 				if (embeds.length) {
@@ -125,8 +132,12 @@
 						let replaced = replaceText(raw, trie, {annotate: false});
 						if (replaced === raw) return embed;
 						changed = true;
+						replacementCount += 1;
 						return Object.assign({}, embed, {rawDescription: replaced, description: replaced});
 					});
+				}
+				if (changed) {
+					this._log("Message replaced.", {id: message.id, replacements: replacementCount});
 				}
 				return {changed, content, embeds};
 			}
@@ -137,6 +148,7 @@
 				this._highlightColor = prefs.highlightColor || "#9AA0A6";
 				this._useFileRules = prefs.useFileRules === true;
 				this._rulesFilePath = prefs.rulesFilePath || "";
+				this._debugLogs = prefs.debugLogs === true;
 			}
 
 			_savePreferences () {
@@ -145,11 +157,32 @@
 						highlightReplacements: this._highlightReplacements,
 						highlightColor: this._highlightColor,
 						useFileRules: this._useFileRules,
-						rulesFilePath: this._rulesFilePath
+						rulesFilePath: this._rulesFilePath,
+						debugLogs: this._debugLogs === true
 					},
 					this,
 					"prefs"
 				);
+			}
+
+			_log (message, payload) {
+				if (!this._debugLogs) return;
+				if (payload !== undefined) {
+					console.log("[LexiShift][BD]", message, payload);
+				}
+				else {
+					console.log("[LexiShift][BD]", message);
+				}
+			}
+
+			getDebugLogs () {
+				return this._debugLogs === true;
+			}
+
+			setDebugLogs (value) {
+				this._debugLogs = Boolean(value);
+				this._savePreferences();
+				this._log("Debug logs enabled.");
 			}
 
 			getHighlightReplacements () {
@@ -207,11 +240,14 @@
 					const parsed = JSON.parse(payload);
 					rules = extractRules(parsed);
 					BDFDB.DataUtils.save(rules, this, "rules");
-					trie = buildTrie(normalizeRules(rules));
+					const normalized = normalizeRules(rules);
+					trie = buildTrie(normalized);
+					this._log("Loaded rules from file.", {path, count: normalized.length});
 					oldMessages = {};
 					return {ok: true};
 				}
 				catch (error) {
+					this._log("Failed to load rules from file.", {path, error: error && error.message ? error.message : String(error)});
 					return {ok: false, error};
 				}
 			}
@@ -277,3 +313,16 @@
 				}
 			}
 		};
+
+		function countMarkers(text) {
+			if (!text) return 0;
+			let count = 0;
+			let idx = 0;
+			while (true) {
+				idx = text.indexOf(MARKER_START, idx);
+				if (idx === -1) break;
+				count += 1;
+				idx += MARKER_START.length;
+			}
+			return count;
+		}

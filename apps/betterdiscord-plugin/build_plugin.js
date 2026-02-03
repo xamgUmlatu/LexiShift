@@ -4,8 +4,11 @@ const path = require("path");
 const srcDir = path.join(__dirname, "src");
 const outPath = path.join(__dirname, "LexiShift.plugin.js");
 
+const sharedRoot = path.resolve(__dirname, "..", "chrome-extension", "content");
 const parts = [
 	"header.js",
+	path.join(sharedRoot, "tokenizer.js"),
+	path.join(sharedRoot, "matcher.js"),
 	"constants.js",
 	"state.js",
 	"lzstring.js",
@@ -19,7 +22,7 @@ const parts = [
 
 function buildPlugin() {
 	const chunks = parts.map((filename) => {
-		const fullPath = path.join(srcDir, filename);
+		const fullPath = path.isAbsolute(filename) ? filename : path.join(srcDir, filename);
 		return fs.readFileSync(fullPath, "utf8").trimEnd();
 	});
 

@@ -117,6 +117,21 @@ function buildSettingsPanel(plugin) {
 
 	panel.appendChild(colorRow);
 
+	const debugRow = document.createElement("label");
+	debugRow.style.display = "flex";
+	debugRow.style.alignItems = "center";
+	debugRow.style.gap = "8px";
+	debugRow.style.marginBottom = "12px";
+	debugRow.style.cursor = "pointer";
+	const debugCheckbox = document.createElement("input");
+	debugCheckbox.type = "checkbox";
+	debugCheckbox.checked = plugin.getDebugLogs ? plugin.getDebugLogs() : false;
+	const debugText = document.createElement("span");
+	debugText.textContent = "Enable debug logs";
+	debugRow.appendChild(debugCheckbox);
+	debugRow.appendChild(debugText);
+	panel.appendChild(debugRow);
+
 	const textarea = document.createElement("textarea");
 	textarea.style.width = "100%";
 	textarea.style.minHeight = "180px";
@@ -314,6 +329,14 @@ function buildSettingsPanel(plugin) {
 
 	colorInput.disabled = !highlightCheckbox.checked;
 	colorValue.disabled = !highlightCheckbox.checked;
+
+	debugCheckbox.onchange = _ => {
+		if (plugin.setDebugLogs) {
+			plugin.setDebugLogs(debugCheckbox.checked);
+			status.textContent = "Debug logs preference saved.";
+			status.style.color = "var(--text-positive)";
+		}
+	};
 
 	const setStatus = (message, color) => {
 		status.textContent = message;
