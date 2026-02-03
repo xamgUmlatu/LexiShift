@@ -91,13 +91,23 @@ from lexishift_core.srs_selector import (
     score_candidate,
 )
 from lexishift_core.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
-from lexishift_core.dict_loaders import load_jmdict_glosses
+from lexishift_core.dict_loaders import (
+    load_jmdict_glosses,
+    load_jmdict_glosses_ordered,
+    load_jmdict_lemmas,
+)
 from lexishift_core.frequency import (
     FrequencyLexicon,
     FrequencySourceConfig,
     build_frequency_provider,
     load_frequency_lexicon,
 )
+from lexishift_core.frequency_providers import (
+    SqliteFrequencyProvider,
+    SqliteFrequencyProviderConfig,
+    build_sqlite_frequency_provider,
+)
+from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.rule_generation import (
     MappingCandidateSource,
     RuleCandidate,
@@ -113,6 +123,7 @@ from lexishift_core.rule_generation_utils import (
     BasicStringNormalizer,
     InflectionVariantExpander,
     NonEmptyFilter,
+    SingleWordFilter,
 )
 from lexishift_core.rule_generation_ja_en import (
     JaEnRulegenConfig,
@@ -120,6 +131,13 @@ from lexishift_core.rule_generation_ja_en import (
     generate_ja_en_results,
     generate_ja_en_rules,
 )
+from lexishift_core.srs_seed import (
+    SeedSelectionConfig,
+    SeedWord,
+    build_seed_candidates,
+    seed_to_selector_candidates,
+)
+from lexishift_core.weighting import GlossDecay, PmwWeighting, RankWeighting
 from lexishift_core.storage import (
     InflectionSettings,
     LearningSettings,
@@ -202,10 +220,17 @@ __all__ = [
     "SynonymOptions",
     "SynonymSources",
     "load_jmdict_glosses",
+    "load_jmdict_glosses_ordered",
+    "load_jmdict_lemmas",
     "FrequencyLexicon",
     "FrequencySourceConfig",
     "build_frequency_provider",
     "load_frequency_lexicon",
+    "SqliteFrequencyConfig",
+    "SqliteFrequencyStore",
+    "SqliteFrequencyProvider",
+    "SqliteFrequencyProviderConfig",
+    "build_sqlite_frequency_provider",
     "MappingCandidateSource",
     "RuleCandidate",
     "RuleConfidenceSignals",
@@ -218,10 +243,18 @@ __all__ = [
     "BasicStringNormalizer",
     "InflectionVariantExpander",
     "NonEmptyFilter",
+    "SingleWordFilter",
     "JaEnRulegenConfig",
     "build_ja_en_pipeline",
     "generate_ja_en_results",
     "generate_ja_en_rules",
+    "SeedSelectionConfig",
+    "SeedWord",
+    "build_seed_candidates",
+    "seed_to_selector_candidates",
+    "GlossDecay",
+    "PmwWeighting",
+    "RankWeighting",
     "PracticeGateState",
     "SrsHistoryEntry",
     "SrsItem",

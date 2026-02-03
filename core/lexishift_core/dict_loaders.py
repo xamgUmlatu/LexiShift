@@ -15,7 +15,23 @@ def load_jmdict_glosses(
     include_kana: bool = True,
     include_kanji: bool = True,
 ) -> dict[str, set[str]]:
-    mapping: dict[str, set[str]] = {}
+    ordered = load_jmdict_glosses_ordered(
+        path,
+        languages=languages,
+        include_kana=include_kana,
+        include_kanji=include_kanji,
+    )
+    return {key: set(values) for key, values in ordered.items()}
+
+
+def load_jmdict_glosses_ordered(
+    path: Path,
+    *,
+    languages: Iterable[str] = ("eng", "en"),
+    include_kana: bool = True,
+    include_kanji: bool = True,
+) -> dict[str, list[str]]:
+    mapping: dict[str, list[str]] = {}
     if not path.exists():
         return mapping
     allowed = {lang.lower() for lang in languages} if languages else set()
@@ -26,7 +42,7 @@ def load_jmdict_glosses(
     for _event, elem in context:
         if elem.tag != "entry":
             continue
-        glosses = []
+        glosses: list[str] = []
         for gloss in elem.findall("sense/gloss"):
             text = (gloss.text or "").strip()
             if not text:
@@ -46,7 +62,37 @@ def load_jmdict_glosses(
                     if reb.text and reb.text.strip():
                         jp_terms.append(reb.text.strip())
             for jp_term in jp_terms:
-                bucket = mapping.setdefault(jp_term, set())
-                bucket.update(glosses)
+                bucket = mapping.setdefault(jp_term, [])
+                for gloss in glosses:
+                    if gloss not in bucket:
+                        bucket.append(gloss)
         elem.clear()
     return mapping
+
+
+def load_jmdict_lemmas(
+    path: Path,
+    *,
+    include_kana: bool = True,
+    include_kanji: bool = True,
+) -> set[str]:
+    lemmas: set[str] = set()
+    if not path.exists():
+        return lemmas
+    try:
+        context = ElementTree.iterparse(path, events=("end",))
+    except (ElementTree.ParseError, OSError):
+        return lemmas
+    for _event, elem in context:
+        if elem.tag != "entry":
+            continue
+        if include_kanji:
+            for keb in elem.findall("k_ele/keb"):
+                if keb.text and keb.text.strip():
+                    lemmas.add(keb.text.strip())
+        if include_kana:
+            for reb in elem.findall("r_ele/reb"):
+                if reb.text and reb.text.strip():
+                    lemmas.add(reb.text.strip())
+        elem.clear()
+    return lemmas

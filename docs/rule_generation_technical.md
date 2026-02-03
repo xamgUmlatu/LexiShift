@@ -131,6 +131,26 @@ Next steps (current workstream focus)
    - Why: lets SRS and rulegen favor common JP targets or allow rare ones intentionally.
    - Status: BCCWJ SUW downloaded and converted to SQLite via the GUI frequency pack flow.
    - Pack size (SQLite): ~50 MB.
+
+### Current plan (JA target, EN source)
+We are locking in a **JMDict‑filtered core set** for the initial S seed:
+
+1) **Selection (seed S):** use `core_rank` from BCCWJ SUW.  
+2) **Filter:** intersect top‑N by `core_rank` with **JMDict lemmas** (to avoid junk).  
+3) **Weighting:** use `pmw` (per‑million‑words) as the primary frequency signal.  
+4) **Rulegen:** for each JA lemma in S, use JMDict glosses, **single‑word English only**.  
+5) **Confidence decay:** the first gloss gets 100% of base weight; secondary glosses decay (e.g. 70%/50%).  
+
+> **Note:** confidence scoring is WIP and will evolve. This is a baseline model.
+
+### Diagram (planned algorithm)
+See `docs/weight_selection_diagram.mmd` for the S seed + rulegen flow.
+
+### Testing harness (parameter sweeps)
+- Seed report: `scripts/testing/ja_en_seed_report.py`
+- Rulegen sweeps: `scripts/testing/ja_en_rulegen_sweep.py`
+  - Supports `--top-n`, `--thresholds`, `--decays`, and optional `--coca` weighting.
+- All-in-one runner (writes output files): `scripts/testing/run_ja_en_tests.py`
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.
    - Needed from you: preferred output path + any S test list you want to use.
@@ -145,3 +165,7 @@ Implementation status
 - `RuleMetadata` now supports `source_type` + `confidence` fields and is serialized in datasets.
 - JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rule_generation_ja_en.py`.
 - Frequency lexicon loader lives in `core/lexishift_core/frequency.py` (generic).
+- SQLite frequency access + normalization lives in `core/lexishift_core/frequency_sqlite_store.py` and `core/lexishift_core/frequency_providers.py`.
+- Seed builder for JA targets lives in `core/lexishift_core/srs_seed.py` (core_rank selection + pmw weighting).
+- Normalization utilities live in `core/lexishift_core/weighting.py`.
+- End-to-end test script: `scripts/build_ja_en_srs_rules.py` (BCCWJ + JMDict + optional COCA).

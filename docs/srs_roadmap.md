@@ -113,7 +113,8 @@ See also: `docs/rule_generation_technical.md` for precomputed rule + confidence 
 - Exposure logging is available (Advanced → Logging).
 
 ### Workstream B — S growth (seed + expansion) ⏳
-- **Seed with frequency lists** (not implemented).
+- **Seed with frequency lists** ✅ (`core/lexishift_core/srs_seed.py`).
+- **JA seed logic:** `core_rank` selection + `pmw` weighting + JMDict filter (implemented).
 - **Coverage scalar** to expand beyond seed (settings exist, pipeline missing).
 - **Candidate ingestion** (not implemented).
 - **Selector test dataset** ✅ (`docs/srs_selector_test_dataset.json`)
@@ -138,6 +139,7 @@ See also: `docs/rule_generation_technical.md` for precomputed rule + confidence 
 1) **Monolingual frequency lists** (EN, DE, JP)
    - Used to seed S with top‑N lemmas.
    - **Status:** EN + JP downloaded and converted to SQLite via GUI frequency packs. DE still pending.
+   - **Decision (JA seed):** use `core_rank` from BCCWJ for selection; use `pmw` for weighting.
 
 2) **Language‑aware tokenization/segmentation**
    - EN/DE: word tokenization is already available in the engine.
@@ -147,6 +149,7 @@ See also: `docs/rule_generation_technical.md` for precomputed rule + confidence 
 3) **Lemma/POS metadata**
    - Improves filtering (e.g., only nouns/verbs).
    - **Status:** depends on source list.
+   - **Decision:** JMDict‑filtered seed ensures every S item has a dictionary entry.
 
 4) **Embedding files per language pair**
    - Used for confidence and ranking (optional).

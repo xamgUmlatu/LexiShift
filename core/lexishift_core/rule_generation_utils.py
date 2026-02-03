@@ -40,6 +40,21 @@ class NonEmptyFilter:
 
 
 @dataclass(frozen=True)
+class SingleWordFilter:
+    allow_hyphen: bool = True
+
+    def accept(self, candidate: RuleCandidate) -> bool:
+        phrase = candidate.source_phrase.strip()
+        if not phrase:
+            return False
+        if any(ch.isspace() for ch in phrase):
+            return False
+        if not self.allow_hyphen and "-" in phrase:
+            return False
+        return True
+
+
+@dataclass(frozen=True)
 class InflectionVariantExpander:
     spec: InflectionSpec = InflectionSpec()
     generator: InflectionGenerator = InflectionGenerator()
