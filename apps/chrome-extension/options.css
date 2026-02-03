@@ -195,6 +195,18 @@ textarea {
   color: #5f594f;
 }
 
+.srs-preview {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e1d6c6;
+  background: #fffdf8;
+  font-size: 13px;
+  color: #4d473f;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
 button {
   background: #2c2a26;
   color: #fef8ee;

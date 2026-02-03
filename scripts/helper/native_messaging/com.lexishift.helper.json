@@ -1,0 +1,7 @@
+{
+  "name": "com.lexishift.helper",
+  "description": "LexiShift local helper for rule generation and SRS syncing.",
+  "path": "/ABSOLUTE/PATH/TO/lexishift_native_host.py",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://__EXTENSION_ID__/"]
+}

@@ -110,14 +110,26 @@
   "button_srs_sample": {
     "message": "Sample active words…"
   },
+  "button_srs_rulegen_preview": {
+    "message": "Show target rules…"
+  },
   "status_srs_sampling": {
     "message": "Sampling…"
+  },
+  "status_srs_rulegen_loading": {
+    "message": "Building rule preview…"
   },
   "status_srs_sample_empty": {
     "message": "No words available."
   },
+  "status_srs_rulegen_empty": {
+    "message": "No rules found for current active words."
+  },
   "status_srs_sample_failed": {
     "message": "SRS sample failed."
+  },
+  "status_srs_rulegen_failed": {
+    "message": "Rule preview failed."
   },
   "section_share_code": {
     "message": "Share Code"

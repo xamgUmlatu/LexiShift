@@ -1,0 +1,176 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+import json
+from pathlib import Path
+from typing import Optional
+
+from lexishift_core.helper_paths import HelperPaths
+from lexishift_core.helper_rulegen import (
+    RulegenConfig,
+    SeedConfig,
+    run_rulegen_for_pair,
+    write_rulegen_outputs,
+)
+from lexishift_core.helper_status import HelperStatus, load_status, save_status
+from lexishift_core.srs import SrsSettings, SrsStore, load_srs_settings, load_srs_store, save_srs_settings, save_srs_store
+from lexishift_core.srs_store_ops import record_exposure, record_feedback
+from lexishift_core.srs_time import now_utc
+
+
+@dataclass(frozen=True)
+class RulegenJobConfig:
+    pair: str
+    jmdict_path: Path
+    seed_db: Optional[Path] = None
+    seed_top_n: int = 2000
+    confidence_threshold: float = 0.0
+    snapshot_targets: int = 50
+    snapshot_sources: int = 6
+    seed_if_empty: bool = True
+
+
+def _ensure_settings(paths: HelperPaths) -> SrsSettings:
+    if paths.srs_settings_path.exists():
+        return load_srs_settings(paths.srs_settings_path)
+    settings = SrsSettings()
+    save_srs_settings(settings, paths.srs_settings_path)
+    return settings
+
+
+def _ensure_store(paths: HelperPaths) -> SrsStore:
+    if paths.srs_store_path.exists():
+        return load_srs_store(paths.srs_store_path)
+    store = SrsStore()
+    save_srs_store(store, paths.srs_store_path)
+    return store
+
+
+def _update_status(
+    *,
+    paths: HelperPaths,
+    pair: str,
+    rule_count: int,
+    target_count: int,
+    error: Optional[str] = None,
+) -> None:
+    status = load_status(paths.srs_status_path)
+    status = HelperStatus(
+        version=status.version,
+        helper_version=status.helper_version,
+        last_run_at=now_utc().isoformat(),
+        last_error=error,
+        last_pair=pair,
+        last_rule_count=rule_count,
+        last_target_count=target_count,
+    )
+    save_status(status, paths.srs_status_path)
+
+
+def load_snapshot(paths: HelperPaths, *, pair: str) -> dict:
+    snapshot_path = paths.snapshot_path(pair)
+    if not snapshot_path.exists():
+        raise FileNotFoundError(snapshot_path)
+    return json.loads(snapshot_path.read_text(encoding="utf-8"))
+
+
+def load_ruleset(paths: HelperPaths, *, pair: str) -> dict:
+    ruleset_path = paths.ruleset_path(pair)
+    if not ruleset_path.exists():
+        raise FileNotFoundError(ruleset_path)
+    return json.loads(ruleset_path.read_text(encoding="utf-8"))
+
+
+def run_rulegen_job(
+    paths: HelperPaths,
+    *,
+    config: RulegenJobConfig,
+) -> dict:
+    if not config.jmdict_path.exists():
+        raise FileNotFoundError(config.jmdict_path)
+    settings = _ensure_settings(paths)
+    store = _ensure_store(paths)
+    seed_config = None
+    if config.seed_db and config.seed_db.exists():
+        seed_config = SeedConfig(
+            frequency_db=config.seed_db,
+            jmdict_path=config.jmdict_path,
+            top_n=config.seed_top_n,
+            language_pair=config.pair,
+        )
+    rulegen_config = RulegenConfig(
+        language_pair=config.pair,
+        confidence_threshold=config.confidence_threshold,
+        max_snapshot_targets=config.snapshot_targets,
+        max_snapshot_sources=config.snapshot_sources,
+    )
+    store, output = run_rulegen_for_pair(
+        paths=paths,
+        pair=config.pair,
+        store=store,
+        settings=settings,
+        jmdict_path=config.jmdict_path,
+        seed_config=seed_config,
+        rulegen_config=rulegen_config,
+        seed_if_empty=config.seed_if_empty,
+    )
+    write_rulegen_outputs(
+        paths=paths,
+        pair=config.pair,
+        rules=output.rules,
+        snapshot=output.snapshot,
+    )
+    if store:
+        save_srs_store(store, paths.srs_store_path)
+    _update_status(
+        paths=paths,
+        pair=config.pair,
+        rule_count=len(output.rules),
+        target_count=output.target_count,
+        error=None,
+    )
+    return {
+        "pair": config.pair,
+        "targets": output.target_count,
+        "rules": len(output.rules),
+        "snapshot_path": str(paths.snapshot_path(config.pair)),
+        "ruleset_path": str(paths.ruleset_path(config.pair)),
+    }
+
+
+def apply_feedback(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    rating: str,
+    source_type: str = "extension",
+) -> None:
+    store = _ensure_store(paths)
+    store = record_feedback(
+        store,
+        language_pair=pair,
+        lemma=lemma,
+        rating=rating,
+        create_if_missing=True,
+        source_type=source_type,
+    )
+    save_srs_store(store, paths.srs_store_path)
+
+
+def apply_exposure(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    source_type: str = "extension",
+) -> None:
+    store = _ensure_store(paths)
+    store = record_exposure(
+        store,
+        language_pair=pair,
+        lemma=lemma,
+        create_if_missing=True,
+        source_type=source_type,
+    )
+    save_srs_store(store, paths.srs_store_path)

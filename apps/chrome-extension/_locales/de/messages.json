@@ -110,14 +110,26 @@
   "button_srs_sample": {
     "message": "Aktive Wörter testen…"
   },
+  "button_srs_rulegen_preview": {
+    "message": "Ziel-Regeln anzeigen…"
+  },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
+  },
+  "status_srs_rulegen_loading": {
+    "message": "Regelvorschau wird erstellt…"
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."
   },
+  "status_srs_rulegen_empty": {
+    "message": "Keine Regeln für die aktuellen Wörter gefunden."
+  },
   "status_srs_sample_failed": {
     "message": "SRS-Stichprobe fehlgeschlagen."
+  },
+  "status_srs_rulegen_failed": {
+    "message": "Regelvorschau fehlgeschlagen."
   },
   "section_share_code": {
     "message": "Share-Code"

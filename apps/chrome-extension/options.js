@@ -147,6 +147,8 @@ const srsFeedbackRulesInput = document.getElementById("srs-feedback-rules-enable
 const srsExposureLoggingInput = document.getElementById("srs-exposure-logging-enabled");
 const srsSampleButton = document.getElementById("srs-sample");
 const srsSampleOutput = document.getElementById("srs-sample-output");
+const srsRulegenButton = document.getElementById("srs-rulegen-preview");
+const srsRulegenOutput = document.getElementById("srs-rulegen-output");
 const languageSelect = document.getElementById("ui-language");
 const rulesInput = document.getElementById("rules");
 const saveButton = document.getElementById("save");
@@ -590,6 +592,9 @@ function load() {
     if (srsSampleOutput) {
       srsSampleOutput.textContent = "";
     }
+    if (srsRulegenOutput) {
+      srsRulegenOutput.textContent = "";
+    }
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
     }
@@ -610,6 +615,55 @@ function load() {
     updateRulesMeta(currentRules, items.rulesUpdatedAt);
     loadLocaleMessages(items.uiLanguage || "system");
   });
+}
+
+function buildRuleIndex(rules) {
+  const index = new Map();
+  (rules || []).forEach((rule) => {
+    const replacement = String(rule.replacement || "").trim();
+    const source = String(rule.source_phrase || "").trim();
+    if (!replacement || !source) {
+      return;
+    }
+    const key = replacement.toLowerCase();
+    let bucket = index.get(key);
+    if (!bucket) {
+      bucket = new Set();
+      index.set(key, bucket);
+    }
+    bucket.add(source);
+  });
+  return index;
+}
+
+function formatRulegenPreview(lemmas, ruleIndex, limit = 12, maxSources = 6) {
+  const total = Array.isArray(lemmas) ? lemmas.length : 0;
+  if (!total) {
+    return "";
+  }
+  const lines = [];
+  const capped = lemmas.slice(0, limit);
+  capped.forEach((lemma) => {
+    const key = String(lemma || "").trim();
+    if (!key) {
+      return;
+    }
+    const sources = ruleIndex.get(key.toLowerCase());
+    if (!sources || sources.size === 0) {
+      lines.push(`${key} → (no rules)`);
+      return;
+    }
+    const list = Array.from(sources);
+    list.sort();
+    const shown = list.slice(0, maxSources);
+    const remainder = list.length - shown.length;
+    const suffix = remainder > 0 ? ` (+${remainder})` : "";
+    lines.push(`${key} → ${shown.join(", ")}${suffix}`);
+  });
+  if (total > limit) {
+    lines.push(`… +${total - limit} more`);
+  }
+  return lines.join("\n");
 }
 
 async function sampleActiveWords() {
@@ -647,6 +701,66 @@ async function sampleActiveWords() {
     logOptions("SRS sample failed.", err);
   } finally {
     srsSampleButton.disabled = false;
+  }
+}
+
+async function previewSrsRulegen() {
+  if (!srsRulegenButton || !srsRulegenOutput) {
+    return;
+  }
+  const selector = globalThis.LexiShift && globalThis.LexiShift.srsSelector;
+  if (!selector || typeof selector.selectActiveItems !== "function") {
+    srsRulegenOutput.textContent = t(
+      "status_srs_rulegen_failed",
+      null,
+      "Rule preview failed."
+    );
+    return;
+  }
+  const sourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
+    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
+    : (DEFAULT_SETTINGS.targetLanguage || "en");
+  const srsPair = resolvePairFromInputs();
+  const maxActiveRaw = srsMaxActiveInput ? parseInt(srsMaxActiveInput.value, 10) : NaN;
+  const srsMaxActive = Number.isFinite(maxActiveRaw)
+    ? Math.max(1, maxActiveRaw)
+    : (DEFAULT_SETTINGS.srsMaxActive || 40);
+  srsRulegenButton.disabled = true;
+  srsRulegenOutput.textContent = t(
+    "status_srs_rulegen_loading",
+    null,
+    "Building rule preview…"
+  );
+  try {
+    const result = await selector.selectActiveItems(
+      { srsPair, sourceLanguage, targetLanguage, srsPairAuto: true, srsMaxActive }
+    );
+    const lemmas = result && Array.isArray(result.lemmas) ? result.lemmas : [];
+    const rules = getActiveRulesForCode();
+    const ruleIndex = buildRuleIndex(rules);
+    const preview = formatRulegenPreview(lemmas, ruleIndex);
+    if (!preview) {
+      srsRulegenOutput.textContent = t(
+        "status_srs_rulegen_empty",
+        null,
+        "No rules found for current active words."
+      );
+    } else {
+      srsRulegenOutput.textContent = preview;
+    }
+    logOptions("SRS rulegen preview", { pair: srsPair, count: lemmas.length });
+  } catch (err) {
+    srsRulegenOutput.textContent = t(
+      "status_srs_rulegen_failed",
+      null,
+      "Rule preview failed."
+    );
+    logOptions("SRS rulegen preview failed.", err);
+  } finally {
+    srsRulegenButton.disabled = false;
   }
 }
 
@@ -729,6 +843,9 @@ if (srsExposureLoggingInput) {
 }
 if (srsSampleButton) {
   srsSampleButton.addEventListener("click", sampleActiveWords);
+}
+if (srsRulegenButton) {
+  srsRulegenButton.addEventListener("click", previewSrsRulegen);
 }
 
 debugEnabledInput.addEventListener("change", () => {

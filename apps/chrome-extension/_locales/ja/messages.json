@@ -110,14 +110,26 @@
   "button_srs_sample": {
     "message": "アクティブ語をサンプル…"
   },
+  "button_srs_rulegen_preview": {
+    "message": "生成ルールを表示…"
+  },
   "status_srs_sampling": {
     "message": "サンプリング中…"
+  },
+  "status_srs_rulegen_loading": {
+    "message": "ルールプレビュー作成中…"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"
   },
+  "status_srs_rulegen_empty": {
+    "message": "現在の単語に対応するルールがありません。"
+  },
   "status_srs_sample_failed": {
     "message": "SRSサンプルに失敗しました。"
+  },
+  "status_srs_rulegen_failed": {
+    "message": "ルールプレビューに失敗しました。"
   },
   "section_share_code": {
     "message": "共有コード"

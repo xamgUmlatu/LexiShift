@@ -110,14 +110,26 @@
   "button_srs_sample": {
     "message": "抽样活跃词…"
   },
+  "button_srs_rulegen_preview": {
+    "message": "查看生成规则…"
+  },
   "status_srs_sampling": {
     "message": "正在抽样…"
+  },
+  "status_srs_rulegen_loading": {
+    "message": "正在生成规则预览…"
   },
   "status_srs_sample_empty": {
     "message": "暂无可用词。"
   },
+  "status_srs_rulegen_empty": {
+    "message": "当前活跃词没有对应规则。"
+  },
   "status_srs_sample_failed": {
     "message": "SRS 抽样失败。"
+  },
+  "status_srs_rulegen_failed": {
+    "message": "规则预览失败。"
   },
   "section_share_code": {
     "message": "分享代码"
