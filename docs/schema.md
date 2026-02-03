@@ -153,6 +153,9 @@ Top-level fields
 - `updated_at` (string, optional)
 - `rulesets` (array of string, optional; list of JSON file paths)
 - `active_ruleset` (string, optional; path)
+- `srs_profile` (object, optional; **planned**, see `docs/srs_profile_schema.md`)
+- `srs_store_ref` (object, optional; **planned**, points to SRS store file)
+  - Includes optional `schema_version` and metadata for future migrations.
 
 ### ImportExportSettings
 - `allow_code_export` (bool, optional, default: true)
