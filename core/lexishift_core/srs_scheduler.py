@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.srs import SrsHistoryEntry, SrsItem
+from lexishift_core.srs_time import format_ts, now_utc, parse_ts
 
 
 RATING_AGAIN = "again"
@@ -14,26 +15,6 @@ RATING_EASY = "easy"
 RATINGS = {RATING_AGAIN, RATING_HARD, RATING_GOOD, RATING_EASY}
 
 
-def _now_utc() -> datetime:
-    return datetime.now(timezone.utc)
-
-
-def _parse_ts(value: Optional[str]) -> Optional[datetime]:
-    if not value:
-        return None
-    try:
-        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    if dt.tzinfo is None:
-        return dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
-
-
-def _format_ts(value: datetime) -> str:
-    return value.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
 def select_active_items(
     items: Iterable[SrsItem],
     *,
@@ -41,14 +22,14 @@ def select_active_items(
     max_active: int = 40,
     allowed_pairs: Optional[Sequence[str]] = None,
 ) -> list[SrsItem]:
-    now = now or _now_utc()
+    now = now or now_utc()
     allowed = set(allowed_pairs or [])
     due: list[tuple[datetime, SrsItem]] = []
     for item in items:
         if allowed and item.language_pair not in allowed:
             continue
-        next_due = _parse_ts(item.next_due)
-        due_time = next_due or datetime.min.replace(tzinfo=timezone.utc)
+        next_due = parse_ts(item.next_due)
+        due_time = next_due or datetime.min.replace(tzinfo=now.tzinfo)
         if next_due is None or next_due <= now:
             due.append((due_time, item))
     due.sort(key=lambda entry: entry[0])
@@ -64,7 +45,7 @@ def apply_feedback(
     rating = rating.lower().strip()
     if rating not in RATINGS:
         raise ValueError(f"Unknown rating: {rating}")
-    now = now or _now_utc()
+    now = now or now_utc()
 
     stability = item.stability if item.stability is not None else 1.0
     difficulty = item.difficulty if item.difficulty is not None else 0.5
@@ -87,15 +68,14 @@ def apply_feedback(
         difficulty = max(0.2, difficulty - 0.1)
 
     next_due = now + timedelta(days=interval)
-    history = tuple(item.history) + (SrsHistoryEntry(ts=_format_ts(now), rating=rating),)
+    history = tuple(item.history) + (SrsHistoryEntry(ts=format_ts(now), rating=rating),)
 
     return replace(
         item,
         stability=stability,
         difficulty=difficulty,
-        last_seen=_format_ts(now),
-        next_due=_format_ts(next_due),
+        last_seen=format_ts(now),
+        next_due=format_ts(next_due),
         exposures=item.exposures,
         history=history,
     )
-

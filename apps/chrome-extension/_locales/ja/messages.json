@@ -80,6 +80,9 @@
   "label_srs_pair": {
     "message": "言語ペア"
   },
+  "toggle_srs_pair_auto": {
+    "message": "ソース/ターゲットから自動ペア"
+  },
   "option_srs_all_pairs": {
     "message": "すべてのペア"
   },
@@ -238,6 +241,12 @@
   },
   "label_language": {
     "message": "表示言語"
+  },
+  "label_source_language": {
+    "message": "ソース言語"
+  },
+  "label_target_language": {
+    "message": "ターゲット言語"
   },
   "option_language_system": {
     "message": "システム設定"

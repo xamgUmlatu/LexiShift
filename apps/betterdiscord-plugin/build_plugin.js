@@ -5,8 +5,10 @@ const srcDir = path.join(__dirname, "src");
 const outPath = path.join(__dirname, "LexiShift.plugin.js");
 
 const sharedRoot = path.resolve(__dirname, "..", "chrome-extension", "content");
+const sharedPrefs = path.resolve(__dirname, "..", "chrome-extension", "shared");
 const parts = [
 	"header.js",
+	path.join(sharedPrefs, "language_prefs.js"),
 	path.join(sharedRoot, "tokenizer.js"),
 	path.join(sharedRoot, "matcher.js"),
 	"constants.js",

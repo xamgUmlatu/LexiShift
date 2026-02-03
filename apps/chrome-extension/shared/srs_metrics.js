@@ -30,16 +30,33 @@
       return Promise.resolve([]);
     }
     return new Promise((resolve) => {
-      chrome.storage.local.get({ [STORAGE_KEY]: [] }, (items) => {
-        const list = Array.isArray(items[STORAGE_KEY]) ? items[STORAGE_KEY] : [];
-        list.push(...payload);
-        if (list.length > MAX_ENTRIES) {
-          list.splice(0, list.length - MAX_ENTRIES);
+      try {
+        if (!chrome || !chrome.storage || !chrome.runtime || !chrome.runtime.id) {
+          resolve([]);
+          return;
         }
-        chrome.storage.local.set({ [STORAGE_KEY]: list }, () => resolve(payload));
-      });
+        chrome.storage.local.get({ [STORAGE_KEY]: [] }, (items) => {
+          const list = Array.isArray(items[STORAGE_KEY]) ? items[STORAGE_KEY] : [];
+          list.push(...payload);
+          if (list.length > MAX_ENTRIES) {
+            list.splice(0, list.length - MAX_ENTRIES);
+          }
+          chrome.storage.local.set({ [STORAGE_KEY]: list }, () => resolve(payload));
+        });
+      } catch (error) {
+        resolve([]);
+      }
     });
   }
 
-  root.srsMetrics = { buildExposure, recordExposureBatch };
+  function recordExposureBatchWithStore(entries) {
+    return recordExposureBatch(entries).then((payload) => {
+      if (payload.length && root.srsStore && typeof root.srsStore.recordExposureBatch === "function") {
+        root.srsStore.recordExposureBatch(payload);
+      }
+      return payload;
+    });
+  }
+
+  root.srsMetrics = { buildExposure, recordExposureBatch: recordExposureBatchWithStore };
 })();

@@ -80,6 +80,9 @@
   "label_srs_pair": {
     "message": "Language pair"
   },
+  "toggle_srs_pair_auto": {
+    "message": "Auto language pair from source/target"
+  },
   "option_srs_all_pairs": {
     "message": "All pairs"
   },
@@ -238,6 +241,12 @@
   },
   "label_language": {
     "message": "Interface language"
+  },
+  "label_source_language": {
+    "message": "Source language"
+  },
+  "label_target_language": {
+    "message": "Target language"
   },
   "option_language_system": {
     "message": "System default"

@@ -195,7 +195,13 @@
     "show_original": "元のテキストを表示",
     "highlight_replacements": "置換をハイライト",
     "inflections_section": "語形変化",
-    "learning_section": "学習"
+    "learning_section": "学習",
+    "srs_section": "SRS 練習",
+    "srs_enabled": "SRS 練習レイヤーを有効化",
+    "srs_coverage": "カバレッジ係数（%）",
+    "srs_max_active": "最大アクティブ数",
+    "srs_max_new": "1日あたりの新規上限",
+    "srs_pairs": "有効な言語ペア"
   },
   "formats": {
     "json": "JSON",
@@ -267,7 +273,11 @@
     "source_loaded": "{name} を読み込み: {count} 件",
     "source_empty": "{name} を読み込み: 0 件（path: {path}, size: {size}）",
     "odenet_probe": "OdeNet 確認: LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
-    "odenet_parse_error": "OdeNet 解析エラー: {error}"
+    "odenet_parse_error": "OdeNet 解析エラー: {error}",
+    "srs_seed_missing": "SRS シードをスキップしました（JA シードに必要な頻度パック/辞書が不足）。",
+    "srs_seed_updated": "SRS シード更新: +{added} 件（合計 {total} / プール {pool}）。",
+    "srs_seed_noop": "SRS シードは最新です（合計 {total} / プール {pool}）。",
+    "srs_seed_failed": "SRS シード失敗: {error}"
   },
   "profiles": {
     "default_name": "デフォルト",

@@ -80,6 +80,9 @@
   "label_srs_pair": {
     "message": "语言对"
   },
+  "toggle_srs_pair_auto": {
+    "message": "自动使用源/目标语言组合"
+  },
   "option_srs_all_pairs": {
     "message": "全部语言对"
   },
@@ -238,6 +241,12 @@
   },
   "label_language": {
     "message": "界面语言"
+  },
+  "label_source_language": {
+    "message": "源语言"
+  },
+  "label_target_language": {
+    "message": "目标语言"
   },
   "option_language_system": {
     "message": "系统默认"

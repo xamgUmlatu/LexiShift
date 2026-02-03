@@ -195,7 +195,13 @@
     "show_original": "显示原文",
     "highlight_replacements": "高亮替换",
     "inflections_section": "词形变化",
-    "learning_section": "学习"
+    "learning_section": "学习",
+    "srs_section": "SRS 练习",
+    "srs_enabled": "启用 SRS 练习层",
+    "srs_coverage": "覆盖比例（%）",
+    "srs_max_active": "最大活跃数量",
+    "srs_max_new": "每日新增上限",
+    "srs_pairs": "启用的语言对"
   },
   "formats": {
     "json": "JSON",
@@ -267,7 +273,11 @@
     "source_loaded": "已加载 {name}: {count} 条",
     "source_empty": "已加载 {name}: 0 条（路径: {path}, 大小: {size}）",
     "odenet_probe": "OdeNet 检查：LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
-    "odenet_parse_error": "OdeNet 解析错误: {error}"
+    "odenet_parse_error": "OdeNet 解析错误: {error}",
+    "srs_seed_missing": "跳过 SRS 种子：缺少用于 JA 的词频包或词典。",
+    "srs_seed_updated": "SRS 种子已更新：+{added} 条（总计 {total}，池 {pool}）。",
+    "srs_seed_noop": "SRS 种子已最新（总计 {total}，池 {pool}）。",
+    "srs_seed_failed": "SRS 种子失败：{error}"
   },
   "profiles": {
     "default_name": "默认",

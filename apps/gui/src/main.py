@@ -61,6 +61,8 @@ from lexishift_core import (
     Profile,
     PracticeGate,
     RuleMetadata,
+    SeedSelectionConfig,
+    SrsGrowthConfig,
     SrsSettings,
     SynonymSourceSettings,
     VocabDataset,
@@ -73,6 +75,10 @@ from lexishift_core import (
     import_app_settings_json,
     import_dataset_code,
     import_dataset_json,
+    build_seed_candidates,
+    grow_srs_store,
+    resolve_allowed_pairs,
+    seed_to_selector_candidates,
     select_active_items,
     SynonymGenerator,
     SynonymOptions,
@@ -660,6 +666,7 @@ class MainWindow(QMainWindow):
         self._refresh_embedding_index()
         self._schedule_preview()
         self._apply_theme()
+        self._refresh_srs_growth()
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -1411,6 +1418,62 @@ class MainWindow(QMainWindow):
 
     def _save_profiles(self) -> None:
         self.state.save_settings()
+
+    def _refresh_srs_growth(self) -> None:
+        settings = self.state.settings.srs
+        if not settings or not settings.enabled:
+            return
+        synonym_settings = self.state.settings.synonyms
+        if not synonym_settings:
+            return
+        language_packs = synonym_settings.language_packs or {}
+        frequency_packs = synonym_settings.frequency_packs or {}
+
+        bccwj_path = frequency_packs.get("freq-ja-bccwj")
+        jmdict_path = language_packs.get("jmdict-ja-en")
+        if not bccwj_path or not jmdict_path:
+            self._append_log(t("logs.srs_seed_missing"))
+            return
+        try:
+            seed_config = SeedSelectionConfig(
+                language_pair="en-ja",
+                top_n=2000,
+                jmdict_path=Path(jmdict_path),
+                require_jmdict=True,
+            )
+            seeds = build_seed_candidates(frequency_db=Path(bccwj_path), config=seed_config)
+            candidates = seed_to_selector_candidates(seeds)
+            growth_config = SrsGrowthConfig(
+                coverage_scalar=settings.coverage_scalar,
+                max_new_items=settings.max_new_items_per_day,
+            )
+            updated_store, plan = grow_srs_store(
+                candidates,
+                store=self.state.srs_store,
+                settings=settings,
+                config=growth_config,
+                allowed_pairs=resolve_allowed_pairs(settings),
+            )
+            if plan.add_count > 0:
+                self.state.update_srs_store(updated_store)
+                self._append_log(
+                    t(
+                        "logs.srs_seed_updated",
+                        added=plan.add_count,
+                        total=len(updated_store.items),
+                        pool=plan.pool_size,
+                    )
+                )
+            else:
+                self._append_log(
+                    t(
+                        "logs.srs_seed_noop",
+                        total=len(updated_store.items),
+                        pool=plan.pool_size,
+                    )
+                )
+        except Exception as exc:
+            self._append_log(t("logs.srs_seed_failed", error=str(exc)))
 
     def _refresh_embedding_index(self) -> None:
         self._embedding_indices.clear()

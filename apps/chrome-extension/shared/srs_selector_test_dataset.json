@@ -219,8 +219,32 @@
       "pos": "adj"
     },
     {
+      "lemma": "shizuka",
+      "language_pair": "en-ja",
+      "base_freq": 0.58,
+      "topic_bias": 0.28,
+      "user_pref": 0.32,
+      "confidence": 0.82,
+      "difficulty_target": 0.38,
+      "recency": 0.70,
+      "source_type": "frequency_list",
+      "pos": "adj"
+    },
+    {
       "lemma": "yoru",
       "language_pair": "ja-ja",
+      "base_freq": 0.76,
+      "topic_bias": 0.40,
+      "user_pref": 0.25,
+      "confidence": 0.88,
+      "difficulty_target": 0.35,
+      "recency": 0.82,
+      "source_type": "frequency_list",
+      "pos": "noun"
+    },
+    {
+      "lemma": "yoru",
+      "language_pair": "en-ja",
       "base_freq": 0.76,
       "topic_bias": 0.40,
       "user_pref": 0.25,
@@ -243,6 +267,18 @@
       "pos": "noun"
     },
     {
+      "lemma": "kumo",
+      "language_pair": "en-ja",
+      "base_freq": 0.48,
+      "topic_bias": 0.18,
+      "user_pref": 0.30,
+      "confidence": 0.80,
+      "difficulty_target": 0.40,
+      "recency": 0.60,
+      "source_type": "frequency_list",
+      "pos": "noun"
+    },
+    {
       "lemma": "tsuyoi",
       "language_pair": "ja-ja",
       "base_freq": 0.44,
@@ -255,8 +291,32 @@
       "pos": "adj"
     },
     {
+      "lemma": "tsuyoi",
+      "language_pair": "en-ja",
+      "base_freq": 0.44,
+      "topic_bias": 0.12,
+      "user_pref": 0.20,
+      "confidence": 0.76,
+      "difficulty_target": 0.36,
+      "recency": 0.90,
+      "source_type": "frequency_list",
+      "pos": "adj"
+    },
+    {
       "lemma": "tasogare",
       "language_pair": "ja-ja",
+      "base_freq": 0.06,
+      "topic_bias": 0.72,
+      "user_pref": 0.66,
+      "confidence": 0.60,
+      "difficulty_target": 0.70,
+      "recency": 0.30,
+      "source_type": "user_stream",
+      "pos": "noun"
+    },
+    {
+      "lemma": "tasogare",
+      "language_pair": "en-ja",
       "base_freq": 0.06,
       "topic_bias": 0.72,
       "user_pref": 0.66,

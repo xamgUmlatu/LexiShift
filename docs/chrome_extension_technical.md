@@ -15,6 +15,9 @@ Module layout
 - `apps/chrome-extension/shared/srs_feedback.js`
   - Persists SRS feedback events to `chrome.storage.local` (`srsFeedbackLog`).
   - Provides helper to build feedback entries from replacement spans.
+- `apps/chrome-extension/shared/srs_store.js`
+  - Maintains a compact SRS item store in `chrome.storage.local` (`srsStore`).
+  - Updates item exposures + history from feedback/exposure logs.
 - `apps/chrome-extension/shared/srs_gate.js`
   - Filters rules using the active SRS lemma set (gating).
 - `apps/chrome-extension/shared/lemmatizer.js`
@@ -102,6 +105,7 @@ SRS feedback UX (extension)
   - 4 (blue) = Easy
 - Keyboard shortcuts: **Ctrl+1/2/3/4**.
 - Feedback is stored in `chrome.storage.local` (`srsFeedbackLog`, max 500 entries).
+- Feedback also updates `srsStore` items (history + exposures).
 - Feedback popup appears when the origin is enabled:
   - SRS words: `srsFeedbackSrsEnabled`
   - Ruleset words: `srsFeedbackRulesEnabled`
@@ -111,6 +115,7 @@ Exposure tracking (extension)
 - Logged fields: lemma, replacement, original, language pair, source phrase, URL.
 - Stored in `chrome.storage.local` as `srsExposureLog` (max 2000 entries).
 - Logging is skipped when `srsExposureLoggingEnabled` is false (Advanced → Logging).
+- Exposure records also increment `srsStore` item exposures.
 
 Observer strategy
 - A MutationObserver watches for added/edited nodes and rescans only the new content.

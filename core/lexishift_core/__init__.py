@@ -90,6 +90,24 @@ from lexishift_core.srs_selector import (
     rank_candidates,
     score_candidate,
 )
+from lexishift_core.srs_growth import (
+    SrsGrowthConfig,
+    SrsGrowthPlan,
+    apply_growth_plan,
+    grow_srs_store,
+    normalize_coverage_scalar,
+    plan_srs_growth,
+    resolve_allowed_pairs,
+)
+from lexishift_core.srs_store_ops import (
+    append_history,
+    build_item_id,
+    find_item,
+    record_exposure,
+    record_feedback,
+    upsert_item,
+)
+from lexishift_core.srs_time import format_ts, now_utc, parse_ts
 from lexishift_core.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
 from lexishift_core.dict_loaders import (
     load_jmdict_glosses,
@@ -289,4 +307,20 @@ __all__ = [
     "filter_candidates",
     "score_candidate",
     "rank_candidates",
+    "SrsGrowthConfig",
+    "SrsGrowthPlan",
+    "apply_growth_plan",
+    "grow_srs_store",
+    "normalize_coverage_scalar",
+    "plan_srs_growth",
+    "resolve_allowed_pairs",
+    "append_history",
+    "build_item_id",
+    "find_item",
+    "record_exposure",
+    "record_feedback",
+    "upsert_item",
+    "format_ts",
+    "now_utc",
+    "parse_ts",
 ]

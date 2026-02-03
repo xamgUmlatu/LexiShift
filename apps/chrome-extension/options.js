@@ -12,6 +12,10 @@ const DEFAULT_SETTINGS =
     rulesSource: "editor",
     rulesFileName: "",
     rulesUpdatedAt: "",
+    sourceLanguage: "en",
+    targetLanguage: "en",
+    srsPairAuto: true,
+    srsProfiles: {},
     srsEnabled: false,
     srsPair: "en-en",
     srsMaxActive: 40,
@@ -132,7 +136,8 @@ const allowAdjacentInput = document.getElementById("allow-adjacent");
 const debugEnabledInput = document.getElementById("debug-enabled");
 const debugFocusInput = document.getElementById("debug-focus-word");
 const srsEnabledInput = document.getElementById("srs-enabled");
-const srsPairInput = document.getElementById("srs-pair");
+const sourceLanguageInput = document.getElementById("source-language");
+const targetLanguageInput = document.getElementById("target-language");
 const srsMaxActiveInput = document.getElementById("srs-max-active");
 const srsSoundInput = document.getElementById("srs-sound-enabled");
 const srsHighlightInput = document.getElementById("srs-highlight-color");
@@ -221,6 +226,79 @@ function updateRulesSourceUI(source) {
   saveButton.disabled = isFile;
 }
 
+function resolvePairFromInputs() {
+  const sourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
+    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
+    : (DEFAULT_SETTINGS.targetLanguage || "en");
+  const prefs = globalThis.LexiShift && globalThis.LexiShift.languagePrefs;
+  if (prefs && typeof prefs.resolveLanguagePair === "function") {
+    return prefs.resolveLanguagePair({
+      sourceLanguage,
+      targetLanguage,
+      srsPairAuto: true,
+      srsPair: DEFAULT_SETTINGS.srsPair || "en-en"
+    });
+  }
+  return `${sourceLanguage}-${targetLanguage}`;
+}
+
+function getSrsProfiles(items) {
+  if (items && items.srsProfiles && typeof items.srsProfiles === "object") {
+    return items.srsProfiles;
+  }
+  return {};
+}
+
+function buildLegacySrsProfile(items) {
+  return {
+    srsMaxActive: items.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40,
+    srsSoundEnabled: items.srsSoundEnabled !== false,
+    srsHighlightColor: items.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0",
+    srsFeedbackSrsEnabled: items.srsFeedbackSrsEnabled !== false,
+    srsFeedbackRulesEnabled: items.srsFeedbackRulesEnabled === true,
+    srsExposureLoggingEnabled: items.srsExposureLoggingEnabled !== false
+  };
+}
+
+function applySrsProfile(profile) {
+  if (srsMaxActiveInput) {
+    srsMaxActiveInput.value = String(profile.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40);
+  }
+  if (srsSoundInput) {
+    srsSoundInput.checked = profile.srsSoundEnabled !== false;
+  }
+  if (srsHighlightInput) {
+    srsHighlightInput.value = profile.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0";
+  }
+  if (srsHighlightTextInput) {
+    srsHighlightTextInput.value = srsHighlightInput ? srsHighlightInput.value : "#2F74D0";
+  }
+  const hasNewFeedbackFlags = typeof profile.srsFeedbackSrsEnabled === "boolean"
+    || typeof profile.srsFeedbackRulesEnabled === "boolean";
+  if (srsFeedbackSrsInput) {
+    srsFeedbackSrsInput.checked = hasNewFeedbackFlags
+      ? profile.srsFeedbackSrsEnabled !== false
+      : true;
+  }
+  if (srsFeedbackRulesInput) {
+    srsFeedbackRulesInput.checked = hasNewFeedbackFlags
+      ? profile.srsFeedbackRulesEnabled === true
+      : false;
+  }
+  if (srsExposureLoggingInput) {
+    srsExposureLoggingInput.checked = profile.srsExposureLoggingEnabled !== false;
+  }
+}
+
+function loadSrsProfileForPair(items, pairKey) {
+  const profiles = getSrsProfiles(items);
+  const profile = profiles[pairKey] || buildLegacySrsProfile(items);
+  applySrsProfile(profile);
+}
+
 function saveDisplaySettings() {
   const highlightEnabled = highlightEnabledInput.checked;
   const highlightColor = highlightColorInput.value || DEFAULT_SETTINGS.highlightColor;
@@ -240,11 +318,11 @@ function saveReplacementSettings() {
 }
 
 function saveSrsSettings() {
-  if (!srsEnabledInput || !srsPairInput || !srsMaxActiveInput) {
+  if (!srsEnabledInput || !srsMaxActiveInput) {
     return;
   }
   const srsEnabled = srsEnabledInput.checked;
-  const srsPair = srsPairInput.value || DEFAULT_SETTINGS.srsPair || "en-en";
+  const pairKey = resolvePairFromInputs();
   const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
   const srsMaxActive = Number.isFinite(maxActiveRaw)
     ? Math.max(1, maxActiveRaw)
@@ -258,6 +336,20 @@ function saveSrsSettings() {
   const srsExposureLoggingEnabled = srsExposureLoggingInput
     ? srsExposureLoggingInput.checked
     : true;
+  const profile = {
+    srsMaxActive,
+    srsSoundEnabled,
+    srsHighlightColor,
+    srsFeedbackSrsEnabled,
+    srsFeedbackRulesEnabled,
+    srsExposureLoggingEnabled
+  };
+  const sourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
+    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
+    : (DEFAULT_SETTINGS.targetLanguage || "en");
   srsMaxActiveInput.value = String(srsMaxActive);
   if (srsHighlightInput) {
     srsHighlightInput.value = srsHighlightColor;
@@ -265,31 +357,53 @@ function saveSrsSettings() {
   if (srsHighlightTextInput) {
     srsHighlightTextInput.value = srsHighlightColor;
   }
-  chrome.storage.local.set(
-    {
-      srsEnabled,
-      srsPair,
-      srsMaxActive,
-      srsSoundEnabled,
-      srsHighlightColor,
-      srsFeedbackSrsEnabled,
-      srsFeedbackRulesEnabled,
-      srsExposureLoggingEnabled
-    },
-    () => {
-      setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
-      logOptions("SRS settings saved.", {
+  chrome.storage.local.get(DEFAULT_SETTINGS, (items) => {
+    const profiles = { ...getSrsProfiles(items), [pairKey]: profile };
+    chrome.storage.local.set(
+      {
+        sourceLanguage,
+        targetLanguage,
+        srsPairAuto: true,
         srsEnabled,
-        srsPair,
-        srsMaxActive,
-        srsSoundEnabled,
-        srsHighlightColor,
-        srsFeedbackSrsEnabled,
-        srsFeedbackRulesEnabled,
-        srsExposureLoggingEnabled
-      });
-    }
-  );
+        srsPair: pairKey,
+        srsProfiles: profiles
+      },
+      () => {
+        setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
+        logOptions("SRS settings saved.", {
+          pair: pairKey,
+          sourceLanguage,
+          targetLanguage,
+          srsEnabled,
+          srsMaxActive,
+          srsSoundEnabled,
+          srsHighlightColor,
+          srsFeedbackSrsEnabled,
+          srsFeedbackRulesEnabled,
+          srsExposureLoggingEnabled
+        });
+      }
+    );
+  });
+}
+
+function saveLanguageSettings() {
+  const sourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
+    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
+    : (DEFAULT_SETTINGS.targetLanguage || "en");
+  const pairKey = resolvePairFromInputs();
+  chrome.storage.local.get(DEFAULT_SETTINGS, (items) => {
+    chrome.storage.local.set(
+      { sourceLanguage, targetLanguage, srsPairAuto: true, srsPair: pairKey },
+      () => {
+        loadSrsProfileForPair(items, pairKey);
+        setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
+      }
+    );
+  });
 }
 
 function parseRulesFromEditor() {
@@ -465,37 +579,14 @@ function load() {
     if (srsEnabledInput) {
       srsEnabledInput.checked = items.srsEnabled === true;
     }
-    if (srsPairInput) {
-      srsPairInput.value = items.srsPair || DEFAULT_SETTINGS.srsPair || "en-en";
+    if (sourceLanguageInput) {
+      sourceLanguageInput.value = items.sourceLanguage || DEFAULT_SETTINGS.sourceLanguage || "en";
     }
-    if (srsMaxActiveInput) {
-      srsMaxActiveInput.value = String(items.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40);
+    if (targetLanguageInput) {
+      targetLanguageInput.value = items.targetLanguage || DEFAULT_SETTINGS.targetLanguage || "en";
     }
-    if (srsSoundInput) {
-      srsSoundInput.checked = items.srsSoundEnabled !== false;
-    }
-    if (srsHighlightInput) {
-      srsHighlightInput.value = items.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0";
-    }
-    if (srsHighlightTextInput) {
-      srsHighlightTextInput.value = srsHighlightInput ? srsHighlightInput.value : "#2F74D0";
-    }
-    const hasNewFeedbackFlags = typeof items.srsFeedbackSrsEnabled === "boolean"
-      || typeof items.srsFeedbackRulesEnabled === "boolean";
-    const legacyFeedbackOnlySrs = items.srsFeedbackEnabled === true;
-    if (srsFeedbackSrsInput) {
-      srsFeedbackSrsInput.checked = hasNewFeedbackFlags
-        ? items.srsFeedbackSrsEnabled !== false
-        : true;
-    }
-    if (srsFeedbackRulesInput) {
-      srsFeedbackRulesInput.checked = hasNewFeedbackFlags
-        ? items.srsFeedbackRulesEnabled === true
-        : !legacyFeedbackOnlySrs;
-    }
-    if (srsExposureLoggingInput) {
-      srsExposureLoggingInput.checked = items.srsExposureLoggingEnabled !== false;
-    }
+    const pairKey = resolvePairFromInputs();
+    loadSrsProfileForPair(items, pairKey);
     if (srsSampleOutput) {
       srsSampleOutput.textContent = "";
     }
@@ -530,11 +621,20 @@ async function sampleActiveWords() {
     srsSampleOutput.textContent = t("status_srs_sample_failed", null, "SRS selector not available.");
     return;
   }
-  const srsPair = srsPairInput ? (srsPairInput.value || DEFAULT_SETTINGS.srsPair || "en-en") : "en-en";
+  const sourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
+    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
+    : (DEFAULT_SETTINGS.targetLanguage || "en");
+  const srsPair = resolvePairFromInputs();
   srsSampleButton.disabled = true;
   srsSampleOutput.textContent = t("status_srs_sampling", null, "Sampling…");
   try {
-    const result = await selector.selectSampledItems({ srsPair }, 5);
+    const result = await selector.selectSampledItems(
+      { srsPair, sourceLanguage, targetLanguage, srsPairAuto: true },
+      5
+    );
     const lemmas = result && result.lemmas ? result.lemmas : [];
     if (!lemmas.length) {
       srsSampleOutput.textContent = t("status_srs_sample_empty", null, "No words available.");
@@ -595,9 +695,6 @@ allowAdjacentInput.addEventListener("change", () => {
 if (srsEnabledInput) {
   srsEnabledInput.addEventListener("change", saveSrsSettings);
 }
-if (srsPairInput) {
-  srsPairInput.addEventListener("change", saveSrsSettings);
-}
 if (srsMaxActiveInput) {
   srsMaxActiveInput.addEventListener("change", saveSrsSettings);
 }
@@ -657,6 +754,13 @@ if (languageSelect) {
       setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
     });
   });
+}
+
+if (sourceLanguageInput) {
+  sourceLanguageInput.addEventListener("change", saveLanguageSettings);
+}
+if (targetLanguageInput) {
+  targetLanguageInput.addEventListener("change", saveLanguageSettings);
 }
 
 if (openDesktopAppButton) {

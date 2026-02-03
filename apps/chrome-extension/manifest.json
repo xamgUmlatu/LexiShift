@@ -16,9 +16,11 @@
     {
       "matches": ["<all_urls>"],
       "js": [
+        "shared/language_prefs.js",
         "shared/settings_defaults.js",
         "shared/lemmatizer.js",
         "shared/srs_selector.js",
+        "shared/srs_store.js",
         "shared/srs_feedback.js",
         "shared/srs_gate.js",
         "shared/srs_metrics.js",

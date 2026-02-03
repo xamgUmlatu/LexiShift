@@ -459,6 +459,9 @@
   async function applySettings(settings) {
     const token = (applyToken += 1);
     currentSettings = { ...defaults, ...settings };
+    if (root.languagePrefs && typeof root.languagePrefs.applyLanguagePrefs === "function") {
+      currentSettings = root.languagePrefs.applyLanguagePrefs(currentSettings);
+    }
     const hasNewFeedbackFlags = typeof settings.srsFeedbackSrsEnabled === "boolean"
       || typeof settings.srsFeedbackRulesEnabled === "boolean";
     if (!hasNewFeedbackFlags && typeof settings.srsFeedbackEnabled === "boolean") {

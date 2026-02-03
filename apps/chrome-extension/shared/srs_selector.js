@@ -151,7 +151,9 @@
         }
       };
     }
-    const pair = settings.srsPair || "en-en";
+    const pair = root.languagePrefs
+      ? root.languagePrefs.resolveLanguagePair(settings)
+      : (settings.srsPair || "en-en");
     const maxActive = Number.isFinite(Number(settings.srsMaxActive))
       ? Math.max(1, Number(settings.srsMaxActive))
       : 40;
@@ -191,7 +193,9 @@
         }
       };
     }
-    const pair = settings.srsPair || "en-en";
+    const pair = root.languagePrefs
+      ? root.languagePrefs.resolveLanguagePair(settings)
+      : (settings.srsPair || "en-en");
     const items = dataset.items;
     const filtered = pair === "all"
       ? items

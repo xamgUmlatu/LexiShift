@@ -111,11 +111,14 @@ See also: `docs/rule_generation_technical.md` for precomputed rule + confidence 
 - Chrome Extension: SRS mode can gate rules using the fixed selector dataset (test only).
 - Extension feedback UI + logging are implemented (Ctrl+1/2/3/4 popup).
 - Exposure logging is available (Advanced → Logging).
+- Extension logs now update a local `srsStore` snapshot for future sync.
 
 ### Workstream B — S growth (seed + expansion) ⏳
 - **Seed with frequency lists** ✅ (`core/lexishift_core/srs_seed.py`).
 - **JA seed logic:** `core_rank` selection + `pmw` weighting + JMDict filter (implemented).
-- **Coverage scalar** to expand beyond seed (settings exist, pipeline missing).
+- **Coverage scalar** to expand beyond seed ✅ (`core/lexishift_core/srs_growth.py`).
+- **Growth planning + store updates** ✅ (`core/lexishift_core/srs_growth.py`, `core/lexishift_core/srs_store_ops.py`).
+- **GUI wiring (seed refresh)** ✅ Settings save triggers JA seed growth when packs are available.
 - **Candidate ingestion** (not implemented).
 - **Selector test dataset** ✅ (`docs/srs_selector_test_dataset.json`)
 - **Selector harness** ✅ (`scripts/srs_selector_demo.py`, `core/lexishift_core/srs_selector.py`)

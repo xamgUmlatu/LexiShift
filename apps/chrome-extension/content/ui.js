@@ -227,7 +227,8 @@
       if (!feedbackPopup || !feedbackPopup.classList.contains("lexishift-open")) {
         return;
       }
-      if (feedbackPopup.contains(event.target)) {
+      const target = event && event.target;
+      if (target instanceof Node && feedbackPopup.contains(target)) {
         return;
       }
       closeFeedbackPopup();

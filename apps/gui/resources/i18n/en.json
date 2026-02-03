@@ -196,7 +196,13 @@
     "show_original": "Show original text",
     "highlight_replacements": "Highlight replacements",
     "inflections_section": "Inflections",
-    "learning_section": "Learning"
+    "learning_section": "Learning",
+    "srs_section": "SRS Practice",
+    "srs_enabled": "Enable SRS practice layer",
+    "srs_coverage": "Coverage scalar (%)",
+    "srs_max_active": "Max active items",
+    "srs_max_new": "Max new items/day",
+    "srs_pairs": "Active language pairs"
   },
   "formats": {
     "json": "JSON",
@@ -268,7 +274,11 @@
     "source_loaded": "Loaded {name}: {count} entries",
     "source_empty": "Loaded {name}: 0 entries (path: {path}, size: {size})",
     "odenet_probe": "OdeNet probe: LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
-    "odenet_parse_error": "OdeNet parse error: {error}"
+    "odenet_parse_error": "OdeNet parse error: {error}",
+    "srs_seed_missing": "SRS seed skipped: missing frequency pack or dictionary for JA seed.",
+    "srs_seed_updated": "SRS seed updated: +{added} items (total {total}, pool {pool}).",
+    "srs_seed_noop": "SRS seed up-to-date (total {total}, pool {pool}).",
+    "srs_seed_failed": "SRS seed failed: {error}"
   },
   "profiles": {
     "default_name": "Default",

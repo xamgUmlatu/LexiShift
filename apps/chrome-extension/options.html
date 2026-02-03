@@ -114,12 +114,21 @@
             Uses a fixed test dataset for now (no external downloads).
           </p>
           <div class="field-row">
-            <label for="srs-pair" data-i18n="label_srs_pair">Language pair</label>
-            <select id="srs-pair">
-              <option value="en-en">EN → EN</option>
-              <option value="de-de">DE → DE</option>
-              <option value="ja-ja">JP → JP</option>
-              <option value="all" data-i18n="option_srs_all_pairs">All pairs</option>
+            <label for="source-language" data-i18n="label_source_language">Source language</label>
+            <select id="source-language">
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+              <option value="zh">简体中文</option>
+              <option value="de">Deutsch</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label for="target-language" data-i18n="label_target_language">Target language</label>
+            <select id="target-language">
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+              <option value="zh">简体中文</option>
+              <option value="de">Deutsch</option>
             </select>
           </div>
           <div class="field-row">
@@ -210,6 +219,7 @@
         </section>
       </div>
     </main>
+    <script src="shared/language_prefs.js"></script>
     <script src="shared/settings_defaults.js"></script>
     <script src="shared/srs_selector.js"></script>
     <script src="lzstring.js"></script>

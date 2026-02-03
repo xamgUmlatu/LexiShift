@@ -30,6 +30,8 @@ from lexishift_core import (
     InflectionSpec,
     LearningSettings,
     RuleMetadata,
+    SrsPairSettings,
+    SrsSettings,
     SynonymSourceSettings,
     VocabRule,
     VocabSettings,
@@ -145,6 +147,7 @@ class SettingsDialog(QDialog):
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
         self._apply_learning(learning)
+        self._apply_srs_settings(app_settings.srs)
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
@@ -189,7 +192,13 @@ class SettingsDialog(QDialog):
             embedding_pair_paths=embedding_pair_paths,
             embedding_pair_enabled=embedding_pair_enabled,
         )
-        return replace(self._app_settings, import_export=import_settings, synonyms=synonyms)
+        srs_settings = self._collect_srs_settings()
+        return replace(
+            self._app_settings,
+            import_export=import_settings,
+            synonyms=synonyms,
+            srs=srs_settings,
+        )
 
     def result_dataset_settings(self) -> VocabSettings:
         forms = {key for key, checkbox in self._form_checks.items() if checkbox.isChecked()}
@@ -400,6 +409,55 @@ class SettingsDialog(QDialog):
         learning_panel = QWidget()
         learning_panel.setLayout(learning_form)
 
+        self.srs_enabled_check = QCheckBox(t("settings.srs_enabled"))
+        self.srs_coverage_slider = QSlider(Qt.Horizontal)
+        self.srs_coverage_slider.setRange(0, 100)
+        self.srs_coverage_slider.setSingleStep(1)
+        self.srs_coverage_value = QLabel("0%")
+        self.srs_coverage_slider.valueChanged.connect(
+            lambda value: self.srs_coverage_value.setText(f"{value}%")
+        )
+        self.srs_max_active_edit = QLineEdit()
+        self.srs_max_new_edit = QLineEdit()
+
+        srs_pairs = [
+            ("en-ja", f"{t('languages.english')} → {t('languages.japanese')}"),
+            ("en-en", f"{t('languages.english')} → {t('languages.english')}"),
+            ("ja-ja", f"{t('languages.japanese')} → {t('languages.japanese')}"),
+            ("de-de", f"{t('languages.german')} → {t('languages.german')}"),
+            ("de-en", f"{t('languages.german')} → {t('languages.english')}"),
+        ]
+        self._srs_pair_checks = {}
+        srs_pair_layout = QVBoxLayout()
+        srs_pair_layout.setContentsMargins(0, 0, 0, 0)
+        for pair_key, label in srs_pairs:
+            checkbox = QCheckBox(label)
+            self._srs_pair_checks[pair_key] = checkbox
+            srs_pair_layout.addWidget(checkbox)
+        srs_pair_panel = QWidget()
+        srs_pair_panel.setLayout(srs_pair_layout)
+
+        coverage_row = QHBoxLayout()
+        coverage_row.setContentsMargins(0, 0, 0, 0)
+        coverage_row.addWidget(self.srs_coverage_slider)
+        coverage_row.addWidget(self.srs_coverage_value)
+        coverage_panel = QWidget()
+        coverage_panel.setLayout(coverage_row)
+
+        srs_form = QFormLayout()
+        srs_form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
+        srs_form.setContentsMargins(12, 8, 12, 16)
+        srs_form.setHorizontalSpacing(12)
+        srs_form.setVerticalSpacing(8)
+        srs_form.addRow("", self.srs_enabled_check)
+        srs_form.addRow(t("settings.srs_coverage"), coverage_panel)
+        srs_form.addRow(t("settings.srs_max_active"), self.srs_max_active_edit)
+        srs_form.addRow(t("settings.srs_max_new"), self.srs_max_new_edit)
+        srs_form.addRow(t("settings.srs_pairs"), srs_pair_panel)
+
+        srs_panel = QWidget()
+        srs_panel.setLayout(srs_form)
+
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(12)
@@ -411,6 +469,10 @@ class SettingsDialog(QDialog):
         learning_label.setObjectName("sectionLabel")
         layout.addWidget(learning_label)
         layout.addWidget(learning_panel)
+        srs_label = QLabel(t("settings.srs_section"))
+        srs_label.setObjectName("sectionLabel")
+        layout.addWidget(srs_label)
+        layout.addWidget(srs_panel)
 
         panel = QWidget()
         panel.setLayout(layout)
@@ -559,6 +621,48 @@ class SettingsDialog(QDialog):
         self.show_original_check.setChecked(settings.show_original)
         self._set_combo_value(self.show_original_mode_combo, settings.show_original_mode)
         self.highlight_replacements_check.setChecked(settings.highlight_replacements)
+
+    def _apply_srs_settings(self, settings: Optional[SrsSettings]) -> None:
+        settings = settings or SrsSettings(enabled=False)
+        self.srs_enabled_check.setChecked(settings.enabled)
+        raw_scalar = settings.coverage_scalar
+        if raw_scalar <= 1.0:
+            slider_value = int(round(raw_scalar * 100))
+        else:
+            slider_value = int(round(min(raw_scalar, 100)))
+        slider_value = max(0, min(100, slider_value))
+        self.srs_coverage_slider.setValue(slider_value)
+        self.srs_coverage_value.setText(f"{slider_value}%")
+        self.srs_max_active_edit.setText(str(settings.max_active_items))
+        self.srs_max_new_edit.setText(str(settings.max_new_items_per_day))
+
+        pair_rules = settings.pair_rules or {}
+        if not pair_rules:
+            for checkbox in self._srs_pair_checks.values():
+                checkbox.setChecked(True)
+            return
+        for pair_key, checkbox in self._srs_pair_checks.items():
+            rule = pair_rules.get(pair_key)
+            checkbox.setChecked(rule.enabled if rule is not None else False)
+
+    def _collect_srs_settings(self) -> SrsSettings:
+        existing = self._app_settings.srs or SrsSettings(enabled=False)
+        coverage_scalar = self.srs_coverage_slider.value() / 100.0
+        max_active = _parse_int(self.srs_max_active_edit.text(), default=existing.max_active_items)
+        max_new = _parse_int(self.srs_max_new_edit.text(), default=existing.max_new_items_per_day)
+        pair_rules = {
+            pair_key: SrsPairSettings(enabled=True)
+            for pair_key, checkbox in self._srs_pair_checks.items()
+            if checkbox.isChecked()
+        }
+        return replace(
+            existing,
+            enabled=self.srs_enabled_check.isChecked(),
+            coverage_scalar=coverage_scalar,
+            max_active_items=max_active,
+            max_new_items_per_day=max_new,
+            pair_rules=pair_rules,
+        )
 
     def _on_theme_changed(self) -> None:
         theme_id = self.theme_combo.currentData()

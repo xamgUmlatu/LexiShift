@@ -195,7 +195,13 @@
     "show_original": "Originaltext anzeigen",
     "highlight_replacements": "Ersetzungen hervorheben",
     "inflections_section": "Flexionen",
-    "learning_section": "Lernen"
+    "learning_section": "Lernen",
+    "srs_section": "SRS-Übung",
+    "srs_enabled": "SRS-Übungsebene aktivieren",
+    "srs_coverage": "Abdeckungsskalar (%)",
+    "srs_max_active": "Max. aktive Einträge",
+    "srs_max_new": "Max. neue Einträge/Tag",
+    "srs_pairs": "Aktive Sprachpaare"
   },
   "formats": {
     "json": "JSON",
@@ -267,7 +273,11 @@
     "source_loaded": "{name} geladen: {count} Einträge",
     "source_empty": "{name} geladen: 0 Einträge (Pfad: {path}, Größe: {size})",
     "odenet_probe": "OdeNet-Prüfung: LexicalEntry={entries}, Lemma={lemmas}, Sense={senses}",
-    "odenet_parse_error": "OdeNet-Parsefehler: {error}"
+    "odenet_parse_error": "OdeNet-Parsefehler: {error}",
+    "srs_seed_missing": "SRS-Seed übersprungen: fehlendes Frequenzpaket oder Wörterbuch für JA-Seed.",
+    "srs_seed_updated": "SRS-Seed aktualisiert: +{added} Einträge (gesamt {total}, Pool {pool}).",
+    "srs_seed_noop": "SRS-Seed aktuell (gesamt {total}, Pool {pool}).",
+    "srs_seed_failed": "SRS-Seed fehlgeschlagen: {error}"
   },
   "profiles": {
     "default_name": "Standard",

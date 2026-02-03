@@ -44,16 +44,33 @@
       return Promise.resolve(null);
     }
     return new Promise((resolve) => {
-      chrome.storage.local.get({ [STORAGE_KEY]: [] }, (items) => {
-        const list = Array.isArray(items[STORAGE_KEY]) ? items[STORAGE_KEY] : [];
-        list.push(payload);
-        if (list.length > MAX_ENTRIES) {
-          list.splice(0, list.length - MAX_ENTRIES);
+      try {
+        if (!chrome || !chrome.storage || !chrome.runtime || !chrome.runtime.id) {
+          resolve(null);
+          return;
         }
-        chrome.storage.local.set({ [STORAGE_KEY]: list }, () => resolve(payload));
-      });
+        chrome.storage.local.get({ [STORAGE_KEY]: [] }, (items) => {
+          const list = Array.isArray(items[STORAGE_KEY]) ? items[STORAGE_KEY] : [];
+          list.push(payload);
+          if (list.length > MAX_ENTRIES) {
+            list.splice(0, list.length - MAX_ENTRIES);
+          }
+          chrome.storage.local.set({ [STORAGE_KEY]: list }, () => resolve(payload));
+        });
+      } catch (error) {
+        resolve(null);
+      }
     });
   }
 
-  root.srsFeedback = { recordFeedback, buildEntryFromSpan };
+  function recordFeedbackWithStore(entry) {
+    return recordFeedback(entry).then((payload) => {
+      if (payload && root.srsStore && typeof root.srsStore.recordFeedback === "function") {
+        root.srsStore.recordFeedback(payload);
+      }
+      return payload;
+    });
+  }
+
+  root.srsFeedback = { recordFeedback: recordFeedbackWithStore, buildEntryFromSpan };
 })();
