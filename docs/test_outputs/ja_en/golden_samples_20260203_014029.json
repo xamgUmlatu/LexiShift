@@ -1,0 +1,67 @@
+{
+  "source": "docs/test_outputs/ja_en/samples_20260203_014029/samples.json",
+  "generated_at": "2026-02-03",
+  "intent": "Manual review set for JA→EN rulegen quality. Use to track regressions and filter improvements.",
+  "cases": [
+    {
+      "source_phrase": "tohoku",
+      "replacement": "東北",
+      "expected_bias": "keep",
+      "note": "Proper noun; reasonable transliteration."
+    },
+    {
+      "source_phrase": "cocoon",
+      "replacement": "繭",
+      "expected_bias": "keep",
+      "note": "Good lexical mapping."
+    },
+    {
+      "source_phrase": "contract",
+      "replacement": "約定",
+      "expected_bias": "maybe_keep",
+      "note": "Sense-specific; check if too legalistic."
+    },
+    {
+      "source_phrase": "group",
+      "replacement": "一群",
+      "expected_bias": "maybe_keep",
+      "note": "Ok but may skew to specific sense."
+    },
+    {
+      "source_phrase": "since",
+      "replacement": "から",
+      "expected_bias": "maybe_filter",
+      "note": "Function word; might be too common/grammatical."
+    },
+    {
+      "source_phrase": "me",
+      "replacement": "某",
+      "expected_bias": "filter",
+      "note": "Pronoun mapping is undesirable for SRS rulegen."
+    },
+    {
+      "source_phrase": "a/ds",
+      "replacement": "ＡＤ",
+      "expected_bias": "filter",
+      "note": "Punctuation/abbreviation noise."
+    },
+    {
+      "source_phrase": "haikued",
+      "replacement": "俳句",
+      "expected_bias": "filter",
+      "note": "Inflection artifact; should be 'haiku'."
+    },
+    {
+      "source_phrase": "rock'n'rollers",
+      "replacement": "ロッカー",
+      "expected_bias": "filter",
+      "note": "Punctuation-heavy gloss should likely be removed."
+    },
+    {
+      "source_phrase": "manager's",
+      "replacement": "主事",
+      "expected_bias": "filter",
+      "note": "Possessive artifact; suggests over-generation."
+    }
+  ]
+}

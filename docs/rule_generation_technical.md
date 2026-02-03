@@ -151,6 +151,7 @@ See `docs/weight_selection_diagram.mmd` for the S seed + rulegen flow.
 - Rulegen sweeps: `scripts/testing/ja_en_rulegen_sweep.py`
   - Supports `--top-n`, `--thresholds`, `--decays`, and optional `--coca` weighting.
 - All-in-one runner (writes output files): `scripts/testing/run_ja_en_tests.py`
+- Human review sampler: `scripts/testing/ja_en_sample_review.py`
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.
    - Needed from you: preferred output path + any S test list you want to use.
