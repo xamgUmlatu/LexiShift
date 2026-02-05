@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,7 @@ import sys
 from typing import Optional, Sequence
 import shutil
 import subprocess
+import plistlib
 
 from utils_paths import resource_path
 from helper_logger import log_helper
@@ -31,6 +33,48 @@ class ExtensionEnvironment:
 
 
 _ID_PLACEHOLDERS = {"", "__FILL_ME__", "<FILL_ME>"}
+
+
+def _helper_log_path() -> Path:
+    return _helper_data_root() / "helper_install.log"
+
+
+def _log_helper_file(message: str) -> None:
+    try:
+        stamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+        _helper_log_path().write_text("", encoding="utf-8") if not _helper_log_path().exists() else None
+        with _helper_log_path().open("a", encoding="utf-8") as handle:
+            handle.write(f"[{stamp}] {message}\n")
+    except OSError:
+        pass
+
+
+def _log_app_bundle_info() -> None:
+    if sys.platform != "darwin":
+        return
+    try:
+        exe = Path(sys.executable).resolve()
+        contents = exe.parent.parent
+        info_plist = contents / "Info.plist"
+        resources = contents / "Resources"
+        icon_file = None
+        if info_plist.exists():
+            with info_plist.open("rb") as handle:
+                plist = plistlib.load(handle)
+            icon_file = plist.get("CFBundleIconFile")
+        icon_path = None
+        if icon_file:
+            icon_name = str(icon_file)
+            if not icon_name.endswith(".icns"):
+                icon_name = icon_name + ".icns"
+            icon_path = resources / icon_name
+        log_helper(f"[Helper] App bundle: exe={exe} contents={contents} resources={resources}")
+        log_helper(f"[Helper] App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}")
+        _log_helper_file(f"App bundle exe={exe} contents={contents} resources={resources}")
+        _log_helper_file(f"App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}")
+    except Exception as exc:
+        log_helper(f"[Helper] Failed to inspect app bundle icon: {exc}")
+        _log_helper_file(f"Failed to inspect app bundle icon: {exc}")
 
 
 def _default_environments() -> tuple[list[ExtensionEnvironment], str]:
@@ -190,9 +234,13 @@ def install_launch_agent(program_args: Sequence[str]) -> bool:
     if not plist_path:
         log_helper("[Helper] LaunchAgent not supported on this platform.")
         return False
+    _log_app_bundle_info()
+    log_helper(f"[Helper] LaunchAgent program args: {program_args}")
+    _log_helper_file(f"LaunchAgent program args: {program_args}")
     plist_path.parent.mkdir(parents=True, exist_ok=True)
     plist_path.write_text(build_launch_agent(program_args), encoding="utf-8")
     log_helper(f"[Helper] Installed LaunchAgent: {plist_path}")
+    _log_helper_file(f"Installed LaunchAgent: {plist_path}")
     subprocess.run(["launchctl", "unload", str(plist_path)], check=False)
     subprocess.run(["launchctl", "load", str(plist_path)], check=False)
     return True
@@ -305,10 +353,12 @@ def install_helper(
 ) -> HelperInstallResult:
     if not extension_id.strip():
         log_helper("[Helper] install_helper failed: missing extension id.")
+        _log_helper_file("install_helper failed: missing extension id.")
         return HelperInstallResult(False, "Extension ID is required.")
     manifest = manifest_path(browser)
     if manifest is None:
         log_helper("[Helper] install_helper failed: unsupported OS.")
+        _log_helper_file("install_helper failed: unsupported OS.")
         return HelperInstallResult(False, "Helper install not supported on this OS yet.")
     host_path = host_path or default_host_script()
     
@@ -317,6 +367,7 @@ def install_helper(
     
     if not stable_path.exists():
         log_helper(f"[Helper] install_helper failed: stable host not found at {stable_path}")
+        _log_helper_file(f"install_helper failed: stable host not found at {stable_path}")
         return HelperInstallResult(False, f"Helper host not found: {stable_path}")
     try:
         mode = stable_path.stat().st_mode
@@ -327,4 +378,6 @@ def install_helper(
     payload = build_manifest(host_path=stable_path, extension_id=extension_id.strip())
     manifest.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     log_helper(f"[Helper] install_helper wrote manifest: {manifest}")
+    _log_helper_file(f"install_helper wrote manifest: {manifest}")
+    _log_helper_file(f"manifest payload: {payload}")
     return HelperInstallResult(True, "Helper installed.", manifest)

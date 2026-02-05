@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 import traceback
+import time
 from datetime import datetime
 from dataclasses import replace
 from pathlib import Path
@@ -322,6 +323,12 @@ class MainWindow(QMainWindow):
         self._install_helper_action.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
         self._install_helper_action.triggered.connect(self._install_helper)
 
+        self._startup_diagnostics_action = QAction(t("menu.startup_diagnostics"), self)
+        self._startup_diagnostics_action.triggered.connect(self._show_startup_diagnostics)
+
+        self._open_log_dir_action = QAction(t("menu.open_log_directory"), self)
+        self._open_log_dir_action.triggered.connect(self._open_log_directory)
+
         self._export_json_action = QAction(t("menu.export_ruleset_json"), self)
         self._export_json_action.triggered.connect(self._export_json)
 
@@ -402,6 +409,10 @@ class MainWindow(QMainWindow):
         edit_menu.addAction(self._edit_metadata_action)
         edit_menu.addAction(self._delete_rule_action)
 
+        debug_menu = menu_bar.addMenu(t("menu.debug"))
+        debug_menu.addAction(self._startup_diagnostics_action)
+        debug_menu.addAction(self._open_log_dir_action)
+
     def _refresh_helper_menu_label(self) -> None:
         env, extension_id = get_helper_environment(self._ui_settings)
         if env and extension_id and is_helper_installed(str(extension_id), browser=env.browser):
@@ -433,6 +444,31 @@ class MainWindow(QMainWindow):
                 t("dialogs.helper_install.failed", message=str(result.message)),
             )
         self._refresh_helper_menu_label()
+
+    def _open_log_directory(self) -> None:
+        reveal_path(str(_app_data_dir()))
+
+    def _show_startup_diagnostics(self) -> None:
+        log_paths = _startup_log_paths()
+        helper_log = _app_data_dir() / "helper_install.log"
+        helper_tray_log = _app_data_dir() / "helper_tray.log"
+        info = [
+            f"AppDataLocation: {_app_data_dir()}",
+            f"Executable: {sys.executable}",
+            f"Frozen: {getattr(sys, 'frozen', False)}",
+            f"_MEIPASS: {getattr(sys, '_MEIPASS', None)}",
+            f"Startup log paths:",
+        ]
+        for path in log_paths:
+            info.append(f"  - {path} (exists={path.exists()})")
+        info.append(f"Helper install log: {helper_log} (exists={helper_log.exists()})")
+        info.append(f"Helper tray log: {helper_tray_log} (exists={helper_tray_log.exists()})")
+        info.append("If logs are missing, try launching with: --diagnose-startup")
+        QMessageBox.information(
+            self,
+            t("dialogs.startup_diagnostics.title"),
+            "\n".join(info),
+        )
 
     def _build_profile_header(self) -> QWidget:
         profile_label = QLabel(t("labels.profile"))
@@ -1954,6 +1990,34 @@ def _app_data_dir() -> Path:
     return base_dir
 
 
+def _fallback_log_dirs() -> list[Path]:
+    paths: list[Path] = []
+    paths.append(Path("/tmp"))
+    home = Path.home()
+    if sys.platform == "darwin":
+        paths.append(home / "Library" / "Logs" / "LexiShift")
+    elif sys.platform.startswith("win"):
+        paths.append(home / "AppData" / "Local" / "LexiShift" / "Logs")
+    else:
+        paths.append(home / ".local" / "state" / "LexiShift")
+    return paths
+
+
+def _startup_log_paths() -> list[Path]:
+    paths: list[Path] = []
+    try:
+        paths.append(_app_data_dir() / "startup_timing.log")
+    except Exception:
+        pass
+    for base in _fallback_log_dirs():
+        try:
+            base.mkdir(parents=True, exist_ok=True)
+            paths.append(base / "lexishift_startup.log")
+        except OSError:
+            continue
+    return paths
+
+
 def _rulesets_dir() -> Path:
     target = Path(os.path.join(str(_app_data_dir()), "rulesets"))
     target.mkdir(parents=True, exist_ok=True)
@@ -1969,6 +2033,37 @@ def _default_dataset_path() -> Path:
 
 
 def main() -> None:
+    # Ensure AppDataLocation is scoped to LexiShift before any logging.
+    QCoreApplication.setOrganizationName("LexiShift")
+    QCoreApplication.setApplicationName("LexiShift")
+    startup_logs = _startup_log_paths()
+    start_time = time.perf_counter()
+    last_time = start_time
+
+    def log_startup(label: str) -> None:
+        nonlocal last_time
+        now = time.perf_counter()
+        delta_ms = (now - last_time) * 1000.0
+        total_ms = (now - start_time) * 1000.0
+        last_time = now
+        message = f"[startup] {label} (+{delta_ms:.1f} ms, total {total_ms:.1f} ms)"
+        for path in startup_logs:
+            try:
+                with open(path, "a", encoding="utf-8") as handle:
+                    handle.write(message + "\n")
+            except OSError:
+                continue
+        print(message)
+
+    print("[LexiShift] STARTUP MARKER")
+    log_startup("main() begin")
+    if "--print-data-dir" in sys.argv:
+        print(f"[LexiShift] AppDataLocation={_app_data_dir()}")
+        print(f"[LexiShift] Startup log paths={startup_logs}")
+        return
+    if "--diagnose-startup" in sys.argv:
+        print(f"[LexiShift] AppDataLocation={_app_data_dir()}")
+        print(f"[LexiShift] Startup log paths={startup_logs}")
     if "--helper-daemon" in sys.argv:
         from helper_daemon import run_daemon_from_cli
 
@@ -1989,10 +2084,10 @@ def main() -> None:
             f.write(f"[{datetime.now()}] Crash:\n{error_msg}\n\n")
         sys.__excepthook__(exctype, value, tb)
     sys.excepthook = exception_hook
+    log_startup("exception hook installed")
 
-    QCoreApplication.setOrganizationName("LexiShift")
-    QCoreApplication.setApplicationName("LexiShift")
     app = QApplication(sys.argv)
+    log_startup("QApplication created")
 
     # Singleton check: ensure only one GUI window runs
     import getpass
@@ -2008,16 +2103,22 @@ def main() -> None:
     server = QLocalServer()
     server.removeServer(socket_name)
     server.listen(socket_name)
+    log_startup("single-instance server ready")
 
     theme_dir()
+    log_startup("theme_dir()")
     ensure_sample_images()
+    log_startup("ensure_sample_images()")
     ensure_sample_themes()
+    log_startup("ensure_sample_themes()")
     ui_settings = QSettings()
     locale_pref = ui_settings.value("appearance/locale", "system")
     if locale_pref == "system":
         locale_pref = QLocale.system().name()
     set_locale(str(locale_pref))
+    log_startup("locale initialized")
     window = MainWindow()
+    log_startup("MainWindow constructed")
 
     def handle_activation():
         client = server.nextPendingConnection()
@@ -2030,6 +2131,7 @@ def main() -> None:
     server.newConnection.connect(handle_activation)
 
     window.show()
+    log_startup("window shown")
     sys.exit(app.exec())
 
 

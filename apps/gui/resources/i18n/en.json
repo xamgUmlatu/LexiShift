@@ -58,7 +58,10 @@
     "reveal_in_finder": "Reveal in Finder",
     "reveal_ruleset_in_finder": "Reveal Ruleset in Finder",
     "install_helper": "Install LexiShift Helper...",
-    "reinstall_helper": "Reinstall LexiShift Helper..."
+    "reinstall_helper": "Reinstall LexiShift Helper...",
+    "debug": "Debug",
+    "startup_diagnostics": "Startup Diagnostics...",
+    "open_log_directory": "Open Log Directory"
   },
   "labels": {
     "profile": "Profile",
@@ -118,6 +121,9 @@
     },
     "export_ruleset_code": {
       "title": "Export Ruleset Code"
+    },
+    "startup_diagnostics": {
+      "title": "Startup Diagnostics"
     },
     "export_profiles_json": {
       "title": "Export Profiles JSON"

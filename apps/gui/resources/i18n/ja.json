@@ -57,7 +57,10 @@
     "reveal_in_finder": "Finderで表示",
     "reveal_ruleset_in_finder": "ルールセットをFinderで表示",
     "install_helper": "LexiShift ヘルパーをインストール...",
-    "reinstall_helper": "LexiShift ヘルパーを再インストール..."
+    "reinstall_helper": "LexiShift ヘルパーを再インストール...",
+    "debug": "デバッグ",
+    "startup_diagnostics": "起動診断...",
+    "open_log_directory": "ログの場所を開く"
   },
   "labels": {
     "profile": "プロファイル",
@@ -117,6 +120,9 @@
     },
     "export_ruleset_code": {
       "title": "ルールセットコードをエクスポート"
+    },
+    "startup_diagnostics": {
+      "title": "起動診断"
     },
     "export_profiles_json": {
       "title": "プロファイルJSONをエクスポート"

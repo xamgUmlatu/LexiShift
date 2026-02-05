@@ -57,7 +57,10 @@
     "reveal_in_finder": "Im Finder anzeigen",
     "reveal_ruleset_in_finder": "Regelsatz im Finder anzeigen",
     "install_helper": "LexiShift-Helfer installieren...",
-    "reinstall_helper": "LexiShift-Helfer neu installieren..."
+    "reinstall_helper": "LexiShift-Helfer neu installieren...",
+    "debug": "Debug",
+    "startup_diagnostics": "Startdiagnose...",
+    "open_log_directory": "Log-Verzeichnis öffnen"
   },
   "labels": {
     "profile": "Profil",
@@ -117,6 +120,9 @@
     },
     "export_ruleset_code": {
       "title": "Regelsatz-Code exportieren"
+    },
+    "startup_diagnostics": {
+      "title": "Startdiagnose"
     },
     "export_profiles_json": {
       "title": "Profile-JSON exportieren"

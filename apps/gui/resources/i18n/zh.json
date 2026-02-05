@@ -57,7 +57,10 @@
     "reveal_in_finder": "在 Finder 中显示",
     "reveal_ruleset_in_finder": "在 Finder 中显示规则集",
     "install_helper": "安装 LexiShift Helper...",
-    "reinstall_helper": "重新安装 LexiShift Helper..."
+    "reinstall_helper": "重新安装 LexiShift Helper...",
+    "debug": "调试",
+    "startup_diagnostics": "启动诊断...",
+    "open_log_directory": "打开日志目录"
   },
   "labels": {
     "profile": "配置文件",
@@ -117,6 +120,9 @@
     },
     "export_ruleset_code": {
       "title": "导出规则集代码"
+    },
+    "startup_diagnostics": {
+      "title": "启动诊断"
     },
     "export_profiles_json": {
       "title": "导出配置文件 JSON"
