@@ -32,6 +32,7 @@ from language_packs import (
     FrequencyPackDownloadThread,
     FrequencyPackInfo,
     FREQUENCY_PACKS,
+    download_log_path,
 )
 from lexishift_core import SynonymSourceSettings
 from i18n import t
@@ -1242,6 +1243,9 @@ class LanguagePackPanel(QWidget):
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         link = pack.wayback_url
+        log_path = download_log_path()
+        row.status_item.setToolTip(log_path)
+        self.language_pack_status.setToolTip(log_path)
         self.language_pack_status.setStyleSheet("color: #A03030;")
         self.language_pack_status.setText(
             t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)
@@ -1262,6 +1266,9 @@ class LanguagePackPanel(QWidget):
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         link = pack.wayback_url
+        log_path = download_log_path()
+        row.status_item.setToolTip(log_path)
+        self.language_pack_status.setToolTip(log_path)
         self.language_pack_status.setStyleSheet("color: #A03030;")
         self.language_pack_status.setText(
             t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)
@@ -1282,6 +1289,9 @@ class LanguagePackPanel(QWidget):
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         link = pack.wayback_url
+        log_path = download_log_path()
+        row.status_item.setToolTip(log_path)
+        self.language_pack_status.setToolTip(log_path)
         self.language_pack_status.setStyleSheet("color: #A03030;")
         self.language_pack_status.setText(
             t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)

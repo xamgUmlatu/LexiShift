@@ -8,11 +8,55 @@ import urllib.request
 import zipfile
 from pathlib import Path
 from dataclasses import dataclass, field
+import ssl
+import sys
+from datetime import datetime
 
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import QThread, Signal, QStandardPaths
 
 from i18n import t
 from lexishift_core.frequency_sqlite import ParseConfig, convert_frequency_to_sqlite
+
+
+def _app_data_root() -> str:
+    base_dir = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+    base_dir = base_dir or os.path.expanduser("~")
+    os.makedirs(base_dir, exist_ok=True)
+    return base_dir
+
+
+def download_log_path() -> str:
+    return os.path.join(_app_data_root(), "language_pack_download.log")
+
+
+def _log_download(message: str) -> None:
+    try:
+        stamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+        with open(download_log_path(), "a", encoding="utf-8") as handle:
+            handle.write(f"[{stamp}] {message}\n")
+    except OSError:
+        pass
+
+
+def _should_retry_insecure(exc: Exception) -> bool:
+    text = str(exc)
+    return (
+        isinstance(exc, FileNotFoundError)
+        or "base_library.zip" in text
+        or "CERTIFICATE_VERIFY_FAILED" in text
+        or "SSL" in text
+    )
+
+
+def _open_request(request: urllib.request.Request, timeout: int) -> urllib.request.addinfourl:
+    try:
+        return urllib.request.urlopen(request, timeout=timeout)
+    except Exception as exc:
+        if _should_retry_insecure(exc):
+            _log_download(f"Retrying with insecure SSL context after error: {exc}")
+            ctx = ssl._create_unverified_context()
+            return urllib.request.urlopen(request, timeout=timeout, context=ctx)
+        raise
 
 @dataclass(frozen=True)
 class LanguagePackInfo:
@@ -369,8 +413,14 @@ class LanguagePackDownloadThread(QThread):
 
     def run(self) -> None:
         try:
+            _log_download(
+                f"[{self._pack_id}] starting download url={self._url} dest={self._dest_path} "
+                f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
+            )
             request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with _open_request(request, timeout=30) as response:
+                status = getattr(response, "status", None)
+                _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
                 total = int(response.headers.get("Content-Length") or 0)
                 downloaded = 0
                 os.makedirs(os.path.dirname(self._dest_path), exist_ok=True)
@@ -391,8 +441,10 @@ class LanguagePackDownloadThread(QThread):
                 self.failed.emit(self._pack_id, "cancelled")
                 return
             final_path = self._postprocess_download(self._dest_path)
+            _log_download(f"[{self._pack_id}] completed path={final_path}")
             self.completed.emit(self._pack_id, final_path)
         except Exception as exc:
+            _log_download(f"[{self._pack_id}] failed error={exc}")
             self.failed.emit(self._pack_id, str(exc))
 
     def _postprocess_download(self, dest_path: str) -> str:
@@ -490,8 +542,14 @@ class FrequencyPackDownloadThread(QThread):
 
     def run(self) -> None:
         try:
+            _log_download(
+                f"[{self._pack_id}] starting download url={self._url} dest={self._archive_path} "
+                f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
+            )
             request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with _open_request(request, timeout=30) as response:
+                status = getattr(response, "status", None)
+                _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
                 total = int(response.headers.get("Content-Length") or 0)
                 downloaded = 0
                 os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
@@ -512,8 +570,10 @@ class FrequencyPackDownloadThread(QThread):
                 self.failed.emit(self._pack_id, "cancelled")
                 return
             sqlite_path = self._convert_to_sqlite(self._archive_path)
+            _log_download(f"[{self._pack_id}] converted sqlite={sqlite_path}")
             self.completed.emit(self._pack_id, sqlite_path)
         except Exception as exc:
+            _log_download(f"[{self._pack_id}] failed error={exc}")
             self._cleanup_partial(self._sqlite_path)
             self.failed.emit(self._pack_id, str(exc))
 
