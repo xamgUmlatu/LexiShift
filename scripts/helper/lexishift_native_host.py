@@ -124,6 +124,8 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             snapshot_targets=int(payload.get("snapshot_targets", 50)),
             snapshot_sources=int(payload.get("snapshot_sources", 6)),
             seed_if_empty=payload.get("seed_if_empty", True),
+            debug=bool(payload.get("debug", False)),
+            debug_sample_size=int(payload.get("debug_sample_size", 10)),
         )
         return run_rulegen_job(paths, config=config)
     if msg_type == "open_data_dir":

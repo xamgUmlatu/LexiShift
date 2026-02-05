@@ -29,7 +29,9 @@ def _load_spec_values(spec_path: Path) -> dict[str, str]:
     return values
 
 
-def _run_build_gui(repo_root: Path, spec_path: Path, dist_dir: Path, build_dir: Path) -> None:
+def _run_build_gui(
+    repo_root: Path, spec_path: Path, dist_dir: Path, build_dir: Path, *, validate: bool
+) -> None:
     cmd = [
         sys.executable,
         str(repo_root / "scripts" / "build_gui_app.py"),
@@ -40,6 +42,8 @@ def _run_build_gui(repo_root: Path, spec_path: Path, dist_dir: Path, build_dir: 
         "--workpath",
         str(build_dir),
     ]
+    if validate:
+        cmd.append("--validate")
     result = subprocess.run(cmd, check=False, cwd=str(repo_root))
     if result.returncode != 0:
         raise SystemExit(result.returncode)
@@ -218,6 +222,11 @@ def main() -> int:
     parser.add_argument("--build", default=str(default_build), help="PyInstaller build directory.")
     parser.add_argument("--out", default=str(default_output), help="Installer output directory.")
     parser.add_argument("--skip-build", action="store_true", help="Skip PyInstaller build step.")
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Validate the built app bundle after PyInstaller.",
+    )
     parser.add_argument("--app-name", default="LexiShift", help="Installer display name.")
     parser.add_argument("--app-version", default="0.1.0", help="Installer version.")
     parser.add_argument("--dmg-name", default="LexiShift", help="DMG file base name (macOS).")
@@ -278,7 +287,7 @@ def main() -> int:
     app_version = values.get("APP_VERSION") or args.app_version
 
     if not args.skip_build:
-        _run_build_gui(repo_root, spec_path, dist_dir, build_dir)
+        _run_build_gui(repo_root, spec_path, dist_dir, build_dir, validate=args.validate)
 
     system = platform.system().lower()
     if system == "darwin":

@@ -28,6 +28,8 @@ class RulegenJobConfig:
     snapshot_targets: int = 50
     snapshot_sources: int = 6
     seed_if_empty: bool = True
+    debug: bool = False
+    debug_sample_size: int = 10
 
 
 def _ensure_settings(paths: HelperPaths) -> SrsSettings:
@@ -90,6 +92,7 @@ def run_rulegen_job(
         raise FileNotFoundError(config.jmdict_path)
     settings = _ensure_settings(paths)
     store = _ensure_store(paths)
+    diagnostics: dict[str, object] | None = None
     seed_config = None
     if config.seed_db and config.seed_db.exists():
         seed_config = SeedConfig(
@@ -104,6 +107,19 @@ def run_rulegen_job(
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
     )
+    if config.debug:
+        diagnostics = {
+            "pair": config.pair,
+            "jmdict_path": str(config.jmdict_path),
+            "jmdict_exists": config.jmdict_path.exists(),
+            "seed_db": str(config.seed_db) if config.seed_db else None,
+            "seed_db_exists": bool(config.seed_db and config.seed_db.exists()),
+            "store_items": len(store.items),
+            "store_items_for_pair": len([item for item in store.items if item.language_pair == config.pair]),
+            "store_sample": [
+                item.lemma for item in store.items if item.language_pair == config.pair
+            ][: max(1, int(config.debug_sample_size))],
+        }
     store, output = run_rulegen_for_pair(
         paths=paths,
         pair=config.pair,
@@ -129,13 +145,16 @@ def run_rulegen_job(
         target_count=output.target_count,
         error=None,
     )
-    return {
+    response = {
         "pair": config.pair,
         "targets": output.target_count,
         "rules": len(output.rules),
         "snapshot_path": str(paths.snapshot_path(config.pair)),
         "ruleset_path": str(paths.ruleset_path(config.pair)),
     }
+    if diagnostics is not None:
+        response["diagnostics"] = diagnostics
+    return response
 
 
 def apply_feedback(

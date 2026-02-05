@@ -7,6 +7,7 @@ from typing import Any
 from PySide6.QtCore import QStandardPaths
 
 from theme_logger import log_theme
+from utils_paths import resource_path
 
 THEME_COLOR_KEYS = (
     "bg",
@@ -76,6 +77,15 @@ def _resolve_image_path(value: Any, base_dir: str) -> str:
     candidate = expanded if os.path.isabs(expanded) else os.path.join(base_dir, expanded)
     if os.path.exists(candidate):
         return candidate
+    # Fallback: packaged resources (useful for sample_images in one-dir builds)
+    fallback = resource_path(expanded)
+    if os.path.exists(fallback):
+        return fallback
+    # If the theme references just a filename, try the packaged sample_images folder
+    if os.path.basename(expanded) == expanded:
+        sample_fallback = resource_path("sample_images", expanded)
+        if os.path.exists(sample_fallback):
+            return sample_fallback
     log_theme(f"[Theme] Image not found: {value} (base: {base_dir})")
     return ""
 

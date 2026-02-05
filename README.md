@@ -308,16 +308,20 @@ BetterDiscord plugin
 Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
 - Build: `python scripts/build_gui_app.py`
+  - Validate bundle resources: `python scripts/build_gui_app.py --validate`
+  - Install to `/Applications` (macOS): `python scripts/build_gui_app.py --install`
   - Equivalent: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
 - Output:
   - macOS: `dist/LexiShift.app` (bundle icon uses `apps/gui/resources/ttbn.icns`)
   - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)
 - Note: build Windows binaries on Windows (PyInstaller does not cross-compile).
+- Validation helper: `python scripts/validate_app_bundle.py --distpath apps/gui/dist`
 
 Installers (macOS DMG / Windows EXE)
 - Build installers: `python scripts/build_installer.py`
   - macOS: creates a `.dmg` in `apps/gui/dist/installers/`
   - Windows: creates an Inno Setup `.exe` in `apps/gui/dist/installers/`
+- Optional: validate app bundle before packaging with `python scripts/build_installer.py --validate`
 - Windows dependency: install Inno Setup and ensure `iscc` is on PATH.
 - Unsigned builds will trigger Gatekeeper/SmartScreen warnings; use signing for distribution.
 

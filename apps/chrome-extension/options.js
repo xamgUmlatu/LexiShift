@@ -874,7 +874,11 @@ async function previewSrsRulegen() {
   try {
     if (helperClient) {
       const startedAt = Date.now();
-      const rulegenResponse = await helperClient.triggerRulegen({ pair: srsPair }, 15000);
+      const rulegenResponse = await helperClient.triggerRulegen({
+        pair: srsPair,
+        debug: true,
+        debug_sample_size: 10
+      }, 15000);
       if (!rulegenResponse || rulegenResponse.ok === false) {
         const message = rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
           ? rulegenResponse.error.message
@@ -911,9 +915,21 @@ async function previewSrsRulegen() {
       const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
       const header = `Rulegen: ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`;
       if (!targets.length) {
+        const diag = rulegenData.diagnostics || {};
+        const diagLines = [
+          `Diagnostics:`,
+          `- pair: ${diag.pair || srsPair}`,
+          `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
+          `- seed_db: ${diag.seed_db || "n/a"} (exists=${diag.seed_db_exists})`,
+          `- store_items: ${diag.store_items ?? "n/a"}`,
+          `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
+          `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
+        ];
         srsRulegenOutput.textContent = [
           header,
-          t("status_srs_rulegen_empty", null, "No rules found for current active words.")
+          t("status_srs_rulegen_empty", null, "No rules found for current active words."),
+          "",
+          ...diagLines
         ].join("\n");
       } else {
         const lines = targets.map((entry) => {
@@ -925,7 +941,11 @@ async function previewSrsRulegen() {
         }).filter(Boolean);
         srsRulegenOutput.textContent = [header, "", ...lines].join("\n");
       }
-      logOptions("SRS rulegen preview (helper)", { pair: srsPair, targets: targets.length });
+      logOptions("SRS rulegen preview (helper)", {
+        pair: srsPair,
+        targets: targets.length,
+        diagnostics: rulegenData.diagnostics || null
+      });
       return;
     }
     srsRulegenOutput.textContent = t(

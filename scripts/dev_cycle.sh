@@ -22,7 +22,7 @@ else
 fi
 
 echo "==> Build + install app"
-python "${REPO_ROOT}/scripts/build_gui_app.py" --install
+python "${REPO_ROOT}/scripts/build_gui_app.py" --install --validate
 
 echo "==> Install helper (manual step required)"
 echo "Open LexiShift app -> LexiShift menu -> Install Helper"
