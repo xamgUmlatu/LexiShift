@@ -20,8 +20,9 @@ def reveal_path(path: str) -> None:
 
 
 def resource_path(*parts: str) -> str:
-    base = getattr(sys, "_MEIPASS", None)
-    if base:
+    if getattr(sys, "frozen", False):
+        # One-file uses _MEIPASS; One-dir uses executable dir
+        base = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
         return os.path.join(base, "resources", *parts)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     resources_dir = os.path.abspath(os.path.join(current_dir, "..", "resources"))

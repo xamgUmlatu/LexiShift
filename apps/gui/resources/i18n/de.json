@@ -29,6 +29,7 @@
     "use_embedding": "Verwenden"
   },
   "menu": {
+    "app": "LexiShift",
     "file": "Datei",
     "import": "Importieren",
     "export": "Exportieren",
@@ -54,7 +55,9 @@
     "import_profiles_json": "Profile importieren (JSON)...",
     "import_profiles_code": "Profile importieren (Code)...",
     "reveal_in_finder": "Im Finder anzeigen",
-    "reveal_ruleset_in_finder": "Regelsatz im Finder anzeigen"
+    "reveal_ruleset_in_finder": "Regelsatz im Finder anzeigen",
+    "install_helper": "LexiShift-Helfer installieren...",
+    "reinstall_helper": "LexiShift-Helfer neu installieren..."
   },
   "labels": {
     "profile": "Profil",
@@ -151,6 +154,16 @@
     "settings": {
       "title": "Einstellungen"
     },
+    "helper_install": {
+      "title": "LexiShift-Helfer installieren",
+      "env_title": "Helfer-Umgebung",
+      "env_prompt": "Erweiterungsumgebung auswählen:",
+      "host_title": "Helfer-Host-Skript auswählen",
+      "host_filter": "Python-Skripte (*.py)",
+      "prompt": "Gib die LexiShift-Erweiterungs-ID ein:",
+      "success": "Helfer installiert.\n\nManifest: {path}",
+      "failed": "Helfer-Installation fehlgeschlagen.\n\n{message}"
+    },
     "manage_profiles": {
       "title": "Profile verwalten",
       "active_hint": "Das ausgewählte Profil wird beim Speichern aktiv."
@@ -201,7 +214,13 @@
     "srs_coverage": "Abdeckungsskalar (%)",
     "srs_max_active": "Max. aktive Einträge",
     "srs_max_new": "Max. neue Einträge/Tag",
-    "srs_pairs": "Aktive Sprachpaare"
+    "srs_pairs": "Aktive Sprachpaare",
+    "helper_status": "Helferstatus",
+    "helper_install": "Helfer installieren",
+    "helper_reinstall": "Helfer neu installieren",
+    "helper_status_installed": "Installiert",
+    "helper_status_missing": "Nicht installiert",
+    "helper_status_unknown": "Unbekannt (Erweiterungs-ID fehlt)"
   },
   "formats": {
     "json": "JSON",

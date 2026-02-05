@@ -110,6 +110,12 @@
   "button_helper_refresh": {
     "message": "ヘルパー状態を更新"
   },
+  "button_helper_test": {
+    "message": "ヘルパー接続をテスト"
+  },
+  "button_helper_open_data_dir": {
+    "message": "ヘルパーデータフォルダを開く"
+  },
   "status_helper_connecting": {
     "message": "接続中…"
   },
@@ -125,6 +131,18 @@
   "status_helper_missing": {
     "message": "ヘルパーが利用できません。"
   },
+  "status_helper_test_ok": {
+    "message": "ヘルパー接続済み（v$1）。"
+  },
+  "status_helper_test_failed": {
+    "message": "接続失敗: $1"
+  },
+  "status_helper_opened": {
+    "message": "開きました: $1"
+  },
+  "status_helper_open_failed": {
+    "message": "開けませんでした: $1"
+  },
   "toggle_exposure_logging": {
     "message": "置換の露出イベントを記録"
   },
@@ -135,13 +153,16 @@
     "message": "アクティブ語をサンプル…"
   },
   "button_srs_rulegen_preview": {
-    "message": "生成ルールを表示…"
+    "message": "ルール生成（デバッグ）…"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
   },
   "status_srs_rulegen_loading": {
     "message": "ルールプレビュー作成中…"
+  },
+  "status_srs_rulegen_running": {
+    "message": "ルール生成中…"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"

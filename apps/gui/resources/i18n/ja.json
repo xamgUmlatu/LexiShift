@@ -29,6 +29,7 @@
     "use_embedding": "使用"
   },
   "menu": {
+    "app": "LexiShift",
     "file": "ファイル",
     "import": "インポート",
     "export": "エクスポート",
@@ -54,7 +55,9 @@
     "import_profiles_json": "プロファイルをインポート（JSON）...",
     "import_profiles_code": "プロファイルをインポート（コード）...",
     "reveal_in_finder": "Finderで表示",
-    "reveal_ruleset_in_finder": "ルールセットをFinderで表示"
+    "reveal_ruleset_in_finder": "ルールセットをFinderで表示",
+    "install_helper": "LexiShift ヘルパーをインストール...",
+    "reinstall_helper": "LexiShift ヘルパーを再インストール..."
   },
   "labels": {
     "profile": "プロファイル",
@@ -151,6 +154,16 @@
     "settings": {
       "title": "設定"
     },
+    "helper_install": {
+      "title": "LexiShift ヘルパーをインストール",
+      "env_title": "ヘルパー環境",
+      "env_prompt": "拡張機能の環境を選択してください:",
+      "host_title": "ヘルパーホストスクリプトを選択",
+      "host_filter": "Python スクリプト (*.py)",
+      "prompt": "LexiShift 拡張機能のIDを入力してください:",
+      "success": "ヘルパーをインストールしました。\n\nマニフェスト: {path}",
+      "failed": "ヘルパーのインストールに失敗しました。\n\n{message}"
+    },
     "manage_profiles": {
       "title": "プロファイル管理",
       "active_hint": "保存時に選択されている行がアクティブプロファイルになります。"
@@ -201,7 +214,13 @@
     "srs_coverage": "カバレッジ係数（%）",
     "srs_max_active": "最大アクティブ数",
     "srs_max_new": "1日あたりの新規上限",
-    "srs_pairs": "有効な言語ペア"
+    "srs_pairs": "有効な言語ペア",
+    "helper_status": "ヘルパーステータス",
+    "helper_install": "ヘルパーをインストール",
+    "helper_reinstall": "ヘルパーを再インストール",
+    "helper_status_installed": "インストール済み",
+    "helper_status_missing": "未インストール",
+    "helper_status_unknown": "不明（拡張IDが未設定）"
   },
   "formats": {
     "json": "JSON",

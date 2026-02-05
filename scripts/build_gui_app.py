@@ -50,6 +50,15 @@ def _default_paths(repo_root: str) -> Tuple[str, str, str]:
     return default_spec, default_dist, default_build
 
 
+def _detect_build_mode(spec_path: str) -> str:
+    try:
+        with open(spec_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        return "onedir" if "COLLECT(" in content else "onefile"
+    except Exception:
+        return "unknown"
+
+
 def main() -> int:
     repo_root = _resolve_repo_root()
     default_spec, default_dist, default_build = _default_paths(repo_root)
@@ -115,6 +124,12 @@ def main() -> int:
     print(f"Spec: {spec_path}")
     print(f"Dist: {dist_path}")
     print(f"Work: {work_path}")
+
+    mode = _detect_build_mode(spec_path)
+    print(f"Build Mode: {mode.upper()}")
+    if mode == "onefile":
+        print("  -> Warning: One-file builds have slower startup times.")
+        print("  -> To fix: Edit the .spec file to use COLLECT() for a one-dir build.")
 
     cmd = _build_command(
         spec_path,

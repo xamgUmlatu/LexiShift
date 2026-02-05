@@ -29,6 +29,7 @@
     "use_embedding": "使用"
   },
   "menu": {
+    "app": "LexiShift",
     "file": "文件",
     "import": "导入",
     "export": "导出",
@@ -54,7 +55,9 @@
     "import_profiles_json": "导入配置文件（JSON）...",
     "import_profiles_code": "导入配置文件（代码）...",
     "reveal_in_finder": "在 Finder 中显示",
-    "reveal_ruleset_in_finder": "在 Finder 中显示规则集"
+    "reveal_ruleset_in_finder": "在 Finder 中显示规则集",
+    "install_helper": "安装 LexiShift Helper...",
+    "reinstall_helper": "重新安装 LexiShift Helper..."
   },
   "labels": {
     "profile": "配置文件",
@@ -151,6 +154,16 @@
     "settings": {
       "title": "设置"
     },
+    "helper_install": {
+      "title": "安装 LexiShift Helper",
+      "env_title": "Helper 环境",
+      "env_prompt": "选择扩展环境：",
+      "host_title": "选择 Helper 主机脚本",
+      "host_filter": "Python 脚本 (*.py)",
+      "prompt": "输入 LexiShift 扩展程序 ID：",
+      "success": "Helper 已安装。\n\n清单：{path}",
+      "failed": "Helper 安装失败。\n\n{message}"
+    },
     "manage_profiles": {
       "title": "管理配置文件",
       "active_hint": "保存时所选行即为活动配置文件。"
@@ -201,7 +214,13 @@
     "srs_coverage": "覆盖比例（%）",
     "srs_max_active": "最大活跃数量",
     "srs_max_new": "每日新增上限",
-    "srs_pairs": "启用的语言对"
+    "srs_pairs": "启用的语言对",
+    "helper_status": "Helper 状态",
+    "helper_install": "安装 Helper",
+    "helper_reinstall": "重新安装 Helper",
+    "helper_status_installed": "已安装",
+    "helper_status_missing": "未安装",
+    "helper_status_unknown": "未知（缺少扩展ID）"
   },
   "formats": {
     "json": "JSON",

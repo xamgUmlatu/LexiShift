@@ -152,6 +152,10 @@ const srsRulegenOutput = document.getElementById("srs-rulegen-output");
 const helperStatusLabel = document.getElementById("helper-status");
 const helperLastSyncLabel = document.getElementById("helper-last-sync");
 const helperRefreshButton = document.getElementById("helper-refresh");
+const debugHelperTestButton = document.getElementById("debug-helper-test");
+const debugHelperTestOutput = document.getElementById("debug-helper-test-output");
+const debugOpenDataDirButton = document.getElementById("debug-open-data-dir");
+const debugOpenDataDirOutput = document.getElementById("debug-open-data-dir-output");
 const languageSelect = document.getElementById("ui-language");
 const rulesInput = document.getElementById("rules");
 const saveButton = document.getElementById("save");
@@ -607,6 +611,12 @@ function load() {
     if (srsRulegenOutput) {
       srsRulegenOutput.textContent = "";
     }
+    if (debugHelperTestOutput) {
+      debugHelperTestOutput.textContent = "";
+    }
+    if (debugOpenDataDirOutput) {
+      debugOpenDataDirOutput.textContent = "";
+    }
     setHelperStatus("", "");
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
@@ -659,6 +669,97 @@ async function refreshHelperStatus() {
   } catch (err) {
     setHelperStatus(t("status_helper_failed", null, "Helper error."), "");
     logOptions("Helper status failed.", err);
+  }
+}
+
+async function testHelperConnection() {
+  if (!debugHelperTestButton || !debugHelperTestOutput) {
+    return;
+  }
+  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
+  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
+  if (!HelperClient || !helperTransport) {
+    debugHelperTestOutput.textContent = t("status_helper_missing", null, "Helper unavailable.");
+    return;
+  }
+  const client = new HelperClient(helperTransport);
+  debugHelperTestButton.disabled = true;
+  debugHelperTestOutput.textContent = t("status_helper_connecting", null, "Connecting…");
+  try {
+    const response = await client.hello();
+    if (!response || response.ok === false) {
+      const message = response && response.error && response.error.message
+        ? response.error.message
+        : t("status_helper_failed", null, "Helper error.");
+      debugHelperTestOutput.textContent = t(
+        "status_helper_test_failed",
+        message,
+        `Connection failed: ${message}`
+      );
+      return;
+    }
+    const data = response.data || {};
+    const version = data.helper_version || "";
+    debugHelperTestOutput.textContent = t(
+      "status_helper_test_ok",
+      version,
+      version ? `Helper connected (v${version}).` : "Helper connected."
+    );
+  } catch (err) {
+    const message = err && err.message ? err.message : t("status_helper_failed", null, "Helper error.");
+    debugHelperTestOutput.textContent = t(
+      "status_helper_test_failed",
+      message,
+      `Connection failed: ${message}`
+    );
+    logOptions("Helper test failed.", err);
+  } finally {
+    debugHelperTestButton.disabled = false;
+  }
+}
+
+async function openHelperDataDir() {
+  if (!debugOpenDataDirButton || !debugOpenDataDirOutput) {
+    return;
+  }
+  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
+  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
+  if (!HelperClient || !helperTransport) {
+    debugOpenDataDirOutput.textContent = t("status_helper_missing", null, "Helper unavailable.");
+    return;
+  }
+  const client = new HelperClient(helperTransport);
+  debugOpenDataDirButton.disabled = true;
+  debugOpenDataDirOutput.textContent = t("status_helper_connecting", null, "Connecting…");
+  try {
+    const response = await client.openDataDir();
+    if (!response || response.ok === false) {
+      const message = response && response.error && response.error.message
+        ? response.error.message
+        : t("status_helper_open_failed", null, "Failed to open folder.");
+      debugOpenDataDirOutput.textContent = t(
+        "status_helper_open_failed",
+        message,
+        `Open failed: ${message}`
+      );
+      return;
+    }
+    const opened = response.data && response.data.opened ? response.data.opened : "";
+    debugOpenDataDirOutput.textContent = t(
+      "status_helper_opened",
+      opened,
+      opened ? `Opened: ${opened}` : "Opened."
+    );
+  } catch (err) {
+    const message = err && err.message ? err.message : t("status_helper_open_failed", null, "Failed to open folder.");
+    debugOpenDataDirOutput.textContent = t(
+      "status_helper_open_failed",
+      message,
+      `Open failed: ${message}`
+    );
+    logOptions("Open helper data dir failed.", err);
+  } finally {
+    debugOpenDataDirButton.disabled = false;
   }
 }
 
@@ -755,6 +856,7 @@ async function previewSrsRulegen() {
   }
   const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
   const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
+  const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
   const helperClient = HelperClient ? new HelperClient(helperTransport) : null;
   const sourceLanguage = sourceLanguageInput
     ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
@@ -765,28 +867,54 @@ async function previewSrsRulegen() {
   const srsPair = resolvePairFromInputs();
   srsRulegenButton.disabled = true;
   srsRulegenOutput.textContent = t(
-    "status_srs_rulegen_loading",
+    "status_srs_rulegen_running",
     null,
-    "Building rule preview…"
+    "Running rulegen…"
   );
   try {
     if (helperClient) {
+      const startedAt = Date.now();
+      const rulegenResponse = await helperClient.triggerRulegen({ pair: srsPair }, 15000);
+      if (!rulegenResponse || rulegenResponse.ok === false) {
+        const message = rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
+          ? rulegenResponse.error.message
+          : t("status_srs_rulegen_failed", null, "Rule preview failed.");
+        srsRulegenOutput.textContent = message;
+        return;
+      }
+      const rulegenData = rulegenResponse && rulegenResponse.data ? rulegenResponse.data : {};
+      const rulegenTargets = Number(rulegenData.targets || 0);
+      const rulegenRules = Number(rulegenData.rules || 0);
+      const duration = ((Date.now() - startedAt) / 1000).toFixed(1);
       const response = await helperClient.getSnapshot(srsPair);
-      if (!response || response.ok === false) {
+      srsRulegenOutput.textContent = t(
+        "status_srs_rulegen_loading",
+        null,
+        "Building rule preview…"
+      );
+      let snapshot = null;
+      if (response && response.ok !== false) {
+        snapshot = response.data || {};
+        if (helperCache && typeof helperCache.saveSnapshot === "function") {
+          helperCache.saveSnapshot(srsPair, snapshot);
+        }
+      } else if (helperCache && typeof helperCache.loadSnapshot === "function") {
+        snapshot = await helperCache.loadSnapshot(srsPair);
+      }
+      if (!snapshot) {
         const message = response && response.error && response.error.message
           ? response.error.message
           : t("status_srs_rulegen_failed", null, "Rule preview failed.");
         srsRulegenOutput.textContent = message;
         return;
       }
-      const snapshot = response.data || {};
-      const targets = Array.isArray(snapshot.targets) ? snapshot.targets : [];
+      const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
+      const header = `Rulegen: ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`;
       if (!targets.length) {
-        srsRulegenOutput.textContent = t(
-          "status_srs_rulegen_empty",
-          null,
-          "No rules found for current active words."
-        );
+        srsRulegenOutput.textContent = [
+          header,
+          t("status_srs_rulegen_empty", null, "No rules found for current active words.")
+        ].join("\n");
       } else {
         const lines = targets.map((entry) => {
           const lemma = String(entry.lemma || "").trim();
@@ -795,7 +923,7 @@ async function previewSrsRulegen() {
           if (!sources.length) return `${lemma} → (no rules)`;
           return `${lemma} → ${sources.join(", ")}`;
         }).filter(Boolean);
-        srsRulegenOutput.textContent = lines.join("\n");
+        srsRulegenOutput.textContent = [header, "", ...lines].join("\n");
       }
       logOptions("SRS rulegen preview (helper)", { pair: srsPair, targets: targets.length });
       return;
@@ -902,6 +1030,12 @@ if (srsRulegenButton) {
 }
 if (helperRefreshButton) {
   helperRefreshButton.addEventListener("click", refreshHelperStatus);
+}
+if (debugHelperTestButton) {
+  debugHelperTestButton.addEventListener("click", testHelperConnection);
+}
+if (debugOpenDataDirButton) {
+  debugOpenDataDirButton.addEventListener("click", openHelperDataDir);
 }
 
 debugEnabledInput.addEventListener("change", () => {

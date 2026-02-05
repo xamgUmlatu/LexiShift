@@ -195,6 +195,12 @@ textarea {
   color: #5f594f;
 }
 
+#debug-helper-test-output,
+#debug-open-data-dir-output {
+  font-size: 13px;
+  color: #5f594f;
+}
+
 .srs-preview {
   margin-top: 10px;
   padding: 10px 12px;

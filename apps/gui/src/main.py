@@ -3,6 +3,8 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
+import traceback
+from datetime import datetime
 from dataclasses import replace
 from pathlib import Path
 from typing import Optional
@@ -28,6 +30,7 @@ from PySide6.QtCore import (
     Signal,
     QTimer,
 )
+from PySide6.QtNetwork import QLocalServer, QLocalSocket
 from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QApplication,
@@ -87,6 +90,8 @@ from lexishift_core import (
 from lexishift_core.synonyms import EmbeddingIndex
 
 from dialogs import RuleMetadataDialog, SettingsDialog
+from helper_installer import install_helper, is_helper_installed
+from helper_ui import auto_install_helper, ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
 from dialogs_code import BulkRulesDialog, CodeDialog
 from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
 from i18n import set_locale, t
@@ -96,6 +101,7 @@ from state import AppState
 from theme_assets import ensure_sample_images, ensure_sample_themes
 from theme_loader import theme_dir
 from theme_logger import set_log_handler
+from helper_logger import set_helper_log_handler
 from theme_manager import build_base_styles, resolve_current_theme
 from theme_widgets import ThemedBackgroundWidget, apply_theme_background
 
@@ -230,6 +236,7 @@ class MainWindow(QMainWindow):
         self.log_edit.setReadOnly(True)
         self.log_edit.setPlaceholderText(t("logs.placeholder"))
         set_log_handler(lambda message: self._append_log(message, color=QColor("#A03030")))
+        set_helper_log_handler(lambda message: self._append_log(message, color=QColor("#2E6BD6")))
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -263,6 +270,9 @@ class MainWindow(QMainWindow):
 
         self._setup_actions()
         self._setup_menu()
+        self._refresh_helper_menu_label()
+        auto_install_helper(self._ui_settings)
+        self._refresh_helper_menu_label()
         self._setup_preview()
         self._refresh_embedding_index()
         self.state.datasetChanged.connect(self._on_dataset_loaded)
@@ -307,6 +317,11 @@ class MainWindow(QMainWindow):
         self._edit_metadata_action = QAction(t("menu.edit_metadata"), self)
         self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
+        self._install_helper_action = QAction(t("menu.install_helper"), self)
+        self._install_helper_action.setMenuRole(QAction.ApplicationSpecificRole)
+        self._install_helper_action.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self._install_helper_action.triggered.connect(self._install_helper)
+
         self._export_json_action = QAction(t("menu.export_ruleset_json"), self)
         self._export_json_action.triggered.connect(self._export_json)
 
@@ -337,6 +352,9 @@ class MainWindow(QMainWindow):
 
     def _setup_menu(self) -> None:
         menu_bar = self.menuBar()
+
+        app_menu = menu_bar.addMenu(t("menu.app"))
+        app_menu.addAction(self._install_helper_action)
 
         file_menu = menu_bar.addMenu(t("menu.file"))
         file_menu.addAction(self._open_action)
@@ -383,6 +401,38 @@ class MainWindow(QMainWindow):
         edit_menu.addSeparator()
         edit_menu.addAction(self._edit_metadata_action)
         edit_menu.addAction(self._delete_rule_action)
+
+    def _refresh_helper_menu_label(self) -> None:
+        env, extension_id = get_helper_environment(self._ui_settings)
+        if env and extension_id and is_helper_installed(str(extension_id), browser=env.browser):
+            self._install_helper_action.setText(t("menu.reinstall_helper"))
+        else:
+            self._install_helper_action.setText(t("menu.install_helper"))
+
+    def _install_helper(self) -> None:
+        choice = prompt_for_helper_environment(self, self._ui_settings)
+        if not choice:
+            return
+        env, extension_id, host_path = choice
+        result = install_helper(
+            extension_id=str(extension_id).strip(),
+            browser=env.browser,
+            host_path=host_path,
+        )
+        if result.installed:
+            ensure_helper_autostart()
+            QMessageBox.information(
+                self,
+                t("dialogs.helper_install.title"),
+                t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
+            )
+        else:
+            QMessageBox.warning(
+                self,
+                t("dialogs.helper_install.title"),
+                t("dialogs.helper_install.failed", message=str(result.message)),
+            )
+        self._refresh_helper_menu_label()
 
     def _build_profile_header(self) -> QWidget:
         profile_label = QLabel(t("labels.profile"))
@@ -667,6 +717,7 @@ class MainWindow(QMainWindow):
         self._schedule_preview()
         self._apply_theme()
         self._refresh_srs_growth()
+        self._refresh_helper_menu_label()
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -1918,9 +1969,46 @@ def _default_dataset_path() -> Path:
 
 
 def main() -> None:
+    if "--helper-daemon" in sys.argv:
+        from helper_daemon import run_daemon_from_cli
+
+        filtered_args = [arg for arg in sys.argv[1:] if arg != "--helper-daemon"]
+        run_daemon_from_cli(filtered_args)
+        return
+    if "--helper-tray" in sys.argv:
+        from helper_tray import run_helper_tray
+
+        run_helper_tray()
+        return
+
+    # Setup global exception hook to catch crashes
+    def exception_hook(exctype, value, tb):
+        error_msg = "".join(traceback.format_exception(exctype, value, tb))
+        crash_log = _app_data_dir() / "crash.log"
+        with open(crash_log, "a", encoding="utf-8") as f:
+            f.write(f"[{datetime.now()}] Crash:\n{error_msg}\n\n")
+        sys.__excepthook__(exctype, value, tb)
+    sys.excepthook = exception_hook
+
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     app = QApplication(sys.argv)
+
+    # Singleton check: ensure only one GUI window runs
+    import getpass
+    socket_name = f"LexiShiftGUI_{getpass.getuser()}"
+    socket = QLocalSocket()
+    socket.connectToServer(socket_name)
+    if socket.waitForConnected(500):
+        socket.write(b"ACTIVATE")
+        socket.waitForBytesWritten(1000)
+        socket.disconnectFromServer()
+        sys.exit(0)
+
+    server = QLocalServer()
+    server.removeServer(socket_name)
+    server.listen(socket_name)
+
     theme_dir()
     ensure_sample_images()
     ensure_sample_themes()
@@ -1930,6 +2018,17 @@ def main() -> None:
         locale_pref = QLocale.system().name()
     set_locale(str(locale_pref))
     window = MainWindow()
+
+    def handle_activation():
+        client = server.nextPendingConnection()
+        if client:
+            client.waitForReadyRead(100)
+            window.show()
+            window.raise_()
+            window.activateWindow()
+            client.disconnectFromServer()
+    server.newConnection.connect(handle_activation)
+
     window.show()
     sys.exit(app.exec())
 

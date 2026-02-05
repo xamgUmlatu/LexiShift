@@ -30,6 +30,7 @@
     "use_embedding": "Use"
   },
   "menu": {
+    "app": "LexiShift",
     "file": "File",
     "import": "Import",
     "export": "Export",
@@ -55,7 +56,9 @@
     "import_profiles_json": "Import Profiles (JSON)...",
     "import_profiles_code": "Import Profiles (Code)...",
     "reveal_in_finder": "Reveal in Finder",
-    "reveal_ruleset_in_finder": "Reveal Ruleset in Finder"
+    "reveal_ruleset_in_finder": "Reveal Ruleset in Finder",
+    "install_helper": "Install LexiShift Helper...",
+    "reinstall_helper": "Reinstall LexiShift Helper..."
   },
   "labels": {
     "profile": "Profile",
@@ -152,6 +155,16 @@
     "settings": {
       "title": "Settings"
     },
+    "helper_install": {
+      "title": "Install LexiShift Helper",
+      "env_title": "Helper Environment",
+      "env_prompt": "Select the extension environment:",
+      "host_title": "Select Helper Host Script",
+      "host_filter": "Python Scripts (*.py)",
+      "prompt": "Enter your LexiShift extension ID:",
+      "success": "Helper installed.\n\nManifest: {path}",
+      "failed": "Helper install failed.\n\n{message}"
+    },
     "manage_profiles": {
       "title": "Manage Profiles",
       "active_hint": "Active profile is the selected row when saving."
@@ -202,7 +215,13 @@
     "srs_coverage": "Coverage scalar (%)",
     "srs_max_active": "Max active items",
     "srs_max_new": "Max new items/day",
-    "srs_pairs": "Active language pairs"
+    "srs_pairs": "Active language pairs",
+    "helper_status": "Helper status",
+    "helper_install": "Install Helper",
+    "helper_reinstall": "Reinstall Helper",
+    "helper_status_installed": "Installed",
+    "helper_status_missing": "Not installed",
+    "helper_status_unknown": "Unknown (missing extension ID)"
   },
   "formats": {
     "json": "JSON",

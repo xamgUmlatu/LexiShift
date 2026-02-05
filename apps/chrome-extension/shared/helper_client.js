@@ -31,6 +31,10 @@
       return this.send("get_ruleset", { pair });
     }
 
+    openDataDir() {
+      return this.send("open_data_dir");
+    }
+
     recordFeedback(payload) {
       return this.send("record_feedback", payload);
     }
@@ -39,8 +43,8 @@
       return this.send("record_exposure", payload);
     }
 
-    triggerRulegen(payload) {
-      return this.send("trigger_rulegen", payload);
+    triggerRulegen(payload, timeoutMs) {
+      return this.send("trigger_rulegen", payload, timeoutMs);
     }
   }
 

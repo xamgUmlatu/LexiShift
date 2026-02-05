@@ -110,6 +110,12 @@
   "button_helper_refresh": {
     "message": "刷新 Helper 状态"
   },
+  "button_helper_test": {
+    "message": "测试 Helper 连接"
+  },
+  "button_helper_open_data_dir": {
+    "message": "打开 Helper 数据文件夹"
+  },
   "status_helper_connecting": {
     "message": "连接中…"
   },
@@ -125,6 +131,18 @@
   "status_helper_missing": {
     "message": "Helper 不可用。"
   },
+  "status_helper_test_ok": {
+    "message": "Helper 已连接（v$1）。"
+  },
+  "status_helper_test_failed": {
+    "message": "连接失败：$1"
+  },
+  "status_helper_opened": {
+    "message": "已打开：$1"
+  },
+  "status_helper_open_failed": {
+    "message": "打开失败：$1"
+  },
   "toggle_exposure_logging": {
     "message": "记录替换曝光事件"
   },
@@ -135,13 +153,16 @@
     "message": "抽样活跃词…"
   },
   "button_srs_rulegen_preview": {
-    "message": "查看生成规则…"
+    "message": "生成规则（调试）…"
   },
   "status_srs_sampling": {
     "message": "正在抽样…"
   },
   "status_srs_rulegen_loading": {
     "message": "正在生成规则预览…"
+  },
+  "status_srs_rulegen_running": {
+    "message": "正在生成规则…"
   },
   "status_srs_sample_empty": {
     "message": "暂无可用词。"

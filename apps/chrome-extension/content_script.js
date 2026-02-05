@@ -37,6 +37,7 @@
   const srsMetrics = root.srsMetrics;
   const HelperClient = root.helperClient;
   const helperTransport = root.helperTransportExtension;
+  const helperCache = root.helperCache;
 
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
@@ -52,7 +53,11 @@
     if (!pair) {
       return;
     }
-    helperRulesCache.set(pair, Array.isArray(rules) ? rules : []);
+    const payload = Array.isArray(rules) ? rules : [];
+    helperRulesCache.set(pair, payload);
+    if (helperCache && typeof helperCache.saveRuleset === "function") {
+      helperCache.saveRuleset(pair, { rules: payload });
+    }
   }
 
   async function fetchHelperRules(pair) {
@@ -505,6 +510,12 @@
           if (fallback) {
             rawRules = fallback;
             rulesSource = "helper-cache";
+          } else if (helperCache && typeof helperCache.loadRuleset === "function") {
+            const cached = await helperCache.loadRuleset(currentSettings.srsPair);
+            if (cached && Array.isArray(cached.rules)) {
+              rawRules = cached.rules;
+              rulesSource = "helper-cache";
+            }
           }
         }
       } catch (error) {
@@ -512,6 +523,12 @@
         if (fallback) {
           rawRules = fallback;
           rulesSource = "helper-cache";
+        } else if (helperCache && typeof helperCache.loadRuleset === "function") {
+          const cached = await helperCache.loadRuleset(currentSettings.srsPair);
+          if (cached && Array.isArray(cached.rules)) {
+            rawRules = cached.rules;
+            rulesSource = "helper-cache";
+          }
         }
       }
     }

@@ -7,10 +7,26 @@ import struct
 import sys
 from typing import Any, Dict, Optional
 
+SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(PROJECT_ROOT / "core"))
+
+def _inject_core_path() -> None:
+    candidates = [
+        SCRIPT_DIR / "lexishift_core",
+        SCRIPT_DIR.parent / "lexishift_core",
+        SCRIPT_DIR.parent / "core" / "lexishift_core",
+        PROJECT_ROOT / "core" / "lexishift_core",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            sys.path.insert(0, str(candidate.parent))
+            return
+
+
+_inject_core_path()
 
 from lexishift_core.helper_engine import RulegenJobConfig, apply_exposure, apply_feedback, load_ruleset, load_snapshot, run_rulegen_job
+from lexishift_core.helper_os import open_path
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
 
@@ -110,6 +126,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             seed_if_empty=payload.get("seed_if_empty", True),
         )
         return run_rulegen_job(paths, config=config)
+    if msg_type == "open_data_dir":
+        open_path(paths.data_root)
+        return {"opened": str(paths.data_root)}
     raise ValueError(f"Unknown command: {msg_type}")
 
 

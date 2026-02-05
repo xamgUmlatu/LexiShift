@@ -19,7 +19,7 @@ without shipping large datasets inside the extension.
 
 ## Architecture Overview
 Components:
-1) **GUI App** (LexiShift): installs & configures a background helper at first run.
+1) **GUI App** (LexiShift): offers install/config UI for the background helper.
 2) **Companion Helper** (background process): owns rulegen, SRS store, rule snapshots.
 3) **Native Messaging Host**: bridges extension ↔ helper using Chrome native messaging.
 4) **Extension**: applies rules, sends feedback/exposure, requests snapshots.
@@ -75,6 +75,8 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - on feedback batch thresholds, or
   - on preference changes.
 - GUI app can trigger `run_rulegen` explicitly.
+ - Helper tray app (menubar/tray) owns lifetime + status UI.
+ - macOS LaunchAgent starts the helper tray mode (`--helper-tray`) at login (tray app spawns the daemon).
 
 ### Phase 5 — UI + Diagnostics
 - Options page:
@@ -165,3 +167,19 @@ Helper should write:
 - How frequently should rulegen run?
 - Should we allow manual override per profile/pair?
 - Do we store SRS store in SQLite or JSON for MVP?
+
+## GUI Install UX
+- **Automatic** install on first launch if a fixed extension ID is available and the bundled helper host exists.
+- App menu (LexiShift) → “Install/Reinstall LexiShift Helper…” as a repair tool.
+- Settings → SRS: “Helper status” + “Install/Reinstall Helper” as a repair tool.
+- Extension IDs are read from `apps/gui/resources/helper_extension_ids.json` (fixed IDs for prod, plus dev/unpacked entries).
+- If the helper host script is missing (dev), the GUI prompts for the script path.
+
+## Bundling the Helper Host
+- The GUI app bundles `lexishift_native_host.py` plus `lexishift_core` into `resources/helper/`.
+- The helper manifest points to the bundled script path, so no extra download is required.
+- For onefile builds, the installer copies the helper into the LexiShift app data directory to keep the manifest path stable after the app exits.
+
+## Current Status
+- Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
+- Native messaging host exists; install writes the host manifest for the provided extension ID.

@@ -15,10 +15,12 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QLineEdit,
+    QMessageBox,
     QPushButton,
     QPlainTextEdit,
     QScrollArea,
     QSlider,
+    QStyle,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -38,6 +40,8 @@ from lexishift_core import (
 )
 from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
+from helper_installer import install_helper, is_helper_installed
+from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
 from theme_loader import load_user_themes, theme_dir, THEME_COLOR_KEYS
 from theme_manager import resolve_theme
 from theme_registry import BUILTIN_THEMES
@@ -148,6 +152,7 @@ class SettingsDialog(QDialog):
         self._apply_inflections(inflections)
         self._apply_learning(learning)
         self._apply_srs_settings(app_settings.srs)
+        self._refresh_helper_status()
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
@@ -419,6 +424,10 @@ class SettingsDialog(QDialog):
         )
         self.srs_max_active_edit = QLineEdit()
         self.srs_max_new_edit = QLineEdit()
+        self.helper_status_label = QLabel("—")
+        self.install_helper_button = QPushButton(t("settings.helper_install"))
+        self.install_helper_button.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self.install_helper_button.clicked.connect(self._install_helper)
 
         srs_pairs = [
             ("en-ja", f"{t('languages.english')} → {t('languages.japanese')}"),
@@ -454,6 +463,8 @@ class SettingsDialog(QDialog):
         srs_form.addRow(t("settings.srs_max_active"), self.srs_max_active_edit)
         srs_form.addRow(t("settings.srs_max_new"), self.srs_max_new_edit)
         srs_form.addRow(t("settings.srs_pairs"), srs_pair_panel)
+        srs_form.addRow(t("settings.helper_status"), self.helper_status_label)
+        srs_form.addRow(t("settings.helper_install"), self.install_helper_button)
 
         srs_panel = QWidget()
         srs_panel.setLayout(srs_form)
@@ -644,6 +655,44 @@ class SettingsDialog(QDialog):
         for pair_key, checkbox in self._srs_pair_checks.items():
             rule = pair_rules.get(pair_key)
             checkbox.setChecked(rule.enabled if rule is not None else False)
+
+    def _refresh_helper_status(self) -> None:
+        env, extension_id = get_helper_environment(self._ui_settings)
+        if not env or not extension_id:
+            self.helper_status_label.setText(t("settings.helper_status_unknown"))
+            self.install_helper_button.setText(t("settings.helper_install"))
+            return
+        if is_helper_installed(str(extension_id), browser=env.browser):
+            self.helper_status_label.setText(t("settings.helper_status_installed"))
+            self.install_helper_button.setText(t("settings.helper_reinstall"))
+        else:
+            self.helper_status_label.setText(t("settings.helper_status_missing"))
+            self.install_helper_button.setText(t("settings.helper_install"))
+
+    def _install_helper(self) -> None:
+        choice = prompt_for_helper_environment(self, self._ui_settings)
+        if not choice:
+            return
+        env, extension_id, host_path = choice
+        result = install_helper(
+            extension_id=str(extension_id).strip(),
+            browser=env.browser,
+            host_path=host_path,
+        )
+        if result.installed:
+            ensure_helper_autostart()
+            QMessageBox.information(
+                self,
+                t("dialogs.helper_install.title"),
+                t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
+            )
+        else:
+            QMessageBox.warning(
+                self,
+                t("dialogs.helper_install.title"),
+                t("dialogs.helper_install.failed", message=str(result.message)),
+            )
+        self._refresh_helper_status()
 
     def _collect_srs_settings(self) -> SrsSettings:
         existing = self._app_settings.srs or SrsSettings(enabled=False)

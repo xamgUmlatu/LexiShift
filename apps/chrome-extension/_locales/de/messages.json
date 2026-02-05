@@ -110,6 +110,12 @@
   "button_helper_refresh": {
     "message": "Helper-Status aktualisieren"
   },
+  "button_helper_test": {
+    "message": "Helper-Verbindung testen"
+  },
+  "button_helper_open_data_dir": {
+    "message": "Helper-Datenordner öffnen"
+  },
   "status_helper_connecting": {
     "message": "Verbinden…"
   },
@@ -125,6 +131,18 @@
   "status_helper_missing": {
     "message": "Helper nicht verfügbar."
   },
+  "status_helper_test_ok": {
+    "message": "Helper verbunden (v$1)."
+  },
+  "status_helper_test_failed": {
+    "message": "Verbindung fehlgeschlagen: $1"
+  },
+  "status_helper_opened": {
+    "message": "Geöffnet: $1"
+  },
+  "status_helper_open_failed": {
+    "message": "Öffnen fehlgeschlagen: $1"
+  },
   "toggle_exposure_logging": {
     "message": "Ersetzungs-Expositionen protokollieren"
   },
@@ -135,13 +153,16 @@
     "message": "Aktive Wörter testen…"
   },
   "button_srs_rulegen_preview": {
-    "message": "Ziel-Regeln anzeigen…"
+    "message": "Regeln generieren (Debug)…"
   },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
   },
   "status_srs_rulegen_loading": {
     "message": "Regelvorschau wird erstellt…"
+  },
+  "status_srs_rulegen_running": {
+    "message": "Regeln werden generiert…"
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."

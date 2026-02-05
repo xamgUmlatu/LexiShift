@@ -1,0 +1,33 @@
+{
+  "default": "chrome_prod",
+  "environments": [
+    {
+      "key": "chrome_prod",
+      "label": "Chrome (Web Store)",
+      "browser": "chrome",
+      "extension_id": "__FILL_ME__",
+      "fixed": true
+    },
+    {
+      "key": "chrome_dev",
+      "label": "Chrome (Unpacked Dev)",
+      "browser": "chrome",
+      "extension_id": "",
+      "fixed": false
+    },
+    {
+      "key": "brave_prod",
+      "label": "Brave (Web Store)",
+      "browser": "brave",
+      "extension_id": "__FILL_ME__",
+      "fixed": true
+    },
+    {
+      "key": "chromium_dev",
+      "label": "Chromium (Unpacked Dev)",
+      "browser": "chromium",
+      "extension_id": "",
+      "fixed": false
+    }
+  ]
+}

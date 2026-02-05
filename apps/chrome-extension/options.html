@@ -172,7 +172,7 @@
             <span id="srs-sample-output" class="hint"></span>
           </div>
           <div class="actions">
-            <button id="srs-rulegen-preview" data-i18n="button_srs_rulegen_preview">Show target rules…</button>
+            <button id="srs-rulegen-preview" data-i18n="button_srs_rulegen_preview">Run rulegen (debug)…</button>
           </div>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
         </section>
@@ -224,6 +224,14 @@
             <p class="hint" data-i18n="hint_debug_focus_word">
               When set, logs include nodes containing this exact word.
             </p>
+            <div class="actions">
+              <button id="debug-helper-test" data-i18n="button_helper_test">Test helper connection</button>
+              <span id="debug-helper-test-output" class="hint"></span>
+            </div>
+            <div class="actions">
+              <button id="debug-open-data-dir" data-i18n="button_helper_open_data_dir">Open helper data folder</button>
+              <span id="debug-open-data-dir-output" class="hint"></span>
+            </div>
           </details>
           <details class="advanced">
             <summary data-i18n="advanced_logging_summary">Logging</summary>
@@ -243,6 +251,7 @@
     <script src="shared/srs_selector.js"></script>
     <script src="shared/helper_transport_extension.js"></script>
     <script src="shared/helper_client.js"></script>
+    <script src="shared/helper_cache.js"></script>
     <script src="lzstring.js"></script>
     <script src="cjk_codec.js"></script>
     <script src="options.js"></script>

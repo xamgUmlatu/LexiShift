@@ -31,16 +31,17 @@ Status key:
 - [x] Options: “Helper status” + “Refresh now”.
 - [x] Replace rulegen preview button to read helper snapshot.
 - [x] Content script: fetch helper ruleset when SRS enabled.
-- [~] Fallback to cached ruleset if helper offline.
+- [x] Fallback to cached ruleset if helper offline.
 
 ## Phase 4 — Background Scheduling
-- [ ] Start helper at login (LaunchAgent / Task Scheduler).
-- [ ] Schedule periodic rulegen (timer).
+- [x] Start helper tray at login on macOS (LaunchAgent).
+- [x] Schedule periodic rulegen (daemon loop).
 - [ ] Trigger rulegen on feedback batch thresholds.
 
 ## Phase 5 — UI + Diagnostics
-- [ ] Show helper status + last sync time in GUI app.
-- [ ] Add “Install Helper” action in SRS settings.
+- [~] Show helper status in GUI app (last sync time still pending).
+- [x] Auto-install helper on first launch when fixed ID is available.
+- [x] Add “Install/Reinstall Helper” repair action in SRS settings.
 - [ ] Add logs/health view (optional).
 
 ## Open Questions

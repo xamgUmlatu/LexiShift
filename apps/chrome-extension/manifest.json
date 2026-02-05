@@ -10,7 +10,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "nativeMessaging"],
   "options_page": "options.html",
   "content_scripts": [
     {
@@ -21,6 +21,7 @@
         "shared/lemmatizer.js",
         "shared/helper_transport_extension.js",
         "shared/helper_client.js",
+        "shared/helper_cache.js",
         "shared/srs_selector.js",
         "shared/srs_store.js",
         "shared/srs_feedback.js",

@@ -110,6 +110,12 @@
   "button_helper_refresh": {
     "message": "Refresh helper status"
   },
+  "button_helper_test": {
+    "message": "Test helper connection"
+  },
+  "button_helper_open_data_dir": {
+    "message": "Open helper data folder"
+  },
   "status_helper_connecting": {
     "message": "Connecting…"
   },
@@ -125,6 +131,18 @@
   "status_helper_missing": {
     "message": "Helper unavailable."
   },
+  "status_helper_test_ok": {
+    "message": "Helper connected (v$1)."
+  },
+  "status_helper_test_failed": {
+    "message": "Connection failed: $1"
+  },
+  "status_helper_opened": {
+    "message": "Opened: $1"
+  },
+  "status_helper_open_failed": {
+    "message": "Open failed: $1"
+  },
   "toggle_exposure_logging": {
     "message": "Log replacement exposure events"
   },
@@ -135,13 +153,16 @@
     "message": "Sample active words…"
   },
   "button_srs_rulegen_preview": {
-    "message": "Show target rules…"
+    "message": "Run rulegen (debug)…"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
   },
   "status_srs_rulegen_loading": {
     "message": "Building rule preview…"
+  },
+  "status_srs_rulegen_running": {
+    "message": "Running rulegen…"
   },
   "status_srs_sample_empty": {
     "message": "No words available."
