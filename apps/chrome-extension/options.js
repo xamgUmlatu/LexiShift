@@ -1,119 +1,14 @@
-const DEFAULT_SETTINGS =
-  (globalThis.LexiShift && globalThis.LexiShift.defaults) || {
-    enabled: true,
-    rules: [],
-    highlightEnabled: true,
-    highlightColor: "#9AA0A6",
-    maxOnePerTextBlock: false,
-    allowAdjacentReplacements: true,
-    debugEnabled: false,
-    debugFocusWord: "",
-    uiLanguage: "system",
-    rulesSource: "editor",
-    rulesFileName: "",
-    rulesUpdatedAt: "",
-    sourceLanguage: "en",
-    targetLanguage: "en",
-    srsPairAuto: true,
-    srsProfiles: {},
-    srsEnabled: false,
-    srsPair: "en-en",
-    srsMaxActive: 40,
-    srsSoundEnabled: true,
-    srsHighlightColor: "#2F74D0",
-    srsFeedbackSrsEnabled: true,
-    srsFeedbackRulesEnabled: false,
-    srsExposureLoggingEnabled: true
-  };
+const settingsManager = new SettingsManager();
 
-let localeMessages = null;
-let activeLocale = "system";
-
-function t(key, substitutions, fallback) {
-  if (localeMessages && localeMessages[key] && localeMessages[key].message) {
-    return formatMessage(localeMessages[key].message, substitutions);
-  }
-  if (globalThis.chrome && chrome.i18n) {
-    const message = chrome.i18n.getMessage(key, substitutions);
-    if (message) {
-      return message;
-    }
-  }
-  return fallback || key;
-}
-
-function formatMessage(message, substitutions) {
-  if (!substitutions) {
-    return message;
-  }
-  const values = Array.isArray(substitutions) ? substitutions : [substitutions];
-  return message.replace(/\$([1-9]\d*)/g, (match, index) => {
-    const value = values[Number(index) - 1];
-    return value !== undefined ? String(value) : match;
-  });
-}
+const i18n = new LocalizationService();
+const t = (k, s, f) => i18n.t(k, s, f);
+const rulesManager = new RulesManager(settingsManager, i18n);
+const ui = new UIManager(i18n);
 
 function logOptions(...args) {
   console.log("[LexiShift][Options]", ...args);
 }
-
-function applyI18n() {
-  document.querySelectorAll("[data-i18n]").forEach((node) => {
-    const key = node.getAttribute("data-i18n");
-    if (!key) return;
-    const message = t(key, null, "");
-    if (message) {
-      node.textContent = message;
-    }
-  });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
-    const key = node.getAttribute("data-i18n-placeholder");
-    if (!key) return;
-    const message = t(key, null, "");
-    if (message) {
-      node.setAttribute("placeholder", message);
-    }
-  });
-  const title = t("options_title", null, "");
-  if (title) {
-    document.title = title;
-  }
-}
-
-function resolveLocale(value) {
-  if (!value || value === "system") {
-    const systemLocale = (globalThis.chrome && chrome.i18n && chrome.i18n.getUILanguage())
-      || navigator.language
-      || "en";
-    value = systemLocale.toLowerCase();
-  }
-  const normalized = value.toLowerCase();
-  if (normalized.startsWith("ja")) return "ja";
-  if (normalized.startsWith("zh")) return "zh";
-  if (normalized.startsWith("de")) return "de";
-  return "en";
-}
-
-async function loadLocaleMessages(locale) {
-  activeLocale = locale || "system";
-  if (activeLocale === "system") {
-    localeMessages = null;
-    applyI18n();
-    return;
-  }
-  const resolved = resolveLocale(activeLocale);
-  try {
-    const url = chrome.runtime.getURL(`_locales/${resolved}/messages.json`);
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to load locale: ${resolved}`);
-    }
-    localeMessages = await response.json();
-  } catch (err) {
-    localeMessages = null;
-  }
-  applyI18n();
-}
+const helperManager = new HelperManager(i18n, logOptions);
 
 function errorMessage(err, fallbackKey, fallbackText) {
   if (err instanceof SyntaxError) {
@@ -125,205 +20,101 @@ function errorMessage(err, fallbackKey, fallbackText) {
   return t(fallbackKey, null, fallbackText);
 }
 
-applyI18n();
+i18n.apply();
 
-const enabledInput = document.getElementById("enabled");
-const highlightEnabledInput = document.getElementById("highlight-enabled");
-const highlightColorInput = document.getElementById("highlight-color");
-const highlightColorText = document.getElementById("highlight-color-text");
-const maxOnePerBlockInput = document.getElementById("max-one-per-block");
-const allowAdjacentInput = document.getElementById("allow-adjacent");
-const debugEnabledInput = document.getElementById("debug-enabled");
-const debugFocusInput = document.getElementById("debug-focus-word");
-const srsEnabledInput = document.getElementById("srs-enabled");
-const sourceLanguageInput = document.getElementById("source-language");
-const targetLanguageInput = document.getElementById("target-language");
-const srsMaxActiveInput = document.getElementById("srs-max-active");
-const srsSoundInput = document.getElementById("srs-sound-enabled");
-const srsHighlightInput = document.getElementById("srs-highlight-color");
-const srsHighlightTextInput = document.getElementById("srs-highlight-color-text");
-const srsFeedbackSrsInput = document.getElementById("srs-feedback-srs-enabled");
-const srsFeedbackRulesInput = document.getElementById("srs-feedback-rules-enabled");
-const srsExposureLoggingInput = document.getElementById("srs-exposure-logging-enabled");
-const srsSampleButton = document.getElementById("srs-sample");
-const srsSampleOutput = document.getElementById("srs-sample-output");
-const srsRulegenButton = document.getElementById("srs-rulegen-preview");
-const srsRulegenOutput = document.getElementById("srs-rulegen-output");
-const helperStatusLabel = document.getElementById("helper-status");
-const helperLastSyncLabel = document.getElementById("helper-last-sync");
-const helperRefreshButton = document.getElementById("helper-refresh");
-const debugHelperTestButton = document.getElementById("debug-helper-test");
-const debugHelperTestOutput = document.getElementById("debug-helper-test-output");
-const debugOpenDataDirButton = document.getElementById("debug-open-data-dir");
-const debugOpenDataDirOutput = document.getElementById("debug-open-data-dir-output");
-const languageSelect = document.getElementById("ui-language");
-const rulesInput = document.getElementById("rules");
-const saveButton = document.getElementById("save");
-const status = document.getElementById("status");
-const rulesSourceInputs = Array.from(document.querySelectorAll("input[name='rules-source']"));
-const rulesFileInput = document.getElementById("rules-file");
-const importFileButton = document.getElementById("import-file");
-const exportFileButton = document.getElementById("export-file");
-const fileStatus = document.getElementById("file-status");
-const rulesUpdated = document.getElementById("rules-updated");
-const rulesCount = document.getElementById("rules-count");
-const shareCodeInput = document.getElementById("share-code");
-const shareCodeCjk = document.getElementById("share-code-cjk");
-const generateCodeButton = document.getElementById("generate-code");
-const importCodeButton = document.getElementById("import-code");
-const copyCodeButton = document.getElementById("copy-code");
-const openDesktopAppButton = document.getElementById("open-desktop-app");
-const openBdPluginButton = document.getElementById("open-bd-plugin");
-
-const INTEGRATION_LINKS = {
-  app: "https://lexishift.app/download",
-  plugin: "https://lexishift.app/betterdiscord"
-};
-
-let currentRules = [];
-
-function extractRules(input) {
-  if (Array.isArray(input)) return input;
-  if (input && typeof input === "object" && Array.isArray(input.rules)) return input.rules;
-  throw new Error(
-    t(
-      "error_rules_expected_array",
-      null,
-      "Expected a JSON array or an object with a rules array."
-    )
-  );
-}
+// Map UIManager elements to local variables to minimize diff churn
+const {
+  enabled: enabledInput,
+  highlightEnabled: highlightEnabledInput,
+  highlightColor: highlightColorInput,
+  highlightColorText: highlightColorText,
+  maxOnePerBlock: maxOnePerBlockInput,
+  allowAdjacent: allowAdjacentInput,
+  debugEnabled: debugEnabledInput,
+  debugFocusWord: debugFocusInput,
+  srsEnabled: srsEnabledInput,
+  sourceLanguage: sourceLanguageInput,
+  targetLanguage: targetLanguageInput,
+  srsMaxActive: srsMaxActiveInput,
+  srsSoundEnabled: srsSoundInput,
+  srsHighlightColor: srsHighlightInput,
+  srsHighlightColorText: srsHighlightTextInput,
+  srsFeedbackSrsEnabled: srsFeedbackSrsInput,
+  srsFeedbackRulesEnabled: srsFeedbackRulesInput,
+  srsExposureLoggingEnabled: srsExposureLoggingInput,
+  srsSample: srsSampleButton,
+  srsSampleOutput: srsSampleOutput,
+  srsRulegenPreview: srsRulegenButton,
+  srsRulegenOutput: srsRulegenOutput,
+  helperRefresh: helperRefreshButton,
+  debugHelperTest: debugHelperTestButton,
+  debugHelperTestOutput: debugHelperTestOutput,
+  debugOpenDataDir: debugOpenDataDirButton,
+  debugOpenDataDirOutput: debugOpenDataDirOutput,
+  uiLanguage: languageSelect,
+  rules: rulesInput,
+  save: saveButton,
+  rulesSourceInputs: rulesSourceInputs,
+  rulesFile: rulesFileInput,
+  importFile: importFileButton,
+  exportFile: exportFileButton,
+  fileStatus: fileStatus,
+  shareCode: shareCodeInput,
+  shareCodeCjk: shareCodeCjk,
+  generateCode: generateCodeButton,
+  importCode: importCodeButton,
+  copyCode: copyCodeButton,
+  openDesktopApp: openDesktopAppButton,
+  openBdPlugin: openBdPluginButton
+} = ui.dom;
 
 function setStatus(message, color) {
-  status.textContent = message;
-  status.style.color = color || "#6c675f";
-  if (message) {
-    setTimeout(() => {
-      if (status.textContent === message) {
-        status.textContent = "";
-      }
-    }, 2000);
-  }
-}
-
-function formatTimestamp(value) {
-  if (!value) {
-    return "—";
-  }
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return "—";
-  }
-  return date.toLocaleString();
+  ui.setStatus(message, color);
 }
 
 function setHelperStatus(status, lastSync) {
-  if (helperStatusLabel) {
-    helperStatusLabel.textContent = status || "—";
-  }
-  if (helperLastSyncLabel) {
-    helperLastSyncLabel.textContent = formatTimestamp(lastSync);
-  }
+  ui.setHelperStatus(status, lastSync);
 }
 
 function updateRulesMeta(rules, updatedAt) {
-  if (rulesCount) {
-    rulesCount.textContent = Array.isArray(rules) ? String(rules.length) : "0";
-  }
-  if (rulesUpdated) {
-    rulesUpdated.textContent = formatTimestamp(updatedAt);
-  }
+  ui.updateRulesMeta(rules, updatedAt);
 }
 
 function updateRulesSourceUI(source) {
-  rulesSourceInputs.forEach((input) => {
-    input.checked = input.value === source;
-  });
-  const isFile = source === "file";
-  rulesInput.disabled = isFile;
-  saveButton.disabled = isFile;
+  ui.updateRulesSourceUI(source);
 }
 
 function resolvePairFromInputs() {
   const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
-    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+    : (settingsManager.defaults.sourceLanguage || "en");
   const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
-    : (DEFAULT_SETTINGS.targetLanguage || "en");
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
   const prefs = globalThis.LexiShift && globalThis.LexiShift.languagePrefs;
   if (prefs && typeof prefs.resolveLanguagePair === "function") {
     return prefs.resolveLanguagePair({
       sourceLanguage,
       targetLanguage,
       srsPairAuto: true,
-      srsPair: DEFAULT_SETTINGS.srsPair || "en-en"
+      srsPair: settingsManager.defaults.srsPair || "en-en"
     });
   }
   return `${sourceLanguage}-${targetLanguage}`;
 }
 
-function getSrsProfiles(items) {
-  if (items && items.srsProfiles && typeof items.srsProfiles === "object") {
-    return items.srsProfiles;
-  }
-  return {};
-}
-
-function buildLegacySrsProfile(items) {
-  return {
-    srsMaxActive: items.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40,
-    srsSoundEnabled: items.srsSoundEnabled !== false,
-    srsHighlightColor: items.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0",
-    srsFeedbackSrsEnabled: items.srsFeedbackSrsEnabled !== false,
-    srsFeedbackRulesEnabled: items.srsFeedbackRulesEnabled === true,
-    srsExposureLoggingEnabled: items.srsExposureLoggingEnabled !== false
-  };
-}
-
-function applySrsProfile(profile) {
-  if (srsMaxActiveInput) {
-    srsMaxActiveInput.value = String(profile.srsMaxActive || DEFAULT_SETTINGS.srsMaxActive || 40);
-  }
-  if (srsSoundInput) {
-    srsSoundInput.checked = profile.srsSoundEnabled !== false;
-  }
-  if (srsHighlightInput) {
-    srsHighlightInput.value = profile.srsHighlightColor || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0";
-  }
-  if (srsHighlightTextInput) {
-    srsHighlightTextInput.value = srsHighlightInput ? srsHighlightInput.value : "#2F74D0";
-  }
-  const hasNewFeedbackFlags = typeof profile.srsFeedbackSrsEnabled === "boolean"
-    || typeof profile.srsFeedbackRulesEnabled === "boolean";
-  if (srsFeedbackSrsInput) {
-    srsFeedbackSrsInput.checked = hasNewFeedbackFlags
-      ? profile.srsFeedbackSrsEnabled !== false
-      : true;
-  }
-  if (srsFeedbackRulesInput) {
-    srsFeedbackRulesInput.checked = hasNewFeedbackFlags
-      ? profile.srsFeedbackRulesEnabled === true
-      : false;
-  }
-  if (srsExposureLoggingInput) {
-    srsExposureLoggingInput.checked = profile.srsExposureLoggingEnabled !== false;
-  }
-}
-
 function loadSrsProfileForPair(items, pairKey) {
-  const profiles = getSrsProfiles(items);
-  const profile = profiles[pairKey] || buildLegacySrsProfile(items);
-  applySrsProfile(profile);
+  const profile = settingsManager.getSrsProfile(items, pairKey);
+  ui.updateSrsInputs(profile);
 }
 
 function saveDisplaySettings() {
   const highlightEnabled = highlightEnabledInput.checked;
-  const highlightColor = highlightColorInput.value || DEFAULT_SETTINGS.highlightColor;
+  const highlightColor = highlightColorInput.value || settingsManager.defaults.highlightColor;
   const debugEnabled = debugEnabledInput.checked;
   const debugFocusWord = debugFocusInput.value.trim();
   chrome.storage.local.set({ highlightEnabled, highlightColor, debugEnabled, debugFocusWord }, () => {
-    setStatus(t("status_display_saved", null, "Display settings saved."), "#3c5a2a");
+    setStatus(t("status_display_saved", null, "Display settings saved."), ui.COLORS.SUCCESS);
   });
 }
 
@@ -331,11 +122,11 @@ function saveReplacementSettings() {
   const maxOnePerTextBlock = maxOnePerBlockInput.checked;
   const allowAdjacentReplacements = allowAdjacentInput.checked;
   chrome.storage.local.set({ maxOnePerTextBlock, allowAdjacentReplacements }, () => {
-    setStatus(t("status_replacement_saved", null, "Replacement settings saved."), "#3c5a2a");
+    setStatus(t("status_replacement_saved", null, "Replacement settings saved."), ui.COLORS.SUCCESS);
   });
 }
 
-function saveSrsSettings() {
+async function saveSrsSettings() {
   if (!srsEnabledInput || !srsMaxActiveInput) {
     return;
   }
@@ -344,11 +135,11 @@ function saveSrsSettings() {
   const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
   const srsMaxActive = Number.isFinite(maxActiveRaw)
     ? Math.max(1, maxActiveRaw)
-    : (DEFAULT_SETTINGS.srsMaxActive || 40);
+    : (settingsManager.defaults.srsMaxActive || 40);
   const srsSoundEnabled = srsSoundInput ? srsSoundInput.checked : true;
   const srsHighlightColor = srsHighlightInput
-    ? (srsHighlightInput.value || DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0")
-    : (DEFAULT_SETTINGS.srsHighlightColor || "#2F74D0");
+    ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
+    : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
   const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
   const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
   const srsExposureLoggingEnabled = srsExposureLoggingInput
@@ -363,11 +154,11 @@ function saveSrsSettings() {
     srsExposureLoggingEnabled
   };
   const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
-    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+    : (settingsManager.defaults.sourceLanguage || "en");
   const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
-    : (DEFAULT_SETTINGS.targetLanguage || "en");
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
   srsMaxActiveInput.value = String(srsMaxActive);
   if (srsHighlightInput) {
     srsHighlightInput.value = srsHighlightColor;
@@ -375,193 +166,120 @@ function saveSrsSettings() {
   if (srsHighlightTextInput) {
     srsHighlightTextInput.value = srsHighlightColor;
   }
-  chrome.storage.local.get(DEFAULT_SETTINGS, (items) => {
-    const profiles = { ...getSrsProfiles(items), [pairKey]: profile };
-    chrome.storage.local.set(
-      {
-        sourceLanguage,
-        targetLanguage,
-        srsPairAuto: true,
-        srsEnabled,
-        srsPair: pairKey,
-        srsProfiles: profiles
-      },
-      () => {
-        setStatus(t("status_srs_saved", null, "SRS settings saved."), "#3c5a2a");
-        logOptions("SRS settings saved.", {
-          pair: pairKey,
-          sourceLanguage,
-          targetLanguage,
-          srsEnabled,
-          srsMaxActive,
-          srsSoundEnabled,
-          srsHighlightColor,
-          srsFeedbackSrsEnabled,
-          srsFeedbackRulesEnabled,
-          srsExposureLoggingEnabled
-        });
-      }
-    );
+
+  await settingsManager.updateSrsProfile(pairKey, profile, {
+    sourceLanguage,
+    targetLanguage,
+    srsPairAuto: true,
+    srsEnabled
+  });
+
+  setStatus(t("status_srs_saved", null, "SRS settings saved."), ui.COLORS.SUCCESS);
+  logOptions("SRS settings saved.", {
+    pair: pairKey,
+    sourceLanguage,
+    targetLanguage,
+    srsEnabled,
+    srsMaxActive,
+    srsSoundEnabled,
+    srsHighlightColor,
+    srsFeedbackSrsEnabled,
+    srsFeedbackRulesEnabled,
+    srsExposureLoggingEnabled
   });
 }
 
 function saveLanguageSettings() {
   const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
-    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+    : (settingsManager.defaults.sourceLanguage || "en");
   const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
-    : (DEFAULT_SETTINGS.targetLanguage || "en");
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
   const pairKey = resolvePairFromInputs();
-  chrome.storage.local.get(DEFAULT_SETTINGS, (items) => {
+  chrome.storage.local.get(settingsManager.defaults, (items) => {
     chrome.storage.local.set(
       { sourceLanguage, targetLanguage, srsPairAuto: true, srsPair: pairKey },
       () => {
         loadSrsProfileForPair(items, pairKey);
-        setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
+        setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
       }
     );
   });
 }
 
-function parseRulesFromEditor() {
-  const parsed = JSON.parse(rulesInput.value || "[]");
-  return extractRules(parsed);
-}
-
-function saveRules() {
+async function saveRules() {
   if (rulesInput.disabled) {
     setStatus(
       t("status_switch_edit_json", null, "Switch to Edit JSON to save changes."),
-      "#b42318"
+      ui.COLORS.ERROR
     );
     return;
   }
-  let rules;
   try {
-    rules = parseRulesFromEditor();
-  } catch (err) {
-    setStatus(errorMessage(err, "status_invalid_json", "Invalid JSON file."), "#b42318");
-    return;
-  }
-  currentRules = rules;
-  const updatedAt = new Date().toISOString();
-  chrome.storage.local.set({ rules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
+    const { rules, updatedAt } = await rulesManager.saveFromEditor(rulesInput.value);
     updateRulesSourceUI("editor");
     updateRulesMeta(rules, updatedAt);
-    setStatus(t("status_rules_saved", null, "Rules saved."), "#3c5a2a");
-  });
+    setStatus(t("status_rules_saved", null, "Rules saved."), ui.COLORS.SUCCESS);
+  } catch (err) {
+    setStatus(errorMessage(err, "status_invalid_json", "Invalid JSON file."), ui.COLORS.ERROR);
+  }
 }
 
-function importFromFile() {
+async function importFromFile() {
   const file = rulesFileInput.files && rulesFileInput.files[0];
   if (!file) {
     setStatus(t("status_choose_json_file", null, "Choose a JSON file first."), "#b42318");
     return;
   }
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const parsed = JSON.parse(reader.result);
-      const rules = extractRules(parsed);
-      currentRules = rules;
-      rulesInput.value = JSON.stringify(rules, null, 2);
-      const updatedAt = new Date().toISOString();
-      chrome.storage.local.set(
-        { rules, rulesSource: "file", rulesFileName: file.name, rulesUpdatedAt: updatedAt },
-        () => {
-          updateRulesSourceUI("file");
-          updateRulesMeta(rules, updatedAt);
-          fileStatus.textContent = t(
-            "file_status_last_imported",
-            file.name,
-            `Last imported: ${file.name}`
-          );
-          setStatus(
-            t("status_imported_rules", String(rules.length), `Imported ${rules.length} rules.`),
-            "#3c5a2a"
-          );
-        }
-      );
-    } catch (err) {
-      setStatus(
-        errorMessage(err, "status_invalid_json", "Invalid JSON file."),
-        "#b42318"
-      );
-    }
-  };
-  reader.onerror = () => {
-    setStatus(t("status_read_failed", null, "Failed to read file."), "#b42318");
-  };
-  reader.readAsText(file);
+  try {
+    const { rules, updatedAt, fileName } = await rulesManager.importFromFile(file);
+    rulesInput.value = JSON.stringify(rules, null, 2);
+    updateRulesSourceUI("file");
+    updateRulesMeta(rules, updatedAt);
+    fileStatus.textContent = t("file_status_last_imported", fileName, `Last imported: ${fileName}`);
+    setStatus(t("status_imported_rules", String(rules.length), `Imported ${rules.length} rules.`), ui.COLORS.SUCCESS);
+  } catch (err) {
+    setStatus(errorMessage(err, "status_invalid_json", "Invalid JSON file."), ui.COLORS.ERROR);
+  }
 }
 
 function exportToFile() {
-  const payload = JSON.stringify(currentRules || [], null, 2);
-  const blob = new Blob([payload], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = "lexishift-rules.json";
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
-  setStatus(t("status_exported_rules", null, "Exported rules."), "#3c5a2a");
-}
-
-function getActiveRulesForCode() {
-  if (!rulesInput.disabled) {
-    return parseRulesFromEditor();
-  }
-  return currentRules || [];
+  rulesManager.exportToFile();
+  setStatus(t("status_exported_rules", null, "Exported rules."), ui.COLORS.SUCCESS);
 }
 
 function generateShareCode() {
   try {
-    const rules = getActiveRulesForCode();
-    const useCjk = shareCodeCjk.checked;
-    shareCodeInput.value = encodeRulesCode(rules, useCjk);
-    if (!shareCodeInput.value) {
-      throw new Error(t("error_generated_code_empty", null, "Generated code is empty."));
-    }
+    const code = rulesManager.generateShareCode(shareCodeCjk.checked, rulesInput.value, rulesInput.disabled);
+    shareCodeInput.value = code;
     setStatus(
       t(
         "status_generated_code",
         String(shareCodeInput.value.length),
         `Code generated (${shareCodeInput.value.length} chars).`
       ),
-      "#3c5a2a"
+      ui.COLORS.SUCCESS
     );
   } catch (err) {
     setStatus(
       err && err.message ? err.message : t("status_generate_failed", null, "Failed to generate code."),
-      "#b42318"
+      ui.COLORS.ERROR
     );
   }
 }
 
-function importShareCode() {
+async function importShareCode() {
   try {
-    const decodedRules = decodeRulesCode(shareCodeInput.value || "", shareCodeCjk.checked);
-    if (!Array.isArray(decodedRules)) {
-      throw new Error(t("error_decoded_not_list", null, "Decoded rules are not a list."));
-    }
-    if (!decodedRules.length) {
-      throw new Error(t("error_decoded_empty", null, "Decoded rules are empty."));
-    }
-    currentRules = decodedRules;
-    rulesInput.value = JSON.stringify(decodedRules, null, 2);
-    const updatedAt = new Date().toISOString();
-    chrome.storage.local.set({ rules: decodedRules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
-      updateRulesSourceUI("editor");
-      updateRulesMeta(decodedRules, updatedAt);
-      setStatus(t("status_code_imported", null, "Code imported."), "#3c5a2a");
-    });
+    const { rules, updatedAt } = await rulesManager.importShareCode(shareCodeInput.value, shareCodeCjk.checked);
+    rulesInput.value = JSON.stringify(rules, null, 2);
+    updateRulesSourceUI("editor");
+    updateRulesMeta(rules, updatedAt);
+    setStatus(t("status_code_imported", null, "Code imported."), ui.COLORS.SUCCESS);
   } catch (err) {
     setStatus(
       err && err.message ? err.message : t("status_invalid_code", null, "Invalid code."),
-      "#b42318"
+      ui.COLORS.ERROR
     );
   }
 }
@@ -572,20 +290,20 @@ function copyShareCode() {
   }
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(shareCodeInput.value).then(() => {
-      setStatus(t("status_copied", null, "Copied."), "#3c5a2a");
+      setStatus(t("status_copied", null, "Copied."), ui.COLORS.SUCCESS);
     });
     return;
   }
   shareCodeInput.select();
   document.execCommand("copy");
-  setStatus(t("status_copied", null, "Copied."), "#3c5a2a");
+  setStatus(t("status_copied", null, "Copied."), ui.COLORS.SUCCESS);
 }
 
-function load() {
-  chrome.storage.local.get(DEFAULT_SETTINGS, (items) => {
+async function load() {
+  const items = await settingsManager.load();
     enabledInput.checked = items.enabled;
     highlightEnabledInput.checked = items.highlightEnabled !== false;
-    highlightColorInput.value = items.highlightColor || DEFAULT_SETTINGS.highlightColor;
+    highlightColorInput.value = items.highlightColor || settingsManager.defaults.highlightColor;
     highlightColorText.value = highlightColorInput.value;
     highlightColorInput.disabled = !highlightEnabledInput.checked;
     highlightColorText.disabled = !highlightEnabledInput.checked;
@@ -598,10 +316,10 @@ function load() {
       srsEnabledInput.checked = items.srsEnabled === true;
     }
     if (sourceLanguageInput) {
-      sourceLanguageInput.value = items.sourceLanguage || DEFAULT_SETTINGS.sourceLanguage || "en";
+      sourceLanguageInput.value = items.sourceLanguage || settingsManager.defaults.sourceLanguage || "en";
     }
     if (targetLanguageInput) {
-      targetLanguageInput.value = items.targetLanguage || DEFAULT_SETTINGS.targetLanguage || "en";
+      targetLanguageInput.value = items.targetLanguage || settingsManager.defaults.targetLanguage || "en";
     }
     const pairKey = resolvePairFromInputs();
     loadSrsProfileForPair(items, pairKey);
@@ -621,8 +339,8 @@ function load() {
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
     }
-    currentRules = items.rules || [];
-    rulesInput.value = JSON.stringify(currentRules, null, 2);
+    settingsManager.currentRules = items.rules || [];
+    rulesInput.value = JSON.stringify(settingsManager.currentRules, null, 2);
     updateRulesSourceUI(items.rulesSource || "editor");
     fileStatus.textContent = items.rulesFileName
       ? t(
@@ -635,181 +353,36 @@ function load() {
           null,
           "No file imported yet. Re-import after changes."
         );
-    updateRulesMeta(currentRules, items.rulesUpdatedAt);
-    loadLocaleMessages(items.uiLanguage || "system");
-  });
+    updateRulesMeta(settingsManager.currentRules, items.rulesUpdatedAt);
+    i18n.load(items.uiLanguage || "system");
 }
 
 async function refreshHelperStatus() {
-  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
-  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
-  if (!HelperClient || !helperTransport) {
-    setHelperStatus(t("status_helper_missing", null, "Helper unavailable."), "");
-    return;
-  }
-  const client = new HelperClient(helperTransport);
   setHelperStatus(t("status_helper_connecting", null, "Connecting…"), "");
-  try {
-    const response = await client.getStatus();
-    if (!response || response.ok === false) {
-      const message = response && response.error && response.error.message
-        ? response.error.message
-        : t("status_helper_failed", null, "Helper error.");
-      setHelperStatus(message, "");
-      return;
-    }
-    const data = response.data || {};
-    const lastRun = data.last_run_at || "";
-    const lastError = data.last_error;
-    if (lastError) {
-      setHelperStatus(t("status_helper_error", null, "Helper error."), lastRun);
-    } else {
-      setHelperStatus(t("status_helper_ok", null, "Helper connected."), lastRun);
-    }
-  } catch (err) {
-    setHelperStatus(t("status_helper_failed", null, "Helper error."), "");
-    logOptions("Helper status failed.", err);
-  }
+  const result = await helperManager.getStatus();
+  setHelperStatus(result.message, result.lastRun);
 }
 
 async function testHelperConnection() {
   if (!debugHelperTestButton || !debugHelperTestOutput) {
     return;
   }
-  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
-  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
-  if (!HelperClient || !helperTransport) {
-    debugHelperTestOutput.textContent = t("status_helper_missing", null, "Helper unavailable.");
-    return;
-  }
-  const client = new HelperClient(helperTransport);
   debugHelperTestButton.disabled = true;
   debugHelperTestOutput.textContent = t("status_helper_connecting", null, "Connecting…");
-  try {
-    const response = await client.hello();
-    if (!response || response.ok === false) {
-      const message = response && response.error && response.error.message
-        ? response.error.message
-        : t("status_helper_failed", null, "Helper error.");
-      debugHelperTestOutput.textContent = t(
-        "status_helper_test_failed",
-        message,
-        `Connection failed: ${message}`
-      );
-      return;
-    }
-    const data = response.data || {};
-    const version = data.helper_version || "";
-    debugHelperTestOutput.textContent = t(
-      "status_helper_test_ok",
-      version,
-      version ? `Helper connected (v${version}).` : "Helper connected."
-    );
-  } catch (err) {
-    const message = err && err.message ? err.message : t("status_helper_failed", null, "Helper error.");
-    debugHelperTestOutput.textContent = t(
-      "status_helper_test_failed",
-      message,
-      `Connection failed: ${message}`
-    );
-    logOptions("Helper test failed.", err);
-  } finally {
-    debugHelperTestButton.disabled = false;
-  }
+  const message = await helperManager.testConnection();
+  debugHelperTestOutput.textContent = message;
+  debugHelperTestButton.disabled = false;
 }
 
 async function openHelperDataDir() {
   if (!debugOpenDataDirButton || !debugOpenDataDirOutput) {
     return;
   }
-  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
-  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
-  if (!HelperClient || !helperTransport) {
-    debugOpenDataDirOutput.textContent = t("status_helper_missing", null, "Helper unavailable.");
-    return;
-  }
-  const client = new HelperClient(helperTransport);
   debugOpenDataDirButton.disabled = true;
   debugOpenDataDirOutput.textContent = t("status_helper_connecting", null, "Connecting…");
-  try {
-    const response = await client.openDataDir();
-    if (!response || response.ok === false) {
-      const message = response && response.error && response.error.message
-        ? response.error.message
-        : t("status_helper_open_failed", null, "Failed to open folder.");
-      debugOpenDataDirOutput.textContent = t(
-        "status_helper_open_failed",
-        message,
-        `Open failed: ${message}`
-      );
-      return;
-    }
-    const opened = response.data && response.data.opened ? response.data.opened : "";
-    debugOpenDataDirOutput.textContent = t(
-      "status_helper_opened",
-      opened,
-      opened ? `Opened: ${opened}` : "Opened."
-    );
-  } catch (err) {
-    const message = err && err.message ? err.message : t("status_helper_open_failed", null, "Failed to open folder.");
-    debugOpenDataDirOutput.textContent = t(
-      "status_helper_open_failed",
-      message,
-      `Open failed: ${message}`
-    );
-    logOptions("Open helper data dir failed.", err);
-  } finally {
-    debugOpenDataDirButton.disabled = false;
-  }
-}
-
-function buildRuleIndex(rules) {
-  const index = new Map();
-  (rules || []).forEach((rule) => {
-    const replacement = String(rule.replacement || "").trim();
-    const source = String(rule.source_phrase || "").trim();
-    if (!replacement || !source) {
-      return;
-    }
-    const key = replacement.toLowerCase();
-    let bucket = index.get(key);
-    if (!bucket) {
-      bucket = new Set();
-      index.set(key, bucket);
-    }
-    bucket.add(source);
-  });
-  return index;
-}
-
-function formatRulegenPreview(lemmas, ruleIndex, limit = 12, maxSources = 6) {
-  const total = Array.isArray(lemmas) ? lemmas.length : 0;
-  if (!total) {
-    return "";
-  }
-  const lines = [];
-  const capped = lemmas.slice(0, limit);
-  capped.forEach((lemma) => {
-    const key = String(lemma || "").trim();
-    if (!key) {
-      return;
-    }
-    const sources = ruleIndex.get(key.toLowerCase());
-    if (!sources || sources.size === 0) {
-      lines.push(`${key} → (no rules)`);
-      return;
-    }
-    const list = Array.from(sources);
-    list.sort();
-    const shown = list.slice(0, maxSources);
-    const remainder = list.length - shown.length;
-    const suffix = remainder > 0 ? ` (+${remainder})` : "";
-    lines.push(`${key} → ${shown.join(", ")}${suffix}`);
-  });
-  if (total > limit) {
-    lines.push(`… +${total - limit} more`);
-  }
-  return lines.join("\n");
+  const message = await helperManager.openDataDir();
+  debugOpenDataDirOutput.textContent = message;
+  debugOpenDataDirButton.disabled = false;
 }
 
 async function sampleActiveWords() {
@@ -822,11 +395,11 @@ async function sampleActiveWords() {
     return;
   }
   const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
-    : (DEFAULT_SETTINGS.sourceLanguage || "en");
+    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+    : (settingsManager.defaults.sourceLanguage || "en");
   const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
-    : (DEFAULT_SETTINGS.targetLanguage || "en");
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
   const srsPair = resolvePairFromInputs();
   srsSampleButton.disabled = true;
   srsSampleOutput.textContent = t("status_srs_sampling", null, "Sampling…");
@@ -854,16 +427,6 @@ async function previewSrsRulegen() {
   if (!srsRulegenButton || !srsRulegenOutput) {
     return;
   }
-  const helperTransport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
-  const HelperClient = globalThis.LexiShift && globalThis.LexiShift.helperClient;
-  const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
-  const helperClient = HelperClient ? new HelperClient(helperTransport) : null;
-  const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || DEFAULT_SETTINGS.sourceLanguage || "en")
-    : (DEFAULT_SETTINGS.sourceLanguage || "en");
-  const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || DEFAULT_SETTINGS.targetLanguage || "en")
-    : (DEFAULT_SETTINGS.targetLanguage || "en");
   const srsPair = resolvePairFromInputs();
   srsRulegenButton.disabled = true;
   srsRulegenOutput.textContent = t(
@@ -871,60 +434,50 @@ async function previewSrsRulegen() {
     null,
     "Running rulegen…"
   );
+
   try {
-    if (helperClient) {
-      const startedAt = Date.now();
-      const rulegenResponse = await helperClient.triggerRulegen({
-        pair: srsPair,
-        debug: true,
-        debug_sample_size: 10
-      }, 15000);
-      if (!rulegenResponse || rulegenResponse.ok === false) {
-        const message = rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
-          ? rulegenResponse.error.message
-          : t("status_srs_rulegen_failed", null, "Rule preview failed.");
-        srsRulegenOutput.textContent = message;
-        return;
-      }
-      const rulegenData = rulegenResponse && rulegenResponse.data ? rulegenResponse.data : {};
+      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair);
       const rulegenTargets = Number(rulegenData.targets || 0);
       const rulegenRules = Number(rulegenData.rules || 0);
-      const duration = ((Date.now() - startedAt) / 1000).toFixed(1);
-      const response = await helperClient.getSnapshot(srsPair);
-      srsRulegenOutput.textContent = t(
-        "status_srs_rulegen_loading",
-        null,
-        "Building rule preview…"
-      );
-      let snapshot = null;
-      if (response && response.ok !== false) {
-        snapshot = response.data || {};
-        if (helperCache && typeof helperCache.saveSnapshot === "function") {
-          helperCache.saveSnapshot(srsPair, snapshot);
-        }
-      } else if (helperCache && typeof helperCache.loadSnapshot === "function") {
-        snapshot = await helperCache.loadSnapshot(srsPair);
-      }
-      if (!snapshot) {
-        const message = response && response.error && response.error.message
-          ? response.error.message
-          : t("status_srs_rulegen_failed", null, "Rule preview failed.");
-        srsRulegenOutput.textContent = message;
-        return;
-      }
       const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
-      const header = `Rulegen: ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`;
+      const header = t(
+        "status_srs_rulegen_result_header",
+        [rulegenTargets, rulegenRules, duration],
+        `Rulegen: ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`
+      );
       if (!targets.length) {
         const diag = rulegenData.diagnostics || {};
+        const missingInputs = Array.isArray(diag.missing_inputs) ? diag.missing_inputs : [];
+        const guidanceLines = [];
+        if (diag.seed_db && diag.seed_db_exists === false) {
+          guidanceLines.push(
+            t("diag_missing_freq_pack", null, "Missing frequency pack for target language."),
+            t("diag_expected_path", [diag.seed_db], `Expected: ${diag.seed_db}`),
+            t("diag_fix_freq_pack", null, "Fix: open LexiShift App → Settings → Frequency Packs and download the target pack.")
+          );
+        }
+        if (diag.jmdict_path && diag.jmdict_exists === false) {
+          guidanceLines.push(
+            t("diag_missing_jmdict", null, "Missing JMDict language pack."),
+            t("diag_expected_path", [diag.jmdict_path], `Expected: ${diag.jmdict_path}`),
+            t("diag_fix_jmdict", null, "Fix: open LexiShift App → Settings → Language Packs and download JMDict.")
+          );
+        }
+        if (!guidanceLines.length && missingInputs.length) {
+          guidanceLines.push(t("diag_missing_inputs", null, "Missing inputs:"), ...missingInputs.map((item) => `- ${item.type}: ${item.path}`));
+        }
         const diagLines = [
-          `Diagnostics:`,
-          `- pair: ${diag.pair || srsPair}`,
+          t("diag_header", null, "Diagnostics:"),
+          `- ${t("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
           `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
           `- seed_db: ${diag.seed_db || "n/a"} (exists=${diag.seed_db_exists})`,
           `- store_items: ${diag.store_items ?? "n/a"}`,
           `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
           `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
         ];
+        if (guidanceLines.length) {
+          diagLines.push("", t("label_fix", null, "Fix:"), ...guidanceLines);
+        }
         srsRulegenOutput.textContent = [
           header,
           t("status_srs_rulegen_empty", null, "No rules found for current active words."),
@@ -936,8 +489,18 @@ async function previewSrsRulegen() {
           const lemma = String(entry.lemma || "").trim();
           const sources = Array.isArray(entry.sources) ? entry.sources : [];
           if (!lemma) return null;
-          if (!sources.length) return `${lemma} → (no rules)`;
-          return `${lemma} → ${sources.join(", ")}`;
+          if (!sources.length) {
+            return t(
+              "status_srs_rulegen_line_no_rules",
+              [lemma],
+              `${lemma} → (no rules)`
+            );
+          }
+          return t(
+            "status_srs_rulegen_line_rules",
+            [lemma, sources.join(", ")],
+            `${lemma} → ${sources.join(", ")}`
+          );
         }).filter(Boolean);
         srsRulegenOutput.textContent = [header, "", ...lines].join("\n");
       }
@@ -946,19 +509,9 @@ async function previewSrsRulegen() {
         targets: targets.length,
         diagnostics: rulegenData.diagnostics || null
       });
-      return;
-    }
-    srsRulegenOutput.textContent = t(
-      "status_srs_rulegen_failed",
-      null,
-      "Rule preview failed."
-    );
   } catch (err) {
-    srsRulegenOutput.textContent = t(
-      "status_srs_rulegen_failed",
-      null,
-      "Rule preview failed."
-    );
+    const msg = err && err.message ? err.message : t("status_srs_rulegen_failed", null, "Rule preview failed.");
+    srsRulegenOutput.textContent = msg;
     logOptions("SRS rulegen preview failed.", err);
   } finally {
     srsRulegenButton.disabled = false;
@@ -975,7 +528,7 @@ rulesSourceInputs.forEach((input) => {
     const value = selected ? selected.value : "editor";
     chrome.storage.local.set({ rulesSource: value }, () => {
       updateRulesSourceUI(value);
-      setStatus(t("status_rules_source_updated", null, "Rules source updated."), "#3c5a2a");
+      setStatus(t("status_rules_source_updated", null, "Rules source updated."), ui.COLORS.SUCCESS);
     });
   });
 });
@@ -1069,7 +622,7 @@ debugFocusInput.addEventListener("change", () => {
 
 enabledInput.addEventListener("change", () => {
   chrome.storage.local.set({ enabled: enabledInput.checked }, () => {
-    setStatus(t("status_extension_updated", null, "Extension updated."), "#3c5a2a");
+    setStatus(t("status_extension_updated", null, "Extension updated."), ui.COLORS.SUCCESS);
   });
 });
 
@@ -1077,8 +630,8 @@ if (languageSelect) {
   languageSelect.addEventListener("change", () => {
     const value = languageSelect.value || "system";
     chrome.storage.local.set({ uiLanguage: value }, () => {
-      loadLocaleMessages(value);
-      setStatus(t("status_language_updated", null, "Language updated."), "#3c5a2a");
+      i18n.load(value);
+      setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
     });
   });
 }
@@ -1092,13 +645,13 @@ if (targetLanguageInput) {
 
 if (openDesktopAppButton) {
   openDesktopAppButton.addEventListener("click", () => {
-    window.open(INTEGRATION_LINKS.app, "_blank", "noopener");
+    window.open(ui.LINKS.app, "_blank", "noopener");
   });
 }
 
 if (openBdPluginButton) {
   openBdPluginButton.addEventListener("click", () => {
-    window.open(INTEGRATION_LINKS.plugin, "_blank", "noopener");
+    window.open(ui.LINKS.plugin, "_blank", "noopener");
   });
 }
 

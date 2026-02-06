@@ -108,12 +108,18 @@ def run_rulegen_job(
         max_snapshot_sources=config.snapshot_sources,
     )
     if config.debug:
+        missing_inputs = []
+        if config.seed_db and not config.seed_db.exists():
+            missing_inputs.append(
+                {"type": "seed_db", "path": str(config.seed_db)}
+            )
         diagnostics = {
             "pair": config.pair,
             "jmdict_path": str(config.jmdict_path),
             "jmdict_exists": config.jmdict_path.exists(),
             "seed_db": str(config.seed_db) if config.seed_db else None,
             "seed_db_exists": bool(config.seed_db and config.seed_db.exists()),
+            "missing_inputs": missing_inputs,
             "store_items": len(store.items),
             "store_items_for_pair": len([item for item in store.items if item.language_pair == config.pair]),
             "store_sample": [
