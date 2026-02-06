@@ -28,10 +28,11 @@ Data sources live in the GUI app data dir:
 - `language_packs/`, `frequency_packs/`, `embeddings/`, `rulesets/`, etc.
 
 Shared outputs written by helper:
-- `srs_store.sqlite` (or JSON for prototyping)
-- `srs_rulegen_snapshot.json`
-- `srs_ruleset_current.json`
-- `srs_status.json` (health + last_run metadata)
+- `srs/srs_store.json`
+- `srs/srs_rulegen_snapshot_<pair>.json`
+- `srs/srs_ruleset_<pair>.json`
+- `srs/srs_status.json` (health + last_run metadata)
+- `srs/srs_signal_queue.json` (feedback/exposure signal stream)
 
 ## Workstream Breakdown (Phases)
 
@@ -46,6 +47,8 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
 - Implement `lexishift_helper` CLI:
   - `status`: reads health + last_rulegen.
   - `run_rulegen`: uses current S + rulegen pipeline to refresh outputs.
+  - `plan_srs_set`: returns set planning decision for pair/profile context.
+  - `init_srs_set`: explicit set initialization command.
   - `get_snapshot`: returns concise preview (target lemma → sources).
   - `record_feedback`: append to SRS store.
   - `record_exposure`: append to SRS store.
@@ -64,6 +67,8 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - `getStatus()`
   - `getRulegenSnapshot(pair)`
   - `getRuleset(pair)`
+  - `planSrsSet(payload)`
+  - `initializeSrs(payload)`
   - `recordFeedback(payload)`
   - `recordExposure(payload)`
 - Options page uses the snapshot for “Show target rules…”.
@@ -105,9 +110,12 @@ Commands (MVP):
 - `record_feedback` → accept SRS feedback payload.
 - `record_exposure` → accept exposure batch.
 - `trigger_rulegen` → recompute now for pair (optional).
+- `srs_plan_set` → plan strategy for set S (no mutation).
+- `srs_initialize` → initialize set S for a pair (mutation).
+- `srs_reset` → clear SRS progress for pair/all.
 
 ## Snapshot Schema (MVP)
-`srs_rulegen_snapshot.json`:
+`srs_rulegen_snapshot_<pair>.json`:
 - `version`
 - `generated_at`
 - `pair`
@@ -119,7 +127,7 @@ Commands (MVP):
 - `stats`: { target_count, rule_count, source_count }
 
 ## Ruleset Schema (MVP)
-`srs_ruleset_current.json`:
+`srs_ruleset_<pair>.json`:
 - `version`
 - `generated_at`
 - `pair`
@@ -138,10 +146,11 @@ Helper should read from:
 
 Helper should write:
 - `srs/` (new folder)
-  - `srs_store.sqlite`
-  - `srs_rulegen_snapshot.json`
-  - `srs_ruleset_current.json`
+  - `srs_store.json`
+  - `srs_rulegen_snapshot_<pair>.json`
+  - `srs_ruleset_<pair>.json`
   - `srs_status.json`
+  - `srs_signal_queue.json`
 
 ## Security + Trust
 - Native messaging host manifest should allow only LexiShift extension id.
@@ -166,7 +175,7 @@ Helper should write:
 ## Open Questions
 - How frequently should rulegen run?
 - Should we allow manual override per profile/pair?
-- Do we store SRS store in SQLite or JSON for MVP?
+- How should profile-driven planning and adaptive refresh be scheduled?
 
 ## GUI Install UX
 - **Automatic** install on first launch if a fixed extension ID is available and the bundled helper host exists.
@@ -183,3 +192,5 @@ Helper should write:
 ## Current Status
 - Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
 - Native messaging host exists; install writes the host manifest for the provided extension ID.
+- Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
+- Feedback/exposure writes to `srs/srs_signal_queue.json` for future adaptive set updates.

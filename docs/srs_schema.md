@@ -42,7 +42,7 @@ This schema defines the data structures needed for the SRS Practice Layer. It is
   "item_id": "en-en:gloaming",
   "lemma": "gloaming",
   "language_pair": "en-en",
-  "source_type": "frequency_list",
+  "source_type": "initial_set",
   "confidence": 0.83,
   "stability": 3.1,
   "difficulty": 0.42,
@@ -60,7 +60,7 @@ This schema defines the data structures needed for the SRS Practice Layer. It is
 - `item_id` (string): stable identifier, usually `{pair}:{lemma}`.
 - `lemma` (string): canonical form of the word.
 - `language_pair` (string): e.g., `en-en`, `de-en`.
-- `source_type` (string): e.g., `frequency_list`, `user_stream`, `curated`.
+- `source_type` (string): e.g., `initial_set`, `frequency_list`, `user_stream`, `curated`.
 - `confidence` (float, 0–1): dictionary/embedding confidence (optional but recommended).
 - `stability` (float): SRS stability value.
 - `difficulty` (float): SRS difficulty value.
@@ -112,8 +112,40 @@ Use this bundle for syncing across app/extension/plugin.
 
 ---
 
+## 6) SRS Signal Queue (event stream, scaffold)
+
+```json
+{
+  "version": 1,
+  "events": [
+    {
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "猫",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-02-06T10:00:00Z",
+      "metadata": {}
+    },
+    {
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "犬",
+      "source_type": "extension",
+      "ts": "2026-02-06T10:01:00Z",
+      "metadata": {}
+    }
+  ]
+}
+```
+
+Purpose:
+- Collect feedback/exposure input from runtime surfaces.
+- Feed future adaptive set update strategies.
+
+---
+
 ## Notes
 - **Non‑destructive:** rulesets remain unchanged; the practice layer gates replacements at runtime.
 - **Pair‑aware:** items are only applied in matching language-pair contexts.
 - **Extensible:** add filters and candidate sources without breaking existing data.
-

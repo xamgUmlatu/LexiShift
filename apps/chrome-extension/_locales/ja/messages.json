@@ -152,6 +152,9 @@
   "button_srs_sample": {
     "message": "アクティブ語をサンプル…"
   },
+  "button_srs_initialize": {
+    "message": "このペアのSを初期化"
+  },
   "button_srs_rulegen_preview": {
     "message": "ルール生成（デバッグ）…"
   },
@@ -172,6 +175,24 @@
   },
   "status_srs_rulegen_running": {
     "message": "ルール生成中…"
+  },
+  "status_srs_set_init_running": {
+    "message": "Sを初期化中…"
+  },
+  "status_srs_set_init_result": {
+    "message": "$3 のSを初期化しました: +$1件（合計$2件）。"
+  },
+  "status_srs_set_plan_result": {
+    "message": "$1 のS計画を作成しました。"
+  },
+  "status_srs_set_init_success": {
+    "message": "$1 のSを初期化しました。"
+  },
+  "status_srs_set_plan_only": {
+    "message": "$1 のS計画を作成しました（変更は未適用）。"
+  },
+  "status_srs_set_init_failed": {
+    "message": "Sの初期化に失敗しました。"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"

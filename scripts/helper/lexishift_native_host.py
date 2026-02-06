@@ -27,10 +27,14 @@ _inject_core_path()
 
 from lexishift_core.helper_engine import (
     RulegenJobConfig,
+    SetInitializationJobConfig,
+    SetPlanningJobConfig,
     apply_exposure,
     apply_feedback,
+    initialize_srs_set,
     load_ruleset,
     load_snapshot,
+    plan_srs_set,
     reset_srs_data,
     run_rulegen_job,
 )
@@ -120,22 +124,61 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         jmdict_path = payload.get("jmdict_path")
         if not jmdict_path:
             jmdict_path = str(paths.language_packs_dir / "JMdict_e")
-        seed_db = payload.get("seed_db")
-        if not seed_db:
-            seed_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        set_source_db = payload.get("set_source_db")
+        if not set_source_db:
+            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
         config = RulegenJobConfig(
             pair=pair,
             jmdict_path=Path(jmdict_path),
-            seed_db=Path(seed_db) if seed_db else None,
-            seed_top_n=int(payload.get("seed_top_n", 2000)),
+            set_source_db=Path(set_source_db) if set_source_db else None,
+            set_top_n=int(payload.get("set_top_n", 2000)),
             confidence_threshold=float(payload.get("confidence_threshold", 0.0)),
             snapshot_targets=int(payload.get("snapshot_targets", 50)),
             snapshot_sources=int(payload.get("snapshot_sources", 6)),
-            seed_if_empty=payload.get("seed_if_empty", True),
+            initialize_if_empty=payload.get("initialize_if_empty", True),
+            persist_store=payload.get("persist_store", True),
+            persist_outputs=payload.get("persist_outputs", True),
+            update_status=payload.get("update_status", True),
             debug=bool(payload.get("debug", False)),
             debug_sample_size=int(payload.get("debug_sample_size", 10)),
         )
         return run_rulegen_job(paths, config=config)
+    if msg_type == "srs_initialize":
+        pair = str(payload.get("pair", "en-ja"))
+        jmdict_path = payload.get("jmdict_path")
+        if not jmdict_path:
+            jmdict_path = str(paths.language_packs_dir / "JMdict_e")
+        set_source_db = payload.get("set_source_db")
+        if not set_source_db:
+            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        return initialize_srs_set(
+            paths,
+            config=SetInitializationJobConfig(
+                pair=pair,
+                jmdict_path=Path(jmdict_path),
+                set_source_db=Path(set_source_db),
+                set_top_n=int(payload.get("set_top_n", 2000)),
+                replace_pair=bool(payload.get("replace_pair", False)),
+                strategy=str(payload.get("strategy", "frequency_bootstrap")),
+                objective=str(payload.get("objective", "bootstrap")),
+                profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
+    if msg_type == "srs_plan_set":
+        pair = str(payload.get("pair", "en-ja"))
+        return plan_srs_set(
+            paths,
+            config=SetPlanningJobConfig(
+                pair=pair,
+                strategy=str(payload.get("strategy", "frequency_bootstrap")),
+                objective=str(payload.get("objective", "bootstrap")),
+                set_top_n=int(payload.get("set_top_n", 2000)),
+                replace_pair=bool(payload.get("replace_pair", False)),
+                profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_reset":
         pair = str(payload.get("pair", "")).strip() or None
         return reset_srs_data(paths, pair=pair)

@@ -25,10 +25,13 @@ This glossary defines the major concepts, data objects, and workflows used acros
 
 - **SRS (Spaced Repetition System)**: Algorithmic scheduling to show items at optimal intervals for learning.
 - **S (target set)**: The set of words the system wants the user to learn in a given language.
-- **S seed**: The initial S built from frequency lists (e.g., top‑N by `core_rank`).
+- **Initial S bootstrap**: The initial S built from frequency lists (legacy term: “seed”).
 - **Selector**: The scoring algorithm that chooses which words from S should be active right now.
 - **Active items**: Words currently eligible for replacement (the “practice gate”).
 - **Feedback**: User rating (again/hard/good/easy) that updates SRS weights.
+- **Set planner**: Strategy decision layer that decides how S should be initialized/updated.
+- **Set strategy**: Named policy such as `frequency_bootstrap`, `profile_bootstrap`, `profile_growth`, `adaptive_refresh`.
+- **Signal queue**: Append-only stream of feedback/exposure events used for future adaptive updates.
 
 ## Frequency and Weighting
 
@@ -68,6 +71,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 ## Rule Generation (SRS / Automation)
 
 - **Rule generation**: Automated creation of replacement rules from dictionary data.
+- **Set initialization**: Explicit mutation action that initializes S for a pair (`srs_initialize`).
 - **Candidate**: A potential rule before filtering and scoring.
 - **Signals**: Inputs to scoring (dictionary priority, frequency, penalties, embeddings).
 - **Score weights**: Tunable coefficients for combining signals into a confidence.

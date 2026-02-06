@@ -59,6 +59,7 @@ Settings flow
 
 Options UI tools (extension)
 - SRS: “Sample active words…” button uses the current selector + pair to show 5 candidates.
+- SRS: “Initialize S for this pair” calls helper `srs_initialize` with profile-context scaffold.
 - Debug focus word: highlights whether a token was seen or replaced.
 - Share code: export/import compressed rules.
 - Logging controls (Advanced):
@@ -74,6 +75,9 @@ SRS settings (extension)
 - `srsFeedbackRulesEnabled` (bool): allow feedback popup on ruleset-origin spans.
 - `srsSoundEnabled` (bool): enable/disable feedback sound.
 - `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
+- `srsProfileSignals` (object): scaffold storage for per-pair profile signals used by set planning.
+  - Includes placeholders like interests/proficiency/objectives/empirical trends.
+  - UI editing is pending; data may be written by future settings surfaces.
 
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
@@ -96,6 +100,17 @@ SRS gating behavior (extension)
 - The selector uses a fixed test dataset (`shared/srs_selector_test_dataset.json`).
 - The active lemma set gates rules by **replacement lemma**.
 - If the dataset fails to load, the extension falls back to full rules and logs the error (debug only).
+
+Helper set-planning flow (options)
+- Options builds `profile_context` from:
+  - pair-level SRS constraints (`srsMaxActive`)
+  - scaffolded profile signals (`srsProfileSignals[pair]`)
+- Options sends:
+  - `strategy: "profile_bootstrap"`
+  - `objective: "bootstrap"`
+  - `trigger: "options_initialize_button"`
+  - `profile_context`
+- Helper returns plan metadata (`strategy_requested`, `strategy_effective`, `notes`) plus mutation result.
 
 SRS feedback UX (extension)
 - Right click on a replacement shows a popup with 4 colored choices:

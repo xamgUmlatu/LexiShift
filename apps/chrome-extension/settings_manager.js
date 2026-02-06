@@ -17,6 +17,7 @@ class SettingsManager {
       targetLanguage: "en",
       srsPairAuto: true,
       srsProfiles: {},
+      srsProfileSignals: {},
       srsEnabled: false,
       srsPair: "en-en",
       srsMaxActive: 20,
@@ -63,6 +64,49 @@ class SettingsManager {
       srsFeedbackSrsEnabled: profile.srsFeedbackSrsEnabled !== undefined ? profile.srsFeedbackSrsEnabled : (items.srsFeedbackSrsEnabled !== false),
       srsFeedbackRulesEnabled: profile.srsFeedbackRulesEnabled !== undefined ? profile.srsFeedbackRulesEnabled : (items.srsFeedbackRulesEnabled === true),
       srsExposureLoggingEnabled: profile.srsExposureLoggingEnabled !== undefined ? profile.srsExposureLoggingEnabled : (items.srsExposureLoggingEnabled !== false)
+    };
+  }
+
+  getSrsProfileSignals(items, pairKey) {
+    const signalMap = items.srsProfileSignals || {};
+    const profileSignals = signalMap[pairKey] || {};
+    const interests = Array.isArray(profileSignals.interests) ? profileSignals.interests : [];
+    const objectives = Array.isArray(profileSignals.objectives) ? profileSignals.objectives : [];
+    const proficiency = profileSignals.proficiency && typeof profileSignals.proficiency === "object"
+      ? profileSignals.proficiency
+      : {};
+    const empiricalTrends = profileSignals.empiricalTrends && typeof profileSignals.empiricalTrends === "object"
+      ? profileSignals.empiricalTrends
+      : {};
+    const sourcePreferences = profileSignals.sourcePreferences && typeof profileSignals.sourcePreferences === "object"
+      ? profileSignals.sourcePreferences
+      : {};
+    return {
+      profileId: typeof profileSignals.profileId === "string" && profileSignals.profileId
+        ? profileSignals.profileId
+        : "default",
+      interests,
+      objectives,
+      proficiency,
+      empiricalTrends,
+      sourcePreferences
+    };
+  }
+
+  buildSrsPlanContext(items, pairKey) {
+    const profile = this.getSrsProfile(items, pairKey);
+    const signals = this.getSrsProfileSignals(items, pairKey);
+    return {
+      pair: pairKey,
+      profile_id: signals.profileId,
+      interests: signals.interests,
+      objectives: signals.objectives,
+      proficiency: signals.proficiency,
+      empirical_trends: signals.empiricalTrends,
+      source_preferences: signals.sourcePreferences,
+      constraints: {
+        max_active_items: profile.srsMaxActive
+      }
     };
   }
 }

@@ -10,6 +10,7 @@ from lexishift_core.core import VocabRule
 from lexishift_core.helper_paths import HelperPaths
 from lexishift_core.rule_generation_ja_en import JaEnRulegenConfig, generate_ja_en_results
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
+from lexishift_core.srs_source import SOURCE_INITIAL_SET
 from lexishift_core.srs_seed import SeedSelectionConfig, build_seed_candidates
 from lexishift_core.srs_store_ops import build_item_id, upsert_item
 from lexishift_core.storage import VocabDataset, save_vocab_dataset
@@ -17,7 +18,7 @@ from lexishift_core.weighting import GlossDecay
 
 
 @dataclass(frozen=True)
-class SeedConfig:
+class SetInitializationConfig:
     frequency_db: Path
     jmdict_path: Path
     top_n: int = 2000
@@ -50,24 +51,27 @@ def load_targets_from_store(store: SrsStore, *, pair: str) -> list[str]:
     return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
 
 
-def seed_store_from_bccwj(
+def initialize_store_from_frequency_list(
     store: SrsStore,
     *,
-    config: SeedConfig,
+    config: SetInitializationConfig,
 ) -> SrsStore:
-    seed_config = SeedSelectionConfig(
+    selection_config = SeedSelectionConfig(
         language_pair=config.language_pair,
         top_n=config.top_n,
         jmdict_path=config.jmdict_path,
     )
-    seeds = build_seed_candidates(frequency_db=config.frequency_db, config=seed_config)
+    selected_words = build_seed_candidates(
+        frequency_db=config.frequency_db,
+        config=selection_config,
+    )
     updated = store
-    for seed in seeds:
+    for selected in selected_words:
         item = SrsItem(
-            item_id=build_item_id(seed.language_pair, seed.lemma),
-            lemma=seed.lemma,
-            language_pair=seed.language_pair,
-            source_type="seed",
+            item_id=build_item_id(selected.language_pair, selected.lemma),
+            lemma=selected.lemma,
+            language_pair=selected.language_pair,
+            source_type=SOURCE_INITIAL_SET,
         )
         updated = upsert_item(updated, item)
     return updated
@@ -149,15 +153,19 @@ def run_rulegen_for_pair(
     store: SrsStore,
     settings: Optional[SrsSettings],
     jmdict_path: Path,
-    seed_config: Optional[SeedConfig] = None,
+    set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
-    seed_if_empty: bool = True,
+    initialize_if_empty: bool = True,
+    persist_store: bool = True,
 ) -> tuple[SrsStore, RulegenOutput]:
     rulegen_config = rulegen_config or RulegenConfig(language_pair=pair)
     targets = load_targets_from_store(store, pair=pair)
     updated_store = store
-    if not targets and seed_if_empty and seed_config:
-        updated_store = seed_store_from_bccwj(store, config=seed_config)
+    if not targets and initialize_if_empty and set_init_config:
+        updated_store = initialize_store_from_frequency_list(
+            store,
+            config=set_init_config,
+        )
         targets = load_targets_from_store(updated_store, pair=pair)
     rules: Sequence[VocabRule] = []
     if pair == "en-ja":
@@ -176,7 +184,7 @@ def run_rulegen_for_pair(
         max_targets=rulegen_config.max_snapshot_targets,
         max_sources=rulegen_config.max_snapshot_sources,
     )
-    if updated_store is not store:
+    if persist_store and updated_store is not store:
         save_srs_store(updated_store, paths.srs_store_path)
     return updated_store, RulegenOutput(
         rules=rules,

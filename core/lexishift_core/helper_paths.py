@@ -30,6 +30,7 @@ class HelperPaths:
     srs_store_path: Path
     srs_settings_path: Path
     srs_status_path: Path
+    srs_signal_queue_path: Path
     language_packs_dir: Path
     frequency_packs_dir: Path
 
@@ -54,7 +55,7 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
         srs_store_path=srs_dir / "srs_store.json",
         srs_settings_path=srs_dir / "srs_settings.json",
         srs_status_path=srs_dir / "srs_status.json",
+        srs_signal_queue_path=srs_dir / "srs_signal_queue.json",
         language_packs_dir=language_packs_dir,
         frequency_packs_dir=frequency_packs_dir,
     )
-

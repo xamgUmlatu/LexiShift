@@ -152,6 +152,9 @@
   "button_srs_sample": {
     "message": "Sample active words…"
   },
+  "button_srs_initialize": {
+    "message": "Initialize S for this pair"
+  },
   "button_srs_rulegen_preview": {
     "message": "Run rulegen (debug)…"
   },
@@ -172,6 +175,24 @@
   },
   "status_srs_rulegen_running": {
     "message": "Running rulegen…"
+  },
+  "status_srs_set_init_running": {
+    "message": "Initializing S…"
+  },
+  "status_srs_set_init_result": {
+    "message": "S initialized for $3: +$1 items (total $2)."
+  },
+  "status_srs_set_plan_result": {
+    "message": "S planning completed for $1."
+  },
+  "status_srs_set_init_success": {
+    "message": "S initialized for $1."
+  },
+  "status_srs_set_plan_only": {
+    "message": "S planning completed for $1; no changes were applied."
+  },
+  "status_srs_set_init_failed": {
+    "message": "S initialization failed."
   },
   "status_srs_sample_empty": {
     "message": "No words available."

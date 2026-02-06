@@ -152,6 +152,9 @@
   "button_srs_sample": {
     "message": "抽样活跃词…"
   },
+  "button_srs_initialize": {
+    "message": "为该语言对初始化 S"
+  },
   "button_srs_rulegen_preview": {
     "message": "生成规则（调试）…"
   },
@@ -172,6 +175,24 @@
   },
   "status_srs_rulegen_running": {
     "message": "正在生成规则…"
+  },
+  "status_srs_set_init_running": {
+    "message": "正在初始化 S…"
+  },
+  "status_srs_set_init_result": {
+    "message": "已为 $3 初始化 S：+$1 项（总计 $2）。"
+  },
+  "status_srs_set_plan_result": {
+    "message": "已完成 $1 的 S 规划。"
+  },
+  "status_srs_set_init_success": {
+    "message": "已为 $1 初始化 S。"
+  },
+  "status_srs_set_plan_only": {
+    "message": "已完成 $1 的 S 规划（未应用变更）。"
+  },
+  "status_srs_set_init_failed": {
+    "message": "初始化 S 失败。"
   },
   "status_srs_sample_empty": {
     "message": "暂无可用词。"

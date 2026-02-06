@@ -47,6 +47,14 @@
       return this.send("trigger_rulegen", payload, timeoutMs);
     }
 
+    initializeSrs(payload, timeoutMs) {
+      return this.send("srs_initialize", payload, timeoutMs);
+    }
+
+    planSrsSet(payload, timeoutMs) {
+      return this.send("srs_plan_set", payload, timeoutMs);
+    }
+
     resetSrs(payload) {
       return this.send("srs_reset", payload);
     }

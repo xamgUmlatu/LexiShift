@@ -21,6 +21,8 @@ Ruleset Engine (unchanged)
 Practice Layer (SRS gate)
         ↑
 Scheduler + Candidate Store + Feedback
+        ↑
+Set Planner + Signal Queue
 ```
 
 ## Core Components
@@ -64,6 +66,18 @@ Sources that add items to S:
 - High‑frequency lexicon base
 - User stream (words encountered in reading/writing)
 - Curated packs
+
+Planning layer (scaffolded):
+- Select strategy before mutation:
+  - `frequency_bootstrap` (executable now)
+  - `profile_bootstrap` (fallbacks to frequency now)
+  - `profile_growth` (planned)
+  - `adaptive_refresh` (planned)
+- Return plan diagnostics and requirements even when not executable.
+
+Signal queue (scaffolded):
+- Feedback/exposure events are appended to `srs_signal_queue.json`.
+- Future adaptive policies consume this queue to refresh S automatically.
 
 Filters (pluggable):
 - Consensus filter

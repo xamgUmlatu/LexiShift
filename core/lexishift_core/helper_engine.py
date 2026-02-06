@@ -3,17 +3,31 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from typing import Optional
+from typing import Mapping, Optional
 
 from lexishift_core.helper_paths import HelperPaths
 from lexishift_core.helper_rulegen import (
     RulegenConfig,
-    SeedConfig,
+    SetInitializationConfig,
+    initialize_store_from_frequency_list,
     run_rulegen_for_pair,
     write_rulegen_outputs,
 )
 from lexishift_core.helper_status import HelperStatus, load_status, save_status
 from lexishift_core.srs import SrsSettings, SrsStore, load_srs_settings, load_srs_store, save_srs_settings, save_srs_store
+from lexishift_core.srs_set_planner import SrsSetPlanRequest, build_srs_set_plan, plan_to_dict
+from lexishift_core.srs_set_strategy import (
+    OBJECTIVE_BOOTSTRAP,
+    STRATEGY_FREQUENCY_BOOTSTRAP,
+)
+from lexishift_core.srs_signal_queue import (
+    SIGNAL_EXPOSURE,
+    SIGNAL_FEEDBACK,
+    SrsSignalEvent,
+    append_signal_event,
+    summarize_signal_events,
+)
+from lexishift_core.srs_source import SOURCE_EXTENSION, SOURCE_INITIAL_SET
 from lexishift_core.srs_store_ops import record_exposure, record_feedback
 from lexishift_core.srs_time import now_utc
 
@@ -22,29 +36,58 @@ from lexishift_core.srs_time import now_utc
 class RulegenJobConfig:
     pair: str
     jmdict_path: Path
-    seed_db: Optional[Path] = None
-    seed_top_n: int = 2000
+    set_source_db: Optional[Path] = None
+    set_top_n: int = 2000
     confidence_threshold: float = 0.0
     snapshot_targets: int = 50
     snapshot_sources: int = 6
-    seed_if_empty: bool = True
+    initialize_if_empty: bool = True
+    persist_store: bool = True
+    persist_outputs: bool = True
+    update_status: bool = True
     debug: bool = False
     debug_sample_size: int = 10
 
 
-def _ensure_settings(paths: HelperPaths) -> SrsSettings:
+@dataclass(frozen=True)
+class SetInitializationJobConfig:
+    pair: str
+    jmdict_path: Path
+    set_source_db: Path
+    set_top_n: int = 2000
+    replace_pair: bool = False
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    objective: str = OBJECTIVE_BOOTSTRAP
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
+
+
+@dataclass(frozen=True)
+class SetPlanningJobConfig:
+    pair: str
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    objective: str = OBJECTIVE_BOOTSTRAP
+    set_top_n: int = 2000
+    replace_pair: bool = False
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
+
+
+def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> SrsSettings:
     if paths.srs_settings_path.exists():
         return load_srs_settings(paths.srs_settings_path)
     settings = SrsSettings()
-    save_srs_settings(settings, paths.srs_settings_path)
+    if persist_missing:
+        save_srs_settings(settings, paths.srs_settings_path)
     return settings
 
 
-def _ensure_store(paths: HelperPaths) -> SrsStore:
+def _ensure_store(paths: HelperPaths, *, persist_missing: bool = True) -> SrsStore:
     if paths.srs_store_path.exists():
         return load_srs_store(paths.srs_store_path)
     store = SrsStore()
-    save_srs_store(store, paths.srs_store_path)
+    if persist_missing:
+        save_srs_store(store, paths.srs_store_path)
     return store
 
 
@@ -90,15 +133,15 @@ def run_rulegen_job(
 ) -> dict:
     if not config.jmdict_path.exists():
         raise FileNotFoundError(config.jmdict_path)
-    settings = _ensure_settings(paths)
-    store = _ensure_store(paths)
+    settings = _ensure_settings(paths, persist_missing=config.persist_store)
+    store = _ensure_store(paths, persist_missing=config.persist_store)
     diagnostics: dict[str, object] | None = None
-    seed_config = None
-    if config.seed_db and config.seed_db.exists():
-        seed_config = SeedConfig(
-            frequency_db=config.seed_db,
+    set_init_config = None
+    if config.set_source_db and config.set_source_db.exists():
+        set_init_config = SetInitializationConfig(
+            frequency_db=config.set_source_db,
             jmdict_path=config.jmdict_path,
-            top_n=config.seed_top_n,
+            top_n=config.set_top_n,
             language_pair=config.pair,
         )
     rulegen_config = RulegenConfig(
@@ -109,16 +152,16 @@ def run_rulegen_job(
     )
     if config.debug:
         missing_inputs = []
-        if config.seed_db and not config.seed_db.exists():
+        if config.set_source_db and not config.set_source_db.exists():
             missing_inputs.append(
-                {"type": "seed_db", "path": str(config.seed_db)}
+                {"type": "set_source_db", "path": str(config.set_source_db)}
             )
         diagnostics = {
             "pair": config.pair,
             "jmdict_path": str(config.jmdict_path),
             "jmdict_exists": config.jmdict_path.exists(),
-            "seed_db": str(config.seed_db) if config.seed_db else None,
-            "seed_db_exists": bool(config.seed_db and config.seed_db.exists()),
+            "set_source_db": str(config.set_source_db) if config.set_source_db else None,
+            "set_source_db_exists": bool(config.set_source_db and config.set_source_db.exists()),
             "missing_inputs": missing_inputs,
             "store_items": len(store.items),
             "store_items_for_pair": len([item for item in store.items if item.language_pair == config.pair]),
@@ -132,35 +175,180 @@ def run_rulegen_job(
         store=store,
         settings=settings,
         jmdict_path=config.jmdict_path,
-        seed_config=seed_config,
+        set_init_config=set_init_config,
         rulegen_config=rulegen_config,
-        seed_if_empty=config.seed_if_empty,
+        initialize_if_empty=config.initialize_if_empty,
+        persist_store=config.persist_store,
     )
-    write_rulegen_outputs(
-        paths=paths,
-        pair=config.pair,
-        rules=output.rules,
-        snapshot=output.snapshot,
-    )
-    if store:
-        save_srs_store(store, paths.srs_store_path)
-    _update_status(
-        paths=paths,
-        pair=config.pair,
-        rule_count=len(output.rules),
-        target_count=output.target_count,
-        error=None,
-    )
+    if config.persist_outputs:
+        write_rulegen_outputs(
+            paths=paths,
+            pair=config.pair,
+            rules=output.rules,
+            snapshot=output.snapshot,
+        )
+    if config.update_status:
+        _update_status(
+            paths=paths,
+            pair=config.pair,
+            rule_count=len(output.rules),
+            target_count=output.target_count,
+            error=None,
+        )
     response = {
         "pair": config.pair,
         "targets": output.target_count,
         "rules": len(output.rules),
-        "snapshot_path": str(paths.snapshot_path(config.pair)),
-        "ruleset_path": str(paths.ruleset_path(config.pair)),
+        "snapshot": output.snapshot,
+        "snapshot_path": str(paths.snapshot_path(config.pair)) if config.persist_outputs else None,
+        "ruleset_path": str(paths.ruleset_path(config.pair)) if config.persist_outputs else None,
+        "store_persisted": config.persist_store,
+        "outputs_persisted": config.persist_outputs,
     }
     if diagnostics is not None:
         response["diagnostics"] = diagnostics
     return response
+
+
+def _count_items_for_pair(store: SrsStore, pair: str) -> int:
+    return len([item for item in store.items if item.language_pair == pair])
+
+
+def _build_set_plan_payload(
+    *,
+    pair: str,
+    strategy: str,
+    objective: str,
+    set_top_n: int,
+    replace_pair: bool,
+    trigger: str,
+    existing_items_for_pair: int,
+    profile_context: Optional[Mapping[str, object]],
+    signal_summary: Mapping[str, object],
+) -> dict[str, object]:
+    plan = build_srs_set_plan(
+        SrsSetPlanRequest(
+            pair=pair,
+            strategy=strategy,
+            objective=objective,
+            set_top_n=set_top_n,
+            replace_pair=replace_pair,
+            existing_items_for_pair=existing_items_for_pair,
+            trigger=trigger,
+            profile_context=profile_context or {},
+            signal_summary=signal_summary,
+        )
+    )
+    return plan_to_dict(plan)
+
+
+def plan_srs_set(
+    paths: HelperPaths,
+    *,
+    config: SetPlanningJobConfig,
+) -> dict:
+    pair = str(config.pair or "").strip()
+    if not pair:
+        raise ValueError("Missing pair.")
+
+    store = _ensure_store(paths, persist_missing=False)
+    existing_items_for_pair = _count_items_for_pair(store, pair)
+    signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
+    plan_payload = _build_set_plan_payload(
+        pair=pair,
+        strategy=config.strategy,
+        objective=config.objective,
+        set_top_n=config.set_top_n,
+        replace_pair=config.replace_pair,
+        trigger=config.trigger,
+        existing_items_for_pair=existing_items_for_pair,
+        profile_context=config.profile_context,
+        signal_summary=signal_summary,
+    )
+    return {
+        "pair": pair,
+        "existing_items_for_pair": existing_items_for_pair,
+        "signal_summary": signal_summary,
+        "plan": plan_payload,
+    }
+
+
+def initialize_srs_set(
+    paths: HelperPaths,
+    *,
+    config: SetInitializationJobConfig,
+) -> dict:
+    if not config.jmdict_path.exists():
+        raise FileNotFoundError(config.jmdict_path)
+    if not config.set_source_db.exists():
+        raise FileNotFoundError(config.set_source_db)
+
+    pair = str(config.pair or "").strip()
+    if not pair:
+        raise ValueError("Missing pair.")
+
+    _ensure_settings(paths, persist_missing=True)
+    store = _ensure_store(paths, persist_missing=True)
+    before_pair_count = _count_items_for_pair(store, pair)
+    signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
+    plan_payload = _build_set_plan_payload(
+        pair=pair,
+        strategy=config.strategy,
+        objective=config.objective,
+        set_top_n=config.set_top_n,
+        replace_pair=config.replace_pair,
+        trigger=config.trigger,
+        existing_items_for_pair=before_pair_count,
+        profile_context=config.profile_context,
+        signal_summary=signal_summary,
+    )
+
+    can_execute = bool(plan_payload.get("can_execute"))
+    execution_mode = str(plan_payload.get("execution_mode", "planner_only"))
+    if not can_execute or execution_mode != "frequency_bootstrap":
+        return {
+            "pair": pair,
+            "set_top_n": config.set_top_n,
+            "source_type": SOURCE_INITIAL_SET,
+            "replace_pair": config.replace_pair,
+            "added_items": 0,
+            "total_items_for_pair": before_pair_count,
+            "store_path": str(paths.srs_store_path),
+            "applied": False,
+            "plan": plan_payload,
+            "signal_summary": signal_summary,
+        }
+
+    base_store = store
+    if config.replace_pair:
+        retained = tuple(item for item in store.items if item.language_pair != pair)
+        base_store = SrsStore(items=retained, version=store.version)
+
+    updated_store = initialize_store_from_frequency_list(
+        base_store,
+        config=SetInitializationConfig(
+            frequency_db=config.set_source_db,
+            jmdict_path=config.jmdict_path,
+            top_n=config.set_top_n,
+            language_pair=pair,
+        ),
+    )
+    save_srs_store(updated_store, paths.srs_store_path)
+
+    after_pair_count = _count_items_for_pair(updated_store, pair)
+    added_items = max(0, after_pair_count - (0 if config.replace_pair else before_pair_count))
+    return {
+        "pair": pair,
+        "set_top_n": config.set_top_n,
+        "source_type": SOURCE_INITIAL_SET,
+        "replace_pair": config.replace_pair,
+        "added_items": added_items,
+        "total_items_for_pair": after_pair_count,
+        "store_path": str(paths.srs_store_path),
+        "applied": True,
+        "plan": plan_payload,
+        "signal_summary": signal_summary,
+    }
 
 
 def apply_feedback(
@@ -169,18 +357,32 @@ def apply_feedback(
     pair: str,
     lemma: str,
     rating: str,
-    source_type: str = "extension",
+    source_type: str = SOURCE_EXTENSION,
 ) -> None:
     store = _ensure_store(paths)
+    normalized_pair = str(pair or "").strip()
+    normalized_lemma = str(lemma or "").strip()
+    normalized_source_type = str(source_type or SOURCE_EXTENSION).strip() or SOURCE_EXTENSION
     store = record_feedback(
         store,
-        language_pair=pair,
-        lemma=lemma,
+        language_pair=normalized_pair,
+        lemma=normalized_lemma,
         rating=rating,
         create_if_missing=True,
-        source_type=source_type,
+        source_type=normalized_source_type,
     )
     save_srs_store(store, paths.srs_store_path)
+    if normalized_pair and normalized_lemma:
+        append_signal_event(
+            paths.srs_signal_queue_path,
+            SrsSignalEvent(
+                event_type=SIGNAL_FEEDBACK,
+                pair=normalized_pair,
+                lemma=normalized_lemma,
+                source_type=normalized_source_type,
+                rating=rating,
+            ),
+        )
 
 
 def apply_exposure(
@@ -188,17 +390,30 @@ def apply_exposure(
     *,
     pair: str,
     lemma: str,
-    source_type: str = "extension",
+    source_type: str = SOURCE_EXTENSION,
 ) -> None:
     store = _ensure_store(paths)
+    normalized_pair = str(pair or "").strip()
+    normalized_lemma = str(lemma or "").strip()
+    normalized_source_type = str(source_type or SOURCE_EXTENSION).strip() or SOURCE_EXTENSION
     store = record_exposure(
         store,
-        language_pair=pair,
-        lemma=lemma,
+        language_pair=normalized_pair,
+        lemma=normalized_lemma,
         create_if_missing=True,
-        source_type=source_type,
+        source_type=normalized_source_type,
     )
     save_srs_store(store, paths.srs_store_path)
+    if normalized_pair and normalized_lemma:
+        append_signal_event(
+            paths.srs_signal_queue_path,
+            SrsSignalEvent(
+                event_type=SIGNAL_EXPOSURE,
+                pair=normalized_pair,
+                lemma=normalized_lemma,
+                source_type=normalized_source_type,
+            ),
+        )
 
 
 def _remove_file(path: Path) -> bool:

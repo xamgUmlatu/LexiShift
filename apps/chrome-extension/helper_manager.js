@@ -100,6 +100,11 @@ class HelperManager {
     const startedAt = Date.now();
     const rulegenResponse = await client.triggerRulegen({
       pair: pair,
+      // Preview mode should not mutate helper-side SRS state.
+      initialize_if_empty: false,
+      persist_store: false,
+      persist_outputs: false,
+      update_status: false,
       debug: true,
       debug_sample_size: 10,
       max_active: maxActive
@@ -115,23 +120,77 @@ class HelperManager {
 
     const rulegenData = rulegenResponse.data || {};
     const duration = ((Date.now() - startedAt) / 1000).toFixed(1);
-
-    // Fetch snapshot
-    const response = await client.getSnapshot(pair);
-    let snapshot = null;
+    const snapshot = rulegenData.snapshot || null;
     const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
 
-    if (response && response.ok !== false) {
-      snapshot = response.data || {};
-      if (helperCache && typeof helperCache.saveSnapshot === "function") {
-        helperCache.saveSnapshot(pair, snapshot);
-      }
-    } else if (helperCache && typeof helperCache.loadSnapshot === "function") {
-      snapshot = await helperCache.loadSnapshot(pair);
+    if (snapshot && helperCache && typeof helperCache.saveSnapshot === "function") {
+      helperCache.saveSnapshot(pair, snapshot);
     }
 
     if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
     return { rulegenData, snapshot, duration };
+  }
+
+  async initializeSrsSet(pair, setTopN, options) {
+    const client = this.getClient();
+    if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+    const parsedTopN = Number.parseInt(setTopN, 10);
+    const normalizedTopN = Number.isFinite(parsedTopN) ? Math.max(1, parsedTopN) : 2000;
+    const opts = options && typeof options === "object" ? options : {};
+    const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
+    const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
+    const trigger = typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_initialize_button";
+    const profileContext = opts.profileContext && typeof opts.profileContext === "object"
+      ? opts.profileContext
+      : {};
+
+    const response = await client.initializeSrs({
+      pair,
+      set_top_n: normalizedTopN,
+      replace_pair: false,
+      strategy,
+      objective,
+      trigger,
+      profile_context: profileContext
+    }, 30000);
+    if (!response || response.ok === false) {
+      throw new Error(
+        response && response.error && response.error.message
+          ? response.error.message
+          : this.i18n.t("status_srs_set_init_failed", null, "S initialization failed.")
+      );
+    }
+    return response.data || {};
+  }
+
+  async planSrsSet(pair, setTopN, options) {
+    const client = this.getClient();
+    if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+    const parsedTopN = Number.parseInt(setTopN, 10);
+    const normalizedTopN = Number.isFinite(parsedTopN) ? Math.max(1, parsedTopN) : 2000;
+    const opts = options && typeof options === "object" ? options : {};
+    const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
+    const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
+    const trigger = typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_plan_button";
+    const profileContext = opts.profileContext && typeof opts.profileContext === "object"
+      ? opts.profileContext
+      : {};
+    const response = await client.planSrsSet({
+      pair,
+      strategy,
+      objective,
+      set_top_n: normalizedTopN,
+      trigger,
+      profile_context: profileContext
+    }, 15000);
+    if (!response || response.ok === false) {
+      throw new Error(
+        response && response.error && response.error.message
+          ? response.error.message
+          : this.i18n.t("status_srs_set_init_failed", null, "S planning failed.")
+      );
+    }
+    return response.data || {};
   }
 
   async resetSrs(pair) {
@@ -139,18 +198,7 @@ class HelperManager {
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
 
     this.logger(`[HelperManager] resetSrs called for ${pair}`);
-
-    let response;
-    if (typeof client.resetSrs === "function") {
-      response = await client.resetSrs({ pair });
-    } else {
-      const transport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
-      if (transport) {
-        response = await transport.send("srs_reset", { pair });
-      } else {
-        throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
-      }
-    }
+    const response = await client.resetSrs({ pair });
 
     this.logger(`[HelperManager] resetSrs response:`, response);
 

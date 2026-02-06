@@ -44,6 +44,7 @@ const {
   srsExposureLoggingEnabled: srsExposureLoggingInput,
   srsSample: srsSampleButton,
   srsSampleOutput: srsSampleOutput,
+  srsInitializeSet: srsInitializeSetButton,
   srsRulegenPreview: srsRulegenButton,
   srsRulegenOutput: srsRulegenOutput,
   srsReset: srsResetButton,
@@ -424,6 +425,80 @@ async function sampleActiveWords() {
   }
 }
 
+async function initializeSrsSet() {
+  if (!srsInitializeSetButton || !srsRulegenOutput) {
+    return;
+  }
+  const srsPair = resolvePairFromInputs();
+  const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
+  const srsMaxActive = Number.isFinite(maxActiveRaw)
+    ? Math.max(1, maxActiveRaw)
+    : (settingsManager.defaults.srsMaxActive || 20);
+  const setTopN = Math.max(200, srsMaxActive * 20);
+
+  srsInitializeSetButton.disabled = true;
+  srsRulegenOutput.textContent = t("status_srs_set_init_running", null, "Initializing S…");
+
+  try {
+    const items = await settingsManager.load();
+    const profileContext = settingsManager.buildSrsPlanContext(items, srsPair);
+    const planOptions = {
+      strategy: "profile_bootstrap",
+      objective: "bootstrap",
+      trigger: "options_initialize_button",
+      profileContext
+    };
+    const result = await helperManager.initializeSrsSet(srsPair, setTopN, planOptions);
+    const total = Number(result.total_items_for_pair || 0);
+    const added = Number(result.added_items || 0);
+    const applied = result.applied !== false;
+    const plan = result.plan && typeof result.plan === "object" ? result.plan : {};
+    const notes = Array.isArray(plan.notes) ? plan.notes : [];
+    const noteLines = notes.length ? notes.map((note) => `- ${note}`) : [];
+    const header = applied
+      ? t(
+          "status_srs_set_init_result",
+          [added, total, srsPair],
+          `S initialized for ${srsPair}: +${added} items (total ${total}).`
+        )
+      : t(
+          "status_srs_set_plan_result",
+          [srsPair],
+          `S planning completed for ${srsPair}.`
+        );
+    srsRulegenOutput.textContent = [
+      header,
+      `- applied: ${applied}`,
+      `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
+      `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
+      `- set_top_n: ${result.set_top_n ?? setTopN}`,
+      `- source_type: ${result.source_type || "initial_set"}`,
+      `- store_path: ${result.store_path || "n/a"}`,
+      noteLines.length ? "" : null,
+      noteLines.length ? "Plan notes:" : null,
+      ...noteLines
+    ].filter(Boolean).join("\n");
+    const statusMessage = applied
+      ? t("status_srs_set_init_success", [srsPair], `S initialized for ${srsPair}.`)
+      : t("status_srs_set_plan_only", [srsPair], `S planning completed for ${srsPair}; no changes were applied.`);
+    setStatus(statusMessage, applied ? ui.COLORS.SUCCESS : ui.COLORS.DEFAULT);
+    logOptions("SRS set initialized", {
+      pair: srsPair,
+      setTopN,
+      applied,
+      plan,
+      profileContext
+    });
+  } catch (err) {
+    const msg = err && err.message ? err.message : t("status_srs_set_init_failed", null, "S initialization failed.");
+    srsRulegenOutput.textContent = msg;
+    setStatus(msg, ui.COLORS.ERROR);
+    logOptions("SRS set init failed.", err);
+  } finally {
+    srsInitializeSetButton.disabled = false;
+  }
+}
+
 async function previewSrsRulegen() {
   if (!srsRulegenButton || !srsRulegenOutput) {
     return;
@@ -454,10 +529,10 @@ async function previewSrsRulegen() {
         const diag = rulegenData.diagnostics || {};
         const missingInputs = Array.isArray(diag.missing_inputs) ? diag.missing_inputs : [];
         const guidanceLines = [];
-        if (diag.seed_db && diag.seed_db_exists === false) {
+        if (diag.set_source_db && diag.set_source_db_exists === false) {
           guidanceLines.push(
             t("diag_missing_freq_pack", null, "Missing frequency pack for target language."),
-            t("diag_expected_path", [diag.seed_db], `Expected: ${diag.seed_db}`),
+            t("diag_expected_path", [diag.set_source_db], `Expected: ${diag.set_source_db}`),
             t("diag_fix_freq_pack", null, "Fix: open LexiShift App → Settings → Frequency Packs and download the target pack.")
           );
         }
@@ -475,7 +550,7 @@ async function previewSrsRulegen() {
           t("diag_header", null, "Diagnostics:"),
           `- ${t("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
           `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
-          `- seed_db: ${diag.seed_db || "n/a"} (exists=${diag.seed_db_exists})`,
+          `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
           `- store_items: ${diag.store_items ?? "n/a"}`,
           `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
           `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
@@ -645,6 +720,9 @@ if (srsExposureLoggingInput) {
 }
 if (srsSampleButton) {
   srsSampleButton.addEventListener("click", sampleActiveWords);
+}
+if (srsInitializeSetButton) {
+  srsInitializeSetButton.addEventListener("click", initializeSrsSet);
 }
 if (srsRulegenButton) {
   srsRulegenButton.addEventListener("click", previewSrsRulegen);

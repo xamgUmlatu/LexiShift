@@ -4,6 +4,7 @@ Purpose
 - Define a generalized, language‑pair aware pipeline for precomputing replacement rules from a target set S.
 - Attach a confidence score to each rule so downstream UI can filter by a user‑controlled threshold.
 - Keep the pipeline modular so pair‑specific logic can be plugged in without rewriting the core flow.
+- Set planning architecture details live in `docs/srs_set_planning_technical.md`.
 
 Scope
 - Covers rule generation for monolingual and cross‑lingual language pairs.
@@ -12,6 +13,7 @@ Scope
 
 Key concepts
 - **Target set S**: the words/lemmas the user is learning (the words we want to surface).
+- **Set planning**: pre-rulegen strategy selection step for initializing/updating S.
 - **Source candidates**: words/phrases likely to appear in user text that can map to a target.
 - **Rule**: `source_phrase` → `replacement` with metadata and confidence.
 
@@ -25,7 +27,11 @@ Rule schema (canonical)
 - `metadata` (object; optional: POS, sense_id, frequency, notes)
 
 Pipeline overview
-1) **Seed Expansion**
+0) **Set Planning (new scaffold)**
+   - Input: pair, objective, profile context, signal summary.
+   - Output: plan metadata (effective strategy + execution mode).
+
+1) **Initial Set Expansion**
    - Input: S, language_pair, enabled dictionaries.
    - Output: raw source candidates (glosses, synonyms, translations).
 
@@ -133,9 +139,9 @@ Next steps (current workstream focus)
    - Pack size (SQLite): ~50 MB.
 
 ### Current plan (JA target, EN source)
-We are locking in a **JMDict‑filtered core set** for the initial S seed:
+We are locking in a **JMDict‑filtered core set** for initial S bootstrap:
 
-1) **Selection (seed S):** use `core_rank` from BCCWJ SUW.  
+1) **Selection (initial S):** use `core_rank` from BCCWJ SUW.  
 2) **Filter:** intersect top‑N by `core_rank` with **JMDict lemmas** (to avoid junk).  
 3) **Weighting:** use `pmw` (per‑million‑words) as the primary frequency signal.  
 4) **Rulegen:** for each JA lemma in S, use JMDict glosses, **single‑word English only**.  
@@ -144,7 +150,7 @@ We are locking in a **JMDict‑filtered core set** for the initial S seed:
 > **Note:** confidence scoring is WIP and will evolve. This is a baseline model.
 
 ### Diagram (planned algorithm)
-See `docs/weight_selection_diagram.mmd` for the S seed + rulegen flow.
+See `docs/weight_selection_diagram.mmd` for the S bootstrap + rulegen flow.
 
 ### Testing harness (parameter sweeps)
 - Seed report: `scripts/testing/ja_en_seed_report.py`
@@ -168,5 +174,9 @@ Implementation status
 - Frequency lexicon loader lives in `core/lexishift_core/frequency.py` (generic).
 - SQLite frequency access + normalization lives in `core/lexishift_core/frequency_sqlite_store.py` and `core/lexishift_core/frequency_providers.py`.
 - Seed builder for JA targets lives in `core/lexishift_core/srs_seed.py` (core_rank selection + pmw weighting).
+- Set planning scaffold lives in:
+  - `core/lexishift_core/srs_set_strategy.py`
+  - `core/lexishift_core/srs_set_planner.py`
+  - `core/lexishift_core/helper_engine.py` (`srs_plan_set`, extended `srs_initialize`)
 - Normalization utilities live in `core/lexishift_core/weighting.py`.
 - End-to-end test script: `scripts/build_ja_en_srs_rules.py` (BCCWJ + JMDict + optional COCA).

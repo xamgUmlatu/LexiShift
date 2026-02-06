@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore
+from lexishift_core.srs_source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs_selector import (
     ScoredCandidate,
     SelectorCandidate,
@@ -21,7 +22,7 @@ class SrsGrowthConfig:
     max_new_items: Optional[int] = None
     initial_stability: float = 1.0
     initial_difficulty: float = 0.5
-    default_source_type: str = "frequency_list"
+    default_source_type: str = SOURCE_FREQUENCY_LIST
     confidence_min: Optional[float] = None
 
 
@@ -166,11 +167,11 @@ def grow_srs_store(
 
 def _resolve_source_type(candidate: SelectorCandidate, *, default: str) -> str:
     if candidate.source_type:
-        return candidate.source_type
+        return normalize_source_type(candidate.source_type, default=default)
     source = candidate.metadata.get("source") if hasattr(candidate, "metadata") else None
     if source:
-        return str(source)
-    return default
+        return normalize_source_type(source, default=default)
+    return normalize_source_type(default)
 
 
 def _resolve_confidence(candidate: SelectorCandidate, *, min_value: Optional[float]) -> Optional[float]:

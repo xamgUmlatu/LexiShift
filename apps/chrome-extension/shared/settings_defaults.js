@@ -17,6 +17,7 @@
     targetLanguage: "en",
     srsPairAuto: true,
     srsProfiles: {},
+    srsProfileSignals: {},
     srsEnabled: false,
     srsPair: "en-en",
     srsMaxActive: 40,

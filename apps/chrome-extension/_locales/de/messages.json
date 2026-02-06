@@ -152,6 +152,9 @@
   "button_srs_sample": {
     "message": "Aktive Wörter testen…"
   },
+  "button_srs_initialize": {
+    "message": "S für dieses Paar initialisieren"
+  },
   "button_srs_rulegen_preview": {
     "message": "Regeln generieren (Debug)…"
   },
@@ -172,6 +175,24 @@
   },
   "status_srs_rulegen_running": {
     "message": "Regeln werden generiert…"
+  },
+  "status_srs_set_init_running": {
+    "message": "S wird initialisiert…"
+  },
+  "status_srs_set_init_result": {
+    "message": "S für $3 initialisiert: +$1 Einträge (gesamt $2)."
+  },
+  "status_srs_set_plan_result": {
+    "message": "S-Plan für $1 erstellt."
+  },
+  "status_srs_set_init_success": {
+    "message": "S für $1 initialisiert."
+  },
+  "status_srs_set_plan_only": {
+    "message": "S-Plan für $1 erstellt (keine Änderungen angewendet)."
+  },
+  "status_srs_set_init_failed": {
+    "message": "S-Initialisierung fehlgeschlagen."
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."

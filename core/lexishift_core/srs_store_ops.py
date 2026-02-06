@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Optional, Sequence
 
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsStore
+from lexishift_core.srs_source import SOURCE_UNKNOWN, normalize_source_type
 from lexishift_core.srs_scheduler import apply_feedback
 from lexishift_core.srs_time import format_ts, now_utc
 
@@ -38,9 +39,10 @@ def record_exposure(
     lemma: str,
     now: Optional[datetime] = None,
     create_if_missing: bool = False,
-    source_type: str = "unknown",
+    source_type: str = SOURCE_UNKNOWN,
 ) -> SrsStore:
     now = now or now_utc()
+    source_type = normalize_source_type(source_type)
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:
@@ -68,10 +70,11 @@ def record_feedback(
     rating: str,
     now: Optional[datetime] = None,
     create_if_missing: bool = False,
-    source_type: str = "unknown",
+    source_type: str = SOURCE_UNKNOWN,
     increment_exposures: bool = True,
 ) -> SrsStore:
     now = now or now_utc()
+    source_type = normalize_source_type(source_type)
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:
@@ -97,9 +100,10 @@ def append_history(
     rating: str,
     now: Optional[datetime] = None,
     create_if_missing: bool = False,
-    source_type: str = "unknown",
+    source_type: str = SOURCE_UNKNOWN,
 ) -> SrsStore:
     now = now or now_utc()
+    source_type = normalize_source_type(source_type)
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:

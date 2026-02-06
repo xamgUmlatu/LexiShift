@@ -29,7 +29,7 @@ class AppState(QObject):
     def __init__(self, settings_path: Path) -> None:
         super().__init__()
         self._settings_path = settings_path
-        self._srs_store_path = settings_path.parent / "srs_store.json"
+        self._srs_store_path = settings_path.parent / "srs" / "srs_store.json"
         self._settings = AppSettings()
         self._dataset = VocabDataset()
         self._dataset_path: Optional[Path] = None

@@ -12,9 +12,13 @@ sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
 from lexishift_core.helper_engine import (
     RulegenJobConfig,
+    SetInitializationJobConfig,
+    SetPlanningJobConfig,
     apply_exposure,
     apply_feedback,
+    initialize_srs_set,
     load_snapshot,
+    plan_srs_set,
     reset_srs_data,
     run_rulegen_job,
 )
@@ -24,6 +28,18 @@ from lexishift_core.helper_status import load_status
 
 def _print_json(payload: object) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False))
+
+
+def _load_optional_json(value: Optional[str]) -> Optional[dict]:
+    if not value:
+        return None
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Invalid JSON payload: {exc}") from exc
+    if not isinstance(parsed, dict):
+        raise ValueError("JSON payload must be an object.")
+    return parsed
 
 
 def cmd_status(args: argparse.Namespace) -> int:
@@ -51,7 +67,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
         print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
         return 2
 
-    seed_db = Path(args.seed_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
+    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
 
     try:
         payload = run_rulegen_job(
@@ -59,12 +75,72 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                seed_db=seed_db if seed_db.exists() else None,
-                seed_top_n=args.seed_top_n,
+                set_source_db=set_source_db if set_source_db.exists() else None,
+                set_top_n=args.set_top_n,
                 confidence_threshold=args.confidence_threshold,
                 snapshot_targets=args.snapshot_targets,
                 snapshot_sources=args.snapshot_sources,
-                seed_if_empty=not args.no_seed,
+                initialize_if_empty=not args.no_initialize_if_empty,
+                persist_store=not args.no_persist_store,
+                persist_outputs=not args.no_persist_outputs,
+                update_status=not args.no_status_update,
+            ),
+        )
+        _print_json(payload)
+        return 0
+    except Exception as exc:  # noqa: BLE001
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
+def cmd_init_srs_set(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    jmdict_path = Path(args.jmdict or (paths.language_packs_dir / "JMdict_e"))
+    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
+    if not jmdict_path.exists():
+        print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
+        return 2
+    if not set_source_db.exists():
+        print(f"Missing frequency DB path: {set_source_db}", file=sys.stderr)
+        return 2
+
+    try:
+        profile_context = _load_optional_json(args.profile_context_json)
+        payload = initialize_srs_set(
+            paths,
+            config=SetInitializationJobConfig(
+                pair=args.pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                set_top_n=args.set_top_n,
+                replace_pair=args.replace_pair,
+                strategy=args.strategy,
+                objective=args.objective,
+                profile_context=profile_context,
+                trigger=args.trigger,
+            ),
+        )
+        _print_json(payload)
+        return 0
+    except Exception as exc:  # noqa: BLE001
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
+def cmd_plan_srs_set(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    try:
+        profile_context = _load_optional_json(args.profile_context_json)
+        payload = plan_srs_set(
+            paths,
+            config=SetPlanningJobConfig(
+                pair=args.pair,
+                strategy=args.strategy,
+                objective=args.objective,
+                set_top_n=args.set_top_n,
+                replace_pair=args.replace_pair,
+                profile_context=profile_context,
+                trigger=args.trigger,
             ),
         )
         _print_json(payload)
@@ -120,13 +196,38 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
-    run.add_argument("--seed-db", help="Path to frequency SQLite for seeding (BCCWJ)")
-    run.add_argument("--seed-top-n", type=int, default=2000)
-    run.add_argument("--no-seed", action="store_true", help="Skip seeding when S is empty")
+    run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S (BCCWJ)")
+    run.add_argument("--set-top-n", type=int, default=2000)
+    run.add_argument("--no-initialize-if-empty", action="store_true", help="Skip S initialization when store is empty")
+    run.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
+    run.add_argument("--no-persist-outputs", action="store_true", help="Do not write ruleset/snapshot JSON files")
+    run.add_argument("--no-status-update", action="store_true", help="Do not update helper status file")
     run.add_argument("--confidence-threshold", type=float, default=0.0)
     run.add_argument("--snapshot-targets", type=int, default=50)
     run.add_argument("--snapshot-sources", type=int, default=6)
     run.set_defaults(func=cmd_run_rulegen)
+
+    init_s = sub.add_parser("init_srs_set", help="Initialize S for a language pair")
+    init_s.add_argument("--pair", default="en-ja")
+    init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
+    init_s.add_argument("--set-top-n", type=int, default=2000)
+    init_s.add_argument("--replace-pair", action="store_true", help="Replace existing pair entries before initializing S")
+    init_s.add_argument("--strategy", default="frequency_bootstrap")
+    init_s.add_argument("--objective", default="bootstrap")
+    init_s.add_argument("--trigger", default="cli")
+    init_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
+    init_s.set_defaults(func=cmd_init_srs_set)
+
+    plan_s = sub.add_parser("plan_srs_set", help="Build a set planning decision without mutating store")
+    plan_s.add_argument("--pair", default="en-ja")
+    plan_s.add_argument("--strategy", default="profile_bootstrap")
+    plan_s.add_argument("--objective", default="bootstrap")
+    plan_s.add_argument("--set-top-n", type=int, default=2000)
+    plan_s.add_argument("--replace-pair", action="store_true")
+    plan_s.add_argument("--trigger", default="cli")
+    plan_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
+    plan_s.set_defaults(func=cmd_plan_srs_set)
 
     feedback = sub.add_parser("record_feedback", help="Record SRS feedback")
     feedback.add_argument("--pair", required=True)

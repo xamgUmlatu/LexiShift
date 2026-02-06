@@ -16,7 +16,7 @@ from lexishift_core.srs_time import now_utc
 @dataclass(frozen=True)
 class DaemonConfig:
     interval_seconds: int = 1800
-    seed_top_n: int = 2000
+    set_top_n: int = 2000
     confidence_threshold: float = 0.0
     snapshot_targets: int = 50
     snapshot_sources: int = 6
@@ -38,18 +38,18 @@ def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfi
     jmdict_path = paths.language_packs_dir / "JMdict_e"
     if not jmdict_path.exists():
         return None
-    seed_db = paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"
-    if not seed_db.exists():
-        seed_db = None
+    set_source_db = paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"
+    if not set_source_db.exists():
+        set_source_db = None
     return RulegenJobConfig(
         pair=pair,
         jmdict_path=jmdict_path,
-        seed_db=seed_db,
-        seed_top_n=config.seed_top_n,
+        set_source_db=set_source_db,
+        set_top_n=config.set_top_n,
         confidence_threshold=config.confidence_threshold,
         snapshot_targets=config.snapshot_targets,
         snapshot_sources=config.snapshot_sources,
-        seed_if_empty=True,
+        initialize_if_empty=True,
     )
 
 
@@ -92,14 +92,14 @@ def run_daemon(config: DaemonConfig) -> None:
 def run_daemon_from_cli(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="LexiShift helper background daemon.")
     parser.add_argument("--interval-seconds", type=int, default=1800)
-    parser.add_argument("--seed-top-n", type=int, default=2000)
+    parser.add_argument("--set-top-n", type=int, default=2000)
     parser.add_argument("--confidence-threshold", type=float, default=0.0)
     parser.add_argument("--snapshot-targets", type=int, default=50)
     parser.add_argument("--snapshot-sources", type=int, default=6)
     args = parser.parse_args(argv)
     config = DaemonConfig(
         interval_seconds=args.interval_seconds,
-        seed_top_n=args.seed_top_n,
+        set_top_n=args.set_top_n,
         confidence_threshold=args.confidence_threshold,
         snapshot_targets=args.snapshot_targets,
         snapshot_sources=args.snapshot_sources,
