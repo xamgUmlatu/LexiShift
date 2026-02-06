@@ -199,3 +199,69 @@ def apply_exposure(
         source_type=source_type,
     )
     save_srs_store(store, paths.srs_store_path)
+
+
+def _remove_file(path: Path) -> bool:
+    if not path.exists() or not path.is_file():
+        return False
+    path.unlink()
+    return True
+
+
+def reset_srs_data(
+    paths: HelperPaths,
+    *,
+    pair: Optional[str] = None,
+) -> dict:
+    scoped_pair = str(pair or "").strip() or None
+
+    removed_items = 0
+    remaining_items = 0
+    if paths.srs_store_path.exists():
+        store = load_srs_store(paths.srs_store_path)
+        if scoped_pair:
+            kept_items = tuple(item for item in store.items if item.language_pair != scoped_pair)
+        else:
+            kept_items = tuple()
+        removed_items = len(store.items) - len(kept_items)
+        remaining_items = len(kept_items)
+        save_srs_store(SrsStore(items=kept_items, version=store.version), paths.srs_store_path)
+    else:
+        save_srs_store(SrsStore(), paths.srs_store_path)
+
+    removed_snapshots = 0
+    removed_rulesets = 0
+    if scoped_pair:
+        if _remove_file(paths.snapshot_path(scoped_pair)):
+            removed_snapshots += 1
+        if _remove_file(paths.ruleset_path(scoped_pair)):
+            removed_rulesets += 1
+    else:
+        for snapshot in paths.srs_dir.glob("srs_rulegen_snapshot_*.json"):
+            if _remove_file(snapshot):
+                removed_snapshots += 1
+        for ruleset in paths.srs_dir.glob("srs_ruleset_*.json"):
+            if _remove_file(ruleset):
+                removed_rulesets += 1
+
+    status = load_status(paths.srs_status_path)
+    save_status(
+        HelperStatus(
+            version=status.version,
+            helper_version=status.helper_version,
+            last_run_at=now_utc().isoformat(),
+            last_error=None,
+            last_pair=scoped_pair,
+            last_rule_count=0,
+            last_target_count=0,
+        ),
+        paths.srs_status_path,
+    )
+
+    return {
+        "pair": scoped_pair or "all",
+        "removed_items": removed_items,
+        "remaining_items": remaining_items,
+        "removed_snapshots": removed_snapshots,
+        "removed_rulesets": removed_rulesets,
+    }

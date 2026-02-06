@@ -155,6 +155,15 @@
   "button_srs_rulegen_preview": {
     "message": "Run rulegen (debug)…"
   },
+  "button_srs_reset": {
+    "message": "Reset SRS data"
+  },
+  "confirm_srs_reset_1": {
+    "message": "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."
+  },
+  "confirm_srs_reset_2": {
+    "message": "Really delete all learning history and start over for this pair?"
+  },
   "status_srs_sampling": {
     "message": "Sampling…"
   },
@@ -175,6 +184,45 @@
   },
   "status_srs_rulegen_failed": {
     "message": "Rule preview failed."
+  },
+  "diag_header": {
+    "message": "Diagnostics:"
+  },
+  "diag_missing_freq_pack": {
+    "message": "Missing frequency pack for target language."
+  },
+  "diag_missing_jmdict": {
+    "message": "Missing JMDict language pack."
+  },
+  "diag_missing_inputs": {
+    "message": "Missing inputs:"
+  },
+  "diag_expected_path": {
+    "message": "Expected: $1"
+  },
+  "diag_fix_freq_pack": {
+    "message": "Fix: open LexiShift App → Settings → Frequency Packs and download the target pack."
+  },
+  "diag_fix_jmdict": {
+    "message": "Fix: open LexiShift App → Settings → Language Packs and download JMDict."
+  },
+  "label_pair": {
+    "message": "pair"
+  },
+  "label_fix": {
+    "message": "Fix:"
+  },
+  "status_srs_resetting": {
+    "message": "Resetting SRS data…"
+  },
+  "status_srs_reset_success": {
+    "message": "SRS data reset successfully."
+  },
+  "status_srs_reset_failed": {
+    "message": "SRS reset failed."
+  },
+  "status_srs_reset_outdated": {
+    "message": "Helper outdated: command not found. Restart helper?"
   },
   "section_share_code": {
     "message": "Share Code"

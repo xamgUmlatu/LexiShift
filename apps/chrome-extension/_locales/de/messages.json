@@ -155,6 +155,15 @@
   "button_srs_rulegen_preview": {
     "message": "Regeln generieren (Debug)…"
   },
+  "button_srs_reset": {
+    "message": "SRS-Daten zurücksetzen"
+  },
+  "confirm_srs_reset_1": {
+    "message": "Möchtest du den gesamten SRS-Fortschritt für dieses Sprachpaar wirklich zurücksetzen? Dies kann nicht rückgängig gemacht werden."
+  },
+  "confirm_srs_reset_2": {
+    "message": "Lernverlauf für dieses Paar wirklich löschen und neu beginnen?"
+  },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
   },
@@ -175,6 +184,45 @@
   },
   "status_srs_rulegen_failed": {
     "message": "Regelvorschau fehlgeschlagen."
+  },
+  "diag_header": {
+    "message": "Diagnose:"
+  },
+  "diag_missing_freq_pack": {
+    "message": "Fehlendes Häufigkeitspaket für die Zielsprache."
+  },
+  "diag_missing_jmdict": {
+    "message": "Fehlendes JMDict-Sprachpaket."
+  },
+  "diag_missing_inputs": {
+    "message": "Fehlende Eingaben:"
+  },
+  "diag_expected_path": {
+    "message": "Erwartet: $1"
+  },
+  "diag_fix_freq_pack": {
+    "message": "Lösung: LexiShift-App öffnen → Einstellungen → Frequency Packs und das Zielpaket herunterladen."
+  },
+  "diag_fix_jmdict": {
+    "message": "Lösung: LexiShift-App öffnen → Einstellungen → Language Packs und JMDict herunterladen."
+  },
+  "label_pair": {
+    "message": "Paar"
+  },
+  "label_fix": {
+    "message": "Lösung:"
+  },
+  "status_srs_resetting": {
+    "message": "SRS-Daten werden zurückgesetzt…"
+  },
+  "status_srs_reset_success": {
+    "message": "SRS-Daten wurden erfolgreich zurückgesetzt."
+  },
+  "status_srs_reset_failed": {
+    "message": "SRS-Zurücksetzen fehlgeschlagen."
+  },
+  "status_srs_reset_outdated": {
+    "message": "Helper veraltet: Befehl nicht gefunden. Helper neu starten?"
   },
   "section_share_code": {
     "message": "Share-Code"

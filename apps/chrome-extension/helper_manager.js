@@ -93,7 +93,7 @@ class HelperManager {
     }
   }
 
-  async runRulegenPreview(pair) {
+  async runRulegenPreview(pair, maxActive) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
 
@@ -101,7 +101,8 @@ class HelperManager {
     const rulegenResponse = await client.triggerRulegen({
       pair: pair,
       debug: true,
-      debug_sample_size: 10
+      debug_sample_size: 10,
+      max_active: maxActive
     }, 15000);
 
     if (!rulegenResponse || rulegenResponse.ok === false) {
@@ -131,5 +132,52 @@ class HelperManager {
 
     if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
     return { rulegenData, snapshot, duration };
+  }
+
+  async resetSrs(pair) {
+    const client = this.getClient();
+    if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+
+    this.logger(`[HelperManager] resetSrs called for ${pair}`);
+
+    let response;
+    if (typeof client.resetSrs === "function") {
+      response = await client.resetSrs({ pair });
+    } else {
+      const transport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
+      if (transport) {
+        response = await transport.send("srs_reset", { pair });
+      } else {
+        throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      }
+    }
+
+    this.logger(`[HelperManager] resetSrs response:`, response);
+
+    if (!response || response.ok === false) {
+      throw new Error(
+        response && response.error && response.error.message
+          ? response.error.message
+          : this.i18n.t("status_srs_reset_failed", null, "SRS reset failed.")
+      );
+    }
+
+    const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
+    try {
+      if (helperCache && typeof helperCache.clearPair === "function") {
+        await helperCache.clearPair(pair);
+      } else if (helperCache) {
+        if (typeof helperCache.deleteSnapshot === "function") {
+          await helperCache.deleteSnapshot(pair);
+        }
+        if (typeof helperCache.deleteRuleset === "function") {
+          await helperCache.deleteRuleset(pair);
+        }
+      }
+    } catch (err) {
+      this.logger("Failed clearing helper cache for reset pair.", err);
+    }
+
+    return response.data;
   }
 }

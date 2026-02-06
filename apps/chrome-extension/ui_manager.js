@@ -22,7 +22,7 @@ class UIManager {
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
       "srs-exposure-logging-enabled", "srs-sample", "srs-sample-output",
-      "srs-rulegen-preview", "srs-rulegen-output", "helper-status",
+      "srs-rulegen-preview", "srs-rulegen-output", "srs-reset", "helper-status",
       "helper-last-sync", "helper-refresh", "debug-helper-test",
       "debug-helper-test-output", "debug-open-data-dir",
       "debug-open-data-dir-output", "ui-language", "rules", "save",

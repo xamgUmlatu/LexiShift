@@ -155,6 +155,15 @@
   "button_srs_rulegen_preview": {
     "message": "ルール生成（デバッグ）…"
   },
+  "button_srs_reset": {
+    "message": "SRSデータをリセット"
+  },
+  "confirm_srs_reset_1": {
+    "message": "この言語ペアのSRS進捗をすべてリセットしますか？この操作は元に戻せません。"
+  },
+  "confirm_srs_reset_2": {
+    "message": "このペアの学習履歴を本当に削除して最初からやり直しますか？"
+  },
   "status_srs_sampling": {
     "message": "サンプリング中…"
   },
@@ -175,6 +184,45 @@
   },
   "status_srs_rulegen_failed": {
     "message": "ルールプレビューに失敗しました。"
+  },
+  "diag_header": {
+    "message": "診断:"
+  },
+  "diag_missing_freq_pack": {
+    "message": "対象言語の頻度パックがありません。"
+  },
+  "diag_missing_jmdict": {
+    "message": "JMDict 言語パックがありません。"
+  },
+  "diag_missing_inputs": {
+    "message": "不足している入力:"
+  },
+  "diag_expected_path": {
+    "message": "想定パス: $1"
+  },
+  "diag_fix_freq_pack": {
+    "message": "対処: LexiShift アプリ → 設定 → Frequency Packs を開き、対象パックをダウンロードしてください。"
+  },
+  "diag_fix_jmdict": {
+    "message": "対処: LexiShift アプリ → 設定 → Language Packs を開き、JMDict をダウンロードしてください。"
+  },
+  "label_pair": {
+    "message": "ペア"
+  },
+  "label_fix": {
+    "message": "対処:"
+  },
+  "status_srs_resetting": {
+    "message": "SRSデータをリセット中…"
+  },
+  "status_srs_reset_success": {
+    "message": "SRSデータをリセットしました。"
+  },
+  "status_srs_reset_failed": {
+    "message": "SRSリセットに失敗しました。"
+  },
+  "status_srs_reset_outdated": {
+    "message": "ヘルパーが古いためコマンドが見つかりません。ヘルパーを再起動してください。"
   },
   "section_share_code": {
     "message": "共有コード"

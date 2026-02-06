@@ -15,6 +15,7 @@ from lexishift_core.helper_engine import (
     apply_exposure,
     apply_feedback,
     load_snapshot,
+    reset_srs_data,
     run_rulegen_job,
 )
 from lexishift_core.helper_paths import build_helper_paths
@@ -77,7 +78,7 @@ def cmd_record_feedback(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
     apply_feedback(
         paths,
-        language_pair=args.pair,
+        pair=args.pair,
         lemma=args.lemma,
         rating=args.rating,
         source_type=args.source_type,
@@ -90,11 +91,18 @@ def cmd_record_exposure(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
     apply_exposure(
         paths,
-        language_pair=args.pair,
+        pair=args.pair,
         lemma=args.lemma,
         source_type=args.source_type,
     )
     _print_json({"ok": True})
+    return 0
+
+
+def cmd_reset_srs(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = reset_srs_data(paths, pair=args.pair)
+    _print_json(payload)
     return 0
 
 
@@ -132,6 +140,10 @@ def build_parser() -> argparse.ArgumentParser:
     exposure.add_argument("--lemma", required=True)
     exposure.add_argument("--source-type", default="extension")
     exposure.set_defaults(func=cmd_record_exposure)
+
+    reset = sub.add_parser("reset_srs", help="Reset SRS progress")
+    reset.add_argument("--pair", help="Language pair to reset (omit to reset all).")
+    reset.set_defaults(func=cmd_reset_srs)
 
     return parser
 

@@ -52,10 +52,33 @@
     return cache[pair] ? cache[pair].data : null;
   }
 
+  async function deleteRuleset(pair) {
+    if (!pair) return;
+    const cache = await readKey(RULESET_KEY);
+    if (!(pair in cache)) return;
+    delete cache[pair];
+    await writeKey(RULESET_KEY, cache);
+  }
+
+  async function deleteSnapshot(pair) {
+    if (!pair) return;
+    const cache = await readKey(SNAPSHOT_KEY);
+    if (!(pair in cache)) return;
+    delete cache[pair];
+    await writeKey(SNAPSHOT_KEY, cache);
+  }
+
+  async function clearPair(pair) {
+    await Promise.all([deleteRuleset(pair), deleteSnapshot(pair)]);
+  }
+
   root.helperCache = {
     saveRuleset,
     loadRuleset,
     saveSnapshot,
-    loadSnapshot
+    loadSnapshot,
+    deleteRuleset,
+    deleteSnapshot,
+    clearPair
   };
 })();

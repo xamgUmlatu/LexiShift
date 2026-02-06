@@ -46,6 +46,7 @@ const {
   srsSampleOutput: srsSampleOutput,
   srsRulegenPreview: srsRulegenButton,
   srsRulegenOutput: srsRulegenOutput,
+  srsReset: srsResetButton,
   helperRefresh: helperRefreshButton,
   debugHelperTest: debugHelperTestButton,
   debugHelperTestOutput: debugHelperTestOutput,
@@ -135,7 +136,7 @@ async function saveSrsSettings() {
   const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
   const srsMaxActive = Number.isFinite(maxActiveRaw)
     ? Math.max(1, maxActiveRaw)
-    : (settingsManager.defaults.srsMaxActive || 40);
+    : (settingsManager.defaults.srsMaxActive || 20);
   const srsSoundEnabled = srsSoundInput ? srsSoundInput.checked : true;
   const srsHighlightColor = srsHighlightInput
     ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
@@ -428,6 +429,10 @@ async function previewSrsRulegen() {
     return;
   }
   const srsPair = resolvePairFromInputs();
+  const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
+  const srsMaxActive = Number.isFinite(maxActiveRaw)
+    ? Math.max(1, maxActiveRaw)
+    : (settingsManager.defaults.srsMaxActive || 20);
   srsRulegenButton.disabled = true;
   srsRulegenOutput.textContent = t(
     "status_srs_rulegen_running",
@@ -436,7 +441,7 @@ async function previewSrsRulegen() {
   );
 
   try {
-      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair);
+      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair, srsMaxActive);
       const rulegenTargets = Number(rulegenData.targets || 0);
       const rulegenRules = Number(rulegenData.rules || 0);
       const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
@@ -485,7 +490,14 @@ async function previewSrsRulegen() {
           ...diagLines
         ].join("\n");
       } else {
-        const lines = targets.map((entry) => {
+        // Ensure targets are sorted by lemma for consistent display
+        const sortedTargets = [...targets].sort((a, b) => {
+          const lemmaA = String(a.lemma || "");
+          const lemmaB = String(b.lemma || "");
+          return lemmaA.localeCompare(lemmaB);
+        });
+
+        const lines = sortedTargets.map((entry) => {
           const lemma = String(entry.lemma || "").trim();
           const sources = Array.isArray(entry.sources) ? entry.sources : [];
           if (!lemma) return null;
@@ -515,6 +527,42 @@ async function previewSrsRulegen() {
     logOptions("SRS rulegen preview failed.", err);
   } finally {
     srsRulegenButton.disabled = false;
+  }
+}
+
+async function resetSrsData() {
+  if (!srsResetButton) return;
+
+  // Confirmation 1
+  if (!confirm(t("confirm_srs_reset_1", null, "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."))) {
+    return;
+  }
+
+  // Confirmation 2
+  if (!confirm(t("confirm_srs_reset_2", null, "Really delete all learning history and start over for this pair?"))) {
+    return;
+  }
+
+  const srsPair = resolvePairFromInputs();
+  logOptions(`[Reset] User confirmed reset for pair: ${srsPair}`);
+  srsResetButton.disabled = true;
+  setStatus(t("status_srs_resetting", null, "Resetting SRS data…"), ui.COLORS.DEFAULT);
+
+  try {
+    await helperManager.resetSrs(srsPair);
+    logOptions("[Reset] Helper returned success.");
+    setStatus(t("status_srs_reset_success", null, "SRS data reset successfully."), ui.COLORS.SUCCESS);
+    if (srsRulegenOutput) srsRulegenOutput.textContent = "";
+    if (srsSampleOutput) srsSampleOutput.textContent = "";
+  } catch (err) {
+    logOptions("[Reset] Failed:", err);
+    let msg = err && err.message ? err.message : t("status_srs_reset_failed", null, "SRS reset failed.");
+    if (msg.includes("Unknown command")) {
+      msg = t("status_srs_reset_outdated", null, "Helper outdated: command not found. Restart helper?");
+    }
+    setStatus(msg, ui.COLORS.ERROR);
+  } finally {
+    srsResetButton.disabled = false;
   }
 }
 
@@ -600,6 +648,9 @@ if (srsSampleButton) {
 }
 if (srsRulegenButton) {
   srsRulegenButton.addEventListener("click", previewSrsRulegen);
+}
+if (srsResetButton) {
+  srsResetButton.addEventListener("click", resetSrsData);
 }
 if (helperRefreshButton) {
   helperRefreshButton.addEventListener("click", refreshHelperStatus);

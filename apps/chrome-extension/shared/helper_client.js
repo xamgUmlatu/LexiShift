@@ -46,6 +46,10 @@
     triggerRulegen(payload, timeoutMs) {
       return this.send("trigger_rulegen", payload, timeoutMs);
     }
+
+    resetSrs(payload) {
+      return this.send("srs_reset", payload);
+    }
   }
 
   root.helperClient = HelperClient;

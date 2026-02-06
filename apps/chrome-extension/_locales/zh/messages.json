@@ -155,6 +155,15 @@
   "button_srs_rulegen_preview": {
     "message": "生成规则（调试）…"
   },
+  "button_srs_reset": {
+    "message": "重置 SRS 数据"
+  },
+  "confirm_srs_reset_1": {
+    "message": "确定要重置此语言对的所有 SRS 进度吗？此操作无法撤销。"
+  },
+  "confirm_srs_reset_2": {
+    "message": "确定要删除此语言对的全部学习历史并重新开始吗？"
+  },
   "status_srs_sampling": {
     "message": "正在抽样…"
   },
@@ -175,6 +184,45 @@
   },
   "status_srs_rulegen_failed": {
     "message": "规则预览失败。"
+  },
+  "diag_header": {
+    "message": "诊断："
+  },
+  "diag_missing_freq_pack": {
+    "message": "缺少目标语言的词频包。"
+  },
+  "diag_missing_jmdict": {
+    "message": "缺少 JMDict 语言包。"
+  },
+  "diag_missing_inputs": {
+    "message": "缺少输入："
+  },
+  "diag_expected_path": {
+    "message": "预期路径：$1"
+  },
+  "diag_fix_freq_pack": {
+    "message": "修复：打开 LexiShift 应用 → 设置 → Frequency Packs，并下载目标语言包。"
+  },
+  "diag_fix_jmdict": {
+    "message": "修复：打开 LexiShift 应用 → 设置 → Language Packs，并下载 JMDict。"
+  },
+  "label_pair": {
+    "message": "语言对"
+  },
+  "label_fix": {
+    "message": "修复："
+  },
+  "status_srs_resetting": {
+    "message": "正在重置 SRS 数据…"
+  },
+  "status_srs_reset_success": {
+    "message": "SRS 数据已重置。"
+  },
+  "status_srs_reset_failed": {
+    "message": "重置 SRS 失败。"
+  },
+  "status_srs_reset_outdated": {
+    "message": "Helper 版本过旧：找不到命令。请重启 Helper。"
   },
   "section_share_code": {
     "message": "分享代码"

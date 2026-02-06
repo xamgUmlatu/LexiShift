@@ -19,7 +19,7 @@ class SettingsManager {
       srsProfiles: {},
       srsEnabled: false,
       srsPair: "en-en",
-      srsMaxActive: 40,
+      srsMaxActive: 20,
       srsSoundEnabled: true,
       srsHighlightColor: "#2F74D0",
       srsFeedbackSrsEnabled: true,
@@ -57,7 +57,7 @@ class SettingsManager {
     const profiles = items.srsProfiles || {};
     const profile = profiles[pairKey] || {};
     return {
-      srsMaxActive: profile.srsMaxActive || items.srsMaxActive || this.defaults.srsMaxActive || 40,
+      srsMaxActive: profile.srsMaxActive || items.srsMaxActive || this.defaults.srsMaxActive || 20,
       srsSoundEnabled: profile.srsSoundEnabled !== undefined ? profile.srsSoundEnabled : (items.srsSoundEnabled !== false),
       srsHighlightColor: profile.srsHighlightColor || items.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
       srsFeedbackSrsEnabled: profile.srsFeedbackSrsEnabled !== undefined ? profile.srsFeedbackSrsEnabled : (items.srsFeedbackSrsEnabled !== false),

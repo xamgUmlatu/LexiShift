@@ -25,7 +25,15 @@ def _inject_core_path() -> None:
 
 _inject_core_path()
 
-from lexishift_core.helper_engine import RulegenJobConfig, apply_exposure, apply_feedback, load_ruleset, load_snapshot, run_rulegen_job
+from lexishift_core.helper_engine import (
+    RulegenJobConfig,
+    apply_exposure,
+    apply_feedback,
+    load_ruleset,
+    load_snapshot,
+    reset_srs_data,
+    run_rulegen_job,
+)
 from lexishift_core.helper_os import open_path
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
@@ -128,6 +136,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             debug_sample_size=int(payload.get("debug_sample_size", 10)),
         )
         return run_rulegen_job(paths, config=config)
+    if msg_type == "srs_reset":
+        pair = str(payload.get("pair", "")).strip() or None
+        return reset_srs_data(paths, pair=pair)
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}
