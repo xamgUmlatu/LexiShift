@@ -49,6 +49,11 @@ def _log_helper_file(message: str) -> None:
         pass
 
 
+def log_helper_install(message: str) -> None:
+    log_helper(message)
+    _log_helper_file(message)
+
+
 def _log_app_bundle_info() -> None:
     if sys.platform != "darwin":
         return
@@ -118,19 +123,23 @@ def _repo_root() -> Path:
 def default_host_script() -> Path:
     override = os.environ.get("LEXISHIFT_HELPER_HOST")
     if override:
-        log_helper(f"[Helper] Using override host path: {override}")
+        log_helper_install(f"[Helper] Using override host path: {override}")
         return Path(override)
-    log_helper(f"[Helper] frozen={getattr(sys, 'frozen', False)}, _MEIPASS={getattr(sys, '_MEIPASS', None)}")
+    log_helper_install(
+        f"[Helper] frozen={getattr(sys, 'frozen', False)}, _MEIPASS={getattr(sys, '_MEIPASS', None)}"
+    )
     bundled = Path(resource_path("helper", "lexishift_native_host.py"))
+    log_helper_install(f"[Helper] Bundled host candidate: {bundled} exists={bundled.exists()}")
     if bundled.exists():
-        log_helper(f"[Helper] Found bundled host path: {bundled}")
         return bundled
     if getattr(sys, "frozen", False):
         candidate = _helper_data_root() / "helper" / "lexishift_native_host.py"
-        log_helper(f"[Helper] Frozen app, bundled not found. Checking installed candidate: {candidate} exists={candidate.exists()}")
+        log_helper_install(
+            f"[Helper] Frozen app, bundled not found. Checking installed candidate: {candidate} exists={candidate.exists()}"
+        )
         return candidate
     repo_path = _repo_root() / "scripts" / "helper" / "lexishift_native_host.py"
-    log_helper(f"[Helper] Dev mode, using repo path: {repo_path}")
+    log_helper_install(f"[Helper] Dev mode, using repo path: {repo_path} exists={repo_path.exists()}")
     return repo_path
 
 
@@ -160,7 +169,7 @@ def _is_bundled_path(path: Path) -> bool:
 
 def _ensure_stable_helper(host_path: Path) -> Path:
     if not _is_bundled_path(host_path):
-        log_helper(f"[Helper] Host path {host_path} is not bundled; skipping stable copy.")
+        log_helper_install(f"[Helper] Host path {host_path} is not bundled; skipping stable copy.")
         return host_path
     target_dir = _helper_data_root() / "helper"
     target_dir.mkdir(parents=True, exist_ok=True)
@@ -169,9 +178,9 @@ def _ensure_stable_helper(host_path: Path) -> Path:
     # 1. Copy the host script
     try:
         shutil.copy2(host_path, target_host)
-        log_helper(f"[Helper] Copied bundled host to {target_host}")
+        log_helper_install(f"[Helper] Copied bundled host to {target_host}")
     except OSError as e:
-        log_helper(f"[Helper] Failed to copy bundled host to {target_host}: {e}")
+        log_helper_install(f"[Helper] Failed to copy bundled host to {target_host}: {e}")
         # If copy fails, we return the original path, but this is risky for one-file apps.
         return host_path
 
@@ -190,11 +199,11 @@ def _ensure_stable_helper(host_path: Path) -> Path:
             if core_dst.exists():
                 shutil.rmtree(core_dst)
             shutil.copytree(core_src, core_dst, dirs_exist_ok=True)
-            log_helper(f"[Helper] Copied lexishift_core from {core_src} to {core_dst}")
+            log_helper_install(f"[Helper] Copied lexishift_core from {core_src} to {core_dst}")
         except OSError as e:
-            log_helper(f"[Helper] Failed to copy lexishift_core: {e}")
+            log_helper_install(f"[Helper] Failed to copy lexishift_core: {e}")
     else:
-        log_helper(f"[Helper] Warning: lexishift_core not found in bundle near {host_path}")
+        log_helper_install(f"[Helper] Warning: lexishift_core not found in bundle near {host_path}")
 
     return target_host
 
@@ -334,15 +343,24 @@ def build_manifest(*, host_path: Path, extension_id: str) -> dict:
 def is_helper_installed(extension_id: Optional[str] = None, *, browser: str = "chrome") -> bool:
     manifest = manifest_path(browser)
     if not manifest or not manifest.exists():
+        log_helper_install(f"[Helper] is_helper_installed: manifest missing for {browser} at {manifest}")
         return False
     if not extension_id:
+        log_helper_install("[Helper] is_helper_installed: extension_id not provided; manifest exists.")
         return True
     try:
         data = json.loads(manifest.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
+        log_helper_install("[Helper] is_helper_installed: failed to read manifest.")
         return False
     allowed = data.get("allowed_origins") or []
-    return f"chrome-extension://{extension_id}/" in allowed
+    has_origin = f"chrome-extension://{extension_id}/" in allowed
+    host_path = Path(str(data.get("path", "")))
+    log_helper_install(
+        f"[Helper] is_helper_installed: origin={has_origin} host={host_path} "
+        f"exists={host_path.exists()} allowed={allowed}"
+    )
+    return has_origin
 
 
 def install_helper(
@@ -352,22 +370,21 @@ def install_helper(
     host_path: Optional[Path] = None,
 ) -> HelperInstallResult:
     if not extension_id.strip():
-        log_helper("[Helper] install_helper failed: missing extension id.")
-        _log_helper_file("install_helper failed: missing extension id.")
+        log_helper_install("[Helper] install_helper failed: missing extension id.")
         return HelperInstallResult(False, "Extension ID is required.")
     manifest = manifest_path(browser)
     if manifest is None:
-        log_helper("[Helper] install_helper failed: unsupported OS.")
-        _log_helper_file("install_helper failed: unsupported OS.")
+        log_helper_install("[Helper] install_helper failed: unsupported OS.")
         return HelperInstallResult(False, "Helper install not supported on this OS yet.")
     host_path = host_path or default_host_script()
+    log_helper_install(f"[Helper] install_helper: host_path={host_path} exists={host_path.exists()}")
     
     # Force copy to stable location and use THAT path for the manifest
     stable_path = _ensure_stable_helper(host_path)
+    log_helper_install(f"[Helper] install_helper: stable_path={stable_path} exists={stable_path.exists()}")
     
     if not stable_path.exists():
-        log_helper(f"[Helper] install_helper failed: stable host not found at {stable_path}")
-        _log_helper_file(f"install_helper failed: stable host not found at {stable_path}")
+        log_helper_install(f"[Helper] install_helper failed: stable host not found at {stable_path}")
         return HelperInstallResult(False, f"Helper host not found: {stable_path}")
     try:
         mode = stable_path.stat().st_mode
