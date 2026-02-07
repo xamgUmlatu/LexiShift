@@ -62,7 +62,7 @@ Status key:
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
 - `[~]` Profile-aware weighting in `profile_bootstrap`.
-- `[~]` Initial active subset policy (`initial_active_count`) integrated as contract; serving policy still pending.
+- `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
 - `[ ]` Executable `profile_growth` policy.
 
 ### Workstream C — Signals and adaptive refresh
@@ -82,6 +82,7 @@ Status key:
 - `[x]` Rulegen preview made non-mutating.
 - `[x]` Helper initialize action exposed in options.
 - `[x]` Ensure debug rulegen scopes to current helper-managed `S` only.
+- `[x]` Add sampled rulegen debug path (helper-side probabilistic sampling from current `S`).
 - `[ ]` Unified diagnostics surface for plan + snapshot + ruleset.
 
 ### Workstream F — Cross-surface consistency

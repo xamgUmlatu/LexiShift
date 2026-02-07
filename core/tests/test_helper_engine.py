@@ -200,6 +200,70 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertEqual(len(persisted.items), 1)
             self.assertEqual(persisted.items[0].item_id, "en-ja:alpha")
 
+    def test_preview_mode_supports_sampled_targets(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+
+            save_srs_settings(SrsSettings(), paths.srs_settings_path)
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                        SrsItem(
+                            item_id="en-ja:beta",
+                            lemma="beta",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                        SrsItem(
+                            item_id="en-ja:gamma",
+                            lemma="gamma",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+
+            with patch(
+                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                return_value=(load_srs_store(paths.srs_store_path), self._stub_output()),
+            ) as run_rulegen, patch("lexishift_core.helper_engine.write_rulegen_outputs"), patch(
+                "lexishift_core.helper_engine._update_status"
+            ):
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                        sample_count=2,
+                        sample_strategy="weighted_priority",
+                        sample_seed=42,
+                    ),
+                )
+
+            called_targets = run_rulegen.call_args.kwargs.get("targets_override")
+            self.assertIsInstance(called_targets, list)
+            self.assertEqual(len(called_targets), 2)
+            self.assertIn("sampling", result)
+            sampling = result["sampling"]
+            self.assertEqual(sampling["sample_count_effective"], 2)
+            self.assertEqual(sampling["total_items_for_pair"], 3)
+
 
 class TestHelperEngineInitializeSrsSet(unittest.TestCase):
     def test_initialize_set_adds_items_for_pair(self) -> None:
@@ -249,6 +313,8 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                     updated_store,
                     SimpleNamespace(
                         selected_count=2,
+                        selected_unique_count=2,
+                        admitted_count=1,
                         inserted_count=1,
                         updated_count=1,
                         selected_preview=("alpha", "gamma"),
@@ -325,6 +391,8 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                     replaced_store,
                     SimpleNamespace(
                         selected_count=1,
+                        selected_unique_count=1,
+                        admitted_count=1,
                         inserted_count=1,
                         updated_count=0,
                         selected_preview=("gamma",),

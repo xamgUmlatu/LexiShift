@@ -72,9 +72,13 @@ class SqliteFrequencyStore:
             if item not in cols:
                 cols.append(item)
         col_sql = ", ".join(cols)
+        # Some frequency packs contain NULL rank values. In SQLite, NULL sorts
+        # before numeric values for ASC order, which can incorrectly put
+        # unranked entries at the top. Push NULL ranks to the end and
+        # tie-break with pmw descending.
         query = (
             f"SELECT {col_sql} FROM {self._config.table} "
-            f"ORDER BY {rank_column} ASC LIMIT ?;"
+            f"ORDER BY ({rank_column} IS NULL) ASC, {rank_column} ASC, {self._config.pmw_column} DESC LIMIT ?;"
         )
         for row in self._conn.execute(query, (limit,)):
             yield row

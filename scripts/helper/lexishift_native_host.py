@@ -151,6 +151,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             update_status=payload.get("update_status", True),
             debug=bool(payload.get("debug", False)),
             debug_sample_size=int(payload.get("debug_sample_size", 10)),
+            sample_count=_optional_int(payload, "sample_count"),
+            sample_strategy=str(payload.get("sample_strategy", "")).strip() or None,
+            sample_seed=_optional_int(payload, "sample_seed"),
         )
         return run_rulegen_job(paths, config=config)
     if msg_type == "srs_initialize":

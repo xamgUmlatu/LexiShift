@@ -118,6 +118,11 @@ Commands (MVP):
 - `srs_initialize` → initialize set S for a pair (mutation).
 - `srs_reset` → clear SRS progress for pair/all.
 
+`trigger_rulegen` optional sampled-target debug fields:
+- `sample_count`
+- `sample_strategy` (`weighted_priority` or `uniform`)
+- `sample_seed` (optional deterministic RNG seed)
+
 Sizing contract for `srs_plan_set` and `srs_initialize`:
 - `bootstrap_top_n` (preferred bootstrap size input)
 - `initial_active_count` (declared initial active subset size)

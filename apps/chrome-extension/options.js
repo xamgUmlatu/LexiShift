@@ -50,6 +50,7 @@ const {
   srsSampleOutput: srsSampleOutput,
   srsInitializeSet: srsInitializeSetButton,
   srsRulegenPreview: srsRulegenButton,
+  srsRulegenSampledPreview: srsRulegenSampledButton,
   srsRulegenOutput: srsRulegenOutput,
   srsReset: srsResetButton,
   helperRefresh: helperRefreshButton,
@@ -549,6 +550,8 @@ async function initializeSrsSet() {
       `- source_type: ${result.source_type || "initial_set"}`,
       `- store_path: ${result.store_path || "n/a"}`,
       applied ? `- selected_count: ${bootstrapDiagnostics.selected_count ?? "n/a"}` : null,
+      applied ? `- selected_unique_count: ${bootstrapDiagnostics.selected_unique_count ?? "n/a"}` : null,
+      applied ? `- admitted_count: ${bootstrapDiagnostics.admitted_count ?? "n/a"}` : null,
       applied ? `- inserted_count: ${bootstrapDiagnostics.inserted_count ?? "n/a"}` : null,
       applied ? `- updated_count: ${bootstrapDiagnostics.updated_count ?? "n/a"}` : null,
       applied && initialActivePreview.length
@@ -587,10 +590,6 @@ async function previewSrsRulegen() {
     return;
   }
   const srsPair = resolvePairFromInputs();
-  const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
-  const srsMaxActive = Number.isFinite(maxActiveRaw)
-    ? Math.max(1, maxActiveRaw)
-    : (settingsManager.defaults.srsMaxActive || 20);
   srsRulegenButton.disabled = true;
   srsRulegenOutput.textContent = t(
     "status_srs_rulegen_running",
@@ -599,7 +598,7 @@ async function previewSrsRulegen() {
   );
 
   try {
-      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair, srsMaxActive);
+      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair);
       const rulegenTargets = Number(rulegenData.targets || 0);
       const rulegenRules = Number(rulegenData.rules || 0);
       const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
@@ -685,6 +684,107 @@ async function previewSrsRulegen() {
     logOptions("SRS rulegen preview failed.", err);
   } finally {
     srsRulegenButton.disabled = false;
+  }
+}
+
+async function previewSampledSrsRulegen() {
+  if (!srsRulegenSampledButton || !srsRulegenOutput) {
+    return;
+  }
+  const srsPair = resolvePairFromInputs();
+  const sampleCount = 5;
+  srsRulegenSampledButton.disabled = true;
+  srsRulegenOutput.textContent = t(
+    "status_srs_rulegen_sampled_running",
+    [sampleCount],
+    `Running sampled rulegen (${sampleCount})…`
+  );
+
+  try {
+    const { rulegenData, snapshot, duration } = await helperManager.runSampledRulegenPreview(
+      srsPair,
+      sampleCount,
+      { strategy: "weighted_priority" }
+    );
+    const sampling = rulegenData.sampling && typeof rulegenData.sampling === "object"
+      ? rulegenData.sampling
+      : {};
+    const sampledLemmas = Array.isArray(sampling.sampled_lemmas) ? sampling.sampled_lemmas : [];
+    const sampledCount = Number(sampling.sample_count_effective || sampledLemmas.length || 0);
+    const rulegenTargets = Number(rulegenData.targets || 0);
+    const rulegenRules = Number(rulegenData.rules || 0);
+    const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
+    const header = t(
+      "status_srs_rulegen_sampled_result_header",
+      [sampledCount, rulegenTargets, rulegenRules, duration],
+      `Sampled rulegen: ${sampledCount} words, ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`
+    );
+    const samplingLines = [
+      `- strategy_requested: ${sampling.strategy_requested || "n/a"}`,
+      `- strategy_effective: ${sampling.strategy_effective || "n/a"}`,
+      `- sample_count_requested: ${sampling.sample_count_requested ?? sampleCount}`,
+      `- sample_count_effective: ${sampling.sample_count_effective ?? sampledCount}`,
+      `- total_items_for_pair: ${sampling.total_items_for_pair ?? "n/a"}`,
+      sampledLemmas.length ? `- sampled_lemmas: ${sampledLemmas.join(", ")}` : null
+    ].filter(Boolean);
+    if (!targets.length) {
+      const diag = rulegenData.diagnostics || {};
+      const diagLines = [
+        t("diag_header", null, "Diagnostics:"),
+        `- ${t("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
+        `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
+        `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
+        `- store_items: ${diag.store_items ?? "n/a"}`,
+        `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
+        `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
+      ];
+      srsRulegenOutput.textContent = [
+        header,
+        ...samplingLines,
+        "",
+        t("status_srs_rulegen_empty", null, "No rules found for current active words."),
+        "",
+        ...diagLines
+      ].join("\n");
+    } else {
+      const sortedTargets = [...targets].sort((a, b) => {
+        const lemmaA = String(a.lemma || "");
+        const lemmaB = String(b.lemma || "");
+        return lemmaA.localeCompare(lemmaB);
+      });
+
+      const lines = sortedTargets.map((entry) => {
+        const lemma = String(entry.lemma || "").trim();
+        const sources = Array.isArray(entry.sources) ? entry.sources : [];
+        if (!lemma) return null;
+        if (!sources.length) {
+          return t(
+            "status_srs_rulegen_line_no_rules",
+            [lemma],
+            `${lemma} → (no rules)`
+          );
+        }
+        return t(
+          "status_srs_rulegen_line_rules",
+          [lemma, sources.join(", ")],
+          `${lemma} → ${sources.join(", ")}`
+        );
+      }).filter(Boolean);
+      srsRulegenOutput.textContent = [header, ...samplingLines, "", ...lines].join("\n");
+    }
+    logOptions("SRS sampled rulegen preview (helper)", {
+      pair: srsPair,
+      sampledCount,
+      sampledLemmas,
+      targets: targets.length,
+      diagnostics: rulegenData.diagnostics || null
+    });
+  } catch (err) {
+    const msg = err && err.message ? err.message : t("status_srs_rulegen_failed", null, "Rule preview failed.");
+    srsRulegenOutput.textContent = msg;
+    logOptions("SRS sampled rulegen preview failed.", err);
+  } finally {
+    srsRulegenSampledButton.disabled = false;
   }
 }
 
@@ -821,6 +921,9 @@ if (srsInitializeSetButton) {
 }
 if (srsRulegenButton) {
   srsRulegenButton.addEventListener("click", previewSrsRulegen);
+}
+if (srsRulegenSampledButton) {
+  srsRulegenSampledButton.addEventListener("click", previewSampledSrsRulegen);
 }
 if (srsResetButton) {
   srsResetButton.addEventListener("click", resetSrsData);

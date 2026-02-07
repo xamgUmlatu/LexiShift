@@ -66,6 +66,7 @@ Settings flow
 Options UI tools (extension)
 - SRS: “Sample active words…” button uses the current selector + pair to show 5 candidates.
 - SRS: “Initialize S for this pair” calls helper `srs_initialize` with profile-context scaffold.
+- SRS: “Run sampled rulegen (5)…” performs helper-side probabilistic sampling from current helper-managed `S`, then runs non-mutating rulegen for that sampled subset.
 - Debug focus word: highlights whether a token was seen or replaced.
 - Share code: export/import compressed rules.
 - Logging controls (Advanced):

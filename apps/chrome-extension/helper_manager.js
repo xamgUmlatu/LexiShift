@@ -121,7 +121,7 @@ class HelperManager {
     }
   }
 
-  async runRulegenPreview(pair, maxActive) {
+  async runRulegenPreview(pair) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
 
@@ -134,8 +134,57 @@ class HelperManager {
       persist_outputs: false,
       update_status: false,
       debug: true,
+      debug_sample_size: 10
+    }, 15000);
+
+    if (!rulegenResponse || rulegenResponse.ok === false) {
+      throw new Error(
+        rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
+          ? rulegenResponse.error.message
+          : this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed.")
+      );
+    }
+
+    const rulegenData = rulegenResponse.data || {};
+    const duration = ((Date.now() - startedAt) / 1000).toFixed(1);
+    const snapshot = rulegenData.snapshot || null;
+    const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
+
+    if (snapshot && helperCache && typeof helperCache.saveSnapshot === "function") {
+      helperCache.saveSnapshot(pair, snapshot);
+    }
+
+    if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
+    return { rulegenData, snapshot, duration };
+  }
+
+  async runSampledRulegenPreview(pair, sampleCount = 5, options) {
+    const client = this.getClient();
+    if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+
+    const opts = options && typeof options === "object" ? options : {};
+    const strategy = typeof opts.strategy === "string" && opts.strategy
+      ? opts.strategy
+      : "weighted_priority";
+    const seed = Number.isInteger(opts.seed) ? opts.seed : null;
+    const requestedCount = Number.parseInt(sampleCount, 10);
+    const normalizedCount = Number.isFinite(requestedCount)
+      ? Math.max(1, Math.min(requestedCount, 200))
+      : 5;
+
+    const startedAt = Date.now();
+    const rulegenResponse = await client.triggerRulegen({
+      pair: pair,
+      // Preview mode should not mutate helper-side SRS state.
+      initialize_if_empty: false,
+      persist_store: false,
+      persist_outputs: false,
+      update_status: false,
+      debug: true,
       debug_sample_size: 10,
-      max_active: maxActive
+      sample_count: normalizedCount,
+      sample_strategy: strategy,
+      sample_seed: seed
     }, 15000);
 
     if (!rulegenResponse || rulegenResponse.ok === false) {

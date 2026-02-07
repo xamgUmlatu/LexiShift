@@ -29,6 +29,8 @@ class SetInitializationConfig:
 @dataclass(frozen=True)
 class SetInitializationReport:
     selected_count: int
+    selected_unique_count: int
+    admitted_count: int
     inserted_count: int
     updated_count: int
     selected_preview: Sequence[str]
@@ -84,11 +86,22 @@ def initialize_store_from_frequency_list_with_report(
         frequency_db=config.frequency_db,
         config=selection_config,
     )
+    seen_ids: set[str] = set()
+    unique_selected_words = []
+    for selected in selected_words:
+        item_id = build_item_id(selected.language_pair, selected.lemma)
+        if item_id in seen_ids:
+            continue
+        seen_ids.add(item_id)
+        unique_selected_words.append(selected)
+
+    initial_active_count = max(0, int(config.initial_active_count))
+    admitted_words = unique_selected_words[:initial_active_count]
     existing_ids = {item.item_id for item in store.items}
     inserted_count = 0
     updated_count = 0
     updated = store
-    for selected in selected_words:
+    for selected in admitted_words:
         item_id = build_item_id(selected.language_pair, selected.lemma)
         if item_id in existing_ids:
             updated_count += 1
@@ -102,13 +115,14 @@ def initialize_store_from_frequency_list_with_report(
             source_type=SOURCE_INITIAL_SET,
         )
         updated = upsert_item(updated, item)
-    initial_active_count = max(0, int(config.initial_active_count))
-    selected_preview = tuple(selected.lemma for selected in selected_words[:10])
+    selected_preview = tuple(selected.lemma for selected in unique_selected_words[:10])
     initial_active_preview = tuple(
-        selected.lemma for selected in selected_words[:initial_active_count]
+        selected.lemma for selected in admitted_words[:initial_active_count]
     )
     report = SetInitializationReport(
         selected_count=len(selected_words),
+        selected_unique_count=len(unique_selected_words),
+        admitted_count=len(admitted_words),
         inserted_count=inserted_count,
         updated_count=updated_count,
         selected_preview=selected_preview,
@@ -195,13 +209,17 @@ def run_rulegen_for_pair(
     jmdict_path: Path,
     set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
+    targets_override: Optional[Sequence[str]] = None,
     initialize_if_empty: bool = True,
     persist_store: bool = True,
 ) -> tuple[SrsStore, RulegenOutput]:
     rulegen_config = rulegen_config or RulegenConfig(language_pair=pair)
-    targets = load_targets_from_store(store, pair=pair)
+    if targets_override is not None:
+        targets = [str(target).strip() for target in targets_override if str(target).strip()]
+    else:
+        targets = load_targets_from_store(store, pair=pair)
     updated_store = store
-    if not targets and initialize_if_empty and set_init_config:
+    if targets_override is None and not targets and initialize_if_empty and set_init_config:
         updated_store = initialize_store_from_frequency_list(
             store,
             config=set_init_config,

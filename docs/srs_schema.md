@@ -38,6 +38,7 @@ Key semantics:
 - Pair bootstrap sizing is currently configured via profile/options payload:
   - `bootstrap_top_n` (default `800`)
   - `initial_active_count` (default `40`)
+  - Admission rule: only `initial_active_count` unique lemmas are written into sparse `S` at initialization.
 
 ---
 

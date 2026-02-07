@@ -182,6 +182,9 @@
   "button_srs_rulegen_preview": {
     "message": "生成规则（调试）…"
   },
+  "button_srs_rulegen_sampled_preview": {
+    "message": "运行采样规则生成（5）…"
+  },
   "button_srs_reset": {
     "message": "重置 SRS 数据"
   },
@@ -199,6 +202,12 @@
   },
   "status_srs_rulegen_running": {
     "message": "正在生成规则…"
+  },
+  "status_srs_rulegen_sampled_running": {
+    "message": "正在运行采样规则生成（$1）…"
+  },
+  "status_srs_rulegen_sampled_result_header": {
+    "message": "采样规则生成：$1 个词，$2 个目标，$3 条规则（$4秒）"
   },
   "status_srs_set_init_running": {
     "message": "正在初始化 S…"

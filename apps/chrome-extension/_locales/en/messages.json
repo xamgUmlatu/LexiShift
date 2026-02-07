@@ -182,6 +182,9 @@
   "button_srs_rulegen_preview": {
     "message": "Run rulegen (debug)…"
   },
+  "button_srs_rulegen_sampled_preview": {
+    "message": "Run sampled rulegen (5)…"
+  },
   "button_srs_reset": {
     "message": "Reset SRS data"
   },
@@ -199,6 +202,12 @@
   },
   "status_srs_rulegen_running": {
     "message": "Running rulegen…"
+  },
+  "status_srs_rulegen_sampled_running": {
+    "message": "Running sampled rulegen ($1)…"
+  },
+  "status_srs_rulegen_sampled_result_header": {
+    "message": "Sampled rulegen: $1 words, $2 targets, $3 rules ($4s)"
   },
   "status_srs_set_init_running": {
     "message": "Initializing S…"

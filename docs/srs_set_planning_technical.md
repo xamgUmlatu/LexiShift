@@ -83,8 +83,8 @@ Resolution algorithm:
 6. Emit policy notes in planner output whenever defaults/clamps are applied.
 
 Current mutation behavior:
-- Bootstrap admission adds up to `bootstrap_top_n` items into persisted inventory `S`.
-- `initial_active_count` is currently a declared contract + diagnostics field and preview scaffold for downstream active/frontier policies.
+- Bootstrap builds candidate pool from `bootstrap_top_n`, then admits only `initial_active_count` unique lemmas into persisted inventory `S`.
+- Items outside that admitted subset are excluded from `S` (implicit zero probability in sparse representation).
 - Review scheduling still remains feedback-driven and due-based after admission.
 
 ## Event model

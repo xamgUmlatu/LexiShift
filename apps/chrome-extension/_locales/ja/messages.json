@@ -182,6 +182,9 @@
   "button_srs_rulegen_preview": {
     "message": "ルール生成（デバッグ）…"
   },
+  "button_srs_rulegen_sampled_preview": {
+    "message": "サンプル5件でルール生成…"
+  },
   "button_srs_reset": {
     "message": "SRSデータをリセット"
   },
@@ -199,6 +202,12 @@
   },
   "status_srs_rulegen_running": {
     "message": "ルール生成中…"
+  },
+  "status_srs_rulegen_sampled_running": {
+    "message": "サンプルルール生成中（$1）…"
+  },
+  "status_srs_rulegen_sampled_result_header": {
+    "message": "サンプルルール生成: 単語$1件, ターゲット$2件, ルール$3件（$4秒）"
   },
   "status_srs_set_init_running": {
     "message": "Sを初期化中…"

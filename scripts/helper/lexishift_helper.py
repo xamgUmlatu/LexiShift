@@ -84,6 +84,9 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 persist_store=not args.no_persist_store,
                 persist_outputs=not args.no_persist_outputs,
                 update_status=not args.no_status_update,
+                sample_count=args.sample_count,
+                sample_strategy=args.sample_strategy,
+                sample_seed=args.sample_seed,
             ),
         )
         _print_json(payload)
@@ -211,6 +214,13 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--confidence-threshold", type=float, default=0.0)
     run.add_argument("--snapshot-targets", type=int, default=50)
     run.add_argument("--snapshot-sources", type=int, default=6)
+    run.add_argument("--sample-count", type=int, help="Sample N target lemmas from current S before rulegen.")
+    run.add_argument(
+        "--sample-strategy",
+        choices=("weighted_priority", "uniform"),
+        help="Sampling strategy used with --sample-count.",
+    )
+    run.add_argument("--sample-seed", type=int, help="Optional RNG seed for deterministic sampling.")
     run.set_defaults(func=cmd_run_rulegen)
 
     init_s = sub.add_parser("init_srs_set", help="Initialize S for a language pair")

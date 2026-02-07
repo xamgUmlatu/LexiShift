@@ -21,6 +21,7 @@ from lexishift_core.srs_set_strategy import (
     STRATEGY_FREQUENCY_BOOTSTRAP,
 )
 from lexishift_core.srs_set_policy import resolve_set_sizing_policy
+from lexishift_core.srs_sampling import sample_store_items, sampling_result_to_dict
 from lexishift_core.srs_signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
@@ -48,6 +49,9 @@ class RulegenJobConfig:
     update_status: bool = True
     debug: bool = False
     debug_sample_size: int = 10
+    sample_count: Optional[int] = None
+    sample_strategy: Optional[str] = None
+    sample_seed: Optional[int] = None
 
 
 @dataclass(frozen=True)
@@ -143,6 +147,7 @@ def run_rulegen_job(
     settings = _ensure_settings(paths, persist_missing=config.persist_store)
     store = _ensure_store(paths, persist_missing=config.persist_store)
     diagnostics: dict[str, object] | None = None
+    sampling_result = None
     set_init_config = None
     if config.set_source_db and config.set_source_db.exists():
         set_init_config = SetInitializationConfig(
@@ -157,6 +162,16 @@ def run_rulegen_job(
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
     )
+    targets_override: list[str] | None = None
+    if config.sample_count is not None:
+        sampling_result = sample_store_items(
+            store,
+            pair=config.pair,
+            sample_count=config.sample_count,
+            strategy=config.sample_strategy,
+            seed=config.sample_seed,
+        )
+        targets_override = list(sampling_result.sampled_lemmas)
     if config.debug:
         missing_inputs = []
         if config.set_source_db and not config.set_source_db.exists():
@@ -176,6 +191,8 @@ def run_rulegen_job(
                 item.lemma for item in store.items if item.language_pair == config.pair
             ][: max(1, int(config.debug_sample_size))],
         }
+        if sampling_result is not None:
+            diagnostics["sampling"] = sampling_result_to_dict(sampling_result)
     store, output = run_rulegen_for_pair(
         paths=paths,
         pair=config.pair,
@@ -184,6 +201,7 @@ def run_rulegen_job(
         jmdict_path=config.jmdict_path,
         set_init_config=set_init_config,
         rulegen_config=rulegen_config,
+        targets_override=targets_override,
         initialize_if_empty=config.initialize_if_empty,
         persist_store=config.persist_store,
     )
@@ -214,6 +232,8 @@ def run_rulegen_job(
     }
     if diagnostics is not None:
         response["diagnostics"] = diagnostics
+    if sampling_result is not None:
+        response["sampling"] = sampling_result_to_dict(sampling_result)
     return response
 
 
@@ -402,6 +422,8 @@ def initialize_srs_set(
         "store_path": str(paths.srs_store_path),
         "bootstrap_diagnostics": {
             "selected_count": init_report.selected_count,
+            "selected_unique_count": init_report.selected_unique_count,
+            "admitted_count": init_report.admitted_count,
             "inserted_count": init_report.inserted_count,
             "updated_count": init_report.updated_count,
             "selected_preview": list(init_report.selected_preview),
