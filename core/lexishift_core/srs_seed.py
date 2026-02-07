@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 from pathlib import Path
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.dict_loaders import load_jmdict_lemmas
 from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
+from lexishift_core.srs_admission_policy import (
+    AdmissionPosWeights,
+    compute_admission_weight,
+    resolve_default_pos_weights,
+)
 from lexishift_core.srs_selector import SelectorCandidate
 from lexishift_core.weighting import PmwWeighting
 
@@ -15,8 +21,12 @@ class SeedWord:
     lemma: str
     language_pair: str
     core_rank: Optional[float]
+    pos: Optional[str]
+    pos_bucket: str
+    pos_weight: float
     pmw: Optional[float]
     base_weight: float
+    admission_weight: float
     metadata: dict[str, object]
 
 
@@ -27,9 +37,14 @@ class SeedSelectionConfig:
     lemma_column: str = "lemma"
     rank_column: str = "core_rank"
     pmw_column: str = "pmw"
+    pos_column: str = "pos"
     pmw_weighting: PmwWeighting = PmwWeighting()
+    admission_pos_weights: Optional[AdmissionPosWeights] = None
+    sort_by_admission_weight: bool = True
     require_jmdict: bool = True
     jmdict_path: Optional[Path] = None
+    stopwords_path: Optional[Path] = None
+    stopwords: Optional[set[str]] = None
 
 
 def build_seed_candidates(
@@ -40,6 +55,7 @@ def build_seed_candidates(
     if config.require_jmdict and not config.jmdict_path:
         raise ValueError("JMDict path is required when require_jmdict is True.")
     jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None
+    stopwords = _resolve_stopwords(config)
     store_config = SqliteFrequencyConfig(
         path=frequency_db,
         lemma_column=config.lemma_column,
@@ -47,32 +63,66 @@ def build_seed_candidates(
         pmw_column=config.pmw_column,
     )
     with SqliteFrequencyStore(store_config) as store:
+        available_columns = set(store.column_names())
+        include_pos = bool(config.pos_column and config.pos_column in available_columns)
+        selected_columns = [config.pos_column] if include_pos else []
+        resolved_pos_weights = (
+            config.admission_pos_weights
+            or resolve_default_pos_weights(language_pair=config.language_pair)
+        )
         max_pmw = store.max_value(config.pmw_column)
         results: list[SeedWord] = []
-        for row in store.iter_top_by_rank(limit=config.top_n, rank_column=config.rank_column):
+        for row in store.iter_top_by_rank(
+            limit=config.top_n,
+            rank_column=config.rank_column,
+            columns=selected_columns,
+        ):
             lemma = str(row[config.lemma_column]).strip()
             if not lemma:
+                continue
+            if stopwords and lemma in stopwords:
                 continue
             if jmdict_lemmas is not None and lemma not in jmdict_lemmas:
                 continue
             columns = row.keys()
             core_rank = _safe_float(row[config.rank_column]) if config.rank_column in columns else None
             pmw = _safe_float(row[config.pmw_column]) if config.pmw_column in columns else None
+            raw_pos = (
+                str(row[config.pos_column]).strip()
+                if include_pos and config.pos_column in columns and row[config.pos_column] is not None
+                else None
+            )
             base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
+            pos_bucket, pos_weight, admission_weight = compute_admission_weight(
+                language_pair=config.language_pair,
+                raw_pos=raw_pos,
+                base_weight=base_weight,
+                pos_weights=resolved_pos_weights,
+            )
             results.append(
                 SeedWord(
                     lemma=lemma,
                     language_pair=config.language_pair,
                     core_rank=core_rank,
+                    pos=raw_pos,
+                    pos_bucket=pos_bucket,
+                    pos_weight=pos_weight,
                     pmw=pmw,
                     base_weight=base_weight,
+                    admission_weight=admission_weight,
                     metadata={
                         "source": "bccwj",
                         "rank_column": config.rank_column,
                         "pmw_column": config.pmw_column,
+                        "pos_column": config.pos_column if include_pos else None,
+                        "pos_bucket": pos_bucket,
+                        "pos_weight": pos_weight,
+                        "admission_weight": admission_weight,
                     },
                 )
             )
+        if config.sort_by_admission_weight:
+            results.sort(key=_admission_sort_key)
         return results
 
 
@@ -81,10 +131,16 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
         SelectorCandidate(
             lemma=seed.lemma,
             language_pair=seed.language_pair,
-            base_freq=seed.base_weight,
+            base_freq=seed.admission_weight,
+            pos=seed.pos_bucket,
             metadata={
                 "core_rank": seed.core_rank,
+                "pos": seed.pos,
+                "pos_bucket": seed.pos_bucket,
+                "pos_weight": seed.pos_weight,
                 "pmw": seed.pmw,
+                "base_weight": seed.base_weight,
+                "admission_weight": seed.admission_weight,
                 **seed.metadata,
             },
         )
@@ -105,3 +161,42 @@ def _safe_float(value) -> Optional[float]:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _resolve_stopwords(config: SeedSelectionConfig) -> set[str]:
+    if config.stopwords is not None:
+        return {str(item).strip() for item in config.stopwords if str(item).strip()}
+    if not config.stopwords_path:
+        return set()
+    return _load_stopwords(config.stopwords_path)
+
+
+def _load_stopwords(path: Path) -> set[str]:
+    if not path.exists() or not path.is_file():
+        return set()
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ValueError(f"Could not read stopwords file: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Invalid stopwords JSON: {path}") from exc
+    if not isinstance(payload, list):
+        raise ValueError(f"Invalid stopwords format in {path}: expected a JSON array of strings.")
+    stopwords: set[str] = set()
+    for index, item in enumerate(payload):
+        if not isinstance(item, str):
+            raise ValueError(
+                f"Invalid stopwords format in {path}: item #{index} is not a string."
+            )
+        value = item.strip()
+        if not value:
+            raise ValueError(
+                f"Invalid stopwords format in {path}: item #{index} is empty."
+            )
+        stopwords.add(value)
+    return stopwords
+
+
+def _admission_sort_key(item: SeedWord) -> tuple[float, float, float, str]:
+    rank = item.core_rank if item.core_rank is not None else float("inf")
+    return (-item.admission_weight, -item.base_weight, rank, item.lemma)

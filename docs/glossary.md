@@ -24,7 +24,8 @@ This glossary defines the major concepts, data objects, and workflows used acros
 ## Language‑Learning Concepts
 
 - **SRS (Spaced Repetition System)**: Algorithmic scheduling to show items at optimal intervals for learning.
-- **S (target set)**: The set of words the system wants the user to learn in a given language.
+- **S (study inventory)**: The persisted set of words currently being learned by the user for a language pair.
+- **Candidate universe (U)**: The larger candidate pool used for possible admission into `S` (frequency packs, dictionaries, profile signals, etc.).
 - **Initial S bootstrap**: The initial S built from frequency lists (legacy term: “seed”).
 - **Bootstrap top N**: Size of initial inventory admission for S (default `800`, clamped by policy).
 - **Initial active count**: Declared initial active subset within bootstrap S (default `40`).
@@ -41,6 +42,11 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Frequency pack**: A downloaded dataset converted to SQLite for efficient lookups.
 - **core_rank**: BCCWJ column used for *selection* (lower = more universal).
 - **pmw**: “Per Million Words” column used for *weighting* (higher = more common).
+- **Admission weight (weight 1)**: Score used to decide whether a candidate from `U` should enter `S` (or re-enter during growth).
+- **Admission bias**: Additional multiplier/additive factor applied to admission weight (for POS, profile interests, proficiency, etc.).
+- **POS bucket**: Coarse part-of-speech class (`noun`, `adjective`, `verb`, `adverb`, `other`) used by admission bias policy.
+- **Serving priority (weight 2)**: Runtime serving score inside `S`, primarily derived from due-time and SRS state (`next_due`, `stability`, `difficulty`).
+- **Effective serving probability**: The normalized chance a word is shown from currently eligible items; this is derived from serving priority and policy caps, not used for admission.
 - **Gloss decay**: A penalty applied to secondary dictionary glosses (e.g., 100% / 70% / 50%).
 - **Confidence**: A 0..1 value attached to rules to support filtering and threshold sliders.
 

@@ -21,11 +21,19 @@ from utils_paths import resource_path, reveal_path
 def _tray_icon() -> QIcon:
     if sys.platform == "darwin":
         candidate = resource_path("ttbn.icns")
+        if os.path.exists(candidate):
+            return QIcon(candidate)
+        # Fallback: look in bundle resources if running from .app
+        try:
+            bundle_res = Path(sys.executable).parent.parent / "Resources" / "ttbn.icns"
+            if bundle_res.exists():
+                return QIcon(str(bundle_res))
+        except Exception:
+            pass
     else:
         candidate = resource_path("ttbn.ico")
-    icon = QIcon(candidate)
-    if not icon.isNull():
-        return icon
+        if os.path.exists(candidate):
+            return QIcon(candidate)
     return QApplication.windowIcon()
 
 

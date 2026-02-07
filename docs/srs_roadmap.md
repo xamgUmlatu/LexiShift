@@ -62,6 +62,7 @@ Status key:
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
 - `[~]` Profile-aware weighting in `profile_bootstrap`.
+- `[~]` POS-aware admission biasing/filtering (e.g., nouns up, particles/auxiliaries near zero at bootstrap).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
 - `[ ]` Executable `profile_growth` policy.
 

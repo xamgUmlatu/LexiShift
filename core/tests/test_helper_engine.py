@@ -455,6 +455,25 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
             self.assertEqual(plan["strategy_effective"], "frequency_bootstrap")
             self.assertTrue(plan["can_execute"])
 
+    def test_plan_resolves_stopwords_path_from_srs_subdir(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            stopwords_dir = paths.srs_dir / "stopwords"
+            stopwords_dir.mkdir(parents=True, exist_ok=True)
+            stopwords_path = stopwords_dir / "stopwords-ja.json"
+            stopwords_path.write_text('["の","に"]', encoding="utf-8")
+            plan_payload = plan_srs_set(
+                paths,
+                config=SetPlanningJobConfig(
+                    pair="en-ja",
+                    strategy="frequency_bootstrap",
+                    objective="bootstrap",
+                ),
+            )
+
+            self.assertEqual(plan_payload["stopwords_path"], str(stopwords_path))
+
 
 if __name__ == "__main__":
     unittest.main()

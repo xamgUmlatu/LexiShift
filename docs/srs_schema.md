@@ -73,6 +73,7 @@ Notes:
 - Items not in `S` are implicitly outside the active curriculum.
 - `next_due` drives due-based serving order.
 - `source_type: "initial_set"` identifies words admitted by bootstrap initialization.
+- Current store does not require a single explicit `probability` column; serving probability is derived from due/order policy at runtime.
 
 ---
 
@@ -85,9 +86,13 @@ These fields improve lifecycle clarity without breaking existing data:
   "status": "learning",
   "review_count": 12,
   "lapses": 2,
-  "base_weight": 0.73,
-  "profile_weight": 0.58,
-  "priority_bias": 0.15,
+  "admission_base_weight": 0.73,
+  "admission_profile_bias": 0.18,
+  "admission_score": 0.86,
+  "admission_source": "frequency+pos+profile",
+  "admission_version": 1,
+  "admission_updated_at": "2026-02-07T10:00:00+00:00",
+  "serving_priority_bias": 0.15,
   "suspended": false
 }
 ```
@@ -100,9 +105,49 @@ Recommended statuses:
 - `relearn`
 - `suspended`
 
+Meaning:
+- `admission_*` fields correspond to **weight 1** (entry/growth decision into `S`).
+- scheduler fields (`next_due`, `stability`, `difficulty`) plus optional `serving_priority_bias` correspond to **weight 2** (serving order/probability inside `S`).
+
 ---
 
-## 4) Practice Gate State (runtime, optional persistence)
+## 4) Planned profile admission state (pair-level, helper-owned)
+
+Suggested helper-owned sidecar file:
+- `srs/srs_admission_profile.json`
+
+Suggested shape:
+
+```json
+{
+  "version": 1,
+  "pairs": {
+    "en-ja": {
+      "updated_at": "2026-02-07T10:00:00+00:00",
+      "signals_hash": "sha256:...",
+      "pos_bias": {
+        "名詞": 1.25,
+        "動詞": 1.05,
+        "形容詞": 1.05,
+        "助詞": 0.0,
+        "助動詞": 0.0
+      },
+      "interest_bias": {},
+      "proficiency_bias": {},
+      "difficulty_bias": {}
+    }
+  }
+}
+```
+
+Rationale:
+- Keep admission policy state in helper storage (source of truth), not extension-local.
+- Keep profile knobs pair-scoped and versioned for safe evolution.
+- Keep per-item scheduling state independent from profile knobs once item is in normal review flow.
+
+---
+
+## 5) Practice Gate State (runtime, optional persistence)
 
 ```json
 {
@@ -116,7 +161,7 @@ This is runtime-derived from settings + due policy.
 
 ---
 
-## 5) Signal Queue (scheduling policy: feedback authoritative)
+## 6) Signal Queue (scheduling policy: feedback authoritative)
 
 Current queue shape can hold multiple event types:
 
@@ -143,7 +188,7 @@ Policy for this architecture:
 
 ---
 
-## 6) Export/import bundle
+## 7) Export/import bundle
 
 ```json
 {

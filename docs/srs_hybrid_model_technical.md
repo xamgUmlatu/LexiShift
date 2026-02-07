@@ -44,6 +44,15 @@ The adopted model is a hybrid.
 - Candidates from `U` not currently in `S`.
 - Ranked by bootstrap/profile policy when new capacity is available.
 
+### 2.5 Two-weight model (explicit)
+- **Weight 1 (admission weight)**: used only to decide which candidates enter `S`.
+- **Weight 2 (serving priority)**: used only to decide which items already in `S` are shown next.
+- Weight 1 can depend on frequency rank, POS filters/biases, and profile signals.
+- Weight 2 should stay dominated by SRS state (`next_due`, `stability`, `difficulty`) and policy caps.
+- Current bootstrap default POS ordering is explicit and centralized in code (`srs_admission_policy.py`):
+  - noun > adjective > verb > adverb > other
+  - coefficients are named constants, not inlined magic numbers.
+
 ---
 
 ## 3) Item lifecycle states
@@ -156,6 +165,9 @@ Recommended practical starter policy:
    - `initial_active_count` default `40` (clamped, never above bootstrap size)
 3. start with neutral scheduler parameters
 4. move quickly to feedback-driven adaptation
+
+Practical JP note:
+- Because high-frequency Japanese corpora contain many function words, bootstrap admission should apply stopword/POS filters before finalizing the first active subset.
 
 This keeps startup quality high while avoiding premature complexity.
 

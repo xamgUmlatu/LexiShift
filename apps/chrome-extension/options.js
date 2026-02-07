@@ -528,6 +528,38 @@ async function initializeSrsSet() {
     const initialActivePreview = Array.isArray(bootstrapDiagnostics.initial_active_preview)
       ? bootstrapDiagnostics.initial_active_preview
       : [];
+    const admissionWeightProfile = bootstrapDiagnostics.admission_weight_profile
+      && typeof bootstrapDiagnostics.admission_weight_profile === "object"
+      ? bootstrapDiagnostics.admission_weight_profile
+      : null;
+    const initialActiveWeightPreview = Array.isArray(bootstrapDiagnostics.initial_active_weight_preview)
+      ? bootstrapDiagnostics.initial_active_weight_preview
+      : [];
+    const admissionWeightSummary = admissionWeightProfile
+      ? [
+          ["noun", admissionWeightProfile.noun],
+          ["adjective", admissionWeightProfile.adjective],
+          ["verb", admissionWeightProfile.verb],
+          ["adverb", admissionWeightProfile.adverb],
+          ["other", admissionWeightProfile.other]
+        ]
+          .filter((entry) => Number.isFinite(Number(entry[1])))
+          .map((entry) => `${entry[0]}=${Number(entry[1]).toFixed(2)}`)
+          .join(", ")
+      : "";
+    const weightPreviewSummary = initialActiveWeightPreview.length
+      ? initialActiveWeightPreview
+        .slice(0, 10)
+        .map((entry) => {
+          const lemma = entry && entry.lemma ? String(entry.lemma) : "";
+          const bucket = entry && entry.pos_bucket ? String(entry.pos_bucket) : "other";
+          const score = entry && Number.isFinite(Number(entry.admission_weight))
+            ? Number(entry.admission_weight).toFixed(3)
+            : "n/a";
+          return `${lemma}[${bucket}:${score}]`;
+        })
+        .join(", ")
+      : "";
     const header = applied
       ? t(
           "status_srs_set_init_result",
@@ -549,13 +581,18 @@ async function initializeSrsSet() {
       `- max_active_items_hint: ${result.max_active_items_hint ?? maxActiveItemsHint}`,
       `- source_type: ${result.source_type || "initial_set"}`,
       `- store_path: ${result.store_path || "n/a"}`,
+      `- stopwords_path: ${result.stopwords_path || "n/a"}`,
       applied ? `- selected_count: ${bootstrapDiagnostics.selected_count ?? "n/a"}` : null,
       applied ? `- selected_unique_count: ${bootstrapDiagnostics.selected_unique_count ?? "n/a"}` : null,
       applied ? `- admitted_count: ${bootstrapDiagnostics.admitted_count ?? "n/a"}` : null,
       applied ? `- inserted_count: ${bootstrapDiagnostics.inserted_count ?? "n/a"}` : null,
       applied ? `- updated_count: ${bootstrapDiagnostics.updated_count ?? "n/a"}` : null,
+      applied && admissionWeightSummary ? `- admission_weight_profile: ${admissionWeightSummary}` : null,
       applied && initialActivePreview.length
         ? `- initial_active_preview: ${initialActivePreview.slice(0, 20).join(", ")}`
+        : null,
+      applied && weightPreviewSummary
+        ? `- initial_active_weight_preview: ${weightPreviewSummary}`
         : null,
       noteLines.length ? "" : null,
       noteLines.length ? "Plan notes:" : null,

@@ -137,6 +137,30 @@ def load_ruleset(paths: HelperPaths, *, pair: str) -> dict:
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
 
 
+def _target_language_from_pair(pair: str) -> str:
+    normalized = str(pair or "").strip()
+    parts = normalized.split("-", 1)
+    if len(parts) == 2 and parts[1].strip():
+        return parts[1].strip().lower()
+    return ""
+
+
+def _resolve_stopwords_path(paths: HelperPaths, *, pair: str) -> Optional[Path]:
+    target_lang = _target_language_from_pair(pair)
+    if not target_lang:
+        return None
+    candidates = (
+        paths.srs_dir / f"stopwords-{target_lang}.json",
+        paths.srs_dir / "stopwords" / f"stopwords-{target_lang}.json",
+        paths.data_root / "stopwords" / f"stopwords-{target_lang}.json",
+        paths.language_packs_dir / f"stopwords-{target_lang}.json",
+    )
+    for candidate in candidates:
+        if candidate.exists() and candidate.is_file():
+            return candidate
+    return None
+
+
 def run_rulegen_job(
     paths: HelperPaths,
     *,
@@ -149,12 +173,14 @@ def run_rulegen_job(
     diagnostics: dict[str, object] | None = None
     sampling_result = None
     set_init_config = None
+    stopwords_path = _resolve_stopwords_path(paths, pair=config.pair)
     if config.set_source_db and config.set_source_db.exists():
         set_init_config = SetInitializationConfig(
             frequency_db=config.set_source_db,
             jmdict_path=config.jmdict_path,
             top_n=config.set_top_n,
             language_pair=config.pair,
+            stopwords_path=stopwords_path,
         )
     rulegen_config = RulegenConfig(
         language_pair=config.pair,
@@ -184,6 +210,8 @@ def run_rulegen_job(
             "jmdict_exists": config.jmdict_path.exists(),
             "set_source_db": str(config.set_source_db) if config.set_source_db else None,
             "set_source_db_exists": bool(config.set_source_db and config.set_source_db.exists()),
+            "stopwords_path": str(stopwords_path) if stopwords_path else None,
+            "stopwords_exists": bool(stopwords_path and stopwords_path.exists()),
             "missing_inputs": missing_inputs,
             "store_items": len(store.items),
             "store_items_for_pair": len([item for item in store.items if item.language_pair == config.pair]),
@@ -304,6 +332,7 @@ def plan_srs_set(
         initial_active_count=config.initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
     )
+    stopwords_path = _resolve_stopwords_path(paths, pair=pair)
     signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
     plan_payload = _build_set_plan_payload(
         pair=pair,
@@ -325,6 +354,7 @@ def plan_srs_set(
         "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
         "initial_active_count": sizing_policy.initial_active_count_effective,
         "max_active_items_hint": sizing_policy.max_active_items_hint,
+        "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "existing_items_for_pair": existing_items_for_pair,
         "signal_summary": signal_summary,
         "plan": plan_payload,
@@ -355,6 +385,7 @@ def initialize_srs_set(
         initial_active_count=config.initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
     )
+    stopwords_path = _resolve_stopwords_path(paths, pair=pair)
     signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
     plan_payload = _build_set_plan_payload(
         pair=pair,
@@ -385,6 +416,7 @@ def initialize_srs_set(
             "added_items": 0,
             "total_items_for_pair": before_pair_count,
             "store_path": str(paths.srs_store_path),
+            "stopwords_path": str(stopwords_path) if stopwords_path else None,
             "applied": False,
             "plan": plan_payload,
             "signal_summary": signal_summary,
@@ -403,6 +435,7 @@ def initialize_srs_set(
             top_n=sizing_policy.bootstrap_top_n_effective,
             initial_active_count=sizing_policy.initial_active_count_effective,
             language_pair=pair,
+            stopwords_path=stopwords_path,
         ),
     )
     save_srs_store(updated_store, paths.srs_store_path)
@@ -420,6 +453,7 @@ def initialize_srs_set(
         "added_items": added_items,
         "total_items_for_pair": after_pair_count,
         "store_path": str(paths.srs_store_path),
+        "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "bootstrap_diagnostics": {
             "selected_count": init_report.selected_count,
             "selected_unique_count": init_report.selected_unique_count,
@@ -428,6 +462,12 @@ def initialize_srs_set(
             "updated_count": init_report.updated_count,
             "selected_preview": list(init_report.selected_preview),
             "initial_active_preview": list(init_report.initial_active_preview),
+            "admission_weight_profile": dict(
+                getattr(init_report, "admission_weight_profile", {}) or {}
+            ),
+            "initial_active_weight_preview": list(
+                getattr(init_report, "initial_active_weight_preview", ()) or ()
+            ),
         },
         "applied": True,
         "plan": plan_payload,

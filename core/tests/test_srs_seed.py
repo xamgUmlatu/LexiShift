@@ -1,0 +1,122 @@
+from __future__ import annotations
+
+import json
+import os
+import sqlite3
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from lexishift_core.srs_seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
+
+
+def _build_freq_db(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+        [
+            ("の", 1, 1000.0),
+            ("に", 2, 900.0),
+            ("学校", 3, 800.0),
+            ("猫", 4, 700.0),
+            ("犬", 5, 600.0),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def _build_freq_db_with_pos(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL, pos TEXT)")
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw, pos) VALUES (?, ?, ?, ?)",
+        [
+            ("の", 1, 1000.0, "助詞-格助詞"),
+            ("走る", 2, 900.0, "動詞-一般"),
+            ("高い", 3, 800.0, "形容詞-一般"),
+            ("猫", 4, 700.0, "名詞-普通名詞-一般"),
+            ("とても", 5, 600.0, "副詞-一般"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+class TestSrsSeedStopwords(unittest.TestCase):
+    def test_stopwords_json_list_filters_lemmas(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db(db_path)
+            stopwords_path = root / "stopwords-ja.json"
+            stopwords_path.write_text(
+                json.dumps(["の", "に"], ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=10,
+                    require_jmdict=False,
+                    stopwords_path=stopwords_path,
+                ),
+            )
+
+            lemmas = [item.lemma for item in selected]
+            self.assertEqual(lemmas, ["学校", "猫", "犬"])
+
+    def test_invalid_stopwords_object_format_raises(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db(db_path)
+            stopwords_path = root / "stopwords-ja.json"
+            stopwords_path.write_text(
+                json.dumps({"words": ["の", "に"]}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            with self.assertRaises(ValueError):
+                build_seed_candidates(
+                    frequency_db=db_path,
+                    config=SeedSelectionConfig(
+                        language_pair="en-ja",
+                        top_n=10,
+                        require_jmdict=False,
+                        stopwords_path=stopwords_path,
+                    ),
+                )
+
+    def test_pos_weighting_prioritizes_nouns_then_adjectives(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db_with_pos(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=10,
+                    require_jmdict=False,
+                ),
+            )
+
+            lemmas = [item.lemma for item in selected]
+            self.assertEqual(lemmas[:3], ["猫", "高い", "走る"])
+            self.assertEqual(selected[0].pos_bucket, "noun")
+            self.assertGreater(selected[0].admission_weight, selected[1].admission_weight)
+            self.assertGreater(selected[1].admission_weight, selected[2].admission_weight)
+
+
+if __name__ == "__main__":
+    unittest.main()

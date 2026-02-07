@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 import json
 from pathlib import Path
@@ -10,6 +10,7 @@ from lexishift_core.core import VocabRule
 from lexishift_core.helper_paths import HelperPaths
 from lexishift_core.rule_generation_ja_en import JaEnRulegenConfig, generate_ja_en_results
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
+from lexishift_core.srs_admission_policy import resolve_default_pos_weights
 from lexishift_core.srs_source import SOURCE_INITIAL_SET
 from lexishift_core.srs_seed import SeedSelectionConfig, build_seed_candidates
 from lexishift_core.srs_store_ops import build_item_id, upsert_item
@@ -24,6 +25,7 @@ class SetInitializationConfig:
     top_n: int = 2000
     initial_active_count: int = 40
     language_pair: str = "en-ja"
+    stopwords_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)
@@ -35,6 +37,8 @@ class SetInitializationReport:
     updated_count: int
     selected_preview: Sequence[str]
     initial_active_preview: Sequence[str]
+    admission_weight_profile: Mapping[str, float]
+    initial_active_weight_preview: Sequence[Mapping[str, object]]
 
 
 @dataclass(frozen=True)
@@ -77,10 +81,13 @@ def initialize_store_from_frequency_list_with_report(
     *,
     config: SetInitializationConfig,
 ) -> tuple[SrsStore, SetInitializationReport]:
+    resolved_pos_weights = resolve_default_pos_weights(language_pair=config.language_pair)
     selection_config = SeedSelectionConfig(
         language_pair=config.language_pair,
         top_n=config.top_n,
         jmdict_path=config.jmdict_path,
+        stopwords_path=config.stopwords_path,
+        admission_pos_weights=resolved_pos_weights,
     )
     selected_words = build_seed_candidates(
         frequency_db=config.frequency_db,
@@ -97,23 +104,30 @@ def initialize_store_from_frequency_list_with_report(
 
     initial_active_count = max(0, int(config.initial_active_count))
     admitted_words = unique_selected_words[:initial_active_count]
-    existing_ids = {item.item_id for item in store.items}
+    existing_by_id = {item.item_id: item for item in store.items}
     inserted_count = 0
     updated_count = 0
     updated = store
     for selected in admitted_words:
         item_id = build_item_id(selected.language_pair, selected.lemma)
-        if item_id in existing_ids:
+        existing_item = existing_by_id.get(item_id)
+        if existing_item is not None:
             updated_count += 1
+            confidence = _safe_optional_float(getattr(selected, "admission_weight", None))
+            item = existing_item
+            if existing_item.confidence is None and confidence is not None:
+                item = replace(existing_item, confidence=confidence)
         else:
             inserted_count += 1
-            existing_ids.add(item_id)
-        item = SrsItem(
-            item_id=item_id,
-            lemma=selected.lemma,
-            language_pair=selected.language_pair,
-            source_type=SOURCE_INITIAL_SET,
-        )
+            confidence = _safe_optional_float(getattr(selected, "admission_weight", None))
+            item = SrsItem(
+                item_id=item_id,
+                lemma=selected.lemma,
+                language_pair=selected.language_pair,
+                source_type=SOURCE_INITIAL_SET,
+                confidence=confidence,
+            )
+            existing_by_id[item_id] = item
         updated = upsert_item(updated, item)
     selected_preview = tuple(selected.lemma for selected in unique_selected_words[:10])
     initial_active_preview = tuple(
@@ -127,6 +141,10 @@ def initialize_store_from_frequency_list_with_report(
         updated_count=updated_count,
         selected_preview=selected_preview,
         initial_active_preview=initial_active_preview,
+        admission_weight_profile=resolved_pos_weights.to_dict(),
+        initial_active_weight_preview=tuple(
+            _build_weight_preview_entry(selected) for selected in admitted_words[:20]
+        ),
     )
     return updated, report
 
@@ -183,6 +201,29 @@ def run_ja_en_rulegen(
     )
     results = generate_ja_en_results(targets, config=rulegen_config)
     return [result.rule for result in results]
+
+
+def _safe_optional_float(value: object) -> Optional[float]:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
+    base_weight = _safe_optional_float(getattr(selected, "base_weight", None))
+    pos_weight = _safe_optional_float(getattr(selected, "pos_weight", None))
+    admission_weight = _safe_optional_float(getattr(selected, "admission_weight", None))
+    return {
+        "lemma": str(getattr(selected, "lemma", "")).strip(),
+        "pos": getattr(selected, "pos", None),
+        "pos_bucket": str(getattr(selected, "pos_bucket", "")),
+        "base_weight": round(base_weight, 6) if base_weight is not None else None,
+        "pos_weight": round(pos_weight, 6) if pos_weight is not None else None,
+        "admission_weight": round(admission_weight, 6) if admission_weight is not None else None,
+    }
 
 
 def write_rulegen_outputs(
