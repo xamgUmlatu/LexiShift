@@ -179,6 +179,12 @@
   "button_srs_initialize": {
     "message": "Initialize S for this pair"
   },
+  "button_srs_refresh_set": {
+    "message": "Refresh S + publish rules"
+  },
+  "button_srs_runtime_diagnostics": {
+    "message": "SRS runtime diagnostics"
+  },
   "button_srs_rulegen_preview": {
     "message": "Run rulegen (debug)…"
   },
@@ -211,6 +217,30 @@
   },
   "status_srs_set_init_running": {
     "message": "Initializing S…"
+  },
+  "status_srs_refresh_running": {
+    "message": "Refreshing S and publishing rules…"
+  },
+  "status_srs_refresh_success": {
+    "message": "S refreshed for $1: +$2 admitted."
+  },
+  "status_srs_refresh_noop": {
+    "message": "S refresh for $1: no new admissions."
+  },
+  "status_srs_refresh_failed": {
+    "message": "S refresh failed."
+  },
+  "status_srs_diagnostics_running": {
+    "message": "Collecting SRS runtime diagnostics…"
+  },
+  "status_srs_diagnostics_header": {
+    "message": "SRS Runtime Diagnostics ($1)"
+  },
+  "status_srs_diagnostics_ready": {
+    "message": "SRS runtime diagnostics updated."
+  },
+  "status_srs_diagnostics_failed": {
+    "message": "Failed to collect SRS diagnostics."
   },
   "status_srs_set_init_result": {
     "message": "S initialized for $3: +$1 items (total $2)."

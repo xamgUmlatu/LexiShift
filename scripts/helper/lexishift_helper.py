@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
 from lexishift_core.helper_engine import (
+    get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
@@ -58,6 +59,13 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
     except FileNotFoundError:
         _print_json({"error": "snapshot_not_found", "path": str(paths.snapshot_path(args.pair))})
         return 1
+    _print_json(payload)
+    return 0
+
+
+def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = get_srs_runtime_diagnostics(paths, pair=args.pair)
     _print_json(payload)
     return 0
 
@@ -235,6 +243,10 @@ def build_parser() -> argparse.ArgumentParser:
     snapshot = sub.add_parser("get_snapshot", help="Print rulegen snapshot for a pair")
     snapshot.add_argument("--pair", default="en-ja")
     snapshot.set_defaults(func=cmd_get_snapshot)
+
+    diagnostics = sub.add_parser("srs_diagnostics", help="Show helper-side SRS runtime diagnostics")
+    diagnostics.add_argument("--pair", default="en-ja")
+    diagnostics.set_defaults(func=cmd_srs_diagnostics)
 
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")

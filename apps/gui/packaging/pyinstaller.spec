@@ -78,8 +78,8 @@ MACOS_INFO_PLIST = {
     "CFBundlePackageType": "APPL",
     "CFBundleIconFile": MACOS_ICON_FILE,
     "LSApplicationCategoryType": APP_CATEGORY,
-    "LSBackgroundOnly": "False",
-    "NSHighResolutionCapable": "True",
+    "LSBackgroundOnly": False,
+    "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": APP_COPYRIGHT,
 }
 HELPER_MACOS_INFO_PLIST = {
@@ -93,9 +93,9 @@ HELPER_MACOS_INFO_PLIST = {
     "CFBundlePackageType": "APPL",
     "CFBundleIconFile": MACOS_ICON_FILE,
     "LSApplicationCategoryType": HELPER_CATEGORY,
-    "LSBackgroundOnly": "False",
-    "LSUIElement": "True",
-    "NSHighResolutionCapable": "True",
+    "LSBackgroundOnly": False,
+    "LSUIElement": True,
+    "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": APP_COPYRIGHT,
 }
 MACOS_CODESIGN_IDENTITY = None

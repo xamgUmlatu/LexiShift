@@ -31,6 +31,10 @@
       return this.send("get_ruleset", { pair });
     }
 
+    getSrsDiagnostics(pair) {
+      return this.send("srs_diagnostics", { pair });
+    }
+
     openDataDir() {
       return this.send("open_data_dir");
     }

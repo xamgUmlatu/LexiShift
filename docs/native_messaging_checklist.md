@@ -41,6 +41,7 @@ Status key:
 - `[x]` Add helper bridge methods for `srs_plan_set` and `srs_initialize`.
 - `[x]` Options: “Helper status” + “Refresh now”.
 - `[x]` Options: explicit “Initialize S for this pair” action.
+- `[x]` Options: explicit “Refresh S + publish rules” action.
 - `[x]` Send profile-context scaffold to helper from options flow.
 - `[x]` Send explicit sizing controls (`bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`).
 - `[x]` Replace rulegen preview to non-mutating helper flow.
@@ -54,6 +55,7 @@ Status key:
 - `[x]` Schedule periodic rulegen (daemon loop).
 - `[ ]` Trigger planner-driven refresh on signal thresholds.
 - `[ ]` Add policy to decide bootstrap vs growth vs adaptive refresh.
+- `[x]` Publish runtime rules at initialization and after refresh admissions.
 
 ## Phase 5 — UI + Diagnostics
 - `[~]` Show helper status in GUI app (last sync detail still limited).
@@ -61,6 +63,7 @@ Status key:
 - `[x]` Add “Install/Reinstall Helper” repair action in SRS settings.
 - `[x]` Show set planning details in options output (strategy/sizing/applied state + bootstrap diagnostics).
 - `[x]` Show admission-weight diagnostics in options output (profile + weighted preview).
+- `[x]` Add runtime diagnostics action showing helper state, extension cache, and current tab rule counts.
 - `[ ]` Add dedicated logs/health view for signal queue + planner decisions.
 
 ## Phase 6 — End-to-End QA and refresh loop

@@ -162,6 +162,54 @@ def load_ruleset(paths: HelperPaths, *, pair: str) -> dict:
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
 
 
+def get_srs_runtime_diagnostics(paths: HelperPaths, *, pair: str) -> dict:
+    normalized_pair = str(pair or "").strip() or "en-ja"
+    diagnostics = {
+        "pair": normalized_pair,
+        "store_path": str(paths.srs_store_path),
+        "store_exists": paths.srs_store_path.exists(),
+        "store_items_total": 0,
+        "store_items_for_pair": 0,
+        "store_error": None,
+        "ruleset_path": str(paths.ruleset_path(normalized_pair)),
+        "ruleset_exists": paths.ruleset_path(normalized_pair).exists(),
+        "ruleset_rules_count": 0,
+        "ruleset_error": None,
+        "snapshot_path": str(paths.snapshot_path(normalized_pair)),
+        "snapshot_exists": paths.snapshot_path(normalized_pair).exists(),
+        "snapshot_target_count": 0,
+        "snapshot_error": None,
+        "status": load_status(paths.srs_status_path).__dict__,
+    }
+    if diagnostics["store_exists"]:
+        try:
+            store = load_srs_store(paths.srs_store_path)
+            diagnostics["store_items_total"] = len(store.items)
+            diagnostics["store_items_for_pair"] = len(
+                [item for item in store.items if item.language_pair == normalized_pair]
+            )
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["store_error"] = str(exc)
+    if diagnostics["ruleset_exists"]:
+        try:
+            ruleset_payload = json.loads(paths.ruleset_path(normalized_pair).read_text(encoding="utf-8"))
+            rules = ruleset_payload.get("rules", [])
+            diagnostics["ruleset_rules_count"] = len(rules) if isinstance(rules, list) else 0
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["ruleset_error"] = str(exc)
+    if diagnostics["snapshot_exists"]:
+        try:
+            snapshot_payload = json.loads(paths.snapshot_path(normalized_pair).read_text(encoding="utf-8"))
+            stats = snapshot_payload.get("stats", {})
+            target_count = stats.get("target_count")
+            if target_count is None and isinstance(snapshot_payload.get("targets"), list):
+                target_count = len(snapshot_payload.get("targets", []))
+            diagnostics["snapshot_target_count"] = int(target_count or 0)
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["snapshot_error"] = str(exc)
+    return diagnostics
+
+
 def _target_language_from_pair(pair: str) -> str:
     normalized = str(pair or "").strip()
     parts = normalized.split("-", 1)
@@ -400,7 +448,7 @@ def initialize_srs_set(
     if not pair:
         raise ValueError("Missing pair.")
 
-    _ensure_settings(paths, persist_missing=True)
+    settings = _ensure_settings(paths, persist_missing=True)
     store = _ensure_store(paths, persist_missing=True)
     before_pair_count = _count_items_for_pair(store, pair)
     sizing_policy = resolve_set_sizing_policy(
@@ -465,6 +513,30 @@ def initialize_srs_set(
     )
     save_srs_store(updated_store, paths.srs_store_path)
 
+    _updated_store, rulegen_output = run_rulegen_for_pair(
+        paths=paths,
+        pair=pair,
+        store=updated_store,
+        settings=settings,
+        jmdict_path=config.jmdict_path,
+        rulegen_config=RulegenConfig(language_pair=pair),
+        initialize_if_empty=False,
+        persist_store=False,
+    )
+    write_rulegen_outputs(
+        paths=paths,
+        pair=pair,
+        rules=rulegen_output.rules,
+        snapshot=rulegen_output.snapshot,
+    )
+    _update_status(
+        paths=paths,
+        pair=pair,
+        rule_count=len(rulegen_output.rules),
+        target_count=rulegen_output.target_count,
+        error=None,
+    )
+
     after_pair_count = _count_items_for_pair(updated_store, pair)
     added_items = max(0, after_pair_count - (0 if config.replace_pair else before_pair_count))
     return {
@@ -493,6 +565,13 @@ def initialize_srs_set(
             "initial_active_weight_preview": list(
                 getattr(init_report, "initial_active_weight_preview", ()) or ()
             ),
+        },
+        "rulegen": {
+            "published": True,
+            "targets": rulegen_output.target_count,
+            "rules": len(rulegen_output.rules),
+            "snapshot_path": str(paths.snapshot_path(pair)),
+            "ruleset_path": str(paths.ruleset_path(pair)),
         },
         "applied": True,
         "plan": plan_payload,
@@ -547,6 +626,38 @@ def refresh_srs_set(
 
     after_pair_count = _count_items_for_pair(updated_store, pair)
     added_items = max(0, after_pair_count - before_pair_count)
+    published_rulegen = None
+    if refresh_result.applied:
+        _updated_store, rulegen_output = run_rulegen_for_pair(
+            paths=paths,
+            pair=pair,
+            store=updated_store,
+            settings=settings,
+            jmdict_path=config.jmdict_path,
+            rulegen_config=RulegenConfig(language_pair=pair),
+            initialize_if_empty=False,
+            persist_store=False,
+        )
+        write_rulegen_outputs(
+            paths=paths,
+            pair=pair,
+            rules=rulegen_output.rules,
+            snapshot=rulegen_output.snapshot,
+        )
+        _update_status(
+            paths=paths,
+            pair=pair,
+            rule_count=len(rulegen_output.rules),
+            target_count=rulegen_output.target_count,
+            error=None,
+        )
+        published_rulegen = {
+            "published": True,
+            "targets": rulegen_output.target_count,
+            "rules": len(rulegen_output.rules),
+            "snapshot_path": str(paths.snapshot_path(pair)),
+            "ruleset_path": str(paths.ruleset_path(pair)),
+        }
     refresh_payload = admission_refresh_result_to_dict(refresh_result)
     refresh_payload["weight_terms"] = {
         "admission_weight": "Entry/growth score for adding words into S.",
@@ -563,6 +674,7 @@ def refresh_srs_set(
         "store_path": str(paths.srs_store_path),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "admission_refresh": refresh_payload,
+        "rulegen": published_rulegen,
         "applied": bool(refresh_result.applied),
         "persisted": bool(config.persist_store),
         "trigger": str(config.trigger or "manual"),

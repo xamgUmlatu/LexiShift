@@ -13,6 +13,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper_engine import (  # noqa: E402
+    get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
@@ -266,6 +267,60 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             sampling = result["sampling"]
             self.assertEqual(sampling["sample_count_effective"], 2)
             self.assertEqual(sampling["total_items_for_pair"], 3)
+
+
+class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
+    def test_runtime_diagnostics_with_missing_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+            self.assertEqual(payload["pair"], "en-ja")
+            self.assertFalse(payload["store_exists"])
+            self.assertFalse(payload["ruleset_exists"])
+            self.assertFalse(payload["snapshot_exists"])
+            self.assertEqual(payload["store_items_for_pair"], 0)
+            self.assertEqual(payload["ruleset_rules_count"], 0)
+            self.assertEqual(payload["snapshot_target_count"], 0)
+
+    def test_runtime_diagnostics_with_existing_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                        SrsItem(
+                            item_id="en-en:beta",
+                            lemma="beta",
+                            language_pair="en-en",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            paths.ruleset_path("en-ja").write_text(
+                '{"rules":[{"source_phrase":"one","replacement":"一"},{"source_phrase":"two","replacement":"二"}]}',
+                encoding="utf-8",
+            )
+            paths.snapshot_path("en-ja").write_text(
+                '{"stats":{"target_count":2,"rule_count":2},"targets":[{"lemma":"一"},{"lemma":"二"}]}',
+                encoding="utf-8",
+            )
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+            self.assertTrue(payload["store_exists"])
+            self.assertTrue(payload["ruleset_exists"])
+            self.assertTrue(payload["snapshot_exists"])
+            self.assertEqual(payload["store_items_total"], 2)
+            self.assertEqual(payload["store_items_for_pair"], 1)
+            self.assertEqual(payload["ruleset_rules_count"], 2)
+            self.assertEqual(payload["snapshot_target_count"], 2)
 
 
 class TestHelperEngineInitializeSrsSet(unittest.TestCase):

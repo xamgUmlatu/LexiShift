@@ -179,6 +179,12 @@
   "button_srs_initialize": {
     "message": "S für dieses Paar initialisieren"
   },
+  "button_srs_refresh_set": {
+    "message": "S aktualisieren + Regeln veröffentlichen"
+  },
+  "button_srs_runtime_diagnostics": {
+    "message": "SRS-Laufzeitdiagnose"
+  },
   "button_srs_rulegen_preview": {
     "message": "Regeln generieren (Debug)…"
   },
@@ -211,6 +217,30 @@
   },
   "status_srs_set_init_running": {
     "message": "S wird initialisiert…"
+  },
+  "status_srs_refresh_running": {
+    "message": "S wird aktualisiert und Regeln werden veröffentlicht…"
+  },
+  "status_srs_refresh_success": {
+    "message": "S für $1 aktualisiert: +$2 neu aufgenommen."
+  },
+  "status_srs_refresh_noop": {
+    "message": "S-Aktualisierung für $1: keine neuen Aufnahmen."
+  },
+  "status_srs_refresh_failed": {
+    "message": "S-Aktualisierung fehlgeschlagen."
+  },
+  "status_srs_diagnostics_running": {
+    "message": "SRS-Laufzeitdiagnose wird gesammelt…"
+  },
+  "status_srs_diagnostics_header": {
+    "message": "SRS-Laufzeitdiagnose ($1)"
+  },
+  "status_srs_diagnostics_ready": {
+    "message": "SRS-Laufzeitdiagnose aktualisiert."
+  },
+  "status_srs_diagnostics_failed": {
+    "message": "SRS-Diagnose konnte nicht erfasst werden."
   },
   "status_srs_set_init_result": {
     "message": "S für $3 initialisiert: +$1 Einträge (gesamt $2)."

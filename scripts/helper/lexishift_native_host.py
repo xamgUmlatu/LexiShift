@@ -26,6 +26,7 @@ def _inject_core_path() -> None:
 _inject_core_path()
 
 from lexishift_core.helper_engine import (
+    get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
@@ -114,6 +115,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "get_ruleset":
         pair = str(payload.get("pair", "en-ja"))
         return load_ruleset(paths, pair=pair)
+    if msg_type == "srs_diagnostics":
+        pair = str(payload.get("pair", "en-ja"))
+        return get_srs_runtime_diagnostics(paths, pair=pair)
     if msg_type == "record_feedback":
         apply_feedback(
             paths,

@@ -13,7 +13,8 @@
     debugFocusWord: "",
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
-    srsExposureLoggingEnabled: true
+    srsExposureLoggingEnabled: true,
+    srsRulesetUpdatedAt: ""
   };
 
   if (!root.tokenizer || !root.matcher || !root.replacements || !root.ui || !root.utils) {
@@ -41,6 +42,7 @@
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
   const helperCache = root.helperCache;
+  const runtimeDiagnostics = root.srsRuntimeDiagnostics;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
 
@@ -96,6 +98,28 @@
     return counts;
   }
 
+  function countActiveRulesByOrigin(rules) {
+    const counts = {
+      [RULE_ORIGIN_RULESET]: 0,
+      [RULE_ORIGIN_SRS]: 0
+    };
+    for (const rule of rules || []) {
+      const origin = getRuleOrigin(rule);
+      counts[origin] = Number(counts[origin] || 0) + 1;
+    }
+    return counts;
+  }
+
+  function persistRuntimeState(payload) {
+    if (!isTopFrameWindow()) {
+      return;
+    }
+    if (!runtimeDiagnostics || typeof runtimeDiagnostics.saveLastState !== "function") {
+      return;
+    }
+    runtimeDiagnostics.saveLastState(payload).catch(() => {});
+  }
+
   function cacheHelperRules(pair, rules) {
     if (!pair) {
       return;
@@ -109,13 +133,16 @@
 
   async function fetchHelperRules(pair) {
     if (!helperClient) {
-      return null;
+      return { ruleset: null, error: "Helper client unavailable." };
     }
     const response = await helperClient.getRuleset(pair);
     if (!response || response.ok === false) {
-      return null;
+      const message = response && response.error && response.error.message
+        ? response.error.message
+        : "Failed to load helper ruleset.";
+      return { ruleset: null, error: message };
     }
-    return response.data || null;
+    return { ruleset: response.data || null, error: null };
   }
 
   function log(...args) {
@@ -598,9 +625,12 @@
     let rulesSource = "local";
     const localRules = tagRulesWithOrigin(currentSettings.rules, RULE_ORIGIN_RULESET);
     let helperRules = [];
+    let helperRulesError = null;
     if (currentSettings.srsEnabled && helperClient) {
       try {
-        const helperRuleset = await fetchHelperRules(currentSettings.srsPair);
+        const helperFetch = await fetchHelperRules(currentSettings.srsPair);
+        const helperRuleset = helperFetch && typeof helperFetch === "object" ? helperFetch.ruleset : null;
+        helperRulesError = helperFetch && typeof helperFetch === "object" ? helperFetch.error : null;
         if (helperRuleset && Array.isArray(helperRuleset.rules)) {
           helperRules = tagRulesWithOrigin(helperRuleset.rules, RULE_ORIGIN_SRS);
           rulesSource = "local+helper";
@@ -619,6 +649,7 @@
           }
         }
       } catch (error) {
+        helperRulesError = error && error.message ? error.message : "Failed to fetch helper rules.";
         const fallback = helperRulesCache.get(currentSettings.srsPair);
         if (fallback) {
           helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
@@ -645,6 +676,7 @@
       currentSettings._srsActiveLemmas = gate.activeLemmas || null;
       srsStats = gate.stats || null;
     }
+    const activeOriginCounts = countActiveRulesByOrigin(activeRules);
     if (token !== applyToken) {
       return;
     }
@@ -680,6 +712,29 @@
         log("SRS mode active but no matching rules for current dataset/pair.");
       }
     }
+    if (currentSettings.srsEnabled && originCounts[RULE_ORIGIN_SRS] === 0) {
+      log(
+        "SRS enabled but helper SRS rules are not loaded (rulesSrsEnabled=0). Runtime is local-rules only."
+      );
+      if (helperRulesError) {
+        log("Helper SRS fetch error:", helperRulesError);
+      }
+    }
+    persistRuntimeState({
+      ts: new Date().toISOString(),
+      pair: currentSettings.srsPair || "",
+      srs_enabled: currentSettings.srsEnabled === true,
+      rules_source: rulesSource,
+      rules_enabled_total: enabledRules.length,
+      rules_local_enabled: originCounts[RULE_ORIGIN_RULESET],
+      rules_srs_enabled: originCounts[RULE_ORIGIN_SRS],
+      active_rules_total: activeRules.length,
+      active_rules_srs: activeOriginCounts[RULE_ORIGIN_SRS],
+      srs_stats: srsStats || null,
+      helper_rules_error: helperRulesError || "",
+      page_url: window.location ? window.location.href : "",
+      frame_type: getFrameInfo().frameType
+    });
     if (currentSettings.debugEnabled) {
       log("Context info:", Object.assign({ readyState: document.readyState }, getFrameInfo()));
       if (document.body) {
@@ -927,6 +982,10 @@
           `SRS exposure logging ${currentSettings.srsExposureLoggingEnabled === false ? "disabled" : "enabled"}.`
         );
       }
+    }
+    if (changes.srsRulesetUpdatedAt) {
+      nextSettings.srsRulesetUpdatedAt = changes.srsRulesetUpdatedAt.newValue;
+      needsRebuild = true;
     }
     if (changes.debugEnabled) {
       nextSettings.debugEnabled = changes.debugEnabled.newValue;

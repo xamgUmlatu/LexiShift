@@ -1,6 +1,5 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const selector = root.srsSelector;
   const RULE_ORIGIN_SRS = "srs";
 
   function normalizeOrigin(origin) {
@@ -25,7 +24,7 @@
   }
 
   async function buildSrsGate(settings, enabledRules, log) {
-    if (!settings || !settings.srsEnabled || !selector || typeof selector.selectActiveItems !== "function") {
+    if (!settings || !settings.srsEnabled) {
       return {
         activeRules: enabledRules,
         activeLemmas: null,
@@ -49,65 +48,29 @@
         enabled: true
       };
     }
-    try {
-      const result = await selector.selectActiveItems(settings);
-      const stats = result && result.stats ? result.stats : null;
-      const total = stats && Number.isFinite(stats.total) ? stats.total : 0;
-      if (!total) {
-        if (log) {
-          log("SRS dataset unavailable; using all SRS-tagged rules.");
-        }
-        return {
-          activeRules: [...nonSrsRules, ...srsRules],
-          activeLemmas: null,
-          stats: {
-            ...(stats || {}),
-            nonSrsCount: nonSrsRules.length,
-            srsCount: srsRules.length,
-            srsActiveCount: srsRules.length
-          },
-          enabled: true
-        };
-      }
-      const activeLemmas = new Set(
-        (result && result.lemmas ? result.lemmas : []).map((lemma) => String(lemma).toLowerCase())
-      );
-      const activeSrsRules = activeLemmas.size
-        ? srsRules.filter((rule) =>
-            activeLemmas.has(String(rule.replacement || "").toLowerCase())
-          )
-        : [];
-      if (log && activeLemmas.size) {
-        const sample = Array.from(activeLemmas).slice(0, 5);
-        log(`SRS active lemmas (sample): ${sample.join(", ")}`);
-      }
-      return {
-        activeRules: [...nonSrsRules, ...activeSrsRules],
-        activeLemmas,
-        stats: {
-          ...(stats || {}),
-          nonSrsCount: nonSrsRules.length,
-          srsCount: srsRules.length,
-          srsActiveCount: activeSrsRules.length
-        },
-        enabled: true
-      };
-    } catch (err) {
-      if (log) {
-        log("SRS selection failed; using all SRS-tagged rules.", err);
-      }
-      return {
-        activeRules: [...nonSrsRules, ...srsRules],
-        activeLemmas: null,
-        stats: {
-          nonSrsCount: nonSrsRules.length,
-          srsCount: srsRules.length,
-          srsActiveCount: srsRules.length,
-          datasetLoaded: false
-        },
-        enabled: true
-      };
+    const activeLemmas = new Set(
+      srsRules
+        .map((rule) => String(rule.replacement || "").toLowerCase())
+        .filter(Boolean)
+    );
+    if (log) {
+      const sample = Array.from(activeLemmas).slice(0, 5);
+      log(`SRS gate mode=helper_ruleset; active SRS lemmas sample: ${sample.join(", ")}`);
     }
+    return {
+      activeRules: [...nonSrsRules, ...srsRules],
+      activeLemmas,
+      stats: {
+        total: srsRules.length,
+        filtered: srsRules.length,
+        nonSrsCount: nonSrsRules.length,
+        srsCount: srsRules.length,
+        srsActiveCount: srsRules.length,
+        datasetLoaded: false,
+        mode: "helper_ruleset"
+      },
+      enabled: true
+    };
   }
 
   root.srsGate = { buildSrsGate };

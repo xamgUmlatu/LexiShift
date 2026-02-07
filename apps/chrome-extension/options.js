@@ -49,6 +49,8 @@ const {
   srsSample: srsSampleButton,
   srsSampleOutput: srsSampleOutput,
   srsInitializeSet: srsInitializeSetButton,
+  srsRefreshSet: srsRefreshSetButton,
+  srsRuntimeDiagnostics: srsRuntimeDiagnosticsButton,
   srsRulegenPreview: srsRulegenButton,
   srsRulegenSampledPreview: srsRulegenSampledButton,
   srsRulegenOutput: srsRulegenOutput,
@@ -525,6 +527,9 @@ async function initializeSrsSet() {
       : {};
     const notes = Array.isArray(plan.notes) ? plan.notes : [];
     const noteLines = notes.length ? notes.map((note) => `- ${note}`) : [];
+    const publishedRulegen = result.rulegen && typeof result.rulegen === "object"
+      ? result.rulegen
+      : null;
     const initialActivePreview = Array.isArray(bootstrapDiagnostics.initial_active_preview)
       ? bootstrapDiagnostics.initial_active_preview
       : [];
@@ -582,6 +587,10 @@ async function initializeSrsSet() {
       `- source_type: ${result.source_type || "initial_set"}`,
       `- store_path: ${result.store_path || "n/a"}`,
       `- stopwords_path: ${result.stopwords_path || "n/a"}`,
+      applied ? `- rulegen_published: ${publishedRulegen ? publishedRulegen.published !== false : false}` : null,
+      applied && publishedRulegen ? `- rulegen_targets: ${publishedRulegen.targets ?? "n/a"}` : null,
+      applied && publishedRulegen ? `- rulegen_rules: ${publishedRulegen.rules ?? "n/a"}` : null,
+      applied && publishedRulegen ? `- ruleset_path: ${publishedRulegen.ruleset_path || "n/a"}` : null,
       applied ? `- selected_count: ${bootstrapDiagnostics.selected_count ?? "n/a"}` : null,
       applied ? `- selected_unique_count: ${bootstrapDiagnostics.selected_unique_count ?? "n/a"}` : null,
       applied ? `- admitted_count: ${bootstrapDiagnostics.admitted_count ?? "n/a"}` : null,
@@ -598,6 +607,14 @@ async function initializeSrsSet() {
       noteLines.length ? "Plan notes:" : null,
       ...noteLines
     ].filter(Boolean).join("\n");
+    if (applied && publishedRulegen && publishedRulegen.published !== false) {
+      await new Promise((resolve) => {
+        chrome.storage.local.set(
+          { srsRulesetUpdatedAt: new Date().toISOString() },
+          () => resolve()
+        );
+      });
+    }
     const statusMessage = applied
       ? t("status_srs_set_init_success", [srsPair], `S initialized for ${srsPair}.`)
       : t("status_srs_set_plan_only", [srsPair], `S planning completed for ${srsPair}; no changes were applied.`);
@@ -619,6 +636,159 @@ async function initializeSrsSet() {
     logOptions("SRS set init failed.", err);
   } finally {
     srsInitializeSetButton.disabled = false;
+  }
+}
+
+async function refreshSrsSetNow() {
+  if (!srsRefreshSetButton || !srsRulegenOutput) {
+    return;
+  }
+  const srsPair = resolvePairFromInputs();
+  srsRefreshSetButton.disabled = true;
+  srsRulegenOutput.textContent = t(
+    "status_srs_refresh_running",
+    null,
+    "Refreshing S and publishing rules…"
+  );
+
+  try {
+    const items = await settingsManager.load();
+    const profile = settingsManager.getSrsProfile(items, srsPair);
+    const profileContext = settingsManager.buildSrsPlanContext(items, srsPair);
+    const result = await helperManager.refreshSrsSet(srsPair, {
+      setTopN: profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
+      maxActiveItems: profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
+      trigger: "options_refresh_set_button",
+      profileContext
+    });
+    const added = Number(result.added_items || 0);
+    const applied = result.applied === true;
+    const admission = result.admission_refresh && typeof result.admission_refresh === "object"
+      ? result.admission_refresh
+      : {};
+    const feedbackWindow = admission.feedback_window && typeof admission.feedback_window === "object"
+      ? admission.feedback_window
+      : {};
+    const publishedRulegen = result.rulegen && typeof result.rulegen === "object"
+      ? result.rulegen
+      : null;
+    const header = applied
+      ? t(
+          "status_srs_refresh_success",
+          [srsPair, added],
+          `S refreshed for ${srsPair}: +${added} admitted.`
+        )
+      : t(
+          "status_srs_refresh_noop",
+          [srsPair],
+          `S refresh for ${srsPair}: no new admissions.`
+        );
+    srsRulegenOutput.textContent = [
+      header,
+      `- applied: ${applied}`,
+      `- added_items: ${added}`,
+      `- total_items_for_pair: ${result.total_items_for_pair ?? "n/a"}`,
+      `- max_active_items: ${result.max_active_items ?? "n/a"}`,
+      `- max_new_items_per_day: ${result.max_new_items_per_day ?? "n/a"}`,
+      `- reason_code: ${admission.reason_code || "n/a"}`,
+      `- feedback_count: ${feedbackWindow.feedback_count ?? "n/a"}`,
+      `- retention_ratio: ${feedbackWindow.retention_ratio ?? "n/a"}`,
+      `- rulegen_published: ${publishedRulegen ? publishedRulegen.published !== false : false}`,
+      publishedRulegen ? `- rulegen_targets: ${publishedRulegen.targets ?? "n/a"}` : null,
+      publishedRulegen ? `- rulegen_rules: ${publishedRulegen.rules ?? "n/a"}` : null,
+      publishedRulegen ? `- ruleset_path: ${publishedRulegen.ruleset_path || "n/a"}` : null
+    ].filter(Boolean).join("\n");
+    if (publishedRulegen && publishedRulegen.published !== false) {
+      await new Promise((resolve) => {
+        chrome.storage.local.set(
+          { srsRulesetUpdatedAt: new Date().toISOString() },
+          () => resolve()
+        );
+      });
+    }
+    setStatus(
+      applied
+        ? t("status_srs_refresh_success", [srsPair, added], `S refreshed for ${srsPair}: +${added} admitted.`)
+        : t("status_srs_refresh_noop", [srsPair], `S refresh for ${srsPair}: no new admissions.`),
+      applied ? ui.COLORS.SUCCESS : ui.COLORS.DEFAULT
+    );
+    logOptions("SRS set refreshed", { pair: srsPair, result });
+  } catch (err) {
+    const msg = err && err.message ? err.message : t("status_srs_refresh_failed", null, "S refresh failed.");
+    srsRulegenOutput.textContent = msg;
+    setStatus(msg, ui.COLORS.ERROR);
+    logOptions("SRS set refresh failed.", err);
+  } finally {
+    srsRefreshSetButton.disabled = false;
+  }
+}
+
+async function runSrsRuntimeDiagnostics() {
+  if (!srsRuntimeDiagnosticsButton || !srsRulegenOutput) {
+    return;
+  }
+  const srsPair = resolvePairFromInputs();
+  srsRuntimeDiagnosticsButton.disabled = true;
+  srsRulegenOutput.textContent = t(
+    "status_srs_diagnostics_running",
+    null,
+    "Collecting SRS runtime diagnostics…"
+  );
+  try {
+    const diagnostics = await helperManager.getSrsRuntimeDiagnostics(srsPair);
+    const helperData = diagnostics.helper && typeof diagnostics.helper === "object"
+      ? diagnostics.helper
+      : null;
+    const runtimeState = diagnostics.runtime_state && typeof diagnostics.runtime_state === "object"
+      ? diagnostics.runtime_state
+      : null;
+    const lines = [
+      t(
+        "status_srs_diagnostics_header",
+        [srsPair],
+        `SRS Runtime Diagnostics (${srsPair})`
+      ),
+      "",
+      "Helper (source of truth):",
+      helperData
+        ? `- store_items_for_pair: ${helperData.store_items_for_pair ?? "n/a"}`
+        : `- unavailable: ${diagnostics.helper_error || "unknown"}`,
+      helperData ? `- ruleset_rules_count: ${helperData.ruleset_rules_count ?? "n/a"}` : null,
+      helperData ? `- snapshot_target_count: ${helperData.snapshot_target_count ?? "n/a"}` : null,
+      helperData ? `- store_path: ${helperData.store_path || "n/a"}` : null,
+      helperData ? `- ruleset_path: ${helperData.ruleset_path || "n/a"}` : null,
+      "",
+      "Extension cache:",
+      `- cached_ruleset_rules: ${diagnostics.cache.ruleset_rules_count ?? 0}`,
+      `- cached_snapshot_targets: ${diagnostics.cache.snapshot_target_count ?? 0}`,
+      "",
+      "Current tab/runtime (last reported):",
+      runtimeState ? `- ts: ${runtimeState.ts || "n/a"}` : "- ts: n/a",
+      runtimeState ? `- pair: ${runtimeState.pair || "n/a"}` : "- pair: n/a",
+      runtimeState ? `- srs_enabled: ${runtimeState.srs_enabled === true}` : "- srs_enabled: n/a",
+      runtimeState ? `- rules_source: ${runtimeState.rules_source || "n/a"}` : "- rules_source: n/a",
+      runtimeState ? `- rules_local_enabled: ${runtimeState.rules_local_enabled ?? "n/a"}` : "- rules_local_enabled: n/a",
+      runtimeState ? `- rules_srs_enabled: ${runtimeState.rules_srs_enabled ?? "n/a"}` : "- rules_srs_enabled: n/a",
+      runtimeState ? `- active_rules_total: ${runtimeState.active_rules_total ?? "n/a"}` : "- active_rules_total: n/a",
+      runtimeState ? `- active_rules_srs: ${runtimeState.active_rules_srs ?? "n/a"}` : "- active_rules_srs: n/a",
+      runtimeState ? `- helper_rules_error: ${runtimeState.helper_rules_error || "none"}` : "- helper_rules_error: n/a",
+      runtimeState ? `- frame_type: ${runtimeState.frame_type || "n/a"}` : "- frame_type: n/a"
+    ].filter(Boolean);
+    srsRulegenOutput.textContent = lines.join("\n");
+    setStatus(
+      t("status_srs_diagnostics_ready", null, "SRS runtime diagnostics updated."),
+      ui.COLORS.SUCCESS
+    );
+    logOptions("SRS runtime diagnostics", diagnostics);
+  } catch (err) {
+    const msg = err && err.message
+      ? err.message
+      : t("status_srs_diagnostics_failed", null, "Failed to collect SRS diagnostics.");
+    srsRulegenOutput.textContent = msg;
+    setStatus(msg, ui.COLORS.ERROR);
+    logOptions("SRS runtime diagnostics failed.", err);
+  } finally {
+    srsRuntimeDiagnosticsButton.disabled = false;
   }
 }
 
@@ -955,6 +1125,12 @@ if (srsSampleButton) {
 }
 if (srsInitializeSetButton) {
   srsInitializeSetButton.addEventListener("click", initializeSrsSet);
+}
+if (srsRefreshSetButton) {
+  srsRefreshSetButton.addEventListener("click", refreshSrsSetNow);
+}
+if (srsRuntimeDiagnosticsButton) {
+  srsRuntimeDiagnosticsButton.addEventListener("click", runSrsRuntimeDiagnostics);
 }
 if (srsRulegenButton) {
   srsRulegenButton.addEventListener("click", previewSrsRulegen);

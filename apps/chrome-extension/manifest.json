@@ -11,6 +11,9 @@
     "128": "icons/icon128.png"
   },
   "permissions": ["storage", "nativeMessaging"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "options_page": "options.html",
   "content_scripts": [
     {
@@ -18,6 +21,7 @@
       "js": [
         "shared/language_prefs.js",
         "shared/settings_defaults.js",
+        "shared/srs_runtime_diagnostics.js",
         "shared/lemmatizer.js",
         "shared/helper_transport_extension.js",
         "shared/helper_client.js",

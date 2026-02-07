@@ -93,6 +93,10 @@ Status key:
 - `[x]` Add sampled rulegen debug path (helper-side probabilistic sampling from current `S`).
 - `[~]` Unified diagnostics surface for plan + snapshot + ruleset.
 - `[x]` Initialization diagnostics now include admission profile + weighted preview of admitted items.
+- `[x]` Production publish path: `srs_initialize` now runs rulegen once and persists runtime ruleset/snapshot.
+- `[x]` Production publish path: `srs_refresh` immediately runs/persists rulegen when new items are admitted.
+- `[x]` Options action for explicit refresh+publish flow (non-debug).
+- `[x]` Runtime diagnostics surface: helper store/ruleset + extension cache + current tab rule counts.
 
 ### Workstream F — Cross-surface consistency
 - `[~]` Bundle format for settings/store exists.

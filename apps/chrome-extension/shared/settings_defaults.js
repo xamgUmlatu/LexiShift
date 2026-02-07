@@ -29,6 +29,7 @@
     srsHighlightColor: "#2F74D0",
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
-    srsExposureLoggingEnabled: true
+    srsExposureLoggingEnabled: true,
+    srsRulesetUpdatedAt: ""
   };
 })();

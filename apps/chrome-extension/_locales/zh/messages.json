@@ -179,6 +179,12 @@
   "button_srs_initialize": {
     "message": "为该语言对初始化 S"
   },
+  "button_srs_refresh_set": {
+    "message": "刷新 S 并发布规则"
+  },
+  "button_srs_runtime_diagnostics": {
+    "message": "SRS 运行时诊断"
+  },
   "button_srs_rulegen_preview": {
     "message": "生成规则（调试）…"
   },
@@ -211,6 +217,30 @@
   },
   "status_srs_set_init_running": {
     "message": "正在初始化 S…"
+  },
+  "status_srs_refresh_running": {
+    "message": "正在刷新 S 并发布规则…"
+  },
+  "status_srs_refresh_success": {
+    "message": "已刷新 $1 的 S：新增 $2 项。"
+  },
+  "status_srs_refresh_noop": {
+    "message": "$1 的 S 刷新完成：没有新增项。"
+  },
+  "status_srs_refresh_failed": {
+    "message": "S 刷新失败。"
+  },
+  "status_srs_diagnostics_running": {
+    "message": "正在收集 SRS 运行时诊断…"
+  },
+  "status_srs_diagnostics_header": {
+    "message": "SRS 运行时诊断（$1）"
+  },
+  "status_srs_diagnostics_ready": {
+    "message": "SRS 运行时诊断已更新。"
+  },
+  "status_srs_diagnostics_failed": {
+    "message": "收集 SRS 诊断失败。"
   },
   "status_srs_set_init_result": {
     "message": "已为 $3 初始化 S：+$1 项（总计 $2）。"
