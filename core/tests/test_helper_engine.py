@@ -29,6 +29,7 @@ from lexishift_core.helper_engine import (  # noqa: E402
 from lexishift_core.helper_paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs_signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
+from lexishift_core.core import VocabRule  # noqa: E402
 
 
 def _seed_store_and_outputs(root: Path) -> HelperPaths:
@@ -805,6 +806,132 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(result["added_items"], 0)
             self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
             self.assertEqual(result["admission_refresh"]["feedback_window"]["feedback_count"], 8)
+
+    def test_good_feedback_allows_admission_and_publishes_rulegen_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+
+            save_srs_settings(
+                SrsSettings(max_active_items=20, max_new_items_per_day=2),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+
+            for rating in ("good", "easy", "good", "easy", "good", "easy", "good", "easy"):
+                apply_feedback(
+                    paths,
+                    pair="en-ja",
+                    lemma="alpha",
+                    rating=rating,
+                    source_type="extension",
+                )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.9,
+                    admission_weight=0.9,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="gamma",
+                    language_pair="en-ja",
+                    core_rank=3.0,
+                    pos="形容詞-一般",
+                    pos_bucket="adjective",
+                    pos_weight=0.85,
+                    pmw=90.0,
+                    base_weight=0.8,
+                    admission_weight=0.68,
+                    metadata={},
+                ),
+            ]
+
+            def _stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
+                rules = (
+                    VocabRule(source_phrase="matter", replacement="事"),
+                    VocabRule(source_phrase="thing", replacement="物"),
+                )
+                snapshot = {
+                    "version": 1,
+                    "pair": pair,
+                    "targets": [
+                        {"lemma": "事", "sources": ["matter"]},
+                        {"lemma": "物", "sources": ["thing"]},
+                    ],
+                    "stats": {"target_count": 2, "rule_count": 2, "source_count": 2},
+                }
+                return store, SimpleNamespace(rules=rules, snapshot=snapshot, target_count=2)
+
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=selected,
+            ), patch(
+                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                side_effect=_stub_run_rulegen_for_pair,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            by_pair = [item for item in persisted.items if item.language_pair == "en-ja"]
+            self.assertEqual(len(by_pair), 3)
+            self.assertTrue(result["applied"])
+            self.assertEqual(result["added_items"], 2)
+            self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
+            self.assertEqual(result["admission_refresh"]["feedback_window"]["feedback_count"], 8)
+
+            rulegen_payload = result.get("rulegen")
+            self.assertIsNotNone(rulegen_payload)
+            self.assertTrue(rulegen_payload.get("published"))
+            self.assertEqual(rulegen_payload.get("targets"), 2)
+            self.assertEqual(rulegen_payload.get("rules"), 2)
+            self.assertTrue(Path(rulegen_payload.get("snapshot_path")).exists())
+            self.assertTrue(Path(rulegen_payload.get("ruleset_path")).exists())
 
 
 class TestHelperEngineExposureOnly(unittest.TestCase):

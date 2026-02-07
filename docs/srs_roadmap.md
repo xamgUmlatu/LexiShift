@@ -136,6 +136,7 @@ Status key:
 - `[~]` Add helper integration tests for full feedback loop affecting serving priority.
 - `[x]` Add deterministic helper test: feedback updates schedule fields and can trigger `retention_low` admission pause.
 - `[x]` Add assertion checks for "no schedule mutation from exposure-only events".
+- `[x]` Add deterministic helper test: high-retention feedback enables admissions and publishes rulegen outputs.
 - `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
