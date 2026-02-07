@@ -14,7 +14,17 @@ from lexishift_core.helper_rulegen import (
     write_rulegen_outputs,
 )
 from lexishift_core.helper_status import HelperStatus, load_status, save_status
+from lexishift_core.srs_admission_refresh import (
+    AdmissionRefreshPolicy,
+    admission_refresh_result_to_dict,
+    apply_admission_refresh,
+)
 from lexishift_core.srs import SrsSettings, SrsStore, load_srs_settings, load_srs_store, save_srs_settings, save_srs_store
+from lexishift_core.srs_seed import (
+    SeedSelectionConfig,
+    build_seed_candidates,
+    seed_to_selector_candidates,
+)
 from lexishift_core.srs_set_planner import SrsSetPlanRequest, build_srs_set_plan, plan_to_dict
 from lexishift_core.srs_set_strategy import (
     OBJECTIVE_BOOTSTRAP,
@@ -27,6 +37,7 @@ from lexishift_core.srs_signal_queue import (
     SIGNAL_FEEDBACK,
     SrsSignalEvent,
     append_signal_event,
+    load_signal_events,
     summarize_signal_events,
 )
 from lexishift_core.srs_source import SOURCE_EXTENSION, SOURCE_INITIAL_SET
@@ -82,6 +93,20 @@ class SetPlanningJobConfig:
     replace_pair: bool = False
     profile_context: Optional[Mapping[str, object]] = None
     trigger: str = "manual"
+
+
+@dataclass(frozen=True)
+class SrsRefreshJobConfig:
+    pair: str
+    jmdict_path: Path
+    set_source_db: Path
+    set_top_n: int = 2000
+    feedback_window_size: int = 100
+    max_active_items: Optional[int] = None
+    max_new_items: Optional[int] = None
+    persist_store: bool = True
+    trigger: str = "manual"
+    profile_context: Optional[Mapping[str, object]] = None
 
 
 def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> SrsSettings:
@@ -472,6 +497,75 @@ def initialize_srs_set(
         "applied": True,
         "plan": plan_payload,
         "signal_summary": signal_summary,
+    }
+
+
+def refresh_srs_set(
+    paths: HelperPaths,
+    *,
+    config: SrsRefreshJobConfig,
+) -> dict:
+    if not config.jmdict_path.exists():
+        raise FileNotFoundError(config.jmdict_path)
+    if not config.set_source_db.exists():
+        raise FileNotFoundError(config.set_source_db)
+
+    pair = str(config.pair or "").strip()
+    if not pair:
+        raise ValueError("Missing pair.")
+
+    settings = _ensure_settings(paths, persist_missing=True)
+    store = _ensure_store(paths, persist_missing=True)
+    before_pair_count = _count_items_for_pair(store, pair)
+    stopwords_path = _resolve_stopwords_path(paths, pair=pair)
+    selection = build_seed_candidates(
+        frequency_db=config.set_source_db,
+        config=SeedSelectionConfig(
+            language_pair=pair,
+            top_n=max(1, int(config.set_top_n)),
+            jmdict_path=config.jmdict_path,
+            stopwords_path=stopwords_path,
+        ),
+    )
+    selector_candidates = seed_to_selector_candidates(selection)
+    signal_events = load_signal_events(paths.srs_signal_queue_path)
+    refresh_policy = AdmissionRefreshPolicy(
+        feedback_window_size=max(1, int(config.feedback_window_size)),
+        max_active_items_override=config.max_active_items,
+        max_new_items_override=config.max_new_items,
+    )
+    updated_store, refresh_result = apply_admission_refresh(
+        store=store,
+        settings=settings,
+        pair=pair,
+        candidates=selector_candidates,
+        events=signal_events,
+        policy=refresh_policy,
+    )
+    if config.persist_store:
+        save_srs_store(updated_store, paths.srs_store_path)
+
+    after_pair_count = _count_items_for_pair(updated_store, pair)
+    added_items = max(0, after_pair_count - before_pair_count)
+    refresh_payload = admission_refresh_result_to_dict(refresh_result)
+    refresh_payload["weight_terms"] = {
+        "admission_weight": "Entry/growth score for adding words into S.",
+        "serving_priority": "Due/scheduler-derived priority for selecting words already in S.",
+    }
+    return {
+        "pair": pair,
+        "set_top_n": max(1, int(config.set_top_n)),
+        "feedback_window_size": max(1, int(config.feedback_window_size)),
+        "max_active_items": refresh_result.decision.max_active_items,
+        "max_new_items_per_day": refresh_result.decision.max_new_items_per_day,
+        "added_items": added_items,
+        "total_items_for_pair": after_pair_count,
+        "store_path": str(paths.srs_store_path),
+        "stopwords_path": str(stopwords_path) if stopwords_path else None,
+        "admission_refresh": refresh_payload,
+        "applied": bool(refresh_result.applied),
+        "persisted": bool(config.persist_store),
+        "trigger": str(config.trigger or "manual"),
     }
 
 

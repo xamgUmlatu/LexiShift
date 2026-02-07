@@ -159,6 +159,7 @@
         details.push({
           original: originalText,
           replacement: replacementText,
+          origin: origin || "ruleset",
           source: match.rule.source_phrase || "",
           priority: match.rule.priority,
           case_policy: match.rule.case_policy || "match",

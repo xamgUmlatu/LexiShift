@@ -132,6 +132,7 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
             lemma=seed.lemma,
             language_pair=seed.language_pair,
             base_freq=seed.admission_weight,
+            confidence=seed.admission_weight,
             pos=seed.pos_bucket,
             metadata={
                 "core_rank": seed.core_rank,

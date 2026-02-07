@@ -11,6 +11,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+MAIN_APP_BUNDLE = "LexiShift.app"
+HELPER_APP_BUNDLE = "LexiShift Helper.app"
+
 
 def _resolve_repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
@@ -49,19 +52,24 @@ def _run_build_gui(
         raise SystemExit(result.returncode)
 
 
-def _find_app_bundle(dist_dir: Path) -> Path:
+def _require_app_bundle(dist_dir: Path, app_name: str) -> Path:
+    app_path = dist_dir / app_name
+    if app_path.exists():
+        return app_path
     apps = sorted(dist_dir.glob("*.app"))
     if not apps:
         raise SystemExit(f"No .app bundle found in {dist_dir}")
-    return apps[0]
+    available = ", ".join(app.name for app in apps)
+    raise SystemExit(f"Expected app bundle not found: {app_name} (found: {available})")
 
 
-def _build_dmg(*, app_path: Path, output_dir: Path, volume_name: str, dmg_name: str) -> Path:
+def _build_dmg(*, app_paths: list[Path], output_dir: Path, volume_name: str, dmg_name: str) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     dmg_path = output_dir / f"{dmg_name}.dmg"
     with tempfile.TemporaryDirectory(prefix="lexishift_dmg_") as staging:
         stage_dir = Path(staging)
-        shutil.copytree(app_path, stage_dir / app_path.name)
+        for app_path in app_paths:
+            shutil.copytree(app_path, stage_dir / app_path.name)
         apps_link = stage_dir / "Applications"
         try:
             apps_link.symlink_to("/Applications")
@@ -291,11 +299,13 @@ def main() -> int:
 
     system = platform.system().lower()
     if system == "darwin":
-        app_path = _find_app_bundle(dist_dir)
+        app_path = _require_app_bundle(dist_dir, MAIN_APP_BUNDLE)
+        helper_app_path = _require_app_bundle(dist_dir, HELPER_APP_BUNDLE)
         if args.mac_sign_identity:
             _sign_macos_app(app_path, args.mac_sign_identity)
+            _sign_macos_app(helper_app_path, args.mac_sign_identity)
         dmg_path = _build_dmg(
-            app_path=app_path,
+            app_paths=[app_path, helper_app_path],
             output_dir=output_dir,
             volume_name=app_name,
             dmg_name=args.dmg_name,

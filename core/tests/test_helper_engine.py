@@ -14,14 +14,17 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.helper_engine import (  # noqa: E402
     RulegenJobConfig,
+    SrsRefreshJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
     initialize_srs_set,
     plan_srs_set,
+    refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
 )
 from lexishift_core.helper_paths import HelperPaths, build_helper_paths  # noqa: E402
+from lexishift_core.srs_signal_queue import SrsSignalEvent, save_signal_events  # noqa: E402
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
 
 
@@ -473,6 +476,187 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
             )
 
             self.assertEqual(plan_payload["stopwords_path"], str(stopwords_path))
+
+
+class TestHelperEngineRefreshSrsSet(unittest.TestCase):
+    def test_refresh_adds_new_items_when_feedback_and_capacity_allow(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+
+            save_srs_settings(
+                SrsSettings(max_active_items=10, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.9,
+                    admission_weight=0.9,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="gamma",
+                    language_pair="en-ja",
+                    core_rank=3.0,
+                    pos="形容詞-一般",
+                    pos_bucket="adjective",
+                    pos_weight=0.85,
+                    pmw=90.0,
+                    base_weight=0.8,
+                    admission_weight=0.68,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="delta",
+                    language_pair="en-ja",
+                    core_rank=4.0,
+                    pos="動詞-一般",
+                    pos_bucket="verb",
+                    pos_weight=0.70,
+                    pmw=85.0,
+                    base_weight=0.75,
+                    admission_weight=0.525,
+                    metadata={},
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        set_top_n=2000,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            by_pair = [item for item in persisted.items if item.language_pair == "en-ja"]
+            self.assertEqual(len(by_pair), 4)
+            self.assertTrue(result["applied"])
+            self.assertEqual(result["added_items"], 3)
+            self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
+            self.assertIn("admission_weight", result["admission_refresh"]["weight_terms"])
+            self.assertIn("serving_priority", result["admission_refresh"]["weight_terms"])
+
+    def test_refresh_pauses_admission_for_low_retention(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+
+            save_srs_settings(
+                SrsSettings(max_active_items=10, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(SrsStore(items=tuple(), version=1), paths.srs_store_path)
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating=("again" if i % 2 == 0 else "hard"),
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            self.assertEqual(len(persisted.items), 0)
+            self.assertFalse(result["applied"])
+            self.assertEqual(result["added_items"], 0)
+            self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
 
 
 if __name__ == "__main__":

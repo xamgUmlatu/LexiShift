@@ -41,6 +41,8 @@
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
   const helperCache = root.helperCache;
+  const RULE_ORIGIN_SRS = "srs";
+  const RULE_ORIGIN_RULESET = "ruleset";
 
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
@@ -53,6 +55,46 @@
   let helperRulesCache = new Map();
   let pageBudgetState = null;
   let feedbackSync = null;
+
+  function normalizeRuleOrigin(origin) {
+    return String(origin || "").toLowerCase() === RULE_ORIGIN_SRS
+      ? RULE_ORIGIN_SRS
+      : RULE_ORIGIN_RULESET;
+  }
+
+  function getRuleOrigin(rule) {
+    return normalizeRuleOrigin(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
+  }
+
+  function tagRulesWithOrigin(rules, origin) {
+    const taggedOrigin = normalizeRuleOrigin(origin);
+    if (!Array.isArray(rules) || !rules.length) {
+      return [];
+    }
+    return rules.map((rule) => {
+      const source = rule && typeof rule === "object" ? rule : {};
+      const metadata = source.metadata && typeof source.metadata === "object" ? source.metadata : null;
+      return {
+        ...source,
+        metadata: {
+          ...(metadata || {}),
+          lexishift_origin: taggedOrigin
+        }
+      };
+    });
+  }
+
+  function countRulesByOrigin(rules) {
+    const counts = {
+      [RULE_ORIGIN_RULESET]: 0,
+      [RULE_ORIGIN_SRS]: 0
+    };
+    for (const rule of rules || []) {
+      const origin = getRuleOrigin(rule);
+      counts[origin] = Number(counts[origin] || 0) + 1;
+    }
+    return counts;
+  }
 
   function cacheHelperRules(pair, rules) {
     if (!pair) {
@@ -288,14 +330,7 @@
         counter.focusDetailTruncated = true;
       }
     }
-    const originResolver = currentSettings.srsEnabled
-      ? (rule, replacementText) => {
-          const key = String(replacementText || "").toLowerCase();
-          return currentSettings._srsActiveLemmas && currentSettings._srsActiveLemmas.has(key)
-            ? "srs"
-            : "ruleset";
-        }
-      : null;
+    const originResolver = (rule) => getRuleOrigin(rule);
     const result = buildReplacementFragment(node.nodeValue, currentTrie, currentSettings, (textNode) => {
       processedNodes.set(textNode, textNode.nodeValue);
     }, originResolver, pageBudgetState);
@@ -311,18 +346,14 @@
           && result.details
           && result.details.length
         ) {
-          const exposures = result.details.map((detail) => {
-            const origin = currentSettings._srsActiveLemmas &&
-              currentSettings._srsActiveLemmas.has(String(detail.replacement || "").toLowerCase())
-              ? "srs"
-              : "ruleset";
-            return srsMetrics.buildExposure(
+          const exposures = result.details.map((detail) =>
+            srsMetrics.buildExposure(
               detail,
-              origin,
+              normalizeRuleOrigin(detail.origin),
               window.location ? window.location.href : "",
               lemmatizer ? lemmatizer.lemmatize : null
-            );
-          });
+            )
+          );
           srsMetrics.recordExposureBatch(exposures).then((saved) => {
             if (currentSettings.debugEnabled && saved && saved.length) {
               log(`Recorded ${saved.length} exposure(s).`);
@@ -565,43 +596,46 @@
     }
     processedNodes = new WeakMap();
     let rulesSource = "local";
-    let rawRules = currentSettings.rules;
+    const localRules = tagRulesWithOrigin(currentSettings.rules, RULE_ORIGIN_RULESET);
+    let helperRules = [];
     if (currentSettings.srsEnabled && helperClient) {
       try {
         const helperRuleset = await fetchHelperRules(currentSettings.srsPair);
         if (helperRuleset && Array.isArray(helperRuleset.rules)) {
-          rawRules = helperRuleset.rules;
-          rulesSource = "helper";
-          cacheHelperRules(currentSettings.srsPair, rawRules);
+          helperRules = tagRulesWithOrigin(helperRuleset.rules, RULE_ORIGIN_SRS);
+          rulesSource = "local+helper";
+          cacheHelperRules(currentSettings.srsPair, helperRuleset.rules);
         } else {
           const fallback = helperRulesCache.get(currentSettings.srsPair);
           if (fallback) {
-            rawRules = fallback;
-            rulesSource = "helper-cache";
+            helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
+            rulesSource = "local+helper-cache";
           } else if (helperCache && typeof helperCache.loadRuleset === "function") {
             const cached = await helperCache.loadRuleset(currentSettings.srsPair);
             if (cached && Array.isArray(cached.rules)) {
-              rawRules = cached.rules;
-              rulesSource = "helper-cache";
+              helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
+              rulesSource = "local+helper-cache";
             }
           }
         }
       } catch (error) {
         const fallback = helperRulesCache.get(currentSettings.srsPair);
         if (fallback) {
-          rawRules = fallback;
-          rulesSource = "helper-cache";
+          helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
+          rulesSource = "local+helper-cache";
         } else if (helperCache && typeof helperCache.loadRuleset === "function") {
           const cached = await helperCache.loadRuleset(currentSettings.srsPair);
           if (cached && Array.isArray(cached.rules)) {
-            rawRules = cached.rules;
-            rulesSource = "helper-cache";
+            helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
+            rulesSource = "local+helper-cache";
           }
         }
       }
     }
+    const rawRules = [...localRules, ...helperRules];
     const normalizedRules = normalizeRules(rawRules);
     const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
+    const originCounts = countRulesByOrigin(enabledRules);
     let activeRules = enabledRules;
     currentSettings._srsActiveLemmas = null;
     let srsStats = null;
@@ -629,6 +663,8 @@
       maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
       maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
       rulesSource,
+      rulesLocalEnabled: originCounts[RULE_ORIGIN_RULESET],
+      rulesSrsEnabled: originCounts[RULE_ORIGIN_SRS],
       srsEnabled: currentSettings.srsEnabled === true,
       srsPair: currentSettings.srsPair || "",
       srsMaxActive: currentSettings.srsMaxActive,
@@ -667,13 +703,7 @@
       setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
     }
     attachClickListener();
-    const feedbackOrigins = [];
-    if (currentSettings.srsFeedbackSrsEnabled !== false) {
-      feedbackOrigins.push("srs");
-    }
-    if (currentSettings.srsFeedbackRulesEnabled === true) {
-      feedbackOrigins.push("ruleset");
-    }
+    const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [RULE_ORIGIN_SRS];
     attachFeedbackListener((payload) => handleFeedback(payload, focusWord), {
       allowOrigins: feedbackOrigins
     });
@@ -734,6 +764,13 @@
       return;
     }
     const target = payload.target;
+    const origin = normalizeRuleOrigin(target.dataset.origin || RULE_ORIGIN_RULESET);
+    if (origin !== RULE_ORIGIN_SRS) {
+      if (currentSettings.debugEnabled) {
+        log(`Ignoring feedback for non-SRS replacement (${origin}).`);
+      }
+      return;
+    }
     const entry = srsFeedback && typeof srsFeedback.buildEntryFromSpan === "function"
       ? srsFeedback.buildEntryFromSpan(target, payload.rating, window.location ? window.location.href : "")
       : {
@@ -741,6 +778,7 @@
           lemma: String(target.dataset.replacement || target.textContent || ""),
           replacement: String(target.dataset.replacement || target.textContent || ""),
           original: String(target.dataset.original || ""),
+          origin: origin,
           language_pair: target.dataset.languagePair || "",
           source_phrase: target.dataset.source || "",
           url: window.location ? window.location.href : ""
@@ -876,13 +914,7 @@
     }
     if (changes.srsFeedbackSrsEnabled || changes.srsFeedbackRulesEnabled) {
       currentSettings = { ...currentSettings, ...nextSettings };
-      const feedbackOrigins = [];
-      if (currentSettings.srsFeedbackSrsEnabled !== false) {
-        feedbackOrigins.push("srs");
-      }
-      if (currentSettings.srsFeedbackRulesEnabled === true) {
-        feedbackOrigins.push("ruleset");
-      }
+      const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [RULE_ORIGIN_SRS];
       attachFeedbackListener((payload) => handleFeedback(payload, getFocusWord(currentSettings)), {
         allowOrigins: feedbackOrigins
       });

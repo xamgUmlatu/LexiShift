@@ -680,12 +680,19 @@ class SettingsDialog(QDialog):
             host_path=host_path,
         )
         if result.installed:
-            ensure_helper_autostart()
-            QMessageBox.information(
-                self,
-                t("dialogs.helper_install.title"),
-                t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
-            )
+            try:
+                ensure_helper_autostart()
+                QMessageBox.information(
+                    self,
+                    t("dialogs.helper_install.title"),
+                    t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
+                )
+            except Exception as exc:  # noqa: BLE001
+                QMessageBox.warning(
+                    self,
+                    t("dialogs.helper_install.title"),
+                    t("dialogs.helper_install.failed", message=str(exc)),
+                )
         else:
             QMessageBox.warning(
                 self,

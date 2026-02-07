@@ -85,7 +85,7 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - on preference changes.
 - GUI app can trigger `run_rulegen` explicitly.
  - Helper tray app (menubar/tray) owns lifetime + status UI.
- - macOS LaunchAgent starts the helper tray mode (`--helper-tray`) at login (tray app spawns the daemon).
+- macOS LaunchAgent starts the dedicated helper app (`LexiShift Helper.app`) at login (tray app spawns the daemon).
 
 ### Phase 5 — UI + Diagnostics
 - Options page:

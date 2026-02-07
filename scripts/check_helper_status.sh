@@ -6,7 +6,7 @@ LAUNCH_AGENT="${HOME}/Library/LaunchAgents/com.lexishift.helper.plist"
 TRAY_LOG="${DATA_ROOT}/helper_tray.log"
 STATUS_JSON="${DATA_ROOT}/srs/srs_status.json"
 CHROME_MANIFEST="${HOME}/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.lexishift.helper.json"
-APP_BIN="/Applications/LexiShift.app/Contents/MacOS/LexiShift"
+HELPER_BIN="/Applications/LexiShift Helper.app/Contents/MacOS/LexiShiftHelper"
 
 START_TRAY=0
 for arg in "$@"; do
@@ -17,11 +17,11 @@ done
 
 if [[ "${START_TRAY}" -eq 1 ]]; then
   echo "Starting helper tray (background)..."
-  if [[ -x "${APP_BIN}" ]]; then
-    nohup "${APP_BIN}" --helper-tray >/tmp/lexishift_tray.out 2>&1 &
+  if [[ -x "${HELPER_BIN}" ]]; then
+    nohup "${HELPER_BIN}" >/tmp/lexishift_tray.out 2>&1 &
     sleep 1
   else
-    echo "App binary not found: ${APP_BIN}"
+    echo "Helper binary not found: ${HELPER_BIN}"
   fi
 fi
 
@@ -38,8 +38,7 @@ launchctl list | grep com.lexishift.helper || echo "Not loaded"
 
 echo
 echo "=== Processes ==="
-pgrep -fl "/Applications/LexiShift.app/Contents/MacOS/LexiShift" || echo "No LexiShift process"
-pgrep -fl "helper_tray" || echo "No helper_tray process"
+pgrep -fl "${HELPER_BIN}" || echo "No helper process"
 pgrep -fl "lexishift_native_host.py" || echo "No native host process"
 
 echo

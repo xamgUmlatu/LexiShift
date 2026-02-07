@@ -29,6 +29,8 @@ Ship a non-destructive SRS layer where:
 - `srs_set_planner.py`: plan metadata + diagnostics.
 - `srs_plan_set` helper command: no side effects.
 - `srs_initialize` helper command: mutation via executable strategy.
+- Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
+- JP stopword filtering is active from helper-owned `srs/stopwords/stopwords-ja.json` (or sibling fallback path).
 
 ### Feedback pipeline
 - Extension popup ratings:
@@ -62,16 +64,21 @@ Status key:
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
 - `[~]` Profile-aware weighting in `profile_bootstrap`.
-- `[~]` POS-aware admission biasing/filtering (e.g., nouns up, particles/auxiliaries near zero at bootstrap).
+- `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
+- `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
 - `[ ]` Executable `profile_growth` policy.
+- `[ ]` Pair-configurable admission coefficients and denylist controls (helper source of truth).
 
 ### Workstream C — Signals and adaptive refresh
 - `[x]` Signal queue format + append/read utilities.
 - `[x]` Feedback event writes from helper path.
 - `[~]` Event aggregation design for refresh decisions.
+- `[~]` Feedback-window aggregation for admission updates (separate from due scheduling).
+- `[ ]` Persist aggregated admission feedback state (per pair, versioned).
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
 - `[ ]` Explicit policy gate for any non-feedback signals.
+- `[x]` Manual/explicit helper refresh action (`srs_refresh`) for feedback-driven admissions.
 
 ### Workstream D — Profile modeling
 - `[x]` Profile schema draft and extension scaffold key (`srsProfileSignals`).
@@ -84,12 +91,20 @@ Status key:
 - `[x]` Helper initialize action exposed in options.
 - `[x]` Ensure debug rulegen scopes to current helper-managed `S` only.
 - `[x]` Add sampled rulegen debug path (helper-side probabilistic sampling from current `S`).
-- `[ ]` Unified diagnostics surface for plan + snapshot + ruleset.
+- `[~]` Unified diagnostics surface for plan + snapshot + ruleset.
+- `[x]` Initialization diagnostics now include admission profile + weighted preview of admitted items.
 
 ### Workstream F — Cross-surface consistency
 - `[~]` Bundle format for settings/store exists.
 - `[ ]` GUI/extension/plugin import/export wiring.
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
+
+### Workstream G — End-to-End validation and calibration
+- `[ ]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).
+- `[~]` Add helper integration tests for full feedback loop affecting serving priority.
+- `[ ]` Add assertion checks for "no schedule mutation from exposure-only events".
+- `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
+- `[ ]` Add per-pair calibration report for admission/serving distributions.
 
 ---
 
@@ -106,11 +121,18 @@ Status key:
 2. Make `initial_active_count` executable in active/frontier serving policy.
 3. Add planner diagnostics for why each item entered `S`.
 4. Add policy knobs for per-pair new-item pace.
+5. Make POS/stopword admission policy pair-configurable without code edits.
 
 ### Phase 3 (adaptive refresh)
 1. Aggregate feedback trends in bounded windows.
 2. Add refresh trigger thresholds and cooldown.
 3. Execute `adaptive_refresh` with audit-friendly logs.
+
+### Phase 4 (E2E + profile integration)
+1. Lock an E2E test matrix for extension + helper feedback sync paths.
+2. Implement profile-signal normalization and pair-level admission bias persistence.
+3. Validate that profile adjustments affect admission (`weight 1`) but not due scheduler math (`weight 2`).
+4. Add operator-facing diagnostics for admission drift and refresh decisions.
 
 ---
 

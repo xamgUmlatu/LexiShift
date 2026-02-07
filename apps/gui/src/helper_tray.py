@@ -17,6 +17,8 @@ from lexishift_core.helper_status import load_status
 from helper_daemon import DaemonConfig, run_daemon
 from utils_paths import resource_path, reveal_path
 
+MAIN_APP_BUNDLE_NAME = "LexiShift.app"
+
 
 def _tray_icon() -> QIcon:
     if sys.platform == "darwin":
@@ -70,27 +72,28 @@ def _log_line(paths, message: str) -> None:
 
 def _open_main_app() -> None:
     paths = build_helper_paths()
-    
+
     env = dict(os.environ)
     cmd = []
 
     if getattr(sys, "frozen", False):
-        # On macOS, if we are in a bundle, use 'open' to launch cleanly
+        # On macOS helper builds, open the main app bundle directly.
         if sys.platform == "darwin":
             exe_path = Path(sys.executable)
-            # .../LexiShift.app/Contents/MacOS/LexiShift
             if exe_path.parent.name == "MacOS" and exe_path.parent.parent.name == "Contents":
-                bundle_path = exe_path.parent.parent.parent
-                if bundle_path.suffix == ".app":
-                    # Use -n to force a new instance, otherwise macOS just activates the running tray process
-                    cmd = ["open", "-n", str(bundle_path)]
-                    try:
-                        _log_line(paths, f"[{datetime.now()}] Tray launching via open: {cmd}")
-                        subprocess.Popen(cmd, close_fds=True)
-                        return
-                    except Exception as e:
-                        _log_line(paths, f"[{datetime.now()}] Tray failed to launch via open: {e}")
-                        return
+                current_bundle = exe_path.parent.parent.parent
+                main_bundle = current_bundle.with_name(MAIN_APP_BUNDLE_NAME)
+                if not main_bundle.exists():
+                    _log_line(paths, f"[{datetime.now()}] Main app bundle not found: {main_bundle}")
+                    return
+                cmd = ["open", str(main_bundle)]
+                try:
+                    _log_line(paths, f"[{datetime.now()}] Tray launching via open: {cmd}")
+                    subprocess.Popen(cmd, close_fds=True)
+                    return
+                except Exception as e:
+                    _log_line(paths, f"[{datetime.now()}] Tray failed to launch via open: {e}")
+                    return
 
         # Clean up environment to prevent PyInstaller one-file conflicts
         for key in ["_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]:

@@ -10,6 +10,9 @@ import shutil
 from pathlib import Path
 from typing import Sequence, Tuple
 
+MAIN_APP_BUNDLE = "LexiShift.app"
+HELPER_APP_BUNDLE = "LexiShift Helper.app"
+
 
 def _resolve_repo_root() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -67,12 +70,16 @@ def _detect_build_mode(spec_path: str) -> str:
         return "unknown"
 
 
-def _find_macos_app(dist_path: str) -> Path:
+def _find_macos_app(dist_path: str, app_name: str) -> Path:
     dist_dir = Path(dist_path)
+    app_path = dist_dir / app_name
+    if app_path.exists():
+        return app_path
     apps = sorted(dist_dir.glob("*.app"))
     if not apps:
         raise SystemExit(f"No .app bundle found in {dist_dir}")
-    return apps[0]
+    available = ", ".join(app.name for app in apps)
+    raise SystemExit(f"Expected app bundle not found: {app_name} (found: {available})")
 
 
 def _install_macos_app(app_path: Path, install_dir: Path) -> Path:
@@ -84,13 +91,9 @@ def _install_macos_app(app_path: Path, install_dir: Path) -> Path:
     return target
 
 
-def _run_validation(repo_root: str, app_path: Path | None, dist_path: str) -> None:
+def _run_validation(repo_root: str, dist_path: str) -> None:
     script = Path(repo_root) / "scripts" / "validate_app_bundle.py"
-    cmd = [sys.executable, str(script)]
-    if app_path is not None:
-        cmd.extend(["--app", str(app_path)])
-    else:
-        cmd.extend(["--distpath", dist_path])
+    cmd = [sys.executable, str(script), "--distpath", dist_path]
     result = subprocess.run(cmd, check=False, cwd=repo_root)
     if result.returncode != 0:
         raise SystemExit(result.returncode)
@@ -218,19 +221,22 @@ def main() -> int:
     if result.returncode != 0:
         return int(result.returncode)
 
-    app_path: Path | None = None
+    app_paths: list[Path] = []
     if platform.system() == "Darwin":
-        app_path = _find_macos_app(dist_path)
+        app_paths.append(_find_macos_app(dist_path, MAIN_APP_BUNDLE))
+        app_paths.append(_find_macos_app(dist_path, HELPER_APP_BUNDLE))
 
     if args.validate:
-        _run_validation(repo_root, app_path, dist_path)
+        _run_validation(repo_root, dist_path)
 
     if args.install:
         if platform.system() != "Darwin":
             print("Install step skipped: --install is only supported on macOS.")
-        elif app_path is not None:
-            install_target = _install_macos_app(app_path, Path(args.install_dir))
-            print(f"Installed to: {install_target}")
+        elif app_paths:
+            install_dir = Path(args.install_dir)
+            for app_path in app_paths:
+                install_target = _install_macos_app(app_path, install_dir)
+                print(f"Installed to: {install_target}")
 
     return 0
 

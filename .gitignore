@@ -9,6 +9,7 @@ env/
 build/
 dist/
 *.spec
+!apps/gui/packaging/pyinstaller.spec
 
 # --- OS Generated ---
 .DS_Store
@@ -27,6 +28,7 @@ desktop.ini
 # If you generate icons or temporary UI files via PySide6
 *_rc.py
 *_ui.py
+!apps/gui/src/helper_ui.py
 
 # --- Browser Extension & BetterDiscord ---
 # Ignore local node modules if you add them later

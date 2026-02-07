@@ -6,6 +6,7 @@ LAUNCH_AGENT="${HOME}/Library/LaunchAgents/com.lexishift.helper.plist"
 CHROME_MANIFEST="${HOME}/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.lexishift.helper.json"
 BRAVE_MANIFEST="${HOME}/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts/com.lexishift.helper.json"
 CHROMIUM_MANIFEST="${HOME}/Library/Application Support/Chromium/NativeMessagingHosts/com.lexishift.helper.json"
+HELPER_BIN="/Applications/LexiShift Helper.app/Contents/MacOS/LexiShiftHelper"
 
 FULL_CLEAN=0
 START_TRAY=0
@@ -19,9 +20,9 @@ for arg in "$@"; do
 done
 
 echo "Stopping LexiShift processes..."
-PIDS=$(pgrep -f "/Applications/LexiShift.app/Contents/MacOS/LexiShift" || true)
+PIDS=$(pgrep -f "${HELPER_BIN}" || true)
 if [[ -n "${PIDS}" ]]; then
-  echo "Killing LexiShift PIDs: ${PIDS}"
+  echo "Killing helper PIDs: ${PIDS}"
   kill ${PIDS} 2>/dev/null || true
   sleep 0.5
   kill -9 ${PIDS} 2>/dev/null || true
@@ -58,12 +59,11 @@ else
 fi
 
 if [[ "${START_TRAY}" -eq 1 ]]; then
-  APP_BIN="/Applications/LexiShift.app/Contents/MacOS/LexiShift"
   echo "Starting helper tray..."
-  if [[ -x "${APP_BIN}" ]]; then
-    nohup "${APP_BIN}" --helper-tray >/tmp/lexishift_tray.out 2>&1 &
+  if [[ -x "${HELPER_BIN}" ]]; then
+    nohup "${HELPER_BIN}" >/tmp/lexishift_tray.out 2>&1 &
   else
-    echo "App binary not found: ${APP_BIN}"
+    echo "Helper binary not found: ${HELPER_BIN}"
   fi
 fi
 

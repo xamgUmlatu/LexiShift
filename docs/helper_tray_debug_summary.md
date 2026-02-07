@@ -5,7 +5,7 @@ This document summarizes the current issues, observed logs, and build/runtime be
 ## Scope / Components
 - GUI app (PySide6, PyInstaller one‑file build)
 - Native messaging helper host (`lexishift_native_host.py`)
-- Helper tray app (`--helper-tray`) that spawns the daemon
+- Helper tray app (`LexiShift Helper.app`) that spawns the daemon
 - Chrome extension (options.html debug buttons)
 
 ## Key files involved
@@ -13,7 +13,8 @@ This document summarizes the current issues, observed logs, and build/runtime be
 - `apps/gui/src/helper_ui.py` (Install Helper flow + prompting)
 - `apps/gui/src/helper_tray.py` (tray icon + tray log)
 - `apps/gui/src/helper_daemon.py` (background rulegen loop + status file)
-- `apps/gui/src/main.py` (entrypoint for `--helper-tray` + `--helper-daemon`)
+- `apps/gui/src/helper_app.py` (helper tray entrypoint)
+- `apps/gui/src/main.py` (main GUI entrypoint, includes `--helper-daemon`)
 - `core/lexishift_core/helper_engine.py` (rulegen job + status writes)
 - `core/lexishift_core/helper_paths.py` (data root + paths)
 - `scripts/helper/lexishift_native_host.py` (native messaging host)
@@ -91,12 +92,12 @@ Added logs in helper installer/UI to explain resolution and fallback.
 ## Commands used in debugging
 Stop processes:
 ```
-pkill -f "/Applications/LexiShift.app/Contents/MacOS/LexiShift"
+pkill -f "/Applications/LexiShift Helper.app/Contents/MacOS/LexiShiftHelper"
 ```
 
 Start tray helper directly:
 ```
-/Applications/LexiShift.app/Contents/MacOS/LexiShift --helper-tray
+/Applications/LexiShift\ Helper.app/Contents/MacOS/LexiShiftHelper
 ```
 
 Check logs:

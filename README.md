@@ -309,10 +309,12 @@ Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
 - Build: `python scripts/build_gui_app.py`
   - Validate bundle resources: `python scripts/build_gui_app.py --validate`
-  - Install to `/Applications` (macOS): `python scripts/build_gui_app.py --install`
+  - Install to `/Applications` (macOS): `python scripts/build_gui_app.py --install` (installs both app bundles)
   - Equivalent: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
 - Output:
-  - macOS: `dist/LexiShift.app` (bundle icon uses `apps/gui/resources/ttbn.icns`)
+  - macOS: `dist/LexiShift.app` and `dist/LexiShift Helper.app`
+    - `LexiShift.app`: main GUI app bundle
+    - `LexiShift Helper.app`: helper tray/daemon agent bundle (autostart target)
   - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)
 - Note: build Windows binaries on Windows (PyInstaller does not cross-compile).
 - Validation helper: `python scripts/validate_app_bundle.py --distpath apps/gui/dist`

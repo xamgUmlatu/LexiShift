@@ -27,6 +27,7 @@ _inject_core_path()
 
 from lexishift_core.helper_engine import (
     RulegenJobConfig,
+    SrsRefreshJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
     apply_exposure,
@@ -35,6 +36,7 @@ from lexishift_core.helper_engine import (
     load_ruleset,
     load_snapshot,
     plan_srs_set,
+    refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
 )
@@ -200,6 +202,35 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 replace_pair=bool(payload.get("replace_pair", False)),
                 profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
                 trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
+    if msg_type == "srs_refresh":
+        pair = str(payload.get("pair", "en-ja"))
+        jmdict_path = payload.get("jmdict_path")
+        if not jmdict_path:
+            jmdict_path = str(paths.language_packs_dir / "JMdict_e")
+        set_source_db = payload.get("set_source_db")
+        if not set_source_db:
+            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        set_top_n = _optional_int(payload, "set_top_n")
+        feedback_window_size = _optional_int(payload, "feedback_window_size")
+        return refresh_srs_set(
+            paths,
+            config=SrsRefreshJobConfig(
+                pair=pair,
+                jmdict_path=Path(jmdict_path),
+                set_source_db=Path(set_source_db),
+                set_top_n=set_top_n if set_top_n is not None else 2000,
+                feedback_window_size=feedback_window_size
+                if feedback_window_size is not None
+                else 100,
+                max_active_items=_optional_int(payload, "max_active_items"),
+                max_new_items=_optional_int(payload, "max_new_items"),
+                persist_store=bool(payload.get("persist_store", True)),
+                trigger=str(payload.get("trigger", "manual")),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
             ),
         )
     if msg_type == "srs_reset":

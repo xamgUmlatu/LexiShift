@@ -23,6 +23,9 @@ Status key:
 - `[x]` Persist feedback to `srs_signal_queue.json` (authoritative scheduling signal).
 - `[x]` Persist exposure telemetry to `srs_signal_queue.json` (non-authoritative).
 - `[x]` Add centralized set sizing policy with explicit defaults/clamps.
+- `[x]` Add POS-aware bootstrap admission scoring with explicit coefficients (no inline magic numbers).
+- `[x]` Add helper-side stopword filtering for bootstrap candidates (strict JSON array format).
+- `[x]` Add feedback-window admission refresh policy module (`admission weight` vs `serving priority` separation).
 - `[~]` Add richer logging + error reporting to helper.
 
 ## Phase 2 — Native Messaging Host
@@ -31,6 +34,7 @@ Status key:
 - `[x]` Validate incoming payloads (schema + allowed commands).
 - `[x]` Wire host to helper commands including set planning/init.
 - `[x]` Add handshake (`hello`) and version checks.
+- `[x]` Add `srs_refresh` helper command route for feedback-driven admissions.
 
 ## Phase 3 — Extension Client
 - `[x]` Add helper bridge client (getStatus/getSnapshot/getRuleset).
@@ -40,6 +44,7 @@ Status key:
 - `[x]` Send profile-context scaffold to helper from options flow.
 - `[x]` Send explicit sizing controls (`bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`).
 - `[x]` Replace rulegen preview to non-mutating helper flow.
+- `[x]` Add sampled helper-side rulegen preview using probabilistic sampling from current `S`.
 - `[x]` Content script: fetch helper ruleset when SRS enabled.
 - `[x]` Fallback to cached ruleset if helper offline.
 - `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
@@ -54,8 +59,15 @@ Status key:
 - `[~]` Show helper status in GUI app (last sync detail still limited).
 - `[x]` Auto-install helper on first launch when fixed ID is available.
 - `[x]` Add “Install/Reinstall Helper” repair action in SRS settings.
-- `[~]` Show set planning details in options output.
+- `[x]` Show set planning details in options output (strategy/sizing/applied state + bootstrap diagnostics).
+- `[x]` Show admission-weight diagnostics in options output (profile + weighted preview).
 - `[ ]` Add dedicated logs/health view for signal queue + planner decisions.
+
+## Phase 6 — End-to-End QA and refresh loop
+- `[ ]` Add E2E native messaging test flow for initialize -> sampled rulegen -> feedback submit -> resample.
+- `[ ]` Validate retry/backoff + idempotency semantics under helper restarts.
+- `[~]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
+- `[ ]` Add planner-trigger test for threshold-based automatic refresh from aggregated feedback.
 
 ## Open Questions
 - `[x]` Choose SRS store format for current helper implementation (JSON in `srs/`).

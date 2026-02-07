@@ -17,6 +17,7 @@
       lemma: String(entry.lemma || ""),
       replacement: String(entry.replacement || ""),
       original: String(entry.original || ""),
+      origin: String(entry.origin || "srs"),
       language_pair: entry.language_pair ? String(entry.language_pair) : "",
       source_phrase: entry.source_phrase ? String(entry.source_phrase) : "",
       url: entry.url ? String(entry.url) : ""
@@ -32,6 +33,7 @@
       lemma: String(target.dataset.replacement || target.textContent || ""),
       replacement: String(target.dataset.replacement || target.textContent || ""),
       original: String(target.dataset.original || ""),
+      origin: String(target.dataset.origin || "ruleset"),
       language_pair: target.dataset.languagePair || "",
       source_phrase: target.dataset.source || "",
       url: url || (window.location ? window.location.href : "")

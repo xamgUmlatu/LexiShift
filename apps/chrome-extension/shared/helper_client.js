@@ -55,6 +55,10 @@
       return this.send("srs_plan_set", payload, timeoutMs);
     }
 
+    refreshSrsSet(payload, timeoutMs) {
+      return this.send("srs_refresh", payload, timeoutMs);
+    }
+
     resetSrs(payload) {
       return this.send("srs_reset", payload);
     }

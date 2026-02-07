@@ -87,7 +87,9 @@
       priority: Number.isFinite(rule.priority) ? rule.priority : 0,
       case_policy: rule.case_policy || "match",
       enabled: rule.enabled !== false,
-      metadata: rule.metadata || null
+      metadata: rule.metadata && typeof rule.metadata === "object"
+        ? { ...rule.metadata }
+        : null
     }));
   }
 

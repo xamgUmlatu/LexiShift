@@ -274,6 +274,36 @@ class HelperManager {
     return response.data || {};
   }
 
+  async refreshSrsSet(pair, options) {
+    const client = this.getClient();
+    if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+    const opts = options && typeof options === "object" ? options : {};
+    const response = await client.refreshSrsSet({
+      pair,
+      set_top_n: Number.parseInt(opts.setTopN, 10) || 2000,
+      feedback_window_size: Number.parseInt(opts.feedbackWindowSize, 10) || 100,
+      max_active_items: Number.isFinite(Number(opts.maxActiveItems))
+        ? Number(opts.maxActiveItems)
+        : undefined,
+      max_new_items: Number.isFinite(Number(opts.maxNewItems))
+        ? Number(opts.maxNewItems)
+        : undefined,
+      persist_store: opts.persistStore !== false,
+      trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_refresh_button",
+      profile_context: opts.profileContext && typeof opts.profileContext === "object"
+        ? opts.profileContext
+        : undefined
+    }, 30000);
+    if (!response || response.ok === false) {
+      throw new Error(
+        response && response.error && response.error.message
+          ? response.error.message
+          : this.i18n.t("status_srs_set_init_failed", null, "SRS refresh failed.")
+      );
+    }
+    return response.data || {};
+  }
+
   async resetSrs(pair) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));

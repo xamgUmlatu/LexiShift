@@ -214,8 +214,22 @@ def launch_agent_path() -> Optional[Path]:
     return Path.home() / "Library" / "LaunchAgents" / "com.lexishift.helper.plist"
 
 
-def build_launch_agent(program_args: Sequence[str]) -> str:
+def build_launch_agent(
+    program_args: Sequence[str],
+    *,
+    associated_bundle_identifiers: Sequence[str] | None = None,
+) -> str:
     args = "\n".join([f'    <string>{arg}</string>' for arg in program_args])
+    associated_ids = [str(value).strip() for value in (associated_bundle_identifiers or []) if str(value).strip()]
+    associated_xml = ""
+    if associated_ids:
+        associated_values = "\n".join([f'      <string>{bundle_id}</string>' for bundle_id in associated_ids])
+        associated_xml = (
+            "    <key>AssociatedBundleIdentifiers</key>\n"
+            "    <array>\n"
+            f"{associated_values}\n"
+            "    </array>\n"
+        )
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -233,21 +247,33 @@ def build_launch_agent(program_args: Sequence[str]) -> str:
         <key>SuccessfulExit</key>
         <false/>
     </dict>
+{associated_xml.rstrip()}
   </dict>
 </plist>
 """
 
 
-def install_launch_agent(program_args: Sequence[str]) -> bool:
+def install_launch_agent(
+    program_args: Sequence[str],
+    *,
+    associated_bundle_identifiers: Sequence[str] | None = None,
+) -> bool:
     plist_path = launch_agent_path()
     if not plist_path:
         log_helper("[Helper] LaunchAgent not supported on this platform.")
         return False
     _log_app_bundle_info()
     log_helper(f"[Helper] LaunchAgent program args: {program_args}")
+    if associated_bundle_identifiers:
+        log_helper(f"[Helper] LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}")
     _log_helper_file(f"LaunchAgent program args: {program_args}")
+    if associated_bundle_identifiers:
+        _log_helper_file(f"LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}")
     plist_path.parent.mkdir(parents=True, exist_ok=True)
-    plist_path.write_text(build_launch_agent(program_args), encoding="utf-8")
+    plist_path.write_text(
+        build_launch_agent(program_args, associated_bundle_identifiers=associated_bundle_identifiers),
+        encoding="utf-8",
+    )
     log_helper(f"[Helper] Installed LaunchAgent: {plist_path}")
     _log_helper_file(f"Installed LaunchAgent: {plist_path}")
     subprocess.run(["launchctl", "unload", str(plist_path)], check=False)

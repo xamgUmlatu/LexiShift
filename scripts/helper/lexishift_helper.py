@@ -12,6 +12,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
 from lexishift_core.helper_engine import (
     RulegenJobConfig,
+    SrsRefreshJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
     apply_exposure,
@@ -19,6 +20,7 @@ from lexishift_core.helper_engine import (
     initialize_srs_set,
     load_snapshot,
     plan_srs_set,
+    refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
 )
@@ -159,6 +161,38 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
         return 1
 
 
+def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    jmdict_path = Path(args.jmdict or (paths.language_packs_dir / "JMdict_e"))
+    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
+    if not jmdict_path.exists():
+        print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
+        return 2
+    if not set_source_db.exists():
+        print(f"Missing frequency DB path: {set_source_db}", file=sys.stderr)
+        return 2
+    try:
+        payload = refresh_srs_set(
+            paths,
+            config=SrsRefreshJobConfig(
+                pair=args.pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                set_top_n=args.set_top_n,
+                feedback_window_size=args.feedback_window_size,
+                max_active_items=args.max_active_items,
+                max_new_items=args.max_new_items,
+                persist_store=not args.no_persist_store,
+                trigger=args.trigger,
+            ),
+        )
+        _print_json(payload)
+        return 0
+    except Exception as exc:  # noqa: BLE001
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
 def cmd_record_feedback(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
     apply_feedback(
@@ -250,6 +284,18 @@ def build_parser() -> argparse.ArgumentParser:
     plan_s.add_argument("--trigger", default="cli")
     plan_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
     plan_s.set_defaults(func=cmd_plan_srs_set)
+
+    refresh_s = sub.add_parser("refresh_srs_set", help="Apply feedback-driven admission refresh")
+    refresh_s.add_argument("--pair", default="en-ja")
+    refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    refresh_s.add_argument("--set-source-db", help="Path to frequency SQLite used for candidate pool")
+    refresh_s.add_argument("--set-top-n", type=int, default=2000)
+    refresh_s.add_argument("--feedback-window-size", type=int, default=100)
+    refresh_s.add_argument("--max-active-items", type=int, help="Override max active items for refresh planning.")
+    refresh_s.add_argument("--max-new-items", type=int, help="Override max new items/day for refresh planning.")
+    refresh_s.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
+    refresh_s.add_argument("--trigger", default="cli")
+    refresh_s.set_defaults(func=cmd_refresh_srs_set)
 
     feedback = sub.add_parser("record_feedback", help="Record SRS feedback")
     feedback.add_argument("--pair", required=True)
