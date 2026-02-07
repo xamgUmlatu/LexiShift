@@ -126,6 +126,25 @@ Open questions
 - How to detect and demote overly generic sources (e.g., “thing”, “do”)?
 - How to treat multi‑word phrases across languages with different tokenization rules?
 
+Current known quality gap (important)
+- In current JA-target rulegen, some emitted English source phrases are too broad (gloss-like definitions rather than context-appropriate triggers).
+- Result: runtime replacement can be technically correct but pedagogically weak or noisy.
+- This is a quality issue in source-candidate selection/scoring, not an SRS storage or scheduling failure.
+
+Quality hardening track (next)
+1) Generic gloss suppression
+   - Maintain pair-specific denylist/demotion lists for broad function-like terms and over-generic glosses.
+   - Apply strong penalties before final candidate ranking.
+2) POS/sense-aware filtering
+   - Require POS compatibility where available.
+   - Prefer primary sense; aggressively down-rank secondary/ambiguous senses unless evidence is strong.
+3) Confidence gating refinement
+   - Add explicit penalties for candidates that are high-frequency but semantically broad.
+   - Raise minimum confidence thresholds for broad source types.
+4) Emission diagnostics
+   - Persist reason codes for why a candidate survived filtering (for auditability and tuning).
+   - Add review reports showing top noisy candidates by pair.
+
 Next steps (current workstream focus)
 1) **Frequency provider for EN glosses (JA→EN)**
    - Why: use high‑frequency English glosses to generate rules that actually appear in text.

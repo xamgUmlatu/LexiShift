@@ -16,6 +16,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 
 - **Tokenizer**: Splits input text into tokens (words, punctuation, spaces).
 - **Replacement engine**: Applies rules to text using a longest‑match strategy (trie).
+- **Helper bridge**: Extension service-worker boundary that owns native-messaging calls to LexiShift Helper.
 - **Inflection expansion**: Optional step that generates inflected variants of a source phrase.
 - **Pipeline**: A chained sequence of transformations (e.g., synonym lookup → inflection expansion → ruleset).
 - **Consensus filter**: Optional filter that keeps candidate synonyms only if multiple dictionaries agree.
@@ -83,6 +84,8 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Candidate**: A potential rule before filtering and scoring.
 - **Signals**: Inputs to scoring (dictionary priority, frequency, penalties, embeddings).
 - **Score weights**: Tunable coefficients for combining signals into a confidence.
+- **Broad gloss**: A source candidate that is semantically too generic (definition-like) and often low pedagogical value for replacement.
+- **Quality hardening**: Rulegen filtering/scoring pass focused on demoting broad glosses and ambiguous sources before runtime serving.
 
 ## UX / Interface
 

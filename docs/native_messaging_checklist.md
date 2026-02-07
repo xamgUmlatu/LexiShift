@@ -39,6 +39,7 @@ Status key:
 ## Phase 3 — Extension Client
 - `[x]` Add helper bridge client (getStatus/getSnapshot/getRuleset).
 - `[x]` Add helper bridge methods for `srs_plan_set` and `srs_initialize`.
+- `[x]` Route helper requests through extension service worker bridge (single native messaging boundary).
 - `[x]` Options: “Helper status” + “Refresh now”.
 - `[x]` Options: explicit “Initialize S for this pair” action.
 - `[x]` Options: explicit “Refresh S + publish rules” action.
@@ -64,6 +65,7 @@ Status key:
 - `[x]` Show set planning details in options output (strategy/sizing/applied state + bootstrap diagnostics).
 - `[x]` Show admission-weight diagnostics in options output (profile + weighted preview).
 - `[x]` Add runtime diagnostics action showing helper state, extension cache, and current tab rule counts.
+- `[x]` Surface last helper-rules fetch error from tab runtime in diagnostics.
 - `[ ]` Add dedicated logs/health view for signal queue + planner decisions.
 
 ## Phase 6 — End-to-End QA and refresh loop
@@ -71,6 +73,7 @@ Status key:
 - `[ ]` Validate retry/backoff + idempotency semantics under helper restarts.
 - `[~]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
 - `[ ]` Add planner-trigger test for threshold-based automatic refresh from aggregated feedback.
+- `[ ]` Add explicit service-worker bridge roundtrip tests (options + content runtime request paths).
 
 ## Open Questions
 - `[x]` Choose SRS store format for current helper implementation (JSON in `srs/`).

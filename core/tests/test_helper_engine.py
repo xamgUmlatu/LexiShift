@@ -13,6 +13,8 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper_engine import (  # noqa: E402
+    apply_exposure,
+    apply_feedback,
     get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
@@ -25,8 +27,8 @@ from lexishift_core.helper_engine import (  # noqa: E402
     run_rulegen_job,
 )
 from lexishift_core.helper_paths import HelperPaths, build_helper_paths  # noqa: E402
-from lexishift_core.srs_signal_queue import SrsSignalEvent, save_signal_events  # noqa: E402
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
+from lexishift_core.srs_signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
+from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
 
 
 def _seed_store_and_outputs(root: Path) -> HelperPaths:
@@ -712,6 +714,147 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertFalse(result["applied"])
             self.assertEqual(result["added_items"], 0)
             self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
+
+
+class TestHelperEngineFeedbackCycle(unittest.TestCase):
+    def test_feedback_updates_schedule_and_blocks_low_retention_admission(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+
+            save_srs_settings(
+                SrsSettings(max_active_items=20, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+
+            for _ in range(8):
+                apply_feedback(
+                    paths,
+                    pair="en-ja",
+                    lemma="alpha",
+                    rating="again",
+                    source_type="extension",
+                )
+
+            stored = load_srs_store(paths.srs_store_path)
+            alpha = next(item for item in stored.items if item.item_id == "en-ja:alpha")
+            self.assertEqual(alpha.exposures, 8)
+            self.assertEqual(len(alpha.history), 8)
+            self.assertEqual(alpha.history[-1].rating, "again")
+            self.assertIsNotNone(alpha.last_seen)
+            self.assertIsNotNone(alpha.next_due)
+            self.assertIsNotNone(alpha.stability)
+            self.assertIsNotNone(alpha.difficulty)
+
+            events = load_signal_events(paths.srs_signal_queue_path)
+            feedback_events = [event for event in events if event.event_type == "feedback" and event.pair == "en-ja"]
+            self.assertEqual(len(feedback_events), 8)
+            self.assertTrue(all(event.rating == "again" for event in feedback_events))
+
+            selected = [
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            stored_after = load_srs_store(paths.srs_store_path)
+            by_pair = [item for item in stored_after.items if item.language_pair == "en-ja"]
+            self.assertEqual(len(by_pair), 1)
+            self.assertFalse(result["applied"])
+            self.assertEqual(result["added_items"], 0)
+            self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
+            self.assertEqual(result["admission_refresh"]["feedback_window"]["feedback_count"], 8)
+
+
+class TestHelperEngineExposureOnly(unittest.TestCase):
+    def test_exposure_only_does_not_mutate_schedule_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            initial_last_seen = "2026-02-01T00:00:00+00:00"
+            initial_next_due = "2026-02-20T00:00:00+00:00"
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            stability=2.5,
+                            difficulty=0.4,
+                            last_seen=initial_last_seen,
+                            next_due=initial_next_due,
+                            exposures=3,
+                            history=(
+                                SrsHistoryEntry(ts="2026-01-31T00:00:00+00:00", rating="good"),
+                            ),
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+
+            apply_exposure(paths, pair="en-ja", lemma="alpha", source_type="extension")
+            apply_exposure(paths, pair="en-ja", lemma="alpha", source_type="extension")
+
+            stored = load_srs_store(paths.srs_store_path)
+            alpha = next(item for item in stored.items if item.item_id == "en-ja:alpha")
+            self.assertEqual(alpha.exposures, 5)
+            self.assertEqual(len(alpha.history), 1)
+            self.assertEqual(alpha.stability, 2.5)
+            self.assertEqual(alpha.difficulty, 0.4)
+            self.assertEqual(alpha.next_due, initial_next_due)
+            self.assertNotEqual(alpha.last_seen, initial_last_seen)
+
+            events = load_signal_events(paths.srs_signal_queue_path)
+            exposure_events = [event for event in events if event.event_type == "exposure" and event.pair == "en-ja"]
+            feedback_events = [event for event in events if event.event_type == "feedback" and event.pair == "en-ja"]
+            self.assertEqual(len(exposure_events), 2)
+            self.assertEqual(len(feedback_events), 0)
+            self.assertTrue(all(event.rating is None for event in exposure_events))
 
 
 if __name__ == "__main__":

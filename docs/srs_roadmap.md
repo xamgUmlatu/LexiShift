@@ -22,6 +22,9 @@ Ship a non-destructive SRS layer where:
   - `srs/srs_rulegen_snapshot_<pair>.json`
   - `srs/srs_ruleset_<pair>.json`
   - `srs/srs_signal_queue.json`
+- Extension runtime applies local rules and helper SRS rules concurrently.
+- Extension-to-helper communication is routed through the extension service worker bridge (single native messaging boundary).
+- Runtime diagnostics now include helper/store/ruleset/cache counts plus the last helper rules fetch error from the tab runtime.
 
 ### Set planning scaffolding
 - `srs_set_strategy.py`: strategy/objective taxonomy.
@@ -41,6 +44,29 @@ Ship a non-destructive SRS layer where:
 - Helper updates item scheduling fields on feedback.
 - Extension helper sync now uses a persistent queue with retry/backoff to submit `record_feedback`.
 - Signal queue persists event stream for future aggregation.
+
+### Verified E2E slice (current)
+- `srs_initialize` mutates helper-owned `S` (`srs_store.json`) and immediately publishes runtime ruleset/snapshot.
+- Runtime replacements from helper-generated SRS rules are active in pages (not just debug preview).
+- Local rules continue to work concurrently with SRS rules.
+- Feedback UI path (`1..4`) is wired through extension sync queue to helper feedback endpoint.
+
+### Remaining to reach full SRS E2E (feedback -> update -> serving)
+- Complete deterministic E2E assertion flow:
+  - bootstrap/initialize -> observe replacements -> submit feedback -> verify helper scheduling fields changed -> refresh/admit -> verify serving distribution changed.
+- Add automatic refresh policy trigger from aggregated feedback thresholds (today refresh is explicit/manual).
+- Add stronger observability for feedback effects:
+  - before/after snapshots of `next_due`, `stability`, `difficulty`, and active item counts.
+- Harden retry/idempotency semantics under helper restart/offline transitions.
+- Improve rule generation quality so SRS-serving words are pedagogically precise (see rulegen quality gap below).
+
+### Rulegen quality gap (current)
+- Current JA-target rulegen can emit broad/glossy English source phrases that are semantically too general.
+- This produces technically valid replacements but weaker pedagogical quality.
+- Immediate quality track:
+  - stronger generic-gloss demotion and denylist rules,
+  - POS/sense-aware filtering before emission,
+  - stricter confidence penalties for broad/ambiguous glosses.
 
 ---
 
@@ -97,6 +123,8 @@ Status key:
 - `[x]` Production publish path: `srs_refresh` immediately runs/persists rulegen when new items are admitted.
 - `[x]` Options action for explicit refresh+publish flow (non-debug).
 - `[x]` Runtime diagnostics surface: helper store/ruleset + extension cache + current tab rule counts.
+- `[x]` Extension runtime consumes helper rules through service-worker bridge (single native messaging boundary).
+- `[ ]` Rule quality hardening for broad/ambiguous gloss sources.
 
 ### Workstream F — Cross-surface consistency
 - `[~]` Bundle format for settings/store exists.
@@ -106,9 +134,11 @@ Status key:
 ### Workstream G — End-to-End validation and calibration
 - `[ ]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).
 - `[~]` Add helper integration tests for full feedback loop affecting serving priority.
-- `[ ]` Add assertion checks for "no schedule mutation from exposure-only events".
+- `[x]` Add deterministic helper test: feedback updates schedule fields and can trigger `retention_low` admission pause.
+- `[x]` Add assertion checks for "no schedule mutation from exposure-only events".
 - `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
+- `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
 ---
 
