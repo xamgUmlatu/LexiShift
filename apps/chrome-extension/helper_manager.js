@@ -4,6 +4,34 @@ class HelperManager {
     this.logger = logger || console.log;
   }
 
+  normalizeSrsSizing(sizingOrTopN, options) {
+    const rawSizing = (sizingOrTopN && typeof sizingOrTopN === "object")
+      ? sizingOrTopN
+      : {};
+    const rawTopN = Number.parseInt(
+      rawSizing.bootstrapTopN !== undefined ? rawSizing.bootstrapTopN : sizingOrTopN,
+      10
+    );
+    const bootstrapTopN = Number.isFinite(rawTopN) ? Math.max(200, rawTopN) : 800;
+    const rawInitial = Number.parseInt(
+      rawSizing.initialActiveCount !== undefined
+        ? rawSizing.initialActiveCount
+        : (options && options.initialActiveCount),
+      10
+    );
+    const initialActiveCount = Number.isFinite(rawInitial)
+      ? Math.max(1, Math.min(rawInitial, bootstrapTopN))
+      : Math.min(40, bootstrapTopN);
+    const rawHint = Number.parseInt(
+      rawSizing.maxActiveItemsHint !== undefined
+        ? rawSizing.maxActiveItemsHint
+        : (options && options.maxActiveItemsHint),
+      10
+    );
+    const maxActiveItemsHint = Number.isFinite(rawHint) ? Math.max(1, rawHint) : null;
+    return { bootstrapTopN, initialActiveCount, maxActiveItemsHint };
+  }
+
   getClient() {
     const transport = globalThis.LexiShift && globalThis.LexiShift.helperTransportExtension;
     const Client = globalThis.LexiShift && globalThis.LexiShift.helperClient;
@@ -134,8 +162,7 @@ class HelperManager {
   async initializeSrsSet(pair, setTopN, options) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
-    const parsedTopN = Number.parseInt(setTopN, 10);
-    const normalizedTopN = Number.isFinite(parsedTopN) ? Math.max(1, parsedTopN) : 2000;
+    const sizing = this.normalizeSrsSizing(setTopN, options);
     const opts = options && typeof options === "object" ? options : {};
     const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
     const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
@@ -146,7 +173,10 @@ class HelperManager {
 
     const response = await client.initializeSrs({
       pair,
-      set_top_n: normalizedTopN,
+      set_top_n: sizing.bootstrapTopN,
+      bootstrap_top_n: sizing.bootstrapTopN,
+      initial_active_count: sizing.initialActiveCount,
+      max_active_items_hint: sizing.maxActiveItemsHint,
       replace_pair: false,
       strategy,
       objective,
@@ -166,8 +196,7 @@ class HelperManager {
   async planSrsSet(pair, setTopN, options) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
-    const parsedTopN = Number.parseInt(setTopN, 10);
-    const normalizedTopN = Number.isFinite(parsedTopN) ? Math.max(1, parsedTopN) : 2000;
+    const sizing = this.normalizeSrsSizing(setTopN, options);
     const opts = options && typeof options === "object" ? options : {};
     const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
     const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
@@ -179,7 +208,10 @@ class HelperManager {
       pair,
       strategy,
       objective,
-      set_top_n: normalizedTopN,
+      set_top_n: sizing.bootstrapTopN,
+      bootstrap_top_n: sizing.bootstrapTopN,
+      initial_active_count: sizing.initialActiveCount,
+      max_active_items_hint: sizing.maxActiveItemsHint,
       trigger,
       profile_context: profileContext
     }, 15000);

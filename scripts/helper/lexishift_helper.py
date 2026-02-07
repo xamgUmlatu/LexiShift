@@ -113,6 +113,9 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
                 jmdict_path=jmdict_path,
                 set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
+                bootstrap_top_n=args.bootstrap_top_n,
+                initial_active_count=args.initial_active_count,
+                max_active_items_hint=args.max_active_items_hint,
                 replace_pair=args.replace_pair,
                 strategy=args.strategy,
                 objective=args.objective,
@@ -138,6 +141,9 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
                 strategy=args.strategy,
                 objective=args.objective,
                 set_top_n=args.set_top_n,
+                bootstrap_top_n=args.bootstrap_top_n,
+                initial_active_count=args.initial_active_count,
+                max_active_items_hint=args.max_active_items_hint,
                 replace_pair=args.replace_pair,
                 profile_context=profile_context,
                 trigger=args.trigger,
@@ -211,8 +217,11 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--pair", default="en-ja")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
-    init_s.add_argument("--set-top-n", type=int, default=2000)
+    init_s.add_argument("--set-top-n", type=int, default=800)
     init_s.add_argument("--replace-pair", action="store_true", help="Replace existing pair entries before initializing S")
+    init_s.add_argument("--bootstrap-top-n", type=int, help="Explicit bootstrap size for S (preferred over --set-top-n).")
+    init_s.add_argument("--initial-active-count", type=int, help="Initial active subset size within bootstrap S.")
+    init_s.add_argument("--max-active-items-hint", type=int, help="Hint for active workload cap during planning.")
     init_s.add_argument("--strategy", default="frequency_bootstrap")
     init_s.add_argument("--objective", default="bootstrap")
     init_s.add_argument("--trigger", default="cli")
@@ -223,7 +232,10 @@ def build_parser() -> argparse.ArgumentParser:
     plan_s.add_argument("--pair", default="en-ja")
     plan_s.add_argument("--strategy", default="profile_bootstrap")
     plan_s.add_argument("--objective", default="bootstrap")
-    plan_s.add_argument("--set-top-n", type=int, default=2000)
+    plan_s.add_argument("--set-top-n", type=int, default=800)
+    plan_s.add_argument("--bootstrap-top-n", type=int, help="Explicit bootstrap size for S (preferred over --set-top-n).")
+    plan_s.add_argument("--initial-active-count", type=int, help="Initial active subset size within bootstrap S.")
+    plan_s.add_argument("--max-active-items-hint", type=int, help="Hint for active workload cap during planning.")
     plan_s.add_argument("--replace-pair", action="store_true")
     plan_s.add_argument("--trigger", default="cli")
     plan_s.add_argument("--profile-context-json", help="JSON object with profile context signals")

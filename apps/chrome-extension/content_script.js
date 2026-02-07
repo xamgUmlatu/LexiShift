@@ -7,6 +7,8 @@
     highlightColor: "#9AA0A6",
     maxOnePerTextBlock: false,
     allowAdjacentReplacements: true,
+    maxReplacementsPerPage: 0,
+    maxReplacementsPerLemmaPerPage: 0,
     debugEnabled: false,
     debugFocusWord: "",
     srsFeedbackSrsEnabled: true,
@@ -36,6 +38,7 @@
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
   const HelperClient = root.helperClient;
+  const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
   const helperCache = root.helperCache;
 
@@ -48,6 +51,8 @@
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
   let helperRulesCache = new Map();
+  let pageBudgetState = null;
+  let feedbackSync = null;
 
   function cacheHelperRules(pair, rules) {
     if (!pair) {
@@ -100,6 +105,14 @@
     };
   }
 
+  function isTopFrameWindow() {
+    try {
+      return window.top === window;
+    } catch (_error) {
+      return false;
+    }
+  }
+
   function getFocusWord(settings) {
     const raw = settings && settings.debugFocusWord ? String(settings.debugFocusWord).trim() : "";
     return raw ? raw.toLowerCase() : "";
@@ -142,6 +155,56 @@
       return false;
     }
     return Boolean(node.parentElement.closest(".lexishift-replacement"));
+  }
+
+  function toBudgetLimit(value, fallback) {
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) {
+      return Math.max(0, fallback || 0);
+    }
+    return Math.max(0, parsed);
+  }
+
+  function getBudgetLemmaKey(value) {
+    return String(value || "").trim().toLowerCase();
+  }
+
+  function buildPageBudgetState(settings) {
+    const maxTotal = toBudgetLimit(settings.maxReplacementsPerPage, 0);
+    const maxPerLemma = toBudgetLimit(settings.maxReplacementsPerLemmaPerPage, 0);
+    if (maxTotal <= 0 && maxPerLemma <= 0) {
+      return null;
+    }
+    const state = {
+      maxTotal,
+      maxPerLemma,
+      usedTotal: 0,
+      usedByLemma: Object.create(null)
+    };
+    const existing = document.querySelectorAll(".lexishift-replacement");
+    for (const span of existing) {
+      const key = getBudgetLemmaKey(span.dataset.replacement || span.textContent || "");
+      if (!key) {
+        continue;
+      }
+      state.usedTotal += 1;
+      state.usedByLemma[key] = Number(state.usedByLemma[key] || 0) + 1;
+    }
+    return state;
+  }
+
+  function updatePageBudgetUsage(state, replacements) {
+    if (!state || !replacements || !replacements.length) {
+      return;
+    }
+    for (const replacement of replacements) {
+      const key = getBudgetLemmaKey(replacement);
+      if (!key) {
+        continue;
+      }
+      state.usedTotal += 1;
+      state.usedByLemma[key] = Number(state.usedByLemma[key] || 0) + 1;
+    }
   }
 
   function processTextNode(node, counter) {
@@ -235,11 +298,14 @@
       : null;
     const result = buildReplacementFragment(node.nodeValue, currentTrie, currentSettings, (textNode) => {
       processedNodes.set(textNode, textNode.nodeValue);
-    }, originResolver);
+    }, originResolver, pageBudgetState);
     if (result) {
       const parent = node.parentNode;
       if (parent) {
         parent.replaceChild(result.fragment, node);
+        if (pageBudgetState) {
+          updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
+        }
         if (srsMetrics
           && currentSettings.srsExposureLoggingEnabled !== false
           && result.details
@@ -352,6 +418,7 @@
       log("Document body not ready.");
       return;
     }
+    pageBudgetState = buildPageBudgetState(currentSettings);
     if (currentSettings.debugEnabled && counter.focusWord) {
       const focus = counter.focusWord;
       const innerText = document.body.innerText || "";
@@ -425,6 +492,7 @@
         focusDetailLimit: 15,
         focusDetailTruncated: false
       };
+      pageBudgetState = buildPageBudgetState(currentSettings);
       for (const mutation of mutations) {
         if (mutation.type === "characterData") {
           processTextNode(mutation.target, counter);
@@ -558,6 +626,8 @@
       highlightColor: currentSettings.highlightColor,
       maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
       allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
+      maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
+      maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
       rulesSource,
       srsEnabled: currentSettings.srsEnabled === true,
       srsPair: currentSettings.srsPair || "",
@@ -613,6 +683,7 @@
     try {
       clearReplacements();
       if (!currentSettings.enabled) {
+        pageBudgetState = null;
         currentTrie = null;
         log("Replacements are disabled.");
         return;
@@ -628,6 +699,34 @@
     return new Promise((resolve) => {
       chrome.storage.local.get(defaults, (items) => resolve(items));
     });
+  }
+
+  function ensureFeedbackSync() {
+    if (feedbackSync) {
+      return feedbackSync;
+    }
+    if (!helperFeedbackSyncModule || typeof helperFeedbackSyncModule.create !== "function") {
+      return null;
+    }
+    feedbackSync = helperFeedbackSyncModule.create({
+      isFlushWorker: isTopFrameWindow(),
+      sendFeedback: (payload) => {
+        if (helperClient && typeof helperClient.recordFeedback === "function") {
+          return helperClient.recordFeedback(payload);
+        }
+        return Promise.resolve({
+          ok: false,
+          error: { code: "transport_missing", message: "Helper client unavailable." }
+        });
+      },
+      log: (...args) => {
+        if (currentSettings.debugEnabled) {
+          log(...args);
+        }
+      }
+    });
+    feedbackSync.start();
+    return feedbackSync;
   }
 
   function handleFeedback(payload, focusWord) {
@@ -653,6 +752,28 @@
         }
       });
     }
+    const sync = ensureFeedbackSync();
+    if (sync && typeof sync.enqueue === "function") {
+      const pair = String(entry.language_pair || currentSettings.srsPair || "").trim();
+      const rawLemma = String(entry.lemma || entry.replacement || "").trim();
+      const lemma = rawLemma && lemmatizer && typeof lemmatizer.lemmatize === "function"
+        ? String(lemmatizer.lemmatize(rawLemma, pair) || rawLemma).trim()
+        : rawLemma;
+      const rating = String(entry.rating || payload.rating || "").trim().toLowerCase();
+      if (pair && pair !== "all" && lemma && rating) {
+        sync.enqueue({
+          pair,
+          lemma,
+          rating,
+          source_type: "extension",
+          ts: entry.ts || new Date().toISOString()
+        }).catch((error) => {
+          if (currentSettings.debugEnabled) {
+            log("Failed to enqueue helper feedback.", error);
+          }
+        });
+      }
+    }
     if (currentSettings.debugEnabled) {
       log(
         `SRS feedback: ${entry.rating} for "${entry.replacement}" (${entry.language_pair || "unpaired"})`
@@ -664,6 +785,7 @@
   }
 
   async function boot() {
+    ensureFeedbackSync();
     const settings = await loadSettings();
     await applySettings(settings);
     observeChanges();
@@ -675,6 +797,11 @@
       ensureObserver();
       rescanDocument("post-load timeout");
     }, 1500);
+    window.addEventListener("beforeunload", () => {
+      if (feedbackSync && typeof feedbackSync.stop === "function") {
+        feedbackSync.stop();
+      }
+    });
   }
 
   boot();
@@ -709,6 +836,14 @@
     }
     if (changes.allowAdjacentReplacements) {
       nextSettings.allowAdjacentReplacements = changes.allowAdjacentReplacements.newValue;
+      needsRebuild = true;
+    }
+    if (changes.maxReplacementsPerPage) {
+      nextSettings.maxReplacementsPerPage = changes.maxReplacementsPerPage.newValue;
+      needsRebuild = true;
+    }
+    if (changes.maxReplacementsPerLemmaPerPage) {
+      nextSettings.maxReplacementsPerLemmaPerPage = changes.maxReplacementsPerLemmaPerPage.newValue;
       needsRebuild = true;
     }
     if (changes.srsEnabled) {

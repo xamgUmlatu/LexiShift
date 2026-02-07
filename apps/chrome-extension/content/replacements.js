@@ -33,31 +33,75 @@
     return span;
   }
 
-  function filterMatches(matches, settings, gapOk) {
+  function getBudgetLemmaKey(match) {
+    if (!match || !match.rule) {
+      return "";
+    }
+    return String(match.rule.replacement || "").trim().toLowerCase();
+  }
+
+  function getBudgetUsageForLemma(budget, key) {
+    if (!budget || !budget.usedByLemma || !key) {
+      return 0;
+    }
+    return Number(budget.usedByLemma[key] || 0);
+  }
+
+  function applyPageBudget(matches, budget) {
+    if (!budget || !matches.length) {
+      return matches;
+    }
+    const maxTotal = Number.isFinite(Number(budget.maxTotal)) ? Math.max(0, Number(budget.maxTotal)) : 0;
+    const maxPerLemma = Number.isFinite(Number(budget.maxPerLemma)) ? Math.max(0, Number(budget.maxPerLemma)) : 0;
+    const bounded = [];
+    const localByLemma = Object.create(null);
+    let usedTotal = Number.isFinite(Number(budget.usedTotal)) ? Number(budget.usedTotal) : 0;
+
+    for (const match of matches) {
+      if (maxTotal > 0 && usedTotal >= maxTotal) {
+        break;
+      }
+      const key = getBudgetLemmaKey(match);
+      if (maxPerLemma > 0 && key) {
+        const used = getBudgetUsageForLemma(budget, key) + Number(localByLemma[key] || 0);
+        if (used >= maxPerLemma) {
+          continue;
+        }
+        localByLemma[key] = Number(localByLemma[key] || 0) + 1;
+      }
+      bounded.push(match);
+      usedTotal += 1;
+    }
+    return bounded;
+  }
+
+  function filterMatches(matches, settings, gapOk, budget) {
     if (!matches.length) {
       return matches;
     }
+    let filtered = matches;
     if (settings.maxOnePerTextBlock) {
-      return matches.slice(0, 1);
+      filtered = filtered.slice(0, 1);
     }
     if (settings.allowAdjacentReplacements === false) {
-      const filtered = [];
+      const nonAdjacent = [];
       let lastEnd = null;
-      for (const match of matches) {
+      for (const match of filtered) {
         if (lastEnd !== null && match.startWordIndex === lastEnd + 1 && gapOk[lastEnd]) {
           continue;
         }
-        filtered.push(match);
+        nonAdjacent.push(match);
         lastEnd = match.endWordIndex;
       }
-      return filtered;
+      filtered = nonAdjacent;
     }
-    return matches;
+    return applyPageBudget(filtered, budget);
   }
 
-  function buildReplacementFragment(text, trie, settings, onTextNode, originResolver) {
+  function buildReplacementFragment(text, trie, settings, onTextNode, originResolver, budget) {
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
+    const budgetKeys = budget ? [] : null;
     const tokens = tokenize(text);
     const wordPositions = [];
     const wordTexts = [];
@@ -83,7 +127,7 @@
       }
     }
 
-    const finalMatches = filterMatches(matches, settings, gapOk);
+    const finalMatches = filterMatches(matches, settings, gapOk, budget);
     if (!finalMatches.length) {
       return null;
     }
@@ -105,6 +149,9 @@
       const originalText = tokens.slice(startTokenIdx, endTokenIdx + 1).map((t) => t.text).join("");
       const replacementText = applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
       const origin = originResolver ? originResolver(match.rule, replacementText) : null;
+      if (budgetKeys) {
+        budgetKeys.push(replacementText);
+      }
       fragment.appendChild(
         createReplacementSpan(originalText, replacementText, match.rule, settings.highlightEnabled, origin)
       );
@@ -128,7 +175,7 @@
         if (onTextNode) onTextNode(textNode);
       }
     }
-    return { fragment, replacements: finalMatches.length, details };
+    return { fragment, replacements: finalMatches.length, details, budgetKeys };
   }
 
   root.replacements = { buildReplacementFragment, createReplacementSpan };

@@ -68,6 +68,18 @@
   "hint_allow_adjacent": {
     "message": "禁用时避免连续替换。"
   },
+  "label_max_replacements_page": {
+    "message": "每页最大替换数"
+  },
+  "hint_max_replacements_page": {
+    "message": "0 表示不限制。限制当前页面显示的替换总数。"
+  },
+  "label_max_replacements_lemma_page": {
+    "message": "每个词每页上限"
+  },
+  "hint_max_replacements_lemma_page": {
+    "message": "0 表示不限制。防止单个词在页面中过度出现。"
+  },
   "section_srs": {
     "message": "SRS 练习"
   },
@@ -88,6 +100,18 @@
   },
   "label_srs_max_active": {
     "message": "最大激活词数"
+  },
+  "label_srs_bootstrap_top_n": {
+    "message": "S 引导规模（Top N）"
+  },
+  "hint_srs_bootstrap_top_n": {
+    "message": "初始 S 引导阶段纳入的词总数。"
+  },
+  "label_srs_initial_active_count": {
+    "message": "初始活跃子集"
+  },
+  "hint_srs_initial_active_count": {
+    "message": "从引导列表中首批设为非零/活跃的词数。"
   },
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"

@@ -103,6 +103,20 @@
           <p class="hint" data-i18n="hint_allow_adjacent">
             When disabled, prevents back-to-back word replacements.
           </p>
+          <div class="field-row">
+            <label for="max-replacements-per-page" data-i18n="label_max_replacements_page">Max replacements per page</label>
+            <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_max_replacements_page">
+            0 means unlimited. Caps total replacements shown on the current page.
+          </p>
+          <div class="field-row">
+            <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
+            <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_max_replacements_lemma_page">
+            0 means unlimited. Prevents one word from dominating the page.
+          </p>
         </section>
         <section class="card">
           <h2 data-i18n="section_srs">SRS Practice</h2>
@@ -135,6 +149,20 @@
             <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
             <input id="srs-max-active" type="number" min="1" max="200" step="1" />
           </div>
+          <div class="field-row">
+            <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
+            <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+          </div>
+          <p class="hint" data-i18n="hint_srs_bootstrap_top_n">
+            Total number of words admitted during initial S bootstrap.
+          </p>
+          <div class="field-row">
+            <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
+            <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_srs_initial_active_count">
+            Initial non-zero/active words selected from the bootstrap list.
+          </p>
           <div class="field-row">
             <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
             <input id="srs-highlight-color" type="color" />

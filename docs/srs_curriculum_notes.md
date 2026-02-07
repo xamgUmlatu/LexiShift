@@ -1,19 +1,28 @@
 # SRS Curriculum Growth Notes
 
 ## Core idea
-Grow the SRS set `S` based on what the user actually reads or writes. This lets the curriculum adapt to the user’s day‑to‑day interests and lifestyle, ensuring relevance and better retention.
+Grow the SRS set `S` using a hybrid policy:
+- feedback-driven review scheduling for items already in `S`
+- planner-driven admission of new items (optionally informed by user context streams)
+
+This keeps review behavior stable while allowing curriculum personalization.
 
 ## Why this matters
 - **Personal relevance:** words the user encounters frequently are inherently meaningful.
 - **Adaptive over time:** as a user’s topics change, the curriculum shifts naturally.
 - **Lower friction:** less manual curation, better learning ROI.
+- **Stable SRS behavior:** passive display does not distort review timing; only feedback changes schedule.
 
 ## Baseline coverage (base rate)
 Use a high‑frequency lexicon as the starting core. This provides strong early coverage and ensures that the initial SRS set is broadly useful even before personalization.
 
+Current bootstrap sizing defaults:
+- bootstrap inventory target: `800` lemmas (`bootstrap_top_n`)
+- initial active subset declaration: `40` (`initial_active_count`)
+
 ## Growth strategy (planned)
 1) **User‑context growth**  
-   - Add words observed in the user’s real text streams (reading/writing).  
+   - Add words observed in the user’s real text streams (reading/writing), but only as admission candidates.  
    - Prioritize words that recur but are not mastered.
 2) **Gradual coverage expansion**  
    - Expand beyond the core lexicon in controlled steps.  
@@ -23,11 +32,12 @@ Use a high‑frequency lexicon as the starting core. This provides strong early 
    - Reduce new additions when due items are high.
 
 ## Open questions (to flesh out)
-- Best method for “observed word” capture in extension + plugin contexts.
+- Best method for “observed word” capture in extension + plugin contexts as planner input (not scheduler events).
 - Privacy and on‑device processing constraints.
 - How to handle multi‑language text streams cleanly.
 - How to define “recurring” vs “one‑off” exposures.
 - The exact rules for when a word becomes eligible for S.
+- How much telemetry should influence admission ranking versus explicit profile preferences.
 
 ## Settings UX outline (early)
 - **Configurable + portable:** learning settings should be editable in the GUI app, extension, and plugin, with export/import for portability across devices.

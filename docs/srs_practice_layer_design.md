@@ -1,105 +1,74 @@
-# SRS Practice Layer — Design Draft
+# SRS Practice Layer — Design (Current + Target)
+
+Canonical hybrid-model details:
+- `docs/srs_hybrid_model_technical.md`
+
+This document is the implementation-facing overview for how the Practice Layer fits into runtime replacement behavior.
 
 ## Goal
-Introduce a non‑destructive SRS “Practice Layer” that sits above the existing ruleset engine. It does not mutate rulesets. Instead, it controls which replacements are active *at runtime* based on SRS scheduling.
+Provide non-destructive SRS behavior above the ruleset engine:
+- rulesets stay immutable
+- runtime gating decides what is active
+- scheduling is feedback-driven
 
-## Principles
-- **Non‑destructive**: rulesets are not modified by SRS; SRS only gates which replacements are applied.
-- **Modular**: candidate sources, filters, and scheduler are independent plug‑ins.
-- **Portable**: SRS state and settings are exportable/importable across app, extension, and plugin.
-- **Pair‑aware**: items are tagged with language pairs and only used in matching contexts.
+## Current implementation status
+- Helper-owned SRS store and scheduler exist.
+- Feedback updates (`again|hard|good|easy`) are wired end-to-end.
+- Options flow can initialize set `S` and run rulegen preview.
+- Set-planning/profile logic is scaffolded.
 
-## Status notes (current implementation)
-- Chrome Extension supports SRS gating with a fixed selector dataset (test only).
-- Feedback popup (Ctrl+1/2/3/4) is implemented and persisted in extension storage.
-- Exposure logging is available (Advanced → Logging).
+## Explicit policy decisions
+- Set `S` means "items currently studied by the user."
+- Passive display/exposure is not a scheduler event.
+- Feedback is the authoritative event source for scheduling.
+- Due-based serving is primary; weighted ranking is secondary (admission/tie-breaks).
 
-## Architecture Overview
-```
+## Architecture overview
+```text
 Ruleset Engine (unchanged)
-        ↑
-Practice Layer (SRS gate)
-        ↑
-Scheduler + Candidate Store + Feedback
-        ↑
-Set Planner + Signal Queue
+        ^
+Practice Gate (runtime filter by active/due S items)
+        ^
+Scheduler (feedback-driven)
+        ^
+SRS Store (helper-owned source of truth)
+        ^
+Set Planner (bootstrap/growth/refresh strategy)
 ```
 
-## Core Components
+## Runtime responsibilities
 
-### 1) SRS Item Store
-Minimal schema (extend later):
-- `item_id` (stable id)
-- `lemma` (canonical word form)
-- `language_pair` (e.g., en‑en, de‑en)
-- `source_type` (frequency list, user‑stream, curated)
-- `confidence` (0–1, derived from dictionary/embedding confidence)
-- `stability`, `difficulty`, `last_seen`, `next_due`
-- `history[]` (timestamp + rating)
+## 1) SRS Store
+- Persist per-item study state for each pair.
+- Keep sparse inventory; do not persist full corpus probabilities.
 
-Storage format:
-- JSON (local, exportable)
-- Designed to sync with extension/plugin
+## 2) Scheduler
+- Build due queue from `next_due`.
+- Apply 1..4 feedback updates:
+  - 1 -> `again`
+  - 2 -> `hard`
+  - 3 -> `good`
+  - 4 -> `easy`
+- Push mastered items to longer intervals and lapsed items to shorter intervals.
 
-### 2) Scheduler
-Responsibilities:
-- Compute due items
-- Produce `active_items` for the current session
-- Update scheduling from feedback (Again/Hard/Good/Easy)
+## 3) Practice Gate
+- Only allow replacements for currently active/due items from `S`.
+- If SRS is disabled, runtime behavior falls back to standard rules.
 
-MVP scheduling:
-- Due‑based queue + simple interval growth
-- Capacity cap (e.g., max N active at a time)
+## 4) Planner + bootstrap/growth policies
+- Decide how new words enter `S`.
+- Enforce explicit sizing policy (`bootstrap_top_n`, `initial_active_count`, clamp notes).
+- Keep current executable fallback (`frequency_bootstrap`) while profile strategies mature.
 
-### 3) Practice Gate (Runtime Filter)
-- Sits between ruleset and replacement engine.
-- Applies only rules whose replacement target is in `active_items`.
-- Inverse mode optional: highlight due words without replacing.
+## Data ownership
+- Helper is canonical for mutable SRS scheduling state.
+- Extension/plugin can cache local logs, but helper state drives authoritative scheduling decisions.
 
-### 4) Feedback Capture
-- Minimal UI action from extension/plugin/app
-- Ratings: Again / Hard / Good / Easy
-- Stored in item history
+## Non-destructive guarantee
+- SRS does not mutate user rulesets directly.
+- SRS can be disabled without data loss in ruleset files.
 
-### 5) Candidate Growth Pipeline (future)
-Sources that add items to S:
-- High‑frequency lexicon base
-- User stream (words encountered in reading/writing)
-- Curated packs
-
-Planning layer (scaffolded):
-- Select strategy before mutation:
-  - `frequency_bootstrap` (executable now)
-  - `profile_bootstrap` (fallbacks to frequency now)
-  - `profile_growth` (planned)
-  - `adaptive_refresh` (planned)
-- Return plan diagnostics and requirements even when not executable.
-
-Signal queue (scaffolded):
-- Feedback/exposure events are appended to `srs_signal_queue.json`.
-- Future adaptive policies consume this queue to refresh S automatically.
-
-Filters (pluggable):
-- Consensus filter
-- Embedding threshold
-- POS gating (if data exists)
-- Confidence weighting
-
-## Non‑Destructive Guarantee
-- **Rulesets remain unchanged**.
-- SRS state is stored separately and can be disabled at any time.
-- If SRS is off, the system behaves exactly like the current ruleset engine.
-
-## MVP Plan (No Code Yet)
-1) Define SRS item schema and storage file format.
-2) Implement a scheduler interface (pure logic).
-3) Add a Practice Gate in the replacement pipeline (runtime only).
-4) Capture basic feedback and persist history.
-5) Export/import SRS settings + history.
-
-## Backlog
-- Language detection for user text streams.
-- Confidence‑weighted scheduling.
-- Pair‑specific thresholds.
-- Preview UI for upcoming items.
-- Cross‑platform sync.
+## Open architecture items
+- Formalize state labels (`new`, `learning`, `review`, `mature`, `relearn`, `suspended`).
+- Consolidate local extension logs with helper feedback ingestion contract.
+- Add a policy registry for pair-specific bootstrap/growth strategy selection.

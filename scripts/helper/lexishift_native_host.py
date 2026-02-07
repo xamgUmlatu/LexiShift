@@ -73,6 +73,16 @@ def _error_response(request_id: str, message: str, code: str = "invalid_request"
     return {"id": request_id, "ok": False, "data": None, "error": {"code": code, "message": message}}
 
 
+def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
+    value = payload.get(key)
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
     request_id = str(request.get("id", ""))
     if not request_id:
@@ -151,13 +161,18 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         set_source_db = payload.get("set_source_db")
         if not set_source_db:
             set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        set_top_n = _optional_int(payload, "set_top_n")
+        bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
         return initialize_srs_set(
             paths,
             config=SetInitializationJobConfig(
                 pair=pair,
                 jmdict_path=Path(jmdict_path),
                 set_source_db=Path(set_source_db),
-                set_top_n=int(payload.get("set_top_n", 2000)),
+                set_top_n=set_top_n if set_top_n is not None else 800,
+                bootstrap_top_n=bootstrap_top_n,
+                initial_active_count=_optional_int(payload, "initial_active_count"),
+                max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
                 replace_pair=bool(payload.get("replace_pair", False)),
                 strategy=str(payload.get("strategy", "frequency_bootstrap")),
                 objective=str(payload.get("objective", "bootstrap")),
@@ -167,13 +182,18 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
     if msg_type == "srs_plan_set":
         pair = str(payload.get("pair", "en-ja"))
+        set_top_n = _optional_int(payload, "set_top_n")
+        bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
         return plan_srs_set(
             paths,
             config=SetPlanningJobConfig(
                 pair=pair,
                 strategy=str(payload.get("strategy", "frequency_bootstrap")),
                 objective=str(payload.get("objective", "bootstrap")),
-                set_top_n=int(payload.get("set_top_n", 2000)),
+                set_top_n=set_top_n if set_top_n is not None else 800,
+                bootstrap_top_n=bootstrap_top_n,
+                initial_active_count=_optional_int(payload, "initial_active_count"),
+                max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
                 replace_pair=bool(payload.get("replace_pair", False)),
                 profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
                 trigger=str(payload.get("trigger", "manual")),

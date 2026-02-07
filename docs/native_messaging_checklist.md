@@ -20,7 +20,9 @@ Status key:
 - `[x]` Implement `get_snapshot` command (loads pair snapshot JSON).
 - `[x]` Implement `record_feedback` command (append to SRS store).
 - `[x]` Implement `record_exposure` command (append to SRS store).
-- `[x]` Persist feedback/exposure to `srs_signal_queue.json`.
+- `[x]` Persist feedback to `srs_signal_queue.json` (authoritative scheduling signal).
+- `[x]` Persist exposure telemetry to `srs_signal_queue.json` (non-authoritative).
+- `[x]` Add centralized set sizing policy with explicit defaults/clamps.
 - `[~]` Add richer logging + error reporting to helper.
 
 ## Phase 2 — Native Messaging Host
@@ -36,9 +38,11 @@ Status key:
 - `[x]` Options: “Helper status” + “Refresh now”.
 - `[x]` Options: explicit “Initialize S for this pair” action.
 - `[x]` Send profile-context scaffold to helper from options flow.
+- `[x]` Send explicit sizing controls (`bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`).
 - `[x]` Replace rulegen preview to non-mutating helper flow.
 - `[x]` Content script: fetch helper ruleset when SRS enabled.
 - `[x]` Fallback to cached ruleset if helper offline.
+- `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
 
 ## Phase 4 — Background Scheduling
 - `[x]` Start helper tray at login on macOS (LaunchAgent).

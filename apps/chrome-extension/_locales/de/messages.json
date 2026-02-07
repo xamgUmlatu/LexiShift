@@ -68,6 +68,18 @@
   "hint_allow_adjacent": {
     "message": "Wenn deaktiviert, werden aufeinanderfolgende Ersetzungen verhindert."
   },
+  "label_max_replacements_page": {
+    "message": "Max. Ersetzungen pro Seite"
+  },
+  "hint_max_replacements_page": {
+    "message": "0 bedeutet unbegrenzt. Begrenzt die Gesamtzahl der Ersetzungen auf der aktuellen Seite."
+  },
+  "label_max_replacements_lemma_page": {
+    "message": "Max. pro Wort pro Seite"
+  },
+  "hint_max_replacements_lemma_page": {
+    "message": "0 bedeutet unbegrenzt. Verhindert, dass ein Wort die Seite dominiert."
+  },
   "section_srs": {
     "message": "SRS-Training"
   },
@@ -88,6 +100,18 @@
   },
   "label_srs_max_active": {
     "message": "Max. aktive Wörter"
+  },
+  "label_srs_bootstrap_top_n": {
+    "message": "Bootstrap-S-Größe (Top N)"
+  },
+  "hint_srs_bootstrap_top_n": {
+    "message": "Gesamtzahl der Wörter, die beim initialen S-Bootstrap aufgenommen werden."
+  },
+  "label_srs_initial_active_count": {
+    "message": "Initiale aktive Teilmenge"
+  },
+  "hint_srs_initial_active_count": {
+    "message": "Anzahl der anfänglich nicht-null/aktiven Wörter aus der Bootstrap-Liste."
   },
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"

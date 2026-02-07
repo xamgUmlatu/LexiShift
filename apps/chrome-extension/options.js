@@ -30,12 +30,16 @@ const {
   highlightColorText: highlightColorText,
   maxOnePerBlock: maxOnePerBlockInput,
   allowAdjacent: allowAdjacentInput,
+  maxReplacementsPerPage: maxReplacementsPerPageInput,
+  maxReplacementsPerLemmaPage: maxReplacementsPerLemmaPageInput,
   debugEnabled: debugEnabledInput,
   debugFocusWord: debugFocusInput,
   srsEnabled: srsEnabledInput,
   sourceLanguage: sourceLanguageInput,
   targetLanguage: targetLanguageInput,
   srsMaxActive: srsMaxActiveInput,
+  srsBootstrapTopN: srsBootstrapTopNInput,
+  srsInitialActiveCount: srsInitialActiveCountInput,
   srsSoundEnabled: srsSoundInput,
   srsHighlightColor: srsHighlightInput,
   srsHighlightColorText: srsHighlightTextInput,
@@ -123,7 +127,30 @@ function saveDisplaySettings() {
 function saveReplacementSettings() {
   const maxOnePerTextBlock = maxOnePerBlockInput.checked;
   const allowAdjacentReplacements = allowAdjacentInput.checked;
-  chrome.storage.local.set({ maxOnePerTextBlock, allowAdjacentReplacements }, () => {
+  const maxPerPageRaw = maxReplacementsPerPageInput
+    ? parseInt(maxReplacementsPerPageInput.value, 10)
+    : settingsManager.defaults.maxReplacementsPerPage;
+  const maxPerLemmaRaw = maxReplacementsPerLemmaPageInput
+    ? parseInt(maxReplacementsPerLemmaPageInput.value, 10)
+    : settingsManager.defaults.maxReplacementsPerLemmaPerPage;
+  const maxReplacementsPerPage = Number.isFinite(maxPerPageRaw)
+    ? Math.max(0, maxPerPageRaw)
+    : (settingsManager.defaults.maxReplacementsPerPage || 0);
+  const maxReplacementsPerLemmaPerPage = Number.isFinite(maxPerLemmaRaw)
+    ? Math.max(0, maxPerLemmaRaw)
+    : (settingsManager.defaults.maxReplacementsPerLemmaPerPage || 0);
+  if (maxReplacementsPerPageInput) {
+    maxReplacementsPerPageInput.value = String(maxReplacementsPerPage);
+  }
+  if (maxReplacementsPerLemmaPageInput) {
+    maxReplacementsPerLemmaPageInput.value = String(maxReplacementsPerLemmaPerPage);
+  }
+  chrome.storage.local.set({
+    maxOnePerTextBlock,
+    allowAdjacentReplacements,
+    maxReplacementsPerPage,
+    maxReplacementsPerLemmaPerPage
+  }, () => {
     setStatus(t("status_replacement_saved", null, "Replacement settings saved."), ui.COLORS.SUCCESS);
   });
 }
@@ -147,8 +174,18 @@ async function saveSrsSettings() {
   const srsExposureLoggingEnabled = srsExposureLoggingInput
     ? srsExposureLoggingInput.checked
     : true;
+  const sizing = settingsManager.resolveSrsSetSizing(
+    {
+      srsMaxActive,
+      srsBootstrapTopN: srsBootstrapTopNInput ? srsBootstrapTopNInput.value : undefined,
+      srsInitialActiveCount: srsInitialActiveCountInput ? srsInitialActiveCountInput.value : undefined
+    },
+    settingsManager.defaults
+  );
   const profile = {
     srsMaxActive,
+    srsBootstrapTopN: sizing.srsBootstrapTopN,
+    srsInitialActiveCount: sizing.srsInitialActiveCount,
     srsSoundEnabled,
     srsHighlightColor,
     srsFeedbackSrsEnabled,
@@ -162,6 +199,12 @@ async function saveSrsSettings() {
     ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
     : (settingsManager.defaults.targetLanguage || "en");
   srsMaxActiveInput.value = String(srsMaxActive);
+  if (srsBootstrapTopNInput) {
+    srsBootstrapTopNInput.value = String(sizing.srsBootstrapTopN);
+  }
+  if (srsInitialActiveCountInput) {
+    srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
+  }
   if (srsHighlightInput) {
     srsHighlightInput.value = srsHighlightColor;
   }
@@ -183,6 +226,8 @@ async function saveSrsSettings() {
     targetLanguage,
     srsEnabled,
     srsMaxActive,
+    srsBootstrapTopN: sizing.srsBootstrapTopN,
+    srsInitialActiveCount: sizing.srsInitialActiveCount,
     srsSoundEnabled,
     srsHighlightColor,
     srsFeedbackSrsEnabled,
@@ -311,6 +356,18 @@ async function load() {
     highlightColorText.disabled = !highlightEnabledInput.checked;
     maxOnePerBlockInput.checked = items.maxOnePerTextBlock === true;
     allowAdjacentInput.checked = items.allowAdjacentReplacements !== false;
+    if (maxReplacementsPerPageInput) {
+      const maxPerPage = Number.isFinite(Number(items.maxReplacementsPerPage))
+        ? Math.max(0, Number(items.maxReplacementsPerPage))
+        : (settingsManager.defaults.maxReplacementsPerPage || 0);
+      maxReplacementsPerPageInput.value = String(maxPerPage);
+    }
+    if (maxReplacementsPerLemmaPageInput) {
+      const maxPerLemma = Number.isFinite(Number(items.maxReplacementsPerLemmaPerPage))
+        ? Math.max(0, Number(items.maxReplacementsPerLemmaPerPage))
+        : (settingsManager.defaults.maxReplacementsPerLemmaPerPage || 0);
+      maxReplacementsPerLemmaPageInput.value = String(maxPerLemma);
+    }
     debugEnabledInput.checked = items.debugEnabled === true;
     debugFocusInput.value = items.debugFocusWord || "";
     debugFocusInput.disabled = !debugEnabledInput.checked;
@@ -430,31 +487,46 @@ async function initializeSrsSet() {
     return;
   }
   const srsPair = resolvePairFromInputs();
-  const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
-  const srsMaxActive = Number.isFinite(maxActiveRaw)
-    ? Math.max(1, maxActiveRaw)
-    : (settingsManager.defaults.srsMaxActive || 20);
-  const setTopN = Math.max(200, srsMaxActive * 20);
 
   srsInitializeSetButton.disabled = true;
   srsRulegenOutput.textContent = t("status_srs_set_init_running", null, "Initializing S…");
 
   try {
     const items = await settingsManager.load();
+    const profile = settingsManager.getSrsProfile(items, srsPair);
+    const bootstrapTopN = Number(profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800);
+    const initialActiveCount = Number(profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40);
+    const maxActiveItemsHint = Number(profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20);
     const profileContext = settingsManager.buildSrsPlanContext(items, srsPair);
     const planOptions = {
       strategy: "profile_bootstrap",
       objective: "bootstrap",
       trigger: "options_initialize_button",
+      initialActiveCount,
+      maxActiveItemsHint,
       profileContext
     };
-    const result = await helperManager.initializeSrsSet(srsPair, setTopN, planOptions);
+    const result = await helperManager.initializeSrsSet(
+      srsPair,
+      {
+        bootstrapTopN,
+        initialActiveCount,
+        maxActiveItemsHint
+      },
+      planOptions
+    );
     const total = Number(result.total_items_for_pair || 0);
     const added = Number(result.added_items || 0);
     const applied = result.applied !== false;
     const plan = result.plan && typeof result.plan === "object" ? result.plan : {};
+    const bootstrapDiagnostics = result.bootstrap_diagnostics && typeof result.bootstrap_diagnostics === "object"
+      ? result.bootstrap_diagnostics
+      : {};
     const notes = Array.isArray(plan.notes) ? plan.notes : [];
     const noteLines = notes.length ? notes.map((note) => `- ${note}`) : [];
+    const initialActivePreview = Array.isArray(bootstrapDiagnostics.initial_active_preview)
+      ? bootstrapDiagnostics.initial_active_preview
+      : [];
     const header = applied
       ? t(
           "status_srs_set_init_result",
@@ -471,9 +543,17 @@ async function initializeSrsSet() {
       `- applied: ${applied}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
-      `- set_top_n: ${result.set_top_n ?? setTopN}`,
+      `- bootstrap_top_n: ${result.bootstrap_top_n ?? result.set_top_n ?? bootstrapTopN}`,
+      `- initial_active_count: ${result.initial_active_count ?? initialActiveCount}`,
+      `- max_active_items_hint: ${result.max_active_items_hint ?? maxActiveItemsHint}`,
       `- source_type: ${result.source_type || "initial_set"}`,
       `- store_path: ${result.store_path || "n/a"}`,
+      applied ? `- selected_count: ${bootstrapDiagnostics.selected_count ?? "n/a"}` : null,
+      applied ? `- inserted_count: ${bootstrapDiagnostics.inserted_count ?? "n/a"}` : null,
+      applied ? `- updated_count: ${bootstrapDiagnostics.updated_count ?? "n/a"}` : null,
+      applied && initialActivePreview.length
+        ? `- initial_active_preview: ${initialActivePreview.slice(0, 20).join(", ")}`
+        : null,
       noteLines.length ? "" : null,
       noteLines.length ? "Plan notes:" : null,
       ...noteLines
@@ -484,9 +564,12 @@ async function initializeSrsSet() {
     setStatus(statusMessage, applied ? ui.COLORS.SUCCESS : ui.COLORS.DEFAULT);
     logOptions("SRS set initialized", {
       pair: srsPair,
-      setTopN,
+      bootstrapTopN,
+      initialActiveCount,
+      maxActiveItemsHint,
       applied,
       plan,
+      bootstrapDiagnostics,
       profileContext
     });
   } catch (err) {
@@ -682,12 +765,24 @@ maxOnePerBlockInput.addEventListener("change", () => {
 allowAdjacentInput.addEventListener("change", () => {
   saveReplacementSettings();
 });
+if (maxReplacementsPerPageInput) {
+  maxReplacementsPerPageInput.addEventListener("change", saveReplacementSettings);
+}
+if (maxReplacementsPerLemmaPageInput) {
+  maxReplacementsPerLemmaPageInput.addEventListener("change", saveReplacementSettings);
+}
 
 if (srsEnabledInput) {
   srsEnabledInput.addEventListener("change", saveSrsSettings);
 }
 if (srsMaxActiveInput) {
   srsMaxActiveInput.addEventListener("change", saveSrsSettings);
+}
+if (srsBootstrapTopNInput) {
+  srsBootstrapTopNInput.addEventListener("change", saveSrsSettings);
+}
+if (srsInitialActiveCountInput) {
+  srsInitialActiveCountInput.addEventListener("change", saveSrsSettings);
 }
 if (srsSoundInput) {
   srsSoundInput.addEventListener("change", saveSrsSettings);

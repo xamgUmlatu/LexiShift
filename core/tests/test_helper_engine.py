@@ -244,8 +244,17 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             )
 
             with patch(
-                "lexishift_core.helper_engine.initialize_store_from_frequency_list",
-                return_value=updated_store,
+                "lexishift_core.helper_engine.initialize_store_from_frequency_list_with_report",
+                return_value=(
+                    updated_store,
+                    SimpleNamespace(
+                        selected_count=2,
+                        inserted_count=1,
+                        updated_count=1,
+                        selected_preview=("alpha", "gamma"),
+                        initial_active_preview=("alpha",),
+                    ),
+                ),
             ):
                 result = initialize_srs_set(
                     paths,
@@ -311,8 +320,17 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             )
 
             with patch(
-                "lexishift_core.helper_engine.initialize_store_from_frequency_list",
-                return_value=replaced_store,
+                "lexishift_core.helper_engine.initialize_store_from_frequency_list_with_report",
+                return_value=(
+                    replaced_store,
+                    SimpleNamespace(
+                        selected_count=1,
+                        inserted_count=1,
+                        updated_count=0,
+                        selected_preview=("gamma",),
+                        initial_active_preview=("gamma",),
+                    ),
+                ),
             ):
                 result = initialize_srs_set(
                     paths,

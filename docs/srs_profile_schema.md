@@ -1,31 +1,35 @@
-# SRS Profile Schema (Draft v2)
+# SRS Profile Schema (Draft v3)
 
-This document defines the profile-scoped data model used to plan and evolve set `S`.
+Related design:
+- `docs/srs_hybrid_model_technical.md`
+- `docs/srs_set_planning_technical.md`
 
-Design intent:
-- Keep profile/config data separate from mutable SRS progress state.
-- Support incremental rollout: scaffolding first, strategy logic later.
-- Preserve forward compatibility by allowing unknown keys.
+## Purpose
+Define profile context used for planning admission/growth of set `S`.
 
----
+Profile context is not the same as SRS progress:
+- profile = user intent/preferences/proficiency signals
+- SRS store = per-item learning state and schedule
 
-## 1) Separation of concerns
+## Separation of concerns
 
-- **Profile context**: user intent and learning preferences (stable, editable).
-- **SRS store**: item-level progress and scheduling state (mutable runtime state).
-- **Signal queue**: feedback/exposure event stream (append-only input for adaptive policies).
+- Profile context:
+  - relatively stable
+  - editable by user/preferences UI
+  - consumed by planner
+- SRS store:
+  - mutable learning state
+  - updated by feedback
+- Signal queue:
+  - append-only event stream
+  - feedback is authoritative scheduling signal
 
-Current canonical helper files:
+## Canonical helper files
 - `srs/srs_settings.json`
 - `srs/srs_store.json`
 - `srs/srs_signal_queue.json`
 
----
-
-## 2) Profile context payload (for planning)
-
-`profile_context` is now accepted by helper commands (`srs_plan_set`, `srs_initialize`).
-This payload is scaffolding-friendly and intentionally permissive.
+## Profile context payload (planner input)
 
 ```json
 {
@@ -38,32 +42,41 @@ This payload is scaffolding-friendly and intentionally permissive.
     "known_lemmas": ["猫", "犬"]
   },
   "empirical_trends": {
-    "recent_topic_bias": {"animals": 0.4},
-    "recent_lemmas": {"猫": 12}
+    "recent_feedback": {
+      "again_rate": 0.22,
+      "hard_rate": 0.18,
+      "good_rate": 0.48,
+      "easy_rate": 0.12
+    },
+    "topic_bias": {"animals": 0.4}
   },
   "source_preferences": {
     "prefer_frequency_list": true,
-    "prefer_user_stream": false
+    "prefer_user_stream": false,
+    "prefer_curated": true
   },
   "constraints": {
-    "max_active_items": 40
+    "max_active_items": 40,
+    "max_new_items_per_day": 8,
+    "bootstrap_top_n": 800,
+    "initial_active_count": 40
   }
 }
 ```
 
 Notes:
-- Only a subset is required today.
-- Current executable strategy still falls back to `frequency_bootstrap`.
-- Planner returns `requires_profile_fields` to show what future strategies expect.
+- Planner should tolerate missing optional keys.
+- Unknown keys should be preserved where possible.
+- Invalid critical values should produce diagnostics/notes before hard failure.
+- Sizing fields are normalized by helper policy (`srs_set_policy.py`) with explicit clamps/defaults.
 
----
+## Extension-local scaffold
 
-## 3) Extension-local storage scaffold
-
-The extension now reserves:
-- `srsProfileSignals` (object keyed by pair)
+Reserved key in extension storage:
+- `srsProfileSignals`
 
 Example:
+
 ```json
 {
   "srsProfileSignals": {
@@ -72,68 +85,39 @@ Example:
       "interests": ["animals", "science"],
       "objectives": ["jlpt_n4"],
       "proficiency": {"self_reported_level": 0.35},
-      "empiricalTrends": {"recent_topic_bias": {"animals": 0.4}},
+      "empiricalTrends": {"topic_bias": {"animals": 0.4}},
       "sourcePreferences": {"prefer_frequency_list": true}
     }
   }
 }
 ```
 
-This is currently a scaffold only; UI for editing these signals is pending.
+Sizing fields currently stored in pair profile settings:
+- `srsBootstrapTopN`
+- `srsInitialActiveCount`
+- `srsMaxActive` (used as active-workload hint)
 
----
+## Planner contract expectations
 
-## 4) Set planning contract
+`srs_plan_set` / `srs_initialize` should continue to return:
+- `strategy_requested`
+- `strategy_effective`
+- `can_execute`
+- `execution_mode`
+- `requires_profile_fields`
+- `notes`
+- `diagnostics`
 
-`srs_plan_set` / `srs_initialize` return a `plan` object:
+This keeps profile modeling decoupled from mutation details.
 
-```json
-{
-  "strategy_requested": "profile_bootstrap",
-  "strategy_effective": "frequency_bootstrap",
-  "objective": "bootstrap",
-  "can_execute": true,
-  "execution_mode": "frequency_bootstrap",
-  "requires_profile_fields": ["interests", "proficiency", "empirical_trends"],
-  "notes": [
-    "Profile-aware weighting is scaffolding-only. Falling back to frequency bootstrap."
-  ],
-  "diagnostics": {
-    "pair": "en-ja",
-    "set_top_n": 800,
-    "trigger": "options_initialize_button",
-    "existing_items_for_pair": 42
-  }
-}
-```
+## Strategy taxonomy alignment
 
-This contract is the primary extension point for future strategy logic.
-
----
-
-## 5) Strategy taxonomy (current)
-
-- `frequency_bootstrap`
-  - Executable today.
-  - Initializes `S` from frequency + dictionary constraints.
-- `profile_bootstrap`
-  - Planner-supported.
-  - Currently falls back to `frequency_bootstrap`.
-- `profile_growth`
-  - Planner-only (not executable yet).
-- `adaptive_refresh`
-  - Planner-only (awaiting signal aggregation logic).
+- `frequency_bootstrap`: executable baseline.
+- `profile_bootstrap`: planner-supported, currently fallback execution.
+- `profile_growth`: planner-only.
+- `adaptive_refresh`: planner-only, feedback-aggregation dependent.
 
 Objectives:
 - `bootstrap`
 - `growth`
 - `refresh`
-
----
-
-## 6) Forward-compatibility rules
-
-- Unknown keys in `profile_context` should be preserved where possible.
-- Planner should never fail only because extra keys are present.
-- Missing optional keys should produce plan notes, not hard failures.
-- Hard failure is reserved for invalid critical inputs (e.g., missing pair, missing required files for execution).

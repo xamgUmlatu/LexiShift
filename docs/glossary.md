@@ -26,12 +26,14 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **SRS (Spaced Repetition System)**: Algorithmic scheduling to show items at optimal intervals for learning.
 - **S (target set)**: The set of words the system wants the user to learn in a given language.
 - **Initial S bootstrap**: The initial S built from frequency lists (legacy term: “seed”).
+- **Bootstrap top N**: Size of initial inventory admission for S (default `800`, clamped by policy).
+- **Initial active count**: Declared initial active subset within bootstrap S (default `40`).
 - **Selector**: The scoring algorithm that chooses which words from S should be active right now.
 - **Active items**: Words currently eligible for replacement (the “practice gate”).
 - **Feedback**: User rating (again/hard/good/easy) that updates SRS weights.
 - **Set planner**: Strategy decision layer that decides how S should be initialized/updated.
 - **Set strategy**: Named policy such as `frequency_bootstrap`, `profile_bootstrap`, `profile_growth`, `adaptive_refresh`.
-- **Signal queue**: Append-only stream of feedback/exposure events used for future adaptive updates.
+- **Signal queue**: Append-only stream of SRS events; feedback is authoritative for scheduling, exposure is optional telemetry.
 
 ## Frequency and Weighting
 

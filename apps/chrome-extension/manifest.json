@@ -21,6 +21,7 @@
         "shared/lemmatizer.js",
         "shared/helper_transport_extension.js",
         "shared/helper_client.js",
+        "shared/helper_feedback_sync.js",
         "shared/helper_cache.js",
         "shared/srs_selector.js",
         "shared/srs_store.js",

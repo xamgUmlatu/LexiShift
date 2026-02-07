@@ -22,7 +22,17 @@ class SetInitializationConfig:
     frequency_db: Path
     jmdict_path: Path
     top_n: int = 2000
+    initial_active_count: int = 40
     language_pair: str = "en-ja"
+
+
+@dataclass(frozen=True)
+class SetInitializationReport:
+    selected_count: int
+    inserted_count: int
+    updated_count: int
+    selected_preview: Sequence[str]
+    initial_active_preview: Sequence[str]
 
 
 @dataclass(frozen=True)
@@ -56,6 +66,15 @@ def initialize_store_from_frequency_list(
     *,
     config: SetInitializationConfig,
 ) -> SrsStore:
+    updated_store, _report = initialize_store_from_frequency_list_with_report(store, config=config)
+    return updated_store
+
+
+def initialize_store_from_frequency_list_with_report(
+    store: SrsStore,
+    *,
+    config: SetInitializationConfig,
+) -> tuple[SrsStore, SetInitializationReport]:
     selection_config = SeedSelectionConfig(
         language_pair=config.language_pair,
         top_n=config.top_n,
@@ -65,16 +84,37 @@ def initialize_store_from_frequency_list(
         frequency_db=config.frequency_db,
         config=selection_config,
     )
+    existing_ids = {item.item_id for item in store.items}
+    inserted_count = 0
+    updated_count = 0
     updated = store
     for selected in selected_words:
+        item_id = build_item_id(selected.language_pair, selected.lemma)
+        if item_id in existing_ids:
+            updated_count += 1
+        else:
+            inserted_count += 1
+            existing_ids.add(item_id)
         item = SrsItem(
-            item_id=build_item_id(selected.language_pair, selected.lemma),
+            item_id=item_id,
             lemma=selected.lemma,
             language_pair=selected.language_pair,
             source_type=SOURCE_INITIAL_SET,
         )
         updated = upsert_item(updated, item)
-    return updated
+    initial_active_count = max(0, int(config.initial_active_count))
+    selected_preview = tuple(selected.lemma for selected in selected_words[:10])
+    initial_active_preview = tuple(
+        selected.lemma for selected in selected_words[:initial_active_count]
+    )
+    report = SetInitializationReport(
+        selected_count=len(selected_words),
+        inserted_count=inserted_count,
+        updated_count=updated_count,
+        selected_preview=selected_preview,
+        initial_active_preview=initial_active_preview,
+    )
+    return updated, report
 
 
 def build_snapshot(

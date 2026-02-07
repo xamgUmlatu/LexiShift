@@ -68,6 +68,18 @@
   "hint_allow_adjacent": {
     "message": "無効にすると連続した置換を防ぎます。"
   },
+  "label_max_replacements_page": {
+    "message": "ページあたりの最大置換数"
+  },
+  "hint_max_replacements_page": {
+    "message": "0 は無制限です。現在のページで表示する総置換数を制限します。"
+  },
+  "label_max_replacements_lemma_page": {
+    "message": "1語あたりの最大置換数（ページ）"
+  },
+  "hint_max_replacements_lemma_page": {
+    "message": "0 は無制限です。1語だけがページ内で多発するのを防ぎます。"
+  },
   "section_srs": {
     "message": "SRS練習"
   },
@@ -88,6 +100,18 @@
   },
   "label_srs_max_active": {
     "message": "同時にアクティブな語数"
+  },
+  "label_srs_bootstrap_top_n": {
+    "message": "Sブートストラップサイズ（上位N）"
+  },
+  "hint_srs_bootstrap_top_n": {
+    "message": "初期Sブートストラップで取り込む総語数です。"
+  },
+  "label_srs_initial_active_count": {
+    "message": "初期アクティブ部分集合"
+  },
+  "hint_srs_initial_active_count": {
+    "message": "ブートストラップ候補から最初に非ゼロ/アクティブ化する語数です。"
   },
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"

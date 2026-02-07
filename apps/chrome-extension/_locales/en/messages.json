@@ -68,6 +68,18 @@
   "hint_allow_adjacent": {
     "message": "When disabled, prevents back-to-back word replacements."
   },
+  "label_max_replacements_page": {
+    "message": "Max replacements per page"
+  },
+  "hint_max_replacements_page": {
+    "message": "0 means unlimited. Caps total replacements shown on the current page."
+  },
+  "label_max_replacements_lemma_page": {
+    "message": "Max per word per page"
+  },
+  "hint_max_replacements_lemma_page": {
+    "message": "0 means unlimited. Prevents one word from dominating the page."
+  },
   "section_srs": {
     "message": "SRS Practice"
   },
@@ -88,6 +100,18 @@
   },
   "label_srs_max_active": {
     "message": "Max active words"
+  },
+  "label_srs_bootstrap_top_n": {
+    "message": "Bootstrap S size (top N)"
+  },
+  "hint_srs_bootstrap_top_n": {
+    "message": "Total number of words admitted during initial S bootstrap."
+  },
+  "label_srs_initial_active_count": {
+    "message": "Initial active subset"
+  },
+  "hint_srs_initial_active_count": {
+    "message": "Initial non-zero/active words selected from the bootstrap list."
   },
   "label_srs_highlight_color": {
     "message": "SRS highlight color"

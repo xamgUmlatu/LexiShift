@@ -7,6 +7,8 @@ class SettingsManager {
       highlightColor: "#9AA0A6",
       maxOnePerTextBlock: false,
       allowAdjacentReplacements: true,
+      maxReplacementsPerPage: 0,
+      maxReplacementsPerLemmaPerPage: 0,
       debugEnabled: false,
       debugFocusWord: "",
       uiLanguage: "system",
@@ -21,6 +23,8 @@ class SettingsManager {
       srsEnabled: false,
       srsPair: "en-en",
       srsMaxActive: 20,
+      srsBootstrapTopN: 800,
+      srsInitialActiveCount: 40,
       srsSoundEnabled: true,
       srsHighlightColor: "#2F74D0",
       srsFeedbackSrsEnabled: true,
@@ -54,11 +58,54 @@ class SettingsManager {
     await this.save(toSave);
   }
 
+  _normalizeInt(value, fallback, minimum, maximum = null) {
+    const parsed = Number.parseInt(value, 10);
+    const base = Number.isFinite(parsed) ? parsed : fallback;
+    const lowerBounded = Math.max(minimum, base);
+    if (maximum === null || maximum === undefined) {
+      return lowerBounded;
+    }
+    return Math.min(maximum, lowerBounded);
+  }
+
+  resolveSrsSetSizing(profile, items) {
+    const fallbackItems = items || {};
+    const source = profile || {};
+    const maxActive = this._normalizeInt(
+      source.srsMaxActive,
+      fallbackItems.srsMaxActive || this.defaults.srsMaxActive || 20,
+      1
+    );
+    const bootstrapTopN = this._normalizeInt(
+      source.srsBootstrapTopN,
+      fallbackItems.srsBootstrapTopN || this.defaults.srsBootstrapTopN || 800,
+      200
+    );
+    const initialActiveCount = this._normalizeInt(
+      source.srsInitialActiveCount,
+      maxActive || this.defaults.srsInitialActiveCount || 40,
+      1,
+      bootstrapTopN
+    );
+    return {
+      srsBootstrapTopN: bootstrapTopN,
+      srsInitialActiveCount: initialActiveCount
+    };
+  }
+
   getSrsProfile(items, pairKey) {
     const profiles = items.srsProfiles || {};
     const profile = profiles[pairKey] || {};
+    const srsMaxActive = this._normalizeInt(
+      profile.srsMaxActive,
+      items.srsMaxActive || this.defaults.srsMaxActive || 20,
+      1
+    );
+    const sizing = this.resolveSrsSetSizing({ ...profile, srsMaxActive }, items);
     return {
-      srsMaxActive: profile.srsMaxActive || items.srsMaxActive || this.defaults.srsMaxActive || 20,
+      srsMaxActive,
+      srsBootstrapTopN: sizing.srsBootstrapTopN,
+      srsInitialActiveCount: sizing.srsInitialActiveCount,
       srsSoundEnabled: profile.srsSoundEnabled !== undefined ? profile.srsSoundEnabled : (items.srsSoundEnabled !== false),
       srsHighlightColor: profile.srsHighlightColor || items.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
       srsFeedbackSrsEnabled: profile.srsFeedbackSrsEnabled !== undefined ? profile.srsFeedbackSrsEnabled : (items.srsFeedbackSrsEnabled !== false),
@@ -106,6 +153,10 @@ class SettingsManager {
       source_preferences: signals.sourcePreferences,
       constraints: {
         max_active_items: profile.srsMaxActive
+      },
+      sizing: {
+        bootstrap_top_n: profile.srsBootstrapTopN,
+        initial_active_count: profile.srsInitialActiveCount
       }
     };
   }

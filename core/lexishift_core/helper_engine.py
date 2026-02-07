@@ -3,13 +3,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from typing import Mapping, Optional
+from typing import Mapping, Optional, Sequence
 
 from lexishift_core.helper_paths import HelperPaths
 from lexishift_core.helper_rulegen import (
     RulegenConfig,
     SetInitializationConfig,
-    initialize_store_from_frequency_list,
+    initialize_store_from_frequency_list_with_report,
     run_rulegen_for_pair,
     write_rulegen_outputs,
 )
@@ -20,6 +20,7 @@ from lexishift_core.srs_set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     STRATEGY_FREQUENCY_BOOTSTRAP,
 )
+from lexishift_core.srs_set_policy import resolve_set_sizing_policy
 from lexishift_core.srs_signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
@@ -54,7 +55,10 @@ class SetInitializationJobConfig:
     pair: str
     jmdict_path: Path
     set_source_db: Path
-    set_top_n: int = 2000
+    set_top_n: int = 800
+    bootstrap_top_n: Optional[int] = None
+    initial_active_count: Optional[int] = None
+    max_active_items_hint: Optional[int] = None
     replace_pair: bool = False
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
@@ -67,7 +71,10 @@ class SetPlanningJobConfig:
     pair: str
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
-    set_top_n: int = 2000
+    set_top_n: int = 800
+    bootstrap_top_n: Optional[int] = None
+    initial_active_count: Optional[int] = None
+    max_active_items_hint: Optional[int] = None
     replace_pair: bool = False
     profile_context: Optional[Mapping[str, object]] = None
     trigger: str = "manual"
@@ -220,11 +227,14 @@ def _build_set_plan_payload(
     strategy: str,
     objective: str,
     set_top_n: int,
+    initial_active_count: int,
+    max_active_items_hint: int,
     replace_pair: bool,
     trigger: str,
     existing_items_for_pair: int,
     profile_context: Optional[Mapping[str, object]],
     signal_summary: Mapping[str, object],
+    policy_notes: Sequence[str] = (),
 ) -> dict[str, object]:
     plan = build_srs_set_plan(
         SrsSetPlanRequest(
@@ -232,6 +242,8 @@ def _build_set_plan_payload(
             strategy=strategy,
             objective=objective,
             set_top_n=set_top_n,
+            initial_active_count=initial_active_count,
+            max_active_items_hint=max_active_items_hint,
             replace_pair=replace_pair,
             existing_items_for_pair=existing_items_for_pair,
             trigger=trigger,
@@ -239,7 +251,19 @@ def _build_set_plan_payload(
             signal_summary=signal_summary,
         )
     )
-    return plan_to_dict(plan)
+    payload = plan_to_dict(plan)
+    if policy_notes:
+        merged_notes = list(payload.get("notes", []))
+        for note in policy_notes:
+            if note and note not in merged_notes:
+                merged_notes.append(note)
+        payload["notes"] = merged_notes
+    diagnostics = dict(payload.get("diagnostics", {}))
+    diagnostics["bootstrap_top_n"] = max(1, int(set_top_n))
+    diagnostics["initial_active_count"] = max(1, int(initial_active_count))
+    diagnostics["max_active_items_hint"] = max(0, int(max_active_items_hint))
+    payload["diagnostics"] = diagnostics
+    return payload
 
 
 def plan_srs_set(
@@ -253,20 +277,34 @@ def plan_srs_set(
 
     store = _ensure_store(paths, persist_missing=False)
     existing_items_for_pair = _count_items_for_pair(store, pair)
+    sizing_policy = resolve_set_sizing_policy(
+        bootstrap_top_n=config.bootstrap_top_n
+        if config.bootstrap_top_n is not None
+        else config.set_top_n,
+        initial_active_count=config.initial_active_count,
+        max_active_items_hint=config.max_active_items_hint,
+    )
     signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
     plan_payload = _build_set_plan_payload(
         pair=pair,
         strategy=config.strategy,
         objective=config.objective,
-        set_top_n=config.set_top_n,
+        set_top_n=sizing_policy.bootstrap_top_n_effective,
+        initial_active_count=sizing_policy.initial_active_count_effective,
+        max_active_items_hint=sizing_policy.max_active_items_hint or 0,
         replace_pair=config.replace_pair,
         trigger=config.trigger,
         existing_items_for_pair=existing_items_for_pair,
         profile_context=config.profile_context,
         signal_summary=signal_summary,
+        policy_notes=sizing_policy.notes,
     )
     return {
         "pair": pair,
+        "set_top_n": sizing_policy.bootstrap_top_n_effective,
+        "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
+        "initial_active_count": sizing_policy.initial_active_count_effective,
+        "max_active_items_hint": sizing_policy.max_active_items_hint,
         "existing_items_for_pair": existing_items_for_pair,
         "signal_summary": signal_summary,
         "plan": plan_payload,
@@ -290,17 +328,27 @@ def initialize_srs_set(
     _ensure_settings(paths, persist_missing=True)
     store = _ensure_store(paths, persist_missing=True)
     before_pair_count = _count_items_for_pair(store, pair)
+    sizing_policy = resolve_set_sizing_policy(
+        bootstrap_top_n=config.bootstrap_top_n
+        if config.bootstrap_top_n is not None
+        else config.set_top_n,
+        initial_active_count=config.initial_active_count,
+        max_active_items_hint=config.max_active_items_hint,
+    )
     signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
     plan_payload = _build_set_plan_payload(
         pair=pair,
         strategy=config.strategy,
         objective=config.objective,
-        set_top_n=config.set_top_n,
+        set_top_n=sizing_policy.bootstrap_top_n_effective,
+        initial_active_count=sizing_policy.initial_active_count_effective,
+        max_active_items_hint=sizing_policy.max_active_items_hint or 0,
         replace_pair=config.replace_pair,
         trigger=config.trigger,
         existing_items_for_pair=before_pair_count,
         profile_context=config.profile_context,
         signal_summary=signal_summary,
+        policy_notes=sizing_policy.notes,
     )
 
     can_execute = bool(plan_payload.get("can_execute"))
@@ -308,7 +356,10 @@ def initialize_srs_set(
     if not can_execute or execution_mode != "frequency_bootstrap":
         return {
             "pair": pair,
-            "set_top_n": config.set_top_n,
+            "set_top_n": sizing_policy.bootstrap_top_n_effective,
+            "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
+            "initial_active_count": sizing_policy.initial_active_count_effective,
+            "max_active_items_hint": sizing_policy.max_active_items_hint,
             "source_type": SOURCE_INITIAL_SET,
             "replace_pair": config.replace_pair,
             "added_items": 0,
@@ -324,12 +375,13 @@ def initialize_srs_set(
         retained = tuple(item for item in store.items if item.language_pair != pair)
         base_store = SrsStore(items=retained, version=store.version)
 
-    updated_store = initialize_store_from_frequency_list(
+    updated_store, init_report = initialize_store_from_frequency_list_with_report(
         base_store,
         config=SetInitializationConfig(
             frequency_db=config.set_source_db,
             jmdict_path=config.jmdict_path,
-            top_n=config.set_top_n,
+            top_n=sizing_policy.bootstrap_top_n_effective,
+            initial_active_count=sizing_policy.initial_active_count_effective,
             language_pair=pair,
         ),
     )
@@ -339,12 +391,22 @@ def initialize_srs_set(
     added_items = max(0, after_pair_count - (0 if config.replace_pair else before_pair_count))
     return {
         "pair": pair,
-        "set_top_n": config.set_top_n,
+        "set_top_n": sizing_policy.bootstrap_top_n_effective,
+        "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
+        "initial_active_count": sizing_policy.initial_active_count_effective,
+        "max_active_items_hint": sizing_policy.max_active_items_hint,
         "source_type": SOURCE_INITIAL_SET,
         "replace_pair": config.replace_pair,
         "added_items": added_items,
         "total_items_for_pair": after_pair_count,
         "store_path": str(paths.srs_store_path),
+        "bootstrap_diagnostics": {
+            "selected_count": init_report.selected_count,
+            "inserted_count": init_report.inserted_count,
+            "updated_count": init_report.updated_count,
+            "selected_preview": list(init_report.selected_preview),
+            "initial_active_preview": list(init_report.initial_active_preview),
+        },
         "applied": True,
         "plan": plan_payload,
         "signal_summary": signal_summary,

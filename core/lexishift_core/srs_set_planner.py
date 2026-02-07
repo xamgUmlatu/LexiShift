@@ -19,7 +19,9 @@ class SrsSetPlanRequest:
     pair: str
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
-    set_top_n: int = 2000
+    set_top_n: int = 800
+    initial_active_count: int = 40
+    max_active_items_hint: int = 0
     replace_pair: bool = False
     existing_items_for_pair: int = 0
     trigger: str = "manual"
@@ -92,6 +94,9 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
     diagnostics = {
         "pair": pair,
         "set_top_n": max(1, int(request.set_top_n)),
+        "bootstrap_top_n": max(1, int(request.set_top_n)),
+        "initial_active_count": max(1, int(request.initial_active_count)),
+        "max_active_items_hint": max(0, int(request.max_active_items_hint)),
         "replace_pair": bool(request.replace_pair),
         "trigger": str(request.trigger or "manual"),
         "existing_items_for_pair": max(0, int(request.existing_items_for_pair)),

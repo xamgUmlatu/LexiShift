@@ -7,7 +7,7 @@ without shipping large datasets inside the extension.
 ## Goals
 - Run rulegen locally as S grows, without requiring the user to open the GUI app.
 - Keep large dictionaries/frequency packs on disk (GUI app data), not in the extension.
-- Allow extension to fetch rulegen outputs and report feedback/exposure.
+- Allow extension to fetch rulegen outputs and report feedback (plus optional exposure telemetry).
 - Ensure privacy-first, offline operation.
 - Be extensible to the BetterDiscord plugin later.
 
@@ -22,7 +22,7 @@ Components:
 1) **GUI App** (LexiShift): offers install/config UI for the background helper.
 2) **Companion Helper** (background process): owns rulegen, SRS store, rule snapshots.
 3) **Native Messaging Host**: bridges extension ↔ helper using Chrome native messaging.
-4) **Extension**: applies rules, sends feedback/exposure, requests snapshots.
+4) **Extension**: applies rules, sends feedback, requests snapshots.
 
 Data sources live in the GUI app data dir:
 - `language_packs/`, `frequency_packs/`, `embeddings/`, `rulesets/`, etc.
@@ -32,7 +32,7 @@ Shared outputs written by helper:
 - `srs/srs_rulegen_snapshot_<pair>.json`
 - `srs/srs_ruleset_<pair>.json`
 - `srs/srs_status.json` (health + last_run metadata)
-- `srs/srs_signal_queue.json` (feedback/exposure signal stream)
+- `srs/srs_signal_queue.json` (signal stream; feedback authoritative for scheduling)
 
 ## Workstream Breakdown (Phases)
 
@@ -51,7 +51,7 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - `init_srs_set`: explicit set initialization command.
   - `get_snapshot`: returns concise preview (target lemma → sources).
   - `record_feedback`: append to SRS store.
-  - `record_exposure`: append to SRS store.
+  - `record_exposure`: optional telemetry path.
 - Outputs JSON files in a stable schema.
 
 ### Phase 2 — Native Messaging Host
@@ -71,6 +71,10 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - `initializeSrs(payload)`
   - `recordFeedback(payload)`
   - `recordExposure(payload)`
+- Use a persistent feedback sync queue in extension storage for `record_feedback`:
+  - retry with backoff
+  - bounded queue
+  - optional dropped-event archive for diagnostics
 - Options page uses the snapshot for “Show target rules…”.
 - Content script reads ruleset from helper when enabled (with fallback to last local ruleset).
 
@@ -108,11 +112,17 @@ Commands (MVP):
 - `get_ruleset` → returns ruleset for a `pair`.
 - `get_snapshot` → returns preview for `pair`.
 - `record_feedback` → accept SRS feedback payload.
-- `record_exposure` → accept exposure batch.
+- `record_exposure` → accept exposure telemetry batch.
 - `trigger_rulegen` → recompute now for pair (optional).
 - `srs_plan_set` → plan strategy for set S (no mutation).
 - `srs_initialize` → initialize set S for a pair (mutation).
 - `srs_reset` → clear SRS progress for pair/all.
+
+Sizing contract for `srs_plan_set` and `srs_initialize`:
+- `bootstrap_top_n` (preferred bootstrap size input)
+- `initial_active_count` (declared initial active subset size)
+- `max_active_items_hint` (workload hint from profile/UI)
+- `set_top_n` remains accepted as a compatibility alias for bootstrap size
 
 ## Snapshot Schema (MVP)
 `srs_rulegen_snapshot_<pair>.json`:
@@ -193,4 +203,5 @@ Helper should write:
 - Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
 - Native messaging host exists; install writes the host manifest for the provided extension ID.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
-- Feedback/exposure writes to `srs/srs_signal_queue.json` for future adaptive set updates.
+- Feedback writes to `srs/srs_signal_queue.json` for future adaptive set updates.
+- Exposure writes remain available as telemetry and are non-authoritative for scheduling.

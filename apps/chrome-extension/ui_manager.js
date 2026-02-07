@@ -17,8 +17,10 @@ class UIManager {
   init() {
     const ids = [
       "enabled", "highlight-enabled", "highlight-color", "highlight-color-text",
-      "max-one-per-block", "allow-adjacent", "debug-enabled", "debug-focus-word",
+      "max-one-per-block", "allow-adjacent", "max-replacements-per-page",
+      "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
       "srs-enabled", "source-language", "target-language", "srs-max-active",
+      "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
       "srs-exposure-logging-enabled", "srs-sample", "srs-sample-output",
@@ -86,6 +88,12 @@ class UIManager {
   updateSrsInputs(profile) {
     if (this.dom.srsMaxActive) {
       this.dom.srsMaxActive.value = String(profile.srsMaxActive);
+    }
+    if (this.dom.srsBootstrapTopN) {
+      this.dom.srsBootstrapTopN.value = String(profile.srsBootstrapTopN);
+    }
+    if (this.dom.srsInitialActiveCount) {
+      this.dom.srsInitialActiveCount.value = String(profile.srsInitialActiveCount);
     }
     if (this.dom.srsSoundEnabled) {
       this.dom.srsSoundEnabled.checked = profile.srsSoundEnabled;
