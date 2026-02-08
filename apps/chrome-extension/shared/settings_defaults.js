@@ -31,6 +31,9 @@
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
+    profileBackgroundEnabled: false,
+    profileBackgroundAssetId: "",
+    profileBackgroundOpacity: 0.18,
     srsRulesetUpdatedAt: ""
   };
 })();

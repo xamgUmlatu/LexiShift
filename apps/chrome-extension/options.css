@@ -139,6 +139,20 @@ header p {
   width: 200px;
 }
 
+.profile-background-panel {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid #e6dccc;
+  border-radius: 10px;
+  background: #fffdf8;
+}
+
+.profile-background-panel h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: #4d473f;
+}
+
 .file-row {
   display: flex;
   align-items: center;
@@ -148,6 +162,37 @@ header p {
 
 .file-row input[type="file"] {
   flex: 1;
+}
+
+#profile-bg-file {
+  min-width: 200px;
+}
+
+#profile-bg-opacity {
+  width: 180px;
+}
+
+.profile-bg-preview-wrap {
+  margin-top: 10px;
+  border: 1px solid #e7ddcf;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5eee2;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-bg-preview-wrap.hidden {
+  display: none;
+}
+
+#profile-bg-preview {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
 }
 
 .meta-row {

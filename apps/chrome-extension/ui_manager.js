@@ -21,14 +21,17 @@ class UIManager {
       "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
       "srs-enabled", "source-language", "target-language", "srs-max-active",
       "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
+      "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",
+      "profile-bg-file", "profile-bg-remove", "profile-bg-apply",
+      "profile-bg-status", "profile-bg-preview-wrap", "profile-bg-preview",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
-      "srs-exposure-logging-enabled", "srs-sample", "srs-sample-output",
+      "srs-exposure-logging-enabled",
       "srs-initialize-set", "srs-refresh-set", "srs-runtime-diagnostics",
-      "srs-rulegen-preview", "srs-rulegen-sampled-preview",
+      "srs-rulegen-sampled-preview",
       "srs-rulegen-output", "srs-reset", "helper-status",
-      "helper-last-sync", "helper-refresh", "debug-helper-test",
+      "helper-last-sync", "debug-helper-test",
       "debug-helper-test-output", "debug-open-data-dir",
       "debug-open-data-dir-output", "ui-language", "rules", "save",
       "status", "rules-file", "import-file", "export-file", "file-status",
@@ -115,6 +118,35 @@ class UIManager {
     }
     if (this.dom.srsExposureLoggingEnabled) {
       this.dom.srsExposureLoggingEnabled.checked = profile.srsExposureLoggingEnabled;
+    }
+  }
+
+  updateProfileBackgroundInputs(prefs) {
+    const source = prefs && typeof prefs === "object" ? prefs : {};
+    const hasAsset = Boolean(String(source.backgroundAssetId || "").trim());
+    if (this.dom.profileBgEnabled) {
+      this.dom.profileBgEnabled.checked = source.backgroundEnabled === true && hasAsset;
+      this.dom.profileBgEnabled.disabled = false;
+    }
+    if (this.dom.profileBgOpacity) {
+      const opacity = Number.isFinite(Number(source.backgroundOpacity))
+        ? Number(source.backgroundOpacity)
+        : 0.18;
+      const percent = Math.round(Math.min(0.85, Math.max(0.05, opacity)) * 100);
+      this.dom.profileBgOpacity.value = String(percent);
+      this.dom.profileBgOpacity.disabled = false;
+    }
+    if (this.dom.profileBgOpacityValue) {
+      const opacityValue = this.dom.profileBgOpacity
+        ? Number(this.dom.profileBgOpacity.value || 18)
+        : 18;
+      this.dom.profileBgOpacityValue.textContent = `${Math.round(opacityValue)}%`;
+    }
+    if (this.dom.profileBgRemove) {
+      this.dom.profileBgRemove.disabled = !hasAsset;
+    }
+    if (this.dom.profileBgApply) {
+      this.dom.profileBgApply.disabled = !hasAsset;
     }
   }
 }

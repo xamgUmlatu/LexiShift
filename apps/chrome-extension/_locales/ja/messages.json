@@ -443,6 +443,30 @@
   "button_srs_profile_refresh": {
     "message": "プロファイルを再取得"
   },
+  "section_profile_background": {
+    "message": "プロファイル背景"
+  },
+  "hint_profile_bg_scope": {
+    "message": "このプロファイルの全置換モードに適用されます（SRS専用ではありません）。"
+  },
+  "toggle_profile_bg_enabled": {
+    "message": "プロファイル背景画像を有効化"
+  },
+  "label_profile_bg_opacity": {
+    "message": "背景の不透明度"
+  },
+  "button_profile_bg_upload": {
+    "message": "アップロード"
+  },
+  "button_profile_bg_remove": {
+    "message": "削除"
+  },
+  "button_profile_bg_apply": {
+    "message": "プロファイル背景を適用"
+  },
+  "hint_profile_bg_status_empty": {
+    "message": "このプロファイルには背景画像が設定されていません。"
+  },
   "hint_srs_profile_loading": {
     "message": "Helper プロファイルを読み込み中…"
   },

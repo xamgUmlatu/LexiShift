@@ -443,6 +443,30 @@
   "button_srs_profile_refresh": {
     "message": "Refresh profiles"
   },
+  "section_profile_background": {
+    "message": "Profile background"
+  },
+  "hint_profile_bg_scope": {
+    "message": "Applies to this profile across all replacement modes (not SRS-only)."
+  },
+  "toggle_profile_bg_enabled": {
+    "message": "Enable profile background image"
+  },
+  "label_profile_bg_opacity": {
+    "message": "Background opacity"
+  },
+  "button_profile_bg_upload": {
+    "message": "Upload"
+  },
+  "button_profile_bg_remove": {
+    "message": "Remove"
+  },
+  "button_profile_bg_apply": {
+    "message": "Apply profile background"
+  },
+  "hint_profile_bg_status_empty": {
+    "message": "No background image configured for this profile."
+  },
   "hint_srs_profile_loading": {
     "message": "Loading helper profiles…"
   },

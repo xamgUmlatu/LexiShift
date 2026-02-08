@@ -40,6 +40,15 @@ const {
   srsProfileId: srsProfileIdInput,
   srsProfileRefresh: srsProfileRefreshButton,
   srsProfileStatus: srsProfileStatusOutput,
+  profileBgEnabled: profileBgEnabledInput,
+  profileBgOpacity: profileBgOpacityInput,
+  profileBgOpacityValue: profileBgOpacityValueOutput,
+  profileBgFile: profileBgFileInput,
+  profileBgRemove: profileBgRemoveButton,
+  profileBgApply: profileBgApplyButton,
+  profileBgStatus: profileBgStatusOutput,
+  profileBgPreviewWrap: profileBgPreviewWrap,
+  profileBgPreview: profileBgPreviewImage,
   srsMaxActive: srsMaxActiveInput,
   srsBootstrapTopN: srsBootstrapTopNInput,
   srsInitialActiveCount: srsInitialActiveCountInput,
@@ -49,16 +58,12 @@ const {
   srsFeedbackSrsEnabled: srsFeedbackSrsInput,
   srsFeedbackRulesEnabled: srsFeedbackRulesInput,
   srsExposureLoggingEnabled: srsExposureLoggingInput,
-  srsSample: srsSampleButton,
-  srsSampleOutput: srsSampleOutput,
   srsInitializeSet: srsInitializeSetButton,
   srsRefreshSet: srsRefreshSetButton,
   srsRuntimeDiagnostics: srsRuntimeDiagnosticsButton,
-  srsRulegenPreview: srsRulegenButton,
   srsRulegenSampledPreview: srsRulegenSampledButton,
   srsRulegenOutput: srsRulegenOutput,
   srsReset: srsResetButton,
-  helperRefresh: helperRefreshButton,
   debugHelperTest: debugHelperTestButton,
   debugHelperTestOutput: debugHelperTestOutput,
   debugOpenDataDir: debugOpenDataDirButton,
@@ -82,6 +87,12 @@ const {
 
 let helperProfilesCache = null;
 let helperProfilesCacheTs = 0;
+let profileBgPreviewObjectUrl = "";
+let profileBgAppliedObjectUrl = "";
+let profileBgPendingFile = null;
+let profileBgHasPendingApply = false;
+const PROFILE_BG_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+const profileMediaStore = globalThis.LexiShift && globalThis.LexiShift.profileMediaStore;
 
 function setStatus(message, color) {
   ui.setStatus(message, color);
@@ -97,6 +108,180 @@ function updateRulesMeta(rules, updatedAt) {
 
 function updateRulesSourceUI(source) {
   ui.updateRulesSourceUI(source);
+}
+
+function clampProfileBackgroundOpacity(value) {
+  const parsed = Number.parseFloat(value);
+  if (!Number.isFinite(parsed)) {
+    return 0.18;
+  }
+  return Math.min(0.85, Math.max(0.05, parsed));
+}
+
+function updateProfileBgOpacityLabel(value) {
+  if (!profileBgOpacityValueOutput) {
+    return;
+  }
+  const numeric = Number.isFinite(Number(value)) ? Number(value) : 18;
+  profileBgOpacityValueOutput.textContent = `${Math.round(numeric)}%`;
+}
+
+function revokeProfileBgPreviewUrl() {
+  if (!profileBgPreviewObjectUrl) {
+    return;
+  }
+  URL.revokeObjectURL(profileBgPreviewObjectUrl);
+  profileBgPreviewObjectUrl = "";
+}
+
+function clearProfileBgPreview() {
+  revokeProfileBgPreviewUrl();
+  if (profileBgPreviewImage) {
+    profileBgPreviewImage.removeAttribute("src");
+  }
+  if (profileBgPreviewWrap) {
+    profileBgPreviewWrap.classList.add("hidden");
+  }
+}
+
+function revokeProfileBgAppliedUrl() {
+  if (!profileBgAppliedObjectUrl) {
+    return;
+  }
+  URL.revokeObjectURL(profileBgAppliedObjectUrl);
+  profileBgAppliedObjectUrl = "";
+}
+
+function clearOptionsPageBackground() {
+  revokeProfileBgAppliedUrl();
+  document.body.style.removeProperty("background-image");
+  document.body.style.removeProperty("background-size");
+  document.body.style.removeProperty("background-position");
+  document.body.style.removeProperty("background-attachment");
+}
+
+function applyOptionsPageBackgroundFromBlob(blob, opacity) {
+  if (!(blob instanceof Blob)) {
+    clearOptionsPageBackground();
+    return;
+  }
+  revokeProfileBgAppliedUrl();
+  profileBgAppliedObjectUrl = URL.createObjectURL(blob);
+  const clamped = clampProfileBackgroundOpacity(opacity);
+  const wash = Math.max(0, Math.min(1, 1 - clamped));
+  document.body.style.backgroundImage = `linear-gradient(rgba(251,247,240,${wash}), rgba(232,224,212,${wash})), url("${profileBgAppliedObjectUrl}")`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center center";
+  document.body.style.backgroundAttachment = "fixed";
+}
+
+function setProfileBgPreviewFromBlob(blob) {
+  if (!(blob instanceof Blob) || !profileBgPreviewImage || !profileBgPreviewWrap) {
+    clearProfileBgPreview();
+    return;
+  }
+  revokeProfileBgPreviewUrl();
+  profileBgPreviewObjectUrl = URL.createObjectURL(blob);
+  profileBgPreviewImage.src = profileBgPreviewObjectUrl;
+  profileBgPreviewWrap.classList.remove("hidden");
+}
+
+function formatBytes(bytes) {
+  const value = Number(bytes);
+  if (!Number.isFinite(value) || value <= 0) {
+    return "0 B";
+  }
+  if (value < 1024) {
+    return `${Math.round(value)} B`;
+  }
+  if (value < 1024 * 1024) {
+    return `${(value / 1024).toFixed(1)} KB`;
+  }
+  return `${(value / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+function setProfileBgStatus(message) {
+  if (!profileBgStatusOutput) {
+    return;
+  }
+  profileBgStatusOutput.textContent = message;
+}
+
+function setProfileBgApplyState(hasPendingApply, forceDisable) {
+  profileBgHasPendingApply = hasPendingApply === true;
+  if (!profileBgApplyButton) {
+    return;
+  }
+  if (forceDisable === true) {
+    profileBgApplyButton.disabled = true;
+    return;
+  }
+  profileBgApplyButton.disabled = !profileBgHasPendingApply;
+}
+
+async function refreshProfileBackgroundPreview(uiPrefs) {
+  const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+  const assetId = String(prefs.backgroundAssetId || "").trim();
+  if (!assetId) {
+    clearProfileBgPreview();
+    setProfileBgStatus(t(
+      "hint_profile_bg_status_empty",
+      null,
+      "No background image configured for this profile."
+    ));
+    return;
+  }
+  if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
+    clearProfileBgPreview();
+    setProfileBgStatus("Background preview unavailable: media store missing.");
+    return;
+  }
+  try {
+    const record = await profileMediaStore.getAsset(assetId);
+    if (!record || !(record.blob instanceof Blob)) {
+      clearProfileBgPreview();
+      setProfileBgStatus("Background asset not found. Upload again for this profile.");
+      return;
+    }
+    setProfileBgPreviewFromBlob(record.blob);
+    const type = String(record.mime_type || record.blob.type || "image/*");
+    const size = Number(record.byte_size || record.blob.size || 0);
+    setProfileBgStatus(`Asset: ${type}, ${formatBytes(size)}.`);
+  } catch (err) {
+    clearProfileBgPreview();
+    const msg = err && err.message ? err.message : "Failed to load background preview.";
+    setProfileBgStatus(msg);
+  }
+}
+
+async function applyOptionsPageBackgroundFromPrefs(uiPrefs, options) {
+  const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+  const opts = options && typeof options === "object" ? options : {};
+  const enabled = prefs.backgroundEnabled === true;
+  const assetId = String(prefs.backgroundAssetId || "").trim();
+  const preferredBlob = opts.preferredBlob instanceof Blob ? opts.preferredBlob : null;
+  if (!enabled || !assetId) {
+    clearOptionsPageBackground();
+    return;
+  }
+  if (preferredBlob) {
+    applyOptionsPageBackgroundFromBlob(preferredBlob, prefs.backgroundOpacity);
+    return;
+  }
+  if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
+    clearOptionsPageBackground();
+    return;
+  }
+  try {
+    const record = await profileMediaStore.getAsset(assetId);
+    if (!record || !(record.blob instanceof Blob)) {
+      clearOptionsPageBackground();
+      return;
+    }
+    applyOptionsPageBackgroundFromBlob(record.blob, prefs.backgroundOpacity);
+  } catch (_err) {
+    clearOptionsPageBackground();
+  }
 }
 
 function resolvePairFromInputs() {
@@ -253,7 +438,30 @@ async function loadSrsProfileForPair(items, pairKey, options) {
   const profile = settingsManager.getSrsProfile(synced.items, pairKey, {
     profileId: synced.profileId
   });
+  const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
+    profileId: synced.profileId
+  });
+  profileBgPendingFile = null;
+  if (profileBgFileInput) {
+    profileBgFileInput.value = "";
+  }
   ui.updateSrsInputs(profile);
+  ui.updateProfileBackgroundInputs(uiPrefs);
+  updateProfileBgOpacityLabel((uiPrefs.backgroundOpacity || 0.18) * 100);
+  await refreshProfileBackgroundPreview(uiPrefs);
+  const runtimeAssetId = String(synced.items.profileBackgroundAssetId || "").trim();
+  const runtimeEnabled = synced.items.profileBackgroundEnabled === true;
+  const runtimeOpacity = clampProfileBackgroundOpacity(synced.items.profileBackgroundOpacity);
+  const profileOpacity = clampProfileBackgroundOpacity(uiPrefs.backgroundOpacity);
+  const isApplied = runtimeAssetId === String(uiPrefs.backgroundAssetId || "").trim()
+    && runtimeEnabled === (uiPrefs.backgroundEnabled === true)
+    && Math.abs(runtimeOpacity - profileOpacity) < 0.0001;
+  setProfileBgApplyState(!isApplied, false);
+  if (isApplied) {
+    await applyOptionsPageBackgroundFromPrefs(uiPrefs);
+  } else {
+    clearOptionsPageBackground();
+  }
   if (srsEnabledInput) {
     srsEnabledInput.checked = profile.srsEnabled === true;
   }
@@ -271,9 +479,11 @@ async function loadSrsProfileForPair(items, pairKey, options) {
   });
   logOptions("Loaded SRS profile settings.", {
     pair: pairKey,
-    profileId: synced.profileId
+    profileId: synced.profileId,
+    profileUiPrefs: uiPrefs,
+    profileUiApplied: isApplied
   });
-  return { profile, profileId: synced.profileId, items: synced.items };
+  return { profile, uiPrefs, profileId: synced.profileId, items: synced.items };
 }
 
 function saveDisplaySettings() {
@@ -439,6 +649,217 @@ async function saveLanguageSettings() {
     const msg = err && err.message ? err.message : t("status_language_updated", null, "Language updated.");
     setStatus(msg, ui.COLORS.ERROR);
     logOptions("Language update failed during SRS profile reload.", err);
+  }
+}
+
+async function loadActiveProfileUiPrefs() {
+  const items = await settingsManager.load();
+  const synced = await syncSelectedSrsProfile(items);
+  const profileId = synced.profileId;
+  const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, { profileId });
+  return { profileId, uiPrefs, items: synced.items };
+}
+
+async function saveProfileUiPrefsForCurrentProfile(nextPrefs, options) {
+  const opts = options && typeof options === "object" ? options : {};
+  const profileId = String(opts.profileId || "").trim() || settingsManager.DEFAULT_PROFILE_ID;
+  const publishRuntime = opts.publishRuntime === true;
+  const normalized = await settingsManager.updateProfileUiPrefs(nextPrefs, {
+    profileId,
+    publishRuntime
+  });
+  ui.updateProfileBackgroundInputs(normalized);
+  updateProfileBgOpacityLabel((normalized.backgroundOpacity || 0.18) * 100);
+  setProfileBgApplyState(!publishRuntime, false);
+  return normalized;
+}
+
+async function saveProfileBackgroundEnabled() {
+  if (!profileBgEnabledInput) {
+    return;
+  }
+  if (profileBgPendingFile) {
+    setProfileBgApplyState(true, false);
+    setStatus("Background toggle staged. Click Apply to commit.", ui.COLORS.SUCCESS);
+    return;
+  }
+  const state = await loadActiveProfileUiPrefs();
+  if (!state.uiPrefs.backgroundAssetId) {
+    setProfileBgApplyState(Boolean(profileBgPendingFile), false);
+    setStatus("Choose an image file, then click Apply.", ui.COLORS.DEFAULT);
+    return;
+  }
+  const nextPrefs = {
+    ...state.uiPrefs,
+    backgroundEnabled: profileBgEnabledInput.checked === true
+  };
+  await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+    profileId: state.profileId,
+    publishRuntime: false
+  });
+  setStatus("Background toggle saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+}
+
+async function saveProfileBackgroundOpacity() {
+  if (!profileBgOpacityInput) {
+    return;
+  }
+  const percent = Number.parseFloat(profileBgOpacityInput.value);
+  updateProfileBgOpacityLabel(percent);
+  if (profileBgPendingFile) {
+    setProfileBgApplyState(true, false);
+    setStatus("Background opacity staged. Click Apply to commit.", ui.COLORS.SUCCESS);
+    return;
+  }
+  const state = await loadActiveProfileUiPrefs();
+  const nextPrefs = {
+    ...state.uiPrefs,
+    backgroundOpacity: clampProfileBackgroundOpacity(percent / 100)
+  };
+  await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+    profileId: state.profileId,
+    publishRuntime: false
+  });
+  setStatus("Background opacity saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+}
+
+function handleProfileBackgroundFileChange() {
+  if (!profileBgFileInput) {
+    return;
+  }
+  const file = profileBgFileInput.files && profileBgFileInput.files[0];
+  if (!file) {
+    profileBgPendingFile = null;
+    return;
+  }
+  if (!String(file.type || "").startsWith("image/")) {
+    profileBgPendingFile = null;
+    setStatus("Only image files are supported.", ui.COLORS.ERROR);
+    profileBgFileInput.value = "";
+    return;
+  }
+  if (Number(file.size || 0) > PROFILE_BG_MAX_UPLOAD_BYTES) {
+    profileBgPendingFile = null;
+    setStatus(`Image too large. Maximum is ${formatBytes(PROFILE_BG_MAX_UPLOAD_BYTES)}.`, ui.COLORS.ERROR);
+    profileBgFileInput.value = "";
+    return;
+  }
+  profileBgPendingFile = file;
+  setProfileBgPreviewFromBlob(file);
+  if (profileBgEnabledInput) {
+    profileBgEnabledInput.checked = true;
+  }
+  setProfileBgStatus(`Preview ready: ${file.type || "image/*"}, ${formatBytes(file.size || 0)}.`);
+  setProfileBgApplyState(true, false);
+  setStatus("File selected. Click Apply profile background.", ui.COLORS.SUCCESS);
+}
+
+async function removeProfileBackgroundImage() {
+  if (!profileBgRemoveButton) {
+    return;
+  }
+  profileBgPendingFile = null;
+  if (profileBgFileInput) {
+    profileBgFileInput.value = "";
+  }
+  if (!profileMediaStore || typeof profileMediaStore.deleteAsset !== "function") {
+    setStatus("Profile media store is unavailable.", ui.COLORS.ERROR);
+    return;
+  }
+  profileBgRemoveButton.disabled = true;
+  let removed = false;
+  try {
+    const state = await loadActiveProfileUiPrefs();
+    const existingAssetId = String(state.uiPrefs.backgroundAssetId || "").trim();
+    if (existingAssetId) {
+      await profileMediaStore.deleteAsset(existingAssetId);
+    }
+    const nextPrefs = {
+      ...state.uiPrefs,
+      backgroundEnabled: false,
+      backgroundAssetId: ""
+    };
+    await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+      profileId: state.profileId,
+      publishRuntime: false
+    });
+    clearProfileBgPreview();
+    setProfileBgApplyState(true, false);
+    setProfileBgStatus(t(
+      "hint_profile_bg_status_empty",
+      null,
+      "No background image configured for this profile."
+    ));
+    setStatus("Profile background image removed. Click Apply to update options background.", ui.COLORS.SUCCESS);
+    removed = true;
+  } catch (err) {
+    const msg = err && err.message ? err.message : "Failed to remove profile background image.";
+    setStatus(msg, ui.COLORS.ERROR);
+  } finally {
+    if (!removed) {
+      profileBgRemoveButton.disabled = false;
+    }
+  }
+}
+
+async function applyProfileBackgroundSettings() {
+  if (!profileBgApplyButton) {
+    return;
+  }
+  if (!profileBgHasPendingApply) {
+    setStatus("No pending background changes.", ui.COLORS.DEFAULT);
+    return;
+  }
+  profileBgApplyButton.disabled = true;
+  try {
+    const state = await loadActiveProfileUiPrefs();
+    let finalPrefs = { ...state.uiPrefs };
+    let preferredBlob = null;
+    if (profileBgPendingFile) {
+      if (!profileMediaStore || typeof profileMediaStore.upsertProfileBackground !== "function") {
+        throw new Error("Profile media store is unavailable.");
+      }
+      const committedFile = profileBgPendingFile;
+      const meta = await profileMediaStore.upsertProfileBackground(
+        state.profileId,
+        committedFile,
+        {
+          previousAssetId: state.uiPrefs.backgroundAssetId,
+          mimeType: committedFile.type || "application/octet-stream"
+        }
+      );
+      finalPrefs = {
+        ...state.uiPrefs,
+        backgroundAssetId: meta.asset_id,
+        backgroundEnabled: profileBgEnabledInput ? profileBgEnabledInput.checked === true : true,
+        backgroundOpacity: profileBgOpacityInput
+          ? clampProfileBackgroundOpacity(Number(profileBgOpacityInput.value || 18) / 100)
+          : (state.uiPrefs.backgroundOpacity || 0.18)
+      };
+      preferredBlob = committedFile;
+      profileBgPendingFile = null;
+      if (profileBgFileInput) {
+        profileBgFileInput.value = "";
+      }
+      await saveProfileUiPrefsForCurrentProfile(finalPrefs, {
+        profileId: state.profileId,
+        publishRuntime: false
+      });
+      setProfileBgPreviewFromBlob(committedFile);
+      setProfileBgStatus(`Asset: ${meta.mime_type || committedFile.type || "image/*"}, ${formatBytes(meta.byte_size || committedFile.size || 0)}.`);
+    }
+    await settingsManager.publishProfileUiPrefs(finalPrefs, {
+      profileId: state.profileId
+    });
+    await applyOptionsPageBackgroundFromPrefs(finalPrefs, {
+      preferredBlob
+    });
+    setProfileBgApplyState(false, false);
+    setStatus("Profile background applied.", ui.COLORS.SUCCESS);
+  } catch (err) {
+    setProfileBgApplyState(true, false);
+    const msg = err && err.message ? err.message : "Failed to apply profile background.";
+    setStatus(msg, ui.COLORS.ERROR);
   }
 }
 
@@ -627,9 +1048,6 @@ async function load() {
     const pairKey = applyLanguagePrefsToInputs(languagePrefs);
     await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
     await loadSrsProfileForPair(items, pairKey);
-    if (srsSampleOutput) {
-      srsSampleOutput.textContent = "";
-    }
     if (srsRulegenOutput) {
       srsRulegenOutput.textContent = "";
     }
@@ -640,6 +1058,7 @@ async function load() {
       debugOpenDataDirOutput.textContent = "";
     }
     setHelperStatus("", "");
+    await refreshHelperStatus();
     if (languageSelect) {
       languageSelect.value = items.uiLanguage || "system";
     }
@@ -687,44 +1106,6 @@ async function openHelperDataDir() {
   const message = await helperManager.openDataDir();
   debugOpenDataDirOutput.textContent = message;
   debugOpenDataDirButton.disabled = false;
-}
-
-async function sampleActiveWords() {
-  if (!srsSampleButton || !srsSampleOutput) {
-    return;
-  }
-  const selector = globalThis.LexiShift && globalThis.LexiShift.srsSelector;
-  if (!selector || typeof selector.selectSampledItems !== "function") {
-    srsSampleOutput.textContent = t("status_srs_sample_failed", null, "SRS selector not available.");
-    return;
-  }
-  const sourceLanguage = sourceLanguageInput
-    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
-    : (settingsManager.defaults.sourceLanguage || "en");
-  const targetLanguage = targetLanguageInput
-    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
-    : (settingsManager.defaults.targetLanguage || "en");
-  const srsPair = resolvePairFromInputs();
-  srsSampleButton.disabled = true;
-  srsSampleOutput.textContent = t("status_srs_sampling", null, "Sampling…");
-  try {
-    const result = await selector.selectSampledItems(
-      { srsPair, sourceLanguage, targetLanguage, srsPairAuto: true },
-      5
-    );
-    const lemmas = result && result.lemmas ? result.lemmas : [];
-    if (!lemmas.length) {
-      srsSampleOutput.textContent = t("status_srs_sample_empty", null, "No words available.");
-    } else {
-      srsSampleOutput.textContent = lemmas.join(", ");
-    }
-    logOptions("SRS sample", { pair: srsPair, lemmas });
-  } catch (err) {
-    srsSampleOutput.textContent = t("status_srs_sample_failed", null, "SRS sample failed.");
-    logOptions("SRS sample failed.", err);
-  } finally {
-    srsSampleButton.disabled = false;
-  }
 }
 
 async function initializeSrsSet() {
@@ -1052,113 +1433,6 @@ async function runSrsRuntimeDiagnostics() {
   }
 }
 
-async function previewSrsRulegen() {
-  if (!srsRulegenButton || !srsRulegenOutput) {
-    return;
-  }
-  const srsPair = resolvePairFromInputs();
-  srsRulegenButton.disabled = true;
-  srsRulegenOutput.textContent = t(
-    "status_srs_rulegen_running",
-    null,
-    "Running rulegen…"
-  );
-
-  try {
-      const items = await settingsManager.load();
-      const profileId = settingsManager.getSelectedSrsProfileId(items);
-      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair, {
-        profileId
-      });
-      const rulegenTargets = Number(rulegenData.targets || 0);
-      const rulegenRules = Number(rulegenData.rules || 0);
-      const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
-      const header = t(
-        "status_srs_rulegen_result_header",
-        [rulegenTargets, rulegenRules, duration],
-        `Rulegen: ${rulegenTargets} targets, ${rulegenRules} rules (${duration}s)`
-      );
-      if (!targets.length) {
-        const diag = rulegenData.diagnostics || {};
-        const missingInputs = Array.isArray(diag.missing_inputs) ? diag.missing_inputs : [];
-        const guidanceLines = [];
-        if (diag.set_source_db && diag.set_source_db_exists === false) {
-          guidanceLines.push(
-            t("diag_missing_freq_pack", null, "Missing frequency pack for target language."),
-            t("diag_expected_path", [diag.set_source_db], `Expected: ${diag.set_source_db}`),
-            t("diag_fix_freq_pack", null, "Fix: open LexiShift App → Settings → Frequency Packs and download the target pack.")
-          );
-        }
-        if (diag.jmdict_path && diag.jmdict_exists === false) {
-          guidanceLines.push(
-            t("diag_missing_jmdict", null, "Missing JMDict language pack."),
-            t("diag_expected_path", [diag.jmdict_path], `Expected: ${diag.jmdict_path}`),
-            t("diag_fix_jmdict", null, "Fix: open LexiShift App → Settings → Language Packs and download JMDict.")
-          );
-        }
-        if (!guidanceLines.length && missingInputs.length) {
-          guidanceLines.push(t("diag_missing_inputs", null, "Missing inputs:"), ...missingInputs.map((item) => `- ${item.type}: ${item.path}`));
-        }
-        const diagLines = [
-          t("diag_header", null, "Diagnostics:"),
-          `- ${t("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
-          `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
-          `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
-          `- store_items: ${diag.store_items ?? "n/a"}`,
-          `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
-          `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
-        ];
-        if (guidanceLines.length) {
-          diagLines.push("", t("label_fix", null, "Fix:"), ...guidanceLines);
-        }
-        srsRulegenOutput.textContent = [
-          header,
-          t("status_srs_rulegen_empty", null, "No rules found for current active words."),
-          "",
-          ...diagLines
-        ].join("\n");
-      } else {
-        // Ensure targets are sorted by lemma for consistent display
-        const sortedTargets = [...targets].sort((a, b) => {
-          const lemmaA = String(a.lemma || "");
-          const lemmaB = String(b.lemma || "");
-          return lemmaA.localeCompare(lemmaB);
-        });
-
-        const lines = sortedTargets.map((entry) => {
-          const lemma = String(entry.lemma || "").trim();
-          const sources = Array.isArray(entry.sources) ? entry.sources : [];
-          if (!lemma) return null;
-          if (!sources.length) {
-            return t(
-              "status_srs_rulegen_line_no_rules",
-              [lemma],
-              `${lemma} → (no rules)`
-            );
-          }
-          return t(
-            "status_srs_rulegen_line_rules",
-            [lemma, sources.join(", ")],
-            `${lemma} → ${sources.join(", ")}`
-          );
-        }).filter(Boolean);
-        srsRulegenOutput.textContent = [header, "", ...lines].join("\n");
-      }
-    logOptions("SRS rulegen preview (helper)", {
-      pair: srsPair,
-      profileId,
-      targets: targets.length,
-      diagnostics: rulegenData.diagnostics || null
-    });
-  } catch (err) {
-    const msg = err && err.message ? err.message : t("status_srs_rulegen_failed", null, "Rule preview failed.");
-    srsRulegenOutput.textContent = msg;
-    logOptions("SRS rulegen preview failed.", err);
-  } finally {
-    srsRulegenButton.disabled = false;
-  }
-}
-
 async function previewSampledSrsRulegen() {
   if (!srsRulegenSampledButton || !srsRulegenOutput) {
     return;
@@ -1288,7 +1562,6 @@ async function resetSrsData() {
     logOptions("[Reset] Helper returned success.");
     setStatus(t("status_srs_reset_success", null, "SRS data reset successfully."), ui.COLORS.SUCCESS);
     if (srsRulegenOutput) srsRulegenOutput.textContent = "";
-    if (srsSampleOutput) srsSampleOutput.textContent = "";
   } catch (err) {
     logOptions("[Reset] Failed:", err);
     let msg = err && err.message ? err.message : t("status_srs_reset_failed", null, "SRS reset failed.");
@@ -1372,6 +1645,48 @@ if (srsProfileRefreshButton) {
     });
   });
 }
+if (profileBgEnabledInput) {
+  profileBgEnabledInput.addEventListener("change", () => {
+    saveProfileBackgroundEnabled().catch((err) => {
+      const msg = err && err.message ? err.message : "Failed to save profile background setting.";
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("Profile background enable save failed.", err);
+    });
+  });
+}
+if (profileBgOpacityInput) {
+  profileBgOpacityInput.addEventListener("input", () => {
+    updateProfileBgOpacityLabel(profileBgOpacityInput.value);
+  });
+  profileBgOpacityInput.addEventListener("change", () => {
+    saveProfileBackgroundOpacity().catch((err) => {
+      const msg = err && err.message ? err.message : "Failed to save profile background opacity.";
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("Profile background opacity save failed.", err);
+    });
+  });
+}
+if (profileBgFileInput) {
+  profileBgFileInput.addEventListener("change", handleProfileBackgroundFileChange);
+}
+if (profileBgRemoveButton) {
+  profileBgRemoveButton.addEventListener("click", () => {
+    removeProfileBackgroundImage().catch((err) => {
+      const msg = err && err.message ? err.message : "Failed to remove profile background image.";
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("Profile background removal failed.", err);
+    });
+  });
+}
+if (profileBgApplyButton) {
+  profileBgApplyButton.addEventListener("click", () => {
+    applyProfileBackgroundSettings().catch((err) => {
+      const msg = err && err.message ? err.message : "Failed to apply profile background.";
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("Profile background apply failed.", err);
+    });
+  });
+}
 if (srsMaxActiveInput) {
   srsMaxActiveInput.addEventListener("change", saveSrsSettings);
 }
@@ -1410,9 +1725,6 @@ if (srsFeedbackRulesInput) {
 if (srsExposureLoggingInput) {
   srsExposureLoggingInput.addEventListener("change", saveSrsSettings);
 }
-if (srsSampleButton) {
-  srsSampleButton.addEventListener("click", sampleActiveWords);
-}
 if (srsInitializeSetButton) {
   srsInitializeSetButton.addEventListener("click", initializeSrsSet);
 }
@@ -1422,17 +1734,11 @@ if (srsRefreshSetButton) {
 if (srsRuntimeDiagnosticsButton) {
   srsRuntimeDiagnosticsButton.addEventListener("click", runSrsRuntimeDiagnostics);
 }
-if (srsRulegenButton) {
-  srsRulegenButton.addEventListener("click", previewSrsRulegen);
-}
 if (srsRulegenSampledButton) {
   srsRulegenSampledButton.addEventListener("click", previewSampledSrsRulegen);
 }
 if (srsResetButton) {
   srsResetButton.addEventListener("click", resetSrsData);
-}
-if (helperRefreshButton) {
-  helperRefreshButton.addEventListener("click", refreshHelperStatus);
 }
 if (debugHelperTestButton) {
   debugHelperTestButton.addEventListener("click", testHelperConnection);
@@ -1489,5 +1795,9 @@ generateCodeButton.addEventListener("click", generateShareCode);
 importCodeButton.addEventListener("click", importShareCode);
 copyCodeButton.addEventListener("click", copyShareCode);
 
+window.addEventListener("beforeunload", () => {
+  revokeProfileBgPreviewUrl();
+  revokeProfileBgAppliedUrl();
+});
+
 load();
-refreshHelperStatus();

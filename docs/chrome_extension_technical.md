@@ -4,6 +4,7 @@ Overview
 - The extension runs a content script on all frames and replaces visible text using a ruleset.
 - The codebase is modularized into small, focused modules loaded in a strict order by the manifest.
 - Settings are stored in `chrome.storage.local` and shared between the content script and options page.
+- Profile media assets (background images) are stored in extension IndexedDB and referenced by id.
 
 Module layout
 - `apps/chrome-extension/shared/settings_defaults.js`
@@ -16,6 +17,12 @@ Module layout
   - Persistent helper feedback sync queue with retry + backoff.
   - Uses a lightweight storage lock to reduce duplicate flush workers.
   - Supports optional dropped-entry archive when a retry cap is enabled.
+- `apps/chrome-extension/shared/profile_media_store.js`
+  - IndexedDB-backed profile media store for blob assets.
+  - Stores profile-scoped background images close to original binary size.
+- `apps/chrome-extension/shared/profile_media_bridge.js`
+  - Message bridge for content scripts to fetch profile media from service worker.
+  - Keeps content scripts independent from extension-origin IndexedDB access.
 - `apps/chrome-extension/shared/srs_feedback.js`
   - Persists SRS feedback events to `chrome.storage.local` (`srsFeedbackLog`).
   - Provides helper to build feedback entries from replacement spans.
@@ -45,12 +52,17 @@ Module layout
 - `apps/chrome-extension/content/ui.js`
   - Handles highlight styles, click-to-toggle behavior, and cleanup.
   - Provides SRS feedback popup and keyboard shortcuts (Ctrl+1/2/3/4).
+  - Applies optional profile background overlay for the active profile.
   - Separates DOM mutation concerns from parsing and matching.
 - `apps/chrome-extension/content/utils.js`
   - Logging helpers: element descriptors, codepoint snippets, node traversal.
 - `apps/chrome-extension/content_script.js`
   - Orchestrator: loads settings, builds trie, scans DOM, observes changes.
+  - Resolves profile background data via bridge and applies runtime overlay settings.
   - Provides debug logging and focus word diagnostics.
+- `apps/chrome-extension/background.js`
+  - Native helper bridge endpoint for helper requests.
+  - Profile media bridge endpoint for background image transfer to content scripts.
 
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
@@ -60,18 +72,25 @@ Manifest ordering
 Settings flow
 - Defaults come from `globalThis.LexiShift.defaults` in `shared/settings_defaults.js`.
 - Options page writes values to `chrome.storage.local`.
+- Options page writes background blobs to IndexedDB through `profile_media_store`.
 - Content script reads settings on boot and reacts to `chrome.storage.onChanged`.
 - Highlight/visual settings apply immediately; rules changes trigger a rescan.
 
 Options UI tools (extension)
-- SRS: “Sample active words…” button uses the current selector + pair to show 5 candidates.
 - SRS: “Initialize S for this pair” calls helper `srs_initialize` with profile-context scaffold.
-- SRS: “Run sampled rulegen (5)…” performs helper-side probabilistic sampling from current helper-managed `S`, then runs non-mutating rulegen for that sampled subset.
+- SRS: “Refresh S + publish rules” applies feedback-driven admissions and republishes runtime rules.
 - SRS profile controls:
   - extension-local selected profile (global).
   - pair-specific SRS settings/signals loaded from the selected profile container.
   - “Refresh profiles” fetches helper profile catalog from `settings.json`.
   - Extension does not switch helper/GUI active profile.
+- Profile background controls (per selected profile):
+  - upload/remove/enable/opacity are saved into `srsProfiles.<profile_id>.uiPrefs`.
+  - runtime changes are published explicitly via “Apply profile background”.
+- Advanced debug tools:
+  - “SRS runtime diagnostics”
+  - “Run sampled rulegen (5)…” (non-mutating helper preview)
+  - helper connection test + open helper data folder
 - Debug focus word: highlights whether a token was seen or replaced.
 - Share code: export/import compressed rules.
 - Logging controls (Advanced):
@@ -94,7 +113,11 @@ SRS settings (extension)
   - `srsProfiles.<profile_id>.languagePrefs` stores active LP for that profile (`sourceLanguage`, `targetLanguage`, `srsPairAuto`, `srsPair`).
   - `srsProfiles.<profile_id>.srsByPair.<pair>` stores pair SRS settings.
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
+  - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (background image refs).
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
+- `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
+- `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).
+- `profileBackgroundOpacity` (float): selected profile background opacity (0.05..0.85).
 - `maxReplacementsPerPage` (int): hard cap for total replacements on a page (`0` = unlimited).
 - `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (`0` = unlimited).
 
@@ -144,6 +167,11 @@ Profile switch behavior:
 Helper cache scoping:
 - helper ruleset/snapshot cache keys are scoped by `profile_id + pair` to prevent cross-profile rule leakage.
 - feedback sync payloads include `profile_id` so helper writes to the correct profile store.
+
+Profile media scoping:
+- Background assets are stored and cleaned per profile id in IndexedDB.
+- Runtime mirrors only store `profileBackgroundAssetId`/enabled/opacity in `chrome.storage.local`.
+- Content scripts fetch the selected profile asset through background bridge on-demand.
 
 SRS feedback UX (extension)
 - Right click on a replacement shows a popup with 4 colored choices:

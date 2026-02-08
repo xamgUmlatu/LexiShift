@@ -443,6 +443,30 @@
   "button_srs_profile_refresh": {
     "message": "Profile neu laden"
   },
+  "section_profile_background": {
+    "message": "Profil-Hintergrund"
+  },
+  "hint_profile_bg_scope": {
+    "message": "Gilt für dieses Profil in allen Ersetzungsmodi (nicht nur SRS)."
+  },
+  "toggle_profile_bg_enabled": {
+    "message": "Profil-Hintergrundbild aktivieren"
+  },
+  "label_profile_bg_opacity": {
+    "message": "Hintergrund-Deckkraft"
+  },
+  "button_profile_bg_upload": {
+    "message": "Hochladen"
+  },
+  "button_profile_bg_remove": {
+    "message": "Entfernen"
+  },
+  "button_profile_bg_apply": {
+    "message": "Profil-Hintergrund anwenden"
+  },
+  "hint_profile_bg_status_empty": {
+    "message": "Für dieses Profil ist kein Hintergrundbild konfiguriert."
+  },
   "hint_srs_profile_loading": {
     "message": "Helper-Profile werden geladen…"
   },

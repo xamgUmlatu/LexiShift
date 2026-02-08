@@ -27,6 +27,7 @@
         "shared/helper_client.js",
         "shared/helper_feedback_sync.js",
         "shared/helper_cache.js",
+        "shared/profile_media_bridge.js",
         "shared/srs_selector.js",
         "shared/srs_store.js",
         "shared/srs_feedback.js",

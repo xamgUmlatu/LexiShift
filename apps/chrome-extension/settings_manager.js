@@ -31,7 +31,10 @@ class SettingsManager {
       srsHighlightColor: "#2F74D0",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
-      srsExposureLoggingEnabled: true
+      srsExposureLoggingEnabled: true,
+      profileBackgroundEnabled: false,
+      profileBackgroundAssetId: "",
+      profileBackgroundOpacity: 0.18
     };
     this.currentRules = [];
   }
@@ -195,7 +198,8 @@ class SettingsManager {
     return {
       srsByPair: this._isObject(raw.srsByPair) ? raw.srsByPair : {},
       srsSignalsByPair: this._isObject(raw.srsSignalsByPair) ? raw.srsSignalsByPair : {},
-      languagePrefs: this._isObject(raw.languagePrefs) ? raw.languagePrefs : {}
+      languagePrefs: this._isObject(raw.languagePrefs) ? raw.languagePrefs : {},
+      uiPrefs: this._isObject(raw.uiPrefs) ? raw.uiPrefs : {}
     };
   }
 
@@ -223,8 +227,121 @@ class SettingsManager {
     };
   }
 
+  _normalizeProfileUiPrefs(rawPrefs, fallback) {
+    const raw = this._isObject(rawPrefs) ? rawPrefs : {};
+    const base = this._isObject(fallback) ? fallback : {};
+    const backgroundAssetId = String(
+      raw.backgroundAssetId !== undefined ? raw.backgroundAssetId : (base.backgroundAssetId || "")
+    ).trim();
+    const requestedEnabled = raw.backgroundEnabled !== undefined
+      ? raw.backgroundEnabled === true
+      : (base.backgroundEnabled === true);
+    const backgroundOpacity = this._normalizeFloat(
+      raw.backgroundOpacity !== undefined ? raw.backgroundOpacity : base.backgroundOpacity,
+      this.defaults.profileBackgroundOpacity || 0.18,
+      0.05,
+      0.85
+    );
+    return {
+      backgroundEnabled: requestedEnabled && Boolean(backgroundAssetId),
+      backgroundAssetId,
+      backgroundOpacity
+    };
+  }
+
+  getProfileUiPrefs(items, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const fallback = {
+      backgroundEnabled: items && items.profileBackgroundEnabled === true,
+      backgroundAssetId: String(items && items.profileBackgroundAssetId || "").trim(),
+      backgroundOpacity: this._normalizeFloat(
+        items && items.profileBackgroundOpacity,
+        this.defaults.profileBackgroundOpacity || 0.18,
+        0.05,
+        0.85
+      )
+    };
+    const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, fallback);
+    return {
+      profileId,
+      ...normalized
+    };
+  }
+
+  async publishProfileUiPrefs(uiPrefs, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.DEFAULT_PROFILE_ID
+    );
+    const normalized = this._normalizeProfileUiPrefs(uiPrefs, {
+      backgroundEnabled: false,
+      backgroundAssetId: "",
+      backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18
+    });
+    const updates = {
+      profileBackgroundEnabled: normalized.backgroundEnabled,
+      profileBackgroundAssetId: normalized.backgroundAssetId,
+      profileBackgroundOpacity: normalized.backgroundOpacity,
+      srsSelectedProfileId: profileId,
+      srsProfileId: profileId
+    };
+    await this.save(updates);
+    return {
+      profileId,
+      ...normalized
+    };
+  }
+
+  async updateProfileUiPrefs(uiPrefs, options) {
+    const items = await this.load();
+    const opts = options && typeof options === "object" ? options : {};
+    const publishRuntime = opts.publishRuntime !== false;
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const root = this._getProfilesRoot(items);
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const fallback = this.getProfileUiPrefs(items, { profileId });
+    const normalized = this._normalizeProfileUiPrefs(uiPrefs, fallback);
+    const nextProfileEntry = {
+      ...profileEntry,
+      uiPrefs: normalized
+    };
+    const nextProfiles = {
+      ...root,
+      [profileId]: nextProfileEntry
+    };
+    await this.save({
+      srsProfiles: nextProfiles,
+      srsSelectedProfileId: profileId,
+      srsProfileId: profileId
+    });
+    if (publishRuntime) {
+      await this.publishProfileUiPrefs(normalized, { profileId });
+    }
+    return {
+      profileId,
+      ...normalized,
+      publishedRuntime: publishRuntime
+    };
+  }
+
   _normalizeInt(value, fallback, minimum, maximum = null) {
     const parsed = Number.parseInt(value, 10);
+    const base = Number.isFinite(parsed) ? parsed : fallback;
+    const lowerBounded = Math.max(minimum, base);
+    if (maximum === null || maximum === undefined) {
+      return lowerBounded;
+    }
+    return Math.min(maximum, lowerBounded);
+  }
+
+  _normalizeFloat(value, fallback, minimum, maximum = null) {
+    const parsed = Number.parseFloat(value);
     const base = Number.isFinite(parsed) ? parsed : fallback;
     const lowerBounded = Math.max(minimum, base);
     if (maximum === null || maximum === undefined) {
