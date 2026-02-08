@@ -14,6 +14,7 @@
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
+    srsProfileId: "default",
     srsRulesetUpdatedAt: ""
   };
 
@@ -57,6 +58,19 @@
   let helperRulesCache = new Map();
   let pageBudgetState = null;
   let feedbackSync = null;
+
+  function normalizeProfileId(value) {
+    const normalized = String(value || "").trim();
+    return normalized || "default";
+  }
+
+  function rulesCacheKey(pair, profileId) {
+    const normalizedPair = String(pair || "").trim();
+    if (!normalizedPair) {
+      return "";
+    }
+    return `${normalizeProfileId(profileId)}::${normalizedPair}`;
+  }
 
   function normalizeRuleOrigin(origin) {
     return String(origin || "").toLowerCase() === RULE_ORIGIN_SRS
@@ -120,22 +134,23 @@
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
   }
 
-  function cacheHelperRules(pair, rules) {
-    if (!pair) {
+  function cacheHelperRules(pair, rules, profileId) {
+    const key = rulesCacheKey(pair, profileId);
+    if (!key) {
       return;
     }
     const payload = Array.isArray(rules) ? rules : [];
-    helperRulesCache.set(pair, payload);
+    helperRulesCache.set(key, payload);
     if (helperCache && typeof helperCache.saveRuleset === "function") {
-      helperCache.saveRuleset(pair, { rules: payload });
+      helperCache.saveRuleset(pair, { rules: payload }, { profileId });
     }
   }
 
-  async function fetchHelperRules(pair) {
+  async function fetchHelperRules(pair, profileId) {
     if (!helperClient) {
       return { ruleset: null, error: "Helper client unavailable." };
     }
-    const response = await helperClient.getRuleset(pair);
+    const response = await helperClient.getRuleset(pair, profileId);
     if (!response || response.ok === false) {
       const message = response && response.error && response.error.message
         ? response.error.message
@@ -626,22 +641,23 @@
     const localRules = tagRulesWithOrigin(currentSettings.rules, RULE_ORIGIN_RULESET);
     let helperRules = [];
     let helperRulesError = null;
+    const srsProfileId = normalizeProfileId(currentSettings.srsProfileId);
     if (currentSettings.srsEnabled && helperClient) {
       try {
-        const helperFetch = await fetchHelperRules(currentSettings.srsPair);
+        const helperFetch = await fetchHelperRules(currentSettings.srsPair, srsProfileId);
         const helperRuleset = helperFetch && typeof helperFetch === "object" ? helperFetch.ruleset : null;
         helperRulesError = helperFetch && typeof helperFetch === "object" ? helperFetch.error : null;
         if (helperRuleset && Array.isArray(helperRuleset.rules)) {
           helperRules = tagRulesWithOrigin(helperRuleset.rules, RULE_ORIGIN_SRS);
           rulesSource = "local+helper";
-          cacheHelperRules(currentSettings.srsPair, helperRuleset.rules);
+          cacheHelperRules(currentSettings.srsPair, helperRuleset.rules, srsProfileId);
         } else {
-          const fallback = helperRulesCache.get(currentSettings.srsPair);
+          const fallback = helperRulesCache.get(rulesCacheKey(currentSettings.srsPair, srsProfileId));
           if (fallback) {
             helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
             rulesSource = "local+helper-cache";
           } else if (helperCache && typeof helperCache.loadRuleset === "function") {
-            const cached = await helperCache.loadRuleset(currentSettings.srsPair);
+            const cached = await helperCache.loadRuleset(currentSettings.srsPair, { profileId: srsProfileId });
             if (cached && Array.isArray(cached.rules)) {
               helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
               rulesSource = "local+helper-cache";
@@ -650,12 +666,12 @@
         }
       } catch (error) {
         helperRulesError = error && error.message ? error.message : "Failed to fetch helper rules.";
-        const fallback = helperRulesCache.get(currentSettings.srsPair);
+        const fallback = helperRulesCache.get(rulesCacheKey(currentSettings.srsPair, srsProfileId));
         if (fallback) {
           helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
           rulesSource = "local+helper-cache";
         } else if (helperCache && typeof helperCache.loadRuleset === "function") {
-          const cached = await helperCache.loadRuleset(currentSettings.srsPair);
+          const cached = await helperCache.loadRuleset(currentSettings.srsPair, { profileId: srsProfileId });
           if (cached && Array.isArray(cached.rules)) {
             helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
             rulesSource = "local+helper-cache";
@@ -699,6 +715,7 @@
       rulesSrsEnabled: originCounts[RULE_ORIGIN_SRS],
       srsEnabled: currentSettings.srsEnabled === true,
       srsPair: currentSettings.srsPair || "",
+      srsProfileId: srsProfileId,
       srsMaxActive: currentSettings.srsMaxActive,
       debugEnabled: currentSettings.debugEnabled,
       debugFocusWord: focusWord || ""
@@ -723,6 +740,7 @@
     persistRuntimeState({
       ts: new Date().toISOString(),
       pair: currentSettings.srsPair || "",
+      profile_id: srsProfileId,
       srs_enabled: currentSettings.srsEnabled === true,
       rules_source: rulesSource,
       rules_enabled_total: enabledRules.length,
@@ -838,6 +856,7 @@
           source_phrase: target.dataset.source || "",
           url: window.location ? window.location.href : ""
         };
+    entry.profile_id = normalizeProfileId(currentSettings.srsProfileId);
     if (srsFeedback && typeof srsFeedback.recordFeedback === "function") {
       srsFeedback.recordFeedback(entry).then((saved) => {
         if (currentSettings.debugEnabled) {
@@ -856,6 +875,7 @@
       if (pair && pair !== "all" && lemma && rating) {
         sync.enqueue({
           pair,
+          profile_id: normalizeProfileId(currentSettings.srsProfileId),
           lemma,
           rating,
           source_type: "extension",
@@ -945,6 +965,10 @@
     }
     if (changes.srsPair) {
       nextSettings.srsPair = changes.srsPair.newValue;
+      needsRebuild = true;
+    }
+    if (changes.srsProfileId) {
+      nextSettings.srsProfileId = changes.srsProfileId.newValue;
       needsRebuild = true;
     }
     if (changes.srsMaxActive) {

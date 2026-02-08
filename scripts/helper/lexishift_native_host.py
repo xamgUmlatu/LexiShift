@@ -41,6 +41,7 @@ from lexishift_core.helper_engine import (
     reset_srs_data,
     run_rulegen_job,
 )
+from lexishift_core.helper_profiles import get_profiles_snapshot
 from lexishift_core.helper_os import open_path
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
@@ -80,6 +81,11 @@ def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
     value = payload.get(key)
     if value is None:
         return None
+
+
+def _optional_profile_id(payload: Dict[str, Any]) -> Optional[str]:
+    profile_id = str(payload.get("profile_id", "")).strip()
+    return profile_id or None
     try:
         return int(value)
     except (TypeError, ValueError):
@@ -104,20 +110,24 @@ def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
 
 def _handle_request(msg_type: str, payload: dict) -> dict:
     paths = build_helper_paths()
+    profile_id = _optional_profile_id(payload)
     if msg_type == "hello":
         return {"helper_version": HELPER_VERSION, "protocol_version": PROTOCOL_VERSION}
     if msg_type == "status":
-        status = load_status(paths.srs_status_path)
-        return status.__dict__
+        resolved_profile_id = paths.normalize_profile_id(profile_id or "default")
+        status = load_status(paths.srs_status_path_for(resolved_profile_id))
+        payload = status.__dict__
+        payload["profile_id"] = resolved_profile_id
+        return payload
     if msg_type == "get_snapshot":
         pair = str(payload.get("pair", "en-ja"))
-        return load_snapshot(paths, pair=pair)
+        return load_snapshot(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "get_ruleset":
         pair = str(payload.get("pair", "en-ja"))
-        return load_ruleset(paths, pair=pair)
+        return load_ruleset(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_diagnostics":
         pair = str(payload.get("pair", "en-ja"))
-        return get_srs_runtime_diagnostics(paths, pair=pair)
+        return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "record_feedback":
         apply_feedback(
             paths,
@@ -125,6 +135,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             lemma=str(payload.get("lemma", "")),
             rating=str(payload.get("rating", "")),
             source_type=str(payload.get("source_type", "extension")),
+            profile_id=profile_id or "default",
         )
         return {"ok": True}
     if msg_type == "record_exposure":
@@ -133,6 +144,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             pair=str(payload.get("pair", "")),
             lemma=str(payload.get("lemma", "")),
             source_type=str(payload.get("source_type", "extension")),
+            profile_id=profile_id or "default",
         )
         return {"ok": True}
     if msg_type == "trigger_rulegen":
@@ -146,6 +158,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         config = RulegenJobConfig(
             pair=pair,
             jmdict_path=Path(jmdict_path),
+            profile_id=profile_id or "default",
             set_source_db=Path(set_source_db) if set_source_db else None,
             set_top_n=int(payload.get("set_top_n", 2000)),
             confidence_threshold=float(payload.get("confidence_threshold", 0.0)),
@@ -178,6 +191,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 pair=pair,
                 jmdict_path=Path(jmdict_path),
                 set_source_db=Path(set_source_db),
+                profile_id=profile_id or "default",
                 set_top_n=set_top_n if set_top_n is not None else 800,
                 bootstrap_top_n=bootstrap_top_n,
                 initial_active_count=_optional_int(payload, "initial_active_count"),
@@ -197,6 +211,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             paths,
             config=SetPlanningJobConfig(
                 pair=pair,
+                profile_id=profile_id or "default",
                 strategy=str(payload.get("strategy", "frequency_bootstrap")),
                 objective=str(payload.get("objective", "bootstrap")),
                 set_top_n=set_top_n if set_top_n is not None else 800,
@@ -224,6 +239,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 pair=pair,
                 jmdict_path=Path(jmdict_path),
                 set_source_db=Path(set_source_db),
+                profile_id=profile_id or "default",
                 set_top_n=set_top_n if set_top_n is not None else 2000,
                 feedback_window_size=feedback_window_size
                 if feedback_window_size is not None
@@ -239,10 +255,12 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
     if msg_type == "srs_reset":
         pair = str(payload.get("pair", "")).strip() or None
-        return reset_srs_data(paths, pair=pair)
+        return reset_srs_data(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}
+    if msg_type == "profiles_get":
+        return get_profiles_snapshot(paths)
     raise ValueError(f"Unknown command: {msg_type}")
 
 

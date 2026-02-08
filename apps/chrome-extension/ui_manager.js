@@ -20,6 +20,7 @@ class UIManager {
       "max-one-per-block", "allow-adjacent", "max-replacements-per-page",
       "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
       "srs-enabled", "source-language", "target-language", "srs-max-active",
+      "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",

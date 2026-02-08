@@ -230,12 +230,13 @@ def write_rulegen_outputs(
     *,
     paths: HelperPaths,
     pair: str,
+    profile_id: str = "default",
     rules: Sequence[VocabRule],
     snapshot: Mapping[str, object],
 ) -> None:
     dataset = VocabDataset(rules=tuple(rules))
-    save_vocab_dataset(dataset, paths.ruleset_path(pair))
-    Path(paths.snapshot_path(pair)).write_text(
+    save_vocab_dataset(dataset, paths.ruleset_path(pair, profile_id=profile_id))
+    Path(paths.snapshot_path(pair, profile_id=profile_id)).write_text(
         json.dumps(snapshot, indent=2, sort_keys=True),
         encoding="utf-8",
     )
@@ -245,6 +246,7 @@ def run_rulegen_for_pair(
     *,
     paths: HelperPaths,
     pair: str,
+    profile_id: str = "default",
     store: SrsStore,
     settings: Optional[SrsSettings],
     jmdict_path: Path,
@@ -284,7 +286,7 @@ def run_rulegen_for_pair(
         max_sources=rulegen_config.max_snapshot_sources,
     )
     if persist_store and updated_store is not store:
-        save_srs_store(updated_store, paths.srs_store_path)
+        save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
     return updated_store, RulegenOutput(
         rules=rules,
         snapshot=snapshot,

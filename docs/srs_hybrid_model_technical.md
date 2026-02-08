@@ -32,7 +32,7 @@ The adopted model is a hybrid.
 - Provides candidates for introducing new items into `S`.
 
 ### 2.2 Study inventory `S` (persisted)
-- Stored in helper-owned `srs/srs_store.json`.
+- Stored in helper-owned `srs/profiles/<profile_id>/srs_store.json`.
 - Each item tracks learning state + scheduling fields.
 - Sparse representation keeps storage bounded and avoids writing entire corpus.
 

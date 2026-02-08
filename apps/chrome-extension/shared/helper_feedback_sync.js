@@ -107,11 +107,13 @@
     const pair = normalizeString(payload.pair);
     const lemma = normalizeString(payload.lemma);
     const rating = normalizeRating(payload.rating);
+    const profileId = normalizeString(payload.profile_id) || "default";
     if (!pair || pair === "all" || !lemma || !rating) {
       return null;
     }
     return {
       pair,
+      profile_id: profileId,
       lemma,
       rating,
       source_type: normalizeString(payload.source_type) || "extension",

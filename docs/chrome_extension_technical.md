@@ -67,6 +67,11 @@ Options UI tools (extension)
 - SRS: “Sample active words…” button uses the current selector + pair to show 5 candidates.
 - SRS: “Initialize S for this pair” calls helper `srs_initialize` with profile-context scaffold.
 - SRS: “Run sampled rulegen (5)…” performs helper-side probabilistic sampling from current helper-managed `S`, then runs non-mutating rulegen for that sampled subset.
+- SRS profile controls:
+  - extension-local selected profile (global).
+  - pair-specific SRS settings/signals loaded from the selected profile container.
+  - “Refresh profiles” fetches helper profile catalog from `settings.json`.
+  - Extension does not switch helper/GUI active profile.
 - Debug focus word: highlights whether a token was seen or replaced.
 - Share code: export/import compressed rules.
 - Logging controls (Advanced):
@@ -84,9 +89,12 @@ SRS settings (extension)
 - `srsFeedbackRulesEnabled` (bool): allow feedback popup on ruleset-origin spans.
 - `srsSoundEnabled` (bool): enable/disable feedback sound.
 - `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
-- `srsProfileSignals` (object): scaffold storage for per-pair profile signals used by set planning.
-  - Includes placeholders like interests/proficiency/objectives/empirical trends.
-  - UI editing is pending; data may be written by future settings surfaces.
+- `srsSelectedProfileId` (string): extension-local selected profile id for SRS runtime/options.
+- `srsProfiles` (object): profile-first SRS container.
+  - `srsProfiles.<profile_id>.languagePrefs` stores active LP for that profile (`sourceLanguage`, `targetLanguage`, `srsPairAuto`, `srsPair`).
+  - `srsProfiles.<profile_id>.srsByPair.<pair>` stores pair SRS settings.
+  - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
+- `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
 - `maxReplacementsPerPage` (int): hard cap for total replacements on a page (`0` = unlimited).
 - `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (`0` = unlimited).
 
@@ -117,8 +125,9 @@ SRS gating behavior (extension)
 Helper set-planning flow (options)
 - Options builds `profile_context` from:
   - pair-level SRS constraints (`srsMaxActive`)
-  - scaffolded profile signals (`srsProfileSignals[pair]`)
+  - scaffolded profile signals (`srsProfiles.<selected_profile>.srsSignalsByPair[pair]`)
   - sizing controls (`srsBootstrapTopN`, `srsInitialActiveCount`)
+- Options publishes resolved pair-profile SRS settings into runtime storage keys (`srsEnabled`, `srsMaxActive`, etc.) plus `srsProfileId`, so content-script behavior tracks the selected profile.
 - Options sends:
   - `strategy: "profile_bootstrap"`
   - `objective: "bootstrap"`
@@ -128,6 +137,13 @@ Helper set-planning flow (options)
   - `trigger: "options_initialize_button"`
   - `profile_context`
 - Helper returns plan metadata (`strategy_requested`, `strategy_effective`, `notes`) plus mutation result.
+
+Profile switch behavior:
+- When the selected profile changes, options first snapshots the current profile LP into that profile’s `languagePrefs`, then restores the target profile LP and loads that profile’s SRS settings for the restored pair.
+
+Helper cache scoping:
+- helper ruleset/snapshot cache keys are scoped by `profile_id + pair` to prevent cross-profile rule leakage.
+- feedback sync payloads include `profile_id` so helper writes to the correct profile store.
 
 SRS feedback UX (extension)
 - Right click on a replacement shows a popup with 4 colored choices:

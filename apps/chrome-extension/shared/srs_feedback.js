@@ -19,6 +19,7 @@
       original: String(entry.original || ""),
       origin: String(entry.origin || "srs"),
       language_pair: entry.language_pair ? String(entry.language_pair) : "",
+      profile_id: entry.profile_id ? String(entry.profile_id) : "default",
       source_phrase: entry.source_phrase ? String(entry.source_phrase) : "",
       url: entry.url ? String(entry.url) : ""
     };

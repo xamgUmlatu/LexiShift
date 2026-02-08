@@ -20,6 +20,7 @@ Status key:
 - `[x]` Implement `get_snapshot` command (loads pair snapshot JSON).
 - `[x]` Implement `record_feedback` command (append to SRS store).
 - `[x]` Implement `record_exposure` command (append to SRS store).
+- `[x]` Implement `profiles_get` command (helper profile snapshot from `settings.json`).
 - `[x]` Persist feedback to `srs_signal_queue.json` (authoritative scheduling signal).
 - `[x]` Persist exposure telemetry to `srs_signal_queue.json` (non-authoritative).
 - `[x]` Add centralized set sizing policy with explicit defaults/clamps.
@@ -35,6 +36,8 @@ Status key:
 - `[x]` Wire host to helper commands including set planning/init.
 - `[x]` Add handshake (`hello`) and version checks.
 - `[x]` Add `srs_refresh` helper command route for feedback-driven admissions.
+- `[x]` Add `profiles_get` native-host route.
+- `[x]` Add `profile_id` routing for all SRS/runtime commands (ruleset/snapshot/diagnostics/feedback/refresh/reset).
 
 ## Phase 3 — Extension Client
 - `[x]` Add helper bridge client (getStatus/getSnapshot/getRuleset).
@@ -45,11 +48,14 @@ Status key:
 - `[x]` Options: explicit “Refresh S + publish rules” action.
 - `[x]` Send profile-context scaffold to helper from options flow.
 - `[x]` Send explicit sizing controls (`bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`).
+- `[x]` Add helper profile bridge client method (`getProfiles`).
+- `[x]` Add options profile selector with extension-local selected profile (global).
 - `[x]` Replace rulegen preview to non-mutating helper flow.
 - `[x]` Add sampled helper-side rulegen preview using probabilistic sampling from current `S`.
 - `[x]` Content script: fetch helper ruleset when SRS enabled.
 - `[x]` Fallback to cached ruleset if helper offline.
 - `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
+- `[x]` Scope helper cache + feedback payloads by `profile_id` to avoid cross-profile leakage.
 
 ## Phase 4 — Background Scheduling
 - `[x]` Start helper tray at login on macOS (LaunchAgent).
@@ -57,6 +63,7 @@ Status key:
 - `[ ]` Trigger planner-driven refresh on signal thresholds.
 - `[ ]` Add policy to decide bootstrap vs growth vs adaptive refresh.
 - `[x]` Publish runtime rules at initialization and after refresh admissions.
+- `[x]` Move helper SRS runtime files to `srs/profiles/<profile_id>/...`.
 
 ## Phase 5 — UI + Diagnostics
 - `[~]` Show helper status in GUI app (last sync detail still limited).

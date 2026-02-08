@@ -25,6 +25,7 @@ from lexishift_core.helper_engine import (
     reset_srs_data,
     run_rulegen_job,
 )
+from lexishift_core.helper_profiles import get_profiles_snapshot
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
 
@@ -47,17 +48,25 @@ def _load_optional_json(value: Optional[str]) -> Optional[dict]:
 
 def cmd_status(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    status = load_status(paths.srs_status_path)
-    _print_json(status.__dict__)
+    profile_id = paths.normalize_profile_id(args.profile_id or "default")
+    status = load_status(paths.srs_status_path_for(profile_id))
+    payload = status.__dict__
+    payload["profile_id"] = profile_id
+    _print_json(payload)
     return 0
 
 
 def cmd_get_snapshot(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
     try:
-        payload = load_snapshot(paths, pair=args.pair)
+        payload = load_snapshot(paths, pair=args.pair, profile_id=args.profile_id or "default")
     except FileNotFoundError:
-        _print_json({"error": "snapshot_not_found", "path": str(paths.snapshot_path(args.pair))})
+        _print_json(
+            {
+                "error": "snapshot_not_found",
+                "path": str(paths.snapshot_path(args.pair, profile_id=args.profile_id or "default")),
+            }
+        )
         return 1
     _print_json(payload)
     return 0
@@ -65,7 +74,7 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
 
 def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = get_srs_runtime_diagnostics(paths, pair=args.pair)
+    payload = get_srs_runtime_diagnostics(paths, pair=args.pair, profile_id=args.profile_id or "default")
     _print_json(payload)
     return 0
 
@@ -85,6 +94,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                profile_id=args.profile_id or "default",
                 set_source_db=set_source_db if set_source_db.exists() else None,
                 set_top_n=args.set_top_n,
                 confidence_threshold=args.confidence_threshold,
@@ -125,6 +135,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
                 pair=args.pair,
                 jmdict_path=jmdict_path,
                 set_source_db=set_source_db,
+                profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
                 bootstrap_top_n=args.bootstrap_top_n,
                 initial_active_count=args.initial_active_count,
@@ -151,6 +162,7 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
             paths,
             config=SetPlanningJobConfig(
                 pair=args.pair,
+                profile_id=args.profile_id or "default",
                 strategy=args.strategy,
                 objective=args.objective,
                 set_top_n=args.set_top_n,
@@ -186,6 +198,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
                 pair=args.pair,
                 jmdict_path=jmdict_path,
                 set_source_db=set_source_db,
+                profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
                 feedback_window_size=args.feedback_window_size,
                 max_active_items=args.max_active_items,
@@ -209,6 +222,7 @@ def cmd_record_feedback(args: argparse.Namespace) -> int:
         lemma=args.lemma,
         rating=args.rating,
         source_type=args.source_type,
+        profile_id=args.profile_id or "default",
     )
     _print_json({"ok": True})
     return 0
@@ -221,6 +235,7 @@ def cmd_record_exposure(args: argparse.Namespace) -> int:
         pair=args.pair,
         lemma=args.lemma,
         source_type=args.source_type,
+        profile_id=args.profile_id or "default",
     )
     _print_json({"ok": True})
     return 0
@@ -228,7 +243,14 @@ def cmd_record_exposure(args: argparse.Namespace) -> int:
 
 def cmd_reset_srs(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = reset_srs_data(paths, pair=args.pair)
+    payload = reset_srs_data(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    _print_json(payload)
+    return 0
+
+
+def cmd_profiles_get(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = get_profiles_snapshot(paths)
     _print_json(payload)
     return 0
 
@@ -238,18 +260,22 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     status = sub.add_parser("status", help="Show helper status")
+    status.add_argument("--profile-id", help="Profile id (default: default)")
     status.set_defaults(func=cmd_status)
 
     snapshot = sub.add_parser("get_snapshot", help="Print rulegen snapshot for a pair")
     snapshot.add_argument("--pair", default="en-ja")
+    snapshot.add_argument("--profile-id", help="Profile id (default: default)")
     snapshot.set_defaults(func=cmd_get_snapshot)
 
     diagnostics = sub.add_parser("srs_diagnostics", help="Show helper-side SRS runtime diagnostics")
     diagnostics.add_argument("--pair", default="en-ja")
+    diagnostics.add_argument("--profile-id", help="Profile id (default: default)")
     diagnostics.set_defaults(func=cmd_srs_diagnostics)
 
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")
+    run.add_argument("--profile-id", help="Profile id (default: default)")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
     run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S (BCCWJ)")
     run.add_argument("--set-top-n", type=int, default=2000)
@@ -271,6 +297,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     init_s = sub.add_parser("init_srs_set", help="Initialize S for a language pair")
     init_s.add_argument("--pair", default="en-ja")
+    init_s.add_argument("--profile-id", help="Profile id (default: default)")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
     init_s.add_argument("--set-top-n", type=int, default=800)
@@ -286,6 +313,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     plan_s = sub.add_parser("plan_srs_set", help="Build a set planning decision without mutating store")
     plan_s.add_argument("--pair", default="en-ja")
+    plan_s.add_argument("--profile-id", help="Profile id (default: default)")
     plan_s.add_argument("--strategy", default="profile_bootstrap")
     plan_s.add_argument("--objective", default="bootstrap")
     plan_s.add_argument("--set-top-n", type=int, default=800)
@@ -299,6 +327,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     refresh_s = sub.add_parser("refresh_srs_set", help="Apply feedback-driven admission refresh")
     refresh_s.add_argument("--pair", default="en-ja")
+    refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     refresh_s.add_argument("--set-source-db", help="Path to frequency SQLite used for candidate pool")
     refresh_s.add_argument("--set-top-n", type=int, default=2000)
@@ -311,6 +340,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     feedback = sub.add_parser("record_feedback", help="Record SRS feedback")
     feedback.add_argument("--pair", required=True)
+    feedback.add_argument("--profile-id", help="Profile id (default: default)")
     feedback.add_argument("--lemma", required=True)
     feedback.add_argument("--rating", required=True)
     feedback.add_argument("--source-type", default="extension")
@@ -318,13 +348,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     exposure = sub.add_parser("record_exposure", help="Record SRS exposure")
     exposure.add_argument("--pair", required=True)
+    exposure.add_argument("--profile-id", help="Profile id (default: default)")
     exposure.add_argument("--lemma", required=True)
     exposure.add_argument("--source-type", default="extension")
     exposure.set_defaults(func=cmd_record_exposure)
 
     reset = sub.add_parser("reset_srs", help="Reset SRS progress")
     reset.add_argument("--pair", help="Language pair to reset (omit to reset all).")
+    reset.add_argument("--profile-id", help="Profile id (default: default)")
     reset.set_defaults(func=cmd_reset_srs)
+
+    profiles_get = sub.add_parser("profiles_get", help="Show helper profile snapshot from settings.json")
+    profiles_get.set_defaults(func=cmd_profiles_get)
 
     return parser
 

@@ -1,5 +1,6 @@
 class SettingsManager {
   constructor() {
+    this.DEFAULT_PROFILE_ID = "default";
     this.defaults = (globalThis.LexiShift && globalThis.LexiShift.defaults) || {
       enabled: true,
       rules: [],
@@ -18,8 +19,9 @@ class SettingsManager {
       sourceLanguage: "en",
       targetLanguage: "en",
       srsPairAuto: true,
+      srsSelectedProfileId: "default",
+      srsProfileId: "default",
       srsProfiles: {},
-      srsProfileSignals: {},
       srsEnabled: false,
       srsPair: "en-en",
       srsMaxActive: 20,
@@ -46,16 +48,179 @@ class SettingsManager {
     });
   }
 
-  async updateSrsProfile(pairKey, profile, globalUpdates) {
-    const items = await this.load();
-    const profiles = items.srsProfiles || {};
-    const newProfiles = { ...profiles, [pairKey]: profile };
-    const toSave = {
-      ...globalUpdates,
-      srsProfiles: newProfiles,
-      srsPair: pairKey
+  _isObject(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  }
+
+  _normalizePairKey(pairKey) {
+    const normalized = String(pairKey || "").trim();
+    if (normalized) {
+      return normalized;
+    }
+    return String(this.defaults.srsPair || "en-en");
+  }
+
+  _normalizeLanguageCode(value, fallback) {
+    const normalized = String(value || "").trim();
+    if (normalized) {
+      return normalized;
+    }
+    return String(fallback || "").trim() || "en";
+  }
+
+  _resolvePairFromLanguages(sourceLanguage, targetLanguage) {
+    const source = this._normalizeLanguageCode(sourceLanguage, this.defaults.sourceLanguage || "en");
+    const target = this._normalizeLanguageCode(targetLanguage, this.defaults.targetLanguage || "en");
+    return `${source}-${target}`;
+  }
+
+  normalizeSrsProfileId(profileId) {
+    const normalized = String(profileId || "").trim();
+    return normalized || this.DEFAULT_PROFILE_ID;
+  }
+
+  getSelectedSrsProfileId(items) {
+    if (!this._isObject(items)) {
+      return this.DEFAULT_PROFILE_ID;
+    }
+    const configured = items.srsSelectedProfileId !== undefined
+      ? items.srsSelectedProfileId
+      : items.srsProfileId;
+    return this.normalizeSrsProfileId(configured);
+  }
+
+  async updateSelectedSrsProfileId(profileId) {
+    const resolvedProfileId = this.normalizeSrsProfileId(profileId);
+    await this.save({
+      srsSelectedProfileId: resolvedProfileId,
+      // Runtime readers (content script) consume this key directly.
+      srsProfileId: resolvedProfileId
+    });
+    return resolvedProfileId;
+  }
+
+  getProfileLanguagePrefs(items, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const fallback = {
+      sourceLanguage: this._normalizeLanguageCode(
+        items && items.sourceLanguage,
+        this.defaults.sourceLanguage || "en"
+      ),
+      targetLanguage: this._normalizeLanguageCode(
+        items && items.targetLanguage,
+        this.defaults.targetLanguage || "en"
+      ),
+      srsPairAuto: items && items.srsPairAuto !== undefined ? items.srsPairAuto === true : true,
+      srsPair: this._normalizePairKey(
+        (items && items.srsPair) || this._resolvePairFromLanguages(
+          items && items.sourceLanguage,
+          items && items.targetLanguage
+        )
+      )
     };
-    await this.save(toSave);
+    const normalized = this._normalizeProfileLanguagePrefs(profileEntry.languagePrefs, fallback);
+    return {
+      profileId,
+      ...normalized
+    };
+  }
+
+  async publishProfileLanguagePrefs(languagePrefs, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.DEFAULT_PROFILE_ID
+    );
+    const normalized = this._normalizeProfileLanguagePrefs(languagePrefs, {
+      sourceLanguage: this.defaults.sourceLanguage || "en",
+      targetLanguage: this.defaults.targetLanguage || "en",
+      srsPairAuto: true,
+      srsPair: this.defaults.srsPair || "en-en"
+    });
+    const updates = {
+      sourceLanguage: normalized.sourceLanguage,
+      targetLanguage: normalized.targetLanguage,
+      srsPairAuto: normalized.srsPairAuto,
+      srsPair: normalized.srsPair,
+      srsSelectedProfileId: profileId,
+      srsProfileId: profileId
+    };
+    await this.save(updates);
+    return {
+      profileId,
+      ...normalized
+    };
+  }
+
+  async updateProfileLanguagePrefs(languagePrefs, options) {
+    const items = await this.load();
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const root = this._getProfilesRoot(items);
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const fallback = this.getProfileLanguagePrefs(items, { profileId });
+    const normalized = this._normalizeProfileLanguagePrefs(languagePrefs, fallback);
+
+    const nextProfileEntry = {
+      ...profileEntry,
+      languagePrefs: normalized
+    };
+    const nextProfiles = {
+      ...root,
+      [profileId]: nextProfileEntry
+    };
+    await this.save({
+      srsProfiles: nextProfiles
+    });
+    await this.publishProfileLanguagePrefs(normalized, { profileId });
+    return {
+      profileId,
+      ...normalized
+    };
+  }
+
+  _getProfilesRoot(items) {
+    return this._isObject(items && items.srsProfiles) ? items.srsProfiles : {};
+  }
+
+  _getProfileEntry(items, profileId) {
+    const root = this._getProfilesRoot(items);
+    const resolvedProfileId = this.normalizeSrsProfileId(profileId);
+    const raw = this._isObject(root[resolvedProfileId]) ? root[resolvedProfileId] : {};
+    return {
+      srsByPair: this._isObject(raw.srsByPair) ? raw.srsByPair : {},
+      srsSignalsByPair: this._isObject(raw.srsSignalsByPair) ? raw.srsSignalsByPair : {},
+      languagePrefs: this._isObject(raw.languagePrefs) ? raw.languagePrefs : {}
+    };
+  }
+
+  _normalizeProfileLanguagePrefs(rawPrefs, fallback) {
+    const raw = this._isObject(rawPrefs) ? rawPrefs : {};
+    const base = this._isObject(fallback) ? fallback : {};
+    const sourceLanguage = this._normalizeLanguageCode(
+      raw.sourceLanguage,
+      base.sourceLanguage || this.defaults.sourceLanguage || "en"
+    );
+    const targetLanguage = this._normalizeLanguageCode(
+      raw.targetLanguage,
+      base.targetLanguage || this.defaults.targetLanguage || "en"
+    );
+    const srsPairAuto = raw.srsPairAuto !== undefined
+      ? (raw.srsPairAuto === true)
+      : (base.srsPairAuto !== undefined ? base.srsPairAuto === true : true);
+    const fallbackPair = this._resolvePairFromLanguages(sourceLanguage, targetLanguage);
+    const srsPair = this._normalizePairKey(raw.srsPair || base.srsPair || fallbackPair);
+    return {
+      sourceLanguage,
+      targetLanguage,
+      srsPairAuto,
+      srsPair
+    };
   }
 
   _normalizeInt(value, fallback, minimum, maximum = null) {
@@ -93,59 +258,197 @@ class SettingsManager {
     };
   }
 
-  getSrsProfile(items, pairKey) {
-    const profiles = items.srsProfiles || {};
-    const profile = profiles[pairKey] || {};
+  getSrsProfile(items, pairKey, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const resolvedPair = this._normalizePairKey(pairKey);
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const rawProfile = this._isObject(profileEntry.srsByPair[resolvedPair])
+      ? profileEntry.srsByPair[resolvedPair]
+      : {};
+
     const srsMaxActive = this._normalizeInt(
-      profile.srsMaxActive,
-      items.srsMaxActive || this.defaults.srsMaxActive || 20,
+      rawProfile.srsMaxActive,
+      this.defaults.srsMaxActive || 20,
       1
     );
-    const sizing = this.resolveSrsSetSizing({ ...profile, srsMaxActive }, items);
+    const sizing = this.resolveSrsSetSizing(
+      {
+        ...rawProfile,
+        srsMaxActive
+      },
+      this.defaults
+    );
+
     return {
+      profileId,
+      srsEnabled: rawProfile.srsEnabled === true,
       srsMaxActive,
       srsBootstrapTopN: sizing.srsBootstrapTopN,
       srsInitialActiveCount: sizing.srsInitialActiveCount,
-      srsSoundEnabled: profile.srsSoundEnabled !== undefined ? profile.srsSoundEnabled : (items.srsSoundEnabled !== false),
-      srsHighlightColor: profile.srsHighlightColor || items.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
-      srsFeedbackSrsEnabled: profile.srsFeedbackSrsEnabled !== undefined ? profile.srsFeedbackSrsEnabled : (items.srsFeedbackSrsEnabled !== false),
-      srsFeedbackRulesEnabled: profile.srsFeedbackRulesEnabled !== undefined ? profile.srsFeedbackRulesEnabled : (items.srsFeedbackRulesEnabled === true),
-      srsExposureLoggingEnabled: profile.srsExposureLoggingEnabled !== undefined ? profile.srsExposureLoggingEnabled : (items.srsExposureLoggingEnabled !== false)
+      srsSoundEnabled: rawProfile.srsSoundEnabled !== undefined
+        ? rawProfile.srsSoundEnabled === true
+        : (this.defaults.srsSoundEnabled !== false),
+      srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
+      srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
+        ? rawProfile.srsFeedbackSrsEnabled === true
+        : (this.defaults.srsFeedbackSrsEnabled !== false),
+      srsFeedbackRulesEnabled: rawProfile.srsFeedbackRulesEnabled === true,
+      srsExposureLoggingEnabled: rawProfile.srsExposureLoggingEnabled !== undefined
+        ? rawProfile.srsExposureLoggingEnabled === true
+        : (this.defaults.srsExposureLoggingEnabled !== false)
     };
   }
 
-  getSrsProfileSignals(items, pairKey) {
-    const signalMap = items.srsProfileSignals || {};
-    const profileSignals = signalMap[pairKey] || {};
-    const interests = Array.isArray(profileSignals.interests) ? profileSignals.interests : [];
-    const objectives = Array.isArray(profileSignals.objectives) ? profileSignals.objectives : [];
-    const proficiency = profileSignals.proficiency && typeof profileSignals.proficiency === "object"
-      ? profileSignals.proficiency
-      : {};
-    const empiricalTrends = profileSignals.empiricalTrends && typeof profileSignals.empiricalTrends === "object"
-      ? profileSignals.empiricalTrends
-      : {};
-    const sourcePreferences = profileSignals.sourcePreferences && typeof profileSignals.sourcePreferences === "object"
-      ? profileSignals.sourcePreferences
-      : {};
+  _normalizeSignals(rawSignals) {
+    const raw = this._isObject(rawSignals) ? rawSignals : {};
     return {
-      profileId: typeof profileSignals.profileId === "string" && profileSignals.profileId
-        ? profileSignals.profileId
-        : "default",
-      interests,
-      objectives,
-      proficiency,
-      empiricalTrends,
-      sourcePreferences
+      interests: Array.isArray(raw.interests) ? raw.interests : [],
+      objectives: Array.isArray(raw.objectives) ? raw.objectives : [],
+      proficiency: this._isObject(raw.proficiency) ? raw.proficiency : {},
+      empiricalTrends: this._isObject(raw.empiricalTrends) ? raw.empiricalTrends : {},
+      sourcePreferences: this._isObject(raw.sourcePreferences) ? raw.sourcePreferences : {}
     };
   }
 
-  buildSrsPlanContext(items, pairKey) {
-    const profile = this.getSrsProfile(items, pairKey);
-    const signals = this.getSrsProfileSignals(items, pairKey);
+  getSrsProfileSignals(items, pairKey, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const resolvedPair = this._normalizePairKey(pairKey);
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const signals = this._normalizeSignals(profileEntry.srsSignalsByPair[resolvedPair]);
     return {
-      pair: pairKey,
-      profile_id: signals.profileId,
+      profileId,
+      resolvedProfileId: profileId,
+      interests: signals.interests,
+      objectives: signals.objectives,
+      proficiency: signals.proficiency,
+      empiricalTrends: signals.empiricalTrends,
+      sourcePreferences: signals.sourcePreferences
+    };
+  }
+
+  async updateSrsProfileSignals(pairKey, updates, options) {
+    const items = await this.load();
+    const opts = options && typeof options === "object" ? options : {};
+    const resolvedPair = this._normalizePairKey(pairKey);
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const root = this._getProfilesRoot(items);
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const existingSignals = this._normalizeSignals(profileEntry.srsSignalsByPair[resolvedPair]);
+    const rawUpdates = this._isObject(updates) ? updates : {};
+    const nextSignals = this._normalizeSignals({
+      ...existingSignals,
+      ...rawUpdates
+    });
+
+    const nextProfileEntry = {
+      ...profileEntry,
+      srsSignalsByPair: {
+        ...profileEntry.srsSignalsByPair,
+        [resolvedPair]: nextSignals
+      }
+    };
+    const nextProfiles = {
+      ...root,
+      [profileId]: nextProfileEntry
+    };
+    await this.save({
+      srsProfiles: nextProfiles,
+      srsSelectedProfileId: profileId,
+      srsProfileId: profileId
+    });
+    return {
+      pairKey: resolvedPair,
+      profileId,
+      resolvedProfileId: profileId
+    };
+  }
+
+  async updateSrsProfile(pairKey, profile, globalUpdates, options) {
+    const items = await this.load();
+    const opts = options && typeof options === "object" ? options : {};
+    const resolvedPair = this._normalizePairKey(pairKey);
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+    );
+    const root = this._getProfilesRoot(items);
+    const profileEntry = this._getProfileEntry(items, profileId);
+    const globalPrefs = this._isObject(globalUpdates) ? globalUpdates : {};
+    const languagePrefs = this._normalizeProfileLanguagePrefs(
+      {
+        sourceLanguage: globalPrefs.sourceLanguage,
+        targetLanguage: globalPrefs.targetLanguage,
+        srsPairAuto: globalPrefs.srsPairAuto,
+        srsPair: resolvedPair
+      },
+      profileEntry.languagePrefs
+    );
+    const nextProfileEntry = {
+      ...profileEntry,
+      languagePrefs,
+      srsByPair: {
+        ...profileEntry.srsByPair,
+        [resolvedPair]: this._isObject(profile) ? { ...profile } : {}
+      }
+    };
+    const newProfiles = {
+      ...root,
+      [profileId]: nextProfileEntry
+    };
+    const toSave = {
+      ...(this._isObject(globalUpdates) ? globalUpdates : {}),
+      srsProfiles: newProfiles,
+      srsPair: resolvedPair,
+      srsSelectedProfileId: profileId,
+      srsProfileId: profileId
+    };
+    await this.save(toSave);
+    return { pairKey: resolvedPair, profileId };
+  }
+
+  async publishSrsRuntimeProfile(pairKey, profile, extraUpdates, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const runtimeProfile = this._isObject(profile) ? profile : {};
+    const resolvedPair = this._normalizePairKey(pairKey);
+    const profileId = this.normalizeSrsProfileId(
+      opts.profileId !== undefined ? opts.profileId : runtimeProfile.profileId
+    );
+    const updates = {
+      srsPair: resolvedPair,
+      srsProfileId: profileId,
+      srsEnabled: runtimeProfile.srsEnabled === true,
+      srsMaxActive: runtimeProfile.srsMaxActive || this.defaults.srsMaxActive || 40,
+      srsBootstrapTopN: runtimeProfile.srsBootstrapTopN || this.defaults.srsBootstrapTopN || 800,
+      srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount || 40,
+      srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
+      srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
+      srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
+      srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
+      srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,
+      ...(this._isObject(extraUpdates) ? extraUpdates : {})
+    };
+    await this.save(updates);
+    return updates;
+  }
+
+  buildSrsPlanContext(items, pairKey, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const profile = this.getSrsProfile(items, pairKey, {
+      profileId: opts.profileId
+    });
+    const signals = this.getSrsProfileSignals(items, pairKey, {
+      profileId: profile.profileId
+    });
+    return {
+      pair: this._normalizePairKey(pairKey),
+      profile_id: profile.profileId || this.DEFAULT_PROFILE_ID,
       interests: signals.interests,
       objectives: signals.objectives,
       proficiency: signals.proficiency,

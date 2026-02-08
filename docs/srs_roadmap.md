@@ -14,17 +14,19 @@ Ship a non-destructive SRS layer where:
 
 ### Runtime and storage
 - Practice gate and scheduler are implemented.
-- Canonical helper store path:
-  - `.../LexiShift/srs/srs_store.json`
+- Canonical helper profile store path:
+  - `.../LexiShift/srs/profiles/<profile_id>/srs_store.json`
 - Helper also owns:
-  - `srs/srs_settings.json`
-  - `srs/srs_status.json`
-  - `srs/srs_rulegen_snapshot_<pair>.json`
-  - `srs/srs_ruleset_<pair>.json`
-  - `srs/srs_signal_queue.json`
+  - `srs/srs_settings.json` (global policy defaults)
+  - `srs/profiles/<profile_id>/srs_status.json`
+  - `srs/profiles/<profile_id>/srs_rulegen_snapshot_<pair>.json`
+  - `srs/profiles/<profile_id>/srs_ruleset_<pair>.json`
+  - `srs/profiles/<profile_id>/srs_signal_queue.json`
 - Extension runtime applies local rules and helper SRS rules concurrently.
 - Extension-to-helper communication is routed through the extension service worker bridge (single native messaging boundary).
 - Runtime diagnostics now include helper/store/ruleset/cache counts plus the last helper rules fetch error from the tab runtime.
+- Helper profile snapshot API now reads GUI settings at `settings.json` (active profile + profile list) for cross-surface profile selection.
+- Extension storage model is now profile-first (`srsSelectedProfileId` + `srsProfiles.<profile>.srsByPair/srsSignalsByPair`) with no legacy LP-first fallback.
 
 ### Set planning scaffolding
 - `srs_set_strategy.py`: strategy/objective taxonomy.
@@ -107,8 +109,16 @@ Status key:
 - `[x]` Manual/explicit helper refresh action (`srs_refresh`) for feedback-driven admissions.
 
 ### Workstream D — Profile modeling
-- `[x]` Profile schema draft and extension scaffold key (`srsProfileSignals`).
-- `[~]` Profile signal normalization/validation.
+- `[x]` Profile schema draft and extension scaffold keys (`srsSelectedProfileId`, `srsProfiles`).
+- `[x]` Profile signal normalization/validation (`profile_id`, selected profile id).
+- `[x]` Options now persist/load SRS settings in profile-first storage (pair nested under selected profile).
+- `[x]` Native host profile catalog API (`profiles_get`) backed by helper `settings.json`.
+- `[x]` Options profile controls:
+  - extension-local selected profile (global),
+  - pair-specific SRS settings loaded from that profile,
+  - helper profile refresh.
+- `[x]` Native messaging `profile_id` wiring for SRS commands (`get_ruleset/get_snapshot/srs_diagnostics/record_feedback/srs_initialize/srs_refresh/srs_reset`).
+- `[x]` Helper SRS files moved to profile-scoped directory structure under `srs/profiles/<profile_id>/`.
 - `[ ]` Profile editor UX (interests/proficiency/objectives/constraints).
 - `[ ]` Pair-specific planner policy registry.
 
@@ -128,7 +138,11 @@ Status key:
 
 ### Workstream F — Cross-surface consistency
 - `[~]` Bundle format for settings/store exists.
-- `[ ]` GUI/extension/plugin import/export wiring.
+- `[~]` GUI/extension profile bridge:
+  - extension reads helper profile catalog via native host,
+  - extension keeps local selected profile (does not mutate GUI/helper active profile),
+  - extension sends selected `profile_id` in runtime/helper requests.
+- `[ ]` BetterDiscord plugin profile bridge wiring.
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
 
 ### Workstream G — End-to-End validation and calibration

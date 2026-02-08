@@ -103,7 +103,7 @@ Start tray helper directly:
 Check logs:
 ```
 cat "$HOME/Library/Application Support/LexiShift/LexiShift/helper_tray.log"
-cat "$HOME/Library/Application Support/LexiShift/LexiShift/srs/srs_status.json"
+cat "$HOME/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_status.json"
 ```
 
 ## Known scripts added for cleanup / diagnostics

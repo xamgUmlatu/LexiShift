@@ -60,7 +60,7 @@ Define how set `S` is planned and mutated:
 - `srs_initialize`
   - Input: same planning fields + sources (`jmdict_path`, `set_source_db`).
   - Output: plan metadata + mutation result (`applied`, counts).
-  - Side effects: updates helper-owned `srs/srs_store.json` only when plan is executable.
+  - Side effects: updates helper-owned `srs/profiles/<profile_id>/srs_store.json` only when plan is executable.
 
 ## Sizing policy (implemented)
 
@@ -90,7 +90,7 @@ Current mutation behavior:
 ## Event model
 
 Queue path:
-- `srs/srs_signal_queue.json`
+- `srs/profiles/<profile_id>/srs_signal_queue.json`
 
 Event types supported by storage:
 - `feedback`

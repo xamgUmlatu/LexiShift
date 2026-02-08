@@ -11,6 +11,9 @@ This document captures what should sync across the desktop app, Chrome extension
 ## Clients & Capabilities
 - **GUI App**: Source of truth for profiles, rulesets, language packs, and synonym generation.
 - **Chrome Extension**: Applies replacements on web pages; options UI for rules, SRS controls, share code, and logging.
+  - SRS profile selection is extension-local and global (picked from helper profile catalog).
+  - SRS settings/signals are stored under that selected profile, with language-pair subkeys.
+  - Extension does not mutate GUI/helper active profile.
 - **BetterDiscord Plugin**: Applies replacements in Discord; options UI for basic settings + share code.
 
 ## Data Model to Sync
@@ -19,6 +22,7 @@ This document captures what should sync across the desktop app, Chrome extension
   - `profile_id`, `name`, `description`, `tags`
   - `rulesets`: list of ruleset identifiers (path or stable ID)
   - `active_ruleset`: currently active ruleset
+  - `srs_by_pair`: pair-scoped SRS settings/signals/state references
 - **Ruleset**
   - `rules`: list of replacement rules (source_phrase, replacement, case_policy, enabled, priority, tags)
   - `metadata`: ruleset label/description/source
@@ -66,6 +70,11 @@ This document captures what should sync across the desktop app, Chrome extension
 - **Clients**: Extension and plugin consume exported snapshots:
   - ruleset JSON (active or chosen ruleset)
   - app settings subset (highlight, replacement behavior, etc.)
+- **Extension profile bridge**:
+  - extension reads helper profile snapshot via native messaging (`profiles_get`),
+  - helper snapshot is sourced from GUI `settings.json`,
+  - extension stores a local selected profile id (global) and never changes GUI/helper active profile.
+  - helper runtime calls include `profile_id` and read/write profile-scoped SRS files.
 - **Write‑back**: Optional future feature (clients can push updates back).
 
 ## Sync Mechanisms

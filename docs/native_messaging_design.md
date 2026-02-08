@@ -28,11 +28,12 @@ Data sources live in the GUI app data dir:
 - `language_packs/`, `frequency_packs/`, `embeddings/`, `rulesets/`, etc.
 
 Shared outputs written by helper:
-- `srs/srs_store.json`
-- `srs/srs_rulegen_snapshot_<pair>.json`
-- `srs/srs_ruleset_<pair>.json`
-- `srs/srs_status.json` (health + last_run metadata)
-- `srs/srs_signal_queue.json` (signal stream; feedback authoritative for scheduling)
+- `srs/srs_settings.json` (global SRS policy defaults)
+- `srs/profiles/<profile_id>/srs_store.json`
+- `srs/profiles/<profile_id>/srs_rulegen_snapshot_<pair>.json`
+- `srs/profiles/<profile_id>/srs_ruleset_<pair>.json`
+- `srs/profiles/<profile_id>/srs_status.json` (health + last_run metadata)
+- `srs/profiles/<profile_id>/srs_signal_queue.json` (signal stream; feedback authoritative for scheduling)
 
 ## Workstream Breakdown (Phases)
 
@@ -52,6 +53,7 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - `get_snapshot`: returns concise preview (target lemma → sources).
   - `record_feedback`: append to SRS store.
   - `record_exposure`: optional telemetry path.
+  - `profiles_get`: read profile snapshot from helper `settings.json`.
 - Outputs JSON files in a stable schema.
 
 ### Phase 2 — Native Messaging Host
@@ -69,6 +71,7 @@ Tracking checklist: see `docs/native_messaging_checklist.md`.
   - `getRuleset(pair)`
   - `planSrsSet(payload)`
   - `initializeSrs(payload)`
+  - `getProfiles()`
   - `recordFeedback(payload)`
   - `recordExposure(payload)`
 - Use a persistent feedback sync queue in extension storage for `record_feedback`:
@@ -109,14 +112,15 @@ Response:
 Commands (MVP):
 - `hello` → returns helper version, protocol version.
 - `status` → returns last_run timestamps, active pair, counts.
-- `get_ruleset` → returns ruleset for a `pair`.
-- `get_snapshot` → returns preview for `pair`.
-- `record_feedback` → accept SRS feedback payload.
-- `record_exposure` → accept exposure telemetry batch.
-- `trigger_rulegen` → recompute now for pair (optional).
-- `srs_plan_set` → plan strategy for set S (no mutation).
-- `srs_initialize` → initialize set S for a pair (mutation).
-- `srs_reset` → clear SRS progress for pair/all.
+- `get_ruleset` → returns ruleset for `pair` and `profile_id`.
+- `get_snapshot` → returns preview for `pair` and `profile_id`.
+- `record_feedback` → accept SRS feedback payload (`pair`, `profile_id`, `lemma`, `rating`).
+- `record_exposure` → accept exposure telemetry payload (`pair`, `profile_id`, `lemma`).
+- `trigger_rulegen` → recompute now for pair/profile (optional).
+- `srs_plan_set` → plan strategy for set S (no mutation; profile-scoped).
+- `srs_initialize` → initialize set S for a pair/profile (mutation).
+- `srs_reset` → clear SRS progress for pair/all within `profile_id`.
+- `profiles_get` → helper profile snapshot (`settings.json`).
 
 `trigger_rulegen` optional sampled-target debug fields:
 - `sample_count`
@@ -161,11 +165,15 @@ Helper should read from:
 
 Helper should write:
 - `srs/` (new folder)
-  - `srs_store.json`
-  - `srs_rulegen_snapshot_<pair>.json`
-  - `srs_ruleset_<pair>.json`
-  - `srs_status.json`
-  - `srs_signal_queue.json`
+  - `srs_settings.json`
+  - `profiles/<profile_id>/srs_store.json`
+  - `profiles/<profile_id>/srs_rulegen_snapshot_<pair>.json`
+  - `profiles/<profile_id>/srs_ruleset_<pair>.json`
+  - `profiles/<profile_id>/srs_status.json`
+  - `profiles/<profile_id>/srs_signal_queue.json`
+
+Schema note:
+- Runtime/helper code is profile-first. Legacy root-level `srs_store.json`/ruleset/snapshot paths are not used as fallback.
 
 ## Security + Trust
 - Native messaging host manifest should allow only LexiShift extension id.
@@ -208,5 +216,6 @@ Helper should write:
 - Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
 - Native messaging host exists; install writes the host manifest for the provided extension ID.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
-- Feedback writes to `srs/srs_signal_queue.json` for future adaptive set updates.
+- Helper exposes profile snapshot command (`profiles_get`).
+- Feedback writes to `srs/profiles/<profile_id>/srs_signal_queue.json` for future adaptive set updates.
 - Exposure writes remain available as telemetry and are non-authoritative for scheduling.

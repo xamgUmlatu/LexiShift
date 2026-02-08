@@ -437,6 +437,30 @@
   "label_target_language": {
     "message": "目标语言"
   },
+  "label_srs_profile_id": {
+    "message": "SRS 配置"
+  },
+  "button_srs_profile_refresh": {
+    "message": "刷新配置列表"
+  },
+  "hint_srs_profile_loading": {
+    "message": "正在加载 Helper 配置…"
+  },
+  "status_srs_profile_selected": {
+    "message": "当前选择的 SRS 配置：$1。"
+  },
+  "status_srs_profile_saved": {
+    "message": "SRS 配置选择已保存。"
+  },
+  "status_srs_profile_refreshed": {
+    "message": "Helper 配置已刷新。"
+  },
+  "status_srs_profile_refresh_failed": {
+    "message": "刷新 Helper 配置失败。"
+  },
+  "status_srs_profile_save_failed": {
+    "message": "保存 SRS 配置选择失败。"
+  },
   "option_language_system": {
     "message": "系统默认"
   },

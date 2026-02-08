@@ -49,6 +49,7 @@ from lexishift_core.srs_time import now_utc
 class RulegenJobConfig:
     pair: str
     jmdict_path: Path
+    profile_id: str = "default"
     set_source_db: Optional[Path] = None
     set_top_n: int = 2000
     confidence_threshold: float = 0.0
@@ -70,6 +71,7 @@ class SetInitializationJobConfig:
     pair: str
     jmdict_path: Path
     set_source_db: Path
+    profile_id: str = "default"
     set_top_n: int = 800
     bootstrap_top_n: Optional[int] = None
     initial_active_count: Optional[int] = None
@@ -84,6 +86,7 @@ class SetInitializationJobConfig:
 @dataclass(frozen=True)
 class SetPlanningJobConfig:
     pair: str
+    profile_id: str = "default"
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
     set_top_n: int = 800
@@ -100,6 +103,7 @@ class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Path
     set_source_db: Path
+    profile_id: str = "default"
     set_top_n: int = 2000
     feedback_window_size: int = 100
     max_active_items: Optional[int] = None
@@ -118,24 +122,45 @@ def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> Srs
     return settings
 
 
-def _ensure_store(paths: HelperPaths, *, persist_missing: bool = True) -> SrsStore:
-    if paths.srs_store_path.exists():
-        return load_srs_store(paths.srs_store_path)
+def _resolve_profile_id(
+    paths: HelperPaths,
+    *,
+    profile_id: str | None,
+    profile_context: Optional[Mapping[str, object]] = None,
+) -> str:
+    candidate = str(profile_id or "").strip()
+    if not candidate and isinstance(profile_context, Mapping):
+        context_profile_id = profile_context.get("profile_id")
+        candidate = str(context_profile_id or "").strip()
+    return paths.normalize_profile_id(candidate)
+
+
+def _ensure_store(
+    paths: HelperPaths,
+    *,
+    profile_id: str,
+    persist_missing: bool = True,
+) -> SrsStore:
+    store_path = paths.srs_store_path_for(profile_id)
+    if store_path.exists():
+        return load_srs_store(store_path)
     store = SrsStore()
     if persist_missing:
-        save_srs_store(store, paths.srs_store_path)
+        save_srs_store(store, store_path)
     return store
 
 
 def _update_status(
     *,
     paths: HelperPaths,
+    profile_id: str,
     pair: str,
     rule_count: int,
     target_count: int,
     error: Optional[str] = None,
 ) -> None:
-    status = load_status(paths.srs_status_path)
+    status_path = paths.srs_status_path_for(profile_id)
+    status = load_status(status_path)
     status = HelperStatus(
         version=status.version,
         helper_version=status.helper_version,
@@ -145,45 +170,56 @@ def _update_status(
         last_rule_count=rule_count,
         last_target_count=target_count,
     )
-    save_status(status, paths.srs_status_path)
+    save_status(status, status_path)
 
 
-def load_snapshot(paths: HelperPaths, *, pair: str) -> dict:
-    snapshot_path = paths.snapshot_path(pair)
+def load_snapshot(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
+    snapshot_path = paths.snapshot_path(pair, profile_id=profile_id)
     if not snapshot_path.exists():
         raise FileNotFoundError(snapshot_path)
     return json.loads(snapshot_path.read_text(encoding="utf-8"))
 
 
-def load_ruleset(paths: HelperPaths, *, pair: str) -> dict:
-    ruleset_path = paths.ruleset_path(pair)
+def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
+    ruleset_path = paths.ruleset_path(pair, profile_id=profile_id)
     if not ruleset_path.exists():
         raise FileNotFoundError(ruleset_path)
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
 
 
-def get_srs_runtime_diagnostics(paths: HelperPaths, *, pair: str) -> dict:
+def get_srs_runtime_diagnostics(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+) -> dict:
     normalized_pair = str(pair or "").strip() or "en-ja"
+    normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
+    store_path = paths.srs_store_path_for(normalized_profile_id)
+    ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
+    snapshot_path = paths.snapshot_path(normalized_pair, profile_id=normalized_profile_id)
+    status_path = paths.srs_status_path_for(normalized_profile_id)
     diagnostics = {
         "pair": normalized_pair,
-        "store_path": str(paths.srs_store_path),
-        "store_exists": paths.srs_store_path.exists(),
+        "profile_id": normalized_profile_id,
+        "store_path": str(store_path),
+        "store_exists": store_path.exists(),
         "store_items_total": 0,
         "store_items_for_pair": 0,
         "store_error": None,
-        "ruleset_path": str(paths.ruleset_path(normalized_pair)),
-        "ruleset_exists": paths.ruleset_path(normalized_pair).exists(),
+        "ruleset_path": str(ruleset_path),
+        "ruleset_exists": ruleset_path.exists(),
         "ruleset_rules_count": 0,
         "ruleset_error": None,
-        "snapshot_path": str(paths.snapshot_path(normalized_pair)),
-        "snapshot_exists": paths.snapshot_path(normalized_pair).exists(),
+        "snapshot_path": str(snapshot_path),
+        "snapshot_exists": snapshot_path.exists(),
         "snapshot_target_count": 0,
         "snapshot_error": None,
-        "status": load_status(paths.srs_status_path).__dict__,
+        "status": load_status(status_path).__dict__,
     }
     if diagnostics["store_exists"]:
         try:
-            store = load_srs_store(paths.srs_store_path)
+            store = load_srs_store(store_path)
             diagnostics["store_items_total"] = len(store.items)
             diagnostics["store_items_for_pair"] = len(
                 [item for item in store.items if item.language_pair == normalized_pair]
@@ -192,14 +228,14 @@ def get_srs_runtime_diagnostics(paths: HelperPaths, *, pair: str) -> dict:
             diagnostics["store_error"] = str(exc)
     if diagnostics["ruleset_exists"]:
         try:
-            ruleset_payload = json.loads(paths.ruleset_path(normalized_pair).read_text(encoding="utf-8"))
+            ruleset_payload = json.loads(ruleset_path.read_text(encoding="utf-8"))
             rules = ruleset_payload.get("rules", [])
             diagnostics["ruleset_rules_count"] = len(rules) if isinstance(rules, list) else 0
         except Exception as exc:  # noqa: BLE001
             diagnostics["ruleset_error"] = str(exc)
     if diagnostics["snapshot_exists"]:
         try:
-            snapshot_payload = json.loads(paths.snapshot_path(normalized_pair).read_text(encoding="utf-8"))
+            snapshot_payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
             stats = snapshot_payload.get("stats", {})
             target_count = stats.get("target_count")
             if target_count is None and isinstance(snapshot_payload.get("targets"), list):
@@ -241,8 +277,9 @@ def run_rulegen_job(
 ) -> dict:
     if not config.jmdict_path.exists():
         raise FileNotFoundError(config.jmdict_path)
+    profile_id = _resolve_profile_id(paths, profile_id=config.profile_id)
     settings = _ensure_settings(paths, persist_missing=config.persist_store)
-    store = _ensure_store(paths, persist_missing=config.persist_store)
+    store = _ensure_store(paths, profile_id=profile_id, persist_missing=config.persist_store)
     diagnostics: dict[str, object] | None = None
     sampling_result = None
     set_init_config = None
@@ -297,6 +334,7 @@ def run_rulegen_job(
     store, output = run_rulegen_for_pair(
         paths=paths,
         pair=config.pair,
+        profile_id=profile_id,
         store=store,
         settings=settings,
         jmdict_path=config.jmdict_path,
@@ -310,12 +348,14 @@ def run_rulegen_job(
         write_rulegen_outputs(
             paths=paths,
             pair=config.pair,
+            profile_id=profile_id,
             rules=output.rules,
             snapshot=output.snapshot,
         )
     if config.update_status:
         _update_status(
             paths=paths,
+            profile_id=profile_id,
             pair=config.pair,
             rule_count=len(output.rules),
             target_count=output.target_count,
@@ -323,11 +363,20 @@ def run_rulegen_job(
         )
     response = {
         "pair": config.pair,
+        "profile_id": profile_id,
         "targets": output.target_count,
         "rules": len(output.rules),
         "snapshot": output.snapshot,
-        "snapshot_path": str(paths.snapshot_path(config.pair)) if config.persist_outputs else None,
-        "ruleset_path": str(paths.ruleset_path(config.pair)) if config.persist_outputs else None,
+        "snapshot_path": (
+            str(paths.snapshot_path(config.pair, profile_id=profile_id))
+            if config.persist_outputs
+            else None
+        ),
+        "ruleset_path": (
+            str(paths.ruleset_path(config.pair, profile_id=profile_id))
+            if config.persist_outputs
+            else None
+        ),
         "store_persisted": config.persist_store,
         "outputs_persisted": config.persist_outputs,
     }
@@ -396,7 +445,12 @@ def plan_srs_set(
     if not pair:
         raise ValueError("Missing pair.")
 
-    store = _ensure_store(paths, persist_missing=False)
+    profile_id = _resolve_profile_id(
+        paths,
+        profile_id=config.profile_id,
+        profile_context=config.profile_context,
+    )
+    store = _ensure_store(paths, profile_id=profile_id, persist_missing=False)
     existing_items_for_pair = _count_items_for_pair(store, pair)
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=config.bootstrap_top_n
@@ -406,7 +460,10 @@ def plan_srs_set(
         max_active_items_hint=config.max_active_items_hint,
     )
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
-    signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
+    signal_summary = summarize_signal_events(
+        paths.srs_signal_queue_path_for(profile_id),
+        pair=pair,
+    )
     plan_payload = _build_set_plan_payload(
         pair=pair,
         strategy=config.strategy,
@@ -423,6 +480,7 @@ def plan_srs_set(
     )
     return {
         "pair": pair,
+        "profile_id": profile_id,
         "set_top_n": sizing_policy.bootstrap_top_n_effective,
         "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
         "initial_active_count": sizing_policy.initial_active_count_effective,
@@ -448,8 +506,13 @@ def initialize_srs_set(
     if not pair:
         raise ValueError("Missing pair.")
 
+    profile_id = _resolve_profile_id(
+        paths,
+        profile_id=config.profile_id,
+        profile_context=config.profile_context,
+    )
     settings = _ensure_settings(paths, persist_missing=True)
-    store = _ensure_store(paths, persist_missing=True)
+    store = _ensure_store(paths, profile_id=profile_id, persist_missing=True)
     before_pair_count = _count_items_for_pair(store, pair)
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=config.bootstrap_top_n
@@ -459,7 +522,10 @@ def initialize_srs_set(
         max_active_items_hint=config.max_active_items_hint,
     )
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
-    signal_summary = summarize_signal_events(paths.srs_signal_queue_path, pair=pair)
+    signal_summary = summarize_signal_events(
+        paths.srs_signal_queue_path_for(profile_id),
+        pair=pair,
+    )
     plan_payload = _build_set_plan_payload(
         pair=pair,
         strategy=config.strategy,
@@ -480,6 +546,7 @@ def initialize_srs_set(
     if not can_execute or execution_mode != "frequency_bootstrap":
         return {
             "pair": pair,
+            "profile_id": profile_id,
             "set_top_n": sizing_policy.bootstrap_top_n_effective,
             "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
             "initial_active_count": sizing_policy.initial_active_count_effective,
@@ -488,7 +555,7 @@ def initialize_srs_set(
             "replace_pair": config.replace_pair,
             "added_items": 0,
             "total_items_for_pair": before_pair_count,
-            "store_path": str(paths.srs_store_path),
+            "store_path": str(paths.srs_store_path_for(profile_id)),
             "stopwords_path": str(stopwords_path) if stopwords_path else None,
             "applied": False,
             "plan": plan_payload,
@@ -511,11 +578,12 @@ def initialize_srs_set(
             stopwords_path=stopwords_path,
         ),
     )
-    save_srs_store(updated_store, paths.srs_store_path)
+    save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
 
     _updated_store, rulegen_output = run_rulegen_for_pair(
         paths=paths,
         pair=pair,
+        profile_id=profile_id,
         store=updated_store,
         settings=settings,
         jmdict_path=config.jmdict_path,
@@ -526,11 +594,13 @@ def initialize_srs_set(
     write_rulegen_outputs(
         paths=paths,
         pair=pair,
+        profile_id=profile_id,
         rules=rulegen_output.rules,
         snapshot=rulegen_output.snapshot,
     )
     _update_status(
         paths=paths,
+        profile_id=profile_id,
         pair=pair,
         rule_count=len(rulegen_output.rules),
         target_count=rulegen_output.target_count,
@@ -541,6 +611,7 @@ def initialize_srs_set(
     added_items = max(0, after_pair_count - (0 if config.replace_pair else before_pair_count))
     return {
         "pair": pair,
+        "profile_id": profile_id,
         "set_top_n": sizing_policy.bootstrap_top_n_effective,
         "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
         "initial_active_count": sizing_policy.initial_active_count_effective,
@@ -549,7 +620,7 @@ def initialize_srs_set(
         "replace_pair": config.replace_pair,
         "added_items": added_items,
         "total_items_for_pair": after_pair_count,
-        "store_path": str(paths.srs_store_path),
+        "store_path": str(paths.srs_store_path_for(profile_id)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "bootstrap_diagnostics": {
             "selected_count": init_report.selected_count,
@@ -570,8 +641,8 @@ def initialize_srs_set(
             "published": True,
             "targets": rulegen_output.target_count,
             "rules": len(rulegen_output.rules),
-            "snapshot_path": str(paths.snapshot_path(pair)),
-            "ruleset_path": str(paths.ruleset_path(pair)),
+            "snapshot_path": str(paths.snapshot_path(pair, profile_id=profile_id)),
+            "ruleset_path": str(paths.ruleset_path(pair, profile_id=profile_id)),
         },
         "applied": True,
         "plan": plan_payload,
@@ -593,8 +664,13 @@ def refresh_srs_set(
     if not pair:
         raise ValueError("Missing pair.")
 
+    profile_id = _resolve_profile_id(
+        paths,
+        profile_id=config.profile_id,
+        profile_context=config.profile_context,
+    )
     settings = _ensure_settings(paths, persist_missing=True)
-    store = _ensure_store(paths, persist_missing=True)
+    store = _ensure_store(paths, profile_id=profile_id, persist_missing=True)
     before_pair_count = _count_items_for_pair(store, pair)
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
     selection = build_seed_candidates(
@@ -607,7 +683,7 @@ def refresh_srs_set(
         ),
     )
     selector_candidates = seed_to_selector_candidates(selection)
-    signal_events = load_signal_events(paths.srs_signal_queue_path)
+    signal_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
     refresh_policy = AdmissionRefreshPolicy(
         feedback_window_size=max(1, int(config.feedback_window_size)),
         max_active_items_override=config.max_active_items,
@@ -622,7 +698,7 @@ def refresh_srs_set(
         policy=refresh_policy,
     )
     if config.persist_store:
-        save_srs_store(updated_store, paths.srs_store_path)
+        save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
 
     after_pair_count = _count_items_for_pair(updated_store, pair)
     added_items = max(0, after_pair_count - before_pair_count)
@@ -631,6 +707,7 @@ def refresh_srs_set(
         _updated_store, rulegen_output = run_rulegen_for_pair(
             paths=paths,
             pair=pair,
+            profile_id=profile_id,
             store=updated_store,
             settings=settings,
             jmdict_path=config.jmdict_path,
@@ -641,11 +718,13 @@ def refresh_srs_set(
         write_rulegen_outputs(
             paths=paths,
             pair=pair,
+            profile_id=profile_id,
             rules=rulegen_output.rules,
             snapshot=rulegen_output.snapshot,
         )
         _update_status(
             paths=paths,
+            profile_id=profile_id,
             pair=pair,
             rule_count=len(rulegen_output.rules),
             target_count=rulegen_output.target_count,
@@ -655,8 +734,8 @@ def refresh_srs_set(
             "published": True,
             "targets": rulegen_output.target_count,
             "rules": len(rulegen_output.rules),
-            "snapshot_path": str(paths.snapshot_path(pair)),
-            "ruleset_path": str(paths.ruleset_path(pair)),
+            "snapshot_path": str(paths.snapshot_path(pair, profile_id=profile_id)),
+            "ruleset_path": str(paths.ruleset_path(pair, profile_id=profile_id)),
         }
     refresh_payload = admission_refresh_result_to_dict(refresh_result)
     refresh_payload["weight_terms"] = {
@@ -665,13 +744,14 @@ def refresh_srs_set(
     }
     return {
         "pair": pair,
+        "profile_id": profile_id,
         "set_top_n": max(1, int(config.set_top_n)),
         "feedback_window_size": max(1, int(config.feedback_window_size)),
         "max_active_items": refresh_result.decision.max_active_items,
         "max_new_items_per_day": refresh_result.decision.max_new_items_per_day,
         "added_items": added_items,
         "total_items_for_pair": after_pair_count,
-        "store_path": str(paths.srs_store_path),
+        "store_path": str(paths.srs_store_path_for(profile_id)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "admission_refresh": refresh_payload,
         "rulegen": published_rulegen,
@@ -687,9 +767,11 @@ def apply_feedback(
     pair: str,
     lemma: str,
     rating: str,
+    profile_id: str = "default",
     source_type: str = SOURCE_EXTENSION,
 ) -> None:
-    store = _ensure_store(paths)
+    normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
+    store = _ensure_store(paths, profile_id=normalized_profile_id)
     normalized_pair = str(pair or "").strip()
     normalized_lemma = str(lemma or "").strip()
     normalized_source_type = str(source_type or SOURCE_EXTENSION).strip() or SOURCE_EXTENSION
@@ -701,10 +783,10 @@ def apply_feedback(
         create_if_missing=True,
         source_type=normalized_source_type,
     )
-    save_srs_store(store, paths.srs_store_path)
+    save_srs_store(store, paths.srs_store_path_for(normalized_profile_id))
     if normalized_pair and normalized_lemma:
         append_signal_event(
-            paths.srs_signal_queue_path,
+            paths.srs_signal_queue_path_for(normalized_profile_id),
             SrsSignalEvent(
                 event_type=SIGNAL_FEEDBACK,
                 pair=normalized_pair,
@@ -720,9 +802,11 @@ def apply_exposure(
     *,
     pair: str,
     lemma: str,
+    profile_id: str = "default",
     source_type: str = SOURCE_EXTENSION,
 ) -> None:
-    store = _ensure_store(paths)
+    normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
+    store = _ensure_store(paths, profile_id=normalized_profile_id)
     normalized_pair = str(pair or "").strip()
     normalized_lemma = str(lemma or "").strip()
     normalized_source_type = str(source_type or SOURCE_EXTENSION).strip() or SOURCE_EXTENSION
@@ -733,10 +817,10 @@ def apply_exposure(
         create_if_missing=True,
         source_type=normalized_source_type,
     )
-    save_srs_store(store, paths.srs_store_path)
+    save_srs_store(store, paths.srs_store_path_for(normalized_profile_id))
     if normalized_pair and normalized_lemma:
         append_signal_event(
-            paths.srs_signal_queue_path,
+            paths.srs_signal_queue_path_for(normalized_profile_id),
             SrsSignalEvent(
                 event_type=SIGNAL_EXPOSURE,
                 pair=normalized_pair,
@@ -757,39 +841,44 @@ def reset_srs_data(
     paths: HelperPaths,
     *,
     pair: Optional[str] = None,
+    profile_id: str = "default",
 ) -> dict:
+    normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
     scoped_pair = str(pair or "").strip() or None
+    profile_store_path = paths.srs_store_path_for(normalized_profile_id)
+    profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
+    profile_status_path = paths.srs_status_path_for(normalized_profile_id)
 
     removed_items = 0
     remaining_items = 0
-    if paths.srs_store_path.exists():
-        store = load_srs_store(paths.srs_store_path)
+    if profile_store_path.exists():
+        store = load_srs_store(profile_store_path)
         if scoped_pair:
             kept_items = tuple(item for item in store.items if item.language_pair != scoped_pair)
         else:
             kept_items = tuple()
         removed_items = len(store.items) - len(kept_items)
         remaining_items = len(kept_items)
-        save_srs_store(SrsStore(items=kept_items, version=store.version), paths.srs_store_path)
+        save_srs_store(SrsStore(items=kept_items, version=store.version), profile_store_path)
     else:
-        save_srs_store(SrsStore(), paths.srs_store_path)
+        save_srs_store(SrsStore(), profile_store_path)
 
     removed_snapshots = 0
     removed_rulesets = 0
     if scoped_pair:
-        if _remove_file(paths.snapshot_path(scoped_pair)):
+        if _remove_file(paths.snapshot_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_snapshots += 1
-        if _remove_file(paths.ruleset_path(scoped_pair)):
+        if _remove_file(paths.ruleset_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_rulesets += 1
     else:
-        for snapshot in paths.srs_dir.glob("srs_rulegen_snapshot_*.json"):
+        for snapshot in profile_srs_dir.glob("srs_rulegen_snapshot_*.json"):
             if _remove_file(snapshot):
                 removed_snapshots += 1
-        for ruleset in paths.srs_dir.glob("srs_ruleset_*.json"):
+        for ruleset in profile_srs_dir.glob("srs_ruleset_*.json"):
             if _remove_file(ruleset):
                 removed_rulesets += 1
 
-    status = load_status(paths.srs_status_path)
+    status = load_status(profile_status_path)
     save_status(
         HelperStatus(
             version=status.version,
@@ -800,11 +889,12 @@ def reset_srs_data(
             last_rule_count=0,
             last_target_count=0,
         ),
-        paths.srs_status_path,
+        profile_status_path,
     )
 
     return {
         "pair": scoped_pair or "all",
+        "profile_id": normalized_profile_id,
         "removed_items": removed_items,
         "remaining_items": remaining_items,
         "removed_snapshots": removed_snapshots,

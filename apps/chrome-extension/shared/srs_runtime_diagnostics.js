@@ -13,6 +13,7 @@
     return {
       ts: state.ts ? String(state.ts) : new Date().toISOString(),
       pair: state.pair ? String(state.pair) : "",
+      profile_id: state.profile_id ? String(state.profile_id) : "",
       srs_enabled: state.srs_enabled === true,
       rules_source: state.rules_source ? String(state.rules_source) : "",
       rules_enabled_total: Number.isFinite(Number(state.rules_enabled_total))

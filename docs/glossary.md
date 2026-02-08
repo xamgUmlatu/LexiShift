@@ -10,6 +10,9 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Rule metadata**: Additional fields such as `source`, `source_type`, `language_pair`, and `confidence`.
 - **Ruleset**: A collection of rules stored as JSON (the “Source of Truth” for replacements).
 - **Profile**: A higher‑level container representing a user’s working context (active ruleset, settings, metadata).
+- **Profile source mode**: How a client chooses a profile for SRS settings.
+  - local selection: use client-local selected profile id (global in extension runtime).
+- **Resolved profile ID**: The effective profile ID after applying source mode rules (helper-follow or manual override).
 - **Dataset**: The JSON structure that contains rules + settings (aka a ruleset file).
 
 ## Pipelines and Processing
@@ -36,6 +39,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Set planner**: Strategy decision layer that decides how S should be initialized/updated.
 - **Set strategy**: Named policy such as `frequency_bootstrap`, `profile_bootstrap`, `profile_growth`, `adaptive_refresh`.
 - **Signal queue**: Append-only stream of SRS events; feedback is authoritative for scheduling, exposure is optional telemetry.
+- **Profile-first SRS storage**: Profile is the top-level container; pair-scoped SRS settings/signals are nested under that profile.
 
 ## Frequency and Weighting
 

@@ -4,6 +4,11 @@ class HelperManager {
     this.logger = logger || console.log;
   }
 
+  normalizeProfileId(profileId) {
+    const normalized = String(profileId || "").trim();
+    return normalized || "default";
+  }
+
   normalizeSrsSizing(sizingOrTopN, options) {
     const rawSizing = (sizingOrTopN && typeof sizingOrTopN === "object")
       ? sizingOrTopN
@@ -81,10 +86,53 @@ class HelperManager {
     }
   }
 
-  async getSrsRuntimeDiagnostics(pair) {
+  async getProfiles() {
+    const client = this.getClient();
+    if (!client || typeof client.getProfiles !== "function") {
+      return {
+        ok: false,
+        data: null,
+        error: {
+          code: "helper_missing",
+          message: this.i18n.t("status_helper_missing", null, "Helper unavailable.")
+        }
+      };
+    }
+    try {
+      const response = await client.getProfiles();
+      if (!response || response.ok === false) {
+        return {
+          ok: false,
+          data: null,
+          error: {
+            code: (response && response.error && response.error.code) || "helper_error",
+            message: (response && response.error && response.error.message)
+              || this.i18n.t("status_helper_failed", null, "Helper error.")
+          }
+        };
+      }
+      return { ok: true, data: response.data || null, error: null };
+    } catch (err) {
+      return {
+        ok: false,
+        data: null,
+        error: {
+          code: "helper_error",
+          message: err && err.message
+            ? err.message
+            : this.i18n.t("status_helper_failed", null, "Helper error.")
+        }
+      };
+    }
+  }
+
+  async getSrsRuntimeDiagnostics(pair, options) {
     const normalizedPair = String(pair || "").trim() || "en-ja";
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
     const result = {
       pair: normalizedPair,
+      profile_id: profileId,
       helper: null,
       helper_error: null,
       cache: {
@@ -99,7 +147,7 @@ class HelperManager {
     const client = this.getClient();
     if (client && typeof client.getSrsDiagnostics === "function") {
       try {
-        const response = await client.getSrsDiagnostics(normalizedPair);
+        const response = await client.getSrsDiagnostics(normalizedPair, profileId);
         if (response && response.ok !== false) {
           result.helper = response.data || null;
         } else {
@@ -119,7 +167,7 @@ class HelperManager {
     const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
     if (helperCache && typeof helperCache.loadRuleset === "function") {
       try {
-        const cachedRuleset = await helperCache.loadRuleset(normalizedPair);
+        const cachedRuleset = await helperCache.loadRuleset(normalizedPair, { profileId });
         const rules = cachedRuleset && Array.isArray(cachedRuleset.rules)
           ? cachedRuleset.rules
           : [];
@@ -131,7 +179,7 @@ class HelperManager {
     }
     if (helperCache && typeof helperCache.loadSnapshot === "function") {
       try {
-        const cachedSnapshot = await helperCache.loadSnapshot(normalizedPair);
+        const cachedSnapshot = await helperCache.loadSnapshot(normalizedPair, { profileId });
         if (cachedSnapshot && typeof cachedSnapshot === "object") {
           const stats = cachedSnapshot.stats && typeof cachedSnapshot.stats === "object"
             ? cachedSnapshot.stats
@@ -199,13 +247,16 @@ class HelperManager {
     }
   }
 
-  async runRulegenPreview(pair) {
+  async runRulegenPreview(pair, options) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
 
     const startedAt = Date.now();
     const rulegenResponse = await client.triggerRulegen({
       pair: pair,
+      profile_id: profileId,
       // Preview mode should not mutate helper-side SRS state.
       initialize_if_empty: false,
       persist_store: false,
@@ -229,7 +280,7 @@ class HelperManager {
     const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
 
     if (snapshot && helperCache && typeof helperCache.saveSnapshot === "function") {
-      helperCache.saveSnapshot(pair, snapshot);
+      helperCache.saveSnapshot(pair, snapshot, { profileId });
     }
 
     if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
@@ -241,6 +292,7 @@ class HelperManager {
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
 
     const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
     const strategy = typeof opts.strategy === "string" && opts.strategy
       ? opts.strategy
       : "weighted_priority";
@@ -253,6 +305,7 @@ class HelperManager {
     const startedAt = Date.now();
     const rulegenResponse = await client.triggerRulegen({
       pair: pair,
+      profile_id: profileId,
       // Preview mode should not mutate helper-side SRS state.
       initialize_if_empty: false,
       persist_store: false,
@@ -279,7 +332,7 @@ class HelperManager {
     const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
 
     if (snapshot && helperCache && typeof helperCache.saveSnapshot === "function") {
-      helperCache.saveSnapshot(pair, snapshot);
+      helperCache.saveSnapshot(pair, snapshot, { profileId });
     }
 
     if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
@@ -291,6 +344,7 @@ class HelperManager {
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
     const sizing = this.normalizeSrsSizing(setTopN, options);
     const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
     const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
     const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
     const trigger = typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_initialize_button";
@@ -300,6 +354,7 @@ class HelperManager {
 
     const response = await client.initializeSrs({
       pair,
+      profile_id: profileId,
       set_top_n: sizing.bootstrapTopN,
       bootstrap_top_n: sizing.bootstrapTopN,
       initial_active_count: sizing.initialActiveCount,
@@ -325,6 +380,7 @@ class HelperManager {
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
     const sizing = this.normalizeSrsSizing(setTopN, options);
     const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
     const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
     const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
     const trigger = typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_plan_button";
@@ -333,6 +389,7 @@ class HelperManager {
       : {};
     const response = await client.planSrsSet({
       pair,
+      profile_id: profileId,
       strategy,
       objective,
       set_top_n: sizing.bootstrapTopN,
@@ -356,8 +413,10 @@ class HelperManager {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
     const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
     const response = await client.refreshSrsSet({
       pair,
+      profile_id: profileId,
       set_top_n: Number.parseInt(opts.setTopN, 10) || 2000,
       feedback_window_size: Number.parseInt(opts.feedbackWindowSize, 10) || 100,
       max_active_items: Number.isFinite(Number(opts.maxActiveItems))
@@ -382,12 +441,14 @@ class HelperManager {
     return response.data || {};
   }
 
-  async resetSrs(pair) {
+  async resetSrs(pair, options) {
     const client = this.getClient();
     if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+    const opts = options && typeof options === "object" ? options : {};
+    const profileId = this.normalizeProfileId(opts.profileId);
 
-    this.logger(`[HelperManager] resetSrs called for ${pair}`);
-    const response = await client.resetSrs({ pair });
+    this.logger(`[HelperManager] resetSrs called for ${pair} (profile=${profileId})`);
+    const response = await client.resetSrs({ pair, profile_id: profileId });
 
     this.logger(`[HelperManager] resetSrs response:`, response);
 
@@ -402,13 +463,13 @@ class HelperManager {
     const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
     try {
       if (helperCache && typeof helperCache.clearPair === "function") {
-        await helperCache.clearPair(pair);
+        await helperCache.clearPair(pair, { profileId });
       } else if (helperCache) {
         if (typeof helperCache.deleteSnapshot === "function") {
-          await helperCache.deleteSnapshot(pair);
+          await helperCache.deleteSnapshot(pair, { profileId });
         }
         if (typeof helperCache.deleteRuleset === "function") {
-          await helperCache.deleteRuleset(pair);
+          await helperCache.deleteRuleset(pair, { profileId });
         }
       }
     } catch (err) {

@@ -437,6 +437,30 @@
   "label_target_language": {
     "message": "Zielsprache"
   },
+  "label_srs_profile_id": {
+    "message": "SRS-Profil"
+  },
+  "button_srs_profile_refresh": {
+    "message": "Profile neu laden"
+  },
+  "hint_srs_profile_loading": {
+    "message": "Helper-Profile werden geladen…"
+  },
+  "status_srs_profile_selected": {
+    "message": "Ausgewähltes SRS-Profil: $1."
+  },
+  "status_srs_profile_saved": {
+    "message": "SRS-Profilauswahl gespeichert."
+  },
+  "status_srs_profile_refreshed": {
+    "message": "Helper-Profile aktualisiert."
+  },
+  "status_srs_profile_refresh_failed": {
+    "message": "Helper-Profile konnten nicht aktualisiert werden."
+  },
+  "status_srs_profile_save_failed": {
+    "message": "SRS-Profilauswahl konnte nicht gespeichert werden."
+  },
   "option_language_system": {
     "message": "Systemstandard"
   },

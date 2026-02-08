@@ -437,6 +437,30 @@
   "label_target_language": {
     "message": "Target language"
   },
+  "label_srs_profile_id": {
+    "message": "SRS profile"
+  },
+  "button_srs_profile_refresh": {
+    "message": "Refresh profiles"
+  },
+  "hint_srs_profile_loading": {
+    "message": "Loading helper profiles…"
+  },
+  "status_srs_profile_selected": {
+    "message": "Selected SRS profile: $1."
+  },
+  "status_srs_profile_saved": {
+    "message": "SRS profile selection saved."
+  },
+  "status_srs_profile_refreshed": {
+    "message": "Helper profiles refreshed."
+  },
+  "status_srs_profile_refresh_failed": {
+    "message": "Failed to refresh helper profiles."
+  },
+  "status_srs_profile_save_failed": {
+    "message": "Failed to save SRS profile selection."
+  },
   "option_language_system": {
     "message": "System default"
   },

@@ -102,6 +102,61 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_rulesets"], 2)
 
 
+class TestHelperEngineProfileIsolation(unittest.TestCase):
+    def test_reset_pair_scopes_to_profile(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            default_profile = "default"
+            other_profile = "student-b"
+
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path_for(default_profile),
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:beta",
+                            lemma="beta",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path_for(other_profile),
+            )
+
+            paths.snapshot_path("en-ja", profile_id=default_profile).write_text("{}", encoding="utf-8")
+            paths.ruleset_path("en-ja", profile_id=default_profile).write_text("{}", encoding="utf-8")
+            paths.snapshot_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
+            paths.ruleset_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
+
+            result = reset_srs_data(paths, pair="en-ja", profile_id=other_profile)
+
+            default_store = load_srs_store(paths.srs_store_path_for(default_profile))
+            other_store = load_srs_store(paths.srs_store_path_for(other_profile))
+            self.assertEqual(len(default_store.items), 1)
+            self.assertEqual(len(other_store.items), 0)
+            self.assertTrue(paths.snapshot_path("en-ja", profile_id=default_profile).exists())
+            self.assertTrue(paths.ruleset_path("en-ja", profile_id=default_profile).exists())
+            self.assertFalse(paths.snapshot_path("en-ja", profile_id=other_profile).exists())
+            self.assertFalse(paths.ruleset_path("en-ja", profile_id=other_profile).exists())
+            self.assertEqual(result["profile_id"], other_profile)
+            self.assertEqual(result["removed_items"], 1)
+
+
 class TestHelperEngineRulegenPreview(unittest.TestCase):
     def _stub_output(self) -> SimpleNamespace:
         return SimpleNamespace(

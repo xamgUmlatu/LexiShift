@@ -23,16 +23,20 @@
       return this.send("status");
     }
 
-    getSnapshot(pair) {
-      return this.send("get_snapshot", { pair });
+    getSnapshot(pair, profileId) {
+      return this.send("get_snapshot", { pair, profile_id: profileId });
     }
 
-    getRuleset(pair) {
-      return this.send("get_ruleset", { pair });
+    getRuleset(pair, profileId) {
+      return this.send("get_ruleset", { pair, profile_id: profileId });
     }
 
-    getSrsDiagnostics(pair) {
-      return this.send("srs_diagnostics", { pair });
+    getSrsDiagnostics(pair, profileId) {
+      return this.send("srs_diagnostics", { pair, profile_id: profileId });
+    }
+
+    getProfiles() {
+      return this.send("profiles_get");
     }
 
     openDataDir() {

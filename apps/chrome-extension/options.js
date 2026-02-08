@@ -37,6 +37,9 @@ const {
   srsEnabled: srsEnabledInput,
   sourceLanguage: sourceLanguageInput,
   targetLanguage: targetLanguageInput,
+  srsProfileId: srsProfileIdInput,
+  srsProfileRefresh: srsProfileRefreshButton,
+  srsProfileStatus: srsProfileStatusOutput,
   srsMaxActive: srsMaxActiveInput,
   srsBootstrapTopN: srsBootstrapTopNInput,
   srsInitialActiveCount: srsInitialActiveCountInput,
@@ -77,6 +80,9 @@ const {
   openBdPlugin: openBdPluginButton
 } = ui.dom;
 
+let helperProfilesCache = null;
+let helperProfilesCacheTs = 0;
+
 function setStatus(message, color) {
   ui.setStatus(message, color);
 }
@@ -112,9 +118,162 @@ function resolvePairFromInputs() {
   return `${sourceLanguage}-${targetLanguage}`;
 }
 
-function loadSrsProfileForPair(items, pairKey) {
-  const profile = settingsManager.getSrsProfile(items, pairKey);
+function applyLanguagePrefsToInputs(languagePrefs) {
+  const prefs = languagePrefs && typeof languagePrefs === "object" ? languagePrefs : {};
+  const sourceLanguage = String(prefs.sourceLanguage || settingsManager.defaults.sourceLanguage || "en");
+  const targetLanguage = String(prefs.targetLanguage || settingsManager.defaults.targetLanguage || "en");
+  if (sourceLanguageInput) {
+    sourceLanguageInput.value = sourceLanguage;
+  }
+  if (targetLanguageInput) {
+    targetLanguageInput.value = targetLanguage;
+  }
+  const pair = String(prefs.srsPair || "").trim();
+  return pair || resolvePairFromInputs();
+}
+
+function resolveHelperProfileItems(payload) {
+  const profiles = payload && Array.isArray(payload.profiles) ? payload.profiles : [];
+  return profiles
+    .map((profile) => {
+      if (!profile || typeof profile !== "object") {
+        return null;
+      }
+      const profileId = String(profile.profile_id || "").trim();
+      if (!profileId) {
+        return null;
+      }
+      return {
+        profileId,
+        name: String(profile.name || profileId).trim() || profileId
+      };
+    })
+    .filter(Boolean);
+}
+
+function renderSrsProfileControls(selectedProfileId, helperProfilesPayload) {
+  const resolvedProfileId = String(selectedProfileId || "default").trim() || "default";
+  const helperItems = resolveHelperProfileItems(helperProfilesPayload);
+  const fallbackIds = [resolvedProfileId, "default"]
+    .map((value) => String(value || "").trim())
+    .filter(Boolean);
+  const merged = [];
+  const seen = new Set();
+  for (const item of helperItems) {
+    if (seen.has(item.profileId)) {
+      continue;
+    }
+    seen.add(item.profileId);
+    merged.push(item);
+  }
+  for (const profileId of fallbackIds) {
+    if (seen.has(profileId)) {
+      continue;
+    }
+    seen.add(profileId);
+    merged.push({ profileId, name: profileId });
+  }
+
+  if (srsProfileIdInput) {
+    const previousValue = srsProfileIdInput.value;
+    srsProfileIdInput.innerHTML = "";
+    merged.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.profileId;
+      option.textContent = `${item.name} (${item.profileId})`;
+      srsProfileIdInput.appendChild(option);
+    });
+    const fallbackValue = merged.length ? merged[0].profileId : "default";
+    const nextValue = merged.some((item) => item.profileId === resolvedProfileId)
+      ? resolvedProfileId
+      : (merged.some((item) => item.profileId === previousValue) ? previousValue : fallbackValue);
+    srsProfileIdInput.value = nextValue || "default";
+    srsProfileIdInput.disabled = merged.length === 0;
+  }
+  if (srsProfileStatusOutput) {
+    srsProfileStatusOutput.textContent = t(
+      "status_srs_profile_selected",
+      [resolvedProfileId],
+      `Selected SRS profile: ${resolvedProfileId}.`
+    );
+  }
+}
+
+async function fetchHelperProfiles(options) {
+  const opts = options && typeof options === "object" ? options : {};
+  const force = opts.force === true;
+  const now = Date.now();
+  if (!force && helperProfilesCache && now - helperProfilesCacheTs < 10_000) {
+    return helperProfilesCache;
+  }
+  const result = await helperManager.getProfiles();
+  if (result && result.ok) {
+    helperProfilesCache = result.data || null;
+    helperProfilesCacheTs = now;
+  }
+  return result && result.ok ? (result.data || null) : null;
+}
+
+async function syncSelectedSrsProfile(items, options) {
+  const opts = options && typeof options === "object" ? options : {};
+  const forceHelperRefresh = opts.forceHelperRefresh === true;
+  let workingItems = items;
+  let selectedProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+  const helperProfilesPayload = await fetchHelperProfiles({ force: forceHelperRefresh });
+  const helperProfileItems = resolveHelperProfileItems(helperProfilesPayload);
+  const helperProfileIds = helperProfileItems.map((item) => item.profileId);
+  const hasSelectedProfile = helperProfileIds.length
+    ? helperProfileIds.includes(selectedProfileId)
+    : true;
+
+  if (!hasSelectedProfile) {
+    const nextProfileId = helperProfileIds.includes("default")
+      ? "default"
+      : (helperProfileIds[0] || settingsManager.DEFAULT_PROFILE_ID);
+    if (nextProfileId && nextProfileId !== selectedProfileId) {
+      await settingsManager.updateSelectedSrsProfileId(nextProfileId);
+      workingItems = await settingsManager.load();
+      selectedProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+      const languagePrefs = settingsManager.getProfileLanguagePrefs(workingItems, { profileId: selectedProfileId });
+      applyLanguagePrefsToInputs(languagePrefs);
+      await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
+    }
+  }
+
+  renderSrsProfileControls(selectedProfileId, helperProfilesPayload);
+  return {
+    items: workingItems,
+    profileId: selectedProfileId,
+    helperProfilesPayload
+  };
+}
+
+async function loadSrsProfileForPair(items, pairKey, options) {
+  const synced = await syncSelectedSrsProfile(items, options);
+  const profile = settingsManager.getSrsProfile(synced.items, pairKey, {
+    profileId: synced.profileId
+  });
   ui.updateSrsInputs(profile);
+  if (srsEnabledInput) {
+    srsEnabledInput.checked = profile.srsEnabled === true;
+  }
+  await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
+    sourceLanguage: sourceLanguageInput
+      ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+      : (settingsManager.defaults.sourceLanguage || "en"),
+    targetLanguage: targetLanguageInput
+      ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+      : (settingsManager.defaults.targetLanguage || "en"),
+    srsPairAuto: true,
+    srsSelectedProfileId: synced.profileId
+  }, {
+    profileId: synced.profileId
+  });
+  logOptions("Loaded SRS profile settings.", {
+    pair: pairKey,
+    profileId: synced.profileId
+  });
+  return { profile, profileId: synced.profileId, items: synced.items };
 }
 
 function saveDisplaySettings() {
@@ -164,6 +323,9 @@ async function saveSrsSettings() {
   }
   const srsEnabled = srsEnabledInput.checked;
   const pairKey = resolvePairFromInputs();
+  const items = await settingsManager.load();
+  const syncedProfileState = await syncSelectedSrsProfile(items);
+  const selectedProfileId = syncedProfileState.profileId;
   const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
   const srsMaxActive = Number.isFinite(maxActiveRaw)
     ? Math.max(1, maxActiveRaw)
@@ -186,6 +348,7 @@ async function saveSrsSettings() {
     settingsManager.defaults
   );
   const profile = {
+    srsEnabled,
     srsMaxActive,
     srsBootstrapTopN: sizing.srsBootstrapTopN,
     srsInitialActiveCount: sizing.srsInitialActiveCount,
@@ -215,16 +378,27 @@ async function saveSrsSettings() {
     srsHighlightTextInput.value = srsHighlightColor;
   }
 
-  await settingsManager.updateSrsProfile(pairKey, profile, {
+  const updateResult = await settingsManager.updateSrsProfile(pairKey, profile, {
     sourceLanguage,
     targetLanguage,
     srsPairAuto: true,
-    srsEnabled
+    srsSelectedProfileId: selectedProfileId
+  }, {
+    profileId: selectedProfileId
+  });
+  await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
+    sourceLanguage,
+    targetLanguage,
+    srsPairAuto: true,
+    srsSelectedProfileId: selectedProfileId
+  }, {
+    profileId: selectedProfileId
   });
 
   setStatus(t("status_srs_saved", null, "SRS settings saved."), ui.COLORS.SUCCESS);
   logOptions("SRS settings saved.", {
     pair: pairKey,
+    profileId: updateResult && updateResult.profileId ? updateResult.profileId : "default",
     sourceLanguage,
     targetLanguage,
     srsEnabled,
@@ -239,7 +413,7 @@ async function saveSrsSettings() {
   });
 }
 
-function saveLanguageSettings() {
+async function saveLanguageSettings() {
   const sourceLanguage = sourceLanguageInput
     ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
     : (settingsManager.defaults.sourceLanguage || "en");
@@ -247,15 +421,89 @@ function saveLanguageSettings() {
     ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
     : (settingsManager.defaults.targetLanguage || "en");
   const pairKey = resolvePairFromInputs();
-  chrome.storage.local.get(settingsManager.defaults, (items) => {
-    chrome.storage.local.set(
-      { sourceLanguage, targetLanguage, srsPairAuto: true, srsPair: pairKey },
-      () => {
-        loadSrsProfileForPair(items, pairKey);
-        setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
-      }
-    );
+  try {
+    const items = await settingsManager.load();
+    const profileId = settingsManager.getSelectedSrsProfileId(items);
+    await settingsManager.updateProfileLanguagePrefs({
+      sourceLanguage,
+      targetLanguage,
+      srsPairAuto: true,
+      srsPair: pairKey
+    }, {
+      profileId
+    });
+    const refreshed = await settingsManager.load();
+    await loadSrsProfileForPair(refreshed, pairKey);
+    setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
+  } catch (err) {
+    const msg = err && err.message ? err.message : t("status_language_updated", null, "Language updated.");
+    setStatus(msg, ui.COLORS.ERROR);
+    logOptions("Language update failed during SRS profile reload.", err);
+  }
+}
+
+async function saveSrsProfileId() {
+  if (!srsProfileIdInput) {
+    return;
+  }
+  const beforeItems = await settingsManager.load();
+  const previousProfileId = settingsManager.getSelectedSrsProfileId(beforeItems);
+  const previousPair = resolvePairFromInputs();
+  const previousSourceLanguage = sourceLanguageInput
+    ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
+    : (settingsManager.defaults.sourceLanguage || "en");
+  const previousTargetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
+  await settingsManager.updateProfileLanguagePrefs({
+    sourceLanguage: previousSourceLanguage,
+    targetLanguage: previousTargetLanguage,
+    srsPairAuto: true,
+    srsPair: previousPair
+  }, {
+    profileId: previousProfileId
   });
+
+  const profileId = String(srsProfileIdInput.value || "").trim() || settingsManager.DEFAULT_PROFILE_ID;
+  await settingsManager.updateSelectedSrsProfileId(profileId);
+  const items = await settingsManager.load();
+  const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
+  const pairKey = applyLanguagePrefsToInputs(languagePrefs);
+  await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId });
+  const refreshed = await settingsManager.load();
+  await loadSrsProfileForPair(refreshed, pairKey);
+  setStatus(t("status_srs_profile_saved", null, "SRS profile selection saved."), ui.COLORS.SUCCESS);
+}
+
+async function refreshSrsProfiles() {
+  const pairKey = resolvePairFromInputs();
+  if (srsProfileRefreshButton) {
+    srsProfileRefreshButton.disabled = true;
+  }
+  if (srsProfileStatusOutput) {
+    srsProfileStatusOutput.textContent = t(
+      "hint_srs_profile_loading",
+      null,
+      "Loading helper profiles…"
+    );
+  }
+  try {
+    helperProfilesCache = null;
+    helperProfilesCacheTs = 0;
+    const items = await settingsManager.load();
+    await loadSrsProfileForPair(items, pairKey, { forceHelperRefresh: true });
+    setStatus(t("status_srs_profile_refreshed", null, "Helper profiles refreshed."), ui.COLORS.SUCCESS);
+  } catch (err) {
+    const msg = err && err.message ? err.message : t("status_srs_profile_refresh_failed", null, "Failed to refresh helper profiles.");
+    if (srsProfileStatusOutput) {
+      srsProfileStatusOutput.textContent = msg;
+    }
+    setStatus(msg, ui.COLORS.ERROR);
+  } finally {
+    if (srsProfileRefreshButton) {
+      srsProfileRefreshButton.disabled = false;
+    }
+  }
 }
 
 async function saveRules() {
@@ -374,17 +622,11 @@ async function load() {
     debugEnabledInput.checked = items.debugEnabled === true;
     debugFocusInput.value = items.debugFocusWord || "";
     debugFocusInput.disabled = !debugEnabledInput.checked;
-    if (srsEnabledInput) {
-      srsEnabledInput.checked = items.srsEnabled === true;
-    }
-    if (sourceLanguageInput) {
-      sourceLanguageInput.value = items.sourceLanguage || settingsManager.defaults.sourceLanguage || "en";
-    }
-    if (targetLanguageInput) {
-      targetLanguageInput.value = items.targetLanguage || settingsManager.defaults.targetLanguage || "en";
-    }
-    const pairKey = resolvePairFromInputs();
-    loadSrsProfileForPair(items, pairKey);
+    const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
+    const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId: selectedProfileId });
+    const pairKey = applyLanguagePrefsToInputs(languagePrefs);
+    await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
+    await loadSrsProfileForPair(items, pairKey);
     if (srsSampleOutput) {
       srsSampleOutput.textContent = "";
     }
@@ -496,12 +738,18 @@ async function initializeSrsSet() {
 
   try {
     const items = await settingsManager.load();
-    const profile = settingsManager.getSrsProfile(items, srsPair);
+    const synced = await syncSelectedSrsProfile(items);
+    const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
+      profileId: synced.profileId
+    });
     const bootstrapTopN = Number(profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800);
     const initialActiveCount = Number(profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40);
     const maxActiveItemsHint = Number(profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20);
-    const profileContext = settingsManager.buildSrsPlanContext(items, srsPair);
+    const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
+      profileId: synced.profileId
+    });
     const planOptions = {
+      profileId: synced.profileId,
       strategy: "profile_bootstrap",
       objective: "bootstrap",
       trigger: "options_initialize_button",
@@ -653,9 +901,15 @@ async function refreshSrsSetNow() {
 
   try {
     const items = await settingsManager.load();
-    const profile = settingsManager.getSrsProfile(items, srsPair);
-    const profileContext = settingsManager.buildSrsPlanContext(items, srsPair);
+    const synced = await syncSelectedSrsProfile(items);
+    const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
+      profileId: synced.profileId
+    });
+    const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
+      profileId: synced.profileId
+    });
     const result = await helperManager.refreshSrsSet(srsPair, {
+      profileId: synced.profileId,
       setTopN: profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
       maxActiveItems: profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
       trigger: "options_refresh_set_button",
@@ -735,7 +989,11 @@ async function runSrsRuntimeDiagnostics() {
     "Collecting SRS runtime diagnostics…"
   );
   try {
-    const diagnostics = await helperManager.getSrsRuntimeDiagnostics(srsPair);
+    const items = await settingsManager.load();
+    const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
+    const diagnostics = await helperManager.getSrsRuntimeDiagnostics(srsPair, {
+      profileId: selectedProfileId
+    });
     const helperData = diagnostics.helper && typeof diagnostics.helper === "object"
       ? diagnostics.helper
       : null;
@@ -748,6 +1006,7 @@ async function runSrsRuntimeDiagnostics() {
         [srsPair],
         `SRS Runtime Diagnostics (${srsPair})`
       ),
+      `profile: ${selectedProfileId}`,
       "",
       "Helper (source of truth):",
       helperData
@@ -765,6 +1024,7 @@ async function runSrsRuntimeDiagnostics() {
       "Current tab/runtime (last reported):",
       runtimeState ? `- ts: ${runtimeState.ts || "n/a"}` : "- ts: n/a",
       runtimeState ? `- pair: ${runtimeState.pair || "n/a"}` : "- pair: n/a",
+      runtimeState ? `- profile_id: ${runtimeState.profile_id || "n/a"}` : "- profile_id: n/a",
       runtimeState ? `- srs_enabled: ${runtimeState.srs_enabled === true}` : "- srs_enabled: n/a",
       runtimeState ? `- rules_source: ${runtimeState.rules_source || "n/a"}` : "- rules_source: n/a",
       runtimeState ? `- rules_local_enabled: ${runtimeState.rules_local_enabled ?? "n/a"}` : "- rules_local_enabled: n/a",
@@ -805,7 +1065,11 @@ async function previewSrsRulegen() {
   );
 
   try {
-      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair);
+      const items = await settingsManager.load();
+      const profileId = settingsManager.getSelectedSrsProfileId(items);
+      const { rulegenData, snapshot, duration } = await helperManager.runRulegenPreview(srsPair, {
+        profileId
+      });
       const rulegenTargets = Number(rulegenData.targets || 0);
       const rulegenRules = Number(rulegenData.rules || 0);
       const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
@@ -880,11 +1144,12 @@ async function previewSrsRulegen() {
         }).filter(Boolean);
         srsRulegenOutput.textContent = [header, "", ...lines].join("\n");
       }
-      logOptions("SRS rulegen preview (helper)", {
-        pair: srsPair,
-        targets: targets.length,
-        diagnostics: rulegenData.diagnostics || null
-      });
+    logOptions("SRS rulegen preview (helper)", {
+      pair: srsPair,
+      profileId,
+      targets: targets.length,
+      diagnostics: rulegenData.diagnostics || null
+    });
   } catch (err) {
     const msg = err && err.message ? err.message : t("status_srs_rulegen_failed", null, "Rule preview failed.");
     srsRulegenOutput.textContent = msg;
@@ -908,10 +1173,12 @@ async function previewSampledSrsRulegen() {
   );
 
   try {
+    const items = await settingsManager.load();
+    const profileId = settingsManager.getSelectedSrsProfileId(items);
     const { rulegenData, snapshot, duration } = await helperManager.runSampledRulegenPreview(
       srsPair,
       sampleCount,
-      { strategy: "weighted_priority" }
+      { strategy: "weighted_priority", profileId }
     );
     const sampling = rulegenData.sampling && typeof rulegenData.sampling === "object"
       ? rulegenData.sampling
@@ -981,6 +1248,7 @@ async function previewSampledSrsRulegen() {
     }
     logOptions("SRS sampled rulegen preview (helper)", {
       pair: srsPair,
+      profileId,
       sampledCount,
       sampledLemmas,
       targets: targets.length,
@@ -1009,12 +1277,14 @@ async function resetSrsData() {
   }
 
   const srsPair = resolvePairFromInputs();
-  logOptions(`[Reset] User confirmed reset for pair: ${srsPair}`);
+  const items = await settingsManager.load();
+  const profileId = settingsManager.getSelectedSrsProfileId(items);
+  logOptions(`[Reset] User confirmed reset for pair: ${srsPair} (profile=${profileId})`);
   srsResetButton.disabled = true;
   setStatus(t("status_srs_resetting", null, "Resetting SRS data…"), ui.COLORS.DEFAULT);
 
   try {
-    await helperManager.resetSrs(srsPair);
+    await helperManager.resetSrs(srsPair, { profileId });
     logOptions("[Reset] Helper returned success.");
     setStatus(t("status_srs_reset_success", null, "SRS data reset successfully."), ui.COLORS.SUCCESS);
     if (srsRulegenOutput) srsRulegenOutput.textContent = "";
@@ -1081,6 +1351,26 @@ if (maxReplacementsPerLemmaPageInput) {
 
 if (srsEnabledInput) {
   srsEnabledInput.addEventListener("change", saveSrsSettings);
+}
+if (srsProfileIdInput) {
+  srsProfileIdInput.addEventListener("change", () => {
+    saveSrsProfileId().catch((err) => {
+      const msg = err && err.message ? err.message : t("status_srs_profile_save_failed", null, "Failed to save SRS profile selection.");
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("SRS profile id save failed.", err);
+    });
+  });
+}
+if (srsProfileRefreshButton) {
+  srsProfileRefreshButton.addEventListener("click", () => {
+    refreshSrsProfiles().catch((err) => {
+      const msg = err && err.message
+        ? err.message
+        : t("status_srs_profile_refresh_failed", null, "Failed to refresh helper profiles.");
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("SRS profile refresh failed.", err);
+    });
+  });
 }
 if (srsMaxActiveInput) {
   srsMaxActiveInput.addEventListener("change", saveSrsSettings);
