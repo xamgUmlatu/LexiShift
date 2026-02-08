@@ -239,6 +239,38 @@
           </div>
         </section>
         <section class="card span-2">
+          <h2 data-i18n="section_profile_background">Profile background</h2>
+          <p class="hint" data-i18n="hint_profile_bg_scope">
+            Applies to this profile across all replacement modes (not SRS-only).
+          </p>
+          <div class="field-row">
+            <label for="profile-bg-backdrop-color" data-i18n="label_profile_bg_backdrop_color">Backdrop color</label>
+            <input id="profile-bg-backdrop-color" type="color" value="#fbf7f0" />
+          </div>
+          <label class="toggle">
+            <input id="profile-bg-enabled" type="checkbox" />
+            <span data-i18n="toggle_profile_bg_enabled">Enable profile background image</span>
+          </label>
+          <div class="field-row">
+            <label for="profile-bg-opacity" data-i18n="label_profile_bg_opacity">Background opacity</label>
+            <input id="profile-bg-opacity" type="range" min="0" max="100" step="1" />
+            <span id="profile-bg-opacity-value" class="meta-value">18%</span>
+          </div>
+          <div class="file-row">
+            <input id="profile-bg-file" type="file" accept="image/png,image/jpeg,image/webp,image/avif" />
+            <button id="profile-bg-remove" data-i18n="button_profile_bg_remove">Remove</button>
+          </div>
+          <p id="profile-bg-status" class="hint" data-i18n="hint_profile_bg_status_empty">
+            No background image configured for this profile.
+          </p>
+          <div id="profile-bg-preview-wrap" class="profile-bg-preview-wrap hidden">
+            <img id="profile-bg-preview" alt="Profile background preview" />
+          </div>
+          <div class="actions">
+            <button id="profile-bg-apply" data-i18n="button_profile_bg_apply">Apply profile background</button>
+          </div>
+        </section>
+        <section class="card span-2">
           <h2 data-i18n="section_advanced">Advanced</h2>
           <details class="advanced">
             <summary data-i18n="advanced_summary">Debug tools</summary>
@@ -284,34 +316,6 @@
               Stores exposure events in extension storage. This is independent of debug logs.
             </p>
           </details>
-        </section>
-        <section class="card span-2">
-          <h2 data-i18n="section_profile_background">Profile background</h2>
-          <p class="hint" data-i18n="hint_profile_bg_scope">
-            Applies to this profile across all replacement modes (not SRS-only).
-          </p>
-          <label class="toggle">
-            <input id="profile-bg-enabled" type="checkbox" />
-            <span data-i18n="toggle_profile_bg_enabled">Enable profile background image</span>
-          </label>
-          <div class="field-row">
-            <label for="profile-bg-opacity" data-i18n="label_profile_bg_opacity">Background opacity</label>
-            <input id="profile-bg-opacity" type="range" min="5" max="60" step="1" />
-            <span id="profile-bg-opacity-value" class="meta-value">18%</span>
-          </div>
-          <div class="file-row">
-            <input id="profile-bg-file" type="file" accept="image/png,image/jpeg,image/webp,image/avif" />
-            <button id="profile-bg-remove" data-i18n="button_profile_bg_remove">Remove</button>
-          </div>
-          <p id="profile-bg-status" class="hint" data-i18n="hint_profile_bg_status_empty">
-            No background image configured for this profile.
-          </p>
-          <div id="profile-bg-preview-wrap" class="profile-bg-preview-wrap hidden">
-            <img id="profile-bg-preview" alt="Profile background preview" />
-          </div>
-          <div class="actions">
-            <button id="profile-bg-apply" data-i18n="button_profile_bg_apply">Apply profile background</button>
-          </div>
         </section>
       </div>
     </main>

@@ -452,6 +452,9 @@
   "toggle_profile_bg_enabled": {
     "message": "Profil-Hintergrundbild aktivieren"
   },
+  "label_profile_bg_backdrop_color": {
+    "message": "Hintergrundfarbe"
+  },
   "label_profile_bg_opacity": {
     "message": "Hintergrund-Deckkraft"
   },

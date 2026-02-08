@@ -117,7 +117,8 @@ SRS settings (extension)
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).
-- `profileBackgroundOpacity` (float): selected profile background opacity (0.05..0.85).
+- `profileBackgroundOpacity` (float): selected profile background opacity (0..1).
+- `profileBackgroundBackdropColor` (hex): selected profile backdrop color for options page (`#RRGGBB`).
 - `maxReplacementsPerPage` (int): hard cap for total replacements on a page (`0` = unlimited).
 - `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (`0` = unlimited).
 
@@ -170,7 +171,7 @@ Helper cache scoping:
 
 Profile media scoping:
 - Background assets are stored and cleaned per profile id in IndexedDB.
-- Runtime mirrors only store `profileBackgroundAssetId`/enabled/opacity in `chrome.storage.local`.
+- Runtime mirrors store `profileBackgroundAssetId`/enabled/opacity/backdropColor in `chrome.storage.local`.
 - Content scripts fetch the selected profile asset through background bridge on-demand.
 
 SRS feedback UX (extension)

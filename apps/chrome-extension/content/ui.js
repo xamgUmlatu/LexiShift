@@ -285,7 +285,7 @@
     if (!Number.isFinite(parsed)) {
       return 0.18;
     }
-    return Math.min(0.85, Math.max(0.05, parsed));
+    return Math.min(1, Math.max(0, parsed));
   }
 
   function ensureProfileBackgroundLayer() {

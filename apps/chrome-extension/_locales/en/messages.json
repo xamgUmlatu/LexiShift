@@ -452,6 +452,9 @@
   "toggle_profile_bg_enabled": {
     "message": "Enable profile background image"
   },
+  "label_profile_bg_backdrop_color": {
+    "message": "Backdrop color"
+  },
   "label_profile_bg_opacity": {
     "message": "Background opacity"
   },

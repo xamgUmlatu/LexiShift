@@ -34,7 +34,8 @@ class SettingsManager {
       srsExposureLoggingEnabled: true,
       profileBackgroundEnabled: false,
       profileBackgroundAssetId: "",
-      profileBackgroundOpacity: 0.18
+      profileBackgroundOpacity: 0.18,
+      profileBackgroundBackdropColor: "#fbf7f0"
     };
     this.currentRules = [];
   }
@@ -239,13 +240,20 @@ class SettingsManager {
     const backgroundOpacity = this._normalizeFloat(
       raw.backgroundOpacity !== undefined ? raw.backgroundOpacity : base.backgroundOpacity,
       this.defaults.profileBackgroundOpacity || 0.18,
-      0.05,
-      0.85
+      0,
+      1
+    );
+    const backgroundBackdropColor = this._normalizeHexColor(
+      raw.backgroundBackdropColor !== undefined
+        ? raw.backgroundBackdropColor
+        : base.backgroundBackdropColor,
+      this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
     );
     return {
       backgroundEnabled: requestedEnabled && Boolean(backgroundAssetId),
       backgroundAssetId,
-      backgroundOpacity
+      backgroundOpacity,
+      backgroundBackdropColor
     };
   }
 
@@ -261,8 +269,12 @@ class SettingsManager {
       backgroundOpacity: this._normalizeFloat(
         items && items.profileBackgroundOpacity,
         this.defaults.profileBackgroundOpacity || 0.18,
-        0.05,
-        0.85
+        0,
+        1
+      ),
+      backgroundBackdropColor: this._normalizeHexColor(
+        items && items.profileBackgroundBackdropColor,
+        this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
       )
     };
     const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, fallback);
@@ -280,12 +292,14 @@ class SettingsManager {
     const normalized = this._normalizeProfileUiPrefs(uiPrefs, {
       backgroundEnabled: false,
       backgroundAssetId: "",
-      backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18
+      backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18,
+      backgroundBackdropColor: this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
     });
     const updates = {
       profileBackgroundEnabled: normalized.backgroundEnabled,
       profileBackgroundAssetId: normalized.backgroundAssetId,
       profileBackgroundOpacity: normalized.backgroundOpacity,
+      profileBackgroundBackdropColor: normalized.backgroundBackdropColor,
       srsSelectedProfileId: profileId,
       srsProfileId: profileId
     };
@@ -348,6 +362,18 @@ class SettingsManager {
       return lowerBounded;
     }
     return Math.min(maximum, lowerBounded);
+  }
+
+  _normalizeHexColor(value, fallback) {
+    const fallbackColor = String(fallback || "#fbf7f0").trim();
+    const resolvedFallback = /^#[0-9a-fA-F]{6}$/.test(fallbackColor)
+      ? fallbackColor.toLowerCase()
+      : "#fbf7f0";
+    const candidate = String(value || "").trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(candidate)) {
+      return candidate.toLowerCase();
+    }
+    return resolvedFallback;
   }
 
   resolveSrsSetSizing(profile, items) {

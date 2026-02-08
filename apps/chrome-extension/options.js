@@ -40,6 +40,7 @@ const {
   srsProfileId: srsProfileIdInput,
   srsProfileRefresh: srsProfileRefreshButton,
   srsProfileStatus: srsProfileStatusOutput,
+  profileBgBackdropColor: profileBgBackdropColorInput,
   profileBgEnabled: profileBgEnabledInput,
   profileBgOpacity: profileBgOpacityInput,
   profileBgOpacityValue: profileBgOpacityValueOutput,
@@ -115,7 +116,24 @@ function clampProfileBackgroundOpacity(value) {
   if (!Number.isFinite(parsed)) {
     return 0.18;
   }
-  return Math.min(0.85, Math.max(0.05, parsed));
+  return Math.min(1, Math.max(0, parsed));
+}
+
+function normalizeProfileBackgroundBackdropColor(value) {
+  const candidate = String(value || "").trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(candidate)) {
+    return candidate.toLowerCase();
+  }
+  return "#fbf7f0";
+}
+
+function hexColorToRgb(value) {
+  const normalized = normalizeProfileBackgroundBackdropColor(value).slice(1);
+  return {
+    r: Number.parseInt(normalized.slice(0, 2), 16),
+    g: Number.parseInt(normalized.slice(2, 4), 16),
+    b: Number.parseInt(normalized.slice(4, 6), 16)
+  };
 }
 
 function updateProfileBgOpacityLabel(value) {
@@ -153,6 +171,15 @@ function revokeProfileBgAppliedUrl() {
 }
 
 function clearOptionsPageBackground() {
+  clearOptionsPageBackgroundImageLayer();
+  document.body.style.removeProperty("background-color");
+}
+
+function applyOptionsPageBackdropColor(backdropColor) {
+  document.body.style.backgroundColor = normalizeProfileBackgroundBackdropColor(backdropColor);
+}
+
+function clearOptionsPageBackgroundImageLayer() {
   revokeProfileBgAppliedUrl();
   document.body.style.removeProperty("background-image");
   document.body.style.removeProperty("background-size");
@@ -160,7 +187,14 @@ function clearOptionsPageBackground() {
   document.body.style.removeProperty("background-attachment");
 }
 
-function applyOptionsPageBackgroundFromBlob(blob, opacity) {
+function applyOptionsPageBackdropOnly(backdropColor) {
+  clearOptionsPageBackgroundImageLayer();
+  applyOptionsPageBackdropColor(backdropColor);
+  // Override CSS default radial gradient when only a solid backdrop is desired.
+  document.body.style.backgroundImage = "none";
+}
+
+function applyOptionsPageBackgroundFromBlob(blob, opacity, backdropColor) {
   if (!(blob instanceof Blob)) {
     clearOptionsPageBackground();
     return;
@@ -168,8 +202,11 @@ function applyOptionsPageBackgroundFromBlob(blob, opacity) {
   revokeProfileBgAppliedUrl();
   profileBgAppliedObjectUrl = URL.createObjectURL(blob);
   const clamped = clampProfileBackgroundOpacity(opacity);
+  const color = normalizeProfileBackgroundBackdropColor(backdropColor);
+  const rgb = hexColorToRgb(color);
   const wash = Math.max(0, Math.min(1, 1 - clamped));
-  document.body.style.backgroundImage = `linear-gradient(rgba(251,247,240,${wash}), rgba(232,224,212,${wash})), url("${profileBgAppliedObjectUrl}")`;
+  document.body.style.backgroundColor = color;
+  document.body.style.backgroundImage = `linear-gradient(rgba(${rgb.r},${rgb.g},${rgb.b},${wash}), rgba(${rgb.r},${rgb.g},${rgb.b},${wash})), url("${profileBgAppliedObjectUrl}")`;
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundPosition = "center center";
   document.body.style.backgroundAttachment = "fixed";
@@ -259,28 +296,29 @@ async function applyOptionsPageBackgroundFromPrefs(uiPrefs, options) {
   const opts = options && typeof options === "object" ? options : {};
   const enabled = prefs.backgroundEnabled === true;
   const assetId = String(prefs.backgroundAssetId || "").trim();
+  const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
   const preferredBlob = opts.preferredBlob instanceof Blob ? opts.preferredBlob : null;
   if (!enabled || !assetId) {
-    clearOptionsPageBackground();
+    applyOptionsPageBackdropOnly(backdropColor);
     return;
   }
   if (preferredBlob) {
-    applyOptionsPageBackgroundFromBlob(preferredBlob, prefs.backgroundOpacity);
+    applyOptionsPageBackgroundFromBlob(preferredBlob, prefs.backgroundOpacity, backdropColor);
     return;
   }
   if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
-    clearOptionsPageBackground();
+    applyOptionsPageBackdropOnly(backdropColor);
     return;
   }
   try {
     const record = await profileMediaStore.getAsset(assetId);
     if (!record || !(record.blob instanceof Blob)) {
-      clearOptionsPageBackground();
+      applyOptionsPageBackdropOnly(backdropColor);
       return;
     }
-    applyOptionsPageBackgroundFromBlob(record.blob, prefs.backgroundOpacity);
+    applyOptionsPageBackgroundFromBlob(record.blob, prefs.backgroundOpacity, backdropColor);
   } catch (_err) {
-    clearOptionsPageBackground();
+    applyOptionsPageBackdropOnly(backdropColor);
   }
 }
 
@@ -452,10 +490,17 @@ async function loadSrsProfileForPair(items, pairKey, options) {
   const runtimeAssetId = String(synced.items.profileBackgroundAssetId || "").trim();
   const runtimeEnabled = synced.items.profileBackgroundEnabled === true;
   const runtimeOpacity = clampProfileBackgroundOpacity(synced.items.profileBackgroundOpacity);
+  const runtimeBackdropColor = normalizeProfileBackgroundBackdropColor(
+    synced.items.profileBackgroundBackdropColor
+  );
   const profileOpacity = clampProfileBackgroundOpacity(uiPrefs.backgroundOpacity);
+  const profileBackdropColor = normalizeProfileBackgroundBackdropColor(
+    uiPrefs.backgroundBackdropColor
+  );
   const isApplied = runtimeAssetId === String(uiPrefs.backgroundAssetId || "").trim()
     && runtimeEnabled === (uiPrefs.backgroundEnabled === true)
-    && Math.abs(runtimeOpacity - profileOpacity) < 0.0001;
+    && Math.abs(runtimeOpacity - profileOpacity) < 0.0001
+    && runtimeBackdropColor === profileBackdropColor;
   setProfileBgApplyState(!isApplied, false);
   if (isApplied) {
     await applyOptionsPageBackgroundFromPrefs(uiPrefs);
@@ -723,6 +768,24 @@ async function saveProfileBackgroundOpacity() {
   setStatus("Background opacity saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
 }
 
+async function saveProfileBackgroundBackdropColor() {
+  if (!profileBgBackdropColorInput) {
+    return;
+  }
+  const color = normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value);
+  profileBgBackdropColorInput.value = color;
+  const state = await loadActiveProfileUiPrefs();
+  const nextPrefs = {
+    ...state.uiPrefs,
+    backgroundBackdropColor: color
+  };
+  await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+    profileId: state.profileId,
+    publishRuntime: false
+  });
+  setStatus("Backdrop color saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+}
+
 function handleProfileBackgroundFileChange() {
   if (!profileBgFileInput) {
     return;
@@ -834,7 +897,10 @@ async function applyProfileBackgroundSettings() {
         backgroundEnabled: profileBgEnabledInput ? profileBgEnabledInput.checked === true : true,
         backgroundOpacity: profileBgOpacityInput
           ? clampProfileBackgroundOpacity(Number(profileBgOpacityInput.value || 18) / 100)
-          : (state.uiPrefs.backgroundOpacity || 0.18)
+          : (state.uiPrefs.backgroundOpacity || 0.18),
+        backgroundBackdropColor: profileBgBackdropColorInput
+          ? normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value)
+          : normalizeProfileBackgroundBackdropColor(state.uiPrefs.backgroundBackdropColor)
       };
       preferredBlob = committedFile;
       profileBgPendingFile = null;
@@ -1651,6 +1717,15 @@ if (profileBgEnabledInput) {
       const msg = err && err.message ? err.message : "Failed to save profile background setting.";
       setStatus(msg, ui.COLORS.ERROR);
       logOptions("Profile background enable save failed.", err);
+    });
+  });
+}
+if (profileBgBackdropColorInput) {
+  profileBgBackdropColorInput.addEventListener("change", () => {
+    saveProfileBackgroundBackdropColor().catch((err) => {
+      const msg = err && err.message ? err.message : "Failed to save backdrop color.";
+      setStatus(msg, ui.COLORS.ERROR);
+      logOptions("Profile background backdrop color save failed.", err);
     });
   });
 }

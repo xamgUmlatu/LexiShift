@@ -34,6 +34,7 @@
     profileBackgroundEnabled: false,
     profileBackgroundAssetId: "",
     profileBackgroundOpacity: 0.18,
+    profileBackgroundBackdropColor: "#fbf7f0",
     srsRulesetUpdatedAt: ""
   };
 })();
