@@ -15,9 +15,6 @@
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
     srsProfileId: "default",
-    profileBackgroundEnabled: false,
-    profileBackgroundAssetId: "",
-    profileBackgroundOpacity: 0.18,
     srsRulesetUpdatedAt: ""
   };
 
@@ -35,8 +32,7 @@
     clearReplacements,
     attachClickListener,
     attachFeedbackListener,
-    setFeedbackSoundEnabled,
-    applyProfileBackground
+    setFeedbackSoundEnabled
   } = root.ui;
   const { describeElement, shorten, describeCodepoints, countOccurrences, collectTextNodes } = root.utils;
   const srsGate = root.srsGate;
@@ -48,7 +44,6 @@
   const helperTransport = root.helperTransportExtension;
   const helperCache = root.helperCache;
   const runtimeDiagnostics = root.srsRuntimeDiagnostics;
-  const profileMediaBridge = root.profileMediaBridge;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
 
@@ -61,7 +56,6 @@
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
   let helperRulesCache = new Map();
-  let profileBackgroundDataUrlCache = new Map();
   let pageBudgetState = null;
   let feedbackSync = null;
 
@@ -76,50 +70,6 @@
       return "";
     }
     return `${normalizeProfileId(profileId)}::${normalizedPair}`;
-  }
-
-  function clampProfileBackgroundOpacity(value) {
-    const parsed = Number.parseFloat(value);
-    if (!Number.isFinite(parsed)) {
-      return 0.18;
-    }
-    return Math.min(1, Math.max(0, parsed));
-  }
-
-  async function resolveProfileBackgroundDataUrl(settings) {
-    const assetId = String(settings && settings.profileBackgroundAssetId || "").trim();
-    const enabled = settings && settings.enabled !== false && settings.profileBackgroundEnabled === true;
-    if (!enabled || !assetId) {
-      return { dataUrl: "", error: null };
-    }
-    const cached = profileBackgroundDataUrlCache.get(assetId);
-    if (cached) {
-      return { dataUrl: cached, error: null };
-    }
-    if (!profileMediaBridge || typeof profileMediaBridge.getBackgroundDataUrl !== "function") {
-      return { dataUrl: "", error: "Profile media bridge unavailable." };
-    }
-    const response = await profileMediaBridge.getBackgroundDataUrl(assetId, 6000);
-    if (!response || response.ok === false) {
-      const message = response && response.error && response.error.message
-        ? response.error.message
-        : "Failed to load profile background.";
-      return { dataUrl: "", error: message };
-    }
-    const dataUrl = response.data && typeof response.data.dataUrl === "string"
-      ? response.data.dataUrl
-      : "";
-    if (!dataUrl) {
-      return { dataUrl: "", error: "Profile background asset is empty." };
-    }
-    profileBackgroundDataUrlCache.set(assetId, dataUrl);
-    if (profileBackgroundDataUrlCache.size > 6) {
-      const first = profileBackgroundDataUrlCache.keys().next();
-      if (first && !first.done) {
-        profileBackgroundDataUrlCache.delete(first.value);
-      }
-    }
-    return { dataUrl, error: null };
   }
 
   function normalizeRuleOrigin(origin) {
@@ -743,10 +693,6 @@
       srsStats = gate.stats || null;
     }
     const activeOriginCounts = countActiveRulesByOrigin(activeRules);
-    const profileBackgroundOpacity = clampProfileBackgroundOpacity(currentSettings.profileBackgroundOpacity);
-    const backgroundResult = await resolveProfileBackgroundDataUrl(currentSettings);
-    const profileBackgroundDataUrl = backgroundResult.dataUrl || "";
-    const profileBackgroundError = backgroundResult.error || null;
     if (token !== applyToken) {
       return;
     }
@@ -771,9 +717,6 @@
       srsPair: currentSettings.srsPair || "",
       srsProfileId: srsProfileId,
       srsMaxActive: currentSettings.srsMaxActive,
-      profileBackgroundEnabled: currentSettings.profileBackgroundEnabled === true,
-      profileBackgroundAssetId: String(currentSettings.profileBackgroundAssetId || ""),
-      profileBackgroundOpacity,
       debugEnabled: currentSettings.debugEnabled,
       debugFocusWord: focusWord || ""
     });
@@ -794,16 +737,11 @@
         log("Helper SRS fetch error:", helperRulesError);
       }
     }
-    if (currentSettings.profileBackgroundEnabled && profileBackgroundError) {
-      log("Profile background error:", profileBackgroundError);
-    }
     persistRuntimeState({
       ts: new Date().toISOString(),
       pair: currentSettings.srsPair || "",
       profile_id: srsProfileId,
       srs_enabled: currentSettings.srsEnabled === true,
-      profile_background_enabled: currentSettings.profileBackgroundEnabled === true,
-      profile_background_asset_id: String(currentSettings.profileBackgroundAssetId || ""),
       rules_source: rulesSource,
       rules_enabled_total: enabledRules.length,
       rules_local_enabled: originCounts[RULE_ORIGIN_RULESET],
@@ -834,13 +772,6 @@
       currentSettings.highlightColor || defaults.highlightColor,
       currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
     );
-    if (typeof applyProfileBackground === "function") {
-      applyProfileBackground({
-        enabled: currentSettings.enabled !== false && currentSettings.profileBackgroundEnabled === true,
-        dataUrl: profileBackgroundDataUrl,
-        opacity: profileBackgroundOpacity
-      });
-    }
     if (setFeedbackSoundEnabled) {
       setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
     }
@@ -1038,18 +969,6 @@
     }
     if (changes.srsProfileId) {
       nextSettings.srsProfileId = changes.srsProfileId.newValue;
-      needsRebuild = true;
-    }
-    if (changes.profileBackgroundEnabled) {
-      nextSettings.profileBackgroundEnabled = changes.profileBackgroundEnabled.newValue;
-      needsRebuild = true;
-    }
-    if (changes.profileBackgroundAssetId) {
-      nextSettings.profileBackgroundAssetId = changes.profileBackgroundAssetId.newValue;
-      needsRebuild = true;
-    }
-    if (changes.profileBackgroundOpacity) {
-      nextSettings.profileBackgroundOpacity = changes.profileBackgroundOpacity.newValue;
       needsRebuild = true;
     }
     if (changes.srsMaxActive) {

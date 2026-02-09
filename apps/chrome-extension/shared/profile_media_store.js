@@ -195,7 +195,15 @@
     };
     await putAsset(record);
     if (previousAssetId && previousAssetId !== assetId) {
-      await deleteAsset(previousAssetId);
+      // Guard against accidental cross-profile deletion if callers pass a stale asset id.
+      const previous = await getAsset(previousAssetId);
+      if (
+        previous
+        && normalizeProfileId(previous.profile_id) === normalizedProfileId
+        && String(previous.kind || "") === KIND_PROFILE_BACKGROUND
+      ) {
+        await deleteAsset(previousAssetId);
+      }
     }
     await deleteProfileAssets(normalizedProfileId, {
       kind: KIND_PROFILE_BACKGROUND,

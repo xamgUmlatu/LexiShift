@@ -1,7 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const STYLE_ID = "lexishift-style";
-  const PROFILE_BACKGROUND_ID = "lexishift-profile-background";
   let clickListenerAttached = false;
   let feedbackListenerAttached = false;
   let feedbackHandler = null;
@@ -11,7 +10,6 @@
   let closeListener = null;
   let feedbackSoundEnabled = true;
   let feedbackAllowedOrigins = null;
-  let profileBackgroundLayer = null;
 
   function ensureStyle(color, srsColor) {
     let style = document.getElementById(STYLE_ID);
@@ -43,9 +41,6 @@
       .lexishift-feedback-option[data-rating="hard"]{background:#E07B39;}
       .lexishift-feedback-option[data-rating="good"]{background:#E0B84B;color:#2c2a26;}
       .lexishift-feedback-option[data-rating="easy"]{background:#2F74D0;}
-      .lexishift-profile-background{position:fixed;inset:0;pointer-events:none;z-index:2147483000;
-        background-size:cover;background-position:center;background-repeat:no-repeat;
-        mix-blend-mode:soft-light;opacity:0;transition:opacity 180ms ease;}
     `;
   }
 
@@ -276,67 +271,12 @@
     feedbackSoundEnabled = enabled !== false;
   }
 
-  function escapeCssUrl(url) {
-    return String(url || "").replace(/["\\\n\r]/g, "\\$&");
-  }
-
-  function clampOpacity(value) {
-    const parsed = Number.parseFloat(value);
-    if (!Number.isFinite(parsed)) {
-      return 0.18;
-    }
-    return Math.min(1, Math.max(0, parsed));
-  }
-
-  function ensureProfileBackgroundLayer() {
-    let layer = profileBackgroundLayer || document.getElementById(PROFILE_BACKGROUND_ID);
-    if (layer) {
-      profileBackgroundLayer = layer;
-      return layer;
-    }
-    layer = document.createElement("div");
-    layer.id = PROFILE_BACKGROUND_ID;
-    layer.className = "lexishift-profile-background";
-    const parent = document.documentElement || document.body;
-    if (!parent) {
-      return null;
-    }
-    parent.appendChild(layer);
-    profileBackgroundLayer = layer;
-    return layer;
-  }
-
-  function clearProfileBackground() {
-    const layer = profileBackgroundLayer || document.getElementById(PROFILE_BACKGROUND_ID);
-    if (!layer) {
-      return;
-    }
-    layer.remove();
-    profileBackgroundLayer = null;
-  }
-
-  function applyProfileBackground(config = {}) {
-    const enabled = config.enabled === true;
-    const dataUrl = enabled ? String(config.dataUrl || "").trim() : "";
-    if (!enabled || !dataUrl) {
-      clearProfileBackground();
-      return;
-    }
-    const layer = ensureProfileBackgroundLayer();
-    if (!layer) {
-      return;
-    }
-    layer.style.backgroundImage = `url("${escapeCssUrl(dataUrl)}")`;
-    layer.style.opacity = String(clampOpacity(config.opacity));
-  }
-
   root.ui = {
     ensureStyle,
     applyHighlightToDom,
     clearReplacements,
     attachClickListener,
     attachFeedbackListener,
-    setFeedbackSoundEnabled,
-    applyProfileBackground
+    setFeedbackSoundEnabled
   };
 })();

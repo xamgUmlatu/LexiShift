@@ -20,9 +20,6 @@ Module layout
 - `apps/chrome-extension/shared/profile_media_store.js`
   - IndexedDB-backed profile media store for blob assets.
   - Stores profile-scoped background images close to original binary size.
-- `apps/chrome-extension/shared/profile_media_bridge.js`
-  - Message bridge for content scripts to fetch profile media from service worker.
-  - Keeps content scripts independent from extension-origin IndexedDB access.
 - `apps/chrome-extension/shared/srs_feedback.js`
   - Persists SRS feedback events to `chrome.storage.local` (`srsFeedbackLog`).
   - Provides helper to build feedback entries from replacement spans.
@@ -52,17 +49,17 @@ Module layout
 - `apps/chrome-extension/content/ui.js`
   - Handles highlight styles, click-to-toggle behavior, and cleanup.
   - Provides SRS feedback popup and keyboard shortcuts (Ctrl+1/2/3/4).
-  - Applies optional profile background overlay for the active profile.
   - Separates DOM mutation concerns from parsing and matching.
 - `apps/chrome-extension/content/utils.js`
   - Logging helpers: element descriptors, codepoint snippets, node traversal.
 - `apps/chrome-extension/content_script.js`
   - Orchestrator: loads settings, builds trie, scans DOM, observes changes.
-  - Resolves profile background data via bridge and applies runtime overlay settings.
   - Provides debug logging and focus word diagnostics.
 - `apps/chrome-extension/background.js`
   - Native helper bridge endpoint for helper requests.
-  - Profile media bridge endpoint for background image transfer to content scripts.
+- `apps/chrome-extension/archive/profile_background_webpages_path.js`
+  - Personal archive of the removed general-web-page background runtime implementation.
+  - Not loaded by manifest; kept only for manual reuse/reference.
 
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
@@ -86,7 +83,7 @@ Options UI tools (extension)
   - Extension does not switch helper/GUI active profile.
 - Profile background controls (per selected profile):
   - backdrop color + upload/remove/enable/opacity are saved into `srsProfiles.<profile_id>.uiPrefs`.
-  - changes are staged until “Apply profile background” publishes runtime mirrors.
+  - changes are staged until “Apply profile background” publishes options-page mirrors.
   - when no profile image is enabled, options page still applies the selected solid backdrop color.
 - Advanced debug tools:
   - “SRS runtime diagnostics”
@@ -118,6 +115,7 @@ SRS settings (extension)
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).
+  - Background runtime mirrors are now used by the options page flow only (not injected into general web pages).
 - `profileBackgroundOpacity` (float): selected profile background opacity (0..1).
 - `profileBackgroundBackdropColor` (hex): selected profile backdrop color for options page (`#RRGGBB`).
 - `maxReplacementsPerPage` (int): hard cap for total replacements on a page (`0` = unlimited).

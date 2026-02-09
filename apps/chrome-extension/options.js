@@ -443,7 +443,8 @@ async function syncSelectedSrsProfile(items, options) {
   let workingItems = items;
   let selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
   let selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
-  let selectedProfileId = selectedUiProfileId || selectedSrsProfileId;
+  // SRS profile selector is the user-facing source of truth for profile-scoped settings.
+  let selectedProfileId = selectedSrsProfileId || selectedUiProfileId;
   const helperProfilesPayload = await fetchHelperProfiles({ force: forceHelperRefresh });
   const helperProfileItems = resolveHelperProfileItems(helperProfilesPayload);
   const helperProfileIds = helperProfileItems.map((item) => item.profileId);
@@ -461,7 +462,7 @@ async function syncSelectedSrsProfile(items, options) {
       workingItems = await settingsManager.load();
       selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
       selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
-      selectedProfileId = selectedUiProfileId || selectedSrsProfileId;
+      selectedProfileId = selectedSrsProfileId || selectedUiProfileId;
       const languagePrefs = settingsManager.getProfileLanguagePrefs(workingItems, { profileId: selectedSrsProfileId });
       applyLanguagePrefsToInputs(languagePrefs);
       await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedSrsProfileId });
@@ -497,7 +498,7 @@ async function loadSrsProfileForPair(items, pairKey, options) {
     profileId: synced.profileId
   });
   const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
-    profileId: settingsManager.getSelectedUiProfileId(synced.items)
+    profileId: synced.profileId
   });
   profileBgPendingFile = null;
   if (profileBgFileInput) {
@@ -507,26 +508,9 @@ async function loadSrsProfileForPair(items, pairKey, options) {
   ui.updateProfileBackgroundInputs(uiPrefs);
   updateProfileBgOpacityLabel((uiPrefs.backgroundOpacity || 0.18) * 100);
   await refreshProfileBackgroundPreview(uiPrefs);
-  const runtimeAssetId = String(synced.items.profileBackgroundAssetId || "").trim();
-  const runtimeEnabled = synced.items.profileBackgroundEnabled === true;
-  const runtimeOpacity = clampProfileBackgroundOpacity(synced.items.profileBackgroundOpacity);
-  const runtimeBackdropColor = normalizeProfileBackgroundBackdropColor(
-    synced.items.profileBackgroundBackdropColor
-  );
-  const profileOpacity = clampProfileBackgroundOpacity(uiPrefs.backgroundOpacity);
-  const profileBackdropColor = normalizeProfileBackgroundBackdropColor(
-    uiPrefs.backgroundBackdropColor
-  );
-  const isApplied = runtimeAssetId === String(uiPrefs.backgroundAssetId || "").trim()
-    && runtimeEnabled === (uiPrefs.backgroundEnabled === true)
-    && Math.abs(runtimeOpacity - profileOpacity) < 0.0001
-    && runtimeBackdropColor === profileBackdropColor;
-  setProfileBgApplyState(!isApplied, false);
-  if (isApplied) {
-    await applyOptionsPageBackgroundFromPrefs(uiPrefs);
-  } else {
-    clearOptionsPageBackground();
-  }
+  // Always render the selected profile's saved UI prefs on options page load/switch.
+  setProfileBgApplyState(Boolean(profileBgPendingFile), false);
+  await applyOptionsPageBackgroundFromPrefs(uiPrefs);
   if (srsEnabledInput) {
     srsEnabledInput.checked = profile.srsEnabled === true;
   }
@@ -545,8 +529,7 @@ async function loadSrsProfileForPair(items, pairKey, options) {
   logOptions("Loaded SRS profile settings.", {
     pair: pairKey,
     profileId: synced.profileId,
-    profileUiPrefs: uiPrefs,
-    profileUiApplied: isApplied
+    profileUiPrefs: uiPrefs
   });
   return { profile, uiPrefs, profileId: synced.profileId, items: synced.items };
 }
@@ -719,7 +702,7 @@ async function saveLanguageSettings() {
 
 async function loadActiveProfileUiPrefs() {
   const items = await settingsManager.load();
-  const profileId = settingsManager.getSelectedUiProfileId(items);
+  const profileId = settingsManager.getSelectedSrsProfileId(items);
   const uiPrefs = settingsManager.getProfileUiPrefs(items, { profileId });
   return { profileId, uiPrefs, items };
 }
@@ -734,7 +717,8 @@ async function saveProfileUiPrefsForCurrentProfile(nextPrefs, options) {
   });
   ui.updateProfileBackgroundInputs(normalized);
   updateProfileBgOpacityLabel((normalized.backgroundOpacity || 0.18) * 100);
-  setProfileBgApplyState(!publishRuntime, false);
+  // Apply button is only for committing pending file uploads.
+  setProfileBgApplyState(Boolean(profileBgPendingFile), false);
   return normalized;
 }
 
@@ -761,7 +745,8 @@ async function saveProfileBackgroundEnabled() {
     profileId: state.profileId,
     publishRuntime: false
   });
-  setStatus("Background toggle saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+  await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+  setStatus("Background toggle saved.", ui.COLORS.SUCCESS);
 }
 
 async function saveProfileBackgroundOpacity() {
@@ -784,7 +769,8 @@ async function saveProfileBackgroundOpacity() {
     profileId: state.profileId,
     publishRuntime: false
   });
-  setStatus("Background opacity saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+  await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+  setStatus("Background opacity saved.", ui.COLORS.SUCCESS);
 }
 
 async function saveProfileBackgroundBackdropColor() {
@@ -802,7 +788,8 @@ async function saveProfileBackgroundBackdropColor() {
     profileId: state.profileId,
     publishRuntime: false
   });
-  setStatus("Backdrop color saved. Click Apply to update options background.", ui.COLORS.SUCCESS);
+  await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+  setStatus("Backdrop color saved.", ui.COLORS.SUCCESS);
 }
 
 function handleProfileBackgroundFileChange() {
@@ -866,13 +853,14 @@ async function removeProfileBackgroundImage() {
       publishRuntime: false
     });
     clearProfileBgPreview();
-    setProfileBgApplyState(true, false);
+    await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+    setProfileBgApplyState(Boolean(profileBgPendingFile), false);
     setProfileBgStatus(t(
       "hint_profile_bg_status_empty",
       null,
       "No background image configured for this profile."
     ));
-    setStatus("Profile background image removed. Click Apply to update options background.", ui.COLORS.SUCCESS);
+    setStatus("Profile background image removed.", ui.COLORS.SUCCESS);
     removed = true;
   } catch (err) {
     const msg = err && err.message ? err.message : "Failed to remove profile background image.";
