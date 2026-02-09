@@ -99,6 +99,7 @@ class FrequencyPackInfo:
     source_filename: str | None = None
     parse_config: ParseConfig = field(default_factory=ParseConfig)
     index_column: str = "lemma"
+    build_mode: str = "convert_archive"
     name_key: str | None = None
     language_key: str | None = None
     source_key: str | None = None
@@ -396,6 +397,21 @@ FREQUENCY_PACKS = [
         language_key="languages.japanese",
         source_key="providers.ninjal",
     ),
+    FrequencyPackInfo(
+        pack_id="freq-de-default",
+        name="German News Frequency (Lemmas)",
+        language="German",
+        source="Leipzig + LanguageTool",
+        size="~80 MB",
+        url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+        wayback_url="https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+        filename="deu_news_2023_1M.tar.gz",
+        sqlite_filename="freq-de-default.sqlite",
+        build_mode="de_frequency_pipeline",
+        name_key="packs.freq_de_default",
+        language_key="languages.german",
+        source_key="providers.leipzig_languagetool",
+    ),
 ]
 
 
@@ -542,40 +558,75 @@ class FrequencyPackDownloadThread(QThread):
 
     def run(self) -> None:
         try:
-            _log_download(
-                f"[{self._pack_id}] starting download url={self._url} dest={self._archive_path} "
-                f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
-            )
-            request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
-            with _open_request(request, timeout=30) as response:
-                status = getattr(response, "status", None)
-                _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
-                total = int(response.headers.get("Content-Length") or 0)
-                downloaded = 0
-                os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
-                with open(self._archive_path, "wb") as handle:
-                    while True:
-                        if self.isInterruptionRequested():
-                            self._cleanup_partial(self._archive_path)
-                            self.failed.emit(self._pack_id, "cancelled")
-                            return
-                        chunk = response.read(1024 * 128)
-                        if not chunk:
-                            break
-                        handle.write(chunk)
-                        downloaded += len(chunk)
-                        self.progress.emit(self._pack_id, downloaded, total)
-            if self.isInterruptionRequested():
-                self._cleanup_partial(self._archive_path)
-                self.failed.emit(self._pack_id, "cancelled")
-                return
-            sqlite_path = self._convert_to_sqlite(self._archive_path)
+            sqlite_path = ""
+            if self._pack.build_mode == "de_frequency_pipeline":
+                sqlite_path = self._build_de_pipeline()
+            else:
+                _log_download(
+                    f"[{self._pack_id}] starting download url={self._url} dest={self._archive_path} "
+                    f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
+                )
+                self._download_archive()
+                if self.isInterruptionRequested():
+                    self._cleanup_partial(self._archive_path)
+                    self.failed.emit(self._pack_id, "cancelled")
+                    return
+                sqlite_path = self._convert_to_sqlite(self._archive_path)
             _log_download(f"[{self._pack_id}] converted sqlite={sqlite_path}")
             self.completed.emit(self._pack_id, sqlite_path)
         except Exception as exc:
             _log_download(f"[{self._pack_id}] failed error={exc}")
             self._cleanup_partial(self._sqlite_path)
             self.failed.emit(self._pack_id, str(exc))
+
+    def _download_archive(self) -> None:
+        request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
+        with _open_request(request, timeout=30) as response:
+            status = getattr(response, "status", None)
+            _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
+            total = int(response.headers.get("Content-Length") or 0)
+            downloaded = 0
+            os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
+            with open(self._archive_path, "wb") as handle:
+                while True:
+                    if self.isInterruptionRequested():
+                        self._cleanup_partial(self._archive_path)
+                        raise RuntimeError("cancelled")
+                    chunk = response.read(1024 * 128)
+                    if not chunk:
+                        break
+                    handle.write(chunk)
+                    downloaded += len(chunk)
+                    self.progress.emit(self._pack_id, downloaded, total)
+
+    def _build_de_pipeline(self) -> str:
+        _log_download(
+            f"[{self._pack_id}] starting DE pipeline output={self._sqlite_path} "
+            f"language_packs={self._language_packs_dir()} py={sys.version.split()[0]}"
+        )
+        from lexishift_core.de_frequency_pipeline import run_de_frequency_pipeline
+
+        def _progress(done: int, total: int) -> None:
+            self.progress.emit(self._pack_id, int(done), int(total))
+
+        result = run_de_frequency_pipeline(
+            output_sqlite=Path(self._sqlite_path),
+            language_packs_dir=self._language_packs_dir(),
+            overwrite=True,
+            drop_proper_nouns=True,
+            progress_cb=_progress,
+            cancel_cb=lambda: bool(self.isInterruptionRequested()),
+        )
+        if self.isInterruptionRequested():
+            self._cleanup_partial(self._sqlite_path)
+            raise RuntimeError("cancelled")
+        self._cleanup_partial(self._archive_path)
+        return str(result.output_path)
+
+    def _language_packs_dir(self) -> Path:
+        target = Path(_app_data_root()) / "language_packs"
+        target.mkdir(parents=True, exist_ok=True)
+        return target
 
     def _convert_to_sqlite(self, archive_path: str) -> str:
         source_path, cleanup_paths = self._prepare_source(archive_path)

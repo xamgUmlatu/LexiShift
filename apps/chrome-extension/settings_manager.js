@@ -21,6 +21,7 @@ class SettingsManager {
       srsPairAuto: true,
       srsSelectedProfileId: "default",
       srsProfileId: "default",
+      optionsSelectedProfileId: "default",
       srsProfiles: {},
       srsEnabled: false,
       srsPair: "en-en",
@@ -43,6 +44,12 @@ class SettingsManager {
   async load() {
     return new Promise((resolve) => {
       chrome.storage.local.get(this.defaults, resolve);
+    });
+  }
+
+  async loadRaw() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(null, resolve);
     });
   }
 
@@ -99,6 +106,24 @@ class SettingsManager {
       srsSelectedProfileId: resolvedProfileId,
       // Runtime readers (content script) consume this key directly.
       srsProfileId: resolvedProfileId
+    });
+    return resolvedProfileId;
+  }
+
+  getSelectedUiProfileId(items) {
+    if (!this._isObject(items)) {
+      return this.DEFAULT_PROFILE_ID;
+    }
+    const configured = items.optionsSelectedProfileId !== undefined
+      ? items.optionsSelectedProfileId
+      : this.getSelectedSrsProfileId(items);
+    return this.normalizeSrsProfileId(configured);
+  }
+
+  async updateSelectedUiProfileId(profileId) {
+    const resolvedProfileId = this.normalizeSrsProfileId(profileId);
+    await this.save({
+      optionsSelectedProfileId: resolvedProfileId
     });
     return resolvedProfileId;
   }
@@ -260,20 +285,28 @@ class SettingsManager {
   getProfileUiPrefs(items, options) {
     const opts = options && typeof options === "object" ? options : {};
     const profileId = this.normalizeSrsProfileId(
-      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedUiProfileId(items)
     );
     const profileEntry = this._getProfileEntry(items, profileId);
+    const hasStoredUiPrefs = this._isObject(profileEntry.uiPrefs)
+      && Object.keys(profileEntry.uiPrefs).length > 0;
+    // Compatibility bridge for older installs that only persisted runtime root keys.
+    const useLegacyRuntimeFallback = !hasStoredUiPrefs
+      && items
+      && items.optionsSelectedProfileId === undefined;
     const fallback = {
-      backgroundEnabled: items && items.profileBackgroundEnabled === true,
-      backgroundAssetId: String(items && items.profileBackgroundAssetId || "").trim(),
+      backgroundEnabled: useLegacyRuntimeFallback && items.profileBackgroundEnabled === true,
+      backgroundAssetId: useLegacyRuntimeFallback
+        ? String(items.profileBackgroundAssetId || "").trim()
+        : "",
       backgroundOpacity: this._normalizeFloat(
-        items && items.profileBackgroundOpacity,
+        useLegacyRuntimeFallback ? items.profileBackgroundOpacity : null,
         this.defaults.profileBackgroundOpacity || 0.18,
         0,
         1
       ),
       backgroundBackdropColor: this._normalizeHexColor(
-        items && items.profileBackgroundBackdropColor,
+        useLegacyRuntimeFallback ? items.profileBackgroundBackdropColor : null,
         this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
       )
     };
@@ -300,8 +333,7 @@ class SettingsManager {
       profileBackgroundAssetId: normalized.backgroundAssetId,
       profileBackgroundOpacity: normalized.backgroundOpacity,
       profileBackgroundBackdropColor: normalized.backgroundBackdropColor,
-      srsSelectedProfileId: profileId,
-      srsProfileId: profileId
+      optionsSelectedProfileId: profileId
     };
     await this.save(updates);
     return {
@@ -315,7 +347,7 @@ class SettingsManager {
     const opts = options && typeof options === "object" ? options : {};
     const publishRuntime = opts.publishRuntime !== false;
     const profileId = this.normalizeSrsProfileId(
-      opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+      opts.profileId !== undefined ? opts.profileId : this.getSelectedUiProfileId(items)
     );
     const root = this._getProfilesRoot(items);
     const profileEntry = this._getProfileEntry(items, profileId);
@@ -331,8 +363,7 @@ class SettingsManager {
     };
     await this.save({
       srsProfiles: nextProfiles,
-      srsSelectedProfileId: profileId,
-      srsProfileId: profileId
+      optionsSelectedProfileId: profileId
     });
     if (publishRuntime) {
       await this.publishProfileUiPrefs(normalized, { profileId });

@@ -14,6 +14,17 @@
       </header>
       <div class="layout">
         <section class="card">
+          <h2 data-i18n="section_profile">Profile</h2>
+          <div class="field-row">
+            <label for="srs-profile-id" data-i18n="label_profile_id">Profile</label>
+            <select id="srs-profile-id"></select>
+            <button id="srs-profile-refresh" data-i18n="button_srs_profile_refresh">Refresh profiles</button>
+          </div>
+          <p id="srs-profile-status" class="hint" data-i18n="hint_profile_loading">
+            Loading profiles…
+          </p>
+        </section>
+        <section class="card">
           <h2 data-i18n="section_quick_controls">Quick Controls</h2>
           <label class="toggle">
             <input id="enabled" type="checkbox" />
@@ -145,14 +156,6 @@
               <option value="de">Deutsch</option>
             </select>
           </div>
-          <div class="field-row">
-            <label for="srs-profile-id" data-i18n="label_srs_profile_id">SRS profile</label>
-            <select id="srs-profile-id"></select>
-            <button id="srs-profile-refresh" data-i18n="button_srs_profile_refresh">Refresh profiles</button>
-          </div>
-          <p id="srs-profile-status" class="hint" data-i18n="hint_srs_profile_loading">
-            Loading helper profiles…
-          </p>
           <div class="field-row">
             <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
             <input id="srs-max-active" type="number" min="1" max="200" step="1" />

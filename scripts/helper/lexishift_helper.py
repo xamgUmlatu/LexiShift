@@ -28,6 +28,11 @@ from lexishift_core.helper_engine import (
 from lexishift_core.helper_profiles import get_profiles_snapshot
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
+from lexishift_core.lp_capabilities import (
+    default_freedict_de_en_path,
+    default_frequency_db_path,
+    default_jmdict_path,
+)
 
 
 def _print_json(payload: object) -> None:
@@ -44,6 +49,29 @@ def _load_optional_json(value: Optional[str]) -> Optional[dict]:
     if not isinstance(parsed, dict):
         raise ValueError("JSON payload must be an object.")
     return parsed
+
+
+def _resolve_pair_resource_paths(
+    paths,
+    *,
+    pair: str,
+    jmdict_arg: Optional[str],
+    freedict_de_en_arg: Optional[str],
+    set_source_db_arg: Optional[str],
+) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
+    jmdict_path = Path(jmdict_arg) if jmdict_arg else default_jmdict_path(
+        pair,
+        language_packs_dir=paths.language_packs_dir,
+    )
+    freedict_de_en_path = Path(freedict_de_en_arg) if freedict_de_en_arg else default_freedict_de_en_path(
+        pair,
+        language_packs_dir=paths.language_packs_dir,
+    )
+    set_source_db = Path(set_source_db_arg) if set_source_db_arg else default_frequency_db_path(
+        pair,
+        frequency_packs_dir=paths.frequency_packs_dir,
+    )
+    return jmdict_path, freedict_de_en_path, set_source_db
 
 
 def cmd_status(args: argparse.Namespace) -> int:
@@ -81,12 +109,13 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
 
 def cmd_run_rulegen(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path = Path(args.jmdict or (paths.language_packs_dir / "JMdict_e"))
-    if not jmdict_path.exists():
-        print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
-        return 2
-
-    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
+    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        paths,
+        pair=args.pair,
+        jmdict_arg=args.jmdict,
+        freedict_de_en_arg=args.freedict_de_en,
+        set_source_db_arg=args.set_source_db,
+    )
 
     try:
         payload = run_rulegen_job(
@@ -94,8 +123,9 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                freedict_de_en_path=freedict_de_en_path,
                 profile_id=args.profile_id or "default",
-                set_source_db=set_source_db if set_source_db.exists() else None,
+                set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
                 confidence_threshold=args.confidence_threshold,
                 snapshot_targets=args.snapshot_targets,
@@ -118,14 +148,13 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
 
 def cmd_init_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path = Path(args.jmdict or (paths.language_packs_dir / "JMdict_e"))
-    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
-    if not jmdict_path.exists():
-        print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
-        return 2
-    if not set_source_db.exists():
-        print(f"Missing frequency DB path: {set_source_db}", file=sys.stderr)
-        return 2
+    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        paths,
+        pair=args.pair,
+        jmdict_arg=args.jmdict,
+        freedict_de_en_arg=args.freedict_de_en,
+        set_source_db_arg=args.set_source_db,
+    )
 
     try:
         profile_context = _load_optional_json(args.profile_context_json)
@@ -134,6 +163,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
             config=SetInitializationJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -183,20 +213,20 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
 
 def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path = Path(args.jmdict or (paths.language_packs_dir / "JMdict_e"))
-    set_source_db = Path(args.set_source_db or (paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"))
-    if not jmdict_path.exists():
-        print(f"Missing JMDict path: {jmdict_path}", file=sys.stderr)
-        return 2
-    if not set_source_db.exists():
-        print(f"Missing frequency DB path: {set_source_db}", file=sys.stderr)
-        return 2
+    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        paths,
+        pair=args.pair,
+        jmdict_arg=args.jmdict,
+        freedict_de_en_arg=args.freedict_de_en,
+        set_source_db_arg=args.set_source_db,
+    )
     try:
         payload = refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -277,7 +307,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--pair", default="en-ja")
     run.add_argument("--profile-id", help="Profile id (default: default)")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
-    run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S (BCCWJ)")
+    run.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
+    run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
     run.add_argument("--set-top-n", type=int, default=2000)
     run.add_argument("--no-initialize-if-empty", action="store_true", help="Skip S initialization when store is empty")
     run.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
@@ -299,6 +330,7 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--pair", default="en-ja")
     init_s.add_argument("--profile-id", help="Profile id (default: default)")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    init_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
     init_s.add_argument("--set-top-n", type=int, default=800)
     init_s.add_argument("--replace-pair", action="store_true", help="Replace existing pair entries before initializing S")
@@ -329,6 +361,7 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--pair", default="en-ja")
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    refresh_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     refresh_s.add_argument("--set-source-db", help="Path to frequency SQLite used for candidate pool")
     refresh_s.add_argument("--set-top-n", type=int, default=2000)
     refresh_s.add_argument("--feedback-window-size", type=int, default=100)

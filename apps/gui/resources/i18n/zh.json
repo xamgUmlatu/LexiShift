@@ -413,7 +413,8 @@
     "freedict": "FreeDict",
     "fasttext": "fastText",
     "coca": "COCA",
-    "ninjal": "NINJAL"
+    "ninjal": "NINJAL",
+    "leipzig_languagetool": "Leipzig + LanguageTool"
   },
   "embeddings": {
     "fasttext_en": "fastText 英语（Common Crawl）",
@@ -436,6 +437,7 @@
     "freedict_en_de": "FreeDict (EN->DE)",
     "freq_en_coca": "COCA 英语词频（词元）",
     "freq_ja_bccwj": "BCCWJ 日语词频（SUW）",
+    "freq_de_default": "德语新闻词频（词元）",
     "label": "{name}（{language}）"
   },
   "common": {

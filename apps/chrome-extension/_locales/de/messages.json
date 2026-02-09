@@ -437,6 +437,12 @@
   "label_target_language": {
     "message": "Zielsprache"
   },
+  "section_profile": {
+    "message": "Profil"
+  },
+  "label_profile_id": {
+    "message": "Profil"
+  },
   "label_srs_profile_id": {
     "message": "SRS-Profil"
   },
@@ -470,11 +476,20 @@
   "hint_profile_bg_status_empty": {
     "message": "Für dieses Profil ist kein Hintergrundbild konfiguriert."
   },
+  "hint_profile_loading": {
+    "message": "Profile werden geladen…"
+  },
   "hint_srs_profile_loading": {
     "message": "Helper-Profile werden geladen…"
   },
+  "status_profile_selected": {
+    "message": "Ausgewähltes Profil: $1."
+  },
   "status_srs_profile_selected": {
     "message": "Ausgewähltes SRS-Profil: $1."
+  },
+  "status_profile_saved": {
+    "message": "Profilauswahl gespeichert."
   },
   "status_srs_profile_saved": {
     "message": "SRS-Profilauswahl gespeichert."

@@ -27,6 +27,7 @@ Ship a non-destructive SRS layer where:
 - Runtime diagnostics now include helper/store/ruleset/cache counts plus the last helper rules fetch error from the tab runtime.
 - Helper profile snapshot API now reads GUI settings at `settings.json` (active profile + profile list) for cross-surface profile selection.
 - Extension storage model is now profile-first (`srsSelectedProfileId` + `srsProfiles.<profile>.srsByPair/srsSignalsByPair`) with no legacy LP-first fallback.
+- Profile-scoped extension UI prefs are now part of the same container (`srsProfiles.<profile>.uiPrefs`) and include staged/apply flow for options background settings.
 
 ### Set planning scaffolding
 - `srs_set_strategy.py`: strategy/objective taxonomy.
@@ -117,6 +118,7 @@ Status key:
   - extension-local selected profile (global),
   - pair-specific SRS settings loaded from that profile,
   - helper profile refresh.
+- `[x]` Profile-scoped options UI prefs (`uiPrefs`) with explicit Apply publish path (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `[x]` Native messaging `profile_id` wiring for SRS commands (`get_ruleset/get_snapshot/srs_diagnostics/record_feedback/srs_initialize/srs_refresh/srs_reset`).
 - `[x]` Helper SRS files moved to profile-scoped directory structure under `srs/profiles/<profile_id>/`.
 - `[ ]` Profile editor UX (interests/proficiency/objectives/constraints).
@@ -146,14 +148,39 @@ Status key:
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
 
 ### Workstream G — End-to-End validation and calibration
-- `[ ]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).
-- `[~]` Add helper integration tests for full feedback loop affecting serving priority.
+- `[~]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).
+- `[x]` Add helper integration tests for full feedback loop affecting serving priority.
 - `[x]` Add deterministic helper test: feedback updates schedule fields and can trigger `retention_low` admission pause.
 - `[x]` Add assertion checks for "no schedule mutation from exposure-only events".
 - `[x]` Add deterministic helper test: high-retention feedback enables admissions and publishes rulegen outputs.
+- `[x]` Add multi-phase simulation test (`high retention -> low retention pause -> high retention`) asserting S growth + ruleset/snapshot evolution (`core/tests/test_srs_feedback_simulation.py`).
 - `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
+
+### Workstream H — LP parity and de-hardcoding (`en-de` vs `en-ja`)
+Current parity snapshot (as of 2026-02-09):
+- `en-de` helper rulegen path is implemented and can run when `freq-de-default.sqlite` and `freedict-de-en` are present.
+- Full parity is not complete because several desktop/helper admission and wiring paths remain `en-ja`-specific.
+
+Tracking checklist:
+- `[ ]` Remove `en-ja`-specific hardcoding from desktop local SRS grow/init code paths in `apps/gui/src/main.py` (frequency/dictionary requirements and source selection).
+- `[ ]` Generalize helper daemon supported pairs beyond `{"en-ja"}` in `apps/gui/src/helper_daemon.py`.
+- `[ ]` Replace JMDict-only bootstrap gate with pair-specific dictionary gates (for example FreeDict gate for `en-de`) in `core/lexishift_core/srs_seed.py`.
+- `[ ]` Replace hardcoded seed metadata source `"bccwj"` with pair/frequency-pack-derived metadata in `core/lexishift_core/srs_seed.py`.
+- `[ ]` Make POS bucket mapping pair-aware (German tags such as `SUB/VER/ADJ/ADV`) instead of substring heuristics only, in `core/lexishift_core/srs_admission_policy.py`.
+- `[ ]` Fix pack-to-pair mapping so FreeDict packs map by direction (`freedict-de-en -> en-de`, `freedict-en-de -> de-en`) in `apps/gui/src/main.py`.
+- `[ ]` Add parity-focused tests:
+  - helper diagnostics for `en-de` required inputs,
+  - initialize/refresh publish checks for `en-de`,
+  - POS/admission behavior checks for German tags.
+- `[ ]` Define/ship `stopwords-de.json` policy default and document optional vs required behavior.
+
+Definition of done for `en-de` parity:
+- `[ ]` `en-de` initialize succeeds from GUI and helper CLI without `en-ja`-only assumptions.
+- `[ ]` `en-de` refresh admits/publishes ruleset and snapshot with non-empty outputs on valid inputs.
+- `[ ]` Admission metadata, POS buckets, and source labels are LP-correct (no JA-specific constants).
+- `[ ]` Runtime/diagnostics report the selected LP consistently across extension + helper + GUI surfaces.
 
 ---
 

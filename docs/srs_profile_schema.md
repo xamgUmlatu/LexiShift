@@ -110,6 +110,12 @@ Example:
           "empiricalTrends": {"topic_bias": {"animals": 0.4}},
           "sourcePreferences": {"prefer_frequency_list": true}
         }
+      },
+      "uiPrefs": {
+        "backgroundEnabled": false,
+        "backgroundAssetId": "",
+        "backgroundOpacity": 0.18,
+        "backgroundBackdropColor": "#fbf7f0"
       }
     }
   }
@@ -119,6 +125,8 @@ Example:
 Notes:
 - Language-pair SRS settings are nested under the selected profile.
 - Active LP (`sourceLanguage`, `targetLanguage`, `srsPair`) is also stored per selected profile in `languagePrefs`.
+- Profile UI preferences are also stored per selected profile in `uiPrefs` and are independent from helper scheduling data.
+- Runtime mirrors for background UI (`profileBackground*`) are published from `uiPrefs` only when user clicks Apply in options.
 - Switching language pair should never reset selected profile.
 - Runtime helper calls must always carry `profile_id` + `pair`.
 

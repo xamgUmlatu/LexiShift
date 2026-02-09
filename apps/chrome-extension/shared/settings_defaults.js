@@ -20,6 +20,7 @@
     srsPairAuto: true,
     srsSelectedProfileId: "default",
     srsProfileId: "default",
+    optionsSelectedProfileId: "default",
     srsProfiles: {},
     srsEnabled: false,
     srsPair: "en-en",

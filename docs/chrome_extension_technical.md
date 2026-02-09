@@ -85,8 +85,9 @@ Options UI tools (extension)
   - “Refresh profiles” fetches helper profile catalog from `settings.json`.
   - Extension does not switch helper/GUI active profile.
 - Profile background controls (per selected profile):
-  - upload/remove/enable/opacity are saved into `srsProfiles.<profile_id>.uiPrefs`.
-  - runtime changes are published explicitly via “Apply profile background”.
+  - backdrop color + upload/remove/enable/opacity are saved into `srsProfiles.<profile_id>.uiPrefs`.
+  - changes are staged until “Apply profile background” publishes runtime mirrors.
+  - when no profile image is enabled, options page still applies the selected solid backdrop color.
 - Advanced debug tools:
   - “SRS runtime diagnostics”
   - “Run sampled rulegen (5)…” (non-mutating helper preview)
@@ -113,7 +114,7 @@ SRS settings (extension)
   - `srsProfiles.<profile_id>.languagePrefs` stores active LP for that profile (`sourceLanguage`, `targetLanguage`, `srsPairAuto`, `srsPair`).
   - `srsProfiles.<profile_id>.srsByPair.<pair>` stores pair SRS settings.
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
-  - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (background image refs).
+  - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).

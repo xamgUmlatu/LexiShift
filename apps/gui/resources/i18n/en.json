@@ -414,7 +414,8 @@
     "freedict": "FreeDict",
     "fasttext": "fastText",
     "coca": "COCA",
-    "ninjal": "NINJAL"
+    "ninjal": "NINJAL",
+    "leipzig_languagetool": "Leipzig + LanguageTool"
   },
   "embeddings": {
     "fasttext_en": "fastText English (Common Crawl)",
@@ -437,6 +438,7 @@
     "freedict_en_de": "FreeDict (EN->DE)",
     "freq_en_coca": "COCA English Frequency (Lemmas)",
     "freq_ja_bccwj": "BCCWJ Japanese Frequency (SUW)",
+    "freq_de_default": "German News Frequency (Lemmas)",
     "label": "{name} ({language})"
   },
   "common": {

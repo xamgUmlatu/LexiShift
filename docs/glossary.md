@@ -57,6 +57,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 
 ## Language Pairs
 
+- **LP**: Abbreviation for **Language Pair**.
 - **Language pair**: The direction of replacement (e.g., `en-ja` or `de-en`).
 - **Monolingual**: Source and target are the same language (e.g., `en-en`).
 - **Cross‑lingual**: Source and target differ (e.g., `en-ja`).

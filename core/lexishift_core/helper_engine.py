@@ -13,6 +13,13 @@ from lexishift_core.helper_rulegen import (
     run_rulegen_for_pair,
     write_rulegen_outputs,
 )
+from lexishift_core.lp_capabilities import (
+    default_freedict_de_en_path,
+    default_frequency_db_path,
+    default_jmdict_path,
+    pair_requirements,
+    resolve_pair_capability,
+)
 from lexishift_core.helper_status import HelperStatus, load_status, save_status
 from lexishift_core.srs_admission_refresh import (
     AdmissionRefreshPolicy,
@@ -48,7 +55,8 @@ from lexishift_core.srs_time import now_utc
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
-    jmdict_path: Path
+    jmdict_path: Optional[Path] = None
+    freedict_de_en_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
     set_top_n: int = 2000
@@ -69,8 +77,9 @@ class RulegenJobConfig:
 @dataclass(frozen=True)
 class SetInitializationJobConfig:
     pair: str
-    jmdict_path: Path
-    set_source_db: Path
+    jmdict_path: Optional[Path] = None
+    freedict_de_en_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
     profile_id: str = "default"
     set_top_n: int = 800
     bootstrap_top_n: Optional[int] = None
@@ -101,8 +110,9 @@ class SetPlanningJobConfig:
 @dataclass(frozen=True)
 class SrsRefreshJobConfig:
     pair: str
-    jmdict_path: Path
-    set_source_db: Path
+    jmdict_path: Optional[Path] = None
+    freedict_de_en_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
     profile_id: str = "default"
     set_top_n: int = 2000
     feedback_window_size: int = 100
@@ -193,8 +203,34 @@ def get_srs_runtime_diagnostics(
     pair: str,
     profile_id: str = "default",
 ) -> dict:
-    normalized_pair = str(pair or "").strip() or "en-ja"
+    capability = resolve_pair_capability(pair)
+    normalized_pair = capability.pair
     normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
+        paths,
+        pair=normalized_pair,
+        jmdict_path=None,
+        freedict_de_en_path=None,
+        set_source_db=None,
+    )
+    missing_inputs: list[dict[str, object]] = []
+    if capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen:
+        if not resolved_jmdict_path:
+            missing_inputs.append({"type": "jmdict_path", "path": None})
+        elif not resolved_jmdict_path.exists():
+            missing_inputs.append({"type": "jmdict_path", "path": str(resolved_jmdict_path)})
+    if capability.requires_freedict_de_en_for_rulegen:
+        if not resolved_freedict_de_en_path:
+            missing_inputs.append({"type": "freedict_de_en_path", "path": None})
+        elif not resolved_freedict_de_en_path.exists():
+            missing_inputs.append(
+                {"type": "freedict_de_en_path", "path": str(resolved_freedict_de_en_path)}
+            )
+    if not resolved_set_source_db:
+        missing_inputs.append({"type": "set_source_db", "path": None})
+    elif not resolved_set_source_db.exists():
+        missing_inputs.append({"type": "set_source_db", "path": str(resolved_set_source_db)})
+
     store_path = paths.srs_store_path_for(normalized_profile_id)
     ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
     snapshot_path = paths.snapshot_path(normalized_pair, profile_id=normalized_profile_id)
@@ -202,6 +238,18 @@ def get_srs_runtime_diagnostics(
     diagnostics = {
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
+        "requirements": pair_requirements(normalized_pair),
+        "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
+        "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
+        "freedict_de_en_path": (
+            str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+        ),
+        "freedict_de_en_exists": bool(
+            resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+        ),
+        "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
+        "set_source_db_exists": bool(resolved_set_source_db and resolved_set_source_db.exists()),
+        "missing_inputs": missing_inputs,
         "store_path": str(store_path),
         "store_exists": store_path.exists(),
         "store_items_total": 0,
@@ -270,30 +318,117 @@ def _resolve_stopwords_path(paths: HelperPaths, *, pair: str) -> Optional[Path]:
     return None
 
 
+def _resolve_pair_resources(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    jmdict_path: Optional[Path],
+    freedict_de_en_path: Optional[Path],
+    set_source_db: Optional[Path],
+) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
+    capability = resolve_pair_capability(pair)
+    resolved_jmdict = (
+        Path(jmdict_path)
+        if jmdict_path is not None
+        else default_jmdict_path(capability.pair, language_packs_dir=paths.language_packs_dir)
+    )
+    resolved_freedict_de_en = (
+        Path(freedict_de_en_path)
+        if freedict_de_en_path is not None
+        else default_freedict_de_en_path(
+            capability.pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
+    )
+    resolved_frequency_db = (
+        Path(set_source_db)
+        if set_source_db is not None
+        else default_frequency_db_path(capability.pair, frequency_packs_dir=paths.frequency_packs_dir)
+    )
+    return resolved_jmdict, resolved_freedict_de_en, resolved_frequency_db
+
+
+def _ensure_pair_requirements(
+    *,
+    pair: str,
+    jmdict_path: Optional[Path],
+    freedict_de_en_path: Optional[Path],
+    require_frequency_db: bool,
+    set_source_db: Optional[Path],
+    check_seed_resources: bool = False,
+    check_rulegen_resources: bool = False,
+) -> None:
+    capability = resolve_pair_capability(pair)
+    requires_jmdict = (
+        (check_seed_resources and capability.requires_jmdict_for_seed)
+        or (check_rulegen_resources and capability.requires_jmdict_for_rulegen)
+    )
+    if requires_jmdict:
+        if jmdict_path is None:
+            raise ValueError(f"Missing JMDict path for pair '{pair}'.")
+        if not jmdict_path.exists():
+            raise FileNotFoundError(jmdict_path)
+    requires_freedict_de_en = (
+        check_rulegen_resources and capability.requires_freedict_de_en_for_rulegen
+    )
+    if requires_freedict_de_en:
+        if freedict_de_en_path is None:
+            raise ValueError(f"Missing FreeDict DE->EN path for pair '{pair}'.")
+        if not freedict_de_en_path.exists():
+            raise FileNotFoundError(freedict_de_en_path)
+    if require_frequency_db:
+        if set_source_db is None:
+            raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+        if not set_source_db.exists():
+            raise FileNotFoundError(set_source_db)
+
+
 def run_rulegen_job(
     paths: HelperPaths,
     *,
     config: RulegenJobConfig,
 ) -> dict:
-    if not config.jmdict_path.exists():
-        raise FileNotFoundError(config.jmdict_path)
+    capability = resolve_pair_capability(config.pair)
+    pair = capability.pair
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
+        paths,
+        pair=pair,
+        jmdict_path=config.jmdict_path,
+        freedict_de_en_path=config.freedict_de_en_path,
+        set_source_db=config.set_source_db,
+    )
+    should_seed_from_frequency = bool(
+        config.initialize_if_empty
+        and resolved_set_source_db is not None
+        and resolved_set_source_db.exists()
+    )
+    _ensure_pair_requirements(
+        pair=pair,
+        jmdict_path=resolved_jmdict_path,
+        freedict_de_en_path=resolved_freedict_de_en_path,
+        require_frequency_db=False,
+        set_source_db=resolved_set_source_db,
+        check_seed_resources=should_seed_from_frequency,
+        check_rulegen_resources=True,
+    )
     profile_id = _resolve_profile_id(paths, profile_id=config.profile_id)
     settings = _ensure_settings(paths, persist_missing=config.persist_store)
     store = _ensure_store(paths, profile_id=profile_id, persist_missing=config.persist_store)
     diagnostics: dict[str, object] | None = None
     sampling_result = None
     set_init_config = None
-    stopwords_path = _resolve_stopwords_path(paths, pair=config.pair)
-    if config.set_source_db and config.set_source_db.exists():
+    stopwords_path = _resolve_stopwords_path(paths, pair=pair)
+    if resolved_set_source_db and resolved_set_source_db.exists():
         set_init_config = SetInitializationConfig(
-            frequency_db=config.set_source_db,
-            jmdict_path=config.jmdict_path,
+            frequency_db=resolved_set_source_db,
+            jmdict_path=resolved_jmdict_path,
             top_n=config.set_top_n,
-            language_pair=config.pair,
+            language_pair=pair,
             stopwords_path=stopwords_path,
+            require_jmdict=capability.requires_jmdict_for_seed,
         )
     rulegen_config = RulegenConfig(
-        language_pair=config.pair,
+        language_pair=pair,
         confidence_threshold=config.confidence_threshold,
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
@@ -302,7 +437,7 @@ def run_rulegen_job(
     if config.sample_count is not None:
         sampling_result = sample_store_items(
             store,
-            pair=config.pair,
+            pair=pair,
             sample_count=config.sample_count,
             strategy=config.sample_strategy,
             seed=config.sample_seed,
@@ -310,34 +445,43 @@ def run_rulegen_job(
         targets_override = list(sampling_result.sampled_lemmas)
     if config.debug:
         missing_inputs = []
-        if config.set_source_db and not config.set_source_db.exists():
-            missing_inputs.append(
-                {"type": "set_source_db", "path": str(config.set_source_db)}
-            )
+        if resolved_set_source_db and not resolved_set_source_db.exists():
+            missing_inputs.append({"type": "set_source_db", "path": str(resolved_set_source_db)})
         diagnostics = {
-            "pair": config.pair,
-            "jmdict_path": str(config.jmdict_path),
-            "jmdict_exists": config.jmdict_path.exists(),
-            "set_source_db": str(config.set_source_db) if config.set_source_db else None,
-            "set_source_db_exists": bool(config.set_source_db and config.set_source_db.exists()),
+            "pair": pair,
+            "requirements": pair_requirements(pair),
+            "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
+            "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
+            "freedict_de_en_path": (
+                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+            ),
+            "freedict_de_en_exists": bool(
+                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+            ),
+            "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
+            "set_source_db_exists": bool(
+                resolved_set_source_db and resolved_set_source_db.exists()
+            ),
+            "set_initialization_enabled": bool(set_init_config),
             "stopwords_path": str(stopwords_path) if stopwords_path else None,
             "stopwords_exists": bool(stopwords_path and stopwords_path.exists()),
             "missing_inputs": missing_inputs,
             "store_items": len(store.items),
-            "store_items_for_pair": len([item for item in store.items if item.language_pair == config.pair]),
+            "store_items_for_pair": len([item for item in store.items if item.language_pair == pair]),
             "store_sample": [
-                item.lemma for item in store.items if item.language_pair == config.pair
+                item.lemma for item in store.items if item.language_pair == pair
             ][: max(1, int(config.debug_sample_size))],
         }
         if sampling_result is not None:
             diagnostics["sampling"] = sampling_result_to_dict(sampling_result)
     store, output = run_rulegen_for_pair(
         paths=paths,
-        pair=config.pair,
+        pair=pair,
         profile_id=profile_id,
         store=store,
         settings=settings,
-        jmdict_path=config.jmdict_path,
+        jmdict_path=resolved_jmdict_path,
+        freedict_de_en_path=resolved_freedict_de_en_path,
         set_init_config=set_init_config,
         rulegen_config=rulegen_config,
         targets_override=targets_override,
@@ -347,7 +491,7 @@ def run_rulegen_job(
     if config.persist_outputs:
         write_rulegen_outputs(
             paths=paths,
-            pair=config.pair,
+            pair=pair,
             profile_id=profile_id,
             rules=output.rules,
             snapshot=output.snapshot,
@@ -356,24 +500,24 @@ def run_rulegen_job(
         _update_status(
             paths=paths,
             profile_id=profile_id,
-            pair=config.pair,
+            pair=pair,
             rule_count=len(output.rules),
             target_count=output.target_count,
             error=None,
         )
     response = {
-        "pair": config.pair,
+        "pair": pair,
         "profile_id": profile_id,
         "targets": output.target_count,
         "rules": len(output.rules),
         "snapshot": output.snapshot,
         "snapshot_path": (
-            str(paths.snapshot_path(config.pair, profile_id=profile_id))
+            str(paths.snapshot_path(pair, profile_id=profile_id))
             if config.persist_outputs
             else None
         ),
         "ruleset_path": (
-            str(paths.ruleset_path(config.pair, profile_id=profile_id))
+            str(paths.ruleset_path(pair, profile_id=profile_id))
             if config.persist_outputs
             else None
         ),
@@ -497,14 +641,28 @@ def initialize_srs_set(
     *,
     config: SetInitializationJobConfig,
 ) -> dict:
-    if not config.jmdict_path.exists():
-        raise FileNotFoundError(config.jmdict_path)
-    if not config.set_source_db.exists():
-        raise FileNotFoundError(config.set_source_db)
-
     pair = str(config.pair or "").strip()
     if not pair:
         raise ValueError("Missing pair.")
+    capability = resolve_pair_capability(pair)
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
+        paths,
+        pair=pair,
+        jmdict_path=config.jmdict_path,
+        freedict_de_en_path=config.freedict_de_en_path,
+        set_source_db=config.set_source_db,
+    )
+    _ensure_pair_requirements(
+        pair=pair,
+        jmdict_path=resolved_jmdict_path,
+        freedict_de_en_path=resolved_freedict_de_en_path,
+        require_frequency_db=True,
+        set_source_db=resolved_set_source_db,
+        check_seed_resources=True,
+        check_rulegen_resources=True,
+    )
+    if resolved_set_source_db is None:
+        raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
 
     profile_id = _resolve_profile_id(
         paths,
@@ -570,12 +728,13 @@ def initialize_srs_set(
     updated_store, init_report = initialize_store_from_frequency_list_with_report(
         base_store,
         config=SetInitializationConfig(
-            frequency_db=config.set_source_db,
-            jmdict_path=config.jmdict_path,
+            frequency_db=resolved_set_source_db,
+            jmdict_path=resolved_jmdict_path,
             top_n=sizing_policy.bootstrap_top_n_effective,
             initial_active_count=sizing_policy.initial_active_count_effective,
             language_pair=pair,
             stopwords_path=stopwords_path,
+            require_jmdict=capability.requires_jmdict_for_seed,
         ),
     )
     save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
@@ -586,7 +745,8 @@ def initialize_srs_set(
         profile_id=profile_id,
         store=updated_store,
         settings=settings,
-        jmdict_path=config.jmdict_path,
+        jmdict_path=resolved_jmdict_path,
+        freedict_de_en_path=resolved_freedict_de_en_path,
         rulegen_config=RulegenConfig(language_pair=pair),
         initialize_if_empty=False,
         persist_store=False,
@@ -655,14 +815,28 @@ def refresh_srs_set(
     *,
     config: SrsRefreshJobConfig,
 ) -> dict:
-    if not config.jmdict_path.exists():
-        raise FileNotFoundError(config.jmdict_path)
-    if not config.set_source_db.exists():
-        raise FileNotFoundError(config.set_source_db)
-
     pair = str(config.pair or "").strip()
     if not pair:
         raise ValueError("Missing pair.")
+    capability = resolve_pair_capability(pair)
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
+        paths,
+        pair=pair,
+        jmdict_path=config.jmdict_path,
+        freedict_de_en_path=config.freedict_de_en_path,
+        set_source_db=config.set_source_db,
+    )
+    _ensure_pair_requirements(
+        pair=pair,
+        jmdict_path=resolved_jmdict_path,
+        freedict_de_en_path=resolved_freedict_de_en_path,
+        require_frequency_db=True,
+        set_source_db=resolved_set_source_db,
+        check_seed_resources=True,
+        check_rulegen_resources=True,
+    )
+    if resolved_set_source_db is None:
+        raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
 
     profile_id = _resolve_profile_id(
         paths,
@@ -674,12 +848,13 @@ def refresh_srs_set(
     before_pair_count = _count_items_for_pair(store, pair)
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
     selection = build_seed_candidates(
-        frequency_db=config.set_source_db,
+        frequency_db=resolved_set_source_db,
         config=SeedSelectionConfig(
             language_pair=pair,
             top_n=max(1, int(config.set_top_n)),
-            jmdict_path=config.jmdict_path,
+            jmdict_path=resolved_jmdict_path,
             stopwords_path=stopwords_path,
+            require_jmdict=capability.requires_jmdict_for_seed,
         ),
     )
     selector_candidates = seed_to_selector_candidates(selection)
@@ -710,7 +885,8 @@ def refresh_srs_set(
             profile_id=profile_id,
             store=updated_store,
             settings=settings,
-            jmdict_path=config.jmdict_path,
+            jmdict_path=resolved_jmdict_path,
+            freedict_de_en_path=resolved_freedict_de_en_path,
             rulegen_config=RulegenConfig(language_pair=pair),
             initialize_if_empty=False,
             persist_store=False,

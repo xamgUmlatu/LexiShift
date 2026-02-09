@@ -415,9 +415,9 @@ function renderSrsProfileControls(selectedProfileId, helperProfilesPayload) {
   }
   if (srsProfileStatusOutput) {
     srsProfileStatusOutput.textContent = t(
-      "status_srs_profile_selected",
+      "status_profile_selected",
       [resolvedProfileId],
-      `Selected SRS profile: ${resolvedProfileId}.`
+      `Selected profile: ${resolvedProfileId}.`
     );
   }
 }
@@ -441,7 +441,9 @@ async function syncSelectedSrsProfile(items, options) {
   const opts = options && typeof options === "object" ? options : {};
   const forceHelperRefresh = opts.forceHelperRefresh === true;
   let workingItems = items;
-  let selectedProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+  let selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+  let selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
+  let selectedProfileId = selectedUiProfileId || selectedSrsProfileId;
   const helperProfilesPayload = await fetchHelperProfiles({ force: forceHelperRefresh });
   const helperProfileItems = resolveHelperProfileItems(helperProfilesPayload);
   const helperProfileIds = helperProfileItems.map((item) => item.profileId);
@@ -455,18 +457,36 @@ async function syncSelectedSrsProfile(items, options) {
       : (helperProfileIds[0] || settingsManager.DEFAULT_PROFILE_ID);
     if (nextProfileId && nextProfileId !== selectedProfileId) {
       await settingsManager.updateSelectedSrsProfileId(nextProfileId);
+      await settingsManager.updateSelectedUiProfileId(nextProfileId);
       workingItems = await settingsManager.load();
-      selectedProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
-      const languagePrefs = settingsManager.getProfileLanguagePrefs(workingItems, { profileId: selectedProfileId });
+      selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+      selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
+      selectedProfileId = selectedUiProfileId || selectedSrsProfileId;
+      const languagePrefs = settingsManager.getProfileLanguagePrefs(workingItems, { profileId: selectedSrsProfileId });
       applyLanguagePrefsToInputs(languagePrefs);
-      await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
+      await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedSrsProfileId });
     }
+  }
+
+  if (selectedSrsProfileId !== selectedProfileId) {
+    await settingsManager.updateSelectedSrsProfileId(selectedProfileId);
+    workingItems = await settingsManager.load();
+    selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
+    const languagePrefs = settingsManager.getProfileLanguagePrefs(workingItems, { profileId: selectedSrsProfileId });
+    applyLanguagePrefsToInputs(languagePrefs);
+    await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedSrsProfileId });
+  }
+  if (selectedUiProfileId !== selectedProfileId) {
+    await settingsManager.updateSelectedUiProfileId(selectedProfileId);
+    workingItems = await settingsManager.load();
+    selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
   }
 
   renderSrsProfileControls(selectedProfileId, helperProfilesPayload);
   return {
     items: workingItems,
-    profileId: selectedProfileId,
+    profileId: selectedSrsProfileId,
+    uiProfileId: selectedUiProfileId,
     helperProfilesPayload
   };
 }
@@ -477,7 +497,7 @@ async function loadSrsProfileForPair(items, pairKey, options) {
     profileId: synced.profileId
   });
   const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
-    profileId: synced.profileId
+    profileId: settingsManager.getSelectedUiProfileId(synced.items)
   });
   profileBgPendingFile = null;
   if (profileBgFileInput) {
@@ -699,10 +719,9 @@ async function saveLanguageSettings() {
 
 async function loadActiveProfileUiPrefs() {
   const items = await settingsManager.load();
-  const synced = await syncSelectedSrsProfile(items);
-  const profileId = synced.profileId;
-  const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, { profileId });
-  return { profileId, uiPrefs, items: synced.items };
+  const profileId = settingsManager.getSelectedUiProfileId(items);
+  const uiPrefs = settingsManager.getProfileUiPrefs(items, { profileId });
+  return { profileId, uiPrefs, items };
 }
 
 async function saveProfileUiPrefsForCurrentProfile(nextPrefs, options) {
@@ -953,13 +972,14 @@ async function saveSrsProfileId() {
 
   const profileId = String(srsProfileIdInput.value || "").trim() || settingsManager.DEFAULT_PROFILE_ID;
   await settingsManager.updateSelectedSrsProfileId(profileId);
+  await settingsManager.updateSelectedUiProfileId(profileId);
   const items = await settingsManager.load();
   const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
   const pairKey = applyLanguagePrefsToInputs(languagePrefs);
   await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId });
   const refreshed = await settingsManager.load();
   await loadSrsProfileForPair(refreshed, pairKey);
-  setStatus(t("status_srs_profile_saved", null, "SRS profile selection saved."), ui.COLORS.SUCCESS);
+  setStatus(t("status_profile_saved", null, "Profile selection saved."), ui.COLORS.SUCCESS);
 }
 
 async function refreshSrsProfiles() {
@@ -969,9 +989,9 @@ async function refreshSrsProfiles() {
   }
   if (srsProfileStatusOutput) {
     srsProfileStatusOutput.textContent = t(
-      "hint_srs_profile_loading",
+      "hint_profile_loading",
       null,
-      "Loading helper profiles…"
+      "Loading profiles…"
     );
   }
   try {
@@ -1069,6 +1089,41 @@ async function importShareCode() {
   }
 }
 
+async function migrateLegacyOptionsProfileStateIfNeeded() {
+  if (typeof settingsManager.loadRaw !== "function") {
+    return;
+  }
+  const raw = await settingsManager.loadRaw();
+  if (!raw || typeof raw !== "object") {
+    return;
+  }
+  if (raw.optionsSelectedProfileId !== undefined) {
+    return;
+  }
+  const selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(raw);
+  const legacyAssetId = String(raw.profileBackgroundAssetId || "").trim();
+  const hasLegacyBackgroundData = raw.profileBackgroundEnabled === true
+    || Boolean(legacyAssetId)
+    || raw.profileBackgroundOpacity !== undefined
+    || raw.profileBackgroundBackdropColor !== undefined;
+
+  if (hasLegacyBackgroundData) {
+    await settingsManager.updateProfileUiPrefs(
+      {
+        backgroundEnabled: raw.profileBackgroundEnabled === true,
+        backgroundAssetId: legacyAssetId,
+        backgroundOpacity: raw.profileBackgroundOpacity,
+        backgroundBackdropColor: raw.profileBackgroundBackdropColor
+      },
+      {
+        profileId: selectedSrsProfileId,
+        publishRuntime: false
+      }
+    );
+  }
+  await settingsManager.updateSelectedUiProfileId(selectedSrsProfileId);
+}
+
 function copyShareCode() {
   if (!shareCodeInput.value) {
     return;
@@ -1085,6 +1140,7 @@ function copyShareCode() {
 }
 
 async function load() {
+  await migrateLegacyOptionsProfileStateIfNeeded();
   const items = await settingsManager.load();
     enabledInput.checked = items.enabled;
     highlightEnabledInput.checked = items.highlightEnabled !== false;
@@ -1174,6 +1230,73 @@ async function openHelperDataDir() {
   debugOpenDataDirButton.disabled = false;
 }
 
+function formatMissingResourceList(missingInputs) {
+  const missing = Array.isArray(missingInputs) ? missingInputs : [];
+  if (!missing.length) {
+    return "none";
+  }
+  return missing.map((entry) => {
+    if (!entry || typeof entry !== "object") {
+      return "unknown";
+    }
+    const resourceType = String(entry.type || "unknown");
+    const resourcePath = typeof entry.path === "string" && entry.path
+      ? entry.path
+      : "(path unresolved)";
+    return `${resourceType}: ${resourcePath}`;
+  }).join("; ");
+}
+
+async function preflightSrsPairResources(pair, profileId, actionLabel) {
+  const diagnostics = await helperManager.getSrsRuntimeDiagnostics(pair, { profileId });
+  const helperData = diagnostics && diagnostics.helper && typeof diagnostics.helper === "object"
+    ? diagnostics.helper
+    : null;
+  if (!helperData) {
+    return true;
+  }
+  const missingInputs = Array.isArray(helperData.missing_inputs) ? helperData.missing_inputs : [];
+  if (!missingInputs.length) {
+    return true;
+  }
+  const requirements = helperData.requirements && typeof helperData.requirements === "object"
+    ? helperData.requirements
+    : {};
+  const lines = [
+    `${actionLabel} blocked for ${pair}: required resources are missing.`,
+    `profile: ${profileId}`,
+    "",
+    "LP requirements:",
+    `- supports_rulegen: ${requirements.supports_rulegen === true}`,
+    `- requires_jmdict_for_seed: ${requirements.requires_jmdict_for_seed === true}`,
+    `- requires_jmdict_for_rulegen: ${requirements.requires_jmdict_for_rulegen === true}`,
+    `- requires_freedict_de_en_for_rulegen: ${requirements.requires_freedict_de_en_for_rulegen === true}`,
+    "",
+    "Resolved resources:",
+    `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})`,
+    `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})`,
+    `- freedict_de_en_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})`,
+    "",
+    "Missing inputs:",
+    ...missingInputs.map((entry) => {
+      const resourceType = entry && entry.type ? String(entry.type) : "unknown";
+      const resourcePath = entry && entry.path ? String(entry.path) : "(path unresolved)";
+      return `- ${resourceType}: ${resourcePath}`;
+    })
+  ];
+  srsRulegenOutput.textContent = lines.join("\n");
+  setStatus(
+    `Missing resources for ${pair}. Add the required files and try again.`,
+    ui.COLORS.ERROR
+  );
+  logOptions("SRS preflight failed due to missing resources", {
+    pair,
+    profileId,
+    helper: helperData
+  });
+  return false;
+}
+
 async function initializeSrsSet() {
   if (!srsInitializeSetButton || !srsRulegenOutput) {
     return;
@@ -1186,6 +1309,14 @@ async function initializeSrsSet() {
   try {
     const items = await settingsManager.load();
     const synced = await syncSelectedSrsProfile(items);
+    const canProceed = await preflightSrsPairResources(
+      srsPair,
+      synced.profileId,
+      "S initialization"
+    );
+    if (!canProceed) {
+      return;
+    }
     const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
       profileId: synced.profileId
     });
@@ -1349,6 +1480,14 @@ async function refreshSrsSetNow() {
   try {
     const items = await settingsManager.load();
     const synced = await syncSelectedSrsProfile(items);
+    const canProceed = await preflightSrsPairResources(
+      srsPair,
+      synced.profileId,
+      "S refresh"
+    );
+    if (!canProceed) {
+      return;
+    }
     const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
       profileId: synced.profileId
     });
@@ -1459,6 +1598,10 @@ async function runSrsRuntimeDiagnostics() {
       helperData
         ? `- store_items_for_pair: ${helperData.store_items_for_pair ?? "n/a"}`
         : `- unavailable: ${diagnostics.helper_error || "unknown"}`,
+      helperData ? `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})` : null,
+      helperData ? `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})` : null,
+      helperData ? `- freedict_de_en_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})` : null,
+      helperData ? `- missing_inputs: ${formatMissingResourceList(helperData.missing_inputs)}` : null,
       helperData ? `- ruleset_rules_count: ${helperData.ruleset_rules_count ?? "n/a"}` : null,
       helperData ? `- snapshot_target_count: ${helperData.snapshot_target_count ?? "n/a"}` : null,
       helperData ? `- store_path: ${helperData.store_path || "n/a"}` : null,
@@ -1547,6 +1690,7 @@ async function previewSampledSrsRulegen() {
         t("diag_header", null, "Diagnostics:"),
         `- ${t("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
         `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
+        `- freedict_de_en: ${diag.freedict_de_en_path || "n/a"} (exists=${diag.freedict_de_en_exists})`,
         `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
         `- store_items: ${diag.store_items ?? "n/a"}`,
         `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,

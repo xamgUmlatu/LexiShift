@@ -45,6 +45,11 @@ from lexishift_core.helper_profiles import get_profiles_snapshot
 from lexishift_core.helper_os import open_path
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import load_status
+from lexishift_core.lp_capabilities import (
+    default_freedict_de_en_path,
+    default_frequency_db_path,
+    default_jmdict_path,
+)
 
 
 PROTOCOL_VERSION = 1
@@ -81,15 +86,44 @@ def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
     value = payload.get(key)
     if value is None:
         return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _optional_profile_id(payload: Dict[str, Any]) -> Optional[str]:
     profile_id = str(payload.get("profile_id", "")).strip()
     return profile_id or None
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return None
+
+
+def _optional_path(payload: Dict[str, Any], key: str) -> Optional[Path]:
+    value = str(payload.get(key, "")).strip()
+    return Path(value) if value else None
+
+
+def _resolve_pair_resource_paths(
+    paths,
+    *,
+    pair: str,
+    payload: Dict[str, Any],
+) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
+    jmdict_path = _optional_path(payload, "jmdict_path")
+    if jmdict_path is None:
+        jmdict_path = default_jmdict_path(pair, language_packs_dir=paths.language_packs_dir)
+    freedict_de_en_path = _optional_path(payload, "freedict_de_en_path")
+    if freedict_de_en_path is None:
+        freedict_de_en_path = default_freedict_de_en_path(
+            pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
+    set_source_db = _optional_path(payload, "set_source_db")
+    if set_source_db is None:
+        set_source_db = default_frequency_db_path(
+            pair,
+            frequency_packs_dir=paths.frequency_packs_dir,
+        )
+    return jmdict_path, freedict_de_en_path, set_source_db
 
 
 def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
@@ -148,18 +182,18 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
         return {"ok": True}
     if msg_type == "trigger_rulegen":
-        pair = str(payload.get("pair", "en-ja"))
-        jmdict_path = payload.get("jmdict_path")
-        if not jmdict_path:
-            jmdict_path = str(paths.language_packs_dir / "JMdict_e")
-        set_source_db = payload.get("set_source_db")
-        if not set_source_db:
-            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
         config = RulegenJobConfig(
             pair=pair,
-            jmdict_path=Path(jmdict_path),
+            jmdict_path=jmdict_path,
+            freedict_de_en_path=freedict_de_en_path,
             profile_id=profile_id or "default",
-            set_source_db=Path(set_source_db) if set_source_db else None,
+            set_source_db=set_source_db,
             set_top_n=int(payload.get("set_top_n", 2000)),
             confidence_threshold=float(payload.get("confidence_threshold", 0.0)),
             snapshot_targets=int(payload.get("snapshot_targets", 50)),
@@ -176,21 +210,21 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
         return run_rulegen_job(paths, config=config)
     if msg_type == "srs_initialize":
-        pair = str(payload.get("pair", "en-ja"))
-        jmdict_path = payload.get("jmdict_path")
-        if not jmdict_path:
-            jmdict_path = str(paths.language_packs_dir / "JMdict_e")
-        set_source_db = payload.get("set_source_db")
-        if not set_source_db:
-            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
         set_top_n = _optional_int(payload, "set_top_n")
         bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
         return initialize_srs_set(
             paths,
             config=SetInitializationJobConfig(
                 pair=pair,
-                jmdict_path=Path(jmdict_path),
-                set_source_db=Path(set_source_db),
+                jmdict_path=jmdict_path,
+                freedict_de_en_path=freedict_de_en_path,
+                set_source_db=set_source_db,
                 profile_id=profile_id or "default",
                 set_top_n=set_top_n if set_top_n is not None else 800,
                 bootstrap_top_n=bootstrap_top_n,
@@ -224,21 +258,21 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             ),
         )
     if msg_type == "srs_refresh":
-        pair = str(payload.get("pair", "en-ja"))
-        jmdict_path = payload.get("jmdict_path")
-        if not jmdict_path:
-            jmdict_path = str(paths.language_packs_dir / "JMdict_e")
-        set_source_db = payload.get("set_source_db")
-        if not set_source_db:
-            set_source_db = str(paths.frequency_packs_dir / "freq-ja-bccwj.sqlite")
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
         set_top_n = _optional_int(payload, "set_top_n")
         feedback_window_size = _optional_int(payload, "feedback_window_size")
         return refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
                 pair=pair,
-                jmdict_path=Path(jmdict_path),
-                set_source_db=Path(set_source_db),
+                jmdict_path=jmdict_path,
+                freedict_de_en_path=freedict_de_en_path,
+                set_source_db=set_source_db,
                 profile_id=profile_id or "default",
                 set_top_n=set_top_n if set_top_n is not None else 2000,
                 feedback_window_size=feedback_window_size

@@ -6,6 +6,7 @@ from xml.etree import ElementTree
 
 
 XML_LANG_KEY = "{http://www.w3.org/XML/1998/namespace}lang"
+TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 
 
 def load_jmdict_glosses(
@@ -96,3 +97,46 @@ def load_jmdict_lemmas(
                     lemmas.add(reb.text.strip())
         elem.clear()
     return lemmas
+
+
+def load_freedict_tei_glosses_ordered(
+    path: Path,
+    *,
+    target_lang: str,
+) -> dict[str, list[str]]:
+    mapping: dict[str, list[str]] = {}
+    if not path.exists():
+        return mapping
+    try:
+        context = ElementTree.iterparse(path, events=("end",))
+    except (ElementTree.ParseError, OSError):
+        return mapping
+    for _event, elem in context:
+        if elem.tag != f"{{{TEI_NS['tei']}}}entry":
+            continue
+        headwords: list[str] = []
+        for orth in elem.findall("tei:form/tei:orth", TEI_NS):
+            text = (orth.text or "").strip()
+            if text and text not in headwords:
+                headwords.append(text)
+        if not headwords:
+            elem.clear()
+            continue
+        translations: list[str] = []
+        for quote in elem.findall(".//tei:cit[@type='trans']/tei:quote", TEI_NS):
+            text = (quote.text or "").strip()
+            if not text:
+                continue
+            lang = (quote.get(XML_LANG_KEY) or "").strip().lower()
+            if lang and lang != target_lang.lower():
+                continue
+            if text not in translations:
+                translations.append(text)
+        if translations:
+            for headword in headwords:
+                bucket = mapping.setdefault(headword, [])
+                for translation in translations:
+                    if translation not in bucket:
+                        bucket.append(translation)
+        elem.clear()
+    return mapping

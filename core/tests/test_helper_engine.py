@@ -327,6 +327,125 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertEqual(sampling["total_items_for_pair"], 3)
 
 
+class TestHelperEnginePairGeneralization(unittest.TestCase):
+    def _stub_output(self, pair: str) -> SimpleNamespace:
+        return SimpleNamespace(
+            rules=(),
+            snapshot={
+                "version": 1,
+                "pair": pair,
+                "targets": [],
+                "stats": {"target_count": 0, "rule_count": 0, "source_count": 0},
+            },
+            target_count=0,
+        )
+
+    def test_run_rulegen_allows_en_de_without_jmdict(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            freedict_path = root / "deu-eng.tei"
+            freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
+            with patch(
+                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output("en-de")),
+            ) as run_rulegen:
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-de",
+                        jmdict_path=None,
+                        freedict_de_en_path=freedict_path,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                    ),
+                )
+
+            self.assertEqual(result["pair"], "en-de")
+            self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
+            self.assertEqual(run_rulegen.call_args.kwargs.get("freedict_de_en_path"), freedict_path)
+
+    def test_initialize_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+            freedict_path = root / "deu-eng.tei"
+            freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
+
+            init_report = SimpleNamespace(
+                selected_count=0,
+                selected_unique_count=0,
+                admitted_count=0,
+                inserted_count=0,
+                updated_count=0,
+                selected_preview=(),
+                initial_active_preview=(),
+                admission_weight_profile={},
+                initial_active_weight_preview=(),
+            )
+            with patch(
+                "lexishift_core.helper_engine.initialize_store_from_frequency_list_with_report",
+                return_value=(SrsStore(), init_report),
+            ) as initialize_store, patch(
+                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output("en-de")),
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-de",
+                        jmdict_path=None,
+                        freedict_de_en_path=freedict_path,
+                        set_source_db=source_db,
+                    ),
+                )
+
+            init_config = initialize_store.call_args.kwargs["config"]
+            self.assertFalse(init_config.require_jmdict)
+            self.assertIsNone(init_config.jmdict_path)
+            self.assertEqual(result["pair"], "en-de")
+            self.assertTrue(result["applied"])
+
+    def test_refresh_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+            freedict_path = root / "deu-eng.tei"
+            freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
+            save_srs_settings(
+                SrsSettings(max_active_items=10, max_new_items_per_day=2),
+                paths.srs_settings_path,
+            )
+            save_srs_store(SrsStore(items=tuple(), version=1), paths.srs_store_path)
+
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=[],
+            ) as build_seed:
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-de",
+                        jmdict_path=None,
+                        freedict_de_en_path=freedict_path,
+                        set_source_db=source_db,
+                        persist_store=False,
+                    ),
+                )
+
+            selection_config = build_seed.call_args.kwargs["config"]
+            self.assertFalse(selection_config.require_jmdict)
+            self.assertIsNone(selection_config.jmdict_path)
+            self.assertEqual(result["pair"], "en-de")
+
+
 class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
     def test_runtime_diagnostics_with_missing_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -339,6 +458,29 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["store_items_for_pair"], 0)
             self.assertEqual(payload["ruleset_rules_count"], 0)
             self.assertEqual(payload["snapshot_target_count"], 0)
+
+    def test_runtime_diagnostics_reports_missing_en_de_frequency_pack(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            payload = get_srs_runtime_diagnostics(paths, pair="en-de")
+            self.assertEqual(payload["pair"], "en-de")
+            self.assertTrue(payload["set_source_db"].endswith("freq-de-default.sqlite"))
+            self.assertFalse(payload["set_source_db_exists"])
+            self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertFalse(payload["freedict_de_en_exists"])
+            missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
+            self.assertIn("set_source_db", missing_types)
+            self.assertIn("freedict_de_en_path", missing_types)
+
+    def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+            self.assertEqual(payload["pair"], "en-ja")
+            self.assertTrue(payload["jmdict_path"].endswith("language_packs/JMdict_e"))
+            self.assertFalse(payload["jmdict_exists"])
+            missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
+            self.assertIn("jmdict_path", missing_types)
 
     def test_runtime_diagnostics_with_existing_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -78,7 +78,8 @@ Status key:
 ## Phase 6 — End-to-End QA and refresh loop
 - `[ ]` Add E2E native messaging test flow for initialize -> sampled rulegen -> feedback submit -> resample.
 - `[ ]` Validate retry/backoff + idempotency semantics under helper restarts.
-- `[~]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
+- `[x]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
+  - `core/tests/test_srs_feedback_simulation.py` now simulates multi-phase feedback and asserts S growth + ruleset publication behavior.
 - `[ ]` Add planner-trigger test for threshold-based automatic refresh from aggregated feedback.
 - `[ ]` Add explicit service-worker bridge roundtrip tests (options + content runtime request paths).
 

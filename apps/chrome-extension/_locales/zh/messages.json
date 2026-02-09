@@ -437,6 +437,12 @@
   "label_target_language": {
     "message": "目标语言"
   },
+  "section_profile": {
+    "message": "配置"
+  },
+  "label_profile_id": {
+    "message": "配置"
+  },
   "label_srs_profile_id": {
     "message": "SRS 配置"
   },
@@ -470,11 +476,20 @@
   "hint_profile_bg_status_empty": {
     "message": "该配置尚未设置背景图片。"
   },
+  "hint_profile_loading": {
+    "message": "正在加载配置…"
+  },
   "hint_srs_profile_loading": {
     "message": "正在加载 Helper 配置…"
   },
+  "status_profile_selected": {
+    "message": "当前选择的配置：$1。"
+  },
   "status_srs_profile_selected": {
     "message": "当前选择的 SRS 配置：$1。"
+  },
+  "status_profile_saved": {
+    "message": "配置选择已保存。"
   },
   "status_srs_profile_saved": {
     "message": "SRS 配置选择已保存。"

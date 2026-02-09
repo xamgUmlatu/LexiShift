@@ -437,6 +437,12 @@
   "label_target_language": {
     "message": "ターゲット言語"
   },
+  "section_profile": {
+    "message": "プロファイル"
+  },
+  "label_profile_id": {
+    "message": "プロファイル"
+  },
   "label_srs_profile_id": {
     "message": "SRS プロファイル"
   },
@@ -470,11 +476,20 @@
   "hint_profile_bg_status_empty": {
     "message": "このプロファイルには背景画像が設定されていません。"
   },
+  "hint_profile_loading": {
+    "message": "プロファイルを読み込み中…"
+  },
   "hint_srs_profile_loading": {
     "message": "Helper プロファイルを読み込み中…"
   },
+  "status_profile_selected": {
+    "message": "選択中のプロファイル: $1。"
+  },
   "status_srs_profile_selected": {
     "message": "選択中の SRS プロファイル: $1。"
+  },
+  "status_profile_saved": {
+    "message": "プロファイル選択を保存しました。"
   },
   "status_srs_profile_saved": {
     "message": "SRS プロファイル設定を保存しました。"

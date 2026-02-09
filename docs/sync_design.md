@@ -59,6 +59,8 @@ This document captures what should sync across the desktop app, Chrome extension
   - rules source mode (file vs editor)
   - file import path / last file name
   - debug tools (page scopes)
+  - profile background UI prefs (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`)
+  - IndexedDB profile media blobs referenced by `backgroundAssetId`
 - **BetterDiscord plugin**
   - per‑server toggles or UI presentation settings (if added)
 - **GUI app**

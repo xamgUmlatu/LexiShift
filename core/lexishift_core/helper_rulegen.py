@@ -8,7 +8,7 @@ from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.core import VocabRule
 from lexishift_core.helper_paths import HelperPaths
-from lexishift_core.rule_generation_ja_en import JaEnRulegenConfig, generate_ja_en_results
+from lexishift_core.rulegen_adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs_admission_policy import resolve_default_pos_weights
 from lexishift_core.srs_source import SOURCE_INITIAL_SET
@@ -21,11 +21,12 @@ from lexishift_core.weighting import GlossDecay
 @dataclass(frozen=True)
 class SetInitializationConfig:
     frequency_db: Path
-    jmdict_path: Path
+    jmdict_path: Optional[Path] = None
     top_n: int = 2000
     initial_active_count: int = 40
     language_pair: str = "en-ja"
     stopwords_path: Optional[Path] = None
+    require_jmdict: bool = True
 
 
 @dataclass(frozen=True)
@@ -87,6 +88,7 @@ def initialize_store_from_frequency_list_with_report(
         top_n=config.top_n,
         jmdict_path=config.jmdict_path,
         stopwords_path=config.stopwords_path,
+        require_jmdict=config.require_jmdict,
         admission_pos_weights=resolved_pos_weights,
     )
     selected_words = build_seed_candidates(
@@ -191,16 +193,18 @@ def run_ja_en_rulegen(
     jmdict_path: Path,
     config: RulegenConfig,
 ) -> Sequence[VocabRule]:
-    rulegen_config = JaEnRulegenConfig(
-        jmdict_path=jmdict_path,
-        language_pair=config.language_pair,
-        confidence_threshold=config.confidence_threshold,
-        include_variants=config.include_variants,
-        allow_multiword_glosses=config.allow_multiword_glosses,
-        gloss_decay=config.gloss_decay,
+    return run_rules_with_adapter(
+        RulegenAdapterRequest(
+            pair="en-ja",
+            targets=tuple(str(target).strip() for target in targets if str(target).strip()),
+            language_pair=config.language_pair,
+            confidence_threshold=config.confidence_threshold,
+            include_variants=config.include_variants,
+            allow_multiword_glosses=config.allow_multiword_glosses,
+            gloss_decay=config.gloss_decay,
+            jmdict_path=jmdict_path,
+        )
     )
-    results = generate_ja_en_results(targets, config=rulegen_config)
-    return [result.rule for result in results]
 
 
 def _safe_optional_float(value: object) -> Optional[float]:
@@ -249,7 +253,8 @@ def run_rulegen_for_pair(
     profile_id: str = "default",
     store: SrsStore,
     settings: Optional[SrsSettings],
-    jmdict_path: Path,
+    jmdict_path: Optional[Path] = None,
+    freedict_de_en_path: Optional[Path] = None,
     set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
     targets_override: Optional[Sequence[str]] = None,
@@ -268,15 +273,19 @@ def run_rulegen_for_pair(
             config=set_init_config,
         )
         targets = load_targets_from_store(updated_store, pair=pair)
-    rules: Sequence[VocabRule] = []
-    if pair == "en-ja":
-        rules = run_ja_en_rulegen(
+    rules = run_rules_with_adapter(
+        RulegenAdapterRequest(
+            pair=pair,
             targets=targets,
+            language_pair=rulegen_config.language_pair,
+            confidence_threshold=rulegen_config.confidence_threshold,
+            include_variants=rulegen_config.include_variants,
+            allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
+            gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
-            config=rulegen_config,
+            freedict_de_en_path=freedict_de_en_path,
         )
-    else:
-        rules = []
+    )
     generated_at = _now_iso()
     snapshot = build_snapshot(
         rules=rules,
