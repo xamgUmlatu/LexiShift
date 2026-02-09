@@ -10,6 +10,7 @@ class PairCapability:
     pair: str
     rulegen_mode: Optional[str] = None
     default_frequency_db: Optional[str] = None
+    srs_selectable: bool = False
     requires_jmdict_for_seed: bool = False
     requires_jmdict_for_rulegen: bool = False
     requires_freedict_de_en_for_rulegen: bool = False
@@ -20,27 +21,32 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         pair="en-ja",
         rulegen_mode="ja_en",
         default_frequency_db="freq-ja-bccwj.sqlite",
+        srs_selectable=True,
         requires_jmdict_for_seed=True,
         requires_jmdict_for_rulegen=True,
     ),
     "ja-ja": PairCapability(
         pair="ja-ja",
         default_frequency_db="freq-ja-bccwj.sqlite",
+        srs_selectable=True,
     ),
     "en-en": PairCapability(
         pair="en-en",
         default_frequency_db="freq-en-coca.sqlite",
+        srs_selectable=True,
     ),
     "de-en": PairCapability(
         pair="de-en",
         default_frequency_db="freq-en-coca.sqlite",
+        srs_selectable=True,
     ),
     "en-de": PairCapability(
         pair="en-de",
         rulegen_mode="en_de",
+        srs_selectable=True,
         requires_freedict_de_en_for_rulegen=True,
     ),
-    "de-de": PairCapability(pair="de-de"),
+    "de-de": PairCapability(pair="de-de", srs_selectable=True),
     "en-zh": PairCapability(pair="en-zh"),
 }
 
@@ -61,6 +67,18 @@ def _target_language(pair: str) -> str:
 def resolve_pair_capability(pair: str) -> PairCapability:
     normalized = normalize_pair_key(pair)
     return _PAIR_CAPABILITIES.get(normalized, PairCapability(pair=normalized))
+
+
+def known_pairs() -> tuple[str, ...]:
+    return tuple(_PAIR_CAPABILITIES.keys())
+
+
+def selectable_srs_pairs() -> tuple[str, ...]:
+    return tuple(cap.pair for cap in _PAIR_CAPABILITIES.values() if cap.srs_selectable)
+
+
+def supported_rulegen_pairs() -> tuple[str, ...]:
+    return tuple(cap.pair for cap in _PAIR_CAPABILITIES.values() if cap.rulegen_mode is not None)
 
 
 def supports_rulegen(pair: str) -> bool:
@@ -127,6 +145,7 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "pair": capability.pair,
         "rulegen_mode": capability.rulegen_mode,
         "supports_rulegen": supports_rulegen(capability.pair),
+        "srs_selectable": capability.srs_selectable,
         "default_frequency_db": fallback_frequency,
         "requires_jmdict_for_seed": capability.requires_jmdict_for_seed,
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,

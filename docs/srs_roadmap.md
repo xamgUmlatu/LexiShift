@@ -2,6 +2,7 @@
 
 Related design:
 - `docs/srs_hybrid_model_technical.md`
+- `docs/srs_lp_architecture.md`
 
 ## Goal
 Ship a non-destructive SRS layer where:
@@ -161,26 +162,27 @@ Status key:
 ### Workstream H — LP parity and de-hardcoding (`en-de` vs `en-ja`)
 Current parity snapshot (as of 2026-02-09):
 - `en-de` helper rulegen path is implemented and can run when `freq-de-default.sqlite` and `freedict-de-en` are present.
-- Full parity is not complete because several desktop/helper admission and wiring paths remain `en-ja`-specific.
+- LP capability registry now drives helper requirement checks, daemon supported-rulegen pair selection, and SRS pair UI exposure.
+- Full parity is not complete because some cross-surface runtime consistency checks are still pending.
 
 Tracking checklist:
-- `[ ]` Remove `en-ja`-specific hardcoding from desktop local SRS grow/init code paths in `apps/gui/src/main.py` (frequency/dictionary requirements and source selection).
-- `[ ]` Generalize helper daemon supported pairs beyond `{"en-ja"}` in `apps/gui/src/helper_daemon.py`.
-- `[ ]` Replace JMDict-only bootstrap gate with pair-specific dictionary gates (for example FreeDict gate for `en-de`) in `core/lexishift_core/srs_seed.py`.
-- `[ ]` Replace hardcoded seed metadata source `"bccwj"` with pair/frequency-pack-derived metadata in `core/lexishift_core/srs_seed.py`.
-- `[ ]` Make POS bucket mapping pair-aware (German tags such as `SUB/VER/ADJ/ADV`) instead of substring heuristics only, in `core/lexishift_core/srs_admission_policy.py`.
-- `[ ]` Fix pack-to-pair mapping so FreeDict packs map by direction (`freedict-de-en -> en-de`, `freedict-en-de -> de-en`) in `apps/gui/src/main.py`.
-- `[ ]` Add parity-focused tests:
+- `[~]` Remove `en-ja`-specific hardcoding from desktop local SRS grow/init code paths in `apps/gui/src/main.py` (frequency/dictionary requirements and source selection).
+- `[x]` Generalize helper daemon supported pairs beyond `{"en-ja"}` in `apps/gui/src/helper_daemon.py`.
+- `[x]` Replace JMDict-only bootstrap gate with pair-specific dictionary gates (for example FreeDict gate for `en-de`) in `core/lexishift_core/srs_seed.py`.
+- `[x]` Replace hardcoded seed metadata source `"bccwj"` with pair/frequency-pack-derived metadata in `core/lexishift_core/srs_seed.py`.
+- `[x]` Make POS bucket mapping pair-aware (German tags such as `SUB/VER/ADJ/ADV`) instead of substring heuristics only, in `core/lexishift_core/srs_admission_policy.py`.
+- `[x]` Fix pack-to-pair mapping so FreeDict packs map by direction (`freedict-de-en -> en-de`, `freedict-en-de -> de-en`) in `apps/gui/src/main.py`.
+- `[x]` Add parity-focused tests:
   - helper diagnostics for `en-de` required inputs,
   - initialize/refresh publish checks for `en-de`,
   - POS/admission behavior checks for German tags.
-- `[ ]` Define/ship `stopwords-de.json` policy default and document optional vs required behavior.
+- `[x]` Define/ship `stopwords-de.json` policy default (helper auto-seeds placeholder under `srs/stopwords/`) and expose stopword path/existence via diagnostics.
 
 Definition of done for `en-de` parity:
-- `[ ]` `en-de` initialize succeeds from GUI and helper CLI without `en-ja`-only assumptions.
-- `[ ]` `en-de` refresh admits/publishes ruleset and snapshot with non-empty outputs on valid inputs.
-- `[ ]` Admission metadata, POS buckets, and source labels are LP-correct (no JA-specific constants).
-- `[ ]` Runtime/diagnostics report the selected LP consistently across extension + helper + GUI surfaces.
+- `[~]` `en-de` initialize succeeds from GUI and helper CLI without `en-ja`-only assumptions.
+- `[~]` `en-de` refresh admits/publishes ruleset and snapshot with non-empty outputs on valid inputs.
+- `[x]` Admission metadata, POS buckets, and source labels are LP-correct (no JA-specific constants).
+- `[~]` Runtime/diagnostics report the selected LP consistently across extension + helper + GUI surfaces.
 
 ---
 

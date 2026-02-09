@@ -1247,6 +1247,18 @@ function formatMissingResourceList(missingInputs) {
   }).join("; ");
 }
 
+function formatPairPolicySummary(pairPolicy) {
+  if (!pairPolicy || typeof pairPolicy !== "object") {
+    return "n/a";
+  }
+  return [
+    `bootstrap_top_n_default=${pairPolicy.bootstrap_top_n_default ?? "n/a"}`,
+    `refresh_top_n_default=${pairPolicy.refresh_top_n_default ?? "n/a"}`,
+    `feedback_window_size_default=${pairPolicy.feedback_window_size_default ?? "n/a"}`,
+    `initial_active_count_default=${pairPolicy.initial_active_count_default ?? "n/a"}`
+  ].join(", ");
+}
+
 async function preflightSrsPairResources(pair, profileId, actionLabel) {
   const diagnostics = await helperManager.getSrsRuntimeDiagnostics(pair, { profileId });
   const helperData = diagnostics && diagnostics.helper && typeof diagnostics.helper === "object"
@@ -1262,6 +1274,9 @@ async function preflightSrsPairResources(pair, profileId, actionLabel) {
   const requirements = helperData.requirements && typeof helperData.requirements === "object"
     ? helperData.requirements
     : {};
+  const pairPolicy = helperData.pair_policy && typeof helperData.pair_policy === "object"
+    ? helperData.pair_policy
+    : null;
   const lines = [
     `${actionLabel} blocked for ${pair}: required resources are missing.`,
     `profile: ${profileId}`,
@@ -1276,6 +1291,10 @@ async function preflightSrsPairResources(pair, profileId, actionLabel) {
     `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})`,
     `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})`,
     `- freedict_de_en_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})`,
+    `- stopwords_path: ${helperData.stopwords_path || "n/a"} (exists=${helperData.stopwords_exists === true})`,
+    "",
+    "Pair policy defaults:",
+    `- ${formatPairPolicySummary(pairPolicy)}`,
     "",
     "Missing inputs:",
     ...missingInputs.map((entry) => {
@@ -1583,6 +1602,9 @@ async function runSrsRuntimeDiagnostics() {
     const helperData = diagnostics.helper && typeof diagnostics.helper === "object"
       ? diagnostics.helper
       : null;
+    const pairPolicy = helperData && helperData.pair_policy && typeof helperData.pair_policy === "object"
+      ? helperData.pair_policy
+      : null;
     const runtimeState = diagnostics.runtime_state && typeof diagnostics.runtime_state === "object"
       ? diagnostics.runtime_state
       : null;
@@ -1598,9 +1620,11 @@ async function runSrsRuntimeDiagnostics() {
       helperData
         ? `- store_items_for_pair: ${helperData.store_items_for_pair ?? "n/a"}`
         : `- unavailable: ${diagnostics.helper_error || "unknown"}`,
+      helperData ? `- pair_policy: ${formatPairPolicySummary(pairPolicy)}` : null,
       helperData ? `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})` : null,
       helperData ? `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})` : null,
       helperData ? `- freedict_de_en_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})` : null,
+      helperData ? `- stopwords_path: ${helperData.stopwords_path || "n/a"} (exists=${helperData.stopwords_exists === true})` : null,
       helperData ? `- missing_inputs: ${formatMissingResourceList(helperData.missing_inputs)}` : null,
       helperData ? `- ruleset_rules_count: ${helperData.ruleset_rules_count ?? "n/a"}` : null,
       helperData ? `- snapshot_target_count: ${helperData.snapshot_target_count ?? "n/a"}` : null,

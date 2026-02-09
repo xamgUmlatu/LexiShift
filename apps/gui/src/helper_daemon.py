@@ -4,10 +4,18 @@ import argparse
 from dataclasses import dataclass
 import time
 from pathlib import Path
+from typing import Optional
 
 from lexishift_core.helper_engine import RulegenJobConfig, run_rulegen_job
 from lexishift_core.helper_paths import build_helper_paths
 from lexishift_core.helper_status import HelperStatus, load_status, save_status
+from lexishift_core.lp_capabilities import (
+    default_freedict_de_en_path,
+    default_frequency_db_path,
+    default_jmdict_path,
+    resolve_pair_capability,
+    supported_rulegen_pairs,
+)
 from lexishift_core.srs import SrsSettings, load_srs_settings
 from lexishift_core.srs_growth import resolve_allowed_pairs
 from lexishift_core.srs_time import now_utc
@@ -16,7 +24,7 @@ from lexishift_core.srs_time import now_utc
 @dataclass(frozen=True)
 class DaemonConfig:
     interval_seconds: int = 1800
-    set_top_n: int = 2000
+    set_top_n: Optional[int] = None
     confidence_threshold: float = 0.0
     snapshot_targets: int = 50
     snapshot_sources: int = 6
@@ -29,21 +37,31 @@ def _load_settings(paths) -> SrsSettings:
 
 
 def _supported_pairs() -> tuple[str, ...]:
-    return ("en-ja",)
+    return supported_rulegen_pairs()
 
 
 def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfig | None:
     if pair not in _supported_pairs():
         return None
-    jmdict_path = paths.language_packs_dir / "JMdict_e"
-    if not jmdict_path.exists():
+    capability = resolve_pair_capability(pair)
+    jmdict_path = default_jmdict_path(pair, language_packs_dir=paths.language_packs_dir)
+    if capability.requires_jmdict_for_rulegen and (jmdict_path is None or not jmdict_path.exists()):
         return None
-    set_source_db = paths.frequency_packs_dir / "freq-ja-bccwj.sqlite"
-    if not set_source_db.exists():
+    freedict_de_en_path = default_freedict_de_en_path(
+        pair,
+        language_packs_dir=paths.language_packs_dir,
+    )
+    if capability.requires_freedict_de_en_for_rulegen and (
+        freedict_de_en_path is None or not freedict_de_en_path.exists()
+    ):
+        return None
+    set_source_db = default_frequency_db_path(pair, frequency_packs_dir=paths.frequency_packs_dir)
+    if set_source_db is not None and not set_source_db.exists():
         set_source_db = None
     return RulegenJobConfig(
         pair=pair,
         jmdict_path=jmdict_path,
+        freedict_de_en_path=freedict_de_en_path,
         set_source_db=set_source_db,
         set_top_n=config.set_top_n,
         confidence_threshold=config.confidence_threshold,
@@ -92,7 +110,7 @@ def run_daemon(config: DaemonConfig) -> None:
 def run_daemon_from_cli(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="LexiShift helper background daemon.")
     parser.add_argument("--interval-seconds", type=int, default=1800)
-    parser.add_argument("--set-top-n", type=int, default=2000)
+    parser.add_argument("--set-top-n", type=int)
     parser.add_argument("--confidence-threshold", type=float, default=0.0)
     parser.add_argument("--snapshot-targets", type=int, default=50)
     parser.add_argument("--snapshot-sources", type=int, default=6)

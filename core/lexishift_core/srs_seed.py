@@ -45,6 +45,7 @@ class SeedSelectionConfig:
     jmdict_path: Optional[Path] = None
     stopwords_path: Optional[Path] = None
     stopwords: Optional[set[str]] = None
+    source_label: Optional[str] = None
 
 
 def build_seed_candidates(
@@ -56,6 +57,7 @@ def build_seed_candidates(
         raise ValueError("JMDict path is required when require_jmdict is True.")
     jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None
     stopwords = _resolve_stopwords(config)
+    source_label = _resolve_source_label(config=config, frequency_db=frequency_db)
     store_config = SqliteFrequencyConfig(
         path=frequency_db,
         lemma_column=config.lemma_column,
@@ -111,7 +113,7 @@ def build_seed_candidates(
                     base_weight=base_weight,
                     admission_weight=admission_weight,
                     metadata={
-                        "source": "bccwj",
+                        "source": source_label,
                         "rank_column": config.rank_column,
                         "pmw_column": config.pmw_column,
                         "pos_column": config.pos_column if include_pos else None,
@@ -201,3 +203,13 @@ def _load_stopwords(path: Path) -> set[str]:
 def _admission_sort_key(item: SeedWord) -> tuple[float, float, float, str]:
     rank = item.core_rank if item.core_rank is not None else float("inf")
     return (-item.admission_weight, -item.base_weight, rank, item.lemma)
+
+
+def _resolve_source_label(*, config: SeedSelectionConfig, frequency_db: Path) -> str:
+    configured = str(config.source_label or "").strip()
+    if configured:
+        return configured
+    stem = str(frequency_db.stem or "").strip()
+    if stem:
+        return stem
+    return "frequency"

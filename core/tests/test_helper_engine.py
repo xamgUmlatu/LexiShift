@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import sys
 import tempfile
@@ -59,6 +60,17 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     paths.ruleset_path("en-ja").write_text("{}", encoding="utf-8")
     paths.ruleset_path("en-en").write_text("{}", encoding="utf-8")
     return paths
+
+
+class TestHelperPathsDefaults(unittest.TestCase):
+    def test_build_helper_paths_creates_default_german_stopwords(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            stopwords_path = paths.srs_dir / "stopwords" / "stopwords-de.json"
+            self.assertTrue(stopwords_path.exists())
+            payload = json.loads(stopwords_path.read_text(encoding="utf-8"))
+            self.assertIsInstance(payload, list)
+            self.assertIn("der", payload)
 
 
 class TestHelperEngineReset(unittest.TestCase):
@@ -464,10 +476,14 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             paths = build_helper_paths(Path(tmp))
             payload = get_srs_runtime_diagnostics(paths, pair="en-de")
             self.assertEqual(payload["pair"], "en-de")
+            self.assertIn("pair_policy", payload)
+            self.assertEqual(payload["pair_policy"]["pair"], "en-de")
             self.assertTrue(payload["set_source_db"].endswith("freq-de-default.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
             self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["freedict_de_en_exists"])
+            self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
+            self.assertTrue(payload["stopwords_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
@@ -674,6 +690,56 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertEqual(result["total_items_for_pair"], 1)
             self.assertEqual(result["replace_pair"], True)
 
+    def test_initialize_set_uses_pair_policy_defaults(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+
+            persisted_after_init = SrsStore(items=tuple(), version=1)
+            init_report = SimpleNamespace(
+                selected_count=0,
+                selected_unique_count=0,
+                admitted_count=0,
+                inserted_count=0,
+                updated_count=0,
+                selected_preview=tuple(),
+                initial_active_preview=tuple(),
+            )
+            rulegen_output = SimpleNamespace(
+                rules=tuple(),
+                snapshot={"stats": {"target_count": 0, "rule_count": 0}},
+                target_count=0,
+            )
+
+            with patch(
+                "lexishift_core.helper_engine.initialize_store_from_frequency_list_with_report",
+                return_value=(persisted_after_init, init_report),
+            ) as init_patch, patch(
+                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                return_value=(persisted_after_init, rulegen_output),
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        set_top_n=None,
+                        initial_active_count=None,
+                    ),
+                )
+
+            set_init_config = init_patch.call_args.kwargs["config"]
+            self.assertEqual(set_init_config.top_n, 800)
+            self.assertEqual(set_init_config.initial_active_count, 40)
+            self.assertEqual(result["set_top_n"], 800)
+            self.assertEqual(result["initial_active_count"], 40)
+            self.assertEqual(result["pair_policy"]["pair"], "en-ja")
+
 
 class TestHelperEnginePlanSrsSet(unittest.TestCase):
     def test_plan_returns_signal_summary_and_strategy(self) -> None:
@@ -731,6 +797,25 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
             )
 
             self.assertEqual(plan_payload["stopwords_path"], str(stopwords_path))
+
+    def test_plan_uses_pair_policy_defaults_when_values_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            plan_payload = plan_srs_set(
+                paths,
+                config=SetPlanningJobConfig(
+                    pair="en-de",
+                    strategy="frequency_bootstrap",
+                    objective="bootstrap",
+                    set_top_n=None,
+                    initial_active_count=None,
+                ),
+            )
+
+            self.assertEqual(plan_payload["set_top_n"], 800)
+            self.assertEqual(plan_payload["initial_active_count"], 40)
+            self.assertEqual(plan_payload["pair_policy"]["pair"], "en-de")
 
 
 class TestHelperEngineRefreshSrsSet(unittest.TestCase):
@@ -912,6 +997,38 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertFalse(result["applied"])
             self.assertEqual(result["added_items"], 0)
             self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
+
+    def test_refresh_uses_pair_policy_defaults(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            source_db.touch()
+            save_srs_store(SrsStore(items=tuple(), version=1), paths.srs_store_path)
+
+            with patch(
+                "lexishift_core.helper_engine.build_seed_candidates",
+                return_value=[],
+            ) as build_seed:
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        set_top_n=None,
+                        feedback_window_size=None,
+                        persist_store=False,
+                    ),
+                )
+
+            selection_config = build_seed.call_args.kwargs["config"]
+            self.assertEqual(selection_config.top_n, 2000)
+            self.assertEqual(result["set_top_n"], 2000)
+            self.assertEqual(result["feedback_window_size"], 100)
+            self.assertEqual(result["pair_policy"]["pair"], "en-ja")
 
 
 class TestHelperEngineFeedbackCycle(unittest.TestCase):

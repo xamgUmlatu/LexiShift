@@ -117,6 +117,43 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertGreater(selected[0].admission_weight, selected[1].admission_weight)
             self.assertGreater(selected[1].admission_weight, selected[2].admission_weight)
 
+    def test_seed_metadata_source_defaults_to_frequency_db_stem(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq-de-default.sqlite"
+            _build_freq_db(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-de",
+                    top_n=2,
+                    require_jmdict=False,
+                ),
+            )
+
+            self.assertTrue(selected)
+            self.assertEqual(selected[0].metadata["source"], "freq-de-default")
+
+    def test_seed_metadata_source_can_be_overridden(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-de",
+                    top_n=2,
+                    require_jmdict=False,
+                    source_label="leipzig_2023_1m",
+                ),
+            )
+
+            self.assertTrue(selected)
+            self.assertEqual(selected[0].metadata["source"], "leipzig_2023_1m")
+
 
 if __name__ == "__main__":
     unittest.main()

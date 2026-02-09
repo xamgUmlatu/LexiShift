@@ -5,10 +5,13 @@ Purpose:
 - Keep scope limited to extension + helper + core SRS/rulegen paths.
 - BetterDiscord plugin is explicitly out of scope for this checklist.
 
+Architecture contract:
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/srs_lp_architecture.md`
+
 Status baseline (current):
 - Extension UI resolves LP dynamically from source/target language inputs.
-- Helper SRS bootstrap/rulegen paths still assume JA resources (JMDict + BCCWJ) by default.
-- Pair-specific rulegen is implemented only for `en-ja`.
+- Helper SRS bootstrap/rulegen paths use LP capabilities for requirement resolution.
+- Pair-specific rulegen is implemented for `en-ja` and `en-de`.
 
 ## 1) LP Strategy And Direction Policy
 

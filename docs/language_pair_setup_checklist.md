@@ -9,6 +9,7 @@ Scope:
 - This checklist covers setup for both synonym generation and SRS-backed runtime usage.
 
 Related:
+- Core LP architecture contract: `docs/srs_lp_architecture.md`.
 - For extension + helper focused rollout sequencing, see `docs/extension_lp_generalization_checklist.md`.
 
 ## LP Definition

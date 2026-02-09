@@ -38,6 +38,10 @@ from lexishift_core.srs_set_strategy import (
     STRATEGY_FREQUENCY_BOOTSTRAP,
 )
 from lexishift_core.srs_set_policy import resolve_set_sizing_policy
+from lexishift_core.srs_pair_policy import (
+    pair_policy_to_dict,
+    resolve_srs_pair_policy,
+)
 from lexishift_core.srs_sampling import sample_store_items, sampling_result_to_dict
 from lexishift_core.srs_signal_queue import (
     SIGNAL_EXPOSURE,
@@ -59,7 +63,7 @@ class RulegenJobConfig:
     freedict_de_en_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
-    set_top_n: int = 2000
+    set_top_n: Optional[int] = None
     confidence_threshold: float = 0.0
     snapshot_targets: int = 50
     snapshot_sources: int = 6
@@ -81,7 +85,7 @@ class SetInitializationJobConfig:
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
-    set_top_n: int = 800
+    set_top_n: Optional[int] = None
     bootstrap_top_n: Optional[int] = None
     initial_active_count: Optional[int] = None
     max_active_items_hint: Optional[int] = None
@@ -98,7 +102,7 @@ class SetPlanningJobConfig:
     profile_id: str = "default"
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
-    set_top_n: int = 800
+    set_top_n: Optional[int] = None
     bootstrap_top_n: Optional[int] = None
     initial_active_count: Optional[int] = None
     max_active_items_hint: Optional[int] = None
@@ -114,8 +118,8 @@ class SrsRefreshJobConfig:
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
-    set_top_n: int = 2000
-    feedback_window_size: int = 100
+    set_top_n: Optional[int] = None
+    feedback_window_size: Optional[int] = None
     max_active_items: Optional[int] = None
     max_new_items: Optional[int] = None
     persist_store: bool = True
@@ -206,6 +210,7 @@ def get_srs_runtime_diagnostics(
     capability = resolve_pair_capability(pair)
     normalized_pair = capability.pair
     normalized_profile_id = _resolve_profile_id(paths, profile_id=profile_id)
+    pair_policy = resolve_srs_pair_policy(normalized_pair)
     resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
         paths,
         pair=normalized_pair,
@@ -213,6 +218,7 @@ def get_srs_runtime_diagnostics(
         freedict_de_en_path=None,
         set_source_db=None,
     )
+    resolved_stopwords_path = _resolve_stopwords_path(paths, pair=normalized_pair)
     missing_inputs: list[dict[str, object]] = []
     if capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen:
         if not resolved_jmdict_path:
@@ -239,6 +245,7 @@ def get_srs_runtime_diagnostics(
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
         "requirements": pair_requirements(normalized_pair),
+        "pair_policy": pair_policy_to_dict(pair_policy),
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
         "freedict_de_en_path": (
@@ -249,6 +256,8 @@ def get_srs_runtime_diagnostics(
         ),
         "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
         "set_source_db_exists": bool(resolved_set_source_db and resolved_set_source_db.exists()),
+        "stopwords_path": str(resolved_stopwords_path) if resolved_stopwords_path else None,
+        "stopwords_exists": bool(resolved_stopwords_path and resolved_stopwords_path.exists()),
         "missing_inputs": missing_inputs,
         "store_path": str(store_path),
         "store_exists": store_path.exists(),
@@ -348,6 +357,29 @@ def _resolve_pair_resources(
     return resolved_jmdict, resolved_freedict_de_en, resolved_frequency_db
 
 
+def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:
+    policy = resolve_srs_pair_policy(pair)
+    if requested_top_n is not None:
+        return max(1, int(requested_top_n))
+    if purpose == "bootstrap":
+        return max(1, int(policy.bootstrap_top_n_default))
+    return max(1, int(policy.refresh_top_n_default))
+
+
+def _resolve_pair_feedback_window_size(*, pair: str, requested_size: Optional[int]) -> int:
+    if requested_size is not None:
+        return max(1, int(requested_size))
+    policy = resolve_srs_pair_policy(pair)
+    return max(1, int(policy.feedback_window_size_default))
+
+
+def _resolve_pair_initial_active_count(*, pair: str, requested_count: Optional[int]) -> int:
+    if requested_count is not None:
+        return max(1, int(requested_count))
+    policy = resolve_srs_pair_policy(pair)
+    return max(1, int(policy.initial_active_count_default))
+
+
 def _ensure_pair_requirements(
     *,
     pair: str,
@@ -390,6 +422,11 @@ def run_rulegen_job(
 ) -> dict:
     capability = resolve_pair_capability(config.pair)
     pair = capability.pair
+    effective_set_top_n = _resolve_pair_set_top_n(
+        pair=pair,
+        requested_top_n=config.set_top_n,
+        purpose="refresh",
+    )
     resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
         paths,
         pair=pair,
@@ -422,7 +459,7 @@ def run_rulegen_job(
         set_init_config = SetInitializationConfig(
             frequency_db=resolved_set_source_db,
             jmdict_path=resolved_jmdict_path,
-            top_n=config.set_top_n,
+            top_n=effective_set_top_n,
             language_pair=pair,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
@@ -450,6 +487,7 @@ def run_rulegen_job(
         diagnostics = {
             "pair": pair,
             "requirements": pair_requirements(pair),
+            "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
             "freedict_de_en_path": (
@@ -463,6 +501,7 @@ def run_rulegen_job(
                 resolved_set_source_db and resolved_set_source_db.exists()
             ),
             "set_initialization_enabled": bool(set_init_config),
+            "effective_set_top_n": effective_set_top_n,
             "stopwords_path": str(stopwords_path) if stopwords_path else None,
             "stopwords_exists": bool(stopwords_path and stopwords_path.exists()),
             "missing_inputs": missing_inputs,
@@ -585,9 +624,10 @@ def plan_srs_set(
     *,
     config: SetPlanningJobConfig,
 ) -> dict:
-    pair = str(config.pair or "").strip()
-    if not pair:
+    raw_pair = str(config.pair or "").strip()
+    if not raw_pair:
         raise ValueError("Missing pair.")
+    pair = resolve_pair_capability(raw_pair).pair
 
     profile_id = _resolve_profile_id(
         paths,
@@ -596,11 +636,22 @@ def plan_srs_set(
     )
     store = _ensure_store(paths, profile_id=profile_id, persist_missing=False)
     existing_items_for_pair = _count_items_for_pair(store, pair)
+    resolved_set_top_n = _resolve_pair_set_top_n(
+        pair=pair,
+        requested_top_n=config.set_top_n,
+        purpose="bootstrap",
+    )
+    resolved_initial_active_count = _resolve_pair_initial_active_count(
+        pair=pair,
+        requested_count=config.initial_active_count,
+    )
     sizing_policy = resolve_set_sizing_policy(
-        bootstrap_top_n=config.bootstrap_top_n
-        if config.bootstrap_top_n is not None
-        else config.set_top_n,
-        initial_active_count=config.initial_active_count,
+        bootstrap_top_n=(
+            max(1, int(config.bootstrap_top_n))
+            if config.bootstrap_top_n is not None
+            else resolved_set_top_n
+        ),
+        initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
     )
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
@@ -629,6 +680,7 @@ def plan_srs_set(
         "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
         "initial_active_count": sizing_policy.initial_active_count_effective,
         "max_active_items_hint": sizing_policy.max_active_items_hint,
+        "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "existing_items_for_pair": existing_items_for_pair,
         "signal_summary": signal_summary,
@@ -641,10 +693,20 @@ def initialize_srs_set(
     *,
     config: SetInitializationJobConfig,
 ) -> dict:
-    pair = str(config.pair or "").strip()
-    if not pair:
+    raw_pair = str(config.pair or "").strip()
+    if not raw_pair:
         raise ValueError("Missing pair.")
-    capability = resolve_pair_capability(pair)
+    capability = resolve_pair_capability(raw_pair)
+    pair = capability.pair
+    resolved_set_top_n = _resolve_pair_set_top_n(
+        pair=pair,
+        requested_top_n=config.set_top_n,
+        purpose="bootstrap",
+    )
+    resolved_initial_active_count = _resolve_pair_initial_active_count(
+        pair=pair,
+        requested_count=config.initial_active_count,
+    )
     resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
         paths,
         pair=pair,
@@ -673,10 +735,12 @@ def initialize_srs_set(
     store = _ensure_store(paths, profile_id=profile_id, persist_missing=True)
     before_pair_count = _count_items_for_pair(store, pair)
     sizing_policy = resolve_set_sizing_policy(
-        bootstrap_top_n=config.bootstrap_top_n
-        if config.bootstrap_top_n is not None
-        else config.set_top_n,
-        initial_active_count=config.initial_active_count,
+        bootstrap_top_n=(
+            max(1, int(config.bootstrap_top_n))
+            if config.bootstrap_top_n is not None
+            else resolved_set_top_n
+        ),
+        initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
     )
     stopwords_path = _resolve_stopwords_path(paths, pair=pair)
@@ -709,6 +773,7 @@ def initialize_srs_set(
             "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
             "initial_active_count": sizing_policy.initial_active_count_effective,
             "max_active_items_hint": sizing_policy.max_active_items_hint,
+            "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
             "source_type": SOURCE_INITIAL_SET,
             "replace_pair": config.replace_pair,
             "added_items": 0,
@@ -776,6 +841,7 @@ def initialize_srs_set(
         "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
         "initial_active_count": sizing_policy.initial_active_count_effective,
         "max_active_items_hint": sizing_policy.max_active_items_hint,
+        "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "source_type": SOURCE_INITIAL_SET,
         "replace_pair": config.replace_pair,
         "added_items": added_items,
@@ -815,10 +881,20 @@ def refresh_srs_set(
     *,
     config: SrsRefreshJobConfig,
 ) -> dict:
-    pair = str(config.pair or "").strip()
-    if not pair:
+    raw_pair = str(config.pair or "").strip()
+    if not raw_pair:
         raise ValueError("Missing pair.")
-    capability = resolve_pair_capability(pair)
+    capability = resolve_pair_capability(raw_pair)
+    pair = capability.pair
+    effective_set_top_n = _resolve_pair_set_top_n(
+        pair=pair,
+        requested_top_n=config.set_top_n,
+        purpose="refresh",
+    )
+    effective_feedback_window_size = _resolve_pair_feedback_window_size(
+        pair=pair,
+        requested_size=config.feedback_window_size,
+    )
     resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = _resolve_pair_resources(
         paths,
         pair=pair,
@@ -851,7 +927,7 @@ def refresh_srs_set(
         frequency_db=resolved_set_source_db,
         config=SeedSelectionConfig(
             language_pair=pair,
-            top_n=max(1, int(config.set_top_n)),
+            top_n=effective_set_top_n,
             jmdict_path=resolved_jmdict_path,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
@@ -860,7 +936,7 @@ def refresh_srs_set(
     selector_candidates = seed_to_selector_candidates(selection)
     signal_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
     refresh_policy = AdmissionRefreshPolicy(
-        feedback_window_size=max(1, int(config.feedback_window_size)),
+        feedback_window_size=effective_feedback_window_size,
         max_active_items_override=config.max_active_items,
         max_new_items_override=config.max_new_items,
     )
@@ -921,8 +997,9 @@ def refresh_srs_set(
     return {
         "pair": pair,
         "profile_id": profile_id,
-        "set_top_n": max(1, int(config.set_top_n)),
-        "feedback_window_size": max(1, int(config.feedback_window_size)),
+        "set_top_n": effective_set_top_n,
+        "feedback_window_size": effective_feedback_window_size,
+        "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "max_active_items": refresh_result.decision.max_active_items,
         "max_new_items_per_day": refresh_result.decision.max_new_items_per_day,
         "added_items": added_items,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 import os
 from pathlib import Path
 import sys
@@ -8,6 +9,49 @@ import re
 
 
 DEFAULT_PROFILE_ID = "default"
+DEFAULT_STOPWORDS_DE = (
+    "der",
+    "die",
+    "das",
+    "den",
+    "dem",
+    "des",
+    "ein",
+    "eine",
+    "einer",
+    "einem",
+    "einen",
+    "und",
+    "oder",
+    "aber",
+    "auch",
+    "nicht",
+    "kein",
+    "keine",
+    "ich",
+    "du",
+    "er",
+    "sie",
+    "es",
+    "wir",
+    "ihr",
+    "sie",
+    "im",
+    "in",
+    "am",
+    "an",
+    "zu",
+    "von",
+    "mit",
+    "für",
+    "auf",
+    "aus",
+    "bei",
+    "nach",
+    "vor",
+    "über",
+    "unter",
+)
 
 
 def _sanitize_profile_id(value: str) -> str:
@@ -83,6 +127,7 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
     default_profile_dir.mkdir(parents=True, exist_ok=True)
     language_packs_dir = data_root / "language_packs"
     frequency_packs_dir = data_root / "frequency_packs"
+    _ensure_default_stopwords(srs_dir)
     return HelperPaths(
         data_root=data_root,
         srs_dir=srs_dir,
@@ -94,3 +139,12 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
         language_packs_dir=language_packs_dir,
         frequency_packs_dir=frequency_packs_dir,
     )
+
+
+def _ensure_default_stopwords(srs_dir: Path) -> None:
+    stopwords_dir = srs_dir / "stopwords"
+    stopwords_dir.mkdir(parents=True, exist_ok=True)
+    de_path = stopwords_dir / "stopwords-de.json"
+    if not de_path.exists():
+        payload = json.dumps(list(DEFAULT_STOPWORDS_DE), ensure_ascii=False, indent=2)
+        de_path.write_text(payload + "\n", encoding="utf-8")

@@ -38,6 +38,7 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
+from lexishift_core.lp_capabilities import selectable_srs_pairs
 from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
 from helper_installer import install_helper, is_helper_installed
@@ -47,6 +48,30 @@ from theme_manager import resolve_theme
 from theme_registry import BUILTIN_THEMES
 from utils_paths import reveal_path
 from integrations import open_integration_link
+
+
+def _language_label(code: str) -> str:
+    normalized = str(code or "").strip().lower()
+    mapping = {
+        "en": "languages.english",
+        "de": "languages.german",
+        "ja": "languages.japanese",
+    }
+    key = mapping.get(normalized)
+    if key:
+        return t(key)
+    return normalized.upper() if normalized else "?"
+
+
+def _format_pair_label(pair: str) -> str:
+    source, separator, target = str(pair or "").partition("-")
+    if not separator:
+        return str(pair or "")
+    return f"{_language_label(source)} → {_language_label(target)}"
+
+
+def _srs_pair_options() -> list[tuple[str, str]]:
+    return [(pair, _format_pair_label(pair)) for pair in selectable_srs_pairs()]
 
 
 class RuleMetadataDialog(QDialog):
@@ -429,13 +454,7 @@ class SettingsDialog(QDialog):
         self.install_helper_button.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
         self.install_helper_button.clicked.connect(self._install_helper)
 
-        srs_pairs = [
-            ("en-ja", f"{t('languages.english')} → {t('languages.japanese')}"),
-            ("en-en", f"{t('languages.english')} → {t('languages.english')}"),
-            ("ja-ja", f"{t('languages.japanese')} → {t('languages.japanese')}"),
-            ("de-de", f"{t('languages.german')} → {t('languages.german')}"),
-            ("de-en", f"{t('languages.german')} → {t('languages.english')}"),
-        ]
+        srs_pairs = _srs_pair_options()
         self._srs_pair_checks = {}
         srs_pair_layout = QVBoxLayout()
         srs_pair_layout.setContentsMargins(0, 0, 0, 0)

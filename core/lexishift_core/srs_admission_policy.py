@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import re
 from typing import Optional
 
 
@@ -65,6 +66,8 @@ def classify_pos_bucket(*, language_pair: str, raw_pos: Optional[str]) -> str:
     target_language = _target_language_from_pair(language_pair)
     if target_language == "ja":
         return _classify_ja_pos_bucket(normalized)
+    if target_language == "de":
+        return _classify_de_pos_bucket(normalized)
     return _classify_generic_pos_bucket(normalized)
 
 
@@ -115,3 +118,37 @@ def _classify_generic_pos_bucket(raw_pos: str) -> str:
     if "adv" in lowered:
         return POS_BUCKET_ADVERB
     return POS_BUCKET_OTHER
+
+
+def _classify_de_pos_bucket(raw_pos: str) -> str:
+    upper = raw_pos.upper()
+    tokens = {
+        token
+        for token in re.split(r"[:|+_\-\s]+", upper)
+        if token
+    }
+    if (
+        "SUB" in tokens
+        or "NOUN" in tokens
+        or "NOMEN" in tokens
+        or "NN" in tokens
+    ):
+        return POS_BUCKET_NOUN
+    if (
+        "ADJ" in tokens
+        or "ADJA" in tokens
+        or "ADJD" in tokens
+        or any(token.startswith("ADJ") for token in tokens)
+    ):
+        return POS_BUCKET_ADJECTIVE
+    if (
+        "VER" in tokens
+        or "VERB" in tokens
+        or any(token.startswith("VV") for token in tokens)
+        or any(token.startswith("VA") for token in tokens)
+        or any(token.startswith("VM") for token in tokens)
+    ):
+        return POS_BUCKET_VERB
+    if "ADV" in tokens:
+        return POS_BUCKET_ADVERB
+    return _classify_generic_pos_bucket(raw_pos)
