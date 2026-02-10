@@ -2,6 +2,7 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
+  const RULE_ORIGIN_SRS = "srs";
 
   function normalizeDisplayScript(value) {
     const normalized = String(value || "").trim().toLowerCase();
@@ -98,7 +99,11 @@
       span.dataset.hasScriptVariants = Object.keys(payload.scriptForms).length > 1 ? "true" : "false";
     }
     if (origin) {
-      span.dataset.origin = origin;
+      const normalizedOrigin = String(origin).trim().toLowerCase();
+      span.dataset.origin = normalizedOrigin;
+      if (normalizedOrigin === RULE_ORIGIN_SRS) {
+        span.classList.add("lexishift-srs");
+      }
     }
     if (rule) {
       if (rule.source_phrase) {
