@@ -100,6 +100,12 @@ let profileBgPendingFile = null;
 let profileBgHasPendingApply = false;
 let targetLanguagePrefsModalOpen = false;
 let targetLanguagePrefsModalLastFocusedElement = null;
+let srsProfileStatusState = {
+  mode: "i18n",
+  key: "hint_profile_loading",
+  substitutions: null,
+  fallback: "Loading profiles…"
+};
 const PROFILE_BG_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const profileMediaStore = globalThis.LexiShift && globalThis.LexiShift.profileMediaStore;
 
@@ -117,6 +123,42 @@ function updateRulesMeta(rules, updatedAt) {
 
 function updateRulesSourceUI(source) {
   ui.updateRulesSourceUI(source);
+}
+
+function renderSrsProfileStatus() {
+  if (!srsProfileStatusOutput) {
+    return;
+  }
+  if (srsProfileStatusState && srsProfileStatusState.mode === "message") {
+    srsProfileStatusOutput.textContent = String(srsProfileStatusState.message || "");
+    return;
+  }
+  const state = srsProfileStatusState && typeof srsProfileStatusState === "object"
+    ? srsProfileStatusState
+    : { key: "hint_profile_loading", substitutions: null, fallback: "Loading profiles…" };
+  srsProfileStatusOutput.textContent = t(
+    state.key || "hint_profile_loading",
+    state.substitutions || null,
+    state.fallback || "Loading profiles…"
+  );
+}
+
+function setSrsProfileStatusLocalized(key, substitutions, fallback) {
+  srsProfileStatusState = {
+    mode: "i18n",
+    key: String(key || "").trim() || "hint_profile_loading",
+    substitutions: substitutions === undefined ? null : substitutions,
+    fallback: String(fallback || "Loading profiles…")
+  };
+  renderSrsProfileStatus();
+}
+
+function setSrsProfileStatusMessage(message) {
+  srsProfileStatusState = {
+    mode: "message",
+    message: String(message || "")
+  };
+  renderSrsProfileStatus();
 }
 
 function applyTargetLanguagePrefsLocalization() {
@@ -586,13 +628,11 @@ function renderSrsProfileControls(selectedProfileId, helperProfilesPayload) {
     srsProfileIdInput.value = nextValue || "default";
     srsProfileIdInput.disabled = merged.length === 0;
   }
-  if (srsProfileStatusOutput) {
-    srsProfileStatusOutput.textContent = t(
-      "status_profile_selected",
-      [resolvedProfileId],
-      `Selected profile: ${resolvedProfileId}.`
-    );
-  }
+  setSrsProfileStatusLocalized(
+    "status_profile_selected",
+    [resolvedProfileId],
+    `Selected profile: ${resolvedProfileId}.`
+  );
 }
 
 async function fetchHelperProfiles(options) {
@@ -1158,13 +1198,7 @@ async function refreshSrsProfiles() {
   if (srsProfileRefreshButton) {
     srsProfileRefreshButton.disabled = true;
   }
-  if (srsProfileStatusOutput) {
-    srsProfileStatusOutput.textContent = t(
-      "hint_profile_loading",
-      null,
-      "Loading profiles…"
-    );
-  }
+  setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
   try {
     helperProfilesCache = null;
     helperProfilesCacheTs = 0;
@@ -1173,9 +1207,7 @@ async function refreshSrsProfiles() {
     setStatus(t("status_srs_profile_refreshed", null, "Helper profiles refreshed."), ui.COLORS.SUCCESS);
   } catch (err) {
     const msg = err && err.message ? err.message : t("status_srs_profile_refresh_failed", null, "Failed to refresh helper profiles.");
-    if (srsProfileStatusOutput) {
-      srsProfileStatusOutput.textContent = msg;
-    }
+    setSrsProfileStatusMessage(msg);
     setStatus(msg, ui.COLORS.ERROR);
   } finally {
     if (srsProfileRefreshButton) {
@@ -1311,6 +1343,7 @@ function copyShareCode() {
 }
 
 async function load() {
+  setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
   await migrateLegacyOptionsProfileStateIfNeeded();
   const items = await settingsManager.load();
     enabledInput.checked = items.enabled;
@@ -1372,6 +1405,7 @@ async function load() {
     updateRulesMeta(settingsManager.currentRules, items.rulesUpdatedAt);
     await i18n.load(items.uiLanguage || "system");
     applyTargetLanguagePrefsLocalization();
+    renderSrsProfileStatus();
 }
 
 async function refreshHelperStatus() {
@@ -2183,6 +2217,7 @@ if (languageSelect) {
     chrome.storage.local.set({ uiLanguage: value }, () => {
       Promise.resolve(i18n.load(value)).finally(() => {
         applyTargetLanguagePrefsLocalization();
+        renderSrsProfileStatus();
         setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
       });
     });
