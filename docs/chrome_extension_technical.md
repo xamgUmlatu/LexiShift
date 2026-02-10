@@ -50,6 +50,7 @@ Module layout
   - Handles highlight styles, click-to-toggle behavior, and cleanup.
   - Provides SRS feedback popup and keyboard shortcuts (Ctrl+1/2/3/4).
   - Separates DOM mutation concerns from parsing and matching.
+  - Popup module architecture and extension plan: `docs/popup_modules_pattern.md`.
 - `apps/chrome-extension/content/utils.js`
   - Logging helpers: element descriptors, codepoint snippets, node traversal.
 - `apps/chrome-extension/content_script.js`
