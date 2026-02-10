@@ -16,6 +16,7 @@ class UIManager {
 
   init() {
     const ids = [
+      "options-main-content",
       "enabled", "highlight-enabled", "highlight-color", "highlight-color-text",
       "max-one-per-block", "allow-adjacent", "max-replacements-per-page",
       "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",

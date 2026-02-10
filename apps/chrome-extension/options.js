@@ -24,6 +24,7 @@ i18n.apply();
 
 // Map UIManager elements to local variables to minimize diff churn
 const {
+  optionsMainContent,
   enabled: enabledInput,
   highlightEnabled: highlightEnabledInput,
   highlightColor: highlightColorInput,
@@ -39,6 +40,7 @@ const {
   targetLanguage: targetLanguageInput,
   targetLanguageGear: targetLanguageGearButton,
   targetLanguagePrefsModalBackdrop: targetLanguagePrefsModalBackdrop,
+  targetLanguagePrefsModal: targetLanguagePrefsModal,
   targetLanguagePrefsModalOk: targetLanguagePrefsModalOkButton,
   jaPrimaryDisplayScript: jaPrimaryDisplayScriptInput,
   srsProfileId: srsProfileIdInput,
@@ -97,6 +99,7 @@ let profileBgAppliedObjectUrl = "";
 let profileBgPendingFile = null;
 let profileBgHasPendingApply = false;
 let targetLanguagePrefsModalOpen = false;
+let targetLanguagePrefsModalLastFocusedElement = null;
 const PROFILE_BG_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const profileMediaStore = globalThis.LexiShift && globalThis.LexiShift.profileMediaStore;
 
@@ -125,6 +128,86 @@ function applyTargetLanguagePrefsLocalization() {
   if (targetLanguageGearButton) {
     targetLanguageGearButton.setAttribute("aria-label", label);
     targetLanguageGearButton.setAttribute("title", label);
+  }
+}
+
+function getTargetLanguagePrefsFocusableElements() {
+  if (!targetLanguagePrefsModal) {
+    return [];
+  }
+  const selector = [
+    "button:not([disabled])",
+    "select:not([disabled])",
+    "input:not([disabled])",
+    "textarea:not([disabled])",
+    "a[href]",
+    "[tabindex]:not([tabindex='-1'])"
+  ].join(", ");
+  return Array.from(targetLanguagePrefsModal.querySelectorAll(selector)).filter((node) => {
+    if (!(node instanceof HTMLElement)) {
+      return false;
+    }
+    if (node.hidden) {
+      return false;
+    }
+    const style = window.getComputedStyle(node);
+    return style.display !== "none" && style.visibility !== "hidden";
+  });
+}
+
+function restoreFocusAfterTargetLanguagePrefsModalClose() {
+  const restoreTarget = (
+    targetLanguagePrefsModalLastFocusedElement instanceof HTMLElement
+    && document.contains(targetLanguagePrefsModalLastFocusedElement)
+  )
+    ? targetLanguagePrefsModalLastFocusedElement
+    : targetLanguageGearButton;
+  targetLanguagePrefsModalLastFocusedElement = null;
+  if (!(restoreTarget instanceof HTMLElement) || typeof restoreTarget.focus !== "function") {
+    return;
+  }
+  window.requestAnimationFrame(() => {
+    restoreTarget.focus();
+  });
+}
+
+function trapFocusInTargetLanguagePrefsModal(event) {
+  if (!(event instanceof KeyboardEvent) || event.key !== "Tab" || !targetLanguagePrefsModalOpen) {
+    return;
+  }
+  const focusable = getTargetLanguagePrefsFocusableElements();
+  if (!focusable.length) {
+    event.preventDefault();
+    if (targetLanguagePrefsModal && typeof targetLanguagePrefsModal.focus === "function") {
+      targetLanguagePrefsModal.focus();
+    }
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const active = document.activeElement;
+  const activeWithinModal = active instanceof Node
+    && targetLanguagePrefsModal
+    && targetLanguagePrefsModal.contains(active);
+
+  if (!activeWithinModal) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+    return;
+  }
+  if (active === targetLanguagePrefsModal) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+    return;
+  }
+  if (event.shiftKey && active === first) {
+    event.preventDefault();
+    last.focus();
+    return;
+  }
+  if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
   }
 }
 
@@ -396,15 +479,34 @@ function updateTargetLanguagePrefsModalVisibility(targetLanguage) {
     targetLanguagePrefsModalBackdrop.classList.toggle("hidden", !shouldShowModal);
     targetLanguagePrefsModalBackdrop.setAttribute("aria-hidden", shouldShowModal ? "false" : "true");
   }
+  if (optionsMainContent) {
+    if (shouldShowModal) {
+      optionsMainContent.setAttribute("inert", "");
+      optionsMainContent.setAttribute("aria-hidden", "true");
+    } else {
+      optionsMainContent.removeAttribute("inert");
+      optionsMainContent.removeAttribute("aria-hidden");
+    }
+  }
   document.body.classList.toggle("modal-open", shouldShowModal);
 }
 
 function setTargetLanguagePrefsModalOpen(open) {
+  const wasOpen = targetLanguagePrefsModalOpen === true;
+  if (open === true && !wasOpen) {
+    targetLanguagePrefsModalLastFocusedElement = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+  }
   targetLanguagePrefsModalOpen = open === true;
   const targetLanguage = targetLanguageInput
     ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
     : (settingsManager.defaults.targetLanguage || "en");
   updateTargetLanguagePrefsModalVisibility(targetLanguage);
+  const isOpen = targetLanguagePrefsModalOpen === true;
+  if (wasOpen && !isOpen) {
+    restoreFocusAfterTargetLanguagePrefsModalClose();
+  }
 }
 
 function applyLanguagePrefsToInputs(languagePrefs) {
@@ -2134,8 +2236,11 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key === "Escape") {
+    event.preventDefault();
     setTargetLanguagePrefsModalOpen(false);
+    return;
   }
+  trapFocusInTargetLanguagePrefsModal(event);
 });
 
 if (openDesktopAppButton) {

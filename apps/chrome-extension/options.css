@@ -170,6 +170,8 @@ header p {
 
 .language-pref-modal {
   width: min(420px, 100%);
+  max-height: min(84vh, 620px);
+  overflow-y: auto;
   border-radius: 12px;
   border: 1px solid #e3d8c8;
   background: #fffaf2;
@@ -193,6 +195,11 @@ header p {
 
 .language-pref-modal-actions {
   justify-content: flex-end;
+}
+
+.language-pref-modal :is(button, select, input, textarea):focus-visible {
+  outline: 2px solid #3a372f;
+  outline-offset: 2px;
 }
 
 .hidden {
@@ -220,6 +227,26 @@ body.modal-open {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .language-pref-modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .language-pref-modal {
+    width: 100%;
+    max-height: min(86vh, 720px);
+    border-radius: 12px 12px 10px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-pref-modal-backdrop,
+  .language-pref-modal {
+    animation: none;
   }
 }
 

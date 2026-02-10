@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="options.css" />
   </head>
   <body>
-    <main class="container">
+    <main id="options-main-content" class="container">
       <header>
         <h1 data-i18n="header_title">LexiShift</h1>
         <p data-i18n="header_subtitle">Configure replacement rules for the content script.</p>
@@ -340,11 +340,17 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="target-language-prefs-modal-title"
+        aria-describedby="target-language-prefs-modal-description"
+        tabindex="-1"
       >
         <h3 id="target-language-prefs-modal-title" data-i18n="title_language_specific_preferences">
           Language-specific preferences
         </h3>
-        <p class="hint language-pref-modal-description" data-i18n="hint_language_specific_preferences_ja">
+        <p
+          id="target-language-prefs-modal-description"
+          class="hint language-pref-modal-description"
+          data-i18n="hint_language_specific_preferences_ja"
+        >
           Configure how Japanese replacement words are shown in SRS.
         </p>
         <div class="field-row">
