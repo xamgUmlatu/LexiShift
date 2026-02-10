@@ -54,26 +54,13 @@
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
   let currentTrie = null;
-  let observer = null;
   let applyingChanges = false;
-  let observedBody = null;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
-  let helperRulesCache = new Map();
-  let pageBudgetState = null;
-  let feedbackSync = null;
 
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();
     return normalized || "default";
-  }
-
-  function rulesCacheKey(pair, profileId) {
-    const normalizedPair = String(pair || "").trim();
-    if (!normalizedPair) {
-      return "";
-    }
-    return `${normalizeProfileId(profileId)}::${normalizedPair}`;
   }
 
   function normalizeRuleOrigin(origin) {
@@ -104,42 +91,6 @@
     });
   }
 
-  function countRulesByOrigin(rules) {
-    const counts = {
-      [RULE_ORIGIN_RULESET]: 0,
-      [RULE_ORIGIN_SRS]: 0
-    };
-    for (const rule of rules || []) {
-      const origin = getRuleOrigin(rule);
-      counts[origin] = Number(counts[origin] || 0) + 1;
-    }
-    return counts;
-  }
-
-  function countActiveRulesByOrigin(rules) {
-    const counts = {
-      [RULE_ORIGIN_RULESET]: 0,
-      [RULE_ORIGIN_SRS]: 0
-    };
-    for (const rule of rules || []) {
-      const origin = getRuleOrigin(rule);
-      counts[origin] = Number(counts[origin] || 0) + 1;
-    }
-    return counts;
-  }
-
-  function countRulesWithScriptForms(rules) {
-    let withScriptForms = 0;
-    for (const rule of rules || []) {
-      const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : null;
-      const scriptForms = metadata && typeof metadata.script_forms === "object" ? metadata.script_forms : null;
-      if (scriptForms && Object.keys(scriptForms).length > 0) {
-        withScriptForms += 1;
-      }
-    }
-    return withScriptForms;
-  }
-
   function persistRuntimeState(payload) {
     if (!isTopFrameWindow()) {
       return;
@@ -148,32 +99,6 @@
       return;
     }
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
-  }
-
-  function cacheHelperRules(pair, rules, profileId) {
-    const key = rulesCacheKey(pair, profileId);
-    if (!key) {
-      return;
-    }
-    const payload = Array.isArray(rules) ? rules : [];
-    helperRulesCache.set(key, payload);
-    if (helperCache && typeof helperCache.saveRuleset === "function") {
-      helperCache.saveRuleset(pair, { rules: payload }, { profileId });
-    }
-  }
-
-  async function fetchHelperRules(pair, profileId) {
-    if (!helperClient) {
-      return { ruleset: null, error: "Helper client unavailable." };
-    }
-    const response = await helperClient.getRuleset(pair, profileId);
-    if (!response || response.ok === false) {
-      const message = response && response.error && response.error.message
-        ? response.error.message
-        : "Failed to load helper ruleset.";
-      return { ruleset: null, error: message };
-    }
-    return { ruleset: response.data || null, error: null };
   }
 
   function log(...args) {
@@ -230,415 +155,167 @@
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
 
-  function isEditable(node) {
-    if (!node || !node.parentElement) {
-      return false;
-    }
-    const parent = node.parentElement;
-    if (parent.isContentEditable) {
-      return true;
-    }
-    const tag = parent.tagName;
-    return tag === "INPUT" || tag === "TEXTAREA";
-  }
-
-  function isExcluded(node) {
-    if (!node || !node.parentElement) {
-      return true;
-    }
-    const tag = node.parentElement.tagName;
-    return tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT";
-  }
-
-  function isLexiShiftNode(node) {
-    if (!node || !node.parentElement) {
-      return false;
-    }
-    return Boolean(node.parentElement.closest(".lexishift-replacement"));
-  }
-
-  function toBudgetLimit(value, fallback) {
-    const parsed = Number.parseInt(value, 10);
-    if (!Number.isFinite(parsed)) {
-      return Math.max(0, fallback || 0);
-    }
-    return Math.max(0, parsed);
-  }
-
-  function getBudgetLemmaKey(value) {
-    return String(value || "").trim().toLowerCase();
-  }
-
-  function buildPageBudgetState(settings) {
-    const maxTotal = toBudgetLimit(settings.maxReplacementsPerPage, 0);
-    const maxPerLemma = toBudgetLimit(settings.maxReplacementsPerLemmaPerPage, 0);
-    if (maxTotal <= 0 && maxPerLemma <= 0) {
-      return null;
-    }
-    const state = {
-      maxTotal,
-      maxPerLemma,
-      usedTotal: 0,
-      usedByLemma: Object.create(null)
-    };
-    const existing = document.querySelectorAll(".lexishift-replacement");
-    for (const span of existing) {
-      const key = getBudgetLemmaKey(span.dataset.replacement || span.textContent || "");
-      if (!key) {
-        continue;
-      }
-      state.usedTotal += 1;
-      state.usedByLemma[key] = Number(state.usedByLemma[key] || 0) + 1;
-    }
-    return state;
-  }
-
-  function updatePageBudgetUsage(state, replacements) {
-    if (!state || !replacements || !replacements.length) {
-      return;
-    }
-    for (const replacement of replacements) {
-      const key = getBudgetLemmaKey(replacement);
-      if (!key) {
-        continue;
-      }
-      state.usedTotal += 1;
-      state.usedByLemma[key] = Number(state.usedByLemma[key] || 0) + 1;
-    }
-  }
-
-  function processTextNode(node, counter) {
-    if (!node || !node.nodeValue) {
-      if (counter) counter.emptyNodes += 1;
-      return;
-    }
-    if (!currentTrie || !currentSettings.enabled) {
-      return;
-    }
-    if (counter) {
-      counter.totalNodes += 1;
-    }
-    if (/^\s+$/.test(node.nodeValue)) {
-      if (counter) {
-        counter.whitespaceNodes += 1;
-      }
-      processedNodes.set(node, node.nodeValue);
-      return;
-    }
-    const focusWord = counter ? counter.focusWord : "";
-    const focusEnabled = Boolean(focusWord);
-    const focusInfo = focusEnabled
-      ? getFocusInfo(node.nodeValue, focusWord)
-      : { substring: false, token: false, index: -1 };
-    if (counter && focusInfo.substring) {
-      counter.focusSubstringNodes += 1;
-    }
-    if (counter && focusInfo.token) {
-      counter.focusTokenNodes += 1;
-    }
-    if (isEditable(node)) {
-      if (counter) {
-        counter.skippedEditable += 1;
-        if (focusInfo.substring) {
-          counter.focusSkippedEditable += 1;
-        }
-      }
-      return;
-    }
-    if (isExcluded(node)) {
-      if (counter) {
-        counter.skippedExcluded += 1;
-        if (focusInfo.substring) {
-          counter.focusSkippedExcluded += 1;
-        }
-      }
-      return;
-    }
-    if (isLexiShiftNode(node)) {
-      if (counter) {
-        counter.skippedLexi += 1;
-        if (focusInfo.substring) {
-          counter.focusSkippedLexi += 1;
-        }
-      }
-      return;
-    }
-    const last = processedNodes.get(node);
-    if (last === node.nodeValue) {
-      if (counter) {
-        counter.skippedCached += 1;
-        if (focusInfo.substring) {
-          counter.focusSkippedCached += 1;
-        }
-      }
-      return;
-    }
-    if (counter) counter.scanned += 1;
-    if (focusEnabled && focusInfo.substring && !focusInfo.token && counter) {
-      counter.focusSubstringNoToken += 1;
-      if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
-        const parent = node.parentElement;
-        const snippet = describeCodepoints(node.nodeValue, focusInfo.index, focusWord.length);
-        log(
-          `Focus substring "${focusWord}" found but not token in ${describeElement(parent)}: "${snippet.snippet}"`,
-          snippet.codes
-        );
-        counter.focusDetailLogs += 1;
-      } else if (currentSettings.debugEnabled) {
-        counter.focusDetailTruncated = true;
-      }
-    }
-    const originResolver = (rule) => getRuleOrigin(rule);
-    const result = buildReplacementFragment(node.nodeValue, currentTrie, currentSettings, (textNode) => {
-      processedNodes.set(textNode, textNode.nodeValue);
-    }, originResolver, pageBudgetState);
-    if (result) {
-      const parent = node.parentNode;
-      if (parent) {
-        parent.replaceChild(result.fragment, node);
-        if (pageBudgetState) {
-          updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
-        }
-        if (srsMetrics
-          && currentSettings.srsExposureLoggingEnabled !== false
-          && result.details
-          && result.details.length
-        ) {
-          const exposures = result.details.map((detail) =>
-            srsMetrics.buildExposure(
-              detail,
-              normalizeRuleOrigin(detail.origin),
-              window.location ? window.location.href : "",
-              lemmatizer ? lemmatizer.lemmatize : null
-            )
-          );
-          srsMetrics.recordExposureBatch(exposures).then((saved) => {
-            if (currentSettings.debugEnabled && saved && saved.length) {
-              log(`Recorded ${saved.length} exposure(s).`);
-            }
-          });
-        }
-        if (counter) {
-          counter.replacements += result.replacements;
-          counter.nodes += 1;
-          if (currentSettings.debugEnabled && result.details && result.details.length) {
-            for (const detail of result.details) {
-              if (counter.detailLogs >= counter.detailLimit) {
-                counter.detailTruncated = true;
-                break;
-              }
-              log(`Replaced "${detail.original}" -> "${detail.replacement}" in ${describeElement(parent)}`);
-              counter.detailLogs += 1;
-            }
-          }
-          if (focusEnabled && focusInfo.token) {
-            const matchedFocus = result.details
-              ? result.details.some((detail) => String(detail.source || "").toLowerCase() === focusWord)
-              : false;
-            if (matchedFocus) {
-              counter.focusReplaced += 1;
-            } else {
-              counter.focusUnmatched += 1;
-              if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
-                log(
-                  `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
-                    node.nodeValue,
-                    140
-                  )}"`
-                );
-                counter.focusDetailLogs += 1;
-              } else if (currentSettings.debugEnabled) {
-                counter.focusDetailTruncated = true;
-              }
-            }
-          }
-        }
-      }
-    } else {
-      if (focusEnabled && focusInfo.token && counter) {
-        counter.focusUnmatched += 1;
-        if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
-          const parent = node.parentElement;
-          log(
-            `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
-              node.nodeValue,
-              140
-            )}"`
-          );
-          counter.focusDetailLogs += 1;
-        } else if (currentSettings.debugEnabled) {
-          counter.focusDetailTruncated = true;
-        }
-      }
-      processedNodes.set(node, node.nodeValue);
-    }
-  }
-
-  function processDocument() {
-    const counter = {
-      totalNodes: 0,
-      emptyNodes: 0,
-      whitespaceNodes: 0,
-      replacements: 0,
-      nodes: 0,
-      scanned: 0,
-      skippedEditable: 0,
-      skippedExcluded: 0,
-      skippedLexi: 0,
-      skippedCached: 0,
-      detailLogs: 0,
-      detailLimit: 40,
-      detailTruncated: false,
-      focusWord: currentSettings.debugEnabled ? getFocusWord(currentSettings) : "",
-      focusSubstringNodes: 0,
-      focusTokenNodes: 0,
-      focusReplaced: 0,
-      focusUnmatched: 0,
-      focusSkippedEditable: 0,
-      focusSkippedExcluded: 0,
-      focusSkippedLexi: 0,
-      focusSkippedCached: 0,
-      focusSubstringNoToken: 0,
-      focusDetailLogs: 0,
-      focusDetailLimit: 30,
-      focusDetailTruncated: false
-    };
-    if (!document.body) {
-      log("Document body not ready.");
-      return;
-    }
-    pageBudgetState = buildPageBudgetState(currentSettings);
-    if (currentSettings.debugEnabled && counter.focusWord) {
-      const focus = counter.focusWord;
-      const innerText = document.body.innerText || "";
-      const textContent = document.body.textContent || "";
-      const innerCount = countOccurrences(innerText.toLowerCase(), focus);
-      const contentCount = countOccurrences(textContent.toLowerCase(), focus);
-      log(`Focus word "${focus}" occurrences: innerText=${innerCount}, textContent=${contentCount}.`);
-    }
-    const nodes = collectTextNodes(document.body);
-    for (const node of nodes) {
-      processTextNode(node, counter);
-    }
-    if (currentSettings.debugEnabled) {
-      log(
-        `Scan summary: ${counter.totalNodes} total text node(s), ${counter.emptyNodes} empty, ${counter.whitespaceNodes} whitespace-only, ${counter.scanned} scanned, ${counter.skippedCached} cached, ${counter.skippedEditable} editable skipped, ${counter.skippedExcluded} excluded skipped, ${counter.skippedLexi} replaced skipped, ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`
-      );
-      if (counter.focusWord) {
-        log(
-          `Focus word "${counter.focusWord}": ${counter.focusSubstringNodes} node(s) contain substring, ${counter.focusTokenNodes} contain token, ${counter.focusReplaced} replaced, ${counter.focusUnmatched} without match, ${counter.focusSubstringNoToken} substring-only, ${counter.focusSkippedCached} cached, ${counter.focusSkippedEditable} in editable, ${counter.focusSkippedExcluded} excluded, ${counter.focusSkippedLexi} already replaced.`
-        );
-      }
-      if (counter.detailTruncated) {
-        log(`Detail logs truncated after ${counter.detailLimit} replacement(s).`);
-      }
-      if (counter.focusDetailTruncated) {
-        log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
-      }
-    } else if (counter.replacements > 0) {
-      log(`Applied ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`);
-    }
-  }
-
-  function observeChanges() {
-    if (observer) {
-      return;
-    }
-    if (!document.body) {
-      log("Document body not ready for observer.");
-      return;
-    }
-    observedBody = document.body;
-    observer = new MutationObserver((mutations) => {
-      if (applyingChanges) {
-        return;
-      }
-      const counter = {
-        totalNodes: 0,
-        emptyNodes: 0,
-        whitespaceNodes: 0,
-        replacements: 0,
-        nodes: 0,
-        scanned: 0,
-        skippedEditable: 0,
-        skippedExcluded: 0,
-        skippedLexi: 0,
-        skippedCached: 0,
-        detailLogs: 0,
-        detailLimit: 20,
-        detailTruncated: false,
-        focusWord: currentSettings.debugEnabled ? getFocusWord(currentSettings) : "",
-        focusSubstringNodes: 0,
-        focusTokenNodes: 0,
-        focusReplaced: 0,
-        focusUnmatched: 0,
-        focusSkippedEditable: 0,
-        focusSkippedExcluded: 0,
-        focusSkippedLexi: 0,
-        focusSkippedCached: 0,
-        focusSubstringNoToken: 0,
-        focusDetailLogs: 0,
-        focusDetailLimit: 15,
-        focusDetailTruncated: false
+  const domScanRuntimeFactory = root.contentDomScanRuntime
+    && typeof root.contentDomScanRuntime.createRuntime === "function"
+    ? root.contentDomScanRuntime.createRuntime
+    : null;
+  const domScanRuntime = domScanRuntimeFactory
+    ? domScanRuntimeFactory({
+        getCurrentSettings: () => currentSettings,
+        getCurrentTrie: () => currentTrie,
+        getProcessedNodes: () => processedNodes,
+        setProcessedNodes: (next) => {
+          processedNodes = next;
+        },
+        isApplyingChanges: () => applyingChanges === true,
+        getFocusWord,
+        getFocusInfo,
+        normalizeRuleOrigin,
+        buildReplacementFragment,
+        describeElement,
+        shorten,
+        describeCodepoints,
+        countOccurrences,
+        collectTextNodes,
+        srsMetrics,
+        lemmatizer,
+        log
+      })
+    : {
+        processDocument: () => {},
+        observeChanges: () => {},
+        rescanDocument: () => {},
+        ensureObserver: () => {},
+        clearBudgetState: () => {},
+        disconnect: () => {}
       };
-      pageBudgetState = buildPageBudgetState(currentSettings);
-      for (const mutation of mutations) {
-        if (mutation.type === "characterData") {
-          processTextNode(mutation.target, counter);
-        } else if (mutation.type === "childList") {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-              processTextNode(node, counter);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              const textNodes = collectTextNodes(node);
-              for (const textNode of textNodes) {
-                processTextNode(textNode, counter);
-              }
-            }
-          });
+  const helperRulesRuntimeFactory = root.contentHelperRulesRuntime
+    && typeof root.contentHelperRulesRuntime.createRuntime === "function"
+    ? root.contentHelperRulesRuntime.createRuntime
+    : null;
+  const helperRulesRuntime = helperRulesRuntimeFactory
+    ? helperRulesRuntimeFactory({
+        getHelperClient: () => helperClient,
+        helperCache,
+        normalizeProfileId,
+        tagRulesWithOrigin,
+        ruleOriginSrs: RULE_ORIGIN_SRS
+      })
+    : {
+        resolveHelperRules: async () => ({ rules: [], source: "none", error: null })
+      };
+  const activeRulesRuntimeFactory = root.contentActiveRulesRuntime
+    && typeof root.contentActiveRulesRuntime.createRuntime === "function"
+    ? root.contentActiveRulesRuntime.createRuntime
+    : null;
+  const activeRulesRuntime = activeRulesRuntimeFactory
+    ? activeRulesRuntimeFactory({
+        normalizeRules,
+        tagRulesWithOrigin,
+        normalizeProfileId,
+        helperRulesRuntime,
+        srsGate,
+        getRuleOrigin,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        ruleOriginRuleset: RULE_ORIGIN_RULESET
+      })
+    : {
+        resolveActiveRules: async (settings) => {
+          const nextSettings = settings && typeof settings === "object" ? settings : {};
+          const normalizedRules = normalizeRules(tagRulesWithOrigin(nextSettings.rules, RULE_ORIGIN_RULESET));
+          const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
+          const originCounts = {
+            [RULE_ORIGIN_RULESET]: 0,
+            [RULE_ORIGIN_SRS]: 0
+          };
+          for (const rule of enabledRules) {
+            const origin = getRuleOrigin(rule);
+            originCounts[origin] = Number(originCounts[origin] || 0) + 1;
+          }
+          return {
+            srsProfileId: normalizeProfileId(nextSettings.srsProfileId),
+            rulesSource: "local",
+            helperRulesError: null,
+            normalizedRules,
+            enabledRules,
+            originCounts,
+            activeRules: enabledRules,
+            activeOriginCounts: { ...originCounts },
+            srsActiveLemmas: null,
+            srsStats: null
+          };
+        },
+        countRulesWithScriptForms: () => 0
+      };
+  const applyDiagnosticsReporterFactory = root.contentApplyDiagnosticsReporter
+    && typeof root.contentApplyDiagnosticsReporter.createReporter === "function"
+    ? root.contentApplyDiagnosticsReporter.createReporter
+    : null;
+  const applyDiagnosticsReporter = applyDiagnosticsReporterFactory
+    ? applyDiagnosticsReporterFactory({
+        log,
+        getRuleOrigin,
+        countRulesWithScriptForms: (rules) => activeRulesRuntime.countRulesWithScriptForms(rules),
+        persistRuntimeState,
+        getFrameInfo,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        ruleOriginRuleset: RULE_ORIGIN_RULESET
+      })
+    : {
+        report: () => {}
+      };
+  const feedbackRuntimeFactory = root.contentFeedbackRuntimeController
+    && typeof root.contentFeedbackRuntimeController.createController === "function"
+    ? root.contentFeedbackRuntimeController.createController
+    : null;
+  const feedbackRuntime = feedbackRuntimeFactory
+    ? feedbackRuntimeFactory({
+        srsFeedback,
+        lemmatizer,
+        helperFeedbackSyncModule,
+        getHelperClient: () => helperClient,
+        getCurrentSettings: () => currentSettings,
+        normalizeProfileId,
+        normalizeRuleOrigin,
+        isTopFrameWindow,
+        log,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        ruleOriginRuleset: RULE_ORIGIN_RULESET
+      })
+    : {
+        ensureSync: () => null,
+        handleFeedback: () => {},
+        stop: () => {}
+      };
+  const settingsChangeRouterFactory = root.contentSettingsChangeRouter
+    && typeof root.contentSettingsChangeRouter.createRouter === "function"
+    ? root.contentSettingsChangeRouter.createRouter
+    : null;
+  const settingsChangeRouter = settingsChangeRouterFactory
+    ? settingsChangeRouterFactory({
+        defaults,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        getCurrentSettings: () => currentSettings,
+        setCurrentSettings: (next) => {
+          currentSettings = next && typeof next === "object" ? { ...next } : currentSettings;
+        },
+        getFocusWord,
+        log,
+        setDebugEnabled,
+        setFeedbackSoundEnabled,
+        ensureStyle,
+        applyHighlightToDom,
+        attachFeedbackListener,
+        onFeedback: (payload, focusWord) => {
+          feedbackRuntime.handleFeedback(payload, focusWord);
+        },
+        applySettings: (nextSettings) => {
+          applySettings(nextSettings);
         }
-      }
-      if (currentSettings.debugEnabled) {
-        if (counter.replacements > 0) {
-          log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
-        }
-        if (counter.detailTruncated) {
-          log(`Detail logs truncated after ${counter.detailLimit} replacement(s).`);
-        }
-        if (counter.focusDetailTruncated) {
-          log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
-        }
-      } else if (counter.replacements > 0) {
-        log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
-      }
-    });
-    observer.observe(observedBody, { childList: true, subtree: true, characterData: true });
-  }
-
-  function rescanDocument(reason) {
-    if (!currentSettings.enabled || !currentTrie) {
-      return;
-    }
-    processedNodes = new WeakMap();
-    if (reason) {
-      log(`Rescan triggered: ${reason}`);
-    }
-    processDocument();
-  }
-
-  function ensureObserver() {
-    if (!document.body) {
-      return;
-    }
-    if (!observedBody || observedBody !== document.body) {
-      if (observer) {
-        observer.disconnect();
-        observer = null;
-      }
-      observeChanges();
-      rescanDocument("body changed");
-    }
-  }
+      })
+    : {
+        handleStorageChange: () => {}
+      };
 
   async function applySettings(settings) {
     const token = (applyToken += 1);
@@ -656,157 +333,53 @@
       currentSettings.srsFeedbackRulesEnabled = !settings.srsFeedbackEnabled;
     }
     processedNodes = new WeakMap();
-    let rulesSource = "local";
-    const localRules = tagRulesWithOrigin(currentSettings.rules, RULE_ORIGIN_RULESET);
-    let helperRules = [];
-    let helperRulesError = null;
-    const srsProfileId = normalizeProfileId(currentSettings.srsProfileId);
-    if (currentSettings.srsEnabled && helperClient) {
-      try {
-        const helperFetch = await fetchHelperRules(currentSettings.srsPair, srsProfileId);
-        const helperRuleset = helperFetch && typeof helperFetch === "object" ? helperFetch.ruleset : null;
-        helperRulesError = helperFetch && typeof helperFetch === "object" ? helperFetch.error : null;
-        if (helperRuleset && Array.isArray(helperRuleset.rules)) {
-          helperRules = tagRulesWithOrigin(helperRuleset.rules, RULE_ORIGIN_SRS);
-          rulesSource = "local+helper";
-          cacheHelperRules(currentSettings.srsPair, helperRuleset.rules, srsProfileId);
-        } else {
-          const fallback = helperRulesCache.get(rulesCacheKey(currentSettings.srsPair, srsProfileId));
-          if (fallback) {
-            helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
-            rulesSource = "local+helper-cache";
-          } else if (helperCache && typeof helperCache.loadRuleset === "function") {
-            const cached = await helperCache.loadRuleset(currentSettings.srsPair, { profileId: srsProfileId });
-            if (cached && Array.isArray(cached.rules)) {
-              helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
-              rulesSource = "local+helper-cache";
-            }
-          }
-        }
-      } catch (error) {
-        helperRulesError = error && error.message ? error.message : "Failed to fetch helper rules.";
-        const fallback = helperRulesCache.get(rulesCacheKey(currentSettings.srsPair, srsProfileId));
-        if (fallback) {
-          helperRules = tagRulesWithOrigin(fallback, RULE_ORIGIN_SRS);
-          rulesSource = "local+helper-cache";
-        } else if (helperCache && typeof helperCache.loadRuleset === "function") {
-          const cached = await helperCache.loadRuleset(currentSettings.srsPair, { profileId: srsProfileId });
-          if (cached && Array.isArray(cached.rules)) {
-            helperRules = tagRulesWithOrigin(cached.rules, RULE_ORIGIN_SRS);
-            rulesSource = "local+helper-cache";
-          }
-        }
-      }
-    }
-    const rawRules = [...localRules, ...helperRules];
-    const normalizedRules = normalizeRules(rawRules);
-    const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
-    const originCounts = countRulesByOrigin(enabledRules);
-    let activeRules = enabledRules;
-    currentSettings._srsActiveLemmas = null;
-    let srsStats = null;
-    if (currentSettings.srsEnabled && srsGate && typeof srsGate.buildSrsGate === "function") {
-      const gate = await srsGate.buildSrsGate(currentSettings, enabledRules, currentSettings.debugEnabled ? log : null);
-      activeRules = gate.activeRules || enabledRules;
-      currentSettings._srsActiveLemmas = gate.activeLemmas || null;
-      srsStats = gate.stats || null;
-    }
-    const activeOriginCounts = countActiveRulesByOrigin(activeRules);
+    const activeRulesState = await activeRulesRuntime.resolveActiveRules(
+      currentSettings,
+      currentSettings.debugEnabled ? log : null,
+      { helperAvailable: Boolean(helperClient) }
+    );
+    const srsProfileId = activeRulesState.srsProfileId;
+    const rulesSource = activeRulesState.rulesSource || "local";
+    const helperRulesError = activeRulesState.helperRulesError || null;
+    const normalizedRules = Array.isArray(activeRulesState.normalizedRules)
+      ? activeRulesState.normalizedRules
+      : [];
+    const enabledRules = Array.isArray(activeRulesState.enabledRules)
+      ? activeRulesState.enabledRules
+      : [];
+    const originCounts = activeRulesState.originCounts && typeof activeRulesState.originCounts === "object"
+      ? activeRulesState.originCounts
+      : { [RULE_ORIGIN_RULESET]: 0, [RULE_ORIGIN_SRS]: 0 };
+    const activeRules = Array.isArray(activeRulesState.activeRules)
+      ? activeRulesState.activeRules
+      : enabledRules;
+    currentSettings._srsActiveLemmas = activeRulesState.srsActiveLemmas || null;
+    const srsStats = activeRulesState.srsStats || null;
+    const activeOriginCounts = activeRulesState.activeOriginCounts
+      && typeof activeRulesState.activeOriginCounts === "object"
+      ? activeRulesState.activeOriginCounts
+      : { [RULE_ORIGIN_RULESET]: 0, [RULE_ORIGIN_SRS]: 0 };
     if (token !== applyToken) {
       return;
     }
     const focusWord = getFocusWord(currentSettings);
-    const focusRules = focusWord
-      ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord)
-      : [];
-    log("Settings loaded.", {
-      enabled: currentSettings.enabled,
-      rules: normalizedRules.length,
-      enabledRules: enabledRules.length,
-      highlightEnabled: currentSettings.highlightEnabled,
-      highlightColor: currentSettings.highlightColor,
-      maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
-      allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
-      maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
-      maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
+    const focusRulesCount = focusWord
+      ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord).length
+      : 0;
+    applyDiagnosticsReporter.report({
+      currentSettings,
+      normalizedRules,
+      enabledRules,
+      activeRules,
+      originCounts,
+      activeOriginCounts,
       rulesSource,
-      rulesLocalEnabled: originCounts[RULE_ORIGIN_RULESET],
-      rulesSrsEnabled: originCounts[RULE_ORIGIN_SRS],
-      srsEnabled: currentSettings.srsEnabled === true,
-      srsPair: currentSettings.srsPair || "",
-      targetLanguage: currentSettings.targetLanguage || "",
-      targetDisplayScript: currentSettings.targetDisplayScript || "kanji",
-      srsProfileId: srsProfileId,
-      srsMaxActive: currentSettings.srsMaxActive,
-      debugEnabled: currentSettings.debugEnabled,
-      debugFocusWord: focusWord || ""
+      helperRulesError,
+      srsProfileId,
+      srsStats,
+      focusWord,
+      focusRulesCount
     });
-    if (currentSettings.debugEnabled) {
-      const srsRulesOnly = enabledRules.filter((rule) => getRuleOrigin(rule) === RULE_ORIGIN_SRS);
-      const activeSrsRules = activeRules.filter((rule) => getRuleOrigin(rule) === RULE_ORIGIN_SRS);
-      const srsWithScriptForms = countRulesWithScriptForms(srsRulesOnly);
-      const activeSrsWithScriptForms = countRulesWithScriptForms(activeSrsRules);
-      log("SRS script_forms coverage:", {
-        rulesSource,
-        srsRulesTotal: srsRulesOnly.length,
-        srsRulesWithScriptForms: srsWithScriptForms,
-        activeSrsRulesTotal: activeSrsRules.length,
-        activeSrsRulesWithScriptForms: activeSrsWithScriptForms
-      });
-      if (srsRulesOnly.length > 0 && srsWithScriptForms === 0) {
-        log(
-          "SRS rules have no metadata.script_forms. Japanese popup script module cannot render until ruleset is regenerated with script metadata."
-        );
-      }
-    }
-    if (currentSettings.srsEnabled && currentSettings.debugEnabled) {
-      log("SRS selector stats:", srsStats || { total: 0, filtered: 0 });
-      log(`SRS rules active: ${activeRules.length}`);
-      if (!srsStats || srsStats.datasetLoaded === false) {
-        log("SRS dataset not loaded.", srsStats && srsStats.error ? srsStats.error : "");
-      } else if (activeRules.length === 0) {
-        log("SRS mode active but no matching rules for current dataset/pair.");
-      }
-    }
-    if (currentSettings.srsEnabled && originCounts[RULE_ORIGIN_SRS] === 0) {
-      log(
-        "SRS enabled but helper SRS rules are not loaded (rulesSrsEnabled=0). Runtime is local-rules only."
-      );
-      if (helperRulesError) {
-        log("Helper SRS fetch error:", helperRulesError);
-      }
-    }
-    persistRuntimeState({
-      ts: new Date().toISOString(),
-      pair: currentSettings.srsPair || "",
-      profile_id: srsProfileId,
-      srs_enabled: currentSettings.srsEnabled === true,
-      rules_source: rulesSource,
-      rules_enabled_total: enabledRules.length,
-      rules_local_enabled: originCounts[RULE_ORIGIN_RULESET],
-      rules_srs_enabled: originCounts[RULE_ORIGIN_SRS],
-      active_rules_total: activeRules.length,
-      active_rules_srs: activeOriginCounts[RULE_ORIGIN_SRS],
-      srs_stats: srsStats || null,
-      helper_rules_error: helperRulesError || "",
-      page_url: window.location ? window.location.href : "",
-      frame_type: getFrameInfo().frameType
-    });
-    if (currentSettings.debugEnabled) {
-      log("Context info:", Object.assign({ readyState: document.readyState }, getFrameInfo()));
-      if (document.body) {
-        log("Body info:", {
-          childElements: document.body.childElementCount,
-          textLength: document.body.innerText ? document.body.innerText.length : 0
-        });
-      }
-    }
-    if (!normalizedRules.length) {
-      log("No rules loaded.");
-    }
-    if (focusWord && !focusRules.length) {
-      log(`No enabled rule found for focus word "${focusWord}".`);
-    }
     ensureStyle(
       currentSettings.highlightColor || defaults.highlightColor,
       currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
@@ -816,7 +389,7 @@
     }
     attachClickListener();
     const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [RULE_ORIGIN_SRS];
-    attachFeedbackListener((payload) => handleFeedback(payload, focusWord), {
+    attachFeedbackListener((payload) => feedbackRuntime.handleFeedback(payload, focusWord), {
       allowOrigins: feedbackOrigins
     });
     applyHighlightToDom(currentSettings.highlightEnabled);
@@ -825,13 +398,13 @@
     try {
       clearReplacements();
       if (!currentSettings.enabled) {
-        pageBudgetState = null;
+        domScanRuntime.clearBudgetState();
         currentTrie = null;
         log("Replacements are disabled.");
         return;
       }
       currentTrie = buildTrie(activeRules);
-      processDocument();
+      domScanRuntime.processDocument();
     } finally {
       applyingChanges = false;
     }
@@ -843,246 +416,28 @@
     });
   }
 
-  function ensureFeedbackSync() {
-    if (feedbackSync) {
-      return feedbackSync;
-    }
-    if (!helperFeedbackSyncModule || typeof helperFeedbackSyncModule.create !== "function") {
-      return null;
-    }
-    feedbackSync = helperFeedbackSyncModule.create({
-      isFlushWorker: isTopFrameWindow(),
-      sendFeedback: (payload) => {
-        if (helperClient && typeof helperClient.recordFeedback === "function") {
-          return helperClient.recordFeedback(payload);
-        }
-        return Promise.resolve({
-          ok: false,
-          error: { code: "transport_missing", message: "Helper client unavailable." }
-        });
-      },
-      log: (...args) => {
-        if (currentSettings.debugEnabled) {
-          log(...args);
-        }
-      }
-    });
-    feedbackSync.start();
-    return feedbackSync;
-  }
-
-  function handleFeedback(payload, focusWord) {
-    if (!payload || !payload.target) {
-      return;
-    }
-    const target = payload.target;
-    const origin = normalizeRuleOrigin(target.dataset.origin || RULE_ORIGIN_RULESET);
-    if (origin !== RULE_ORIGIN_SRS) {
-      if (currentSettings.debugEnabled) {
-        log(`Ignoring feedback for non-SRS replacement (${origin}).`);
-      }
-      return;
-    }
-    const entry = srsFeedback && typeof srsFeedback.buildEntryFromSpan === "function"
-      ? srsFeedback.buildEntryFromSpan(target, payload.rating, window.location ? window.location.href : "")
-      : {
-          rating: payload.rating,
-          lemma: String(target.dataset.replacement || target.textContent || ""),
-          replacement: String(target.dataset.replacement || target.textContent || ""),
-          original: String(target.dataset.original || ""),
-          origin: origin,
-          language_pair: target.dataset.languagePair || "",
-          source_phrase: target.dataset.source || "",
-          url: window.location ? window.location.href : ""
-        };
-    entry.profile_id = normalizeProfileId(currentSettings.srsProfileId);
-    if (srsFeedback && typeof srsFeedback.recordFeedback === "function") {
-      srsFeedback.recordFeedback(entry).then((saved) => {
-        if (currentSettings.debugEnabled) {
-          log("SRS feedback saved.", saved);
-        }
-      });
-    }
-    const sync = ensureFeedbackSync();
-    if (sync && typeof sync.enqueue === "function") {
-      const pair = String(entry.language_pair || currentSettings.srsPair || "").trim();
-      const rawLemma = String(entry.lemma || entry.replacement || "").trim();
-      const lemma = rawLemma && lemmatizer && typeof lemmatizer.lemmatize === "function"
-        ? String(lemmatizer.lemmatize(rawLemma, pair) || rawLemma).trim()
-        : rawLemma;
-      const rating = String(entry.rating || payload.rating || "").trim().toLowerCase();
-      if (pair && pair !== "all" && lemma && rating) {
-        sync.enqueue({
-          pair,
-          profile_id: normalizeProfileId(currentSettings.srsProfileId),
-          lemma,
-          rating,
-          source_type: "extension",
-          ts: entry.ts || new Date().toISOString()
-        }).catch((error) => {
-          if (currentSettings.debugEnabled) {
-            log("Failed to enqueue helper feedback.", error);
-          }
-        });
-      }
-    }
-    if (currentSettings.debugEnabled) {
-      log(
-        `SRS feedback: ${entry.rating} for "${entry.replacement}" (${entry.language_pair || "unpaired"})`
-      );
-      if (focusWord && entry.replacement.toLowerCase() === focusWord) {
-        log(`SRS feedback applied to focus word "${focusWord}".`);
-      }
-    }
-  }
-
   async function boot() {
-    ensureFeedbackSync();
+    feedbackRuntime.ensureSync();
     const settings = await loadSettings();
     await applySettings(settings);
-    observeChanges();
+    domScanRuntime.observeChanges();
     window.addEventListener("load", () => {
-      ensureObserver();
-      rescanDocument("window load");
+      domScanRuntime.ensureObserver();
+      domScanRuntime.rescanDocument("window load");
     });
     setTimeout(() => {
-      ensureObserver();
-      rescanDocument("post-load timeout");
+      domScanRuntime.ensureObserver();
+      domScanRuntime.rescanDocument("post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
-      if (feedbackSync && typeof feedbackSync.stop === "function") {
-        feedbackSync.stop();
-      }
+      feedbackRuntime.stop();
+      domScanRuntime.disconnect();
     });
   }
 
   boot();
 
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== "local") {
-      return;
-    }
-    const nextSettings = { ...currentSettings };
-    let needsRebuild = false;
-    let needsHighlight = false;
-
-    if (changes.enabled) {
-      nextSettings.enabled = changes.enabled.newValue;
-      needsRebuild = true;
-    }
-    if (changes.rules) {
-      nextSettings.rules = changes.rules.newValue;
-      needsRebuild = true;
-    }
-    if (changes.highlightEnabled) {
-      nextSettings.highlightEnabled = changes.highlightEnabled.newValue;
-      needsHighlight = true;
-    }
-    if (changes.highlightColor) {
-      nextSettings.highlightColor = changes.highlightColor.newValue;
-      needsHighlight = true;
-    }
-    if (changes.maxOnePerTextBlock) {
-      nextSettings.maxOnePerTextBlock = changes.maxOnePerTextBlock.newValue;
-      needsRebuild = true;
-    }
-    if (changes.allowAdjacentReplacements) {
-      nextSettings.allowAdjacentReplacements = changes.allowAdjacentReplacements.newValue;
-      needsRebuild = true;
-    }
-    if (changes.maxReplacementsPerPage) {
-      nextSettings.maxReplacementsPerPage = changes.maxReplacementsPerPage.newValue;
-      needsRebuild = true;
-    }
-    if (changes.maxReplacementsPerLemmaPerPage) {
-      nextSettings.maxReplacementsPerLemmaPerPage = changes.maxReplacementsPerLemmaPerPage.newValue;
-      needsRebuild = true;
-    }
-    if (changes.srsEnabled) {
-      nextSettings.srsEnabled = changes.srsEnabled.newValue;
-      needsRebuild = true;
-    }
-    if (changes.srsPair) {
-      nextSettings.srsPair = changes.srsPair.newValue;
-      needsRebuild = true;
-    }
-    if (changes.srsProfileId) {
-      nextSettings.srsProfileId = changes.srsProfileId.newValue;
-      needsRebuild = true;
-    }
-    if (changes.srsMaxActive) {
-      nextSettings.srsMaxActive = changes.srsMaxActive.newValue;
-      needsRebuild = true;
-    }
-    if (changes.srsSoundEnabled) {
-      nextSettings.srsSoundEnabled = changes.srsSoundEnabled.newValue;
-      if (setFeedbackSoundEnabled) {
-        setFeedbackSoundEnabled(nextSettings.srsSoundEnabled);
-      }
-    }
-    if (changes.srsHighlightColor) {
-      nextSettings.srsHighlightColor = changes.srsHighlightColor.newValue;
-      needsHighlight = true;
-    }
-    if (changes.srsFeedbackSrsEnabled) {
-      nextSettings.srsFeedbackSrsEnabled = changes.srsFeedbackSrsEnabled.newValue;
-    }
-    if (changes.srsFeedbackRulesEnabled) {
-      nextSettings.srsFeedbackRulesEnabled = changes.srsFeedbackRulesEnabled.newValue;
-    }
-    if (changes.srsFeedbackSrsEnabled || changes.srsFeedbackRulesEnabled) {
-      currentSettings = { ...currentSettings, ...nextSettings };
-      const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [RULE_ORIGIN_SRS];
-      attachFeedbackListener((payload) => handleFeedback(payload, getFocusWord(currentSettings)), {
-        allowOrigins: feedbackOrigins
-      });
-    }
-    if (changes.srsExposureLoggingEnabled) {
-      nextSettings.srsExposureLoggingEnabled = changes.srsExposureLoggingEnabled.newValue;
-      currentSettings = { ...currentSettings, ...nextSettings };
-      if (currentSettings.debugEnabled) {
-        log(
-          `SRS exposure logging ${currentSettings.srsExposureLoggingEnabled === false ? "disabled" : "enabled"}.`
-        );
-      }
-    }
-    if (changes.srsRulesetUpdatedAt) {
-      nextSettings.srsRulesetUpdatedAt = changes.srsRulesetUpdatedAt.newValue;
-      needsRebuild = true;
-    }
-    if (changes.targetDisplayScript) {
-      nextSettings.targetDisplayScript = changes.targetDisplayScript.newValue;
-      needsRebuild = true;
-    }
-    if (changes.debugEnabled) {
-      nextSettings.debugEnabled = changes.debugEnabled.newValue;
-      currentSettings = { ...currentSettings, ...nextSettings };
-      if (setDebugEnabled) {
-        setDebugEnabled(currentSettings.debugEnabled === true);
-      }
-      log("Debug logging enabled.");
-    }
-    if (changes.debugFocusWord) {
-      nextSettings.debugFocusWord = changes.debugFocusWord.newValue;
-      currentSettings = { ...currentSettings, ...nextSettings };
-      const focusWord = getFocusWord(currentSettings);
-      if (focusWord) {
-        log(`Debug focus word set to "${focusWord}".`);
-      } else {
-        log("Debug focus word cleared.");
-      }
-    }
-
-    if (needsHighlight) {
-      currentSettings = { ...currentSettings, ...nextSettings };
-      ensureStyle(
-        currentSettings.highlightColor || defaults.highlightColor,
-        currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
-      );
-      applyHighlightToDom(currentSettings.highlightEnabled);
-    }
-    if (needsRebuild) {
-      applySettings(nextSettings);
-    }
+    settingsChangeRouter.handleStorageChange(changes, area);
   });
 })();

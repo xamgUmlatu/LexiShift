@@ -4,13 +4,13 @@ const path = require("path");
 const srcDir = path.join(__dirname, "src");
 const outPath = path.join(__dirname, "LexiShift.plugin.js");
 
-const sharedRoot = path.resolve(__dirname, "..", "chrome-extension", "content");
-const sharedPrefs = path.resolve(__dirname, "..", "chrome-extension", "shared");
+const sharedContentProcessing = path.resolve(__dirname, "..", "chrome-extension", "content", "processing");
+const sharedLanguage = path.resolve(__dirname, "..", "chrome-extension", "shared", "language");
 const parts = [
 	"header.js",
-	path.join(sharedPrefs, "language_prefs.js"),
-	path.join(sharedRoot, "tokenizer.js"),
-	path.join(sharedRoot, "matcher.js"),
+	path.join(sharedLanguage, "language_prefs.js"),
+	path.join(sharedContentProcessing, "tokenizer.js"),
+	path.join(sharedContentProcessing, "matcher.js"),
 	"constants.js",
 	"state.js",
 	"lzstring.js",

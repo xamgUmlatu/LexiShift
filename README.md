@@ -22,6 +22,7 @@ Project layout
   - `apps/gui/src/utils_paths.py`: cross-platform "reveal in Finder/Explorer" helper.
   - `apps/gui/src/preview.py`: preview worker + highlighter.
 - `apps/chrome-extension/`: Chrome extension (content script + options UI).
+- `apps/chrome-extension/README.md`: extension folder map and runtime entry points.
 - `apps/betterdiscord-plugin/`: BetterDiscord plugin (message replacement).
 - `core/lexishift_core/replacement/core.py`: tokenization, normalization, rules, trie, and replacer.
 - `core/lexishift_core/replacement/inflect.py`: conservative inflection generation and phrase expansion.
@@ -39,15 +40,18 @@ Project layout
 - `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`ja_en`, `en_de`).
 - `core/lexishift_core/__init__.py`: public API exports.
 - `data/`: schema definitions and sample rulesets.
-- `scripts/dev_utils.py`: convenience re-export of the same public API.
+- `scripts/dev/dev_utils.py`: convenience re-export of the same public API.
+- `scripts/README.md`: script categories and common entry points.
 - `core/tests/`: unit tests for replacement, storage, inflection, builder, settings, import/export.
+- `core/tests/README.md`: domain-oriented test folder map.
 
 Documentation
-- `docs/chrome_extension_technical.md`: content script + options architecture, SRS gate, logging.
-- `docs/srs_roadmap.md`: SRS workstreams and current status.
-- `docs/srs_schema.md`: SRS data schema (settings/items/store).
-- `docs/rule_generation_technical.md`: precomputed rule generation + confidence scoring.
-- `docs/synonym_generation_technical.md`: synonym generation pipeline notes.
+- `docs/README.md`: documentation map by purpose.
+- `docs/architecture/chrome_extension_technical.md`: content script + options architecture, SRS gate, logging.
+- `docs/srs/srs_roadmap.md`: SRS workstreams and current status.
+- `docs/srs/srs_schema.md`: SRS data schema (settings/items/store).
+- `docs/rulegen/rule_generation_technical.md`: precomputed rule generation + confidence scoring.
+- `docs/rulegen/synonym_generation_technical.md`: synonym generation pipeline notes.
 
 Core concepts
 - Tokenization
@@ -140,7 +144,7 @@ Synonym sources (local)
 - Supported packs via language packs: OpenThesaurus (DE), JP WordNet, JMDict, CC-CEDICT.
 - Embeddings (optional ranking):
   - For fast daily use, convert large `.vec`/`.bin` files to SQLite once:
-    - `python scripts/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
+    - `python scripts/data/convert_embeddings.py --input /path/to/cc.en.300.vec --output /path/to/cc.en.300.sqlite`
   - Enable embeddings per language-pair in Settings -> App -> Embeddings / Cross-lingual Embeddings (Use button).
   - For cross-lingual similarity, load aligned vectors for both languages in the pair (e.g., `wiki.en.align.vec` + `wiki.de.align.vec`).
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
@@ -314,9 +318,9 @@ BetterDiscord plugin
 
 Packaging (PyInstaller)
 - Install deps: `pip install pyside6 pyinstaller`
-- Build: `python scripts/build_gui_app.py`
-  - Validate bundle resources: `python scripts/build_gui_app.py --validate`
-  - Install to `/Applications` (macOS): `python scripts/build_gui_app.py --install` (installs both app bundles)
+- Build: `python scripts/build/gui_app.py`
+  - Validate bundle resources: `python scripts/build/gui_app.py --validate`
+  - Install to `/Applications` (macOS): `python scripts/build/gui_app.py --install` (installs both app bundles)
   - Equivalent: `pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec`
 - Output:
   - macOS: `dist/LexiShift.app` and `dist/LexiShift Helper.app`
@@ -324,27 +328,27 @@ Packaging (PyInstaller)
     - `LexiShift Helper.app`: helper tray/daemon agent bundle (autostart target)
   - Windows: `dist/LexiShift.exe` (bundle icon uses `apps/gui/resources/ttbn.ico`)
 - Note: build Windows binaries on Windows (PyInstaller does not cross-compile).
-- Validation helper: `python scripts/validate_app_bundle.py --distpath apps/gui/dist`
+- Validation helper: `python scripts/build/validate_app_bundle.py --distpath apps/gui/dist`
 
 Installers (macOS DMG / Windows EXE)
-- Build installers: `python scripts/build_installer.py`
+- Build installers: `python scripts/build/installer.py`
   - macOS: creates a `.dmg` in `apps/gui/dist/installers/`
   - Windows: creates an Inno Setup `.exe` in `apps/gui/dist/installers/`
-- Optional: validate app bundle before packaging with `python scripts/build_installer.py --validate`
+- Optional: validate app bundle before packaging with `python scripts/build/installer.py --validate`
 - Windows dependency: install Inno Setup and ensure `iscc` is on PATH.
 - Unsigned builds will trigger Gatekeeper/SmartScreen warnings; use signing for distribution.
 
 Code signing & notarization (optional but recommended)
 - macOS signing (Developer ID):
   - Obtain a “Developer ID Application” certificate in your Apple Developer account.
-  - Build with: `python scripts/build_installer.py --mac-sign-identity "Developer ID Application: Your Name (TEAMID)"`
+  - Build with: `python scripts/build/installer.py --mac-sign-identity "Developer ID Application: Your Name (TEAMID)"`
 - macOS notarization:
   - Create an app‑specific password in Apple ID.
-  - Run with: `python scripts/build_installer.py --mac-sign-identity "Developer ID Application: ..." --notarize --apple-id you@domain.com --team-id TEAMID --notary-password APP_SPECIFIC_PASSWORD`
+  - Run with: `python scripts/build/installer.py --mac-sign-identity "Developer ID Application: ..." --notarize --apple-id you@domain.com --team-id TEAMID --notary-password APP_SPECIFIC_PASSWORD`
   - The script submits the DMG to notarytool and staples it.
 - Windows signing (Authenticode):
   - Obtain a code signing cert (.pfx) and install the Windows SDK (signtool).
-  - Run with: `python scripts/build_installer.py --win-sign-pfx C:\\path\\cert.pfx --win-sign-password YOUR_PASSWORD`
+  - Run with: `python scripts/build/installer.py --win-sign-pfx C:\\path\\cert.pfx --win-sign-password YOUR_PASSWORD`
   - Timestamp defaults to `http://timestamp.digicert.com` (override with `--timestamp-url`).
 
 Localization (GUI)
