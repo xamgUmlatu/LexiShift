@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from lexishift_core.srs_selector import SelectorCandidate, SelectorConfig, filter_candidates, rank_candidates
+from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig, filter_candidates, rank_candidates
 
 
 def _load_candidates(path: Path) -> list[SelectorCandidate]:

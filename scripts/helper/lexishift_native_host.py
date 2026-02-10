@@ -25,7 +25,7 @@ def _inject_core_path() -> None:
 
 _inject_core_path()
 
-from lexishift_core.helper_engine import (
+from lexishift_core.helper.engine import (
     get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
@@ -41,11 +41,11 @@ from lexishift_core.helper_engine import (
     reset_srs_data,
     run_rulegen_job,
 )
-from lexishift_core.helper_profiles import get_profiles_snapshot
-from lexishift_core.helper_os import open_path
-from lexishift_core.helper_paths import build_helper_paths
-from lexishift_core.helper_status import load_status
-from lexishift_core.lp_capabilities import (
+from lexishift_core.helper.profiles import get_profiles_snapshot
+from lexishift_core.helper.os import open_path
+from lexishift_core.helper.paths import build_helper_paths
+from lexishift_core.helper.status import load_status
+from lexishift_core.helper.lp_capabilities import (
     default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,

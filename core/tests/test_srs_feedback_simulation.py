@@ -14,12 +14,12 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.core import VocabRule  # noqa: E402
-from lexishift_core.helper_engine import (  # noqa: E402
+from lexishift_core.helper.engine import (  # noqa: E402
     SrsRefreshJobConfig,
     apply_feedback,
     refresh_srs_set,
 )
-from lexishift_core.helper_paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.srs import (  # noqa: E402
     SrsItem,
     SrsSettings,
@@ -171,10 +171,10 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
                 return cycle
 
             with patch(
-                "lexishift_core.helper_engine.build_seed_candidates",
+                "lexishift_core.helper.engine.build_seed_candidates",
                 return_value=_build_seed_candidates(),
             ), patch(
-                "lexishift_core.helper_engine.run_rulegen_for_pair",
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
                 side_effect=_stub_run_rulegen_for_pair,
             ):
                 for rating in ("good", "easy", "good", "easy", "good", "easy", "good", "easy"):

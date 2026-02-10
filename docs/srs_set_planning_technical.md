@@ -16,15 +16,15 @@ Define how set `S` is planned and mutated:
 
 ## Modules
 
-- `core/lexishift_core/srs_set_strategy.py`
+- `core/lexishift_core/srs/set_strategy.py`
   - Strategy/objective constants and normalization.
-- `core/lexishift_core/srs_set_planner.py`
+- `core/lexishift_core/srs/set_planner.py`
   - Request/response model and planning logic.
-- `core/lexishift_core/srs_set_policy.py`
+- `core/lexishift_core/srs/set_policy.py`
   - Centralized sizing policy defaults, clamps, and normalization.
-- `core/lexishift_core/srs_signal_queue.py`
+- `core/lexishift_core/srs/signal_queue.py`
   - Event queue storage and summarization.
-- `core/lexishift_core/helper_engine.py`
+- `core/lexishift_core/helper/engine.py`
   - `plan_srs_set(...)` planner API.
   - `initialize_srs_set(...)` mutation API.
 
@@ -64,7 +64,7 @@ Define how set `S` is planned and mutated:
 
 ## Sizing policy (implemented)
 
-All sizing normalization is centralized in `srs_set_policy.py` to avoid duplicated magic numbers.
+All sizing normalization is centralized in `srs/set_policy.py` to avoid duplicated magic numbers.
 
 Current constants:
 - `DEFAULT_BOOTSTRAP_TOP_N = 800`

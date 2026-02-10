@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs_admission_policy import (  # noqa: E402
+from lexishift_core.srs.admission_policy import (  # noqa: E402
     AdmissionPosWeights,
     classify_pos_bucket,
     compute_admission_weight,

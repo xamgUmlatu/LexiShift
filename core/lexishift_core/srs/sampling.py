@@ -6,7 +6,7 @@ import random
 from typing import Optional, Sequence
 
 from lexishift_core.srs import SrsItem, SrsStore
-from lexishift_core.srs_time import now_utc, parse_ts
+from lexishift_core.srs.time import now_utc, parse_ts
 
 
 SAMPLE_STRATEGY_WEIGHTED_PRIORITY = "weighted_priority"

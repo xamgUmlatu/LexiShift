@@ -6,7 +6,7 @@ from typing import Callable, Iterable, Optional, Sequence
 
 from lexishift_core.core import Tokenizer
 from lexishift_core.inflect import InflectionGenerator, InflectionSpec, expand_phrase
-from lexishift_core.rule_generation import RuleCandidate
+from lexishift_core.rulegen.generation import RuleCandidate
 
 _PUNCT_STRIP = ".,;:!?\"“”'’()[]{}<>"
 

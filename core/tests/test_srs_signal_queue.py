@@ -10,7 +10,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs_signal_queue import (  # noqa: E402
+from lexishift_core.srs.signal_queue import (  # noqa: E402
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
     SrsSignalEvent,

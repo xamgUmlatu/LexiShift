@@ -9,12 +9,12 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore  # noqa: E402
-from lexishift_core.srs_growth import (  # noqa: E402
+from lexishift_core.srs.growth import (  # noqa: E402
     normalize_coverage_scalar,
     plan_srs_growth,
     apply_growth_plan,
 )
-from lexishift_core.srs_selector import SelectorCandidate  # noqa: E402
+from lexishift_core.srs.selector import SelectorCandidate  # noqa: E402
 
 
 class TestSrsGrowth(unittest.TestCase):

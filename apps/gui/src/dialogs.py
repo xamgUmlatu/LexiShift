@@ -38,7 +38,7 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
-from lexishift_core.lp_capabilities import selectable_srs_pairs
+from lexishift_core.helper.lp_capabilities import selectable_srs_pairs
 from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
 from helper_installer import install_helper, is_helper_installed

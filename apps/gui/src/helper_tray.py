@@ -12,8 +12,8 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QAction, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
-from lexishift_core.helper_paths import build_helper_paths
-from lexishift_core.helper_status import load_status
+from lexishift_core.helper.paths import build_helper_paths
+from lexishift_core.helper.status import load_status
 from helper_daemon import DaemonConfig, run_daemon
 from utils_paths import resource_path, reveal_path
 

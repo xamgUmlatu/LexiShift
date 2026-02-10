@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.helper_rulegen import (  # noqa: E402
+from lexishift_core.helper.rulegen import (  # noqa: E402
     SetInitializationConfig,
     initialize_store_from_frequency_list_with_report,
 )
@@ -27,7 +27,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
             SimpleNamespace(lemma="delta", language_pair="en-ja"),
             SimpleNamespace(lemma="epsilon", language_pair="en-ja"),
         ]
-        with patch("lexishift_core.helper_rulegen.build_seed_candidates", return_value=selected):
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
             store, report = initialize_store_from_frequency_list_with_report(
                 SrsStore(),
                 config=SetInitializationConfig(
@@ -54,7 +54,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
             SimpleNamespace(lemma="beta", language_pair="en-ja"),
             SimpleNamespace(lemma="gamma", language_pair="en-ja"),
         ]
-        with patch("lexishift_core.helper_rulegen.build_seed_candidates", return_value=selected):
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
             store, report = initialize_store_from_frequency_list_with_report(
                 SrsStore(),
                 config=SetInitializationConfig(
@@ -89,7 +89,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
             ),
             version=1,
         )
-        with patch("lexishift_core.helper_rulegen.build_seed_candidates", return_value=selected):
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
             store, report = initialize_store_from_frequency_list_with_report(
                 existing,
                 config=SetInitializationConfig(
@@ -137,7 +137,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
             version=1,
         )
 
-        with patch("lexishift_core.helper_rulegen.build_seed_candidates", return_value=selected):
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
             store, report = initialize_store_from_frequency_list_with_report(
                 existing,
                 config=SetInitializationConfig(
@@ -177,7 +177,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                 admission_weight=0.56,
             ),
         ]
-        with patch("lexishift_core.helper_rulegen.build_seed_candidates", return_value=selected):
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
             store, report = initialize_store_from_frequency_list_with_report(
                 SrsStore(),
                 config=SetInitializationConfig(

@@ -5,8 +5,8 @@ import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
-from lexishift_core.srs_source import normalize_source_type
-from lexishift_core.srs_time import now_utc
+from lexishift_core.srs.source import normalize_source_type
+from lexishift_core.srs.time import now_utc
 
 SIGNAL_FEEDBACK = "feedback"
 SIGNAL_EXPOSURE = "exposure"

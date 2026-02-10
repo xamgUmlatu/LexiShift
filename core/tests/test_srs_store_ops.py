@@ -10,7 +10,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import SrsItem, SrsStore  # noqa: E402
-from lexishift_core.srs_store_ops import record_exposure, record_feedback  # noqa: E402
+from lexishift_core.srs.store_ops import record_exposure, record_feedback  # noqa: E402
 
 
 class TestSrsStoreOps(unittest.TestCase):

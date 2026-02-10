@@ -9,7 +9,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import SrsItem, SrsStore  # noqa: E402
-from lexishift_core.srs_sampling import (  # noqa: E402
+from lexishift_core.srs.sampling import (  # noqa: E402
     SAMPLE_STRATEGY_UNIFORM,
     sample_store_items,
 )

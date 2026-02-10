@@ -5,9 +5,9 @@ from datetime import datetime
 from typing import Optional, Sequence
 
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsStore
-from lexishift_core.srs_source import SOURCE_UNKNOWN, normalize_source_type
-from lexishift_core.srs_scheduler import apply_feedback
-from lexishift_core.srs_time import format_ts, now_utc
+from lexishift_core.srs.source import SOURCE_UNKNOWN, normalize_source_type
+from lexishift_core.srs.scheduler import apply_feedback
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 def build_item_id(language_pair: str, lemma: str) -> str:

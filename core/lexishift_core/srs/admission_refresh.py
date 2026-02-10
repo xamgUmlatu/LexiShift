@@ -6,18 +6,18 @@ from math import floor
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.srs import SrsSettings, SrsStore
-from lexishift_core.srs_growth import SrsGrowthConfig, grow_srs_store
-from lexishift_core.srs_scheduler import (
+from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store
+from lexishift_core.srs.scheduler import (
     RATING_AGAIN,
     RATING_EASY,
     RATING_GOOD,
     RATING_HARD,
     select_active_items,
 )
-from lexishift_core.srs_selector import SelectorCandidate, SelectorConfig, SelectorWeights
-from lexishift_core.srs_signal_queue import SIGNAL_FEEDBACK, SrsSignalEvent
-from lexishift_core.srs_source import SOURCE_FREQUENCY_LIST
-from lexishift_core.srs_time import now_utc
+from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig, SelectorWeights
+from lexishift_core.srs.signal_queue import SIGNAL_FEEDBACK, SrsSignalEvent
+from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST
+from lexishift_core.srs.time import now_utc
 
 
 @dataclass(frozen=True)

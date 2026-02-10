@@ -10,7 +10,7 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core import RuleMetadata, VocabRule
 from lexishift_core.srs import SrsItem
-from lexishift_core.srs_gate import select_rules_for_practice
+from lexishift_core.srs.gate import select_rules_for_practice
 
 
 class TestSrsGate(unittest.TestCase):

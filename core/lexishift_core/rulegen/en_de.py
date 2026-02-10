@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.dict_loaders import load_freedict_tei_glosses_ordered
-from lexishift_core.rule_generation import (
+from lexishift_core.rulegen.generation import (
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
@@ -13,8 +13,8 @@ from lexishift_core.rule_generation import (
     RuleScorer,
     SimpleSignalProvider,
 )
-from lexishift_core.rule_generation_ja_en import DEFAULT_STOPWORDS
-from lexishift_core.rule_generation_utils import (
+from lexishift_core.rulegen.ja_en import DEFAULT_STOPWORDS
+from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionArtifactFilter,
     InflectionVariantExpander,

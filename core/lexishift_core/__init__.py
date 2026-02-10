@@ -70,7 +70,7 @@ from lexishift_core.srs import (
     srs_store_from_dict,
     srs_store_to_dict,
 )
-from lexishift_core.srs_scheduler import (
+from lexishift_core.srs.scheduler import (
     RATING_AGAIN,
     RATING_EASY,
     RATING_GOOD,
@@ -78,8 +78,8 @@ from lexishift_core.srs_scheduler import (
     apply_feedback,
     select_active_items,
 )
-from lexishift_core.srs_gate import PracticeGate, select_rules_for_practice
-from lexishift_core.srs_selector import (
+from lexishift_core.srs.gate import PracticeGate, select_rules_for_practice
+from lexishift_core.srs.selector import (
     ScoredCandidate,
     ScoreBreakdown,
     SelectorCandidate,
@@ -90,7 +90,7 @@ from lexishift_core.srs_selector import (
     rank_candidates,
     score_candidate,
 )
-from lexishift_core.srs_growth import (
+from lexishift_core.srs.growth import (
     SrsGrowthConfig,
     SrsGrowthPlan,
     apply_growth_plan,
@@ -99,7 +99,7 @@ from lexishift_core.srs_growth import (
     plan_srs_growth,
     resolve_allowed_pairs,
 )
-from lexishift_core.srs_set_strategy import (
+from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     OBJECTIVE_GROWTH,
     OBJECTIVE_REFRESH,
@@ -110,13 +110,13 @@ from lexishift_core.srs_set_strategy import (
     normalize_set_objective,
     normalize_set_strategy,
 )
-from lexishift_core.srs_set_planner import (
+from lexishift_core.srs.set_planner import (
     SrsSetPlan,
     SrsSetPlanRequest,
     build_srs_set_plan,
     plan_to_dict,
 )
-from lexishift_core.srs_signal_queue import (
+from lexishift_core.srs.signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
     SrsSignalEvent,
@@ -125,7 +125,7 @@ from lexishift_core.srs_signal_queue import (
     save_signal_events,
     summarize_signal_events,
 )
-from lexishift_core.srs_store_ops import (
+from lexishift_core.srs.store_ops import (
     append_history,
     build_item_id,
     find_item,
@@ -133,7 +133,7 @@ from lexishift_core.srs_store_ops import (
     record_feedback,
     upsert_item,
 )
-from lexishift_core.srs_time import format_ts, now_utc, parse_ts
+from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 from lexishift_core.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
 from lexishift_core.dict_loaders import (
     load_jmdict_glosses,
@@ -146,13 +146,13 @@ from lexishift_core.frequency import (
     build_frequency_provider,
     load_frequency_lexicon,
 )
-from lexishift_core.frequency_providers import (
+from lexishift_core.frequency.providers import (
     SqliteFrequencyProvider,
     SqliteFrequencyProviderConfig,
     build_sqlite_frequency_provider,
 )
-from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
-from lexishift_core.rule_generation import (
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
+from lexishift_core.rulegen.generation import (
     MappingCandidateSource,
     RuleCandidate,
     RuleConfidenceSignals,
@@ -163,19 +163,19 @@ from lexishift_core.rule_generation import (
     RuleScoreWeights,
     SimpleSignalProvider,
 )
-from lexishift_core.rule_generation_utils import (
+from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionVariantExpander,
     NonEmptyFilter,
     SingleWordFilter,
 )
-from lexishift_core.rule_generation_ja_en import (
+from lexishift_core.rulegen.ja_en import (
     JaEnRulegenConfig,
     build_ja_en_pipeline,
     generate_ja_en_results,
     generate_ja_en_rules,
 )
-from lexishift_core.srs_seed import (
+from lexishift_core.srs.seed import (
     SeedSelectionConfig,
     SeedWord,
     build_seed_candidates,

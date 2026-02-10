@@ -4,15 +4,15 @@ from dataclasses import dataclass, field
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore
-from lexishift_core.srs_source import SOURCE_FREQUENCY_LIST, normalize_source_type
-from lexishift_core.srs_selector import (
+from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
+from lexishift_core.srs.selector import (
     ScoredCandidate,
     SelectorCandidate,
     SelectorConfig,
     filter_candidates,
     rank_candidates,
 )
-from lexishift_core.srs_store_ops import build_item_id, upsert_item
+from lexishift_core.srs.store_ops import build_item_id, upsert_item
 
 
 @dataclass(frozen=True)

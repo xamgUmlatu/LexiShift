@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Optional
 
-from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.weighting import PmwWeighting
 
 

@@ -14,7 +14,7 @@ for candidate in (CORE_ROOT, GUI_SRC):
         sys.path.insert(0, candidate)
 
 from helper_daemon import DaemonConfig, _build_job_config, _supported_pairs  # noqa: E402
-from lexishift_core.helper_paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 
 
 class TestHelperDaemon(unittest.TestCase):

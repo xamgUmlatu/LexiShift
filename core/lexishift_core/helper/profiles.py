@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from lexishift_core.helper_paths import HelperPaths
+from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.settings import AppSettings, Profile, load_app_settings
 
 

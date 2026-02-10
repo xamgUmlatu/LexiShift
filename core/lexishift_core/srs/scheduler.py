@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.srs import SrsHistoryEntry, SrsItem
-from lexishift_core.srs_time import format_ts, now_utc, parse_ts
+from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 
 
 RATING_AGAIN = "again"

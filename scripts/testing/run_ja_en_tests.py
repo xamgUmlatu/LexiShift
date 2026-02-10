@@ -13,16 +13,16 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
 from lexishift_core.dict_loaders import load_jmdict_glosses_ordered  # noqa: E402
-from lexishift_core.frequency_providers import (  # noqa: E402
+from lexishift_core.frequency.providers import (  # noqa: E402
     SqliteFrequencyProviderConfig,
     build_sqlite_frequency_provider,
 )
-from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig  # noqa: E402
-from lexishift_core.rule_generation_ja_en import (  # noqa: E402
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig  # noqa: E402
+from lexishift_core.rulegen.ja_en import (  # noqa: E402
     JaEnRulegenConfig,
     generate_ja_en_results,
 )
-from lexishift_core.srs_seed import (  # noqa: E402
+from lexishift_core.srs.seed import (  # noqa: E402
     SeedSelectionConfig,
     build_seed_candidates,
 )

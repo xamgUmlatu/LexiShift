@@ -12,14 +12,14 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.helper_engine import (  # noqa: E402
+from lexishift_core.helper.engine import (  # noqa: E402
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
     get_srs_runtime_diagnostics,
     initialize_srs_set,
     refresh_srs_set,
 )
-from lexishift_core.helper_paths import HelperPaths, build_helper_paths  # noqa: E402
+from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs import SrsSettings, save_srs_settings  # noqa: E402
 
 

@@ -31,9 +31,9 @@ Ship a non-destructive SRS layer where:
 - Profile-scoped extension UI prefs are now part of the same container (`srsProfiles.<profile>.uiPrefs`) and include staged/apply flow for options background settings.
 
 ### Set planning scaffolding
-- `srs_set_strategy.py`: strategy/objective taxonomy.
-- `srs_set_policy.py`: centralized sizing policy/defaults/clamps.
-- `srs_set_planner.py`: plan metadata + diagnostics.
+- `srs/set_strategy.py`: strategy/objective taxonomy.
+- `srs/set_policy.py`: centralized sizing policy/defaults/clamps.
+- `srs/set_planner.py`: plan metadata + diagnostics.
 - `srs_plan_set` helper command: no side effects.
 - `srs_initialize` helper command: mutation via executable strategy.
 - Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
@@ -168,9 +168,9 @@ Current parity snapshot (as of 2026-02-09):
 Tracking checklist:
 - `[~]` Remove `en-ja`-specific hardcoding from desktop local SRS grow/init code paths in `apps/gui/src/main.py` (frequency/dictionary requirements and source selection).
 - `[x]` Generalize helper daemon supported pairs beyond `{"en-ja"}` in `apps/gui/src/helper_daemon.py`.
-- `[x]` Replace JMDict-only bootstrap gate with pair-specific dictionary gates (for example FreeDict gate for `en-de`) in `core/lexishift_core/srs_seed.py`.
-- `[x]` Replace hardcoded seed metadata source `"bccwj"` with pair/frequency-pack-derived metadata in `core/lexishift_core/srs_seed.py`.
-- `[x]` Make POS bucket mapping pair-aware (German tags such as `SUB/VER/ADJ/ADV`) instead of substring heuristics only, in `core/lexishift_core/srs_admission_policy.py`.
+- `[x]` Replace JMDict-only bootstrap gate with pair-specific dictionary gates (for example FreeDict gate for `en-de`) in `core/lexishift_core/srs/seed.py`.
+- `[x]` Replace hardcoded seed metadata source `"bccwj"` with pair/frequency-pack-derived metadata in `core/lexishift_core/srs/seed.py`.
+- `[x]` Make POS bucket mapping pair-aware (German tags such as `SUB/VER/ADJ/ADV`) instead of substring heuristics only, in `core/lexishift_core/srs/admission_policy.py`.
 - `[x]` Fix pack-to-pair mapping so FreeDict packs map by direction (`freedict-de-en -> en-de`, `freedict-en-de -> de-en`) in `apps/gui/src/main.py`.
 - `[x]` Add parity-focused tests:
   - helper diagnostics for `en-de` required inputs,

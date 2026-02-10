@@ -7,7 +7,7 @@ Purpose:
 - Distinguish `required by current code` vs `logically required for complete SRS E2E`.
 
 Related:
-- `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/lp_capabilities.py`
+- `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/lp_capabilities.py`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/srs_lp_architecture.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/extension_lp_generalization_checklist.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/language_packs.py`

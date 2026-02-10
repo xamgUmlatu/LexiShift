@@ -7,7 +7,7 @@ Purpose:
 ## 1) Source Of Truth
 
 Primary registry:
-- `core/lexishift_core/lp_capabilities.py`
+- `core/lexishift_core/helper/lp_capabilities.py`
 
 `PairCapability` is the canonical LP contract. Surfaces should read capabilities, not hardcode pair assumptions.
 
@@ -26,7 +26,7 @@ Compatibility rule:
 Core (`lexishift_core`):
 - Owns LP requirements, seed/admission policy, rulegen adapters, and diagnostics contracts.
 - Must accept LP-specific requirements through capabilities, not pair string special-cases outside policy modules.
-- Owns pair-scoped SRS defaults in `srs_pair_policy.py` (bootstrap/refresh sizing defaults + feedback window defaults).
+- Owns pair-scoped SRS defaults in `srs/pair_policy.py` (bootstrap/refresh sizing defaults + feedback window defaults).
 
 Helper (`helper_engine`, helper CLI/native host):
 - Resolves resources per LP via capability defaults.
@@ -75,7 +75,7 @@ Non-negotiable core invariants:
 
 ## 5) Adding A New LP Safely
 
-1. Add/update capability in `lp_capabilities.py`.
+1. Add/update capability in `core/lexishift_core/helper/lp_capabilities.py`.
 2. Add/verify frequency source default and dictionary requirements.
 3. Add rulegen adapter if cross-lingual/monolingual rulegen is expected.
 4. Ensure helper diagnostics show resolved paths and missing inputs for that LP.

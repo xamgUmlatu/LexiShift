@@ -13,7 +13,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.core import VocabRule  # noqa: E402
-from lexishift_core.rulegen_adapters import (  # noqa: E402
+from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
     run_rules_with_adapter,
 )
@@ -43,7 +43,7 @@ class TestRulegenAdapters(unittest.TestCase):
 
     def test_en_ja_dispatches_to_ja_en_generator(self) -> None:
         with patch(
-            "lexishift_core.rulegen_adapters.generate_ja_en_results",
+            "lexishift_core.rulegen.adapters.generate_ja_en_results",
             return_value=[
                 SimpleNamespace(
                     rule=VocabRule(source_phrase="word", replacement="語")
@@ -76,7 +76,7 @@ class TestRulegenAdapters(unittest.TestCase):
 
     def test_en_de_dispatches_to_freedict_generator(self) -> None:
         with patch(
-            "lexishift_core.rulegen_adapters.generate_en_de_results",
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
             return_value=[
                 SimpleNamespace(
                     rule=VocabRule(source_phrase="house", replacement="Haus")

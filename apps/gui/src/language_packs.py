@@ -15,7 +15,7 @@ from datetime import datetime
 from PySide6.QtCore import QThread, Signal, QStandardPaths
 
 from i18n import t
-from lexishift_core.frequency_sqlite import ParseConfig, convert_frequency_to_sqlite
+from lexishift_core.frequency.sqlite import ParseConfig, convert_frequency_to_sqlite
 
 
 def _app_data_root() -> str:

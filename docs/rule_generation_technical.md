@@ -187,15 +187,15 @@ See `docs/weight_selection_diagram.mmd` for the S bootstrap + rulegen flow.
    - Output: `pair_registry.py` (or similar) + mapping to available sources.
 
 Implementation status
-- Core pipeline skeleton lives in `core/lexishift_core/rule_generation.py`.
+- Core pipeline skeleton lives in `core/lexishift_core/rulegen/generation.py`.
 - `RuleMetadata` now supports `source_type` + `confidence` fields and is serialized in datasets.
-- JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rule_generation_ja_en.py`.
-- Frequency lexicon loader lives in `core/lexishift_core/frequency.py` (generic).
-- SQLite frequency access + normalization lives in `core/lexishift_core/frequency_sqlite_store.py` and `core/lexishift_core/frequency_providers.py`.
-- Seed builder for JA targets lives in `core/lexishift_core/srs_seed.py` (core_rank selection + pmw weighting).
+- JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rulegen/ja_en.py`.
+- Frequency lexicon loader lives in `core/lexishift_core/frequency/core.py` (generic).
+- SQLite frequency access + normalization lives in `core/lexishift_core/frequency/sqlite_store.py` and `core/lexishift_core/frequency/providers.py`.
+- Seed builder for JA targets lives in `core/lexishift_core/srs/seed.py` (core_rank selection + pmw weighting).
 - Set planning scaffold lives in:
-  - `core/lexishift_core/srs_set_strategy.py`
-  - `core/lexishift_core/srs_set_planner.py`
-  - `core/lexishift_core/helper_engine.py` (`srs_plan_set`, extended `srs_initialize`)
+  - `core/lexishift_core/srs/set_strategy.py`
+  - `core/lexishift_core/srs/set_planner.py`
+  - `core/lexishift_core/helper/engine.py` (`srs_plan_set`, extended `srs_initialize`)
 - Normalization utilities live in `core/lexishift_core/weighting.py`.
 - End-to-end test script: `scripts/build_ja_en_srs_rules.py` (BCCWJ + JMDict + optional COCA).

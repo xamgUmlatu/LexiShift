@@ -6,13 +6,13 @@ from pathlib import Path
 from typing import Iterable, Optional, Sequence
 
 from lexishift_core.dict_loaders import load_jmdict_lemmas
-from lexishift_core.frequency_sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
-from lexishift_core.srs_admission_policy import (
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
+from lexishift_core.srs.admission_policy import (
     AdmissionPosWeights,
     compute_admission_weight,
     resolve_default_pos_weights,
 )
-from lexishift_core.srs_selector import SelectorCandidate
+from lexishift_core.srs.selector import SelectorCandidate
 from lexishift_core.weighting import PmwWeighting
 
 

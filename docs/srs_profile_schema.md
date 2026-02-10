@@ -73,7 +73,7 @@ Notes:
 - Planner should tolerate missing optional keys.
 - Unknown keys should be preserved where possible.
 - Invalid critical values should produce diagnostics/notes before hard failure.
-- Sizing fields are normalized by helper policy (`srs_set_policy.py`) with explicit clamps/defaults.
+- Sizing fields are normalized by helper policy (`srs/set_policy.py`) with explicit clamps/defaults.
 
 ## Extension-local scaffold
 

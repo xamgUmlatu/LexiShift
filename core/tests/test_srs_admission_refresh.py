@@ -9,13 +9,13 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore  # noqa: E402
-from lexishift_core.srs_admission_refresh import (  # noqa: E402
+from lexishift_core.srs.admission_refresh import (  # noqa: E402
     AdmissionRefreshPolicy,
     apply_admission_refresh,
     plan_admission_refresh,
 )
-from lexishift_core.srs_selector import SelectorCandidate  # noqa: E402
-from lexishift_core.srs_signal_queue import SrsSignalEvent  # noqa: E402
+from lexishift_core.srs.selector import SelectorCandidate  # noqa: E402
+from lexishift_core.srs.signal_queue import SrsSignalEvent  # noqa: E402
 
 
 def _build_candidates() -> list[SelectorCandidate]:

@@ -5,45 +5,45 @@ import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
-from lexishift_core.helper_paths import HelperPaths
-from lexishift_core.helper_rulegen import (
+from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.rulegen import (
     RulegenConfig,
     SetInitializationConfig,
     initialize_store_from_frequency_list_with_report,
     run_rulegen_for_pair,
     write_rulegen_outputs,
 )
-from lexishift_core.lp_capabilities import (
+from lexishift_core.helper.lp_capabilities import (
     default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
     pair_requirements,
     resolve_pair_capability,
 )
-from lexishift_core.helper_status import HelperStatus, load_status, save_status
-from lexishift_core.srs_admission_refresh import (
+from lexishift_core.helper.status import HelperStatus, load_status, save_status
+from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
     admission_refresh_result_to_dict,
     apply_admission_refresh,
 )
 from lexishift_core.srs import SrsSettings, SrsStore, load_srs_settings, load_srs_store, save_srs_settings, save_srs_store
-from lexishift_core.srs_seed import (
+from lexishift_core.srs.seed import (
     SeedSelectionConfig,
     build_seed_candidates,
     seed_to_selector_candidates,
 )
-from lexishift_core.srs_set_planner import SrsSetPlanRequest, build_srs_set_plan, plan_to_dict
-from lexishift_core.srs_set_strategy import (
+from lexishift_core.srs.set_planner import SrsSetPlanRequest, build_srs_set_plan, plan_to_dict
+from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     STRATEGY_FREQUENCY_BOOTSTRAP,
 )
-from lexishift_core.srs_set_policy import resolve_set_sizing_policy
-from lexishift_core.srs_pair_policy import (
+from lexishift_core.srs.set_policy import resolve_set_sizing_policy
+from lexishift_core.srs.pair_policy import (
     pair_policy_to_dict,
     resolve_srs_pair_policy,
 )
-from lexishift_core.srs_sampling import sample_store_items, sampling_result_to_dict
-from lexishift_core.srs_signal_queue import (
+from lexishift_core.srs.sampling import sample_store_items, sampling_result_to_dict
+from lexishift_core.srs.signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
     SrsSignalEvent,
@@ -51,9 +51,9 @@ from lexishift_core.srs_signal_queue import (
     load_signal_events,
     summarize_signal_events,
 )
-from lexishift_core.srs_source import SOURCE_EXTENSION, SOURCE_INITIAL_SET
-from lexishift_core.srs_store_ops import record_exposure, record_feedback
-from lexishift_core.srs_time import now_utc
+from lexishift_core.srs.source import SOURCE_EXTENSION, SOURCE_INITIAL_SET
+from lexishift_core.srs.store_ops import record_exposure, record_feedback
+from lexishift_core.srs.time import now_utc
 
 
 @dataclass(frozen=True)

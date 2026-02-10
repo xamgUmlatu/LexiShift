@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs_set_planner import SrsSetPlanRequest, build_srs_set_plan  # noqa: E402
+from lexishift_core.srs.set_planner import SrsSetPlanRequest, build_srs_set_plan  # noqa: E402
 
 
 class TestSrsSetPlanner(unittest.TestCase):

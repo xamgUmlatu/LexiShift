@@ -11,7 +11,7 @@ from lexishift_core.frequency import (
     build_frequency_provider,
     load_frequency_lexicon,
 )
-from lexishift_core.rule_generation import (
+from lexishift_core.rulegen.generation import (
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
@@ -19,7 +19,7 @@ from lexishift_core.rule_generation import (
     RuleScorer,
     SimpleSignalProvider,
 )
-from lexishift_core.rule_generation_utils import (
+from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionVariantExpander,
     InflectionArtifactFilter,

@@ -10,8 +10,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.helper_paths import build_helper_paths  # noqa: E402
-from lexishift_core.helper_profiles import get_profiles_snapshot  # noqa: E402
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.profiles import get_profiles_snapshot  # noqa: E402
 from lexishift_core.settings import AppSettings, Profile, save_app_settings  # noqa: E402
 
 

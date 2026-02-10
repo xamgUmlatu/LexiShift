@@ -10,7 +10,7 @@ from statistics import mean
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
-from lexishift_core.srs_seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
+from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 
 
 def main() -> None:

@@ -15,8 +15,8 @@ This document summarizes the current issues, observed logs, and build/runtime be
 - `apps/gui/src/helper_daemon.py` (background rulegen loop + status file)
 - `apps/gui/src/helper_app.py` (helper tray entrypoint)
 - `apps/gui/src/main.py` (main GUI entrypoint, includes `--helper-daemon`)
-- `core/lexishift_core/helper_engine.py` (rulegen job + status writes)
-- `core/lexishift_core/helper_paths.py` (data root + paths)
+- `core/lexishift_core/helper/engine.py` (rulegen job + status writes)
+- `core/lexishift_core/helper/paths.py` (data root + paths)
 - `scripts/helper/lexishift_native_host.py` (native messaging host)
 - `apps/gui/packaging/pyinstaller.spec` (bundling resources)
 - Chrome extension: `apps/chrome-extension/shared/helper_client.js`, `apps/chrome-extension/shared/helper_transport_extension.js`, `apps/chrome-extension/options.js`

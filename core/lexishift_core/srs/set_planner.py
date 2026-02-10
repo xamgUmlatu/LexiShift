@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
-from lexishift_core.srs_set_strategy import (
+from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     STRATEGY_ADAPTIVE_REFRESH,
     STRATEGY_FREQUENCY_BOOTSTRAP,

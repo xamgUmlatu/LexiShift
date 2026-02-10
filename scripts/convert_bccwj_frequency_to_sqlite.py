@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from lexishift_core.frequency_sqlite import ParseConfig, convert_frequency_to_sqlite
+from lexishift_core.frequency.sqlite import ParseConfig, convert_frequency_to_sqlite
 
 
 def main() -> None:

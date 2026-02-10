@@ -49,7 +49,7 @@ The adopted model is a hybrid.
 - **Weight 2 (serving priority)**: used only to decide which items already in `S` are shown next.
 - Weight 1 can depend on frequency rank, POS filters/biases, and profile signals.
 - Weight 2 should stay dominated by SRS state (`next_due`, `stability`, `difficulty`) and policy caps.
-- Current bootstrap default POS ordering is explicit and centralized in code (`srs_admission_policy.py`):
+- Current bootstrap default POS ordering is explicit and centralized in code (`srs/admission_policy.py`):
   - noun > adjective > verb > adverb > other
   - coefficients are named constants, not inlined magic numbers.
 

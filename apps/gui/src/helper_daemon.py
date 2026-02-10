@@ -6,10 +6,10 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from lexishift_core.helper_engine import RulegenJobConfig, run_rulegen_job
-from lexishift_core.helper_paths import build_helper_paths
-from lexishift_core.helper_status import HelperStatus, load_status, save_status
-from lexishift_core.lp_capabilities import (
+from lexishift_core.helper.engine import RulegenJobConfig, run_rulegen_job
+from lexishift_core.helper.paths import build_helper_paths
+from lexishift_core.helper.status import HelperStatus, load_status, save_status
+from lexishift_core.helper.lp_capabilities import (
     default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
@@ -17,8 +17,8 @@ from lexishift_core.lp_capabilities import (
     supported_rulegen_pairs,
 )
 from lexishift_core.srs import SrsSettings, load_srs_settings
-from lexishift_core.srs_growth import resolve_allowed_pairs
-from lexishift_core.srs_time import now_utc
+from lexishift_core.srs.growth import resolve_allowed_pairs
+from lexishift_core.srs.time import now_utc
 
 
 @dataclass(frozen=True)
