@@ -437,6 +437,27 @@
   "label_target_language": {
     "message": "Target language"
   },
+  "title_language_specific_preferences": {
+    "message": "Language-specific preferences"
+  },
+  "hint_language_specific_preferences_ja": {
+    "message": "Configure how Japanese replacement words are shown in SRS."
+  },
+  "label_ja_primary_display_script": {
+    "message": "Primary display script"
+  },
+  "option_ja_script_kanji": {
+    "message": "Kanji"
+  },
+  "option_ja_script_kana": {
+    "message": "Kana"
+  },
+  "option_ja_script_romaji": {
+    "message": "Romaji"
+  },
+  "button_ok": {
+    "message": "OK"
+  },
   "section_profile": {
     "message": "Profile"
   },

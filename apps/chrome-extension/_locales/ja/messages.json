@@ -437,6 +437,27 @@
   "label_target_language": {
     "message": "ターゲット言語"
   },
+  "title_language_specific_preferences": {
+    "message": "言語別の設定"
+  },
+  "hint_language_specific_preferences_ja": {
+    "message": "SRSで日本語の置換語をどう表示するかを設定します。"
+  },
+  "label_ja_primary_display_script": {
+    "message": "主表示スクリプト"
+  },
+  "option_ja_script_kanji": {
+    "message": "漢字"
+  },
+  "option_ja_script_kana": {
+    "message": "かな"
+  },
+  "option_ja_script_romaji": {
+    "message": "ローマ字"
+  },
+  "button_ok": {
+    "message": "OK"
+  },
   "section_profile": {
     "message": "プロファイル"
   },

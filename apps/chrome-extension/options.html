@@ -167,16 +167,6 @@
               </button>
             </div>
           </div>
-          <div id="target-language-prefs-panel" class="language-pref-panel hidden">
-            <div class="field-row">
-              <label for="ja-primary-display-script">Primary display script</label>
-              <select id="ja-primary-display-script">
-                <option value="kanji">Kanji</option>
-                <option value="kana">Kana</option>
-                <option value="romaji">Romaji</option>
-              </select>
-            </div>
-          </div>
           <div class="field-row">
             <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
             <input id="srs-max-active" type="number" min="1" max="200" step="1" />
@@ -343,6 +333,33 @@
         </section>
       </div>
     </main>
+    <div id="target-language-prefs-modal-backdrop" class="language-pref-modal-backdrop hidden" aria-hidden="true">
+      <div
+        id="target-language-prefs-modal"
+        class="language-pref-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="target-language-prefs-modal-title"
+      >
+        <h3 id="target-language-prefs-modal-title" data-i18n="title_language_specific_preferences">
+          Language-specific preferences
+        </h3>
+        <p class="hint language-pref-modal-description" data-i18n="hint_language_specific_preferences_ja">
+          Configure how Japanese replacement words are shown in SRS.
+        </p>
+        <div class="field-row">
+          <label for="ja-primary-display-script" data-i18n="label_ja_primary_display_script">Primary display script</label>
+          <select id="ja-primary-display-script">
+            <option value="kanji" data-i18n="option_ja_script_kanji">Kanji</option>
+            <option value="kana" data-i18n="option_ja_script_kana">Kana</option>
+            <option value="romaji" data-i18n="option_ja_script_romaji">Romaji</option>
+          </select>
+        </div>
+        <div class="actions language-pref-modal-actions">
+          <button id="target-language-prefs-modal-ok" type="button" data-i18n="button_ok">OK</button>
+        </div>
+      </div>
+    </div>
     <script src="shared/language_prefs.js"></script>
     <script src="shared/settings_defaults.js"></script>
     <script src="shared/srs_runtime_diagnostics.js"></script>

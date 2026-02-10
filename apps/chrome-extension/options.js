@@ -38,7 +38,8 @@ const {
   sourceLanguage: sourceLanguageInput,
   targetLanguage: targetLanguageInput,
   targetLanguageGear: targetLanguageGearButton,
-  targetLanguagePrefsPanel: targetLanguagePrefsPanel,
+  targetLanguagePrefsModalBackdrop: targetLanguagePrefsModalBackdrop,
+  targetLanguagePrefsModalOk: targetLanguagePrefsModalOkButton,
   jaPrimaryDisplayScript: jaPrimaryDisplayScriptInput,
   srsProfileId: srsProfileIdInput,
   srsProfileRefresh: srsProfileRefreshButton,
@@ -95,7 +96,7 @@ let profileBgPreviewObjectUrl = "";
 let profileBgAppliedObjectUrl = "";
 let profileBgPendingFile = null;
 let profileBgHasPendingApply = false;
-let targetLanguagePrefsPanelOpen = false;
+let targetLanguagePrefsModalOpen = false;
 const PROFILE_BG_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const profileMediaStore = globalThis.LexiShift && globalThis.LexiShift.profileMediaStore;
 
@@ -113,6 +114,18 @@ function updateRulesMeta(rules, updatedAt) {
 
 function updateRulesSourceUI(source) {
   ui.updateRulesSourceUI(source);
+}
+
+function applyTargetLanguagePrefsLocalization() {
+  const label = t(
+    "title_language_specific_preferences",
+    null,
+    "Language-specific preferences"
+  );
+  if (targetLanguageGearButton) {
+    targetLanguageGearButton.setAttribute("aria-label", label);
+    targetLanguageGearButton.setAttribute("title", label);
+  }
 }
 
 function clampProfileBackgroundOpacity(value) {
@@ -369,27 +382,29 @@ function resolveTargetScriptPrefs(languagePrefs) {
   };
 }
 
-function updateTargetLanguagePrefsVisibility(targetLanguage) {
+function updateTargetLanguagePrefsModalVisibility(targetLanguage) {
   const show = String(targetLanguage || "").trim().toLowerCase() === "ja";
   if (targetLanguageGearButton) {
     targetLanguageGearButton.classList.toggle("hidden", !show);
-    targetLanguageGearButton.setAttribute("aria-expanded", show && targetLanguagePrefsPanelOpen ? "true" : "false");
+    targetLanguageGearButton.setAttribute("aria-expanded", show && targetLanguagePrefsModalOpen ? "true" : "false");
   }
   if (!show) {
-    targetLanguagePrefsPanelOpen = false;
+    targetLanguagePrefsModalOpen = false;
   }
-  if (targetLanguagePrefsPanel) {
-    const shouldShowPanel = show && targetLanguagePrefsPanelOpen;
-    targetLanguagePrefsPanel.classList.toggle("hidden", !shouldShowPanel);
+  const shouldShowModal = show && targetLanguagePrefsModalOpen;
+  if (targetLanguagePrefsModalBackdrop) {
+    targetLanguagePrefsModalBackdrop.classList.toggle("hidden", !shouldShowModal);
+    targetLanguagePrefsModalBackdrop.setAttribute("aria-hidden", shouldShowModal ? "false" : "true");
   }
+  document.body.classList.toggle("modal-open", shouldShowModal);
 }
 
-function setTargetLanguagePrefsPanelOpen(open) {
-  targetLanguagePrefsPanelOpen = open === true;
+function setTargetLanguagePrefsModalOpen(open) {
+  targetLanguagePrefsModalOpen = open === true;
   const targetLanguage = targetLanguageInput
     ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
     : (settingsManager.defaults.targetLanguage || "en");
-  updateTargetLanguagePrefsVisibility(targetLanguage);
+  updateTargetLanguagePrefsModalVisibility(targetLanguage);
 }
 
 function applyLanguagePrefsToInputs(languagePrefs) {
@@ -406,7 +421,7 @@ function applyLanguagePrefsToInputs(languagePrefs) {
   if (jaPrimaryDisplayScriptInput) {
     jaPrimaryDisplayScriptInput.value = targetScriptPrefs.ja.primaryDisplayScript;
   }
-  updateTargetLanguagePrefsVisibility(targetLanguage);
+  updateTargetLanguagePrefsModalVisibility(targetLanguage);
   const pair = String(prefs.srsPair || "").trim();
   return pair || resolvePairFromInputs();
 }
@@ -1253,7 +1268,8 @@ async function load() {
           "No file imported yet. Re-import after changes."
         );
     updateRulesMeta(settingsManager.currentRules, items.rulesUpdatedAt);
-    i18n.load(items.uiLanguage || "system");
+    await i18n.load(items.uiLanguage || "system");
+    applyTargetLanguagePrefsLocalization();
 }
 
 async function refreshHelperStatus() {
@@ -2063,11 +2079,15 @@ if (languageSelect) {
   languageSelect.addEventListener("change", () => {
     const value = languageSelect.value || "system";
     chrome.storage.local.set({ uiLanguage: value }, () => {
-      i18n.load(value);
-      setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
+      Promise.resolve(i18n.load(value)).finally(() => {
+        applyTargetLanguagePrefsLocalization();
+        setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
+      });
     });
   });
 }
+
+applyTargetLanguagePrefsLocalization();
 
 if (sourceLanguageInput) {
   sourceLanguageInput.addEventListener("change", saveLanguageSettings);
@@ -2075,9 +2095,9 @@ if (sourceLanguageInput) {
 if (targetLanguageInput) {
   targetLanguageInput.addEventListener("change", () => {
     if (String(targetLanguageInput.value || "").trim().toLowerCase() !== "ja") {
-      setTargetLanguagePrefsPanelOpen(false);
+      setTargetLanguagePrefsModalOpen(false);
     }
-    updateTargetLanguagePrefsVisibility(targetLanguageInput.value || "");
+    updateTargetLanguagePrefsModalVisibility(targetLanguageInput.value || "");
     saveLanguageSettings();
   });
 }
@@ -2089,7 +2109,7 @@ if (targetLanguageGearButton) {
     if (String(targetLanguage).trim().toLowerCase() !== "ja") {
       return;
     }
-    setTargetLanguagePrefsPanelOpen(!targetLanguagePrefsPanelOpen);
+    setTargetLanguagePrefsModalOpen(!targetLanguagePrefsModalOpen);
   });
 }
 if (jaPrimaryDisplayScriptInput) {
@@ -2097,21 +2117,25 @@ if (jaPrimaryDisplayScriptInput) {
     saveLanguageSettings();
   });
 }
-document.addEventListener("click", (event) => {
-  if (!targetLanguagePrefsPanelOpen) {
+if (targetLanguagePrefsModalBackdrop) {
+  targetLanguagePrefsModalBackdrop.addEventListener("click", (event) => {
+    if (event.target === targetLanguagePrefsModalBackdrop) {
+      setTargetLanguagePrefsModalOpen(false);
+    }
+  });
+}
+if (targetLanguagePrefsModalOkButton) {
+  targetLanguagePrefsModalOkButton.addEventListener("click", () => {
+    setTargetLanguagePrefsModalOpen(false);
+  });
+}
+document.addEventListener("keydown", (event) => {
+  if (!targetLanguagePrefsModalOpen) {
     return;
   }
-  const target = event && event.target;
-  if (!(target instanceof Node)) {
-    return;
+  if (event.key === "Escape") {
+    setTargetLanguagePrefsModalOpen(false);
   }
-  if (targetLanguagePrefsPanel && targetLanguagePrefsPanel.contains(target)) {
-    return;
-  }
-  if (targetLanguageGearButton && targetLanguageGearButton.contains(target)) {
-    return;
-  }
-  setTargetLanguagePrefsPanelOpen(false);
 });
 
 if (openDesktopAppButton) {

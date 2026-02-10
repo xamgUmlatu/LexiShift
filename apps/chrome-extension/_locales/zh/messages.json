@@ -437,6 +437,27 @@
   "label_target_language": {
     "message": "目标语言"
   },
+  "title_language_specific_preferences": {
+    "message": "语言专属偏好"
+  },
+  "hint_language_specific_preferences_ja": {
+    "message": "配置在 SRS 中如何显示日语替换词。"
+  },
+  "label_ja_primary_display_script": {
+    "message": "主要显示文字"
+  },
+  "option_ja_script_kanji": {
+    "message": "汉字"
+  },
+  "option_ja_script_kana": {
+    "message": "假名"
+  },
+  "option_ja_script_romaji": {
+    "message": "罗马字"
+  },
+  "button_ok": {
+    "message": "OK"
+  },
   "section_profile": {
     "message": "配置"
   },
