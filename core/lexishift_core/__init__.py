@@ -1,4 +1,4 @@
-from lexishift_core.core import (
+from lexishift_core.replacement.core import (
     Match,
     MeaningRule,
     Normalizer,
@@ -13,8 +13,8 @@ from lexishift_core.core import (
     VocabPool,
     VocabRule,
 )
-from lexishift_core.builder import BuildOptions, build_vocab_pool, expand_vocab_rules
-from lexishift_core.inflect import (
+from lexishift_core.replacement.builder import BuildOptions, build_vocab_pool, expand_vocab_rules
+from lexishift_core.replacement.inflect import (
     DEFAULT_FORMS,
     FORM_GERUND,
     FORM_PAST,
@@ -26,8 +26,8 @@ from lexishift_core.inflect import (
     InflectionSpec,
     expand_phrase,
 )
-from lexishift_core.pipeline import ReplacementMode, ReplacementPipeline, build_meaning_pool, compile_pipeline
-from lexishift_core.import_export import (
+from lexishift_core.replacement.pipeline import ReplacementMode, ReplacementPipeline, build_meaning_pool, compile_pipeline
+from lexishift_core.persistence.import_export import (
     export_app_settings_json,
     export_app_settings_code,
     export_app_settings_python,
@@ -41,7 +41,7 @@ from lexishift_core.import_export import (
     import_dataset_code,
     import_dataset_python,
 )
-from lexishift_core.settings import (
+from lexishift_core.persistence.settings import (
     AppSettings,
     ImportExportSettings,
     Profile,
@@ -134,8 +134,8 @@ from lexishift_core.srs.store_ops import (
     upsert_item,
 )
 from lexishift_core.srs.time import format_ts, now_utc, parse_ts
-from lexishift_core.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
-from lexishift_core.dict_loaders import (
+from lexishift_core.resources.synonyms import SynonymGenerator, SynonymOptions, SynonymSources
+from lexishift_core.resources.dict_loaders import (
     load_jmdict_glosses,
     load_jmdict_glosses_ordered,
     load_jmdict_lemmas,
@@ -169,7 +169,7 @@ from lexishift_core.rulegen.utils import (
     NonEmptyFilter,
     SingleWordFilter,
 )
-from lexishift_core.rulegen.ja_en import (
+from lexishift_core.rulegen.pairs.ja_en import (
     JaEnRulegenConfig,
     build_ja_en_pipeline,
     generate_ja_en_results,
@@ -181,8 +181,8 @@ from lexishift_core.srs.seed import (
     build_seed_candidates,
     seed_to_selector_candidates,
 )
-from lexishift_core.weighting import GlossDecay, PmwWeighting, RankWeighting
-from lexishift_core.storage import (
+from lexishift_core.scoring.weighting import GlossDecay, PmwWeighting, RankWeighting
+from lexishift_core.persistence.storage import (
     InflectionSettings,
     LearningSettings,
     VocabSettings,

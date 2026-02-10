@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, Sequence
 
-from lexishift_core.core import VocabRule
+from lexishift_core.replacement.core import VocabRule
 from lexishift_core.srs import SrsItem
 
 

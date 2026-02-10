@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.core import Tokenizer, VocabPool, VocabRule
-from lexishift_core.inflect import InflectionGenerator, InflectionSpec, expand_phrase
+from lexishift_core.replacement.core import Tokenizer, VocabPool, VocabRule
+from lexishift_core.replacement.inflect import InflectionGenerator, InflectionSpec, expand_phrase
 
 
 @dataclass(frozen=True)

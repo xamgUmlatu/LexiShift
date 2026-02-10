@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import Callable, Optional
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
-from lexishift_core.weighting import PmwWeighting
+from lexishift_core.scoring.weighting import PmwWeighting
 
 
 @dataclass(frozen=True)

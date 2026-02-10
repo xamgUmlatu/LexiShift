@@ -4,11 +4,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Optional, Sequence
 
-from lexishift_core.core import VocabRule
+from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
-from lexishift_core.rulegen.en_de import EnDeRulegenConfig, generate_en_de_results
-from lexishift_core.rulegen.ja_en import JaEnRulegenConfig, generate_ja_en_results
-from lexishift_core.weighting import GlossDecay
+from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
+from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_results
+from lexishift_core.scoring.weighting import GlossDecay
 
 
 @dataclass(frozen=True)

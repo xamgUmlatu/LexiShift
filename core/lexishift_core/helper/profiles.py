@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.settings import AppSettings, Profile, load_app_settings
+from lexishift_core.persistence.settings import AppSettings, Profile, load_app_settings
 
 
 def _default_ruleset_path(paths: HelperPaths) -> Path:

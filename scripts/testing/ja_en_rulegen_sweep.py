@@ -11,15 +11,15 @@ from statistics import mean
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
-from lexishift_core.dict_loaders import load_jmdict_glosses_ordered  # noqa: E402
+from lexishift_core.resources.dict_loaders import load_jmdict_glosses_ordered  # noqa: E402
 from lexishift_core.frequency.providers import (
     SqliteFrequencyProviderConfig,
     build_sqlite_frequency_provider,
 )
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
-from lexishift_core.rulegen.ja_en import JaEnRulegenConfig, generate_ja_en_results
+from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_results
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
-from lexishift_core.weighting import GlossDecay
+from lexishift_core.scoring.weighting import GlossDecay
 
 
 def parse_int_list(text: str) -> list[int]:

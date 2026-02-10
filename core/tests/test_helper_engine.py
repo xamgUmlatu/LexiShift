@@ -30,7 +30,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
-from lexishift_core.core import VocabRule  # noqa: E402
+from lexishift_core.replacement.core import VocabRule  # noqa: E402
 
 
 def _seed_store_and_outputs(root: Path) -> HelperPaths:

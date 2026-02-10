@@ -604,7 +604,7 @@ class FrequencyPackDownloadThread(QThread):
             f"[{self._pack_id}] starting DE pipeline output={self._sqlite_path} "
             f"language_packs={self._language_packs_dir()} py={sys.version.split()[0]}"
         )
-        from lexishift_core.de_frequency_pipeline import run_de_frequency_pipeline
+        from lexishift_core.frequency.de.pipeline import run_de_frequency_pipeline
 
         def _progress(done: int, total: int) -> None:
             self.progress.emit(self._pack_id, int(done), int(total))

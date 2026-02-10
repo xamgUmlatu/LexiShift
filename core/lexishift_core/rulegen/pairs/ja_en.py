@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.dict_loaders import load_jmdict_glosses_ordered
+from lexishift_core.resources.dict_loaders import load_jmdict_glosses_ordered
 from lexishift_core.frequency import (
     FrequencyLexicon,
     FrequencySourceConfig,
@@ -30,7 +30,7 @@ from lexishift_core.rulegen.utils import (
     SingleWordFilter,
     StopwordFilter,
 )
-from lexishift_core.weighting import GlossDecay
+from lexishift_core.scoring.weighting import GlossDecay
 
 
 def _should_expand_english(candidate: RuleCandidate) -> bool:

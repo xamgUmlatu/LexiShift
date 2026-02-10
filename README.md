@@ -23,13 +23,20 @@ Project layout
   - `apps/gui/src/preview.py`: preview worker + highlighter.
 - `apps/chrome-extension/`: Chrome extension (content script + options UI).
 - `apps/betterdiscord-plugin/`: BetterDiscord plugin (message replacement).
-- `core/lexishift_core/core.py`: tokenization, normalization, rules, trie, and replacer.
-- `core/lexishift_core/inflect.py`: conservative inflection generation and phrase expansion.
-- `core/lexishift_core/builder.py`: expand rules into inflected variants and build pools.
-- `core/lexishift_core/pipeline.py`: compile exact vs meaning-aware replacers.
-- `core/lexishift_core/storage.py`: dataset persistence + GUI-facing settings scaffolding.
-- `core/lexishift_core/import_export.py`: import/export helpers, including "export as code".
-- `core/lexishift_core/settings.py`: app-level profiles and import/export settings.
+- `core/lexishift_core/replacement/core.py`: tokenization, normalization, rules, trie, and replacer.
+- `core/lexishift_core/replacement/inflect.py`: conservative inflection generation and phrase expansion.
+- `core/lexishift_core/replacement/builder.py`: expand rules into inflected variants and build pools.
+- `core/lexishift_core/replacement/pipeline.py`: compile exact vs meaning-aware replacers.
+- `core/lexishift_core/persistence/storage.py`: dataset persistence + GUI-facing settings scaffolding.
+- `core/lexishift_core/persistence/import_export.py`: import/export helpers, including "export as code".
+- `core/lexishift_core/persistence/settings.py`: app-level profiles and import/export settings.
+- `core/lexishift_core/srs/`: SRS domain primitives and policies (store, scheduler, selector, planning, refresh).
+- `core/lexishift_core/helper/`: helper integration layer (paths, profiles, host-facing orchestration).
+- `core/lexishift_core/helper/use_cases/`: helper command use-cases (`rulegen`, set planning/init/refresh, signals, reset, diagnostics).
+- `core/lexishift_core/frequency/`: generic frequency lexicon loading + provider interfaces.
+- `core/lexishift_core/frequency/de/`: DE-specific frequency pack build pipeline and POS-lexicon compilation.
+- `core/lexishift_core/rulegen/generation.py`: pair-agnostic rule generation pipeline/scoring.
+- `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`ja_en`, `en_de`).
 - `core/lexishift_core/__init__.py`: public API exports.
 - `data/`: schema definitions and sample rulesets.
 - `scripts/dev_utils.py`: convenience re-export of the same public API.

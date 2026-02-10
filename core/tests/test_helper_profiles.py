@@ -12,7 +12,7 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.helper.profiles import get_profiles_snapshot  # noqa: E402
-from lexishift_core.settings import AppSettings, Profile, save_app_settings  # noqa: E402
+from lexishift_core.persistence.settings import AppSettings, Profile, save_app_settings  # noqa: E402
 
 
 class TestHelperProfilesSnapshot(unittest.TestCase):

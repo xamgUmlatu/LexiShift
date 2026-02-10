@@ -14,7 +14,7 @@ def _ensure_core_on_path() -> None:
 
 def main() -> None:
     _ensure_core_on_path()
-    from lexishift_core.de_pos_compile import main as core_main
+    from lexishift_core.frequency.de.pos_compile import main as core_main
 
     core_main()
 

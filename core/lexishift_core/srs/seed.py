@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Iterable, Optional, Sequence
 
-from lexishift_core.dict_loaders import load_jmdict_lemmas
+from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.srs.admission_policy import (
     AdmissionPosWeights,
@@ -13,7 +13,7 @@ from lexishift_core.srs.admission_policy import (
     resolve_default_pos_weights,
 )
 from lexishift_core.srs.selector import SelectorCandidate
-from lexishift_core.weighting import PmwWeighting
+from lexishift_core.scoring.weighting import PmwWeighting
 
 
 @dataclass(frozen=True)

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Mapping, Optional, Protocol, Sequence
 
-from lexishift_core.core import RuleMetadata, VocabRule
+from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 
 @dataclass(frozen=True)

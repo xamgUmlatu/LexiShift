@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.core import VocabRule
+from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
@@ -14,8 +14,8 @@ from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
-from lexishift_core.storage import VocabDataset, save_vocab_dataset
-from lexishift_core.weighting import GlossDecay
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
+from lexishift_core.scoring.weighting import GlossDecay
 
 
 @dataclass(frozen=True)

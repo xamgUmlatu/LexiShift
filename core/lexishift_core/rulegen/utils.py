@@ -4,8 +4,8 @@ from dataclasses import dataclass, replace
 import re
 from typing import Callable, Iterable, Optional, Sequence
 
-from lexishift_core.core import Tokenizer
-from lexishift_core.inflect import InflectionGenerator, InflectionSpec, expand_phrase
+from lexishift_core.replacement.core import Tokenizer
+from lexishift_core.replacement.inflect import InflectionGenerator, InflectionSpec, expand_phrase
 from lexishift_core.rulegen.generation import RuleCandidate
 
 _PUNCT_STRIP = ".,;:!?\"“”'’()[]{}<>"

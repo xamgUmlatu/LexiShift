@@ -6,8 +6,8 @@ import json
 import zlib
 from pprint import pformat
 
-from lexishift_core.settings import settings_from_dict, settings_to_dict
-from lexishift_core.storage import VocabDataset, dataset_from_dict, dataset_to_dict
+from lexishift_core.persistence.settings import settings_from_dict, settings_to_dict
+from lexishift_core.persistence.storage import VocabDataset, dataset_from_dict, dataset_to_dict
 
 
 def export_dataset_json(dataset: VocabDataset, *, indent: int = 2, sort_keys: bool = True) -> str:

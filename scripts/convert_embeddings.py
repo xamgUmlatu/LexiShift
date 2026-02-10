@@ -13,7 +13,7 @@ CORE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "core"
 if CORE_ROOT not in sys.path:
     sys.path.insert(0, CORE_ROOT)
 
-from lexishift_core.synonyms import _read_binary_vector, _read_binary_word
+from lexishift_core.resources.synonyms import _read_binary_vector, _read_binary_word
 
 
 def _parse_args() -> argparse.Namespace:

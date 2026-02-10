@@ -5,8 +5,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
-from lexishift_core.core import MeaningRule, RuleMetadata, VocabPool, VocabRule
-from lexishift_core.inflect import InflectionOverrides, InflectionSpec
+from lexishift_core.replacement.core import MeaningRule, RuleMetadata, VocabPool, VocabRule
+from lexishift_core.replacement.inflect import InflectionOverrides, InflectionSpec
 
 
 @dataclass(frozen=True)
@@ -316,8 +316,8 @@ def _inflection_overrides_to_dict(overrides: InflectionOverrides) -> Optional[di
 def build_options_from_settings(settings: Optional[VocabSettings]):
     if not settings or not settings.inflections or not settings.inflections.enabled:
         return None
-    from lexishift_core.builder import BuildOptions
-    from lexishift_core.inflect import InflectionGenerator
+    from lexishift_core.replacement.builder import BuildOptions
+    from lexishift_core.replacement.inflect import InflectionGenerator
 
     inflections = settings.inflections
     generator = InflectionGenerator(overrides=inflections.overrides, strict=inflections.strict)
@@ -337,7 +337,7 @@ def build_vocab_pool_from_dataset(
     normalizer=None,
     practice_gate=None,
 ) -> VocabPool:
-    from lexishift_core.builder import build_vocab_pool
+    from lexishift_core.replacement.builder import build_vocab_pool
 
     rules = dataset.rules
     if practice_gate is not None:

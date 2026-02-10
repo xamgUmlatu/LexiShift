@@ -11,8 +11,8 @@ from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
-from lexishift_core.db_handlers import load_synonyms_from_db
-from lexishift_core.dict_loaders import load_jmdict_glosses
+from lexishift_core.resources.db_handlers import load_synonyms_from_db
+from lexishift_core.resources.dict_loaders import load_jmdict_glosses
 
 @dataclass(frozen=True)
 class SynonymSources:

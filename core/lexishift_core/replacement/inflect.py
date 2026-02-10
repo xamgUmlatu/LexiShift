@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.core import Tokenizer
+from lexishift_core.replacement.core import Tokenizer
 
 FORM_PLURAL = "plural"
 FORM_POSSESSIVE = "possessive"

@@ -16,9 +16,9 @@ from lexishift_core.frequency.providers import (  # noqa: E402
     build_sqlite_frequency_provider,
 )
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
-from lexishift_core.rulegen.ja_en import JaEnRulegenConfig, generate_ja_en_rules
+from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_rules
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
-from lexishift_core.storage import VocabDataset, save_vocab_dataset
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 
 
 def main() -> None:
@@ -77,7 +77,7 @@ def _guess_value_column(path: Path) -> str:
 
 
 def rule_config_gloss_decay(schedule: tuple[float, ...]):
-    from lexishift_core.weighting import GlossDecay
+    from lexishift_core.scoring.weighting import GlossDecay
 
     return GlossDecay(schedule=schedule) if schedule else GlossDecay()
 

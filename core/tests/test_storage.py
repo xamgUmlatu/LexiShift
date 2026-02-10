@@ -16,7 +16,7 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
-from lexishift_core.storage import VocabDataset, load_vocab_dataset, save_vocab_dataset
+from lexishift_core.persistence.storage import VocabDataset, load_vocab_dataset, save_vocab_dataset
 
 
 class StorageTests(unittest.TestCase):

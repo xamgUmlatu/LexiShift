@@ -10,8 +10,8 @@ import tempfile
 from typing import Callable, Optional
 import urllib.request
 
-from lexishift_core.de_frequency_build import BuildResult, build_de_frequency_sqlite
-from lexishift_core.de_pos_compile import write_compact_pos_lexicon
+from lexishift_core.frequency.de.build import BuildResult, build_de_frequency_sqlite
+from lexishift_core.frequency.de.pos_compile import write_compact_pos_lexicon
 
 LEIPZIG_CORPUS_URL = "https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz"
 FREEDICT_DE_EN_URL = (

@@ -88,7 +88,7 @@ from lexishift_core import (
     SynonymOptions,
     SynonymSources,
 )
-from lexishift_core.synonyms import EmbeddingIndex
+from lexishift_core.resources.synonyms import EmbeddingIndex
 from lexishift_core.helper.lp_capabilities import (
     default_frequency_db_path,
     default_jmdict_path,

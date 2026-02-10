@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.dict_loaders import load_freedict_tei_glosses_ordered
+from lexishift_core.resources.dict_loaders import load_freedict_tei_glosses_ordered
 from lexishift_core.rulegen.generation import (
     RuleCandidate,
     RuleGenerationConfig,
@@ -13,7 +13,7 @@ from lexishift_core.rulegen.generation import (
     RuleScorer,
     SimpleSignalProvider,
 )
-from lexishift_core.rulegen.ja_en import DEFAULT_STOPWORDS
+from lexishift_core.rulegen.pairs.ja_en import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionArtifactFilter,
@@ -25,7 +25,7 @@ from lexishift_core.rulegen.utils import (
     SingleWordFilter,
     StopwordFilter,
 )
-from lexishift_core.weighting import GlossDecay
+from lexishift_core.scoring.weighting import GlossDecay
 
 
 def _should_expand_english(candidate: RuleCandidate) -> bool:
