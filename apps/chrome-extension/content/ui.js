@@ -198,10 +198,6 @@
     }
     const moduleEl = document.createElement("section");
     moduleEl.className = "lexishift-popup-module lexishift-script-module";
-    const heading = document.createElement("span");
-    heading.className = "lexishift-script-module-heading";
-    heading.textContent = "Japanese";
-    moduleEl.appendChild(heading);
 
     for (const script of alternatives) {
       const row = document.createElement("div");
