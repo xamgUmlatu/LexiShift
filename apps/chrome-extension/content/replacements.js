@@ -3,16 +3,100 @@
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
 
-  function createReplacementSpan(originalText, replacementText, rule, highlightEnabled, origin) {
+  function normalizeDisplayScript(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+    if (normalized === "kana" || normalized === "romaji") {
+      return normalized;
+    }
+    return "kanji";
+  }
+
+  function targetLanguageFromPair(pair) {
+    const normalized = String(pair || "").trim().toLowerCase();
+    if (!normalized) {
+      return "";
+    }
+    const parts = normalized.split("-", 2);
+    if (parts.length < 2) {
+      return "";
+    }
+    return String(parts[1] || "").trim().toLowerCase();
+  }
+
+  function normalizeScriptForms(value) {
+    if (!value || typeof value !== "object") {
+      return null;
+    }
+    const scripts = ["kanji", "kana", "romaji"];
+    const normalized = {};
+    for (const script of scripts) {
+      const text = String(value[script] || "").trim();
+      if (text) {
+        normalized[script] = text;
+      }
+    }
+    return Object.keys(normalized).length ? normalized : null;
+  }
+
+  function resolveDisplayPayload(rule, sourceWords, settings) {
+    const casePolicy = (rule && rule.case_policy) || "match";
+    const canonicalReplacement = String((rule && rule.replacement) || "").trim();
+    const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : {};
+    const languagePair = String(metadata.language_pair || "").trim();
+    const targetLanguage = targetLanguageFromPair(languagePair)
+      || String((settings && settings.targetLanguage) || "").trim().toLowerCase();
+    const scriptForms = normalizeScriptForms(metadata.script_forms);
+
+    if (targetLanguage !== "ja" || !scriptForms) {
+      return {
+        canonicalReplacement,
+        displayReplacement: applyCase(canonicalReplacement, sourceWords, casePolicy),
+        displayScript: "",
+        scriptForms: null
+      };
+    }
+
+    const caseAdjustedForms = {};
+    for (const [script, value] of Object.entries(scriptForms)) {
+      caseAdjustedForms[script] = applyCase(String(value), sourceWords, casePolicy);
+    }
+    const preferredScript = normalizeDisplayScript(settings && settings.targetDisplayScript);
+    const availableScripts = Object.keys(caseAdjustedForms);
+    const displayScript = caseAdjustedForms[preferredScript]
+      ? preferredScript
+      : availableScripts[0];
+    return {
+      canonicalReplacement,
+      displayReplacement: caseAdjustedForms[displayScript] || applyCase(canonicalReplacement, sourceWords, casePolicy),
+      displayScript,
+      scriptForms: caseAdjustedForms
+    };
+  }
+
+  function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin) {
+    const payload = displayPayload && typeof displayPayload === "object"
+      ? displayPayload
+      : {
+          canonicalReplacement: String((rule && rule.replacement) || ""),
+          displayReplacement: String((rule && rule.replacement) || ""),
+          displayScript: "",
+          scriptForms: null
+        };
     const span = document.createElement("span");
     span.className = "lexishift-replacement";
     if (highlightEnabled) {
       span.classList.add("lexishift-highlight");
     }
-    span.textContent = replacementText;
+    span.textContent = payload.displayReplacement;
     span.dataset.original = originalText;
-    span.dataset.replacement = replacementText;
+    span.dataset.replacement = payload.canonicalReplacement;
+    span.dataset.displayReplacement = payload.displayReplacement;
+    span.dataset.displayScript = payload.displayScript || "";
     span.dataset.state = "replacement";
+    if (payload.scriptForms) {
+      span.dataset.scriptForms = JSON.stringify(payload.scriptForms);
+      span.dataset.hasScriptVariants = Object.keys(payload.scriptForms).length > 1 ? "true" : "false";
+    }
     if (origin) {
       span.dataset.origin = origin;
     }
@@ -26,8 +110,14 @@
     }
 
     let tooltip = "Click to toggle original";
+    if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
+      tooltip = "Click to toggle original. Right-click (or Ctrl+Click on macOS) for details and feedback.";
+    }
     if (rule && rule.metadata && rule.metadata.description) {
       tooltip = `${rule.metadata.description}\n\n(Original: ${originalText})`;
+      if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
+        tooltip += "\n(Right-click or Ctrl+Click on macOS for details and feedback.)";
+      }
     }
     span.title = tooltip;
     return span;
@@ -147,18 +237,22 @@
       }
       const sourceWords = wordTexts.slice(match.startWordIndex, match.endWordIndex + 1);
       const originalText = tokens.slice(startTokenIdx, endTokenIdx + 1).map((t) => t.text).join("");
-      const replacementText = applyCase(match.rule.replacement, sourceWords, match.rule.case_policy || "match");
-      const origin = originResolver ? originResolver(match.rule, replacementText) : null;
+      const displayPayload = resolveDisplayPayload(match.rule, sourceWords, settings);
+      const origin = originResolver
+        ? originResolver(match.rule, displayPayload.displayReplacement)
+        : null;
       if (budgetKeys) {
-        budgetKeys.push(replacementText);
+        budgetKeys.push(displayPayload.canonicalReplacement);
       }
       fragment.appendChild(
-        createReplacementSpan(originalText, replacementText, match.rule, settings.highlightEnabled, origin)
+        createReplacementSpan(originalText, displayPayload, match.rule, settings.highlightEnabled, origin)
       );
       if (details) {
         details.push({
           original: originalText,
-          replacement: replacementText,
+          replacement: displayPayload.canonicalReplacement,
+          display_replacement: displayPayload.displayReplacement,
+          display_script: displayPayload.displayScript || "",
           origin: origin || "ruleset",
           source: match.rule.source_phrase || "",
           priority: match.rule.priority,

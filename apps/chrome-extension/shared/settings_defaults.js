@@ -17,6 +17,7 @@
     rulesUpdatedAt: "",
     sourceLanguage: "en",
     targetLanguage: "en",
+    targetDisplayScript: "kanji",
     srsPairAuto: true,
     srsSelectedProfileId: "default",
     srsProfileId: "default",

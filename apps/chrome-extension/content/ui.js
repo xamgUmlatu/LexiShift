@@ -5,11 +5,13 @@
   let feedbackListenerAttached = false;
   let feedbackHandler = null;
   let feedbackPopup = null;
+  let feedbackModules = null;
   let activeFeedbackTarget = null;
   let keyListener = null;
   let closeListener = null;
   let feedbackSoundEnabled = true;
   let feedbackAllowedOrigins = null;
+  let uiDebugEnabled = false;
 
   function ensureStyle(color, srsColor) {
     let style = document.getElementById(STYLE_ID);
@@ -27,11 +29,26 @@
       .lexishift-replacement{cursor:pointer;transition:color 120ms ease;}
       .lexishift-replacement.lexishift-highlight{color:var(--lexishift-highlight-color);}
       .lexishift-replacement.lexishift-highlight.lexishift-srs{color:var(--lexishift-srs-highlight-color);}
-      .lexishift-feedback-popup{position:absolute;display:flex;gap:6px;align-items:center;
-        padding:6px 8px;border-radius:999px;background:rgba(28,26,23,0.9);
-        box-shadow:0 10px 24px rgba(0,0,0,0.18);transform:translateY(6px) scale(0.92);
-        opacity:0;transition:transform 140ms ease, opacity 140ms ease;z-index:2147483647;}
+      .lexishift-feedback-popup{position:absolute;display:flex;flex-direction:column;gap:6px;
+        align-items:flex-start;transform:translateY(6px) scale(0.92);opacity:0;
+        transition:transform 140ms ease, opacity 140ms ease;z-index:2147483647;
+        max-width:min(280px, calc(100vw - 16px));}
       .lexishift-feedback-popup.lexishift-open{transform:translateY(0) scale(1);opacity:1;}
+      .lexishift-feedback-modules{display:flex;flex-direction:column;gap:6px;align-items:stretch;
+        width:100%;}
+      .lexishift-feedback-modules:empty{display:none;}
+      .lexishift-popup-module{padding:8px 10px;border-radius:10px;background:rgba(28,26,23,0.94);
+        color:#f7f4ef;box-shadow:0 10px 24px rgba(0,0,0,0.18);min-width:140px;
+        max-width:min(280px, calc(100vw - 16px));}
+      .lexishift-script-module-heading{display:block;font-size:10px;line-height:1.2;
+        letter-spacing:0.06em;text-transform:uppercase;color:rgba(247,244,239,0.72);margin-bottom:6px;}
+      .lexishift-script-module-row{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;}
+      .lexishift-script-module-row + .lexishift-script-module-row{margin-top:4px;}
+      .lexishift-script-module-label{font-size:10px;line-height:1.3;letter-spacing:0.06em;
+        text-transform:uppercase;color:rgba(247,244,239,0.72);}
+      .lexishift-script-module-value{font-size:13px;line-height:1.35;font-weight:600;word-break:break-word;}
+      .lexishift-feedback-bar{display:flex;gap:6px;align-items:center;padding:6px 8px;
+        border-radius:999px;background:rgba(28,26,23,0.9);box-shadow:0 10px 24px rgba(0,0,0,0.18);}
       .lexishift-feedback-option{width:22px;height:22px;border-radius:999px;border:0;cursor:pointer;
         display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;
         transition:transform 120ms ease, box-shadow 120ms ease;}
@@ -61,9 +78,170 @@
   }
 
   function clearReplacements() {
+    closeFeedbackPopup();
     document.querySelectorAll(".lexishift-replacement").forEach((node) => {
       const original = node.dataset.original || node.textContent || "";
       node.replaceWith(document.createTextNode(original));
+    });
+  }
+
+  const SCRIPT_FORM_ORDER = ["kanji", "kana", "romaji"];
+  const SCRIPT_MODULE_ORDER = ["kana", "kanji", "romaji"];
+
+  function debugLog(...args) {
+    if (!uiDebugEnabled) {
+      return;
+    }
+    console.debug("[LexiShift][UI]", ...args);
+  }
+
+  function summarizeTarget(target) {
+    if (!target || !target.dataset) {
+      return null;
+    }
+    return {
+      origin: String(target.dataset.origin || "ruleset"),
+      languagePair: String(target.dataset.languagePair || ""),
+      displayScript: String(target.dataset.displayScript || ""),
+      hasScriptForms: Boolean(String(target.dataset.scriptForms || "").trim()),
+      displayReplacement: String(target.dataset.displayReplacement || "").slice(0, 80),
+      replacement: String(target.dataset.replacement || "").slice(0, 80)
+    };
+  }
+
+  function parseScriptForms(target) {
+    const payload = target && target.dataset ? target.dataset.scriptForms : "";
+    if (!payload) {
+      debugLog("No script forms payload on target.", summarizeTarget(target));
+      return null;
+    }
+    try {
+      const parsed = JSON.parse(payload);
+      if (!parsed || typeof parsed !== "object") {
+        debugLog("Script forms payload parsed to non-object.", {
+          payloadPreview: String(payload).slice(0, 120)
+        });
+        return null;
+      }
+      const normalized = {};
+      for (const script of SCRIPT_FORM_ORDER) {
+        const value = String(parsed[script] || "").trim();
+        if (value) {
+          normalized[script] = value;
+        }
+      }
+      if (!Object.keys(normalized).length) {
+        debugLog("Script forms object had no supported script values.", {
+          keys: Object.keys(parsed)
+        });
+        return null;
+      }
+      debugLog("Parsed script forms.", {
+        scripts: Object.keys(normalized),
+        target: summarizeTarget(target)
+      });
+      return normalized;
+    } catch (error) {
+      debugLog("Failed to parse script forms payload.", {
+        message: error && error.message ? error.message : String(error),
+        payloadPreview: String(payload).slice(0, 120)
+      });
+      return null;
+    }
+  }
+
+  function scriptLabel(script) {
+    if (script === "kana") return "Kana";
+    if (script === "romaji") return "Romaji";
+    return "Kanji";
+  }
+
+  function resolvePrimaryScript(target, scriptForms) {
+    const current = String(target.dataset.displayScript || "").trim().toLowerCase();
+    if (current && scriptForms[current]) {
+      return current;
+    }
+    for (const script of SCRIPT_FORM_ORDER) {
+      if (scriptForms[script]) {
+        return script;
+      }
+    }
+    return "";
+  }
+
+  function buildJapaneseScriptModule(target) {
+    debugLog("Building Japanese script module.", summarizeTarget(target));
+    const scriptForms = parseScriptForms(target);
+    if (!scriptForms) {
+      debugLog("Skipping Japanese script module: no parsed script forms.", summarizeTarget(target));
+      return null;
+    }
+    const availableScripts = SCRIPT_FORM_ORDER.filter((script) => Boolean(scriptForms[script]));
+    if (availableScripts.length < 2) {
+      debugLog("Skipping Japanese script module: fewer than two scripts available.", {
+        availableScripts,
+        target: summarizeTarget(target)
+      });
+      return null;
+    }
+    const primaryScript = resolvePrimaryScript(target, scriptForms);
+    const alternatives = SCRIPT_MODULE_ORDER.filter(
+      (script) => script !== primaryScript && Boolean(scriptForms[script])
+    );
+    if (!alternatives.length) {
+      debugLog("Skipping Japanese script module: no alternatives after primary resolution.", {
+        primaryScript,
+        availableScripts,
+        target: summarizeTarget(target)
+      });
+      return null;
+    }
+    const moduleEl = document.createElement("section");
+    moduleEl.className = "lexishift-popup-module lexishift-script-module";
+    const heading = document.createElement("span");
+    heading.className = "lexishift-script-module-heading";
+    heading.textContent = "Japanese";
+    moduleEl.appendChild(heading);
+
+    for (const script of alternatives) {
+      const row = document.createElement("div");
+      row.className = "lexishift-script-module-row";
+      const label = document.createElement("span");
+      label.className = "lexishift-script-module-label";
+      label.textContent = scriptLabel(script);
+      const value = document.createElement("span");
+      value.className = "lexishift-script-module-value";
+      value.textContent = scriptForms[script];
+      row.appendChild(label);
+      row.appendChild(value);
+      moduleEl.appendChild(row);
+    }
+
+    debugLog("Built Japanese script module.", {
+      primaryScript,
+      alternatives,
+      target: summarizeTarget(target)
+    });
+    return moduleEl;
+  }
+
+  function renderFeedbackModules(target) {
+    if (!feedbackModules) {
+      debugLog("Feedback modules container missing; skipping module render.");
+      return;
+    }
+    feedbackModules.textContent = "";
+    const scriptModule = buildJapaneseScriptModule(target);
+    if (scriptModule) {
+      feedbackModules.appendChild(scriptModule);
+    }
+    if (feedbackPopup) {
+      feedbackPopup.dataset.hasModules = feedbackModules.childElementCount > 0 ? "true" : "false";
+    }
+    debugLog("Rendered feedback modules.", {
+      moduleCount: feedbackModules.childElementCount,
+      hasJapaneseModule: Boolean(scriptModule),
+      target: summarizeTarget(target)
     });
   }
 
@@ -76,12 +254,13 @@
       if (!target) {
         return;
       }
+      closeFeedbackPopup();
       const state = target.dataset.state || "replacement";
       if (state === "replacement") {
         target.textContent = target.dataset.original || target.textContent;
         target.dataset.state = "original";
       } else {
-        target.textContent = target.dataset.replacement || target.textContent;
+        target.textContent = target.dataset.displayReplacement || target.dataset.replacement || target.textContent;
         target.dataset.state = "replacement";
       }
     });
@@ -94,6 +273,15 @@
     }
     const popup = document.createElement("div");
     popup.className = "lexishift-feedback-popup";
+    popup.setAttribute("role", "dialog");
+    popup.setAttribute("aria-live", "polite");
+    const modules = document.createElement("div");
+    modules.className = "lexishift-feedback-modules";
+    popup.appendChild(modules);
+    feedbackModules = modules;
+
+    const feedbackBar = document.createElement("div");
+    feedbackBar.className = "lexishift-feedback-bar";
     const options = [
       { rating: "again", label: "1" },
       { rating: "hard", label: "2" },
@@ -110,8 +298,9 @@
         event.stopPropagation();
         handleFeedbackSelection(opt.rating, btn);
       });
-      popup.appendChild(btn);
+      feedbackBar.appendChild(btn);
     }
+    popup.appendChild(feedbackBar);
     document.body.appendChild(popup);
     feedbackPopup = popup;
     return popup;
@@ -119,14 +308,31 @@
 
   function openFeedbackPopup(target) {
     const popup = ensureFeedbackPopup();
+    renderFeedbackModules(target);
     activeFeedbackTarget = target;
+    popup.classList.remove("lexishift-open");
     const rect = target.getBoundingClientRect();
     const popupRect = popup.getBoundingClientRect();
-    const top = window.scrollY + rect.top - popupRect.height - 8;
-    const left = window.scrollX + rect.left + rect.width / 2 - popupRect.width / 2;
-    popup.style.top = `${Math.max(8, top)}px`;
-    popup.style.left = `${Math.max(8, left)}px`;
-    popup.classList.add("lexishift-open");
+    const viewportTop = window.scrollY;
+    const viewportBottom = window.scrollY + window.innerHeight;
+    const viewportLeft = window.scrollX;
+    const viewportRight = window.scrollX + document.documentElement.clientWidth;
+    let top = window.scrollY + rect.top - popupRect.height - 8;
+    if (top < viewportTop + 8) {
+      top = window.scrollY + rect.bottom + 8;
+    }
+    let left = window.scrollX + rect.left + rect.width / 2 - popupRect.width / 2;
+    top = Math.min(Math.max(top, viewportTop + 8), Math.max(viewportTop + 8, viewportBottom - popupRect.height - 8));
+    left = Math.min(Math.max(left, viewportLeft + 8), Math.max(viewportLeft + 8, viewportRight - popupRect.width - 8));
+    popup.style.top = `${top}px`;
+    popup.style.left = `${left}px`;
+    debugLog("Opening feedback popup.", {
+      top,
+      left,
+      moduleCount: feedbackModules ? feedbackModules.childElementCount : 0,
+      target: summarizeTarget(target)
+    });
+    requestAnimationFrame(() => popup.classList.add("lexishift-open"));
     attachFeedbackKeyListener();
     attachFeedbackCloseListener();
   }
@@ -250,6 +456,9 @@
   function attachFeedbackListener(handler, options = {}) {
     feedbackHandler = handler;
     feedbackAllowedOrigins = options.allowOrigins || null;
+    debugLog("Configured feedback listener.", {
+      allowOrigins: Array.isArray(feedbackAllowedOrigins) ? feedbackAllowedOrigins : null
+    });
     if (feedbackListenerAttached) {
       return;
     }
@@ -258,13 +467,30 @@
       if (!target) {
         return;
       }
-      if (feedbackAllowedOrigins && !feedbackAllowedOrigins.includes(target.dataset.origin || "ruleset")) {
+      const origin = String(target.dataset.origin || "ruleset");
+      if (feedbackAllowedOrigins && !feedbackAllowedOrigins.includes(origin)) {
+        debugLog("Skipping feedback popup due to origin gating.", {
+          origin,
+          allowOrigins: feedbackAllowedOrigins,
+          target: summarizeTarget(target)
+        });
         return;
       }
       event.preventDefault();
+      debugLog("Opening contextmenu feedback popup for target.", {
+        origin,
+        target: summarizeTarget(target)
+      });
       openFeedbackPopup(target);
     });
     feedbackListenerAttached = true;
+  }
+
+  function setDebugEnabled(enabled) {
+    uiDebugEnabled = enabled === true;
+    if (uiDebugEnabled) {
+      console.debug("[LexiShift][UI] Debug logging enabled.");
+    }
   }
 
   function setFeedbackSoundEnabled(enabled) {
@@ -277,6 +503,7 @@
     clearReplacements,
     attachClickListener,
     attachFeedbackListener,
+    setDebugEnabled,
     setFeedbackSoundEnabled
   };
 })();

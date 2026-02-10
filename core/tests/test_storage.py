@@ -31,6 +31,7 @@ class StorageTests(unittest.TestCase):
                     description="Preferred poetic substitute.",
                     examples=("The twilight deepened.",),
                     notes="Used in atmosphere-heavy scenes.",
+                    script_forms={"kanji": "猫", "kana": "ねこ", "romaji": "neko"},
                 ),
             )
         ]
@@ -58,6 +59,7 @@ class StorageTests(unittest.TestCase):
             loaded = load_vocab_dataset(path)
 
         self.assertEqual(loaded.rules[0].metadata.label, "time")
+        self.assertEqual(loaded.rules[0].metadata.script_forms["kana"], "ねこ")
         self.assertEqual(loaded.meaning_rules[0].source_phrases[0], "stunned into silence")
         self.assertEqual(loaded.synonyms["dawn"], "twilight")
         self.assertTrue(loaded.settings.learning.enabled)

@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.resources.dict_loaders import load_jmdict_glosses_ordered
+from lexishift_core.resources.dict_loaders import (
+    load_jmdict_glosses_and_script_forms,
+)
 from lexishift_core.frequency import (
     FrequencyLexicon,
     FrequencySourceConfig,
@@ -41,6 +43,7 @@ def _should_expand_english(candidate: RuleCandidate) -> bool:
 class JaEnRulegenConfig:
     jmdict_path: Path
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
+    script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None
     language_pair: str = "en-ja"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
@@ -65,8 +68,21 @@ class JaEnRulegenConfig:
 
 
 def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
-    mapping = config.gloss_mapping or load_jmdict_glosses_ordered(config.jmdict_path)
-    source = JmdictCandidateSource(mapping=mapping, source_dict="jmdict", source_type="translation")
+    script_forms_by_target: Mapping[str, Mapping[str, str]] = (
+        config.script_forms_by_target or {}
+    )
+    if config.gloss_mapping is not None:
+        mapping = config.gloss_mapping
+    else:
+        mapping, discovered_forms = load_jmdict_glosses_and_script_forms(config.jmdict_path)
+        if not script_forms_by_target:
+            script_forms_by_target = discovered_forms
+    source = JmdictCandidateSource(
+        mapping=mapping,
+        source_dict="jmdict",
+        source_type="translation",
+        script_forms_by_target=script_forms_by_target,
+    )
     normalizers = [BasicStringNormalizer()]
     expanders = []
     if config.include_variants:
@@ -132,26 +148,44 @@ def generate_ja_en_rules(
 
 
 class JmdictCandidateSource:
-    def __init__(self, *, mapping: Mapping[str, Sequence[str]], source_dict: str, source_type: str) -> None:
+    def __init__(
+        self,
+        *,
+        mapping: Mapping[str, Sequence[str]],
+        source_dict: str,
+        source_type: str,
+        script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None,
+    ) -> None:
         self._mapping = mapping
         self._source_dict = source_dict
         self._source_type = source_type
+        self._script_forms_by_target = script_forms_by_target or {}
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
             sources = list(self._mapping.get(target, []))
             total = len(sources)
+            script_forms = self._script_forms_by_target.get(target)
             for index, source in enumerate(sources):
+                metadata = {
+                    "gloss_index": index,
+                    "gloss_total": total,
+                }
+                if isinstance(script_forms, Mapping):
+                    normalized_script_forms = {
+                        str(key): str(value)
+                        for key, value in dict(script_forms).items()
+                        if str(key).strip() and str(value).strip()
+                    }
+                    if normalized_script_forms:
+                        metadata["script_forms"] = normalized_script_forms
                 yield RuleCandidate(
                     source_phrase=str(source),
                     replacement=str(target),
                     language_pair=language_pair,
                     source_dict=self._source_dict,
                     source_type=self._source_type,
-                    metadata={
-                        "gloss_index": index,
-                        "gloss_total": total,
-                    },
+                    metadata=metadata,
                 )
 
 

@@ -20,6 +20,7 @@ class UIManager {
       "max-one-per-block", "allow-adjacent", "max-replacements-per-page",
       "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
       "srs-enabled", "source-language", "target-language", "srs-max-active",
+      "target-language-gear", "target-language-prefs-panel", "ja-primary-display-script",
       "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
       "profile-bg-backdrop-color",
       "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",

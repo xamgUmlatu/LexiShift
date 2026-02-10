@@ -92,7 +92,12 @@ Example:
         "sourceLanguage": "en",
         "targetLanguage": "ja",
         "srsPairAuto": true,
-        "srsPair": "en-ja"
+        "srsPair": "en-ja",
+        "targetScriptPrefs": {
+          "ja": {
+            "primaryDisplayScript": "kanji"
+          }
+        }
       },
       "srsByPair": {
         "en-ja": {
@@ -125,6 +130,7 @@ Example:
 Notes:
 - Language-pair SRS settings are nested under the selected profile.
 - Active LP (`sourceLanguage`, `targetLanguage`, `srsPair`) is also stored per selected profile in `languagePrefs`.
+- Target-language display preferences are stored per profile in `languagePrefs.targetScriptPrefs` (for example Japanese script preference).
 - Profile UI preferences are also stored per selected profile in `uiPrefs` and are independent from helper scheduling data.
 - Runtime mirrors for background UI (`profileBackground*`) are published from `uiPrefs` only when user clicks Apply in options.
 - Switching language pair should never reset selected profile.

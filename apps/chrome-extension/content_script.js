@@ -11,6 +11,9 @@
     maxReplacementsPerLemmaPerPage: 0,
     debugEnabled: false,
     debugFocusWord: "",
+    sourceLanguage: "en",
+    targetLanguage: "en",
+    targetDisplayScript: "kanji",
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
@@ -32,6 +35,7 @@
     clearReplacements,
     attachClickListener,
     attachFeedbackListener,
+    setDebugEnabled,
     setFeedbackSoundEnabled
   } = root.ui;
   const { describeElement, shorten, describeCodepoints, countOccurrences, collectTextNodes } = root.utils;
@@ -122,6 +126,18 @@
       counts[origin] = Number(counts[origin] || 0) + 1;
     }
     return counts;
+  }
+
+  function countRulesWithScriptForms(rules) {
+    let withScriptForms = 0;
+    for (const rule of rules || []) {
+      const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : null;
+      const scriptForms = metadata && typeof metadata.script_forms === "object" ? metadata.script_forms : null;
+      if (scriptForms && Object.keys(scriptForms).length > 0) {
+        withScriptForms += 1;
+      }
+    }
+    return withScriptForms;
   }
 
   function persistRuntimeState(payload) {
@@ -630,6 +646,9 @@
     if (root.languagePrefs && typeof root.languagePrefs.applyLanguagePrefs === "function") {
       currentSettings = root.languagePrefs.applyLanguagePrefs(currentSettings);
     }
+    if (setDebugEnabled) {
+      setDebugEnabled(currentSettings.debugEnabled === true);
+    }
     const hasNewFeedbackFlags = typeof settings.srsFeedbackSrsEnabled === "boolean"
       || typeof settings.srsFeedbackRulesEnabled === "boolean";
     if (!hasNewFeedbackFlags && typeof settings.srsFeedbackEnabled === "boolean") {
@@ -715,11 +734,31 @@
       rulesSrsEnabled: originCounts[RULE_ORIGIN_SRS],
       srsEnabled: currentSettings.srsEnabled === true,
       srsPair: currentSettings.srsPair || "",
+      targetLanguage: currentSettings.targetLanguage || "",
+      targetDisplayScript: currentSettings.targetDisplayScript || "kanji",
       srsProfileId: srsProfileId,
       srsMaxActive: currentSettings.srsMaxActive,
       debugEnabled: currentSettings.debugEnabled,
       debugFocusWord: focusWord || ""
     });
+    if (currentSettings.debugEnabled) {
+      const srsRulesOnly = enabledRules.filter((rule) => getRuleOrigin(rule) === RULE_ORIGIN_SRS);
+      const activeSrsRules = activeRules.filter((rule) => getRuleOrigin(rule) === RULE_ORIGIN_SRS);
+      const srsWithScriptForms = countRulesWithScriptForms(srsRulesOnly);
+      const activeSrsWithScriptForms = countRulesWithScriptForms(activeSrsRules);
+      log("SRS script_forms coverage:", {
+        rulesSource,
+        srsRulesTotal: srsRulesOnly.length,
+        srsRulesWithScriptForms: srsWithScriptForms,
+        activeSrsRulesTotal: activeSrsRules.length,
+        activeSrsRulesWithScriptForms: activeSrsWithScriptForms
+      });
+      if (srsRulesOnly.length > 0 && srsWithScriptForms === 0) {
+        log(
+          "SRS rules have no metadata.script_forms. Japanese popup script module cannot render until ruleset is regenerated with script metadata."
+        );
+      }
+    }
     if (currentSettings.srsEnabled && currentSettings.debugEnabled) {
       log("SRS selector stats:", srsStats || { total: 0, filtered: 0 });
       log(`SRS rules active: ${activeRules.length}`);
@@ -1011,9 +1050,16 @@
       nextSettings.srsRulesetUpdatedAt = changes.srsRulesetUpdatedAt.newValue;
       needsRebuild = true;
     }
+    if (changes.targetDisplayScript) {
+      nextSettings.targetDisplayScript = changes.targetDisplayScript.newValue;
+      needsRebuild = true;
+    }
     if (changes.debugEnabled) {
       nextSettings.debugEnabled = changes.debugEnabled.newValue;
       currentSettings = { ...currentSettings, ...nextSettings };
+      if (setDebugEnabled) {
+        setDebugEnabled(currentSettings.debugEnabled === true);
+      }
       log("Debug logging enabled.");
     }
     if (changes.debugFocusWord) {

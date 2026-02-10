@@ -18,6 +18,7 @@ class SettingsManager {
       rulesUpdatedAt: "",
       sourceLanguage: "en",
       targetLanguage: "en",
+      targetDisplayScript: "kanji",
       srsPairAuto: true,
       srsSelectedProfileId: "default",
       srsProfileId: "default",
@@ -77,6 +78,50 @@ class SettingsManager {
       return normalized;
     }
     return String(fallback || "").trim() || "en";
+  }
+
+  _normalizePrimaryDisplayScript(value, fallback) {
+    const allowed = new Set(["kanji", "kana", "romaji"]);
+    const candidate = String(value || "").trim().toLowerCase();
+    if (allowed.has(candidate)) {
+      return candidate;
+    }
+    const fallbackValue = String(fallback || "").trim().toLowerCase();
+    if (allowed.has(fallbackValue)) {
+      return fallbackValue;
+    }
+    return "kanji";
+  }
+
+  _normalizeTargetScriptPrefs(rawPrefs, fallback) {
+    const raw = this._isObject(rawPrefs) ? rawPrefs : {};
+    const base = this._isObject(fallback) ? fallback : {};
+    const rawJa = this._isObject(raw.ja) ? raw.ja : {};
+    const baseJa = this._isObject(base.ja) ? base.ja : {};
+    return {
+      ja: {
+        primaryDisplayScript: this._normalizePrimaryDisplayScript(
+          rawJa.primaryDisplayScript,
+          baseJa.primaryDisplayScript || this.defaults.targetDisplayScript || "kanji"
+        )
+      }
+    };
+  }
+
+  _resolveTargetDisplayScript(languagePrefs) {
+    const prefs = this._isObject(languagePrefs) ? languagePrefs : {};
+    const targetLanguage = this._normalizeLanguageCode(
+      prefs.targetLanguage,
+      this.defaults.targetLanguage || "en"
+    );
+    const targetScriptPrefs = this._normalizeTargetScriptPrefs(
+      prefs.targetScriptPrefs,
+      null
+    );
+    if (targetLanguage === "ja") {
+      return targetScriptPrefs.ja.primaryDisplayScript;
+    }
+    return "kanji";
   }
 
   _resolvePairFromLanguages(sourceLanguage, targetLanguage) {
@@ -149,7 +194,15 @@ class SettingsManager {
           items && items.sourceLanguage,
           items && items.targetLanguage
         )
-      )
+      ),
+      targetScriptPrefs: {
+        ja: {
+          primaryDisplayScript: this._normalizePrimaryDisplayScript(
+            items && items.targetDisplayScript,
+            this.defaults.targetDisplayScript || "kanji"
+          )
+        }
+      }
     };
     const normalized = this._normalizeProfileLanguagePrefs(profileEntry.languagePrefs, fallback);
     return {
@@ -172,6 +225,7 @@ class SettingsManager {
     const updates = {
       sourceLanguage: normalized.sourceLanguage,
       targetLanguage: normalized.targetLanguage,
+      targetDisplayScript: this._resolveTargetDisplayScript(normalized),
       srsPairAuto: normalized.srsPairAuto,
       srsPair: normalized.srsPair,
       srsSelectedProfileId: profileId,
@@ -245,11 +299,16 @@ class SettingsManager {
       : (base.srsPairAuto !== undefined ? base.srsPairAuto === true : true);
     const fallbackPair = this._resolvePairFromLanguages(sourceLanguage, targetLanguage);
     const srsPair = this._normalizePairKey(raw.srsPair || base.srsPair || fallbackPair);
+    const targetScriptPrefs = this._normalizeTargetScriptPrefs(
+      raw.targetScriptPrefs,
+      base.targetScriptPrefs
+    );
     return {
       sourceLanguage,
       targetLanguage,
       srsPairAuto,
-      srsPair
+      srsPair,
+      targetScriptPrefs
     };
   }
 

@@ -37,6 +37,9 @@ const {
   srsEnabled: srsEnabledInput,
   sourceLanguage: sourceLanguageInput,
   targetLanguage: targetLanguageInput,
+  targetLanguageGear: targetLanguageGearButton,
+  targetLanguagePrefsPanel: targetLanguagePrefsPanel,
+  jaPrimaryDisplayScript: jaPrimaryDisplayScriptInput,
   srsProfileId: srsProfileIdInput,
   srsProfileRefresh: srsProfileRefreshButton,
   srsProfileStatus: srsProfileStatusOutput,
@@ -92,6 +95,7 @@ let profileBgPreviewObjectUrl = "";
 let profileBgAppliedObjectUrl = "";
 let profileBgPendingFile = null;
 let profileBgHasPendingApply = false;
+let targetLanguagePrefsPanelOpen = false;
 const PROFILE_BG_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const profileMediaStore = globalThis.LexiShift && globalThis.LexiShift.profileMediaStore;
 
@@ -341,16 +345,68 @@ function resolvePairFromInputs() {
   return `${sourceLanguage}-${targetLanguage}`;
 }
 
+function normalizePrimaryDisplayScript(value) {
+  const allowed = new Set(["kanji", "kana", "romaji"]);
+  const candidate = String(value || "").trim().toLowerCase();
+  if (allowed.has(candidate)) {
+    return candidate;
+  }
+  return "kanji";
+}
+
+function resolveTargetScriptPrefs(languagePrefs) {
+  const prefs = languagePrefs && typeof languagePrefs === "object" ? languagePrefs : {};
+  const rawTargetScriptPrefs = prefs.targetScriptPrefs && typeof prefs.targetScriptPrefs === "object"
+    ? prefs.targetScriptPrefs
+    : {};
+  const rawJaPrefs = rawTargetScriptPrefs.ja && typeof rawTargetScriptPrefs.ja === "object"
+    ? rawTargetScriptPrefs.ja
+    : {};
+  return {
+    ja: {
+      primaryDisplayScript: normalizePrimaryDisplayScript(rawJaPrefs.primaryDisplayScript)
+    }
+  };
+}
+
+function updateTargetLanguagePrefsVisibility(targetLanguage) {
+  const show = String(targetLanguage || "").trim().toLowerCase() === "ja";
+  if (targetLanguageGearButton) {
+    targetLanguageGearButton.classList.toggle("hidden", !show);
+    targetLanguageGearButton.setAttribute("aria-expanded", show && targetLanguagePrefsPanelOpen ? "true" : "false");
+  }
+  if (!show) {
+    targetLanguagePrefsPanelOpen = false;
+  }
+  if (targetLanguagePrefsPanel) {
+    const shouldShowPanel = show && targetLanguagePrefsPanelOpen;
+    targetLanguagePrefsPanel.classList.toggle("hidden", !shouldShowPanel);
+  }
+}
+
+function setTargetLanguagePrefsPanelOpen(open) {
+  targetLanguagePrefsPanelOpen = open === true;
+  const targetLanguage = targetLanguageInput
+    ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+    : (settingsManager.defaults.targetLanguage || "en");
+  updateTargetLanguagePrefsVisibility(targetLanguage);
+}
+
 function applyLanguagePrefsToInputs(languagePrefs) {
   const prefs = languagePrefs && typeof languagePrefs === "object" ? languagePrefs : {};
   const sourceLanguage = String(prefs.sourceLanguage || settingsManager.defaults.sourceLanguage || "en");
   const targetLanguage = String(prefs.targetLanguage || settingsManager.defaults.targetLanguage || "en");
+  const targetScriptPrefs = resolveTargetScriptPrefs(prefs);
   if (sourceLanguageInput) {
     sourceLanguageInput.value = sourceLanguage;
   }
   if (targetLanguageInput) {
     targetLanguageInput.value = targetLanguage;
   }
+  if (jaPrimaryDisplayScriptInput) {
+    jaPrimaryDisplayScriptInput.value = targetScriptPrefs.ja.primaryDisplayScript;
+  }
+  updateTargetLanguagePrefsVisibility(targetLanguage);
   const pair = String(prefs.srsPair || "").trim();
   return pair || resolvePairFromInputs();
 }
@@ -682,15 +738,25 @@ async function saveLanguageSettings() {
   try {
     const items = await settingsManager.load();
     const profileId = settingsManager.getSelectedSrsProfileId(items);
+    const currentPrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
+    const targetScriptPrefs = resolveTargetScriptPrefs(currentPrefs);
+    targetScriptPrefs.ja.primaryDisplayScript = normalizePrimaryDisplayScript(
+      jaPrimaryDisplayScriptInput
+        ? jaPrimaryDisplayScriptInput.value
+        : targetScriptPrefs.ja.primaryDisplayScript
+    );
     await settingsManager.updateProfileLanguagePrefs({
       sourceLanguage,
       targetLanguage,
       srsPairAuto: true,
-      srsPair: pairKey
+      srsPair: pairKey,
+      targetScriptPrefs
     }, {
       profileId
     });
     const refreshed = await settingsManager.load();
+    const refreshedPrefs = settingsManager.getProfileLanguagePrefs(refreshed, { profileId });
+    applyLanguagePrefsToInputs(refreshedPrefs);
     await loadSrsProfileForPair(refreshed, pairKey);
     setStatus(t("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
   } catch (err) {
@@ -2007,8 +2073,46 @@ if (sourceLanguageInput) {
   sourceLanguageInput.addEventListener("change", saveLanguageSettings);
 }
 if (targetLanguageInput) {
-  targetLanguageInput.addEventListener("change", saveLanguageSettings);
+  targetLanguageInput.addEventListener("change", () => {
+    if (String(targetLanguageInput.value || "").trim().toLowerCase() !== "ja") {
+      setTargetLanguagePrefsPanelOpen(false);
+    }
+    updateTargetLanguagePrefsVisibility(targetLanguageInput.value || "");
+    saveLanguageSettings();
+  });
 }
+if (targetLanguageGearButton) {
+  targetLanguageGearButton.addEventListener("click", () => {
+    const targetLanguage = targetLanguageInput
+      ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
+      : (settingsManager.defaults.targetLanguage || "en");
+    if (String(targetLanguage).trim().toLowerCase() !== "ja") {
+      return;
+    }
+    setTargetLanguagePrefsPanelOpen(!targetLanguagePrefsPanelOpen);
+  });
+}
+if (jaPrimaryDisplayScriptInput) {
+  jaPrimaryDisplayScriptInput.addEventListener("change", () => {
+    saveLanguageSettings();
+  });
+}
+document.addEventListener("click", (event) => {
+  if (!targetLanguagePrefsPanelOpen) {
+    return;
+  }
+  const target = event && event.target;
+  if (!(target instanceof Node)) {
+    return;
+  }
+  if (targetLanguagePrefsPanel && targetLanguagePrefsPanel.contains(target)) {
+    return;
+  }
+  if (targetLanguageGearButton && targetLanguageGearButton.contains(target)) {
+    return;
+  }
+  setTargetLanguagePrefsPanelOpen(false);
+});
 
 if (openDesktopAppButton) {
   openDesktopAppButton.addEventListener("click", () => {

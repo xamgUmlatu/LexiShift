@@ -42,6 +42,7 @@ Top-level fields
 - `source_type` (string, optional)
 - `language_pair` (string, optional; e.g., `en-en`, `de-en`)
 - `confidence` (float, optional; 0–1)
+- `script_forms` (object map, optional; script -> display form, e.g. `{ "kanji": "猫", "kana": "ねこ", "romaji": "neko" }`)
 
 ### VocabSettings
 - `inflections` (object, optional; `InflectionSettings`)

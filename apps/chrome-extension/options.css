@@ -135,6 +135,40 @@ header p {
   background: #fffefb;
 }
 
+.target-language-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 8px;
+  background: #3a372f;
+  color: #fef8ee;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.icon-button:hover {
+  background: #24211c;
+}
+
+.language-pref-panel {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e8ddcc;
+  border-radius: 8px;
+  background: #fffdf8;
+}
+
+.hidden {
+  display: none !important;
+}
+
 #debug-focus-word {
   width: 200px;
 }

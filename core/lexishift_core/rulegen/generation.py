@@ -176,11 +176,13 @@ class RuleGenerationPipeline:
         return all(filt.accept(candidate) for filt in self._filters)
 
     def _to_rule(self, candidate: RuleCandidate, confidence: float, config: RuleGenerationConfig) -> VocabRule:
+        script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
         metadata = RuleMetadata(
             source=candidate.source_dict,
             source_type=candidate.source_type,
             language_pair=candidate.language_pair,
             confidence=confidence,
+            script_forms=script_forms,
         )
         tags = list(config.tags)
         if candidate.source_type and candidate.source_type not in tags:
@@ -237,6 +239,19 @@ class MappingCandidateSource:
                     source_dict=self.source_dict,
                     source_type=self.source_type,
                 )
+
+
+def _normalize_script_forms(value: object) -> Optional[dict[str, str]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, str] = {}
+    for key, raw in dict(value).items():
+        script = str(key or "").strip().lower()
+        text = str(raw or "").strip()
+        if not script or not text:
+            continue
+        normalized[script] = text
+    return normalized or None
 
 
 def _clamp(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

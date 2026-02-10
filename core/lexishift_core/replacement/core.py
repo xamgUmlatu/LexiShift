@@ -57,6 +57,7 @@ class RuleMetadata:
     source_type: Optional[str] = None
     language_pair: Optional[str] = None
     confidence: Optional[float] = None
+    script_forms: Optional[Mapping[str, str]] = None
 
 
 @dataclass(frozen=True)

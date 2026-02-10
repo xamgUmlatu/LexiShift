@@ -108,11 +108,13 @@ SRS settings (extension)
 - `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
 - `srsSelectedProfileId` (string): extension-local selected profile id for SRS runtime/options.
 - `srsProfiles` (object): profile-first SRS container.
-  - `srsProfiles.<profile_id>.languagePrefs` stores active LP for that profile (`sourceLanguage`, `targetLanguage`, `srsPairAuto`, `srsPair`).
+  - `srsProfiles.<profile_id>.languagePrefs` stores active LP for that profile (`sourceLanguage`, `targetLanguage`, `srsPairAuto`, `srsPair`, `targetScriptPrefs`).
+    - `targetScriptPrefs.ja.primaryDisplayScript`: `kanji` | `kana` | `romaji`.
   - `srsProfiles.<profile_id>.srsByPair.<pair>` stores pair SRS settings.
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
   - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
+- `targetDisplayScript` (string): runtime mirror for selected target display script (`kanji` | `kana` | `romaji` for Japanese target UI).
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).
   - Background runtime mirrors are now used by the options page flow only (not injected into general web pages).
@@ -137,6 +139,7 @@ Replacement pipeline (content script)
      - `maxReplacementsPerPage`: stop replacing when page budget is exhausted.
      - `maxReplacementsPerLemmaPerPage`: skip lemmas that reached per-page cap.
    - Replace the node with a fragment containing spans and text nodes.
+   - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
    - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
 8. Track processed nodes in a `WeakMap` to avoid repeated replacements.
 

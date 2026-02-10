@@ -97,6 +97,16 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
     if not data:
         return None
     examples = tuple(str(item) for item in data.get("examples", []))
+    raw_script_forms = data.get("script_forms")
+    script_forms = None
+    if isinstance(raw_script_forms, Mapping):
+        normalized_script_forms = {
+            str(key): str(value)
+            for key, value in dict(raw_script_forms).items()
+            if str(key).strip() and str(value).strip()
+        }
+        if normalized_script_forms:
+            script_forms = normalized_script_forms
     return RuleMetadata(
         label=data.get("label"),
         description=data.get("description"),
@@ -106,6 +116,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         source_type=data.get("source_type"),
         language_pair=data.get("language_pair"),
         confidence=data.get("confidence"),
+        script_forms=script_forms,
     )
 
 
@@ -121,6 +132,15 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
         "source_type": metadata.source_type,
         "language_pair": metadata.language_pair,
         "confidence": metadata.confidence,
+        "script_forms": (
+            {
+                str(key): str(value)
+                for key, value in dict(metadata.script_forms or {}).items()
+                if str(key).strip() and str(value).strip()
+            }
+            if metadata.script_forms
+            else None
+        ),
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [])}
     return trimmed or None

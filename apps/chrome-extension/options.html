@@ -149,12 +149,33 @@
           </div>
           <div class="field-row">
             <label for="target-language" data-i18n="label_target_language">Target language</label>
-            <select id="target-language">
-              <option value="en">English</option>
-              <option value="ja">日本語</option>
-              <option value="zh">简体中文</option>
-              <option value="de">Deutsch</option>
-            </select>
+            <div class="target-language-controls">
+              <select id="target-language">
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+                <option value="zh">简体中文</option>
+                <option value="de">Deutsch</option>
+              </select>
+              <button
+                id="target-language-gear"
+                type="button"
+                class="icon-button"
+                aria-label="Language-specific preferences"
+                title="Language-specific preferences"
+              >
+                ⚙
+              </button>
+            </div>
+          </div>
+          <div id="target-language-prefs-panel" class="language-pref-panel hidden">
+            <div class="field-row">
+              <label for="ja-primary-display-script">Primary display script</label>
+              <select id="ja-primary-display-script">
+                <option value="kanji">Kanji</option>
+                <option value="kana">Kana</option>
+                <option value="romaji">Romaji</option>
+              </select>
+            </div>
           </div>
           <div class="field-row">
             <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
