@@ -66,7 +66,9 @@ class TestExtensionStructure(unittest.TestCase):
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_factory.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "ui_bridge.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "language_prefs_adapter.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "dom_aliases.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_adapters.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "controller_graph.js",
         ]
         missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
         self.assertEqual(missing, [])
@@ -78,7 +80,9 @@ class TestExtensionStructure(unittest.TestCase):
             'src="options/core/bootstrap/controller_factory.js"',
             'src="options/core/bootstrap/ui_bridge.js"',
             'src="options/core/bootstrap/language_prefs_adapter.js"',
+            'src="options/core/bootstrap/dom_aliases.js"',
             'src="options/core/bootstrap/controller_adapters.js"',
+            'src="options/core/bootstrap/controller_graph.js"',
             'src="options.js"',
         ]
         positions = [html.find(marker) for marker in ordered_markers]
@@ -112,6 +116,7 @@ class TestExtensionStructure(unittest.TestCase):
             "content/runtime/rules/active_rules_runtime.js",
             "content/runtime/diagnostics/apply_diagnostics_reporter.js",
             "content/runtime/apply_runtime_actions.js",
+            "content/runtime/apply_settings_pipeline.js",
             "content/runtime/feedback/feedback_runtime_controller.js",
             "content/runtime/settings_change_router.js",
             "content/ui/popup_modules/module_registry.js",

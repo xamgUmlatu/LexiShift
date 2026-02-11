@@ -18,6 +18,7 @@ This extension is organized by runtime concern so content, shared runtime logic,
     - `rules/active_rules_runtime.js`: active-rule resolution (local + helper merge and SRS gate selection).
     - `diagnostics/apply_diagnostics_reporter.js`: structured settings-apply diagnostics/reporting.
     - `apply_runtime_actions.js`: settings-apply action runner (styles/listeners/highlight + scan execution).
+    - `apply_settings_pipeline.js`: settings-apply orchestration pipeline (normalize -> rules state -> diagnostics/actions).
     - `feedback/feedback_runtime_controller.js`: feedback persistence + helper sync bridge.
     - `settings_change_router.js`: routes `chrome.storage.onChanged` to targeted runtime updates.
   - `ui/`: popup and in-page UI behavior.
@@ -32,7 +33,7 @@ This extension is organized by runtime concern so content, shared runtime logic,
   - `core/`: options-page services/managers (settings, helper, rules, UI, localization).
     - `settings/`: `SettingsManager` domain installers (base/language/ui prefs/srs/signals).
     - `helper/`: `HelperManager` domain installers (base, diagnostics, SRS set operations).
-    - `bootstrap/`: options-root adapters and controller resolver helpers.
+    - `bootstrap/`: options-root adapters/composition (`controller_factory`, `ui_bridge`, `language_prefs_adapter`, `dom_aliases`, `controller_graph`).
   - `controllers/`: options feature domains.
     - `page/events/`: event binder composition (`general/`, `srs`, `profile_background`).
     - `profile/background/`: profile background render/prefs/runtime bridge helpers.

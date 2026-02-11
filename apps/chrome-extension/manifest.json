@@ -44,6 +44,7 @@
         "content/runtime/rules/active_rules_runtime.js",
         "content/runtime/diagnostics/apply_diagnostics_reporter.js",
         "content/runtime/apply_runtime_actions.js",
+        "content/runtime/apply_settings_pipeline.js",
         "content/runtime/feedback/feedback_runtime_controller.js",
         "content/runtime/settings_change_router.js",
         "content/ui/popup_modules/module_registry.js",

@@ -315,6 +315,39 @@
     : {
         run: () => {}
       };
+  const applySettingsPipelineFactory = root.contentApplySettingsPipeline
+    && typeof root.contentApplySettingsPipeline.createPipeline === "function"
+    ? root.contentApplySettingsPipeline.createPipeline
+    : null;
+  const applySettingsPipeline = applySettingsPipelineFactory
+    ? applySettingsPipelineFactory({
+        defaults,
+        applyLanguagePrefs: (nextSettings) => {
+          if (root.languagePrefs && typeof root.languagePrefs.applyLanguagePrefs === "function") {
+            return root.languagePrefs.applyLanguagePrefs(nextSettings);
+          }
+          return nextSettings;
+        },
+        setDebugEnabled,
+        setCurrentSettings: (nextSettings) => {
+          currentSettings = nextSettings && typeof nextSettings === "object"
+            ? nextSettings
+            : currentSettings;
+        },
+        resetProcessedNodes: () => {
+          processedNodes = new WeakMap();
+        },
+        activeRulesRuntime,
+        getHelperClientAvailable: () => Boolean(helperClient),
+        getFocusWord,
+        applyDiagnosticsReporter,
+        applyRuntimeActions,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        ruleOriginRuleset: RULE_ORIGIN_RULESET
+      })
+    : {
+        run: async () => ({ stale: false })
+      };
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
     ? root.contentSettingsChangeRouter.createRouter
@@ -347,71 +380,9 @@
 
   async function applySettings(settings) {
     const token = (applyToken += 1);
-    currentSettings = { ...defaults, ...settings };
-    if (root.languagePrefs && typeof root.languagePrefs.applyLanguagePrefs === "function") {
-      currentSettings = root.languagePrefs.applyLanguagePrefs(currentSettings);
-    }
-    if (setDebugEnabled) {
-      setDebugEnabled(currentSettings.debugEnabled === true);
-    }
-    const hasNewFeedbackFlags = typeof settings.srsFeedbackSrsEnabled === "boolean"
-      || typeof settings.srsFeedbackRulesEnabled === "boolean";
-    if (!hasNewFeedbackFlags && typeof settings.srsFeedbackEnabled === "boolean") {
-      currentSettings.srsFeedbackSrsEnabled = true;
-      currentSettings.srsFeedbackRulesEnabled = !settings.srsFeedbackEnabled;
-    }
-    processedNodes = new WeakMap();
-    const activeRulesState = await activeRulesRuntime.resolveActiveRules(
-      currentSettings,
-      currentSettings.debugEnabled ? log : null,
-      { helperAvailable: Boolean(helperClient) }
-    );
-    const srsProfileId = activeRulesState.srsProfileId;
-    const rulesSource = activeRulesState.rulesSource || "local";
-    const helperRulesError = activeRulesState.helperRulesError || null;
-    const normalizedRules = Array.isArray(activeRulesState.normalizedRules)
-      ? activeRulesState.normalizedRules
-      : [];
-    const enabledRules = Array.isArray(activeRulesState.enabledRules)
-      ? activeRulesState.enabledRules
-      : [];
-    const originCounts = activeRulesState.originCounts && typeof activeRulesState.originCounts === "object"
-      ? activeRulesState.originCounts
-      : { [RULE_ORIGIN_RULESET]: 0, [RULE_ORIGIN_SRS]: 0 };
-    const activeRules = Array.isArray(activeRulesState.activeRules)
-      ? activeRulesState.activeRules
-      : enabledRules;
-    currentSettings._srsActiveLemmas = activeRulesState.srsActiveLemmas || null;
-    const srsStats = activeRulesState.srsStats || null;
-    const activeOriginCounts = activeRulesState.activeOriginCounts
-      && typeof activeRulesState.activeOriginCounts === "object"
-      ? activeRulesState.activeOriginCounts
-      : { [RULE_ORIGIN_RULESET]: 0, [RULE_ORIGIN_SRS]: 0 };
-    if (token !== applyToken) {
-      return;
-    }
-    const focusWord = getFocusWord(currentSettings);
-    const focusRulesCount = focusWord
-      ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord).length
-      : 0;
-    applyDiagnosticsReporter.report({
-      currentSettings,
-      normalizedRules,
-      enabledRules,
-      activeRules,
-      originCounts,
-      activeOriginCounts,
-      rulesSource,
-      helperRulesError,
-      srsProfileId,
-      srsStats,
-      focusWord,
-      focusRulesCount
-    });
-    applyRuntimeActions.run({
-      currentSettings,
-      activeRules,
-      focusWord
+    await applySettingsPipeline.run(settings, {
+      isTokenCurrent: () => token === applyToken,
+      log
     });
   }
 

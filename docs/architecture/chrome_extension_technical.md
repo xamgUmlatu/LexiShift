@@ -69,6 +69,9 @@ Module layout
 - `apps/chrome-extension/content/runtime/apply_runtime_actions.js`
   - Runs apply-time runtime actions (styles/listeners/highlight + replacement scan execution).
   - Keeps `applySettings` orchestration in `content_script.js` concise.
+- `apps/chrome-extension/content/runtime/apply_settings_pipeline.js`
+  - Central pipeline for settings-apply flow (`normalize settings -> resolve active rules -> diagnostics -> runtime actions`).
+  - Handles apply token staleness checks via injected runtime callback.
 - `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
   - Owns feedback entry persistence and helper feedback-sync queue integration.
 - `apps/chrome-extension/content/runtime/settings_change_router.js`
@@ -109,7 +112,9 @@ Module layout
     - `controller_factory.js` (controller resolver)
     - `ui_bridge.js` (UI status/meta bridge adapters)
     - `language_prefs_adapter.js` (language/script preference adapter)
+    - `dom_aliases.js` (stable UI DOM alias map used by bootstrap/controller composition)
     - `controller_adapters.js` (controller-to-callback adapters used by `options.js`)
+    - `controller_graph.js` (options controller wiring/composition graph)
 - `apps/chrome-extension/options/controllers/srs/actions_controller.js`
   - Thin SRS actions composition layer that wires dependencies and returns workflow handlers.
 - `apps/chrome-extension/options/controllers/srs/actions/*.js`
@@ -130,7 +135,7 @@ Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
 - Load order is required to populate `globalThis.LexiShift` with module APIs.
 - `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
-- `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/apply_runtime_actions.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
+- `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/apply_runtime_actions.js`, `content/runtime/apply_settings_pipeline.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
 - `content/ui/popup_modules/module_registry.js` and `content/ui/popup_modules/japanese_script_module.js` must load before `content/ui/feedback_popup_controller.js`, which must load before `content/ui/ui.js`.
 - The options page also loads `shared/settings/settings_defaults.js` before `options.js`.
 - The options page loads `options/core/settings/*.js` installer scripts before `options/core/settings_manager.js`.
