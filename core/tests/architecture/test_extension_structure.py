@@ -38,17 +38,83 @@ class TestExtensionStructure(unittest.TestCase):
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
 
+    def test_options_helper_domains_exist(self) -> None:
+        required = [
+            EXT_ROOT / "options" / "core" / "helper" / "base_methods.js",
+            EXT_ROOT / "options" / "core" / "helper" / "diagnostics_methods.js",
+            EXT_ROOT / "options" / "core" / "helper" / "srs_set_methods.js",
+            EXT_ROOT / "options" / "core" / "helper_manager.js",
+        ]
+        missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
+        self.assertEqual(missing, [])
+
+    def test_options_html_loads_helper_domain_scripts_before_manager(self) -> None:
+        html_path = EXT_ROOT / "options.html"
+        html = html_path.read_text(encoding="utf-8")
+        ordered_markers = [
+            'src="options/core/helper/base_methods.js"',
+            'src="options/core/helper/diagnostics_methods.js"',
+            'src="options/core/helper/srs_set_methods.js"',
+            'src="options/core/helper_manager.js"',
+        ]
+        positions = [html.find(marker) for marker in ordered_markers]
+        self.assertTrue(all(position >= 0 for position in positions))
+        self.assertEqual(positions, sorted(positions))
+
+    def test_options_bootstrap_domains_exist(self) -> None:
+        required = [
+            EXT_ROOT / "options" / "core" / "bootstrap" / "controller_factory.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "ui_bridge.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "language_prefs_adapter.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "controller_adapters.js",
+        ]
+        missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
+        self.assertEqual(missing, [])
+
+    def test_options_html_loads_bootstrap_scripts_before_options_root(self) -> None:
+        html_path = EXT_ROOT / "options.html"
+        html = html_path.read_text(encoding="utf-8")
+        ordered_markers = [
+            'src="options/core/bootstrap/controller_factory.js"',
+            'src="options/core/bootstrap/ui_bridge.js"',
+            'src="options/core/bootstrap/language_prefs_adapter.js"',
+            'src="options/core/bootstrap/controller_adapters.js"',
+            'src="options.js"',
+        ]
+        positions = [html.find(marker) for marker in ordered_markers]
+        self.assertTrue(all(position >= 0 for position in positions))
+        self.assertEqual(positions, sorted(positions))
+
+    def test_options_html_loads_srs_action_scripts_before_controller(self) -> None:
+        html_path = EXT_ROOT / "options.html"
+        html = html_path.read_text(encoding="utf-8")
+        ordered_markers = [
+            'src="options/controllers/srs/actions/formatters.js"',
+            'src="options/controllers/srs/actions/shared.js"',
+            'src="options/controllers/srs/actions/workflows.js"',
+            'src="options/controllers/srs/actions_controller.js"',
+        ]
+        positions = [html.find(marker) for marker in ordered_markers]
+        self.assertTrue(all(position >= 0 for position in positions))
+        self.assertEqual(positions, sorted(positions))
+
     def test_content_ui_popup_modules_are_registered_in_manifest_order(self) -> None:
         manifest_path = EXT_ROOT / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]["js"]
         required_order = [
+            "content/runtime/dom_scan/node_filters.js",
+            "content/runtime/dom_scan/page_budget_tracker.js",
+            "content/runtime/dom_scan/scan_counters.js",
+            "content/runtime/dom_scan/text_node_processor.js",
             "content/runtime/dom_scan_runtime.js",
             "content/runtime/rules/helper_rules_runtime.js",
             "content/runtime/rules/active_rules_runtime.js",
             "content/runtime/diagnostics/apply_diagnostics_reporter.js",
+            "content/runtime/apply_runtime_actions.js",
             "content/runtime/feedback/feedback_runtime_controller.js",
             "content/runtime/settings_change_router.js",
+            "content/ui/popup_modules/module_registry.js",
             "content/ui/popup_modules/japanese_script_module.js",
             "content/ui/feedback_popup_controller.js",
             "content/ui/ui.js",

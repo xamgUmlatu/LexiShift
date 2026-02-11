@@ -3,6 +3,9 @@
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
+    const popupModuleRegistry = opts.popupModuleRegistry && typeof opts.popupModuleRegistry === "object"
+      ? opts.popupModuleRegistry
+      : null;
     const buildJapaneseScriptModule = typeof opts.buildJapaneseScriptModule === "function"
       ? opts.buildJapaneseScriptModule
       : (() => null);
@@ -85,16 +88,30 @@
         return;
       }
       feedbackModules.textContent = "";
-      const scriptModule = buildJapaneseScriptModule(target, debugLog);
-      if (scriptModule) {
-        feedbackModules.appendChild(scriptModule);
+      let moduleIds = [];
+      if (popupModuleRegistry && typeof popupModuleRegistry.buildModules === "function") {
+        const renderedModules = popupModuleRegistry.buildModules(target, debugLog);
+        for (const moduleEntry of renderedModules) {
+          if (!moduleEntry || !moduleEntry.node) {
+            continue;
+          }
+          feedbackModules.appendChild(moduleEntry.node);
+          moduleIds.push(String(moduleEntry.id || "").trim());
+        }
+      } else {
+        const scriptModule = buildJapaneseScriptModule(target, debugLog);
+        if (scriptModule) {
+          feedbackModules.appendChild(scriptModule);
+          moduleIds.push("japanese-script");
+        }
       }
       if (feedbackPopup) {
         feedbackPopup.dataset.hasModules = feedbackModules.childElementCount > 0 ? "true" : "false";
       }
       debugLog("Rendered feedback modules.", {
         moduleCount: feedbackModules.childElementCount,
-        hasJapaneseModule: Boolean(scriptModule),
+        moduleIds,
+        hasJapaneseModule: moduleIds.includes("japanese-script"),
         target: summarizeTarget(target)
       });
     }

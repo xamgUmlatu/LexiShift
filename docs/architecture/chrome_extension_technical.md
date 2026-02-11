@@ -47,8 +47,16 @@ Module layout
   - Keeps optional replacement detail logs for debug mode.
   - Adds `data-origin`, `data-language-pair`, and `data-source` for downstream UI control.
 - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
-  - Owns DOM text-node scanning, mutation observer updates, and page budget enforcement.
-  - Keeps replacement counters/focus diagnostics and exposure logging behavior for content runtime scans.
+  - Owns DOM text-node scanning, mutation observer updates, and page budget enforcement orchestration.
+  - Delegates node filtering, budget tracking, counter construction, and text-node replacement handling to `content/runtime/dom_scan/*`.
+- `apps/chrome-extension/content/runtime/dom_scan/node_filters.js`
+  - Central node guards for editable fields, excluded tags, and already-replaced LexiShift spans.
+- `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
+  - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
+- `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
+  - Constructs scan diagnostics counters for full scans and mutation scans.
+- `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
+  - Executes per-node replacement, exposure logging, and focus-word diagnostics.
 - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
   - Resolves helper rules with profile-scoped cache fallback (`memory -> persisted`).
   - Normalizes helper fetch failures into deterministic `helper` vs `helper-cache` source states.
@@ -58,6 +66,9 @@ Module layout
 - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
   - Centralizes settings-apply diagnostics logs and runtime-state snapshots.
   - Keeps `content_script.js` focused on orchestration instead of report formatting.
+- `apps/chrome-extension/content/runtime/apply_runtime_actions.js`
+  - Runs apply-time runtime actions (styles/listeners/highlight + replacement scan execution).
+  - Keeps `applySettings` orchestration in `content_script.js` concise.
 - `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
   - Owns feedback entry persistence and helper feedback-sync queue integration.
 - `apps/chrome-extension/content/runtime/settings_change_router.js`
@@ -69,6 +80,10 @@ Module layout
   - Popup module architecture and extension plan: `docs/architecture/popup_modules_pattern.md`.
 - `apps/chrome-extension/content/ui/feedback_popup_controller.js`
   - Owns feedback popup lifecycle, module attachment zone, keyboard shortcuts (Ctrl+1/2/3/4), and sound feedback.
+  - Renders module blocks from the popup module registry before the feedback bar.
+- `apps/chrome-extension/content/ui/popup_modules/module_registry.js`
+  - Registry/composition layer for popup modules (`id + build(target)` descriptors).
+  - Enables modular popup extension without changing popup controller internals.
 - `apps/chrome-extension/content/ui/popup_modules/japanese_script_module.js`
   - Builds the Japanese scripts module payload for popup rendering using replacement metadata (`script_forms`).
 - `apps/chrome-extension/content/ui/utils.js`
@@ -82,6 +97,26 @@ Module layout
     - `ui_prefs_methods.js`
     - `signals_methods.js`
     - `srs_profile_methods.js`
+- `apps/chrome-extension/options/core/helper_manager.js`
+  - Thin `HelperManager` class shell that applies helper-domain installers.
+- `apps/chrome-extension/options/core/helper/*.js`
+  - Domain installers for `HelperManager` methods:
+    - `base_methods.js`
+    - `diagnostics_methods.js`
+    - `srs_set_methods.js`
+- `apps/chrome-extension/options/core/bootstrap/*.js`
+  - Options-root bootstrap helpers:
+    - `controller_factory.js` (controller resolver)
+    - `ui_bridge.js` (UI status/meta bridge adapters)
+    - `language_prefs_adapter.js` (language/script preference adapter)
+    - `controller_adapters.js` (controller-to-callback adapters used by `options.js`)
+- `apps/chrome-extension/options/controllers/srs/actions_controller.js`
+  - Thin SRS actions composition layer that wires dependencies and returns workflow handlers.
+- `apps/chrome-extension/options/controllers/srs/actions/*.js`
+  - SRS action support modules:
+    - `formatters.js` (status/output formatting)
+    - `shared.js` (shared action helpers, preflight, output sink)
+    - `workflows.js` (initialize/refresh/diagnostics/sampled-preview/reset workflows)
 - `apps/chrome-extension/content_script.js`
   - Orchestrator: loads settings, composes runtime controllers, builds trie, scans DOM, observes changes.
   - Provides debug logging and focus word diagnostics.
@@ -94,10 +129,13 @@ Module layout
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
 - Load order is required to populate `globalThis.LexiShift` with module APIs.
-- `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
-- `content/ui/popup_modules/japanese_script_module.js` must load before `content/ui/feedback_popup_controller.js`, which must load before `content/ui/ui.js`.
+- `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
+- `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/apply_runtime_actions.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
+- `content/ui/popup_modules/module_registry.js` and `content/ui/popup_modules/japanese_script_module.js` must load before `content/ui/feedback_popup_controller.js`, which must load before `content/ui/ui.js`.
 - The options page also loads `shared/settings/settings_defaults.js` before `options.js`.
 - The options page loads `options/core/settings/*.js` installer scripts before `options/core/settings_manager.js`.
+- The options page loads `options/core/helper/*.js` installer scripts before `options/core/helper_manager.js`.
+- The options page loads `options/core/bootstrap/*.js` before `options.js`.
 - `options.js` now requires registered controller factories and throws if required modules are missing.
 
 Settings flow

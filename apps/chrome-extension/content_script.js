@@ -287,6 +287,34 @@
         handleFeedback: () => {},
         stop: () => {}
       };
+  const applyRuntimeActionsFactory = root.contentApplyRuntimeActions
+    && typeof root.contentApplyRuntimeActions.createRunner === "function"
+    ? root.contentApplyRuntimeActions.createRunner
+    : null;
+  const applyRuntimeActions = applyRuntimeActionsFactory
+    ? applyRuntimeActionsFactory({
+        ensureStyle,
+        setFeedbackSoundEnabled,
+        attachClickListener,
+        attachFeedbackListener,
+        applyHighlightToDom,
+        clearReplacements,
+        buildTrie,
+        domScanRuntime,
+        feedbackRuntime,
+        ruleOriginSrs: RULE_ORIGIN_SRS,
+        defaults,
+        setCurrentTrie: (nextTrie) => {
+          currentTrie = nextTrie;
+        },
+        setApplyingChanges: (next) => {
+          applyingChanges = next === true;
+        },
+        log
+      })
+    : {
+        run: () => {}
+      };
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
     ? root.contentSettingsChangeRouter.createRouter
@@ -380,34 +408,11 @@
       focusWord,
       focusRulesCount
     });
-    ensureStyle(
-      currentSettings.highlightColor || defaults.highlightColor,
-      currentSettings.srsHighlightColor || currentSettings.highlightColor || defaults.highlightColor
-    );
-    if (setFeedbackSoundEnabled) {
-      setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
-    }
-    attachClickListener();
-    const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [RULE_ORIGIN_SRS];
-    attachFeedbackListener((payload) => feedbackRuntime.handleFeedback(payload, focusWord), {
-      allowOrigins: feedbackOrigins
+    applyRuntimeActions.run({
+      currentSettings,
+      activeRules,
+      focusWord
     });
-    applyHighlightToDom(currentSettings.highlightEnabled);
-
-    applyingChanges = true;
-    try {
-      clearReplacements();
-      if (!currentSettings.enabled) {
-        domScanRuntime.clearBudgetState();
-        currentTrie = null;
-        log("Replacements are disabled.");
-        return;
-      }
-      currentTrie = buildTrie(activeRules);
-      domScanRuntime.processDocument();
-    } finally {
-      applyingChanges = false;
-    }
   }
 
   function loadSettings() {

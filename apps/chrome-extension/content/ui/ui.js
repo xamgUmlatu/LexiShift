@@ -5,12 +5,32 @@
   const scriptModule = root.uiJapaneseScriptModule && typeof root.uiJapaneseScriptModule === "object"
     ? root.uiJapaneseScriptModule
     : null;
+  const popupModuleRegistryFactory = root.uiPopupModuleRegistry
+    && typeof root.uiPopupModuleRegistry.createRegistry === "function"
+    ? root.uiPopupModuleRegistry.createRegistry
+    : null;
+  const popupModuleRegistry = popupModuleRegistryFactory
+    ? popupModuleRegistryFactory({
+        modules: [
+          {
+            id: "japanese-script",
+            build: (target, debugLog) => {
+              if (!scriptModule || typeof scriptModule.build !== "function") {
+                return null;
+              }
+              return scriptModule.build(target, debugLog);
+            }
+          }
+        ]
+      })
+    : null;
   const feedbackPopupFactory = root.uiFeedbackPopupController
     && typeof root.uiFeedbackPopupController.createController === "function"
     ? root.uiFeedbackPopupController.createController
     : null;
   const feedbackController = feedbackPopupFactory
     ? feedbackPopupFactory({
+        popupModuleRegistry,
         buildJapaneseScriptModule: (target, debugLog) => {
           if (!scriptModule || typeof scriptModule.build !== "function") {
             return null;

@@ -37,6 +37,63 @@
       ? opts.applySettings
       : (() => {});
 
+    const rebuildKeys = [
+      "enabled",
+      "rules",
+      "maxOnePerTextBlock",
+      "allowAdjacentReplacements",
+      "maxReplacementsPerPage",
+      "maxReplacementsPerLemmaPerPage",
+      "srsEnabled",
+      "srsPair",
+      "srsProfileId",
+      "srsMaxActive",
+      "srsRulesetUpdatedAt",
+      "targetDisplayScript"
+    ];
+    const highlightKeys = [
+      "highlightEnabled",
+      "highlightColor",
+      "srsHighlightColor"
+    ];
+
+    function mergeSettings(nextSettings) {
+      const merged = { ...getCurrentSettings(), ...nextSettings };
+      setCurrentSettings(merged);
+      return merged;
+    }
+
+    function applyChangedKey(nextSettings, changes, key) {
+      if (!changes[key]) {
+        return false;
+      }
+      nextSettings[key] = changes[key].newValue;
+      return true;
+    }
+
+    function configureFeedbackListener(nextSettings) {
+      const merged = mergeSettings(nextSettings);
+      const feedbackOrigins = merged.srsFeedbackSrsEnabled === false ? [] : [ruleOriginSrs];
+      if (attachFeedbackListener) {
+        attachFeedbackListener((payload) => onFeedback(payload, getFocusWord(getCurrentSettings())), {
+          allowOrigins: feedbackOrigins
+        });
+      }
+    }
+
+    function applyHighlightSettings(nextSettings) {
+      const merged = mergeSettings(nextSettings);
+      if (ensureStyle) {
+        ensureStyle(
+          merged.highlightColor || defaults.highlightColor,
+          merged.srsHighlightColor || merged.highlightColor || defaults.highlightColor
+        );
+      }
+      if (applyHighlightToDom) {
+        applyHighlightToDom(merged.highlightEnabled);
+      }
+    }
+
     function handleStorageChange(changes, area) {
       if (area !== "local") {
         return;
@@ -46,63 +103,22 @@
       let needsRebuild = false;
       let needsHighlight = false;
 
-      if (changes.enabled) {
-        nextSettings.enabled = changes.enabled.newValue;
-        needsRebuild = true;
+      for (const key of rebuildKeys) {
+        if (applyChangedKey(nextSettings, changes, key)) {
+          needsRebuild = true;
+        }
       }
-      if (changes.rules) {
-        nextSettings.rules = changes.rules.newValue;
-        needsRebuild = true;
+      for (const key of highlightKeys) {
+        if (applyChangedKey(nextSettings, changes, key)) {
+          needsHighlight = true;
+        }
       }
-      if (changes.highlightEnabled) {
-        nextSettings.highlightEnabled = changes.highlightEnabled.newValue;
-        needsHighlight = true;
-      }
-      if (changes.highlightColor) {
-        nextSettings.highlightColor = changes.highlightColor.newValue;
-        needsHighlight = true;
-      }
-      if (changes.maxOnePerTextBlock) {
-        nextSettings.maxOnePerTextBlock = changes.maxOnePerTextBlock.newValue;
-        needsRebuild = true;
-      }
-      if (changes.allowAdjacentReplacements) {
-        nextSettings.allowAdjacentReplacements = changes.allowAdjacentReplacements.newValue;
-        needsRebuild = true;
-      }
-      if (changes.maxReplacementsPerPage) {
-        nextSettings.maxReplacementsPerPage = changes.maxReplacementsPerPage.newValue;
-        needsRebuild = true;
-      }
-      if (changes.maxReplacementsPerLemmaPerPage) {
-        nextSettings.maxReplacementsPerLemmaPerPage = changes.maxReplacementsPerLemmaPerPage.newValue;
-        needsRebuild = true;
-      }
-      if (changes.srsEnabled) {
-        nextSettings.srsEnabled = changes.srsEnabled.newValue;
-        needsRebuild = true;
-      }
-      if (changes.srsPair) {
-        nextSettings.srsPair = changes.srsPair.newValue;
-        needsRebuild = true;
-      }
-      if (changes.srsProfileId) {
-        nextSettings.srsProfileId = changes.srsProfileId.newValue;
-        needsRebuild = true;
-      }
-      if (changes.srsMaxActive) {
-        nextSettings.srsMaxActive = changes.srsMaxActive.newValue;
-        needsRebuild = true;
-      }
+
       if (changes.srsSoundEnabled) {
         nextSettings.srsSoundEnabled = changes.srsSoundEnabled.newValue;
         if (setFeedbackSoundEnabled) {
           setFeedbackSoundEnabled(nextSettings.srsSoundEnabled);
         }
-      }
-      if (changes.srsHighlightColor) {
-        nextSettings.srsHighlightColor = changes.srsHighlightColor.newValue;
-        needsHighlight = true;
       }
       if (changes.srsFeedbackSrsEnabled) {
         nextSettings.srsFeedbackSrsEnabled = changes.srsFeedbackSrsEnabled.newValue;
@@ -111,37 +127,22 @@
         nextSettings.srsFeedbackRulesEnabled = changes.srsFeedbackRulesEnabled.newValue;
       }
       if (changes.srsFeedbackSrsEnabled || changes.srsFeedbackRulesEnabled) {
-        const merged = { ...getCurrentSettings(), ...nextSettings };
-        setCurrentSettings(merged);
-        const feedbackOrigins = merged.srsFeedbackSrsEnabled === false ? [] : [ruleOriginSrs];
-        if (attachFeedbackListener) {
-          attachFeedbackListener((payload) => onFeedback(payload, getFocusWord(getCurrentSettings())), {
-            allowOrigins: feedbackOrigins
-          });
-        }
+        configureFeedbackListener(nextSettings);
       }
+
       if (changes.srsExposureLoggingEnabled) {
         nextSettings.srsExposureLoggingEnabled = changes.srsExposureLoggingEnabled.newValue;
-        const merged = { ...getCurrentSettings(), ...nextSettings };
-        setCurrentSettings(merged);
+        const merged = mergeSettings(nextSettings);
         if (merged.debugEnabled) {
           log(
             `SRS exposure logging ${merged.srsExposureLoggingEnabled === false ? "disabled" : "enabled"}.`
           );
         }
       }
-      if (changes.srsRulesetUpdatedAt) {
-        nextSettings.srsRulesetUpdatedAt = changes.srsRulesetUpdatedAt.newValue;
-        needsRebuild = true;
-      }
-      if (changes.targetDisplayScript) {
-        nextSettings.targetDisplayScript = changes.targetDisplayScript.newValue;
-        needsRebuild = true;
-      }
+
       if (changes.debugEnabled) {
         nextSettings.debugEnabled = changes.debugEnabled.newValue;
-        const merged = { ...getCurrentSettings(), ...nextSettings };
-        setCurrentSettings(merged);
+        const merged = mergeSettings(nextSettings);
         if (setDebugEnabled) {
           setDebugEnabled(merged.debugEnabled === true);
         }
@@ -149,8 +150,7 @@
       }
       if (changes.debugFocusWord) {
         nextSettings.debugFocusWord = changes.debugFocusWord.newValue;
-        const merged = { ...getCurrentSettings(), ...nextSettings };
-        setCurrentSettings(merged);
+        const merged = mergeSettings(nextSettings);
         const focusWord = getFocusWord(merged);
         if (focusWord) {
           log(`Debug focus word set to "${focusWord}".`);
@@ -160,17 +160,7 @@
       }
 
       if (needsHighlight) {
-        const merged = { ...getCurrentSettings(), ...nextSettings };
-        setCurrentSettings(merged);
-        if (ensureStyle) {
-          ensureStyle(
-            merged.highlightColor || defaults.highlightColor,
-            merged.srsHighlightColor || merged.highlightColor || defaults.highlightColor
-          );
-        }
-        if (applyHighlightToDom) {
-          applyHighlightToDom(merged.highlightEnabled);
-        }
+        applyHighlightSettings(nextSettings);
       }
       if (needsRebuild) {
         applySettings(nextSettings);
