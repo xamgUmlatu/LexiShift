@@ -27,9 +27,11 @@ class UIManager {
       "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",
       "profile-bg-file", "profile-bg-remove", "profile-bg-apply",
       "profile-bg-status", "profile-bg-preview-wrap", "profile-bg-preview",
+      "profile-bg-focal-marker", "profile-bg-position-reset",
       "profile-card-theme-hue", "profile-card-theme-hue-value",
       "profile-card-theme-saturation", "profile-card-theme-saturation-value",
       "profile-card-theme-brightness", "profile-card-theme-brightness-value",
+      "profile-card-theme-transparency", "profile-card-theme-transparency-value",
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
@@ -141,14 +143,16 @@ class UIManager {
       : () => ({
           hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
           saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
-          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 }
+          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 },
+          transparencyPercent: { min: 40, max: 100, step: 1, defaultValue: 100 }
         });
     const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
       ? themePrefs.normalizeCardThemePrefs
       : () => ({
           cardThemeHueDeg: 0,
           cardThemeSaturationPercent: 100,
-          cardThemeBrightnessPercent: 100
+          cardThemeBrightnessPercent: 100,
+          cardThemeTransparencyPercent: 100
         });
     const cardThemeLimits = resolveCardThemeLimits();
     const normalizedCardTheme = normalizeCardThemePrefs(source, {
@@ -181,6 +185,9 @@ class UIManager {
     }
     if (this.dom.profileBgApply) {
       this.dom.profileBgApply.disabled = !hasAsset;
+    }
+    if (this.dom.profileBgPositionReset) {
+      this.dom.profileBgPositionReset.disabled = false;
     }
     if (this.dom.profileCardThemeHue) {
       const hue = Number.isFinite(Number(normalizedCardTheme.cardThemeHueDeg))
@@ -229,6 +236,22 @@ class UIManager {
         ? Number(this.dom.profileCardThemeBrightness.value || 100)
         : Number(cardThemeLimits.brightnessPercent.defaultValue);
       this.dom.profileCardThemeBrightnessValue.textContent = `${Math.round(brightnessValue)}%`;
+    }
+    if (this.dom.profileCardThemeTransparency) {
+      const transparency = Number.isFinite(Number(normalizedCardTheme.cardThemeTransparencyPercent))
+        ? Number(normalizedCardTheme.cardThemeTransparencyPercent)
+        : Number(cardThemeLimits.transparencyPercent.defaultValue);
+      this.dom.profileCardThemeTransparency.min = String(cardThemeLimits.transparencyPercent.min);
+      this.dom.profileCardThemeTransparency.max = String(cardThemeLimits.transparencyPercent.max);
+      this.dom.profileCardThemeTransparency.step = String(cardThemeLimits.transparencyPercent.step || 1);
+      this.dom.profileCardThemeTransparency.value = String(Math.round(transparency));
+      this.dom.profileCardThemeTransparency.disabled = false;
+    }
+    if (this.dom.profileCardThemeTransparencyValue) {
+      const transparencyValue = this.dom.profileCardThemeTransparency
+        ? Number(this.dom.profileCardThemeTransparency.value || 100)
+        : Number(cardThemeLimits.transparencyPercent.defaultValue);
+      this.dom.profileCardThemeTransparencyValue.textContent = `${Math.round(transparencyValue)}%`;
     }
     if (this.dom.profileCardThemeReset) {
       this.dom.profileCardThemeReset.disabled = false;

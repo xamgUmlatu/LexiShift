@@ -575,8 +575,17 @@
   "button_profile_bg_apply": {
     "message": "Apply options page background"
   },
+  "button_profile_bg_position_reset": {
+    "message": "Reset image position"
+  },
   "hint_profile_bg_status_empty": {
     "message": "No options page background image configured for this profile."
+  },
+  "hint_profile_bg_drag": {
+    "message": "Drag in the preview to position the image focus."
+  },
+  "status_profile_bg_position_reset": {
+    "message": "Background image position reset."
   },
   "subsection_profile_card_theme": {
     "message": "Card color tuning"
@@ -592,6 +601,9 @@
   },
   "label_profile_card_theme_brightness": {
     "message": "Brightness"
+  },
+  "label_profile_card_theme_transparency": {
+    "message": "Transparency"
   },
   "button_profile_card_theme_reset": {
     "message": "Reset card colors"

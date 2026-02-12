@@ -40,10 +40,19 @@
     return `${(value / (1024 * 1024)).toFixed(2)} MB`;
   }
 
+  function clampPositionPercent(value, fallback) {
+    const parsed = Number.parseFloat(value);
+    const fallbackValue = Number.isFinite(Number(fallback)) ? Number(fallback) : 50;
+    const base = Number.isFinite(parsed) ? parsed : fallbackValue;
+    const clamped = Math.min(100, Math.max(0, base));
+    return Math.round(clamped * 100) / 100;
+  }
+
   root.optionsProfileBackgroundUtils = {
     clampOpacity,
     normalizeBackdropColor,
     hexColorToRgb,
-    formatBytes
+    formatBytes,
+    clampPositionPercent
   };
 })();

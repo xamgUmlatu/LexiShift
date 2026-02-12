@@ -277,6 +277,15 @@
           </p>
           <div id="profile-bg-preview-wrap" class="profile-bg-preview-wrap hidden">
             <img id="profile-bg-preview" alt="Profile background preview" />
+            <span id="profile-bg-focal-marker" class="profile-bg-focal-marker hidden" aria-hidden="true"></span>
+          </div>
+          <p class="hint" data-i18n="hint_profile_bg_drag">
+            Drag in the preview to position the image focus.
+          </p>
+          <div class="actions">
+            <button id="profile-bg-position-reset" type="button" data-i18n="button_profile_bg_position_reset">
+              Reset image position
+            </button>
           </div>
           <div class="actions">
             <button id="profile-bg-apply" data-i18n="button_profile_bg_apply">Apply options page background</button>
@@ -300,6 +309,11 @@
               <label for="profile-card-theme-brightness" data-i18n="label_profile_card_theme_brightness">Brightness</label>
               <input id="profile-card-theme-brightness" type="range" min="80" max="125" step="1" value="100" />
               <span id="profile-card-theme-brightness-value" class="meta-value">100%</span>
+            </div>
+            <div class="field-row">
+              <label for="profile-card-theme-transparency" data-i18n="label_profile_card_theme_transparency">Transparency</label>
+              <input id="profile-card-theme-transparency" type="range" min="40" max="100" step="1" value="100" />
+              <span id="profile-card-theme-transparency-value" class="meta-value">100%</span>
             </div>
             <div class="actions">
               <button id="profile-card-theme-reset" type="button" data-i18n="button_profile_card_theme_reset">

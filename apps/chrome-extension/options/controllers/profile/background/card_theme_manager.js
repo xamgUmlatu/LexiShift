@@ -175,13 +175,22 @@
       l: clamp01(hsl.l * (transform.brightnessPercent / 100))
     };
     const rgb = hslToRgb(transformedHsl);
+    const rawTransparencyPercent = Number(transform.transparencyPercent);
+    const alphaScale = clamp01((Number.isFinite(rawTransparencyPercent) ? rawTransparencyPercent : 100) / 100);
+    const alpha = clamp01(parsed.a * alphaScale);
     if (parsed.format === "hex") {
+      if (alphaScale < 1) {
+        return toRgba(rgb, alpha);
+      }
       return toHex(rgb);
     }
     if (parsed.format === "rgb") {
+      if (alphaScale < 1) {
+        return toRgba(rgb, alpha);
+      }
       return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
     }
-    return toRgba(rgb, parsed.a);
+    return toRgba(rgb, alpha);
   }
 
   function createManager(options) {
@@ -205,21 +214,24 @@
       : () => ({
           hueDeg: 0,
           saturationPercent: 100,
-          brightnessPercent: 100
+          brightnessPercent: 100,
+          transparencyPercent: 100
         });
     const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
       ? themePrefs.normalizeCardThemePrefs
       : () => ({
           cardThemeHueDeg: 0,
           cardThemeSaturationPercent: 100,
-          cardThemeBrightnessPercent: 100
+          cardThemeBrightnessPercent: 100,
+          cardThemeTransparencyPercent: 100
         });
     const toTransformValues = typeof themePrefs.toTransformValues === "function"
       ? themePrefs.toTransformValues
       : (rawPrefs) => ({
           hueDeg: Number(rawPrefs && rawPrefs.cardThemeHueDeg) || 0,
           saturationPercent: Number(rawPrefs && rawPrefs.cardThemeSaturationPercent) || 100,
-          brightnessPercent: Number(rawPrefs && rawPrefs.cardThemeBrightnessPercent) || 100
+          brightnessPercent: Number(rawPrefs && rawPrefs.cardThemeBrightnessPercent) || 100,
+          transparencyPercent: Number(rawPrefs && rawPrefs.cardThemeTransparencyPercent) || 100
         });
     const rootStyle = documentRef.documentElement.style;
     let baseTokenMap = null;
@@ -231,7 +243,8 @@
       return {
         cardThemeHueDeg: defaults.hueDeg,
         cardThemeSaturationPercent: defaults.saturationPercent,
-        cardThemeBrightnessPercent: defaults.brightnessPercent
+        cardThemeBrightnessPercent: defaults.brightnessPercent,
+        cardThemeTransparencyPercent: defaults.transparencyPercent
       };
     }
 
@@ -270,7 +283,8 @@
       });
       return transform.hueDeg === defaults.hueDeg
         && transform.saturationPercent === defaults.saturationPercent
-        && transform.brightnessPercent === defaults.brightnessPercent;
+        && transform.brightnessPercent === defaults.brightnessPercent
+        && transform.transparencyPercent === defaults.transparencyPercent;
     }
 
     function clearCardTheme() {

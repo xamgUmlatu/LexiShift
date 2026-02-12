@@ -19,6 +19,12 @@
       max: 125,
       step: 1,
       defaultValue: 100
+    }),
+    transparencyPercent: Object.freeze({
+      min: 40,
+      max: 100,
+      step: 1,
+      defaultValue: 100
     })
   });
 
@@ -47,10 +53,14 @@
     const brightnessPercent = configured.brightnessPercent && isObject(configured.brightnessPercent)
       ? configured.brightnessPercent
       : FALLBACK_CARD_THEME_LIMITS.brightnessPercent;
+    const transparencyPercent = configured.transparencyPercent && isObject(configured.transparencyPercent)
+      ? configured.transparencyPercent
+      : FALLBACK_CARD_THEME_LIMITS.transparencyPercent;
     return {
       hueDeg,
       saturationPercent,
-      brightnessPercent
+      brightnessPercent,
+      transparencyPercent
     };
   }
 
@@ -80,6 +90,9 @@
     const brightnessRaw = rawDefaults.cardThemeBrightnessPercent !== undefined
       ? rawDefaults.cardThemeBrightnessPercent
       : rawDefaults.brightnessPercent;
+    const transparencyRaw = rawDefaults.cardThemeTransparencyPercent !== undefined
+      ? rawDefaults.cardThemeTransparencyPercent
+      : rawDefaults.transparencyPercent;
     return {
       hueDeg: clampThemeValue(limits.hueDeg, hueRaw, limits.hueDeg.defaultValue),
       saturationPercent: clampThemeValue(
@@ -91,6 +104,11 @@
         limits.brightnessPercent,
         brightnessRaw,
         limits.brightnessPercent.defaultValue
+      ),
+      transparencyPercent: clampThemeValue(
+        limits.transparencyPercent,
+        transparencyRaw,
+        limits.transparencyPercent.defaultValue
       )
     };
   }
@@ -108,6 +126,11 @@
   function clampCardThemeBrightnessPercent(value, fallback) {
     const limits = resolveCardThemeLimits();
     return clampThemeValue(limits.brightnessPercent, value, fallback);
+  }
+
+  function clampCardThemeTransparencyPercent(value, fallback) {
+    const limits = resolveCardThemeLimits();
+    return clampThemeValue(limits.transparencyPercent, value, fallback);
   }
 
   function resolveValue(raw, fallback, directKey, alternateKey) {
@@ -136,10 +159,20 @@
     const hueValue = resolveValue(raw, fallback, "cardThemeHueDeg", "hueDeg");
     const saturationValue = resolveValue(raw, fallback, "cardThemeSaturationPercent", "saturationPercent");
     const brightnessValue = resolveValue(raw, fallback, "cardThemeBrightnessPercent", "brightnessPercent");
+    const transparencyValue = resolveValue(
+      raw,
+      fallback,
+      "cardThemeTransparencyPercent",
+      "transparencyPercent"
+    );
     return {
       cardThemeHueDeg: clampCardThemeHueDeg(hueValue, defaults.hueDeg),
       cardThemeSaturationPercent: clampCardThemeSaturationPercent(saturationValue, defaults.saturationPercent),
-      cardThemeBrightnessPercent: clampCardThemeBrightnessPercent(brightnessValue, defaults.brightnessPercent)
+      cardThemeBrightnessPercent: clampCardThemeBrightnessPercent(brightnessValue, defaults.brightnessPercent),
+      cardThemeTransparencyPercent: clampCardThemeTransparencyPercent(
+        transparencyValue,
+        defaults.transparencyPercent
+      )
     };
   }
 
@@ -148,7 +181,8 @@
     return {
       hueDeg: normalized.cardThemeHueDeg,
       saturationPercent: normalized.cardThemeSaturationPercent,
-      brightnessPercent: normalized.cardThemeBrightnessPercent
+      brightnessPercent: normalized.cardThemeBrightnessPercent,
+      transparencyPercent: normalized.cardThemeTransparencyPercent
     };
   }
 
@@ -158,6 +192,7 @@
     clampCardThemeHueDeg,
     clampCardThemeSaturationPercent,
     clampCardThemeBrightnessPercent,
+    clampCardThemeTransparencyPercent,
     normalizeCardThemePrefs,
     toTransformValues
   };

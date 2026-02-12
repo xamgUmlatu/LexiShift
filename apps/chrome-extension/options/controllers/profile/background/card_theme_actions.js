@@ -19,17 +19,20 @@
           resolveDefaultUiPrefs: () => ({
             cardThemeHueDeg: 0,
             cardThemeSaturationPercent: 100,
-            cardThemeBrightnessPercent: 100
+            cardThemeBrightnessPercent: 100,
+            cardThemeTransparencyPercent: 100
           }),
           updateLabels: () => ({
             hueDeg: 0,
             saturationPercent: 100,
-            brightnessPercent: 100
+            brightnessPercent: 100,
+            transparencyPercent: 100
           }),
           readPrefsFromInputs: () => ({
             cardThemeHueDeg: 0,
             cardThemeSaturationPercent: 100,
-            cardThemeBrightnessPercent: 100
+            cardThemeBrightnessPercent: 100,
+            cardThemeTransparencyPercent: 100
           })
         };
     const loadActiveProfileUiPrefs = typeof opts.loadActiveProfileUiPrefs === "function"

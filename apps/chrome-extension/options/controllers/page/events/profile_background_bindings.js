@@ -16,9 +16,11 @@
     const profileBgFileInput = elements.profileBgFileInput || null;
     const profileBgRemoveButton = elements.profileBgRemoveButton || null;
     const profileBgApplyButton = elements.profileBgApplyButton || null;
+    const profileBgPositionResetButton = elements.profileBgPositionResetButton || null;
     const profileCardThemeHueInput = elements.profileCardThemeHueInput || null;
     const profileCardThemeSaturationInput = elements.profileCardThemeSaturationInput || null;
     const profileCardThemeBrightnessInput = elements.profileCardThemeBrightnessInput || null;
+    const profileCardThemeTransparencyInput = elements.profileCardThemeTransparencyInput || null;
     const profileCardThemeResetButton = elements.profileCardThemeResetButton || null;
 
     bindAsyncListener(profileBgEnabledInput, "change", () => profileBackgroundController.onEnabledChange(), {
@@ -50,6 +52,10 @@
     bindAsyncListener(profileBgApplyButton, "click", () => profileBackgroundController.onApply(), {
       fallbackMessage: "Failed to apply profile background.",
       logMessage: "Profile background apply failed."
+    });
+    bindAsyncListener(profileBgPositionResetButton, "click", () => profileBackgroundController.onPositionReset(), {
+      fallbackMessage: "Failed to reset image position.",
+      logMessage: "Profile background image position reset failed."
     });
     if (profileCardThemeHueInput) {
       profileCardThemeHueInput.addEventListener("input", () => {
@@ -85,6 +91,20 @@
         {
           fallbackMessage: "Failed to save card color settings.",
           logMessage: "Card color settings save failed (brightness)."
+        }
+      );
+    }
+    if (profileCardThemeTransparencyInput) {
+      profileCardThemeTransparencyInput.addEventListener("input", () => {
+        profileBackgroundController.onCardThemeInput();
+      });
+      bindAsyncListener(
+        profileCardThemeTransparencyInput,
+        "change",
+        () => profileBackgroundController.onCardThemeChange(),
+        {
+          fallbackMessage: "Failed to save card color settings.",
+          logMessage: "Card color settings save failed (transparency)."
         }
       );
     }

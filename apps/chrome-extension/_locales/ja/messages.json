@@ -575,8 +575,17 @@
   "button_profile_bg_apply": {
     "message": "オプション画面の背景を適用"
   },
+  "button_profile_bg_position_reset": {
+    "message": "画像位置をリセット"
+  },
   "hint_profile_bg_status_empty": {
     "message": "このプロファイルにはオプション画面の背景画像が設定されていません。"
+  },
+  "hint_profile_bg_drag": {
+    "message": "プレビューをドラッグして画像の表示位置を調整します。"
+  },
+  "status_profile_bg_position_reset": {
+    "message": "背景画像の位置をリセットしました。"
   },
   "subsection_profile_card_theme": {
     "message": "カード配色の調整"
@@ -592,6 +601,9 @@
   },
   "label_profile_card_theme_brightness": {
     "message": "明るさ"
+  },
+  "label_profile_card_theme_transparency": {
+    "message": "透明度"
   },
   "button_profile_card_theme_reset": {
     "message": "カード配色をリセット"

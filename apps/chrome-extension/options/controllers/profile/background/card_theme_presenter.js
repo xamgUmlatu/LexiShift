@@ -13,6 +13,8 @@
     const profileCardThemeSaturationValueOutput = opts.profileCardThemeSaturationValueOutput || null;
     const profileCardThemeBrightnessInput = opts.profileCardThemeBrightnessInput || null;
     const profileCardThemeBrightnessValueOutput = opts.profileCardThemeBrightnessValueOutput || null;
+    const profileCardThemeTransparencyInput = opts.profileCardThemeTransparencyInput || null;
+    const profileCardThemeTransparencyValueOutput = opts.profileCardThemeTransparencyValueOutput || null;
     const themePrefs = opts.themePrefs && isObject(opts.themePrefs)
       ? opts.themePrefs
       : (root.profileUiThemePrefs && isObject(root.profileUiThemePrefs) ? root.profileUiThemePrefs : {});
@@ -21,25 +23,33 @@
       : () => ({
           hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
           saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
-          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 }
+          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 },
+          transparencyPercent: { min: 40, max: 100, step: 1, defaultValue: 100 }
         });
     const resolveCardThemeDefaults = typeof themePrefs.resolveCardThemeDefaults === "function"
       ? themePrefs.resolveCardThemeDefaults
       : () => ({
           hueDeg: 0,
           saturationPercent: 100,
-          brightnessPercent: 100
+          brightnessPercent: 100,
+          transparencyPercent: 100
         });
     const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
       ? themePrefs.normalizeCardThemePrefs
       : () => ({
           cardThemeHueDeg: 0,
           cardThemeSaturationPercent: 100,
-          cardThemeBrightnessPercent: 100
+          cardThemeBrightnessPercent: 100,
+          cardThemeTransparencyPercent: 100
         });
 
     function hasControls() {
-      return Boolean(profileCardThemeHueInput || profileCardThemeSaturationInput || profileCardThemeBrightnessInput);
+      return Boolean(
+        profileCardThemeHueInput
+        || profileCardThemeSaturationInput
+        || profileCardThemeBrightnessInput
+        || profileCardThemeTransparencyInput
+      );
     }
 
     function resolveDefaultUiPrefs() {
@@ -49,7 +59,8 @@
       return {
         cardThemeHueDeg: defaults.hueDeg,
         cardThemeSaturationPercent: defaults.saturationPercent,
-        cardThemeBrightnessPercent: defaults.brightnessPercent
+        cardThemeBrightnessPercent: defaults.brightnessPercent,
+        cardThemeTransparencyPercent: defaults.transparencyPercent
       };
     }
 
@@ -63,7 +74,10 @@
           : source.saturationPercent,
         cardThemeBrightnessPercent: source.cardThemeBrightnessPercent !== undefined
           ? source.cardThemeBrightnessPercent
-          : source.brightnessPercent
+          : source.brightnessPercent,
+        cardThemeTransparencyPercent: source.cardThemeTransparencyPercent !== undefined
+          ? source.cardThemeTransparencyPercent
+          : source.transparencyPercent
       }, {
         fallback: resolvedFallback,
         defaults: resolveDefaultUiPrefs()
@@ -74,7 +88,10 @@
       const fallbackFromInputs = {
         cardThemeHueDeg: profileCardThemeHueInput ? profileCardThemeHueInput.value : undefined,
         cardThemeSaturationPercent: profileCardThemeSaturationInput ? profileCardThemeSaturationInput.value : undefined,
-        cardThemeBrightnessPercent: profileCardThemeBrightnessInput ? profileCardThemeBrightnessInput.value : undefined
+        cardThemeBrightnessPercent: profileCardThemeBrightnessInput ? profileCardThemeBrightnessInput.value : undefined,
+        cardThemeTransparencyPercent: profileCardThemeTransparencyInput
+          ? profileCardThemeTransparencyInput.value
+          : undefined
       };
       const normalized = normalizeValues(values, fallbackFromInputs);
       if (profileCardThemeHueInput) {
@@ -95,10 +112,17 @@
       if (profileCardThemeBrightnessValueOutput) {
         profileCardThemeBrightnessValueOutput.textContent = `${Math.round(normalized.cardThemeBrightnessPercent)}%`;
       }
+      if (profileCardThemeTransparencyInput) {
+        profileCardThemeTransparencyInput.value = String(normalized.cardThemeTransparencyPercent);
+      }
+      if (profileCardThemeTransparencyValueOutput) {
+        profileCardThemeTransparencyValueOutput.textContent = `${Math.round(normalized.cardThemeTransparencyPercent)}%`;
+      }
       return {
         hueDeg: normalized.cardThemeHueDeg,
         saturationPercent: normalized.cardThemeSaturationPercent,
-        brightnessPercent: normalized.cardThemeBrightnessPercent
+        brightnessPercent: normalized.cardThemeBrightnessPercent,
+        transparencyPercent: normalized.cardThemeTransparencyPercent
       };
     }
 
@@ -119,6 +143,11 @@
         profileCardThemeBrightnessInput.max = String(limits.brightnessPercent.max);
         profileCardThemeBrightnessInput.step = String(limits.brightnessPercent.step || 1);
       }
+      if (profileCardThemeTransparencyInput) {
+        profileCardThemeTransparencyInput.min = String(limits.transparencyPercent.min);
+        profileCardThemeTransparencyInput.max = String(limits.transparencyPercent.max);
+        profileCardThemeTransparencyInput.step = String(limits.transparencyPercent.step || 1);
+      }
       updateLabels(resolveDefaultUiPrefs());
     }
 
@@ -131,6 +160,9 @@
           : undefined,
         cardThemeBrightnessPercent: profileCardThemeBrightnessInput
           ? profileCardThemeBrightnessInput.value
+          : undefined,
+        cardThemeTransparencyPercent: profileCardThemeTransparencyInput
+          ? profileCardThemeTransparencyInput.value
           : undefined
       }, {
         fallback,
@@ -139,7 +171,8 @@
       updateLabels({
         cardThemeHueDeg: normalized.cardThemeHueDeg,
         cardThemeSaturationPercent: normalized.cardThemeSaturationPercent,
-        cardThemeBrightnessPercent: normalized.cardThemeBrightnessPercent
+        cardThemeBrightnessPercent: normalized.cardThemeBrightnessPercent,
+        cardThemeTransparencyPercent: normalized.cardThemeTransparencyPercent
       });
       return normalized;
     }

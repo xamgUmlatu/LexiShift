@@ -575,8 +575,17 @@
   "button_profile_bg_apply": {
     "message": "应用选项页背景"
   },
+  "button_profile_bg_position_reset": {
+    "message": "重置图片位置"
+  },
   "hint_profile_bg_status_empty": {
     "message": "该配置尚未设置选项页背景图片。"
+  },
+  "hint_profile_bg_drag": {
+    "message": "在预览中拖动可调整图片焦点位置。"
+  },
+  "status_profile_bg_position_reset": {
+    "message": "背景图片位置已重置。"
   },
   "subsection_profile_card_theme": {
     "message": "卡片配色微调"
@@ -592,6 +601,9 @@
   },
   "label_profile_card_theme_brightness": {
     "message": "亮度"
+  },
+  "label_profile_card_theme_transparency": {
+    "message": "透明度"
   },
   "button_profile_card_theme_reset": {
     "message": "重置卡片配色"

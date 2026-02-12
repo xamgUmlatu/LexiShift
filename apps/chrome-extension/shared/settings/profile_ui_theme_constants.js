@@ -21,6 +21,12 @@
       max: 125,
       step: 1,
       defaultValue: 100
+    }),
+    transparencyPercent: Object.freeze({
+      min: 40,
+      max: 100,
+      step: 1,
+      defaultValue: 100
     })
   });
 

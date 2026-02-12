@@ -575,8 +575,17 @@
   "button_profile_bg_apply": {
     "message": "Optionsseiten-Hintergrund anwenden"
   },
+  "button_profile_bg_position_reset": {
+    "message": "Bildposition zurücksetzen"
+  },
   "hint_profile_bg_status_empty": {
     "message": "Für dieses Profil ist kein Hintergrundbild für die Optionsseite konfiguriert."
+  },
+  "hint_profile_bg_drag": {
+    "message": "Ziehe im Vorschaubereich, um den Bildfokus zu positionieren."
+  },
+  "status_profile_bg_position_reset": {
+    "message": "Bildposition des Hintergrunds zurückgesetzt."
   },
   "subsection_profile_card_theme": {
     "message": "Kartenfarben anpassen"
@@ -592,6 +601,9 @@
   },
   "label_profile_card_theme_brightness": {
     "message": "Helligkeit"
+  },
+  "label_profile_card_theme_transparency": {
+    "message": "Transparenz"
   },
   "button_profile_card_theme_reset": {
     "message": "Kartenfarben zurücksetzen"

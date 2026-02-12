@@ -29,7 +29,8 @@
           applyCardThemeFromPrefs: () => ({
             hueDeg: 0,
             saturationPercent: 100,
-            brightnessPercent: 100
+            brightnessPercent: 100,
+            transparencyPercent: 100
           })
         };
     const prefsService = opts.prefsService && typeof opts.prefsService === "object" ? opts.prefsService : null;
@@ -62,10 +63,23 @@
     const defaultOpacity = Number.isFinite(Number(opts.defaultOpacity))
       ? Number(opts.defaultOpacity)
       : 0.18;
+    const normalizeProfileBackgroundPosition = typeof opts.normalizeProfileBackgroundPosition === "function"
+      ? opts.normalizeProfileBackgroundPosition
+      : (x, y) => ({
+          x: Math.min(100, Math.max(0, Number.isFinite(Number(x)) ? Number(x) : 50)),
+          y: Math.min(100, Math.max(0, Number.isFinite(Number(y)) ? Number(y) : 50))
+        });
 
     async function refreshProfileBackgroundPreview(uiPrefs) {
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
       const assetId = String(prefs.backgroundAssetId || "").trim();
+      const position = normalizeProfileBackgroundPosition(
+        prefs.backgroundPositionX,
+        prefs.backgroundPositionY
+      );
+      if (typeof previewManager.setPreviewPosition === "function") {
+        previewManager.setPreviewPosition(position.x, position.y);
+      }
       if (!assetId) {
         previewManager.clearPreview();
         setProfileBgStatusLocalized(
@@ -88,6 +102,9 @@
           return;
         }
         previewManager.setPreviewFromBlob(record.blob);
+        if (typeof previewManager.setPreviewPosition === "function") {
+          previewManager.setPreviewPosition(position.x, position.y);
+        }
         const type = String(record.mime_type || record.blob.type || "image/*");
         const size = Number(record.byte_size || record.blob.size || 0);
         setProfileBgStatus(`Asset: ${type}, ${formatBytes(size)}.`);
@@ -105,13 +122,23 @@
       const enabled = prefs.backgroundEnabled === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
+      const position = normalizeProfileBackgroundPosition(
+        prefs.backgroundPositionX,
+        prefs.backgroundPositionY
+      );
       const preferredBlob = localOptions.preferredBlob instanceof Blob ? localOptions.preferredBlob : null;
       if (!enabled || !assetId) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
         return;
       }
       if (preferredBlob) {
-        pageBackgroundManager.applyBackgroundFromBlob(preferredBlob, prefs.backgroundOpacity, backdropColor);
+        pageBackgroundManager.applyBackgroundFromBlob(
+          preferredBlob,
+          prefs.backgroundOpacity,
+          backdropColor,
+          position.x,
+          position.y
+        );
         return;
       }
       if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
@@ -124,7 +151,13 @@
           pageBackgroundManager.applyBackdropOnly(backdropColor);
           return;
         }
-        pageBackgroundManager.applyBackgroundFromBlob(record.blob, prefs.backgroundOpacity, backdropColor);
+        pageBackgroundManager.applyBackgroundFromBlob(
+          record.blob,
+          prefs.backgroundOpacity,
+          backdropColor,
+          position.x,
+          position.y
+        );
       } catch (_err) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
       }
@@ -170,7 +203,8 @@
       updateProfileCardThemeLabels({
         hueDeg: normalized.cardThemeHueDeg,
         saturationPercent: normalized.cardThemeSaturationPercent,
-        brightnessPercent: normalized.cardThemeBrightnessPercent
+        brightnessPercent: normalized.cardThemeBrightnessPercent,
+        transparencyPercent: normalized.cardThemeTransparencyPercent
       });
       // Apply button is only for committing pending file uploads.
       setProfileBgApplyState(Boolean(getPendingFile()), false);
@@ -197,10 +231,18 @@
       clearFileInput();
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
       updateProfileBgOpacityLabel((prefs.backgroundOpacity || defaultOpacity) * 100);
+      if (typeof previewManager.setPreviewPosition === "function") {
+        const position = normalizeProfileBackgroundPosition(
+          prefs.backgroundPositionX,
+          prefs.backgroundPositionY
+        );
+        previewManager.setPreviewPosition(position.x, position.y);
+      }
       updateProfileCardThemeLabels({
         hueDeg: prefs.cardThemeHueDeg,
         saturationPercent: prefs.cardThemeSaturationPercent,
-        brightnessPercent: prefs.cardThemeBrightnessPercent
+        brightnessPercent: prefs.cardThemeBrightnessPercent,
+        transparencyPercent: prefs.cardThemeTransparencyPercent
       });
       await refreshProfileBackgroundPreview(prefs);
       // Always render the selected profile's saved UI prefs on options page load/switch.

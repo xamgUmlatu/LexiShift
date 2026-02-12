@@ -8,7 +8,8 @@
     : () => ({
         hueDeg: 0,
         saturationPercent: 100,
-        brightnessPercent: 100
+        brightnessPercent: 100,
+        transparencyPercent: 100
       });
   const cardThemeDefaults = resolveCardThemeDefaults();
 
@@ -52,6 +53,8 @@
     profileBackgroundAssetId: "",
     profileBackgroundOpacity: 0.18,
     profileBackgroundBackdropColor: "#fbf7f0",
+    profileBackgroundPositionX: 50,
+    profileBackgroundPositionY: 50,
     profileCardThemeHueDeg: Number.isFinite(Number(cardThemeDefaults.hueDeg))
       ? Number(cardThemeDefaults.hueDeg)
       : 0,
@@ -60,6 +63,9 @@
       : 100,
     profileCardThemeBrightnessPercent: Number.isFinite(Number(cardThemeDefaults.brightnessPercent))
       ? Number(cardThemeDefaults.brightnessPercent)
+      : 100,
+    profileCardThemeTransparencyPercent: Number.isFinite(Number(cardThemeDefaults.transparencyPercent))
+      ? Number(cardThemeDefaults.transparencyPercent)
       : 100,
     srsRulesetUpdatedAt: ""
   };

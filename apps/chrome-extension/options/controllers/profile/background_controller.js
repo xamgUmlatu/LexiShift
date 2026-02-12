@@ -33,12 +33,16 @@
     const profileBgStatusOutput = elements.profileBgStatusOutput || null;
     const profileBgPreviewWrap = elements.profileBgPreviewWrap || null;
     const profileBgPreviewImage = elements.profileBgPreviewImage || null;
+    const profileBgFocalMarker = elements.profileBgFocalMarker || null;
+    const profileBgPositionResetButton = elements.profileBgPositionResetButton || null;
     const profileCardThemeHueInput = elements.profileCardThemeHueInput || null;
     const profileCardThemeHueValueOutput = elements.profileCardThemeHueValueOutput || null;
     const profileCardThemeSaturationInput = elements.profileCardThemeSaturationInput || null;
     const profileCardThemeSaturationValueOutput = elements.profileCardThemeSaturationValueOutput || null;
     const profileCardThemeBrightnessInput = elements.profileCardThemeBrightnessInput || null;
     const profileCardThemeBrightnessValueOutput = elements.profileCardThemeBrightnessValueOutput || null;
+    const profileCardThemeTransparencyInput = elements.profileCardThemeTransparencyInput || null;
+    const profileCardThemeTransparencyValueOutput = elements.profileCardThemeTransparencyValueOutput || null;
     const profileCardThemeResetButton = elements.profileCardThemeResetButton || null;
 
     let profileBgPendingFile = null;
@@ -91,6 +95,34 @@
           }
           return `${(value / (1024 * 1024)).toFixed(2)} MB`;
         };
+    const clampProfileBackgroundPositionPercent = typeof backgroundUtils.clampPositionPercent === "function"
+      ? backgroundUtils.clampPositionPercent
+      : (value, fallback) => {
+          const parsed = Number.parseFloat(value);
+          const fallbackValue = Number.isFinite(Number(fallback)) ? Number(fallback) : 50;
+          const base = Number.isFinite(parsed) ? parsed : fallbackValue;
+          return Math.min(100, Math.max(0, base));
+        };
+    const defaultBackgroundPositionX = settingsManager && settingsManager.defaults
+      ? clampProfileBackgroundPositionPercent(settingsManager.defaults.profileBackgroundPositionX, 50)
+      : 50;
+    const defaultBackgroundPositionY = settingsManager && settingsManager.defaults
+      ? clampProfileBackgroundPositionPercent(settingsManager.defaults.profileBackgroundPositionY, 50)
+      : 50;
+
+    function normalizeProfileBackgroundPosition(nextX, nextY, fallback) {
+      const base = fallback && typeof fallback === "object" ? fallback : {};
+      const fallbackX = Number.isFinite(Number(base.x))
+        ? Number(base.x)
+        : defaultBackgroundPositionX;
+      const fallbackY = Number.isFinite(Number(base.y))
+        ? Number(base.y)
+        : defaultBackgroundPositionY;
+      return {
+        x: clampProfileBackgroundPositionPercent(nextX, fallbackX),
+        y: clampProfileBackgroundPositionPercent(nextY, fallbackY)
+      };
+    }
 
     const previewManagerFactory = root.optionsProfileBackgroundPreviewManager
       && typeof root.optionsProfileBackgroundPreviewManager.createManager === "function"
@@ -141,11 +173,14 @@
           profileCardThemeSaturationValueOutput,
           profileCardThemeBrightnessInput,
           profileCardThemeBrightnessValueOutput,
+          profileCardThemeTransparencyInput,
+          profileCardThemeTransparencyValueOutput,
           defaults: settingsManager && settingsManager.defaults
             ? {
                 cardThemeHueDeg: settingsManager.defaults.profileCardThemeHueDeg,
                 cardThemeSaturationPercent: settingsManager.defaults.profileCardThemeSaturationPercent,
-                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent
+                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent,
+                cardThemeTransparencyPercent: settingsManager.defaults.profileCardThemeTransparencyPercent
               }
             : {}
         })
@@ -154,18 +189,21 @@
           resolveDefaultUiPrefs: () => ({
             cardThemeHueDeg: 0,
             cardThemeSaturationPercent: 100,
-            cardThemeBrightnessPercent: 100
+            cardThemeBrightnessPercent: 100,
+            cardThemeTransparencyPercent: 100
           }),
           updateLabels: () => ({
             hueDeg: 0,
             saturationPercent: 100,
-            brightnessPercent: 100
+            brightnessPercent: 100,
+            transparencyPercent: 100
           }),
           configureInputs: () => {},
           readPrefsFromInputs: () => ({
             cardThemeHueDeg: 0,
             cardThemeSaturationPercent: 100,
-            cardThemeBrightnessPercent: 100
+            cardThemeBrightnessPercent: 100,
+            cardThemeTransparencyPercent: 100
           })
         };
 
@@ -173,11 +211,16 @@
       ? previewManagerFactory({
           previewImage: profileBgPreviewImage,
           previewWrap: profileBgPreviewWrap,
+          previewMarker: profileBgFocalMarker,
+          clampPositionPercent: clampProfileBackgroundPositionPercent,
           urlApi: URL
         })
       : {
           clearPreview: () => {},
           setPreviewFromBlob: () => {},
+          setPreviewPosition: () => ({ x: defaultBackgroundPositionX, y: defaultBackgroundPositionY }),
+          getPreviewPosition: () => ({ x: defaultBackgroundPositionX, y: defaultBackgroundPositionY }),
+          bindPositionInteractions: () => {},
           dispose: () => {}
         };
     const pageBackgroundManager = pageBackgroundManagerFactory
@@ -185,12 +228,14 @@
           documentRef: document,
           normalizeBackdropColor: normalizeProfileBackgroundBackdropColor,
           clampOpacity: clampProfileBackgroundOpacity,
+          clampPositionPercent: clampProfileBackgroundPositionPercent,
           hexColorToRgb,
           urlApi: URL
         })
       : {
           applyBackdropOnly: () => {},
           applyBackgroundFromBlob: () => {},
+          setBackgroundPosition: () => {},
           dispose: () => {}
         };
     const cardThemeManager = cardThemeManagerFactory
@@ -200,7 +245,8 @@
             ? {
                 cardThemeHueDeg: settingsManager.defaults.profileCardThemeHueDeg,
                 cardThemeSaturationPercent: settingsManager.defaults.profileCardThemeSaturationPercent,
-                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent
+                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent,
+                cardThemeTransparencyPercent: settingsManager.defaults.profileCardThemeTransparencyPercent
               }
             : {}
         })
@@ -208,7 +254,8 @@
           applyCardThemeFromPrefs: () => ({
             hueDeg: 0,
             saturationPercent: 100,
-            brightnessPercent: 100
+            brightnessPercent: 100,
+            transparencyPercent: 100
           }),
           clearCardTheme: () => {}
         };
@@ -289,6 +336,7 @@
           prefsService,
           formatBytes,
           normalizeProfileBackgroundBackdropColor,
+          normalizeProfileBackgroundPosition,
           updateProfileBgOpacityLabel,
           updateProfileCardThemeLabels: (values) => cardThemePresenter.updateLabels(values),
           setProfileBgStatus,
@@ -339,6 +387,89 @@
       ? runtimeBridge.syncForLoadedPrefs
       : (() => Promise.resolve());
 
+    function resolveBackgroundPositionFromSource(sourcePrefs) {
+      const source = sourcePrefs && typeof sourcePrefs === "object" ? sourcePrefs : {};
+      const fallback = normalizeProfileBackgroundPosition(
+        source.backgroundPositionX,
+        source.backgroundPositionY
+      );
+      if (previewManager && typeof previewManager.getPreviewPosition === "function") {
+        const current = previewManager.getPreviewPosition();
+        return normalizeProfileBackgroundPosition(current.x, current.y, fallback);
+      }
+      return fallback;
+    }
+
+    async function persistBackgroundPosition(position) {
+      const state = await loadActiveProfileUiPrefs();
+      const normalized = normalizeProfileBackgroundPosition(
+        position && position.x,
+        position && position.y,
+        {
+          x: state.uiPrefs.backgroundPositionX,
+          y: state.uiPrefs.backgroundPositionY
+        }
+      );
+      const existingX = Number(state.uiPrefs.backgroundPositionX);
+      const existingY = Number(state.uiPrefs.backgroundPositionY);
+      const unchanged = Number.isFinite(existingX)
+        && Number.isFinite(existingY)
+        && Math.abs(existingX - normalized.x) < 0.001
+        && Math.abs(existingY - normalized.y) < 0.001;
+      if (unchanged) {
+        return {
+          profileId: state.profileId,
+          uiPrefs: state.uiPrefs,
+          position: normalized
+        };
+      }
+      const nextPrefs = {
+        ...state.uiPrefs,
+        backgroundPositionX: normalized.x,
+        backgroundPositionY: normalized.y
+      };
+      await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+        profileId: state.profileId,
+        publishRuntime: false
+      });
+      await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+      return {
+        profileId: state.profileId,
+        uiPrefs: nextPrefs,
+        position: normalized
+      };
+    }
+
+    let backgroundPositionSaveChain = Promise.resolve();
+
+    function queueBackgroundPositionSave(position) {
+      backgroundPositionSaveChain = backgroundPositionSaveChain
+        .catch(() => {})
+        .then(() => persistBackgroundPosition(position));
+      return backgroundPositionSaveChain;
+    }
+
+    function onPreviewPositionInput(position) {
+      const normalized = normalizeProfileBackgroundPosition(position && position.x, position && position.y);
+      if (pageBackgroundManager && typeof pageBackgroundManager.setBackgroundPosition === "function") {
+        pageBackgroundManager.setBackgroundPosition(normalized.x, normalized.y);
+      }
+    }
+
+    function onPreviewPositionCommit(position) {
+      queueBackgroundPositionSave(position).catch((err) => {
+        const message = err && err.message ? err.message : "Failed to save background image position.";
+        setStatus(message, colors.ERROR);
+      });
+    }
+
+    if (previewManager && typeof previewManager.bindPositionInteractions === "function") {
+      previewManager.bindPositionInteractions({
+        onInput: onPreviewPositionInput,
+        onCommit: onPreviewPositionCommit
+      });
+    }
+
     const backgroundActions = backgroundActionsFactory
       ? backgroundActionsFactory({
           translate,
@@ -364,6 +495,7 @@
           saveProfileUiPrefsForCurrentProfile,
           publishProfileUiPrefsForCurrentProfile,
           applyOptionsPageBackgroundFromPrefs,
+          resolveBackgroundPositionFromSource,
           getPendingFile: () => profileBgPendingFile,
           setPendingFile: (file) => {
             profileBgPendingFile = file;
@@ -400,6 +532,26 @@
     if (profileCardThemeResetButton) {
       profileCardThemeResetButton.disabled = false;
     }
+    if (profileBgPositionResetButton) {
+      profileBgPositionResetButton.disabled = false;
+    }
+
+    async function onPositionReset() {
+      const normalized = previewManager && typeof previewManager.setPreviewPosition === "function"
+        ? previewManager.setPreviewPosition(defaultBackgroundPositionX, defaultBackgroundPositionY)
+        : {
+            x: defaultBackgroundPositionX,
+            y: defaultBackgroundPositionY
+          };
+      if (pageBackgroundManager && typeof pageBackgroundManager.setBackgroundPosition === "function") {
+        pageBackgroundManager.setBackgroundPosition(normalized.x, normalized.y);
+      }
+      await queueBackgroundPositionSave(normalized);
+      setStatus(
+        translate("status_profile_bg_position_reset", null, "Background image position reset."),
+        colors.SUCCESS
+      );
+    }
 
     function onBeforeUnload() {
       previewManager.dispose();
@@ -416,6 +568,7 @@
       onFileChange: backgroundActions.onFileChange,
       onRemove: backgroundActions.onRemove,
       onApply: backgroundActions.onApply,
+      onPositionReset,
       onCardThemeInput: cardThemeActions.onInput,
       onCardThemeChange: cardThemeActions.onChange,
       onCardThemeReset: cardThemeActions.onReset,

@@ -68,6 +68,21 @@
     const applyOptionsPageBackgroundFromPrefs = typeof opts.applyOptionsPageBackgroundFromPrefs === "function"
       ? opts.applyOptionsPageBackgroundFromPrefs
       : (() => Promise.resolve());
+    const resolveBackgroundPositionFromSource = typeof opts.resolveBackgroundPositionFromSource === "function"
+      ? opts.resolveBackgroundPositionFromSource
+      : (sourcePrefs) => {
+          const source = sourcePrefs && typeof sourcePrefs === "object" ? sourcePrefs : {};
+          const fallbackX = Number.isFinite(Number(source.backgroundPositionX))
+            ? Number(source.backgroundPositionX)
+            : 50;
+          const fallbackY = Number.isFinite(Number(source.backgroundPositionY))
+            ? Number(source.backgroundPositionY)
+            : 50;
+          return {
+            x: Math.min(100, Math.max(0, fallbackX)),
+            y: Math.min(100, Math.max(0, fallbackY))
+          };
+        };
     const getPendingFile = typeof opts.getPendingFile === "function" ? opts.getPendingFile : (() => null);
     const setPendingFile = typeof opts.setPendingFile === "function" ? opts.setPendingFile : (() => {});
     const hasPendingApply = typeof opts.hasPendingApply === "function" ? opts.hasPendingApply : (() => false);
@@ -240,6 +255,7 @@
       profileBgApplyButton.disabled = true;
       try {
         const state = await loadActiveProfileUiPrefs();
+        const previewPosition = resolveBackgroundPositionFromSource(state.uiPrefs);
         let finalPrefs = { ...state.uiPrefs };
         let preferredBlob = null;
         if (getPendingFile()) {
@@ -264,7 +280,9 @@
               : (state.uiPrefs.backgroundOpacity || 0.18),
             backgroundBackdropColor: profileBgBackdropColorInput
               ? normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value)
-              : normalizeProfileBackgroundBackdropColor(state.uiPrefs.backgroundBackdropColor)
+              : normalizeProfileBackgroundBackdropColor(state.uiPrefs.backgroundBackdropColor),
+            backgroundPositionX: previewPosition.x,
+            backgroundPositionY: previewPosition.y
           };
           preferredBlob = committedFile;
           setPendingFile(null);
@@ -276,6 +294,9 @@
             publishRuntime: false
           });
           previewManager.setPreviewFromBlob(committedFile);
+          if (typeof previewManager.setPreviewPosition === "function") {
+            previewManager.setPreviewPosition(previewPosition.x, previewPosition.y);
+          }
           setProfileBgStatus(
             `Asset: ${meta.mime_type || committedFile.type || "image/*"}, ${formatBytes(meta.byte_size || committedFile.size || 0)}.`
           );
