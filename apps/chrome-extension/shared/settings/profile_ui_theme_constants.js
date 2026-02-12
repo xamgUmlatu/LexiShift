@@ -24,7 +24,33 @@
     })
   });
 
+  const CARD_THEME_TOKEN_KEYS = Object.freeze([
+    "--ls-card-surface",
+    "--ls-card-border",
+    "--ls-card-shadow",
+    "--ls-card-accent-start",
+    "--ls-card-accent-end",
+    "--ls-modal-surface",
+    "--ls-modal-border",
+    "--ls-modal-shadow",
+    "--ls-module-card-border",
+    "--ls-module-card-bg-start",
+    "--ls-module-card-bg-end",
+    "--ls-module-card-shadow",
+    "--ls-profile-panel-border",
+    "--ls-profile-panel-bg",
+    "--ls-profile-preview-border",
+    "--ls-profile-preview-bg",
+    "--ls-srs-preview-border",
+    "--ls-srs-preview-bg",
+    "--ls-helper-status-border",
+    "--ls-helper-status-bg",
+    "--ls-advanced-border",
+    "--ls-advanced-bg"
+  ]);
+
   root.profileUiTheme = {
-    CARD_THEME_LIMITS
+    CARD_THEME_LIMITS,
+    CARD_THEME_TOKEN_KEYS
   };
 })();

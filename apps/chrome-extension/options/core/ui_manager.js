@@ -131,26 +131,29 @@ class UIManager {
   updateProfileBackgroundInputs(prefs) {
     const source = prefs && typeof prefs === "object" ? prefs : {};
     const hasAsset = Boolean(String(source.backgroundAssetId || "").trim());
-    const profileUiThemeRoot = globalThis.LexiShift
-      && globalThis.LexiShift.profileUiTheme
-      && typeof globalThis.LexiShift.profileUiTheme === "object"
-      ? globalThis.LexiShift.profileUiTheme
+    const themePrefs = globalThis.LexiShift
+      && globalThis.LexiShift.profileUiThemePrefs
+      && typeof globalThis.LexiShift.profileUiThemePrefs === "object"
+      ? globalThis.LexiShift.profileUiThemePrefs
       : {};
-    const configuredCardThemeLimits = profileUiThemeRoot.CARD_THEME_LIMITS
-      && typeof profileUiThemeRoot.CARD_THEME_LIMITS === "object"
-      ? profileUiThemeRoot.CARD_THEME_LIMITS
-      : {};
-    const cardThemeHueLimits = configuredCardThemeLimits.hueDeg && typeof configuredCardThemeLimits.hueDeg === "object"
-      ? configuredCardThemeLimits.hueDeg
-      : { min: -180, max: 180, step: 1, defaultValue: 0 };
-    const cardThemeSaturationLimits = configuredCardThemeLimits.saturationPercent
-      && typeof configuredCardThemeLimits.saturationPercent === "object"
-      ? configuredCardThemeLimits.saturationPercent
-      : { min: 70, max: 140, step: 1, defaultValue: 100 };
-    const cardThemeBrightnessLimits = configuredCardThemeLimits.brightnessPercent
-      && typeof configuredCardThemeLimits.brightnessPercent === "object"
-      ? configuredCardThemeLimits.brightnessPercent
-      : { min: 80, max: 125, step: 1, defaultValue: 100 };
+    const resolveCardThemeLimits = typeof themePrefs.resolveCardThemeLimits === "function"
+      ? themePrefs.resolveCardThemeLimits
+      : () => ({
+          hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
+          saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
+          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 }
+        });
+    const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
+      ? themePrefs.normalizeCardThemePrefs
+      : () => ({
+          cardThemeHueDeg: 0,
+          cardThemeSaturationPercent: 100,
+          cardThemeBrightnessPercent: 100
+        });
+    const cardThemeLimits = resolveCardThemeLimits();
+    const normalizedCardTheme = normalizeCardThemePrefs(source, {
+      fallback: source
+    });
     if (this.dom.profileBgBackdropColor) {
       this.dom.profileBgBackdropColor.value = String(source.backgroundBackdropColor || "#fbf7f0");
       this.dom.profileBgBackdropColor.disabled = false;
@@ -180,51 +183,51 @@ class UIManager {
       this.dom.profileBgApply.disabled = !hasAsset;
     }
     if (this.dom.profileCardThemeHue) {
-      const hue = Number.isFinite(Number(source.cardThemeHueDeg))
-        ? Number(source.cardThemeHueDeg)
-        : Number(cardThemeHueLimits.defaultValue);
-      this.dom.profileCardThemeHue.min = String(cardThemeHueLimits.min);
-      this.dom.profileCardThemeHue.max = String(cardThemeHueLimits.max);
-      this.dom.profileCardThemeHue.step = String(cardThemeHueLimits.step || 1);
+      const hue = Number.isFinite(Number(normalizedCardTheme.cardThemeHueDeg))
+        ? Number(normalizedCardTheme.cardThemeHueDeg)
+        : Number(cardThemeLimits.hueDeg.defaultValue);
+      this.dom.profileCardThemeHue.min = String(cardThemeLimits.hueDeg.min);
+      this.dom.profileCardThemeHue.max = String(cardThemeLimits.hueDeg.max);
+      this.dom.profileCardThemeHue.step = String(cardThemeLimits.hueDeg.step || 1);
       this.dom.profileCardThemeHue.value = String(Math.round(hue));
       this.dom.profileCardThemeHue.disabled = false;
     }
     if (this.dom.profileCardThemeHueValue) {
       const hueValue = this.dom.profileCardThemeHue
         ? Number(this.dom.profileCardThemeHue.value || 0)
-        : Number(cardThemeHueLimits.defaultValue);
+        : Number(cardThemeLimits.hueDeg.defaultValue);
       this.dom.profileCardThemeHueValue.textContent = `${Math.round(hueValue)}°`;
     }
     if (this.dom.profileCardThemeSaturation) {
-      const saturation = Number.isFinite(Number(source.cardThemeSaturationPercent))
-        ? Number(source.cardThemeSaturationPercent)
-        : Number(cardThemeSaturationLimits.defaultValue);
-      this.dom.profileCardThemeSaturation.min = String(cardThemeSaturationLimits.min);
-      this.dom.profileCardThemeSaturation.max = String(cardThemeSaturationLimits.max);
-      this.dom.profileCardThemeSaturation.step = String(cardThemeSaturationLimits.step || 1);
+      const saturation = Number.isFinite(Number(normalizedCardTheme.cardThemeSaturationPercent))
+        ? Number(normalizedCardTheme.cardThemeSaturationPercent)
+        : Number(cardThemeLimits.saturationPercent.defaultValue);
+      this.dom.profileCardThemeSaturation.min = String(cardThemeLimits.saturationPercent.min);
+      this.dom.profileCardThemeSaturation.max = String(cardThemeLimits.saturationPercent.max);
+      this.dom.profileCardThemeSaturation.step = String(cardThemeLimits.saturationPercent.step || 1);
       this.dom.profileCardThemeSaturation.value = String(Math.round(saturation));
       this.dom.profileCardThemeSaturation.disabled = false;
     }
     if (this.dom.profileCardThemeSaturationValue) {
       const saturationValue = this.dom.profileCardThemeSaturation
         ? Number(this.dom.profileCardThemeSaturation.value || 100)
-        : Number(cardThemeSaturationLimits.defaultValue);
+        : Number(cardThemeLimits.saturationPercent.defaultValue);
       this.dom.profileCardThemeSaturationValue.textContent = `${Math.round(saturationValue)}%`;
     }
     if (this.dom.profileCardThemeBrightness) {
-      const brightness = Number.isFinite(Number(source.cardThemeBrightnessPercent))
-        ? Number(source.cardThemeBrightnessPercent)
-        : Number(cardThemeBrightnessLimits.defaultValue);
-      this.dom.profileCardThemeBrightness.min = String(cardThemeBrightnessLimits.min);
-      this.dom.profileCardThemeBrightness.max = String(cardThemeBrightnessLimits.max);
-      this.dom.profileCardThemeBrightness.step = String(cardThemeBrightnessLimits.step || 1);
+      const brightness = Number.isFinite(Number(normalizedCardTheme.cardThemeBrightnessPercent))
+        ? Number(normalizedCardTheme.cardThemeBrightnessPercent)
+        : Number(cardThemeLimits.brightnessPercent.defaultValue);
+      this.dom.profileCardThemeBrightness.min = String(cardThemeLimits.brightnessPercent.min);
+      this.dom.profileCardThemeBrightness.max = String(cardThemeLimits.brightnessPercent.max);
+      this.dom.profileCardThemeBrightness.step = String(cardThemeLimits.brightnessPercent.step || 1);
       this.dom.profileCardThemeBrightness.value = String(Math.round(brightness));
       this.dom.profileCardThemeBrightness.disabled = false;
     }
     if (this.dom.profileCardThemeBrightnessValue) {
       const brightnessValue = this.dom.profileCardThemeBrightness
         ? Number(this.dom.profileCardThemeBrightness.value || 100)
-        : Number(cardThemeBrightnessLimits.defaultValue);
+        : Number(cardThemeLimits.brightnessPercent.defaultValue);
       this.dom.profileCardThemeBrightnessValue.textContent = `${Math.round(brightnessValue)}%`;
     }
     if (this.dom.profileCardThemeReset) {

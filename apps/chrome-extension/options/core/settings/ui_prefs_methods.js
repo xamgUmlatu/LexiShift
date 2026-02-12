@@ -1,31 +1,38 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const FALLBACK_CARD_THEME_LIMITS = Object.freeze({
-    hueDeg: Object.freeze({ min: -180, max: 180, defaultValue: 0 }),
-    saturationPercent: Object.freeze({ min: 70, max: 140, defaultValue: 100 }),
-    brightnessPercent: Object.freeze({ min: 80, max: 125, defaultValue: 100 })
-  });
+  const themePrefs = root.profileUiThemePrefs && typeof root.profileUiThemePrefs === "object"
+    ? root.profileUiThemePrefs
+    : {};
+  const resolveCardThemeDefaults = typeof themePrefs.resolveCardThemeDefaults === "function"
+    ? themePrefs.resolveCardThemeDefaults
+    : () => ({
+        hueDeg: 0,
+        saturationPercent: 100,
+        brightnessPercent: 100
+      });
+  const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
+    ? themePrefs.normalizeCardThemePrefs
+    : () => ({
+        cardThemeHueDeg: 0,
+        cardThemeSaturationPercent: 100,
+        cardThemeBrightnessPercent: 100
+      });
 
-  function resolveCardThemeLimits() {
-    const themeRoot = root.profileUiTheme && typeof root.profileUiTheme === "object"
-      ? root.profileUiTheme
+  function resolveDefaultThemePrefsFromSettings(settingsDefaults) {
+    const defaults = settingsDefaults && typeof settingsDefaults === "object"
+      ? settingsDefaults
       : {};
-    const configured = themeRoot.CARD_THEME_LIMITS && typeof themeRoot.CARD_THEME_LIMITS === "object"
-      ? themeRoot.CARD_THEME_LIMITS
-      : {};
-    const hueDeg = configured.hueDeg && typeof configured.hueDeg === "object"
-      ? configured.hueDeg
-      : FALLBACK_CARD_THEME_LIMITS.hueDeg;
-    const saturationPercent = configured.saturationPercent && typeof configured.saturationPercent === "object"
-      ? configured.saturationPercent
-      : FALLBACK_CARD_THEME_LIMITS.saturationPercent;
-    const brightnessPercent = configured.brightnessPercent && typeof configured.brightnessPercent === "object"
-      ? configured.brightnessPercent
-      : FALLBACK_CARD_THEME_LIMITS.brightnessPercent;
+    const resolved = resolveCardThemeDefaults({
+      defaults: {
+        cardThemeHueDeg: defaults.profileCardThemeHueDeg,
+        cardThemeSaturationPercent: defaults.profileCardThemeSaturationPercent,
+        cardThemeBrightnessPercent: defaults.profileCardThemeBrightnessPercent
+      }
+    });
     return {
-      hueDeg,
-      saturationPercent,
-      brightnessPercent
+      cardThemeHueDeg: resolved.hueDeg,
+      cardThemeSaturationPercent: resolved.saturationPercent,
+      cardThemeBrightnessPercent: resolved.brightnessPercent
     };
   }
 
@@ -35,7 +42,6 @@
     }
 
     SettingsManager.prototype._normalizeProfileUiPrefs = function _normalizeProfileUiPrefs(rawPrefs, fallback) {
-      const cardThemeLimits = resolveCardThemeLimits();
       const raw = this._isObject(rawPrefs) ? rawPrefs : {};
       const base = this._isObject(fallback) ? fallback : {};
       const backgroundAssetId = String(
@@ -56,50 +62,24 @@
           : base.backgroundBackdropColor,
         this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
       );
-      const cardThemeHueDefault = Number.isFinite(Number(this.defaults.profileCardThemeHueDeg))
-        ? Number(this.defaults.profileCardThemeHueDeg)
-        : cardThemeLimits.hueDeg.defaultValue;
-      const cardThemeSaturationDefault = Number.isFinite(Number(this.defaults.profileCardThemeSaturationPercent))
-        ? Number(this.defaults.profileCardThemeSaturationPercent)
-        : cardThemeLimits.saturationPercent.defaultValue;
-      const cardThemeBrightnessDefault = Number.isFinite(Number(this.defaults.profileCardThemeBrightnessPercent))
-        ? Number(this.defaults.profileCardThemeBrightnessPercent)
-        : cardThemeLimits.brightnessPercent.defaultValue;
-      const cardThemeHueDeg = this._normalizeInt(
-        raw.cardThemeHueDeg !== undefined ? raw.cardThemeHueDeg : base.cardThemeHueDeg,
-        cardThemeHueDefault,
-        cardThemeLimits.hueDeg.min,
-        cardThemeLimits.hueDeg.max
-      );
-      const cardThemeSaturationPercent = this._normalizeInt(
-        raw.cardThemeSaturationPercent !== undefined
-          ? raw.cardThemeSaturationPercent
-          : base.cardThemeSaturationPercent,
-        cardThemeSaturationDefault,
-        cardThemeLimits.saturationPercent.min,
-        cardThemeLimits.saturationPercent.max
-      );
-      const cardThemeBrightnessPercent = this._normalizeInt(
-        raw.cardThemeBrightnessPercent !== undefined
-          ? raw.cardThemeBrightnessPercent
-          : base.cardThemeBrightnessPercent,
-        cardThemeBrightnessDefault,
-        cardThemeLimits.brightnessPercent.min,
-        cardThemeLimits.brightnessPercent.max
-      );
+      const themeDefaults = resolveDefaultThemePrefsFromSettings(this.defaults);
+      const normalizedCardTheme = normalizeCardThemePrefs(raw, {
+        fallback: base,
+        defaults: themeDefaults
+      });
       return {
         backgroundEnabled: requestedEnabled && Boolean(backgroundAssetId),
         backgroundAssetId,
         backgroundOpacity,
         backgroundBackdropColor,
-        cardThemeHueDeg,
-        cardThemeSaturationPercent,
-        cardThemeBrightnessPercent
+        cardThemeHueDeg: normalizedCardTheme.cardThemeHueDeg,
+        cardThemeSaturationPercent: normalizedCardTheme.cardThemeSaturationPercent,
+        cardThemeBrightnessPercent: normalizedCardTheme.cardThemeBrightnessPercent
       };
     };
 
     SettingsManager.prototype.getProfileUiPrefs = function getProfileUiPrefs(items, options) {
-      const cardThemeLimits = resolveCardThemeLimits();
+      const themeDefaults = resolveDefaultThemePrefsFromSettings(this.defaults);
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeSrsProfileId(
         opts.profileId !== undefined ? opts.profileId : this.getSelectedUiProfileId(items)
@@ -110,15 +90,9 @@
         backgroundAssetId: "",
         backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18,
         backgroundBackdropColor: this.defaults.profileBackgroundBackdropColor || "#fbf7f0",
-        cardThemeHueDeg: Number.isFinite(Number(this.defaults.profileCardThemeHueDeg))
-          ? Number(this.defaults.profileCardThemeHueDeg)
-          : cardThemeLimits.hueDeg.defaultValue,
-        cardThemeSaturationPercent: Number.isFinite(Number(this.defaults.profileCardThemeSaturationPercent))
-          ? Number(this.defaults.profileCardThemeSaturationPercent)
-          : cardThemeLimits.saturationPercent.defaultValue,
-        cardThemeBrightnessPercent: Number.isFinite(Number(this.defaults.profileCardThemeBrightnessPercent))
-          ? Number(this.defaults.profileCardThemeBrightnessPercent)
-          : cardThemeLimits.brightnessPercent.defaultValue
+        cardThemeHueDeg: themeDefaults.cardThemeHueDeg,
+        cardThemeSaturationPercent: themeDefaults.cardThemeSaturationPercent,
+        cardThemeBrightnessPercent: themeDefaults.cardThemeBrightnessPercent
       });
       return {
         profileId,
@@ -127,7 +101,7 @@
     };
 
     SettingsManager.prototype.publishProfileUiPrefs = async function publishProfileUiPrefs(uiPrefs, options) {
-      const cardThemeLimits = resolveCardThemeLimits();
+      const themeDefaults = resolveDefaultThemePrefsFromSettings(this.defaults);
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeSrsProfileId(
         opts.profileId !== undefined ? opts.profileId : this.DEFAULT_PROFILE_ID
@@ -137,15 +111,9 @@
         backgroundAssetId: "",
         backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18,
         backgroundBackdropColor: this.defaults.profileBackgroundBackdropColor || "#fbf7f0",
-        cardThemeHueDeg: Number.isFinite(Number(this.defaults.profileCardThemeHueDeg))
-          ? Number(this.defaults.profileCardThemeHueDeg)
-          : cardThemeLimits.hueDeg.defaultValue,
-        cardThemeSaturationPercent: Number.isFinite(Number(this.defaults.profileCardThemeSaturationPercent))
-          ? Number(this.defaults.profileCardThemeSaturationPercent)
-          : cardThemeLimits.saturationPercent.defaultValue,
-        cardThemeBrightnessPercent: Number.isFinite(Number(this.defaults.profileCardThemeBrightnessPercent))
-          ? Number(this.defaults.profileCardThemeBrightnessPercent)
-          : cardThemeLimits.brightnessPercent.defaultValue
+        cardThemeHueDeg: themeDefaults.cardThemeHueDeg,
+        cardThemeSaturationPercent: themeDefaults.cardThemeSaturationPercent,
+        cardThemeBrightnessPercent: themeDefaults.cardThemeBrightnessPercent
       });
       const updates = {
         profileBackgroundEnabled: normalized.backgroundEnabled,

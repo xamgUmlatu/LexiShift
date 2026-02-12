@@ -1,36 +1,34 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
-  const BASE_CARD_THEME_TOKENS = Object.freeze({
-    "--ls-card-surface": "#fffaf2",
-    "--ls-card-border": "#e3dccf",
-    "--ls-card-shadow": "rgba(54, 47, 38, 0.08)",
-    "--ls-card-accent-start": "rgba(44, 42, 38, 0.2)",
-    "--ls-card-accent-end": "rgba(44, 42, 38, 0)",
-    "--ls-modal-surface": "#fffaf2",
-    "--ls-modal-border": "#e3d8c8",
-    "--ls-modal-shadow": "rgba(31, 27, 22, 0.28)",
-    "--ls-module-card-border": "#e1d5c2",
-    "--ls-module-card-bg-start": "#fffefb",
-    "--ls-module-card-bg-end": "#fffaf1",
-    "--ls-module-card-shadow": "rgba(33, 28, 20, 0.08)",
-    "--ls-profile-panel-border": "#e6dccc",
-    "--ls-profile-panel-bg": "#fffdf8",
-    "--ls-profile-preview-border": "#e7ddcf",
-    "--ls-profile-preview-bg": "#f5eee2",
-    "--ls-srs-preview-border": "#e1d6c6",
-    "--ls-srs-preview-bg": "#fffdf8",
-    "--ls-helper-status-border": "#efe3d4",
-    "--ls-helper-status-bg": "#fffaf2",
-    "--ls-advanced-border": "#e1d6c6",
-    "--ls-advanced-bg": "#fffdf8"
-  });
+  const FALLBACK_TOKEN_KEYS = Object.freeze([
+    "--ls-card-surface",
+    "--ls-card-border",
+    "--ls-card-shadow",
+    "--ls-card-accent-start",
+    "--ls-card-accent-end",
+    "--ls-modal-surface",
+    "--ls-modal-border",
+    "--ls-modal-shadow",
+    "--ls-module-card-border",
+    "--ls-module-card-bg-start",
+    "--ls-module-card-bg-end",
+    "--ls-module-card-shadow",
+    "--ls-profile-panel-border",
+    "--ls-profile-panel-bg",
+    "--ls-profile-preview-border",
+    "--ls-profile-preview-bg",
+    "--ls-srs-preview-border",
+    "--ls-srs-preview-bg",
+    "--ls-helper-status-border",
+    "--ls-helper-status-bg",
+    "--ls-advanced-border",
+    "--ls-advanced-bg"
+  ]);
 
-  const FALLBACK_LIMITS = Object.freeze({
-    hueDeg: Object.freeze({ defaultValue: 0 }),
-    saturationPercent: Object.freeze({ defaultValue: 100 }),
-    brightnessPercent: Object.freeze({ defaultValue: 100 })
-  });
+  function isObject(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  }
 
   function clamp01(value) {
     return Math.min(1, Math.max(0, value));
@@ -187,80 +185,97 @@
   }
 
   function createManager(options) {
-    const opts = options && typeof options === "object" ? options : {};
+    const opts = isObject(options) ? options : {};
     const documentRef = opts.documentRef && opts.documentRef.documentElement
       ? opts.documentRef
       : document;
-    const clampCardThemeHueDeg = typeof opts.clampCardThemeHueDeg === "function"
-      ? opts.clampCardThemeHueDeg
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? parsed : 0;
-        };
-    const clampCardThemeSaturationPercent = typeof opts.clampCardThemeSaturationPercent === "function"
-      ? opts.clampCardThemeSaturationPercent
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? parsed : 100;
-        };
-    const clampCardThemeBrightnessPercent = typeof opts.clampCardThemeBrightnessPercent === "function"
-      ? opts.clampCardThemeBrightnessPercent
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? parsed : 100;
-        };
-    const resolveCardThemeLimits = typeof opts.resolveCardThemeLimits === "function"
-      ? opts.resolveCardThemeLimits
-      : (() => FALLBACK_LIMITS);
+    const profileUiTheme = root.profileUiTheme && isObject(root.profileUiTheme)
+      ? root.profileUiTheme
+      : {};
+    const themePrefs = root.profileUiThemePrefs && isObject(root.profileUiThemePrefs)
+      ? root.profileUiThemePrefs
+      : {};
+    const tokenKeys = Array.isArray(opts.tokenKeys) && opts.tokenKeys.length
+      ? opts.tokenKeys
+      : (Array.isArray(profileUiTheme.CARD_THEME_TOKEN_KEYS) && profileUiTheme.CARD_THEME_TOKEN_KEYS.length
+        ? profileUiTheme.CARD_THEME_TOKEN_KEYS
+        : FALLBACK_TOKEN_KEYS);
+    const resolveCardThemeDefaults = typeof themePrefs.resolveCardThemeDefaults === "function"
+      ? themePrefs.resolveCardThemeDefaults
+      : () => ({
+          hueDeg: 0,
+          saturationPercent: 100,
+          brightnessPercent: 100
+        });
+    const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
+      ? themePrefs.normalizeCardThemePrefs
+      : () => ({
+          cardThemeHueDeg: 0,
+          cardThemeSaturationPercent: 100,
+          cardThemeBrightnessPercent: 100
+        });
+    const toTransformValues = typeof themePrefs.toTransformValues === "function"
+      ? themePrefs.toTransformValues
+      : (rawPrefs) => ({
+          hueDeg: Number(rawPrefs && rawPrefs.cardThemeHueDeg) || 0,
+          saturationPercent: Number(rawPrefs && rawPrefs.cardThemeSaturationPercent) || 100,
+          brightnessPercent: Number(rawPrefs && rawPrefs.cardThemeBrightnessPercent) || 100
+        });
     const rootStyle = documentRef.documentElement.style;
+    let baseTokenMap = null;
 
-    function resolveDefaults() {
-      const limits = resolveCardThemeLimits();
+    function resolveDefaultThemePrefs() {
+      const defaults = resolveCardThemeDefaults({
+        defaults: opts.defaults
+      });
       return {
-        hueDeg: limits && limits.hueDeg && Number.isFinite(Number(limits.hueDeg.defaultValue))
-          ? Number(limits.hueDeg.defaultValue)
-          : FALLBACK_LIMITS.hueDeg.defaultValue,
-        saturationPercent: limits && limits.saturationPercent
-          && Number.isFinite(Number(limits.saturationPercent.defaultValue))
-          ? Number(limits.saturationPercent.defaultValue)
-          : FALLBACK_LIMITS.saturationPercent.defaultValue,
-        brightnessPercent: limits && limits.brightnessPercent
-          && Number.isFinite(Number(limits.brightnessPercent.defaultValue))
-          ? Number(limits.brightnessPercent.defaultValue)
-          : FALLBACK_LIMITS.brightnessPercent.defaultValue
+        cardThemeHueDeg: defaults.hueDeg,
+        cardThemeSaturationPercent: defaults.saturationPercent,
+        cardThemeBrightnessPercent: defaults.brightnessPercent
       };
+    }
+
+    function readBaseTokenMap() {
+      const computedStyle = globalThis.getComputedStyle(documentRef.documentElement);
+      const map = {};
+      tokenKeys.forEach((tokenKey) => {
+        const baseValue = String(computedStyle.getPropertyValue(tokenKey) || "").trim();
+        if (baseValue) {
+          map[tokenKey] = baseValue;
+        }
+      });
+      return map;
+    }
+
+    function ensureBaseTokenMap() {
+      if (!baseTokenMap) {
+        baseTokenMap = readBaseTokenMap();
+      }
+      return baseTokenMap;
     }
 
     function normalizeTransform(rawPrefs) {
-      const prefs = rawPrefs && typeof rawPrefs === "object" ? rawPrefs : {};
-      const defaults = resolveDefaults();
-      return {
-        hueDeg: clampCardThemeHueDeg(
-          prefs.cardThemeHueDeg !== undefined ? prefs.cardThemeHueDeg : defaults.hueDeg
-        ),
-        saturationPercent: clampCardThemeSaturationPercent(
-          prefs.cardThemeSaturationPercent !== undefined
-            ? prefs.cardThemeSaturationPercent
-            : defaults.saturationPercent
-        ),
-        brightnessPercent: clampCardThemeBrightnessPercent(
-          prefs.cardThemeBrightnessPercent !== undefined
-            ? prefs.cardThemeBrightnessPercent
-            : defaults.brightnessPercent
-        )
-      };
+      const defaults = resolveDefaultThemePrefs();
+      return toTransformValues(
+        normalizeCardThemePrefs(rawPrefs, {
+          fallback: defaults,
+          defaults
+        })
+      );
     }
 
     function isDefaultTransform(transform) {
-      const defaults = resolveDefaults();
+      const defaults = resolveCardThemeDefaults({
+        defaults: opts.defaults
+      });
       return transform.hueDeg === defaults.hueDeg
         && transform.saturationPercent === defaults.saturationPercent
         && transform.brightnessPercent === defaults.brightnessPercent;
     }
 
     function clearCardTheme() {
-      Object.keys(BASE_CARD_THEME_TOKENS).forEach((token) => {
-        rootStyle.removeProperty(token);
+      tokenKeys.forEach((tokenKey) => {
+        rootStyle.removeProperty(tokenKey);
       });
     }
 
@@ -270,8 +285,10 @@
         clearCardTheme();
         return transform;
       }
-      Object.entries(BASE_CARD_THEME_TOKENS).forEach(([token, baseColor]) => {
-        rootStyle.setProperty(token, transformColor(baseColor, transform));
+      const tokens = ensureBaseTokenMap();
+      Object.entries(tokens).forEach(([tokenKey, baseColor]) => {
+        const transformed = transformColor(baseColor, transform);
+        rootStyle.setProperty(tokenKey, transformed);
       });
       return transform;
     }

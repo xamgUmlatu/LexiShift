@@ -43,6 +43,7 @@
 
     let profileBgPendingFile = null;
     let profileBgHasPendingApply = false;
+
     const backgroundUtils = root.optionsProfileBackgroundUtils
       && typeof root.optionsProfileBackgroundUtils === "object"
       ? root.optionsProfileBackgroundUtils
@@ -90,31 +91,7 @@
           }
           return `${(value / (1024 * 1024)).toFixed(2)} MB`;
         };
-    const resolveCardThemeLimits = typeof backgroundUtils.resolveCardThemeLimits === "function"
-      ? backgroundUtils.resolveCardThemeLimits
-      : (() => ({
-          hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
-          saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
-          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 }
-        }));
-    const clampCardThemeHueDeg = typeof backgroundUtils.clampCardThemeHueDeg === "function"
-      ? backgroundUtils.clampCardThemeHueDeg
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? Math.max(-180, Math.min(180, parsed)) : 0;
-        };
-    const clampCardThemeSaturationPercent = typeof backgroundUtils.clampCardThemeSaturationPercent === "function"
-      ? backgroundUtils.clampCardThemeSaturationPercent
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? Math.max(70, Math.min(140, parsed)) : 100;
-        };
-    const clampCardThemeBrightnessPercent = typeof backgroundUtils.clampCardThemeBrightnessPercent === "function"
-      ? backgroundUtils.clampCardThemeBrightnessPercent
-      : (value) => {
-          const parsed = Number.parseInt(value, 10);
-          return Number.isFinite(parsed) ? Math.max(80, Math.min(125, parsed)) : 100;
-        };
+
     const previewManagerFactory = root.optionsProfileBackgroundPreviewManager
       && typeof root.optionsProfileBackgroundPreviewManager.createManager === "function"
       ? root.optionsProfileBackgroundPreviewManager.createManager
@@ -127,6 +104,10 @@
       && typeof root.optionsProfileBackgroundCardThemeManager.createManager === "function"
       ? root.optionsProfileBackgroundCardThemeManager.createManager
       : null;
+    const cardThemePresenterFactory = root.optionsProfileBackgroundCardThemePresenter
+      && typeof root.optionsProfileBackgroundCardThemePresenter.createPresenter === "function"
+      ? root.optionsProfileBackgroundCardThemePresenter.createPresenter
+      : null;
     const prefsServiceFactory = root.optionsProfileBackgroundPrefsService
       && typeof root.optionsProfileBackgroundPrefsService.createService === "function"
       ? root.optionsProfileBackgroundPrefsService.createService
@@ -135,9 +116,13 @@
       && typeof root.optionsProfileBackgroundRuntimeBridge.createBridge === "function"
       ? root.optionsProfileBackgroundRuntimeBridge.createBridge
       : null;
-    const actionsFactory = root.optionsProfileBackgroundActions
+    const backgroundActionsFactory = root.optionsProfileBackgroundActions
       && typeof root.optionsProfileBackgroundActions.createActions === "function"
       ? root.optionsProfileBackgroundActions.createActions
+      : null;
+    const cardThemeActionsFactory = root.optionsProfileBackgroundCardThemeActions
+      && typeof root.optionsProfileBackgroundCardThemeActions.createActions === "function"
+      ? root.optionsProfileBackgroundCardThemeActions.createActions
       : null;
 
     function updateProfileBgOpacityLabel(value) {
@@ -148,71 +133,41 @@
       profileBgOpacityValueOutput.textContent = `${Math.round(numeric)}%`;
     }
 
-    function updateProfileCardThemeLabels(values) {
-      const source = values && typeof values === "object" ? values : {};
-      const hueValue = clampCardThemeHueDeg(
-        source.hueDeg !== undefined
-          ? source.hueDeg
-          : (profileCardThemeHueInput ? profileCardThemeHueInput.value : undefined)
-      );
-      const saturationValue = clampCardThemeSaturationPercent(
-        source.saturationPercent !== undefined
-          ? source.saturationPercent
-          : (profileCardThemeSaturationInput ? profileCardThemeSaturationInput.value : undefined)
-      );
-      const brightnessValue = clampCardThemeBrightnessPercent(
-        source.brightnessPercent !== undefined
-          ? source.brightnessPercent
-          : (profileCardThemeBrightnessInput ? profileCardThemeBrightnessInput.value : undefined)
-      );
-      if (profileCardThemeHueInput) {
-        profileCardThemeHueInput.value = String(hueValue);
-      }
-      if (profileCardThemeHueValueOutput) {
-        profileCardThemeHueValueOutput.textContent = `${Math.round(hueValue)}°`;
-      }
-      if (profileCardThemeSaturationInput) {
-        profileCardThemeSaturationInput.value = String(saturationValue);
-      }
-      if (profileCardThemeSaturationValueOutput) {
-        profileCardThemeSaturationValueOutput.textContent = `${Math.round(saturationValue)}%`;
-      }
-      if (profileCardThemeBrightnessInput) {
-        profileCardThemeBrightnessInput.value = String(brightnessValue);
-      }
-      if (profileCardThemeBrightnessValueOutput) {
-        profileCardThemeBrightnessValueOutput.textContent = `${Math.round(brightnessValue)}%`;
-      }
-      return {
-        hueDeg: hueValue,
-        saturationPercent: saturationValue,
-        brightnessPercent: brightnessValue
-      };
-    }
-
-    function configureCardThemeInputs() {
-      const limits = resolveCardThemeLimits();
-      if (profileCardThemeHueInput) {
-        profileCardThemeHueInput.min = String(limits.hueDeg.min);
-        profileCardThemeHueInput.max = String(limits.hueDeg.max);
-        profileCardThemeHueInput.step = String(limits.hueDeg.step || 1);
-      }
-      if (profileCardThemeSaturationInput) {
-        profileCardThemeSaturationInput.min = String(limits.saturationPercent.min);
-        profileCardThemeSaturationInput.max = String(limits.saturationPercent.max);
-        profileCardThemeSaturationInput.step = String(limits.saturationPercent.step || 1);
-      }
-      if (profileCardThemeBrightnessInput) {
-        profileCardThemeBrightnessInput.min = String(limits.brightnessPercent.min);
-        profileCardThemeBrightnessInput.max = String(limits.brightnessPercent.max);
-        profileCardThemeBrightnessInput.step = String(limits.brightnessPercent.step || 1);
-      }
-      updateProfileCardThemeLabels({
-        hueDeg: limits.hueDeg.defaultValue,
-        saturationPercent: limits.saturationPercent.defaultValue,
-        brightnessPercent: limits.brightnessPercent.defaultValue
-      });
-    }
+    const cardThemePresenter = cardThemePresenterFactory
+      ? cardThemePresenterFactory({
+          profileCardThemeHueInput,
+          profileCardThemeHueValueOutput,
+          profileCardThemeSaturationInput,
+          profileCardThemeSaturationValueOutput,
+          profileCardThemeBrightnessInput,
+          profileCardThemeBrightnessValueOutput,
+          defaults: settingsManager && settingsManager.defaults
+            ? {
+                cardThemeHueDeg: settingsManager.defaults.profileCardThemeHueDeg,
+                cardThemeSaturationPercent: settingsManager.defaults.profileCardThemeSaturationPercent,
+                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent
+              }
+            : {}
+        })
+      : {
+          hasControls: () => false,
+          resolveDefaultUiPrefs: () => ({
+            cardThemeHueDeg: 0,
+            cardThemeSaturationPercent: 100,
+            cardThemeBrightnessPercent: 100
+          }),
+          updateLabels: () => ({
+            hueDeg: 0,
+            saturationPercent: 100,
+            brightnessPercent: 100
+          }),
+          configureInputs: () => {},
+          readPrefsFromInputs: () => ({
+            cardThemeHueDeg: 0,
+            cardThemeSaturationPercent: 100,
+            cardThemeBrightnessPercent: 100
+          })
+        };
 
     const previewManager = previewManagerFactory
       ? previewManagerFactory({
@@ -241,17 +196,15 @@
     const cardThemeManager = cardThemeManagerFactory
       ? cardThemeManagerFactory({
           documentRef: document,
-          resolveCardThemeLimits,
-          clampCardThemeHueDeg,
-          clampCardThemeSaturationPercent,
-          clampCardThemeBrightnessPercent
+          defaults: settingsManager && settingsManager.defaults
+            ? {
+                cardThemeHueDeg: settingsManager.defaults.profileCardThemeHueDeg,
+                cardThemeSaturationPercent: settingsManager.defaults.profileCardThemeSaturationPercent,
+                cardThemeBrightnessPercent: settingsManager.defaults.profileCardThemeBrightnessPercent
+              }
+            : {}
         })
       : {
-          normalizeTransform: () => ({
-            hueDeg: 0,
-            saturationPercent: 100,
-            brightnessPercent: 100
-          }),
           applyCardThemeFromPrefs: () => ({
             hueDeg: 0,
             saturationPercent: 100,
@@ -303,12 +256,8 @@
           prefsService,
           formatBytes,
           normalizeProfileBackgroundBackdropColor,
-          clampCardThemeHueDeg,
-          clampCardThemeSaturationPercent,
-          clampCardThemeBrightnessPercent,
-          resolveCardThemeLimits,
           updateProfileBgOpacityLabel,
-          updateProfileCardThemeLabels,
+          updateProfileCardThemeLabels: (values) => cardThemePresenter.updateLabels(values),
           setProfileBgStatus,
           setProfileBgApplyState,
           getPendingFile: () => profileBgPendingFile,
@@ -356,8 +305,8 @@
       ? runtimeBridge.syncForLoadedPrefs
       : (() => Promise.resolve());
 
-    const backgroundActions = actionsFactory
-      ? actionsFactory({
+    const backgroundActions = backgroundActionsFactory
+      ? backgroundActionsFactory({
           translate,
           colors,
           maxUploadBytes,
@@ -374,21 +323,12 @@
           updateProfileBgOpacityLabel,
           clampProfileBackgroundOpacity,
           normalizeProfileBackgroundBackdropColor,
-          clampCardThemeHueDeg,
-          clampCardThemeSaturationPercent,
-          clampCardThemeBrightnessPercent,
-          resolveCardThemeLimits,
           formatBytes,
-          profileCardThemeHueInput,
-          profileCardThemeSaturationInput,
-          profileCardThemeBrightnessInput,
-          profileCardThemeResetButton,
           previewManager,
           loadActiveProfileUiPrefs,
           saveProfileUiPrefsForCurrentProfile,
           publishProfileUiPrefsForCurrentProfile,
           applyOptionsPageBackgroundFromPrefs,
-          updateProfileCardThemeLabels,
           getPendingFile: () => profileBgPendingFile,
           setPendingFile: (file) => {
             profileBgPendingFile = file;
@@ -402,13 +342,29 @@
           onBackdropColorChange: () => Promise.resolve(),
           onFileChange: () => {},
           onRemove: () => Promise.resolve(),
-          onApply: () => Promise.resolve(),
-          onCardThemeInput: () => {},
-          onCardThemeChange: () => Promise.resolve(),
-          onCardThemeReset: () => Promise.resolve()
+          onApply: () => Promise.resolve()
         };
 
-    configureCardThemeInputs();
+    const cardThemeActions = cardThemeActionsFactory
+      ? cardThemeActionsFactory({
+          translate,
+          colors,
+          setStatus,
+          presenter: cardThemePresenter,
+          loadActiveProfileUiPrefs,
+          saveProfileUiPrefsForCurrentProfile,
+          applyOptionsPageBackgroundFromPrefs
+        })
+      : {
+          onInput: () => {},
+          onChange: () => Promise.resolve(),
+          onReset: () => Promise.resolve()
+        };
+
+    cardThemePresenter.configureInputs();
+    if (profileCardThemeResetButton) {
+      profileCardThemeResetButton.disabled = false;
+    }
 
     function onBeforeUnload() {
       previewManager.dispose();
@@ -424,9 +380,9 @@
       onFileChange: backgroundActions.onFileChange,
       onRemove: backgroundActions.onRemove,
       onApply: backgroundActions.onApply,
-      onCardThemeInput: backgroundActions.onCardThemeInput,
-      onCardThemeChange: backgroundActions.onCardThemeChange,
-      onCardThemeReset: backgroundActions.onCardThemeReset,
+      onCardThemeInput: cardThemeActions.onInput,
+      onCardThemeChange: cardThemeActions.onChange,
+      onCardThemeReset: cardThemeActions.onReset,
       onBeforeUnload
     };
   }

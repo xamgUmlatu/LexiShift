@@ -62,12 +62,12 @@ header p {
 
 .card {
   position: relative;
-  background: var(--ls-card-surface, #fffaf2);
-  border: 1px solid var(--ls-card-border, #e3dccf);
+  background: var(--ls-card-surface);
+  border: 1px solid var(--ls-card-border);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 20px var(--ls-card-shadow, rgba(54, 47, 38, 0.08));
+  box-shadow: 0 8px 20px var(--ls-card-shadow);
 }
 
 .card::before {
@@ -80,8 +80,8 @@ header p {
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    var(--ls-card-accent-start, rgba(44, 42, 38, 0.2)),
-    var(--ls-card-accent-end, rgba(44, 42, 38, 0))
+    var(--ls-card-accent-start),
+    var(--ls-card-accent-end)
   );
 }
 
@@ -192,9 +192,9 @@ header p {
   max-height: min(84vh, 620px);
   overflow-y: auto;
   border-radius: 12px;
-  border: 1px solid var(--ls-modal-border, #e3d8c8);
-  background: var(--ls-modal-surface, #fffaf2);
-  box-shadow: 0 22px 48px var(--ls-modal-shadow, rgba(31, 27, 22, 0.28));
+  border: 1px solid var(--ls-modal-border);
+  background: var(--ls-modal-surface);
+  box-shadow: 0 22px 48px var(--ls-modal-shadow);
   padding: 16px 18px 14px;
   animation: language-pref-modal-fade-in 180ms ease-out;
 }
@@ -215,15 +215,15 @@ header p {
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  border: 1px solid var(--ls-module-card-border, #e1d5c2);
+  border: 1px solid var(--ls-module-card-border);
   border-radius: 12px;
   background: linear-gradient(
     180deg,
-    var(--ls-module-card-bg-start, #fffefb) 0%,
-    var(--ls-module-card-bg-end, #fffaf1) 100%
+    var(--ls-module-card-bg-start) 0%,
+    var(--ls-module-card-bg-end) 100%
   );
   padding: 12px 12px;
-  box-shadow: 0 8px 18px var(--ls-module-card-shadow, rgba(33, 28, 20, 0.08));
+  box-shadow: 0 8px 18px var(--ls-module-card-shadow);
 }
 
 .language-module-main {
@@ -406,9 +406,9 @@ body.modal-open {
 .profile-background-panel {
   margin-top: 14px;
   padding: 12px;
-  border: 1px solid var(--ls-profile-panel-border, #e6dccc);
+  border: 1px solid var(--ls-profile-panel-border);
   border-radius: 10px;
-  background: var(--ls-profile-panel-bg, #fffdf8);
+  background: var(--ls-profile-panel-bg);
 }
 
 .profile-background-panel h3 {
@@ -443,10 +443,10 @@ body.modal-open {
 
 .profile-bg-preview-wrap {
   margin-top: 10px;
-  border: 1px solid var(--ls-profile-preview-border, #e7ddcf);
+  border: 1px solid var(--ls-profile-preview-border);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--ls-profile-preview-bg, #f5eee2);
+  background: var(--ls-profile-preview-bg);
   min-height: 110px;
   display: flex;
   align-items: center;
@@ -519,8 +519,8 @@ textarea {
   margin-top: 10px;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid var(--ls-srs-preview-border, #e1d6c6);
-  background: var(--ls-srs-preview-bg, #fffdf8);
+  border: 1px solid var(--ls-srs-preview-border);
+  background: var(--ls-srs-preview-bg);
   font-size: 13px;
   color: #4d473f;
   white-space: pre-wrap;
@@ -531,8 +531,8 @@ textarea {
   margin-top: 12px;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid var(--ls-helper-status-border, #efe3d4);
-  background: var(--ls-helper-status-bg, #fffaf2);
+  border: 1px solid var(--ls-helper-status-border);
+  background: var(--ls-helper-status-bg);
 }
 
 button {
@@ -565,10 +565,10 @@ button:disabled {
 }
 
 .advanced {
-  border: 1px dashed var(--ls-advanced-border, #e1d6c6);
+  border: 1px dashed var(--ls-advanced-border);
   border-radius: 10px;
   padding: 12px 14px;
-  background: var(--ls-advanced-bg, #fffdf8);
+  background: var(--ls-advanced-bg);
 }
 
 .advanced summary {
