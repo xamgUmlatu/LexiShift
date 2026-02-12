@@ -467,6 +467,9 @@
   "module_toggle_off": {
     "message": "オフ"
   },
+  "label_module_drag_reorder": {
+    "message": "ドラッグして並べ替え"
+  },
   "popup_feedback_history_loading": {
     "message": "フィードバック履歴（読み込み中...）"
   },

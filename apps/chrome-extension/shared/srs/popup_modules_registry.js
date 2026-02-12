@@ -216,6 +216,45 @@
     return merged;
   }
 
+  function resolveOrderableModuleIds() {
+    return MODULE_DEFINITIONS
+      .filter((definition) => {
+        if (!definition || definition.runtimeOnly === true) {
+          return false;
+        }
+        return definition.control !== "hidden";
+      })
+      .map((definition) => String(definition.id || "").trim())
+      .filter((moduleId) => moduleId.length > 0);
+  }
+
+  function normalizeModuleOrder(rawOrder, fallbackOrder, allowedModuleIds) {
+    const allowed = new Set(
+      Array.isArray(allowedModuleIds)
+        ? allowedModuleIds.map((moduleId) => String(moduleId || "").trim()).filter(Boolean)
+        : []
+    );
+    const normalized = [];
+    const seen = new Set();
+    function append(source) {
+      if (!Array.isArray(source)) {
+        return;
+      }
+      for (const rawId of source) {
+        const moduleId = String(rawId || "").trim();
+        if (!moduleId || !allowed.has(moduleId) || seen.has(moduleId)) {
+          continue;
+        }
+        seen.add(moduleId);
+        normalized.push(moduleId);
+      }
+    }
+    append(rawOrder);
+    append(fallbackOrder);
+    append(Array.from(allowed));
+    return normalized;
+  }
+
   function normalizeModulePrefs(rawPrefs, options) {
     const opts = options && typeof options === "object" ? options : {};
     const fallback = opts.fallback && typeof opts.fallback === "object" ? opts.fallback : {};
@@ -223,6 +262,9 @@
       ? rawPrefs.byId
       : {};
     const fallbackById = fallback.byId && typeof fallback.byId === "object" ? fallback.byId : {};
+    const orderableIds = resolveOrderableModuleIds();
+    const rawOrder = rawPrefs && typeof rawPrefs === "object" ? rawPrefs.order : null;
+    const fallbackOrder = fallback.order;
 
     const normalizedById = {};
     for (const definition of MODULE_DEFINITIONS) {
@@ -248,7 +290,10 @@
       }
       normalizedById[definition.id] = normalizedEntry;
     }
-    return { byId: normalizedById };
+    return {
+      byId: normalizedById,
+      order: normalizeModuleOrder(rawOrder, fallbackOrder, orderableIds)
+    };
   }
 
   function isEnabledForTarget(modulePrefs, moduleId, targetLanguage) {

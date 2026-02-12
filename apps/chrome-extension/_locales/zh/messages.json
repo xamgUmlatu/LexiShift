@@ -467,6 +467,9 @@
   "module_toggle_off": {
     "message": "关"
   },
+  "label_module_drag_reorder": {
+    "message": "拖动以重新排序"
+  },
   "popup_feedback_history_loading": {
     "message": "反馈历史（加载中...）"
   },

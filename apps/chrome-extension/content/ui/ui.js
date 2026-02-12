@@ -29,6 +29,16 @@
     "feedback-history": "feedback-history",
     "encounter-history": "encounter-history"
   });
+  const PREF_TO_RUNTIME_MODULE_ID_MAP = Object.freeze({
+    "ja-script-forms": "japanese-script",
+    "feedback-history": "feedback-history",
+    "encounter-history": "encounter-history"
+  });
+  const DEFAULT_RUNTIME_MODULE_ORDER = Object.freeze([
+    "japanese-script",
+    "feedback-history",
+    "encounter-history"
+  ]);
   const MODULE_THEME_VAR_KEYS = Object.freeze([
     "--lexishift-module-bg",
     "--lexishift-module-text",
@@ -69,7 +79,7 @@
       defaultValue: 100
     })
   });
-  let activePopupModulePrefs = { byId: {} };
+  let activePopupModulePrefs = { byId: {}, order: [] };
   let activePopupProfileId = "default";
   let activeTargetLanguage = "en";
 
@@ -428,49 +438,89 @@
     };
   }
 
+  const popupModuleDescriptorsById = {
+    "japanese-script": {
+      id: "japanese-script",
+      build: (target, debugLog) => {
+        if (!scriptModule || typeof scriptModule.build !== "function") {
+          return null;
+        }
+        const targetLanguage = resolveTargetLanguage(target);
+        if (!isPopupModuleEnabled("ja-script-forms", targetLanguage)) {
+          return null;
+        }
+        return scriptModule.build(target, debugLog);
+      }
+    },
+    "feedback-history": {
+      id: "feedback-history",
+      build: (target, debugLog) => {
+        if (!feedbackHistoryModule || typeof feedbackHistoryModule.build !== "function") {
+          return null;
+        }
+        const targetLanguage = resolveTargetLanguage(target);
+        if (!isPopupModuleEnabled("feedback-history", targetLanguage)) {
+          return null;
+        }
+        return feedbackHistoryModule.build(target, debugLog, historyModuleContext());
+      }
+    },
+    "encounter-history": {
+      id: "encounter-history",
+      build: (target, debugLog) => {
+        if (!encounterHistoryModule || typeof encounterHistoryModule.build !== "function") {
+          return null;
+        }
+        const targetLanguage = resolveTargetLanguage(target);
+        if (!isPopupModuleEnabled("encounter-history", targetLanguage)) {
+          return null;
+        }
+        return encounterHistoryModule.build(target, debugLog, historyModuleContext());
+      }
+    }
+  };
+
+  function resolveRuntimePopupModuleOrder() {
+    const configuredOrder = activePopupModulePrefs
+      && typeof activePopupModulePrefs === "object"
+      && Array.isArray(activePopupModulePrefs.order)
+      ? activePopupModulePrefs.order
+      : [];
+    const orderedRuntimeIds = [];
+    const seen = new Set();
+    function appendRuntimeId(runtimeModuleId) {
+      const normalized = String(runtimeModuleId || "").trim();
+      if (!normalized || seen.has(normalized) || !popupModuleDescriptorsById[normalized]) {
+        return;
+      }
+      seen.add(normalized);
+      orderedRuntimeIds.push(normalized);
+    }
+    for (const rawPrefModuleId of configuredOrder) {
+      const prefModuleId = String(rawPrefModuleId || "").trim();
+      if (!prefModuleId) {
+        continue;
+      }
+      appendRuntimeId(PREF_TO_RUNTIME_MODULE_ID_MAP[prefModuleId] || prefModuleId);
+    }
+    for (const runtimeModuleId of DEFAULT_RUNTIME_MODULE_ORDER) {
+      appendRuntimeId(runtimeModuleId);
+    }
+    for (const runtimeModuleId of Object.keys(popupModuleDescriptorsById)) {
+      appendRuntimeId(runtimeModuleId);
+    }
+    return orderedRuntimeIds;
+  }
+
+  function resolvePopupModuleDescriptors() {
+    return resolveRuntimePopupModuleOrder()
+      .map((runtimeModuleId) => popupModuleDescriptorsById[runtimeModuleId])
+      .filter((descriptor) => descriptor && typeof descriptor === "object");
+  }
+
   const popupModuleRegistry = popupModuleRegistryFactory
     ? popupModuleRegistryFactory({
-        modules: [
-          {
-            id: "japanese-script",
-            build: (target, debugLog) => {
-              if (!scriptModule || typeof scriptModule.build !== "function") {
-                return null;
-              }
-              const targetLanguage = resolveTargetLanguage(target);
-              if (!isPopupModuleEnabled("ja-script-forms", targetLanguage)) {
-                return null;
-              }
-              return scriptModule.build(target, debugLog);
-            }
-          },
-          {
-            id: "feedback-history",
-            build: (target, debugLog) => {
-              if (!feedbackHistoryModule || typeof feedbackHistoryModule.build !== "function") {
-                return null;
-              }
-              const targetLanguage = resolveTargetLanguage(target);
-              if (!isPopupModuleEnabled("feedback-history", targetLanguage)) {
-                return null;
-              }
-              return feedbackHistoryModule.build(target, debugLog, historyModuleContext());
-            }
-          },
-          {
-            id: "encounter-history",
-            build: (target, debugLog) => {
-              if (!encounterHistoryModule || typeof encounterHistoryModule.build !== "function") {
-                return null;
-              }
-              const targetLanguage = resolveTargetLanguage(target);
-              if (!isPopupModuleEnabled("encounter-history", targetLanguage)) {
-                return null;
-              }
-              return encounterHistoryModule.build(target, debugLog, historyModuleContext());
-            }
-          }
-        ]
+        resolveModules: resolvePopupModuleDescriptors
       })
     : null;
   const feedbackPopupFactory = root.uiFeedbackPopupController
@@ -606,7 +656,7 @@
   function setPopupModulePrefs(prefs, metadata = {}) {
     activePopupModulePrefs = prefs && typeof prefs === "object"
       ? prefs
-      : { byId: {} };
+      : { byId: {}, order: [] };
     if (metadata && metadata.profileId !== undefined) {
       const profileId = String(metadata.profileId || "").trim();
       activePopupProfileId = profileId || "default";

@@ -227,10 +227,85 @@ header p {
   padding: 12px 12px;
   box-shadow: 0 8px 18px var(--ls-module-card-shadow);
   overflow: visible;
+  transition:
+    transform 150ms ease,
+    box-shadow 180ms ease,
+    border-color 160ms ease,
+    opacity 140ms ease;
 }
 
 .language-module-card.is-color-drawer-open {
   z-index: 18;
+}
+
+.language-module-card.is-drag-source {
+  opacity: 0.92;
+  transform: scale(1.012);
+  border-color: #9f8768;
+  box-shadow: 0 14px 28px rgba(42, 34, 24, 0.22);
+}
+
+.language-module-card.is-drag-over-before::before,
+.language-module-card.is-drag-over-after::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8d7453 0%, #d39d64 52%, #8d7453 100%);
+  box-shadow: 0 0 0 1px rgba(255, 246, 231, 0.85);
+  pointer-events: none;
+}
+
+.language-module-card.is-drag-over-before::before {
+  top: -8px;
+}
+
+.language-module-card.is-drag-over-after::after {
+  bottom: -8px;
+}
+
+.language-module-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 24px;
+  flex: 0 0 24px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #9b8a73;
+  padding: 0;
+  cursor: grab;
+  transition: background 130ms ease, color 130ms ease, transform 130ms ease;
+}
+
+.language-module-drag-handle:hover,
+.language-module-drag-handle:focus-visible {
+  background: rgba(157, 133, 102, 0.16);
+  color: #6f5a3f;
+}
+
+.language-module-drag-handle:active {
+  cursor: grabbing;
+  transform: scale(0.97);
+}
+
+.language-modules-list.is-module-dragging .language-module-drag-handle {
+  cursor: grabbing;
+}
+
+.language-module-drag-dots {
+  display: block;
+  width: 11px;
+  height: 26px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 2px 2px, currentColor 1.2px, transparent 1.4px) 0 0 / 5px 5px repeat,
+    radial-gradient(circle at 2px 2px, currentColor 1.2px, transparent 1.4px) 6px 2.5px / 5px 5px repeat;
+  opacity: 0.88;
 }
 
 .language-module-main {

@@ -25,6 +25,7 @@
     let activeProfileId = "default";
     let activeModulePrefs = { byId: {} };
     let openColorDrawerModuleId = "";
+    let activeDragModuleId = "";
 
     function getRegistry() {
       const registry = root.popupModulesRegistry;
@@ -251,7 +252,10 @@
           config: entry.config && typeof entry.config === "object" ? { ...entry.config } : undefined
         };
       }
-      return { byId: nextById };
+      const order = Array.isArray(source.order)
+        ? source.order.map((moduleId) => String(moduleId || "").trim()).filter(Boolean)
+        : [];
+      return { byId: nextById, order };
     }
 
     function ensureModuleEntry(modulePrefs, moduleId) {
@@ -262,6 +266,53 @@
         modulePrefs.byId[moduleId] = { enabled: true };
       }
       return modulePrefs.byId[moduleId];
+    }
+
+    function resolveModuleCardDefinitions(visibleModules) {
+      if (!Array.isArray(visibleModules)) {
+        return [];
+      }
+      return visibleModules.filter((definition) => definition && definition.id !== "ja-primary-display-script");
+    }
+
+    function normalizeCardModuleOrder(orderIds, definitions) {
+      const ordered = [];
+      const seen = new Set();
+      const definitionIds = Array.isArray(definitions)
+        ? definitions.map((definition) => String(definition && definition.id || "").trim()).filter(Boolean)
+        : [];
+      const allowed = new Set(definitionIds);
+      const sourceIds = Array.isArray(orderIds) ? orderIds : [];
+      for (const rawId of sourceIds) {
+        const moduleId = String(rawId || "").trim();
+        if (!moduleId || !allowed.has(moduleId) || seen.has(moduleId)) {
+          continue;
+        }
+        seen.add(moduleId);
+        ordered.push(moduleId);
+      }
+      for (const moduleId of definitionIds) {
+        if (seen.has(moduleId)) {
+          continue;
+        }
+        seen.add(moduleId);
+        ordered.push(moduleId);
+      }
+      return ordered;
+    }
+
+    function resolveOrderedCardDefinitions(visibleModules, modulePrefs) {
+      const cardDefinitions = resolveModuleCardDefinitions(visibleModules);
+      const definitionsById = new Map(
+        cardDefinitions.map((definition) => [String(definition.id || "").trim(), definition])
+      );
+      const normalizedOrder = normalizeCardModuleOrder(
+        modulePrefs && typeof modulePrefs === "object" ? modulePrefs.order : null,
+        cardDefinitions
+      );
+      return normalizedOrder
+        .map((moduleId) => definitionsById.get(moduleId))
+        .filter((definition) => Boolean(definition));
     }
 
     function getModuleLabel(definition) {
@@ -401,6 +452,27 @@
       if (panel instanceof HTMLElement) {
         panel.style.filter = filterValue;
       }
+    }
+
+    function renderDragHandle(definition) {
+      const handle = document.createElement("button");
+      handle.type = "button";
+      handle.className = "language-module-drag-handle";
+      handle.draggable = true;
+      handle.dataset.moduleId = definition.id;
+      const label = translate(
+        "label_module_drag_reorder",
+        null,
+        "Drag to reorder"
+      );
+      handle.setAttribute("aria-label", `${getModuleLabel(definition)}: ${label}`);
+      handle.setAttribute("title", label);
+
+      const dots = document.createElement("span");
+      dots.className = "language-module-drag-dots";
+      dots.setAttribute("aria-hidden", "true");
+      handle.appendChild(dots);
+      return handle;
     }
 
     function renderEnableToggle(definition, entry) {
@@ -605,6 +677,7 @@
       controls.className = "language-module-controls";
       controls.appendChild(renderEnableToggle(definition, entry));
 
+      card.appendChild(renderDragHandle(definition));
       card.appendChild(main);
       card.appendChild(controls);
       if (themeTuningEnabled) {
@@ -633,10 +706,12 @@
       if (!modulesList) {
         return;
       }
+      resetModuleDragState();
       modulesList.textContent = "";
       const language = normalizeLanguage(targetLanguage || resolveTargetLanguage());
       const visibleModules = getVisibleModules(language);
-      const visibleModuleIds = new Set(visibleModules.map((definition) => String(definition.id || "")));
+      const orderedCardDefinitions = resolveOrderedCardDefinitions(visibleModules, modulePrefs);
+      const visibleModuleIds = new Set(orderedCardDefinitions.map((definition) => String(definition.id || "")));
       if (openColorDrawerModuleId && !visibleModuleIds.has(openColorDrawerModuleId)) {
         openColorDrawerModuleId = "";
       }
@@ -657,10 +732,7 @@
       for (const definition of visibleModules) {
         definitionsById[definition.id] = definition;
       }
-      for (const definition of visibleModules) {
-        if (definition.id === "ja-primary-display-script") {
-          continue;
-        }
+      for (const definition of orderedCardDefinitions) {
         if (definition.id === "ja-script-forms") {
           modulesList.appendChild(renderJapaneseScriptModule(definition, definitionsById, prefs));
           continue;
@@ -701,6 +773,55 @@
       syncOpenColorDrawerDomState();
     }
 
+    function clearDragDomState() {
+      if (!modulesList) {
+        return;
+      }
+      modulesList.classList.remove("is-module-dragging");
+      const cards = modulesList.querySelectorAll(".language-module-card");
+      cards.forEach((card) => {
+        if (!(card instanceof HTMLElement)) {
+          return;
+        }
+        card.classList.remove("is-drag-source", "is-drag-over-before", "is-drag-over-after");
+      });
+    }
+
+    function resetModuleDragState() {
+      activeDragModuleId = "";
+      clearDragDomState();
+    }
+
+    function resolveDragCard(moduleId) {
+      if (!modulesList) {
+        return null;
+      }
+      const normalized = String(moduleId || "").trim();
+      if (!normalized) {
+        return null;
+      }
+      const node = modulesList.querySelector(
+        `.language-module-card[data-module-id="${normalized}"]`
+      );
+      return node instanceof HTMLElement ? node : null;
+    }
+
+    function markDragTarget(card, placement) {
+      if (!(card instanceof HTMLElement)) {
+        return;
+      }
+      const normalizedPlacement = placement === "after" ? "after" : "before";
+      const cards = modulesList ? modulesList.querySelectorAll(".language-module-card") : [];
+      cards.forEach((node) => {
+        if (!(node instanceof HTMLElement) || node === card) {
+          return;
+        }
+        node.classList.remove("is-drag-over-before", "is-drag-over-after");
+      });
+      card.classList.toggle("is-drag-over-before", normalizedPlacement === "before");
+      card.classList.toggle("is-drag-over-after", normalizedPlacement === "after");
+    }
+
     async function refreshModulePrefs(context) {
       if (!settingsManager || !modulesList) {
         return;
@@ -729,6 +850,36 @@
       activeProfileId = profileId;
       activeModulePrefs = cloneModulePrefs(modulePrefs);
       renderModuleControls(targetLanguage, activeModulePrefs);
+    }
+
+    async function persistModuleOrder(orderIds) {
+      if (!settingsManager) {
+        return;
+      }
+      const visibleModules = getVisibleModules(activeTargetLanguage);
+      const cardDefinitions = resolveModuleCardDefinitions(visibleModules);
+      const normalizedOrder = normalizeCardModuleOrder(orderIds, cardDefinitions);
+      if (!normalizedOrder.length) {
+        return;
+      }
+      const currentOrder = normalizeCardModuleOrder(activeModulePrefs.order, cardDefinitions);
+      if (normalizedOrder.join("|") === currentOrder.join("|")) {
+        return;
+      }
+      const nextPrefs = cloneModulePrefs(activeModulePrefs);
+      nextPrefs.order = normalizedOrder;
+      const updated = typeof settingsManager.updateProfileModulePrefs === "function"
+        ? await settingsManager.updateProfileModulePrefs(nextPrefs, {
+            profileId: activeProfileId,
+            targetLanguage: activeTargetLanguage
+          })
+        : null;
+      if (updated && typeof updated === "object") {
+        activeModulePrefs = cloneModulePrefs(updated);
+      } else {
+        activeModulePrefs = nextPrefs;
+      }
+      renderModuleControls(activeTargetLanguage, activeModulePrefs);
     }
 
     async function persistModuleChange(moduleId, field, value) {
@@ -820,6 +971,106 @@
       }
     }
 
+    function handleModulesDragStart(event) {
+      if (!modulesList) {
+        return;
+      }
+      const dragEvent = typeof DragEvent !== "undefined" && event instanceof DragEvent
+        ? event
+        : null;
+      const eventTarget = dragEvent && dragEvent.target instanceof HTMLElement
+        ? dragEvent.target
+        : null;
+      const handle = eventTarget && typeof eventTarget.closest === "function"
+        ? eventTarget.closest(".language-module-drag-handle")
+        : null;
+      if (!(handle instanceof HTMLElement)) {
+        return;
+      }
+      const moduleId = String(handle.dataset.moduleId || "").trim();
+      const card = resolveDragCard(moduleId);
+      if (!moduleId || !(card instanceof HTMLElement)) {
+        return;
+      }
+      activeDragModuleId = moduleId;
+      modulesList.classList.add("is-module-dragging");
+      card.classList.add("is-drag-source");
+      if (dragEvent.dataTransfer) {
+        dragEvent.dataTransfer.effectAllowed = "move";
+        dragEvent.dataTransfer.dropEffect = "move";
+        dragEvent.dataTransfer.setData("text/plain", moduleId);
+      }
+    }
+
+    function handleModulesDragOver(event) {
+      if (!modulesList || !activeDragModuleId) {
+        return;
+      }
+      const dragEvent = typeof DragEvent !== "undefined" && event instanceof DragEvent
+        ? event
+        : null;
+      if (!dragEvent) {
+        return;
+      }
+      dragEvent.preventDefault();
+      if (dragEvent.dataTransfer) {
+        dragEvent.dataTransfer.dropEffect = "move";
+      }
+
+      const dragCard = resolveDragCard(activeDragModuleId);
+      if (!(dragCard instanceof HTMLElement)) {
+        return;
+      }
+      const eventTarget = dragEvent.target instanceof HTMLElement ? dragEvent.target : null;
+      const overCard = eventTarget && typeof eventTarget.closest === "function"
+        ? eventTarget.closest(".language-module-card")
+        : null;
+      if (!(overCard instanceof HTMLElement) || overCard === dragCard) {
+        return;
+      }
+      const rect = overCard.getBoundingClientRect();
+      const insertBefore = dragEvent.clientY < (rect.top + rect.height / 2);
+      if (insertBefore) {
+        modulesList.insertBefore(dragCard, overCard);
+      } else {
+        modulesList.insertBefore(dragCard, overCard.nextSibling);
+      }
+      markDragTarget(overCard, insertBefore ? "before" : "after");
+    }
+
+    function handleModulesDrop(event) {
+      if (!modulesList || !activeDragModuleId) {
+        return;
+      }
+      const dragEvent = typeof DragEvent !== "undefined" && event instanceof DragEvent
+        ? event
+        : null;
+      if (dragEvent) {
+        dragEvent.preventDefault();
+      }
+      const orderedIds = Array.from(
+        modulesList.querySelectorAll(".language-module-card[data-module-id]")
+      )
+        .map((card) => String(card.getAttribute("data-module-id") || "").trim())
+        .filter(Boolean);
+      resetModuleDragState();
+      persistModuleOrder(orderedIds).catch(() => {});
+    }
+
+    function handleModulesDragEnd() {
+      if (modulesList && activeDragModuleId) {
+        const orderedIds = Array.from(
+          modulesList.querySelectorAll(".language-module-card[data-module-id]")
+        )
+          .map((card) => String(card.getAttribute("data-module-id") || "").trim())
+          .filter(Boolean);
+        resetModuleDragState();
+        persistModuleOrder(orderedIds).catch(() => {});
+        return;
+      }
+      resetModuleDragState();
+    }
+
     function handleModulesClick(event) {
       const eventTarget = event && event.target;
       if (!(eventTarget instanceof Node) || !modulesList) {
@@ -895,6 +1146,7 @@
       isOpen = open === true;
       if (!isOpen) {
         openColorDrawerModuleId = "";
+        resetModuleDragState();
       }
       syncVisibility(resolveTargetLanguage());
       const currentlyOpen = isOpen === true;
@@ -950,6 +1202,10 @@
       modulesList.addEventListener("click", handleModulesClick);
       modulesList.addEventListener("change", handleModulesChange);
       modulesList.addEventListener("input", handleModulesInput);
+      modulesList.addEventListener("dragstart", handleModulesDragStart);
+      modulesList.addEventListener("dragover", handleModulesDragOver);
+      modulesList.addEventListener("drop", handleModulesDrop);
+      modulesList.addEventListener("dragend", handleModulesDragEnd);
     }
 
     return {

@@ -25,11 +25,24 @@
       const fallbackById = fallbackSource.byId && typeof fallbackSource.byId === "object"
         ? fallbackSource.byId
         : {};
+      const sourceOrder = Array.isArray(source.order) ? source.order : [];
+      const fallbackOrder = Array.isArray(fallbackSource.order) ? fallbackSource.order : [];
+      const mergedOrder = [];
+      const seen = new Set();
+      for (const rawId of [...sourceOrder, ...fallbackOrder]) {
+        const moduleId = String(rawId || "").trim();
+        if (!moduleId || seen.has(moduleId)) {
+          continue;
+        }
+        seen.add(moduleId);
+        mergedOrder.push(moduleId);
+      }
       return {
         byId: {
           ...fallbackById,
           ...sourceById
-        }
+        },
+        order: mergedOrder
       };
     };
 

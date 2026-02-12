@@ -467,6 +467,9 @@
   "module_toggle_off": {
     "message": "Aus"
   },
+  "label_module_drag_reorder": {
+    "message": "Zum Neuordnen ziehen"
+  },
   "popup_feedback_history_loading": {
     "message": "Feedback-Verlauf (wird geladen...)"
   },
