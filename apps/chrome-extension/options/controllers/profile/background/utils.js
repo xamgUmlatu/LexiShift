@@ -1,5 +1,10 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const FALLBACK_CARD_THEME_LIMITS = Object.freeze({
+    hueDeg: Object.freeze({ min: -180, max: 180, step: 1, defaultValue: 0 }),
+    saturationPercent: Object.freeze({ min: 70, max: 140, step: 1, defaultValue: 100 }),
+    brightnessPercent: Object.freeze({ min: 80, max: 125, step: 1, defaultValue: 100 })
+  });
 
   function clampOpacity(value) {
     const parsed = Number.parseFloat(value);
@@ -40,10 +45,64 @@
     return `${(value / (1024 * 1024)).toFixed(2)} MB`;
   }
 
+  function resolveCardThemeLimits() {
+    const themeRoot = root.profileUiTheme && typeof root.profileUiTheme === "object"
+      ? root.profileUiTheme
+      : {};
+    const configured = themeRoot.CARD_THEME_LIMITS && typeof themeRoot.CARD_THEME_LIMITS === "object"
+      ? themeRoot.CARD_THEME_LIMITS
+      : {};
+    const hueDeg = configured.hueDeg && typeof configured.hueDeg === "object"
+      ? configured.hueDeg
+      : FALLBACK_CARD_THEME_LIMITS.hueDeg;
+    const saturationPercent = configured.saturationPercent && typeof configured.saturationPercent === "object"
+      ? configured.saturationPercent
+      : FALLBACK_CARD_THEME_LIMITS.saturationPercent;
+    const brightnessPercent = configured.brightnessPercent && typeof configured.brightnessPercent === "object"
+      ? configured.brightnessPercent
+      : FALLBACK_CARD_THEME_LIMITS.brightnessPercent;
+    return {
+      hueDeg,
+      saturationPercent,
+      brightnessPercent
+    };
+  }
+
+  function clampCardThemeHueDeg(value) {
+    const limits = resolveCardThemeLimits().hueDeg;
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) {
+      return limits.defaultValue;
+    }
+    return Math.min(limits.max, Math.max(limits.min, parsed));
+  }
+
+  function clampCardThemeSaturationPercent(value) {
+    const limits = resolveCardThemeLimits().saturationPercent;
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) {
+      return limits.defaultValue;
+    }
+    return Math.min(limits.max, Math.max(limits.min, parsed));
+  }
+
+  function clampCardThemeBrightnessPercent(value) {
+    const limits = resolveCardThemeLimits().brightnessPercent;
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) {
+      return limits.defaultValue;
+    }
+    return Math.min(limits.max, Math.max(limits.min, parsed));
+  }
+
   root.optionsProfileBackgroundUtils = {
     clampOpacity,
     normalizeBackdropColor,
     hexColorToRgb,
-    formatBytes
+    formatBytes,
+    resolveCardThemeLimits,
+    clampCardThemeHueDeg,
+    clampCardThemeSaturationPercent,
+    clampCardThemeBrightnessPercent
   };
 })();

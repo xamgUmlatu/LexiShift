@@ -16,6 +16,10 @@
     const profileBgFileInput = elements.profileBgFileInput || null;
     const profileBgRemoveButton = elements.profileBgRemoveButton || null;
     const profileBgApplyButton = elements.profileBgApplyButton || null;
+    const profileCardThemeHueInput = elements.profileCardThemeHueInput || null;
+    const profileCardThemeSaturationInput = elements.profileCardThemeSaturationInput || null;
+    const profileCardThemeBrightnessInput = elements.profileCardThemeBrightnessInput || null;
+    const profileCardThemeResetButton = elements.profileCardThemeResetButton || null;
 
     bindAsyncListener(profileBgEnabledInput, "change", () => profileBackgroundController.onEnabledChange(), {
       fallbackMessage: "Failed to save profile background setting.",
@@ -46,6 +50,47 @@
     bindAsyncListener(profileBgApplyButton, "click", () => profileBackgroundController.onApply(), {
       fallbackMessage: "Failed to apply profile background.",
       logMessage: "Profile background apply failed."
+    });
+    if (profileCardThemeHueInput) {
+      profileCardThemeHueInput.addEventListener("input", () => {
+        profileBackgroundController.onCardThemeInput();
+      });
+      bindAsyncListener(profileCardThemeHueInput, "change", () => profileBackgroundController.onCardThemeChange(), {
+        fallbackMessage: "Failed to save card color settings.",
+        logMessage: "Card color settings save failed (hue)."
+      });
+    }
+    if (profileCardThemeSaturationInput) {
+      profileCardThemeSaturationInput.addEventListener("input", () => {
+        profileBackgroundController.onCardThemeInput();
+      });
+      bindAsyncListener(
+        profileCardThemeSaturationInput,
+        "change",
+        () => profileBackgroundController.onCardThemeChange(),
+        {
+          fallbackMessage: "Failed to save card color settings.",
+          logMessage: "Card color settings save failed (saturation)."
+        }
+      );
+    }
+    if (profileCardThemeBrightnessInput) {
+      profileCardThemeBrightnessInput.addEventListener("input", () => {
+        profileBackgroundController.onCardThemeInput();
+      });
+      bindAsyncListener(
+        profileCardThemeBrightnessInput,
+        "change",
+        () => profileBackgroundController.onCardThemeChange(),
+        {
+          fallbackMessage: "Failed to save card color settings.",
+          logMessage: "Card color settings save failed (brightness)."
+        }
+      );
+    }
+    bindAsyncListener(profileCardThemeResetButton, "click", () => profileBackgroundController.onCardThemeReset(), {
+      fallbackMessage: "Failed to reset card color settings.",
+      logMessage: "Card color settings reset failed."
     });
 
     window.addEventListener("beforeunload", () => {

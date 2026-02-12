@@ -552,19 +552,19 @@
     "message": "Profile neu laden"
   },
   "section_profile_background": {
-    "message": "Profil-Hintergrund"
+    "message": "Optionsseiten-Hintergrund"
   },
   "hint_profile_bg_scope": {
-    "message": "Gilt für dieses Profil in allen Ersetzungsmodi (nicht nur SRS)."
+    "message": "Ändert nur das Design der Optionsseite für dieses Profil."
   },
   "toggle_profile_bg_enabled": {
-    "message": "Profil-Hintergrundbild aktivieren"
+    "message": "Hintergrundbild auf der Optionsseite aktivieren"
   },
   "label_profile_bg_backdrop_color": {
-    "message": "Hintergrundfarbe"
+    "message": "Hintergrundfarbe der Optionsseite"
   },
   "label_profile_bg_opacity": {
-    "message": "Hintergrund-Deckkraft"
+    "message": "Bilddeckkraft"
   },
   "button_profile_bg_upload": {
     "message": "Hochladen"
@@ -573,10 +573,34 @@
     "message": "Entfernen"
   },
   "button_profile_bg_apply": {
-    "message": "Profil-Hintergrund anwenden"
+    "message": "Optionsseiten-Hintergrund anwenden"
   },
   "hint_profile_bg_status_empty": {
-    "message": "Für dieses Profil ist kein Hintergrundbild konfiguriert."
+    "message": "Für dieses Profil ist kein Hintergrundbild für die Optionsseite konfiguriert."
+  },
+  "subsection_profile_card_theme": {
+    "message": "Kartenfarben anpassen"
+  },
+  "hint_profile_card_theme": {
+    "message": "Farbton verschieben und Sättigung/Helligkeit skalieren, ohne das Karten-Designmuster zu verlieren."
+  },
+  "label_profile_card_theme_hue": {
+    "message": "Farbtonverschiebung"
+  },
+  "label_profile_card_theme_saturation": {
+    "message": "Sättigung"
+  },
+  "label_profile_card_theme_brightness": {
+    "message": "Helligkeit"
+  },
+  "button_profile_card_theme_reset": {
+    "message": "Kartenfarben zurücksetzen"
+  },
+  "status_profile_card_theme_saved": {
+    "message": "Kartenfarben-Einstellungen gespeichert."
+  },
+  "status_profile_card_theme_reset": {
+    "message": "Kartenfarben zurückgesetzt."
   },
   "hint_profile_loading": {
     "message": "Profile werden geladen…"

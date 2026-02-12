@@ -150,8 +150,9 @@
       .lexishift-feedback-popup{position:absolute;display:flex;flex-direction:column;gap:6px;
         align-items:flex-start;transform:translateY(6px) scale(0.92);opacity:0;
         transition:transform 140ms ease, opacity 140ms ease;z-index:2147483647;
+        pointer-events:none;
         max-width:min(280px, calc(100vw - 16px));}
-      .lexishift-feedback-popup.lexishift-open{transform:translateY(0) scale(1);opacity:1;}
+      .lexishift-feedback-popup.lexishift-open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
       .lexishift-feedback-modules{display:flex;flex-direction:column;gap:6px;align-items:stretch;
         width:100%;}
       .lexishift-feedback-modules:empty{display:none;}

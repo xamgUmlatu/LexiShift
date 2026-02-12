@@ -23,6 +23,15 @@
           applyBackdropOnly: () => {},
           applyBackgroundFromBlob: () => {}
         };
+    const cardThemeManager = opts.cardThemeManager && typeof opts.cardThemeManager === "object"
+      ? opts.cardThemeManager
+      : {
+          applyCardThemeFromPrefs: () => ({
+            hueDeg: 0,
+            saturationPercent: 100,
+            brightnessPercent: 100
+          })
+        };
     const prefsService = opts.prefsService && typeof opts.prefsService === "object" ? opts.prefsService : null;
     const formatBytes = typeof opts.formatBytes === "function"
       ? opts.formatBytes
@@ -38,6 +47,9 @@
       : (() => {});
     const setProfileBgApplyState = typeof opts.setProfileBgApplyState === "function"
       ? opts.setProfileBgApplyState
+      : (() => {});
+    const updateProfileCardThemeLabels = typeof opts.updateProfileCardThemeLabels === "function"
+      ? opts.updateProfileCardThemeLabels
       : (() => {});
     const getPendingFile = typeof opts.getPendingFile === "function" ? opts.getPendingFile : (() => null);
     const setPendingFile = typeof opts.setPendingFile === "function" ? opts.setPendingFile : (() => {});
@@ -83,6 +95,7 @@
 
     async function applyOptionsPageBackgroundFromPrefs(uiPrefs, options) {
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+      cardThemeManager.applyCardThemeFromPrefs(prefs);
       const localOptions = options && typeof options === "object" ? options : {};
       const enabled = prefs.backgroundEnabled === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
@@ -149,6 +162,11 @@
         ui.updateProfileBackgroundInputs(normalized);
       }
       updateProfileBgOpacityLabel((normalized.backgroundOpacity || defaultOpacity) * 100);
+      updateProfileCardThemeLabels({
+        hueDeg: normalized.cardThemeHueDeg,
+        saturationPercent: normalized.cardThemeSaturationPercent,
+        brightnessPercent: normalized.cardThemeBrightnessPercent
+      });
       // Apply button is only for committing pending file uploads.
       setProfileBgApplyState(Boolean(getPendingFile()), false);
       return normalized;
@@ -174,6 +192,11 @@
       clearFileInput();
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
       updateProfileBgOpacityLabel((prefs.backgroundOpacity || defaultOpacity) * 100);
+      updateProfileCardThemeLabels({
+        hueDeg: prefs.cardThemeHueDeg,
+        saturationPercent: prefs.cardThemeSaturationPercent,
+        brightnessPercent: prefs.cardThemeBrightnessPercent
+      });
       await refreshProfileBackgroundPreview(prefs);
       // Always render the selected profile's saved UI prefs on options page load/switch.
       setProfileBgApplyState(Boolean(getPendingFile()), false);

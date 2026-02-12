@@ -20,6 +20,10 @@
     const profileBgFileInput = opts.profileBgFileInput || null;
     const profileBgRemoveButton = opts.profileBgRemoveButton || null;
     const profileBgApplyButton = opts.profileBgApplyButton || null;
+    const profileCardThemeHueInput = opts.profileCardThemeHueInput || null;
+    const profileCardThemeSaturationInput = opts.profileCardThemeSaturationInput || null;
+    const profileCardThemeBrightnessInput = opts.profileCardThemeBrightnessInput || null;
+    const profileCardThemeResetButton = opts.profileCardThemeResetButton || null;
     const profileMediaStore = opts.profileMediaStore && typeof opts.profileMediaStore === "object"
       ? opts.profileMediaStore
       : null;
@@ -39,6 +43,38 @@
     const normalizeProfileBackgroundBackdropColor = typeof opts.normalizeProfileBackgroundBackdropColor === "function"
       ? opts.normalizeProfileBackgroundBackdropColor
       : (value) => String(value || "").trim();
+    const clampCardThemeHueDeg = typeof opts.clampCardThemeHueDeg === "function"
+      ? opts.clampCardThemeHueDeg
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? parsed : 0;
+        };
+    const clampCardThemeSaturationPercent = typeof opts.clampCardThemeSaturationPercent === "function"
+      ? opts.clampCardThemeSaturationPercent
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? parsed : 100;
+        };
+    const clampCardThemeBrightnessPercent = typeof opts.clampCardThemeBrightnessPercent === "function"
+      ? opts.clampCardThemeBrightnessPercent
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? parsed : 100;
+        };
+    const resolveCardThemeLimits = typeof opts.resolveCardThemeLimits === "function"
+      ? opts.resolveCardThemeLimits
+      : (() => ({
+          hueDeg: { defaultValue: 0 },
+          saturationPercent: { defaultValue: 100 },
+          brightnessPercent: { defaultValue: 100 }
+        }));
+    const updateProfileCardThemeLabels = typeof opts.updateProfileCardThemeLabels === "function"
+      ? opts.updateProfileCardThemeLabels
+      : (() => ({
+          hueDeg: 0,
+          saturationPercent: 100,
+          brightnessPercent: 100
+        }));
     const formatBytes = typeof opts.formatBytes === "function"
       ? opts.formatBytes
       : (bytes) => `${bytes || 0} B`;
@@ -66,6 +102,55 @@
     const getPendingFile = typeof opts.getPendingFile === "function" ? opts.getPendingFile : (() => null);
     const setPendingFile = typeof opts.setPendingFile === "function" ? opts.setPendingFile : (() => {});
     const hasPendingApply = typeof opts.hasPendingApply === "function" ? opts.hasPendingApply : (() => false);
+
+    function resolveCardThemeDefaults() {
+      const limits = resolveCardThemeLimits();
+      return {
+        cardThemeHueDeg: Number.isFinite(Number(limits.hueDeg && limits.hueDeg.defaultValue))
+          ? Number(limits.hueDeg.defaultValue)
+          : 0,
+        cardThemeSaturationPercent: Number.isFinite(Number(limits.saturationPercent && limits.saturationPercent.defaultValue))
+          ? Number(limits.saturationPercent.defaultValue)
+          : 100,
+        cardThemeBrightnessPercent: Number.isFinite(Number(limits.brightnessPercent && limits.brightnessPercent.defaultValue))
+          ? Number(limits.brightnessPercent.defaultValue)
+          : 100
+      };
+    }
+
+    function readCardThemeFromInputs(currentPrefs) {
+      const source = currentPrefs && typeof currentPrefs === "object" ? currentPrefs : {};
+      const defaults = resolveCardThemeDefaults();
+      const hueDeg = clampCardThemeHueDeg(
+        profileCardThemeHueInput
+          ? profileCardThemeHueInput.value
+          : (source.cardThemeHueDeg !== undefined ? source.cardThemeHueDeg : defaults.cardThemeHueDeg)
+      );
+      const saturationPercent = clampCardThemeSaturationPercent(
+        profileCardThemeSaturationInput
+          ? profileCardThemeSaturationInput.value
+          : (source.cardThemeSaturationPercent !== undefined
+            ? source.cardThemeSaturationPercent
+            : defaults.cardThemeSaturationPercent)
+      );
+      const brightnessPercent = clampCardThemeBrightnessPercent(
+        profileCardThemeBrightnessInput
+          ? profileCardThemeBrightnessInput.value
+          : (source.cardThemeBrightnessPercent !== undefined
+            ? source.cardThemeBrightnessPercent
+            : defaults.cardThemeBrightnessPercent)
+      );
+      updateProfileCardThemeLabels({
+        hueDeg,
+        saturationPercent,
+        brightnessPercent
+      });
+      return {
+        cardThemeHueDeg: hueDeg,
+        cardThemeSaturationPercent: saturationPercent,
+        cardThemeBrightnessPercent: brightnessPercent
+      };
+    }
 
     async function onEnabledChange() {
       if (!profileBgEnabledInput) {
@@ -172,7 +257,7 @@
       }
       setProfileBgStatus(`Preview ready: ${file.type || "image/*"}, ${formatBytes(file.size || 0)}.`);
       setProfileBgApplyState(true, false);
-      setStatus("File selected. Click Apply profile background.", colors.SUCCESS);
+      setStatus("File selected. Click Apply options page background.", colors.SUCCESS);
     }
 
     async function onRemove() {
@@ -210,9 +295,9 @@
         setProfileBgStatus(translate(
           "hint_profile_bg_status_empty",
           null,
-          "No background image configured for this profile."
+          "No options page background image configured for this profile."
         ));
-        setStatus("Profile background image removed.", colors.SUCCESS);
+        setStatus("Options page background image removed.", colors.SUCCESS);
         removed = true;
       } catch (err) {
         const msg = err && err.message ? err.message : "Failed to remove profile background image.";
@@ -280,12 +365,67 @@
           preferredBlob
         });
         setProfileBgApplyState(false, false);
-        setStatus("Profile background applied.", colors.SUCCESS);
+        setStatus("Options page background applied.", colors.SUCCESS);
       } catch (err) {
         setProfileBgApplyState(true, false);
         const msg = err && err.message ? err.message : "Failed to apply profile background.";
         setStatus(msg, colors.ERROR);
       }
+    }
+
+    function onCardThemeInput() {
+      if (!profileCardThemeHueInput && !profileCardThemeSaturationInput && !profileCardThemeBrightnessInput) {
+        return;
+      }
+      readCardThemeFromInputs({});
+    }
+
+    async function onCardThemeChange() {
+      if (!profileCardThemeHueInput && !profileCardThemeSaturationInput && !profileCardThemeBrightnessInput) {
+        return;
+      }
+      const state = await loadActiveProfileUiPrefs();
+      const nextPrefs = {
+        ...state.uiPrefs,
+        ...readCardThemeFromInputs(state.uiPrefs)
+      };
+      await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+        profileId: state.profileId,
+        publishRuntime: false
+      });
+      await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+      setStatus(translate(
+        "status_profile_card_theme_saved",
+        null,
+        "Card color settings saved."
+      ), colors.SUCCESS);
+    }
+
+    async function onCardThemeReset() {
+      if (!profileCardThemeResetButton) {
+        return;
+      }
+      const defaults = resolveCardThemeDefaults();
+      updateProfileCardThemeLabels({
+        hueDeg: defaults.cardThemeHueDeg,
+        saturationPercent: defaults.cardThemeSaturationPercent,
+        brightnessPercent: defaults.cardThemeBrightnessPercent
+      });
+      const state = await loadActiveProfileUiPrefs();
+      const nextPrefs = {
+        ...state.uiPrefs,
+        ...defaults
+      };
+      await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
+        profileId: state.profileId,
+        publishRuntime: false
+      });
+      await applyOptionsPageBackgroundFromPrefs(nextPrefs);
+      setStatus(translate(
+        "status_profile_card_theme_reset",
+        null,
+        "Card color settings reset."
+      ), colors.SUCCESS);
     }
 
     return {
@@ -295,7 +435,10 @@
       onBackdropColorChange,
       onFileChange,
       onRemove,
-      onApply
+      onApply,
+      onCardThemeInput,
+      onCardThemeChange,
+      onCardThemeReset
     };
   }
 

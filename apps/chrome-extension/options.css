@@ -1,3 +1,28 @@
+:root {
+  --ls-card-surface: #fffaf2;
+  --ls-card-border: #e3dccf;
+  --ls-card-shadow: rgba(54, 47, 38, 0.08);
+  --ls-card-accent-start: rgba(44, 42, 38, 0.2);
+  --ls-card-accent-end: rgba(44, 42, 38, 0);
+  --ls-modal-surface: #fffaf2;
+  --ls-modal-border: #e3d8c8;
+  --ls-modal-shadow: rgba(31, 27, 22, 0.28);
+  --ls-module-card-border: #e1d5c2;
+  --ls-module-card-bg-start: #fffefb;
+  --ls-module-card-bg-end: #fffaf1;
+  --ls-module-card-shadow: rgba(33, 28, 20, 0.08);
+  --ls-profile-panel-border: #e6dccc;
+  --ls-profile-panel-bg: #fffdf8;
+  --ls-profile-preview-border: #e7ddcf;
+  --ls-profile-preview-bg: #f5eee2;
+  --ls-srs-preview-border: #e1d6c6;
+  --ls-srs-preview-bg: #fffdf8;
+  --ls-helper-status-border: #efe3d4;
+  --ls-helper-status-bg: #fffaf2;
+  --ls-advanced-border: #e1d6c6;
+  --ls-advanced-bg: #fffdf8;
+}
+
 body {
   font-family: "Georgia", "Times New Roman", serif;
   background: radial-gradient(circle at 20% 20%, #fbf7f0, #f1ece4 55%, #e8e0d4 100%);
@@ -37,12 +62,12 @@ header p {
 
 .card {
   position: relative;
-  background: #fffaf2;
-  border: 1px solid #e3dccf;
+  background: var(--ls-card-surface, #fffaf2);
+  border: 1px solid var(--ls-card-border, #e3dccf);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(54, 47, 38, 0.08);
+  box-shadow: 0 8px 20px var(--ls-card-shadow, rgba(54, 47, 38, 0.08));
 }
 
 .card::before {
@@ -53,7 +78,11 @@ header p {
   right: 16px;
   height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(44, 42, 38, 0.2), rgba(44, 42, 38, 0));
+  background: linear-gradient(
+    90deg,
+    var(--ls-card-accent-start, rgba(44, 42, 38, 0.2)),
+    var(--ls-card-accent-end, rgba(44, 42, 38, 0))
+  );
 }
 
 .card h2 {
@@ -163,9 +192,9 @@ header p {
   max-height: min(84vh, 620px);
   overflow-y: auto;
   border-radius: 12px;
-  border: 1px solid #e3d8c8;
-  background: #fffaf2;
-  box-shadow: 0 22px 48px rgba(31, 27, 22, 0.28);
+  border: 1px solid var(--ls-modal-border, #e3d8c8);
+  background: var(--ls-modal-surface, #fffaf2);
+  box-shadow: 0 22px 48px var(--ls-modal-shadow, rgba(31, 27, 22, 0.28));
   padding: 16px 18px 14px;
   animation: language-pref-modal-fade-in 180ms ease-out;
 }
@@ -186,11 +215,15 @@ header p {
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  border: 1px solid #e1d5c2;
+  border: 1px solid var(--ls-module-card-border, #e1d5c2);
   border-radius: 12px;
-  background: linear-gradient(180deg, #fffefb 0%, #fffaf1 100%);
+  background: linear-gradient(
+    180deg,
+    var(--ls-module-card-bg-start, #fffefb) 0%,
+    var(--ls-module-card-bg-end, #fffaf1) 100%
+  );
   padding: 12px 12px;
-  box-shadow: 0 8px 18px rgba(33, 28, 20, 0.08);
+  box-shadow: 0 8px 18px var(--ls-module-card-shadow, rgba(33, 28, 20, 0.08));
 }
 
 .language-module-main {
@@ -373,9 +406,9 @@ body.modal-open {
 .profile-background-panel {
   margin-top: 14px;
   padding: 12px;
-  border: 1px solid #e6dccc;
+  border: 1px solid var(--ls-profile-panel-border, #e6dccc);
   border-radius: 10px;
-  background: #fffdf8;
+  background: var(--ls-profile-panel-bg, #fffdf8);
 }
 
 .profile-background-panel h3 {
@@ -403,12 +436,17 @@ body.modal-open {
   width: 180px;
 }
 
+.profile-background-panel .field-row input[type="range"] {
+  width: 220px;
+  max-width: 100%;
+}
+
 .profile-bg-preview-wrap {
   margin-top: 10px;
-  border: 1px solid #e7ddcf;
+  border: 1px solid var(--ls-profile-preview-border, #e7ddcf);
   border-radius: 8px;
   overflow: hidden;
-  background: #f5eee2;
+  background: var(--ls-profile-preview-bg, #f5eee2);
   min-height: 110px;
   display: flex;
   align-items: center;
@@ -481,8 +519,8 @@ textarea {
   margin-top: 10px;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #e1d6c6;
-  background: #fffdf8;
+  border: 1px solid var(--ls-srs-preview-border, #e1d6c6);
+  background: var(--ls-srs-preview-bg, #fffdf8);
   font-size: 13px;
   color: #4d473f;
   white-space: pre-wrap;
@@ -493,8 +531,8 @@ textarea {
   margin-top: 12px;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #efe3d4;
-  background: #fffaf2;
+  border: 1px solid var(--ls-helper-status-border, #efe3d4);
+  background: var(--ls-helper-status-bg, #fffaf2);
 }
 
 button {
@@ -527,10 +565,10 @@ button:disabled {
 }
 
 .advanced {
-  border: 1px dashed #e1d6c6;
+  border: 1px dashed var(--ls-advanced-border, #e1d6c6);
   border-radius: 10px;
   padding: 12px 14px;
-  background: #fffdf8;
+  background: var(--ls-advanced-bg, #fffdf8);
 }
 
 .advanced summary {

@@ -552,19 +552,19 @@
     "message": "刷新配置列表"
   },
   "section_profile_background": {
-    "message": "配置背景"
+    "message": "选项页背景"
   },
   "hint_profile_bg_scope": {
-    "message": "作用于该配置的所有替换模式（不仅限于 SRS）。"
+    "message": "仅更改该配置在选项页中的界面外观。"
   },
   "toggle_profile_bg_enabled": {
-    "message": "启用配置背景图片"
+    "message": "启用选项页背景图片"
   },
   "label_profile_bg_backdrop_color": {
-    "message": "背景底色"
+    "message": "选项页底色"
   },
   "label_profile_bg_opacity": {
-    "message": "背景透明度"
+    "message": "图片透明度"
   },
   "button_profile_bg_upload": {
     "message": "上传"
@@ -573,10 +573,34 @@
     "message": "移除"
   },
   "button_profile_bg_apply": {
-    "message": "应用配置背景"
+    "message": "应用选项页背景"
   },
   "hint_profile_bg_status_empty": {
-    "message": "该配置尚未设置背景图片。"
+    "message": "该配置尚未设置选项页背景图片。"
+  },
+  "subsection_profile_card_theme": {
+    "message": "卡片配色微调"
+  },
+  "hint_profile_card_theme": {
+    "message": "在保持卡片设计风格的前提下，调整色相并缩放饱和度/亮度。"
+  },
+  "label_profile_card_theme_hue": {
+    "message": "色相偏移"
+  },
+  "label_profile_card_theme_saturation": {
+    "message": "饱和度"
+  },
+  "label_profile_card_theme_brightness": {
+    "message": "亮度"
+  },
+  "button_profile_card_theme_reset": {
+    "message": "重置卡片配色"
+  },
+  "status_profile_card_theme_saved": {
+    "message": "卡片配色设置已保存。"
+  },
+  "status_profile_card_theme_reset": {
+    "message": "卡片配色已重置。"
   },
   "hint_profile_loading": {
     "message": "正在加载配置…"

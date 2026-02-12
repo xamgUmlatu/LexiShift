@@ -27,6 +27,10 @@ class UIManager {
       "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",
       "profile-bg-file", "profile-bg-remove", "profile-bg-apply",
       "profile-bg-status", "profile-bg-preview-wrap", "profile-bg-preview",
+      "profile-card-theme-hue", "profile-card-theme-hue-value",
+      "profile-card-theme-saturation", "profile-card-theme-saturation-value",
+      "profile-card-theme-brightness", "profile-card-theme-brightness-value",
+      "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
@@ -127,6 +131,26 @@ class UIManager {
   updateProfileBackgroundInputs(prefs) {
     const source = prefs && typeof prefs === "object" ? prefs : {};
     const hasAsset = Boolean(String(source.backgroundAssetId || "").trim());
+    const profileUiThemeRoot = globalThis.LexiShift
+      && globalThis.LexiShift.profileUiTheme
+      && typeof globalThis.LexiShift.profileUiTheme === "object"
+      ? globalThis.LexiShift.profileUiTheme
+      : {};
+    const configuredCardThemeLimits = profileUiThemeRoot.CARD_THEME_LIMITS
+      && typeof profileUiThemeRoot.CARD_THEME_LIMITS === "object"
+      ? profileUiThemeRoot.CARD_THEME_LIMITS
+      : {};
+    const cardThemeHueLimits = configuredCardThemeLimits.hueDeg && typeof configuredCardThemeLimits.hueDeg === "object"
+      ? configuredCardThemeLimits.hueDeg
+      : { min: -180, max: 180, step: 1, defaultValue: 0 };
+    const cardThemeSaturationLimits = configuredCardThemeLimits.saturationPercent
+      && typeof configuredCardThemeLimits.saturationPercent === "object"
+      ? configuredCardThemeLimits.saturationPercent
+      : { min: 70, max: 140, step: 1, defaultValue: 100 };
+    const cardThemeBrightnessLimits = configuredCardThemeLimits.brightnessPercent
+      && typeof configuredCardThemeLimits.brightnessPercent === "object"
+      ? configuredCardThemeLimits.brightnessPercent
+      : { min: 80, max: 125, step: 1, defaultValue: 100 };
     if (this.dom.profileBgBackdropColor) {
       this.dom.profileBgBackdropColor.value = String(source.backgroundBackdropColor || "#fbf7f0");
       this.dom.profileBgBackdropColor.disabled = false;
@@ -154,6 +178,57 @@ class UIManager {
     }
     if (this.dom.profileBgApply) {
       this.dom.profileBgApply.disabled = !hasAsset;
+    }
+    if (this.dom.profileCardThemeHue) {
+      const hue = Number.isFinite(Number(source.cardThemeHueDeg))
+        ? Number(source.cardThemeHueDeg)
+        : Number(cardThemeHueLimits.defaultValue);
+      this.dom.profileCardThemeHue.min = String(cardThemeHueLimits.min);
+      this.dom.profileCardThemeHue.max = String(cardThemeHueLimits.max);
+      this.dom.profileCardThemeHue.step = String(cardThemeHueLimits.step || 1);
+      this.dom.profileCardThemeHue.value = String(Math.round(hue));
+      this.dom.profileCardThemeHue.disabled = false;
+    }
+    if (this.dom.profileCardThemeHueValue) {
+      const hueValue = this.dom.profileCardThemeHue
+        ? Number(this.dom.profileCardThemeHue.value || 0)
+        : Number(cardThemeHueLimits.defaultValue);
+      this.dom.profileCardThemeHueValue.textContent = `${Math.round(hueValue)}°`;
+    }
+    if (this.dom.profileCardThemeSaturation) {
+      const saturation = Number.isFinite(Number(source.cardThemeSaturationPercent))
+        ? Number(source.cardThemeSaturationPercent)
+        : Number(cardThemeSaturationLimits.defaultValue);
+      this.dom.profileCardThemeSaturation.min = String(cardThemeSaturationLimits.min);
+      this.dom.profileCardThemeSaturation.max = String(cardThemeSaturationLimits.max);
+      this.dom.profileCardThemeSaturation.step = String(cardThemeSaturationLimits.step || 1);
+      this.dom.profileCardThemeSaturation.value = String(Math.round(saturation));
+      this.dom.profileCardThemeSaturation.disabled = false;
+    }
+    if (this.dom.profileCardThemeSaturationValue) {
+      const saturationValue = this.dom.profileCardThemeSaturation
+        ? Number(this.dom.profileCardThemeSaturation.value || 100)
+        : Number(cardThemeSaturationLimits.defaultValue);
+      this.dom.profileCardThemeSaturationValue.textContent = `${Math.round(saturationValue)}%`;
+    }
+    if (this.dom.profileCardThemeBrightness) {
+      const brightness = Number.isFinite(Number(source.cardThemeBrightnessPercent))
+        ? Number(source.cardThemeBrightnessPercent)
+        : Number(cardThemeBrightnessLimits.defaultValue);
+      this.dom.profileCardThemeBrightness.min = String(cardThemeBrightnessLimits.min);
+      this.dom.profileCardThemeBrightness.max = String(cardThemeBrightnessLimits.max);
+      this.dom.profileCardThemeBrightness.step = String(cardThemeBrightnessLimits.step || 1);
+      this.dom.profileCardThemeBrightness.value = String(Math.round(brightness));
+      this.dom.profileCardThemeBrightness.disabled = false;
+    }
+    if (this.dom.profileCardThemeBrightnessValue) {
+      const brightnessValue = this.dom.profileCardThemeBrightness
+        ? Number(this.dom.profileCardThemeBrightness.value || 100)
+        : Number(cardThemeBrightnessLimits.defaultValue);
+      this.dom.profileCardThemeBrightnessValue.textContent = `${Math.round(brightnessValue)}%`;
+    }
+    if (this.dom.profileCardThemeReset) {
+      this.dom.profileCardThemeReset.disabled = false;
     }
   }
 }

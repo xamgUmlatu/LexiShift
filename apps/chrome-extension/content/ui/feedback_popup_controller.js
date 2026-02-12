@@ -48,6 +48,7 @@
       popup.className = "lexishift-feedback-popup";
       popup.setAttribute("role", "dialog");
       popup.setAttribute("aria-live", "polite");
+      popup.setAttribute("aria-hidden", "true");
       const modules = document.createElement("div");
       modules.className = "lexishift-feedback-modules";
       popup.appendChild(modules);
@@ -133,7 +134,10 @@
         moduleCount: feedbackModules ? feedbackModules.childElementCount : 0,
         target: summarizeTarget(target)
       });
-      requestAnimationFrame(() => popup.classList.add("lexishift-open"));
+      requestAnimationFrame(() => {
+        popup.classList.add("lexishift-open");
+        popup.setAttribute("aria-hidden", "false");
+      });
       attachFeedbackKeyListener();
       attachFeedbackCloseListener();
     }
@@ -143,6 +147,7 @@
         return;
       }
       feedbackPopup.classList.remove("lexishift-open");
+      feedbackPopup.setAttribute("aria-hidden", "true");
       activeFeedbackTarget = null;
       detachFeedbackKeyListener();
       detachFeedbackCloseListener();

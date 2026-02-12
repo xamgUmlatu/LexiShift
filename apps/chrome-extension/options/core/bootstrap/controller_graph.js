@@ -96,7 +96,14 @@
         profileBgApplyButton: dom.profileBgApplyButton,
         profileBgStatusOutput: dom.profileBgStatusOutput,
         profileBgPreviewWrap: dom.profileBgPreviewWrap,
-        profileBgPreviewImage: dom.profileBgPreviewImage
+        profileBgPreviewImage: dom.profileBgPreviewImage,
+        profileCardThemeHueInput: dom.profileCardThemeHueInput,
+        profileCardThemeHueValueOutput: dom.profileCardThemeHueValueOutput,
+        profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,
+        profileCardThemeSaturationValueOutput: dom.profileCardThemeSaturationValueOutput,
+        profileCardThemeBrightnessInput: dom.profileCardThemeBrightnessInput,
+        profileCardThemeBrightnessValueOutput: dom.profileCardThemeBrightnessValueOutput,
+        profileCardThemeResetButton: dom.profileCardThemeResetButton
       }
     });
 
@@ -308,6 +315,10 @@
         profileBgFileInput: dom.profileBgFileInput,
         profileBgRemoveButton: dom.profileBgRemoveButton,
         profileBgApplyButton: dom.profileBgApplyButton,
+        profileCardThemeHueInput: dom.profileCardThemeHueInput,
+        profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,
+        profileCardThemeBrightnessInput: dom.profileCardThemeBrightnessInput,
+        profileCardThemeResetButton: dom.profileCardThemeResetButton,
         srsMaxActiveInput: dom.srsMaxActiveInput,
         srsBootstrapTopNInput: dom.srsBootstrapTopNInput,
         srsInitialActiveCountInput: dom.srsInitialActiveCountInput,

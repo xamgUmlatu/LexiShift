@@ -431,6 +431,11 @@ Current limitations
     - character/n-gram tokenization with a trie that matches sequences, or
     - exact substring replacement without token boundaries.
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
+- TODO (replacement pacing/sensitivity controls):
+  - Limit replacements per sentence.
+  - Limit replacements per page.
+  - Avoid replacing two juxtaposed words.
+  - Add settings to adjust sensitivity/strictness for the rules above.
 
 Plans (ordered by ease/priority)
 1. Persist all GUI knowledge inside profiles/rulesets:

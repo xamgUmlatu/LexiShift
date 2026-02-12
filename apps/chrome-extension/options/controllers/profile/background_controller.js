@@ -33,6 +33,13 @@
     const profileBgStatusOutput = elements.profileBgStatusOutput || null;
     const profileBgPreviewWrap = elements.profileBgPreviewWrap || null;
     const profileBgPreviewImage = elements.profileBgPreviewImage || null;
+    const profileCardThemeHueInput = elements.profileCardThemeHueInput || null;
+    const profileCardThemeHueValueOutput = elements.profileCardThemeHueValueOutput || null;
+    const profileCardThemeSaturationInput = elements.profileCardThemeSaturationInput || null;
+    const profileCardThemeSaturationValueOutput = elements.profileCardThemeSaturationValueOutput || null;
+    const profileCardThemeBrightnessInput = elements.profileCardThemeBrightnessInput || null;
+    const profileCardThemeBrightnessValueOutput = elements.profileCardThemeBrightnessValueOutput || null;
+    const profileCardThemeResetButton = elements.profileCardThemeResetButton || null;
 
     let profileBgPendingFile = null;
     let profileBgHasPendingApply = false;
@@ -83,6 +90,31 @@
           }
           return `${(value / (1024 * 1024)).toFixed(2)} MB`;
         };
+    const resolveCardThemeLimits = typeof backgroundUtils.resolveCardThemeLimits === "function"
+      ? backgroundUtils.resolveCardThemeLimits
+      : (() => ({
+          hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
+          saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
+          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 }
+        }));
+    const clampCardThemeHueDeg = typeof backgroundUtils.clampCardThemeHueDeg === "function"
+      ? backgroundUtils.clampCardThemeHueDeg
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? Math.max(-180, Math.min(180, parsed)) : 0;
+        };
+    const clampCardThemeSaturationPercent = typeof backgroundUtils.clampCardThemeSaturationPercent === "function"
+      ? backgroundUtils.clampCardThemeSaturationPercent
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? Math.max(70, Math.min(140, parsed)) : 100;
+        };
+    const clampCardThemeBrightnessPercent = typeof backgroundUtils.clampCardThemeBrightnessPercent === "function"
+      ? backgroundUtils.clampCardThemeBrightnessPercent
+      : (value) => {
+          const parsed = Number.parseInt(value, 10);
+          return Number.isFinite(parsed) ? Math.max(80, Math.min(125, parsed)) : 100;
+        };
     const previewManagerFactory = root.optionsProfileBackgroundPreviewManager
       && typeof root.optionsProfileBackgroundPreviewManager.createManager === "function"
       ? root.optionsProfileBackgroundPreviewManager.createManager
@@ -90,6 +122,10 @@
     const pageBackgroundManagerFactory = root.optionsProfileBackgroundPageBackgroundManager
       && typeof root.optionsProfileBackgroundPageBackgroundManager.createManager === "function"
       ? root.optionsProfileBackgroundPageBackgroundManager.createManager
+      : null;
+    const cardThemeManagerFactory = root.optionsProfileBackgroundCardThemeManager
+      && typeof root.optionsProfileBackgroundCardThemeManager.createManager === "function"
+      ? root.optionsProfileBackgroundCardThemeManager.createManager
       : null;
     const prefsServiceFactory = root.optionsProfileBackgroundPrefsService
       && typeof root.optionsProfileBackgroundPrefsService.createService === "function"
@@ -110,6 +146,72 @@
       }
       const numeric = Number.isFinite(Number(value)) ? Number(value) : 18;
       profileBgOpacityValueOutput.textContent = `${Math.round(numeric)}%`;
+    }
+
+    function updateProfileCardThemeLabels(values) {
+      const source = values && typeof values === "object" ? values : {};
+      const hueValue = clampCardThemeHueDeg(
+        source.hueDeg !== undefined
+          ? source.hueDeg
+          : (profileCardThemeHueInput ? profileCardThemeHueInput.value : undefined)
+      );
+      const saturationValue = clampCardThemeSaturationPercent(
+        source.saturationPercent !== undefined
+          ? source.saturationPercent
+          : (profileCardThemeSaturationInput ? profileCardThemeSaturationInput.value : undefined)
+      );
+      const brightnessValue = clampCardThemeBrightnessPercent(
+        source.brightnessPercent !== undefined
+          ? source.brightnessPercent
+          : (profileCardThemeBrightnessInput ? profileCardThemeBrightnessInput.value : undefined)
+      );
+      if (profileCardThemeHueInput) {
+        profileCardThemeHueInput.value = String(hueValue);
+      }
+      if (profileCardThemeHueValueOutput) {
+        profileCardThemeHueValueOutput.textContent = `${Math.round(hueValue)}°`;
+      }
+      if (profileCardThemeSaturationInput) {
+        profileCardThemeSaturationInput.value = String(saturationValue);
+      }
+      if (profileCardThemeSaturationValueOutput) {
+        profileCardThemeSaturationValueOutput.textContent = `${Math.round(saturationValue)}%`;
+      }
+      if (profileCardThemeBrightnessInput) {
+        profileCardThemeBrightnessInput.value = String(brightnessValue);
+      }
+      if (profileCardThemeBrightnessValueOutput) {
+        profileCardThemeBrightnessValueOutput.textContent = `${Math.round(brightnessValue)}%`;
+      }
+      return {
+        hueDeg: hueValue,
+        saturationPercent: saturationValue,
+        brightnessPercent: brightnessValue
+      };
+    }
+
+    function configureCardThemeInputs() {
+      const limits = resolveCardThemeLimits();
+      if (profileCardThemeHueInput) {
+        profileCardThemeHueInput.min = String(limits.hueDeg.min);
+        profileCardThemeHueInput.max = String(limits.hueDeg.max);
+        profileCardThemeHueInput.step = String(limits.hueDeg.step || 1);
+      }
+      if (profileCardThemeSaturationInput) {
+        profileCardThemeSaturationInput.min = String(limits.saturationPercent.min);
+        profileCardThemeSaturationInput.max = String(limits.saturationPercent.max);
+        profileCardThemeSaturationInput.step = String(limits.saturationPercent.step || 1);
+      }
+      if (profileCardThemeBrightnessInput) {
+        profileCardThemeBrightnessInput.min = String(limits.brightnessPercent.min);
+        profileCardThemeBrightnessInput.max = String(limits.brightnessPercent.max);
+        profileCardThemeBrightnessInput.step = String(limits.brightnessPercent.step || 1);
+      }
+      updateProfileCardThemeLabels({
+        hueDeg: limits.hueDeg.defaultValue,
+        saturationPercent: limits.saturationPercent.defaultValue,
+        brightnessPercent: limits.brightnessPercent.defaultValue
+      });
     }
 
     const previewManager = previewManagerFactory
@@ -135,6 +237,27 @@
           applyBackdropOnly: () => {},
           applyBackgroundFromBlob: () => {},
           dispose: () => {}
+        };
+    const cardThemeManager = cardThemeManagerFactory
+      ? cardThemeManagerFactory({
+          documentRef: document,
+          resolveCardThemeLimits,
+          clampCardThemeHueDeg,
+          clampCardThemeSaturationPercent,
+          clampCardThemeBrightnessPercent
+        })
+      : {
+          normalizeTransform: () => ({
+            hueDeg: 0,
+            saturationPercent: 100,
+            brightnessPercent: 100
+          }),
+          applyCardThemeFromPrefs: () => ({
+            hueDeg: 0,
+            saturationPercent: 100,
+            brightnessPercent: 100
+          }),
+          clearCardTheme: () => {}
         };
 
     function setProfileBgStatus(message) {
@@ -176,10 +299,16 @@
           profileMediaStore,
           previewManager,
           pageBackgroundManager,
+          cardThemeManager,
           prefsService,
           formatBytes,
           normalizeProfileBackgroundBackdropColor,
+          clampCardThemeHueDeg,
+          clampCardThemeSaturationPercent,
+          clampCardThemeBrightnessPercent,
+          resolveCardThemeLimits,
           updateProfileBgOpacityLabel,
+          updateProfileCardThemeLabels,
           setProfileBgStatus,
           setProfileBgApplyState,
           getPendingFile: () => profileBgPendingFile,
@@ -245,12 +374,21 @@
           updateProfileBgOpacityLabel,
           clampProfileBackgroundOpacity,
           normalizeProfileBackgroundBackdropColor,
+          clampCardThemeHueDeg,
+          clampCardThemeSaturationPercent,
+          clampCardThemeBrightnessPercent,
+          resolveCardThemeLimits,
           formatBytes,
+          profileCardThemeHueInput,
+          profileCardThemeSaturationInput,
+          profileCardThemeBrightnessInput,
+          profileCardThemeResetButton,
           previewManager,
           loadActiveProfileUiPrefs,
           saveProfileUiPrefsForCurrentProfile,
           publishProfileUiPrefsForCurrentProfile,
           applyOptionsPageBackgroundFromPrefs,
+          updateProfileCardThemeLabels,
           getPendingFile: () => profileBgPendingFile,
           setPendingFile: (file) => {
             profileBgPendingFile = file;
@@ -264,8 +402,13 @@
           onBackdropColorChange: () => Promise.resolve(),
           onFileChange: () => {},
           onRemove: () => Promise.resolve(),
-          onApply: () => Promise.resolve()
+          onApply: () => Promise.resolve(),
+          onCardThemeInput: () => {},
+          onCardThemeChange: () => Promise.resolve(),
+          onCardThemeReset: () => Promise.resolve()
         };
+
+    configureCardThemeInputs();
 
     function onBeforeUnload() {
       previewManager.dispose();
@@ -281,6 +424,9 @@
       onFileChange: backgroundActions.onFileChange,
       onRemove: backgroundActions.onRemove,
       onApply: backgroundActions.onApply,
+      onCardThemeInput: backgroundActions.onCardThemeInput,
+      onCardThemeChange: backgroundActions.onCardThemeChange,
+      onCardThemeReset: backgroundActions.onCardThemeReset,
       onBeforeUnload
     };
   }
