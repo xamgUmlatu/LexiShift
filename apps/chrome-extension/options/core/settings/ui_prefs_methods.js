@@ -41,29 +41,12 @@
         opts.profileId !== undefined ? opts.profileId : this.getSelectedUiProfileId(items)
       );
       const profileEntry = this._getProfileEntry(items, profileId);
-      const hasStoredUiPrefs = this._isObject(profileEntry.uiPrefs)
-        && Object.keys(profileEntry.uiPrefs).length > 0;
-      // Compatibility bridge for older installs that only persisted runtime root keys.
-      const useLegacyRuntimeFallback = !hasStoredUiPrefs
-        && items
-        && items.optionsSelectedProfileId === undefined;
-      const fallback = {
-        backgroundEnabled: useLegacyRuntimeFallback && items.profileBackgroundEnabled === true,
-        backgroundAssetId: useLegacyRuntimeFallback
-          ? String(items.profileBackgroundAssetId || "").trim()
-          : "",
-        backgroundOpacity: this._normalizeFloat(
-          useLegacyRuntimeFallback ? items.profileBackgroundOpacity : null,
-          this.defaults.profileBackgroundOpacity || 0.18,
-          0,
-          1
-        ),
-        backgroundBackdropColor: this._normalizeHexColor(
-          useLegacyRuntimeFallback ? items.profileBackgroundBackdropColor : null,
-          this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
-        )
-      };
-      const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, fallback);
+      const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, {
+        backgroundEnabled: false,
+        backgroundAssetId: "",
+        backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18,
+        backgroundBackdropColor: this.defaults.profileBackgroundBackdropColor || "#fbf7f0"
+      });
       return {
         profileId,
         ...normalized

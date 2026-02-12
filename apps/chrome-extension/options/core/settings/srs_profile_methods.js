@@ -11,17 +11,17 @@
       const source = profile || {};
       const maxActive = this._normalizeInt(
         source.srsMaxActive,
-        fallbackItems.srsMaxActive || this.defaults.srsMaxActive || 20,
+        fallbackItems.srsMaxActive || this.defaults.srsMaxActive,
         1
       );
       const bootstrapTopN = this._normalizeInt(
         source.srsBootstrapTopN,
-        fallbackItems.srsBootstrapTopN || this.defaults.srsBootstrapTopN || 800,
+        fallbackItems.srsBootstrapTopN || this.defaults.srsBootstrapTopN,
         200
       );
       const initialActiveCount = this._normalizeInt(
         source.srsInitialActiveCount,
-        maxActive || this.defaults.srsInitialActiveCount || 40,
+        maxActive || this.defaults.srsInitialActiveCount,
         1,
         bootstrapTopN
       );
@@ -44,7 +44,7 @@
 
       const srsMaxActive = this._normalizeInt(
         rawProfile.srsMaxActive,
-        this.defaults.srsMaxActive || 20,
+        this.defaults.srsMaxActive,
         1
       );
       const sizing = this.resolveSrsSetSizing(
@@ -64,7 +64,7 @@
         srsSoundEnabled: rawProfile.srsSoundEnabled !== undefined
           ? rawProfile.srsSoundEnabled === true
           : (this.defaults.srsSoundEnabled !== false),
-        srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
+        srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor,
         srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
           ? rawProfile.srsFeedbackSrsEnabled === true
           : (this.defaults.srsFeedbackSrsEnabled !== false),
@@ -128,11 +128,11 @@
         srsPair: resolvedPair,
         srsProfileId: profileId,
         srsEnabled: runtimeProfile.srsEnabled === true,
-        srsMaxActive: runtimeProfile.srsMaxActive || this.defaults.srsMaxActive || 40,
-        srsBootstrapTopN: runtimeProfile.srsBootstrapTopN || this.defaults.srsBootstrapTopN || 800,
-        srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount || 40,
+        srsMaxActive: runtimeProfile.srsMaxActive || this.defaults.srsMaxActive,
+        srsBootstrapTopN: runtimeProfile.srsBootstrapTopN || this.defaults.srsBootstrapTopN,
+        srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount,
         srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
-        srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor || "#2F74D0",
+        srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
         srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
         srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,

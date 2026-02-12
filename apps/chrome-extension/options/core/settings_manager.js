@@ -1,56 +1,17 @@
 class SettingsManager {
   constructor() {
+    const sharedDefaults = globalThis.LexiShift && globalThis.LexiShift.defaults;
+    if (!sharedDefaults || typeof sharedDefaults !== "object") {
+      throw new Error("[LexiShift][Options] Missing required shared defaults module.");
+    }
     this.DEFAULT_PROFILE_ID = "default";
-    this.defaults = (globalThis.LexiShift && globalThis.LexiShift.defaults) || {
-      enabled: true,
-      rules: [],
-      highlightEnabled: true,
-      highlightColor: "#9AA0A6",
-      maxOnePerTextBlock: false,
-      allowAdjacentReplacements: true,
-      maxReplacementsPerPage: 0,
-      maxReplacementsPerLemmaPerPage: 0,
-      debugEnabled: false,
-      debugFocusWord: "",
-      uiLanguage: "system",
-      rulesSource: "editor",
-      rulesFileName: "",
-      rulesUpdatedAt: "",
-      sourceLanguage: "en",
-      targetLanguage: "en",
-      targetDisplayScript: "kanji",
-      srsPairAuto: true,
-      srsSelectedProfileId: "default",
-      srsProfileId: "default",
-      optionsSelectedProfileId: "default",
-      srsProfiles: {},
-      srsEnabled: false,
-      srsPair: "en-en",
-      srsMaxActive: 20,
-      srsBootstrapTopN: 800,
-      srsInitialActiveCount: 40,
-      srsSoundEnabled: true,
-      srsHighlightColor: "#2F74D0",
-      srsFeedbackSrsEnabled: true,
-      srsFeedbackRulesEnabled: false,
-      srsExposureLoggingEnabled: true,
-      profileBackgroundEnabled: false,
-      profileBackgroundAssetId: "",
-      profileBackgroundOpacity: 0.18,
-      profileBackgroundBackdropColor: "#fbf7f0"
-    };
+    this.defaults = sharedDefaults;
     this.currentRules = [];
   }
 
   async load() {
     return new Promise((resolve) => {
       chrome.storage.local.get(this.defaults, resolve);
-    });
-  }
-
-  async loadRaw() {
-    return new Promise((resolve) => {
-      chrome.storage.local.get(null, resolve);
     });
   }
 
@@ -64,17 +25,16 @@ class SettingsManager {
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const installers = [
-    root.optionsSettingsInstallBaseMethods,
-    root.optionsSettingsInstallLanguageMethods,
-    root.optionsSettingsInstallUiPrefsMethods,
-    root.optionsSettingsInstallSignalsMethods,
-    root.optionsSettingsInstallSrsProfileMethods
+    ["optionsSettingsInstallBaseMethods", root.optionsSettingsInstallBaseMethods],
+    ["optionsSettingsInstallLanguageMethods", root.optionsSettingsInstallLanguageMethods],
+    ["optionsSettingsInstallUiPrefsMethods", root.optionsSettingsInstallUiPrefsMethods],
+    ["optionsSettingsInstallSignalsMethods", root.optionsSettingsInstallSignalsMethods],
+    ["optionsSettingsInstallSrsProfileMethods", root.optionsSettingsInstallSrsProfileMethods]
   ];
-  for (const install of installers) {
-    if (typeof install === "function") {
-      install(SettingsManager);
-    } else {
-      console.warn("[LexiShift][Options] Missing SettingsManager installer.");
+  for (const [name, install] of installers) {
+    if (typeof install !== "function") {
+      throw new Error(`[LexiShift][Options] Missing SettingsManager installer: ${name}`);
     }
+    install(SettingsManager);
   }
 })();

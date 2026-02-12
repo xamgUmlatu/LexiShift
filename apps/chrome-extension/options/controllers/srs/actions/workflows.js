@@ -9,9 +9,7 @@
     const helperManager = opts.helperManager && typeof opts.helperManager === "object"
       ? opts.helperManager
       : null;
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _substitutions, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const resolvePair = typeof opts.resolvePair === "function" ? opts.resolvePair : (() => "en-en");
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"

@@ -7,7 +7,7 @@
       ? opts.settingsManager
       : null;
     const i18n = opts.i18n && typeof opts.i18n === "object" ? opts.i18n : null;
-    const t = typeof opts.t === "function" ? opts.t : ((_k, _s, f) => f || "");
+    const t = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const rulesManager = opts.rulesManager && typeof opts.rulesManager === "object"
       ? opts.rulesManager
       : null;
@@ -23,6 +23,11 @@
         });
     const languagePrefsAdapterFactory = typeof opts.languagePrefsAdapterFactory === "function"
       ? opts.languagePrefsAdapterFactory
+      : (() => {
+          throw new Error("[LexiShift][Options] Missing language preferences adapter factory.");
+        });
+    const controllerAdaptersFactory = typeof opts.controllerAdaptersFactory === "function"
+      ? opts.controllerAdaptersFactory
       : null;
     const errorMessage = typeof opts.errorMessage === "function"
       ? opts.errorMessage
@@ -30,37 +35,13 @@
     const logOptions = typeof opts.logOptions === "function" ? opts.logOptions : (() => {});
     const dom = opts.dom && typeof opts.dom === "object" ? opts.dom : {};
 
-    let languagePrefsAdapter = languagePrefsAdapterFactory
-      ? languagePrefsAdapterFactory({
-          settingsManager,
-          sourceLanguageInput: dom.sourceLanguageInput,
-          targetLanguageInput: dom.targetLanguageInput,
-          jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
-          updateTargetLanguagePrefsModalVisibility: () => {}
-        })
-      : {
-          resolveCurrentTargetLanguage: () => (
-            dom.targetLanguageInput
-              ? (dom.targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
-              : (settingsManager.defaults.targetLanguage || "en")
-          ),
-          normalizePrimaryDisplayScript: (value) => {
-            const allowed = new Set(["kanji", "kana", "romaji"]);
-            const candidate = String(value || "").trim().toLowerCase();
-            return allowed.has(candidate) ? candidate : "kanji";
-          },
-          resolveTargetScriptPrefs: (_prefs) => ({ ja: { primaryDisplayScript: "kanji" } }),
-          resolvePairFromInputs: () => {
-            const sourceLanguage = dom.sourceLanguageInput
-              ? (dom.sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
-              : (settingsManager.defaults.sourceLanguage || "en");
-            const targetLanguage = dom.targetLanguageInput
-              ? (dom.targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
-              : (settingsManager.defaults.targetLanguage || "en");
-            return `${sourceLanguage}-${targetLanguage}`;
-          },
-          applyLanguagePrefsToInputs: (_prefs) => ""
-        };
+    let languagePrefsAdapter = languagePrefsAdapterFactory({
+      settingsManager,
+      sourceLanguageInput: dom.sourceLanguageInput,
+      targetLanguageInput: dom.targetLanguageInput,
+      jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
+      updateTargetLanguagePrefsModalVisibility: () => {}
+    });
 
     const profileStatusController = requireControllerFactory("optionsProfileStatus")({
       output: dom.srsProfileStatusOutput,
@@ -81,17 +62,15 @@
       modalBackdrop: dom.targetLanguagePrefsModalBackdrop,
       modalRoot: dom.targetLanguagePrefsModal
     });
-    if (languagePrefsAdapterFactory) {
-      languagePrefsAdapter = languagePrefsAdapterFactory({
-        settingsManager,
-        sourceLanguageInput: dom.sourceLanguageInput,
-        targetLanguageInput: dom.targetLanguageInput,
-        jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
-        updateTargetLanguagePrefsModalVisibility: (targetLanguage) => {
-          targetLanguageModalController.syncVisibility(targetLanguage);
-        }
-      });
-    }
+    languagePrefsAdapter = languagePrefsAdapterFactory({
+      settingsManager,
+      sourceLanguageInput: dom.sourceLanguageInput,
+      targetLanguageInput: dom.targetLanguageInput,
+      jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
+      updateTargetLanguagePrefsModalVisibility: (targetLanguage) => {
+        targetLanguageModalController.syncVisibility(targetLanguage);
+      }
+    });
 
     const profileBackgroundController = requireControllerFactory("optionsProfileBackground")({
       t,
@@ -235,41 +214,15 @@
       }
     });
 
-    const controllerAdaptersFactory = root.optionsControllerAdapters
-      && typeof root.optionsControllerAdapters.createControllerAdapters === "function"
-      ? root.optionsControllerAdapters.createControllerAdapters
-      : null;
-    const controllerAdapters = controllerAdaptersFactory
-      ? controllerAdaptersFactory({
-          profileStatusController,
-          targetLanguageModalController,
-          displayReplacementController,
-          srsProfileRuntimeController
-        })
-      : {
-          renderSrsProfileStatus: () => profileStatusController.render(),
-          setSrsProfileStatusLocalized: (key, substitutions, fallback) => {
-            profileStatusController.setLocalized(key, substitutions, fallback);
-          },
-          setSrsProfileStatusMessage: (message) => {
-            profileStatusController.setMessage(message);
-          },
-          applyTargetLanguagePrefsLocalization: () => targetLanguageModalController.applyLocalization(),
-          updateTargetLanguagePrefsModalVisibility: (targetLanguage) => {
-            targetLanguageModalController.syncVisibility(targetLanguage);
-          },
-          setTargetLanguagePrefsModalOpen: (open) => {
-            targetLanguageModalController.setOpen(open);
-          },
-          loadSrsProfileForPair: async (items, pairKey, options) =>
-            srsProfileRuntimeController.loadSrsProfileForPair(items, pairKey, options),
-          saveDisplaySettings: () => displayReplacementController.saveDisplaySettings(),
-          saveReplacementSettings: () => displayReplacementController.saveReplacementSettings(),
-          saveSrsSettings: async () => srsProfileRuntimeController.saveSrsSettings(),
-          saveLanguageSettings: async () => srsProfileRuntimeController.saveLanguageSettings(),
-          saveSrsProfileId: async () => srsProfileRuntimeController.saveSrsProfileId(),
-          refreshSrsProfiles: async () => srsProfileRuntimeController.refreshSrsProfiles()
-        };
+    if (!controllerAdaptersFactory) {
+      throw new Error("[LexiShift][Options] Missing required bootstrap module: optionsControllerAdapters");
+    }
+    const controllerAdapters = controllerAdaptersFactory({
+      profileStatusController,
+      targetLanguageModalController,
+      displayReplacementController,
+      srsProfileRuntimeController
+    });
 
     const pageInitController = requireControllerFactory("optionsPageInit")({
       settingsManager,

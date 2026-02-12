@@ -112,6 +112,7 @@ Module layout
     - `controller_factory.js` (controller resolver)
     - `ui_bridge.js` (UI status/meta bridge adapters)
     - `language_prefs_adapter.js` (language/script preference adapter)
+    - `translate_resolver.js` (shared translator resolver to avoid per-controller fallback duplication)
     - `dom_aliases.js` (stable UI DOM alias map used by bootstrap/controller composition)
     - `controller_adapters.js` (controller-to-callback adapters used by `options.js`)
     - `controller_graph.js` (options controller wiring/composition graph)
@@ -127,9 +128,6 @@ Module layout
   - Provides debug logging and focus word diagnostics.
 - `apps/chrome-extension/background.js`
   - Native helper bridge endpoint for helper requests.
-- `apps/chrome-extension/legacy/profile_background_webpages_path.js`
-  - Personal archive of the removed general-web-page background runtime implementation.
-  - Not loaded by manifest; kept only for manual reuse/reference.
 
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
@@ -251,7 +249,7 @@ Helper cache scoping:
 Profile media scoping:
 - Background assets are stored and cleaned per profile id in IndexedDB.
 - Runtime mirrors store `profileBackgroundAssetId`/enabled/opacity/backdropColor in `chrome.storage.local`.
-- Content scripts fetch the selected profile asset through background bridge on-demand.
+- Options page preview/apply flows read selected profile assets directly from `profile_media_store`.
 
 SRS feedback UX (extension)
 - Right click on a replacement shows a popup with 4 colored choices:

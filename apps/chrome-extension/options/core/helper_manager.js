@@ -8,13 +8,14 @@ class HelperManager {
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const installers = [
-    root.installHelperBaseMethods,
-    root.installHelperDiagnosticsMethods,
-    root.installHelperSrsSetMethods
+    ["installHelperBaseMethods", root.installHelperBaseMethods],
+    ["installHelperDiagnosticsMethods", root.installHelperDiagnosticsMethods],
+    ["installHelperSrsSetMethods", root.installHelperSrsSetMethods]
   ];
-  for (const install of installers) {
-    if (typeof install === "function") {
-      install(HelperManager.prototype);
+  for (const [name, install] of installers) {
+    if (typeof install !== "function") {
+      throw new Error(`[LexiShift][Options] Missing HelperManager installer: ${name}`);
     }
+    install(HelperManager.prototype);
   }
 })();

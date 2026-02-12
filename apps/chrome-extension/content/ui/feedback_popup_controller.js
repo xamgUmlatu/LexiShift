@@ -6,9 +6,6 @@
     const popupModuleRegistry = opts.popupModuleRegistry && typeof opts.popupModuleRegistry === "object"
       ? opts.popupModuleRegistry
       : null;
-    const buildJapaneseScriptModule = typeof opts.buildJapaneseScriptModule === "function"
-      ? opts.buildJapaneseScriptModule
-      : (() => null);
     const summarizeTarget = typeof opts.summarizeTarget === "function"
       ? opts.summarizeTarget
       : (target) => {
@@ -97,12 +94,6 @@
           }
           feedbackModules.appendChild(moduleEntry.node);
           moduleIds.push(String(moduleEntry.id || "").trim());
-        }
-      } else {
-        const scriptModule = buildJapaneseScriptModule(target, debugLog);
-        if (scriptModule) {
-          feedbackModules.appendChild(scriptModule);
-          moduleIds.push("japanese-script");
         }
       }
       if (feedbackPopup) {

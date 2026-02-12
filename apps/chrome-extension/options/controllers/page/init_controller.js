@@ -7,9 +7,7 @@
       ? opts.settingsManager
       : null;
     const i18n = opts.i18n && typeof opts.i18n === "object" ? opts.i18n : null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setHelperStatus = typeof opts.setHelperStatus === "function"
       ? opts.setHelperStatus
       : (() => {});
@@ -55,47 +53,11 @@
     const rulesInput = elements.rulesInput || null;
     const fileStatus = elements.fileStatus || null;
 
-    async function migrateLegacyOptionsProfileStateIfNeeded() {
-      if (!settingsManager || typeof settingsManager.loadRaw !== "function") {
-        return;
-      }
-      const raw = await settingsManager.loadRaw();
-      if (!raw || typeof raw !== "object") {
-        return;
-      }
-      if (raw.optionsSelectedProfileId !== undefined) {
-        return;
-      }
-      const selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(raw);
-      const legacyAssetId = String(raw.profileBackgroundAssetId || "").trim();
-      const hasLegacyBackgroundData = raw.profileBackgroundEnabled === true
-        || Boolean(legacyAssetId)
-        || raw.profileBackgroundOpacity !== undefined
-        || raw.profileBackgroundBackdropColor !== undefined;
-
-      if (hasLegacyBackgroundData) {
-        await settingsManager.updateProfileUiPrefs(
-          {
-            backgroundEnabled: raw.profileBackgroundEnabled === true,
-            backgroundAssetId: legacyAssetId,
-            backgroundOpacity: raw.profileBackgroundOpacity,
-            backgroundBackdropColor: raw.profileBackgroundBackdropColor
-          },
-          {
-            profileId: selectedSrsProfileId,
-            publishRuntime: false
-          }
-        );
-      }
-      await settingsManager.updateSelectedUiProfileId(selectedSrsProfileId);
-    }
-
     async function load() {
       if (!settingsManager) {
         return;
       }
       setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
-      await migrateLegacyOptionsProfileStateIfNeeded();
       const items = await settingsManager.load();
       enabledInput.checked = items.enabled;
       highlightEnabledInput.checked = items.highlightEnabled !== false;
@@ -164,7 +126,6 @@
     }
 
     return {
-      migrateLegacyOptionsProfileStateIfNeeded,
       load
     };
   }

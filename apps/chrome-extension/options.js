@@ -3,7 +3,7 @@ const settingsManager = new SettingsManager();
 const i18n = new LocalizationService();
 const t = (k, s, f) => i18n.t(k, s, f);
 const rulesManager = new RulesManager(settingsManager, i18n);
-const ui = new UIManager(i18n);
+const ui = new UIManager();
 
 function logOptions(...args) {
   console.log("[LexiShift][Options]", ...args);
@@ -53,6 +53,15 @@ if (!domAliasesFactory) {
 }
 const dom = domAliasesFactory(ui.dom);
 
+const translateResolverModule = globalThis.LexiShift
+  && globalThis.LexiShift.optionsTranslateResolver
+  && typeof globalThis.LexiShift.optionsTranslateResolver.resolveTranslate === "function"
+  ? globalThis.LexiShift.optionsTranslateResolver
+  : null;
+if (!translateResolverModule) {
+  throw new Error("[LexiShift][Options] Missing required bootstrap module: optionsTranslateResolver");
+}
+
 const controllerGraphFactory = globalThis.LexiShift
   && globalThis.LexiShift.optionsControllerGraph
   && typeof globalThis.LexiShift.optionsControllerGraph.createControllerGraph === "function"
@@ -67,6 +76,18 @@ const languagePrefsAdapterFactory = globalThis.LexiShift
   && typeof globalThis.LexiShift.optionsLanguagePrefsAdapter.createAdapter === "function"
   ? globalThis.LexiShift.optionsLanguagePrefsAdapter.createAdapter
   : null;
+if (!languagePrefsAdapterFactory) {
+  throw new Error("[LexiShift][Options] Missing required bootstrap module: optionsLanguagePrefsAdapter");
+}
+
+const controllerAdaptersFactory = globalThis.LexiShift
+  && globalThis.LexiShift.optionsControllerAdapters
+  && typeof globalThis.LexiShift.optionsControllerAdapters.createControllerAdapters === "function"
+  ? globalThis.LexiShift.optionsControllerAdapters.createControllerAdapters
+  : null;
+if (!controllerAdaptersFactory) {
+  throw new Error("[LexiShift][Options] Missing required bootstrap module: optionsControllerAdapters");
+}
 
 const app = controllerGraphFactory({
   settingsManager,
@@ -78,6 +99,7 @@ const app = controllerGraphFactory({
   uiBridge,
   requireControllerFactory,
   languagePrefsAdapterFactory,
+  controllerAdaptersFactory,
   errorMessage,
   logOptions,
   dom

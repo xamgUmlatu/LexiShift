@@ -7,9 +7,7 @@
       ? opts.settingsManager
       : null;
     const ui = opts.ui && typeof opts.ui === "object" ? opts.ui : null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const resolvePair = typeof opts.resolvePair === "function" ? opts.resolvePair : (() => "en-en");
     const applyLanguagePrefsToInputs = typeof opts.applyLanguagePrefsToInputs === "function"

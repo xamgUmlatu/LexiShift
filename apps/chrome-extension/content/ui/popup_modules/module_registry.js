@@ -41,8 +41,7 @@
     }
 
     return {
-      buildModules,
-      listModuleIds: () => descriptors.map((descriptor) => descriptor.id)
+      buildModules
     };
   }
 

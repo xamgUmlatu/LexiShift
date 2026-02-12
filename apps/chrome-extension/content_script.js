@@ -1,27 +1,38 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const defaults = root.defaults || {
-    enabled: true,
-    rules: [],
-    highlightEnabled: true,
-    highlightColor: "#9AA0A6",
-    maxOnePerTextBlock: false,
-    allowAdjacentReplacements: true,
-    maxReplacementsPerPage: 0,
-    maxReplacementsPerLemmaPerPage: 0,
-    debugEnabled: false,
-    debugFocusWord: "",
-    sourceLanguage: "en",
-    targetLanguage: "en",
-    targetDisplayScript: "kanji",
-    srsFeedbackSrsEnabled: true,
-    srsFeedbackRulesEnabled: false,
-    srsExposureLoggingEnabled: true,
-    srsProfileId: "default",
-    srsRulesetUpdatedAt: ""
-  };
 
-  if (!root.tokenizer || !root.matcher || !root.replacements || !root.ui || !root.utils) {
+  if (!root.defaults || typeof root.defaults !== "object") {
+    console.warn("[LexiShift] Shared defaults module not loaded.");
+    return;
+  }
+  const defaults = root.defaults;
+
+  const requiredModulesLoaded = Boolean(
+    root.tokenizer
+    && root.matcher
+    && root.replacements
+    && root.ui
+    && root.utils
+    && root.languagePrefs
+    && typeof root.languagePrefs.applyLanguagePrefs === "function"
+    && root.contentDomScanRuntime
+    && typeof root.contentDomScanRuntime.createRuntime === "function"
+    && root.contentHelperRulesRuntime
+    && typeof root.contentHelperRulesRuntime.createRuntime === "function"
+    && root.contentActiveRulesRuntime
+    && typeof root.contentActiveRulesRuntime.createRuntime === "function"
+    && root.contentApplyDiagnosticsReporter
+    && typeof root.contentApplyDiagnosticsReporter.createReporter === "function"
+    && root.contentFeedbackRuntimeController
+    && typeof root.contentFeedbackRuntimeController.createController === "function"
+    && root.contentApplyRuntimeActions
+    && typeof root.contentApplyRuntimeActions.createRunner === "function"
+    && root.contentApplySettingsPipeline
+    && typeof root.contentApplySettingsPipeline.createPipeline === "function"
+    && root.contentSettingsChangeRouter
+    && typeof root.contentSettingsChangeRouter.createRouter === "function"
+  );
+  if (!requiredModulesLoaded) {
     console.warn("[LexiShift] Content modules not loaded.");
     return;
   }
@@ -155,228 +166,136 @@
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
 
-  const domScanRuntimeFactory = root.contentDomScanRuntime
-    && typeof root.contentDomScanRuntime.createRuntime === "function"
-    ? root.contentDomScanRuntime.createRuntime
-    : null;
-  const domScanRuntime = domScanRuntimeFactory
-    ? domScanRuntimeFactory({
-        getCurrentSettings: () => currentSettings,
-        getCurrentTrie: () => currentTrie,
-        getProcessedNodes: () => processedNodes,
-        setProcessedNodes: (next) => {
-          processedNodes = next;
-        },
-        isApplyingChanges: () => applyingChanges === true,
-        getFocusWord,
-        getFocusInfo,
-        normalizeRuleOrigin,
-        buildReplacementFragment,
-        describeElement,
-        shorten,
-        describeCodepoints,
-        countOccurrences,
-        collectTextNodes,
-        srsMetrics,
-        lemmatizer,
-        log
-      })
-    : {
-        processDocument: () => {},
-        observeChanges: () => {},
-        rescanDocument: () => {},
-        ensureObserver: () => {},
-        clearBudgetState: () => {},
-        disconnect: () => {}
-      };
-  const helperRulesRuntimeFactory = root.contentHelperRulesRuntime
-    && typeof root.contentHelperRulesRuntime.createRuntime === "function"
-    ? root.contentHelperRulesRuntime.createRuntime
-    : null;
-  const helperRulesRuntime = helperRulesRuntimeFactory
-    ? helperRulesRuntimeFactory({
-        getHelperClient: () => helperClient,
-        helperCache,
-        normalizeProfileId,
-        tagRulesWithOrigin,
-        ruleOriginSrs: RULE_ORIGIN_SRS
-      })
-    : {
-        resolveHelperRules: async () => ({ rules: [], source: "none", error: null })
-      };
-  const activeRulesRuntimeFactory = root.contentActiveRulesRuntime
-    && typeof root.contentActiveRulesRuntime.createRuntime === "function"
-    ? root.contentActiveRulesRuntime.createRuntime
-    : null;
-  const activeRulesRuntime = activeRulesRuntimeFactory
-    ? activeRulesRuntimeFactory({
-        normalizeRules,
-        tagRulesWithOrigin,
-        normalizeProfileId,
-        helperRulesRuntime,
-        srsGate,
-        getRuleOrigin,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        ruleOriginRuleset: RULE_ORIGIN_RULESET
-      })
-    : {
-        resolveActiveRules: async (settings) => {
-          const nextSettings = settings && typeof settings === "object" ? settings : {};
-          const normalizedRules = normalizeRules(tagRulesWithOrigin(nextSettings.rules, RULE_ORIGIN_RULESET));
-          const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
-          const originCounts = {
-            [RULE_ORIGIN_RULESET]: 0,
-            [RULE_ORIGIN_SRS]: 0
-          };
-          for (const rule of enabledRules) {
-            const origin = getRuleOrigin(rule);
-            originCounts[origin] = Number(originCounts[origin] || 0) + 1;
-          }
-          return {
-            srsProfileId: normalizeProfileId(nextSettings.srsProfileId),
-            rulesSource: "local",
-            helperRulesError: null,
-            normalizedRules,
-            enabledRules,
-            originCounts,
-            activeRules: enabledRules,
-            activeOriginCounts: { ...originCounts },
-            srsActiveLemmas: null,
-            srsStats: null
-          };
-        },
-        countRulesWithScriptForms: () => 0
-      };
-  const applyDiagnosticsReporterFactory = root.contentApplyDiagnosticsReporter
-    && typeof root.contentApplyDiagnosticsReporter.createReporter === "function"
-    ? root.contentApplyDiagnosticsReporter.createReporter
-    : null;
-  const applyDiagnosticsReporter = applyDiagnosticsReporterFactory
-    ? applyDiagnosticsReporterFactory({
-        log,
-        getRuleOrigin,
-        countRulesWithScriptForms: (rules) => activeRulesRuntime.countRulesWithScriptForms(rules),
-        persistRuntimeState,
-        getFrameInfo,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        ruleOriginRuleset: RULE_ORIGIN_RULESET
-      })
-    : {
-        report: () => {}
-      };
-  const feedbackRuntimeFactory = root.contentFeedbackRuntimeController
-    && typeof root.contentFeedbackRuntimeController.createController === "function"
-    ? root.contentFeedbackRuntimeController.createController
-    : null;
-  const feedbackRuntime = feedbackRuntimeFactory
-    ? feedbackRuntimeFactory({
-        srsFeedback,
-        lemmatizer,
-        helperFeedbackSyncModule,
-        getHelperClient: () => helperClient,
-        getCurrentSettings: () => currentSettings,
-        normalizeProfileId,
-        normalizeRuleOrigin,
-        isTopFrameWindow,
-        log,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        ruleOriginRuleset: RULE_ORIGIN_RULESET
-      })
-    : {
-        ensureSync: () => null,
-        handleFeedback: () => {},
-        stop: () => {}
-      };
-  const applyRuntimeActionsFactory = root.contentApplyRuntimeActions
-    && typeof root.contentApplyRuntimeActions.createRunner === "function"
-    ? root.contentApplyRuntimeActions.createRunner
-    : null;
-  const applyRuntimeActions = applyRuntimeActionsFactory
-    ? applyRuntimeActionsFactory({
-        ensureStyle,
-        setFeedbackSoundEnabled,
-        attachClickListener,
-        attachFeedbackListener,
-        applyHighlightToDom,
-        clearReplacements,
-        buildTrie,
-        domScanRuntime,
-        feedbackRuntime,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        defaults,
-        setCurrentTrie: (nextTrie) => {
-          currentTrie = nextTrie;
-        },
-        setApplyingChanges: (next) => {
-          applyingChanges = next === true;
-        },
-        log
-      })
-    : {
-        run: () => {}
-      };
-  const applySettingsPipelineFactory = root.contentApplySettingsPipeline
-    && typeof root.contentApplySettingsPipeline.createPipeline === "function"
-    ? root.contentApplySettingsPipeline.createPipeline
-    : null;
-  const applySettingsPipeline = applySettingsPipelineFactory
-    ? applySettingsPipelineFactory({
-        defaults,
-        applyLanguagePrefs: (nextSettings) => {
-          if (root.languagePrefs && typeof root.languagePrefs.applyLanguagePrefs === "function") {
-            return root.languagePrefs.applyLanguagePrefs(nextSettings);
-          }
-          return nextSettings;
-        },
-        setDebugEnabled,
-        setCurrentSettings: (nextSettings) => {
-          currentSettings = nextSettings && typeof nextSettings === "object"
-            ? nextSettings
-            : currentSettings;
-        },
-        resetProcessedNodes: () => {
-          processedNodes = new WeakMap();
-        },
-        activeRulesRuntime,
-        getHelperClientAvailable: () => Boolean(helperClient),
-        getFocusWord,
-        applyDiagnosticsReporter,
-        applyRuntimeActions,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        ruleOriginRuleset: RULE_ORIGIN_RULESET
-      })
-    : {
-        run: async () => ({ stale: false })
-      };
-  const settingsChangeRouterFactory = root.contentSettingsChangeRouter
-    && typeof root.contentSettingsChangeRouter.createRouter === "function"
-    ? root.contentSettingsChangeRouter.createRouter
-    : null;
-  const settingsChangeRouter = settingsChangeRouterFactory
-    ? settingsChangeRouterFactory({
-        defaults,
-        ruleOriginSrs: RULE_ORIGIN_SRS,
-        getCurrentSettings: () => currentSettings,
-        setCurrentSettings: (next) => {
-          currentSettings = next && typeof next === "object" ? { ...next } : currentSettings;
-        },
-        getFocusWord,
-        log,
-        setDebugEnabled,
-        setFeedbackSoundEnabled,
-        ensureStyle,
-        applyHighlightToDom,
-        attachFeedbackListener,
-        onFeedback: (payload, focusWord) => {
-          feedbackRuntime.handleFeedback(payload, focusWord);
-        },
-        applySettings: (nextSettings) => {
-          applySettings(nextSettings);
-        }
-      })
-    : {
-        handleStorageChange: () => {}
-      };
+  const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
+  const helperRulesRuntimeFactory = root.contentHelperRulesRuntime.createRuntime;
+  const activeRulesRuntimeFactory = root.contentActiveRulesRuntime.createRuntime;
+  const applyDiagnosticsReporterFactory = root.contentApplyDiagnosticsReporter.createReporter;
+  const feedbackRuntimeFactory = root.contentFeedbackRuntimeController.createController;
+  const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
+  const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
+  const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
+
+  const domScanRuntime = domScanRuntimeFactory({
+    getCurrentSettings: () => currentSettings,
+    getCurrentTrie: () => currentTrie,
+    getProcessedNodes: () => processedNodes,
+    setProcessedNodes: (next) => {
+      processedNodes = next;
+    },
+    isApplyingChanges: () => applyingChanges === true,
+    getFocusWord,
+    getFocusInfo,
+    normalizeRuleOrigin,
+    buildReplacementFragment,
+    describeElement,
+    shorten,
+    describeCodepoints,
+    countOccurrences,
+    collectTextNodes,
+    srsMetrics,
+    lemmatizer,
+    log
+  });
+  const helperRulesRuntime = helperRulesRuntimeFactory({
+    getHelperClient: () => helperClient,
+    helperCache,
+    normalizeProfileId,
+    tagRulesWithOrigin,
+    ruleOriginSrs: RULE_ORIGIN_SRS
+  });
+  const activeRulesRuntime = activeRulesRuntimeFactory({
+    normalizeRules,
+    tagRulesWithOrigin,
+    normalizeProfileId,
+    helperRulesRuntime,
+    srsGate,
+    getRuleOrigin,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const applyDiagnosticsReporter = applyDiagnosticsReporterFactory({
+    log,
+    getRuleOrigin,
+    countRulesWithScriptForms: (rules) => activeRulesRuntime.countRulesWithScriptForms(rules),
+    persistRuntimeState,
+    getFrameInfo,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const feedbackRuntime = feedbackRuntimeFactory({
+    srsFeedback,
+    lemmatizer,
+    helperFeedbackSyncModule,
+    getHelperClient: () => helperClient,
+    getCurrentSettings: () => currentSettings,
+    normalizeProfileId,
+    normalizeRuleOrigin,
+    isTopFrameWindow,
+    log,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const applyRuntimeActions = applyRuntimeActionsFactory({
+    ensureStyle,
+    setFeedbackSoundEnabled,
+    attachClickListener,
+    attachFeedbackListener,
+    applyHighlightToDom,
+    clearReplacements,
+    buildTrie,
+    domScanRuntime,
+    feedbackRuntime,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    defaults,
+    setCurrentTrie: (nextTrie) => {
+      currentTrie = nextTrie;
+    },
+    setApplyingChanges: (next) => {
+      applyingChanges = next === true;
+    },
+    log
+  });
+  const applySettingsPipeline = applySettingsPipelineFactory({
+    defaults,
+    applyLanguagePrefs: (nextSettings) => root.languagePrefs.applyLanguagePrefs(nextSettings),
+    setDebugEnabled,
+    setCurrentSettings: (nextSettings) => {
+      currentSettings = nextSettings && typeof nextSettings === "object"
+        ? nextSettings
+        : currentSettings;
+    },
+    resetProcessedNodes: () => {
+      processedNodes = new WeakMap();
+    },
+    activeRulesRuntime,
+    getHelperClientAvailable: () => Boolean(helperClient),
+    getFocusWord,
+    applyDiagnosticsReporter,
+    applyRuntimeActions,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const settingsChangeRouter = settingsChangeRouterFactory({
+    defaults,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    getCurrentSettings: () => currentSettings,
+    setCurrentSettings: (next) => {
+      currentSettings = next && typeof next === "object" ? { ...next } : currentSettings;
+    },
+    getFocusWord,
+    log,
+    setDebugEnabled,
+    setFeedbackSoundEnabled,
+    ensureStyle,
+    applyHighlightToDom,
+    attachFeedbackListener,
+    onFeedback: (payload, focusWord) => {
+      feedbackRuntime.handleFeedback(payload, focusWord);
+    },
+    applySettings: (nextSettings) => {
+      applySettings(nextSettings);
+    }
+  });
 
   async function applySettings(settings) {
     const token = (applyToken += 1);

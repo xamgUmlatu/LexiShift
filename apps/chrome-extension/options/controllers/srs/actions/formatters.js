@@ -104,9 +104,7 @@
 
   function buildInitializeResultOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const applied = opts.applied === true;
     const added = Number(opts.added || 0);
     const total = Number(opts.total || 0);
@@ -178,9 +176,7 @@
 
   function buildRefreshResultOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const applied = opts.applied === true;
     const added = Number(opts.added || 0);
     const srsPair = String(opts.srsPair || "en-en");
@@ -222,9 +218,7 @@
 
   function buildRuntimeDiagnosticsOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const srsPair = String(opts.srsPair || "en-en");
     const selectedProfileId = String(opts.selectedProfileId || "default");
     const diagnostics = opts.diagnostics && typeof opts.diagnostics === "object" ? opts.diagnostics : {};
@@ -300,9 +294,7 @@
 
   function buildSampledRulegenHeader(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const sampledCount = Number(opts.sampledCount || 0);
     const rulegenTargets = Number(opts.rulegenTargets || 0);
     const rulegenRules = Number(opts.rulegenRules || 0);
@@ -316,9 +308,7 @@
 
   function buildSampledRulegenEmptyOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const header = String(opts.header || "");
     const samplingLines = Array.isArray(opts.samplingLines) ? opts.samplingLines : [];
     const diag = opts.diagnostics && typeof opts.diagnostics === "object" ? opts.diagnostics : {};
@@ -345,9 +335,7 @@
 
   function buildSampledRulegenTargetsOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const header = String(opts.header || "");
     const samplingLines = Array.isArray(opts.samplingLines) ? opts.samplingLines : [];
     const targets = Array.isArray(opts.targets) ? opts.targets : [];

@@ -6,9 +6,7 @@
     const rulesManager = opts.rulesManager && typeof opts.rulesManager === "object"
       ? opts.rulesManager
       : null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _substitutions, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const updateRulesSourceUI = typeof opts.updateRulesSourceUI === "function"
       ? opts.updateRulesSourceUI

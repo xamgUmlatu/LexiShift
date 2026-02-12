@@ -3,9 +3,7 @@
 
   function createActions(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.translate === "function"
-      ? opts.translate
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors
       : {

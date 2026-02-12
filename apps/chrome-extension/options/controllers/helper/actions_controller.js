@@ -6,9 +6,7 @@
     const helperManager = opts.helperManager && typeof opts.helperManager === "object"
       ? opts.helperManager
       : null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setHelperStatus = typeof opts.setHelperStatus === "function"
       ? opts.setHelperStatus
       : (() => {});

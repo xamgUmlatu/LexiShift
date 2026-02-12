@@ -3,9 +3,7 @@
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const i18n = opts.i18n && typeof opts.i18n === "object" ? opts.i18n : null;

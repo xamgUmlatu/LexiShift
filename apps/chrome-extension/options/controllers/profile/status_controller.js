@@ -4,9 +4,7 @@
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const output = opts.output || null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     let state = opts.initialState && typeof opts.initialState === "object"
       ? { ...opts.initialState }
       : {

@@ -31,12 +31,6 @@
   const feedbackController = feedbackPopupFactory
     ? feedbackPopupFactory({
         popupModuleRegistry,
-        buildJapaneseScriptModule: (target, debugLog) => {
-          if (!scriptModule || typeof scriptModule.build !== "function") {
-            return null;
-          }
-          return scriptModule.build(target, debugLog);
-        },
         summarizeTarget: scriptModule && typeof scriptModule.summarizeTarget === "function"
           ? scriptModule.summarizeTarget
           : undefined
@@ -75,8 +69,6 @@
       .lexishift-popup-module{padding:8px 10px;border-radius:10px;background:rgba(28,26,23,0.94);
         color:#f7f4ef;box-shadow:0 10px 24px rgba(0,0,0,0.18);min-width:140px;
         max-width:min(280px, calc(100vw - 16px));}
-      .lexishift-script-module-heading{display:block;font-size:10px;line-height:1.2;
-        letter-spacing:0.06em;text-transform:uppercase;color:rgba(247,244,239,0.72);margin-bottom:6px;}
       .lexishift-script-module-row{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;}
       .lexishift-script-module-row + .lexishift-script-module-row{margin-top:4px;}
       .lexishift-script-module-label{font-size:10px;line-height:1.3;letter-spacing:0.06em;

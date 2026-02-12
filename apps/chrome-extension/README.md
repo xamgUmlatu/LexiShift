@@ -40,7 +40,6 @@ This extension is organized by runtime concern so content, shared runtime logic,
     - `srs/`: SRS actions and profile runtime wiring.
       - `actions/`: formatter/shared/workflow modules used by `actions_controller.js`.
   - `vendor/`: options-page vendor codecs/helpers.
-- `legacy/`: archived notes/prototypes not used in runtime.
 
 ## Runtime Entry Points
 

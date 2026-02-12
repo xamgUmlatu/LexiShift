@@ -6,9 +6,7 @@
     const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
       ? opts.settingsManager
       : null;
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors

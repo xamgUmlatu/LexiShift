@@ -1,6 +1,5 @@
 class UIManager {
-  constructor(i18n) {
-    this.i18n = i18n;
+  constructor() {
     this.dom = {};
     this.COLORS = {
       SUCCESS: "#3c5a2a",

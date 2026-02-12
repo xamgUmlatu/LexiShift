@@ -61,7 +61,7 @@ apps/chrome-extension/options/
 ## Responsibility Boundaries
 
 - `page/init_controller.js`
-  - First-load hydration and legacy migration.
+  - First-load hydration.
   - Initial UI sync and status bootstrapping.
 - `page/event_wiring_controller.js`
   - DOM event binding only.

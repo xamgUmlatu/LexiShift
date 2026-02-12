@@ -3,9 +3,7 @@
 
   function bind(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const translate = typeof opts.t === "function"
-      ? opts.t
-      : ((_key, _subs, fallback) => fallback || "");
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const bindAsyncListener = typeof opts.bindAsyncListener === "function"
       ? opts.bindAsyncListener
       : (() => {});
