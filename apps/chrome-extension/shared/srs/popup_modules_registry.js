@@ -1,6 +1,38 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const SCRIPT_VALUES = new Set(["kanji", "kana", "romaji"]);
+  const MODULE_THEME_LIMITS = Object.freeze({
+    hueDeg: Object.freeze({
+      min: -180,
+      max: 180,
+      step: 1,
+      defaultValue: 0
+    }),
+    saturationPercent: Object.freeze({
+      min: 70,
+      max: 140,
+      step: 1,
+      defaultValue: 100
+    }),
+    brightnessPercent: Object.freeze({
+      min: 80,
+      max: 125,
+      step: 1,
+      defaultValue: 100
+    }),
+    transparencyPercent: Object.freeze({
+      min: 40,
+      max: 100,
+      step: 1,
+      defaultValue: 100
+    })
+  });
+  const MODULE_THEME_DEFAULTS = Object.freeze({
+    hueDeg: MODULE_THEME_LIMITS.hueDeg.defaultValue,
+    saturationPercent: MODULE_THEME_LIMITS.saturationPercent.defaultValue,
+    brightnessPercent: MODULE_THEME_LIMITS.brightnessPercent.defaultValue,
+    transparencyPercent: MODULE_THEME_LIMITS.transparencyPercent.defaultValue
+  });
 
   const MODULE_DEFINITIONS = [
     {
@@ -14,11 +46,15 @@
       id: "ja-script-forms",
       control: "toggle",
       defaultEnabled: true,
+      themeEnabled: true,
       targetLanguages: ["ja"],
       labelKey: "module_ja_script_forms",
       labelFallback: "Japanese script forms",
       descriptionKey: "module_ja_script_forms_desc",
-      descriptionFallback: "Show alternate Japanese scripts in the popup."
+      descriptionFallback: "Show alternate Japanese scripts in the popup.",
+      defaultConfig: {
+        theme: MODULE_THEME_DEFAULTS
+      }
     },
     {
       id: "ja-primary-display-script",
@@ -52,21 +88,29 @@
       id: "feedback-history",
       control: "toggle",
       defaultEnabled: true,
+      themeEnabled: true,
       targetLanguages: null,
       labelKey: "module_feedback_history",
       labelFallback: "Feedback history",
       descriptionKey: "module_feedback_history_desc",
-      descriptionFallback: "Store and display your SRS rating history for this word."
+      descriptionFallback: "Store and display your SRS rating history for this word.",
+      defaultConfig: {
+        theme: MODULE_THEME_DEFAULTS
+      }
     },
     {
       id: "encounter-history",
       control: "toggle",
       defaultEnabled: true,
+      themeEnabled: true,
       targetLanguages: null,
       labelKey: "module_encounter_history",
       labelFallback: "Encounter history",
       descriptionKey: "module_encounter_history_desc",
-      descriptionFallback: "Track encounter counts and the latest sentence excerpt."
+      descriptionFallback: "Track encounter counts and the latest sentence excerpt.",
+      defaultConfig: {
+        theme: MODULE_THEME_DEFAULTS
+      }
     }
   ];
 
@@ -84,6 +128,57 @@
       return fallbackValue;
     }
     return "kanji";
+  }
+
+  function toFiniteNumber(value) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function normalizeThemeValue(limit, value, fallback) {
+    const lower = toFiniteNumber(limit && limit.min);
+    const upper = toFiniteNumber(limit && limit.max);
+    const defaultValue = toFiniteNumber(limit && limit.defaultValue);
+    const resolvedFallback = toFiniteNumber(fallback);
+    const parsed = Number.parseInt(value, 10);
+    const base = Number.isFinite(parsed)
+      ? parsed
+      : (
+          resolvedFallback !== null
+            ? resolvedFallback
+            : (defaultValue !== null ? defaultValue : 0)
+        );
+    const lowerBounded = lower !== null ? Math.max(lower, base) : base;
+    return upper !== null ? Math.min(upper, lowerBounded) : lowerBounded;
+  }
+
+  function normalizeModuleThemeConfig(rawTheme, fallbackTheme) {
+    const raw = rawTheme && typeof rawTheme === "object" ? rawTheme : {};
+    const fallback = fallbackTheme && typeof fallbackTheme === "object"
+      ? fallbackTheme
+      : MODULE_THEME_DEFAULTS;
+    return {
+      hueDeg: normalizeThemeValue(
+        MODULE_THEME_LIMITS.hueDeg,
+        raw.hueDeg,
+        fallback.hueDeg
+      ),
+      saturationPercent: normalizeThemeValue(
+        MODULE_THEME_LIMITS.saturationPercent,
+        raw.saturationPercent,
+        fallback.saturationPercent
+      ),
+      brightnessPercent: normalizeThemeValue(
+        MODULE_THEME_LIMITS.brightnessPercent,
+        raw.brightnessPercent,
+        fallback.brightnessPercent
+      ),
+      transparencyPercent: normalizeThemeValue(
+        MODULE_THEME_LIMITS.transparencyPercent,
+        raw.transparencyPercent,
+        fallback.transparencyPercent
+      )
+    };
   }
 
   function getModuleDefinitions() {
@@ -112,6 +207,11 @@
     const merged = { ...base, ...source };
     if (Object.prototype.hasOwnProperty.call(merged, "primary")) {
       merged.primary = normalizePrimaryDisplayScript(merged.primary, base.primary || "kanji");
+    }
+    if (Object.prototype.hasOwnProperty.call(base, "theme")
+      || Object.prototype.hasOwnProperty.call(source, "theme")
+      || Object.prototype.hasOwnProperty.call(merged, "theme")) {
+      merged.theme = normalizeModuleThemeConfig(source.theme, base.theme);
     }
     return merged;
   }
@@ -178,6 +278,24 @@
     });
   }
 
+  function supportsThemeTuning(moduleId) {
+    const definition = getModuleDefinition(moduleId);
+    return Boolean(definition && definition.themeEnabled === true);
+  }
+
+  function resolveModuleThemeLimits() {
+    return MODULE_THEME_LIMITS;
+  }
+
+  function resolveModuleThemeDefaults() {
+    return {
+      hueDeg: MODULE_THEME_DEFAULTS.hueDeg,
+      saturationPercent: MODULE_THEME_DEFAULTS.saturationPercent,
+      brightnessPercent: MODULE_THEME_DEFAULTS.brightnessPercent,
+      transparencyPercent: MODULE_THEME_DEFAULTS.transparencyPercent
+    };
+  }
+
   function resolveTargetDisplayScript(modulePrefs, targetLanguage) {
     const target = normalizeLanguage(targetLanguage);
     if (target !== "ja") {
@@ -197,6 +315,10 @@
     isEnabledForTarget,
     resolveVisibleSettingModules,
     resolveTargetDisplayScript,
-    normalizePrimaryDisplayScript
+    normalizePrimaryDisplayScript,
+    supportsThemeTuning,
+    normalizeModuleThemeConfig,
+    resolveModuleThemeLimits,
+    resolveModuleThemeDefaults
   };
 })();

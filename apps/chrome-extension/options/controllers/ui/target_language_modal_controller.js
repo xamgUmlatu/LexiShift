@@ -24,6 +24,7 @@
     let activeTargetLanguage = "en";
     let activeProfileId = "default";
     let activeModulePrefs = { byId: {} };
+    let openColorDrawerModuleId = "";
 
     function getRegistry() {
       const registry = root.popupModulesRegistry;
@@ -51,6 +52,95 @@
       }
       const visible = registry.resolveVisibleSettingModules(language);
       return Array.isArray(visible) ? visible : [];
+    }
+
+    function toFiniteNumber(value) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    function getThemeLimits() {
+      const registry = getRegistry();
+      if (registry && typeof registry.resolveModuleThemeLimits === "function") {
+        return registry.resolveModuleThemeLimits();
+      }
+      return {
+        hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
+        saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
+        brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 },
+        transparencyPercent: { min: 40, max: 100, step: 1, defaultValue: 100 }
+      };
+    }
+
+    function getThemeDefaults() {
+      const registry = getRegistry();
+      if (registry && typeof registry.resolveModuleThemeDefaults === "function") {
+        return registry.resolveModuleThemeDefaults();
+      }
+      const limits = getThemeLimits();
+      return {
+        hueDeg: Number(limits.hueDeg.defaultValue || 0),
+        saturationPercent: Number(limits.saturationPercent.defaultValue || 100),
+        brightnessPercent: Number(limits.brightnessPercent.defaultValue || 100),
+        transparencyPercent: Number(limits.transparencyPercent.defaultValue || 100)
+      };
+    }
+
+    function normalizeTheme(theme, fallbackTheme) {
+      const registry = getRegistry();
+      if (registry && typeof registry.normalizeModuleThemeConfig === "function") {
+        return registry.normalizeModuleThemeConfig(theme, fallbackTheme);
+      }
+      const limits = getThemeLimits();
+      const fallback = fallbackTheme && typeof fallbackTheme === "object"
+        ? fallbackTheme
+        : getThemeDefaults();
+      function normalizeValue(limit, value, fallbackValue) {
+        const lower = toFiniteNumber(limit.min);
+        const upper = toFiniteNumber(limit.max);
+        const defaultValue = toFiniteNumber(limit.defaultValue);
+        const resolvedFallback = toFiniteNumber(fallbackValue);
+        const parsed = Number.parseInt(value, 10);
+        const base = Number.isFinite(parsed)
+          ? parsed
+          : (
+              resolvedFallback !== null
+                ? resolvedFallback
+                : (defaultValue !== null ? defaultValue : 0)
+            );
+        const boundedLow = lower !== null ? Math.max(lower, base) : base;
+        return upper !== null ? Math.min(upper, boundedLow) : boundedLow;
+      }
+      const source = theme && typeof theme === "object" ? theme : {};
+      return {
+        hueDeg: normalizeValue(limits.hueDeg, source.hueDeg, fallback.hueDeg),
+        saturationPercent: normalizeValue(
+          limits.saturationPercent,
+          source.saturationPercent,
+          fallback.saturationPercent
+        ),
+        brightnessPercent: normalizeValue(
+          limits.brightnessPercent,
+          source.brightnessPercent,
+          fallback.brightnessPercent
+        ),
+        transparencyPercent: normalizeValue(
+          limits.transparencyPercent,
+          source.transparencyPercent,
+          fallback.transparencyPercent
+        )
+      };
+    }
+
+    function supportsThemeTuning(definition) {
+      if (!definition || !definition.id) {
+        return false;
+      }
+      const registry = getRegistry();
+      if (registry && typeof registry.supportsThemeTuning === "function") {
+        return registry.supportsThemeTuning(definition.id);
+      }
+      return definition.themeEnabled === true;
     }
 
     function getFocusableElements() {
@@ -202,6 +292,70 @@
       );
     }
 
+    function getThemeSliderDefinitions() {
+      const limits = getThemeLimits();
+      return [
+        {
+          key: "hueDeg",
+          field: "config.theme.hueDeg",
+          labelKey: "label_profile_card_theme_hue",
+          labelFallback: "Hue",
+          suffix: "°",
+          limit: limits.hueDeg
+        },
+        {
+          key: "saturationPercent",
+          field: "config.theme.saturationPercent",
+          labelKey: "label_profile_card_theme_saturation",
+          labelFallback: "Saturation",
+          suffix: "%",
+          limit: limits.saturationPercent
+        },
+        {
+          key: "brightnessPercent",
+          field: "config.theme.brightnessPercent",
+          labelKey: "label_profile_card_theme_brightness",
+          labelFallback: "Brightness",
+          suffix: "%",
+          limit: limits.brightnessPercent
+        },
+        {
+          key: "transparencyPercent",
+          field: "config.theme.transparencyPercent",
+          labelKey: "label_profile_card_theme_transparency",
+          labelFallback: "Transparency",
+          suffix: "%",
+          limit: limits.transparencyPercent
+        }
+      ];
+    }
+
+    function formatThemeValue(key, value) {
+      const numeric = Number.parseInt(value, 10);
+      if (!Number.isFinite(numeric)) {
+        return "";
+      }
+      if (key === "hueDeg") {
+        return `${numeric}°`;
+      }
+      return `${numeric}%`;
+    }
+
+    function resolveEntryTheme(entry) {
+      const config = entry && entry.config && typeof entry.config === "object"
+        ? entry.config
+        : {};
+      return normalizeTheme(config.theme, getThemeDefaults());
+    }
+
+    function buildThemePreviewFilter(theme) {
+      const normalized = normalizeTheme(theme, getThemeDefaults());
+      const saturation = Math.max(0, normalized.saturationPercent / 100);
+      const brightness = Math.max(0, normalized.brightnessPercent / 100);
+      const opacity = Math.max(0, Math.min(1, normalized.transparencyPercent / 100));
+      return `hue-rotate(${normalized.hueDeg}deg) saturate(${saturation}) brightness(${brightness}) opacity(${opacity})`;
+    }
+
     function renderEnableToggle(definition, entry) {
       const enabled = entry.enabled !== false;
       const button = document.createElement("button");
@@ -232,6 +386,90 @@
       button.appendChild(track);
       button.appendChild(text);
       return button;
+    }
+
+    function renderColorTrigger(definition, entry) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "language-module-color-trigger";
+      button.dataset.action = "toggle-color-drawer";
+      button.dataset.moduleId = definition.id;
+      const isOpen = openColorDrawerModuleId === definition.id;
+      button.setAttribute("aria-pressed", isOpen ? "true" : "false");
+      button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      button.setAttribute(
+        "aria-label",
+        `${getModuleLabel(definition)}: ${translate(
+          "subsection_profile_card_theme",
+          null,
+          "Card color tuning"
+        )}`
+      );
+
+      const swatch = document.createElement("span");
+      swatch.className = "language-module-color-trigger-swatch";
+      swatch.style.filter = buildThemePreviewFilter(resolveEntryTheme(entry));
+      button.appendChild(swatch);
+      return button;
+    }
+
+    function renderColorDrawer(definition, entry) {
+      const theme = resolveEntryTheme(entry);
+      const sliderDefs = getThemeSliderDefinitions();
+      const drawer = document.createElement("div");
+      drawer.className = "language-module-color-drawer";
+      drawer.dataset.moduleId = definition.id;
+
+      const panel = document.createElement("div");
+      panel.className = "language-module-color-panel";
+
+      const grid = document.createElement("div");
+      grid.className = "language-module-color-grid";
+      for (const sliderDef of sliderDefs) {
+        const cell = document.createElement("div");
+        cell.className = "language-module-color-cell";
+
+        const metaRow = document.createElement("div");
+        metaRow.className = "language-module-color-meta";
+
+        const label = document.createElement("label");
+        label.className = "language-module-color-label";
+        const inputId = `module-theme-${definition.id}-${sliderDef.key}`;
+        label.setAttribute("for", inputId);
+        label.textContent = translate(
+          sliderDef.labelKey,
+          null,
+          sliderDef.labelFallback
+        );
+
+        const value = document.createElement("span");
+        value.className = "language-module-color-value";
+        value.dataset.themeValueFor = `${definition.id}:${sliderDef.key}`;
+        value.textContent = formatThemeValue(sliderDef.key, theme[sliderDef.key]);
+
+        metaRow.appendChild(label);
+        metaRow.appendChild(value);
+        cell.appendChild(metaRow);
+
+        const input = document.createElement("input");
+        input.type = "range";
+        input.id = inputId;
+        input.className = "language-module-color-range";
+        input.dataset.moduleId = definition.id;
+        input.dataset.field = sliderDef.field;
+        input.dataset.themeKey = sliderDef.key;
+        input.min = String(sliderDef.limit && sliderDef.limit.min !== undefined ? sliderDef.limit.min : 0);
+        input.max = String(sliderDef.limit && sliderDef.limit.max !== undefined ? sliderDef.limit.max : 100);
+        input.step = String(sliderDef.limit && sliderDef.limit.step !== undefined ? sliderDef.limit.step : 1);
+        input.value = String(theme[sliderDef.key]);
+        cell.appendChild(input);
+
+        grid.appendChild(cell);
+      }
+
+      panel.appendChild(grid);
+      drawer.appendChild(panel);
+      return drawer;
     }
 
     function renderInnerSettingSelect(definition, entry, disabled) {
@@ -278,6 +516,13 @@
       const opts = options && typeof options === "object" ? options : {};
       const card = document.createElement("div");
       card.className = "language-module-card";
+      card.dataset.moduleId = definition.id;
+      const themeTuningEnabled = supportsThemeTuning(definition);
+      if (themeTuningEnabled) {
+        card.classList.add("language-module-card-themeable");
+      }
+      const isDrawerOpen = themeTuningEnabled && openColorDrawerModuleId === definition.id;
+      card.classList.toggle("is-color-drawer-open", isDrawerOpen);
 
       const main = document.createElement("div");
       main.className = "language-module-main";
@@ -314,6 +559,10 @@
 
       card.appendChild(main);
       card.appendChild(controls);
+      if (themeTuningEnabled) {
+        card.appendChild(renderColorTrigger(definition, entry));
+        card.appendChild(renderColorDrawer(definition, entry));
+      }
       return card;
     }
 
@@ -338,6 +587,10 @@
       modulesList.textContent = "";
       const language = normalizeLanguage(targetLanguage || resolveTargetLanguage());
       const visibleModules = getVisibleModules(language);
+      const visibleModuleIds = new Set(visibleModules.map((definition) => String(definition.id || "")));
+      if (openColorDrawerModuleId && !visibleModuleIds.has(openColorDrawerModuleId)) {
+        openColorDrawerModuleId = "";
+      }
       if (!visibleModules.length) {
         const empty = document.createElement("p");
         empty.className = "hint";
@@ -366,6 +619,37 @@
         const entry = ensureModuleEntry(prefs, definition.id);
         modulesList.appendChild(renderModuleCard(definition, entry));
       }
+      syncOpenColorDrawerDomState();
+    }
+
+    function syncOpenColorDrawerDomState() {
+      if (!modulesList) {
+        return;
+      }
+      const activeModuleId = String(openColorDrawerModuleId || "").trim();
+      const cards = modulesList.querySelectorAll(".language-module-card-themeable");
+      cards.forEach((card) => {
+        if (!(card instanceof HTMLElement)) {
+          return;
+        }
+        const cardModuleId = String(card.dataset.moduleId || "").trim();
+        card.classList.toggle("is-color-drawer-open", Boolean(activeModuleId && cardModuleId === activeModuleId));
+      });
+      const colorButtons = modulesList.querySelectorAll("button[data-action='toggle-color-drawer']");
+      colorButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) {
+          return;
+        }
+        const buttonModuleId = String(button.dataset.moduleId || "").trim();
+        const isOpen = Boolean(activeModuleId && buttonModuleId === activeModuleId);
+        button.setAttribute("aria-pressed", isOpen ? "true" : "false");
+        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    }
+
+    function setOpenColorDrawer(moduleId) {
+      openColorDrawerModuleId = String(moduleId || "").trim();
+      syncOpenColorDrawerDomState();
     }
 
     async function refreshModulePrefs(context) {
@@ -411,6 +695,25 @@
           entry.config = {};
         }
         entry.config.primary = String(value || "");
+      } else if (field === "config.theme") {
+        if (!entry.config || typeof entry.config !== "object") {
+          entry.config = {};
+        }
+        entry.config.theme = normalizeTheme(
+          value && typeof value === "object" ? value : null,
+          getThemeDefaults()
+        );
+      } else if (field.startsWith("config.theme.")) {
+        const themeKey = String(field.slice("config.theme.".length) || "").trim();
+        if (!themeKey) {
+          return;
+        }
+        if (!entry.config || typeof entry.config !== "object") {
+          entry.config = {};
+        }
+        const currentTheme = normalizeTheme(entry.config.theme, getThemeDefaults());
+        currentTheme[themeKey] = Number.parseInt(value, 10);
+        entry.config.theme = normalizeTheme(currentTheme, getThemeDefaults());
       }
       const updated = typeof settingsManager.updateProfileModulePrefs === "function"
         ? await settingsManager.updateProfileModulePrefs(nextPrefs, {
@@ -436,8 +739,30 @@
       if (!moduleId || !field) {
         return;
       }
+      if (target instanceof HTMLInputElement && target.type === "range") {
+        persistModuleChange(moduleId, field, target.value).catch(() => {});
+        return;
+      }
       if (target instanceof HTMLSelectElement) {
         persistModuleChange(moduleId, field, target.value).catch(() => {});
+      }
+    }
+
+    function handleModulesInput(event) {
+      const target = event && event.target;
+      if (!(target instanceof HTMLInputElement) || target.type !== "range") {
+        return;
+      }
+      const moduleId = String(target.dataset.moduleId || "").trim();
+      const themeKey = String(target.dataset.themeKey || "").trim();
+      if (!moduleId || !themeKey || !modulesList) {
+        return;
+      }
+      const valueNode = modulesList.querySelector(
+        `[data-theme-value-for="${moduleId}:${themeKey}"]`
+      );
+      if (valueNode instanceof HTMLElement) {
+        valueNode.textContent = formatThemeValue(themeKey, target.value);
       }
     }
 
@@ -447,18 +772,30 @@
         return;
       }
       const button = eventTarget instanceof HTMLElement && typeof eventTarget.closest === "function"
-        ? eventTarget.closest("button[data-action='toggle-enable']")
+        ? eventTarget.closest("button[data-action]")
         : null;
       if (!(button instanceof HTMLButtonElement)) {
         return;
       }
+      const action = String(button.dataset.action || "").trim();
       const moduleId = String(button.dataset.moduleId || "").trim();
-      const field = String(button.dataset.field || "").trim();
-      if (!moduleId || field !== "enabled") {
+      if (!action || !moduleId) {
         return;
       }
-      const currentlyEnabled = button.getAttribute("aria-pressed") === "true";
-      persistModuleChange(moduleId, "enabled", !currentlyEnabled).catch(() => {});
+      if (action === "toggle-enable") {
+        const field = String(button.dataset.field || "").trim();
+        if (field !== "enabled") {
+          return;
+        }
+        const currentlyEnabled = button.getAttribute("aria-pressed") === "true";
+        persistModuleChange(moduleId, "enabled", !currentlyEnabled).catch(() => {});
+        return;
+      }
+      if (action === "toggle-color-drawer") {
+        const nextModuleId = openColorDrawerModuleId === moduleId ? "" : moduleId;
+        setOpenColorDrawer(nextModuleId);
+        return;
+      }
     }
 
     function syncVisibility(targetLanguage) {
@@ -472,6 +809,7 @@
       }
       if (!show) {
         isOpen = false;
+        openColorDrawerModuleId = "";
       }
       const shouldShowModal = show && isOpen;
       if (modalBackdrop) {
@@ -501,6 +839,9 @@
           : null;
       }
       isOpen = open === true;
+      if (!isOpen) {
+        openColorDrawerModuleId = "";
+      }
       syncVisibility(resolveTargetLanguage());
       const currentlyOpen = isOpen === true;
       if (currentlyOpen) {
@@ -554,6 +895,7 @@
     if (modulesList) {
       modulesList.addEventListener("click", handleModulesClick);
       modulesList.addEventListener("change", handleModulesChange);
+      modulesList.addEventListener("input", handleModulesInput);
     }
 
     return {
