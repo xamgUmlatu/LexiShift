@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.helper.rulegen import RulegenConfig, SetInitializationConfig
+from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput, SetInitializationConfig
+from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
-from lexishift_core.srs.sampling import sample_store_items, sampling_result_to_dict
+from lexishift_core.srs.sampling import SrsSamplingResult, sample_store_items, sampling_result_to_dict
 
 
 def run_rulegen_job(
@@ -14,16 +16,16 @@ def run_rulegen_job(
     *,
     config,
     resolve_pair_set_top_n_fn: Callable[..., int],
-    resolve_pair_resources_fn: Callable[..., tuple[object, object, object]],
+    resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
-    ensure_settings_fn: Callable[..., object],
-    ensure_store_fn: Callable[..., object],
-    resolve_stopwords_path_fn: Callable[..., object],
+    ensure_settings_fn: Callable[..., SrsSettings],
+    ensure_store_fn: Callable[..., SrsStore],
+    resolve_stopwords_path_fn: Callable[..., Path | None],
     update_status_fn: Callable[..., None],
-    run_rulegen_for_pair_fn: Callable[..., tuple[object, object]],
+    run_rulegen_for_pair_fn: Callable[..., tuple[SrsStore, RulegenOutput]],
     write_rulegen_outputs_fn: Callable[..., None],
-) -> dict:
+) -> dict[str, object]:
     capability = resolve_pair_capability(config.pair)
     pair = capability.pair
     effective_set_top_n = resolve_pair_set_top_n_fn(
@@ -56,8 +58,8 @@ def run_rulegen_job(
     settings = ensure_settings_fn(paths, persist_missing=config.persist_store)
     store = ensure_store_fn(paths, profile_id=profile_id, persist_missing=config.persist_store)
     diagnostics: dict[str, object] | None = None
-    sampling_result = None
-    set_init_config = None
+    sampling_result: SrsSamplingResult | None = None
+    set_init_config: SetInitializationConfig | None = None
     stopwords_path = resolve_stopwords_path_fn(paths, pair=pair)
     if resolved_set_source_db and resolved_set_source_db.exists():
         set_init_config = SetInitializationConfig(
@@ -172,4 +174,3 @@ def run_rulegen_job(
     if sampling_result is not None:
         response["sampling"] = sampling_result_to_dict(sampling_result)
     return response
-

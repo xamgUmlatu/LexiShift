@@ -1,11 +1,17 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.helper.rulegen import RulegenConfig, SetInitializationConfig
-from lexishift_core.srs import SrsStore, save_srs_store
+from lexishift_core.helper.rulegen import (
+    RulegenConfig,
+    RulegenOutput,
+    SetInitializationConfig,
+    SetInitializationReport,
+)
+from lexishift_core.srs import SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.set_policy import resolve_set_sizing_policy
 from lexishift_core.srs.signal_queue import summarize_signal_events
@@ -18,19 +24,22 @@ def initialize_srs_set(
     config,
     resolve_pair_set_top_n_fn: Callable[..., int],
     resolve_pair_initial_active_count_fn: Callable[..., int],
-    resolve_pair_resources_fn: Callable[..., tuple[object, object, object]],
+    resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
-    ensure_settings_fn: Callable[..., object],
-    ensure_store_fn: Callable[..., object],
+    ensure_settings_fn: Callable[..., SrsSettings],
+    ensure_store_fn: Callable[..., SrsStore],
     count_items_for_pair_fn: Callable[..., int],
     build_set_plan_payload_fn: Callable[..., dict[str, object]],
-    resolve_stopwords_path_fn: Callable[..., object],
-    initialize_store_from_frequency_list_with_report_fn: Callable[..., tuple[object, object]],
-    run_rulegen_for_pair_fn: Callable[..., tuple[object, object]],
+    resolve_stopwords_path_fn: Callable[..., Path | None],
+    initialize_store_from_frequency_list_with_report_fn: Callable[
+        ...,
+        tuple[SrsStore, SetInitializationReport],
+    ],
+    run_rulegen_for_pair_fn: Callable[..., tuple[SrsStore, RulegenOutput]],
     write_rulegen_outputs_fn: Callable[..., None],
     update_status_fn: Callable[..., None],
-) -> dict:
+) -> dict[str, object]:
     raw_pair = str(config.pair or "").strip()
     if not raw_pair:
         raise ValueError("Missing pair.")
@@ -212,4 +221,3 @@ def initialize_srs_set(
         "plan": plan_payload,
         "signal_summary": signal_summary,
     }
-

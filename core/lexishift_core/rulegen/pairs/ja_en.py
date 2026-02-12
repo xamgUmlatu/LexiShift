@@ -14,6 +14,7 @@ from lexishift_core.frequency import (
     load_frequency_lexicon,
 )
 from lexishift_core.rulegen.generation import (
+    CandidateFilter,
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
@@ -167,7 +168,7 @@ class JmdictCandidateSource:
             total = len(sources)
             script_forms = self._script_forms_by_target.get(target)
             for index, source in enumerate(sources):
-                metadata = {
+                metadata: dict[str, object] = {
                     "gloss_index": index,
                     "gloss_total": total,
                 }
@@ -189,8 +190,11 @@ class JmdictCandidateSource:
                 )
 
 
-def _build_filters(config: JaEnRulegenConfig, mapping: Mapping[str, Sequence[str]]) -> list:
-    filters = [NonEmptyFilter()]
+def _build_filters(
+    config: JaEnRulegenConfig,
+    mapping: Mapping[str, Sequence[str]],
+) -> list[CandidateFilter]:
+    filters: list[CandidateFilter] = [NonEmptyFilter()]
     if not config.allow_multiword_glosses:
         filters.append(SingleWordFilter(allow_hyphen=config.allow_hyphen))
     if config.enable_length_filter:

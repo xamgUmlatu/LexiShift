@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Callable
 
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.srs import save_srs_store
+from lexishift_core.srs import SrsStore, save_srs_store
 from lexishift_core.srs.signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
@@ -23,7 +23,7 @@ def apply_feedback(
     profile_id: str = "default",
     source_type: str = SOURCE_EXTENSION,
     resolve_profile_id_fn: Callable[..., str],
-    ensure_store_fn: Callable[..., object],
+    ensure_store_fn: Callable[..., SrsStore],
 ) -> None:
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
     store = ensure_store_fn(paths, profile_id=normalized_profile_id)
@@ -60,7 +60,7 @@ def apply_exposure(
     profile_id: str = "default",
     source_type: str = SOURCE_EXTENSION,
     resolve_profile_id_fn: Callable[..., str],
-    ensure_store_fn: Callable[..., object],
+    ensure_store_fn: Callable[..., SrsStore],
 ) -> None:
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
     store = ensure_store_fn(paths, profile_id=normalized_profile_id)
@@ -85,4 +85,3 @@ def apply_exposure(
                 source_type=normalized_source_type,
             ),
         )
-

@@ -1,17 +1,19 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.helper.rulegen import RulegenConfig
+from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
+from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
     admission_refresh_result_to_dict,
     apply_admission_refresh,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
-from lexishift_core.srs.seed import SeedSelectionConfig, seed_to_selector_candidates
+from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
 from lexishift_core.srs.signal_queue import load_signal_events
 
 
@@ -21,18 +23,18 @@ def refresh_srs_set(
     config,
     resolve_pair_set_top_n_fn: Callable[..., int],
     resolve_pair_feedback_window_size_fn: Callable[..., int],
-    resolve_pair_resources_fn: Callable[..., tuple[object, object, object]],
+    resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
-    ensure_settings_fn: Callable[..., object],
-    ensure_store_fn: Callable[..., object],
+    ensure_settings_fn: Callable[..., SrsSettings],
+    ensure_store_fn: Callable[..., SrsStore],
     count_items_for_pair_fn: Callable[..., int],
-    resolve_stopwords_path_fn: Callable[..., object],
-    build_seed_candidates_fn: Callable[..., object],
-    run_rulegen_for_pair_fn: Callable[..., tuple[object, object]],
+    resolve_stopwords_path_fn: Callable[..., Path | None],
+    build_seed_candidates_fn: Callable[..., list[SeedWord]],
+    run_rulegen_for_pair_fn: Callable[..., tuple[SrsStore, RulegenOutput]],
     write_rulegen_outputs_fn: Callable[..., None],
     update_status_fn: Callable[..., None],
-) -> dict:
+) -> dict[str, object]:
     raw_pair = str(config.pair or "").strip()
     if not raw_pair:
         raise ValueError("Missing pair.")
@@ -166,4 +168,3 @@ def refresh_srs_set(
         "persisted": bool(config.persist_store),
         "trigger": str(config.trigger or "manual"),
     }
-

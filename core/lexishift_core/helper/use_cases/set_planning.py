@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
@@ -47,12 +48,20 @@ def build_set_plan_payload(
     )
     payload = plan_to_dict(plan)
     if policy_notes:
-        merged_notes = list(payload.get("notes", []))
+        raw_notes = payload.get("notes", ())
+        merged_notes: list[str] = (
+            [str(note) for note in raw_notes if isinstance(note, str)]
+            if isinstance(raw_notes, (list, tuple))
+            else []
+        )
         for note in policy_notes:
             if note and note not in merged_notes:
                 merged_notes.append(note)
         payload["notes"] = merged_notes
-    diagnostics = dict(payload.get("diagnostics", {}))
+    raw_diagnostics = payload.get("diagnostics", {})
+    diagnostics: dict[str, object] = (
+        dict(raw_diagnostics) if isinstance(raw_diagnostics, Mapping) else {}
+    )
     diagnostics["bootstrap_top_n"] = max(1, int(set_top_n))
     diagnostics["initial_active_count"] = max(1, int(initial_active_count))
     diagnostics["max_active_items_hint"] = max(0, int(max_active_items_hint))
@@ -68,8 +77,8 @@ def plan_srs_set(
     ensure_store_fn: Callable[..., SrsStore],
     resolve_pair_set_top_n_fn: Callable[..., int],
     resolve_pair_initial_active_count_fn: Callable[..., int],
-    resolve_stopwords_path_fn: Callable[..., object],
-) -> dict:
+    resolve_stopwords_path_fn: Callable[..., Path | None],
+) -> dict[str, object]:
     raw_pair = str(config.pair or "").strip()
     if not raw_pair:
         raise ValueError("Missing pair.")
@@ -132,4 +141,3 @@ def plan_srs_set(
         "signal_summary": signal_summary,
         "plan": plan_payload,
     }
-

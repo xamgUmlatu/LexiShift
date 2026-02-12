@@ -6,6 +6,7 @@ from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.resources.dict_loaders import load_freedict_tei_glosses_ordered
 from lexishift_core.rulegen.generation import (
+    CandidateFilter,
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
@@ -144,8 +145,11 @@ class FreedictCandidateSource:
                 )
 
 
-def _build_filters(config: EnDeRulegenConfig, mapping: Mapping[str, Sequence[str]]) -> list:
-    filters = [NonEmptyFilter()]
+def _build_filters(
+    config: EnDeRulegenConfig,
+    mapping: Mapping[str, Sequence[str]],
+) -> list[CandidateFilter]:
+    filters: list[CandidateFilter] = [NonEmptyFilter()]
     if not config.allow_multiword_glosses:
         filters.append(SingleWordFilter(allow_hyphen=config.allow_hyphen))
     if config.enable_length_filter:
