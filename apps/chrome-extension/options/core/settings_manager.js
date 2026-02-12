@@ -26,6 +26,7 @@ class SettingsManager {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const installers = [
     ["optionsSettingsInstallBaseMethods", root.optionsSettingsInstallBaseMethods],
+    ["optionsSettingsInstallModulePrefsMethods", root.optionsSettingsInstallModulePrefsMethods],
     ["optionsSettingsInstallLanguageMethods", root.optionsSettingsInstallLanguageMethods],
     ["optionsSettingsInstallUiPrefsMethods", root.optionsSettingsInstallUiPrefsMethods],
     ["optionsSettingsInstallSignalsMethods", root.optionsSettingsInstallSignalsMethods],

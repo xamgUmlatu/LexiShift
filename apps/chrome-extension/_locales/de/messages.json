@@ -437,11 +437,38 @@
   "label_target_language": {
     "message": "Zielsprache"
   },
-  "title_language_specific_preferences": {
-    "message": "Sprachspezifische Einstellungen"
+  "button_modules": {
+    "message": "Module"
   },
-  "hint_language_specific_preferences_ja": {
-    "message": "Lege fest, wie japanische Ersatzwörter im SRS angezeigt werden."
+  "module_ja_script_forms": {
+    "message": "Japanische Schriftformen"
+  },
+  "module_ja_script_forms_desc": {
+    "message": "Zeigt alternative japanische Schriften im Popup an."
+  },
+  "module_ja_primary_display_script": {
+    "message": "Primäre Anzeigeschrift"
+  },
+  "module_feedback_history": {
+    "message": "Feedback-Verlauf"
+  },
+  "module_feedback_history_desc": {
+    "message": "Speichert und zeigt deinen SRS-Bewertungsverlauf für dieses Wort."
+  },
+  "module_encounter_history": {
+    "message": "Begegnungsverlauf"
+  },
+  "module_encounter_history_desc": {
+    "message": "Erfasst Begegnungsanzahl und den letzten Satzauszug."
+  },
+  "module_toggle_on": {
+    "message": "An"
+  },
+  "module_toggle_off": {
+    "message": "Aus"
+  },
+  "hint_modules_unavailable": {
+    "message": "Für diese Sprache sind keine Module verfügbar."
   },
   "label_ja_primary_display_script": {
     "message": "Primäre Anzeigeschrift"

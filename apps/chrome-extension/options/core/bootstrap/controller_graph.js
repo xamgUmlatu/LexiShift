@@ -39,7 +39,6 @@
       settingsManager,
       sourceLanguageInput: dom.sourceLanguageInput,
       targetLanguageInput: dom.targetLanguageInput,
-      jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
       updateTargetLanguagePrefsModalVisibility: () => {}
     });
 
@@ -56,17 +55,24 @@
 
     const targetLanguageModalController = requireControllerFactory("optionsTargetLanguageModal")({
       t,
+      settingsManager,
       resolveTargetLanguage: languagePrefsAdapter.resolveCurrentTargetLanguage,
+      resolveSelectedProfileId: (items) => {
+        if (settingsManager && typeof settingsManager.getSelectedSrsProfileId === "function") {
+          return settingsManager.getSelectedSrsProfileId(items);
+        }
+        return "default";
+      },
       optionsMainContent: dom.optionsMainContent,
       triggerButton: dom.targetLanguageGearButton,
       modalBackdrop: dom.targetLanguagePrefsModalBackdrop,
-      modalRoot: dom.targetLanguagePrefsModal
+      modalRoot: dom.targetLanguagePrefsModal,
+      modulesList: dom.targetLanguageModulesList
     });
     languagePrefsAdapter = languagePrefsAdapterFactory({
       settingsManager,
       sourceLanguageInput: dom.sourceLanguageInput,
       targetLanguageInput: dom.targetLanguageInput,
-      jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
       updateTargetLanguagePrefsModalVisibility: (targetLanguage) => {
         targetLanguageModalController.syncVisibility(targetLanguage);
       }
@@ -105,6 +111,11 @@
         const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
         languagePrefsAdapter.applyLanguagePrefsToInputs(languagePrefs);
         await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId });
+        await targetLanguageModalController.refreshModulePrefs({
+          items,
+          profileId,
+          targetLanguage: languagePrefs.targetLanguage
+        });
       },
       cacheTtlMs: 10_000
     });
@@ -165,8 +176,6 @@
       setStatus: uiBridge.setStatus,
       resolvePair: languagePrefsAdapter.resolvePairFromInputs,
       applyLanguagePrefsToInputs: languagePrefsAdapter.applyLanguagePrefsToInputs,
-      resolveTargetScriptPrefs: languagePrefsAdapter.resolveTargetScriptPrefs,
-      normalizePrimaryDisplayScript: languagePrefsAdapter.normalizePrimaryDisplayScript,
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
       clearProfileCache: () => srsProfileSelectorController.clearCache(),
       syncProfileBackgroundForPrefs: (uiPrefs) => profileBackgroundController.syncForLoadedPrefs(uiPrefs),
@@ -181,7 +190,6 @@
       elements: {
         sourceLanguageInput: dom.sourceLanguageInput,
         targetLanguageInput: dom.targetLanguageInput,
-        jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
         srsEnabledInput: dom.srsEnabledInput,
         srsMaxActiveInput: dom.srsMaxActiveInput,
         srsBootstrapTopNInput: dom.srsBootstrapTopNInput,
@@ -323,7 +331,7 @@
         sourceLanguageInput: dom.sourceLanguageInput,
         targetLanguageInput: dom.targetLanguageInput,
         targetLanguageGearButton: dom.targetLanguageGearButton,
-        jaPrimaryDisplayScriptInput: dom.jaPrimaryDisplayScriptInput,
+        targetLanguageModulesList: dom.targetLanguageModulesList,
         targetLanguagePrefsModalBackdrop: dom.targetLanguagePrefsModalBackdrop,
         targetLanguagePrefsModalOkButton: dom.targetLanguagePrefsModalOkButton,
         openDesktopAppButton: dom.openDesktopAppButton,

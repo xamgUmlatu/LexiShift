@@ -31,6 +31,8 @@
     && typeof root.contentApplySettingsPipeline.createPipeline === "function"
     && root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
+    && root.popupModulesRegistry
+    && root.popupModuleHistoryStore
   );
   if (!requiredModulesLoaded) {
     console.warn("[LexiShift] Content modules not loaded.");
@@ -46,6 +48,7 @@
     clearReplacements,
     attachClickListener,
     attachFeedbackListener,
+    setPopupModulePrefs,
     setDebugEnabled,
     setFeedbackSoundEnabled
   } = root.ui;
@@ -59,6 +62,8 @@
   const helperTransport = root.helperTransportExtension;
   const helperCache = root.helperCache;
   const runtimeDiagnostics = root.srsRuntimeDiagnostics;
+  const popupModuleHistoryStore = root.popupModuleHistoryStore;
+  const popupModulesRegistry = root.popupModulesRegistry;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
 
@@ -78,6 +83,19 @@
     return String(origin || "").toLowerCase() === RULE_ORIGIN_SRS
       ? RULE_ORIGIN_SRS
       : RULE_ORIGIN_RULESET;
+  }
+
+  function isPopupModuleEnabled(moduleId, settings, targetLanguage) {
+    const runtimeSettings = settings && typeof settings === "object" ? settings : currentSettings;
+    const language = String(targetLanguage || runtimeSettings.targetLanguage || "").trim().toLowerCase();
+    if (!popupModulesRegistry || typeof popupModulesRegistry.isEnabledForTarget !== "function") {
+      return false;
+    }
+    return popupModulesRegistry.isEnabledForTarget(
+      runtimeSettings.popupModulePrefs,
+      moduleId,
+      language
+    );
   }
 
   function getRuleOrigin(rule) {
@@ -194,6 +212,9 @@
     collectTextNodes,
     srsMetrics,
     lemmatizer,
+    popupModuleHistoryStore,
+    isPopupModuleEnabled,
+    normalizeProfileId,
     log
   });
   const helperRulesRuntime = helperRulesRuntimeFactory({
@@ -225,6 +246,8 @@
   const feedbackRuntime = feedbackRuntimeFactory({
     srsFeedback,
     lemmatizer,
+    popupModuleHistoryStore,
+    isPopupModuleEnabled,
     helperFeedbackSyncModule,
     getHelperClient: () => helperClient,
     getCurrentSettings: () => currentSettings,
@@ -238,6 +261,7 @@
   const applyRuntimeActions = applyRuntimeActionsFactory({
     ensureStyle,
     setFeedbackSoundEnabled,
+    setPopupModulePrefs,
     attachClickListener,
     attachFeedbackListener,
     applyHighlightToDom,
@@ -286,6 +310,7 @@
     log,
     setDebugEnabled,
     setFeedbackSoundEnabled,
+    setPopupModulePrefs,
     ensureStyle,
     applyHighlightToDom,
     attachFeedbackListener,

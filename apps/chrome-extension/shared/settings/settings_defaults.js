@@ -18,6 +18,9 @@
     sourceLanguage: "en",
     targetLanguage: "en",
     targetDisplayScript: "kanji",
+    popupModulePrefs: {
+      byId: {}
+    },
     srsPairAuto: true,
     srsSelectedProfileId: "default",
     srsProfileId: "default",

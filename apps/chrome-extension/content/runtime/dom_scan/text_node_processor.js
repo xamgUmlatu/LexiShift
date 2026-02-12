@@ -36,6 +36,16 @@
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
+    const popupModuleHistoryStore = opts.popupModuleHistoryStore
+      && typeof opts.popupModuleHistoryStore === "object"
+      ? opts.popupModuleHistoryStore
+      : null;
+    const isPopupModuleEnabled = typeof opts.isPopupModuleEnabled === "function"
+      ? opts.isPopupModuleEnabled
+      : (_moduleId, _settings, _targetLanguage) => false;
+    const normalizeProfileId = typeof opts.normalizeProfileId === "function"
+      ? opts.normalizeProfileId
+      : (value) => String(value || "").trim() || "default";
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const nodeFilters = opts.nodeFilters && typeof opts.nodeFilters === "object"
       ? opts.nodeFilters
@@ -55,6 +65,18 @@
     const updatePageBudgetUsage = typeof opts.updatePageBudgetUsage === "function"
       ? opts.updatePageBudgetUsage
       : ((_state, _replacements) => {});
+
+    function targetLanguageFromPair(pair) {
+      const normalized = String(pair || "").trim().toLowerCase();
+      if (!normalized) {
+        return "";
+      }
+      const parts = normalized.split("-", 2);
+      if (parts.length < 2) {
+        return "";
+      }
+      return String(parts[1] || "").trim().toLowerCase();
+    }
 
     function processTextNode(node, counter) {
       if (!node || !node.nodeValue) {
@@ -179,6 +201,53 @@
                 log(`Recorded ${saved.length} exposure(s).`);
               }
             });
+          }
+          if (popupModuleHistoryStore
+            && typeof popupModuleHistoryStore.recordEncounterBatch === "function"
+            && result.details
+            && result.details.length
+          ) {
+            const profileId = normalizeProfileId(currentSettings.srsProfileId);
+            const encounters = [];
+            for (const detail of result.details) {
+              const origin = normalizeRuleOrigin(detail.origin);
+              if (origin !== "srs") {
+                continue;
+              }
+              const pair = String(detail.language_pair || currentSettings.srsPair || "").trim().toLowerCase();
+              if (!pair) {
+                continue;
+              }
+              const targetLanguage = targetLanguageFromPair(pair);
+              if (!isPopupModuleEnabled("encounter-history", currentSettings, targetLanguage)) {
+                continue;
+              }
+              const replacement = String(detail.replacement || "").trim();
+              if (!replacement) {
+                continue;
+              }
+              const lemma = lemmatizer && typeof lemmatizer.lemmatize === "function"
+                ? String(lemmatizer.lemmatize(replacement, pair) || replacement).trim().toLowerCase()
+                : replacement.toLowerCase();
+              if (!lemma) {
+                continue;
+              }
+              encounters.push({
+                profile_id: profileId,
+                language_pair: pair,
+                lemma,
+                replacement,
+                sentence_excerpt: String(detail.context_excerpt || ""),
+                ts: new Date().toISOString()
+              });
+            }
+            if (encounters.length) {
+              popupModuleHistoryStore.recordEncounterBatch(encounters).then((saved) => {
+                if (currentSettings.debugEnabled && saved && saved.length) {
+                  log(`Recorded ${saved.length} encounter(s).`);
+                }
+              });
+            }
           }
           if (counter) {
             counter.replacements += result.replacements;

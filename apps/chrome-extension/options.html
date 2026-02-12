@@ -159,11 +159,12 @@
               <button
                 id="target-language-gear"
                 type="button"
-                class="icon-button"
-                aria-label="Language-specific preferences"
-                title="Language-specific preferences"
+                class="target-language-modules-button"
+                data-i18n="button_modules"
+                aria-label="Modules"
+                title="Modules"
               >
-                ⚙
+                Modules
               </button>
             </div>
           </div>
@@ -339,28 +340,10 @@
         class="language-pref-modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="target-language-prefs-modal-title"
-        aria-describedby="target-language-prefs-modal-description"
+        aria-label="Modules"
         tabindex="-1"
       >
-        <h3 id="target-language-prefs-modal-title" data-i18n="title_language_specific_preferences">
-          Language-specific preferences
-        </h3>
-        <p
-          id="target-language-prefs-modal-description"
-          class="hint language-pref-modal-description"
-          data-i18n="hint_language_specific_preferences_ja"
-        >
-          Configure how Japanese replacement words are shown in SRS.
-        </p>
-        <div class="field-row">
-          <label for="ja-primary-display-script" data-i18n="label_ja_primary_display_script">Primary display script</label>
-          <select id="ja-primary-display-script">
-            <option value="kanji" data-i18n="option_ja_script_kanji">Kanji</option>
-            <option value="kana" data-i18n="option_ja_script_kana">Kana</option>
-            <option value="romaji" data-i18n="option_ja_script_romaji">Romaji</option>
-          </select>
-        </div>
+        <div id="target-language-modules-list" class="language-modules-list"></div>
         <div class="actions language-pref-modal-actions">
           <button id="target-language-prefs-modal-ok" type="button" data-i18n="button_ok">OK</button>
         </div>
@@ -368,6 +351,7 @@
     </div>
     <script src="shared/language/language_prefs.js"></script>
     <script src="shared/settings/settings_defaults.js"></script>
+    <script src="shared/srs/popup_modules_registry.js"></script>
     <script src="shared/srs/srs_runtime_diagnostics.js"></script>
     <script src="shared/srs/srs_selector.js"></script>
     <script src="shared/helper/helper_transport_extension.js"></script>
@@ -377,6 +361,7 @@
     <script src="options/vendor/lzstring.js"></script>
     <script src="options/vendor/cjk_codec.js"></script>
     <script src="options/core/settings/base_methods.js"></script>
+    <script src="options/core/settings/module_prefs_methods.js"></script>
     <script src="options/core/settings/language_methods.js"></script>
     <script src="options/core/settings/ui_prefs_methods.js"></script>
     <script src="options/core/settings/signals_methods.js"></script>

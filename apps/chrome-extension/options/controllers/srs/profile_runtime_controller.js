@@ -13,12 +13,6 @@
     const applyLanguagePrefsToInputs = typeof opts.applyLanguagePrefsToInputs === "function"
       ? opts.applyLanguagePrefsToInputs
       : (() => resolvePair());
-    const resolveTargetScriptPrefs = typeof opts.resolveTargetScriptPrefs === "function"
-      ? opts.resolveTargetScriptPrefs
-      : (() => ({ ja: { primaryDisplayScript: "kanji" } }));
-    const normalizePrimaryDisplayScript = typeof opts.normalizePrimaryDisplayScript === "function"
-      ? opts.normalizePrimaryDisplayScript
-      : (() => "kanji");
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
       ? opts.syncSelectedProfile
       : ((items) => Promise.resolve({ items, profileId: "default" }));
@@ -45,7 +39,6 @@
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
     const sourceLanguageInput = elements.sourceLanguageInput || null;
     const targetLanguageInput = elements.targetLanguageInput || null;
-    const jaPrimaryDisplayScriptInput = elements.jaPrimaryDisplayScriptInput || null;
     const srsEnabledInput = elements.srsEnabledInput || null;
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
@@ -200,19 +193,11 @@
       try {
         const items = await settingsManager.load();
         const profileId = settingsManager.getSelectedSrsProfileId(items);
-        const currentPrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
-        const targetScriptPrefs = resolveTargetScriptPrefs(currentPrefs);
-        targetScriptPrefs.ja.primaryDisplayScript = normalizePrimaryDisplayScript(
-          jaPrimaryDisplayScriptInput
-            ? jaPrimaryDisplayScriptInput.value
-            : targetScriptPrefs.ja.primaryDisplayScript
-        );
         await settingsManager.updateProfileLanguagePrefs({
           sourceLanguage,
           targetLanguage,
           srsPairAuto: true,
-          srsPair: pairKey,
-          targetScriptPrefs
+          srsPair: pairKey
         }, {
           profileId
         });

@@ -9,6 +9,13 @@
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
+    const popupModuleHistoryStore = opts.popupModuleHistoryStore
+      && typeof opts.popupModuleHistoryStore === "object"
+      ? opts.popupModuleHistoryStore
+      : null;
+    const isPopupModuleEnabled = typeof opts.isPopupModuleEnabled === "function"
+      ? opts.isPopupModuleEnabled
+      : (_moduleId, _settings, _targetLanguage) => false;
     const helperFeedbackSyncModule = opts.helperFeedbackSyncModule && typeof opts.helperFeedbackSyncModule === "object"
       ? opts.helperFeedbackSyncModule
       : null;
@@ -32,6 +39,18 @@
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
 
     let feedbackSync = null;
+
+    function targetLanguageFromPair(pair) {
+      const normalized = String(pair || "").trim().toLowerCase();
+      if (!normalized) {
+        return "";
+      }
+      const parts = normalized.split("-", 2);
+      if (parts.length < 2) {
+        return "";
+      }
+      return String(parts[1] || "").trim().toLowerCase();
+    }
 
     function ensureSync() {
       if (feedbackSync) {
@@ -89,6 +108,15 @@
             url: window.location ? window.location.href : ""
           };
       entry.profile_id = normalizeProfileId(settings.srsProfileId);
+      const pair = String(entry.language_pair || settings.srsPair || "").trim().toLowerCase();
+      const rawLemma = String(entry.lemma || entry.replacement || "").trim();
+      const lemma = rawLemma && lemmatizer && typeof lemmatizer.lemmatize === "function"
+        ? String(lemmatizer.lemmatize(rawLemma, pair) || rawLemma).trim().toLowerCase()
+        : rawLemma.toLowerCase();
+      const rating = String(entry.rating || payload.rating || "").trim().toLowerCase();
+      const targetLanguage = targetLanguageFromPair(pair)
+        || String(settings.targetLanguage || "").trim().toLowerCase();
+
       if (srsFeedback && typeof srsFeedback.recordFeedback === "function") {
         srsFeedback.recordFeedback(entry).then((saved) => {
           const latestSettings = getCurrentSettings();
@@ -97,14 +125,29 @@
           }
         });
       }
+      if (popupModuleHistoryStore
+        && typeof popupModuleHistoryStore.recordFeedback === "function"
+        && isPopupModuleEnabled("feedback-history", settings, targetLanguage)
+        && pair
+        && lemma
+        && rating
+      ) {
+        popupModuleHistoryStore.recordFeedback({
+          profile_id: entry.profile_id,
+          language_pair: pair,
+          lemma,
+          replacement: String(entry.replacement || ""),
+          rating,
+          ts: entry.ts || new Date().toISOString()
+        }).catch((error) => {
+          const latestSettings = getCurrentSettings();
+          if (latestSettings && latestSettings.debugEnabled) {
+            log("Failed to record feedback history.", error);
+          }
+        });
+      }
       const sync = ensureSync();
       if (sync && typeof sync.enqueue === "function") {
-        const pair = String(entry.language_pair || settings.srsPair || "").trim();
-        const rawLemma = String(entry.lemma || entry.replacement || "").trim();
-        const lemma = rawLemma && lemmatizer && typeof lemmatizer.lemmatize === "function"
-          ? String(lemmatizer.lemmatize(rawLemma, pair) || rawLemma).trim()
-          : rawLemma;
-        const rating = String(entry.rating || payload.rating || "").trim().toLowerCase();
         if (pair && pair !== "all" && lemma && rating) {
           sync.enqueue({
             pair,

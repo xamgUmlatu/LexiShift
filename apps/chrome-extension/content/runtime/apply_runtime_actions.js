@@ -7,6 +7,9 @@
     const setFeedbackSoundEnabled = typeof opts.setFeedbackSoundEnabled === "function"
       ? opts.setFeedbackSoundEnabled
       : null;
+    const setPopupModulePrefs = typeof opts.setPopupModulePrefs === "function"
+      ? opts.setPopupModulePrefs
+      : null;
     const attachClickListener = typeof opts.attachClickListener === "function"
       ? opts.attachClickListener
       : null;
@@ -56,6 +59,13 @@
       }
       if (setFeedbackSoundEnabled) {
         setFeedbackSoundEnabled(currentSettings.srsSoundEnabled);
+      }
+      if (setPopupModulePrefs) {
+        setPopupModulePrefs(currentSettings.popupModulePrefs, {
+          profileId: currentSettings.srsProfileId,
+          targetLanguage: currentSettings.targetLanguage,
+          languagePair: currentSettings.srsPair
+        });
       }
       if (attachClickListener) {
         attachClickListener();

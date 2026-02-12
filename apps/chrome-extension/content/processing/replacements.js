@@ -3,6 +3,7 @@
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
   const RULE_ORIGIN_SRS = "srs";
+  const MAX_CONTEXT_WORDS = 15;
 
   function normalizeDisplayScript(value) {
     const normalized = String(value || "").trim().toLowerCase();
@@ -193,6 +194,43 @@
     return applyPageBudget(filtered, budget);
   }
 
+  function normalizeWhitespace(text) {
+    return String(text || "").replace(/\s+/g, " ").trim();
+  }
+
+  function buildContextExcerpt(text, focusText) {
+    const normalizedText = normalizeWhitespace(text);
+    if (!normalizedText) {
+      return "";
+    }
+    const words = normalizedText.split(" ").filter(Boolean);
+    if (!words.length) {
+      return "";
+    }
+    let focusWordIndex = 0;
+    const focus = normalizeWhitespace(focusText);
+    if (focus) {
+      const loweredText = normalizedText.toLowerCase();
+      const loweredFocus = focus.toLowerCase();
+      const charIndex = loweredText.indexOf(loweredFocus);
+      if (charIndex >= 0) {
+        const before = loweredText.slice(0, charIndex).trim();
+        focusWordIndex = before ? before.split(/\s+/).length : 0;
+      }
+    }
+    const halfWindow = Math.floor(MAX_CONTEXT_WORDS / 2);
+    let start = Math.max(0, focusWordIndex - halfWindow);
+    let end = Math.min(words.length, start + MAX_CONTEXT_WORDS);
+    if (end - start < MAX_CONTEXT_WORDS) {
+      start = Math.max(0, end - MAX_CONTEXT_WORDS);
+    }
+    const excerptWords = words.slice(start, end);
+    if (!excerptWords.length) {
+      return "";
+    }
+    return `... ${excerptWords.join(" ")} ...`;
+  }
+
   function buildReplacementFragment(text, trie, settings, onTextNode, originResolver, budget) {
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
@@ -257,6 +295,7 @@
           original: originalText,
           replacement: displayPayload.canonicalReplacement,
           display_replacement: displayPayload.displayReplacement,
+          context_excerpt: buildContextExcerpt(text, originalText),
           display_script: displayPayload.displayScript || "",
           origin: origin || "ruleset",
           source: match.rule.source_phrase || "",

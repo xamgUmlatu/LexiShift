@@ -437,11 +437,38 @@
   "label_target_language": {
     "message": "目标语言"
   },
-  "title_language_specific_preferences": {
-    "message": "语言专属偏好"
+  "button_modules": {
+    "message": "模块"
   },
-  "hint_language_specific_preferences_ja": {
-    "message": "配置在 SRS 中如何显示日语替换词。"
+  "module_ja_script_forms": {
+    "message": "日语脚本形式"
+  },
+  "module_ja_script_forms_desc": {
+    "message": "在弹窗中显示日语的其他脚本形式。"
+  },
+  "module_ja_primary_display_script": {
+    "message": "主显示脚本"
+  },
+  "module_feedback_history": {
+    "message": "反馈历史"
+  },
+  "module_feedback_history_desc": {
+    "message": "保存并显示该词的 SRS 评分历史。"
+  },
+  "module_encounter_history": {
+    "message": "遇见历史"
+  },
+  "module_encounter_history_desc": {
+    "message": "记录遇见次数与最近一次句子摘录。"
+  },
+  "module_toggle_on": {
+    "message": "开"
+  },
+  "module_toggle_off": {
+    "message": "关"
+  },
+  "hint_modules_unavailable": {
+    "message": "此语言暂无可用模块。"
   },
   "label_ja_primary_display_script": {
     "message": "主要显示文字"

@@ -311,6 +311,14 @@ The following are candidate popup modules for a clicked target learning word. Th
 18. `mini-recall-test`
 - One-tap micro quiz (cloze or multiple choice).
 
+19. `verb-conjugations`
+- Conjugation table/summary for the clicked target word.
+- Language-scoped (enabled only where conjugation data is available).
+
+20. `grammatical-gender`
+- Shows masculine/feminine (and additional grammatical gender forms where relevant).
+- Language-scoped (primarily useful for languages with productive gender systems).
+
 Suggested first optional rollout:
 - `quick-definition`
 - `example-sentence`

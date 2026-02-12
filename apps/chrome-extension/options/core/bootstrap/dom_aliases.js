@@ -22,7 +22,7 @@
       targetLanguagePrefsModalBackdrop: source.targetLanguagePrefsModalBackdrop || null,
       targetLanguagePrefsModal: source.targetLanguagePrefsModal || null,
       targetLanguagePrefsModalOkButton: source.targetLanguagePrefsModalOk || null,
-      jaPrimaryDisplayScriptInput: source.jaPrimaryDisplayScript || null,
+      targetLanguageModulesList: source.targetLanguageModulesList || null,
       srsProfileIdInput: source.srsProfileId || null,
       srsProfileRefreshButton: source.srsProfileRefresh || null,
       srsProfileStatusOutput: source.srsProfileStatus || null,

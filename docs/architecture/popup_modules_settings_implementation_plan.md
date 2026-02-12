@@ -149,6 +149,10 @@ Core module entries to seed:
 - `ja-script-forms` (ja target only)
 - `ja-primary-display-script` (ja target only, select)
 
+Planned language-scoped module examples (future):
+- `verb-conjugations` (language targets vary by available conjugation datasets/tools)
+- `grammatical-gender` (primarily for languages with grammatical gender usage)
+
 ## 4) Data Flow Design
 
 ### 4.1 Load flow (options page)

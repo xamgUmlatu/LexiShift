@@ -21,7 +21,7 @@ class UIManager {
       "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
       "srs-enabled", "source-language", "target-language", "srs-max-active",
       "target-language-gear", "target-language-prefs-modal-backdrop",
-      "target-language-prefs-modal", "target-language-prefs-modal-ok", "ja-primary-display-script",
+      "target-language-prefs-modal", "target-language-prefs-modal-ok", "target-language-modules-list",
       "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
       "profile-bg-backdrop-color",
       "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",

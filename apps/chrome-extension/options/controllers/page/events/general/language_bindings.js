@@ -39,7 +39,6 @@
     const sourceLanguageInput = elements.sourceLanguageInput || null;
     const targetLanguageInput = elements.targetLanguageInput || null;
     const targetLanguageGearButton = elements.targetLanguageGearButton || null;
-    const jaPrimaryDisplayScriptInput = elements.jaPrimaryDisplayScriptInput || null;
     const targetLanguagePrefsModalBackdrop = elements.targetLanguagePrefsModalBackdrop || null;
     const targetLanguagePrefsModalOkButton = elements.targetLanguagePrefsModalOkButton || null;
 
@@ -59,25 +58,33 @@
     applyTargetLanguagePrefsLocalization();
 
     if (sourceLanguageInput) {
-      sourceLanguageInput.addEventListener("change", saveLanguageSettings);
+      sourceLanguageInput.addEventListener("change", () => {
+        Promise.resolve(saveLanguageSettings()).then(() => {
+          if (targetLanguageModalController && typeof targetLanguageModalController.refreshModulePrefs === "function") {
+            targetLanguageModalController.refreshModulePrefs();
+          }
+        });
+      });
     }
     if (targetLanguageInput) {
       targetLanguageInput.addEventListener("change", () => {
-        if (String(targetLanguageInput.value || "").trim().toLowerCase() !== "ja") {
+        const nextTargetLanguage = targetLanguageInput.value || "";
+        if (targetLanguageModalController
+          && typeof targetLanguageModalController.supportsTargetLanguage === "function"
+          && !targetLanguageModalController.supportsTargetLanguage(nextTargetLanguage)) {
           setTargetLanguagePrefsModalOpen(false);
         }
-        updateTargetLanguagePrefsModalVisibility(targetLanguageInput.value || "");
-        saveLanguageSettings();
+        updateTargetLanguagePrefsModalVisibility(nextTargetLanguage);
+        Promise.resolve(saveLanguageSettings()).then(() => {
+          if (targetLanguageModalController && typeof targetLanguageModalController.refreshModulePrefs === "function") {
+            targetLanguageModalController.refreshModulePrefs();
+          }
+        });
       });
     }
     if (targetLanguageGearButton && targetLanguageModalController && typeof targetLanguageModalController.toggle === "function") {
       targetLanguageGearButton.addEventListener("click", () => {
         targetLanguageModalController.toggle();
-      });
-    }
-    if (jaPrimaryDisplayScriptInput) {
-      jaPrimaryDisplayScriptInput.addEventListener("change", () => {
-        saveLanguageSettings();
       });
     }
     if (targetLanguagePrefsModalBackdrop

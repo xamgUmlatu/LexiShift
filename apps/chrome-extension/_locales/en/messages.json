@@ -437,11 +437,38 @@
   "label_target_language": {
     "message": "Target language"
   },
-  "title_language_specific_preferences": {
-    "message": "Language-specific preferences"
+  "button_modules": {
+    "message": "Modules"
   },
-  "hint_language_specific_preferences_ja": {
-    "message": "Configure how Japanese replacement words are shown in SRS."
+  "module_ja_script_forms": {
+    "message": "Japanese script forms"
+  },
+  "module_ja_script_forms_desc": {
+    "message": "Show alternate Japanese scripts in the popup."
+  },
+  "module_ja_primary_display_script": {
+    "message": "Primary display script"
+  },
+  "module_feedback_history": {
+    "message": "Feedback history"
+  },
+  "module_feedback_history_desc": {
+    "message": "Store and display your SRS rating history for this word."
+  },
+  "module_encounter_history": {
+    "message": "Encounter history"
+  },
+  "module_encounter_history_desc": {
+    "message": "Track encounter counts and the latest sentence excerpt."
+  },
+  "module_toggle_on": {
+    "message": "On"
+  },
+  "module_toggle_off": {
+    "message": "Off"
+  },
+  "hint_modules_unavailable": {
+    "message": "No modules are available for this language."
   },
   "label_ja_primary_display_script": {
     "message": "Primary display script"

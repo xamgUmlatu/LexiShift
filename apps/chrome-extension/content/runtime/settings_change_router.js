@@ -21,6 +21,9 @@
     const setFeedbackSoundEnabled = typeof opts.setFeedbackSoundEnabled === "function"
       ? opts.setFeedbackSoundEnabled
       : null;
+    const setPopupModulePrefs = typeof opts.setPopupModulePrefs === "function"
+      ? opts.setPopupModulePrefs
+      : null;
     const ensureStyle = typeof opts.ensureStyle === "function"
       ? opts.ensureStyle
       : null;
@@ -120,6 +123,17 @@
           setFeedbackSoundEnabled(nextSettings.srsSoundEnabled);
         }
       }
+      if (changes.popupModulePrefs) {
+        nextSettings.popupModulePrefs = changes.popupModulePrefs.newValue;
+        const merged = mergeSettings(nextSettings);
+        if (setPopupModulePrefs) {
+          setPopupModulePrefs(merged.popupModulePrefs, {
+            profileId: merged.srsProfileId,
+            targetLanguage: merged.targetLanguage,
+            languagePair: merged.srsPair
+          });
+        }
+      }
       if (changes.srsFeedbackSrsEnabled) {
         nextSettings.srsFeedbackSrsEnabled = changes.srsFeedbackSrsEnabled.newValue;
       }
@@ -157,6 +171,14 @@
         } else {
           log("Debug focus word cleared.");
         }
+      }
+      if (changes.srsProfileId && setPopupModulePrefs) {
+        const merged = mergeSettings(nextSettings);
+        setPopupModulePrefs(merged.popupModulePrefs, {
+          profileId: merged.srsProfileId,
+          targetLanguage: merged.targetLanguage,
+          languagePair: merged.srsPair
+        });
       }
 
       if (needsHighlight) {

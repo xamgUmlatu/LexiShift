@@ -21,7 +21,7 @@
       };
     };
 
-    SettingsManager.prototype._resolveTargetDisplayScript = function _resolveTargetDisplayScript(languagePrefs) {
+    SettingsManager.prototype._resolveTargetDisplayScript = function _resolveTargetDisplayScript(languagePrefs, modulePrefs) {
       const prefs = this._isObject(languagePrefs) ? languagePrefs : {};
       const targetLanguage = this._normalizeLanguageCode(
         prefs.targetLanguage,
@@ -32,6 +32,10 @@
         null
       );
       if (targetLanguage === "ja") {
+        if (typeof this.resolveTargetDisplayScriptFromModulePrefs === "function"
+          && this._isObject(modulePrefs)) {
+          return this.resolveTargetDisplayScriptFromModulePrefs(modulePrefs, targetLanguage);
+        }
         return targetScriptPrefs.ja.primaryDisplayScript;
       }
       return "kanji";
@@ -121,15 +125,29 @@
         srsPairAuto: true,
         srsPair: this.defaults.srsPair || "en-en"
       });
+      let modulePrefs = this._isObject(opts.modulePrefs) ? opts.modulePrefs : null;
+      if (!modulePrefs && typeof this.getProfileModulePrefs === "function") {
+        const items = await this.load();
+        modulePrefs = this.getProfileModulePrefs(items, {
+          profileId,
+          targetLanguage: normalized.targetLanguage
+        });
+      }
+      const normalizedModulePrefs = typeof this._normalizeModulePrefs === "function"
+        ? this._normalizeModulePrefs(modulePrefs, null, normalized.targetLanguage)
+        : null;
       const updates = {
         sourceLanguage: normalized.sourceLanguage,
         targetLanguage: normalized.targetLanguage,
-        targetDisplayScript: this._resolveTargetDisplayScript(normalized),
+        targetDisplayScript: this._resolveTargetDisplayScript(normalized, normalizedModulePrefs),
         srsPairAuto: normalized.srsPairAuto,
         srsPair: normalized.srsPair,
         srsSelectedProfileId: profileId,
         srsProfileId: profileId
       };
+      if (normalizedModulePrefs) {
+        updates.popupModulePrefs = normalizedModulePrefs;
+      }
       await this.save(updates);
       return {
         profileId,

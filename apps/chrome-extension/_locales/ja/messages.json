@@ -437,11 +437,38 @@
   "label_target_language": {
     "message": "ターゲット言語"
   },
-  "title_language_specific_preferences": {
-    "message": "言語別の設定"
+  "button_modules": {
+    "message": "モジュール"
   },
-  "hint_language_specific_preferences_ja": {
-    "message": "SRSで日本語の置換語をどう表示するかを設定します。"
+  "module_ja_script_forms": {
+    "message": "日本語スクリプト表示"
+  },
+  "module_ja_script_forms_desc": {
+    "message": "ポップアップに日本語の別スクリプト表記を表示します。"
+  },
+  "module_ja_primary_display_script": {
+    "message": "主表示スクリプト"
+  },
+  "module_feedback_history": {
+    "message": "フィードバック履歴"
+  },
+  "module_feedback_history_desc": {
+    "message": "この単語への SRS 評価履歴を保存して表示します。"
+  },
+  "module_encounter_history": {
+    "message": "遭遇履歴"
+  },
+  "module_encounter_history_desc": {
+    "message": "遭遇回数と最新の文脈抜粋を記録します。"
+  },
+  "module_toggle_on": {
+    "message": "オン"
+  },
+  "module_toggle_off": {
+    "message": "オフ"
+  },
+  "hint_modules_unavailable": {
+    "message": "この言語で利用可能なモジュールはありません。"
   },
   "label_ja_primary_display_script": {
     "message": "主表示スクリプト"

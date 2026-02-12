@@ -75,6 +75,16 @@
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
+    const popupModuleHistoryStore = opts.popupModuleHistoryStore
+      && typeof opts.popupModuleHistoryStore === "object"
+      ? opts.popupModuleHistoryStore
+      : null;
+    const isPopupModuleEnabled = typeof opts.isPopupModuleEnabled === "function"
+      ? opts.isPopupModuleEnabled
+      : (_moduleId, _settings, _targetLanguage) => false;
+    const normalizeProfileId = typeof opts.normalizeProfileId === "function"
+      ? opts.normalizeProfileId
+      : (value) => String(value || "").trim() || "default";
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
     let observer = null;
@@ -184,6 +194,9 @@
           normalizeRuleOrigin,
           srsMetrics,
           lemmatizer,
+          popupModuleHistoryStore,
+          isPopupModuleEnabled,
+          normalizeProfileId,
           log,
           nodeFilters,
           getPageBudgetState: () => pageBudgetState,
