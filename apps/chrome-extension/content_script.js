@@ -238,6 +238,7 @@
     log,
     getRuleOrigin,
     countRulesWithScriptForms: (rules) => activeRulesRuntime.countRulesWithScriptForms(rules),
+    countRulesWithWordPackage: (rules) => activeRulesRuntime.countRulesWithWordPackage(rules),
     persistRuntimeState,
     getFrameInfo,
     ruleOriginSrs: RULE_ORIGIN_SRS,

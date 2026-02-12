@@ -6,6 +6,10 @@ import json
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
@@ -68,6 +72,31 @@ def load_targets_from_store(store: SrsStore, *, pair: str) -> list[str]:
     return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
 
 
+def load_target_word_packages_from_store(
+    store: SrsStore,
+    *,
+    pair: str,
+    targets: Optional[Sequence[str]] = None,
+) -> dict[str, Mapping[str, object]]:
+    target_set = {str(target).strip() for target in targets or [] if str(target).strip()}
+    packages: dict[str, Mapping[str, object]] = {}
+    for item in store.items:
+        if item.language_pair != pair or not item.lemma:
+            continue
+        if target_set and item.lemma not in target_set:
+            continue
+        normalized = normalize_word_package(
+            item.word_package,
+            fallback_surface=item.lemma,
+            fallback_language_tag=resolve_language_tag_from_pair(item.language_pair),
+            fallback_provider=item.source_type or "srs",
+        )
+        if normalized is None:
+            continue
+        packages[item.lemma] = normalized
+    return packages
+
+
 def initialize_store_from_frequency_list(
     store: SrsStore,
     *,
@@ -112,13 +141,17 @@ def initialize_store_from_frequency_list_with_report(
     updated = store
     for selected in admitted_words:
         item_id = build_item_id(selected.language_pair, selected.lemma)
+        selected_word_package = _resolve_selected_word_package(selected)
         existing_item = existing_by_id.get(item_id)
         if existing_item is not None:
             updated_count += 1
             confidence = _safe_optional_float(getattr(selected, "admission_weight", None))
-            item = existing_item
+            updates: dict[str, object] = {}
             if existing_item.confidence is None and confidence is not None:
-                item = replace(existing_item, confidence=confidence)
+                updates["confidence"] = confidence
+            if existing_item.word_package is None and selected_word_package is not None:
+                updates["word_package"] = selected_word_package
+            item = replace(existing_item, **updates) if updates else existing_item
         else:
             inserted_count += 1
             confidence = _safe_optional_float(getattr(selected, "admission_weight", None))
@@ -128,6 +161,7 @@ def initialize_store_from_frequency_list_with_report(
                 language_pair=selected.language_pair,
                 source_type=SOURCE_INITIAL_SET,
                 confidence=confidence,
+                word_package=selected_word_package,
             )
             existing_by_id[item_id] = item
         updated = upsert_item(updated, item)
@@ -190,6 +224,7 @@ def build_snapshot(
 def run_ja_en_rulegen(
     *,
     targets: Iterable[str],
+    word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
     jmdict_path: Path,
     config: RulegenConfig,
 ) -> Sequence[VocabRule]:
@@ -203,6 +238,7 @@ def run_ja_en_rulegen(
             allow_multiword_glosses=config.allow_multiword_glosses,
             gloss_decay=config.gloss_decay,
             jmdict_path=jmdict_path,
+            word_packages_by_target=word_packages_by_target,
         )
     )
 
@@ -218,6 +254,18 @@ def _safe_optional_float(value: object) -> Optional[float]:
         except ValueError:
             return None
     return None
+
+
+def _resolve_selected_word_package(selected: object) -> Optional[Mapping[str, object]]:
+    language_pair = str(getattr(selected, "language_pair", "") or "").strip()
+    lemma = str(getattr(selected, "lemma", "") or "").strip()
+    source = SOURCE_INITIAL_SET
+    return normalize_word_package(
+        getattr(selected, "word_package", None),
+        fallback_surface=lemma,
+        fallback_language_tag=resolve_language_tag_from_pair(language_pair),
+        fallback_provider=source,
+    )
 
 
 def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
@@ -266,17 +314,22 @@ def run_rulegen_for_pair(
     persist_store: bool = True,
 ) -> tuple[SrsStore, RulegenOutput]:
     rulegen_config = rulegen_config or RulegenConfig(language_pair=pair)
+    updated_store = store
     if targets_override is not None:
         targets = [str(target).strip() for target in targets_override if str(target).strip()]
     else:
-        targets = load_targets_from_store(store, pair=pair)
-    updated_store = store
+        targets = load_targets_from_store(updated_store, pair=pair)
     if targets_override is None and not targets and initialize_if_empty and set_init_config:
         updated_store = initialize_store_from_frequency_list(
             store,
             config=set_init_config,
         )
         targets = load_targets_from_store(updated_store, pair=pair)
+    target_word_packages = load_target_word_packages_from_store(
+        updated_store,
+        pair=pair,
+        targets=targets,
+    )
     rules = run_rules_with_adapter(
         RulegenAdapterRequest(
             pair=pair,
@@ -288,6 +341,7 @@ def run_rulegen_for_pair(
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
             freedict_de_en_path=freedict_de_en_path,
+            word_packages_by_target=target_word_packages or None,
         )
     )
     generated_at = _now_iso()

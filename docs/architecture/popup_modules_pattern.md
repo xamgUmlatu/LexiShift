@@ -88,7 +88,13 @@ Expected payload on replacement span:
   - `kanji`
   - `kana`
   - `romaji`
+- `data-word-package` (serialized into `dataset.wordPackage`): optional canonical word metadata payload.
 - `data-display-script` (serialized into `dataset.displayScript`): active primary display script.
+
+Script-form resolution precedence:
+1. `metadata.word_package.script_forms`
+2. `metadata.script_forms` (legacy fallback)
+3. Module no-op when neither is available
 
 Example value flow:
 - If primary display script is `kanji`, module shows `kana` and `romaji` if available.
@@ -153,6 +159,8 @@ Span metadata conventions (current):
 - `dataset.displayReplacement`
 - `dataset.displayScript`
 - `dataset.scriptForms`
+- `dataset.wordPackage`
+- `dataset.languageTag`
 - `dataset.languagePair`
 - `dataset.source`
 - `dataset.original`

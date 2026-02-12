@@ -32,7 +32,8 @@ Implemented features (current)
   - SRS gating, SRS feedback popup, sound feedback, and exposure logging.
   - Profile-first SRS settings model (`srsProfiles`) with selected-profile runtime mirrors.
   - Profile background controls with IndexedDB media storage.
-  - Popup module stack for clicked target words (Japanese script module + feedback module).
+  - Popup module stack for clicked target words (Japanese script, feedback-history, and encounter-history modules above the feedback bar).
+  - Module preferences UI (per profile + target language): enable/disable, drag-reorder, module-specific settings, and per-module color tuning with live preview.
   - Fully localized options UI and diagnostics/debug controls.
 - BetterDiscord plugin
   - Message/embed text replacement using the same core matching approach.
@@ -305,6 +306,7 @@ SRS and profile capabilities (current state)
 - Extension runtime/profile model
   - `srsSelectedProfileId`: extension-local selected profile.
   - `srsProfiles.<profile_id>.languagePrefs`: source/target language + target script prefs.
+  - `srsProfiles.<profile_id>.modulePrefs`: popup module preferences (`byId` config + module `order`).
   - `srsProfiles.<profile_id>.srsByPair.<pair>`: pair SRS settings.
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>`: planner/profile context signals.
   - `srsProfiles.<profile_id>.uiPrefs`: profile UI prefs, including background controls.
@@ -358,11 +360,13 @@ Chrome extension
 - Profile-scoped features in options
   - Selected profile picker and helper profile refresh.
   - Pair-level SRS controls (enabled/max active/bootstrap/initial active/etc.).
-  - Profile language prefs including Japanese primary display script.
+  - Profile language prefs and module preferences (including Japanese primary display script).
   - Profile background image upload/remove/enable/opacity/backdrop color with IndexedDB storage.
 - Popup modules
   - Feedback popup uses attachable module stack above feedback bar.
   - Japanese script module can show non-primary scripts from replacement metadata.
+  - Feedback-history and encounter-history modules can be toggled and reordered.
+  - Module order and per-module color preferences are applied to runtime popups.
 - Diagnostics and localization
   - Advanced diagnostics actions and helper connectivity checks.
   - Debug logs + focus-word tracing.
@@ -436,8 +440,6 @@ Current limitations
   - Limit replacements per page.
   - Avoid replacing two juxtaposed words.
   - Add settings to adjust sensitivity/strictness for the rules above.
-- TODO (popup modules):
-  - Allow users to set per-module colors for popup modules shown above replacement words.
 - TODO (Japanese script quality):
   - Check and improve the accuracy of generated romaji for Japanese words.
 - TODO (rule generation quality):

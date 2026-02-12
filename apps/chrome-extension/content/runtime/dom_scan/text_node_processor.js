@@ -238,7 +238,8 @@
                 lemma,
                 replacement,
                 sentence_excerpt: String(detail.context_excerpt || ""),
-                ts: new Date().toISOString()
+                ts: new Date().toISOString(),
+                word_package: detail.word_package || null
               });
             }
             if (encounters.length) {

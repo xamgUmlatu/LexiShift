@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Iterable, Optional, Sequence
+from typing import Mapping, Optional, Iterable, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs.selector import (
@@ -130,6 +134,7 @@ def apply_growth_plan(
     for candidate in plan.selected:
         confidence = _resolve_confidence(candidate, min_value=config.confidence_min)
         source_type = _resolve_source_type(candidate, default=config.default_source_type)
+        word_package = _resolve_word_package(candidate, source_type=source_type)
         item = SrsItem(
             item_id=build_item_id(candidate.language_pair, candidate.lemma),
             lemma=candidate.lemma,
@@ -138,6 +143,7 @@ def apply_growth_plan(
             confidence=confidence,
             stability=config.initial_stability,
             difficulty=config.initial_difficulty,
+            word_package=word_package,
         )
         updated = upsert_item(updated, item)
     return updated
@@ -181,3 +187,18 @@ def _resolve_confidence(candidate: SelectorCandidate, *, min_value: Optional[flo
     if value >= min_value:
         return value
     return None
+
+
+def _resolve_word_package(
+    candidate: SelectorCandidate,
+    *,
+    source_type: str,
+) -> Optional[Mapping[str, object]]:
+    metadata = candidate.metadata if hasattr(candidate, "metadata") else {}
+    raw = metadata.get("word_package") if isinstance(metadata, Mapping) else None
+    return normalize_word_package(
+        raw,
+        fallback_surface=candidate.lemma,
+        fallback_language_tag=resolve_language_tag_from_pair(candidate.language_pair),
+        fallback_provider=source_type or "srs",
+    )

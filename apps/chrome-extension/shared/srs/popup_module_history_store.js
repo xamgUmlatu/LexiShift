@@ -57,6 +57,21 @@
     return `... ${clipped.join(" ")} ...`;
   }
 
+  function normalizeWordPackage(value) {
+    if (!value) {
+      return null;
+    }
+    try {
+      const parsed = typeof value === "string" ? JSON.parse(value) : value;
+      if (!parsed || typeof parsed !== "object") {
+        return null;
+      }
+      return parsed;
+    } catch (_error) {
+      return null;
+    }
+  }
+
   function sanitizeItem(item) {
     if (!item || typeof item !== "object") {
       return null;
@@ -83,7 +98,8 @@
         ? Math.max(0, Number(item.encounter_count))
         : 0,
       last_sentence_excerpt: normalizeSentenceExcerpt(item.last_sentence_excerpt),
-      last_seen: normalizeString(item.last_seen)
+      last_seen: normalizeString(item.last_seen),
+      word_package: normalizeWordPackage(item.word_package || null)
     };
   }
 
@@ -168,7 +184,8 @@
       lemma,
       replacement: normalizeString(entry && entry.replacement),
       rating,
-      ts: normalizeString(entry && entry.ts) || nowIso()
+      ts: normalizeString(entry && entry.ts) || nowIso(),
+      word_package: normalizeWordPackage(entry && entry.word_package)
     };
   }
 
@@ -185,7 +202,8 @@
       lemma,
       replacement: normalizeString(entry && entry.replacement),
       sentence_excerpt: normalizeSentenceExcerpt(entry && entry.sentence_excerpt),
-      ts: normalizeString(entry && entry.ts) || nowIso()
+      ts: normalizeString(entry && entry.ts) || nowIso(),
+      word_package: normalizeWordPackage(entry && entry.word_package)
     };
   }
 
@@ -205,7 +223,8 @@
       feedback_total: 0,
       encounter_count: 0,
       last_sentence_excerpt: "",
-      last_seen: payload.ts || nowIso()
+      last_seen: payload.ts || nowIso(),
+      word_package: payload.word_package || null
     };
     items.push(nextItem);
     return items.length - 1;
@@ -231,7 +250,8 @@
       replacement: current.replacement || payload.replacement || payload.lemma,
       feedback_digits: digits,
       feedback_total: Number(current.feedback_total || 0) + 1,
-      last_seen: payload.ts || nowIso()
+      last_seen: payload.ts || nowIso(),
+      word_package: current.word_package || payload.word_package || null
     };
   }
 
@@ -254,7 +274,8 @@
       replacement: current.replacement || payload.replacement || payload.lemma,
       encounter_count: Number(current.encounter_count || 0) + 1,
       last_sentence_excerpt: payload.sentence_excerpt || current.last_sentence_excerpt || "",
-      last_seen: payload.ts || nowIso()
+      last_seen: payload.ts || nowIso(),
+      word_package: current.word_package || payload.word_package || null
     };
   }
 

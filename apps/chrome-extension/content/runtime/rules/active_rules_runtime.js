@@ -48,6 +48,18 @@
       return withScriptForms;
     }
 
+    function countRulesWithWordPackage(rules) {
+      let withWordPackage = 0;
+      for (const rule of rules || []) {
+        const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : null;
+        const wordPackage = metadata && typeof metadata.word_package === "object" ? metadata.word_package : null;
+        if (wordPackage) {
+          withWordPackage += 1;
+        }
+      }
+      return withWordPackage;
+    }
+
     async function resolveActiveRules(settings, gateLogger, runtimeState) {
       const runtime = runtimeState && typeof runtimeState === "object" ? runtimeState : {};
       const helperAvailable = runtime.helperAvailable !== false;
@@ -110,7 +122,8 @@
 
     return {
       resolveActiveRules,
-      countRulesWithScriptForms
+      countRulesWithScriptForms,
+      countRulesWithWordPackage
     };
   }
 

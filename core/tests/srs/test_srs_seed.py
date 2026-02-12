@@ -12,7 +12,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
+from lexishift_core.srs.seed import (  # noqa: E402
+    SeedSelectionConfig,
+    build_seed_candidates,
+    seed_to_selector_candidates,
+)
 
 
 def _build_freq_db(path: Path) -> None:
@@ -43,6 +47,25 @@ def _build_freq_db_with_pos(path: Path) -> None:
             ("高い", 3, 800.0, "形容詞-一般"),
             ("猫", 4, 700.0, "名詞-普通名詞-一般"),
             ("とても", 5, 600.0, "副詞-一般"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def _build_freq_db_with_lform(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute(
+        "CREATE TABLE frequency ("
+        "lemma TEXT, core_rank REAL, pmw REAL, pos TEXT, lform TEXT, wtype TEXT, sublemma TEXT)"
+    )
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw, pos, lform, wtype, sublemma)"
+        " VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+            ("所", 1, 1000.0, "名詞-普通名詞-一般", "トコロ", "NOUN", "所"),
+            ("所", 2, 900.0, "名詞-普通名詞-一般", "ショ", "NOUN", "所"),
+            ("猫", 3, 800.0, "名詞-普通名詞-一般", "ネコ", "NOUN", "猫"),
         ],
     )
     conn.commit()
@@ -153,6 +176,34 @@ class TestSrsSeedStopwords(unittest.TestCase):
 
             self.assertTrue(selected)
             self.assertEqual(selected[0].metadata["source"], "leipzig_2023_1m")
+
+    def test_seed_word_package_uses_frequency_reading_and_selector_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db_with_lform(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=2,
+                    require_jmdict=False,
+                ),
+            )
+
+            self.assertEqual([item.lemma for item in selected], ["所", "所"])
+            first_package = selected[0].word_package
+            self.assertIsNotNone(first_package)
+            self.assertEqual(first_package["surface"], "所")
+            self.assertEqual(first_package["reading"], "ところ")
+            self.assertEqual(first_package["script_forms"]["kana"], "ところ")
+            self.assertEqual(first_package["script_forms"]["romaji"], "tokoro")
+
+            selector_candidates = seed_to_selector_candidates(selected)
+            self.assertIn("word_package", selector_candidates[0].metadata)
+            selector_package = selector_candidates[0].metadata["word_package"]
+            self.assertEqual(selector_package["reading"], "ところ")
 
 
 if __name__ == "__main__":

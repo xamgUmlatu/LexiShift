@@ -31,6 +31,19 @@ def _write_sample_jmdict(path: Path) -> None:
     path.write_text(payload, encoding="utf-8")
 
 
+def _write_tokoro_jmdict(path: Path) -> None:
+    payload = (
+        "<JMdict>"
+        "<entry>"
+        "<k_ele><keb>所</keb></k_ele>"
+        "<r_ele><reb>ところ</reb></r_ele>"
+        "<sense><gloss xml:lang='eng'>place</gloss></sense>"
+        "</entry>"
+        "</JMdict>"
+    )
+    path.write_text(payload, encoding="utf-8")
+
+
 class TestJapaneseScriptForms(unittest.TestCase):
     def test_kana_to_romaji_transliterates_hiragana_and_katakana(self) -> None:
         self.assertEqual(kana_to_romaji("ねこ"), "neko")
@@ -65,9 +78,73 @@ class TestJapaneseScriptForms(unittest.TestCase):
         metadata = results[0].rule.metadata
         self.assertIsNotNone(metadata)
         self.assertIsNotNone(metadata.script_forms)
+        self.assertIsNotNone(metadata.word_package)
         self.assertEqual(metadata.script_forms["kanji"], "猫")
         self.assertEqual(metadata.script_forms["kana"], "ねこ")
         self.assertEqual(metadata.script_forms["romaji"], "neko")
+        self.assertEqual(metadata.word_package["script_forms"]["kana"], "ねこ")
+
+    def test_ja_en_rulegen_prefers_word_package_script_forms(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            _write_tokoro_jmdict(path)
+            results = generate_ja_en_results(
+                ("所",),
+                config=JaEnRulegenConfig(
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "所": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "所",
+                            "reading": "どころ",
+                            "script_forms": {
+                                "kanji": "所",
+                                "kana": "どころ",
+                                "romaji": "dokoro",
+                            },
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                ),
+            )
+
+        self.assertGreater(len(results), 0)
+        metadata = results[0].rule.metadata
+        self.assertIsNotNone(metadata)
+        self.assertEqual(metadata.script_forms["kana"], "どころ")
+        self.assertIsNotNone(metadata.word_package)
+        self.assertEqual(metadata.word_package["reading"], "どころ")
+
+    def test_ja_en_rulegen_falls_back_to_jmdict_when_package_missing_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            _write_tokoro_jmdict(path)
+            results = generate_ja_en_results(
+                ("所",),
+                config=JaEnRulegenConfig(
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "所": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "所",
+                            "reading": "ところ",
+                            "script_forms": {"kanji": "所"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                ),
+            )
+
+        self.assertGreater(len(results), 0)
+        metadata = results[0].rule.metadata
+        self.assertIsNotNone(metadata)
+        self.assertEqual(metadata.script_forms["kana"], "ところ")
+        self.assertIsNotNone(metadata.word_package)
+        self.assertEqual(metadata.word_package["script_forms"]["kana"], "ところ")
 
 
 if __name__ == "__main__":

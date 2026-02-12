@@ -25,6 +25,15 @@
     return String(parts[1] || "").trim().toLowerCase();
   }
 
+  function targetLanguageFromTag(tag) {
+    const normalized = String(tag || "").trim().toLowerCase();
+    if (!normalized) {
+      return "";
+    }
+    const [base] = normalized.split("-", 1);
+    return String(base || "").trim().toLowerCase();
+  }
+
   function normalizeScriptForms(value) {
     if (!value || typeof value !== "object") {
       return null;
@@ -40,21 +49,72 @@
     return Object.keys(normalized).length ? normalized : null;
   }
 
+  function normalizeWordPackage(value) {
+    if (!value || typeof value !== "object") {
+      return null;
+    }
+    const version = Number(value.version || 1);
+    if (!Number.isFinite(version) || version < 1) {
+      return null;
+    }
+    const surface = String(value.surface || "").trim();
+    const languageTag = String(value.language_tag || "").trim().toLowerCase();
+    const source = value.source && typeof value.source === "object" ? value.source : null;
+    const provider = source ? String(source.provider || "").trim() : "";
+    if (!surface || !languageTag || !provider) {
+      return null;
+    }
+    const scriptForms = normalizeScriptForms(value.script_forms);
+    const reading = String(value.reading || "").trim();
+    if (!scriptForms || !reading) {
+      return null;
+    }
+    const normalized = {
+      version: 1,
+      language_tag: languageTag,
+      surface,
+      reading,
+      script_forms: scriptForms,
+      source: {
+        provider
+      }
+    };
+    const passthrough = ["pos", "wtype", "sublemma", "core_rank", "pmw", "lform_raw", "row_index", "row_rank"];
+    for (const key of passthrough) {
+      if (value[key] === undefined || value[key] === null || value[key] === "") {
+        continue;
+      }
+      normalized[key] = value[key];
+    }
+    return normalized;
+  }
+
   function resolveDisplayPayload(rule, sourceWords, settings) {
     const casePolicy = (rule && rule.case_policy) || "match";
     const canonicalReplacement = String((rule && rule.replacement) || "").trim();
     const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : {};
     const languagePair = String(metadata.language_pair || "").trim();
-    const targetLanguage = targetLanguageFromPair(languagePair)
+    const wordPackage = normalizeWordPackage(metadata.word_package);
+    const packageScriptForms = normalizeScriptForms(wordPackage && wordPackage.script_forms);
+    const legacyScriptForms = normalizeScriptForms(metadata.script_forms);
+    const scriptForms = packageScriptForms || legacyScriptForms;
+    const targetLanguage = targetLanguageFromTag(wordPackage && wordPackage.language_tag)
+      || targetLanguageFromPair(languagePair)
       || String((settings && settings.targetLanguage) || "").trim().toLowerCase();
-    const scriptForms = normalizeScriptForms(metadata.script_forms);
+    const effectiveWordPackage = wordPackage
+      ? {
+          ...wordPackage,
+          script_forms: scriptForms || wordPackage.script_forms
+        }
+      : null;
 
     if (targetLanguage !== "ja" || !scriptForms) {
       return {
         canonicalReplacement,
         displayReplacement: applyCase(canonicalReplacement, sourceWords, casePolicy),
         displayScript: "",
-        scriptForms: null
+        scriptForms: null,
+        wordPackage: effectiveWordPackage
       };
     }
 
@@ -71,7 +131,8 @@
       canonicalReplacement,
       displayReplacement: caseAdjustedForms[displayScript] || applyCase(canonicalReplacement, sourceWords, casePolicy),
       displayScript,
-      scriptForms: caseAdjustedForms
+      scriptForms: caseAdjustedForms,
+      wordPackage: effectiveWordPackage
     };
   }
 
@@ -82,7 +143,8 @@
           canonicalReplacement: String((rule && rule.replacement) || ""),
           displayReplacement: String((rule && rule.replacement) || ""),
           displayScript: "",
-          scriptForms: null
+          scriptForms: null,
+          wordPackage: null
         };
     const span = document.createElement("span");
     span.className = "lexishift-replacement";
@@ -98,6 +160,12 @@
     if (payload.scriptForms) {
       span.dataset.scriptForms = JSON.stringify(payload.scriptForms);
       span.dataset.hasScriptVariants = Object.keys(payload.scriptForms).length > 1 ? "true" : "false";
+    }
+    if (payload.wordPackage) {
+      span.dataset.wordPackage = JSON.stringify(payload.wordPackage);
+      if (payload.wordPackage.language_tag) {
+        span.dataset.languageTag = String(payload.wordPackage.language_tag);
+      }
     }
     if (origin) {
       const normalizedOrigin = String(origin).trim().toLowerCase();
@@ -301,7 +369,11 @@
           source: match.rule.source_phrase || "",
           priority: match.rule.priority,
           case_policy: match.rule.case_policy || "match",
-          language_pair: match.rule.metadata ? match.rule.metadata.language_pair : ""
+          language_pair: match.rule.metadata ? match.rule.metadata.language_pair : "",
+          language_tag: displayPayload.wordPackage
+            ? String(displayPayload.wordPackage.language_tag || "")
+            : "",
+          word_package: displayPayload.wordPackage || null
         });
       }
       tokenCursor = endTokenIdx + 1;

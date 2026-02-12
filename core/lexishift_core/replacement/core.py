@@ -58,6 +58,7 @@ class RuleMetadata:
     language_pair: Optional[str] = None
     confidence: Optional[float] = None
     script_forms: Optional[Mapping[str, str]] = None
+    word_package: Optional[Mapping[str, object]] = None
 
 
 @dataclass(frozen=True)

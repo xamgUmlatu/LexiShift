@@ -54,7 +54,21 @@ class TestSrsGrowth(unittest.TestCase):
 
     def test_apply_growth_plan(self) -> None:
         candidates = [
-            SelectorCandidate(lemma="alpha", language_pair="en-ja", base_freq=0.9),
+            SelectorCandidate(
+                lemma="alpha",
+                language_pair="en-ja",
+                base_freq=0.9,
+                metadata={
+                    "word_package": {
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "alpha",
+                        "reading": "alpha",
+                        "script_forms": {"surface": "alpha"},
+                        "source": {"provider": "seed"},
+                    }
+                },
+            ),
             SelectorCandidate(lemma="beta", language_pair="en-ja", base_freq=0.8),
         ]
         store = SrsStore(items=tuple(), version=1)
@@ -66,6 +80,8 @@ class TestSrsGrowth(unittest.TestCase):
         ids = {item.item_id for item in updated.items}
         self.assertIn("en-ja:alpha", ids)
         self.assertIn("en-ja:beta", ids)
+        alpha = next(item for item in updated.items if item.lemma == "alpha")
+        self.assertIsNotNone(alpha.word_package)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -12,9 +13,12 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.rulegen import (  # noqa: E402
+    RulegenConfig,
     SetInitializationConfig,
     initialize_store_from_frequency_list_with_report,
+    run_rulegen_for_pair,
 )
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.srs import SrsItem, SrsStore  # noqa: E402
 
 
@@ -195,6 +199,87 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("noun", report.admission_weight_profile)
         self.assertIn("verb", report.admission_weight_profile)
         self.assertEqual(report.initial_active_weight_preview[0]["lemma"], "alpha")
+
+    def test_initialization_persists_selected_word_package(self) -> None:
+        selected = [
+            SimpleNamespace(
+                lemma="所",
+                language_pair="en-ja",
+                admission_weight=0.75,
+                word_package={
+                    "version": 1,
+                    "language_tag": "ja",
+                    "surface": "所",
+                    "reading": "ところ",
+                    "script_forms": {
+                        "kanji": "所",
+                        "kana": "ところ",
+                        "romaji": "tokoro",
+                    },
+                    "source": {"provider": "freq-ja-bccwj"},
+                },
+            ),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=1,
+                    language_pair="en-ja",
+                ),
+            )
+
+        self.assertEqual(report.admitted_count, 1)
+        self.assertEqual(store.items[0].item_id, "en-ja:所")
+        self.assertIsNotNone(store.items[0].word_package)
+        self.assertEqual(store.items[0].word_package["reading"], "ところ")
+
+    def test_run_rulegen_for_pair_passes_word_package_map(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:所",
+                        lemma="所",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                        word_package={
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "所",
+                            "reading": "ところ",
+                            "script_forms": {
+                                "kanji": "所",
+                                "kana": "ところ",
+                                "romaji": "tokoro",
+                            },
+                            "source": {"provider": "freq-ja-bccwj"},
+                        },
+                    ),
+                ),
+                version=1,
+            )
+            with patch("lexishift_core.helper.rulegen.run_rules_with_adapter", return_value=[]) as run_rules:
+                run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-ja",
+                    store=store,
+                    settings=None,
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    rulegen_config=RulegenConfig(language_pair="en-ja"),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+
+        run_rules.assert_called_once()
+        request = run_rules.call_args.args[0]
+        self.assertIn("所", request.word_packages_by_target)
+        self.assertEqual(request.word_packages_by_target["所"]["reading"], "ところ")
 
 
 if __name__ == "__main__":

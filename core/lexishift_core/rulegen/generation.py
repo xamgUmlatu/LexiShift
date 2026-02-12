@@ -3,6 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Mapping, Optional, Protocol, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 
@@ -176,13 +180,22 @@ class RuleGenerationPipeline:
         return all(filt.accept(candidate) for filt in self._filters)
 
     def _to_rule(self, candidate: RuleCandidate, confidence: float, config: RuleGenerationConfig) -> VocabRule:
+        word_package = normalize_word_package(
+            candidate.metadata.get("word_package"),
+            fallback_surface=candidate.replacement,
+            fallback_language_tag=resolve_language_tag_from_pair(candidate.language_pair),
+            fallback_provider=candidate.source_dict or "rulegen",
+        )
         script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
+        if script_forms is None and word_package is not None:
+            script_forms = _normalize_script_forms(word_package.get("script_forms"))
         metadata = RuleMetadata(
             source=candidate.source_dict,
             source_type=candidate.source_type,
             language_pair=candidate.language_pair,
             confidence=confidence,
             script_forms=script_forms,
+            word_package=word_package,
         )
         tags = list(config.tags)
         if candidate.source_type and candidate.source_type not in tags:

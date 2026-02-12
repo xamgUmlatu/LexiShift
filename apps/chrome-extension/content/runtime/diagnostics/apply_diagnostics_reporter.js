@@ -10,6 +10,9 @@
     const countRulesWithScriptForms = typeof opts.countRulesWithScriptForms === "function"
       ? opts.countRulesWithScriptForms
       : (_rules) => 0;
+    const countRulesWithWordPackage = typeof opts.countRulesWithWordPackage === "function"
+      ? opts.countRulesWithWordPackage
+      : (_rules) => 0;
     const persistRuntimeState = typeof opts.persistRuntimeState === "function"
       ? opts.persistRuntimeState
       : (_payload) => {};
@@ -39,6 +42,10 @@
       const srsStats = state.srsStats || null;
       const focusWord = String(state.focusWord || "");
       const focusRulesCount = Number(state.focusRulesCount || 0);
+      let srsRulesWithScriptForms = 0;
+      let activeSrsRulesWithScriptForms = 0;
+      let srsRulesWithWordPackage = 0;
+      let activeSrsRulesWithWordPackage = 0;
 
       log("Settings loaded.", {
         enabled: currentSettings.enabled,
@@ -65,18 +72,22 @@
       if (currentSettings.debugEnabled) {
         const srsRulesOnly = enabledRules.filter((rule) => getRuleOrigin(rule) === ruleOriginSrs);
         const activeSrsRules = activeRules.filter((rule) => getRuleOrigin(rule) === ruleOriginSrs);
-        const srsWithScriptForms = countRulesWithScriptForms(srsRulesOnly);
-        const activeSrsWithScriptForms = countRulesWithScriptForms(activeSrsRules);
+        srsRulesWithScriptForms = countRulesWithScriptForms(srsRulesOnly);
+        activeSrsRulesWithScriptForms = countRulesWithScriptForms(activeSrsRules);
+        srsRulesWithWordPackage = countRulesWithWordPackage(srsRulesOnly);
+        activeSrsRulesWithWordPackage = countRulesWithWordPackage(activeSrsRules);
         log("SRS script_forms coverage:", {
           rulesSource,
           srsRulesTotal: srsRulesOnly.length,
-          srsRulesWithScriptForms: srsWithScriptForms,
+          srsRulesWithScriptForms,
+          srsRulesWithWordPackage,
           activeSrsRulesTotal: activeSrsRules.length,
-          activeSrsRulesWithScriptForms: activeSrsWithScriptForms
+          activeSrsRulesWithScriptForms,
+          activeSrsRulesWithWordPackage
         });
-        if (srsRulesOnly.length > 0 && srsWithScriptForms === 0) {
+        if (srsRulesOnly.length > 0 && srsRulesWithScriptForms === 0 && srsRulesWithWordPackage === 0) {
           log(
-            "SRS rules have no metadata.script_forms. Japanese popup script module cannot render until ruleset is regenerated with script metadata."
+            "SRS rules have no metadata.script_forms or metadata.word_package. Regenerate ruleset with word package metadata."
           );
         }
       }
@@ -108,6 +119,10 @@
         rules_srs_enabled: originCounts[ruleOriginSrs],
         active_rules_total: activeRules.length,
         active_rules_srs: activeOriginCounts[ruleOriginSrs],
+        rules_srs_with_script_forms: srsRulesWithScriptForms,
+        active_rules_srs_with_script_forms: activeSrsRulesWithScriptForms,
+        rules_srs_with_word_package: srsRulesWithWordPackage,
+        active_rules_srs_with_word_package: activeSrsRulesWithWordPackage,
         srs_stats: srsStats || null,
         helper_rules_error: helperRulesError || "",
         page_url: window.location ? window.location.href : "",

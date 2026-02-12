@@ -138,7 +138,8 @@
           lemma,
           replacement: String(entry.replacement || ""),
           rating,
-          ts: entry.ts || new Date().toISOString()
+          ts: entry.ts || new Date().toISOString(),
+          word_package: entry.word_package || null
         }).catch((error) => {
           const latestSettings = getCurrentSettings();
           if (latestSettings && latestSettings.debugEnabled) {

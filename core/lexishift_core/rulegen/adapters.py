@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable, Optional, Sequence
+from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
@@ -22,6 +22,7 @@ class RulegenAdapterRequest:
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
     jmdict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
+    word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -37,6 +38,7 @@ def _run_ja_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
     )
     results = generate_ja_en_results(request.targets, config=config)
     return [result.rule for result in results]

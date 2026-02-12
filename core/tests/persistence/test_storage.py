@@ -32,6 +32,14 @@ class StorageTests(unittest.TestCase):
                     examples=("The twilight deepened.",),
                     notes="Used in atmosphere-heavy scenes.",
                     script_forms={"kanji": "猫", "kana": "ねこ", "romaji": "neko"},
+                    word_package={
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "猫",
+                        "reading": "ねこ",
+                        "script_forms": {"kanji": "猫", "kana": "ねこ", "romaji": "neko"},
+                        "source": {"provider": "jmdict"},
+                    },
                 ),
             )
         ]
@@ -60,6 +68,7 @@ class StorageTests(unittest.TestCase):
 
         self.assertEqual(loaded.rules[0].metadata.label, "time")
         self.assertEqual(loaded.rules[0].metadata.script_forms["kana"], "ねこ")
+        self.assertEqual(loaded.rules[0].metadata.word_package["reading"], "ねこ")
         self.assertEqual(loaded.meaning_rules[0].source_phrases[0], "stunned into silence")
         self.assertEqual(loaded.synonyms["dawn"], "twilight")
         self.assertTrue(loaded.settings.learning.enabled)

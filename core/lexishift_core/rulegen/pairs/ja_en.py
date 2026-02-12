@@ -4,6 +4,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    build_word_package,
+    merge_script_forms,
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.resources.dict_loaders import (
     load_jmdict_glosses_and_script_forms,
 )
@@ -45,6 +51,7 @@ class JaEnRulegenConfig:
     jmdict_path: Path
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None
+    word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-ja"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
@@ -72,6 +79,9 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
     script_forms_by_target: Mapping[str, Mapping[str, str]] = (
         config.script_forms_by_target or {}
     )
+    word_packages_by_target: Mapping[str, Mapping[str, object]] = (
+        config.word_packages_by_target or {}
+    )
     if config.gloss_mapping is not None:
         mapping = config.gloss_mapping
     else:
@@ -83,6 +93,7 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
         source_dict="jmdict",
         source_type="translation",
         script_forms_by_target=script_forms_by_target,
+        word_packages_by_target=word_packages_by_target,
     )
     normalizers = [BasicStringNormalizer()]
     expanders = []
@@ -156,30 +167,41 @@ class JmdictCandidateSource:
         source_dict: str,
         source_type: str,
         script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None,
+        word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
     ) -> None:
         self._mapping = mapping
         self._source_dict = source_dict
         self._source_type = source_type
         self._script_forms_by_target = script_forms_by_target or {}
+        self._word_packages_by_target = word_packages_by_target or {}
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
             sources = list(self._mapping.get(target, []))
             total = len(sources)
-            script_forms = self._script_forms_by_target.get(target)
+            discovered_script_forms = _normalize_script_forms_map(
+                self._script_forms_by_target.get(target)
+            )
+            resolved_word_package = _resolve_target_word_package(
+                target=target,
+                language_pair=language_pair,
+                source_dict=self._source_dict,
+                package_hint=self._word_packages_by_target.get(target),
+                discovered_script_forms=discovered_script_forms,
+            )
+            resolved_script_forms = _resolve_word_package_script_forms(
+                resolved_word_package,
+                fallback=discovered_script_forms,
+            )
             for index, source in enumerate(sources):
                 metadata: dict[str, object] = {
                     "gloss_index": index,
                     "gloss_total": total,
                 }
-                if isinstance(script_forms, Mapping):
-                    normalized_script_forms = {
-                        str(key): str(value)
-                        for key, value in dict(script_forms).items()
-                        if str(key).strip() and str(value).strip()
-                    }
-                    if normalized_script_forms:
-                        metadata["script_forms"] = normalized_script_forms
+                if resolved_script_forms:
+                    metadata["script_forms"] = resolved_script_forms
+                if resolved_word_package:
+                    metadata["word_package"] = resolved_word_package
                 yield RuleCandidate(
                     source_phrase=str(source),
                     replacement=str(target),
@@ -188,6 +210,82 @@ class JmdictCandidateSource:
                     source_type=self._source_type,
                     metadata=metadata,
                 )
+
+
+def _resolve_target_word_package(
+    *,
+    target: str,
+    language_pair: str,
+    source_dict: str,
+    package_hint: Optional[Mapping[str, object]],
+    discovered_script_forms: Optional[Mapping[str, str]],
+) -> Optional[dict[str, object]]:
+    language_tag = resolve_language_tag_from_pair(language_pair)
+    normalized_hint = normalize_word_package(
+        package_hint,
+        fallback_surface=target,
+        fallback_language_tag=language_tag,
+        fallback_provider="frequency",
+    )
+    if normalized_hint is not None:
+        merged_forms = merge_script_forms(
+            normalized_hint.get("script_forms")
+            if isinstance(normalized_hint.get("script_forms"), Mapping)
+            else None,
+            discovered_script_forms,
+        )
+        merged_word_package = dict(normalized_hint)
+        if merged_forms is not None:
+            merged_word_package["script_forms"] = merged_forms
+        if not str(merged_word_package.get("reading") or "").strip():
+            kana = str((merged_forms or {}).get("kana", "")).strip()
+            if kana:
+                merged_word_package["reading"] = kana
+        normalized_merged = normalize_word_package(
+            merged_word_package,
+            fallback_surface=target,
+            fallback_language_tag=language_tag,
+            fallback_provider="frequency",
+        )
+        if normalized_merged is not None:
+            return normalized_merged
+    fallback_reading = ""
+    if discovered_script_forms:
+        fallback_reading = str(discovered_script_forms.get("kana") or "").strip()
+    return build_word_package(
+        language_pair=language_pair,
+        surface=target,
+        reading=fallback_reading or target,
+        source_provider=source_dict,
+        script_forms=discovered_script_forms,
+        source_extra={"fallback": "jmdict"},
+    )
+
+
+def _resolve_word_package_script_forms(
+    word_package: Optional[Mapping[str, object]],
+    *,
+    fallback: Optional[Mapping[str, str]],
+) -> Optional[dict[str, str]]:
+    package_forms = None
+    if isinstance(word_package, Mapping):
+        raw_package_forms = word_package.get("script_forms")
+        if isinstance(raw_package_forms, Mapping):
+            package_forms = _normalize_script_forms_map(raw_package_forms)
+    return merge_script_forms(package_forms, fallback)
+
+
+def _normalize_script_forms_map(value: object) -> Optional[dict[str, str]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, str] = {}
+    for key, raw in dict(value).items():
+        script = str(key or "").strip().lower()
+        text = str(raw or "").strip()
+        if not script or not text:
+            continue
+        normalized[script] = text
+    return normalized or None
 
 
 def _build_filters(

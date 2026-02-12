@@ -72,10 +72,14 @@ def get_srs_runtime_diagnostics(
         "store_exists": store_path.exists(),
         "store_items_total": 0,
         "store_items_for_pair": 0,
+        "store_items_with_word_package_total": 0,
+        "store_items_with_word_package_for_pair": 0,
         "store_error": None,
         "ruleset_path": str(ruleset_path),
         "ruleset_exists": ruleset_path.exists(),
         "ruleset_rules_count": 0,
+        "ruleset_rules_with_script_forms": 0,
+        "ruleset_rules_with_word_package": 0,
         "ruleset_error": None,
         "snapshot_path": str(snapshot_path),
         "snapshot_exists": snapshot_path.exists(),
@@ -87,8 +91,13 @@ def get_srs_runtime_diagnostics(
         try:
             store = load_srs_store(store_path)
             diagnostics["store_items_total"] = len(store.items)
-            diagnostics["store_items_for_pair"] = len(
-                [item for item in store.items if item.language_pair == normalized_pair]
+            diagnostics["store_items_with_word_package_total"] = len(
+                [item for item in store.items if item.word_package]
+            )
+            pair_items = [item for item in store.items if item.language_pair == normalized_pair]
+            diagnostics["store_items_for_pair"] = len(pair_items)
+            diagnostics["store_items_with_word_package_for_pair"] = len(
+                [item for item in pair_items if item.word_package]
             )
         except Exception as exc:  # noqa: BLE001
             diagnostics["store_error"] = str(exc)
@@ -96,7 +105,28 @@ def get_srs_runtime_diagnostics(
         try:
             ruleset_payload = json.loads(ruleset_path.read_text(encoding="utf-8"))
             rules = ruleset_payload.get("rules", [])
-            diagnostics["ruleset_rules_count"] = len(rules) if isinstance(rules, list) else 0
+            if isinstance(rules, list):
+                diagnostics["ruleset_rules_count"] = len(rules)
+                diagnostics["ruleset_rules_with_script_forms"] = len(
+                    [
+                        rule
+                        for rule in rules
+                        if isinstance(rule, dict)
+                        and isinstance(rule.get("metadata"), dict)
+                        and isinstance(rule.get("metadata", {}).get("script_forms"), dict)
+                    ]
+                )
+                diagnostics["ruleset_rules_with_word_package"] = len(
+                    [
+                        rule
+                        for rule in rules
+                        if isinstance(rule, dict)
+                        and isinstance(rule.get("metadata"), dict)
+                        and isinstance(rule.get("metadata", {}).get("word_package"), dict)
+                    ]
+                )
+            else:
+                diagnostics["ruleset_rules_count"] = 0
         except Exception as exc:  # noqa: BLE001
             diagnostics["ruleset_error"] = str(exc)
     if diagnostics["snapshot_exists"]:

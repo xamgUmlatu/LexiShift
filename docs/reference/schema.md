@@ -43,6 +43,27 @@ Top-level fields
 - `language_pair` (string, optional; e.g., `en-en`, `de-en`)
 - `confidence` (float, optional; 0–1)
 - `script_forms` (object map, optional; script -> display form, e.g. `{ "kanji": "猫", "kana": "ねこ", "romaji": "neko" }`)
+- `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
+
+### WordPackage
+- `version` (int, required; current `1`)
+- `language_tag` (string, required; BCP-47, e.g. `ja`)
+- `surface` (string, required; canonical lemma/surface form)
+- `reading` (string, required; selected reading for this admitted item)
+- `script_forms` (object map, required; for Japanese typically `kanji`, `kana`, `romaji`)
+- `source` (object, required; minimum `{ "provider": "<source>" }`)
+- `pos` (string, optional)
+- `wtype` (string, optional)
+- `sublemma` (string, optional)
+- `core_rank` (float, optional)
+- `pmw` (float, optional)
+- `lform_raw` (string, optional)
+- `row_index` (int, optional)
+- `row_rank` (float, optional)
+
+Notes:
+- Rule rendering precedence for Japanese script forms is `metadata.word_package.script_forms` first, then legacy `metadata.script_forms`.
+- `metadata.script_forms` remains supported for backwards compatibility.
 
 ### VocabSettings
 - `inflections` (object, optional; `InflectionSettings`)

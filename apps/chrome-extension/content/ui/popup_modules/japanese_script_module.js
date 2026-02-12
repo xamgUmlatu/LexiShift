@@ -28,6 +28,7 @@
       languagePair: String(target.dataset.languagePair || ""),
       displayScript: String(target.dataset.displayScript || ""),
       hasScriptForms: Boolean(String(target.dataset.scriptForms || "").trim()),
+      hasWordPackage: Boolean(String(target.dataset.wordPackage || "").trim()),
       displayReplacement: String(target.dataset.displayReplacement || "").slice(0, 80),
       replacement: String(target.dataset.replacement || "").slice(0, 80)
     };
@@ -43,8 +44,36 @@
     return t("option_ja_script_kanji", null, "Kanji");
   }
 
+  function parseWordPackage(target, debugLog) {
+    const payload = target && target.dataset ? target.dataset.wordPackage : "";
+    if (!payload) {
+      return null;
+    }
+    try {
+      const parsed = JSON.parse(payload);
+      if (!parsed || typeof parsed !== "object") {
+        return null;
+      }
+      return parsed;
+    } catch (error) {
+      if (typeof debugLog === "function") {
+        debugLog("Failed to parse word package payload.", {
+          message: error && error.message ? error.message : String(error),
+          payloadPreview: String(payload).slice(0, 120)
+        });
+      }
+      return null;
+    }
+  }
+
   function parseScriptForms(target, debugLog) {
-    const payload = target && target.dataset ? target.dataset.scriptForms : "";
+    let payload = target && target.dataset ? target.dataset.scriptForms : "";
+    if (!payload) {
+      const wordPackage = parseWordPackage(target, debugLog);
+      if (wordPackage && wordPackage.script_forms && typeof wordPackage.script_forms === "object") {
+        payload = JSON.stringify(wordPackage.script_forms);
+      }
+    }
     if (!payload) {
       if (typeof debugLog === "function") {
         debugLog("No script forms payload on target.", summarizeTarget(target));

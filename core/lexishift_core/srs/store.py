@@ -5,6 +5,11 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
+
 
 @dataclass(frozen=True)
 class SrsSync:
@@ -48,6 +53,7 @@ class SrsItem:
     next_due: Optional[str] = None
     exposures: int = 0
     history: Sequence[SrsHistoryEntry] = field(default_factory=tuple)
+    word_package: Optional[Mapping[str, object]] = None
 
 
 @dataclass(frozen=True)
@@ -114,6 +120,15 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
     for item in data.get("items", []):
         if not isinstance(item, Mapping):
             continue
+        lemma = str(item.get("lemma", ""))
+        language_pair = str(item.get("language_pair", ""))
+        source_type = str(item.get("source_type", ""))
+        word_package = normalize_word_package(
+            item.get("word_package"),
+            fallback_surface=lemma,
+            fallback_language_tag=resolve_language_tag_from_pair(language_pair),
+            fallback_provider=source_type or "srs",
+        )
         history = tuple(
             SrsHistoryEntry(ts=str(entry.get("ts", "")), rating=str(entry.get("rating", "")))
             for entry in item.get("srs_history", [])
@@ -122,9 +137,9 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
         items.append(
             SrsItem(
                 item_id=str(item.get("item_id", "")),
-                lemma=str(item.get("lemma", "")),
-                language_pair=str(item.get("language_pair", "")),
-                source_type=str(item.get("source_type", "")),
+                lemma=lemma,
+                language_pair=language_pair,
+                source_type=source_type,
                 confidence=item.get("confidence"),
                 stability=item.get("stability"),
                 difficulty=item.get("difficulty"),
@@ -132,6 +147,7 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
                 next_due=item.get("next_due"),
                 exposures=int(item.get("exposures", 0)),
                 history=history,
+                word_package=word_package,
             )
         )
     return SrsStore(items=tuple(items), version=int(data.get("version", 1)))
@@ -140,6 +156,12 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
 def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
     items = []
     for item in store.items:
+        word_package = normalize_word_package(
+            item.word_package,
+            fallback_surface=item.lemma,
+            fallback_language_tag=resolve_language_tag_from_pair(item.language_pair),
+            fallback_provider=item.source_type or "srs",
+        )
         record: dict[str, Any] = {
             "item_id": item.item_id,
             "lemma": item.lemma,
@@ -154,6 +176,7 @@ def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
             "srs_history": [
                 {"ts": entry.ts, "rating": entry.rating} for entry in item.history
             ],
+            "word_package": word_package,
         }
         trimmed = {key: value for key, value in record.items() if value not in (None, [], "")}
         items.append(trimmed)

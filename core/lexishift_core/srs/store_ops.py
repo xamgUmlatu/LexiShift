@@ -2,8 +2,12 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import datetime
-from typing import Optional, Sequence
+from typing import Mapping, Optional, Sequence
 
+from lexishift_core.lexicon.word_package import (
+    normalize_word_package,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsStore
 from lexishift_core.srs.source import SOURCE_UNKNOWN, normalize_source_type
 from lexishift_core.srs.scheduler import apply_feedback
@@ -40,9 +44,16 @@ def record_exposure(
     now: Optional[datetime] = None,
     create_if_missing: bool = False,
     source_type: str = SOURCE_UNKNOWN,
+    word_package: Optional[Mapping[str, object]] = None,
 ) -> SrsStore:
     now = now or now_utc()
     source_type = normalize_source_type(source_type)
+    resolved_word_package = _resolve_word_package(
+        word_package,
+        language_pair=language_pair,
+        lemma=lemma,
+        source_type=source_type,
+    )
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:
@@ -53,7 +64,10 @@ def record_exposure(
             language_pair=language_pair,
             source_type=source_type,
             exposures=0,
+            word_package=resolved_word_package,
         )
+    elif item.word_package is None and resolved_word_package is not None:
+        item = replace(item, word_package=resolved_word_package)
     updated = replace(
         item,
         exposures=item.exposures + 1,
@@ -72,9 +86,16 @@ def record_feedback(
     create_if_missing: bool = False,
     source_type: str = SOURCE_UNKNOWN,
     increment_exposures: bool = True,
+    word_package: Optional[Mapping[str, object]] = None,
 ) -> SrsStore:
     now = now or now_utc()
     source_type = normalize_source_type(source_type)
+    resolved_word_package = _resolve_word_package(
+        word_package,
+        language_pair=language_pair,
+        lemma=lemma,
+        source_type=source_type,
+    )
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:
@@ -85,7 +106,10 @@ def record_feedback(
             language_pair=language_pair,
             source_type=source_type,
             history=(),
+            word_package=resolved_word_package,
         )
+    elif item.word_package is None and resolved_word_package is not None:
+        item = replace(item, word_package=resolved_word_package)
     updated = apply_feedback(item, rating, now=now)
     if increment_exposures:
         updated = replace(updated, exposures=updated.exposures + 1)
@@ -101,9 +125,16 @@ def append_history(
     now: Optional[datetime] = None,
     create_if_missing: bool = False,
     source_type: str = SOURCE_UNKNOWN,
+    word_package: Optional[Mapping[str, object]] = None,
 ) -> SrsStore:
     now = now or now_utc()
     source_type = normalize_source_type(source_type)
+    resolved_word_package = _resolve_word_package(
+        word_package,
+        language_pair=language_pair,
+        lemma=lemma,
+        source_type=source_type,
+    )
     item = find_item(store, language_pair=language_pair, lemma=lemma)
     if item is None:
         if not create_if_missing:
@@ -114,9 +145,27 @@ def append_history(
             language_pair=language_pair,
             source_type=source_type,
             history=(),
+            word_package=resolved_word_package,
         )
+    elif item.word_package is None and resolved_word_package is not None:
+        item = replace(item, word_package=resolved_word_package)
     history: Sequence[SrsHistoryEntry] = tuple(item.history) + (
         SrsHistoryEntry(ts=format_ts(now), rating=rating),
     )
     updated = replace(item, history=history)
     return upsert_item(store, updated)
+
+
+def _resolve_word_package(
+    value: Optional[Mapping[str, object]],
+    *,
+    language_pair: str,
+    lemma: str,
+    source_type: str,
+) -> Optional[Mapping[str, object]]:
+    return normalize_word_package(
+        value,
+        fallback_surface=lemma,
+        fallback_language_tag=resolve_language_tag_from_pair(language_pair),
+        fallback_provider=source_type or "srs",
+    )

@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from typing import Iterable, Optional, Sequence
+from typing import Optional, Sequence
 
+from lexishift_core.lexicon.word_package import build_word_package
 from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.srs.admission_policy import (
@@ -20,6 +21,7 @@ from lexishift_core.scoring.weighting import PmwWeighting
 class SeedWord:
     lemma: str
     language_pair: str
+    word_package: Optional[dict[str, object]]
     core_rank: Optional[float]
     pos: Optional[str]
     pos_bucket: str
@@ -38,6 +40,9 @@ class SeedSelectionConfig:
     rank_column: str = "core_rank"
     pmw_column: str = "pmw"
     pos_column: str = "pos"
+    lform_column: str = "lform"
+    wtype_column: str = "wtype"
+    sublemma_column: str = "sublemma"
     pmw_weighting: PmwWeighting = PmwWeighting()
     admission_pos_weights: Optional[AdmissionPosWeights] = None
     sort_by_admission_weight: bool = True
@@ -67,17 +72,32 @@ def build_seed_candidates(
     with SqliteFrequencyStore(store_config) as store:
         available_columns = set(store.column_names())
         include_pos = bool(config.pos_column and config.pos_column in available_columns)
-        selected_columns = [config.pos_column] if include_pos else []
+        include_lform = bool(config.lform_column and config.lform_column in available_columns)
+        include_wtype = bool(config.wtype_column and config.wtype_column in available_columns)
+        include_sublemma = bool(config.sublemma_column and config.sublemma_column in available_columns)
+        selected_columns = [
+            column
+            for column, enabled in (
+                (config.pos_column, include_pos),
+                (config.lform_column, include_lform),
+                (config.wtype_column, include_wtype),
+                (config.sublemma_column, include_sublemma),
+            )
+            if enabled and column
+        ]
         resolved_pos_weights = (
             config.admission_pos_weights
             or resolve_default_pos_weights(language_pair=config.language_pair)
         )
         max_pmw = store.max_value(config.pmw_column)
         results: list[SeedWord] = []
-        for row in store.iter_top_by_rank(
-            limit=config.top_n,
-            rank_column=config.rank_column,
-            columns=selected_columns,
+        for row_index, row in enumerate(
+            store.iter_top_by_rank(
+                limit=config.top_n,
+                rank_column=config.rank_column,
+                columns=selected_columns,
+            ),
+            start=1,
         ):
             lemma = str(row[config.lemma_column]).strip()
             if not lemma:
@@ -94,6 +114,46 @@ def build_seed_candidates(
                 if include_pos and config.pos_column in columns and row[config.pos_column] is not None
                 else None
             )
+            raw_lform = (
+                str(row[config.lform_column]).strip()
+                if include_lform and config.lform_column in columns and row[config.lform_column] is not None
+                else None
+            )
+            raw_wtype = (
+                str(row[config.wtype_column]).strip()
+                if include_wtype and config.wtype_column in columns and row[config.wtype_column] is not None
+                else None
+            )
+            raw_sublemma = (
+                str(row[config.sublemma_column]).strip()
+                if include_sublemma
+                and config.sublemma_column in columns
+                and row[config.sublemma_column] is not None
+                else None
+            )
+            word_package = build_word_package(
+                language_pair=config.language_pair,
+                surface=lemma,
+                reading=raw_lform or lemma,
+                source_provider=source_label,
+                pos=raw_pos,
+                wtype=raw_wtype,
+                sublemma=raw_sublemma,
+                core_rank=core_rank,
+                pmw=pmw,
+                lform_raw=raw_lform,
+                row_index=row_index,
+                row_rank=core_rank,
+                source_extra={
+                    "rank_column": config.rank_column,
+                    "pmw_column": config.pmw_column,
+                    "lemma_column": config.lemma_column,
+                    "pos_column": config.pos_column if include_pos else None,
+                    "lform_column": config.lform_column if include_lform else None,
+                    "wtype_column": config.wtype_column if include_wtype else None,
+                    "sublemma_column": config.sublemma_column if include_sublemma else None,
+                },
+            )
             base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
             pos_bucket, pos_weight, admission_weight = compute_admission_weight(
                 language_pair=config.language_pair,
@@ -105,6 +165,7 @@ def build_seed_candidates(
                 SeedWord(
                     lemma=lemma,
                     language_pair=config.language_pair,
+                    word_package=word_package,
                     core_rank=core_rank,
                     pos=raw_pos,
                     pos_bucket=pos_bucket,
@@ -117,6 +178,9 @@ def build_seed_candidates(
                         "rank_column": config.rank_column,
                         "pmw_column": config.pmw_column,
                         "pos_column": config.pos_column if include_pos else None,
+                        "lform_column": config.lform_column if include_lform else None,
+                        "wtype_column": config.wtype_column if include_wtype else None,
+                        "sublemma_column": config.sublemma_column if include_sublemma else None,
                         "pos_bucket": pos_bucket,
                         "pos_weight": pos_weight,
                         "admission_weight": admission_weight,
@@ -129,26 +193,32 @@ def build_seed_candidates(
 
 
 def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandidate]:
-    return [
-        SelectorCandidate(
-            lemma=seed.lemma,
-            language_pair=seed.language_pair,
-            base_freq=seed.admission_weight,
-            confidence=seed.admission_weight,
-            pos=seed.pos_bucket,
-            metadata={
-                "core_rank": seed.core_rank,
-                "pos": seed.pos,
-                "pos_bucket": seed.pos_bucket,
-                "pos_weight": seed.pos_weight,
-                "pmw": seed.pmw,
-                "base_weight": seed.base_weight,
-                "admission_weight": seed.admission_weight,
-                **seed.metadata,
-            },
+    candidates: list[SelectorCandidate] = []
+    for seed in seeds:
+        metadata = {
+            "core_rank": seed.core_rank,
+            "pos": seed.pos,
+            "pos_bucket": seed.pos_bucket,
+            "pos_weight": seed.pos_weight,
+            "pmw": seed.pmw,
+            "base_weight": seed.base_weight,
+            "admission_weight": seed.admission_weight,
+            **seed.metadata,
+        }
+        word_package = getattr(seed, "word_package", None)
+        if word_package:
+            metadata["word_package"] = word_package
+        candidates.append(
+            SelectorCandidate(
+                lemma=seed.lemma,
+                language_pair=seed.language_pair,
+                base_freq=seed.admission_weight,
+                confidence=seed.admission_weight,
+                pos=seed.pos_bucket,
+                metadata=metadata,
+            )
         )
-        for seed in seeds
-    ]
+    return candidates
 
 
 def _load_jmdict_lemmas(path: Optional[Path]) -> Optional[set[str]]:

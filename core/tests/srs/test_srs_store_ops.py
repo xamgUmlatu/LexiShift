@@ -57,6 +57,36 @@ class TestSrsStoreOps(unittest.TestCase):
         self.assertEqual(len(item.history), 1)
         self.assertIsNotNone(item.next_due)
 
+    def test_record_exposure_preserves_existing_word_package(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:所",
+                    lemma="所",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    word_package={
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "所",
+                        "reading": "ところ",
+                        "script_forms": {
+                            "kanji": "所",
+                            "kana": "ところ",
+                            "romaji": "tokoro",
+                        },
+                        "source": {"provider": "freq-ja-bccwj"},
+                    },
+                ),
+            ),
+            version=1,
+        )
+        now = datetime(2026, 2, 3, 12, 0, tzinfo=timezone.utc)
+        updated = record_exposure(store, language_pair="en-ja", lemma="所", now=now)
+        item = updated.items[0]
+        self.assertIsNotNone(item.word_package)
+        self.assertEqual(item.word_package["reading"], "ところ")
+
 
 if __name__ == "__main__":
     unittest.main()

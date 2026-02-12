@@ -20,7 +20,10 @@
       original: String(detail.original || ""),
       source_phrase: String(detail.source || ""),
       language_pair: languagePair,
-      url: url || ""
+      url: url || "",
+      word_package: detail.word_package && typeof detail.word_package === "object"
+        ? detail.word_package
+        : null
     };
   }
 

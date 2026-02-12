@@ -509,6 +509,14 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                             lemma="alpha",
                             language_pair="en-ja",
                             source_type="initial_set",
+                            word_package={
+                                "version": 1,
+                                "language_tag": "ja",
+                                "surface": "alpha",
+                                "reading": "alpha",
+                                "script_forms": {"surface": "alpha"},
+                                "source": {"provider": "seed"},
+                            },
                         ),
                         SrsItem(
                             item_id="en-en:beta",
@@ -522,7 +530,14 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 paths.srs_store_path,
             )
             paths.ruleset_path("en-ja").write_text(
-                '{"rules":[{"source_phrase":"one","replacement":"一"},{"source_phrase":"two","replacement":"二"}]}',
+                (
+                    '{"rules":['
+                    '{"source_phrase":"one","replacement":"一","metadata":{"script_forms":{"kanji":"一"}}},'
+                    '{"source_phrase":"two","replacement":"二","metadata":{"word_package":'
+                    '{"version":1,"language_tag":"ja","surface":"二","reading":"に",'
+                    '"script_forms":{"kanji":"二","kana":"に","romaji":"ni"},'
+                    '"source":{"provider":"jmdict"}}}}]}'
+                ),
                 encoding="utf-8",
             )
             paths.snapshot_path("en-ja").write_text(
@@ -535,7 +550,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertTrue(payload["snapshot_exists"])
             self.assertEqual(payload["store_items_total"], 2)
             self.assertEqual(payload["store_items_for_pair"], 1)
+            self.assertEqual(payload["store_items_with_word_package_total"], 1)
+            self.assertEqual(payload["store_items_with_word_package_for_pair"], 1)
             self.assertEqual(payload["ruleset_rules_count"], 2)
+            self.assertEqual(payload["ruleset_rules_with_script_forms"], 1)
+            self.assertEqual(payload["ruleset_rules_with_word_package"], 1)
             self.assertEqual(payload["snapshot_target_count"], 2)
 
 

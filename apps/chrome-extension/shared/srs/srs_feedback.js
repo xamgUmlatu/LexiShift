@@ -7,6 +7,21 @@
     return new Date().toISOString();
   }
 
+  function parseWordPackage(value) {
+    if (!value) {
+      return null;
+    }
+    try {
+      const parsed = typeof value === "string" ? JSON.parse(value) : value;
+      if (!parsed || typeof parsed !== "object") {
+        return null;
+      }
+      return parsed;
+    } catch (_error) {
+      return null;
+    }
+  }
+
   function sanitizeEntry(entry) {
     if (!entry || typeof entry !== "object") {
       return null;
@@ -21,7 +36,8 @@
       language_pair: entry.language_pair ? String(entry.language_pair) : "",
       profile_id: entry.profile_id ? String(entry.profile_id) : "default",
       source_phrase: entry.source_phrase ? String(entry.source_phrase) : "",
-      url: entry.url ? String(entry.url) : ""
+      url: entry.url ? String(entry.url) : "",
+      word_package: parseWordPackage(entry.word_package || null)
     };
   }
 
@@ -37,7 +53,8 @@
       origin: String(target.dataset.origin || "ruleset"),
       language_pair: target.dataset.languagePair || "",
       source_phrase: target.dataset.source || "",
-      url: url || (window.location ? window.location.href : "")
+      url: url || (window.location ? window.location.href : ""),
+      word_package: parseWordPackage(target.dataset.wordPackage || null)
     };
   }
 

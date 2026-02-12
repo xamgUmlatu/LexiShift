@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
+from lexishift_core.lexicon.word_package import normalize_word_package
 from lexishift_core.replacement.core import MeaningRule, RuleMetadata, VocabPool, VocabRule
 from lexishift_core.replacement.inflect import InflectionOverrides, InflectionSpec
 
@@ -97,6 +98,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
     if not data:
         return None
     examples = tuple(str(item) for item in data.get("examples", []))
+    word_package = normalize_word_package(data.get("word_package"))
     raw_script_forms = data.get("script_forms")
     script_forms = None
     if isinstance(raw_script_forms, Mapping):
@@ -107,6 +109,14 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         }
         if normalized_script_forms:
             script_forms = normalized_script_forms
+    if script_forms is None and isinstance(word_package, Mapping):
+        from_word_package = word_package.get("script_forms")
+        if isinstance(from_word_package, Mapping):
+            script_forms = {
+                str(key): str(value)
+                for key, value in dict(from_word_package).items()
+                if str(key).strip() and str(value).strip()
+            } or None
     return RuleMetadata(
         label=data.get("label"),
         description=data.get("description"),
@@ -117,12 +127,14 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         language_pair=data.get("language_pair"),
         confidence=data.get("confidence"),
         script_forms=script_forms,
+        word_package=word_package,
     )
 
 
 def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, Any]]:
     if metadata is None:
         return None
+    word_package = normalize_word_package(metadata.word_package)
     data: dict[str, Any] = {
         "label": metadata.label,
         "description": metadata.description,
@@ -141,6 +153,7 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
             if metadata.script_forms
             else None
         ),
+        "word_package": word_package,
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [])}
     return trimmed or None

@@ -22,6 +22,23 @@
     return `${languagePair}:${lemma}`;
   }
 
+  function normalizeWordPackage(value) {
+    if (!value) {
+      return null;
+    }
+    const parsed = typeof value === "string" ? (() => {
+      try {
+        return JSON.parse(value);
+      } catch (_error) {
+        return null;
+      }
+    })() : value;
+    if (!parsed || typeof parsed !== "object") {
+      return null;
+    }
+    return parsed;
+  }
+
   function ensureItem(store, entry) {
     const lemma = String(entry.lemma || "").trim();
     const languagePair = String(entry.language_pair || "").trim();
@@ -31,15 +48,24 @@
     const items = Array.isArray(store.items) ? store.items.slice() : [];
     const index = items.findIndex((item) => item && item.item_id === itemId);
     if (index >= 0) {
+      const normalizedWordPackage = normalizeWordPackage(entry.word_package || null);
+      if (normalizedWordPackage && !items[index].word_package) {
+        items[index] = {
+          ...items[index],
+          word_package: normalizedWordPackage
+        };
+      }
       return [{ ...store, items }, items[index]];
     }
+    const normalizedWordPackage = normalizeWordPackage(entry.word_package || null);
     const created = {
       item_id: itemId,
       lemma,
       language_pair: languagePair,
       source_type: entry.source_type || entry.origin || "extension",
       exposures: 0,
-      srs_history: []
+      srs_history: [],
+      word_package: normalizedWordPackage
     };
     items.push(created);
     return [{ ...store, items }, created];
@@ -106,7 +132,8 @@
       items[idx] = clampHistory({
         ...items[idx],
         exposures: Number(items[idx].exposures || 0) + 1,
-        last_seen: payload.ts || nowIso()
+        last_seen: payload.ts || nowIso(),
+        word_package: items[idx].word_package || normalizeWordPackage(payload.word_package || null)
       });
     }
     return saveStore({ ...updatedStore, items });
@@ -128,7 +155,8 @@
         items[idx] = clampHistory({
           ...items[idx],
           exposures: Number(items[idx].exposures || 0) + 1,
-          last_seen: entry.ts || nowIso()
+          last_seen: entry.ts || nowIso(),
+          word_package: items[idx].word_package || normalizeWordPackage(entry.word_package || null)
         });
       }
     }
@@ -152,7 +180,8 @@
         ...items[idx],
         exposures: Number(items[idx].exposures || 0) + 1,
         last_seen: payload.ts || nowIso(),
-        srs_history: history
+        srs_history: history,
+        word_package: items[idx].word_package || normalizeWordPackage(payload.word_package || null)
       });
     }
     return saveStore({ ...updatedStore, items });

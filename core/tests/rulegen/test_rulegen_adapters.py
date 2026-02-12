@@ -56,12 +56,28 @@ class TestRulegenAdapters(unittest.TestCase):
                     targets=("語",),
                     language_pair="en-ja",
                     jmdict_path=Path("/tmp/JMdict_e"),
+                    word_packages_by_target={
+                        "語": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "語",
+                            "reading": "ご",
+                            "script_forms": {"kanji": "語", "kana": "ご", "romaji": "go"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
                 )
             )
         self.assertEqual(len(rules), 1)
         self.assertEqual(rules[0].source_phrase, "word")
         self.assertEqual(rules[0].replacement, "語")
         generate.assert_called_once()
+        args, kwargs = generate.call_args
+        self.assertIn("config", kwargs)
+        self.assertEqual(
+            kwargs["config"].word_packages_by_target["語"]["reading"],
+            "ご",
+        )
 
     def test_en_de_requires_freedict_de_en_path(self) -> None:
         with self.assertRaises(ValueError):

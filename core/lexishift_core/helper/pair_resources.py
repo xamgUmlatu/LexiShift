@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 
+from lexishift_core.lexicon.word_package import resolve_language_tag_from_pair
 from lexishift_core.helper.lp_capabilities import (
     default_freedict_de_en_path,
     default_frequency_db_path,
@@ -13,11 +14,7 @@ from lexishift_core.helper.paths import HelperPaths
 
 
 def target_language_from_pair(pair: str) -> str:
-    normalized = str(pair or "").strip()
-    parts = normalized.split("-", 1)
-    if len(parts) == 2 and parts[1].strip():
-        return parts[1].strip().lower()
-    return ""
+    return resolve_language_tag_from_pair(pair)
 
 
 def resolve_stopwords_path(paths: HelperPaths, *, pair: str) -> Optional[Path]:

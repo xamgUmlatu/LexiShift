@@ -8,6 +8,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Source phrase**: The literal text or token to match in input text.
 - **Replacement**: The target text inserted in place of the source phrase.
 - **Rule metadata**: Additional fields such as `source`, `source_type`, `language_pair`, and `confidence`.
+- **Word package**: Versioned target-word metadata payload (`word_package`) that carries language tag, surface, selected reading, script forms, and provenance from admission through rendering.
 - **Ruleset**: A collection of rules stored as JSON (the “Source of Truth” for replacements).
 - **Profile**: A higher‑level container representing a user’s working context (active ruleset, settings, metadata).
 - **Profile source mode**: How a client chooses a profile for SRS settings.
@@ -29,6 +30,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 
 - **SRS (Spaced Repetition System)**: Algorithmic scheduling to show items at optimal intervals for learning.
 - **S (study inventory)**: The persisted set of words currently being learned by the user for a language pair.
+- **S identity (v1)**: Item identity key remains `language_pair + lemma` (no reading-based split in this phase).
 - **Candidate universe (U)**: The larger candidate pool used for possible admission into `S` (frequency packs, dictionaries, profile signals, etc.).
 - **Initial S bootstrap**: The initial S built from frequency lists (legacy term: “seed”).
 - **Bootstrap top N**: Size of initial inventory admission for S (default `800`, clamped by policy).
