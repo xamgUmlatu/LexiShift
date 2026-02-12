@@ -6,6 +6,9 @@
     const popupModuleRegistry = opts.popupModuleRegistry && typeof opts.popupModuleRegistry === "object"
       ? opts.popupModuleRegistry
       : null;
+    const applyModuleTheme = typeof opts.applyModuleTheme === "function"
+      ? opts.applyModuleTheme
+      : null;
     const summarizeTarget = typeof opts.summarizeTarget === "function"
       ? opts.summarizeTarget
       : (target) => {
@@ -93,8 +96,19 @@
           if (!moduleEntry || !moduleEntry.node) {
             continue;
           }
+          const moduleId = String(moduleEntry.id || "").trim();
+          if (applyModuleTheme) {
+            try {
+              applyModuleTheme(moduleId, moduleEntry.node, target);
+            } catch (error) {
+              debugLog("Failed to apply popup module theme.", {
+                moduleId,
+                message: error && error.message ? error.message : String(error)
+              });
+            }
+          }
           feedbackModules.appendChild(moduleEntry.node);
-          moduleIds.push(String(moduleEntry.id || "").trim());
+          moduleIds.push(moduleId);
         }
       }
       if (feedbackPopup) {

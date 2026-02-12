@@ -10,13 +10,13 @@
     }),
     saturationPercent: Object.freeze({
       min: 70,
-      max: 140,
+      max: 450,
       step: 1,
       defaultValue: 100
     }),
     brightnessPercent: Object.freeze({
       min: 80,
-      max: 125,
+      max: 200,
       step: 1,
       defaultValue: 100
     }),

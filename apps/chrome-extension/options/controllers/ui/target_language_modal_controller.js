@@ -66,8 +66,8 @@
       }
       return {
         hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
-        saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
-        brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 },
+        saturationPercent: { min: 70, max: 450, step: 1, defaultValue: 100 },
+        brightnessPercent: { min: 80, max: 200, step: 1, defaultValue: 100 },
         transparencyPercent: { min: 40, max: 100, step: 1, defaultValue: 100 }
       };
     }
@@ -356,6 +356,53 @@
       return `hue-rotate(${normalized.hueDeg}deg) saturate(${saturation}) brightness(${brightness}) opacity(${opacity})`;
     }
 
+    function getModuleEntryById(moduleId) {
+      const normalizedId = String(moduleId || "").trim();
+      if (!normalizedId) {
+        return {};
+      }
+      const byId = activeModulePrefs && typeof activeModulePrefs === "object"
+        && activeModulePrefs.byId
+        && typeof activeModulePrefs.byId === "object"
+        ? activeModulePrefs.byId
+        : {};
+      const entry = byId[normalizedId];
+      return entry && typeof entry === "object" ? entry : {};
+    }
+
+    function resolveThemeFromCardInputs(moduleId, card) {
+      const entry = getModuleEntryById(moduleId);
+      const fallbackTheme = resolveEntryTheme(entry);
+      if (!(card instanceof HTMLElement)) {
+        return fallbackTheme;
+      }
+      const nextTheme = { ...fallbackTheme };
+      for (const sliderDef of getThemeSliderDefinitions()) {
+        const slider = card.querySelector(
+          `input[type="range"][data-module-id="${moduleId}"][data-theme-key="${sliderDef.key}"]`
+        );
+        if (slider instanceof HTMLInputElement) {
+          nextTheme[sliderDef.key] = Number.parseInt(slider.value, 10);
+        }
+      }
+      return normalizeTheme(nextTheme, fallbackTheme);
+    }
+
+    function applyThemePreviewToCard(card, theme) {
+      if (!(card instanceof HTMLElement)) {
+        return;
+      }
+      const filterValue = buildThemePreviewFilter(theme);
+      const swatch = card.querySelector(".language-module-color-trigger-swatch");
+      if (swatch instanceof HTMLElement) {
+        swatch.style.filter = filterValue;
+      }
+      const panel = card.querySelector(".language-module-color-panel");
+      if (panel instanceof HTMLElement) {
+        panel.style.filter = filterValue;
+      }
+    }
+
     function renderEnableToggle(definition, entry) {
       const enabled = entry.enabled !== false;
       const button = document.createElement("button");
@@ -422,6 +469,7 @@
 
       const panel = document.createElement("div");
       panel.className = "language-module-color-panel";
+      panel.style.filter = buildThemePreviewFilter(theme);
 
       const grid = document.createElement("div");
       grid.className = "language-module-color-grid";
@@ -562,6 +610,7 @@
       if (themeTuningEnabled) {
         card.appendChild(renderColorTrigger(definition, entry));
         card.appendChild(renderColorDrawer(definition, entry));
+        applyThemePreviewToCard(card, resolveEntryTheme(entry));
       }
       return card;
     }
@@ -763,6 +812,11 @@
       );
       if (valueNode instanceof HTMLElement) {
         valueNode.textContent = formatThemeValue(themeKey, target.value);
+      }
+      const card = modulesList.querySelector(`.language-module-card[data-module-id="${moduleId}"]`);
+      if (card instanceof HTMLElement) {
+        const liveTheme = resolveThemeFromCardInputs(moduleId, card);
+        applyThemePreviewToCard(card, liveTheme);
       }
     }
 
