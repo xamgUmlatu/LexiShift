@@ -55,6 +55,11 @@ Interaction flow today:
 5. Popup is positioned near the anchor span and animated open.
 6. User clicks feedback rating or dismisses popup.
 
+Current settings surface:
+- Language/script preference is currently configured from options target-language modal (`ja-primary-display-script`).
+- Popup module settings generalization is still tracked as architecture/plan work, not yet the canonical runtime path.
+- See `docs/architecture/popup_modules_settings_implementation_plan.md`.
+
 ## 3) Module Concepts
 
 Terminology:

@@ -10,6 +10,34 @@ Design goals
 - Extensible architecture for GUI tooling and plugins/extensions later.
 - Precompute static ruleset expansions (inflections, phrase variants) so runtime is fast.
 
+Implemented features (current)
+- Core replacement engine
+  - Word/phrase tokenization with whitespace-preserving output.
+  - Left-to-right longest-match replacement via trie.
+  - Rule-level priority and case-policy handling.
+  - Optional precomputed inflection expansion and meaning-aware pipeline.
+- SRS + helper core
+  - SRS store/scheduler/policy primitives and pair-level settings.
+  - Set planning/bootstrap/refresh workflows in helper use-cases.
+  - Language-pair rule generation pipelines (`ja_en`, `en_de`) with confidence scoring.
+  - Feedback/exposure signal ingestion paths.
+- Desktop GUI (PySide6)
+  - Profile/ruleset management and editable rules tables.
+  - Language-pack management (download/validate/link/manual override).
+  - Bulk synonym generation and dataset import/export (JSON + share code).
+  - Appearance/theme controls and preview tooling.
+- Chrome extension
+  - Replaces text on all frames/pages with configurable highlight behavior.
+  - Runtime rule sources: local rules + optional helper rules + profile-scoped helper cache fallback.
+  - SRS gating, SRS feedback popup, sound feedback, and exposure logging.
+  - Profile-first SRS settings model (`srsProfiles`) with selected-profile runtime mirrors.
+  - Profile background controls with IndexedDB media storage.
+  - Popup module stack for clicked target words (Japanese script module + feedback module).
+  - Fully localized options UI and diagnostics/debug controls.
+- BetterDiscord plugin
+  - Message/embed text replacement using the same core matching approach.
+  - JSON/share-code rules import path and UI settings for highlight/click-to-toggle behavior.
+
 Project layout
 - `apps/gui/src/`: PySide6 GUI scaffold.
   - `apps/gui/src/main.py`: main window, menu actions, preview integration.
@@ -47,7 +75,10 @@ Project layout
 
 Documentation
 - `docs/README.md`: documentation map by purpose.
+- `docs/architecture/extension_system_map.md`: one-page extension map (entrypoints, flows, storage, boundaries).
 - `docs/architecture/chrome_extension_technical.md`: content script + options architecture, SRS gate, logging.
+- `docs/architecture/options_controllers_architecture.md`: options startup/composition graph and controller boundaries.
+- `docs/architecture/popup_modules_pattern.md`: popup modules architecture and extension plan.
 - `docs/srs/srs_roadmap.md`: SRS workstreams and current status.
 - `docs/srs/srs_schema.md`: SRS data schema (settings/items/store).
 - `docs/rulegen/rule_generation_technical.md`: precomputed rule generation + confidence scoring.
@@ -264,6 +295,21 @@ Import/export (including "export as code")
 - `export_app_settings_json` / `import_app_settings_json` operate on app settings JSON.
 - `export_app_settings_code` / `import_app_settings_code` export/load app settings as a compact code string.
 
+SRS and profile capabilities (current state)
+- Core domain (`core/lexishift_core/srs`)
+  - Scheduling/store primitives, admission refresh, selector, planning, and policy modules.
+  - Pair-aware sizing policy (`bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`).
+- Helper orchestration (`core/lexishift_core/helper/use_cases`)
+  - `initialize_set`, `refresh_set`, `rulegen_job`, `set_planning`, `signals`, `reset_srs`.
+  - Pair requirement validation, seed selection, rule publication, and status updates.
+- Extension runtime/profile model
+  - `srsSelectedProfileId`: extension-local selected profile.
+  - `srsProfiles.<profile_id>.languagePrefs`: source/target language + target script prefs.
+  - `srsProfiles.<profile_id>.srsByPair.<pair>`: pair SRS settings.
+  - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>`: planner/profile context signals.
+  - `srsProfiles.<profile_id>.uiPrefs`: profile UI prefs, including background controls.
+  - Runtime mirrors publish selected profile values for content-script usage.
+
 Testing
 - `python -m unittest discover -s core/tests`
 - Tests add the core directory to `sys.path` for local runs.
@@ -292,19 +338,38 @@ GUI scaffold (PySide6)
 
 Chrome extension
 - Load `apps/chrome-extension/` as an unpacked extension in Chrome.
-- Configure rules in the extension options page (JSON array or file import).
-- Display options include highlight color and click-to-toggle original text.
-- Share code import/export supports compressed codes (CJK short codes).
-- SRS mode (test dataset) can gate rules by active lemmas; includes feedback popup + sound.
-- Feedback can be enabled separately for SRS words and ruleset words.
-- “Sample active words…” uses the selector to show candidate SRS words.
-- Advanced → Debug tools exposes console logging + focus word diagnostics.
-- Advanced → Logging stores exposure events in `chrome.storage.local` (independent of debug logs).
-- Options page is fully localized and includes a language selector for the UI.
-- Replaces visible text on all pages (including frames), skips editable fields.
-- Notes:
-  - File import is a one-time read; re-import after changes.
-  - Reload pages to apply rule changes immediately.
+- Configure rules in options page (JSON array/file import/share code import).
+- Replacement runtime
+  - Longest-match replacement with configurable behavior flags:
+    - `maxOnePerTextBlock`
+    - `allowAdjacentReplacements`
+    - `maxReplacementsPerPage`
+    - `maxReplacementsPerLemmaPerPage`
+  - Replaces visible text on all pages/frames and skips editable fields.
+- Rule source/runtime behavior
+  - Local ruleset normalization and runtime application.
+  - Optional helper rules with profile-scoped cache fallback.
+  - SRS gate can filter active rules by replacement lemma.
+- SRS interaction features
+  - Feedback popup for replacement spans with ratings Again/Hard/Good/Easy.
+  - Keyboard shortcuts (Ctrl+1/2/3/4) while popup is open.
+  - Feedback gating by origin (`srs` vs `ruleset`) and optional feedback sound.
+  - Exposure logging to `chrome.storage.local` (independent from debug logging).
+- Profile-scoped features in options
+  - Selected profile picker and helper profile refresh.
+  - Pair-level SRS controls (enabled/max active/bootstrap/initial active/etc.).
+  - Profile language prefs including Japanese primary display script.
+  - Profile background image upload/remove/enable/opacity/backdrop color with IndexedDB storage.
+- Popup modules
+  - Feedback popup uses attachable module stack above feedback bar.
+  - Japanese script module can show non-primary scripts from replacement metadata.
+- Diagnostics and localization
+  - Advanced diagnostics actions and helper connectivity checks.
+  - Debug logs + focus-word tracing.
+  - Fully localized options UI with language selector.
+- More detail
+  - Extension layout/runtime map: `apps/chrome-extension/README.md`
+  - Technical architecture: `docs/architecture/chrome_extension_technical.md`
 
 BetterDiscord plugin
 - Copy `apps/betterdiscord-plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.

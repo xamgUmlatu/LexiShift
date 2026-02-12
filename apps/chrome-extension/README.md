@@ -1,48 +1,105 @@
 # Chrome Extension Structure
 
-This extension is organized by runtime concern so content, shared runtime logic, and options UI stay isolated.
-
-## Folders
-
-- `_locales/`: i18n message catalogs.
-- `content/`: content-script runtime modules.
-  - `processing/`: tokenizer, matcher, replacement pipeline.
-  - `runtime/`: content-script runtime controllers.
-    - `dom_scan/`: scan internals split by concern.
-      - `node_filters.js`: editable/excluded/LexiShift node guards.
-      - `page_budget_tracker.js`: page-level replacement budget state and updates.
-      - `scan_counters.js`: full-scan/mutation diagnostic counter builders.
-      - `text_node_processor.js`: text-node replacement processing pipeline.
-    - `dom_scan_runtime.js`: scan/observer lifecycle orchestration.
-    - `rules/helper_rules_runtime.js`: helper rules fetch/cache/fallback resolution.
-    - `rules/active_rules_runtime.js`: active-rule resolution (local + helper merge and SRS gate selection).
-    - `diagnostics/apply_diagnostics_reporter.js`: structured settings-apply diagnostics/reporting.
-    - `apply_runtime_actions.js`: settings-apply action runner (styles/listeners/highlight + scan execution).
-    - `apply_settings_pipeline.js`: settings-apply orchestration pipeline (normalize -> rules state -> diagnostics/actions).
-    - `feedback/feedback_runtime_controller.js`: feedback persistence + helper sync bridge.
-    - `settings_change_router.js`: routes `chrome.storage.onChanged` to targeted runtime updates.
-  - `ui/`: popup and in-page UI behavior.
-    - `popup_modules/`: attachable popup module registry/renderers (e.g., Japanese scripts).
-- `shared/`: cross-context runtime helpers loaded by content/options.
-  - `language/`: language preferences and lemmatization helpers.
-  - `settings/`: default settings and schema defaults used in runtime.
-  - `helper/`: helper/native transport and helper cache sync.
-  - `srs/`: SRS runtime modules (selector/store/feedback/gate/metrics).
-  - `profile/`: profile-scoped media/background support.
-- `options/`: options page controllers and submodules.
-  - `core/`: options-page services/managers (settings, helper, rules, UI, localization).
-    - `settings/`: `SettingsManager` domain installers (base/language/ui prefs/srs/signals).
-    - `helper/`: `HelperManager` domain installers (base, diagnostics, SRS set operations).
-    - `bootstrap/`: options-root adapters/composition (`controller_factory`, `ui_bridge`, `language_prefs_adapter`, `dom_aliases`, `controller_graph`).
-  - `controllers/`: options feature domains.
-    - `page/events/`: event binder composition (`general/`, `srs`, `profile_background`).
-    - `profile/background/`: profile background render/prefs/runtime bridge helpers.
-    - `srs/`: SRS actions and profile runtime wiring.
-      - `actions/`: formatter/shared/workflow modules used by `actions_controller.js`.
-  - `vendor/`: options-page vendor codecs/helpers.
+Purpose:
+- Document the extension runtime architecture and current user-facing feature set.
+- Provide a fast map for where to implement changes.
 
 ## Runtime Entry Points
 
-- `manifest.json`: content script loading order and web-accessible resources.
-- `content_script.js`: content runtime orchestrator.
-- `options.html` + `options.js`: options UI composition root.
+- `manifest.json`
+  - Declares permissions, background service worker, and ordered content script modules.
+- `content_script.js`
+  - Content runtime orchestrator (settings apply, active rules resolution, DOM scan, observer lifecycle).
+- `background.js`
+  - Native helper bridge endpoint for extension-helper communication.
+- `options.html` + `options.js`
+  - Options app shell + composition root.
+
+## Folder Map
+
+- `_locales/`
+  - Extension message catalogs.
+- `content/`
+  - Webpage runtime modules.
+  - `processing/`: tokenizer/matcher/replacements.
+  - `runtime/`: scan/runtime/rules/feedback/diagnostics orchestration.
+  - `ui/`: replacement UI behavior and popup modules.
+- `shared/`
+  - Cross-context runtime helpers.
+  - `language/`: language preference helpers and lemmatizer.
+  - `settings/`: default settings.
+  - `helper/`: helper transport/client/cache/feedback-sync.
+  - `srs/`: SRS runtime selector/store/feedback/gate/metrics.
+  - `profile/`: profile media storage utilities.
+- `options/`
+  - Options app services and controllers.
+  - `core/`: managers and bootstrap composition.
+  - `controllers/`: domain behavior (page/srs/profile/helper/rules/ui).
+  - `vendor/`: codecs and bundled helpers.
+
+## Current Extension Features
+
+- Replacement runtime
+  - Longest-match phrase replacement with highlight and click-to-toggle behavior.
+  - Runtime replacement controls:
+    - `maxOnePerTextBlock`
+    - `allowAdjacentReplacements`
+    - `maxReplacementsPerPage`
+    - `maxReplacementsPerLemmaPerPage`
+  - Works on all matching frames/pages and skips editable inputs/contenteditable areas.
+
+- Rule source model
+  - Uses local rules from extension storage.
+  - Can merge in helper-generated rules.
+  - Uses profile-scoped helper cache fallback on helper fetch failures.
+
+- SRS features
+  - SRS gate can filter active rules by replacement lemma.
+  - Feedback popup on replacement spans with 4 ratings:
+    - Again / Hard / Good / Easy
+  - Feedback origin gating:
+    - SRS words and ruleset words can be enabled independently.
+  - Exposure logging and diagnostics are separate from scheduler feedback.
+
+- Popup modules
+  - Popup has module stack above a fixed feedback bar.
+  - Built-in Japanese script module renders non-primary script forms when metadata is present.
+  - Module rendering is registry-based (`content/ui/popup_modules/module_registry.js`).
+
+- Profile-first options flow
+  - Selected profile controls active settings view.
+  - Per-profile language preferences and pair settings are stored under `srsProfiles`.
+  - Per-profile UI preferences include background image settings.
+  - Profile background media blobs are stored in IndexedDB (`shared/profile/profile_media_store.js`).
+
+- Debug and diagnostics
+  - Runtime diagnostics actions from options.
+  - Focus-word debug tracing.
+  - Helper connection/open-data-dir diagnostics.
+
+- Localization
+  - Options UI and extension strings are localized via `_locales`.
+
+## Key Architecture References
+
+- Extension system map:
+  - `docs/architecture/extension_system_map.md`
+- Extension technical details:
+  - `docs/architecture/chrome_extension_technical.md`
+- Options controller boundaries:
+  - `docs/architecture/options_controllers_architecture.md`
+- Popup module architecture:
+  - `docs/architecture/popup_modules_pattern.md`
+
+## Ownership Boundaries
+
+- `content_script.js`
+  - Orchestration and runtime lifecycle only.
+- `content/runtime/*`
+  - Apply pipeline, scan lifecycle, runtime actions, and settings change routing.
+- `content/ui/*`
+  - Rendering interactions and popup lifecycle.
+- `options.js`
+  - Startup/composition only; business logic belongs in controllers/services.
+- `options/core/bootstrap/controller_graph.js`
+  - Controller composition and cross-domain adapter wiring.

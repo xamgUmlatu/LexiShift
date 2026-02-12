@@ -3,6 +3,9 @@
 Status:
 - Planning only.
 - No runtime implementation in this document.
+- Current runtime/settings behavior is documented in:
+  - `docs/architecture/chrome_extension_technical.md`
+  - `docs/architecture/popup_modules_pattern.md`
 
 Goal:
 - Replace target-language gear preferences with a generalized "Modules" settings flow.

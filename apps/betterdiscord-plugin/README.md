@@ -5,7 +5,7 @@ Purpose
 - Applies to message content and embed descriptions.
 
 Install
-1) Copy `betterdiscord_plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
+1) Copy `apps/betterdiscord-plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
 2) Reload Discord or toggle the plugin on.
 3) If prompted, allow the BDFDB library plugin download.
 
@@ -34,17 +34,17 @@ Notes
 - Share code supports Short (CJK) and Safe (URL) modes; import accepts either.
 
 Development
-- Source modules live in `betterdiscord_plugin/src/`.
+- Source modules live in `apps/betterdiscord-plugin/src/`.
 - Build the single-file plugin:
-  - `node betterdiscord_plugin/build_plugin.js`
+  - `node apps/betterdiscord-plugin/build_plugin.js`
 - Watch and rebuild on save:
-  - `node betterdiscord_plugin/watch_plugin.js`
+  - `node apps/betterdiscord-plugin/watch_plugin.js`
 - Sync to your BetterDiscord plugins folder:
-  - `node betterdiscord_plugin/sync_plugin.js`
+  - `node apps/betterdiscord-plugin/sync_plugin.js`
   - Override location with `BD_PLUGINS_DIR`.
 
 End-to-end example
-1) Install the plugin by copying `betterdiscord_plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
+1) Install the plugin by copying `apps/betterdiscord-plugin/LexiShift.plugin.js` into your BetterDiscord plugins folder.
 2) Enable the plugin in BetterDiscord.
 3) Open the plugin settings and paste this JSON into the rules box:
 ```json
@@ -59,6 +59,6 @@ End-to-end example
    - Output: `At gloaming, she was overawed.`
 
 What the code does
-- Settings panel stores JSON rules and rebuilds the trie (see `getSettingsPanel` in `betterdiscord_plugin/LexiShift.plugin.js`).
+- Settings panel stores JSON rules and rebuilds the trie (see `getSettingsPanel` in `apps/betterdiscord-plugin/LexiShift.plugin.js`).
 - Message replacement runs in `processMessages` and `parseMessage`, applying `replaceText` to message content and embeds.
 - The trie matcher uses word tokenization and only allows whitespace between words in a phrase.

@@ -1,10 +1,28 @@
 # LexiShift Chrome Extension: Technical Notes
 
+Recommended read order
+- Start here for a single-page map: `docs/architecture/extension_system_map.md`.
+- Then use this file for module-level detail.
+- For options composition internals: `docs/architecture/options_controllers_architecture.md`.
+- For popup module architecture: `docs/architecture/popup_modules_pattern.md`.
+
 Overview
 - The extension runs a content script on all frames and replaces visible text using a ruleset.
 - The codebase is modularized into small, focused modules loaded in a strict order by the manifest.
 - Settings are stored in `chrome.storage.local` and shared between the content script and options page.
 - Profile media assets (background images) are stored in extension IndexedDB and referenced by id.
+
+Top-level extension directories
+- `apps/chrome-extension/shared`
+  - Cross-runtime modules used by both content/runtime and options.
+- `apps/chrome-extension/content`
+  - Webpage runtime processing, scanning, replacement, and popup UI behavior.
+- `apps/chrome-extension/options`
+  - Options app controllers, settings installers, and bootstrap composition graph.
+- `apps/chrome-extension/_locales`
+  - Localization resource bundles.
+- `apps/chrome-extension/icons`
+  - Extension assets.
 
 Module layout
 - `apps/chrome-extension/shared/settings/settings_defaults.js`
