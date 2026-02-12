@@ -436,6 +436,12 @@ Current limitations
   - Limit replacements per page.
   - Avoid replacing two juxtaposed words.
   - Add settings to adjust sensitivity/strictness for the rules above.
+- TODO (popup modules):
+  - Allow users to set per-module colors for popup modules shown above replacement words.
+- TODO (Japanese script quality):
+  - Check and improve the accuracy of generated romaji for Japanese words.
+- TODO (rule generation quality):
+  - Improve rulegen quality by making generation/scoring shallower and higher precision.
 
 Plans (ordered by ease/priority)
 1. Persist all GUI knowledge inside profiles/rulesets:

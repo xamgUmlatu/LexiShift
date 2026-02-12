@@ -299,10 +299,12 @@
       }
 
       main.appendChild(heading);
+      const innerWrap = document.createElement("div");
+      innerWrap.className = "language-module-inner";
       if (opts.innerContent instanceof HTMLElement) {
-        const innerWrap = document.createElement("div");
-        innerWrap.className = "language-module-inner";
         innerWrap.appendChild(opts.innerContent);
+      }
+      if (opts.innerContent instanceof HTMLElement) {
         main.appendChild(innerWrap);
       }
 
