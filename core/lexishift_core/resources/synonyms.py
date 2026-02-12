@@ -45,8 +45,8 @@ class SynonymGenerator:
     def __init__(self, sources: SynonymSources, options: Optional[SynonymOptions] = None) -> None:
         self._sources = sources
         self._options = options or SynonymOptions()
-        self._synonyms = {}
-        self._stats = {
+        self._synonyms: dict[str, set[str]] = {}
+        self._stats: dict[str, int] = {
             "moby": 0,
             "wordnet": 0,
             "openthesaurus": 0,
@@ -57,7 +57,7 @@ class SynonymGenerator:
             "freedict_de_en": 0,
             "freedict_en_de": 0,
         }
-        self._embeddings = None
+        self._embeddings: Optional[EmbeddingIndex] = None
         self._load_sources()
         self._load_embeddings()
 
@@ -147,45 +147,45 @@ class SynonymGenerator:
     def _load_sources(self) -> None:
         mappings: list[Mapping[str, set[str]]] = []
         if self._sources.moby_path:
-            mapping = _load_moby_thesaurus(self._sources.moby_path)
-            self._stats["moby"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_moby_thesaurus(self._sources.moby_path)
+            self._stats["moby"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.wordnet_dir:
-            mapping = _load_wordnet(self._sources.wordnet_dir)
-            self._stats["wordnet"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_wordnet(self._sources.wordnet_dir)
+            self._stats["wordnet"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.openthesaurus_path:
-            mapping = _load_openthesaurus(self._sources.openthesaurus_path)
-            self._stats["openthesaurus"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_openthesaurus(self._sources.openthesaurus_path)
+            self._stats["openthesaurus"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.odenet_path:
-            mapping = _load_odenet(self._sources.odenet_path)
-            self._stats["odenet"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_odenet(self._sources.odenet_path)
+            self._stats["odenet"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.jp_wordnet_path:
-            mapping = _load_jp_wordnet(self._sources.jp_wordnet_path)
-            self._stats["jp_wordnet"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_jp_wordnet(self._sources.jp_wordnet_path)
+            self._stats["jp_wordnet"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.jp_wordnet_sqlite_path:
-            mapping = load_synonyms_from_db(self._sources.jp_wordnet_sqlite_path)
-            self._stats["jp_wordnet"] += len(mapping)
-            mappings.append(mapping)
+            source_mapping = load_synonyms_from_db(self._sources.jp_wordnet_sqlite_path)
+            self._stats["jp_wordnet"] += len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.jmdict_path:
-            mapping = _load_jmdict(self._sources.jmdict_path)
-            self._stats["jmdict"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_jmdict(self._sources.jmdict_path)
+            self._stats["jmdict"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.cc_cedict_path:
-            mapping = _load_cc_cedict(self._sources.cc_cedict_path)
-            self._stats["cc_cedict"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_cc_cedict(self._sources.cc_cedict_path)
+            self._stats["cc_cedict"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.freedict_de_en_path:
-            mapping = _load_freedict_tei(self._sources.freedict_de_en_path, target_lang="en")
-            self._stats["freedict_de_en"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_freedict_tei(self._sources.freedict_de_en_path, target_lang="en")
+            self._stats["freedict_de_en"] = len(source_mapping)
+            mappings.append(source_mapping)
         if self._sources.freedict_en_de_path:
-            mapping = _load_freedict_tei(self._sources.freedict_en_de_path, target_lang="de")
-            self._stats["freedict_en_de"] = len(mapping)
-            mappings.append(mapping)
+            source_mapping = _load_freedict_tei(self._sources.freedict_en_de_path, target_lang="de")
+            self._stats["freedict_en_de"] = len(source_mapping)
+            mappings.append(source_mapping)
         if not mappings:
             return
         if self._options.require_consensus and len(mappings) > 1:
@@ -266,8 +266,8 @@ def _load_odenet(path: Path) -> dict[str, set[str]]:
                     current_synsets = []
                 else:
                     if current_word and current_synsets:
-                        for synset_id in current_synsets:
-                            synsets.setdefault(synset_id, set()).add(current_word)
+                        for current_synset_id in current_synsets:
+                            synsets.setdefault(current_synset_id, set()).add(current_word)
                     current_word = None
                     current_synsets = []
                     elem.clear()
@@ -497,8 +497,8 @@ def _apply_consensus_filter(
 
 
 class EmbeddingIndex:
-    def __init__(self, path: Path | Iterable[Path], *, lower_case: bool) -> None:
-        if isinstance(path, (list, tuple, set)):
+    def __init__(self, path: Path | Sequence[Path], *, lower_case: bool) -> None:
+        if isinstance(path, Sequence):
             self._paths = [Path(item) for item in path]
         else:
             self._paths = [Path(path)]
@@ -642,11 +642,12 @@ class EmbeddingIndex:
         if any(vector is None for vector in vectors):
             self._phrase_cache[key] = None
             return None
-        averaged = [0.0] * len(vectors[0])
-        for vector in vectors:
+        resolved_vectors: list[list[float]] = [vector for vector in vectors if vector is not None]
+        averaged = [0.0] * len(resolved_vectors[0])
+        for vector in resolved_vectors:
             for idx in range(len(vector)):
                 averaged[idx] += vector[idx]
-        count = float(len(vectors))
+        count = float(len(resolved_vectors))
         for idx in range(len(averaged)):
             averaged[idx] /= count
         self._phrase_cache[key] = averaged

@@ -44,7 +44,7 @@ class InflectionGenerator:
     strict: bool = True
 
     def generate(self, word: str, forms: Iterable[str]) -> frozenset[str]:
-        results = set()
+        results: set[str] = set()
         overrides = self.overrides or InflectionOverrides()
         requested = set(forms)
         if FORM_PLURAL in requested:

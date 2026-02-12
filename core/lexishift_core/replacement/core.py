@@ -186,7 +186,10 @@ class VocabPool:
     def trie(self) -> PhraseTrie:
         if self._dirty or self._trie is None:
             self.compile()
-        return self._trie
+        trie = self._trie
+        if trie is None:
+            raise RuntimeError("Vocab trie compilation failed.")
+        return trie
 
     @property
     def normalizer(self) -> Normalizer:
@@ -254,7 +257,7 @@ class Replacer:
         gap_ok: Sequence[bool],
         start_index: int,
     ) -> Optional[Match]:
-        node = self._pool.trie.root
+        node: PhraseTrieNode = self._pool.trie.root
         best_rule: Optional[VocabRule] = None
         best_end: Optional[int] = None
         best_priority = -1
@@ -263,9 +266,10 @@ class Replacer:
             if idx > start_index and not gap_ok[idx - 1]:
                 break
             normalized = self._pool.normalizer.normalize_word(words[idx])
-            node = node.children.get(normalized)
-            if node is None:
+            next_node = node.children.get(normalized)
+            if next_node is None:
                 break
+            node = next_node
             if node.best_rule and node.best_rule.priority >= best_priority:
                 if node.best_rule.priority > best_priority or best_end is None or idx > best_end:
                     best_rule = node.best_rule

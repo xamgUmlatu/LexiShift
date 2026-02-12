@@ -7,7 +7,7 @@ import shutil
 import ssl
 import tarfile
 import tempfile
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 import urllib.request
 
 from lexishift_core.frequency.de.build import BuildResult, build_de_frequency_sqlite
@@ -126,7 +126,7 @@ def _should_retry_insecure(exc: Exception) -> bool:
     )
 
 
-def _open_request(request: urllib.request.Request, timeout: int) -> urllib.request.addinfourl:
+def _open_request(request: urllib.request.Request, timeout: int) -> Any:
     try:
         return urllib.request.urlopen(request, timeout=timeout)
     except Exception as exc:

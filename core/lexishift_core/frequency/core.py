@@ -59,11 +59,12 @@ def load_frequency_lexicon(config: FrequencySourceConfig) -> FrequencyLexicon:
         encoding=config.encoding,
         skip_prefixes=config.skip_prefixes,
     )
-    headers = []
+    headers: list[str] = []
     if config.has_header:
-        headers = _read_header(rows, header_starts_with=config.header_starts_with)
-        if headers is None:
+        header = _read_header(rows, header_starts_with=config.header_starts_with)
+        if header is None:
             return FrequencyLexicon()
+        headers = header
     word_index = _resolve_index(headers, config.word_column, config.word_index)
     freq_index = _resolve_index(headers, config.frequency_column, config.frequency_index)
     rank_index = _resolve_index(headers, config.rank_column, config.rank_index)
@@ -149,7 +150,7 @@ def _read_rows(
 def _read_header(rows: Iterable[list[str]], *, header_starts_with: Optional[str]) -> Optional[list[str]]:
     if header_starts_with is None:
         try:
-            return next(rows)
+            return next(iter(rows))
         except StopIteration:
             return None
     target = header_starts_with.lower()

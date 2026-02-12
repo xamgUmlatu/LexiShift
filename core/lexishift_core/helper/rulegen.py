@@ -210,10 +210,14 @@ def run_ja_en_rulegen(
 def _safe_optional_float(value: object) -> Optional[float]:
     if value is None:
         return None
-    try:
+    if isinstance(value, (float, int)):
         return float(value)
-    except (TypeError, ValueError):
-        return None
+    if isinstance(value, (str, bytes, bytearray)):
+        try:
+            return float(value)
+        except ValueError:
+            return None
+    return None
 
 
 def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:

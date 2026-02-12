@@ -28,11 +28,19 @@ class SrsSetSizingPolicy:
 def _parse_optional_int(value: object) -> Optional[int]:
     if value is None:
         return None
-    try:
-        parsed = int(value)
-    except (TypeError, ValueError):
-        return None
-    return parsed
+    if isinstance(value, int):
+        return value
+    if isinstance(value, (str, bytes, bytearray)):
+        try:
+            return int(value)
+        except ValueError:
+            return None
+    if isinstance(value, float):
+        try:
+            return int(value)
+        except (TypeError, ValueError, OverflowError):
+            return None
+    return None
 
 
 def _clamp(value: int, *, minimum: int, maximum: int) -> int:

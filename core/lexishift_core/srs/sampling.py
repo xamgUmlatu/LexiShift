@@ -120,10 +120,19 @@ def _normalize_sample_count(value: Optional[int]) -> int:
 def _parse_optional_int(value: object) -> Optional[int]:
     if value is None:
         return None
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return None
+    if isinstance(value, int):
+        return value
+    if isinstance(value, (str, bytes, bytearray)):
+        try:
+            return int(value)
+        except ValueError:
+            return None
+    if isinstance(value, float):
+        try:
+            return int(value)
+        except (TypeError, ValueError, OverflowError):
+            return None
+    return None
 
 
 def _build_weights(

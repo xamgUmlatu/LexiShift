@@ -88,7 +88,7 @@ def import_app_settings_code(code: str):
     return settings_from_dict(data)
 
 
-def _extract_literal_value(tree: ast.AST, *, var_name: str) -> ast.AST:
+def _extract_literal_value(tree: ast.Module, *, var_name: str) -> ast.AST:
     for node in tree.body:
         if isinstance(node, ast.Assign):
             for target in node.targets:
