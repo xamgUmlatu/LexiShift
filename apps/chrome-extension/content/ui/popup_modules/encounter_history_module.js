@@ -1,6 +1,22 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
+  function t(key, substitutions, fallback) {
+    try {
+      if (typeof chrome !== "undefined"
+        && chrome.i18n
+        && typeof chrome.i18n.getMessage === "function") {
+        const message = chrome.i18n.getMessage(key, substitutions);
+        if (message) {
+          return message;
+        }
+      }
+    } catch (_error) {
+      // Ignore i18n runtime errors and return fallback.
+    }
+    return String(fallback || key || "");
+  }
+
   function normalizePair(value) {
     return String(value || "").trim().toLowerCase();
   }
@@ -36,6 +52,18 @@
     return date.toLocaleString();
   }
 
+  function titleText(encounterCount) {
+    const total = Number(encounterCount || 0);
+    if (total > 0) {
+      return t(
+        "popup_encounter_history_count",
+        [String(total)],
+        `Encounter history (${total})`
+      );
+    }
+    return t("module_encounter_history", null, "Encounter history");
+  }
+
   function build(target, debugLog, context) {
     const ctx = context && typeof context === "object" ? context : {};
     const historyStore = ctx.historyStore && typeof ctx.historyStore === "object"
@@ -67,8 +95,8 @@
     moduleEl.className = "lexishift-popup-module lexishift-history-module";
     const toggleButton = document.createElement("button");
     toggleButton.type = "button";
-    toggleButton.className = "lexishift-popup-module-toggle";
-    toggleButton.textContent = "Encounter history";
+    toggleButton.className = "lexishift-popup-module-toggle lexishift-popup-module-toggle-centered";
+    toggleButton.textContent = titleText(0);
     const details = document.createElement("div");
     details.className = "lexishift-popup-module-details hidden";
     moduleEl.appendChild(toggleButton);
@@ -82,13 +110,11 @@
       details.classList.toggle("hidden", !open);
       toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
       if (!loaded) {
-        toggleButton.textContent = "Encounter history";
+        toggleButton.textContent = titleText(0);
         return;
       }
       const summaryCount = Number(moduleEl.dataset.encounterCount || 0);
-      toggleButton.textContent = summaryCount > 0
-        ? `Encounter history (${summaryCount})`
-        : "Encounter history";
+      toggleButton.textContent = titleText(summaryCount);
     }
 
     async function ensureLoaded() {
@@ -96,7 +122,11 @@
         return;
       }
       toggleButton.disabled = true;
-      toggleButton.textContent = "Encounter history (loading...)";
+      toggleButton.textContent = t(
+        "popup_encounter_history_loading",
+        null,
+        "Encounter history (loading...)"
+      );
       try {
         const history = await historyStore.getHistoryForWord({
           profile_id: profileId,
@@ -112,15 +142,17 @@
         if (!encounterCount) {
           const empty = document.createElement("div");
           empty.className = "lexishift-popup-module-line";
-          empty.textContent = "No encounters yet.";
+          empty.textContent = t("popup_encounter_history_empty", null, "No encounters yet.");
           details.appendChild(empty);
           loaded = true;
           return;
         }
 
         const rows = [
-          `Encounters: ${encounterCount}`,
-          lastSeen ? `Last seen: ${lastSeen}` : ""
+          t("popup_encounter_history_total", [String(encounterCount)], `Encounters: ${encounterCount}`),
+          lastSeen
+            ? t("popup_encounter_history_last_seen", [lastSeen], `Last seen: ${lastSeen}`)
+            : ""
         ].filter(Boolean);
         for (const text of rows) {
           const row = document.createElement("div");
@@ -139,7 +171,11 @@
         details.textContent = "";
         const failed = document.createElement("div");
         failed.className = "lexishift-popup-module-line";
-        failed.textContent = "Failed to load encounter history.";
+        failed.textContent = t(
+          "popup_encounter_history_load_failed",
+          null,
+          "Failed to load encounter history."
+        );
         details.appendChild(failed);
         if (typeof debugLog === "function") {
           debugLog("Failed to load encounter-history module.", {

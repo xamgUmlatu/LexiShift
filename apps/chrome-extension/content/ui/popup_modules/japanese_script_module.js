@@ -3,6 +3,22 @@
   const SCRIPT_FORM_ORDER = ["kanji", "kana", "romaji"];
   const SCRIPT_MODULE_ORDER = ["kana", "kanji", "romaji"];
 
+  function t(key, substitutions, fallback) {
+    try {
+      if (typeof chrome !== "undefined"
+        && chrome.i18n
+        && typeof chrome.i18n.getMessage === "function") {
+        const message = chrome.i18n.getMessage(key, substitutions);
+        if (message) {
+          return message;
+        }
+      }
+    } catch (_error) {
+      // Ignore i18n runtime errors and return fallback.
+    }
+    return String(fallback || key || "");
+  }
+
   function summarizeTarget(target) {
     if (!target || !target.dataset) {
       return null;
@@ -18,9 +34,13 @@
   }
 
   function scriptLabel(script) {
-    if (script === "kana") return "Kana";
-    if (script === "romaji") return "Romaji";
-    return "Kanji";
+    if (script === "kana") {
+      return t("option_ja_script_kana", null, "Kana");
+    }
+    if (script === "romaji") {
+      return t("option_ja_script_romaji", null, "Romaji");
+    }
+    return t("option_ja_script_kanji", null, "Kanji");
   }
 
   function parseScriptForms(target, debugLog) {

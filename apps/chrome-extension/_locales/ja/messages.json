@@ -467,6 +467,60 @@
   "module_toggle_off": {
     "message": "オフ"
   },
+  "popup_feedback_history_loading": {
+    "message": "フィードバック履歴（読み込み中...）"
+  },
+  "popup_feedback_history_count": {
+    "message": "フィードバック履歴（$1）"
+  },
+  "popup_feedback_history_empty": {
+    "message": "まだフィードバックはありません。"
+  },
+  "popup_feedback_history_total": {
+    "message": "合計: $1"
+  },
+  "popup_feedback_history_breakdown_ah": {
+    "message": "Again: $1  Hard: $2"
+  },
+  "popup_feedback_history_breakdown_ge": {
+    "message": "Good: $1  Easy: $2"
+  },
+  "popup_feedback_history_recent": {
+    "message": "最近: $1"
+  },
+  "popup_feedback_history_load_failed": {
+    "message": "フィードバック履歴を読み込めませんでした。"
+  },
+  "popup_feedback_rating_again": {
+    "message": "Again"
+  },
+  "popup_feedback_rating_hard": {
+    "message": "Hard"
+  },
+  "popup_feedback_rating_good": {
+    "message": "Good"
+  },
+  "popup_feedback_rating_easy": {
+    "message": "Easy"
+  },
+  "popup_encounter_history_loading": {
+    "message": "遭遇履歴（読み込み中...）"
+  },
+  "popup_encounter_history_count": {
+    "message": "遭遇履歴（$1）"
+  },
+  "popup_encounter_history_empty": {
+    "message": "まだ遭遇記録はありません。"
+  },
+  "popup_encounter_history_total": {
+    "message": "遭遇回数: $1"
+  },
+  "popup_encounter_history_last_seen": {
+    "message": "最終確認: $1"
+  },
+  "popup_encounter_history_load_failed": {
+    "message": "遭遇履歴を読み込めませんでした。"
+  },
   "hint_modules_unavailable": {
     "message": "この言語で利用可能なモジュールはありません。"
   },

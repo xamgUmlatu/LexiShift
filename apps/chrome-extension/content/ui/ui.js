@@ -166,6 +166,7 @@
       .lexishift-popup-module-toggle{display:inline-flex;align-items:center;justify-content:flex-start;
         width:100%;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;
         font-size:12px;line-height:1.35;font-weight:700;letter-spacing:0.03em;}
+      .lexishift-popup-module-toggle-centered{justify-content:center;text-align:center;}
       .lexishift-popup-module-toggle:disabled{opacity:0.65;cursor:default;}
       .lexishift-popup-module-details{display:flex;flex-direction:column;gap:4px;margin-top:6px;}
       .lexishift-popup-module-details.hidden{display:none;}

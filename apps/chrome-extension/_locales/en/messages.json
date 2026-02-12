@@ -467,6 +467,60 @@
   "module_toggle_off": {
     "message": "Off"
   },
+  "popup_feedback_history_loading": {
+    "message": "Feedback history (loading...)"
+  },
+  "popup_feedback_history_count": {
+    "message": "Feedback history ($1)"
+  },
+  "popup_feedback_history_empty": {
+    "message": "No feedback yet."
+  },
+  "popup_feedback_history_total": {
+    "message": "Total: $1"
+  },
+  "popup_feedback_history_breakdown_ah": {
+    "message": "Again: $1  Hard: $2"
+  },
+  "popup_feedback_history_breakdown_ge": {
+    "message": "Good: $1  Easy: $2"
+  },
+  "popup_feedback_history_recent": {
+    "message": "Recent: $1"
+  },
+  "popup_feedback_history_load_failed": {
+    "message": "Failed to load feedback history."
+  },
+  "popup_feedback_rating_again": {
+    "message": "Again"
+  },
+  "popup_feedback_rating_hard": {
+    "message": "Hard"
+  },
+  "popup_feedback_rating_good": {
+    "message": "Good"
+  },
+  "popup_feedback_rating_easy": {
+    "message": "Easy"
+  },
+  "popup_encounter_history_loading": {
+    "message": "Encounter history (loading...)"
+  },
+  "popup_encounter_history_count": {
+    "message": "Encounter history ($1)"
+  },
+  "popup_encounter_history_empty": {
+    "message": "No encounters yet."
+  },
+  "popup_encounter_history_total": {
+    "message": "Encounters: $1"
+  },
+  "popup_encounter_history_last_seen": {
+    "message": "Last seen: $1"
+  },
+  "popup_encounter_history_load_failed": {
+    "message": "Failed to load encounter history."
+  },
   "hint_modules_unavailable": {
     "message": "No modules are available for this language."
   },

@@ -467,6 +467,60 @@
   "module_toggle_off": {
     "message": "Aus"
   },
+  "popup_feedback_history_loading": {
+    "message": "Feedback-Verlauf (wird geladen...)"
+  },
+  "popup_feedback_history_count": {
+    "message": "Feedback-Verlauf ($1)"
+  },
+  "popup_feedback_history_empty": {
+    "message": "Noch kein Feedback."
+  },
+  "popup_feedback_history_total": {
+    "message": "Gesamt: $1"
+  },
+  "popup_feedback_history_breakdown_ah": {
+    "message": "Erneut: $1  Schwer: $2"
+  },
+  "popup_feedback_history_breakdown_ge": {
+    "message": "Gut: $1  Leicht: $2"
+  },
+  "popup_feedback_history_recent": {
+    "message": "Zuletzt: $1"
+  },
+  "popup_feedback_history_load_failed": {
+    "message": "Feedback-Verlauf konnte nicht geladen werden."
+  },
+  "popup_feedback_rating_again": {
+    "message": "Erneut"
+  },
+  "popup_feedback_rating_hard": {
+    "message": "Schwer"
+  },
+  "popup_feedback_rating_good": {
+    "message": "Gut"
+  },
+  "popup_feedback_rating_easy": {
+    "message": "Leicht"
+  },
+  "popup_encounter_history_loading": {
+    "message": "Begegnungsverlauf (wird geladen...)"
+  },
+  "popup_encounter_history_count": {
+    "message": "Begegnungsverlauf ($1)"
+  },
+  "popup_encounter_history_empty": {
+    "message": "Noch keine Begegnungen."
+  },
+  "popup_encounter_history_total": {
+    "message": "Begegnungen: $1"
+  },
+  "popup_encounter_history_last_seen": {
+    "message": "Zuletzt gesehen: $1"
+  },
+  "popup_encounter_history_load_failed": {
+    "message": "Begegnungsverlauf konnte nicht geladen werden."
+  },
   "hint_modules_unavailable": {
     "message": "Für diese Sprache sind keine Module verfügbar."
   },
