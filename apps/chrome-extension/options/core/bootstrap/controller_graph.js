@@ -235,6 +235,7 @@
     const controllerAdapters = controllerAdaptersFactory({
       profileStatusController,
       targetLanguageModalController,
+      profileBackgroundController,
       displayReplacementController,
       srsProfileRuntimeController
     });
@@ -251,6 +252,7 @@
       updateRulesMeta: uiBridge.updateRulesMeta,
       applyTargetLanguagePrefsLocalization: controllerAdapters.applyTargetLanguagePrefsLocalization,
       renderSrsProfileStatus: controllerAdapters.renderSrsProfileStatus,
+      renderProfileBackgroundStatus: controllerAdapters.renderProfileBackgroundStatus,
       setSrsProfileStatusLocalized: controllerAdapters.setSrsProfileStatusLocalized,
       elements: {
         enabledInput: dom.enabledInput,
@@ -292,6 +294,7 @@
       refreshSrsProfiles: controllerAdapters.refreshSrsProfiles,
       applyTargetLanguagePrefsLocalization: controllerAdapters.applyTargetLanguagePrefsLocalization,
       renderSrsProfileStatus: controllerAdapters.renderSrsProfileStatus,
+      renderProfileBackgroundStatus: controllerAdapters.renderProfileBackgroundStatus,
       updateTargetLanguagePrefsModalVisibility: controllerAdapters.updateTargetLanguagePrefsModalVisibility,
       setTargetLanguagePrefsModalOpen: controllerAdapters.setTargetLanguagePrefsModalOpen,
       elements: {

@@ -27,6 +27,11 @@
     const setProfileBgStatus = typeof opts.setProfileBgStatus === "function"
       ? opts.setProfileBgStatus
       : (() => {});
+    const setProfileBgStatusLocalized = typeof opts.setProfileBgStatusLocalized === "function"
+      ? opts.setProfileBgStatusLocalized
+      : (key, substitutions, fallback) => {
+          setProfileBgStatus(translate(key, substitutions, fallback || ""));
+        };
     const setProfileBgApplyState = typeof opts.setProfileBgApplyState === "function"
       ? opts.setProfileBgApplyState
       : (() => {});
@@ -207,11 +212,11 @@
         previewManager.clearPreview();
         await applyOptionsPageBackgroundFromPrefs(nextPrefs);
         setProfileBgApplyState(Boolean(getPendingFile()), false);
-        setProfileBgStatus(translate(
+        setProfileBgStatusLocalized(
           "hint_profile_bg_status_empty",
           null,
           "No options page background image configured for this profile."
-        ));
+        );
         setStatus("Options page background image removed.", colors.SUCCESS);
         removed = true;
       } catch (err) {

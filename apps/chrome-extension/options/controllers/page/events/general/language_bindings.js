@@ -24,6 +24,9 @@
     const renderSrsProfileStatus = typeof opts.renderSrsProfileStatus === "function"
       ? opts.renderSrsProfileStatus
       : (() => {});
+    const renderProfileBackgroundStatus = typeof opts.renderProfileBackgroundStatus === "function"
+      ? opts.renderProfileBackgroundStatus
+      : (() => {});
     const updateTargetLanguagePrefsModalVisibility = typeof opts.updateTargetLanguagePrefsModalVisibility === "function"
       ? opts.updateTargetLanguagePrefsModalVisibility
       : (() => {});
@@ -48,6 +51,7 @@
         chrome.storage.local.set({ uiLanguage: value }, () => {
           Promise.resolve(i18n && typeof i18n.load === "function" ? i18n.load(value) : undefined).finally(() => {
             applyTargetLanguagePrefsLocalization();
+            renderProfileBackgroundStatus();
             renderSrsProfileStatus();
             setStatus(translate("status_language_updated", null, "Language updated."), ui.COLORS.SUCCESS);
           });

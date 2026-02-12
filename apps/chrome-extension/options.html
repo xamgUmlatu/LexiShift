@@ -32,7 +32,7 @@
           </label>
         </section>
         <section class="card">
-          <h2 data-i18n="section_language">Language</h2>
+          <h2 data-i18n="section_language">Display Language</h2>
           <div class="field-row">
             <label for="ui-language" data-i18n="label_language">Interface language</label>
             <select id="ui-language">
@@ -43,9 +43,6 @@
               <option value="de" data-i18n="option_language_de">Deutsch</option>
             </select>
           </div>
-          <p class="hint" data-i18n="hint_language">
-            Overrides the options page language; content script follows browser UI language.
-          </p>
         </section>
         <section class="card">
           <h2 data-i18n="section_rules_source">Rules Source</h2>
@@ -275,7 +272,7 @@
             <input id="profile-bg-file" type="file" accept="image/png,image/jpeg,image/webp,image/avif" />
             <button id="profile-bg-remove" data-i18n="button_profile_bg_remove">Remove</button>
           </div>
-          <p id="profile-bg-status" class="hint" data-i18n="hint_profile_bg_status_empty">
+          <p id="profile-bg-status" class="hint">
             No options page background image configured for this profile.
           </p>
           <div id="profile-bg-preview-wrap" class="profile-bg-preview-wrap hidden">

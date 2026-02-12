@@ -426,7 +426,7 @@
     "message": "最終インポート: $1"
   },
   "section_language": {
-    "message": "言語"
+    "message": "表示言語"
   },
   "label_language": {
     "message": "表示言語"

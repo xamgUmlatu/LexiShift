@@ -213,11 +213,44 @@
           clearCardTheme: () => {}
         };
 
-    function setProfileBgStatus(message) {
+    let profileBgStatusState = {
+      mode: "i18n",
+      key: "hint_profile_bg_status_empty",
+      substitutions: null,
+      fallback: "No options page background image configured for this profile."
+    };
+
+    function renderProfileBgStatus() {
       if (!profileBgStatusOutput) {
         return;
       }
-      profileBgStatusOutput.textContent = message;
+      if (profileBgStatusState.mode === "message") {
+        profileBgStatusOutput.textContent = String(profileBgStatusState.message || "");
+        return;
+      }
+      profileBgStatusOutput.textContent = translate(
+        profileBgStatusState.key || "hint_profile_bg_status_empty",
+        profileBgStatusState.substitutions || null,
+        profileBgStatusState.fallback || "No options page background image configured for this profile."
+      );
+    }
+
+    function setProfileBgStatus(message) {
+      profileBgStatusState = {
+        mode: "message",
+        message: String(message || "")
+      };
+      renderProfileBgStatus();
+    }
+
+    function setProfileBgStatusLocalized(key, substitutions, fallback) {
+      profileBgStatusState = {
+        mode: "i18n",
+        key: String(key || "").trim() || "hint_profile_bg_status_empty",
+        substitutions: substitutions === undefined ? null : substitutions,
+        fallback: String(fallback || "No options page background image configured for this profile.")
+      };
+      renderProfileBgStatus();
     }
 
     function setProfileBgApplyState(hasPendingApply, forceDisable) {
@@ -259,6 +292,7 @@
           updateProfileBgOpacityLabel,
           updateProfileCardThemeLabels: (values) => cardThemePresenter.updateLabels(values),
           setProfileBgStatus,
+          setProfileBgStatusLocalized,
           setProfileBgApplyState,
           getPendingFile: () => profileBgPendingFile,
           setPendingFile: (file) => {
@@ -319,6 +353,7 @@
           profileMediaStore,
           setStatus,
           setProfileBgStatus,
+          setProfileBgStatusLocalized,
           setProfileBgApplyState,
           updateProfileBgOpacityLabel,
           clampProfileBackgroundOpacity,
@@ -373,6 +408,7 @@
 
     return {
       syncForLoadedPrefs,
+      renderProfileBgStatus,
       onEnabledChange: backgroundActions.onEnabledChange,
       onOpacityInput: backgroundActions.onOpacityInput,
       onOpacityChange: backgroundActions.onOpacityChange,

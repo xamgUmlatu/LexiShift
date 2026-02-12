@@ -46,6 +46,7 @@
       saveLanguageSettings: opts.saveLanguageSettings,
       applyTargetLanguagePrefsLocalization: opts.applyTargetLanguagePrefsLocalization,
       renderSrsProfileStatus: opts.renderSrsProfileStatus,
+      renderProfileBackgroundStatus: opts.renderProfileBackgroundStatus,
       updateTargetLanguagePrefsModalVisibility: opts.updateTargetLanguagePrefsModalVisibility,
       setTargetLanguagePrefsModalOpen: opts.setTargetLanguagePrefsModalOpen,
       targetLanguageModalController: opts.targetLanguageModalController,

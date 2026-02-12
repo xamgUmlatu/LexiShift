@@ -426,7 +426,7 @@
     "message": "上次导入：$1"
   },
   "section_language": {
-    "message": "语言"
+    "message": "显示语言"
   },
   "label_language": {
     "message": "界面语言"

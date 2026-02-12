@@ -10,6 +10,10 @@
       && typeof opts.targetLanguageModalController === "object"
       ? opts.targetLanguageModalController
       : null;
+    const profileBackgroundController = opts.profileBackgroundController
+      && typeof opts.profileBackgroundController === "object"
+      ? opts.profileBackgroundController
+      : null;
     const displayReplacementController = opts.displayReplacementController
       && typeof opts.displayReplacementController === "object"
       ? opts.displayReplacementController
@@ -38,6 +42,13 @@
         return;
       }
       profileStatusController.setMessage(message);
+    }
+
+    function renderProfileBackgroundStatus() {
+      if (!profileBackgroundController || typeof profileBackgroundController.renderProfileBgStatus !== "function") {
+        return;
+      }
+      profileBackgroundController.renderProfileBgStatus();
     }
 
     function applyTargetLanguagePrefsLocalization() {
@@ -112,6 +123,7 @@
 
     return {
       renderSrsProfileStatus,
+      renderProfileBackgroundStatus,
       setSrsProfileStatusLocalized,
       setSrsProfileStatusMessage,
       applyTargetLanguagePrefsLocalization,

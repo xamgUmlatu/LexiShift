@@ -62,6 +62,9 @@
     const renderSrsProfileStatus = typeof opts.renderSrsProfileStatus === "function"
       ? opts.renderSrsProfileStatus
       : (() => {});
+    const renderProfileBackgroundStatus = typeof opts.renderProfileBackgroundStatus === "function"
+      ? opts.renderProfileBackgroundStatus
+      : (() => {});
     const updateTargetLanguagePrefsModalVisibility = typeof opts.updateTargetLanguagePrefsModalVisibility === "function"
       ? opts.updateTargetLanguagePrefsModalVisibility
       : (() => {});
@@ -125,6 +128,7 @@
         saveLanguageSettings,
         applyTargetLanguagePrefsLocalization,
         renderSrsProfileStatus,
+        renderProfileBackgroundStatus,
         updateTargetLanguagePrefsModalVisibility,
         setTargetLanguagePrefsModalOpen,
         elements

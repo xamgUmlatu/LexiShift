@@ -426,7 +426,7 @@
     "message": "Last imported: $1"
   },
   "section_language": {
-    "message": "Language"
+    "message": "Display Language"
   },
   "label_language": {
     "message": "Interface language"

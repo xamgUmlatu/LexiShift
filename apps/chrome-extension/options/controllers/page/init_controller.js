@@ -32,6 +32,9 @@
     const renderSrsProfileStatus = typeof opts.renderSrsProfileStatus === "function"
       ? opts.renderSrsProfileStatus
       : (() => {});
+    const renderProfileBackgroundStatus = typeof opts.renderProfileBackgroundStatus === "function"
+      ? opts.renderProfileBackgroundStatus
+      : (() => {});
     const setSrsProfileStatusLocalized = typeof opts.setSrsProfileStatusLocalized === "function"
       ? opts.setSrsProfileStatusLocalized
       : (() => {});
@@ -122,6 +125,7 @@
         await i18n.load(items.uiLanguage || "system");
       }
       applyTargetLanguagePrefsLocalization();
+      renderProfileBackgroundStatus();
       renderSrsProfileStatus();
     }
 

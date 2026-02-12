@@ -426,7 +426,7 @@
     "message": "Zuletzt importiert: $1"
   },
   "section_language": {
-    "message": "Sprache"
+    "message": "Anzeigesprache"
   },
   "label_language": {
     "message": "Oberflächensprache"

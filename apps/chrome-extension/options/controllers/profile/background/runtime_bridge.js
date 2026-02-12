@@ -45,6 +45,11 @@
     const setProfileBgStatus = typeof opts.setProfileBgStatus === "function"
       ? opts.setProfileBgStatus
       : (() => {});
+    const setProfileBgStatusLocalized = typeof opts.setProfileBgStatusLocalized === "function"
+      ? opts.setProfileBgStatusLocalized
+      : (key, substitutions, fallback) => {
+          setProfileBgStatus(translate(key, substitutions, fallback || ""));
+        };
     const setProfileBgApplyState = typeof opts.setProfileBgApplyState === "function"
       ? opts.setProfileBgApplyState
       : (() => {});
@@ -63,11 +68,11 @@
       const assetId = String(prefs.backgroundAssetId || "").trim();
       if (!assetId) {
         previewManager.clearPreview();
-        setProfileBgStatus(translate(
+        setProfileBgStatusLocalized(
           "hint_profile_bg_status_empty",
           null,
           "No background image configured for this profile."
-        ));
+        );
         return;
       }
       if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
