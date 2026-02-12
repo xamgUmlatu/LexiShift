@@ -56,6 +56,9 @@
   "section_replacement_behavior": {
     "message": "Replacement Behavior"
   },
+  "hint_replacement_behavior_scope": {
+    "message": "Applies to all replacements (ruleset and SRS)."
+  },
   "toggle_max_one": {
     "message": "Replace max 1 word per text block"
   },

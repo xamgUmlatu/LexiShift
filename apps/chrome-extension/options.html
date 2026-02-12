@@ -98,35 +98,6 @@
           </div>
         </section>
         <section class="card">
-          <h2 data-i18n="section_replacement_behavior">Replacement Behavior</h2>
-          <label class="toggle">
-            <input id="max-one-per-block" type="checkbox" />
-            <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
-          </label>
-          <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
-          <label class="toggle">
-            <input id="allow-adjacent" type="checkbox" />
-            <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
-          </label>
-          <p class="hint" data-i18n="hint_allow_adjacent">
-            When disabled, prevents back-to-back word replacements.
-          </p>
-          <div class="field-row">
-            <label for="max-replacements-per-page" data-i18n="label_max_replacements_page">Max replacements per page</label>
-            <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_max_replacements_page">
-            0 means unlimited. Caps total replacements shown on the current page.
-          </p>
-          <div class="field-row">
-            <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
-            <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_max_replacements_lemma_page">
-            0 means unlimited. Prevents one word from dominating the page.
-          </p>
-        </section>
-        <section class="card">
           <h2 data-i18n="section_srs">SRS Practice</h2>
           <label class="toggle">
             <input id="srs-enabled" type="checkbox" />
@@ -222,6 +193,38 @@
             <button id="srs-reset" data-i18n="button_srs_reset" style="color: #b42318;">Reset SRS Data</button>
           </div>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
+        </section>
+        <section class="card">
+          <h2 data-i18n="section_replacement_behavior">Replacement Behavior</h2>
+          <p class="hint" data-i18n="hint_replacement_behavior_scope">
+            Applies to all replacements (ruleset and SRS).
+          </p>
+          <label class="toggle">
+            <input id="max-one-per-block" type="checkbox" />
+            <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
+          </label>
+          <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
+          <label class="toggle">
+            <input id="allow-adjacent" type="checkbox" />
+            <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
+          </label>
+          <p class="hint" data-i18n="hint_allow_adjacent">
+            When disabled, prevents back-to-back word replacements.
+          </p>
+          <div class="field-row">
+            <label for="max-replacements-per-page" data-i18n="label_max_replacements_page">Max replacements per page</label>
+            <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_max_replacements_page">
+            0 means unlimited. Caps total replacements shown on the current page.
+          </p>
+          <div class="field-row">
+            <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
+            <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_max_replacements_lemma_page">
+            0 means unlimited. Prevents one word from dominating the page.
+          </p>
         </section>
         <section class="card">
           <h2 data-i18n="section_share_code">Share Code</h2>

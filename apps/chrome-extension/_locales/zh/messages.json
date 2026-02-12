@@ -56,6 +56,9 @@
   "section_replacement_behavior": {
     "message": "替换行为"
   },
+  "hint_replacement_behavior_scope": {
+    "message": "这些设置适用于所有替换（规则集和 SRS）。"
+  },
   "toggle_max_one": {
     "message": "每个文本块最多替换 1 个词"
   },

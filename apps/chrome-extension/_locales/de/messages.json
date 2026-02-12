@@ -56,6 +56,9 @@
   "section_replacement_behavior": {
     "message": "Ersetzungsverhalten"
   },
+  "hint_replacement_behavior_scope": {
+    "message": "Diese Einstellungen gelten für alle Ersetzungen (Ruleset und SRS)."
+  },
   "toggle_max_one": {
     "message": "Max. 1 Wort pro Textblock ersetzen"
   },
