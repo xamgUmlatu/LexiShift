@@ -3,7 +3,7 @@ LexiShift Language Pack URLs
 Format:
 pack_id: <stable id>
 name: <display name>
-type: monolingual | translation | embeddings
+type: monolingual | translation | embeddings | frequency
 languages: <source_langs> -> <target_langs> (use same for monolingual)
 size: <exact size>
 url: <download url>
@@ -47,7 +47,7 @@ type: monolingual
 languages: de -> de
 size: ~15 MB
 url: https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
-wayback_url: https://web.archive.org/web/20251101/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
+wayback_url: https://web.archive.org/web/*/https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml
 filename: odenet_oneline.xml
 unzipped_name: odenet_oneline.xml
 layout: XML (OMW-LMF, oneline)
@@ -120,13 +120,39 @@ layout: TEI XML
 parse_hint: form/orth (EN headword) -> cit type=trans / quote xml:lang="de"
 notes: source archive contains multiple files; use eng-deu.tei
 
+pack_id: freedict-es-en
+name: FreeDict (ES->EN)
+type: translation
+languages: es -> en
+size: ~119 KB
+url: https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz
+wayback_url: https://web.archive.org/web/*/https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz
+filename: freedict-spa-eng-0.3.1.src.tar.xz
+unzipped_name: spa-eng.tei
+layout: TEI XML
+parse_hint: form/orth (ES headword) -> cit type=trans / quote xml:lang="en"
+notes: pinned to latest spa-eng version currently listed on FreeDict index
+
+pack_id: freedict-en-es
+name: FreeDict (EN->ES)
+type: translation
+languages: en -> es
+size: ~3.5 MB
+url: https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz
+wayback_url: https://web.archive.org/web/*/https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz
+filename: freedict-eng-spa-2025.11.23.src.tar.xz
+unzipped_name: eng-spa.tei
+layout: TEI XML
+parse_hint: form/orth (EN headword) -> cit type=trans / quote xml:lang="es"
+notes: pinned to latest date-versioned eng-spa release (2025.11.23)
+
 pack_id: jmdict-ja-en
 name: JMDict
 type: translation
 languages: ja -> en
 size: 61.6 MB
 url: https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
-wayback_url: https://web.archive.org/web/20250101/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
+wayback_url: https://web.archive.org/web/*/https://www.edrdg.org/pub/Nihongo/JMdict_e.gz
 filename: JMdict_e.gz
 unzipped_name: JMdict_e
 layout: XML (Standard EDRDG DTD)
@@ -139,7 +165,7 @@ type: translation
 languages: zh -> en
 size: 9.7 MB
 url: https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
-wayback_url: https://web.archive.org/web/20250110/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
+wayback_url: https://web.archive.org/web/*/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip
 filename: cedict_1_0_ts_utf-8_mdbg.zip
 unzipped_name: cedict_ts.u8
 layout: Plain text (one entry per line)
@@ -152,7 +178,7 @@ type: translation
 languages: multi -> multi
 size: 2.3 GB
 url: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
-wayback_url: https://web.archive.org/web/20260115/https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
+wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
 filename: wiktionary-eng.jsonl.gz
 unzipped_name: kaikki.org-dictionary-English.jsonl
 layout: JSONL
@@ -169,7 +195,7 @@ type: embeddings
 languages: en -> en
 size: 4.5 GB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.vec.gz
 filename: cc.en.300.vec.gz
 notes: optional EN similarity
 
@@ -179,9 +205,19 @@ type: embeddings
 languages: de -> de
 size: 4.5 GB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.de.300.vec.gz
 filename: cc.de.300.vec.gz
 notes: optional DE similarity
+
+pack_id: align-es-cc
+name: fastText Spanish (Common Crawl)
+type: embeddings
+languages: es -> es
+size: ~1.2 GB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.es.300.vec.gz
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.es.300.vec.gz
+filename: cc.es.300.vec.gz
+notes: optional ES similarity; strong monolingual signal for ES-only ranking
 
 pack_id: align-ja-cc
 name: fastText Japanese (Common Crawl)
@@ -189,7 +225,7 @@ type: embeddings
 languages: ja -> ja
 size: 4.2 GB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
 filename: cc.ja.300.vec.gz
 notes: optional JP similarity
 
@@ -199,9 +235,9 @@ type: embeddings
 languages: en -> en
 size: ~620 MB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
 filename: wiki.en.align.vec
-notes: paired with align-ja-wiki for en-ja cross-lingual similarity
+notes: paired with align-ja-wiki or align-es-wiki for cross-lingual similarity
 
 pack_id: align-de-wiki
 name: fastText German (Aligned)
@@ -209,9 +245,19 @@ type: embeddings
 languages: de -> de
 size: ~500 MB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.de.align.vec
 filename: wiki.de.align.vec
 notes: optional cross-lingual experiments
+
+pack_id: align-es-wiki
+name: fastText Spanish (Aligned)
+type: embeddings
+languages: es -> es
+size: ~2.1 GB
+url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.es.align.vec
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.es.align.vec
+filename: wiki.es.align.vec
+notes: aligned to English space; use with align-en-wiki for EN<->ES ranking checks
 
 pack_id: align-ja-wiki
 name: fastText Japanese (Aligned)
@@ -219,41 +265,59 @@ type: embeddings
 languages: ja -> ja
 size: ~400 MB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
-wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
+wayback_url: https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
 filename: wiki.ja.align.vec
 notes: paired with align-en-wiki for en-ja cross-lingual similarity
 
-Final Summary Table
-Goal | Best Choice 2026 | Format | License
-EN Synonyms | Open WordNet 2025 | JSON/XML | WordNet
-DE Synonyms | OdeNet | XML | CC-BY-SA
-JP Synonyms | WN-Ja | SQLite | BSD
-Translations (V1) | FreeDict (DE↔EN) | XML | GPLv3/AGPLv3
-Similarity (Optional) | fastText vectors | Text | CC-BY-SA
-
-
 -- Word Frequencies --
-
-English Word Frequency (COCA 2026)
-The Corpus of Contemporary American English (COCA) remains the industry standard. For 2026, the "Free 5,000" has been expanded in community mirrors to include more modern web-culture terms.
 pack_id: freq-en-coca
 name: COCA English Frequency List (Lemmatized)
-size: 2 MB (CSV/TSV)
+type: frequency
+languages: en -> en
+size: 2 MB
 url: https://www.wordfrequency.info/samples/lemmas_60k.txt
-backup_url: https://web.archive.org/web/20210127204059/https://www.wordfrequency.info/samples/lemmas_60k.txt
-filename: en_freq_coca.csv
-notes: Includes rank, lemma, pos, and frequency. This is the lemmatized version (e.g., "running" and "ran" are both under "run").
+wayback_url: https://web.archive.org/web/*/https://www.wordfrequency.info/samples/lemmas_60k.txt
+filename: lemmas_60k.txt
+unzipped_name: lemmas_60k.txt
+layout: tab-delimited text with rank/lemma/POS/frequency columns
+parse_hint: ParseConfig(delimiter="\t", header_starts_with="rank", skip_prefixes=("*", "-----"))
+notes: current GUI frequency pack id is freq-en-coca
 
-Japanese Word Frequency (BCCWJ)
-The Balanced Corpus of Contemporary Written Japanese (BCCWJ) is the gold standard from NINJAL. Unlike most lists, it explicitly provides Short Unit Words (SUW) and Long Unit Words (LUW), which is vital for parsing Japanese compound nouns.
 pack_id: freq-ja-bccwj
-name: BCCWJ Japanese Lemma Frequency
+name: BCCWJ Japanese Frequency (SUW)
+type: frequency
+languages: ja -> ja
 size: 50 MB
 url: https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip
-backup_url: https://web.archive.org/web/0/https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip
-filename: bccwj_suw_freq.zip
-notes: Contains columns for Lemma, Etymology (Native/Sino-Japanese), and Freq. It uses UniDic-style lemmatization, which is the most accurate for NLP tasks in 2026.
+wayback_url: https://web.archive.org/web/*/https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip
+filename: BCCWJ_frequencylist_suw_ver1_0.zip
+unzipped_name: BCCWJ_frequencylist_suw_ver1_0.tsv
+layout: zip containing TSV
+parse_hint: ParseConfig(delimiter="\t", header_starts_with="rank", skip_prefixes=())
+notes: current GUI frequency pack id is freq-ja-bccwj
 
--- Info Needed From You --
-1) wiktionary-xlang: if/when we resume, confirm desired Kaikki dump (English vs another), exact compressed size, and preferred Wayback mirror.
-2) Kaikki/Wiktionary is backlog for now.
+pack_id: freq-de-default
+name: German News Frequency (Lemmas)
+type: frequency
+languages: de -> de
+size: ~80 MB
+url: https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz
+wayback_url: https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz
+filename: deu_news_2023_1M.tar.gz
+unzipped_name: freq-de-default.sqlite
+layout: custom pipeline output SQLite
+parse_hint: built by lexishift_core.frequency.de.pipeline (Leipzig + LanguageTool POS lexicon)
+notes: current GUI frequency pack id is freq-de-default
+
+pack_id: freq-es-cde
+name: Corpus del Espanol Lemma Frequency (sample)
+type: frequency
+languages: es -> es
+size: 42 KB
+url: https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt
+wayback_url: https://web.archive.org/web/*/https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt
+filename: spanish_lemmas20k.txt
+unzipped_name: spanish_lemmas20k.txt
+layout: tab-delimited text sample
+parse_hint: ParseConfig(delimiter="\t", header_starts_with="ID", skip_prefixes=("----",)); decode Latin-1 to preserve accents
+notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list)

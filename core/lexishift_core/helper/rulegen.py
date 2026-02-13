@@ -146,12 +146,11 @@ def initialize_store_from_frequency_list_with_report(
         if existing_item is not None:
             updated_count += 1
             confidence = _safe_optional_float(getattr(selected, "admission_weight", None))
-            updates: dict[str, object] = {}
-            if existing_item.confidence is None and confidence is not None:
-                updates["confidence"] = confidence
-            if existing_item.word_package is None and selected_word_package is not None:
-                updates["word_package"] = selected_word_package
-            item = replace(existing_item, **updates) if updates else existing_item
+            item = existing_item
+            if item.confidence is None and confidence is not None:
+                item = replace(item, confidence=confidence)
+            if item.word_package is None and selected_word_package is not None:
+                item = replace(item, word_package=selected_word_package)
         else:
             inserted_count += 1
             confidence = _safe_optional_float(getattr(selected, "admission_weight", None))

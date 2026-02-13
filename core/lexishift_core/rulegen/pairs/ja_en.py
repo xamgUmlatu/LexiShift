@@ -331,10 +331,11 @@ def _resolve_target_word_package(
     )
     if normalized_hint is None:
         return None
-    merged_forms = merge_script_forms(
+    normalized_hint_script_forms = _normalize_script_forms_map(
         normalized_hint.get("script_forms")
-        if isinstance(normalized_hint.get("script_forms"), Mapping)
-        else None,
+    )
+    merged_forms = merge_script_forms(
+        normalized_hint_script_forms,
         discovered_script_forms,
     )
     merged_word_package = dict(normalized_hint)

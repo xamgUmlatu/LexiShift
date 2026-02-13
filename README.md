@@ -430,6 +430,10 @@ Current limitations
 - No streaming adapter yet (planned).
 - No POS/NER gating yet (possible future accuracy upgrade).
 - Inflection generator is conservative and avoids ambiguous doubling.
+- TODO (GUI app UI overhaul):
+  - Do a full UX pass across all major GUI screens (navigation, hierarchy, spacing, and affordances).
+  - Normalize layout density and visual consistency across locales, themes, and window sizes.
+  - Simplify settings information architecture so language packs, profiles, and SRS controls are easier to find.
 - TODO (CJK / no-space languages):
   - Detect whether input is likely a no-space language (CJK) using lightweight heuristics.
   - If CJK, choose between:
@@ -437,10 +441,13 @@ Current limitations
     - exact substring replacement without token boundaries.
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 - TODO (replacement pacing/sensitivity controls):
-  - Limit replacements per sentence.
+  - Consider limiting replacements per sentence.
   - Limit replacements per page.
   - Avoid replacing two juxtaposed words.
   - Add settings to adjust sensitivity/strictness for the rules above.
+- TODO (S-set visibility/review UX):
+  - Add a list view of all the words currently in S.
+  - Consider a dedicated study/review view for S.
 - TODO (Japanese script quality):
   - Check and improve the accuracy of generated romaji for Japanese words.
 - TODO (rule generation quality):

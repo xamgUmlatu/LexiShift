@@ -13,6 +13,8 @@ class ParseConfig:
     delimiter: str = "\t"
     header_starts_with: Optional[str] = "rank"
     skip_prefixes: Sequence[str] = field(default_factory=tuple)
+    encoding: str = "utf-8"
+    errors: str = "ignore"
 
 
 def convert_frequency_to_sqlite(
@@ -81,7 +83,7 @@ def _iter_rows(
 ) -> tuple[list[str], Iterable[list[str]]]:
     header: Optional[list[str]] = None
     rows: list[list[str]] = []
-    with path.open(encoding="utf-8", errors="ignore") as handle:
+    with path.open(encoding=config.encoding, errors=config.errors) as handle:
         for raw in handle:
             line = raw.rstrip("\n")
             if not line:

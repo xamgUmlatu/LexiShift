@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import sqlite3
 from typing import Iterable
 from xml.etree import ElementTree
 
@@ -265,3 +266,50 @@ def load_freedict_tei_glosses_ordered(
                         bucket.append(translation)
         elem.clear()
     return mapping
+
+
+def load_freedict_sqlite_glosses_ordered(path: Path) -> dict[str, list[str]]:
+    mapping: dict[str, list[str]] = {}
+    if not path.exists() or not path.is_file():
+        return mapping
+    try:
+        with sqlite3.connect(path) as conn:
+            has_entries = conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='entries' LIMIT 1"
+            ).fetchone()
+            if not has_entries:
+                return mapping
+            cursor = conn.execute(
+                "SELECT headword, translation FROM entries ORDER BY headword_lc, rank, headword"
+            )
+            for headword, translation in cursor:
+                headword_text = str(headword or "").strip()
+                translation_text = str(translation or "").strip()
+                if not headword_text or not translation_text:
+                    continue
+                bucket = mapping.setdefault(headword_text, [])
+                if translation_text not in bucket:
+                    bucket.append(translation_text)
+    except sqlite3.Error:
+        return {}
+    return mapping
+
+
+def load_freedict_glosses_ordered(
+    path: Path,
+    *,
+    target_lang: str,
+) -> dict[str, list[str]]:
+    if _is_sqlite_file(path):
+        return load_freedict_sqlite_glosses_ordered(path)
+    return load_freedict_tei_glosses_ordered(path, target_lang=target_lang)
+
+
+def _is_sqlite_file(path: Path) -> bool:
+    if not path.exists() or not path.is_file():
+        return False
+    try:
+        with path.open("rb") as handle:
+            return handle.read(16).startswith(b"SQLite format 3")
+    except OSError:
+        return False

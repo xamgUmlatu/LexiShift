@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.resources.dict_loaders import load_freedict_tei_glosses_ordered
+from lexishift_core.resources.dict_loaders import load_freedict_glosses_ordered
 from lexishift_core.rulegen.generation import (
     CandidateFilter,
     RuleCandidate,
@@ -57,7 +57,7 @@ class EnDeRulegenConfig:
 
 
 def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
-    mapping = config.gloss_mapping or load_freedict_tei_glosses_ordered(
+    mapping = config.gloss_mapping or load_freedict_glosses_ordered(
         config.freedict_de_en_path,
         target_lang="en",
     )
