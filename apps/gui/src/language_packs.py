@@ -321,7 +321,7 @@ CROSS_EMBEDDING_PACKS = [
         name_key="embeddings.fasttext_en_aligned",
         language_key="languages.english_aligned",
         source_key="providers.fasttext",
-        pair_key="de-en",
+        pair_key="en-ja",
     ),
     LanguagePackInfo(
         pack_id="embed-xling-de",

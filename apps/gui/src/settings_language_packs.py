@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import os
 import shutil
+import subprocess
 from dataclasses import dataclass
+from pathlib import Path
+import sys
 from typing import Optional
 
-from PySide6.QtCore import QStandardPaths, Qt
+from PySide6.QtCore import QStandardPaths, Qt, QThread, Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QAbstractItemView,
@@ -64,6 +67,84 @@ class EmbeddingPackRow:
     use_button: QPushButton
 
 
+def _is_sqlite_db_file(path: str | Path) -> bool:
+    target = Path(path)
+    if not target.exists() or not target.is_file():
+        return False
+    try:
+        with target.open("rb") as handle:
+            header = handle.read(16)
+    except OSError:
+        return False
+    return header.startswith(b"SQLite format 3")
+
+
+def _resolve_embedding_converter_script() -> Path:
+    this_file = Path(__file__).resolve()
+    candidates = (
+        this_file.parents[3] / "scripts" / "data" / "convert_embeddings.py",
+        this_file.parents[2] / "scripts" / "data" / "convert_embeddings.py",
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError("Embedding conversion script not found: scripts/data/convert_embeddings.py")
+
+
+class EmbeddingConversionThread(QThread):
+    completed = Signal(str, str)
+    failed = Signal(str, str)
+
+    def __init__(
+        self,
+        *,
+        pack_id: str,
+        source_path: str,
+        output_path: str,
+        parent=None,
+    ) -> None:
+        super().__init__(parent)
+        self._pack_id = pack_id
+        self._source_path = Path(source_path)
+        self._output_path = Path(output_path)
+
+    def run(self) -> None:
+        try:
+            if not self._source_path.exists():
+                raise FileNotFoundError(f"Embedding file not found: {self._source_path}")
+            if _is_sqlite_db_file(self._output_path):
+                self.completed.emit(self._pack_id, str(self._output_path))
+                return
+            script = _resolve_embedding_converter_script()
+            command = [
+                sys.executable,
+                str(script),
+                "--input",
+                str(self._source_path),
+                "--output",
+                str(self._output_path),
+                "--overwrite",
+                "--progress",
+                "0",
+            ]
+            result = subprocess.run(
+                command,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode != 0:
+                detail = (result.stderr or result.stdout or "").strip()
+                if not detail:
+                    detail = f"embedding conversion failed with exit code {result.returncode}"
+                raise RuntimeError(detail)
+            if not _is_sqlite_db_file(self._output_path):
+                raise RuntimeError("embedding conversion did not produce a valid SQLite file")
+            self.completed.emit(self._pack_id, str(self._output_path))
+        except Exception as exc:  # noqa: BLE001
+            self.failed.emit(self._pack_id, str(exc))
+
+
 class LanguagePackPanel(QWidget):
 
     def __init__(self, parent=None) -> None:
@@ -82,6 +163,7 @@ class LanguagePackPanel(QWidget):
         self._cross_embedding_pack_rows: dict[str, EmbeddingPackRow] = {}
         self._language_pack_threads: list[LanguagePackDownloadThread] = []
         self._frequency_pack_threads: list[FrequencyPackDownloadThread] = []
+        self._embedding_conversion_threads: list[EmbeddingConversionThread] = []
         self._language_pack_paths: dict[str, str] = {}
         self._frequency_pack_paths: dict[str, str] = {}
         self._embedding_pack_paths: dict[str, str] = {}
@@ -259,6 +341,9 @@ class LanguagePackPanel(QWidget):
             if thread.isRunning():
                 thread.requestInterruption()
         for thread in list(self._frequency_pack_threads):
+            if thread.isRunning():
+                thread.requestInterruption()
+        for thread in list(self._embedding_conversion_threads):
             if thread.isRunning():
                 thread.requestInterruption()
 
@@ -701,6 +786,7 @@ class LanguagePackPanel(QWidget):
         dest_path = self._download_archive_path(pack, embeddings=True)
         row.status_item.setText(t("language_packs.status.downloading"))
         row.download_button.setEnabled(False)
+        row.use_button.setEnabled(False)
         self.language_pack_status.setStyleSheet("")
         self.language_pack_status.setText(
             t("language_packs.downloading", name=pack.display_name())
@@ -896,15 +982,27 @@ class LanguagePackPanel(QWidget):
         if not pack or not row:
             return
         local_path = self._embedding_pack_paths.get(pack_id)
+        local_optimized_path = self._embedding_sqlite_path(local_path) if local_path else None
         archive_path = self._download_archive_path(pack, embeddings=True)
+        archive_optimized_path = self._embedding_sqlite_path(archive_path)
         resolved_path = self._resolve_downloaded_path(pack, embeddings=True)
+        resolved_optimized_path = self._embedding_sqlite_path(resolved_path) if resolved_path else None
         delete_paths = []
         if local_path and self._is_app_data_path(local_path, embeddings=True):
             delete_paths.append(local_path)
+        if local_optimized_path and local_optimized_path != local_path:
+            if os.path.exists(local_optimized_path) and self._is_app_data_path(local_optimized_path, embeddings=True):
+                delete_paths.append(local_optimized_path)
         if archive_path and os.path.exists(archive_path) and self._is_app_data_path(archive_path, embeddings=True):
             delete_paths.append(archive_path)
+        if archive_optimized_path and archive_optimized_path != archive_path:
+            if os.path.exists(archive_optimized_path) and self._is_app_data_path(archive_optimized_path, embeddings=True):
+                delete_paths.append(archive_optimized_path)
         if resolved_path and os.path.exists(resolved_path) and self._is_app_data_path(resolved_path, embeddings=True):
             delete_paths.append(resolved_path)
+        if resolved_optimized_path and resolved_optimized_path != resolved_path:
+            if os.path.exists(resolved_optimized_path) and self._is_app_data_path(resolved_optimized_path, embeddings=True):
+                delete_paths.append(resolved_optimized_path)
         delete_paths = list(dict.fromkeys(delete_paths))
         unlink_only = local_path and not delete_paths
         if not delete_paths and not unlink_only:
@@ -955,6 +1053,10 @@ class LanguagePackPanel(QWidget):
                 self._embedding_pack_paths[pack_id] = local_path
         if not local_path:
             return
+        optimized_path = self._embedding_sqlite_path(local_path)
+        if optimized_path != local_path and self._is_sqlite_db(optimized_path):
+            local_path = optimized_path
+            self._embedding_pack_paths[pack_id] = local_path
         if pack and pack.pair_key:
             pair_key = pack.pair_key
             paths = list(self._embedding_pair_paths.get(pair_key, []))
@@ -1039,12 +1141,26 @@ class LanguagePackPanel(QWidget):
     def _frequency_sqlite_path(self, pack: FrequencyPackInfo) -> str:
         return os.path.join(self._frequency_pack_dir, pack.sqlite_filename)
 
+    def _embedding_sqlite_path(self, source_path: str) -> str:
+        lowered = source_path.lower()
+        if lowered.endswith((".sqlite", ".sqlite3", ".db")):
+            return source_path
+        return f"{source_path}.sqlite"
+
     def _resolve_downloaded_path(self, pack: Optional[LanguagePackInfo], *, embeddings: bool = False) -> Optional[str]:
         if not pack:
             return None
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
+        if embeddings:
+            optimized = self._embedding_sqlite_path(archive_path)
+            if self._is_sqlite_db(optimized):
+                return optimized
         if archive_path.endswith(".zip"):
             extracted = os.path.splitext(archive_path)[0]
+            if embeddings:
+                optimized = self._embedding_sqlite_path(extracted)
+                if self._is_sqlite_db(optimized):
+                    return optimized
             if os.path.isdir(extracted):
                 return extracted
         if archive_path.endswith((".tar.gz", ".tgz", ".tar.xz", ".txz")):
@@ -1053,10 +1169,18 @@ class LanguagePackPanel(QWidget):
                 if extracted.endswith(suffix):
                     extracted = extracted[: -len(suffix)]
                     break
+            if embeddings:
+                optimized = self._embedding_sqlite_path(extracted)
+                if self._is_sqlite_db(optimized):
+                    return optimized
             if os.path.isdir(extracted):
                 return extracted
         if archive_path.endswith(".gz"):
             extracted = os.path.splitext(archive_path)[0]
+            if embeddings:
+                optimized = self._embedding_sqlite_path(extracted)
+                if self._is_sqlite_db(optimized):
+                    return optimized
             if os.path.exists(extracted):
                 return extracted
         if os.path.exists(archive_path):
@@ -1117,12 +1241,7 @@ class LanguagePackPanel(QWidget):
         return path
 
     def _is_sqlite_db(self, path: str) -> bool:
-        try:
-            with open(path, "rb") as handle:
-                header = handle.read(16)
-            return header.startswith(b"SQLite format 3")
-        except OSError:
-            return False
+        return _is_sqlite_db_file(path)
 
     def _on_language_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
         row = self._language_pack_rows.get(pack_id)
@@ -1216,15 +1335,78 @@ class LanguagePackPanel(QWidget):
         row = self._embedding_row_for(pack_id)
         if not pack or not row:
             return
+        if self._is_sqlite_db(dest_path):
+            self._finalize_embedding_pack(pack_id=pack_id, resolved_path=dest_path)
+            return
+        optimized_path = self._embedding_sqlite_path(dest_path)
+        if self._is_sqlite_db(optimized_path):
+            self._finalize_embedding_pack(pack_id=pack_id, resolved_path=optimized_path)
+            return
         self._embedding_pack_paths[pack_id] = dest_path
-        row.status_item.setText(t("language_packs.status.local_ok"))
+        row.status_item.setText("Converting...")
+        row.status_item.setForeground(QColor("#1B4F9C"))
         row.status_item.setToolTip(dest_path)
+        row.download_button.setEnabled(False)
+        row.use_button.setEnabled(False)
+        self.language_pack_status.setStyleSheet("")
+        self.language_pack_status.setText(
+            f"Converting {pack.display_name()} for optimized local use..."
+        )
+        thread = EmbeddingConversionThread(
+            pack_id=pack_id,
+            source_path=dest_path,
+            output_path=optimized_path,
+            parent=self,
+        )
+        thread.completed.connect(self._on_embedding_conversion_completed)
+        thread.failed.connect(self._on_embedding_conversion_failed)
+        thread.finished.connect(lambda: self._cleanup_embedding_conversion_thread(thread))
+        self._embedding_conversion_threads.append(thread)
+        thread.start()
+
+    def _on_embedding_conversion_completed(self, pack_id: str, sqlite_path: str) -> None:
+        self._finalize_embedding_pack(pack_id=pack_id, resolved_path=sqlite_path)
+
+    def _on_embedding_conversion_failed(self, pack_id: str, message: str) -> None:
+        pack = self._embedding_pack_info.get(pack_id)
+        row = self._embedding_row_for(pack_id)
+        if not pack or not row:
+            return
+        fallback_path = self._embedding_pack_paths.get(pack_id)
+        if fallback_path and os.path.exists(fallback_path):
+            self._finalize_embedding_pack(pack_id=pack_id, resolved_path=fallback_path)
+            self.language_pack_status.setStyleSheet("color: #A03030;")
+            self.language_pack_status.setText(
+                f"{pack.display_name()} downloaded, but optimized conversion failed: {message}"
+            )
+            self.language_pack_status.setToolTip(message)
+            return
+        row.status_item.setText(t("language_packs.status.failed"))
+        row.download_button.setEnabled(True)
+        row.download_button.setText(t("buttons.retry"))
+        row.use_button.setEnabled(False)
+        self.language_pack_status.setStyleSheet("color: #A03030;")
+        self.language_pack_status.setText(
+            f"{pack.display_name()} download completed, but conversion failed: {message}"
+        )
+        self._refresh_embedding_pack_table()
+        self._refresh_cross_embedding_pack_table()
+
+    def _finalize_embedding_pack(self, *, pack_id: str, resolved_path: str) -> None:
+        pack = self._embedding_pack_info.get(pack_id)
+        row = self._embedding_row_for(pack_id)
+        if not pack or not row:
+            return
+        self._embedding_pack_paths[pack_id] = resolved_path
+        row.status_item.setText(t("language_packs.status.local_ok"))
+        row.status_item.setToolTip(resolved_path)
         self.language_pack_status.setStyleSheet("color: #2F6B2F;")
         self.language_pack_status.setText(
-            t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path)
+            t("language_packs.downloaded_linked", name=pack.display_name(), path=resolved_path)
         )
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
+        row.use_button.setEnabled(True)
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
 
@@ -1238,10 +1420,12 @@ class LanguagePackPanel(QWidget):
             row.status_item.setForeground(QColor("#6B6B6B"))
             row.download_button.setEnabled(True)
             row.download_button.setText(t("buttons.download"))
+            row.use_button.setEnabled(True)
             return
         row.status_item.setText(t("language_packs.status.failed"))
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
+        row.use_button.setEnabled(True)
         link = pack.wayback_url
         log_path = download_log_path()
         row.status_item.setToolTip(log_path)
@@ -1305,6 +1489,11 @@ class LanguagePackPanel(QWidget):
     def _cleanup_frequency_pack_thread(self, thread: FrequencyPackDownloadThread) -> None:
         if thread in self._frequency_pack_threads:
             self._frequency_pack_threads.remove(thread)
+        thread.deleteLater()
+
+    def _cleanup_embedding_conversion_thread(self, thread: EmbeddingConversionThread) -> None:
+        if thread in self._embedding_conversion_threads:
+            self._embedding_conversion_threads.remove(thread)
         thread.deleteLater()
 
 

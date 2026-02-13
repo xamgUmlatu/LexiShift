@@ -180,6 +180,7 @@ Synonym sources (local)
   - Enable embeddings per language-pair in Settings -> App -> Embeddings / Cross-lingual Embeddings (Use button).
   - For cross-lingual similarity, load aligned vectors for both languages in the pair (e.g., `wiki.en.align.vec` + `wiki.de.align.vec`).
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
+  - TODO: hook embeddings into rule-generation scoring (downloads + one-time conversion are wired; scoring integration is pending).
 Language packs (Settings -> App)
 - Language packs list is shown inside Settings (App tab), with Download/Delete buttons per pack.
 - Each row shows language, source, and size (size is listed in the rightmost column).

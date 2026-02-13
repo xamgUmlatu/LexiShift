@@ -161,6 +161,7 @@ notes: backlog
 
 -- Embeddings (Optional Add-on) --
 These are optional downloads to improve ranking; no embeddings are required for V1.
+Downloaded embedding text files are converted once to local SQLite for optimized runtime loading.
 
 pack_id: align-en-cc
 name: fastText English (Common Crawl)
@@ -200,7 +201,7 @@ size: ~620 MB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
 wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec
 filename: wiki.en.align.vec
-notes: optional cross-lingual experiments
+notes: paired with align-ja-wiki for en-ja cross-lingual similarity
 
 pack_id: align-de-wiki
 name: fastText German (Aligned)
@@ -220,7 +221,7 @@ size: ~400 MB
 url: https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
 wayback_url: https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.ja.align.vec
 filename: wiki.ja.align.vec
-notes: optional cross-lingual experiments
+notes: paired with align-en-wiki for en-ja cross-lingual similarity
 
 Final Summary Table
 Goal | Best Choice 2026 | Format | License
