@@ -75,6 +75,7 @@
       exportFileButton: source.exportFile || null,
       fileStatus: source.fileStatus || null,
       shareCodeInput: source.shareCode || null,
+      shareCodeScopeInput: source.shareCodeScope || null,
       shareCodeCjk: source.shareCodeCjk || null,
       generateCodeButton: source.generateCode || null,
       importCodeButton: source.importCode || null,

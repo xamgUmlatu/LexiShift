@@ -164,6 +164,7 @@
         rulesFileInput: dom.rulesFileInput,
         fileStatus: dom.fileStatus,
         shareCodeInput: dom.shareCodeInput,
+        shareCodeScopeInput: dom.shareCodeScopeInput,
         shareCodeCjk: dom.shareCodeCjk
       }
     });

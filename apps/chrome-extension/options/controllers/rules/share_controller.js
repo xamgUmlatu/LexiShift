@@ -29,7 +29,22 @@
     const rulesFileInput = elements.rulesFileInput || null;
     const fileStatus = elements.fileStatus || null;
     const shareCodeInput = elements.shareCodeInput || null;
+    const shareCodeScopeInput = elements.shareCodeScopeInput || null;
     const shareCodeCjk = elements.shareCodeCjk || null;
+
+    function resolveScope() {
+      if (!shareCodeScopeInput) {
+        return "rules";
+      }
+      const normalized = String(shareCodeScopeInput.value || "").trim().toLowerCase();
+      if (normalized === "srs") {
+        return "srs";
+      }
+      if (normalized === "profile") {
+        return "profile";
+      }
+      return "rules";
+    }
 
     async function saveRules() {
       if (!rulesManager || !rulesInput) {
@@ -83,12 +98,18 @@
       setStatus(translate("status_exported_rules", null, "Exported rules."), colors.SUCCESS);
     }
 
-    function generateShareCode() {
-      if (!rulesManager || !shareCodeInput || !shareCodeCjk || !rulesInput) {
+    async function generateShareCode() {
+      if (!rulesManager || !shareCodeInput || !shareCodeCjk) {
         return;
       }
       try {
-        const code = rulesManager.generateShareCode(shareCodeCjk.checked, rulesInput.value, rulesInput.disabled);
+        const scope = resolveScope();
+        const code = await rulesManager.generateShareCode({
+          scope,
+          useCjk: shareCodeCjk.checked,
+          editorValue: rulesInput ? rulesInput.value : "[]",
+          isEditorDisabled: rulesInput ? rulesInput.disabled : true
+        });
         shareCodeInput.value = code;
         setStatus(
           translate(
@@ -107,15 +128,42 @@
     }
 
     async function importShareCode() {
-      if (!rulesManager || !shareCodeInput || !shareCodeCjk || !rulesInput) {
+      if (!rulesManager || !shareCodeInput || !shareCodeCjk) {
         return;
       }
       try {
-        const { rules, updatedAt } = await rulesManager.importShareCode(shareCodeInput.value, shareCodeCjk.checked);
-        rulesInput.value = JSON.stringify(rules, null, 2);
-        updateRulesSourceUI("editor");
-        updateRulesMeta(rules, updatedAt);
-        setStatus(translate("status_code_imported", null, "Code imported."), colors.SUCCESS);
+        const result = await rulesManager.importShareCode(shareCodeInput.value, shareCodeCjk.checked);
+        if (shareCodeScopeInput && result && result.scope) {
+          shareCodeScopeInput.value = result.scope;
+        }
+        if (result && result.scope === "rules") {
+          const rules = Array.isArray(result.rules) ? result.rules : [];
+          const updatedAt = result.updatedAt;
+          if (rulesInput) {
+            rulesInput.value = JSON.stringify(rules, null, 2);
+          }
+          updateRulesSourceUI("editor");
+          updateRulesMeta(rules, updatedAt);
+          setStatus(translate("status_code_imported", null, "Code imported."), colors.SUCCESS);
+          return;
+        }
+        if (result && result.scope === "srs") {
+          setStatus(
+            translate("status_code_imported_srs", null, "SRS status imported. Reloading options…"),
+            colors.SUCCESS
+          );
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        setStatus(
+          translate("status_code_imported_profile", null, "Profile data imported. Reloading options…"),
+          colors.SUCCESS
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 120);
       } catch (err) {
         setStatus(
           err && err.message ? err.message : translate("status_invalid_code", null, "Invalid code."),

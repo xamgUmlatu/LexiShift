@@ -71,14 +71,198 @@ class RulesManager {
     URL.revokeObjectURL(url);
   }
 
-  generateShareCode(useCjk, editorValue, isEditorDisabled) {
-    let rules;
-    if (!isEditorDisabled) {
-      rules = this.parseFromEditor(editorValue);
-    } else {
-      rules = this.settingsManager.currentRules || [];
+  _isObject(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  }
+
+  _resolveShareScope(rawScope) {
+    const normalized = String(rawScope || "rules").trim().toLowerCase();
+    if (normalized === "srs" || normalized === "srs_status") {
+      return "srs";
     }
-    const code = encodeRulesCode(rules, useCjk);
+    if (normalized === "profile" || normalized === "full_profile" || normalized === "full-profile") {
+      return "profile";
+    }
+    return "rules";
+  }
+
+  _createShareEnvelope(scope, data) {
+    return {
+      lexishift_share: {
+        version: 1,
+        scope
+      },
+      data
+    };
+  }
+
+  _unwrapShareEnvelope(decoded) {
+    if (this._isObject(decoded)
+      && this._isObject(decoded.lexishift_share)
+      && typeof decoded.lexishift_share.scope === "string"
+      && Object.prototype.hasOwnProperty.call(decoded, "data")) {
+      return {
+        scope: this._resolveShareScope(decoded.lexishift_share.scope),
+        data: decoded.data
+      };
+    }
+    return {
+      scope: "rules",
+      data: decoded
+    };
+  }
+
+  _requireLz() {
+    if (typeof getLZString !== "function") {
+      throw new Error(this.i18n.t("status_generate_failed", null, "Failed to generate code."));
+    }
+    return getLZString();
+  }
+
+  _encodePayload(payload, useCjk) {
+    const lz = this._requireLz();
+    const json = JSON.stringify(payload);
+    if (useCjk === true) {
+      if (typeof encodeBase16384 !== "function"
+        || typeof stringToBytes !== "function") {
+        throw new Error(this.i18n.t("status_generate_failed", null, "Failed to generate code."));
+      }
+      const compressed = lz.compress(json);
+      if (!compressed) {
+        throw new Error(this.i18n.t("error_generated_code_empty", null, "Generated code is empty."));
+      }
+      return encodeBase16384(stringToBytes(compressed));
+    }
+    const encoded = lz.compressToEncodedURIComponent(json);
+    if (!encoded) {
+      throw new Error(this.i18n.t("error_generated_code_empty", null, "Generated code is empty."));
+    }
+    return encoded;
+  }
+
+  _decodePayloadSafe(code) {
+    const lz = this._requireLz();
+    const json = lz.decompressFromEncodedURIComponent(code);
+    if (!json) {
+      throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+    }
+    return JSON.parse(json);
+  }
+
+  _decodePayloadCjk(code) {
+    if (typeof decodeBase16384 !== "function" || typeof bytesToString !== "function") {
+      throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+    }
+    const lz = this._requireLz();
+    const bytes = decodeBase16384(code);
+    const compressed = bytesToString(bytes);
+    const json = lz.decompress(compressed);
+    if (!json) {
+      throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+    }
+    return JSON.parse(json);
+  }
+
+  _decodePayload(code, preferCjk) {
+    const cleaned = String(code || "").trim();
+    if (!cleaned) {
+      throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+    }
+
+    const trySafeThenCjk = () => {
+      try {
+        return this._decodePayloadSafe(cleaned);
+      } catch (_safeError) {
+        return this._decodePayloadCjk(cleaned);
+      }
+    };
+
+    const tryCjkThenSafe = () => {
+      try {
+        return this._decodePayloadCjk(cleaned);
+      } catch (_cjkError) {
+        return this._decodePayloadSafe(cleaned);
+      }
+    };
+
+    if (preferCjk === true) {
+      return tryCjkThenSafe();
+    }
+    if (typeof isCjkCode === "function" && isCjkCode(cleaned)) {
+      return tryCjkThenSafe();
+    }
+    return trySafeThenCjk();
+  }
+
+  _getSrsShareKeys() {
+    return [
+      "sourceLanguage",
+      "targetLanguage",
+      "targetDisplayScript",
+      "srsPairAuto",
+      "srsPair",
+      "srsSelectedProfileId",
+      "srsProfileId",
+      "srsEnabled",
+      "srsMaxActive",
+      "srsBootstrapTopN",
+      "srsInitialActiveCount",
+      "srsSoundEnabled",
+      "srsHighlightColor",
+      "srsFeedbackSrsEnabled",
+      "srsFeedbackRulesEnabled",
+      "srsExposureLoggingEnabled",
+      "srsProfiles",
+      "popupModulePrefs",
+      "optionsSelectedProfileId",
+      "srsRulesetUpdatedAt"
+    ];
+  }
+
+  _pickFields(source, keys) {
+    const input = this._isObject(source) ? source : {};
+    const output = {};
+    keys.forEach((key) => {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+        output[key] = input[key];
+      }
+    });
+    return output;
+  }
+
+  _saveStorage(data) {
+    const payload = this._isObject(data) ? data : {};
+    return new Promise((resolve) => {
+      chrome.storage.local.set(payload, resolve);
+    });
+  }
+
+  async generateShareCode(options, editorValueArg, isEditorDisabledArg) {
+    const opts = this._isObject(options)
+      ? options
+      : {
+          useCjk: options === true,
+          editorValue: editorValueArg,
+          isEditorDisabled: isEditorDisabledArg
+        };
+    const scope = this._resolveShareScope(opts.scope);
+    const useCjk = opts.useCjk === true;
+    let data;
+    if (scope === "rules") {
+      if (opts.isEditorDisabled !== true) {
+        data = this.parseFromEditor(opts.editorValue);
+      } else {
+        data = this.settingsManager.currentRules || [];
+      }
+    } else {
+      const items = await this.settingsManager.load();
+      if (scope === "srs") {
+        data = this._pickFields(items, this._getSrsShareKeys());
+      } else {
+        data = this._isObject(items) ? items : {};
+      }
+    }
+    const code = this._encodePayload(this._createShareEnvelope(scope, data), useCjk);
     if (!code) {
       throw new Error(this.i18n.t("error_generated_code_empty", null, "Generated code is empty."));
     }
@@ -86,19 +270,40 @@ class RulesManager {
   }
 
   async importShareCode(code, useCjk) {
-    const decodedRules = decodeRulesCode(code || "", useCjk);
-    if (!Array.isArray(decodedRules)) {
-      throw new Error(this.i18n.t("error_decoded_not_list", null, "Decoded rules are not a list."));
-    }
-    if (!decodedRules.length) {
-      throw new Error(this.i18n.t("error_decoded_empty", null, "Decoded rules are empty."));
-    }
-    this.settingsManager.currentRules = decodedRules;
+    const decoded = this._decodePayload(code || "", useCjk === true);
+    const imported = this._unwrapShareEnvelope(decoded);
     const updatedAt = new Date().toISOString();
-    return new Promise((resolve) => {
-      chrome.storage.local.set({ rules: decodedRules, rulesSource: "editor", rulesUpdatedAt: updatedAt }, () => {
-        resolve({ rules: decodedRules, updatedAt });
+
+    if (imported.scope === "rules") {
+      const decodedRules = this.extractRules(imported.data);
+      if (!decodedRules.length) {
+        throw new Error(this.i18n.t("error_decoded_empty", null, "Decoded rules are empty."));
+      }
+      this.settingsManager.currentRules = decodedRules;
+      await this._saveStorage({
+        rules: decodedRules,
+        rulesSource: "editor",
+        rulesUpdatedAt: updatedAt
       });
-    });
+      return { scope: "rules", rules: decodedRules, updatedAt };
+    }
+
+    if (imported.scope === "srs") {
+      const srsData = this._pickFields(imported.data, this._getSrsShareKeys());
+      if (!Object.keys(srsData).length) {
+        throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+      }
+      await this._saveStorage(srsData);
+      return { scope: "srs", updatedAt };
+    }
+
+    if (!this._isObject(imported.data)) {
+      throw new Error(this.i18n.t("status_invalid_code", null, "Invalid code."));
+    }
+    await this._saveStorage(imported.data);
+    if (Array.isArray(imported.data.rules)) {
+      this.settingsManager.currentRules = imported.data.rules;
+    }
+    return { scope: "profile", updatedAt };
   }
 }

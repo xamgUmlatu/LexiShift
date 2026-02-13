@@ -12,7 +12,7 @@
     "message": "LexiShift"
   },
   "header_subtitle": {
-    "message": "Configure replacement rules for the content script."
+    "message": "Configure SRS practice and manual replacement rules for your browser experience."
   },
   "section_quick_controls": {
     "message": "Quick Controls"
@@ -315,7 +315,19 @@
     "message": "Share Code"
   },
   "hint_share_code": {
-    "message": "Generate a compressed code for sharing rules across devices."
+    "message": "Generate a compressed code for manual rules, SRS status, or full profile data."
+  },
+  "label_share_scope": {
+    "message": "Include"
+  },
+  "option_share_scope_rules": {
+    "message": "Manual rules"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS status"
+  },
+  "option_share_scope_profile": {
+    "message": "Entire profile data"
   },
   "toggle_share_code_cjk": {
     "message": "Short code (CJK)"
@@ -412,6 +424,12 @@
   },
   "status_code_imported": {
     "message": "Code imported."
+  },
+  "status_code_imported_srs": {
+    "message": "SRS status imported. Reloading options…"
+  },
+  "status_code_imported_profile": {
+    "message": "Profile data imported. Reloading options…"
   },
   "status_invalid_code": {
     "message": "Invalid code."
@@ -548,6 +566,18 @@
   "section_profile": {
     "message": "Profile"
   },
+  "section_your_setup": {
+    "message": "Your Setup"
+  },
+  "hint_your_setup": {
+    "message": "Language and profile context for this options page."
+  },
+  "section_manual_rules": {
+    "message": "Manual Rules"
+  },
+  "hint_manual_rules": {
+    "message": "Tune replacement behavior and edit/import the manual ruleset."
+  },
   "label_profile_id": {
     "message": "Profile"
   },
@@ -558,7 +588,7 @@
     "message": "Refresh profiles"
   },
   "section_profile_background": {
-    "message": "Options page background"
+    "message": "Options Page Design"
   },
   "hint_profile_bg_scope": {
     "message": "Only changes the options page design for this profile."

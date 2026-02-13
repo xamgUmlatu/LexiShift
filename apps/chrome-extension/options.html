@@ -10,91 +10,39 @@
     <main id="options-main-content" class="container">
       <header>
         <h1 data-i18n="header_title">LexiShift</h1>
-        <p data-i18n="header_subtitle">Configure replacement rules for the content script.</p>
+        <p data-i18n="header_subtitle">Configure SRS practice and manual replacement rules for your browser experience.</p>
       </header>
       <div class="layout">
-        <section class="card">
-          <h2 data-i18n="section_profile">Profile</h2>
-          <div class="field-row">
-            <label for="srs-profile-id" data-i18n="label_profile_id">Profile</label>
-            <select id="srs-profile-id"></select>
-            <button id="srs-profile-refresh" data-i18n="button_srs_profile_refresh">Refresh profiles</button>
-          </div>
-          <p id="srs-profile-status" class="hint">
-            Loading profiles…
+        <section class="card card-group">
+          <h2 data-i18n="section_your_setup">Your Setup</h2>
+          <p class="hint" data-i18n="hint_your_setup">
+            Language and profile context for this options page.
           </p>
-        </section>
-        <section class="card">
-          <h2 data-i18n="section_quick_controls">Quick Controls</h2>
-          <label class="toggle">
-            <input id="enabled" type="checkbox" />
-            <span data-i18n="toggle_enable_replacements">Enable replacements</span>
-          </label>
-        </section>
-        <section class="card">
-          <h2 data-i18n="section_language">Display Language</h2>
-          <div class="field-row">
-            <label for="ui-language" data-i18n="label_language">Interface language</label>
-            <select id="ui-language">
-              <option value="system" data-i18n="option_language_system">System default</option>
-              <option value="en" data-i18n="option_language_en">English</option>
-              <option value="ja" data-i18n="option_language_ja">日本語</option>
-              <option value="zh" data-i18n="option_language_zh">简体中文</option>
-              <option value="de" data-i18n="option_language_de">Deutsch</option>
-            </select>
-          </div>
-        </section>
-        <section class="card">
-          <h2 data-i18n="section_rules_source">Rules Source</h2>
-          <div class="radio-group">
-            <label class="radio">
-              <input type="radio" name="rules-source" value="editor" />
-              <span data-i18n="radio_edit_json">Edit JSON</span>
-            </label>
-            <label class="radio">
-              <input type="radio" name="rules-source" value="file" />
-              <span data-i18n="radio_import_json">Import JSON file</span>
-            </label>
-          </div>
-          <div class="file-row">
-            <input id="rules-file" type="file" accept=".json,application/json" />
-            <button id="import-file" data-i18n="button_import">Import</button>
-            <button id="export-file" data-i18n="button_export">Export</button>
-          </div>
-          <div class="meta-row">
-            <div>
-              <span class="meta-label" data-i18n="meta_last_updated">Last updated</span>
-              <span id="rules-updated" class="meta-value">—</span>
-            </div>
-            <div>
-              <span class="meta-label" data-i18n="meta_rules">Rules</span>
-              <span id="rules-count" class="meta-value">0</span>
-            </div>
-          </div>
-          <p id="file-status" class="hint" data-i18n="file_status_empty">
-            No file imported yet. Re-import after changes.
-          </p>
-        </section>
-        <section class="card">
-          <h2 data-i18n="section_integrations">Integrations</h2>
-          <p class="hint" data-i18n="hint_integrations">
-            Install LexiShift across your devices for shared rulesets.
-          </p>
-          <div class="actions">
-            <button id="open-desktop-app" data-i18n="button_get_app">Get Desktop App</button>
-            <button id="open-bd-plugin" data-i18n="button_get_plugin">Get BetterDiscord Plugin</button>
-          </div>
-        </section>
-        <section class="card">
-          <h2 data-i18n="section_display">Display</h2>
-          <label class="toggle">
-            <input id="highlight-enabled" type="checkbox" />
-            <span data-i18n="toggle_highlight">Highlight replaced words (click to toggle original)</span>
-          </label>
-          <div class="field-row">
-            <label for="highlight-color" data-i18n="label_highlight_color">Highlight color</label>
-            <input id="highlight-color" type="color" />
-            <input id="highlight-color-text" type="text" class="color-text" />
+          <div class="group-stack">
+            <section class="group-subcard">
+              <h3 data-i18n="section_language">Display Language</h3>
+              <div class="field-row">
+                <label for="ui-language" data-i18n="label_language">Interface language</label>
+                <select id="ui-language">
+                  <option value="system" data-i18n="option_language_system">System default</option>
+                  <option value="en" data-i18n="option_language_en">English</option>
+                  <option value="ja" data-i18n="option_language_ja">日本語</option>
+                  <option value="zh" data-i18n="option_language_zh">简体中文</option>
+                  <option value="de" data-i18n="option_language_de">Deutsch</option>
+                </select>
+              </div>
+            </section>
+            <section class="group-subcard">
+              <h3 data-i18n="section_profile">Profile</h3>
+              <div class="field-row">
+                <label for="srs-profile-id" data-i18n="label_profile_id">Profile</label>
+                <select id="srs-profile-id"></select>
+                <button id="srs-profile-refresh" data-i18n="button_srs_profile_refresh">Refresh profiles</button>
+              </div>
+              <p id="srs-profile-status" class="hint">
+                Loading profiles…
+              </p>
+            </section>
           </div>
         </section>
         <section class="card">
@@ -194,43 +142,111 @@
           </div>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
         </section>
-        <section class="card">
-          <h2 data-i18n="section_replacement_behavior">Replacement Behavior</h2>
-          <p class="hint" data-i18n="hint_replacement_behavior_scope">
-            Applies to all replacements (ruleset and SRS).
+        <section class="card card-group span-2">
+          <h2 data-i18n="section_manual_rules">Manual Rules</h2>
+          <p class="hint" data-i18n="hint_manual_rules">
+            Tune replacement behavior and edit/import the manual ruleset.
           </p>
-          <label class="toggle">
-            <input id="max-one-per-block" type="checkbox" />
-            <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
-          </label>
-          <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
-          <label class="toggle">
-            <input id="allow-adjacent" type="checkbox" />
-            <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
-          </label>
-          <p class="hint" data-i18n="hint_allow_adjacent">
-            When disabled, prevents back-to-back word replacements.
-          </p>
-          <div class="field-row">
-            <label for="max-replacements-per-page" data-i18n="label_max_replacements_page">Max replacements per page</label>
-            <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
+          <div class="group-stack">
+            <section class="group-subcard">
+              <h3 data-i18n="section_display">Display</h3>
+              <label class="toggle">
+                <input id="highlight-enabled" type="checkbox" />
+                <span data-i18n="toggle_highlight">Highlight replaced words (click to toggle original)</span>
+              </label>
+              <div class="field-row">
+                <label for="highlight-color" data-i18n="label_highlight_color">Highlight color</label>
+                <input id="highlight-color" type="color" />
+                <input id="highlight-color-text" type="text" class="color-text" />
+              </div>
+              <h4 data-i18n="section_replacement_behavior">Replacement Behavior</h4>
+              <p class="hint" data-i18n="hint_replacement_behavior_scope">
+                Applies to all replacements (ruleset and SRS).
+              </p>
+              <label class="toggle">
+                <input id="max-one-per-block" type="checkbox" />
+                <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
+              </label>
+              <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
+              <label class="toggle">
+                <input id="allow-adjacent" type="checkbox" />
+                <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
+              </label>
+              <p class="hint" data-i18n="hint_allow_adjacent">
+                When disabled, prevents back-to-back word replacements.
+              </p>
+              <div class="field-row">
+                <label for="max-replacements-per-page" data-i18n="label_max_replacements_page">Max replacements per page</label>
+                <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
+              </div>
+              <p class="hint" data-i18n="hint_max_replacements_page">
+                0 means unlimited. Caps total replacements shown on the current page.
+              </p>
+              <div class="field-row">
+                <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
+                <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
+              </div>
+              <p class="hint" data-i18n="hint_max_replacements_lemma_page">
+                0 means unlimited. Prevents one word from dominating the page.
+              </p>
+            </section>
+            <section class="group-subcard">
+              <h3 data-i18n="section_rules_source">Rules Source</h3>
+              <div class="radio-group">
+                <label class="radio">
+                  <input type="radio" name="rules-source" value="editor" />
+                  <span data-i18n="radio_edit_json">Edit JSON</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="rules-source" value="file" />
+                  <span data-i18n="radio_import_json">Import JSON file</span>
+                </label>
+              </div>
+              <div class="file-row">
+                <input id="rules-file" type="file" accept=".json,application/json" />
+                <button id="import-file" data-i18n="button_import">Import</button>
+                <button id="export-file" data-i18n="button_export">Export</button>
+              </div>
+              <div class="meta-row">
+                <div>
+                  <span class="meta-label" data-i18n="meta_last_updated">Last updated</span>
+                  <span id="rules-updated" class="meta-value">—</span>
+                </div>
+                <div>
+                  <span class="meta-label" data-i18n="meta_rules">Rules</span>
+                  <span id="rules-count" class="meta-value">0</span>
+                </div>
+              </div>
+              <p id="file-status" class="hint" data-i18n="file_status_empty">
+                No file imported yet. Re-import after changes.
+              </p>
+            </section>
+            <section class="group-subcard">
+              <h3 data-i18n="section_rules_json">Rules (JSON)</h3>
+              <p class="hint" data-i18n="hint_rules_format">
+                Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]
+              </p>
+              <textarea id="rules" rows="16" spellcheck="false"></textarea>
+              <div class="actions">
+                <button id="save" data-i18n="button_save">Save</button>
+                <span id="status"></span>
+              </div>
+            </section>
           </div>
-          <p class="hint" data-i18n="hint_max_replacements_page">
-            0 means unlimited. Caps total replacements shown on the current page.
-          </p>
-          <div class="field-row">
-            <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
-            <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_max_replacements_lemma_page">
-            0 means unlimited. Prevents one word from dominating the page.
-          </p>
         </section>
-        <section class="card">
+        <section class="card span-2">
           <h2 data-i18n="section_share_code">Share Code</h2>
           <p class="hint" data-i18n="hint_share_code">
-            Generate a compressed code for sharing rules across devices.
+            Generate a compressed code for manual rules, SRS status, or full profile data.
           </p>
+          <div class="field-row">
+            <label for="share-code-scope" data-i18n="label_share_scope">Include</label>
+            <select id="share-code-scope">
+              <option value="rules" data-i18n="option_share_scope_rules">Manual rules</option>
+              <option value="srs" data-i18n="option_share_scope_srs">SRS status</option>
+              <option value="profile" data-i18n="option_share_scope_profile">Entire profile data</option>
+            </select>
+          </div>
           <textarea id="share-code" rows="6" spellcheck="false"></textarea>
           <label class="toggle">
             <input id="share-code-cjk" type="checkbox" checked />
@@ -243,18 +259,7 @@
           </div>
         </section>
         <section class="card span-2">
-          <h2 data-i18n="section_rules_json">Rules (JSON)</h2>
-          <p class="hint" data-i18n="hint_rules_format">
-            Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]
-          </p>
-          <textarea id="rules" rows="16" spellcheck="false"></textarea>
-          <div class="actions">
-            <button id="save" data-i18n="button_save">Save</button>
-            <span id="status"></span>
-          </div>
-        </section>
-        <section class="card span-2">
-          <h2 data-i18n="section_profile_background">Options page background</h2>
+          <h2 data-i18n="section_profile_background">Options Page Design</h2>
           <p class="hint" data-i18n="hint_profile_bg_scope">
             Only changes the options page design for this profile.
           </p>
@@ -323,6 +328,16 @@
                 Reset card colors
               </button>
             </div>
+          </div>
+        </section>
+        <section class="card">
+          <h2 data-i18n="section_integrations">Integrations</h2>
+          <p class="hint" data-i18n="hint_integrations">
+            Install LexiShift across your devices for shared rulesets.
+          </p>
+          <div class="actions">
+            <button id="open-desktop-app" data-i18n="button_get_app">Get Desktop App</button>
+            <button id="open-bd-plugin" data-i18n="button_get_plugin">Get BetterDiscord Plugin</button>
           </div>
         </section>
         <section class="card span-2">

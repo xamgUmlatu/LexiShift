@@ -11,8 +11,8 @@
   --ls-module-card-bg-start: #fffefb;
   --ls-module-card-bg-end: #fffaf1;
   --ls-module-card-shadow: rgba(33, 28, 20, 0.08);
-  --ls-profile-panel-border: #e6dccc;
-  --ls-profile-panel-bg: #fffdf8;
+  --ls-profile-panel-border: #ccecc0;
+  --ls-profile-panel-bg: #dce6da;
   --ls-profile-preview-border: #e7ddcf;
   --ls-profile-preview-bg: #f5eee2;
   --ls-srs-preview-border: #e1d6c6;
@@ -21,6 +21,10 @@
   --ls-helper-status-bg: #fffaf2;
   --ls-advanced-border: #e1d6c6;
   --ls-advanced-bg: #fffdf8;
+  --ls-group-stack-border: var(--ls-profile-panel-border);
+  --ls-group-stack-bg: var(--ls-profile-panel-bg);
+  --ls-group-subcard-bg: var(--ls-profile-panel-bg);
+  --ls-group-subcard-separator: var(--ls-profile-panel-border);
 }
 
 body {
@@ -89,6 +93,57 @@ header p {
   margin: 0 0 10px;
   font-size: 18px;
   letter-spacing: 0.01em;
+}
+
+.card > h3 {
+  margin: 18px 0 10px;
+  font-size: 16px;
+  color: #4d473f;
+}
+
+.card-group {
+  padding-bottom: 16px;
+}
+
+.card-group > .hint {
+  margin: 0 0 6px;
+}
+
+.group-stack {
+  margin-top: 12px;
+  border: 1px solid var(--ls-group-stack-border);
+  border-radius: 10px;
+  background: var(--ls-group-stack-bg);
+  padding: 8px;
+  overflow: hidden;
+}
+
+.group-subcard {
+  position: relative;
+  padding: 12px 12px 10px;
+  border: 1px solid var(--ls-group-subcard-separator);
+  border-radius: 10px;
+  background: var(--ls-group-subcard-bg);
+}
+
+.group-subcard + .group-subcard {
+  margin-top: 8px;
+}
+
+.group-subcard h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #4d473f;
+}
+
+.group-subcard h4 {
+  margin: 16px 0 8px;
+  font-size: 14px;
+  color: #5b5448;
+}
+
+.group-subcard .field-row:first-of-type {
+  margin-top: 10px;
 }
 
 .toggle {
@@ -842,6 +897,10 @@ button:hover {
 #share-code {
   margin-top: 10px;
   max-width: 520px;
+}
+
+#share-code-scope {
+  min-width: 220px;
 }
 
 button:disabled {

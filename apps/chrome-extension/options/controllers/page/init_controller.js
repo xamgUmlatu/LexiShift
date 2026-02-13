@@ -62,7 +62,9 @@
       }
       setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
       const items = await settingsManager.load();
-      enabledInput.checked = items.enabled;
+      if (enabledInput) {
+        enabledInput.checked = items.enabled;
+      }
       highlightEnabledInput.checked = items.highlightEnabled !== false;
       highlightColorInput.value = items.highlightColor || settingsManager.defaults.highlightColor;
       highlightColorText.value = highlightColorInput.value;
