@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 from xml.etree import ElementTree
@@ -13,6 +14,13 @@ from lexishift_core.resources.japanese_script import (
 
 XML_LANG_KEY = "{http://www.w3.org/XML/1998/namespace}lang"
 TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0"}
+
+
+@dataclass(frozen=True)
+class JmdictEntryRecord:
+    kanji_forms: tuple[str, ...]
+    kana_forms: tuple[str, ...]
+    glosses: tuple[str, ...]
 
 
 def load_jmdict_glosses(
@@ -105,15 +113,48 @@ def load_jmdict_glosses_and_script_forms(
     include_kana: bool = True,
     include_kanji: bool = True,
 ) -> tuple[dict[str, list[str]], dict[str, dict[str, str]]]:
+    _entries, mapping, forms_by_term = load_jmdict_entry_index_glosses_and_script_forms(
+        path,
+        languages=languages,
+        include_kana=include_kana,
+        include_kanji=include_kanji,
+    )
+    return mapping, forms_by_term
+
+
+def load_jmdict_entry_index(
+    path: Path,
+    *,
+    languages: Iterable[str] = ("eng", "en"),
+    include_kana: bool = True,
+    include_kanji: bool = True,
+) -> dict[str, list[JmdictEntryRecord]]:
+    entries_by_term, _mapping, _forms = load_jmdict_entry_index_glosses_and_script_forms(
+        path,
+        languages=languages,
+        include_kana=include_kana,
+        include_kanji=include_kanji,
+    )
+    return entries_by_term
+
+
+def load_jmdict_entry_index_glosses_and_script_forms(
+    path: Path,
+    *,
+    languages: Iterable[str] = ("eng", "en"),
+    include_kana: bool = True,
+    include_kanji: bool = True,
+) -> tuple[dict[str, list[JmdictEntryRecord]], dict[str, list[str]], dict[str, dict[str, str]]]:
+    entries_by_term: dict[str, list[JmdictEntryRecord]] = {}
     mapping: dict[str, list[str]] = {}
     forms_by_term: dict[str, dict[str, str]] = {}
     if not path.exists():
-        return mapping, forms_by_term
+        return entries_by_term, mapping, forms_by_term
     allowed = {lang.lower() for lang in languages} if languages else set()
     try:
         context = ElementTree.iterparse(path, events=("end",))
     except (ElementTree.ParseError, OSError):
-        return mapping, forms_by_term
+        return entries_by_term, mapping, forms_by_term
     for _event, elem in context:
         if elem.tag != "entry":
             continue
@@ -130,7 +171,14 @@ def load_jmdict_glosses_and_script_forms(
             terms.extend(kanji_forms)
         if include_kana:
             terms.extend(kana_forms)
+        entry_record = JmdictEntryRecord(
+            kanji_forms=tuple(kanji_forms),
+            kana_forms=tuple(kana_forms),
+            glosses=tuple(glosses),
+        )
         for term in terms:
+            entry_bucket = entries_by_term.setdefault(term, [])
+            entry_bucket.append(entry_record)
             bucket = mapping.setdefault(term, [])
             for gloss in glosses:
                 if gloss not in bucket:
@@ -145,7 +193,7 @@ def load_jmdict_glosses_and_script_forms(
                 if script not in existing and value:
                     existing[script] = value
         elem.clear()
-    return mapping, forms_by_term
+    return entries_by_term, mapping, forms_by_term
 
 
 def load_jmdict_lemmas(

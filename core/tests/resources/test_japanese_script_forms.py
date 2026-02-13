@@ -71,6 +71,20 @@ class TestJapaneseScriptForms(unittest.TestCase):
                 config=JaEnRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
+                    word_packages_by_target={
+                        "猫": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "猫",
+                            "reading": "ねこ",
+                            "script_forms": {
+                                "kanji": "猫",
+                                "kana": "ねこ",
+                                "romaji": "neko",
+                            },
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
                 ),
             )
 
@@ -83,6 +97,63 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(metadata.script_forms["kana"], "ねこ")
         self.assertEqual(metadata.script_forms["romaji"], "neko")
         self.assertEqual(metadata.word_package["script_forms"]["kana"], "ねこ")
+
+    def test_ja_en_rulegen_requires_word_package_for_japanese_targets(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            _write_sample_jmdict(path)
+            results = generate_ja_en_results(
+                ("猫",),
+                config=JaEnRulegenConfig(
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={},
+                ),
+            )
+
+        self.assertEqual(results, [])
+
+    def test_ja_en_rulegen_filters_by_reading(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            payload = (
+                "<JMdict>"
+                "<entry>"
+                "<k_ele><keb>時</keb></k_ele>"
+                "<r_ele><reb>とき</reb></r_ele>"
+                "<sense><gloss xml:lang='eng'>time</gloss></sense>"
+                "</entry>"
+                "<entry>"
+                "<k_ele><keb>時</keb></k_ele>"
+                "<r_ele><reb>じ</reb></r_ele>"
+                "<sense><gloss xml:lang='eng'>o'clock</gloss></sense>"
+                "</entry>"
+                "</JMdict>"
+            )
+            path.write_text(payload, encoding="utf-8")
+            results = generate_ja_en_results(
+                ("時",),
+                config=JaEnRulegenConfig(
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "時": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "時",
+                            "reading": "とき",
+                            "script_forms": {
+                                "kanji": "時",
+                                "kana": "とき",
+                                "romaji": "toki",
+                            },
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                ),
+            )
+
+        self.assertEqual([result.rule.source_phrase for result in results], ["time"])
 
     def test_ja_en_rulegen_prefers_word_package_script_forms(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -98,11 +169,11 @@ class TestJapaneseScriptForms(unittest.TestCase):
                             "version": 1,
                             "language_tag": "ja",
                             "surface": "所",
-                            "reading": "どころ",
+                            "reading": "ところ",
                             "script_forms": {
                                 "kanji": "所",
-                                "kana": "どころ",
-                                "romaji": "dokoro",
+                                "kana": "ところ",
+                                "romaji": "tokoro_freq",
                             },
                             "source": {"provider": "freq-ja-bccwj"},
                         }
@@ -113,9 +184,10 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertGreater(len(results), 0)
         metadata = results[0].rule.metadata
         self.assertIsNotNone(metadata)
-        self.assertEqual(metadata.script_forms["kana"], "どころ")
+        self.assertEqual(metadata.script_forms["kana"], "ところ")
+        self.assertEqual(metadata.script_forms["romaji"], "tokoro_freq")
         self.assertIsNotNone(metadata.word_package)
-        self.assertEqual(metadata.word_package["reading"], "どころ")
+        self.assertEqual(metadata.word_package["reading"], "ところ")
 
     def test_ja_en_rulegen_falls_back_to_jmdict_when_package_missing_fields(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

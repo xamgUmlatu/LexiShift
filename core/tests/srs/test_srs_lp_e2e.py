@@ -64,6 +64,7 @@ def _write_jmdict(path: Path, *, targets: list[str], sources: list[str]) -> None
         entries.append(
             "<entry>"
             f"<k_ele><keb>{escape(target)}</keb></k_ele>"
+            f"<r_ele><reb>{escape(target)}</reb></r_ele>"
             f"<sense><gloss>{escape(source)}</gloss></sense>"
             "</entry>"
         )

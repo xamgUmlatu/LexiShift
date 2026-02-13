@@ -445,6 +445,8 @@ Current limitations
   - Check and improve the accuracy of generated romaji for Japanese words.
 - TODO (rule generation quality):
   - Improve rulegen quality by making generation/scoring shallower and higher precision.
+  - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
+  - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
 
 Plans (ordered by ease/priority)
 1. Persist all GUI knowledge inside profiles/rulesets:

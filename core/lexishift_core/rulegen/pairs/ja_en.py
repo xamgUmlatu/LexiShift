@@ -5,14 +5,16 @@ from pathlib import Path
 from typing import Callable, Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.lexicon.word_package import (
-    build_word_package,
     merge_script_forms,
+    normalize_reading,
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
 from lexishift_core.resources.dict_loaders import (
-    load_jmdict_glosses_and_script_forms,
+    JmdictEntryRecord,
+    load_jmdict_entry_index_glosses_and_script_forms,
 )
+from lexishift_core.resources.japanese_script import contains_kanji, kana_to_romaji
 from lexishift_core.frequency import (
     FrequencyLexicon,
     FrequencySourceConfig,
@@ -51,6 +53,7 @@ class JaEnRulegenConfig:
     jmdict_path: Path
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None
+    jmdict_entries_by_term: Optional[Mapping[str, Sequence[JmdictEntryRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-ja"
     dict_priority: float = 0.8
@@ -79,17 +82,25 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
     script_forms_by_target: Mapping[str, Mapping[str, str]] = (
         config.script_forms_by_target or {}
     )
+    jmdict_entries_by_term: Mapping[str, Sequence[JmdictEntryRecord]] = (
+        config.jmdict_entries_by_term or {}
+    )
     word_packages_by_target: Mapping[str, Mapping[str, object]] = (
         config.word_packages_by_target or {}
     )
     if config.gloss_mapping is not None:
         mapping = config.gloss_mapping
     else:
-        mapping, discovered_forms = load_jmdict_glosses_and_script_forms(config.jmdict_path)
+        discovered_entries, mapping, discovered_forms = load_jmdict_entry_index_glosses_and_script_forms(
+            config.jmdict_path
+        )
+        if not jmdict_entries_by_term:
+            jmdict_entries_by_term = discovered_entries
         if not script_forms_by_target:
             script_forms_by_target = discovered_forms
     source = JmdictCandidateSource(
         mapping=mapping,
+        entries_by_term=jmdict_entries_by_term,
         source_dict="jmdict",
         source_type="translation",
         script_forms_by_target=script_forms_by_target,
@@ -164,12 +175,14 @@ class JmdictCandidateSource:
         self,
         *,
         mapping: Mapping[str, Sequence[str]],
+        entries_by_term: Mapping[str, Sequence[JmdictEntryRecord]],
         source_dict: str,
         source_type: str,
         script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None,
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
     ) -> None:
         self._mapping = mapping
+        self._entries_by_term = entries_by_term
         self._source_dict = source_dict
         self._source_type = source_type
         self._script_forms_by_target = script_forms_by_target or {}
@@ -177,18 +190,44 @@ class JmdictCandidateSource:
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
-            sources = list(self._mapping.get(target, []))
+            package_hint = self._word_packages_by_target.get(target)
+            normalized_package = normalize_word_package(
+                package_hint,
+                fallback_surface=target,
+                fallback_language_tag=resolve_language_tag_from_pair(language_pair),
+                fallback_provider="frequency",
+            )
+            if normalized_package is None:
+                continue
+            reading = str(normalized_package.get("reading") or "").strip()
+            if not reading:
+                continue
+            matched_entries = _select_entries_for_reading(
+                entries=self._entries_by_term.get(target, ()),
+                target=target,
+                reading=reading,
+            )
+            if not matched_entries:
+                continue
+            sources = _collect_entry_glosses(matched_entries)
             total = len(sources)
-            discovered_script_forms = _normalize_script_forms_map(
-                self._script_forms_by_target.get(target)
+            if not sources:
+                continue
+            discovered_script_forms = _build_matched_script_forms(
+                target=target,
+                reading=reading,
+                entries=matched_entries,
+                fallback=self._script_forms_by_target.get(target),
             )
             resolved_word_package = _resolve_target_word_package(
                 target=target,
                 language_pair=language_pair,
                 source_dict=self._source_dict,
-                package_hint=self._word_packages_by_target.get(target),
+                package_hint=normalized_package,
                 discovered_script_forms=discovered_script_forms,
             )
+            if resolved_word_package is None:
+                continue
             resolved_script_forms = _resolve_word_package_script_forms(
                 resolved_word_package,
                 fallback=discovered_script_forms,
@@ -212,6 +251,69 @@ class JmdictCandidateSource:
                 )
 
 
+def _collect_entry_glosses(entries: Sequence[JmdictEntryRecord]) -> list[str]:
+    glosses: list[str] = []
+    seen: set[str] = set()
+    for entry in entries:
+        for gloss in entry.glosses:
+            cleaned = str(gloss or "").strip()
+            if not cleaned or cleaned in seen:
+                continue
+            seen.add(cleaned)
+            glosses.append(cleaned)
+    return glosses
+
+
+def _select_entries_for_reading(
+    *,
+    entries: Sequence[JmdictEntryRecord],
+    target: str,
+    reading: str,
+) -> list[JmdictEntryRecord]:
+    normalized_reading = normalize_reading(reading, language_tag="ja")
+    if not normalized_reading:
+        return []
+    matched: list[JmdictEntryRecord] = []
+    for entry in entries:
+        surface_forms = set(entry.kanji_forms) | set(entry.kana_forms)
+        if target not in surface_forms:
+            continue
+        if _entry_matches_reading(entry, normalized_reading=normalized_reading):
+            matched.append(entry)
+    return matched
+
+
+def _entry_matches_reading(entry: JmdictEntryRecord, *, normalized_reading: str) -> bool:
+    for kana in entry.kana_forms:
+        if normalize_reading(kana, language_tag="ja") == normalized_reading:
+            return True
+    return False
+
+
+def _build_matched_script_forms(
+    *,
+    target: str,
+    reading: str,
+    entries: Sequence[JmdictEntryRecord],
+    fallback: Optional[Mapping[str, str]],
+) -> Optional[dict[str, str]]:
+    forms: dict[str, str] = {}
+    if contains_kanji(target):
+        forms["kanji"] = target
+    else:
+        for entry in entries:
+            if entry.kanji_forms:
+                forms["kanji"] = entry.kanji_forms[0]
+                break
+    normalized_kana = normalize_reading(reading, language_tag="ja")
+    if normalized_kana:
+        forms["kana"] = normalized_kana
+        romaji = kana_to_romaji(normalized_kana)
+        if romaji:
+            forms["romaji"] = romaji
+    return merge_script_forms(forms or None, _normalize_script_forms_map(fallback))
+
+
 def _resolve_target_word_package(
     *,
     target: str,
@@ -227,38 +329,26 @@ def _resolve_target_word_package(
         fallback_language_tag=language_tag,
         fallback_provider="frequency",
     )
-    if normalized_hint is not None:
-        merged_forms = merge_script_forms(
-            normalized_hint.get("script_forms")
-            if isinstance(normalized_hint.get("script_forms"), Mapping)
-            else None,
-            discovered_script_forms,
-        )
-        merged_word_package = dict(normalized_hint)
-        if merged_forms is not None:
-            merged_word_package["script_forms"] = merged_forms
-        if not str(merged_word_package.get("reading") or "").strip():
-            kana = str((merged_forms or {}).get("kana", "")).strip()
-            if kana:
-                merged_word_package["reading"] = kana
-        normalized_merged = normalize_word_package(
-            merged_word_package,
-            fallback_surface=target,
-            fallback_language_tag=language_tag,
-            fallback_provider="frequency",
-        )
-        if normalized_merged is not None:
-            return normalized_merged
-    fallback_reading = ""
-    if discovered_script_forms:
-        fallback_reading = str(discovered_script_forms.get("kana") or "").strip()
-    return build_word_package(
-        language_pair=language_pair,
-        surface=target,
-        reading=fallback_reading or target,
-        source_provider=source_dict,
-        script_forms=discovered_script_forms,
-        source_extra={"fallback": "jmdict"},
+    if normalized_hint is None:
+        return None
+    merged_forms = merge_script_forms(
+        normalized_hint.get("script_forms")
+        if isinstance(normalized_hint.get("script_forms"), Mapping)
+        else None,
+        discovered_script_forms,
+    )
+    merged_word_package = dict(normalized_hint)
+    if merged_forms is not None:
+        merged_word_package["script_forms"] = merged_forms
+    if not str(merged_word_package.get("reading") or "").strip():
+        kana = str((merged_forms or {}).get("kana", "")).strip()
+        if kana:
+            merged_word_package["reading"] = kana
+    return normalize_word_package(
+        merged_word_package,
+        fallback_surface=target,
+        fallback_language_tag=language_tag,
+        fallback_provider=source_dict,
     )
 
 
