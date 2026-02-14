@@ -70,7 +70,12 @@ class ReplacementHighlighter(QSyntaxHighlighter):
         super().__init__(parent)
         self._spans: Sequence[ReplacementSpan] = []
         self._format = QTextCharFormat()
-        self._format.setBackground(QColor("#FFF2B2"))
+        self._format.setBackground(QColor())
+
+    def set_highlight_color(self, color: QColor) -> None:
+        if color.isValid():
+            self._format.setBackground(color)
+            self.rehighlight()
 
     def set_spans(self, spans: Sequence[ReplacementSpan]) -> None:
         self._spans = spans

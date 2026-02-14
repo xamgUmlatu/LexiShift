@@ -332,6 +332,7 @@
     "frequency_title": "頻度パック",
     "frequency_description": "頻度パックは学習や SRS の語彙重み付けに使用します。",
     "frequency_open_directory": "頻度ディレクトリを開く",
+    "resources_description": "辞書・頻度・埋め込みのダウンロードを専用ワークスペースで管理します。",
     "embeddings_title": "埋め込み（任意）",
     "embeddings_help": "埋め込みは同義語の類似度ランキングに使用します。任意で、後からダウンロードできます。",
     "embeddings_description": "埋め込みは任意の追加機能です。V1では不要ですが、後で有効にすると類似度ランキングが利用できます。",

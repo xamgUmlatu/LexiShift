@@ -333,6 +333,7 @@
     "frequency_title": "Frequency packs",
     "frequency_description": "Frequency packs power word-level weighting for learning and SRS selection.",
     "frequency_open_directory": "Open frequency directory",
+    "resources_description": "Manage dictionary, frequency, and embedding downloads in one dedicated workspace.",
     "headers": {
       "pack": "Pack",
       "language": "Language",

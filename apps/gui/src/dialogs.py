@@ -43,7 +43,7 @@ from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
 from helper_installer import install_helper, is_helper_installed
 from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
-from theme_loader import load_user_themes, theme_dir, THEME_COLOR_KEYS
+from theme_loader import load_user_themes, theme_dir, THEME_ALL_COLOR_KEYS
 from theme_manager import resolve_theme
 from theme_registry import BUILTIN_THEMES
 from utils_paths import reveal_path
@@ -167,8 +167,11 @@ class SettingsDialog(QDialog):
         self._theme = self._themes[self._theme_id]
         locale_pref = self._ui_settings.value("appearance/locale", "system")
         self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
+        self.language_pack_panel = LanguagePackPanel(parent=self)
         tabs = QTabWidget()
+        self._tabs = tabs
         tabs.addTab(self._wrap_tab(self._build_app_tab()), t("tabs.app"))
+        tabs.addTab(self._wrap_tab(self._build_resources_tab()), t("language_packs.title"))
         tabs.addTab(self._wrap_tab(self._build_appearance_tab()), t("tabs.appearance"))
         tabs.addTab(self._wrap_tab(self._build_dataset_tab()), t("tabs.dataset"))
         tabs.addTab(self._wrap_tab(self._build_integrations_tab()), t("tabs.integrations"))
@@ -342,11 +345,18 @@ class SettingsDialog(QDialog):
         form.addRow(t("settings.similarity_threshold"), threshold_widget)
         form.addRow("", self.embedding_fallback_check)
 
+        panel = QWidget()
+        panel.setLayout(form)
+        return panel
+
+    def _build_resources_tab(self) -> QWidget:
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(12)
-        layout.addWidget(self._build_language_pack_panel())
-        layout.addLayout(form)
+        layout.setSpacing(8)
+        description = QLabel(t("language_packs.resources_description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
+        layout.addWidget(self.language_pack_panel)
 
         panel = QWidget()
         panel.setLayout(layout)
@@ -508,10 +518,6 @@ class SettingsDialog(QDialog):
         panel.setLayout(layout)
         return panel
 
-    def _build_language_pack_panel(self) -> QWidget:
-        self.language_pack_panel = LanguagePackPanel(parent=self)
-        return self.language_pack_panel
-
     def _wrap_tab(self, panel: QWidget) -> QWidget:
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
@@ -533,6 +539,7 @@ class SettingsDialog(QDialog):
 
     def _apply_theme(self) -> None:
         theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
+        self.language_pack_panel.set_theme(theme)
         background = theme.get("_background", {})
         background_path = theme.get("_background_path")
         if hasattr(self, "_tab_containers"):
@@ -830,7 +837,7 @@ class _ThemedTabContainer(QWidget):
 
 def _merge_theme(base: dict, override: dict) -> dict:
     merged = dict(base)
-    for key in THEME_COLOR_KEYS:
+    for key in THEME_ALL_COLOR_KEYS:
         if key in override:
             merged[key] = override[key]
     for key in ("_background", "_background_path", "_name", "_source", "_base_dir", "_screen_overrides"):

@@ -110,14 +110,24 @@ from theme_logger import set_log_handler
 from helper_logger import set_helper_log_handler
 from theme_manager import build_base_styles, resolve_current_theme
 from theme_widgets import ThemedBackgroundWidget, apply_theme_background
+from utils_paths import reveal_path
 
 
 class DeleteButtonDelegate(QStyledItemDelegate):
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._color = QColor("#D64545")
+        self._hover_color = QColor("#C73C3C")
+
+    def set_colors(self, color: QColor, hover_color: QColor) -> None:
+        self._color = QColor(color)
+        self._hover_color = QColor(hover_color)
+
     def paint(self, painter: QPainter, option, index) -> None:
         painter.save()
         rect = option.rect.adjusted(6, 4, -6, -4)
         hover = option.state & QStyle.State_MouseOver
-        color = QColor("#D64545") if not hover else QColor("#C73C3C")
+        color = self._hover_color if hover else self._color
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setBrush(color)
         painter.setPen(Qt.NoPen)
@@ -152,8 +162,10 @@ class EmbeddingLoaderThread(QThread):
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle(t("app.window_title"))
+        self._window_title_base = t("app.window_title")
+        self.setWindowTitle(self._window_title_base)
         self._ui_settings = QSettings()
+        self._theme = dict(resolve_current_theme(screen_id="main_window"))
 
         settings_path = _settings_path()
         self.state = AppState(settings_path=settings_path)
@@ -177,8 +189,6 @@ class MainWindow(QMainWindow):
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
-        self.save_profiles_button = QPushButton(t("buttons.save_profiles"))
-        self.save_profiles_button.clicked.connect(self._save_profiles)
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
@@ -194,9 +204,10 @@ class MainWindow(QMainWindow):
         self.rules_table.setModel(self._rules_proxy)
         self.rules_table.setSortingEnabled(True)
         self.rules_table.setMouseTracking(True)
+        self._delete_button_delegate = DeleteButtonDelegate(self.rules_table)
         self.rules_table.setItemDelegateForColumn(
             RulesTableModel.COLUMN_DELETE,
-            DeleteButtonDelegate(self.rules_table),
+            self._delete_button_delegate,
         )
         header = self.rules_table.horizontalHeader()
         header.setSortIndicatorShown(True)
@@ -241,8 +252,7 @@ class MainWindow(QMainWindow):
         self.log_edit = QTextEdit()
         self.log_edit.setReadOnly(True)
         self.log_edit.setPlaceholderText(t("logs.placeholder"))
-        set_log_handler(lambda message: self._append_log(message, color=QColor("#A03030")))
-        set_helper_log_handler(lambda message: self._append_log(message, color=QColor("#2E6BD6")))
+        self._configure_log_handlers()
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -290,6 +300,7 @@ class MainWindow(QMainWindow):
         self._refresh_profiles_ui()
         self._restore_window_state()
         self._apply_theme()
+        self._refresh_window_title()
 
     def _setup_actions(self) -> None:
         self._open_action = QAction(t("menu.open_ruleset"), self)
@@ -469,7 +480,7 @@ class MainWindow(QMainWindow):
             f"Executable: {sys.executable}",
             f"Frozen: {getattr(sys, 'frozen', False)}",
             f"_MEIPASS: {getattr(sys, '_MEIPASS', None)}",
-            f"Startup log paths:",
+            "Startup log paths:",
         ]
         for path in log_paths:
             info.append(f"  - {path} (exists={path.exists()})")
@@ -485,30 +496,21 @@ class MainWindow(QMainWindow):
     def _build_profile_header(self) -> QWidget:
         profile_label = QLabel(t("labels.profile"))
         ruleset_label = QLabel(t("labels.ruleset"))
-
-        left_layout = QHBoxLayout()
-        left_layout.setContentsMargins(0, 0, 0, 0)
-        left_layout.addWidget(profile_label)
-        left_layout.addWidget(self.profile_combo, 1)
-        left_layout.addWidget(self.manage_profiles_button)
-        left_layout.addWidget(self.save_profiles_button)
-        left_widget = QWidget()
-        left_widget.setLayout(left_layout)
-
-        right_layout = QHBoxLayout()
-        right_layout.setContentsMargins(0, 0, 0, 0)
-        right_layout.addWidget(ruleset_label)
-        right_layout.addWidget(self.ruleset_combo, 1)
-        right_layout.addWidget(self.open_ruleset_button)
-        right_layout.addWidget(self.save_ruleset_button)
-        right_widget = QWidget()
-        right_widget.setLayout(right_layout)
+        self.manage_profiles_button.setToolTip(t("dialogs.manage_profiles.title"))
+        self.open_ruleset_button.setToolTip(t("menu.open_ruleset"))
+        self.save_ruleset_button.setToolTip(t("menu.save_ruleset"))
 
         header_layout = QHBoxLayout()
         header_layout.setContentsMargins(0, 0, 0, 0)
-        header_layout.addWidget(left_widget, 1)
-        header_layout.addStretch(1)
-        header_layout.addWidget(right_widget, 2)
+        header_layout.setSpacing(8)
+        header_layout.addWidget(profile_label)
+        header_layout.addWidget(self.profile_combo, 1)
+        header_layout.addWidget(self.manage_profiles_button)
+        header_layout.addSpacing(16)
+        header_layout.addWidget(ruleset_label)
+        header_layout.addWidget(self.ruleset_combo, 1)
+        header_layout.addWidget(self.open_ruleset_button)
+        header_layout.addWidget(self.save_ruleset_button)
 
         header = QWidget()
         header.setLayout(header_layout)
@@ -614,19 +616,47 @@ class MainWindow(QMainWindow):
         else:
             self._preview_splitter.setSizes([200, 300, 150])
 
+    def _theme_color_hex(self, key: str, *, fallback: str) -> str:
+        value = self._theme.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+        return fallback
+
+    def _status_color(self, tone: str) -> QColor:
+        mapping = {
+            "error": self._theme_color_hex("status_error", fallback="#A03030"),
+            "info": self._theme_color_hex("status_info", fallback="#2E6BD6"),
+        }
+        return QColor(mapping.get(tone, self._theme_color_hex("text", fallback="#1F1F1F")))
+
+    def _configure_log_handlers(self) -> None:
+        set_log_handler(lambda message: self._append_log(message, color=self._status_color("error")))
+        set_helper_log_handler(lambda message: self._append_log(message, color=self._status_color("info")))
+
     def _apply_theme(self) -> None:
-        theme = resolve_current_theme(screen_id="main_window")
-        apply_theme_background(self._theme_container, theme)
-        self.setStyleSheet(build_base_styles(theme))
+        self._theme = resolve_current_theme(screen_id="main_window")
+        apply_theme_background(self._theme_container, self._theme)
+        self.setStyleSheet(build_base_styles(self._theme))
         self._splitter.setStyleSheet("background: transparent;")
         self._right_splitter.setStyleSheet("background: transparent;")
         self._preview_splitter.setStyleSheet("background: transparent;")
+        self.highlighter.set_highlight_color(QColor(self._theme_color_hex("table_sel_bg", fallback="#FFF2B2")))
+        base_delete = self._status_color("error")
+        self._delete_button_delegate.set_colors(base_delete, base_delete.darker(115))
+        self._configure_log_handlers()
 
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
         self._ui_settings.setValue("main_window/right_splitter", self._right_splitter.saveState())
         self._ui_settings.setValue("main_window/preview_splitter", self._preview_splitter.saveState())
+
+    def _refresh_window_title(self, dirty: Optional[bool] = None) -> None:
+        is_dirty = self.state.dirty if dirty is None else bool(dirty)
+        title = self._window_title_base
+        if is_dirty:
+            title = f"{title} *"
+        self.setWindowTitle(title)
 
     def closeEvent(self, event) -> None:
         if self.state.dirty:
@@ -663,15 +693,17 @@ class MainWindow(QMainWindow):
 
     def _load_active_profile(self) -> None:
         settings = self.state.settings
-        active_id = settings.active_profile_id
-        if not active_id and settings.profiles:
-            active_id = settings.profiles[0].profile_id
-        if not active_id:
+        if not settings.profiles:
             return
+        active_id = settings.active_profile_id
+        selected_profile: Optional[Profile] = None
         for profile in settings.profiles:
             if profile.profile_id == active_id:
-                self._load_profile(profile)
+                selected_profile = profile
                 break
+        if selected_profile is None:
+            selected_profile = settings.profiles[0]
+        self._load_profile(selected_profile)
 
     def _seed_default_profile(self) -> None:
         default_dataset = _default_dataset_path()
@@ -1072,7 +1104,7 @@ class MainWindow(QMainWindow):
                 if not synonyms:
                     self._append_log(
                         t("logs.no_synonyms_for", target=target),
-                        color=QColor("#C73C3C"),
+                        color=self._status_color("error"),
                     )
                     if settings and settings.use_embeddings and settings.embedding_fallback:
                         if not generator.has_embeddings():
@@ -1195,7 +1227,7 @@ class MainWindow(QMainWindow):
                         path=path,
                         size=size,
                     ),
-                    color=QColor("#C73C3C"),
+                    color=self._status_color("error"),
                 )
                 if pack_id == "odenet-de" and path:
                     probe = self._probe_odenet(path)
@@ -1207,12 +1239,12 @@ class MainWindow(QMainWindow):
                                 lemmas=probe.get("lemmas", 0),
                                 senses=probe.get("senses", 0),
                             ),
-                            color=QColor("#C73C3C"),
+                            color=self._status_color("error"),
                         )
                         if probe.get("parse_error"):
                             self._append_log(
                                 t("logs.odenet_parse_error", error=probe.get("parse_error")),
-                                color=QColor("#C73C3C"),
+                                color=self._status_color("error"),
                             )
 
     def _probe_odenet(self, path: str) -> dict[str, int]:
@@ -1356,11 +1388,15 @@ class MainWindow(QMainWindow):
         return reply == QMessageBox.Yes
 
     def _load_profile(self, profile: Profile) -> None:
-        dataset_path = Path(self._active_ruleset_path(profile))
-        self.state.load_dataset(dataset_path)
         settings = self.state.settings
         if settings.active_profile_id != profile.profile_id:
             self.state.set_profiles(settings.profiles, active_profile_id=profile.profile_id)
+            profile = self._current_profile() or profile
+        current_path = Path(self._active_ruleset_path(profile))
+        resolved_path = self._resolve_profile_dataset_path(profile)
+        if resolved_path != current_path:
+            self._set_active_ruleset_path(resolved_path)
+        self.state.load_dataset(resolved_path)
 
     def _active_ruleset_path(self, profile: Profile) -> str:
         if profile.active_ruleset:
@@ -1370,6 +1406,19 @@ class MainWindow(QMainWindow):
         if profile.dataset_path:
             return profile.dataset_path
         return str(_default_dataset_path())
+
+    def _resolve_profile_dataset_path(self, profile: Profile) -> Path:
+        candidates: list[str] = []
+        for value in (profile.active_ruleset, *profile.rulesets, profile.dataset_path):
+            if value and value not in candidates:
+                candidates.append(value)
+        if not candidates:
+            return _default_dataset_path()
+        normalized = [Path(os.path.abspath(os.path.expanduser(candidate))) for candidate in candidates]
+        for candidate in normalized:
+            if candidate.exists() and candidate.is_file():
+                return candidate
+        return normalized[0]
 
     def _activate_ruleset_for_profile(self, profile: Profile, path: Path) -> None:
         self._set_active_ruleset_path(path)
@@ -1452,6 +1501,7 @@ class MainWindow(QMainWindow):
     def _on_dirty_changed(self, dirty: bool) -> None:
         self._save_action.setEnabled(dirty)
         self.save_ruleset_button.setEnabled(dirty)
+        self._refresh_window_title(dirty)
 
     def _on_profiles_changed(self, profiles) -> None:
         self._refresh_profiles_ui()
@@ -1921,8 +1971,8 @@ class MainWindow(QMainWindow):
         cursor = self.log_edit.textCursor()
         cursor.movePosition(QTextCursor.End)
         fmt = QTextCharFormat()
-        if color:
-            fmt.setForeground(color)
+        effective_color = color or QColor(self._theme_color_hex("text", fallback="#1F1F1F"))
+        fmt.setForeground(effective_color)
         cursor.setCharFormat(fmt)
         cursor.insertText(message + "\n")
         self.log_edit.setTextCursor(cursor)
@@ -1964,7 +2014,12 @@ class MainWindow(QMainWindow):
             return
         active_path = self._active_ruleset_path(profile)
         active_index = -1
-        for idx, path in enumerate(profile.rulesets or (active_path,)):
+        ruleset_paths: list[str] = [path for path in profile.rulesets if path]
+        if active_path and active_path not in ruleset_paths:
+            ruleset_paths.append(active_path)
+        if not ruleset_paths and active_path:
+            ruleset_paths = [active_path]
+        for idx, path in enumerate(ruleset_paths):
             if not path:
                 continue
             label = str(Path(path).name) or path

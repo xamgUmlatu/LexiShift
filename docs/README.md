@@ -35,6 +35,7 @@ If you need SRS/core behavior next:
 - Options architecture: `architecture/options_controllers_architecture.md`
 - Popup module architecture: `architecture/popup_modules_pattern.md`
 - GUI app fix workstream: `gui/gui_app_fix_workstream.md`
+- GUI UX decision log: `gui/gui_ux_decisions.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Global app schema: `reference/schema.md`

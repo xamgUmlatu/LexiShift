@@ -332,6 +332,7 @@
     "frequency_title": "Frequenzpakete",
     "frequency_description": "Frequenzpakete liefern Wortgewichte für Lernen und SRS-Auswahl.",
     "frequency_open_directory": "Frequenzverzeichnis öffnen",
+    "resources_description": "Verwalten Sie Wörterbuch-, Frequenz- und Embedding-Downloads in einem eigenen Arbeitsbereich.",
     "embeddings_title": "Embeddings (optional)",
     "embeddings_help": "Embeddings liefern Ähnlichkeits-Rankings für Synonyme. Optional und später nachladbar.",
     "embeddings_description": "Embeddings sind optionale Add-ons. Für V1 nicht erforderlich, aber später für Ähnlichkeits-Ranking aktivierbar.",

@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QPushButton,
     QStyle,
+    QTabWidget,
     QToolButton,
     QTableWidget,
     QTableWidgetItem,
@@ -39,6 +40,7 @@ from language_packs import (
 )
 from lexishift_core import SynonymSourceSettings
 from i18n import t
+from theme_manager import resolve_current_theme
 from utils_paths import reveal_path
 
 
@@ -149,6 +151,7 @@ class LanguagePackPanel(QWidget):
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
+        self._theme = dict(resolve_current_theme(screen_id="settings_dialog"))
         self._language_pack_dir = _language_pack_dir()
         self._embedding_pack_dir = _embedding_pack_dir()
         self._frequency_pack_dir = _frequency_pack_dir()
@@ -250,63 +253,92 @@ class LanguagePackPanel(QWidget):
         self._populate_embedding_packs()
         self._populate_cross_embedding_packs()
 
-        header_row = QHBoxLayout()
+        layout = QVBoxLayout(self)
         title = QLabel(t("language_packs.title"))
         title.setStyleSheet("font-weight: 600; font-size: 14px;")
-        header_row.addWidget(title)
-        header_row.addStretch(1)
-        header_row.addWidget(self.open_language_pack_button)
+        layout.addWidget(title)
 
-        layout = QVBoxLayout(self)
-        layout.addLayout(header_row)
-        layout.addWidget(self.language_pack_table)
+        self._resource_tabs = QTabWidget(self)
+        self._resource_tabs.addTab(self._build_language_pack_tab(), t("language_packs.title"))
+        self._resource_tabs.addTab(self._build_frequency_pack_tab(), t("language_packs.frequency_title"))
+        self._resource_tabs.addTab(self._build_embedding_pack_tab(), t("language_packs.embeddings_title"))
+        self._resource_tabs.addTab(
+            self._build_cross_embedding_pack_tab(),
+            t("language_packs.cross_embeddings_title"),
+        )
+        layout.addWidget(self._resource_tabs)
         layout.addWidget(self.language_pack_status)
 
-        frequency_row = QHBoxLayout()
-        frequency_title = QLabel(t("language_packs.frequency_title"))
-        frequency_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        frequency_row.addWidget(frequency_title)
-        frequency_row.addStretch(1)
-        frequency_row.addWidget(self.open_frequency_pack_button)
-        layout.addLayout(frequency_row)
-        frequency_desc = QLabel(t("language_packs.frequency_description"))
-        frequency_desc.setWordWrap(True)
-        layout.addWidget(frequency_desc)
-        layout.addWidget(self.frequency_pack_table)
+    def _build_language_pack_tab(self) -> QWidget:
+        tab = QWidget(self)
+        layout = QVBoxLayout(tab)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.title"))
+        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        header_row.addWidget(self.open_language_pack_button)
+        layout.addLayout(header_row)
+        layout.addWidget(self.language_pack_table)
+        return tab
 
-        embeddings_row = QHBoxLayout()
-        embeddings_title = QLabel(t("language_packs.embeddings_title"))
-        embeddings_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        help_button = QToolButton()
+    def _build_frequency_pack_tab(self) -> QWidget:
+        tab = QWidget(self)
+        layout = QVBoxLayout(tab)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.frequency_title"))
+        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        header_row.addWidget(self.open_frequency_pack_button)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.frequency_description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
+        layout.addWidget(self.frequency_pack_table)
+        return tab
+
+    def _build_embedding_pack_tab(self) -> QWidget:
+        tab = QWidget(self)
+        layout = QVBoxLayout(tab)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.embeddings_title"))
+        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
+        help_button = QToolButton(tab)
         help_button.setText("?")
         help_button.setToolTip(t("language_packs.embeddings_help"))
         help_button.setAutoRaise(True)
         help_button.clicked.connect(self._show_embeddings_help)
-        embeddings_row.addWidget(embeddings_title)
-        embeddings_row.addWidget(help_button)
-        embeddings_row.addStretch(1)
-        layout.addLayout(embeddings_row)
-        embeddings_desc = QLabel(t("language_packs.embeddings_description"))
-        embeddings_desc.setWordWrap(True)
-        layout.addWidget(embeddings_desc)
+        header_row.addWidget(section_title)
+        header_row.addWidget(help_button)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.embeddings_description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.embedding_pack_table)
+        return tab
 
-        cross_row = QHBoxLayout()
-        cross_title = QLabel(t("language_packs.cross_embeddings_title"))
-        cross_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        cross_help = QToolButton()
-        cross_help.setText("?")
-        cross_help.setToolTip(t("language_packs.cross_embeddings_help"))
-        cross_help.setAutoRaise(True)
-        cross_help.clicked.connect(self._show_cross_embeddings_help)
-        cross_row.addWidget(cross_title)
-        cross_row.addWidget(cross_help)
-        cross_row.addStretch(1)
-        layout.addLayout(cross_row)
-        cross_desc = QLabel(t("language_packs.cross_embeddings_description"))
-        cross_desc.setWordWrap(True)
-        layout.addWidget(cross_desc)
+    def _build_cross_embedding_pack_tab(self) -> QWidget:
+        tab = QWidget(self)
+        layout = QVBoxLayout(tab)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.cross_embeddings_title"))
+        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
+        help_button = QToolButton(tab)
+        help_button.setText("?")
+        help_button.setToolTip(t("language_packs.cross_embeddings_help"))
+        help_button.setAutoRaise(True)
+        help_button.clicked.connect(self._show_cross_embeddings_help)
+        header_row.addWidget(section_title)
+        header_row.addWidget(help_button)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.cross_embeddings_description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.cross_embedding_pack_table)
+        return tab
 
     def apply_synonym_settings(self, synonym_settings: SynonymSourceSettings) -> None:
         self._seed_language_pack_paths(synonym_settings)
@@ -346,6 +378,47 @@ class LanguagePackPanel(QWidget):
         for thread in list(self._embedding_conversion_threads):
             if thread.isRunning():
                 thread.requestInterruption()
+
+    def set_theme(self, theme: dict) -> None:
+        self._theme = dict(theme or {})
+        self._refresh_language_pack_table()
+        self._refresh_frequency_pack_table()
+        self._refresh_embedding_pack_table()
+        self._refresh_cross_embedding_pack_table()
+
+    def _theme_hex(self, key: str, *, fallback: str) -> str:
+        value = self._theme.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+        return fallback
+
+    def _status_color_hex(self, tone: str) -> str:
+        text_color = self._theme_hex("text", fallback="#2C2C2C")
+        muted_color = self._theme_hex("muted", fallback="#6B6B6B")
+        mapping = {
+            "success": self._theme_hex("status_success", fallback="#2F6B2F"),
+            "warning": self._theme_hex("status_warning", fallback="#8A6D1D"),
+            "error": self._theme_hex("status_error", fallback="#A03030"),
+            "info": self._theme_hex("status_info", fallback="#1B4F9C"),
+            "neutral": self._theme_hex("status_neutral", fallback=text_color),
+            "muted": self._theme_hex("status_muted", fallback=muted_color),
+        }
+        return mapping.get(tone, text_color)
+
+    def _status_color(self, tone: str) -> QColor:
+        return QColor(self._status_color_hex(tone))
+
+    def _set_status_item_tone(self, item: QTableWidgetItem, tone: str) -> None:
+        item.setForeground(self._status_color(tone))
+
+    def _set_status_message(self, message: str, *, tone: Optional[str] = None, tooltip: Optional[str] = None) -> None:
+        if tone:
+            self.language_pack_status.setStyleSheet(f"color: {self._status_color_hex(tone)};")
+        else:
+            self.language_pack_status.setStyleSheet("")
+        if tooltip is not None:
+            self.language_pack_status.setToolTip(tooltip)
+        self.language_pack_status.setText(message)
 
     def _open_language_pack_dir(self) -> None:
         reveal_path(self._language_pack_dir)
@@ -394,7 +467,7 @@ class LanguagePackPanel(QWidget):
             if not pack:
                 continue
             row.status_item.setToolTip("")
-            row.status_item.setForeground(QColor("#2C2C2C"))
+            self._set_status_item_tone(row.status_item, "neutral")
             dest_path = self._download_archive_path(pack)
             resolved_path = self._resolve_downloaded_path(pack)
             local_path = self._language_pack_paths.get(pack_id)
@@ -402,19 +475,19 @@ class LanguagePackPanel(QWidget):
                 valid, message = self._validate_language_pack_path(pack, local_path)
                 if valid:
                     row.status_item.setText(t("language_packs.status.local_ok"))
-                    row.status_item.setForeground(QColor("#2F6B2F"))
+                    self._set_status_item_tone(row.status_item, "success")
                     row.status_item.setToolTip(local_path)
                 else:
                     row.status_item.setText(t("language_packs.status.invalid"))
-                    row.status_item.setForeground(QColor("#A03030"))
+                    self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
             elif resolved_path:
                 row.status_item.setText(t("language_packs.status.downloaded"))
-                row.status_item.setForeground(QColor("#8A6D1D"))
+                self._set_status_item_tone(row.status_item, "warning")
                 row.status_item.setToolTip(resolved_path)
             else:
                 row.status_item.setText(t("language_packs.status.available"))
-                row.status_item.setForeground(QColor("#5C5C5C"))
+                self._set_status_item_tone(row.status_item, "muted")
             download_exists = dest_path and os.path.exists(dest_path)
             row.delete_button.setEnabled(bool(local_path or resolved_path or download_exists))
             if download_exists or resolved_path:
@@ -428,7 +501,7 @@ class LanguagePackPanel(QWidget):
             if not pack:
                 continue
             row.status_item.setToolTip("")
-            row.status_item.setForeground(QColor("#2C2C2C"))
+            self._set_status_item_tone(row.status_item, "neutral")
             archive_path = self._frequency_archive_path(pack)
             sqlite_path = self._resolve_frequency_pack_path(pack)
             local_path = self._frequency_pack_paths.get(pack_id)
@@ -436,19 +509,19 @@ class LanguagePackPanel(QWidget):
                 valid, message = self._validate_frequency_pack_path(pack, local_path)
                 if valid:
                     row.status_item.setText(t("language_packs.status.local_ok"))
-                    row.status_item.setForeground(QColor("#2F6B2F"))
+                    self._set_status_item_tone(row.status_item, "success")
                     row.status_item.setToolTip(local_path)
                 else:
                     row.status_item.setText(t("language_packs.status.invalid"))
-                    row.status_item.setForeground(QColor("#A03030"))
+                    self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
             elif sqlite_path:
                 row.status_item.setText(t("language_packs.status.downloaded"))
-                row.status_item.setForeground(QColor("#8A6D1D"))
+                self._set_status_item_tone(row.status_item, "warning")
                 row.status_item.setToolTip(sqlite_path)
             else:
                 row.status_item.setText(t("language_packs.status.available"))
-                row.status_item.setForeground(QColor("#5C5C5C"))
+                self._set_status_item_tone(row.status_item, "muted")
             download_exists = archive_path and os.path.exists(archive_path)
             row.delete_button.setEnabled(bool(local_path or sqlite_path or download_exists))
             if download_exists or sqlite_path:
@@ -468,7 +541,7 @@ class LanguagePackPanel(QWidget):
             if not pack:
                 continue
             row.status_item.setToolTip("")
-            row.status_item.setForeground(QColor("#2C2C2C"))
+            self._set_status_item_tone(row.status_item, "neutral")
             dest_path = self._download_archive_path(pack, embeddings=True)
             resolved_path = self._resolve_downloaded_path(pack, embeddings=True)
             local_path = self._embedding_pack_paths.get(pack_id)
@@ -483,23 +556,23 @@ class LanguagePackPanel(QWidget):
                     is_active = True
             if is_active and local_path:
                 row.status_item.setText(t("language_packs.status.active"))
-                row.status_item.setForeground(QColor("#1B4F9C"))
+                self._set_status_item_tone(row.status_item, "info")
                 row.status_item.setToolTip(local_path)
             elif is_active and resolved_path:
                 row.status_item.setText(t("language_packs.status.active"))
-                row.status_item.setForeground(QColor("#1B4F9C"))
+                self._set_status_item_tone(row.status_item, "info")
                 row.status_item.setToolTip(resolved_path)
             elif local_path:
                 row.status_item.setText(t("language_packs.status.local_ok"))
-                row.status_item.setForeground(QColor("#2F6B2F"))
+                self._set_status_item_tone(row.status_item, "success")
                 row.status_item.setToolTip(local_path)
             elif resolved_path:
                 row.status_item.setText(t("language_packs.status.downloaded"))
-                row.status_item.setForeground(QColor("#8A6D1D"))
+                self._set_status_item_tone(row.status_item, "warning")
                 row.status_item.setToolTip(resolved_path)
             else:
                 row.status_item.setText(t("language_packs.status.available"))
-                row.status_item.setForeground(QColor("#5C5C5C"))
+                self._set_status_item_tone(row.status_item, "muted")
             download_exists = dest_path and os.path.exists(dest_path)
             row.delete_button.setEnabled(bool(local_path or resolved_path or download_exists))
             if download_exists or resolved_path:
@@ -744,11 +817,9 @@ class LanguagePackPanel(QWidget):
             return
         dest_path = self._download_archive_path(pack)
         row.status_item.setText(t("language_packs.status.downloading"))
+        self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(
-            t("language_packs.downloading", name=pack.display_name())
-        )
+        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
         thread = LanguagePackDownloadThread(pack, dest_path, self)
         thread.progress.connect(self._on_language_pack_progress)
         thread.completed.connect(self._on_language_pack_completed)
@@ -765,11 +836,9 @@ class LanguagePackPanel(QWidget):
         archive_path = self._frequency_archive_path(pack)
         sqlite_path = self._frequency_sqlite_path(pack)
         row.status_item.setText(t("language_packs.status.downloading"))
+        self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(
-            t("language_packs.downloading", name=pack.display_name())
-        )
+        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
         thread = FrequencyPackDownloadThread(pack, archive_path, sqlite_path, self)
         thread.progress.connect(self._on_frequency_pack_progress)
         thread.completed.connect(self._on_frequency_pack_completed)
@@ -785,12 +854,10 @@ class LanguagePackPanel(QWidget):
             return
         dest_path = self._download_archive_path(pack, embeddings=True)
         row.status_item.setText(t("language_packs.status.downloading"))
+        self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
         row.use_button.setEnabled(False)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(
-            t("language_packs.downloading", name=pack.display_name())
-        )
+        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
         thread = LanguagePackDownloadThread(pack, dest_path, self)
         thread.progress.connect(self._on_embedding_pack_progress)
         thread.completed.connect(self._on_embedding_pack_completed)
@@ -822,15 +889,14 @@ class LanguagePackPanel(QWidget):
         valid, message = self._validate_language_pack_path(pack, path)
         if not valid:
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
-            self.language_pack_status.setStyleSheet("color: #A03030;")
-            self.language_pack_status.setText(message)
+            self._set_status_message(message, tone="error")
             self._language_pack_paths.pop(pack_id, None)
             self._refresh_language_pack_table()
             return
         self._language_pack_paths[pack_id] = path
-        self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-        self.language_pack_status.setText(
-            t("language_packs.linked", name=pack.display_name(), path=path)
+        self._set_status_message(
+            t("language_packs.linked", name=pack.display_name(), path=path),
+            tone="success",
         )
         self._refresh_language_pack_table()
 
@@ -849,15 +915,14 @@ class LanguagePackPanel(QWidget):
         valid, message = self._validate_frequency_pack_path(pack, path)
         if not valid:
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
-            self.language_pack_status.setStyleSheet("color: #A03030;")
-            self.language_pack_status.setText(message)
+            self._set_status_message(message, tone="error")
             self._frequency_pack_paths.pop(pack_id, None)
             self._refresh_frequency_pack_table()
             return
         self._frequency_pack_paths[pack_id] = path
-        self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-        self.language_pack_status.setText(
-            t("language_packs.linked", name=pack.display_name(), path=path)
+        self._set_status_message(
+            t("language_packs.linked", name=pack.display_name(), path=path),
+            tone="success",
         )
         self._refresh_frequency_pack_table()
 
@@ -877,9 +942,9 @@ class LanguagePackPanel(QWidget):
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), t("language_packs.validation.expected_file", name=pack.display_name()))
             return
         self._embedding_pack_paths[pack_id] = path
-        self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-        self.language_pack_status.setText(
-            t("language_packs.linked", name=pack.display_name(), path=path)
+        self._set_status_message(
+            t("language_packs.linked", name=pack.display_name(), path=path),
+            tone="success",
         )
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
@@ -926,8 +991,7 @@ class LanguagePackPanel(QWidget):
         self._language_pack_paths.pop(pack_id, None)
         for path in delete_paths:
             self._remove_path(path)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(t("language_packs.removed", name=pack.display_name()))
+        self._set_status_message(t("language_packs.removed", name=pack.display_name()))
         self._refresh_language_pack_table()
 
     def _delete_frequency_pack(self, pack_id: str) -> None:
@@ -972,8 +1036,7 @@ class LanguagePackPanel(QWidget):
         self._frequency_pack_paths.pop(pack_id, None)
         for path in delete_paths:
             self._remove_path(path)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(t("language_packs.removed", name=pack.display_name()))
+        self._set_status_message(t("language_packs.removed", name=pack.display_name()))
         self._refresh_frequency_pack_table()
 
     def _delete_embedding_pack(self, pack_id: str) -> None:
@@ -1038,8 +1101,7 @@ class LanguagePackPanel(QWidget):
                 self._embedding_pair_paths.pop(pair_key, None)
         for path in delete_paths:
             self._remove_path(path)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(t("language_packs.removed", name=pack.display_name()))
+        self._set_status_message(t("language_packs.removed", name=pack.display_name()))
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
 
@@ -1247,7 +1309,7 @@ class LanguagePackPanel(QWidget):
         row = self._language_pack_rows.get(pack_id)
         if not row:
             return
-        row.status_item.setForeground(QColor("#1B4F9C"))
+        self._set_status_item_tone(row.status_item, "info")
         if total > 0:
             pct = int((downloaded / total) * 100)
             row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
@@ -1258,7 +1320,7 @@ class LanguagePackPanel(QWidget):
         row = self._frequency_pack_rows.get(pack_id)
         if not row:
             return
-        row.status_item.setForeground(QColor("#1B4F9C"))
+        self._set_status_item_tone(row.status_item, "info")
         if total > 0:
             pct = int((downloaded / total) * 100)
             row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
@@ -1269,7 +1331,7 @@ class LanguagePackPanel(QWidget):
         row = self._embedding_row_for(pack_id)
         if not row:
             return
-        row.status_item.setForeground(QColor("#1B4F9C"))
+        self._set_status_item_tone(row.status_item, "info")
         if total > 0:
             pct = int((downloaded / total) * 100)
             row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
@@ -1287,18 +1349,20 @@ class LanguagePackPanel(QWidget):
         if valid:
             self._language_pack_paths[pack_id] = dest_path
             row.status_item.setText(t("language_packs.status.local_ok"))
+            self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
-            self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-            self.language_pack_status.setText(
-                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path)
+            self._set_status_message(
+                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path),
+                tone="success",
             )
         else:
             self._language_pack_paths.pop(pack_id, None)
             row.status_item.setText(t("language_packs.status.downloaded"))
+            self._set_status_item_tone(row.status_item, "warning")
             row.status_item.setToolTip(dest_path)
-            self.language_pack_status.setStyleSheet("color: #A03030;")
-            self.language_pack_status.setText(
-                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message)
+            self._set_status_message(
+                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message),
+                tone="error",
             )
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
@@ -1313,18 +1377,20 @@ class LanguagePackPanel(QWidget):
         if valid:
             self._frequency_pack_paths[pack_id] = dest_path
             row.status_item.setText(t("language_packs.status.local_ok"))
+            self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
-            self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-            self.language_pack_status.setText(
-                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path)
+            self._set_status_message(
+                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path),
+                tone="success",
             )
         else:
             self._frequency_pack_paths.pop(pack_id, None)
             row.status_item.setText(t("language_packs.status.downloaded"))
+            self._set_status_item_tone(row.status_item, "warning")
             row.status_item.setToolTip(dest_path)
-            self.language_pack_status.setStyleSheet("color: #A03030;")
-            self.language_pack_status.setText(
-                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message)
+            self._set_status_message(
+                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message),
+                tone="error",
             )
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
@@ -1344,13 +1410,13 @@ class LanguagePackPanel(QWidget):
             return
         self._embedding_pack_paths[pack_id] = dest_path
         row.status_item.setText("Converting...")
-        row.status_item.setForeground(QColor("#1B4F9C"))
+        self._set_status_item_tone(row.status_item, "info")
         row.status_item.setToolTip(dest_path)
         row.download_button.setEnabled(False)
         row.use_button.setEnabled(False)
-        self.language_pack_status.setStyleSheet("")
-        self.language_pack_status.setText(
-            f"Converting {pack.display_name()} for optimized local use..."
+        self._set_status_message(
+            f"Converting {pack.display_name()} for optimized local use...",
+            tone="info",
         )
         thread = EmbeddingConversionThread(
             pack_id=pack_id,
@@ -1375,19 +1441,21 @@ class LanguagePackPanel(QWidget):
         fallback_path = self._embedding_pack_paths.get(pack_id)
         if fallback_path and os.path.exists(fallback_path):
             self._finalize_embedding_pack(pack_id=pack_id, resolved_path=fallback_path)
-            self.language_pack_status.setStyleSheet("color: #A03030;")
-            self.language_pack_status.setText(
-                f"{pack.display_name()} downloaded, but optimized conversion failed: {message}"
+            self._set_status_message(
+                f"{pack.display_name()} downloaded, but optimized conversion failed: {message}",
+                tone="warning",
+                tooltip=message,
             )
-            self.language_pack_status.setToolTip(message)
             return
         row.status_item.setText(t("language_packs.status.failed"))
+        self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         row.use_button.setEnabled(False)
-        self.language_pack_status.setStyleSheet("color: #A03030;")
-        self.language_pack_status.setText(
-            f"{pack.display_name()} download completed, but conversion failed: {message}"
+        self._set_status_message(
+            f"{pack.display_name()} download completed, but conversion failed: {message}",
+            tone="error",
+            tooltip=message,
         )
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
@@ -1399,10 +1467,11 @@ class LanguagePackPanel(QWidget):
             return
         self._embedding_pack_paths[pack_id] = resolved_path
         row.status_item.setText(t("language_packs.status.local_ok"))
+        self._set_status_item_tone(row.status_item, "success")
         row.status_item.setToolTip(resolved_path)
-        self.language_pack_status.setStyleSheet("color: #2F6B2F;")
-        self.language_pack_status.setText(
-            t("language_packs.downloaded_linked", name=pack.display_name(), path=resolved_path)
+        self._set_status_message(
+            t("language_packs.downloaded_linked", name=pack.display_name(), path=resolved_path),
+            tone="success",
         )
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
@@ -1417,22 +1486,21 @@ class LanguagePackPanel(QWidget):
             return
         if message == "cancelled" and self._closing:
             row.status_item.setText(t("language_packs.status.cancelled"))
-            row.status_item.setForeground(QColor("#6B6B6B"))
+            self._set_status_item_tone(row.status_item, "muted")
             row.download_button.setEnabled(True)
             row.download_button.setText(t("buttons.download"))
-            row.use_button.setEnabled(True)
             return
         row.status_item.setText(t("language_packs.status.failed"))
+        self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
-        row.use_button.setEnabled(True)
         link = pack.wayback_url
         log_path = download_log_path()
         row.status_item.setToolTip(log_path)
-        self.language_pack_status.setToolTip(log_path)
-        self.language_pack_status.setStyleSheet("color: #A03030;")
-        self.language_pack_status.setText(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)
+        self._set_status_message(
+            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
+            tone="error",
+            tooltip=log_path,
         )
 
     def _on_frequency_pack_failed(self, pack_id: str, message: str) -> None:
@@ -1442,20 +1510,21 @@ class LanguagePackPanel(QWidget):
             return
         if message == "cancelled" and self._closing:
             row.status_item.setText(t("language_packs.status.cancelled"))
-            row.status_item.setForeground(QColor("#6B6B6B"))
+            self._set_status_item_tone(row.status_item, "muted")
             row.download_button.setEnabled(True)
             row.download_button.setText(t("buttons.download"))
             return
         row.status_item.setText(t("language_packs.status.failed"))
+        self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         link = pack.wayback_url
         log_path = download_log_path()
         row.status_item.setToolTip(log_path)
-        self.language_pack_status.setToolTip(log_path)
-        self.language_pack_status.setStyleSheet("color: #A03030;")
-        self.language_pack_status.setText(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)
+        self._set_status_message(
+            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
+            tone="error",
+            tooltip=log_path,
         )
 
     def _on_embedding_pack_failed(self, pack_id: str, message: str) -> None:
@@ -1465,20 +1534,21 @@ class LanguagePackPanel(QWidget):
             return
         if message == "cancelled" and self._closing:
             row.status_item.setText(t("language_packs.status.cancelled"))
-            row.status_item.setForeground(QColor("#6B6B6B"))
+            self._set_status_item_tone(row.status_item, "muted")
             row.download_button.setEnabled(True)
             row.download_button.setText(t("buttons.download"))
             return
         row.status_item.setText(t("language_packs.status.failed"))
+        self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
         link = pack.wayback_url
         log_path = download_log_path()
         row.status_item.setToolTip(log_path)
-        self.language_pack_status.setToolTip(log_path)
-        self.language_pack_status.setStyleSheet("color: #A03030;")
-        self.language_pack_status.setText(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link)
+        self._set_status_message(
+            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
+            tone="error",
+            tooltip=log_path,
         )
 
     def _cleanup_language_pack_thread(self, thread: LanguagePackDownloadThread) -> None:

@@ -24,6 +24,17 @@ THEME_COLOR_KEYS = (
     "table_sel_bg",
 )
 
+THEME_OPTIONAL_COLOR_KEYS = (
+    "status_success",
+    "status_warning",
+    "status_error",
+    "status_info",
+    "status_neutral",
+    "status_muted",
+)
+
+THEME_ALL_COLOR_KEYS = THEME_COLOR_KEYS + THEME_OPTIONAL_COLOR_KEYS
+
 
 def theme_dir() -> str:
     base_dir = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
@@ -49,9 +60,13 @@ def load_user_themes() -> dict[str, dict[str, Any]]:
             continue
         if any(key not in colors for key in THEME_COLOR_KEYS):
             continue
-        theme_id = str(data.get("id") or os.path.splitext(entry)[0])
+        fallback_theme_id = os.path.splitext(os.path.basename(path))[0]
+        theme_id = str(data.get("id") or fallback_theme_id)
         theme_name = str(data.get("name") or theme_id)
         theme: dict[str, Any] = {key: str(colors[key]) for key in THEME_COLOR_KEYS}
+        for key in THEME_OPTIONAL_COLOR_KEYS:
+            if key in colors:
+                theme[key] = str(colors[key])
         theme["_name"] = theme_name
         theme["_source"] = path
         theme["_base_dir"] = os.path.dirname(path)
@@ -98,7 +113,7 @@ def _parse_screen_overrides(raw: dict[str, Any], base_dir: str) -> dict[str, dic
         entry: dict[str, Any] = {}
         colors = override.get("colors")
         if isinstance(colors, dict):
-            entry["colors"] = {key: str(value) for key, value in colors.items() if key in THEME_COLOR_KEYS}
+            entry["colors"] = {key: str(value) for key, value in colors.items() if key in THEME_ALL_COLOR_KEYS}
         background = override.get("background")
         if isinstance(background, dict):
             entry["_background"] = background

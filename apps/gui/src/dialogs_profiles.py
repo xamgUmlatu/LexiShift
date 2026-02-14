@@ -46,6 +46,7 @@ class ProfilesDialog(QDialog):
         self._active_profile_id = active_profile_id
         self._current_index: Optional[int] = None
         self._updating = False
+        self._active_ruleset_override: Optional[str] = None
 
         self.list_widget = QListWidget()
         for profile in self._profiles:
@@ -179,7 +180,13 @@ class ProfilesDialog(QDialog):
     def _on_select(self, row: int) -> None:
         if self._updating:
             return
-        self._commit_current()
+        previous_index = self._current_index
+        if previous_index is not None and 0 <= previous_index < len(self._profiles):
+            self._commit_profile(previous_index)
+        if row < 0 or row >= len(self._profiles):
+            self._current_index = None
+            self._clear_current()
+            return
         self._current_index = row
         self._load_current()
 
@@ -201,13 +208,13 @@ class ProfilesDialog(QDialog):
         if self._updating:
             return
         if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
-            row = self.list_widget.currentRow()
-            if row < 0 or row >= len(self._profiles):
-                return
-            self._current_index = row
-        profile = self._profiles[self._current_index]
+            return
+        self._commit_profile(self._current_index)
+
+    def _commit_profile(self, index: int) -> None:
+        profile = self._profiles[index]
         profile_id = self.id_edit.text().strip() or profile.profile_id
-        if profile_id != profile.profile_id and self._profile_id_exists(profile_id):
+        if profile_id != profile.profile_id and self._profile_id_exists(profile_id, ignore_index=index):
             QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
             profile_id = profile.profile_id
             self.id_edit.setText(profile.profile_id)
@@ -224,14 +231,17 @@ class ProfilesDialog(QDialog):
             rulesets=tuple(rulesets),
             active_ruleset=active_ruleset,
         )
-        self._profiles[self._current_index] = updated
-        item = self.list_widget.item(self._current_index)
+        self._profiles[index] = updated
+        item = self.list_widget.item(index)
         if item is not None:
             item.setText(_profile_display(updated))
+        if index == self._current_index:
+            self._active_ruleset_override = active_ruleset
 
     def _load_rulesets(self, profile: Profile) -> None:
         self.ruleset_list.clear()
         active_ruleset = profile.active_ruleset or profile.dataset_path
+        self._active_ruleset_override = active_ruleset
         rulesets: list[str] = []
         for path in profile.rulesets:
             if path and path not in rulesets:
@@ -266,6 +276,8 @@ class ProfilesDialog(QDialog):
         return rulesets
 
     def _current_active_ruleset(self, rulesets: list[str], profile: Profile) -> Optional[str]:
+        if self._active_ruleset_override and self._active_ruleset_override in rulesets:
+            return self._active_ruleset_override
         if profile.active_ruleset and profile.active_ruleset in rulesets:
             return profile.active_ruleset
         if rulesets:
@@ -278,6 +290,8 @@ class ProfilesDialog(QDialog):
         return path
 
     def _add_ruleset(self) -> None:
+        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+            return
         path, _ = QFileDialog.getSaveFileName(
             self,
             t("dialogs.add_ruleset.title"),
@@ -296,6 +310,8 @@ class ProfilesDialog(QDialog):
         self._commit_current()
 
     def _remove_ruleset(self) -> None:
+        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+            return
         row = self.ruleset_list.currentRow()
         if row < 0:
             return
@@ -304,6 +320,8 @@ class ProfilesDialog(QDialog):
         self._load_rulesets(self._profiles[self._current_index])
 
     def _set_active_ruleset(self) -> None:
+        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+            return
         row = self.ruleset_list.currentRow()
         if row < 0:
             return
@@ -316,6 +334,7 @@ class ProfilesDialog(QDialog):
         self._commit_current()
 
     def _apply_rulesets(self, rulesets: list[str], active: Optional[str]) -> None:
+        self._active_ruleset_override = active
         self.ruleset_list.clear()
         active_index = -1
         for path in rulesets:
@@ -356,10 +375,26 @@ class ProfilesDialog(QDialog):
         if action == reveal_action and active_path:
             reveal_path(active_path)
 
-    def _profile_id_exists(self, profile_id: str) -> bool:
-        return any(profile.profile_id == profile_id for profile in self._profiles)
+    def _clear_current(self) -> None:
+        self._updating = True
+        self.id_edit.clear()
+        self.name_edit.clear()
+        self.tags_edit.clear()
+        self.description_edit.clear()
+        self.ruleset_list.clear()
+        self._active_ruleset_override = None
+        self._updating = False
+
+    def _profile_id_exists(self, profile_id: str, *, ignore_index: Optional[int] = None) -> bool:
+        for idx, profile in enumerate(self._profiles):
+            if ignore_index is not None and idx == ignore_index:
+                continue
+            if profile.profile_id == profile_id:
+                return True
+        return False
 
     def _add_profile(self) -> None:
+        self._commit_current()
         profile_id = _next_profile_id(self._profiles)
         dataset_path = str(self._default_dir / f"{profile_id}.json")
         profile = Profile(
@@ -380,11 +415,18 @@ class ProfilesDialog(QDialog):
         if len(self._profiles) <= 1:
             QMessageBox.information(self, t("dialogs.profiles.title"), t("dialogs.profiles.required"))
             return
+        self._commit_current()
+        self._updating = True
+        self.list_widget.blockSignals(True)
         self._profiles.pop(row)
         self.list_widget.takeItem(row)
         if row >= len(self._profiles):
             row = len(self._profiles) - 1
+        self._current_index = row if row >= 0 else None
         self.list_widget.setCurrentRow(row)
+        self.list_widget.blockSignals(False)
+        self._updating = False
+        self._load_current()
 
 
 class CreateProfileDialog(QDialog):

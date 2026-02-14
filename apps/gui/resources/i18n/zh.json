@@ -332,6 +332,7 @@
     "frequency_title": "词频包",
     "frequency_description": "词频包用于学习和 SRS 选择的词汇权重。",
     "frequency_open_directory": "打开词频目录",
+    "resources_description": "在一个专用工作区中统一管理词典、词频和嵌入下载。",
     "embeddings_title": "嵌入（可选）",
     "embeddings_help": "嵌入用于同义词相似度排序。可选功能，可在之后下载启用。",
     "embeddings_description": "嵌入是可选附加功能。V1 不需要，但之后可用于相似度排序。",

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtCore import QSettings
 
-from theme_loader import THEME_COLOR_KEYS, load_user_themes
+from theme_loader import THEME_ALL_COLOR_KEYS, load_user_themes
 from theme_registry import BUILTIN_THEMES
 from theme_widgets import apply_theme_background
 
@@ -25,7 +25,7 @@ def current_theme_id() -> str:
 def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
     themes = load_themes()
     theme = themes.get(theme_id) or themes.get("light_sand", {})
-    resolved = {key: theme.get(key) for key in THEME_COLOR_KEYS}
+    resolved = {key: theme.get(key) for key in THEME_ALL_COLOR_KEYS}
     resolved["_background"] = theme.get("_background", {})
     resolved["_background_path"] = theme.get("_background_path")
     if screen_id:
@@ -36,7 +36,7 @@ def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
                 colors = screen.get("colors", {})
                 if isinstance(colors, dict):
                     for key, value in colors.items():
-                        if key in THEME_COLOR_KEYS:
+                        if key in THEME_ALL_COLOR_KEYS:
                             resolved[key] = value
                 if "_background" in screen:
                     resolved["_background"] = screen.get("_background", {})
@@ -112,7 +112,7 @@ def apply_dialog_theme(dialog, container, *, screen_id: str) -> dict:
 
 def _merge_theme(base: dict, override: dict) -> dict:
     merged = dict(base)
-    for key in THEME_COLOR_KEYS:
+    for key in THEME_ALL_COLOR_KEYS:
         if key in override:
             merged[key] = override[key]
     for key in (
