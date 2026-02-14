@@ -160,7 +160,7 @@ Status key:
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
 ### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)
-Current parity snapshot (as of 2026-02-09):
+Current parity snapshot (as of 2026-02-14):
 - `en-de` helper rulegen path is implemented and can run when `freq-de-default.sqlite` and `freedict-de-en` are present.
 - `en-es` and `es-en` helper rulegen paths are implemented and can run when `freq-es-cde.sqlite` and the corresponding FreeDict resources are present.
 - `en-es` rulegen supports paired plural morphology metadata (`target_surface`) while preserving canonical replacement lemma identity.

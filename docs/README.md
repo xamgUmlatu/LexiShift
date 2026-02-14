@@ -20,6 +20,7 @@ If you need SRS/core behavior next:
 ## Folders
 
 - `architecture/`: system and extension architecture, integration design, and implementation plans.
+- `gui/`: desktop GUI UX workstreams, fix plans, and implementation notes.
 - `srs/`: SRS-specific design, roadmap, schema, and technical notes.
 - `rulegen/`: rule generation and synonym generation technical docs.
 - `language_pairs/`: language-pair rollout checklists and LP resource requirements.
@@ -33,9 +34,11 @@ If you need SRS/core behavior next:
 - Extension system map: `architecture/extension_system_map.md`
 - Options architecture: `architecture/options_controllers_architecture.md`
 - Popup module architecture: `architecture/popup_modules_pattern.md`
+- GUI app fix workstream: `gui/gui_app_fix_workstream.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Global app schema: `reference/schema.md`
+- New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
 
 ## Source Of Truth Rules
 

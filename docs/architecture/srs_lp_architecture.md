@@ -86,6 +86,10 @@ Non-negotiable core invariants:
    - `docs/srs/srs_roadmap.md`
    - LP setup checklist docs
 
+Execution note:
+- For implementation-level touchpoints by step (exact files to edit for new LPs), follow
+  `docs/language_pairs/language_pair_setup_checklist.md` section `0) Implementation Sequence`.
+
 ## 6) Regression Guardrails
 
 - Keep `en-ja` behavior as reference baseline.
