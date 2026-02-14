@@ -18,7 +18,7 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
 class TestLpCapabilities(unittest.TestCase):
     def test_supported_rulegen_pairs_use_capability_registry(self) -> None:
         pairs = supported_rulegen_pairs()
-        self.assertEqual(pairs, ("en-ja", "en-de"))
+        self.assertEqual(pairs, ("en-ja", "en-de", "en-es", "es-en"))
 
     def test_srs_selectable_pairs_include_current_gui_pairs(self) -> None:
         pairs = selectable_srs_pairs()
@@ -28,12 +28,18 @@ class TestLpCapabilities(unittest.TestCase):
         self.assertIn("en-de", pairs)
         self.assertIn("de-de", pairs)
         self.assertIn("de-en", pairs)
+        self.assertIn("en-es", pairs)
+        self.assertIn("es-en", pairs)
+        self.assertIn("es-es", pairs)
 
     def test_known_pairs_contains_all_declared_capabilities(self) -> None:
         pairs = known_pairs()
         self.assertIn("en-zh", pairs)
         self.assertIn("en-de", pairs)
         self.assertIn("de-en", pairs)
+        self.assertIn("en-es", pairs)
+        self.assertIn("es-en", pairs)
+        self.assertIn("es-es", pairs)
 
 
 if __name__ == "__main__":

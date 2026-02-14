@@ -70,36 +70,69 @@ def build_seed_candidates(
         pmw_column=config.pmw_column,
     )
     with SqliteFrequencyStore(store_config) as store:
-        available_columns = set(store.column_names())
-        include_pos = bool(config.pos_column and config.pos_column in available_columns)
-        include_lform = bool(config.lform_column and config.lform_column in available_columns)
-        include_wtype = bool(config.wtype_column and config.wtype_column in available_columns)
-        include_sublemma = bool(config.sublemma_column and config.sublemma_column in available_columns)
+        available_columns = store.column_names()
+        resolved_lemma_column = store.resolve_column(
+            config.lemma_column,
+            available_columns=available_columns,
+        )
+        if not resolved_lemma_column:
+            raise ValueError(
+                f"Missing lemma column '{config.lemma_column}' in frequency DB: {frequency_db}"
+            )
+        resolved_rank_column = store.resolve_rank_column(
+            config.rank_column,
+            available_columns=available_columns,
+        )
+        resolved_pmw_column = store.resolve_frequency_column(
+            config.pmw_column,
+            available_columns=available_columns,
+        )
+        resolved_pos_column = store.resolve_column(
+            config.pos_column,
+            available_columns=available_columns,
+        )
+        resolved_lform_column = store.resolve_column(
+            config.lform_column,
+            available_columns=available_columns,
+        )
+        resolved_wtype_column = store.resolve_column(
+            config.wtype_column,
+            available_columns=available_columns,
+        )
+        resolved_sublemma_column = store.resolve_column(
+            config.sublemma_column,
+            available_columns=available_columns,
+        )
+        include_pos = bool(resolved_pos_column)
+        include_lform = bool(resolved_lform_column)
+        include_wtype = bool(resolved_wtype_column)
+        include_sublemma = bool(resolved_sublemma_column)
         selected_columns = [
             column
-            for column, enabled in (
-                (config.pos_column, include_pos),
-                (config.lform_column, include_lform),
-                (config.wtype_column, include_wtype),
-                (config.sublemma_column, include_sublemma),
+            for column in (
+                resolved_pos_column,
+                resolved_lform_column,
+                resolved_wtype_column,
+                resolved_sublemma_column,
             )
-            if enabled and column
+            if column
         ]
         resolved_pos_weights = (
             config.admission_pos_weights
             or resolve_default_pos_weights(language_pair=config.language_pair)
         )
-        max_pmw = store.max_value(config.pmw_column)
+        max_pmw = store.max_value(resolved_pmw_column) if resolved_pmw_column else None
         results: list[SeedWord] = []
         for row_index, row in enumerate(
             store.iter_top_by_rank(
                 limit=config.top_n,
-                rank_column=config.rank_column,
+                rank_column=resolved_rank_column,
+                pmw_column=resolved_pmw_column,
                 columns=selected_columns,
             ),
             start=1,
         ):
-            lemma = str(row[config.lemma_column]).strip()
+            lemma = str(row[resolved_lemma_column]).strip()
             if not lemma:
                 continue
             if stopwords and lemma in stopwords:
@@ -107,28 +140,40 @@ def build_seed_candidates(
             if jmdict_lemmas is not None and lemma not in jmdict_lemmas:
                 continue
             columns = row.keys()
-            core_rank = _safe_float(row[config.rank_column]) if config.rank_column in columns else None
-            pmw = _safe_float(row[config.pmw_column]) if config.pmw_column in columns else None
+            core_rank = (
+                _safe_float(row[resolved_rank_column])
+                if resolved_rank_column and resolved_rank_column in columns
+                else None
+            )
+            pmw = (
+                _safe_float(row[resolved_pmw_column])
+                if resolved_pmw_column and resolved_pmw_column in columns
+                else None
+            )
             raw_pos = (
-                str(row[config.pos_column]).strip()
-                if include_pos and config.pos_column in columns and row[config.pos_column] is not None
+                str(row[resolved_pos_column]).strip()
+                if include_pos and resolved_pos_column in columns and row[resolved_pos_column] is not None
                 else None
             )
             raw_lform = (
-                str(row[config.lform_column]).strip()
-                if include_lform and config.lform_column in columns and row[config.lform_column] is not None
+                str(row[resolved_lform_column]).strip()
+                if include_lform
+                and resolved_lform_column in columns
+                and row[resolved_lform_column] is not None
                 else None
             )
             raw_wtype = (
-                str(row[config.wtype_column]).strip()
-                if include_wtype and config.wtype_column in columns and row[config.wtype_column] is not None
+                str(row[resolved_wtype_column]).strip()
+                if include_wtype
+                and resolved_wtype_column in columns
+                and row[resolved_wtype_column] is not None
                 else None
             )
             raw_sublemma = (
-                str(row[config.sublemma_column]).strip()
+                str(row[resolved_sublemma_column]).strip()
                 if include_sublemma
-                and config.sublemma_column in columns
-                and row[config.sublemma_column] is not None
+                and resolved_sublemma_column in columns
+                and row[resolved_sublemma_column] is not None
                 else None
             )
             word_package = build_word_package(
@@ -145,13 +190,13 @@ def build_seed_candidates(
                 row_index=row_index,
                 row_rank=core_rank,
                 source_extra={
-                    "rank_column": config.rank_column,
-                    "pmw_column": config.pmw_column,
-                    "lemma_column": config.lemma_column,
-                    "pos_column": config.pos_column if include_pos else None,
-                    "lform_column": config.lform_column if include_lform else None,
-                    "wtype_column": config.wtype_column if include_wtype else None,
-                    "sublemma_column": config.sublemma_column if include_sublemma else None,
+                    "rank_column": resolved_rank_column,
+                    "pmw_column": resolved_pmw_column,
+                    "lemma_column": resolved_lemma_column,
+                    "pos_column": resolved_pos_column if include_pos else None,
+                    "lform_column": resolved_lform_column if include_lform else None,
+                    "wtype_column": resolved_wtype_column if include_wtype else None,
+                    "sublemma_column": resolved_sublemma_column if include_sublemma else None,
                 },
             )
             base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
@@ -175,12 +220,12 @@ def build_seed_candidates(
                     admission_weight=admission_weight,
                     metadata={
                         "source": source_label,
-                        "rank_column": config.rank_column,
-                        "pmw_column": config.pmw_column,
-                        "pos_column": config.pos_column if include_pos else None,
-                        "lform_column": config.lform_column if include_lform else None,
-                        "wtype_column": config.wtype_column if include_wtype else None,
-                        "sublemma_column": config.sublemma_column if include_sublemma else None,
+                        "rank_column": resolved_rank_column,
+                        "pmw_column": resolved_pmw_column,
+                        "pos_column": resolved_pos_column if include_pos else None,
+                        "lform_column": resolved_lform_column if include_lform else None,
+                        "wtype_column": resolved_wtype_column if include_wtype else None,
+                        "sublemma_column": resolved_sublemma_column if include_sublemma else None,
                         "pos_bucket": pos_bucket,
                         "pos_weight": pos_weight,
                         "admission_weight": admission_weight,

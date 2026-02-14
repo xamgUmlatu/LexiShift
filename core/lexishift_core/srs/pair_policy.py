@@ -39,6 +39,27 @@ _PAIR_POLICIES: dict[str, SrsPairPolicy] = {
         feedback_window_size_default=100,
         initial_active_count_default=40,
     ),
+    "en-es": SrsPairPolicy(
+        pair="en-es",
+        bootstrap_top_n_default=800,
+        refresh_top_n_default=2000,
+        feedback_window_size_default=100,
+        initial_active_count_default=40,
+    ),
+    "es-en": SrsPairPolicy(
+        pair="es-en",
+        bootstrap_top_n_default=800,
+        refresh_top_n_default=2000,
+        feedback_window_size_default=100,
+        initial_active_count_default=40,
+    ),
+    "es-es": SrsPairPolicy(
+        pair="es-es",
+        bootstrap_top_n_default=800,
+        refresh_top_n_default=2000,
+        feedback_window_size_default=100,
+        initial_active_count_default=40,
+    ),
     "en-en": SrsPairPolicy(
         pair="en-en",
         bootstrap_top_n_default=800,

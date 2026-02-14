@@ -662,6 +662,9 @@
   "option_language_de": {
     "message": "Deutsch"
   },
+  "option_language_es": {
+    "message": "Español"
+  },
   "hint_language": {
     "message": "仅覆盖选项页语言；内容脚本仍跟随浏览器语言。"
   },

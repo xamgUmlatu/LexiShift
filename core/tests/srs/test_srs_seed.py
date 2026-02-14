@@ -72,6 +72,37 @@ def _build_freq_db_with_lform(path: Path) -> None:
     conn.close()
 
 
+def _build_freq_db_with_spanish_style_columns(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute("CREATE TABLE frequency (ID REAL, freq REAL, lemma TEXT, pos TEXT)")
+    conn.executemany(
+        "INSERT INTO frequency (ID, freq, lemma, pos) VALUES (?, ?, ?, ?)",
+        [
+            (1, 950.0, "hola", "INTJ"),
+            (2, 875.0, "gato", "NOUN"),
+            (3, 765.0, "rápido", "ADJ"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def _build_freq_db_with_pmw_and_freq(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute(
+        "CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL, freq REAL, pos TEXT)"
+    )
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw, freq, pos) VALUES (?, ?, ?, ?, ?)",
+        [
+            ("alpha", 1.0, 900.0, 10.0, "NOUN"),
+            ("beta", 2.0, 450.0, 20.0, "NOUN"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
 class TestSrsSeedStopwords(unittest.TestCase):
     def test_stopwords_json_list_filters_lemmas(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -204,6 +235,48 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertIn("word_package", selector_candidates[0].metadata)
             selector_package = selector_candidates[0].metadata["word_package"]
             self.assertEqual(selector_package["reading"], "ところ")
+
+    def test_seed_falls_back_to_spanish_style_rank_and_frequency_columns(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq-es.sqlite"
+            _build_freq_db_with_spanish_style_columns(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-es",
+                    top_n=3,
+                    require_jmdict=False,
+                    sort_by_admission_weight=False,
+                ),
+            )
+
+            lemmas = [item.lemma for item in selected]
+            self.assertEqual(lemmas, ["hola", "gato", "rápido"])
+            self.assertEqual(str(selected[0].metadata["rank_column"]).lower(), "id")
+            self.assertEqual(str(selected[0].metadata["pmw_column"]).lower(), "freq")
+            self.assertAlmostEqual(float(selected[0].pmw or 0.0), 950.0)
+
+    def test_seed_prefers_pmw_when_pmw_and_freq_are_both_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db_with_pmw_and_freq(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=2,
+                    require_jmdict=False,
+                    sort_by_admission_weight=False,
+                ),
+            )
+
+            self.assertTrue(selected)
+            self.assertEqual(str(selected[0].metadata["pmw_column"]).lower(), "pmw")
+            self.assertAlmostEqual(float(selected[0].pmw or 0.0), 900.0)
 
 
 if __name__ == "__main__":

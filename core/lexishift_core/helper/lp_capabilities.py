@@ -43,8 +43,28 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     "en-de": PairCapability(
         pair="en-de",
         rulegen_mode="en_de",
+        default_frequency_db="freq-de-default.sqlite",
         srs_selectable=True,
         requires_freedict_de_en_for_rulegen=True,
+    ),
+    "en-es": PairCapability(
+        pair="en-es",
+        rulegen_mode="en_es",
+        default_frequency_db="freq-es-cde.sqlite",
+        srs_selectable=True,
+        requires_freedict_de_en_for_rulegen=True,
+    ),
+    "es-en": PairCapability(
+        pair="es-en",
+        rulegen_mode="es_en",
+        default_frequency_db="freq-en-coca.sqlite",
+        srs_selectable=True,
+        requires_freedict_de_en_for_rulegen=True,
+    ),
+    "es-es": PairCapability(
+        pair="es-es",
+        default_frequency_db="freq-es-cde.sqlite",
+        srs_selectable=True,
     ),
     "de-de": PairCapability(pair="de-de", srs_selectable=True),
     "en-zh": PairCapability(pair="en-zh"),
@@ -122,17 +142,24 @@ def default_freedict_de_en_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_freedict_de_en_for_rulegen:
         return None
-    direct_candidates = (
-        language_packs_dir / "deu-eng.tei",
-        language_packs_dir / "freedict-de-en" / "deu-eng.tei",
-    )
-    for candidate in direct_candidates:
-        if candidate.exists():
-            return candidate
-    discovered = sorted(language_packs_dir.rglob("deu-eng.tei"))
-    if discovered:
-        return discovered[0]
-    return language_packs_dir / "deu-eng.tei"
+    filenames = _default_freedict_filenames_for_pair(capability.pair)
+    for filename in filenames:
+        direct_candidate = language_packs_dir / filename
+        if direct_candidate.exists():
+            return direct_candidate
+    for filename in filenames:
+        discovered = sorted(language_packs_dir.rglob(filename))
+        if discovered:
+            return discovered[0]
+    return language_packs_dir / filenames[0]
+
+
+def _default_freedict_filenames_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "en-es":
+        return ("spa-eng.tei", "freedict-es-en.sqlite", "spa-eng.sqlite")
+    if pair == "es-en":
+        return ("eng-spa.tei", "freedict-en-es.sqlite", "eng-spa.sqlite")
+    return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
 
 
 def pair_requirements(pair: str) -> dict[str, object]:

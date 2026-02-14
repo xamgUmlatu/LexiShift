@@ -488,6 +488,21 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertIn("set_source_db", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
 
+    def test_runtime_diagnostics_reports_missing_en_es_frequency_pack(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            payload = get_srs_runtime_diagnostics(paths, pair="en-es")
+            self.assertEqual(payload["pair"], "en-es")
+            self.assertIn("pair_policy", payload)
+            self.assertEqual(payload["pair_policy"]["pair"], "en-es")
+            self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
+            self.assertFalse(payload["set_source_db_exists"])
+            self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/spa-eng.tei"))
+            self.assertFalse(payload["freedict_de_en_exists"])
+            missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
+            self.assertIn("set_source_db", missing_types)
+            self.assertIn("freedict_de_en_path", missing_types)
+
     def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))

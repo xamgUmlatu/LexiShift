@@ -144,6 +144,103 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("home", sources)
         self.assertTrue(all(rule.replacement == "Haus" for rule in rules))
 
+    def test_en_es_requires_freedict_es_en_path(self) -> None:
+        with self.assertRaises(ValueError):
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=None,
+                )
+            )
+
+    def test_en_es_dispatches_to_freedict_generator(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(
+                    rule=VocabRule(source_phrase="house", replacement="casa")
+                )
+            ],
+        ) as generate:
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/spa-eng.tei"),
+                )
+            )
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "house")
+        self.assertEqual(rules[0].replacement, "casa")
+        generate.assert_called_once()
+
+    def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>casa</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+          <cit type="trans"><quote xml:lang="en">home</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                )
+            )
+        sources = sorted({rule.source_phrase for rule in rules})
+        self.assertIn("house", sources)
+        self.assertIn("home", sources)
+        self.assertTrue(all(rule.replacement == "casa" for rule in rules))
+
+    def test_es_en_adapter_generates_rules_from_freedict_tei(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>house</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">casa</quote></cit>
+          <cit type="trans"><quote xml:lang="es">hogar</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-spa.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="es-en",
+                    targets=("house",),
+                    language_pair="es-en",
+                    freedict_de_en_path=path,
+                )
+            )
+        sources = sorted({rule.source_phrase for rule in rules})
+        self.assertIn("casa", sources)
+        self.assertIn("hogar", sources)
+        self.assertTrue(all(rule.replacement == "house" for rule in rules))
+
 
 if __name__ == "__main__":
     unittest.main()

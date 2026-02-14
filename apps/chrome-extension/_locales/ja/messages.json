@@ -662,6 +662,9 @@
   "option_language_de": {
     "message": "Deutsch"
   },
+  "option_language_es": {
+    "message": "Español"
+  },
   "hint_language": {
     "message": "オプション画面の言語のみ変更します。コンテンツ側はブラウザ言語に従います。"
   },

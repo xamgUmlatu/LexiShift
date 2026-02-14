@@ -7,6 +7,8 @@ from typing import Callable, Mapping, Optional, Sequence
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
+from lexishift_core.rulegen.pairs.en_es import EnEsRulegenConfig, generate_en_es_results
+from lexishift_core.rulegen.pairs.es_en import EsEnRulegenConfig, generate_es_en_results
 from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_results
 from lexishift_core.scoring.weighting import GlossDecay
 
@@ -59,9 +61,40 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     return [result.rule for result in results]
 
 
+def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    if request.freedict_de_en_path is None:
+        raise ValueError("Missing FreeDict ES->EN path for en-es rule generation.")
+    config = EnEsRulegenConfig(
+        freedict_es_en_path=request.freedict_de_en_path,
+        language_pair=request.language_pair,
+        confidence_threshold=request.confidence_threshold,
+        include_variants=request.include_variants,
+        allow_multiword_glosses=request.allow_multiword_glosses,
+        gloss_decay=request.gloss_decay,
+    )
+    results = generate_en_es_results(request.targets, config=config)
+    return [result.rule for result in results]
+
+
+def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    if request.freedict_de_en_path is None:
+        raise ValueError("Missing FreeDict EN->ES path for es-en rule generation.")
+    config = EsEnRulegenConfig(
+        freedict_en_es_path=request.freedict_de_en_path,
+        language_pair=request.language_pair,
+        confidence_threshold=request.confidence_threshold,
+        allow_multiword_glosses=request.allow_multiword_glosses,
+        gloss_decay=request.gloss_decay,
+    )
+    results = generate_es_en_results(request.targets, config=config)
+    return [result.rule for result in results]
+
+
 _RULEGEN_ADAPTERS: dict[str, RulegenAdapter] = {
     "ja_en": _run_ja_en_adapter,
     "en_de": _run_en_de_adapter,
+    "en_es": _run_en_es_adapter,
+    "es_en": _run_es_en_adapter,
 }
 
 
