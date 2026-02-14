@@ -55,6 +55,7 @@
     const languageSelect = elements.languageSelect || null;
     const rulesInput = elements.rulesInput || null;
     const fileStatus = elements.fileStatus || null;
+    const customRulesetEnabledInput = elements.customRulesetEnabledInput || null;
 
     async function load() {
       if (!settingsManager) {
@@ -109,6 +110,9 @@
         languageSelect.value = items.uiLanguage || "system";
       }
       settingsManager.currentRules = items.rules || [];
+      if (customRulesetEnabledInput) {
+        customRulesetEnabledInput.checked = items.customRulesetEnabled !== false;
+      }
       rulesInput.value = JSON.stringify(settingsManager.currentRules, null, 2);
       updateRulesSourceUI(items.rulesSource || "editor");
       fileStatus.textContent = items.rulesFileName

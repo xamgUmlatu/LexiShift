@@ -210,7 +210,7 @@
       if (missing > 0) {
         summary += ` (${missing} missing)`;
       }
-      summary += `, ${rulesCount} active rules.`;
+      summary += `, ${rulesCount} profile rules.`;
       return summary;
     }
 

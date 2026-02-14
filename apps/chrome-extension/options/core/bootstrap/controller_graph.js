@@ -290,7 +290,8 @@
         debugOpenDataDirOutput: dom.debugOpenDataDirOutput,
         languageSelect: dom.languageSelect,
         rulesInput: dom.rulesInput,
-        fileStatus: dom.fileStatus
+        fileStatus: dom.fileStatus,
+        customRulesetEnabledInput: dom.customRulesetEnabledInput
       }
     });
 
@@ -322,6 +323,7 @@
         importFileButton: dom.importFileButton,
         exportFileButton: dom.exportFileButton,
         rulesSourceInputs: dom.rulesSourceInputs,
+        customRulesetEnabledInput: dom.customRulesetEnabledInput,
         highlightEnabledInput: dom.highlightEnabledInput,
         highlightColorInput: dom.highlightColorInput,
         highlightColorText: dom.highlightColorText,

@@ -236,8 +236,19 @@
               </div>
               <p id="profile-rulesets-status" class="hint"></p>
             </section>
-            <section class="group-subcard">
+            <section class="group-subcard hidden" data-dev-note="Temporarily hidden. Re-enable by removing the hidden class on this section.">
               <h3 data-i18n="section_rules_json">Rules (JSON)</h3>
+              <!--
+                Temporarily hidden custom ruleset toggle.
+                Re-enable by uncommenting this block; keep id="custom-ruleset-enabled".
+                <label class="toggle">
+                  <input id="custom-ruleset-enabled" type="checkbox" />
+                  <span>Enable custom ruleset</span>
+                </label>
+                <p class="hint">
+                  When enabled, these rules are added on top of enabled profile rulesets.
+                </p>
+              -->
               <p class="hint" data-i18n="hint_rules_format">
                 Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]
               </p>

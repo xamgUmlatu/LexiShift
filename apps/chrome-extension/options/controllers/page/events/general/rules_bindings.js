@@ -25,6 +25,7 @@
     const importFileButton = elements.importFileButton || null;
     const exportFileButton = elements.exportFileButton || null;
     const rulesSourceInputs = Array.isArray(elements.rulesSourceInputs) ? elements.rulesSourceInputs : [];
+    const customRulesetEnabledInput = elements.customRulesetEnabledInput || null;
     const generateCodeButton = elements.generateCodeButton || null;
     const importCodeButton = elements.importCodeButton || null;
     const copyCodeButton = elements.copyCodeButton || null;
@@ -55,6 +56,20 @@
         });
       });
     });
+
+    if (customRulesetEnabledInput) {
+      customRulesetEnabledInput.addEventListener("change", () => {
+        chrome.storage.local.set(
+          { customRulesetEnabled: customRulesetEnabledInput.checked === true },
+          () => {
+            setStatus(
+              translate("status_custom_ruleset_updated", null, "Custom ruleset setting updated."),
+              ui.COLORS.SUCCESS
+            );
+          }
+        );
+      });
+    }
 
     if (generateCodeButton && rulesShareController && typeof rulesShareController.generateShareCode === "function") {
       generateCodeButton.addEventListener("click", () => {

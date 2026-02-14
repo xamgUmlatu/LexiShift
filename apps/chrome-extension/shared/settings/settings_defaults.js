@@ -16,6 +16,7 @@
   root.defaults = {
     enabled: true,
     rules: [],
+    customRulesetEnabled: true,
     profileRules: [],
     profileRulesUpdatedAt: "",
     manualRulesetCacheByPath: {},

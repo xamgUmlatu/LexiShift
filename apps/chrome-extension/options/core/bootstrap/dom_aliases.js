@@ -74,6 +74,7 @@
       importFileButton: source.importFile || null,
       exportFileButton: source.exportFile || null,
       fileStatus: source.fileStatus || null,
+      customRulesetEnabledInput: source.customRulesetEnabled || null,
       profileRulesetsList: source.profileRulesetsList || null,
       profileRulesetsStatus: source.profileRulesetsStatus || null,
       profileRulesetsRefreshButton: source.profileRulesetsRefresh || null,

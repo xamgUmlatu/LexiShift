@@ -53,6 +53,10 @@ Purpose:
   - Uses local rules from extension storage.
   - Can merge in helper-generated rules.
   - Uses profile-scoped helper cache fallback on helper fetch failures.
+  - Runtime supports an optional custom-ruleset include flag (`customRulesetEnabled`) for local JSON rules; the options toggle is intentionally hidden for now.
+  - The entire "Rules (JSON)" options subcard is intentionally hidden for now via the `hidden` class on that section in `options.html` (DOM/ids preserved for compatibility).
+  - To restore the full editor UI, remove `hidden` from the "Rules (JSON)" section class in `options.html`.
+  - To restore just the custom-ruleset toggle, also uncomment the labeled `custom-ruleset-enabled` block inside that section.
 
 - SRS features
   - SRS gate can filter active rules by replacement lemma.
