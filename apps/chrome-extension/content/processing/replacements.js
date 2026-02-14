@@ -91,8 +91,15 @@
 
   function resolveDisplayPayload(rule, sourceWords, settings) {
     const casePolicy = (rule && rule.case_policy) || "match";
-    const canonicalReplacement = String((rule && rule.replacement) || "").trim();
     const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : {};
+    const morphology = metadata && metadata.morphology && typeof metadata.morphology === "object"
+      ? metadata.morphology
+      : null;
+    const canonicalReplacement = String((rule && rule.replacement) || "").trim();
+    const surfaceReplacement = morphology
+      ? String(morphology.target_surface || "").trim()
+      : "";
+    const displayBaseReplacement = surfaceReplacement || canonicalReplacement;
     const languagePair = String(metadata.language_pair || "").trim();
     const wordPackage = normalizeWordPackage(metadata.word_package);
     const packageScriptForms = normalizeScriptForms(wordPackage && wordPackage.script_forms);
@@ -111,10 +118,11 @@
     if (targetLanguage !== "ja" || !scriptForms) {
       return {
         canonicalReplacement,
-        displayReplacement: applyCase(canonicalReplacement, sourceWords, casePolicy),
+        displayReplacement: applyCase(displayBaseReplacement, sourceWords, casePolicy),
         displayScript: "",
         scriptForms: null,
-        wordPackage: effectiveWordPackage
+        wordPackage: effectiveWordPackage,
+        morphology
       };
     }
 
@@ -132,7 +140,8 @@
       displayReplacement: caseAdjustedForms[displayScript] || applyCase(canonicalReplacement, sourceWords, casePolicy),
       displayScript,
       scriptForms: caseAdjustedForms,
-      wordPackage: effectiveWordPackage
+      wordPackage: effectiveWordPackage,
+      morphology
     };
   }
 

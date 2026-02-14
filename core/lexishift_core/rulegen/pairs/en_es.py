@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.resources.dict_loaders import load_freedict_glosses_ordered
@@ -18,7 +19,7 @@ from lexishift_core.rulegen.pairs.ja_en import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionArtifactFilter,
-    InflectionVariantExpander,
+    PairedInflectionVariantExpander,
     LengthFilter,
     NonEmptyFilter,
     PossessiveFilter,
@@ -31,6 +32,31 @@ from lexishift_core.scoring.weighting import GlossDecay
 
 def _should_expand_english(candidate: RuleCandidate) -> bool:
     return all(ord(ch) < 128 for ch in candidate.source_phrase)
+
+
+_SPANISH_NOUN_WORD_RE = re.compile(r"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$")
+
+
+def _resolve_spanish_target_surface(candidate: RuleCandidate, form: str) -> Optional[str]:
+    if form != "plural":
+        return None
+    return _pluralize_spanish_noun(candidate.replacement)
+
+
+def _pluralize_spanish_noun(word: str) -> Optional[str]:
+    text = str(word or "").strip()
+    if not text or not _SPANISH_NOUN_WORD_RE.match(text):
+        return None
+    lowered = text.lower()
+    if lowered.endswith("z"):
+        return text[:-1] + "ces"
+    if lowered.endswith(("a", "e", "i", "o", "u", "á", "é", "ó")):
+        return text + "s"
+    if lowered.endswith(("í", "ú")):
+        return text + "es"
+    if lowered.endswith(("s", "x")):
+        return None
+    return text + "es"
 
 
 @dataclass(frozen=True)
@@ -69,7 +95,12 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
     normalizers = [BasicStringNormalizer()]
     expanders = []
     if config.include_variants:
-        expanders.append(InflectionVariantExpander(should_expand=_should_expand_english))
+        expanders.append(
+            PairedInflectionVariantExpander(
+                should_expand=_should_expand_english,
+                target_surface_resolver=_resolve_spanish_target_surface,
+            )
+        )
 
     def variant_penalty_provider(candidate: RuleCandidate) -> float:
         return config.variant_penalty if candidate.metadata.get("variant") else 0.0

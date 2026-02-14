@@ -59,6 +59,7 @@ class RuleMetadata:
     confidence: Optional[float] = None
     script_forms: Optional[Mapping[str, str]] = None
     word_package: Optional[Mapping[str, object]] = None
+    morphology: Optional[Mapping[str, object]] = None
 
 
 @dataclass(frozen=True)

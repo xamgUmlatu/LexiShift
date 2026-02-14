@@ -117,6 +117,16 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
                 for key, value in dict(from_word_package).items()
                 if str(key).strip() and str(value).strip()
             } or None
+    raw_morphology = data.get("morphology")
+    morphology = None
+    if isinstance(raw_morphology, Mapping):
+        normalized_morphology = {
+            str(key): value
+            for key, value in dict(raw_morphology).items()
+            if str(key).strip()
+        }
+        if normalized_morphology:
+            morphology = normalized_morphology
     return RuleMetadata(
         label=data.get("label"),
         description=data.get("description"),
@@ -128,6 +138,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         confidence=data.get("confidence"),
         script_forms=script_forms,
         word_package=word_package,
+        morphology=morphology,
     )
 
 
@@ -151,6 +162,15 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
                 if str(key).strip() and str(value).strip()
             }
             if metadata.script_forms
+            else None
+        ),
+        "morphology": (
+            {
+                str(key): value
+                for key, value in dict(metadata.morphology or {}).items()
+                if str(key).strip()
+            }
+            if metadata.morphology
             else None
         ),
         "word_package": word_package,

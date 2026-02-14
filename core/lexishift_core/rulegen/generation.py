@@ -187,6 +187,7 @@ class RuleGenerationPipeline:
             fallback_provider=candidate.source_dict or "rulegen",
         )
         script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
+        morphology = _normalize_morphology(candidate.metadata.get("morphology"))
         if script_forms is None and word_package is not None:
             script_forms = _normalize_script_forms(word_package.get("script_forms"))
         metadata = RuleMetadata(
@@ -196,6 +197,7 @@ class RuleGenerationPipeline:
             confidence=confidence,
             script_forms=script_forms,
             word_package=word_package,
+            morphology=morphology,
         )
         tags = list(config.tags)
         if candidate.source_type and candidate.source_type not in tags:
@@ -264,6 +266,18 @@ def _normalize_script_forms(value: object) -> Optional[dict[str, str]]:
         if not script or not text:
             continue
         normalized[script] = text
+    return normalized or None
+
+
+def _normalize_morphology(value: object) -> Optional[dict[str, object]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, object] = {}
+    for key, raw in dict(value).items():
+        name = str(key or "").strip()
+        if not name:
+            continue
+        normalized[name] = raw
     return normalized or None
 
 

@@ -209,6 +209,45 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("home", sources)
         self.assertTrue(all(rule.replacement == "casa" for rule in rules))
 
+    def test_en_es_adapter_generates_plural_pair_with_canonical_target(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>hora</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">hour</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("hora",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                )
+            )
+
+        by_source = {rule.source_phrase: rule for rule in rules}
+        self.assertIn("hour", by_source)
+        self.assertIn("hours", by_source)
+        self.assertEqual(by_source["hour"].replacement, "hora")
+        self.assertEqual(by_source["hours"].replacement, "hora")
+        hours_metadata = by_source["hours"].metadata
+        self.assertIsNotNone(hours_metadata)
+        self.assertIsNotNone(hours_metadata.morphology)
+        self.assertEqual(hours_metadata.morphology.get("source_form"), "plural")
+        self.assertEqual(hours_metadata.morphology.get("target_surface"), "horas")
+        self.assertEqual(hours_metadata.morphology.get("target_lemma"), "hora")
+
     def test_es_en_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
