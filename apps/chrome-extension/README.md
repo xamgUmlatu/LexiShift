@@ -41,6 +41,7 @@ Purpose:
 
 - Replacement runtime
   - Longest-match phrase replacement with highlight and click-to-toggle behavior.
+  - Supports morphology-aware display surfaces via rule metadata (`metadata.morphology.target_surface`) while keeping canonical replacement lemma identity for SRS keys.
   - Runtime replacement controls:
     - `maxOnePerTextBlock`
     - `allowAdjacentReplacements`

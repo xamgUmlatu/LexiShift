@@ -233,6 +233,7 @@ Replacement pipeline (content script)
      - `maxReplacementsPerLemmaPerPage`: skip lemmas that reached per-page cap.
    - Replace the node with a fragment containing spans and text nodes.
    - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
+   - For morphology-tagged rules, display can use `metadata.morphology.target_surface` while canonical lemma remains `rule.replacement` for gating/feedback keys.
    - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
 8. Track processed nodes in a `WeakMap` to avoid repeated replacements.
 

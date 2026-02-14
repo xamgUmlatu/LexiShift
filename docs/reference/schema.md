@@ -43,6 +43,12 @@ Top-level fields
 - `language_pair` (string, optional; e.g., `en-en`, `de-en`)
 - `confidence` (float, optional; 0–1)
 - `script_forms` (object map, optional; script -> display form, e.g. `{ "kanji": "猫", "kana": "ねこ", "romaji": "neko" }`)
+- `morphology` (object, optional; paired inflection metadata)
+  - Current keys used by runtime:
+    - `source_form` (string, e.g. `plural`)
+    - `source_phrase_base` (string; non-inflected source form)
+    - `target_surface` (string; display surface form for the inflected source)
+    - `target_lemma` (string; canonical SRS lemma identity)
 - `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
 
 ### WordPackage
@@ -64,6 +70,8 @@ Top-level fields
 Notes:
 - Rule rendering precedence for Japanese script forms is `metadata.word_package.script_forms` first, then legacy `metadata.script_forms`.
 - `metadata.script_forms` remains supported for backwards compatibility.
+- For morphology-tagged rules, runtime may display `metadata.morphology.target_surface`, but canonical SRS identity remains `rule.replacement` (lemma).
+- `pmw` may be absent in some frequency corpora; seed/rulegen paths can resolve alternate numeric columns such as `frequency`, `freq`, or `count`.
 
 ### VocabSettings
 - `inflections` (object, optional; `InflectionSettings`)

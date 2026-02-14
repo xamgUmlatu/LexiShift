@@ -131,7 +131,7 @@ filename: freedict-spa-eng-0.3.1.src.tar.xz
 unzipped_name: spa-eng.tei
 layout: TEI XML
 parse_hint: form/orth (ES headword) -> cit type=trans / quote xml:lang="en"
-notes: pinned to latest spa-eng version currently listed on FreeDict index
+notes: pinned to latest spa-eng version currently listed on FreeDict index; converter: scripts/data/convert_freedict_spa_eng_to_sqlite.py
 
 pack_id: freedict-en-es
 name: FreeDict (EN->ES)
@@ -144,7 +144,7 @@ filename: freedict-eng-spa-2025.11.23.src.tar.xz
 unzipped_name: eng-spa.tei
 layout: TEI XML
 parse_hint: form/orth (EN headword) -> cit type=trans / quote xml:lang="es"
-notes: pinned to latest date-versioned eng-spa release (2025.11.23)
+notes: pinned to latest date-versioned eng-spa release (2025.11.23); converter: scripts/data/convert_freedict_eng_spa_to_sqlite.py
 
 pack_id: jmdict-ja-en
 name: JMDict
@@ -320,4 +320,4 @@ filename: spanish_lemmas20k.txt
 unzipped_name: spanish_lemmas20k.txt
 layout: tab-delimited text sample
 parse_hint: ParseConfig(delimiter="\t", header_starts_with="ID", skip_prefixes=("----",)); decode Latin-1 to preserve accents
-notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list)
+notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list); converter: scripts/data/convert_cde_frequency_to_sqlite.py

@@ -11,7 +11,7 @@ Architecture contract:
 Status baseline (current):
 - Extension UI resolves LP dynamically from source/target language inputs.
 - Helper SRS bootstrap/rulegen paths use LP capabilities for requirement resolution.
-- Pair-specific rulegen is implemented for `en-ja` and `en-de`.
+- Pair-specific rulegen is implemented for `en-ja`, `en-de`, `en-es`, and `es-en`.
 
 ## 1) LP Strategy And Direction Policy
 
@@ -28,8 +28,11 @@ Use this matrix to determine what must exist before a pair can be marked impleme
 | LP | Rule source(s) | Bootstrap/growth frequency source | Stopwords file | Current status |
 | --- | --- | --- | --- | --- |
 | `en-ja` | JMDict | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Partial/implemented |
-| `de-en` | FreeDict (`freedict-de-en`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Data mostly available, pipeline missing |
-| `en-de` | FreeDict (`freedict-en-de`) | German frequency pack (missing today) | `stopwords-de.json` (missing) | Blocked by missing frequency + pipeline |
+| `de-en` | FreeDict (`freedict-en-de`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Data mostly available, adapter still missing |
+| `en-de` | FreeDict (`freedict-de-en`) | German frequency (`freq-de-default`) | `stopwords-de.json` (optional fallback exists) | Implemented (quality tuning pending) |
+| `en-es` | FreeDict (`freedict-es-en`) | Spanish frequency (`freq-es-cde`) | `stopwords-es.json` (missing) | Implemented (paired plural morphology enabled) |
+| `es-en` | FreeDict (`freedict-en-es`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Implemented baseline |
+| `es-es` | Spanish monolingual source (TBD) | Spanish frequency (`freq-es-cde`) | `stopwords-es.json` (missing) | Missing monolingual adapter/source |
 | `en-en` | WordNet, Moby | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Data available, SRS pipeline missing |
 | `de-de` | OdeNet, OpenThesaurus | German frequency pack (missing today) | `stopwords-de.json` (missing) | Blocked by missing frequency + pipeline |
 | `ja-ja` | JP WordNet (tab/sqlite) | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Data mostly available, SRS pipeline missing |

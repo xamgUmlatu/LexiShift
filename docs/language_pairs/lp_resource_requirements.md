@@ -41,7 +41,7 @@ Related:
 - `rulegen publish` (`run_rulegen_for_pair`):
   - Requires pair adapter support.
   - Dictionary inputs are adapter-specific.
-  - Current implemented adapters: `en-ja`, `en-de`.
+  - Current implemented adapters: `en-ja`, `en-de`, `en-es`, `es-en`.
 - Scheduler/feedback/exposure:
   - No dictionary/frequency file requirement after items exist in `S`.
 
@@ -57,12 +57,15 @@ Legend:
 | `en-ja` | Cross-lingual translation | `jmdict-ja-en` (`JMdict_e`) | `freq-ja-bccwj.sqlite` | `stopwords-ja.json` (optional) | `JMdict_e`: Hard for seed + rulegen. Frequency DB: Hard. | Same as code. Implemented baseline path. |
 | `de-en` | Cross-lingual translation | `freedict-en-de` (`eng-deu.tei`) for EN targets, DE sources | `freq-en-coca.sqlite` (current default) | `stopwords-en.json` (optional) | Frequency DB: Hard. No dictionary hard-check today. Rulegen adapter missing. | Needs `de-en` adapter + FreeDict TEI wiring for publishable rules. |
 | `en-de` | Cross-lingual translation | `freedict-de-en` (`deu-eng.tei`) for DE targets, EN sources | `freq-de-default.sqlite` fallback path (placeholder, not bundled) | `stopwords-de.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). FreeDict DE->EN TEI: Hard for rulegen/publish. | Adapter implemented; still needs real German frequency DB for practical initialize/refresh. |
+| `en-es` | Cross-lingual translation | `freedict-es-en` (`spa-eng.tei`) for ES targets, EN sources | `freq-es-cde.sqlite` | `stopwords-es.json` (optional, currently missing) | Frequency DB: Hard. FreeDict ES->EN TEI/SQLite: Hard for rulegen/publish. | Adapter implemented; includes paired noun-plural morphology display metadata. |
+| `es-en` | Cross-lingual translation | `freedict-en-es` (`eng-spa.tei`) for EN targets, ES sources | `freq-en-coca.sqlite` | `stopwords-en.json` (optional) | Frequency DB: Hard. FreeDict EN->ES TEI/SQLite: Hard for rulegen/publish. | Adapter implemented baseline path. |
+| `es-es` | Monolingual synonyms | Spanish monolingual source TBD (for example ES WordNet/OpenThesaurus-like source) | `freq-es-cde.sqlite` | `stopwords-es.json` (optional, currently missing) | Frequency DB: Hard. Rulegen adapter missing. | Needs monolingual ES adapter + source selection. |
 | `en-en` | Monolingual synonyms | `wordnet-en`, `moby-en` | `freq-en-coca.sqlite` | `stopwords-en.json` (optional) | Frequency DB: Hard. Rulegen adapter missing. | Needs monolingual EN adapter using WordNet/Moby sources. |
 | `de-de` | Monolingual synonyms | `odenet-de`, `openthesaurus-de` | `freq-de-default.sqlite` fallback path (placeholder) | `stopwords-de.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). Rulegen adapter missing. | Needs German frequency DB + monolingual DE adapter. |
 | `ja-ja` | Monolingual synonyms | `jp-wordnet-sqlite` or `jp-wordnet` | `freq-ja-bccwj.sqlite` | `stopwords-ja.json` (optional) | Frequency DB: Hard. Rulegen adapter missing. | Needs monolingual JA adapter (JP WordNet source). |
 | `en-zh` | Cross-lingual translation | `cc-cedict-zh-en` (`cedict_ts.u8`) | `freq-zh-default.sqlite` fallback path (placeholder) | `stopwords-zh.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). Rulegen adapter missing. | Needs Chinese frequency DB + `en-zh` adapter. |
 
-## 4) FreeDict Direction Clarification (`en-de` vs `de-en`)
+## 4) FreeDict Direction Clarification (`en-de` / `de-en` / `en-es` / `es-en`)
 
 - `freedict-de-en` (`deu-eng.tei`):
   - Headwords are German, translations are English.
@@ -73,11 +76,18 @@ Legend:
 
 Both files are TEI dictionaries; they support opposite directional rulegen needs.
 
+- `freedict-es-en` (`spa-eng.tei`):
+  - Headwords are Spanish, translations are English.
+  - Useful when targets are Spanish and sources are English (LP `en-es` rule orientation).
+- `freedict-en-es` (`eng-spa.tei`):
+  - Headwords are English, translations are Spanish.
+  - Useful when targets are English and sources are Spanish (LP `es-en` rule orientation).
+
 ## 5) Current Gaps Summary
 
 - Hard blocker for several LPs: missing real target-language frequency DB (DE, ZH).
-- Hard blocker for several LPs publish path: missing rulegen adapters (`de-en`, `en-en`, `de-de`, `ja-ja`, `en-zh`).
-- Current dictionary hard requirements in code: `en-ja` (JMDict), `en-de` (FreeDict DE->EN TEI).
+- Hard blocker for several LPs publish path: missing rulegen adapters (`de-en`, `es-es`, `en-en`, `de-de`, `ja-ja`, `en-zh`).
+- Current dictionary hard requirements in code: `en-ja` (JMDict) and FreeDict-backed pairs (`en-de`, `en-es`, `es-en`).
 
 ## 6) German Frequency DB Build (Current Recommendation)
 
@@ -158,5 +168,38 @@ python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/build/de_frequenc
   --input /Users/takeyayuki/Documents/deu_news_2023_1M/deu_news_2023_1M-words.txt \
   --pos-raw /Users/takeyayuki/Documents/projects/german-pos-dict/german-pos-dict.txt \
   --drop-proper-nouns \
+  --overwrite
+```
+
+## 7) Spanish Resource Conversion Quickstart
+
+Expected outputs:
+- Frequency DB: `freq-es-cde.sqlite`
+- Translation DBs: `freedict-es-en.sqlite`, `freedict-en-es.sqlite`
+
+Convert Corpus del Espanol sample frequency text to SQLite:
+
+```bash
+python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_cde_frequency_to_sqlite.py \
+  /path/to/spanish_lemmas20k.txt \
+  "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite" \
+  --overwrite
+```
+
+Convert FreeDict ES->EN archive/tei to SQLite:
+
+```bash
+python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_freedict_spa_eng_to_sqlite.py \
+  /path/to/freedict-spa-eng-0.3.1.src.tar.xz \
+  "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en.sqlite" \
+  --overwrite
+```
+
+Convert FreeDict EN->ES archive/tei to SQLite:
+
+```bash
+python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_freedict_eng_spa_to_sqlite.py \
+  /path/to/freedict-eng-spa-2025.11.23.src.tar.xz \
+  "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-en-es.sqlite" \
   --overwrite
 ```

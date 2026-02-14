@@ -19,7 +19,8 @@ Implemented features (current)
 - SRS + helper core
   - SRS store/scheduler/policy primitives and pair-level settings.
   - Set planning/bootstrap/refresh workflows in helper use-cases.
-  - Language-pair rule generation pipelines (`ja_en`, `en_de`) with confidence scoring.
+  - Language-pair rule generation pipelines (`ja_en`, `en_de`, `en_es`, `es_en`) with confidence scoring.
+  - Paired morphology metadata for inflected source/target surfaces (currently wired for `en-es` noun plurals).
   - Feedback/exposure signal ingestion paths.
 - Desktop GUI (PySide6)
   - Profile/ruleset management and editable rules tables.
@@ -66,7 +67,7 @@ Project layout
 - `core/lexishift_core/frequency/`: generic frequency lexicon loading + provider interfaces.
 - `core/lexishift_core/frequency/de/`: DE-specific frequency pack build pipeline and POS-lexicon compilation.
 - `core/lexishift_core/rulegen/generation.py`: pair-agnostic rule generation pipeline/scoring.
-- `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`ja_en`, `en_de`).
+- `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`ja_en`, `en_de`, `en_es`, `es_en`).
 - `core/lexishift_core/__init__.py`: public API exports.
 - `data/`: schema definitions and sample rulesets.
 - `scripts/dev/dev_utils.py`: convenience re-export of the same public API.
@@ -358,6 +359,7 @@ Chrome extension
   - Keyboard shortcuts (Ctrl+1/2/3/4) while popup is open.
   - Feedback gating by origin (`srs` vs `ruleset`) and optional feedback sound.
   - Exposure logging to `chrome.storage.local` (independent from debug logging).
+  - Morphology-aware display surfaces: runtime can render `metadata.morphology.target_surface` while preserving canonical lemma identity for SRS keys/feedback.
 - Profile-scoped features in options
   - Selected profile picker and helper profile refresh.
   - Pair-level SRS controls (enabled/max active/bootstrap/initial active/etc.).
@@ -454,6 +456,9 @@ Current limitations
   - Improve rulegen quality by making generation/scoring shallower and higher precision.
   - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
   - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
+- TODO (pair-specific morphology expansion):
+  - Current paired morphology expansion is intentionally narrow (`en-es` noun plural source -> target surface mapping).
+  - Add explicit morphology resolvers per LP (`en-de`, `es-en`, and future pairs) and extend beyond plural nouns.
 
 Plans (ordered by ease/priority)
 1. Persist all GUI knowledge inside profiles/rulesets:

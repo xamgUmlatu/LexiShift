@@ -123,7 +123,7 @@ Below is a consolidated list of automation ideas for synonym generation, annotat
 - **Pair‑type consistency (cross‑lingual)**: unclear; keep as a research topic.
 
 ### De‑emphasized / Not Needed
-- **Morphology normalization / lemma filtering**: not needed because SRS items are expected to be lemmatized already.
+- **Morphology normalization / lemma filtering**: canonical SRS items remain lemmatized; inflected display surfaces (for example paired morphology metadata in `en-es`) are handled separately in rulegen/runtime.
 - **Punctuation/format cleanup**: not needed given lemmatized inputs for S.
 - **Frequency gating**: low priority for now; possible later if frequency data is available.
 - **Noise suppression heuristics** (e.g., hyphens/markers): not preferred.

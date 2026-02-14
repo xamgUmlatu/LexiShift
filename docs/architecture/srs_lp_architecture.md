@@ -72,6 +72,7 @@ Non-negotiable core invariants:
 - Scheduler math, admission refresh policy contracts, and store schema stay LP-agnostic.
 - LP-specific UX must not fork core SRS state transitions.
 - LP-specific display metadata should be additive and scoped to UI/runtime rendering.
+  - Example: `metadata.morphology.target_surface` can change rendered text (for inflected forms), while canonical SRS identity stays on `rule.replacement`.
 
 ## 5) Adding A New LP Safely
 

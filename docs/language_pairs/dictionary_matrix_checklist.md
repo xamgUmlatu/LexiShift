@@ -1,6 +1,6 @@
 # Dictionary Matrix Checklist
 
-Goal: support EN→JP, JP→EN, EN→DE, DE→EN, JP→JP with clear synonym vs translation separation, feature gating, and graceful fallbacks.
+Goal: support EN→JP, JP→EN, EN→DE, DE→EN, EN→ES, ES→EN, JP→JP, and ES→ES with clear synonym vs translation separation, feature gating, and graceful fallbacks.
 
 ## 1) Inventory & Capability Matrix
 - [ ] List all current language packs and classify:
@@ -9,7 +9,7 @@ Goal: support EN→JP, JP→EN, EN→DE, DE→EN, JP→JP with clear synonym vs 
 - [x] OdeNet sample XML captured (`/Users/takeyayuki/Documents/odenet_oneline.xml`)
 - [x] FreeDict TEI sample located (`/Users/takeyayuki/Documents/deu-eng/deu-eng.tei`)
 - [x] OdeNet parser wired (monolingual DE synonyms)
-- [x] FreeDict TEI parser wired (DE→EN and EN→DE)
+- [x] FreeDict TEI parser wired (DE→EN, EN→DE, ES→EN, and EN→ES)
 - [ ] Map each pack to supported language pairs.
 - [ ] Identify missing packs for required pairs.
 - [ ] Decide primary/secondary sources per pair.
@@ -21,7 +21,10 @@ Goal: support EN→JP, JP→EN, EN→DE, DE→EN, JP→JP with clear synonym vs 
 - [ ] JP → EN
 - [ ] EN → DE
 - [ ] DE → EN
+- [ ] EN → ES
+- [ ] ES → EN
 - [ ] JP → JP (synonyms)
+- [ ] ES → ES (synonyms)
 
 ## 3) Pack Selection Rules
 - [ ] Synonym generation uses **monolingual** packs only.
@@ -52,7 +55,10 @@ Goal: support EN→JP, JP→EN, EN→DE, DE→EN, JP→JP with clear synonym vs 
 - [ ] JP→EN example set
 - [ ] EN→DE example set
 - [ ] DE→EN example set
+- [ ] EN→ES example set
+- [ ] ES→EN example set
 - [ ] JP→JP example set
+- [ ] ES→ES example set
 
 ## 8) Documentation
 - [ ] Update README with capability matrix.

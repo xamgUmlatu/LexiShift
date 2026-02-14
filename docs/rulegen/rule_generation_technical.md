@@ -24,7 +24,7 @@ Rule schema (canonical)
 - `confidence` (float, 0.00–1.00)
 - `source_dict` (string; dictionary id)
 - `source_type` (enum: synonym | translation | expansion | slang | phrase | inferred)
-- `metadata` (object; optional: POS, sense_id, frequency, notes)
+- `metadata` (object; optional: POS, sense_id, frequency, notes, morphology)
 
 Pipeline overview
 0) **Set Planning (new scaffold)**
@@ -44,6 +44,7 @@ Pipeline overview
    - Morphological variants (plural, tense, inflection).
    - Common abbreviations / slang expansions.
    - Phrase expansions (optional).
+   - LP-aware paired morphology can attach `metadata.morphology` (`source_form`, `source_phrase_base`, `target_surface`, `target_lemma`).
 
 4) **Scoring**
    - Assign confidence per rule (0–1).
@@ -64,7 +65,8 @@ Language‑pair specific modules (pluggable)
 - **Tokenizer / segmentation**
   - Needed for languages without spaces (JP/CH/KR).
 - **Inflection engine**
-  - EN/DE benefit from inflection expansion for high recall.
+  - EN/DE/ES benefit from inflection expansion for high recall.
+  - Current paired morphology implementation: `en-es` noun plural source forms with Spanish display-surface mapping.
 - **POS alignment**
   - Optional, but improves confidence when dictionary provides POS.
 - **Phrase expansion**
@@ -101,14 +103,19 @@ Filtering at runtime
 - Threshold slider should be pair‑aware (same slider can apply to a selected pair).
 
 Data requirements (by pair)
-- **Monolingual (EN/DE/JP)**
+- **Monolingual (EN/DE/ES/JP)**
   - Monolingual synonym source (WordNet/OdeNet/OpenThesaurus/JP WordNet).
   - Frequency list (to prioritize sources that appear in text).
   - Optional: embeddings.
-- **Cross‑lingual (EN↔DE, EN↔JP)**
+- **Cross‑lingual (EN↔DE, EN↔JP, EN↔ES)**
   - Bilingual dictionary (FreeDict/JMDict).
   - Optional: multilingual embeddings.
   - Optional: tokenizer for JP.
+
+Current morphology handling (`en-es`)
+- Rulegen emits both canonical and plural source forms when applicable (for example `hour` and `hours`).
+- Emitted rules keep canonical `replacement` lemma (for example `hora`) for SRS identity.
+- Plural display form is carried in `metadata.morphology.target_surface` (for example `horas`) and consumed by extension runtime.
 
 Storage & versioning
 - Store rules per language_pair with version metadata.
@@ -188,11 +195,13 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 
 Implementation status
 - Core pipeline skeleton lives in `core/lexishift_core/rulegen/generation.py`.
-- `RuleMetadata` now supports `source_type` + `confidence` fields and is serialized in datasets.
+- `RuleMetadata` now supports `source_type`, `confidence`, and `morphology` fields and is serialized in datasets.
 - JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rulegen/pairs/ja_en.py`.
+- EN→DE, EN→ES, and ES→EN generators live in `core/lexishift_core/rulegen/pairs/en_de.py`, `core/lexishift_core/rulegen/pairs/en_es.py`, and `core/lexishift_core/rulegen/pairs/es_en.py`.
+- Paired inflection expansion utilities live in `core/lexishift_core/rulegen/utils.py` (`PairedInflectionVariantExpander`).
 - Frequency lexicon loader lives in `core/lexishift_core/frequency/core.py` (generic).
 - SQLite frequency access + normalization lives in `core/lexishift_core/frequency/sqlite_store.py` and `core/lexishift_core/frequency/providers.py`.
-- Seed builder for JA targets lives in `core/lexishift_core/srs/seed.py` (core_rank selection + pmw weighting).
+- Seed builder for LP targets lives in `core/lexishift_core/srs/seed.py` (rank selection + frequency-column weighting with `pmw` preference and fallback columns).
 - Set planning scaffold lives in:
   - `core/lexishift_core/srs/set_strategy.py`
   - `core/lexishift_core/srs/set_planner.py`

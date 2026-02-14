@@ -159,9 +159,11 @@ Status key:
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
-### Workstream H — LP parity and de-hardcoding (`en-de` vs `en-ja`)
+### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)
 Current parity snapshot (as of 2026-02-09):
 - `en-de` helper rulegen path is implemented and can run when `freq-de-default.sqlite` and `freedict-de-en` are present.
+- `en-es` and `es-en` helper rulegen paths are implemented and can run when `freq-es-cde.sqlite` and the corresponding FreeDict resources are present.
+- `en-es` rulegen supports paired plural morphology metadata (`target_surface`) while preserving canonical replacement lemma identity.
 - LP capability registry now drives helper requirement checks, daemon supported-rulegen pair selection, and SRS pair UI exposure.
 - Full parity is not complete because some cross-surface runtime consistency checks are still pending.
 

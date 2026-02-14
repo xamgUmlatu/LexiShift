@@ -22,6 +22,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Replacement engine**: Applies rules to text using a longest‑match strategy (trie).
 - **Helper bridge**: Extension service-worker boundary that owns native-messaging calls to LexiShift Helper.
 - **Inflection expansion**: Optional step that generates inflected variants of a source phrase.
+- **Paired morphology expansion**: LP-aware variant expansion that can pair inflected source forms with target display surfaces while keeping canonical lemma identity.
 - **Pipeline**: A chained sequence of transformations (e.g., synonym lookup → inflection expansion → ruleset).
 - **Consensus filter**: Optional filter that keeps candidate synonyms only if multiple dictionaries agree.
 - **Embedding ranking**: Optional similarity scoring using word embeddings.
@@ -48,7 +49,8 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Frequency list**: A corpus‑derived list of words with ranks or counts.
 - **Frequency pack**: A downloaded dataset converted to SQLite for efficient lookups.
 - **core_rank**: BCCWJ column used for *selection* (lower = more universal).
-- **pmw**: “Per Million Words” column used for *weighting* (higher = more common).
+- **pmw**: “Per Million Words” column used for *weighting* (higher = more common). Preferred when present.
+- **Frequency value column**: The numeric frequency column used for weighting; falls back to `frequency`/`freq`/`count` when `pmw` is unavailable.
 - **Admission weight (weight 1)**: Score used to decide whether a candidate from `U` should enter `S` (or re-enter during growth).
 - **Admission bias**: Additional multiplier/additive factor applied to admission weight (for POS, profile interests, proficiency, etc.).
 - **POS bucket**: Coarse part-of-speech class (`noun`, `adjective`, `verb`, `adverb`, `other`) used by admission bias policy.
@@ -56,6 +58,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Effective serving probability**: The normalized chance a word is shown from currently eligible items; this is derived from serving priority and policy caps, not used for admission.
 - **Gloss decay**: A penalty applied to secondary dictionary glosses (e.g., 100% / 70% / 50%).
 - **Confidence**: A 0..1 value attached to rules to support filtering and threshold sliders.
+- **Target surface**: Inflected display form in `metadata.morphology.target_surface` (for example, `horas`) while canonical replacement lemma stays unchanged (for example, `hora`).
 
 ## Language Pairs
 
