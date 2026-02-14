@@ -41,7 +41,7 @@ from lexishift_core.helper.engine import (
     reset_srs_data,
     run_rulegen_job,
 )
-from lexishift_core.helper.profiles import get_profiles_snapshot
+from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
 from lexishift_core.helper.os import open_path
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
@@ -293,6 +293,8 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return {"opened": str(paths.data_root)}
     if msg_type == "profiles_get":
         return get_profiles_snapshot(paths)
+    if msg_type == "profile_rulesets_get":
+        return get_profile_rulesets_snapshot(paths, profile_id=profile_id)
     raise ValueError(f"Unknown command: {msg_type}")
 
 

@@ -25,7 +25,7 @@ from lexishift_core.helper.engine import (
     reset_srs_data,
     run_rulegen_job,
 )
-from lexishift_core.helper.profiles import get_profiles_snapshot
+from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from lexishift_core.helper.lp_capabilities import (
@@ -285,6 +285,13 @@ def cmd_profiles_get(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_profile_rulesets_get(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = get_profile_rulesets_snapshot(paths, profile_id=args.profile_id)
+    _print_json(payload)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="LexiShift Helper CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -393,6 +400,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     profiles_get = sub.add_parser("profiles_get", help="Show helper profile snapshot from settings.json")
     profiles_get.set_defaults(func=cmd_profiles_get)
+
+    profile_rulesets_get = sub.add_parser(
+        "profile_rulesets_get",
+        help="Show manual rulesets for a profile from settings.json",
+    )
+    profile_rulesets_get.add_argument("--profile-id", help="Profile id (default: resolved active profile)")
+    profile_rulesets_get.set_defaults(func=cmd_profile_rulesets_get)
 
     return parser
 

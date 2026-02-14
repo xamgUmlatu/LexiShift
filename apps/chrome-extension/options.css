@@ -146,6 +146,60 @@ header p {
   margin-top: 10px;
 }
 
+.profile-rulesets-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-ruleset-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border: 1px solid #d8cfbf;
+  border-radius: 8px;
+  background: #fffcf6;
+}
+
+.profile-ruleset-row.is-missing {
+  border-color: #d9b9b9;
+  background: #fff8f8;
+}
+
+.profile-ruleset-row input[type="checkbox"] {
+  margin-top: 2px;
+}
+
+.profile-ruleset-text {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-ruleset-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #40392f;
+}
+
+.profile-ruleset-meta {
+  font-size: 12px;
+  color: #6c675f;
+}
+
+.profile-ruleset-path {
+  font-size: 11px;
+  font-family: "Courier New", monospace;
+  color: #7b756b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .toggle {
   display: flex;
   gap: 10px;

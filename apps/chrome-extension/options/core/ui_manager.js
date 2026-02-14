@@ -44,6 +44,7 @@ class UIManager {
       "debug-helper-test-output", "debug-open-data-dir",
       "debug-open-data-dir-output", "ui-language", "rules", "save",
       "status", "rules-file", "import-file", "export-file", "file-status",
+      "profile-rulesets-list", "profile-rulesets-status", "profile-rulesets-refresh",
       "rules-updated", "rules-count", "share-code", "share-code-scope", "share-code-cjk",
       "generate-code", "import-code", "copy-code", "open-desktop-app",
       "open-bd-plugin"

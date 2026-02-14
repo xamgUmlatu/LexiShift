@@ -91,11 +91,13 @@
       const resolvedProfileId = this.normalizeSrsProfileId(profileId);
       const raw = this._isObject(profilesRoot[resolvedProfileId]) ? profilesRoot[resolvedProfileId] : {};
       return {
+        ...raw,
         srsByPair: this._isObject(raw.srsByPair) ? raw.srsByPair : {},
         srsSignalsByPair: this._isObject(raw.srsSignalsByPair) ? raw.srsSignalsByPair : {},
         languagePrefs: this._isObject(raw.languagePrefs) ? raw.languagePrefs : {},
         uiPrefs: this._isObject(raw.uiPrefs) ? raw.uiPrefs : {},
-        modulePrefs: this._isObject(raw.modulePrefs) ? raw.modulePrefs : {}
+        modulePrefs: this._isObject(raw.modulePrefs) ? raw.modulePrefs : {},
+        manualRulesets: this._isObject(raw.manualRulesets) ? raw.manualRulesets : {}
       };
     };
 

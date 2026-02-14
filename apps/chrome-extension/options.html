@@ -224,6 +224,19 @@
               </p>
             </section>
             <section class="group-subcard">
+              <h3>Profile Rulesets</h3>
+              <p class="hint">
+                Enable or disable manual rulesets linked to the selected profile.
+              </p>
+              <div id="profile-rulesets-list" class="profile-rulesets-list">
+                <p class="hint">No profile rulesets available.</p>
+              </div>
+              <div class="actions">
+                <button id="profile-rulesets-refresh" type="button">Reload profile rulesets</button>
+              </div>
+              <p id="profile-rulesets-status" class="hint"></p>
+            </section>
+            <section class="group-subcard">
               <h3 data-i18n="section_rules_json">Rules (JSON)</h3>
               <p class="hint" data-i18n="hint_rules_format">
                 Format: [{"source_phrase":"twilight","replacement":"gloaming","priority":0,"case_policy":"match","enabled":true}]
@@ -457,6 +470,7 @@
     <script src="options/controllers/srs/actions/shared.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>
+    <script src="options/controllers/rules/profile_rulesets_controller.js"></script>
     <script src="options/controllers/rules/share_controller.js"></script>
     <script src="options/controllers/helper/actions_controller.js"></script>
     <script src="options/controllers/srs/profile_runtime_controller.js"></script>

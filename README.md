@@ -436,6 +436,12 @@ Current limitations
   - Do a full UX pass across all major GUI screens (navigation, hierarchy, spacing, and affordances).
   - Normalize layout density and visual consistency across locales, themes, and window sizes.
   - Simplify settings information architecture so language packs, profiles, and SRS controls are easier to find.
+- TODO (ruleset display/highlight settings):
+  - Move manual rules display/highlight controls into per-ruleset settings (not one shared/manual-only setting).
+  - Per-ruleset settings:
+    - Display
+    - Highlight replaced words (click to toggle original)
+    - Highlight color
 - TODO (CJK / no-space languages):
   - Detect whether input is likely a no-space language (CJK) using lightweight heuristics.
   - If CJK, choose between:
@@ -443,9 +449,14 @@ Current limitations
     - exact substring replacement without token boundaries.
   - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 - TODO (replacement pacing/sensitivity controls):
+  - Move "Replacement Behavior" settings out of "Manual Rules" scope into global scope for the full experience.
+  - Applies to all replacements (ruleset and SRS).
+  - Settings to move:
+    - Replace max 1 word per text block.
+    - Allow replacing adjacent words.
+    - Max replacements per page (`0` = unlimited).
+    - Max per word per page (`0` = unlimited).
   - Consider limiting replacements per sentence.
-  - Limit replacements per page.
-  - Avoid replacing two juxtaposed words.
   - Add settings to adjust sensitivity/strictness for the rules above.
 - TODO (S-set visibility/review UX):
   - Add a list view of all the words currently in S.
@@ -467,6 +478,11 @@ Plans (ordered by ease/priority)
 2. Sync profiles/rulesets into clients:
    - Export active profile + ruleset list + language pack selection to Chrome/BD.
    - Add profile/ruleset switcher in extension/plugin settings.
+   - Allow enabling/disabling multiple manual rulesets under a selected profile (not only one active manual ruleset).
+   - Persist per-ruleset display settings:
+     - Display
+     - Highlight replaced words (click to toggle original)
+     - Highlight color
 3. Finish language pack UX polish:
    - Pack-specific validators for edge layouts.
    - Clear handling for external/manual paths vs. app-managed files.
@@ -490,7 +506,7 @@ Known inconsistencies / friction points
 - Manual language pack paths can point outside the app folder; Delete only removes app-managed files, so UX should clarify that.
 - Embeddings fallback requires neighbor-capable formats; SQLite builds without LSH won’t support fallback lookup.
 - Profile vs ruleset ownership is still fuzzy in UX; Manage menu ruleset population should make the relationship explicit and consistent.
-- Profiles support multiple rulesets, but extensions/plugins still take one ruleset at a time; profile sync is still conceptual.
+- Profiles support multiple rulesets, but extension/plugin runtime still needs profile-scoped multi-ruleset enable/disable behavior.
 - GUI spacing/padding is not tuned for all locales; layout density needs a pass.
 - Theme colors still need refinement for contrast and visual polish.
 - Theme coverage varies by widget; code editor/backgrounds may be obscured by opaque controls.

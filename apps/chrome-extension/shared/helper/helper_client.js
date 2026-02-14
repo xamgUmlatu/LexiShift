@@ -39,6 +39,10 @@
       return this.send("profiles_get");
     }
 
+    getProfileRulesets(profileId) {
+      return this.send("profile_rulesets_get", { profile_id: profileId });
+    }
+
     openDataDir() {
       return this.send("open_data_dir");
     }

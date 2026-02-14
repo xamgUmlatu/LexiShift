@@ -43,6 +43,7 @@
     const rebuildKeys = [
       "enabled",
       "rules",
+      "profileRules",
       "maxOnePerTextBlock",
       "allowAdjacentReplacements",
       "maxReplacementsPerPage",

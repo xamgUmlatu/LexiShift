@@ -128,6 +128,46 @@
       }
     };
 
+    proto.getProfileRulesets = async function getProfileRulesets(profileId) {
+      const client = this.getClient();
+      if (!client || typeof client.getProfileRulesets !== "function") {
+        return {
+          ok: false,
+          data: null,
+          error: {
+            code: "helper_missing",
+            message: this.i18n.t("status_helper_missing", null, "Helper unavailable.")
+          }
+        };
+      }
+      try {
+        const response = await client.getProfileRulesets(this.normalizeProfileId(profileId));
+        if (!response || response.ok === false) {
+          return {
+            ok: false,
+            data: null,
+            error: {
+              code: (response && response.error && response.error.code) || "helper_error",
+              message: (response && response.error && response.error.message)
+                || this.i18n.t("status_helper_failed", null, "Helper error.")
+            }
+          };
+        }
+        return { ok: true, data: response.data || null, error: null };
+      } catch (err) {
+        return {
+          ok: false,
+          data: null,
+          error: {
+            code: "helper_error",
+            message: err && err.message
+              ? err.message
+              : this.i18n.t("status_helper_failed", null, "Helper error.")
+          }
+        };
+      }
+    };
+
     proto.testConnection = async function testConnection() {
       const client = this.getClient();
       if (!client) return this.i18n.t("status_helper_missing", null, "Helper unavailable.");

@@ -68,7 +68,10 @@
 
       let rulesSource = "local";
       let helperRulesError = null;
-      const localRules = tagRulesWithOrigin(currentSettings.rules, ruleOriginRuleset);
+      const localRules = [
+        ...tagRulesWithOrigin(currentSettings.rules, ruleOriginRuleset),
+        ...tagRulesWithOrigin(currentSettings.profileRules, ruleOriginRuleset)
+      ];
       let helperRules = [];
 
       if (

@@ -16,6 +16,9 @@
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
       ? opts.syncSelectedProfile
       : ((items) => Promise.resolve({ items, profileId: "default" }));
+    const syncProfileRulesetsForProfile = typeof opts.syncProfileRulesetsForProfile === "function"
+      ? opts.syncProfileRulesetsForProfile
+      : (() => Promise.resolve());
     const clearProfileCache = typeof opts.clearProfileCache === "function"
       ? opts.clearProfileCache
       : (() => {});
@@ -85,6 +88,11 @@
         srsSelectedProfileId: synced.profileId
       }, {
         profileId: synced.profileId
+      });
+      await syncProfileRulesetsForProfile({
+        items: synced.items,
+        profileId: synced.profileId,
+        helperProfilesPayload: synced.helperProfilesPayload
       });
       log("Loaded SRS profile settings.", {
         pair: pairKey,

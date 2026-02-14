@@ -16,6 +16,9 @@
   root.defaults = {
     enabled: true,
     rules: [],
+    profileRules: [],
+    profileRulesUpdatedAt: "",
+    manualRulesetCacheByPath: {},
     highlightEnabled: true,
     highlightColor: "#9AA0A6",
     maxOnePerTextBlock: false,

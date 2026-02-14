@@ -131,6 +131,20 @@
       cacheTtlMs: 10_000
     });
 
+    const profileRulesetsController = requireControllerFactory("optionsProfileRulesets")({
+      settingsManager,
+      helperManager,
+      t,
+      setStatus: uiBridge.setStatus,
+      log: logOptions,
+      colors: ui.COLORS,
+      elements: {
+        profileRulesetsList: dom.profileRulesetsList,
+        profileRulesetsStatus: dom.profileRulesetsStatus,
+        profileRulesetsRefreshButton: dom.profileRulesetsRefreshButton
+      }
+    });
+
     const srsActionsController = requireControllerFactory("optionsSrsActions")({
       settingsManager,
       helperManager,
@@ -189,6 +203,7 @@
       resolvePair: languagePrefsAdapter.resolvePairFromInputs,
       applyLanguagePrefsToInputs: languagePrefsAdapter.applyLanguagePrefsToInputs,
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
+      syncProfileRulesetsForProfile: (optionsArg) => profileRulesetsController.syncForProfile(optionsArg),
       clearProfileCache: () => srsProfileSelectorController.clearCache(),
       syncProfileBackgroundForPrefs: (uiPrefs) => profileBackgroundController.syncForLoadedPrefs(uiPrefs),
       setProfileStatusLocalized: (key, substitutions, fallback) => {
