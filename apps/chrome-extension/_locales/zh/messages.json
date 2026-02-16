@@ -311,6 +311,330 @@
   "status_srs_reset_outdated": {
     "message": "Helper 版本过旧：找不到命令。请重启 Helper。"
   },
+  "section_share_center": {
+    "message": "分享中心"
+  },
+  "hint_share_center_entry": {
+    "message": "先选择方向。进入“导出”或“导入”后会显示详细选择。"
+  },
+  "share_center_entry_export_title": {
+    "message": "导出"
+  },
+  "share_center_entry_export_hint": {
+    "message": "从配置档层级选择数据，然后导出文件。"
+  },
+  "share_center_entry_import_title": {
+    "message": "导入"
+  },
+  "share_center_entry_import_hint": {
+    "message": "将分享文件导入到当前选中的配置档。"
+  },
+  "share_center_modal_export_title": {
+    "message": "导出"
+  },
+  "share_center_modal_import_title": {
+    "message": "导入"
+  },
+  "button_close": {
+    "message": "关闭"
+  },
+  "hint_share_center_export_mode": {
+    "message": "选择导出模式。完整配置档会导出全部数据；自定义选择可挑选具体节点。"
+  },
+  "share_center_mode_full_title": {
+    "message": "完整配置档"
+  },
+  "share_center_mode_full_hint": {
+    "message": "推荐。一键导出完整配置档数据。"
+  },
+  "share_center_mode_custom_title": {
+    "message": "自定义选择"
+  },
+  "share_center_mode_custom_hint": {
+    "message": "选择单个配置档节点（规则集、设置等）。"
+  },
+  "share_center_group_profile": {
+    "message": "配置档"
+  },
+  "share_center_group_profile_hint": {
+    "message": "选择或清除该配置档下所有可导出节点。"
+  },
+  "share_center_group_profile_configuration": {
+    "message": "配置档配置"
+  },
+  "share_center_path_configuration": {
+    "message": "配置"
+  },
+  "share_center_target_profile_settings": {
+    "message": "配置档设置"
+  },
+  "share_center_target_profile_settings_hint": {
+    "message": "配置档配置与 SRS 设置。"
+  },
+  "share_center_group_rulesets": {
+    "message": "规则集"
+  },
+  "share_center_group_srs_data": {
+    "message": "SRS 数据"
+  },
+  "share_center_group_appearance": {
+    "message": "外观"
+  },
+  "share_center_group_modules": {
+    "message": "模块"
+  },
+  "share_center_target_theme_colors": {
+    "message": "主题/颜色"
+  },
+  "share_center_target_theme_colors_hint": {
+    "message": "配置档主题值（颜色与卡片色调控制）。"
+  },
+  "share_center_empty_rulesets": {
+    "message": "此配置档没有可用规则集。"
+  },
+  "share_center_empty_srs_pairs": {
+    "message": "此配置档没有可用的 SRS 语言对数据。"
+  },
+  "share_center_empty_modules": {
+    "message": "此配置档/语言没有可用模块。"
+  },
+  "share_center_summary_title": {
+    "message": "选择摘要"
+  },
+  "share_center_summary_selection": {
+    "message": "选择路径"
+  },
+  "share_center_summary_includes": {
+    "message": "包含内容"
+  },
+  "share_center_summary_export_format": {
+    "message": "导出格式"
+  },
+  "share_center_summary_size_note": {
+    "message": "导出后会显示准确文件大小。"
+  },
+  "share_center_export_button": {
+    "message": "导出 JSON 文件"
+  },
+  "hint_share_center_import_file": {
+    "message": "选择要导入到当前配置档的分享文件。范围会自动识别。"
+  },
+  "label_share_center_import_file": {
+    "message": "分享文件"
+  },
+  "share_center_import_no_file_selected": {
+    "message": "未选择文件。"
+  },
+  "share_center_output_json_file": {
+    "message": "JSON 文件"
+  },
+  "share_center_value_unknown": {
+    "message": "（未知）"
+  },
+  "share_center_path_none": {
+    "message": "无（$1）"
+  },
+  "share_center_path_single_with_profile": {
+    "message": "$1（$2）"
+  },
+  "share_center_path_selected_nodes": {
+    "message": "$1 个已选节点（$2）"
+  },
+  "share_center_path_full_profile": {
+    "message": "完整配置档（$1）"
+  },
+  "share_center_includes_nothing_selected": {
+    "message": "未选择任何内容。"
+  },
+  "share_center_includes_profile_settings": {
+    "message": "配置档设置"
+  },
+  "share_center_includes_rulesets": {
+    "message": "规则集（$1）"
+  },
+  "share_center_includes_srs_pairs": {
+    "message": "SRS 语言对（$1）"
+  },
+  "share_center_includes_appearance": {
+    "message": "外观"
+  },
+  "share_center_includes_modules": {
+    "message": "模块（$1）"
+  },
+  "share_center_includes_selected_nodes": {
+    "message": "已选节点"
+  },
+  "share_center_error_select_nodes": {
+    "message": "请至少选择一个节点。"
+  },
+  "share_center_error_nodes_not_exportable": {
+    "message": "所选节点目前不可导出。"
+  },
+  "share_center_error_choose_ruleset_entry": {
+    "message": "生成前请选择规则集条目。"
+  },
+  "share_center_error_choose_module_entry": {
+    "message": "生成前请选择有效的模块条目。"
+  },
+  "share_center_error_choose_srs_pair_entry": {
+    "message": "生成前请选择有效的 SRS 语言对条目。"
+  },
+  "share_center_hint_ready_full_export": {
+    "message": "已可将完整配置档导出为 JSON 文件。"
+  },
+  "share_center_hint_ready_selection_export": {
+    "message": "已可将所选内容导出为 JSON 文件。"
+  },
+  "share_center_hint_ready_with_ignored": {
+    "message": "就绪。$1 个不支持的选择将被忽略。"
+  },
+  "share_center_error_cannot_generate_selection": {
+    "message": "当前选择无法生成。"
+  },
+  "share_center_error_no_custom_nodes": {
+    "message": "未选择可导出的自定义节点。"
+  },
+  "share_center_error_export_failed": {
+    "message": "导出文件失败。"
+  },
+  "share_center_status_exported_file": {
+    "message": "已导出 $1（$2）。"
+  },
+  "share_center_status_exported_file_ignored": {
+    "message": "$1 已忽略 $2 个不支持的选择。"
+  },
+  "share_center_error_choose_import_file": {
+    "message": "请先选择分享文件。"
+  },
+  "share_center_error_read_import_file": {
+    "message": "读取所选文件失败。"
+  },
+  "share_center_error_import_payload_empty": {
+    "message": "所选文件为空。"
+  },
+  "share_center_status_ruleset_imported_enabled": {
+    "message": "已导入 $1，并在此配置档中启用。"
+  },
+  "share_center_status_module_imported": {
+    "message": "已导入 $1 的模块偏好设置。"
+  },
+  "share_center_status_srs_pair_imported_reload": {
+    "message": "SRS 语言对进度已导入。正在重新加载选项…"
+  },
+  "share_center_status_appearance_imported_reload": {
+    "message": "外观已导入。正在重新加载选项…"
+  },
+  "share_center_summary_part_rulesets": {
+    "message": "$1 个规则集"
+  },
+  "share_center_summary_part_modules": {
+    "message": "$1 个模块设置"
+  },
+  "share_center_summary_part_profile_settings": {
+    "message": "配置档设置"
+  },
+  "share_center_summary_part_srs_pairs": {
+    "message": "$1 个 SRS 语言对"
+  },
+  "share_center_summary_part_appearance": {
+    "message": "外观"
+  },
+  "share_center_status_bundle_imported_reload_with_summary": {
+    "message": "已导入：$1。正在重新加载选项…"
+  },
+  "share_center_status_bundle_imported_reload": {
+    "message": "已导入数据包。正在重新加载选项…"
+  },
+  "share_center_status_bundle_imported_rulesets_modules": {
+    "message": "已导入 $1 个规则集和 $2 个模块设置。"
+  },
+  "share_center_status_bundle_imported_rulesets": {
+    "message": "已导入 $1 个规则集，并在此配置档中启用。"
+  },
+  "share_center_status_bundle_imported_modules": {
+    "message": "已导入 $1 个模块设置。"
+  },
+  "share_center_status_bundle_imported": {
+    "message": "数据包已导入。"
+  },
+  "share_center_status_import_applied_reload": {
+    "message": "导入已应用。正在重新加载选项…"
+  },
+  "share_center_status_payload_imported": {
+    "message": "载荷已导入。"
+  },
+  "share_center_error_invalid_payload": {
+    "message": "载荷无效。"
+  },
+  "share_center_error_import_failed": {
+    "message": "导入文件失败。"
+  },
+  "share_center_status_no_srs_pairs_profile": {
+    "message": "配置档 $1 上没有非空的 SRS 语言对数据。"
+  },
+  "share_center_status_srs_pairs_profile": {
+    "message": "配置档 $2 上有 $1 个包含数据的 SRS 语言对。"
+  },
+  "share_center_hint_profile_pair_data": {
+    "message": "配置档语言对数据"
+  },
+  "share_center_hint_signals": {
+    "message": "信号"
+  },
+  "share_center_hint_imported_helper_snapshot": {
+    "message": "已导入的 Helper 快照"
+  },
+  "share_center_hint_current_pair": {
+    "message": "当前语言对"
+  },
+  "share_center_hint_srs_pair_data_available": {
+    "message": "可用 SRS 语言对数据。"
+  },
+  "share_center_badge_current": {
+    "message": "当前"
+  },
+  "share_center_status_no_rulesets_profile": {
+    "message": "配置档 $1 没有可导出的规则集。"
+  },
+  "share_center_reason_rules_not_loaded": {
+    "message": "规则未加载"
+  },
+  "share_center_hint_enabled_in_profile": {
+    "message": "在配置档中已启用"
+  },
+  "share_center_hint_disabled_in_profile": {
+    "message": "在配置档中已禁用"
+  },
+  "share_center_hint_rules_count": {
+    "message": "$1 条规则"
+  },
+  "share_center_hint_rules_not_loaded_path": {
+    "message": "该路径的规则尚未加载"
+  },
+  "share_center_badge_enabled": {
+    "message": "已启用"
+  },
+  "share_center_badge_disabled": {
+    "message": "已禁用"
+  },
+  "share_center_badge_unavailable": {
+    "message": "不可用"
+  },
+  "share_center_status_rulesets_profile": {
+    "message": "配置档 $2 有 $1 个规则集；当前可导出 $3 个。"
+  },
+  "share_center_status_no_modules_profile": {
+    "message": "配置档 $1（$2）没有可用模块。"
+  },
+  "share_center_hint_enabled_in_this_profile": {
+    "message": "在此配置档中已启用。"
+  },
+  "share_center_hint_disabled_in_this_profile": {
+    "message": "在此配置档中已禁用。"
+  },
+  "share_center_status_modules_profile": {
+    "message": "配置档 $2（$3）有 $1 个模块。"
+  },
   "section_share_code": {
     "message": "分享代码"
   },

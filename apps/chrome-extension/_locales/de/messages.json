@@ -311,6 +311,330 @@
   "status_srs_reset_outdated": {
     "message": "Helper veraltet: Befehl nicht gefunden. Helper neu starten?"
   },
+  "section_share_center": {
+    "message": "Share Center"
+  },
+  "hint_share_center_entry": {
+    "message": "Wähle zuerst eine Richtung. Die Detailauswahl erscheint nach Export oder Import."
+  },
+  "share_center_entry_export_title": {
+    "message": "Exportieren"
+  },
+  "share_center_entry_export_hint": {
+    "message": "Wähle Daten aus der Profilhierarchie und exportiere sie als Datei."
+  },
+  "share_center_entry_import_title": {
+    "message": "Importieren"
+  },
+  "share_center_entry_import_hint": {
+    "message": "Importiere eine Freigabedatei in das ausgewählte Profil."
+  },
+  "share_center_modal_export_title": {
+    "message": "Exportieren"
+  },
+  "share_center_modal_import_title": {
+    "message": "Importieren"
+  },
+  "button_close": {
+    "message": "Schließen"
+  },
+  "hint_share_center_export_mode": {
+    "message": "Wähle den Exportmodus. Vollständiges Profil exportiert alles; Benutzerdefinierte Auswahl lässt dich bestimmte Knoten wählen."
+  },
+  "share_center_mode_full_title": {
+    "message": "Vollständiges Profil"
+  },
+  "share_center_mode_full_hint": {
+    "message": "Empfohlen. Exportiert vollständige Profildaten in einem Schritt."
+  },
+  "share_center_mode_custom_title": {
+    "message": "Benutzerdefinierte Auswahl"
+  },
+  "share_center_mode_custom_hint": {
+    "message": "Wähle einzelne Profilknoten (Regelsätze, Einstellungen und mehr)."
+  },
+  "share_center_group_profile": {
+    "message": "Profil"
+  },
+  "share_center_group_profile_hint": {
+    "message": "Alle exportierbaren Knoten unter diesem Profil auswählen oder abwählen."
+  },
+  "share_center_group_profile_configuration": {
+    "message": "Profilkonfiguration"
+  },
+  "share_center_path_configuration": {
+    "message": "Konfiguration"
+  },
+  "share_center_target_profile_settings": {
+    "message": "Profileinstellungen"
+  },
+  "share_center_target_profile_settings_hint": {
+    "message": "Profilkonfiguration und SRS-Einstellungen."
+  },
+  "share_center_group_rulesets": {
+    "message": "Regelsätze"
+  },
+  "share_center_group_srs_data": {
+    "message": "SRS-Daten"
+  },
+  "share_center_group_appearance": {
+    "message": "Erscheinungsbild"
+  },
+  "share_center_group_modules": {
+    "message": "Module"
+  },
+  "share_center_target_theme_colors": {
+    "message": "Thema/Farben"
+  },
+  "share_center_target_theme_colors_hint": {
+    "message": "Profil-Themewerte (Farben und Kartenfarbsteuerung)."
+  },
+  "share_center_empty_rulesets": {
+    "message": "Keine Profil-Regelsätze verfügbar."
+  },
+  "share_center_empty_srs_pairs": {
+    "message": "Keine SRS-Paardaten für dieses Profil verfügbar."
+  },
+  "share_center_empty_modules": {
+    "message": "Keine Module für dieses Profil/diese Sprache verfügbar."
+  },
+  "share_center_summary_title": {
+    "message": "Auswahlübersicht"
+  },
+  "share_center_summary_selection": {
+    "message": "Auswahl"
+  },
+  "share_center_summary_includes": {
+    "message": "Enthält"
+  },
+  "share_center_summary_export_format": {
+    "message": "Exportformat"
+  },
+  "share_center_summary_size_note": {
+    "message": "Die genaue Dateigröße wird nach dem Export angezeigt."
+  },
+  "share_center_export_button": {
+    "message": "JSON-Datei exportieren"
+  },
+  "hint_share_center_import_file": {
+    "message": "Wähle eine Freigabedatei zum Import in das ausgewählte Profil. Der Umfang wird automatisch erkannt."
+  },
+  "label_share_center_import_file": {
+    "message": "Freigabedatei"
+  },
+  "share_center_import_no_file_selected": {
+    "message": "Keine Datei ausgewählt."
+  },
+  "share_center_output_json_file": {
+    "message": "JSON-Datei"
+  },
+  "share_center_value_unknown": {
+    "message": "(unbekannt)"
+  },
+  "share_center_path_none": {
+    "message": "Keine ($1)"
+  },
+  "share_center_path_single_with_profile": {
+    "message": "$1 ($2)"
+  },
+  "share_center_path_selected_nodes": {
+    "message": "$1 ausgewählte Knoten ($2)"
+  },
+  "share_center_path_full_profile": {
+    "message": "Vollständiges Profil ($1)"
+  },
+  "share_center_includes_nothing_selected": {
+    "message": "Nichts ausgewählt."
+  },
+  "share_center_includes_profile_settings": {
+    "message": "Profileinstellungen"
+  },
+  "share_center_includes_rulesets": {
+    "message": "Regelsätze ($1)"
+  },
+  "share_center_includes_srs_pairs": {
+    "message": "SRS-Paare ($1)"
+  },
+  "share_center_includes_appearance": {
+    "message": "Erscheinungsbild"
+  },
+  "share_center_includes_modules": {
+    "message": "Module ($1)"
+  },
+  "share_center_includes_selected_nodes": {
+    "message": "Ausgewählte Knoten"
+  },
+  "share_center_error_select_nodes": {
+    "message": "Wähle einen oder mehrere Knoten."
+  },
+  "share_center_error_nodes_not_exportable": {
+    "message": "Ausgewählte Knoten sind noch nicht exportierbar."
+  },
+  "share_center_error_choose_ruleset_entry": {
+    "message": "Wähle vor dem Generieren einen Regelsatzeintrag."
+  },
+  "share_center_error_choose_module_entry": {
+    "message": "Wähle vor dem Generieren einen gültigen Moduleintrag."
+  },
+  "share_center_error_choose_srs_pair_entry": {
+    "message": "Wähle vor dem Generieren einen gültigen SRS-Paareintrag."
+  },
+  "share_center_hint_ready_full_export": {
+    "message": "Bereit, vollständiges Profil als JSON-Datei zu exportieren."
+  },
+  "share_center_hint_ready_selection_export": {
+    "message": "Bereit, Auswahl als JSON-Datei zu exportieren."
+  },
+  "share_center_hint_ready_with_ignored": {
+    "message": "Bereit. $1 nicht unterstützte Auswahl(en) werden ignoriert."
+  },
+  "share_center_error_cannot_generate_selection": {
+    "message": "Mit der aktuellen Auswahl kann nicht generiert werden."
+  },
+  "share_center_error_no_custom_nodes": {
+    "message": "Keine exportierbaren benutzerdefinierten Knoten ausgewählt."
+  },
+  "share_center_error_export_failed": {
+    "message": "Dateiexport fehlgeschlagen."
+  },
+  "share_center_status_exported_file": {
+    "message": "$1 exportiert ($2)."
+  },
+  "share_center_status_exported_file_ignored": {
+    "message": "$1 $2 nicht unterstützte Auswahl(en) wurden ignoriert."
+  },
+  "share_center_error_choose_import_file": {
+    "message": "Wähle zuerst eine Freigabedatei."
+  },
+  "share_center_error_read_import_file": {
+    "message": "Die ausgewählte Datei konnte nicht gelesen werden."
+  },
+  "share_center_error_import_payload_empty": {
+    "message": "Die ausgewählte Datei ist leer."
+  },
+  "share_center_status_ruleset_imported_enabled": {
+    "message": "$1 importiert und für dieses Profil aktiviert."
+  },
+  "share_center_status_module_imported": {
+    "message": "Moduleinstellungen für $1 importiert."
+  },
+  "share_center_status_srs_pair_imported_reload": {
+    "message": "SRS-Paarfortschritt importiert. Optionen werden neu geladen…"
+  },
+  "share_center_status_appearance_imported_reload": {
+    "message": "Erscheinungsbild importiert. Optionen werden neu geladen…"
+  },
+  "share_center_summary_part_rulesets": {
+    "message": "$1 Regelsätze"
+  },
+  "share_center_summary_part_modules": {
+    "message": "$1 Moduleinstellungen"
+  },
+  "share_center_summary_part_profile_settings": {
+    "message": "Profileinstellungen"
+  },
+  "share_center_summary_part_srs_pairs": {
+    "message": "$1 SRS-Paare"
+  },
+  "share_center_summary_part_appearance": {
+    "message": "Erscheinungsbild"
+  },
+  "share_center_status_bundle_imported_reload_with_summary": {
+    "message": "$1 importiert. Optionen werden neu geladen…"
+  },
+  "share_center_status_bundle_imported_reload": {
+    "message": "Bundle importiert. Optionen werden neu geladen…"
+  },
+  "share_center_status_bundle_imported_rulesets_modules": {
+    "message": "$1 Regelsätze und $2 Moduleinstellungen importiert."
+  },
+  "share_center_status_bundle_imported_rulesets": {
+    "message": "$1 Regelsätze importiert und für dieses Profil aktiviert."
+  },
+  "share_center_status_bundle_imported_modules": {
+    "message": "$1 Moduleinstellungen importiert."
+  },
+  "share_center_status_bundle_imported": {
+    "message": "Bundle importiert."
+  },
+  "share_center_status_import_applied_reload": {
+    "message": "Import angewendet. Optionen werden neu geladen…"
+  },
+  "share_center_status_payload_imported": {
+    "message": "Payload importiert."
+  },
+  "share_center_error_invalid_payload": {
+    "message": "Ungültige Payload."
+  },
+  "share_center_error_import_failed": {
+    "message": "Dateiimport fehlgeschlagen."
+  },
+  "share_center_status_no_srs_pairs_profile": {
+    "message": "Keine nicht-leeren SRS-Paardaten im Profil $1."
+  },
+  "share_center_status_srs_pairs_profile": {
+    "message": "$1 SRS-Paare mit Daten im Profil $2."
+  },
+  "share_center_hint_profile_pair_data": {
+    "message": "Profil-Paardaten"
+  },
+  "share_center_hint_signals": {
+    "message": "Signale"
+  },
+  "share_center_hint_imported_helper_snapshot": {
+    "message": "Importierter Helper-Snapshot"
+  },
+  "share_center_hint_current_pair": {
+    "message": "Aktuelles Paar"
+  },
+  "share_center_hint_srs_pair_data_available": {
+    "message": "SRS-Paardaten verfügbar."
+  },
+  "share_center_badge_current": {
+    "message": "Aktuell"
+  },
+  "share_center_status_no_rulesets_profile": {
+    "message": "Keine exportierbaren Regelsätze für Profil $1."
+  },
+  "share_center_reason_rules_not_loaded": {
+    "message": "Regeln nicht geladen"
+  },
+  "share_center_hint_enabled_in_profile": {
+    "message": "Im Profil aktiviert"
+  },
+  "share_center_hint_disabled_in_profile": {
+    "message": "Im Profil deaktiviert"
+  },
+  "share_center_hint_rules_count": {
+    "message": "$1 Regeln"
+  },
+  "share_center_hint_rules_not_loaded_path": {
+    "message": "Regeln für diesen Pfad sind noch nicht geladen"
+  },
+  "share_center_badge_enabled": {
+    "message": "Aktiviert"
+  },
+  "share_center_badge_disabled": {
+    "message": "Deaktiviert"
+  },
+  "share_center_badge_unavailable": {
+    "message": "Nicht verfügbar"
+  },
+  "share_center_status_rulesets_profile": {
+    "message": "$1 Regelsätze im Profil $2; $3 derzeit exportierbar."
+  },
+  "share_center_status_no_modules_profile": {
+    "message": "Keine Module für Profil $1 ($2) verfügbar."
+  },
+  "share_center_hint_enabled_in_this_profile": {
+    "message": "In diesem Profil aktiviert."
+  },
+  "share_center_hint_disabled_in_this_profile": {
+    "message": "In diesem Profil deaktiviert."
+  },
+  "share_center_status_modules_profile": {
+    "message": "$1 Module für Profil $2 ($3)."
+  },
   "section_share_code": {
     "message": "Share-Code"
   },

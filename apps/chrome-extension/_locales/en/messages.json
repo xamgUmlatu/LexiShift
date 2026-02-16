@@ -311,6 +311,330 @@
   "status_srs_reset_outdated": {
     "message": "Helper outdated: command not found. Restart helper?"
   },
+  "section_share_center": {
+    "message": "Share Center"
+  },
+  "hint_share_center_entry": {
+    "message": "Choose a direction first. Detailed selection appears after you enter Export or Import."
+  },
+  "share_center_entry_export_title": {
+    "message": "Export"
+  },
+  "share_center_entry_export_hint": {
+    "message": "Pick data from a profile hierarchy, then export a file."
+  },
+  "share_center_entry_import_title": {
+    "message": "Import"
+  },
+  "share_center_entry_import_hint": {
+    "message": "Import a share file into the selected profile."
+  },
+  "share_center_modal_export_title": {
+    "message": "Export"
+  },
+  "share_center_modal_import_title": {
+    "message": "Import"
+  },
+  "button_close": {
+    "message": "Close"
+  },
+  "hint_share_center_export_mode": {
+    "message": "Choose export mode. Full profile exports everything; custom selection lets you pick specific nodes."
+  },
+  "share_center_mode_full_title": {
+    "message": "Full profile"
+  },
+  "share_center_mode_full_hint": {
+    "message": "Recommended. Export complete profile data in one step."
+  },
+  "share_center_mode_custom_title": {
+    "message": "Custom selection"
+  },
+  "share_center_mode_custom_hint": {
+    "message": "Pick individual profile nodes (rulesets, settings, and more)."
+  },
+  "share_center_group_profile": {
+    "message": "Profile"
+  },
+  "share_center_group_profile_hint": {
+    "message": "Select or clear all exportable nodes under this profile."
+  },
+  "share_center_group_profile_configuration": {
+    "message": "Profile configuration"
+  },
+  "share_center_path_configuration": {
+    "message": "Configuration"
+  },
+  "share_center_target_profile_settings": {
+    "message": "Profile settings"
+  },
+  "share_center_target_profile_settings_hint": {
+    "message": "Profile configuration and SRS settings."
+  },
+  "share_center_group_rulesets": {
+    "message": "Rulesets"
+  },
+  "share_center_group_srs_data": {
+    "message": "SRS data"
+  },
+  "share_center_group_appearance": {
+    "message": "Appearance"
+  },
+  "share_center_group_modules": {
+    "message": "Modules"
+  },
+  "share_center_target_theme_colors": {
+    "message": "Theme/colors"
+  },
+  "share_center_target_theme_colors_hint": {
+    "message": "Profile theme values (colors and card tone controls)."
+  },
+  "share_center_empty_rulesets": {
+    "message": "No profile rulesets available."
+  },
+  "share_center_empty_srs_pairs": {
+    "message": "No SRS pair data available for this profile."
+  },
+  "share_center_empty_modules": {
+    "message": "No modules available for this profile/language."
+  },
+  "share_center_summary_title": {
+    "message": "Selection Summary"
+  },
+  "share_center_summary_selection": {
+    "message": "Selection"
+  },
+  "share_center_summary_includes": {
+    "message": "Includes"
+  },
+  "share_center_summary_export_format": {
+    "message": "Export format"
+  },
+  "share_center_summary_size_note": {
+    "message": "Exact file size is shown after export."
+  },
+  "share_center_export_button": {
+    "message": "Export JSON file"
+  },
+  "hint_share_center_import_file": {
+    "message": "Choose a share file to import into the selected profile. Scope is auto-detected."
+  },
+  "label_share_center_import_file": {
+    "message": "Share file"
+  },
+  "share_center_import_no_file_selected": {
+    "message": "No file selected."
+  },
+  "share_center_output_json_file": {
+    "message": "JSON file"
+  },
+  "share_center_value_unknown": {
+    "message": "(unknown)"
+  },
+  "share_center_path_none": {
+    "message": "None ($1)"
+  },
+  "share_center_path_single_with_profile": {
+    "message": "$1 ($2)"
+  },
+  "share_center_path_selected_nodes": {
+    "message": "$1 selected nodes ($2)"
+  },
+  "share_center_path_full_profile": {
+    "message": "Full profile ($1)"
+  },
+  "share_center_includes_nothing_selected": {
+    "message": "Nothing selected."
+  },
+  "share_center_includes_profile_settings": {
+    "message": "Profile settings"
+  },
+  "share_center_includes_rulesets": {
+    "message": "Rulesets ($1)"
+  },
+  "share_center_includes_srs_pairs": {
+    "message": "SRS pairs ($1)"
+  },
+  "share_center_includes_appearance": {
+    "message": "Appearance"
+  },
+  "share_center_includes_modules": {
+    "message": "Modules ($1)"
+  },
+  "share_center_includes_selected_nodes": {
+    "message": "Selected nodes"
+  },
+  "share_center_error_select_nodes": {
+    "message": "Select one or more nodes."
+  },
+  "share_center_error_nodes_not_exportable": {
+    "message": "Selected nodes are not exportable yet."
+  },
+  "share_center_error_choose_ruleset_entry": {
+    "message": "Choose a ruleset entry before generating."
+  },
+  "share_center_error_choose_module_entry": {
+    "message": "Choose a valid module entry before generating."
+  },
+  "share_center_error_choose_srs_pair_entry": {
+    "message": "Choose a valid SRS pair entry before generating."
+  },
+  "share_center_hint_ready_full_export": {
+    "message": "Ready to export full profile as JSON file."
+  },
+  "share_center_hint_ready_selection_export": {
+    "message": "Ready to export selection as JSON file."
+  },
+  "share_center_hint_ready_with_ignored": {
+    "message": "Ready. $1 unsupported selection(s) will be ignored."
+  },
+  "share_center_error_cannot_generate_selection": {
+    "message": "Cannot generate with current selection."
+  },
+  "share_center_error_no_custom_nodes": {
+    "message": "No exportable custom nodes selected."
+  },
+  "share_center_error_export_failed": {
+    "message": "Failed to export file."
+  },
+  "share_center_status_exported_file": {
+    "message": "Exported $1 ($2)."
+  },
+  "share_center_status_exported_file_ignored": {
+    "message": "$1 Ignored $2 unsupported selection(s)."
+  },
+  "share_center_error_choose_import_file": {
+    "message": "Choose a share file first."
+  },
+  "share_center_error_read_import_file": {
+    "message": "Failed to read selected file."
+  },
+  "share_center_error_import_payload_empty": {
+    "message": "Selected file is empty."
+  },
+  "share_center_status_ruleset_imported_enabled": {
+    "message": "Imported $1 and enabled it for this profile."
+  },
+  "share_center_status_module_imported": {
+    "message": "Imported module preferences for $1."
+  },
+  "share_center_status_srs_pair_imported_reload": {
+    "message": "SRS pair progress imported. Reloading options…"
+  },
+  "share_center_status_appearance_imported_reload": {
+    "message": "Appearance imported. Reloading options…"
+  },
+  "share_center_summary_part_rulesets": {
+    "message": "$1 rulesets"
+  },
+  "share_center_summary_part_modules": {
+    "message": "$1 module settings"
+  },
+  "share_center_summary_part_profile_settings": {
+    "message": "profile settings"
+  },
+  "share_center_summary_part_srs_pairs": {
+    "message": "$1 SRS pairs"
+  },
+  "share_center_summary_part_appearance": {
+    "message": "appearance"
+  },
+  "share_center_status_bundle_imported_reload_with_summary": {
+    "message": "Imported: $1. Reloading options…"
+  },
+  "share_center_status_bundle_imported_reload": {
+    "message": "Bundle imported. Reloading options…"
+  },
+  "share_center_status_bundle_imported_rulesets_modules": {
+    "message": "Imported $1 rulesets and $2 module settings."
+  },
+  "share_center_status_bundle_imported_rulesets": {
+    "message": "Imported $1 rulesets and enabled them for this profile."
+  },
+  "share_center_status_bundle_imported_modules": {
+    "message": "Imported $1 module settings."
+  },
+  "share_center_status_bundle_imported": {
+    "message": "Bundle imported."
+  },
+  "share_center_status_import_applied_reload": {
+    "message": "Import applied. Reloading options…"
+  },
+  "share_center_status_payload_imported": {
+    "message": "Payload imported."
+  },
+  "share_center_error_invalid_payload": {
+    "message": "Invalid payload."
+  },
+  "share_center_error_import_failed": {
+    "message": "Failed to import file."
+  },
+  "share_center_status_no_srs_pairs_profile": {
+    "message": "No non-empty SRS pair data on profile $1."
+  },
+  "share_center_status_srs_pairs_profile": {
+    "message": "$1 SRS pairs with data on profile $2."
+  },
+  "share_center_hint_profile_pair_data": {
+    "message": "Profile pair data"
+  },
+  "share_center_hint_signals": {
+    "message": "Signals"
+  },
+  "share_center_hint_imported_helper_snapshot": {
+    "message": "Imported helper snapshot"
+  },
+  "share_center_hint_current_pair": {
+    "message": "Current pair"
+  },
+  "share_center_hint_srs_pair_data_available": {
+    "message": "SRS pair data available."
+  },
+  "share_center_badge_current": {
+    "message": "Current"
+  },
+  "share_center_status_no_rulesets_profile": {
+    "message": "No exportable rulesets for profile $1."
+  },
+  "share_center_reason_rules_not_loaded": {
+    "message": "Rules not loaded"
+  },
+  "share_center_hint_enabled_in_profile": {
+    "message": "Enabled in profile"
+  },
+  "share_center_hint_disabled_in_profile": {
+    "message": "Disabled in profile"
+  },
+  "share_center_hint_rules_count": {
+    "message": "$1 rules"
+  },
+  "share_center_hint_rules_not_loaded_path": {
+    "message": "Rules not loaded yet for this path"
+  },
+  "share_center_badge_enabled": {
+    "message": "Enabled"
+  },
+  "share_center_badge_disabled": {
+    "message": "Disabled"
+  },
+  "share_center_badge_unavailable": {
+    "message": "Unavailable"
+  },
+  "share_center_status_rulesets_profile": {
+    "message": "$1 rulesets on profile $2; $3 exportable now."
+  },
+  "share_center_status_no_modules_profile": {
+    "message": "No modules available for profile $1 ($2)."
+  },
+  "share_center_hint_enabled_in_this_profile": {
+    "message": "Enabled in this profile."
+  },
+  "share_center_hint_disabled_in_this_profile": {
+    "message": "Disabled in this profile."
+  },
+  "share_center_status_modules_profile": {
+    "message": "$1 modules for profile $2 ($3)."
+  },
   "section_share_code": {
     "message": "Share Code"
   },

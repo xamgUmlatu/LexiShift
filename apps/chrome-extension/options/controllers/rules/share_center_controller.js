@@ -51,40 +51,55 @@
     const summaryGroups = elements.summaryGroups || null;
     const summaryOutput = elements.summaryOutput || null;
     const generateButton = elements.generateButton || null;
-    const importCodeInput = elements.importCodeInput || null;
-    const importCodeCjk = elements.importCodeCjk || null;
+    const importFileInput = elements.importFileInput || null;
+    const importFileNameOutput = elements.importFileNameOutput || null;
     const importButton = elements.importButton || null;
-    const importClearButton = elements.importClearButton || null;
     const statusOutput = elements.statusOutput || null;
     const exportStatusOutput = elements.exportStatusOutput || null;
     const importStatusOutput = elements.importStatusOutput || null;
+    const tr = (key, fallback, substitutions) => translate(key, substitutions, fallback);
+    const pathJoiner = " > ";
+    const labels = {
+      profile: tr("share_center_group_profile", "Profile"),
+      profileConfiguration: tr("share_center_group_profile_configuration", "Profile configuration"),
+      configuration: tr("share_center_path_configuration", "Configuration"),
+      rulesets: tr("share_center_group_rulesets", "Rulesets"),
+      srsData: tr("share_center_group_srs_data", "SRS data"),
+      appearance: tr("share_center_group_appearance", "Appearance"),
+      modules: tr("share_center_group_modules", "Modules"),
+      themeColors: tr("share_center_target_theme_colors", "Theme/colors")
+    };
+    function joinPath(parts) {
+      const list = Array.isArray(parts) ? parts.filter((part) => String(part || "").trim()) : [];
+      return list.join(pathJoiner);
+    }
 
     const STATIC_TARGETS = {
       profile_settings: {
         id: "profile_settings",
         kind: "profile_settings",
-        label: "Profile settings",
-        path: "Profile > Configuration",
-        groups: ["Profile configuration", "SRS data"],
+        label: tr("share_center_target_profile_settings", "Profile settings"),
+        path: joinPath([labels.profile, labels.configuration]),
+        groups: [labels.profileConfiguration, labels.srsData],
         scope: "srs",
         enabled: true
       },
       appearance_theme: {
         id: "appearance_theme",
         kind: "appearance_theme",
-        label: "Theme/colors",
-        path: "Profile > Appearance > Theme/colors",
-        groups: ["Appearance"],
+        label: labels.themeColors,
+        path: joinPath([labels.profile, labels.appearance, labels.themeColors]),
+        groups: [labels.appearance],
         scope: "appearance_theme",
         enabled: true
       }
     };
     const FULL_PROFILE_GROUPS = [
-      "Profile configuration",
-      "Rulesets",
-      "SRS data",
-      "Appearance",
-      "Modules"
+      labels.profileConfiguration,
+      labels.rulesets,
+      labels.srsData,
+      labels.appearance,
+      labels.modules
     ];
 
     const staticLeafInputs = {
@@ -124,7 +139,7 @@
     function pathBasename(path) {
       const normalized = normalizePath(path);
       if (!normalized) {
-        return "(unknown)";
+        return tr("share_center_value_unknown", "(unknown)");
       }
       const slashIndex = Math.max(normalized.lastIndexOf("/"), normalized.lastIndexOf("\\"));
       return slashIndex >= 0 ? normalized.slice(slashIndex + 1) : normalized;
@@ -696,9 +711,16 @@
       if (!pairs.length) {
         const empty = document.createElement("p");
         empty.className = "hint";
-        empty.textContent = "No SRS pair data available for this profile.";
+        empty.textContent = tr("share_center_empty_srs_pairs", "No SRS pair data available for this profile.");
         srsPairItemsRoot.appendChild(empty);
-        setSrsPairStatus(`No non-empty SRS pair data on profile ${profileId}.`, colors.DEFAULT);
+        setSrsPairStatus(
+          tr(
+            "share_center_status_no_srs_pairs_profile",
+            `No non-empty SRS pair data on profile ${profileId}.`,
+            [profileId]
+          ),
+          colors.DEFAULT
+        );
         return;
       }
 
@@ -713,32 +735,32 @@
           id: leafId,
           kind: "srs_pair_item",
           label: pair,
-          path: `Profile > SRS Data > ${pair}`,
-          groups: ["SRS data"],
+          path: joinPath([labels.profile, labels.srsData, pair]),
+          groups: [labels.srsData],
           scope: "srs_pair",
           enabled: true,
           srsPair: pair
         };
         const hintParts = [];
         if (pairEntry.hasProfileData) {
-          hintParts.push("Profile pair data");
+          hintParts.push(tr("share_center_hint_profile_pair_data", "Profile pair data"));
         }
         if (pairEntry.hasSignalsData) {
-          hintParts.push("Signals");
+          hintParts.push(tr("share_center_hint_signals", "Signals"));
         }
         if (pairEntry.hasImportedHelperData) {
-          hintParts.push("Imported helper snapshot");
+          hintParts.push(tr("share_center_hint_imported_helper_snapshot", "Imported helper snapshot"));
         }
         if (pairEntry.isCurrent) {
-          hintParts.push("Current pair");
+          hintParts.push(tr("share_center_hint_current_pair", "Current pair"));
         }
         const checked = previouslyCheckedPairs.has(pair)
           || (!previouslyCheckedPairs.size && pairEntry.isCurrent)
           || (!previouslyCheckedPairs.size && !pairEntry.isCurrent && pair === firstPair);
         const row = createDynamicLeafRow(meta, {
           checked,
-          hint: hintParts.join(" • ") || "SRS pair data available.",
-          badge: pairEntry.isCurrent ? "Current" : null
+          hint: hintParts.join(" • ") || tr("share_center_hint_srs_pair_data_available", "SRS pair data available."),
+          badge: pairEntry.isCurrent ? tr("share_center_badge_current", "Current") : null
         });
         const entry = {
           id: leafId,
@@ -755,7 +777,11 @@
       });
 
       setSrsPairStatus(
-        `${pairs.length} SRS pair${pairs.length === 1 ? "" : "s"} with data on profile ${profileId}.`,
+        tr(
+          "share_center_status_srs_pairs_profile",
+          `${pairs.length} SRS pair${pairs.length === 1 ? "" : "s"} with data on profile ${profileId}.`,
+          [String(pairs.length), profileId]
+        ),
         colors.DEFAULT
       );
     }
@@ -808,9 +834,16 @@
       if (!entries.length) {
         const empty = document.createElement("p");
         empty.className = "hint";
-        empty.textContent = "No profile rulesets available.";
+        empty.textContent = tr("share_center_empty_rulesets", "No profile rulesets available.");
         rulesetItemsRoot.appendChild(empty);
-        setRulesetStatus(`No exportable rulesets for profile ${profileId}.`, colors.DEFAULT);
+        setRulesetStatus(
+          tr(
+            "share_center_status_no_rulesets_profile",
+            `No exportable rulesets for profile ${profileId}.`,
+            [profileId]
+          ),
+          colors.DEFAULT
+        );
         return;
       }
 
@@ -832,11 +865,11 @@
           id: leafId,
           kind: "ruleset_item",
           label,
-          path: `Profile > Rulesets > ${label}`,
-          groups: ["Rulesets"],
+          path: joinPath([labels.profile, labels.rulesets, label]),
+          groups: [labels.rulesets],
           scope: exportable ? "ruleset" : null,
           enabled: exportable,
-          reason: exportable ? "" : "Rules not loaded",
+          reason: exportable ? "" : tr("share_center_reason_rules_not_loaded", "Rules not loaded"),
           rulesetPath: pathKey,
           rulesetName: label,
           rulesCount: rulesetEntry.rulesCount,
@@ -847,17 +880,23 @@
           || (!previouslyCheckedPaths.size && selectedRulesetPath === pathKey)
           || (!previouslyCheckedPaths.size && !selectedRulesetPath && pathKey === firstExportablePath)
         );
-        const profileEnabledText = rulesetEntry.profileEnabled ? "Enabled in profile" : "Disabled in profile";
+        const profileEnabledText = rulesetEntry.profileEnabled
+          ? tr("share_center_hint_enabled_in_profile", "Enabled in profile")
+          : tr("share_center_hint_disabled_in_profile", "Disabled in profile");
         const pathText = normalizePath(rulesetEntry.displayPath);
         const hint = exportable
-          ? `${rulesetEntry.rulesCount} rules • ${profileEnabledText}${pathText && pathText !== label ? ` • ${pathText}` : ""}`
-          : `Rules not loaded yet for this path${pathText && pathText !== label ? ` • ${pathText}` : ""}`;
+          ? `${tr("share_center_hint_rules_count", `${rulesetEntry.rulesCount} rules`, [String(rulesetEntry.rulesCount)])} • ${profileEnabledText}${pathText && pathText !== label ? ` • ${pathText}` : ""}`
+          : `${tr("share_center_hint_rules_not_loaded_path", "Rules not loaded yet for this path")}${pathText && pathText !== label ? ` • ${pathText}` : ""}`;
         const row = createDynamicLeafRow(meta, {
           checked,
           hint,
           isPending: exportable !== true,
           isDisabled: exportable !== true,
-          badge: exportable ? (rulesetEntry.profileEnabled ? "Enabled" : "Disabled") : "Unavailable"
+          badge: exportable
+            ? (rulesetEntry.profileEnabled
+              ? tr("share_center_badge_enabled", "Enabled")
+              : tr("share_center_badge_disabled", "Disabled"))
+            : tr("share_center_badge_unavailable", "Unavailable")
         });
         const entry = {
           id: leafId,
@@ -877,7 +916,11 @@
       });
       const exportableCount = entries.filter((entry) => entry.exportable).length;
       setRulesetStatus(
-        `${entries.length} ruleset${entries.length === 1 ? "" : "s"} on profile ${profileId}; ${exportableCount} exportable now.`,
+        tr(
+          "share_center_status_rulesets_profile",
+          `${entries.length} ruleset${entries.length === 1 ? "" : "s"} on profile ${profileId}; ${exportableCount} exportable now.`,
+          [String(entries.length), profileId, String(exportableCount)]
+        ),
         colors.DEFAULT
       );
     }
@@ -907,9 +950,16 @@
       if (!modules.length) {
         const empty = document.createElement("p");
         empty.className = "hint";
-        empty.textContent = "No modules available for this profile/language.";
+        empty.textContent = tr("share_center_empty_modules", "No modules available for this profile/language.");
         moduleItemsRoot.appendChild(empty);
-        setModuleStatus(`No modules available for profile ${profileId} (${targetLanguage}).`, colors.DEFAULT);
+        setModuleStatus(
+          tr(
+            "share_center_status_no_modules_profile",
+            `No modules available for profile ${profileId} (${targetLanguage}).`,
+            [profileId, targetLanguage]
+          ),
+          colors.DEFAULT
+        );
         return;
       }
 
@@ -924,8 +974,8 @@
           id: leafId,
           kind: "module_item",
           label,
-          path: `Profile > Modules > ${label}`,
-          groups: ["Modules"],
+          path: joinPath([labels.profile, labels.modules, label]),
+          groups: [labels.modules],
           scope: "module_item",
           enabled: true,
           moduleId,
@@ -936,11 +986,13 @@
         const row = createDynamicLeafRow(meta, {
           checked: previouslyCheckedModuleIds.has(moduleId),
           hint: moduleEntry.description
-            ? `${moduleEntry.description} • ${enabledInProfile ? "Enabled in profile" : "Disabled in profile"}`
+            ? `${moduleEntry.description} • ${enabledInProfile
+              ? tr("share_center_hint_enabled_in_profile", "Enabled in profile")
+              : tr("share_center_hint_disabled_in_profile", "Disabled in profile")}`
             : (
                 enabledInProfile
-                  ? "Enabled in this profile."
-                  : "Disabled in this profile."
+                  ? tr("share_center_hint_enabled_in_this_profile", "Enabled in this profile.")
+                  : tr("share_center_hint_disabled_in_this_profile", "Disabled in this profile.")
               )
         });
         const entry = {
@@ -958,7 +1010,11 @@
       });
 
       setModuleStatus(
-        `${modules.length} module${modules.length === 1 ? "" : "s"} for profile ${profileId} (${targetLanguage}).`,
+        tr(
+          "share_center_status_modules_profile",
+          `${modules.length} module${modules.length === 1 ? "" : "s"} for profile ${profileId} (${targetLanguage}).`,
+          [String(modules.length), profileId, targetLanguage]
+        ),
         colors.DEFAULT
       );
     }
@@ -976,26 +1032,30 @@
     }
 
     function recommendOutput() {
-      return "JSON file";
+      return tr("share_center_output_json_file", "JSON file");
     }
 
     function buildPathSummary(plan) {
       const selectedTargets = Array.isArray(plan && plan.selectedTargets) ? plan.selectedTargets : [];
       if (!selectedTargets.length) {
-        return `None (${currentProfileId})`;
+        return tr("share_center_path_none", `None (${currentProfileId})`, [currentProfileId]);
       }
       if (selectedTargets.length === 1) {
         const only = selectedTargets[0];
-        const label = String(only.path || only.label || "Selection").trim();
-        return `${label} (${currentProfileId})`;
+        const label = String(only.path || only.label || tr("share_center_summary_selection", "Selection")).trim();
+        return tr("share_center_path_single_with_profile", `${label} (${currentProfileId})`, [label, currentProfileId]);
       }
-      return `${selectedTargets.length} selected nodes (${currentProfileId})`;
+      return tr(
+        "share_center_path_selected_nodes",
+        `${selectedTargets.length} selected nodes (${currentProfileId})`,
+        [String(selectedTargets.length), currentProfileId]
+      );
     }
 
     function buildIncludesSummary(plan) {
       const selectedTargets = Array.isArray(plan && plan.selectedTargets) ? plan.selectedTargets : [];
       if (!selectedTargets.length) {
-        return "Nothing selected.";
+        return tr("share_center_includes_nothing_selected", "Nothing selected.");
       }
       const counters = {
         profileSettings: 0,
@@ -1030,21 +1090,21 @@
       });
       const parts = [];
       if (counters.profileSettings > 0) {
-        parts.push("Profile settings");
+        parts.push(tr("share_center_includes_profile_settings", "Profile settings"));
       }
       if (counters.rulesets > 0) {
-        parts.push(`Rulesets (${counters.rulesets})`);
+        parts.push(tr("share_center_includes_rulesets", `Rulesets (${counters.rulesets})`, [String(counters.rulesets)]));
       }
       if (counters.srsPairs > 0) {
-        parts.push(`SRS pairs (${counters.srsPairs})`);
+        parts.push(tr("share_center_includes_srs_pairs", `SRS pairs (${counters.srsPairs})`, [String(counters.srsPairs)]));
       }
       if (counters.appearance > 0) {
-        parts.push("Appearance");
+        parts.push(tr("share_center_includes_appearance", "Appearance"));
       }
       if (counters.modules > 0) {
-        parts.push(`Modules (${counters.modules})`);
+        parts.push(tr("share_center_includes_modules", `Modules (${counters.modules})`, [String(counters.modules)]));
       }
-      return parts.length ? parts.join(" | ") : "Selected nodes";
+      return parts.length ? parts.join(" | ") : tr("share_center_includes_selected_nodes", "Selected nodes");
     }
 
     function resolveGenerateSelection(planArg) {
@@ -1052,13 +1112,13 @@
       if (!plan.selectedTargets.length) {
         return {
           ok: false,
-          message: "Select one or more nodes."
+          message: tr("share_center_error_select_nodes", "Select one or more nodes.")
         };
       }
       if (!plan.supportedTargets.length) {
         return {
           ok: false,
-          message: "Selected nodes are not exportable yet."
+          message: tr("share_center_error_nodes_not_exportable", "Selected nodes are not exportable yet.")
         };
       }
       const invalidRuleset = plan.supportedTargets.find((target) => (
@@ -1067,7 +1127,7 @@
       if (invalidRuleset) {
         return {
           ok: false,
-          message: "Choose a ruleset entry before generating."
+          message: tr("share_center_error_choose_ruleset_entry", "Choose a ruleset entry before generating.")
         };
       }
       const invalidModule = plan.supportedTargets.find((target) => (
@@ -1076,7 +1136,7 @@
       if (invalidModule) {
         return {
           ok: false,
-          message: "Choose a valid module entry before generating."
+          message: tr("share_center_error_choose_module_entry", "Choose a valid module entry before generating.")
         };
       }
       const invalidSrsPair = plan.supportedTargets.find((target) => (
@@ -1085,7 +1145,7 @@
       if (invalidSrsPair) {
         return {
           ok: false,
-          message: "Choose a valid SRS pair entry before generating."
+          message: tr("share_center_error_choose_srs_pair_entry", "Choose a valid SRS pair entry before generating.")
         };
       }
       return {
@@ -1098,7 +1158,11 @@
     function updateSummary() {
       if (isFullMode()) {
         if (summaryTarget) {
-          summaryTarget.textContent = `Full profile (${currentProfileId})`;
+          summaryTarget.textContent = tr(
+            "share_center_path_full_profile",
+            `Full profile (${currentProfileId})`,
+            [currentProfileId]
+          );
         }
         if (summaryGroups) {
           summaryGroups.textContent = FULL_PROFILE_GROUPS.join(" | ");
@@ -1109,7 +1173,7 @@
         if (generateButton) {
           generateButton.disabled = false;
         }
-        setExportHint("Ready to export full profile as JSON file.");
+        setExportHint(tr("share_center_hint_ready_full_export", "Ready to export full profile as JSON file."));
         return;
       }
       const plan = resolveSelectionPlan();
@@ -1129,9 +1193,15 @@
       }
       if (resolution.ok === true) {
         if (resolution.ignoredCount > 0) {
-          setExportHint(`Ready. ${resolution.ignoredCount} unsupported selection(s) will be ignored.`);
+          setExportHint(
+            tr(
+              "share_center_hint_ready_with_ignored",
+              `Ready. ${resolution.ignoredCount} unsupported selection(s) will be ignored.`,
+              [String(resolution.ignoredCount)]
+            )
+          );
         } else {
-          setExportHint("Ready to export selection as JSON file.");
+          setExportHint(tr("share_center_hint_ready_selection_export", "Ready to export selection as JSON file."));
         }
       } else {
         setExportHint(resolution.message);
@@ -1251,14 +1321,17 @@
         } else {
           const resolution = resolveGenerateSelection();
           if (resolution.ok !== true) {
-            setExportStatus(resolution.message || "Cannot generate with current selection.", colors.ERROR);
+            setExportStatus(
+              resolution.message || tr("share_center_error_cannot_generate_selection", "Cannot generate with current selection."),
+              colors.ERROR
+            );
             return;
           }
           const supportedTargets = Array.isArray(resolution.supportedTargets)
             ? resolution.supportedTargets
             : [];
           if (!supportedTargets.length) {
-            setExportStatus("No exportable custom nodes selected.", colors.ERROR);
+            setExportStatus(tr("share_center_error_no_custom_nodes", "No exportable custom nodes selected."), colors.ERROR);
             return;
           }
           ignoredCount = resolution.ignoredCount;
@@ -1348,62 +1421,110 @@
           }
         }
         if (!envelope || typeof envelope !== "object") {
-          throw new Error("Failed to export file.");
+          throw new Error(tr("share_center_error_export_failed", "Failed to export file."));
         }
         const content = `${JSON.stringify(envelope, null, 2)}\n`;
         const fileName = resolveExportFileName(exportScope, currentProfileId);
         const sizeBytes = downloadJsonFile(content, fileName);
         updateSummary();
-        let message = `Exported ${fileName} (${formatByteSize(sizeBytes)}).`;
+        let message = tr(
+          "share_center_status_exported_file",
+          `Exported ${fileName} (${formatByteSize(sizeBytes)}).`,
+          [fileName, formatByteSize(sizeBytes)]
+        );
         if (ignoredCount > 0) {
-          message += ` Ignored ${ignoredCount} unsupported selection(s).`;
+          message = tr(
+            "share_center_status_exported_file_ignored",
+            `${message} Ignored ${ignoredCount} unsupported selection(s).`,
+            [message, String(ignoredCount)]
+          );
         }
         setExportStatus(message, colors.SUCCESS);
       } catch (err) {
-        const message = err && err.message ? err.message : "Failed to export file.";
+        const message = err && err.message ? err.message : tr("share_center_error_export_failed", "Failed to export file.");
         setExportStatus(message, colors.ERROR);
       }
+    }
+
+    function setImportFileName(fileName) {
+      if (!importFileNameOutput) {
+        return;
+      }
+      const normalized = String(fileName || "").trim();
+      importFileNameOutput.textContent = normalized || tr("share_center_import_no_file_selected", "No file selected.");
+    }
+
+    async function readImportPayloadFromFile() {
+      if (!importFileInput) {
+        throw new Error(tr("share_center_error_choose_import_file", "Choose a share file first."));
+      }
+      const file = importFileInput.files && importFileInput.files[0];
+      if (!file) {
+        throw new Error(tr("share_center_error_choose_import_file", "Choose a share file first."));
+      }
+      setImportFileName(file.name || "");
+      let content = "";
+      try {
+        content = await file.text();
+      } catch (_readError) {
+        throw new Error(tr("share_center_error_read_import_file", "Failed to read selected file."));
+      }
+      const normalized = String(content || "").replace(/^\uFEFF/, "").trim();
+      if (!normalized) {
+        throw new Error(tr("share_center_error_import_payload_empty", "Selected file is empty."));
+      }
+      return normalized;
     }
 
     async function importShareCode() {
       if (!rulesShareController || typeof rulesShareController.importShareCodeWithOptions !== "function") {
         return;
       }
-      const code = importCodeInput ? String(importCodeInput.value || "").trim() : "";
-      if (!code) {
-        setImportStatus("Paste a payload or share code first.", colors.ERROR);
-        return;
-      }
       try {
+        const payload = await readImportPayloadFromFile();
         const result = await rulesShareController.importShareCodeWithOptions({
-          code,
-          useCjk: importCodeCjk ? importCodeCjk.checked === true : true,
+          code: payload,
+          useCjk: false,
           profileId: currentProfileId,
           helperManager
         });
         if (result && result.scope === "ruleset") {
           await syncForProfile({ profileId: currentProfileId });
-          const name = result.ruleset && result.ruleset.name ? result.ruleset.name : "ruleset";
-          setImportStatus(`Imported ${name} and enabled it for this profile.`, colors.SUCCESS);
+          const name = result.ruleset && result.ruleset.name ? result.ruleset.name : tr("share_center_group_rulesets", "ruleset");
+          setImportStatus(
+            tr(
+              "share_center_status_ruleset_imported_enabled",
+              `Imported ${name} and enabled it for this profile.`,
+              [name]
+            ),
+            colors.SUCCESS
+          );
           return;
         }
         if (result && result.scope === "module_item") {
           await syncForProfile({ profileId: currentProfileId });
           const moduleId = result.module && result.module.moduleId
             ? result.module.moduleId
-            : "module";
-          setImportStatus(`Imported module preferences for ${moduleId}.`, colors.SUCCESS);
+            : tr("share_center_group_modules", "module");
+          setImportStatus(
+            tr(
+              "share_center_status_module_imported",
+              `Imported module preferences for ${moduleId}.`,
+              [moduleId]
+            ),
+            colors.SUCCESS
+          );
           return;
         }
         if (result && result.scope === "srs_pair") {
-          setImportStatus("SRS pair progress imported. Reloading options…", colors.SUCCESS);
+          setImportStatus(tr("share_center_status_srs_pair_imported_reload", "SRS pair progress imported. Reloading options…"), colors.SUCCESS);
           setTimeout(() => {
             window.location.reload();
           }, 120);
           return;
         }
         if (result && result.scope === "appearance_theme") {
-          setImportStatus("Appearance imported. Reloading options…", colors.SUCCESS);
+          setImportStatus(tr("share_center_status_appearance_imported_reload", "Appearance imported. Reloading options…"), colors.SUCCESS);
           setTimeout(() => {
             window.location.reload();
           }, 120);
@@ -1419,40 +1540,40 @@
             ? importedSrsPairs.length
             : (result.srsPair ? 1 : 0);
           const importedAppearance = Boolean(result.appearanceTheme);
-          const joinSummaryParts = (parts) => {
-            if (!Array.isArray(parts) || parts.length <= 0) {
-              return "";
-            }
-            if (parts.length === 1) {
-              return parts[0];
-            }
-            if (parts.length === 2) {
-              return `${parts[0]} and ${parts[1]}`;
-            }
-            return `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
-          };
           if (result.requiresReload === true || result.appliedProfileSettings === true) {
             const summaryParts = [];
             if (importedRulesetsCount > 0) {
-              summaryParts.push(`${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"}`);
+              summaryParts.push(
+                tr("share_center_summary_part_rulesets", `${importedRulesetsCount} rulesets`, [String(importedRulesetsCount)])
+              );
             }
             if (importedModulesCount > 0) {
-              summaryParts.push(`${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}`);
+              summaryParts.push(
+                tr("share_center_summary_part_modules", `${importedModulesCount} module settings`, [String(importedModulesCount)])
+              );
             }
             if (result.appliedProfileSettings === true) {
-              summaryParts.push("profile settings");
+              summaryParts.push(tr("share_center_summary_part_profile_settings", "profile settings"));
             }
             if (importedSrsPairCount > 0) {
               summaryParts.push(
-                `${importedSrsPairCount} SRS pair${importedSrsPairCount === 1 ? "" : "s"}`
+                tr("share_center_summary_part_srs_pairs", `${importedSrsPairCount} SRS pairs`, [String(importedSrsPairCount)])
               );
             }
             if (importedAppearance) {
-              summaryParts.push("appearance");
+              summaryParts.push(tr("share_center_summary_part_appearance", "appearance"));
             }
-            const summaryText = joinSummaryParts(summaryParts);
-            const prefix = summaryText ? `Imported ${summaryText}.` : "Bundle imported.";
-            setImportStatus(`${prefix} Reloading options…`, colors.SUCCESS);
+            const summaryText = summaryParts.join(" / ");
+            setImportStatus(
+              summaryText
+                ? tr(
+                  "share_center_status_bundle_imported_reload_with_summary",
+                  `Imported: ${summaryText}. Reloading options…`,
+                  [summaryText]
+                )
+                : tr("share_center_status_bundle_imported_reload", "Bundle imported. Reloading options…"),
+              colors.SUCCESS
+            );
             setTimeout(() => {
               window.location.reload();
             }, 120);
@@ -1461,34 +1582,46 @@
           await syncForProfile({ profileId: currentProfileId });
           if (importedRulesetsCount > 0 && importedModulesCount > 0) {
             setImportStatus(
-              `Imported ${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"} and ${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}.`,
+              tr(
+                "share_center_status_bundle_imported_rulesets_modules",
+                `Imported ${importedRulesetsCount} rulesets and ${importedModulesCount} module settings.`,
+                [String(importedRulesetsCount), String(importedModulesCount)]
+              ),
               colors.SUCCESS
             );
           } else if (importedRulesetsCount > 0) {
             setImportStatus(
-              `Imported ${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"} and enabled them for this profile.`,
+              tr(
+                "share_center_status_bundle_imported_rulesets",
+                `Imported ${importedRulesetsCount} rulesets and enabled them for this profile.`,
+                [String(importedRulesetsCount)]
+              ),
               colors.SUCCESS
             );
           } else if (importedModulesCount > 0) {
             setImportStatus(
-              `Imported ${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}.`,
+              tr(
+                "share_center_status_bundle_imported_modules",
+                `Imported ${importedModulesCount} module settings.`,
+                [String(importedModulesCount)]
+              ),
               colors.SUCCESS
             );
           } else {
-            setImportStatus("Bundle imported.", colors.SUCCESS);
+            setImportStatus(tr("share_center_status_bundle_imported", "Bundle imported."), colors.SUCCESS);
           }
           return;
         }
         if (result && (result.scope === "srs" || result.scope === "profile")) {
-          setImportStatus("Import applied. Reloading options…", colors.SUCCESS);
+          setImportStatus(tr("share_center_status_import_applied_reload", "Import applied. Reloading options…"), colors.SUCCESS);
           setTimeout(() => {
             window.location.reload();
           }, 120);
           return;
         }
-        setImportStatus("Payload imported.", colors.SUCCESS);
+        setImportStatus(tr("share_center_status_payload_imported", "Payload imported."), colors.SUCCESS);
       } catch (err) {
-        const message = err && err.message ? err.message : "Invalid payload.";
+        const message = err && err.message ? err.message : tr("share_center_error_invalid_payload", "Invalid payload.");
         setImportStatus(message, colors.ERROR);
       }
     }
@@ -1550,6 +1683,10 @@
       if (openImportButton) {
         openImportButton.addEventListener("click", () => {
           setOutputStatus(importStatusOutput, "", colors.DEFAULT);
+          if (importFileInput) {
+            importFileInput.value = "";
+          }
+          setImportFileName("");
           openModal("import");
         });
       }
@@ -1588,7 +1725,7 @@
       if (generateButton) {
         generateButton.addEventListener("click", () => {
           generateShareCode().catch((error) => {
-            const message = error && error.message ? error.message : "Failed to export file.";
+            const message = error && error.message ? error.message : tr("share_center_error_export_failed", "Failed to export file.");
             setExportStatus(message, colors.ERROR);
             log("Share center generate failed.", error);
           });
@@ -1597,18 +1734,16 @@
       if (importButton) {
         importButton.addEventListener("click", () => {
           importShareCode().catch((error) => {
-            const message = error && error.message ? error.message : "Failed to import code.";
+            const message = error && error.message ? error.message : tr("share_center_error_import_failed", "Failed to import file.");
             setImportStatus(message, colors.ERROR);
             log("Share center import failed.", error);
           });
         });
       }
-      if (importClearButton) {
-        importClearButton.addEventListener("click", () => {
-          if (importCodeInput) {
-            importCodeInput.value = "";
-          }
-          setOutputStatus(importStatusOutput, "", colors.DEFAULT);
+      if (importFileInput) {
+        importFileInput.addEventListener("change", () => {
+          const file = importFileInput.files && importFileInput.files[0];
+          setImportFileName(file ? file.name : "");
         });
       }
     }

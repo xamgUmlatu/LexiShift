@@ -62,6 +62,7 @@ Purpose:
 - Share center rollout
   - New Share Center card provides grouped/hierarchical share target selection.
   - Share Center export now saves a JSON payload file (no in-modal share-code output).
+  - Share Center import currently expects a share payload file.
   - Selection Summary is compact and bottom-aligned with export action:
     - selected node path/profile
     - included groups
@@ -72,6 +73,8 @@ Purpose:
     - `Full profile` -> `profile`
   - New share envelope v2 currently adds one payload:
     - `scope: "ruleset"` for individual manual ruleset export/import.
+  - Potential future enhancement:
+    - optional CJK-friendly short share code support in Share Center (currently shelved in favor of file-based flow).
   - Backward compatibility is preserved for existing v1 `rules` / `srs` / `profile` codes.
 
 - SRS features

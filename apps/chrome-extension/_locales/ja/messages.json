@@ -311,6 +311,330 @@
   "status_srs_reset_outdated": {
     "message": "ヘルパーが古いためコマンドが見つかりません。ヘルパーを再起動してください。"
   },
+  "section_share_center": {
+    "message": "共有センター"
+  },
+  "hint_share_center_entry": {
+    "message": "最初に操作を選択してください。詳細な選択は Export または Import を開くと表示されます。"
+  },
+  "share_center_entry_export_title": {
+    "message": "エクスポート"
+  },
+  "share_center_entry_export_hint": {
+    "message": "プロファイル階層からデータを選択して、ファイルとして書き出します。"
+  },
+  "share_center_entry_import_title": {
+    "message": "インポート"
+  },
+  "share_center_entry_import_hint": {
+    "message": "共有ファイルを選択中のプロファイルに取り込みます。"
+  },
+  "share_center_modal_export_title": {
+    "message": "エクスポート"
+  },
+  "share_center_modal_import_title": {
+    "message": "インポート"
+  },
+  "button_close": {
+    "message": "閉じる"
+  },
+  "hint_share_center_export_mode": {
+    "message": "エクスポートモードを選択してください。フルプロファイルはすべてを、カスタム選択は特定ノードのみを出力します。"
+  },
+  "share_center_mode_full_title": {
+    "message": "フルプロファイル"
+  },
+  "share_center_mode_full_hint": {
+    "message": "推奨。完全なプロファイルデータを一度にエクスポートします。"
+  },
+  "share_center_mode_custom_title": {
+    "message": "カスタム選択"
+  },
+  "share_center_mode_custom_hint": {
+    "message": "個別ノード（ルールセット、設定など）を選択します。"
+  },
+  "share_center_group_profile": {
+    "message": "プロファイル"
+  },
+  "share_center_group_profile_hint": {
+    "message": "このプロファイル配下のエクスポート可能ノードをすべて選択/解除します。"
+  },
+  "share_center_group_profile_configuration": {
+    "message": "プロファイル設定"
+  },
+  "share_center_path_configuration": {
+    "message": "設定"
+  },
+  "share_center_target_profile_settings": {
+    "message": "プロファイル設定"
+  },
+  "share_center_target_profile_settings_hint": {
+    "message": "プロファイル設定とSRS設定。"
+  },
+  "share_center_group_rulesets": {
+    "message": "ルールセット"
+  },
+  "share_center_group_srs_data": {
+    "message": "SRSデータ"
+  },
+  "share_center_group_appearance": {
+    "message": "外観"
+  },
+  "share_center_group_modules": {
+    "message": "モジュール"
+  },
+  "share_center_target_theme_colors": {
+    "message": "テーマ/色"
+  },
+  "share_center_target_theme_colors_hint": {
+    "message": "プロファイルのテーマ値（色とカード調整）。"
+  },
+  "share_center_empty_rulesets": {
+    "message": "このプロファイルにルールセットがありません。"
+  },
+  "share_center_empty_srs_pairs": {
+    "message": "このプロファイルにSRSペアデータがありません。"
+  },
+  "share_center_empty_modules": {
+    "message": "このプロファイル/言語で利用可能なモジュールがありません。"
+  },
+  "share_center_summary_title": {
+    "message": "選択サマリー"
+  },
+  "share_center_summary_selection": {
+    "message": "選択"
+  },
+  "share_center_summary_includes": {
+    "message": "内容"
+  },
+  "share_center_summary_export_format": {
+    "message": "出力形式"
+  },
+  "share_center_summary_size_note": {
+    "message": "正確なファイルサイズはエクスポート後に表示されます。"
+  },
+  "share_center_export_button": {
+    "message": "JSONファイルをエクスポート"
+  },
+  "hint_share_center_import_file": {
+    "message": "共有ファイルを選択中のプロファイルに取り込みます。スコープは自動判定されます。"
+  },
+  "label_share_center_import_file": {
+    "message": "共有ファイル"
+  },
+  "share_center_import_no_file_selected": {
+    "message": "ファイルが選択されていません。"
+  },
+  "share_center_output_json_file": {
+    "message": "JSONファイル"
+  },
+  "share_center_value_unknown": {
+    "message": "(不明)"
+  },
+  "share_center_path_none": {
+    "message": "なし ($1)"
+  },
+  "share_center_path_single_with_profile": {
+    "message": "$1 ($2)"
+  },
+  "share_center_path_selected_nodes": {
+    "message": "$1 個のノードを選択 ($2)"
+  },
+  "share_center_path_full_profile": {
+    "message": "フルプロファイル ($1)"
+  },
+  "share_center_includes_nothing_selected": {
+    "message": "何も選択されていません。"
+  },
+  "share_center_includes_profile_settings": {
+    "message": "プロファイル設定"
+  },
+  "share_center_includes_rulesets": {
+    "message": "ルールセット ($1)"
+  },
+  "share_center_includes_srs_pairs": {
+    "message": "SRSペア ($1)"
+  },
+  "share_center_includes_appearance": {
+    "message": "外観"
+  },
+  "share_center_includes_modules": {
+    "message": "モジュール ($1)"
+  },
+  "share_center_includes_selected_nodes": {
+    "message": "選択済みノード"
+  },
+  "share_center_error_select_nodes": {
+    "message": "1つ以上のノードを選択してください。"
+  },
+  "share_center_error_nodes_not_exportable": {
+    "message": "選択したノードはまだエクスポートできません。"
+  },
+  "share_center_error_choose_ruleset_entry": {
+    "message": "生成前にルールセット項目を選択してください。"
+  },
+  "share_center_error_choose_module_entry": {
+    "message": "生成前に有効なモジュール項目を選択してください。"
+  },
+  "share_center_error_choose_srs_pair_entry": {
+    "message": "生成前に有効なSRSペア項目を選択してください。"
+  },
+  "share_center_hint_ready_full_export": {
+    "message": "フルプロファイルをJSONファイルとしてエクスポートできます。"
+  },
+  "share_center_hint_ready_selection_export": {
+    "message": "選択内容をJSONファイルとしてエクスポートできます。"
+  },
+  "share_center_hint_ready_with_ignored": {
+    "message": "準備完了。未対応の選択 $1 件は無視されます。"
+  },
+  "share_center_error_cannot_generate_selection": {
+    "message": "現在の選択では生成できません。"
+  },
+  "share_center_error_no_custom_nodes": {
+    "message": "エクスポート可能なカスタムノードが選択されていません。"
+  },
+  "share_center_error_export_failed": {
+    "message": "ファイルのエクスポートに失敗しました。"
+  },
+  "share_center_status_exported_file": {
+    "message": "$1 をエクスポートしました（$2）。"
+  },
+  "share_center_status_exported_file_ignored": {
+    "message": "$1 未対応の選択 $2 件を無視しました。"
+  },
+  "share_center_error_choose_import_file": {
+    "message": "先に共有ファイルを選択してください。"
+  },
+  "share_center_error_read_import_file": {
+    "message": "選択したファイルの読み込みに失敗しました。"
+  },
+  "share_center_error_import_payload_empty": {
+    "message": "選択したファイルは空です。"
+  },
+  "share_center_status_ruleset_imported_enabled": {
+    "message": "$1 をインポートし、このプロファイルで有効化しました。"
+  },
+  "share_center_status_module_imported": {
+    "message": "$1 のモジュール設定をインポートしました。"
+  },
+  "share_center_status_srs_pair_imported_reload": {
+    "message": "SRSペア進捗をインポートしました。オプションを再読み込みします…"
+  },
+  "share_center_status_appearance_imported_reload": {
+    "message": "外観をインポートしました。オプションを再読み込みします…"
+  },
+  "share_center_summary_part_rulesets": {
+    "message": "ルールセット $1 件"
+  },
+  "share_center_summary_part_modules": {
+    "message": "モジュール設定 $1 件"
+  },
+  "share_center_summary_part_profile_settings": {
+    "message": "プロファイル設定"
+  },
+  "share_center_summary_part_srs_pairs": {
+    "message": "SRSペア $1 件"
+  },
+  "share_center_summary_part_appearance": {
+    "message": "外観"
+  },
+  "share_center_status_bundle_imported_reload_with_summary": {
+    "message": "$1 をインポートしました。オプションを再読み込みします…"
+  },
+  "share_center_status_bundle_imported_reload": {
+    "message": "バンドルをインポートしました。オプションを再読み込みします…"
+  },
+  "share_center_status_bundle_imported_rulesets_modules": {
+    "message": "ルールセット $1 件とモジュール設定 $2 件をインポートしました。"
+  },
+  "share_center_status_bundle_imported_rulesets": {
+    "message": "ルールセット $1 件をインポートし、このプロファイルで有効化しました。"
+  },
+  "share_center_status_bundle_imported_modules": {
+    "message": "モジュール設定 $1 件をインポートしました。"
+  },
+  "share_center_status_bundle_imported": {
+    "message": "バンドルをインポートしました。"
+  },
+  "share_center_status_import_applied_reload": {
+    "message": "インポートを適用しました。オプションを再読み込みします…"
+  },
+  "share_center_status_payload_imported": {
+    "message": "ペイロードをインポートしました。"
+  },
+  "share_center_error_invalid_payload": {
+    "message": "無効なペイロードです。"
+  },
+  "share_center_error_import_failed": {
+    "message": "ファイルのインポートに失敗しました。"
+  },
+  "share_center_status_no_srs_pairs_profile": {
+    "message": "プロファイル $1 にデータ付きSRSペアがありません。"
+  },
+  "share_center_status_srs_pairs_profile": {
+    "message": "プロファイル $2 にデータ付きSRSペアが $1 件あります。"
+  },
+  "share_center_hint_profile_pair_data": {
+    "message": "プロファイルのペアデータ"
+  },
+  "share_center_hint_signals": {
+    "message": "シグナル"
+  },
+  "share_center_hint_imported_helper_snapshot": {
+    "message": "インポート済みヘルパースナップショット"
+  },
+  "share_center_hint_current_pair": {
+    "message": "現在のペア"
+  },
+  "share_center_hint_srs_pair_data_available": {
+    "message": "SRSペアデータあり。"
+  },
+  "share_center_badge_current": {
+    "message": "現在"
+  },
+  "share_center_status_no_rulesets_profile": {
+    "message": "プロファイル $1 にエクスポート可能なルールセットがありません。"
+  },
+  "share_center_reason_rules_not_loaded": {
+    "message": "ルール未読込"
+  },
+  "share_center_hint_enabled_in_profile": {
+    "message": "このプロファイルで有効"
+  },
+  "share_center_hint_disabled_in_profile": {
+    "message": "このプロファイルで無効"
+  },
+  "share_center_hint_rules_count": {
+    "message": "$1 ルール"
+  },
+  "share_center_hint_rules_not_loaded_path": {
+    "message": "このパスのルールはまだ読み込まれていません"
+  },
+  "share_center_badge_enabled": {
+    "message": "有効"
+  },
+  "share_center_badge_disabled": {
+    "message": "無効"
+  },
+  "share_center_badge_unavailable": {
+    "message": "利用不可"
+  },
+  "share_center_status_rulesets_profile": {
+    "message": "プロファイル $2 にルールセット $1 件（現在エクスポート可能 $3 件）。"
+  },
+  "share_center_status_no_modules_profile": {
+    "message": "プロファイル $1（$2）で利用可能なモジュールがありません。"
+  },
+  "share_center_hint_enabled_in_this_profile": {
+    "message": "このプロファイルで有効です。"
+  },
+  "share_center_hint_disabled_in_this_profile": {
+    "message": "このプロファイルで無効です。"
+  },
+  "share_center_status_modules_profile": {
+    "message": "プロファイル $2（$3）のモジュール $1 件。"
+  },
   "section_share_code": {
     "message": "共有コード"
   },

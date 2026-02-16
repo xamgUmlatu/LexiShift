@@ -229,9 +229,8 @@
         summaryOutput: dom.shareCenterSummaryOutput,
         generateButton: dom.shareCenterGenerateButton,
         importButton: dom.shareCenterImportButton,
-        importCodeInput: dom.shareCenterImportCodeInput,
-        importCodeCjk: dom.shareCenterImportCodeCjk,
-        importClearButton: dom.shareCenterImportClearButton,
+        importFileInput: dom.shareCenterImportFileInput,
+        importFileNameOutput: dom.shareCenterImportFileNameOutput,
         importStatusOutput: dom.shareCenterImportStatus,
         exportStatusOutput: dom.shareCenterExportStatus,
         statusOutput: dom.shareCenterStatus
