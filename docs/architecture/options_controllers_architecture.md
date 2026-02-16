@@ -113,10 +113,10 @@ Primary ownership:
 - `profileBackgroundController`
   - profile image prefs, preview/apply/remove, runtime bridge.
 - `rulesShareController`
-  - share-code generate/import/copy + rules text syncing.
+  - legacy share-code card generate/import/copy + rules text syncing.
 - `shareCenterController`
   - hierarchical Share Center UX and compatibility bridge to legacy share backend.
-  - owns ruleset-target selection summary and share-center generate/import/copy actions.
+  - owns target tree rendering, compact selection summary metadata, JSON-file export, and import actions.
 - `helperActionsController`
   - helper diagnostics actions.
 - `displayReplacementController`

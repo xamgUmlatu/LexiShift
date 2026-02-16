@@ -217,7 +217,8 @@
         parentModuleHistoriesInput: dom.shareCenterParentModuleHistoriesInput,
         targetInputs: dom.shareCenterTargetInputs,
         targetProfileSettingsInput: dom.shareCenterTargetProfileSettingsInput,
-        targetSrsPairInput: dom.shareCenterTargetSrsPairInput,
+        srsPairItemsRoot: dom.shareCenterSrsPairItemsRoot,
+        srsPairStatus: dom.shareCenterSrsPairStatus,
         targetAppearanceThemeInput: dom.shareCenterTargetAppearanceThemeInput,
         rulesetItemsRoot: dom.shareCenterRulesetItemsRoot,
         rulesetStatus: dom.shareCenterRulesetStatus,
@@ -225,10 +226,7 @@
         moduleStatus: dom.shareCenterModuleStatus,
         summaryTarget: dom.shareCenterSummaryTarget,
         summaryGroups: dom.shareCenterSummaryGroups,
-        summarySize: dom.shareCenterSummarySize,
         summaryOutput: dom.shareCenterSummaryOutput,
-        shareCodeInput: dom.shareCenterCodeInput,
-        shareCodeCjk: dom.shareCenterCodeCjk,
         generateButton: dom.shareCenterGenerateButton,
         importButton: dom.shareCenterImportButton,
         importCodeInput: dom.shareCenterImportCodeInput,
@@ -236,7 +234,6 @@
         importClearButton: dom.shareCenterImportClearButton,
         importStatusOutput: dom.shareCenterImportStatus,
         exportStatusOutput: dom.shareCenterExportStatus,
-        copyButton: dom.shareCenterCopyButton,
         statusOutput: dom.shareCenterStatus
       }
     });

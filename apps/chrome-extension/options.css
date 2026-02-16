@@ -493,6 +493,19 @@ header p {
   color: #4d473f;
 }
 
+.share-center-export-footer {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.share-center-export-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
 .share-center-inline-status {
   margin-top: 8px;
   min-height: 1.2em;
@@ -1065,9 +1078,9 @@ body.modal-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .share-center-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-    align-items: start;
+  .share-center-export-footer {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
   }
 }
 
@@ -1279,11 +1292,6 @@ button:hover {
 #share-code {
   margin-top: 10px;
   max-width: 520px;
-}
-
-#share-center-code {
-  margin-top: 10px;
-  max-width: 100%;
 }
 
 #share-code-scope {

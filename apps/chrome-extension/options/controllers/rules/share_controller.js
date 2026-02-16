@@ -54,6 +54,14 @@
       return rulesManager.generateShareCode(options);
     }
 
+    async function generateSharePayloadWithOptions(optionsArg) {
+      if (!rulesManager || typeof rulesManager.generateSharePayload !== "function") {
+        throw new Error(translate("status_generate_failed", null, "Failed to generate code."));
+      }
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      return rulesManager.generateSharePayload(options);
+    }
+
     async function saveRules() {
       if (!rulesManager || !rulesInput) {
         return;
@@ -160,7 +168,10 @@
           useCjk: shareCodeCjk.checked
         });
         if (shareCodeScopeInput && result && result.scope && result.scope !== "ruleset") {
-          shareCodeScopeInput.value = result.scope;
+          const normalizedScope = String(result.scope || "").trim().toLowerCase();
+          if (normalizedScope === "rules" || normalizedScope === "srs" || normalizedScope === "profile") {
+            shareCodeScopeInput.value = normalizedScope;
+          }
         }
         if (result && result.scope === "rules") {
           const rules = Array.isArray(result.rules) ? result.rules : [];
@@ -183,8 +194,36 @@
           }, 120);
           return;
         }
+        if (result && result.scope === "srs_pair") {
+          setStatus("SRS pair progress imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "appearance_theme") {
+          setStatus("Appearance imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "module_item") {
+          setStatus("Module settings imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
         if (result && result.scope === "ruleset") {
           setStatus("Ruleset imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "bundle") {
+          setStatus("Bundle imported. Reloading options…", colors.SUCCESS);
           setTimeout(() => {
             window.location.reload();
           }, 120);
@@ -226,6 +265,7 @@
       exportToFile,
       generateShareCode,
       generateShareCodeWithOptions,
+      generateSharePayloadWithOptions,
       importShareCode,
       importShareCodeWithOptions,
       copyShareCode

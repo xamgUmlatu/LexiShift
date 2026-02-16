@@ -185,11 +185,13 @@ Options UI tools (extension)
 - Debug focus word: highlights whether a token was seen or replaced.
 - Share Center (rollout):
   - grouped/hierarchical share target UI above legacy share controls.
+  - export action writes a JSON share payload file (download), not an in-modal share code string.
+  - compact selection summary shows selection path, include groups, and output format.
   - compatibility targets map to existing share scopes:
     - `Profile settings` -> `srs`
-    - `Entire profile data` -> `profile`
+    - `Full profile` -> `profile`
   - first new payload target:
-    - `Individual ruleset` -> `ruleset` (single manual ruleset, path-free payload).
+    - `ruleset item` -> `ruleset` (single manual ruleset, path-free payload).
 - Legacy Share Code card remains visible as fallback during rollout.
 - Logging controls (Advanced):
   - Debug logs → console only (`debugEnabled`).

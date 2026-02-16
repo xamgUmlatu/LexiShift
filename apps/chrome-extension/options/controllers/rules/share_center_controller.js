@@ -40,20 +40,17 @@
     const parentAppearanceInput = elements.parentAppearanceInput || null;
     const parentModuleHistoriesInput = elements.parentModuleHistoriesInput || null;
     const targetProfileSettingsInput = elements.targetProfileSettingsInput || null;
-    const targetSrsPairInput = elements.targetSrsPairInput || null;
     const targetAppearanceThemeInput = elements.targetAppearanceThemeInput || null;
+    const srsPairItemsRoot = elements.srsPairItemsRoot || null;
+    const srsPairStatus = elements.srsPairStatus || null;
     const rulesetItemsRoot = elements.rulesetItemsRoot || null;
     const rulesetStatus = elements.rulesetStatus || null;
     const moduleItemsRoot = elements.moduleItemsRoot || null;
     const moduleStatus = elements.moduleStatus || null;
     const summaryTarget = elements.summaryTarget || null;
     const summaryGroups = elements.summaryGroups || null;
-    const summarySize = elements.summarySize || null;
     const summaryOutput = elements.summaryOutput || null;
-    const exportCodeInput = elements.shareCodeInput || null;
-    const exportCodeCjk = elements.shareCodeCjk || null;
     const generateButton = elements.generateButton || null;
-    const copyButton = elements.copyButton || null;
     const importCodeInput = elements.importCodeInput || null;
     const importCodeCjk = elements.importCodeCjk || null;
     const importButton = elements.importButton || null;
@@ -72,25 +69,14 @@
         scope: "srs",
         enabled: true
       },
-      srs_pair: {
-        id: "srs_pair",
-        kind: "srs_pair",
-        label: "SRS progress (pair)",
-        path: "Profile > SRS data > Pair progress",
-        groups: ["SRS data"],
-        scope: null,
-        enabled: false,
-        reason: "Coming soon"
-      },
       appearance_theme: {
         id: "appearance_theme",
         kind: "appearance_theme",
         label: "Theme/colors",
         path: "Profile > Appearance > Theme/colors",
         groups: ["Appearance"],
-        scope: null,
-        enabled: false,
-        reason: "Coming soon"
+        scope: "appearance_theme",
+        enabled: true
       }
     };
     const FULL_PROFILE_GROUPS = [
@@ -103,7 +89,6 @@
 
     const staticLeafInputs = {
       profile_settings: targetProfileSettingsInput,
-      srs_pair: targetSrsPairInput,
       appearance_theme: targetAppearanceThemeInput
     };
 
@@ -117,6 +102,7 @@
 
     let currentProfileId = "default";
     let selectedRulesetPath = "";
+    let dynamicSrsPairIds = [];
     let dynamicRulesetIds = [];
     let dynamicModuleIds = [];
     let exportMode = "full";
@@ -170,6 +156,10 @@
 
     function setRulesetStatus(message, color) {
       setOutputStatus(rulesetStatus, message, color);
+    }
+
+    function setSrsPairStatus(message, color) {
+      setOutputStatus(srsPairStatus, message, color);
     }
 
     function setModuleStatus(message, color) {
@@ -303,8 +293,8 @@
       if (parentId === "profile_group") {
         return [
           "profile_settings",
-          "srs_pair",
           "appearance_theme",
+          ...dynamicSrsPairIds,
           ...dynamicRulesetIds,
           ...dynamicModuleIds
         ];
@@ -313,7 +303,7 @@
         return [...dynamicRulesetIds];
       }
       if (parentId === "srs_group") {
-        return ["srs_pair"];
+        return [...dynamicSrsPairIds];
       }
       if (parentId === "appearance_group") {
         return ["appearance_theme"];
@@ -552,6 +542,224 @@
       };
     }
 
+    function normalizeSrsPairKey(rawPair, fallbackPair) {
+      const fallback = String(fallbackPair || "en-en").trim() || "en-en";
+      if (settingsManager && typeof settingsManager._normalizePairKey === "function") {
+        return settingsManager._normalizePairKey(rawPair || fallback);
+      }
+      const normalized = String(rawPair || fallback).trim();
+      return normalized || fallback;
+    }
+
+    function hasMeaningfulValue(value, depth) {
+      const level = Number.isFinite(Number(depth)) ? Number(depth) : 0;
+      if (level > 8) {
+        return false;
+      }
+      if (value === null || value === undefined) {
+        return false;
+      }
+      if (Array.isArray(value)) {
+        if (!value.length) {
+          return false;
+        }
+        return value.some((entry) => hasMeaningfulValue(entry, level + 1));
+      }
+      if (isObject(value)) {
+        const keys = Object.keys(value);
+        if (!keys.length) {
+          return false;
+        }
+        return keys.some((key) => hasMeaningfulValue(value[key], level + 1));
+      }
+      if (typeof value === "string") {
+        return String(value).trim().length > 0;
+      }
+      if (typeof value === "number") {
+        return Number.isFinite(value);
+      }
+      if (typeof value === "boolean") {
+        return true;
+      }
+      return true;
+    }
+
+    function resolveProfileSrsPairs(items, profileId) {
+      const profilesRoot = isObject(items && items.srsProfiles) ? items.srsProfiles : {};
+      const profileEntry = isObject(profilesRoot[profileId]) ? profilesRoot[profileId] : {};
+      const srsByPair = isObject(profileEntry.srsByPair) ? profileEntry.srsByPair : {};
+      const srsSignalsByPair = isObject(profileEntry.srsSignalsByPair) ? profileEntry.srsSignalsByPair : {};
+      const importedSnapshotsByPair = isObject(items && items.importedSrsPairSnapshots)
+        ? items.importedSrsPairSnapshots
+        : {};
+      const languagePrefs = settingsManager && typeof settingsManager.getProfileLanguagePrefs === "function"
+        ? settingsManager.getProfileLanguagePrefs(items, { profileId })
+        : {
+            sourceLanguage: "en",
+            targetLanguage: "en",
+            srsPair: "en-en"
+          };
+      const sourceLanguage = String(languagePrefs && languagePrefs.sourceLanguage || "en").trim() || "en";
+      const targetLanguage = String(languagePrefs && languagePrefs.targetLanguage || "en").trim() || "en";
+      const fallbackPair = `${sourceLanguage}-${targetLanguage}`;
+      const currentPair = normalizeSrsPairKey(languagePrefs && languagePrefs.srsPair, fallbackPair);
+      const seen = new Set();
+      const pairOrder = [];
+      const addPair = (rawPair) => {
+        const pair = normalizeSrsPairKey(rawPair, fallbackPair);
+        if (!pair || seen.has(pair)) {
+          return;
+        }
+        seen.add(pair);
+        pairOrder.push(pair);
+      };
+
+      addPair(currentPair);
+      Object.keys(srsByPair).forEach((pair) => addPair(pair));
+      Object.keys(srsSignalsByPair).forEach((pair) => addPair(pair));
+      const importedPrefix = `${profileId}:`;
+      Object.keys(importedSnapshotsByPair).forEach((key) => {
+        if (!String(key).startsWith(importedPrefix)) {
+          return;
+        }
+        addPair(String(key).slice(importedPrefix.length));
+      });
+
+      const pairs = [];
+      pairOrder.forEach((pair) => {
+        const profileData = isObject(srsByPair[pair]) ? srsByPair[pair] : {};
+        const signalsData = isObject(srsSignalsByPair[pair]) ? srsSignalsByPair[pair] : {};
+        const importedData = isObject(importedSnapshotsByPair[`${profileId}:${pair}`])
+          ? importedSnapshotsByPair[`${profileId}:${pair}`]
+          : null;
+        const helperData = importedData && (
+          isObject(importedData.helperSnapshot)
+          || isObject(importedData.helperRuleset)
+        )
+          ? {
+              helperSnapshot: importedData.helperSnapshot,
+              helperRuleset: importedData.helperRuleset
+            }
+          : null;
+        const hasProfileData = hasMeaningfulValue(profileData, 0);
+        const hasSignalsData = hasMeaningfulValue(signalsData, 0);
+        const hasImportedHelperData = hasMeaningfulValue(helperData, 0);
+        if (!hasProfileData && !hasSignalsData && !hasImportedHelperData) {
+          return;
+        }
+        pairs.push({
+          pair,
+          isCurrent: pair === currentPair,
+          hasProfileData,
+          hasSignalsData,
+          hasImportedHelperData
+        });
+      });
+
+      pairs.sort((a, b) => {
+        if (a.isCurrent && !b.isCurrent) {
+          return -1;
+        }
+        if (!a.isCurrent && b.isCurrent) {
+          return 1;
+        }
+        return String(a.pair || "").localeCompare(String(b.pair || ""));
+      });
+
+      return {
+        currentPair,
+        pairs
+      };
+    }
+
+    function renderSrsPairItems(items, profileId) {
+      if (!srsPairItemsRoot) {
+        return;
+      }
+      const previouslyCheckedPairs = new Set();
+      dynamicLeafState.forEach((entry) => {
+        if (!entry || entry.kind !== "srs_pair_item") {
+          return;
+        }
+        if (entry.input && entry.input.checked && entry.meta && entry.meta.srsPair) {
+          previouslyCheckedPairs.add(String(entry.meta.srsPair));
+        }
+      });
+
+      clearDynamicLeafsByKind("srs_pair_item");
+      dynamicSrsPairIds = [];
+      srsPairItemsRoot.innerHTML = "";
+
+      const pairData = resolveProfileSrsPairs(items, profileId);
+      const pairs = Array.isArray(pairData.pairs) ? pairData.pairs : [];
+
+      if (!pairs.length) {
+        const empty = document.createElement("p");
+        empty.className = "hint";
+        empty.textContent = "No SRS pair data available for this profile.";
+        srsPairItemsRoot.appendChild(empty);
+        setSrsPairStatus(`No non-empty SRS pair data on profile ${profileId}.`, colors.DEFAULT);
+        return;
+      }
+
+      const firstPair = String(pairs[0] && pairs[0].pair || "").trim();
+      pairs.forEach((pairEntry) => {
+        const pair = String(pairEntry.pair || "").trim();
+        if (!pair) {
+          return;
+        }
+        const leafId = `srs-pair::${encodeURIComponent(pair)}`;
+        const meta = {
+          id: leafId,
+          kind: "srs_pair_item",
+          label: pair,
+          path: `Profile > SRS Data > ${pair}`,
+          groups: ["SRS data"],
+          scope: "srs_pair",
+          enabled: true,
+          srsPair: pair
+        };
+        const hintParts = [];
+        if (pairEntry.hasProfileData) {
+          hintParts.push("Profile pair data");
+        }
+        if (pairEntry.hasSignalsData) {
+          hintParts.push("Signals");
+        }
+        if (pairEntry.hasImportedHelperData) {
+          hintParts.push("Imported helper snapshot");
+        }
+        if (pairEntry.isCurrent) {
+          hintParts.push("Current pair");
+        }
+        const checked = previouslyCheckedPairs.has(pair)
+          || (!previouslyCheckedPairs.size && pairEntry.isCurrent)
+          || (!previouslyCheckedPairs.size && !pairEntry.isCurrent && pair === firstPair);
+        const row = createDynamicLeafRow(meta, {
+          checked,
+          hint: hintParts.join(" • ") || "SRS pair data available.",
+          badge: pairEntry.isCurrent ? "Current" : null
+        });
+        const entry = {
+          id: leafId,
+          kind: "srs_pair_item",
+          input: row.input,
+          meta
+        };
+        row.input.addEventListener("change", () => {
+          onLeafChanged(entry);
+        });
+        srsPairItemsRoot.appendChild(row.label);
+        dynamicLeafState.set(leafId, entry);
+        dynamicSrsPairIds.push(leafId);
+      });
+
+      setSrsPairStatus(
+        `${pairs.length} SRS pair${pairs.length === 1 ? "" : "s"} with data on profile ${profileId}.`,
+        colors.DEFAULT
+      );
+    }
+
     function renderRulesetItems(profileId, manualState, cache) {
       if (!rulesetItemsRoot) {
         return;
@@ -718,11 +926,11 @@
           label,
           path: `Profile > Modules > ${label}`,
           groups: ["Modules"],
-          scope: null,
-          enabled: false,
-          reason: "Coming soon",
+          scope: "module_item",
+          enabled: true,
           moduleId,
-          moduleEnabledInProfile: moduleEntry.enabledInProfile === true
+          moduleEnabledInProfile: moduleEntry.enabledInProfile === true,
+          moduleTargetLanguage: targetLanguage
         };
         const enabledInProfile = moduleEntry.enabledInProfile === true;
         const row = createDynamicLeafRow(meta, {
@@ -733,9 +941,7 @@
                 enabledInProfile
                   ? "Enabled in this profile."
                   : "Disabled in this profile."
-              ),
-          isPending: true,
-          badge: "Coming soon"
+              )
         });
         const entry = {
           id: leafId,
@@ -769,53 +975,8 @@
       };
     }
 
-    function estimateSize(plan) {
-      const supportedTargets = Array.isArray(plan && plan.supportedTargets) ? plan.supportedTargets : [];
-      if (!supportedTargets.length) {
-        return "—";
-      }
-      if (supportedTargets.some((target) => target.kind === "profile")) {
-        return "large";
-      }
-      let score = 1;
-      supportedTargets.forEach((target) => {
-        if (target.kind === "profile_settings") {
-          score = Math.max(score, 2);
-          return;
-        }
-        if (target.kind === "ruleset_item") {
-          const rulesCount = Number(target.rulesCount || 0);
-          if (rulesCount > 1500) {
-            score = Math.max(score, 3);
-          } else if (rulesCount > 250) {
-            score = Math.max(score, 2);
-          }
-        }
-      });
-      if (supportedTargets.length > 1) {
-        score = Math.max(score, 2);
-      }
-      if (score >= 3) {
-        return "large";
-      }
-      if (score <= 1) {
-        return "small";
-      }
-      return "medium";
-    }
-
-    function recommendOutput(plan, sizeCategory) {
-      const supportedTargets = Array.isArray(plan && plan.supportedTargets) ? plan.supportedTargets : [];
-      if (!supportedTargets.length) {
-        return "—";
-      }
-      if (supportedTargets.length > 1) {
-        return "file (bundle)";
-      }
-      if (sizeCategory === "large") {
-        return "file";
-      }
-      return "short code";
+    function recommendOutput() {
+      return "JSON file";
     }
 
     function buildPathSummary(plan) {
@@ -823,14 +984,12 @@
       if (!selectedTargets.length) {
         return `None (${currentProfileId})`;
       }
-      const paths = selectedTargets.map((target) => String(target.path || target.label || "").trim()).filter(Boolean);
-      if (!paths.length) {
-        return `None (${currentProfileId})`;
+      if (selectedTargets.length === 1) {
+        const only = selectedTargets[0];
+        const label = String(only.path || only.label || "Selection").trim();
+        return `${label} (${currentProfileId})`;
       }
-      if (paths.length <= 2) {
-        return `${paths.join(" + ")} (${currentProfileId})`;
-      }
-      return `${paths[0]} + ${paths[1]} + ${paths.length - 2} more (${currentProfileId})`;
+      return `${selectedTargets.length} selected nodes (${currentProfileId})`;
     }
 
     function buildIncludesSummary(plan) {
@@ -838,15 +997,54 @@
       if (!selectedTargets.length) {
         return "Nothing selected.";
       }
-      return selectedTargets.map((target) => {
+      const counters = {
+        profileSettings: 0,
+        rulesets: 0,
+        srsPairs: 0,
+        appearance: 0,
+        modules: 0
+      };
+      selectedTargets.forEach((target) => {
+        if (!target || !target.kind) {
+          return;
+        }
+        if (target.kind === "profile_settings") {
+          counters.profileSettings += 1;
+          return;
+        }
         if (target.kind === "ruleset_item") {
-          return `Ruleset: ${target.label} (${target.rulesCount} rules)`;
+          counters.rulesets += 1;
+          return;
+        }
+        if (target.kind === "srs_pair_item") {
+          counters.srsPairs += 1;
+          return;
+        }
+        if (target.kind === "appearance_theme") {
+          counters.appearance += 1;
+          return;
         }
         if (target.kind === "module_item") {
-          return `Module: ${target.label}`;
+          counters.modules += 1;
         }
-        return target.label;
-      }).join(" | ");
+      });
+      const parts = [];
+      if (counters.profileSettings > 0) {
+        parts.push("Profile settings");
+      }
+      if (counters.rulesets > 0) {
+        parts.push(`Rulesets (${counters.rulesets})`);
+      }
+      if (counters.srsPairs > 0) {
+        parts.push(`SRS pairs (${counters.srsPairs})`);
+      }
+      if (counters.appearance > 0) {
+        parts.push("Appearance");
+      }
+      if (counters.modules > 0) {
+        parts.push(`Modules (${counters.modules})`);
+      }
+      return parts.length ? parts.join(" | ") : "Selected nodes";
     }
 
     function resolveGenerateSelection(planArg) {
@@ -863,22 +1061,36 @@
           message: "Selected nodes are not exportable yet."
         };
       }
-      if (plan.supportedTargets.length > 1) {
-        return {
-          ok: false,
-          message: "Bundle export for multiple nodes is coming soon. Keep one exportable node selected for now."
-        };
-      }
-      const target = plan.supportedTargets[0];
-      if (target.kind === "ruleset_item" && !normalizePath(target.rulesetPath)) {
+      const invalidRuleset = plan.supportedTargets.find((target) => (
+        target.kind === "ruleset_item" && !normalizePath(target.rulesetPath)
+      ));
+      if (invalidRuleset) {
         return {
           ok: false,
           message: "Choose a ruleset entry before generating."
         };
       }
+      const invalidModule = plan.supportedTargets.find((target) => (
+        target.kind === "module_item" && !String(target.moduleId || "").trim()
+      ));
+      if (invalidModule) {
+        return {
+          ok: false,
+          message: "Choose a valid module entry before generating."
+        };
+      }
+      const invalidSrsPair = plan.supportedTargets.find((target) => (
+        target.kind === "srs_pair_item" && !String(target.srsPair || "").trim()
+      ));
+      if (invalidSrsPair) {
+        return {
+          ok: false,
+          message: "Choose a valid SRS pair entry before generating."
+        };
+      }
       return {
         ok: true,
-        target,
+        supportedTargets: plan.supportedTargets,
         ignoredCount: plan.unsupportedTargets.length
       };
     }
@@ -886,37 +1098,27 @@
     function updateSummary() {
       if (isFullMode()) {
         if (summaryTarget) {
-          summaryTarget.textContent = `Profile > Full profile (${currentProfileId})`;
+          summaryTarget.textContent = `Full profile (${currentProfileId})`;
         }
         if (summaryGroups) {
           summaryGroups.textContent = FULL_PROFILE_GROUPS.join(" | ");
         }
-        if (summarySize) {
-          summarySize.textContent = "large";
-        }
         if (summaryOutput) {
-          summaryOutput.textContent = "file";
+          summaryOutput.textContent = recommendOutput();
         }
         if (generateButton) {
           generateButton.disabled = false;
         }
-        if (copyButton) {
-          copyButton.disabled = !exportCodeInput || !String(exportCodeInput.value || "").trim();
-        }
-        setExportHint("Ready to generate full profile export.");
+        setExportHint("Ready to export full profile as JSON file.");
         return;
       }
       const plan = resolveSelectionPlan();
-      const sizeCategory = estimateSize(plan);
-      const outputRecommendation = recommendOutput(plan, sizeCategory);
+      const outputRecommendation = recommendOutput();
       if (summaryTarget) {
         summaryTarget.textContent = buildPathSummary(plan);
       }
       if (summaryGroups) {
         summaryGroups.textContent = buildIncludesSummary(plan);
-      }
-      if (summarySize) {
-        summarySize.textContent = sizeCategory;
       }
       if (summaryOutput) {
         summaryOutput.textContent = outputRecommendation;
@@ -925,14 +1127,11 @@
       if (generateButton) {
         generateButton.disabled = resolution.ok !== true;
       }
-      if (copyButton) {
-        copyButton.disabled = !exportCodeInput || !String(exportCodeInput.value || "").trim();
-      }
       if (resolution.ok === true) {
         if (resolution.ignoredCount > 0) {
-          setExportHint(`Ready. ${resolution.ignoredCount} coming-soon selection(s) will be ignored.`);
+          setExportHint(`Ready. ${resolution.ignoredCount} unsupported selection(s) will be ignored.`);
         } else {
-          setExportHint("Ready to generate.");
+          setExportHint("Ready to export selection as JSON file.");
         }
       } else {
         setExportHint(resolution.message);
@@ -983,18 +1182,70 @@
       closeModal("import");
     }
 
+    function slugifyFileSegment(value, fallback) {
+      const normalized = String(value || "").trim().toLowerCase();
+      const slug = normalized
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      return slug || String(fallback || "export");
+    }
+
+    function resolveExportFileName(scope, profileId) {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const profileSlug = slugifyFileSegment(profileId, "profile");
+      const baseByScope = {
+        profile: "profile",
+        bundle: "selection",
+        ruleset: "ruleset",
+        srs_pair: "srs-pair",
+        appearance_theme: "appearance",
+        module_item: "module"
+      };
+      const base = Object.prototype.hasOwnProperty.call(baseByScope, scope)
+        ? baseByScope[scope]
+        : "selection";
+      return `lexishift-share-${base}-${profileSlug}-${timestamp}.json`;
+    }
+
+    function formatByteSize(sizeBytes) {
+      const bytes = Number(sizeBytes);
+      if (!Number.isFinite(bytes) || bytes < 0) {
+        return "0 B";
+      }
+      if (bytes < 1024) {
+        return `${Math.round(bytes)} B`;
+      }
+      if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(1)} KB`;
+      }
+      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    }
+
+    function downloadJsonFile(content, fileName) {
+      const blob = new Blob([content], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = fileName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+      return blob.size;
+    }
+
     async function generateShareCode() {
-      if (!rulesShareController || typeof rulesShareController.generateShareCodeWithOptions !== "function") {
+      if (!rulesShareController || typeof rulesShareController.generateSharePayloadWithOptions !== "function") {
         return;
       }
-      const useCjk = exportCodeCjk ? exportCodeCjk.checked === true : true;
       try {
-        let code = "";
+        let envelope = null;
+        let exportScope = "bundle";
         let ignoredCount = 0;
         if (isFullMode()) {
-          code = await rulesShareController.generateShareCodeWithOptions({
-            scope: "profile",
-            useCjk,
+          exportScope = "profile";
+          envelope = await rulesShareController.generateSharePayloadWithOptions({
+            scope: exportScope,
             profileId: currentProfileId
           });
         } else {
@@ -1003,36 +1254,113 @@
             setExportStatus(resolution.message || "Cannot generate with current selection.", colors.ERROR);
             return;
           }
-          const target = resolution.target;
+          const supportedTargets = Array.isArray(resolution.supportedTargets)
+            ? resolution.supportedTargets
+            : [];
+          if (!supportedTargets.length) {
+            setExportStatus("No exportable custom nodes selected.", colors.ERROR);
+            return;
+          }
           ignoredCount = resolution.ignoredCount;
-          if (target.kind === "ruleset_item") {
-            code = await rulesShareController.generateShareCodeWithOptions({
-              scope: "ruleset",
-              useCjk,
+          if (supportedTargets.length === 1) {
+            const target = supportedTargets[0];
+            if (target.kind === "ruleset_item") {
+              exportScope = "ruleset";
+              envelope = await rulesShareController.generateSharePayloadWithOptions({
+                scope: exportScope,
+                profileId: currentProfileId,
+                helperManager,
+                rulesetPath: target.rulesetPath,
+                rulesetName: target.rulesetName || target.label
+              });
+            } else if (target.kind === "module_item") {
+              exportScope = "module_item";
+              envelope = await rulesShareController.generateSharePayloadWithOptions({
+                scope: exportScope,
+                profileId: currentProfileId,
+                moduleId: target.moduleId,
+                targetLanguage: target.moduleTargetLanguage
+              });
+            } else if (target.kind === "srs_pair_item") {
+              exportScope = "srs_pair";
+              envelope = await rulesShareController.generateSharePayloadWithOptions({
+                scope: exportScope,
+                profileId: currentProfileId,
+                helperManager,
+                srsPair: target.srsPair
+              });
+            } else if (target.kind === "appearance_theme") {
+              exportScope = "appearance_theme";
+              envelope = await rulesShareController.generateSharePayloadWithOptions({
+                scope: exportScope,
+                profileId: currentProfileId
+              });
+            } else {
+              exportScope = String(target.scope || "").trim() || "bundle";
+              envelope = await rulesShareController.generateSharePayloadWithOptions({
+                scope: exportScope,
+                profileId: currentProfileId
+              });
+            }
+          } else {
+            const bundleTargets = supportedTargets.map((target) => {
+              if (target.kind === "ruleset_item") {
+                return {
+                  kind: "ruleset",
+                  rulesetPath: target.rulesetPath,
+                  rulesetName: target.rulesetName || target.label
+                };
+              }
+              if (target.kind === "profile_settings") {
+                return {
+                  kind: "profile_settings"
+                };
+              }
+              if (target.kind === "srs_pair_item") {
+                return {
+                  kind: "srs_pair",
+                  pair: target.srsPair
+                };
+              }
+              if (target.kind === "appearance_theme") {
+                return {
+                  kind: "appearance_theme"
+                };
+              }
+              if (target.kind === "module_item") {
+                return {
+                  kind: "module_item",
+                  moduleId: target.moduleId,
+                  targetLanguage: target.moduleTargetLanguage
+                };
+              }
+              return {
+                kind: target.kind
+              };
+            });
+            exportScope = "bundle";
+            envelope = await rulesShareController.generateSharePayloadWithOptions({
+              scope: exportScope,
               profileId: currentProfileId,
               helperManager,
-              rulesetPath: target.rulesetPath,
-              rulesetName: target.rulesetName || target.label
-            });
-          } else {
-            code = await rulesShareController.generateShareCodeWithOptions({
-              scope: target.scope,
-              useCjk,
-              profileId: currentProfileId
+              bundleTargets
             });
           }
         }
-        if (exportCodeInput) {
-          exportCodeInput.value = code;
+        if (!envelope || typeof envelope !== "object") {
+          throw new Error("Failed to export file.");
         }
+        const content = `${JSON.stringify(envelope, null, 2)}\n`;
+        const fileName = resolveExportFileName(exportScope, currentProfileId);
+        const sizeBytes = downloadJsonFile(content, fileName);
         updateSummary();
-        let message = translate("status_generated_code", String(code.length), `Code generated (${code.length} chars).`);
+        let message = `Exported ${fileName} (${formatByteSize(sizeBytes)}).`;
         if (ignoredCount > 0) {
-          message += ` Ignored ${ignoredCount} coming-soon selection(s).`;
+          message += ` Ignored ${ignoredCount} unsupported selection(s).`;
         }
         setExportStatus(message, colors.SUCCESS);
       } catch (err) {
-        const message = err && err.message ? err.message : "Failed to generate code.";
+        const message = err && err.message ? err.message : "Failed to export file.";
         setExportStatus(message, colors.ERROR);
       }
     }
@@ -1043,7 +1371,7 @@
       }
       const code = importCodeInput ? String(importCodeInput.value || "").trim() : "";
       if (!code) {
-        setImportStatus("Paste a share code first.", colors.ERROR);
+        setImportStatus("Paste a payload or share code first.", colors.ERROR);
         return;
       }
       try {
@@ -1059,6 +1387,98 @@
           setImportStatus(`Imported ${name} and enabled it for this profile.`, colors.SUCCESS);
           return;
         }
+        if (result && result.scope === "module_item") {
+          await syncForProfile({ profileId: currentProfileId });
+          const moduleId = result.module && result.module.moduleId
+            ? result.module.moduleId
+            : "module";
+          setImportStatus(`Imported module preferences for ${moduleId}.`, colors.SUCCESS);
+          return;
+        }
+        if (result && result.scope === "srs_pair") {
+          setImportStatus("SRS pair progress imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "appearance_theme") {
+          setImportStatus("Appearance imported. Reloading options…", colors.SUCCESS);
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "bundle") {
+          const importedRulesets = Array.isArray(result.rulesets) ? result.rulesets : [];
+          const importedModules = Array.isArray(result.modules) ? result.modules : [];
+          const importedSrsPairs = Array.isArray(result.srsPairs) ? result.srsPairs : [];
+          const importedRulesetsCount = importedRulesets.length;
+          const importedModulesCount = importedModules.length;
+          const importedSrsPairCount = importedSrsPairs.length > 0
+            ? importedSrsPairs.length
+            : (result.srsPair ? 1 : 0);
+          const importedAppearance = Boolean(result.appearanceTheme);
+          const joinSummaryParts = (parts) => {
+            if (!Array.isArray(parts) || parts.length <= 0) {
+              return "";
+            }
+            if (parts.length === 1) {
+              return parts[0];
+            }
+            if (parts.length === 2) {
+              return `${parts[0]} and ${parts[1]}`;
+            }
+            return `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
+          };
+          if (result.requiresReload === true || result.appliedProfileSettings === true) {
+            const summaryParts = [];
+            if (importedRulesetsCount > 0) {
+              summaryParts.push(`${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"}`);
+            }
+            if (importedModulesCount > 0) {
+              summaryParts.push(`${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}`);
+            }
+            if (result.appliedProfileSettings === true) {
+              summaryParts.push("profile settings");
+            }
+            if (importedSrsPairCount > 0) {
+              summaryParts.push(
+                `${importedSrsPairCount} SRS pair${importedSrsPairCount === 1 ? "" : "s"}`
+              );
+            }
+            if (importedAppearance) {
+              summaryParts.push("appearance");
+            }
+            const summaryText = joinSummaryParts(summaryParts);
+            const prefix = summaryText ? `Imported ${summaryText}.` : "Bundle imported.";
+            setImportStatus(`${prefix} Reloading options…`, colors.SUCCESS);
+            setTimeout(() => {
+              window.location.reload();
+            }, 120);
+            return;
+          }
+          await syncForProfile({ profileId: currentProfileId });
+          if (importedRulesetsCount > 0 && importedModulesCount > 0) {
+            setImportStatus(
+              `Imported ${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"} and ${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}.`,
+              colors.SUCCESS
+            );
+          } else if (importedRulesetsCount > 0) {
+            setImportStatus(
+              `Imported ${importedRulesetsCount} ruleset${importedRulesetsCount === 1 ? "" : "s"} and enabled them for this profile.`,
+              colors.SUCCESS
+            );
+          } else if (importedModulesCount > 0) {
+            setImportStatus(
+              `Imported ${importedModulesCount} module setting${importedModulesCount === 1 ? "" : "s"}.`,
+              colors.SUCCESS
+            );
+          } else {
+            setImportStatus("Bundle imported.", colors.SUCCESS);
+          }
+          return;
+        }
         if (result && (result.scope === "srs" || result.scope === "profile")) {
           setImportStatus("Import applied. Reloading options…", colors.SUCCESS);
           setTimeout(() => {
@@ -1066,32 +1486,11 @@
           }, 120);
           return;
         }
-        setImportStatus("Code imported.", colors.SUCCESS);
+        setImportStatus("Payload imported.", colors.SUCCESS);
       } catch (err) {
-        const message = err && err.message ? err.message : "Invalid code.";
+        const message = err && err.message ? err.message : "Invalid payload.";
         setImportStatus(message, colors.ERROR);
       }
-    }
-
-    function copyShareCode() {
-      if (!exportCodeInput) {
-        return;
-      }
-      const value = String(exportCodeInput.value || "").trim();
-      if (!value) {
-        return;
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(value).then(() => {
-          setExportStatus(translate("status_copied", null, "Copied."), colors.SUCCESS);
-          updateSummary();
-        });
-        return;
-      }
-      exportCodeInput.select();
-      document.execCommand("copy");
-      setExportStatus(translate("status_copied", null, "Copied."), colors.SUCCESS);
-      updateSummary();
     }
 
     function bindParentEvents() {
@@ -1186,23 +1585,13 @@
     }
 
     function bindActionEvents() {
-      if (exportCodeInput) {
-        exportCodeInput.addEventListener("input", () => {
-          updateSummary();
-        });
-      }
       if (generateButton) {
         generateButton.addEventListener("click", () => {
           generateShareCode().catch((error) => {
-            const message = error && error.message ? error.message : "Failed to generate code.";
+            const message = error && error.message ? error.message : "Failed to export file.";
             setExportStatus(message, colors.ERROR);
             log("Share center generate failed.", error);
           });
-        });
-      }
-      if (copyButton) {
-        copyButton.addEventListener("click", () => {
-          copyShareCode();
         });
       }
       if (importButton) {
@@ -1273,6 +1662,7 @@
       });
 
       currentProfileId = profileId;
+      renderSrsPairItems(items, profileId);
       renderRulesetItems(profileId, manualState, cache);
       renderModuleItems(items, profileId);
       applyExportModeUI();
@@ -1280,18 +1670,13 @@
       updateSummary();
       return {
         profileId,
+        srsPairLeafIds: [...dynamicSrsPairIds],
         rulesetLeafIds: [...dynamicRulesetIds],
         moduleLeafIds: [...dynamicModuleIds]
       };
     }
 
     bindEvents();
-    if (targetSrsPairInput) {
-      targetSrsPairInput.disabled = true;
-    }
-    if (targetAppearanceThemeInput) {
-      targetAppearanceThemeInput.disabled = true;
-    }
     if (targetProfileSettingsInput && targetProfileSettingsInput.checked !== true) {
       targetProfileSettingsInput.checked = true;
     }
@@ -1305,8 +1690,7 @@
     return {
       syncForProfile,
       generateShareCode,
-      importShareCode,
-      copyShareCode
+      importShareCode
     };
   }
 

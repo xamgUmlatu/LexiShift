@@ -501,16 +501,10 @@
                       <span class="share-center-parent-title">SRS Data</span>
                     </span>
                   </label>
-                  <div class="share-center-children">
-                    <label class="share-center-target is-disabled">
-                      <input id="share-center-target-srs-pair" type="checkbox" name="share-center-target" value="srs_pair" disabled />
-                      <span class="share-center-target-body">
-                        <span class="share-center-target-title">SRS progress (pair)</span>
-                        <span class="share-center-target-hint">Coming soon.</span>
-                      </span>
-                      <span class="share-center-badge">Coming soon</span>
-                    </label>
+                  <div id="share-center-srs-pair-items" class="share-center-children share-center-dynamic-list">
+                    <p class="hint">No SRS pair data available for this profile.</p>
                   </div>
+                  <p id="share-center-srs-pair-status" class="hint share-center-inline-status"></p>
                 </section>
                 <section class="share-center-subgroup">
                   <label class="share-center-parent">
@@ -520,13 +514,12 @@
                     </span>
                   </label>
                   <div class="share-center-children">
-                    <label class="share-center-target is-disabled">
-                      <input id="share-center-target-appearance-theme" type="checkbox" name="share-center-target" value="appearance_theme" disabled />
+                    <label class="share-center-target">
+                      <input id="share-center-target-appearance-theme" type="checkbox" name="share-center-target" value="appearance_theme" />
                       <span class="share-center-target-body">
                         <span class="share-center-target-title">Theme/colors</span>
-                        <span class="share-center-target-hint">Coming soon.</span>
+                        <span class="share-center-target-hint">Profile theme values (colors and card tone controls).</span>
                       </span>
-                      <span class="share-center-badge">Coming soon</span>
                     </label>
                   </div>
                 </section>
@@ -545,11 +538,13 @@
               </div>
             </section>
           </div>
+        </div>
+        <div class="share-center-export-footer">
           <aside class="share-center-summary">
             <h3>Selection Summary</h3>
             <div class="meta-row">
               <div>
-                <span class="meta-label">Path</span>
+                <span class="meta-label">Selection</span>
                 <span id="share-center-summary-target" class="meta-value">—</span>
               </div>
               <div>
@@ -557,28 +552,18 @@
                 <span id="share-center-summary-groups" class="meta-value">—</span>
               </div>
               <div>
-                <span class="meta-label">Size estimate</span>
-                <span id="share-center-summary-size" class="meta-value">—</span>
-              </div>
-              <div>
-                <span class="meta-label">Suggested output</span>
+                <span class="meta-label">Export format</span>
                 <span id="share-center-summary-output" class="meta-value">—</span>
               </div>
             </div>
-            <textarea id="share-center-code" rows="6" spellcheck="false"></textarea>
-            <label class="toggle">
-              <input id="share-center-code-cjk" type="checkbox" checked />
-              <span>Short code (CJK)</span>
-            </label>
-            <div class="actions">
-              <button id="share-center-generate" type="button">Generate</button>
-              <button id="share-center-copy" type="button">Copy</button>
-            </div>
             <p class="hint share-center-inline-status">
-              Estimate is a lightweight UX hint and may differ from actual encoded length.
+              Exact file size is shown after export.
             </p>
-            <p id="share-center-export-status" class="hint share-center-inline-status"></p>
           </aside>
+          <div class="share-center-export-actions">
+            <button id="share-center-generate" type="button">Export JSON file</button>
+            <p id="share-center-export-status" class="hint share-center-inline-status"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -596,12 +581,12 @@
           <button id="share-center-import-close" type="button" class="share-center-modal-close">Close</button>
         </div>
         <p class="hint">
-          Paste a share code to import into the selected profile. Scope is detected from the decoded payload.
+          Paste a share payload or legacy share code to import into the selected profile. Scope is auto-detected.
         </p>
         <textarea id="share-center-import-code" rows="7" spellcheck="false"></textarea>
         <label class="toggle">
           <input id="share-center-import-code-cjk" type="checkbox" checked />
-          <span>Prefer CJK decode</span>
+          <span>Prefer CJK decode (legacy code)</span>
         </label>
         <div class="actions">
           <button id="share-center-import" type="button">Import</button>
