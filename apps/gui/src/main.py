@@ -100,6 +100,7 @@ from helper_installer import install_helper, is_helper_installed
 from helper_ui import auto_install_helper, ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
 from dialogs_code import BulkRulesDialog, CodeDialog
 from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
+from dialogs_rulesets import RulesetLibraryDialog
 from i18n import set_locale, t
 from models import RulesTableModel
 from preview import PreviewController, ReplacementHighlighter
@@ -189,6 +190,8 @@ class MainWindow(QMainWindow):
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
+        self.manage_rulesets_button = QPushButton(t("buttons.manage_rulesets"))
+        self.manage_rulesets_button.clicked.connect(self._manage_rulesets)
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
@@ -199,6 +202,11 @@ class MainWindow(QMainWindow):
         self.save_ruleset_button = QPushButton(t("buttons.save_ruleset"))
         self.save_ruleset_button.clicked.connect(self._save_dataset)
         self.save_ruleset_button.setEnabled(False)
+
+        self.manage_profiles_button.setProperty("variant", "primary")
+        self.manage_rulesets_button.setProperty("variant", "primary")
+        self.open_ruleset_button.setProperty("variant", "secondary")
+        self.save_ruleset_button.setProperty("variant", "primary")
 
         self.rules_table = QTableView()
         self.rules_table.setModel(self._rules_proxy)
@@ -319,6 +327,9 @@ class MainWindow(QMainWindow):
         self._manage_profiles_action = QAction(t("menu.manage_profiles"), self)
         self._manage_profiles_action.triggered.connect(self._manage_profiles)
 
+        self._manage_rulesets_action = QAction(t("menu.manage_rulesets"), self)
+        self._manage_rulesets_action.triggered.connect(self._manage_rulesets)
+
         self._save_profiles_action = QAction(t("menu.save_profiles"), self)
         self._save_profiles_action.triggered.connect(self._save_profiles)
 
@@ -409,6 +420,7 @@ class MainWindow(QMainWindow):
 
         profiles_menu = menu_bar.addMenu(t("menu.profiles"))
         profiles_menu.addAction(self._manage_profiles_action)
+        profiles_menu.addAction(self._manage_rulesets_action)
         profiles_menu.addAction(self._save_profiles_action)
         profiles_menu.addSeparator()
 
@@ -497,6 +509,7 @@ class MainWindow(QMainWindow):
         profile_label = QLabel(t("labels.profile"))
         ruleset_label = QLabel(t("labels.ruleset"))
         self.manage_profiles_button.setToolTip(t("dialogs.manage_profiles.title"))
+        self.manage_rulesets_button.setToolTip(t("dialogs.manage_rulesets.title"))
         self.open_ruleset_button.setToolTip(t("menu.open_ruleset"))
         self.save_ruleset_button.setToolTip(t("menu.save_ruleset"))
 
@@ -506,6 +519,7 @@ class MainWindow(QMainWindow):
         header_layout.addWidget(profile_label)
         header_layout.addWidget(self.profile_combo, 1)
         header_layout.addWidget(self.manage_profiles_button)
+        header_layout.addWidget(self.manage_rulesets_button)
         header_layout.addSpacing(16)
         header_layout.addWidget(ruleset_label)
         header_layout.addWidget(self.ruleset_combo, 1)
@@ -758,6 +772,17 @@ class MainWindow(QMainWindow):
         profiles = dialog.result_profiles()
         active_profile_id = dialog.result_active_profile_id()
         self.state.set_profiles(profiles, active_profile_id=active_profile_id)
+        self._load_active_profile()
+        self._refresh_profiles_ui()
+
+    def _manage_rulesets(self) -> None:
+        if not self._confirm_discard_changes():
+            return
+        dialog = RulesetLibraryDialog(self.state.settings.profiles, parent=self)
+        if dialog.exec() != QDialog.DialogCode.Accepted:
+            return
+        profiles = dialog.result_profiles()
+        self.state.set_profiles(profiles, active_profile_id=self.state.settings.active_profile_id)
         self._load_active_profile()
         self._refresh_profiles_ui()
 

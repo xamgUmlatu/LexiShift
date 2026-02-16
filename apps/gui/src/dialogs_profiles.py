@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -17,13 +18,13 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QMenu,
     QMessageBox,
-    QPlainTextEdit,
     QPushButton,
+    QSizePolicy,
     QVBoxLayout,
     QWidget,
 )
 
-from lexishift_core import Profile
+from lexishift_core import Profile, VocabDataset, save_vocab_dataset
 from i18n import t
 from theme_manager import apply_dialog_theme
 from theme_widgets import ThemedBackgroundWidget
@@ -43,14 +44,13 @@ class ProfilesDialog(QDialog):
         self.setSizeGripEnabled(True)
         self._default_dir = default_dir
         self._profiles = list(profiles)
-        self._active_profile_id = active_profile_id
+        self._active_profile_id = self._resolve_initial_active_profile_id(active_profile_id)
         self._current_index: Optional[int] = None
         self._updating = False
         self._active_ruleset_override: Optional[str] = None
 
         self.list_widget = QListWidget()
-        for profile in self._profiles:
-            self.list_widget.addItem(_profile_display(profile))
+        self._populate_profile_list()
 
         self.list_widget.currentRowChanged.connect(self._on_select)
         self.list_widget.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -58,46 +58,64 @@ class ProfilesDialog(QDialog):
 
         self.add_button = QPushButton(t("buttons.add"))
         self.remove_button = QPushButton(t("buttons.remove"))
+        self.set_active_profile_button = QPushButton(t("buttons.set_active"))
         self.add_button.clicked.connect(self._add_profile)
         self.remove_button.clicked.connect(self._remove_profile)
+        self.set_active_profile_button.clicked.connect(self._set_active_profile)
 
         list_panel = QVBoxLayout()
         list_panel.addWidget(self.list_widget)
         list_button_row = QHBoxLayout()
         list_button_row.addWidget(self.add_button)
         list_button_row.addWidget(self.remove_button)
+        list_button_row.addWidget(self.set_active_profile_button)
         list_panel.addLayout(list_button_row)
 
         self.id_edit = QLineEdit()
+        self.id_edit.setReadOnly(True)
         self.name_edit = QLineEdit()
-        self.tags_edit = QLineEdit()
-        self.description_edit = QPlainTextEdit()
 
         self.ruleset_list = QListWidget()
         self.ruleset_list.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_list.customContextMenuRequested.connect(self._ruleset_context_menu)
 
-        self.ruleset_add_button = QPushButton(t("buttons.add_ruleset"))
-        self.ruleset_remove_button = QPushButton(t("buttons.remove"))
+        self.ruleset_link_button = QPushButton(t("buttons.select"))
+        self.ruleset_create_button = QPushButton(t("buttons.add_ruleset"))
+        self.ruleset_unlink_button = QPushButton(t("buttons.remove"))
         self.ruleset_set_active_button = QPushButton(t("buttons.set_active"))
-        self.ruleset_add_button.clicked.connect(self._add_ruleset)
-        self.ruleset_remove_button.clicked.connect(self._remove_ruleset)
+        self.ruleset_link_button.clicked.connect(self._link_ruleset)
+        self.ruleset_create_button.clicked.connect(self._create_ruleset)
+        self.ruleset_unlink_button.clicked.connect(self._remove_ruleset)
         self.ruleset_set_active_button.clicked.connect(self._set_active_ruleset)
         self.ruleset_list.itemDoubleClicked.connect(lambda *_: self._set_active_ruleset())
 
-        ruleset_button_row = QHBoxLayout()
-        ruleset_button_row.addWidget(self.ruleset_add_button)
-        ruleset_button_row.addWidget(self.ruleset_remove_button)
-        ruleset_button_row.addWidget(self.ruleset_set_active_button)
+        self._set_button_variant(self.add_button, "primary")
+        self._set_button_variant(self.remove_button, "danger")
+        self._set_button_variant(self.set_active_profile_button, "primary")
+        self._set_button_variant(self.ruleset_link_button, "secondary")
+        self._set_button_variant(self.ruleset_create_button, "primary")
+        self._set_button_variant(self.ruleset_unlink_button, "danger")
+        self._set_button_variant(self.ruleset_set_active_button, "primary")
+
+        ruleset_actions = QWidget()
+        ruleset_actions_layout = QVBoxLayout(ruleset_actions)
+        ruleset_actions_layout.setContentsMargins(0, 0, 0, 0)
+        ruleset_actions_layout.setSpacing(6)
+        ruleset_button_row_primary = QHBoxLayout()
+        ruleset_button_row_primary.addWidget(self.ruleset_link_button)
+        ruleset_button_row_primary.addWidget(self.ruleset_create_button)
+        ruleset_button_row_primary.addWidget(self.ruleset_unlink_button)
+        ruleset_button_row_secondary = QHBoxLayout()
+        ruleset_button_row_secondary.addWidget(self.ruleset_set_active_button)
+        ruleset_actions_layout.addLayout(ruleset_button_row_primary)
+        ruleset_actions_layout.addLayout(ruleset_button_row_secondary)
 
         form = QFormLayout()
         form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         form.addRow(t("labels.profile_id"), self.id_edit)
         form.addRow(t("labels.name"), self.name_edit)
         form.addRow(t("labels.rulesets"), self.ruleset_list)
-        form.addRow("", ruleset_button_row)
-        form.addRow(t("labels.tags_comma"), self.tags_edit)
-        form.addRow(t("labels.description"), self.description_edit)
+        form.addRow("", ruleset_actions)
 
         right_panel = QWidget()
         right_panel.setLayout(form)
@@ -111,6 +129,8 @@ class ProfilesDialog(QDialog):
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
+        self._set_button_variant(button_box.button(QDialogButtonBox.Ok), "primary")
+        self._set_button_variant(button_box.button(QDialogButtonBox.Cancel), "secondary")
 
         self._theme_container = ThemedBackgroundWidget()
         outer = QVBoxLayout(self)
@@ -119,21 +139,19 @@ class ProfilesDialog(QDialog):
         layout = QVBoxLayout(self._theme_container)
         layout.setContentsMargins(16, 16, 16, 16)
         layout.addLayout(main_row)
-        hint_label = QLabel(t("dialogs.manage_profiles.active_hint"))
+        hint_label = QLabel(t("dialogs.manage_profiles.active_explicit_hint"))
         hint_label.setWordWrap(True)
+        hint_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         layout.addWidget(hint_label)
         layout.addWidget(button_box)
 
-        self.id_edit.editingFinished.connect(self._commit_current)
         self.name_edit.textChanged.connect(self._commit_current)
-        self.tags_edit.editingFinished.connect(self._commit_current)
-        self.description_edit.textChanged.connect(self._commit_current)
 
         if self._profiles:
             initial_index = 0
-            if active_profile_id:
+            if self._active_profile_id:
                 for idx, profile in enumerate(self._profiles):
-                    if profile.profile_id == active_profile_id:
+                    if profile.profile_id == self._active_profile_id:
                         initial_index = idx
                         break
             self.list_widget.setCurrentRow(initial_index)
@@ -172,10 +190,7 @@ class ProfilesDialog(QDialog):
         return tuple(self._profiles)
 
     def result_active_profile_id(self) -> Optional[str]:
-        row = self.list_widget.currentRow()
-        if row < 0 or row >= len(self._profiles):
-            return None
-        return self._profiles[row].profile_id
+        return self._active_profile_id
 
     def _on_select(self, row: int) -> None:
         if self._updating:
@@ -200,8 +215,6 @@ class ProfilesDialog(QDialog):
         self.id_edit.setText(profile.profile_id)
         self.name_edit.setText(profile.name)
         self._load_rulesets(profile)
-        self.tags_edit.setText(", ".join(profile.tags))
-        self.description_edit.setPlainText(profile.description or "")
         self._updating = False
 
     def _commit_current(self) -> None:
@@ -213,28 +226,17 @@ class ProfilesDialog(QDialog):
 
     def _commit_profile(self, index: int) -> None:
         profile = self._profiles[index]
-        profile_id = self.id_edit.text().strip() or profile.profile_id
-        if profile_id != profile.profile_id and self._profile_id_exists(profile_id, ignore_index=index):
-            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
-            profile_id = profile.profile_id
-            self.id_edit.setText(profile.profile_id)
-        tags = tuple(tag.strip() for tag in self.tags_edit.text().split(",") if tag.strip())
         rulesets = self._collect_rulesets()
         active_ruleset = self._current_active_ruleset(rulesets, profile)
         updated = replace(
             profile,
-            profile_id=profile_id,
-            name=self.name_edit.text().strip() or profile_id,
+            name=self.name_edit.text().strip() or profile.profile_id,
             dataset_path=active_ruleset or profile.dataset_path,
-            tags=tags,
-            description=self.description_edit.toPlainText().strip() or None,
             rulesets=tuple(rulesets),
             active_ruleset=active_ruleset,
         )
         self._profiles[index] = updated
-        item = self.list_widget.item(index)
-        if item is not None:
-            item.setText(_profile_display(updated))
+        self._refresh_profile_list_labels()
         if index == self._current_index:
             self._active_ruleset_override = active_ruleset
 
@@ -285,11 +287,32 @@ class ProfilesDialog(QDialog):
         return None
 
     def _ruleset_label(self, path: str, active: Optional[str]) -> str:
+        display_path = self._format_ruleset_display(path)
         if path == active:
-            return t("ruleset.active_label", path=path)
-        return path
+            return t("ruleset.active_label", path=display_path)
+        return display_path
 
-    def _add_ruleset(self) -> None:
+    def _link_ruleset(self) -> None:
+        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+            return
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.open_ruleset.title"),
+            str(self._default_dir),
+            t("filters.json"),
+        )
+        if not path:
+            return
+        rulesets = self._collect_rulesets()
+        if path not in rulesets:
+            rulesets.append(path)
+        active = self._current_active_ruleset(rulesets, self._profiles[self._current_index])
+        if active is None:
+            active = path
+        self._apply_rulesets(rulesets, active)
+        self._commit_current()
+
+    def _create_ruleset(self) -> None:
         if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
             return
         path, _ = QFileDialog.getSaveFileName(
@@ -299,6 +322,8 @@ class ProfilesDialog(QDialog):
             t("filters.json"),
         )
         if not path:
+            return
+        if not self._ensure_ruleset_file(path):
             return
         rulesets = self._collect_rulesets()
         if path not in rulesets:
@@ -379,19 +404,9 @@ class ProfilesDialog(QDialog):
         self._updating = True
         self.id_edit.clear()
         self.name_edit.clear()
-        self.tags_edit.clear()
-        self.description_edit.clear()
         self.ruleset_list.clear()
         self._active_ruleset_override = None
         self._updating = False
-
-    def _profile_id_exists(self, profile_id: str, *, ignore_index: Optional[int] = None) -> bool:
-        for idx, profile in enumerate(self._profiles):
-            if ignore_index is not None and idx == ignore_index:
-                continue
-            if profile.profile_id == profile_id:
-                return True
-        return False
 
     def _add_profile(self) -> None:
         self._commit_current()
@@ -405,7 +420,10 @@ class ProfilesDialog(QDialog):
             active_ruleset=dataset_path,
         )
         self._profiles.append(profile)
-        self.list_widget.addItem(_profile_display(profile))
+        self.list_widget.addItem("")
+        if self._active_profile_id is None:
+            self._active_profile_id = profile.profile_id
+        self._refresh_profile_list_labels()
         self.list_widget.setCurrentRow(len(self._profiles) - 1)
 
     def _remove_profile(self) -> None:
@@ -415,10 +433,20 @@ class ProfilesDialog(QDialog):
         if len(self._profiles) <= 1:
             QMessageBox.information(self, t("dialogs.profiles.title"), t("dialogs.profiles.required"))
             return
+        profile = self._profiles[row]
+        confirm = QMessageBox.question(
+            self,
+            t("dialogs.profiles.title"),
+            f"Delete profile '{profile.name or profile.profile_id}'?\nRuleset files will not be deleted.",
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        if confirm != QMessageBox.Yes:
+            return
         self._commit_current()
         self._updating = True
         self.list_widget.blockSignals(True)
-        self._profiles.pop(row)
+        removed = self._profiles.pop(row)
         self.list_widget.takeItem(row)
         if row >= len(self._profiles):
             row = len(self._profiles) - 1
@@ -426,7 +454,61 @@ class ProfilesDialog(QDialog):
         self.list_widget.setCurrentRow(row)
         self.list_widget.blockSignals(False)
         self._updating = False
+        if removed.profile_id == self._active_profile_id:
+            self._active_profile_id = self._profiles[row].profile_id if 0 <= row < len(self._profiles) else None
+        self._refresh_profile_list_labels()
         self._load_current()
+
+    def _set_active_profile(self) -> None:
+        row = self.list_widget.currentRow()
+        if row < 0 or row >= len(self._profiles):
+            return
+        self._commit_current()
+        self._active_profile_id = self._profiles[row].profile_id
+        self._refresh_profile_list_labels()
+
+    def _format_ruleset_display(self, path: str) -> str:
+        normalized = Path(os.path.abspath(os.path.expanduser(path)))
+        if not normalized.exists():
+            return t("ruleset.missing", label=path)
+        return path
+
+    def _populate_profile_list(self) -> None:
+        self.list_widget.clear()
+        for _ in self._profiles:
+            self.list_widget.addItem("")
+        self._refresh_profile_list_labels()
+
+    def _refresh_profile_list_labels(self) -> None:
+        for index, profile in enumerate(self._profiles):
+            item = self.list_widget.item(index)
+            if item is None:
+                continue
+            item.setText(_profile_display(profile, is_active=profile.profile_id == self._active_profile_id))
+
+    def _resolve_initial_active_profile_id(self, active_profile_id: Optional[str]) -> Optional[str]:
+        if not self._profiles:
+            return None
+        requested = str(active_profile_id or "").strip()
+        if requested and any(profile.profile_id == requested for profile in self._profiles):
+            return requested
+        return self._profiles[0].profile_id
+
+    def _ensure_ruleset_file(self, path: str) -> bool:
+        candidate = Path(os.path.abspath(os.path.expanduser(path)))
+        try:
+            candidate.parent.mkdir(parents=True, exist_ok=True)
+            if not candidate.exists():
+                save_vocab_dataset(VocabDataset(), candidate)
+            return True
+        except Exception as exc:  # noqa: BLE001
+            QMessageBox.warning(self, t("dialogs.rulesets.title"), str(exc))
+            return False
+
+    def _set_button_variant(self, button: QPushButton | None, variant: str) -> None:
+        if button is None:
+            return
+        button.setProperty("variant", variant)
 
 
 class CreateProfileDialog(QDialog):
@@ -537,8 +619,11 @@ class FirstRunDialog(QDialog):
         apply_dialog_theme(self, self._theme_container, screen_id="first_run_dialog")
 
 
-def _profile_display(profile: Profile) -> str:
-    return profile.name or profile.profile_id
+def _profile_display(profile: Profile, *, is_active: bool = False) -> str:
+    label = profile.name or profile.profile_id
+    if is_active:
+        return t("profiles.active_label", name=label)
+    return label
 
 
 def _next_profile_id(profiles: list[Profile]) -> str:

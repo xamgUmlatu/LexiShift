@@ -436,6 +436,7 @@ Current limitations
   - Do a full UX pass across all major GUI screens (navigation, hierarchy, spacing, and affordances).
   - Normalize layout density and visual consistency across locales, themes, and window sizes.
   - Simplify settings information architecture so language packs, profiles, and SRS controls are easier to find.
+  - Define and implement keyboard shortcuts for profile/ruleset workflows after the Manage Profiles UX architecture is finalized.
 - TODO (ruleset display/highlight settings):
   - Move manual rules display/highlight controls into per-ruleset settings (not one shared/manual-only setting).
   - Per-ruleset settings:

@@ -1,0 +1,331 @@
+from __future__ import annotations
+
+from dataclasses import replace
+import os
+from pathlib import Path
+
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QDialog,
+    QDialogButtonBox,
+    QHBoxLayout,
+    QLabel,
+    QListWidget,
+    QListWidgetItem,
+    QMessageBox,
+    QPlainTextEdit,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
+
+from lexishift_core import Profile, load_vocab_dataset
+from i18n import t
+from theme_manager import apply_dialog_theme
+from theme_widgets import ThemedBackgroundWidget
+from utils_paths import reveal_path
+
+
+class RulesetLibraryDialog(QDialog):
+    def __init__(self, profiles: tuple[Profile, ...], parent=None) -> None:
+        super().__init__(parent)
+        self.setWindowTitle(t("dialogs.manage_rulesets.title"))
+        self.setSizeGripEnabled(True)
+        self.resize(980, 640)
+        self._profiles = list(profiles)
+        self._ruleset_paths: list[str] = []
+
+        self.list_title_label = QLabel(t("dialogs.manage_rulesets.list_title"))
+        self.ruleset_list = QListWidget()
+        self.ruleset_list.currentRowChanged.connect(self._on_select)
+
+        self.preview_title_label = QLabel(t("dialogs.manage_rulesets.preview_title"))
+        self.path_label = QLabel("")
+        self.path_label.setWordWrap(True)
+        self.rules_count_label = QLabel("")
+        self.rules_count_label.setWordWrap(True)
+        self.details_label = QLabel("")
+        self.details_label.setWordWrap(True)
+        self.status_label = QLabel("")
+        self.status_label.setWordWrap(True)
+        self.rules_preview = QPlainTextEdit()
+        self.rules_preview.setReadOnly(True)
+        self.rules_preview.setPlaceholderText(t("dialogs.manage_rulesets.no_selection"))
+
+        self.reveal_button = QPushButton(t("menu.reveal_in_finder"))
+        self.delete_button = QPushButton(t("buttons.delete_ruleset_file"))
+        self.reveal_button.clicked.connect(self._reveal_selected)
+        self.delete_button.clicked.connect(self._delete_selected_ruleset)
+        self._set_button_variant(self.reveal_button, "secondary")
+        self._set_button_variant(self.delete_button, "danger")
+
+        action_row = QHBoxLayout()
+        action_row.addWidget(self.reveal_button)
+        action_row.addWidget(self.delete_button)
+        action_row.addStretch(1)
+
+        left_panel = QWidget()
+        left_layout = QVBoxLayout(left_panel)
+        left_layout.setContentsMargins(0, 0, 0, 0)
+        left_layout.setSpacing(8)
+        left_layout.addWidget(self.list_title_label)
+        left_layout.addWidget(self.ruleset_list, 1)
+        left_layout.addLayout(action_row)
+
+        right_panel = QWidget()
+        right_layout = QVBoxLayout(right_panel)
+        right_layout.setContentsMargins(0, 0, 0, 0)
+        right_layout.setSpacing(8)
+        right_layout.addWidget(self.preview_title_label)
+        right_layout.addWidget(self.path_label)
+        right_layout.addWidget(self.rules_count_label)
+        right_layout.addWidget(self.details_label)
+        right_layout.addWidget(self.status_label)
+        right_layout.addWidget(self.rules_preview, 1)
+
+        body_row = QHBoxLayout()
+        body_row.setContentsMargins(0, 0, 0, 0)
+        body_row.setSpacing(12)
+        body_row.addWidget(left_panel, 2)
+        body_row.addWidget(right_panel, 3)
+
+        button_box = QDialogButtonBox(QDialogButtonBox.Ok)
+        button_box.accepted.connect(self.accept)
+        close_button = button_box.button(QDialogButtonBox.Ok)
+        if close_button is not None:
+            close_button.setText(t("buttons.close"))
+        self._set_button_variant(close_button, "primary")
+
+        self._theme_container = ThemedBackgroundWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self._theme_container)
+        layout = QVBoxLayout(self._theme_container)
+        layout.setContentsMargins(16, 16, 16, 16)
+        layout.setSpacing(12)
+        layout.addLayout(body_row, 1)
+        layout.addWidget(button_box)
+
+        self._refresh_rulesets()
+        self._apply_theme()
+
+    def _apply_theme(self) -> None:
+        apply_dialog_theme(self, self._theme_container, screen_id="profiles_dialog")
+
+    def result_profiles(self) -> tuple[Profile, ...]:
+        return tuple(self._profiles)
+
+    def _profile_rulesets(self, profile: Profile) -> list[str]:
+        rulesets: list[str] = []
+        for path in tuple(profile.rulesets) + (profile.dataset_path, profile.active_ruleset):
+            value = str(path or "").strip()
+            if value and value not in rulesets:
+                rulesets.append(value)
+        return rulesets
+
+    def _collect_rulesets(self) -> list[str]:
+        paths: list[str] = []
+        for profile in self._profiles:
+            for path in self._profile_rulesets(profile):
+                if path not in paths:
+                    paths.append(path)
+        return paths
+
+    def _refresh_rulesets(self) -> None:
+        previous = self._selected_path()
+        self._ruleset_paths = self._collect_rulesets()
+        self.ruleset_list.clear()
+        selected_index = -1
+        for index, path in enumerate(self._ruleset_paths):
+            display = self._ruleset_display_name(path)
+            resolved = Path(os.path.abspath(os.path.expanduser(path)))
+            if not resolved.exists():
+                display = t("ruleset.missing", label=display)
+            item = QListWidgetItem(display)
+            item.setData(Qt.UserRole, path)
+            item.setToolTip(path)
+            self.ruleset_list.addItem(item)
+            if previous and path == previous:
+                selected_index = index
+        if selected_index < 0 and self._ruleset_paths:
+            selected_index = 0
+        if selected_index >= 0:
+            self.ruleset_list.setCurrentRow(selected_index)
+        else:
+            self._render_selected_details(None)
+
+    def _on_select(self, _row: int) -> None:
+        self._render_selected_details(self._selected_path())
+
+    def _selected_path(self) -> str | None:
+        row = self.ruleset_list.currentRow()
+        if row < 0 or row >= len(self._ruleset_paths):
+            return None
+        item = self.ruleset_list.item(row)
+        if item is None:
+            return None
+        path = item.data(Qt.UserRole)
+        if not isinstance(path, str):
+            return None
+        return path
+
+    def _linked_profiles(self, path: str) -> list[Profile]:
+        linked: list[Profile] = []
+        for profile in self._profiles:
+            if path in self._profile_rulesets(profile):
+                linked.append(profile)
+        return linked
+
+    def _render_selected_details(self, path: str | None) -> None:
+        if not path:
+            self.reveal_button.setEnabled(False)
+            self.delete_button.setEnabled(False)
+            self.path_label.setText("")
+            self.rules_count_label.setText("")
+            self.details_label.setText(t("dialogs.manage_rulesets.no_selection"))
+            self.status_label.setText("")
+            self.rules_preview.setPlainText("")
+            return
+        linked_profiles = self._linked_profiles(path)
+        names = ", ".join(profile.name or profile.profile_id for profile in linked_profiles) or "(none)"
+        self.path_label.setText(t("dialogs.manage_rulesets.path", path=path))
+        self.details_label.setText(t("dialogs.manage_rulesets.linked_profiles", names=names))
+        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        if not resolved.exists():
+            self.status_label.setText(t("dialogs.manage_rulesets.status_missing"))
+        else:
+            self.status_label.setText(t("dialogs.manage_rulesets.status_available"))
+        self._render_rules_preview(path)
+        self.reveal_button.setEnabled(True)
+        self.delete_button.setEnabled(True)
+
+    def _reveal_selected(self) -> None:
+        path = self._selected_path()
+        if not path:
+            return
+        reveal_path(path)
+
+    def _delete_selected_ruleset(self) -> None:
+        path = self._selected_path()
+        if not path:
+            return
+        linked_profiles = self._linked_profiles(path)
+        if not linked_profiles:
+            return
+        blocked = [
+            profile.name or profile.profile_id
+            for profile in linked_profiles
+            if not [entry for entry in self._profile_rulesets(profile) if entry != path]
+        ]
+        if blocked:
+            QMessageBox.warning(
+                self,
+                t("dialogs.rulesets.title"),
+                t(
+                    "dialogs.manage_rulesets.delete_blocked",
+                    profiles="\n".join(f"- {name}" for name in blocked),
+                ),
+            )
+            return
+
+        first_confirm = QMessageBox(self)
+        first_confirm.setIcon(QMessageBox.Warning)
+        first_confirm.setWindowTitle(t("dialogs.rulesets.title"))
+        first_confirm.setText(t(
+            "dialogs.manage_rulesets.delete_unlink_confirm",
+            profiles="\n".join(f"- {profile.name or profile.profile_id}" for profile in linked_profiles),
+        ))
+        first_confirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        first_confirm.setDefaultButton(QMessageBox.Cancel)
+        if first_confirm.exec() != QMessageBox.Ok:
+            return
+
+        second_confirm = QMessageBox(self)
+        second_confirm.setIcon(QMessageBox.Warning)
+        second_confirm.setWindowTitle(t("dialogs.rulesets.title"))
+        second_confirm.setText(t("dialogs.manage_rulesets.delete_final_confirm"))
+        second_confirm.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
+        second_confirm.setDefaultButton(QMessageBox.Cancel)
+        if second_confirm.exec() != QMessageBox.Yes:
+            return
+
+        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        if resolved.exists() and resolved.is_file():
+            try:
+                resolved.unlink()
+            except OSError as exc:
+                QMessageBox.warning(self, t("dialogs.rulesets.title"), str(exc))
+                return
+
+        self._unlink_ruleset(path)
+        self._refresh_rulesets()
+
+    def _unlink_ruleset(self, path: str) -> None:
+        updated: list[Profile] = []
+        for profile in self._profiles:
+            rulesets = self._profile_rulesets(profile)
+            if path not in rulesets:
+                updated.append(profile)
+                continue
+            remaining = [entry for entry in rulesets if entry != path]
+            if not remaining:
+                updated.append(profile)
+                continue
+            active = profile.active_ruleset
+            if not active or active == path or active not in remaining:
+                active = remaining[0]
+            updated.append(
+                replace(
+                    profile,
+                    dataset_path=active,
+                    rulesets=tuple(remaining),
+                    active_ruleset=active,
+                )
+            )
+        self._profiles = updated
+
+    def _render_rules_preview(self, path: str) -> None:
+        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        if not resolved.exists() or not resolved.is_file():
+            self.rules_count_label.setText(t("dialogs.manage_rulesets.rules_count", count=0))
+            self.rules_preview.setPlainText(t("dialogs.manage_rulesets.preview_missing"))
+            return
+        try:
+            dataset = load_vocab_dataset(resolved)
+        except Exception as exc:  # noqa: BLE001
+            self.rules_count_label.setText(t("dialogs.manage_rulesets.rules_count", count=0))
+            self.rules_preview.setPlainText(
+                t("dialogs.manage_rulesets.preview_load_error", message=str(exc))
+            )
+            return
+
+        rules = list(dataset.rules or ())
+        self.rules_count_label.setText(t("dialogs.manage_rulesets.rules_count", count=len(rules)))
+        if not rules:
+            self.rules_preview.setPlainText(t("dialogs.manage_rulesets.preview_empty"))
+            return
+
+        max_rows = 140
+        lines: list[str] = []
+        for index, rule in enumerate(rules[:max_rows], start=1):
+            source = str(rule.source_phrase or "").strip()
+            replacement = str(rule.replacement or "").strip()
+            disabled = " [disabled]" if not bool(rule.enabled) else ""
+            lines.append(f"{index}. {source} -> {replacement}{disabled}")
+        if len(rules) > max_rows:
+            remaining = len(rules) - max_rows
+            lines.append(f"... +{remaining} more")
+        self.rules_preview.setPlainText("\n".join(lines))
+
+    def _ruleset_display_name(self, path: str) -> str:
+        normalized = Path(os.path.abspath(os.path.expanduser(path)))
+        name = normalized.stem.strip()
+        if name:
+            return name
+        raw_name = Path(path).name
+        return raw_name or path
+
+    def _set_button_variant(self, button: QPushButton | None, variant: str) -> None:
+        if button is None:
+            return
+        button.setProperty("variant", variant)

@@ -50,57 +50,119 @@ def resolve_current_theme(*, screen_id: str | None = None) -> dict:
 
 
 def build_base_styles(theme: dict) -> str:
-    return (
-        "QWidget {"
-        f"color: {theme['text']};"
-        "}"
-        "QDialog, QMainWindow {"
-        f"background: {theme['bg']};"
-        "}"
-        "QLabel {"
-        f"color: {theme['text']};"
-        "}"
-        "QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {"
-        f"background: {theme['table_bg']};"
-        f"color: {theme['text']};"
-        f"border: 1px solid {theme['panel_border']};"
-        "border-radius: 6px;"
-        "padding: 4px 6px;"
-        "}"
-        "QListWidget, QTableView {"
-        f"background: {theme['table_bg']};"
-        f"border: 1px solid {theme['panel_border']};"
-        "}"
-        "QHeaderView::section {"
-        f"background: {theme['accent_soft']};"
-        f"color: {theme['text']};"
-        "padding: 6px;"
-        "border: none;"
-        "}"
-        "QGroupBox {"
-        f"border: 1px solid {theme['panel_border']};"
-        "border-radius: 6px;"
-        "margin-top: 8px;"
-        "}"
-        "QGroupBox::title {"
-        f"color: {theme['accent']};"
-        "subcontrol-origin: margin;"
-        "left: 8px;"
-        "padding: 0 3px;"
-        "}"
-        "QPushButton {"
-        f"background: {theme['primary']};"
-        "color: #FFFFFF;"
-        "padding: 6px 12px;"
-        "border-radius: 6px;"
-        "}"
-        "QPushButton:hover {"
-        f"background: {theme['primary_hover']};"
-        "}"
-        "QSplitter::handle {"
-        f"background: {theme['panel_border']};"
-        "}"
-    )
+    status_error = str(theme.get("status_error") or "#B42318")
+    status_error_hover = "#8F1A14"
+    disabled_bg = str(theme.get("status_muted") or theme["panel_border"])
+    button_text = "#FFFFFF"
+    return f"""
+QWidget {{
+  color: {theme['text']};
+}}
+QDialog, QMainWindow {{
+  background: {theme['bg']};
+}}
+QLabel {{
+  color: {theme['text']};
+}}
+QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
+  background: {theme['table_bg']};
+  color: {theme['text']};
+  border: 1px solid {theme['panel_border']};
+  border-radius: 10px;
+  padding: 7px 9px;
+}}
+QListWidget, QTableView {{
+  background: {theme['table_bg']};
+  border: 2px solid {theme['panel_border']};
+  border-radius: 12px;
+}}
+QListWidget::item {{
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin: 2px;
+}}
+QListWidget::item:hover {{
+  background: {theme['accent_soft']};
+}}
+QListWidget::item:selected {{
+  background: {theme['table_sel_bg']};
+  border: 1px solid {theme['accent']};
+}}
+QHeaderView::section {{
+  background: {theme['accent_soft']};
+  color: {theme['text']};
+  padding: 8px;
+  border: none;
+}}
+QGroupBox {{
+  border: 1px solid {theme['panel_border']};
+  border-radius: 8px;
+  margin-top: 8px;
+}}
+QGroupBox::title {{
+  color: {theme['accent']};
+  subcontrol-origin: margin;
+  left: 8px;
+  padding: 0 3px;
+}}
+QPushButton {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['panel_top']}, stop:1 {theme['accent_soft']});
+  color: {theme['text']};
+  border: 2px solid {theme['panel_border']};
+  border-radius: 12px;
+  padding: 10px 18px;
+  min-height: 28px;
+  font-weight: 700;
+}}
+QPushButton:hover {{
+  border: 2px solid {theme['accent']};
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['table_bg']}, stop:1 {theme['panel_top']});
+}}
+QPushButton:pressed {{
+  padding-top: 12px;
+  padding-bottom: 8px;
+}}
+QPushButton:disabled {{
+  background: {disabled_bg};
+  color: {theme['muted']};
+  border: 2px solid {theme['panel_border']};
+}}
+QPushButton[variant="primary"] {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary_hover']}, stop:0.55 {theme['primary']}, stop:1 {theme['accent']});
+  color: {button_text};
+  border: 2px solid {theme['primary_hover']};
+}}
+QPushButton[variant="primary"]:hover {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+}}
+QPushButton[variant="secondary"] {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['table_bg']}, stop:1 {theme['accent_soft']});
+  color: {theme['text']};
+  border: 2px solid {theme['accent']};
+}}
+QPushButton[variant="secondary"]:hover {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['accent_soft']}, stop:1 {theme['table_bg']});
+}}
+QPushButton[variant="danger"] {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {status_error_hover}, stop:1 {status_error});
+  color: #FFFFFF;
+  border: 2px solid {status_error_hover};
+}}
+QPushButton[variant="danger"]:hover {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {status_error}, stop:1 {status_error_hover});
+}}
+QSplitter::handle {{
+  background: {theme['panel_border']};
+}}
+"""
 
 
 def apply_dialog_theme(dialog, container, *, screen_id: str) -> dict:

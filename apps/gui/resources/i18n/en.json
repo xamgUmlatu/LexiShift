@@ -10,6 +10,7 @@
   },
   "buttons": {
     "manage_profiles": "Manage...",
+    "manage_rulesets": "Rulesets...",
     "save_profiles": "Save Profiles",
     "select_ruleset": "Select...",
     "save_ruleset": "Save Ruleset",
@@ -24,6 +25,7 @@
     "add": "Add",
     "remove": "Remove",
     "add_ruleset": "Add Ruleset",
+    "delete_ruleset_file": "Delete Ruleset File...",
     "set_active": "Set Active",
     "open_themes_folder": "Open themes folder"
     ,
@@ -42,6 +44,7 @@
     "save_ruleset": "Save Ruleset",
     "save_ruleset_as": "Save Ruleset As...",
     "manage_profiles": "Manage Profiles...",
+    "manage_rulesets": "Manage Rulesets...",
     "save_profiles": "Save Profiles",
     "add_rule": "Add Rule",
     "bulk_add": "Synonym Bulk Add...",
@@ -173,7 +176,25 @@
     },
     "manage_profiles": {
       "title": "Manage Profiles",
-      "active_hint": "Active profile is the selected row when saving."
+      "active_hint": "Active profile is the selected row when saving.",
+      "active_explicit_hint": "Use Set Active to choose the profile loaded by default."
+    },
+    "manage_rulesets": {
+      "title": "Ruleset Library",
+      "list_title": "All Rulesets",
+      "preview_title": "Rules Preview",
+      "no_selection": "No ruleset selected.",
+      "path": "Path: {path}",
+      "rules_count": "Rules: {count}",
+      "linked_profiles": "Linked profiles: {names}",
+      "status_missing": "Status: Missing on disk.",
+      "status_available": "Status: Available.",
+      "preview_missing": "This ruleset file is missing on disk.",
+      "preview_empty": "This ruleset has no rules yet.",
+      "preview_load_error": "Could not load ruleset.\n\n{message}",
+      "delete_blocked": "Cannot delete this ruleset because it is the only linked ruleset for:\n\n{profiles}",
+      "delete_unlink_confirm": "Deleting a ruleset will remove it from the following profiles:\n\n{profiles}",
+      "delete_final_confirm": "Are you sure you want to delete it?"
     },
     "add_ruleset": {
       "title": "Add Ruleset"
