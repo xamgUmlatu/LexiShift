@@ -95,15 +95,22 @@ QHeaderView::section {{
   border: none;
 }}
 QGroupBox {{
-  border: 1px solid {theme['panel_border']};
-  border-radius: 8px;
-  margin-top: 8px;
+  border: 2px solid {theme['panel_border']};
+  border-radius: 12px;
+  margin-top: 10px;
+  background: {theme['panel_top']};
 }}
 QGroupBox::title {{
   color: {theme['accent']};
   subcontrol-origin: margin;
-  left: 8px;
-  padding: 0 3px;
+  left: 10px;
+  padding: 0 4px;
+  font-weight: 700;
+}}
+QFrame[workspaceCard="true"] {{
+  border: 2px solid {theme['panel_border']};
+  border-radius: 12px;
+  background: {theme['panel_top']};
 }}
 QPushButton {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
@@ -114,6 +121,11 @@ QPushButton {{
   padding: 10px 18px;
   min-height: 28px;
   font-weight: 700;
+}}
+QPushButton[size="large"] {{
+  min-height: 36px;
+  padding: 12px 20px;
+  font-size: 13px;
 }}
 QPushButton:hover {{
   border: 2px solid {theme['accent']};

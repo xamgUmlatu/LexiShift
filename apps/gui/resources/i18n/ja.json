@@ -10,6 +10,7 @@
   },
   "buttons": {
     "manage_profiles": "管理...",
+    "manage_rulesets": "ルールセット...",
     "save_profiles": "プロファイルを保存",
     "select_ruleset": "選択...",
     "save_ruleset": "ルールセットを保存",
@@ -24,6 +25,7 @@
     "add": "追加",
     "remove": "削除",
     "add_ruleset": "ルールセットを追加",
+    "delete_ruleset_file": "ルールセットファイルを削除...",
     "set_active": "アクティブに設定",
     "open_themes_folder": "テーマフォルダを開く",
     "use_embedding": "使用"
@@ -41,6 +43,7 @@
     "save_ruleset": "ルールセットを保存",
     "save_ruleset_as": "別名でルールセットを保存...",
     "manage_profiles": "プロファイルを管理...",
+    "manage_rulesets": "ルールセットを管理...",
     "save_profiles": "プロファイルを保存",
     "add_rule": "ルールを追加",
     "bulk_add": "同義語の一括追加...",
@@ -71,6 +74,24 @@
     "tags_comma": "タグ（カンマ区切り）",
     "description": "説明",
     "ruleset_path": "ルールセットのパス"
+  },
+  "workspace": {
+    "profile_card_title": "現在のプロファイル",
+    "profile_hint": "このドロップダウンで素早く切り替えできます。作成/削除/起動時設定は「プロファイル管理」を使ってください。",
+    "ruleset_card_title": "現在のルールセット",
+    "ruleset_hint": "編集するリンク済みルールセットを選ぶか、別のルールセットファイルを開いてください。",
+    "status_title": "ワークスペース状態",
+    "summary": "プロファイル「{profile}」のルールセット「{ruleset}」を編集中（リンク済み {count} 件）。",
+    "path": "パス: {path}",
+    "status_saved": "未保存の変更はありません。",
+    "status_unsaved": "未保存の変更があります。保存してください。",
+    "status_missing_ruleset": "選択中のルールセットファイルが見つかりません。",
+    "no_profile_selected": "プロファイルが選択されていません。",
+    "none": "(なし)"
+  },
+  "panels": {
+    "show": "表示",
+    "hide": "非表示"
   },
   "dialogs": {
     "unsaved": {
@@ -172,7 +193,46 @@
     },
     "manage_profiles": {
       "title": "プロファイル管理",
-      "active_hint": "保存時に選択されている行がアクティブプロファイルになります。"
+      "active_hint": "保存時に選択されている行がアクティブプロファイルになります。",
+      "active_explicit_hint": "既定で読み込むプロファイルは「起動プロファイルに設定」で指定してください。",
+      "profiles_section": "プロファイル",
+      "profile_details_section": "選択中のプロファイル",
+      "rulesets_section": "リンク済みルールセット",
+      "ruleset_details_section": "選択中のルールセット",
+      "active_ruleset_label": "アクティブなルールセット",
+      "create_profile": "プロファイル作成",
+      "delete_profile": "プロファイル削除",
+      "set_startup_profile": "起動プロファイルに設定",
+      "link_existing_ruleset": "既存をリンク...",
+      "create_ruleset": "新規作成...",
+      "unlink_ruleset": "リンク解除",
+      "set_active_ruleset": "アクティブに設定",
+      "workflow_hint": "この画面での変更は仮適用です。OK で反映、キャンセルで破棄されます。",
+      "delete_profile_confirm": "プロファイル「{name}」を削除しますか？\nルールセットファイルは削除されません。",
+      "no_ruleset_selected": "ルールセットが選択されていません。",
+      "ruleset_name": "名前: {name}",
+      "ruleset_path": "パス: {path}",
+      "ruleset_status_active": "状態: このプロファイルでアクティブ。",
+      "ruleset_status_linked": "状態: このプロファイルにリンク済み。",
+      "ruleset_status_available": "ファイルは利用可能です。",
+      "ruleset_status_missing": "ファイルが見つかりません。"
+    },
+    "manage_rulesets": {
+      "title": "ルールセットライブラリ",
+      "list_title": "すべてのルールセット",
+      "preview_title": "ルールプレビュー",
+      "no_selection": "ルールセットが選択されていません。",
+      "path": "パス: {path}",
+      "rules_count": "ルール数: {count}",
+      "linked_profiles": "リンクされているプロファイル: {names}",
+      "status_missing": "状態: ファイルが見つかりません。",
+      "status_available": "状態: 利用可能。",
+      "preview_missing": "このルールセットファイルは見つかりません。",
+      "preview_empty": "このルールセットにはまだルールがありません。",
+      "preview_load_error": "ルールセットを読み込めませんでした。\n\n{message}",
+      "delete_blocked": "このルールセットは、次のプロファイルで唯一のリンク先のため削除できません:\n\n{profiles}",
+      "delete_unlink_confirm": "ルールセットを削除すると、次のプロファイルからリンクが解除されます:\n\n{profiles}",
+      "delete_final_confirm": "本当に削除しますか？"
     },
     "add_ruleset": {
       "title": "ルールセットを追加"
@@ -320,7 +380,9 @@
     },
     "enabled": "有効",
     "disabled": "無効",
-    "delete_tooltip": "ルールを削除（Alt+クリックで確認を省略）"
+    "delete_tooltip": "ルールを削除（Alt+クリックで確認を省略）",
+    "empty_title": "このルールセットにはまだルールがありません。",
+    "empty_hint": "「ルールを追加」「同義語の一括追加」またはルールセットのインポートで開始できます。"
   },
   "ruleset": {
     "missing": "{label}（見つかりません）",

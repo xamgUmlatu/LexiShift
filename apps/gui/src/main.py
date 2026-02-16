@@ -29,15 +29,15 @@ from PySide6.QtCore import (
     QThread,
     Qt,
     Signal,
-    QTimer,
 )
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
-from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter, QTextCharFormat, QTextCursor
+from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter, QPen, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QApplication,
     QComboBox,
     QDialog,
     QFileDialog,
+    QGroupBox,
     QHeaderView,
     QHBoxLayout,
     QLabel,
@@ -46,7 +46,6 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QMenu,
     QMessageBox,
-    QPlainTextEdit,
     QPushButton,
     QProgressBar,
     QSlider,
@@ -63,7 +62,6 @@ from lexishift_core import (
     AppSettings,
     ImportExportSettings,
     Profile,
-    PracticeGate,
     RuleMetadata,
     SeedSelectionConfig,
     SrsGrowthConfig,
@@ -83,7 +81,6 @@ from lexishift_core import (
     grow_srs_store,
     resolve_allowed_pairs,
     seed_to_selector_candidates,
-    select_active_items,
     SynonymGenerator,
     SynonymOptions,
     SynonymSources,
@@ -103,7 +100,6 @@ from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
 from dialogs_rulesets import RulesetLibraryDialog
 from i18n import set_locale, t
 from models import RulesTableModel
-from preview import PreviewController, ReplacementHighlighter
 from state import AppState
 from theme_assets import ensure_sample_images, ensure_sample_themes
 from theme_loader import theme_dir
@@ -140,6 +136,162 @@ class DeleteButtonDelegate(QStyledItemDelegate):
     def sizeHint(self, option, index):
         size = super().sizeHint(option, index)
         return size.expandedTo(QSize(64, size.height()))
+
+
+class RulesTableView(QTableView):
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._empty_title = t("rules_table.empty_title")
+        self._empty_hint = t("rules_table.empty_hint")
+        self._empty_palette = {
+            "card_bg": QColor("#F5F2E9"),
+            "card_border": QColor("#D5CBB8"),
+            "title": QColor("#2C2A24"),
+            "hint": QColor("#6F6558"),
+            "accent": QColor("#4A7DB8"),
+        }
+
+    def set_empty_palette(
+        self,
+        *,
+        card_bg: str,
+        card_border: str,
+        title: str,
+        hint: str,
+        accent: str,
+    ) -> None:
+        self._empty_palette = {
+            "card_bg": QColor(card_bg),
+            "card_border": QColor(card_border),
+            "title": QColor(title),
+            "hint": QColor(hint),
+            "accent": QColor(accent),
+        }
+        self.viewport().update()
+
+    def paintEvent(self, event) -> None:
+        super().paintEvent(event)
+        model = self.model()
+        if model is None or model.rowCount() > 0:
+            return
+        rect = self.viewport().rect()
+        if rect.width() < 260 or rect.height() < 150:
+            return
+
+        card_width = min(620, max(300, rect.width() - 88))
+        card_height = 136
+        card_x = rect.center().x() - card_width // 2
+        card_y = rect.center().y() - card_height // 2
+
+        painter = QPainter(self.viewport())
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(self._empty_palette["card_bg"])
+        painter.drawRoundedRect(card_x, card_y, card_width, card_height, 18, 18)
+
+        painter.setPen(QPen(self._empty_palette["card_border"], 2))
+        painter.setBrush(Qt.NoBrush)
+        painter.drawRoundedRect(card_x, card_y, card_width, card_height, 18, 18)
+
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(self._empty_palette["accent"])
+        painter.drawRoundedRect(card_x + 20, card_y + 20, 44, 8, 4, 4)
+
+        title_font = painter.font()
+        title_font.setBold(True)
+        title_font.setPointSize(max(11, title_font.pointSize() + 1))
+        painter.setFont(title_font)
+        painter.setPen(self._empty_palette["title"])
+        painter.drawText(
+            card_x + 20,
+            card_y + 34,
+            card_width - 40,
+            34,
+            Qt.AlignLeft | Qt.AlignVCenter,
+            self._empty_title,
+        )
+
+        hint_font = painter.font()
+        hint_font.setBold(False)
+        hint_font.setPointSize(max(9, hint_font.pointSize() - 1))
+        painter.setFont(hint_font)
+        painter.setPen(self._empty_palette["hint"])
+        painter.drawText(
+            card_x + 20,
+            card_y + 68,
+            card_width - 40,
+            48,
+            Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap,
+            self._empty_hint,
+        )
+        painter.end()
+
+
+class CollapsiblePanel(QWidget):
+    toggled = Signal(bool)
+
+    def __init__(self, title: str, content: QWidget, *, expanded: bool = False, parent=None) -> None:
+        super().__init__(parent)
+        self._title = str(title or "")
+        self._content = content
+        self._expanded = bool(expanded)
+
+        self.toggle_button = QPushButton()
+        self.toggle_button.setCheckable(True)
+        self.toggle_button.setProperty("variant", "secondary")
+        self.toggle_button.setProperty("size", "large")
+        self.toggle_button.setStyleSheet("text-align: right;")
+        self.toggle_button.clicked.connect(self._on_toggle_clicked)
+
+        self._group = QGroupBox(self._title)
+        group_layout = QVBoxLayout(self._group)
+        group_layout.setContentsMargins(10, 10, 10, 10)
+        group_layout.setSpacing(6)
+
+        header_row = QHBoxLayout()
+        header_row.setContentsMargins(0, 0, 0, 0)
+        header_row.setSpacing(6)
+        header_row.addStretch(1)
+        header_row.addWidget(self.toggle_button)
+        group_layout.addLayout(header_row)
+        group_layout.addWidget(self._content, 1)
+
+        outer_layout = QVBoxLayout(self)
+        outer_layout.setContentsMargins(0, 0, 0, 0)
+        outer_layout.setSpacing(0)
+        outer_layout.addWidget(self._group, 1)
+
+        self.set_expanded(self._expanded)
+
+    def is_expanded(self) -> bool:
+        return self._expanded
+
+    def set_expanded(self, expanded: bool) -> None:
+        self._expanded = bool(expanded)
+        self._content.setVisible(self._expanded)
+        self.toggle_button.blockSignals(True)
+        self.toggle_button.setChecked(self._expanded)
+        self.toggle_button.blockSignals(False)
+        self._sync_button_text()
+        if self._expanded:
+            self.setMinimumHeight(0)
+            self.setMaximumHeight(16777215)
+            return
+        collapsed_height = self.toggle_button.sizeHint().height() + 48
+        self.setMinimumHeight(collapsed_height)
+        self.setMaximumHeight(collapsed_height)
+
+    def refresh_geometry_hint(self) -> None:
+        # Recompute collapsed height after theme/font changes.
+        self.set_expanded(self._expanded)
+
+    def _on_toggle_clicked(self, checked: bool) -> None:
+        self.set_expanded(bool(checked))
+        self.toggled.emit(self._expanded)
+
+    def _sync_button_text(self) -> None:
+        self.toggle_button.setText(t("panels.hide") if self._expanded else t("panels.show"))
 
 
 class EmbeddingLoaderThread(QThread):
@@ -207,8 +359,12 @@ class MainWindow(QMainWindow):
         self.manage_rulesets_button.setProperty("variant", "primary")
         self.open_ruleset_button.setProperty("variant", "secondary")
         self.save_ruleset_button.setProperty("variant", "primary")
+        self.manage_profiles_button.setProperty("size", "large")
+        self.manage_rulesets_button.setProperty("size", "large")
+        self.open_ruleset_button.setProperty("size", "large")
+        self.save_ruleset_button.setProperty("size", "large")
 
-        self.rules_table = QTableView()
+        self.rules_table = RulesTableView()
         self.rules_table.setModel(self._rules_proxy)
         self.rules_table.setSortingEnabled(True)
         self.rules_table.setMouseTracking(True)
@@ -253,31 +409,28 @@ class MainWindow(QMainWindow):
         self.embedding_progress.setFormat(t("replacement.loading_embeddings"))
         self.embedding_progress.hide()
 
-        self.input_edit = QPlainTextEdit()
-        self.preview_edit = QPlainTextEdit()
-        self.preview_edit.setReadOnly(True)
-        self.highlighter = ReplacementHighlighter(self.preview_edit.document())
         self.log_edit = QTextEdit()
         self.log_edit.setReadOnly(True)
         self.log_edit.setPlaceholderText(t("logs.placeholder"))
         self._configure_log_handlers()
+
+        self._log_collapsible = CollapsiblePanel(
+            t("logs.title"),
+            self.log_edit,
+            expanded=False,
+        )
+        self._log_collapsible.toggled.connect(lambda _expanded: self._rebalance_right_splitter())
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
         editor_layout.addWidget(self._build_profile_header())
         editor_layout.addWidget(self.rules_table)
 
-        preview_panel = QSplitter(Qt.Vertical)
-        preview_panel.addWidget(self.input_edit)
-        preview_panel.addWidget(self.preview_edit)
-        preview_panel.addWidget(self._build_log_panel())
-        preview_panel.setStretchFactor(1, 1)
-        self._preview_splitter = preview_panel
-
         right_panel = QSplitter(Qt.Vertical)
         right_panel.addWidget(self._build_replacement_panel())
-        right_panel.addWidget(preview_panel)
-        right_panel.setStretchFactor(1, 1)
+        right_panel.addWidget(self._log_collapsible)
+        right_panel.setStretchFactor(0, 1)
+        right_panel.setStretchFactor(1, 0)
         self._right_splitter = right_panel
 
         splitter = QSplitter()
@@ -297,7 +450,7 @@ class MainWindow(QMainWindow):
         self._refresh_helper_menu_label()
         auto_install_helper(self._ui_settings)
         self._refresh_helper_menu_label()
-        self._setup_preview()
+        self._setup_rule_selection()
         self._refresh_embedding_index()
         self.state.datasetChanged.connect(self._on_dataset_loaded)
         self.state.dirtyChanged.connect(self._on_dirty_changed)
@@ -308,6 +461,7 @@ class MainWindow(QMainWindow):
         self._refresh_profiles_ui()
         self._restore_window_state()
         self._apply_theme()
+        self._rebalance_right_splitter()
         self._refresh_window_title()
 
     def _setup_actions(self) -> None:
@@ -506,28 +660,51 @@ class MainWindow(QMainWindow):
         )
 
     def _build_profile_header(self) -> QWidget:
-        profile_label = QLabel(t("labels.profile"))
-        ruleset_label = QLabel(t("labels.ruleset"))
         self.manage_profiles_button.setToolTip(t("dialogs.manage_profiles.title"))
         self.manage_rulesets_button.setToolTip(t("dialogs.manage_rulesets.title"))
         self.open_ruleset_button.setToolTip(t("menu.open_ruleset"))
         self.save_ruleset_button.setToolTip(t("menu.save_ruleset"))
+        self.profile_combo.setMinimumWidth(240)
+        self.ruleset_combo.setMinimumWidth(260)
 
-        header_layout = QHBoxLayout()
-        header_layout.setContentsMargins(0, 0, 0, 0)
-        header_layout.setSpacing(8)
-        header_layout.addWidget(profile_label)
-        header_layout.addWidget(self.profile_combo, 1)
-        header_layout.addWidget(self.manage_profiles_button)
-        header_layout.addWidget(self.manage_rulesets_button)
-        header_layout.addSpacing(16)
-        header_layout.addWidget(ruleset_label)
-        header_layout.addWidget(self.ruleset_combo, 1)
-        header_layout.addWidget(self.open_ruleset_button)
-        header_layout.addWidget(self.save_ruleset_button)
+        profile_card = QGroupBox(t("workspace.profile_card_title"))
+        profile_card_layout = QVBoxLayout(profile_card)
+        profile_card_layout.setContentsMargins(12, 12, 12, 12)
+        profile_card_layout.setSpacing(8)
+        profile_hint = QLabel(t("workspace.profile_hint"))
+        profile_hint.setWordWrap(True)
+        profile_card_layout.addWidget(profile_hint)
+        profile_row = QHBoxLayout()
+        profile_row.setContentsMargins(0, 0, 0, 0)
+        profile_row.setSpacing(8)
+        profile_row.addWidget(self.profile_combo, 1)
+        profile_row.addWidget(self.manage_profiles_button)
+        profile_card_layout.addLayout(profile_row)
+
+        ruleset_card = QGroupBox(t("workspace.ruleset_card_title"))
+        ruleset_card_layout = QVBoxLayout(ruleset_card)
+        ruleset_card_layout.setContentsMargins(12, 12, 12, 12)
+        ruleset_card_layout.setSpacing(8)
+        ruleset_hint = QLabel(t("workspace.ruleset_hint"))
+        ruleset_hint.setWordWrap(True)
+        ruleset_card_layout.addWidget(ruleset_hint)
+        ruleset_row = QHBoxLayout()
+        ruleset_row.setContentsMargins(0, 0, 0, 0)
+        ruleset_row.setSpacing(8)
+        ruleset_row.addWidget(self.ruleset_combo, 1)
+        ruleset_row.addWidget(self.open_ruleset_button)
+        ruleset_row.addWidget(self.save_ruleset_button)
+        ruleset_row.addWidget(self.manage_rulesets_button)
+        ruleset_card_layout.addLayout(ruleset_row)
+
+        top_row = QHBoxLayout()
+        top_row.setContentsMargins(0, 0, 0, 0)
+        top_row.setSpacing(10)
+        top_row.addWidget(profile_card, 3)
+        top_row.addWidget(ruleset_card, 4)
 
         header = QWidget()
-        header.setLayout(header_layout)
+        header.setLayout(top_row)
         return header
 
     def _build_replacement_panel(self) -> QWidget:
@@ -550,16 +727,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.embedding_progress)
         layout.addWidget(self.replacement_hint_label)
 
-        panel = QWidget()
-        panel.setLayout(layout)
-        return panel
-
-    def _build_log_panel(self) -> QWidget:
-        title = QLabel(t("logs.title"))
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(title)
-        layout.addWidget(self.log_edit)
         panel = QWidget()
         panel.setLayout(layout)
         return panel
@@ -623,12 +790,7 @@ class MainWindow(QMainWindow):
         if right_splitter_state:
             self._right_splitter.restoreState(right_splitter_state)
         else:
-            self._right_splitter.setSizes([280, 420])
-        preview_splitter_state = self._ui_settings.value("main_window/preview_splitter", type=QByteArray)
-        if preview_splitter_state:
-            self._preview_splitter.restoreState(preview_splitter_state)
-        else:
-            self._preview_splitter.setSizes([200, 300, 150])
+            self._right_splitter.setSizes([620, 180])
 
     def _theme_color_hex(self, key: str, *, fallback: str) -> str:
         value = self._theme.get(key)
@@ -653,17 +815,23 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(build_base_styles(self._theme))
         self._splitter.setStyleSheet("background: transparent;")
         self._right_splitter.setStyleSheet("background: transparent;")
-        self._preview_splitter.setStyleSheet("background: transparent;")
-        self.highlighter.set_highlight_color(QColor(self._theme_color_hex("table_sel_bg", fallback="#FFF2B2")))
+        self._log_collapsible.refresh_geometry_hint()
+        self.rules_table.set_empty_palette(
+            card_bg=self._theme_color_hex("panel_top", fallback="#F5F2E9"),
+            card_border=self._theme_color_hex("panel_border", fallback="#D5CBB8"),
+            title=self._theme_color_hex("text", fallback="#2C2A24"),
+            hint=self._theme_color_hex("muted", fallback="#6F6558"),
+            accent=self._theme_color_hex("primary", fallback="#4A7DB8"),
+        )
         base_delete = self._status_color("error")
         self._delete_button_delegate.set_colors(base_delete, base_delete.darker(115))
         self._configure_log_handlers()
+        self._rebalance_right_splitter()
 
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
         self._ui_settings.setValue("main_window/splitter", self._splitter.saveState())
         self._ui_settings.setValue("main_window/right_splitter", self._right_splitter.saveState())
-        self._ui_settings.setValue("main_window/preview_splitter", self._preview_splitter.saveState())
 
     def _refresh_window_title(self, dirty: Optional[bool] = None) -> None:
         is_dirty = self.state.dirty if dirty is None else bool(dirty)
@@ -693,17 +861,22 @@ class MainWindow(QMainWindow):
         self._save_window_state()
         super().closeEvent(event)
 
-    def _setup_preview(self) -> None:
-        self._preview_controller = PreviewController()
-        self._preview_controller.previewReady.connect(self._apply_preview)
-
-        self._preview_timer = QTimer(self)
-        self._preview_timer.setSingleShot(True)
-        self._preview_timer.setInterval(300)
-        self._preview_timer.timeout.connect(self._run_preview)
-
-        self.input_edit.textChanged.connect(self._schedule_preview)
+    def _setup_rule_selection(self) -> None:
         self.rules_table.selectionModel().currentRowChanged.connect(lambda *_: self._update_rule_actions())
+
+    def _expand_aux_panel(self, panel: CollapsiblePanel) -> None:
+        if panel.is_expanded():
+            return
+        panel.set_expanded(True)
+        self._rebalance_right_splitter()
+
+    def _rebalance_right_splitter(self) -> None:
+        if not hasattr(self, "_right_splitter") or not hasattr(self, "_log_collapsible"):
+            return
+        if self._log_collapsible.is_expanded():
+            self._right_splitter.setSizes([620, 220])
+            return
+        self._right_splitter.setSizes([760, self._log_collapsible.minimumHeight()])
 
     def _load_active_profile(self) -> None:
         settings = self.state.settings
@@ -819,7 +992,6 @@ class MainWindow(QMainWindow):
         self.state.update_dataset(dataset)
         self._apply_import_export_settings()
         self._refresh_embedding_index()
-        self._schedule_preview()
         self._apply_theme()
         self._refresh_srs_growth()
         self._refresh_helper_menu_label()
@@ -1513,14 +1685,12 @@ class MainWindow(QMainWindow):
 
     def _on_dataset_loaded(self, dataset: VocabDataset) -> None:
         self.rules_model.set_rules(list(dataset.rules))
-        self._schedule_preview()
         self._refresh_ruleset_ui()
         self._refresh_replacement_list()
 
     def _on_rules_changed(self, rules) -> None:
         dataset = replace(self.state.dataset, rules=tuple(rules))
         self.state.update_dataset(dataset)
-        self._schedule_preview()
         self._refresh_replacement_list()
 
     def _on_dirty_changed(self, dirty: bool) -> None:
@@ -1531,46 +1701,6 @@ class MainWindow(QMainWindow):
     def _on_profiles_changed(self, profiles) -> None:
         self._refresh_profiles_ui()
         self._rebuild_profiles_menu()
-
-    def _schedule_preview(self) -> None:
-        self._preview_timer.start()
-
-    def _build_practice_gate(self) -> Optional[PracticeGate]:
-        settings = self.state.settings.srs
-        if not settings or not settings.enabled:
-            return None
-        active_items = self._select_active_srs_items(settings)
-        return PracticeGate(
-            active_items=active_items,
-            include_unpaired_rules=True,
-            include_all_if_empty=True,
-        )
-
-    def _select_active_srs_items(self, settings: SrsSettings):
-        allowed_pairs = self._allowed_srs_pairs(settings)
-        return select_active_items(
-            self.state.srs_store.items,
-            max_active=settings.max_active_items,
-            allowed_pairs=allowed_pairs,
-        )
-
-    def _allowed_srs_pairs(self, settings: SrsSettings) -> Optional[list[str]]:
-        if not settings.pair_rules:
-            return None
-        allowed = [pair for pair, rule in settings.pair_rules.items() if rule.enabled]
-        return allowed or None
-
-    def _run_preview(self) -> None:
-        practice_gate = self._build_practice_gate()
-        self._preview_controller.request(
-            self.state.dataset,
-            self.input_edit.toPlainText(),
-            practice_gate=practice_gate,
-        )
-
-    def _apply_preview(self, output: str, spans) -> None:
-        self.preview_edit.setPlainText(output)
-        self.highlighter.set_spans(spans)
 
     def _select_active_profile(self, *_args) -> None:
         self._refresh_profiles_ui()
@@ -1993,6 +2123,8 @@ class MainWindow(QMainWindow):
     def _append_log(self, message: str, *, color: Optional[QColor] = None) -> None:
         if not message:
             return
+        if hasattr(self, "_log_collapsible") and hasattr(self, "_expand_aux_panel"):
+            self._expand_aux_panel(self._log_collapsible)
         cursor = self.log_edit.textCursor()
         cursor.movePosition(QTextCursor.End)
         fmt = QTextCharFormat()
@@ -2047,7 +2179,7 @@ class MainWindow(QMainWindow):
         for idx, path in enumerate(ruleset_paths):
             if not path:
                 continue
-            label = str(Path(path).name) or path
+            label = MainWindow._ruleset_display_name(self, path)
             display = label
             if not Path(path).exists():
                 display = t("ruleset.missing", label=label)
@@ -2059,6 +2191,14 @@ class MainWindow(QMainWindow):
             self.ruleset_combo.setCurrentIndex(active_index)
         self.ruleset_combo.blockSignals(False)
         self._ruleset_combo_updating = False
+
+    def _ruleset_display_name(self, path: str) -> str:
+        normalized = Path(os.path.abspath(os.path.expanduser(path)))
+        name = normalized.stem.strip()
+        if name:
+            return name
+        raw_name = Path(path).name
+        return raw_name or path
 
     def _rebuild_profiles_menu(self) -> None:
         if not hasattr(self, "_profiles_menu"):

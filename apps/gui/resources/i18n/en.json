@@ -76,6 +76,24 @@
     "description": "Description",
     "ruleset_path": "Ruleset Path"
   },
+  "workspace": {
+    "profile_card_title": "Current Profile",
+    "profile_hint": "Use this dropdown for quick switching. Use Manage Profiles for create/delete/startup settings.",
+    "ruleset_card_title": "Current Ruleset",
+    "ruleset_hint": "Choose the linked ruleset you want to edit, or open a different ruleset file.",
+    "status_title": "Workspace Status",
+    "summary": "Editing profile '{profile}' with ruleset '{ruleset}' ({count} linked rulesets).",
+    "path": "Path: {path}",
+    "status_saved": "No unsaved edits.",
+    "status_unsaved": "Unsaved edits are waiting for Save Ruleset.",
+    "status_missing_ruleset": "Selected ruleset file is missing on disk.",
+    "no_profile_selected": "No profile selected.",
+    "none": "(none)"
+  },
+  "panels": {
+    "show": "Show",
+    "hide": "Hide"
+  },
   "dialogs": {
     "unsaved": {
       "title": "Unsaved Changes",
@@ -177,7 +195,28 @@
     "manage_profiles": {
       "title": "Manage Profiles",
       "active_hint": "Active profile is the selected row when saving.",
-      "active_explicit_hint": "Use Set Active to choose the profile loaded by default."
+      "active_explicit_hint": "Use Set Active to choose the profile loaded by default.",
+      "profiles_section": "Profiles",
+      "profile_details_section": "Selected Profile",
+      "rulesets_section": "Linked Rulesets",
+      "ruleset_details_section": "Selected Ruleset",
+      "active_ruleset_label": "Active ruleset",
+      "create_profile": "Create Profile",
+      "delete_profile": "Delete Profile",
+      "set_startup_profile": "Set Startup Profile",
+      "link_existing_ruleset": "Link Existing...",
+      "create_ruleset": "Create New...",
+      "unlink_ruleset": "Unlink",
+      "set_active_ruleset": "Set as Active",
+      "workflow_hint": "Changes in this window are staged. Click OK to apply changes or Cancel to discard them.",
+      "delete_profile_confirm": "Delete profile '{name}'?\nRuleset files will not be deleted.",
+      "no_ruleset_selected": "No ruleset selected.",
+      "ruleset_name": "Name: {name}",
+      "ruleset_path": "Path: {path}",
+      "ruleset_status_active": "Status: Active for this profile.",
+      "ruleset_status_linked": "Status: Linked to this profile.",
+      "ruleset_status_available": "File is available.",
+      "ruleset_status_missing": "File is missing on disk."
     },
     "manage_rulesets": {
       "title": "Ruleset Library",
@@ -342,7 +381,9 @@
     },
     "enabled": "Enabled",
     "disabled": "Disabled",
-    "delete_tooltip": "Delete rule (Alt+click to skip confirmation)"
+    "delete_tooltip": "Delete rule (Alt+click to skip confirmation)",
+    "empty_title": "This ruleset has no rules yet.",
+    "empty_hint": "Use Add Rule, Synonym Bulk Add, or import a ruleset to get started."
   },
   "ruleset": {
     "missing": "{label} (missing)",

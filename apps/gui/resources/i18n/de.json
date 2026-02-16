@@ -10,6 +10,7 @@
   },
   "buttons": {
     "manage_profiles": "Verwalten...",
+    "manage_rulesets": "Regelsätze...",
     "save_profiles": "Profile speichern",
     "select_ruleset": "Auswählen...",
     "save_ruleset": "Regelsatz speichern",
@@ -24,6 +25,7 @@
     "add": "Hinzufügen",
     "remove": "Entfernen",
     "add_ruleset": "Regelsatz hinzufügen",
+    "delete_ruleset_file": "Regelsatzdatei löschen...",
     "set_active": "Als aktiv setzen",
     "open_themes_folder": "Themenordner öffnen",
     "use_embedding": "Verwenden"
@@ -41,6 +43,7 @@
     "save_ruleset": "Regelsatz speichern",
     "save_ruleset_as": "Regelsatz speichern unter...",
     "manage_profiles": "Profile verwalten...",
+    "manage_rulesets": "Regelsätze verwalten...",
     "save_profiles": "Profile speichern",
     "add_rule": "Regel hinzufügen",
     "bulk_add": "Synonyme gesammelt hinzufügen...",
@@ -71,6 +74,24 @@
     "tags_comma": "Tags (Komma)",
     "description": "Beschreibung",
     "ruleset_path": "Regelsatzpfad"
+  },
+  "workspace": {
+    "profile_card_title": "Aktuelles Profil",
+    "profile_hint": "Mit diesem Dropdown können Sie schnell wechseln. Verwenden Sie „Profile verwalten“ für Erstellen/Löschen/Startprofil.",
+    "ruleset_card_title": "Aktueller Regelsatz",
+    "ruleset_hint": "Wählen Sie den verknüpften Regelsatz zur Bearbeitung oder öffnen Sie eine andere Datei.",
+    "status_title": "Arbeitsbereichsstatus",
+    "summary": "Bearbeite Profil „{profile}“ mit Regelsatz „{ruleset}“ ({count} verknüpfte Regelsätze).",
+    "path": "Pfad: {path}",
+    "status_saved": "Keine ungespeicherten Änderungen.",
+    "status_unsaved": "Ungespeicherte Änderungen warten auf „Regelsatz speichern“.",
+    "status_missing_ruleset": "Ausgewählte Regelsatzdatei fehlt auf der Festplatte.",
+    "no_profile_selected": "Kein Profil ausgewählt.",
+    "none": "(keins)"
+  },
+  "panels": {
+    "show": "Anzeigen",
+    "hide": "Ausblenden"
   },
   "dialogs": {
     "unsaved": {
@@ -172,7 +193,46 @@
     },
     "manage_profiles": {
       "title": "Profile verwalten",
-      "active_hint": "Das ausgewählte Profil wird beim Speichern aktiv."
+      "active_hint": "Das ausgewählte Profil wird beim Speichern aktiv.",
+      "active_explicit_hint": "Verwenden Sie „Als Startprofil setzen“, um das standardmäßig geladene Profil festzulegen.",
+      "profiles_section": "Profile",
+      "profile_details_section": "Ausgewähltes Profil",
+      "rulesets_section": "Verknüpfte Regelsätze",
+      "ruleset_details_section": "Ausgewählter Regelsatz",
+      "active_ruleset_label": "Aktiver Regelsatz",
+      "create_profile": "Profil erstellen",
+      "delete_profile": "Profil löschen",
+      "set_startup_profile": "Als Startprofil setzen",
+      "link_existing_ruleset": "Vorhandenen verknüpfen...",
+      "create_ruleset": "Neu erstellen...",
+      "unlink_ruleset": "Verknüpfung lösen",
+      "set_active_ruleset": "Als aktiv setzen",
+      "workflow_hint": "Änderungen in diesem Fenster sind vorgemerkt. Klicken Sie auf OK zum Übernehmen oder auf Abbrechen zum Verwerfen.",
+      "delete_profile_confirm": "Profil „{name}“ löschen?\nRegelsatzdateien werden nicht gelöscht.",
+      "no_ruleset_selected": "Kein Regelsatz ausgewählt.",
+      "ruleset_name": "Name: {name}",
+      "ruleset_path": "Pfad: {path}",
+      "ruleset_status_active": "Status: Aktiv für dieses Profil.",
+      "ruleset_status_linked": "Status: Mit diesem Profil verknüpft.",
+      "ruleset_status_available": "Datei ist verfügbar.",
+      "ruleset_status_missing": "Datei fehlt auf der Festplatte."
+    },
+    "manage_rulesets": {
+      "title": "Regelsatzbibliothek",
+      "list_title": "Alle Regelsätze",
+      "preview_title": "Regelvorschau",
+      "no_selection": "Kein Regelsatz ausgewählt.",
+      "path": "Pfad: {path}",
+      "rules_count": "Regeln: {count}",
+      "linked_profiles": "Verknüpfte Profile: {names}",
+      "status_missing": "Status: Fehlt auf der Festplatte.",
+      "status_available": "Status: Verfügbar.",
+      "preview_missing": "Diese Regelsatzdatei fehlt auf der Festplatte.",
+      "preview_empty": "Dieser Regelsatz enthält noch keine Regeln.",
+      "preview_load_error": "Regelsatz konnte nicht geladen werden.\n\n{message}",
+      "delete_blocked": "Dieser Regelsatz kann nicht gelöscht werden, da er der einzige verknüpfte Regelsatz ist für:\n\n{profiles}",
+      "delete_unlink_confirm": "Das Löschen eines Regelsatzes entfernt ihn aus den folgenden Profilen:\n\n{profiles}",
+      "delete_final_confirm": "Möchten Sie ihn wirklich löschen?"
     },
     "add_ruleset": {
       "title": "Regelsatz hinzufügen"
@@ -320,7 +380,9 @@
     },
     "enabled": "Aktiv",
     "disabled": "Inaktiv",
-    "delete_tooltip": "Regel löschen (Alt+Klick überspringt Bestätigung)"
+    "delete_tooltip": "Regel löschen (Alt+Klick überspringt Bestätigung)",
+    "empty_title": "Dieser Regelsatz enthält noch keine Regeln.",
+    "empty_hint": "Verwenden Sie „Regel hinzufügen“, „Synonyme gesammelt hinzufügen“ oder importieren Sie einen Regelsatz."
   },
   "ruleset": {
     "missing": "{label} (fehlend)",

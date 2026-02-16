@@ -10,6 +10,7 @@
   },
   "buttons": {
     "manage_profiles": "管理...",
+    "manage_rulesets": "规则集...",
     "save_profiles": "保存配置文件",
     "select_ruleset": "选择...",
     "save_ruleset": "保存规则集",
@@ -24,6 +25,7 @@
     "add": "添加",
     "remove": "移除",
     "add_ruleset": "添加规则集",
+    "delete_ruleset_file": "删除规则集文件...",
     "set_active": "设为活动",
     "open_themes_folder": "打开主题文件夹",
     "use_embedding": "使用"
@@ -41,6 +43,7 @@
     "save_ruleset": "保存规则集",
     "save_ruleset_as": "另存规则集...",
     "manage_profiles": "管理配置文件...",
+    "manage_rulesets": "管理规则集...",
     "save_profiles": "保存配置文件",
     "add_rule": "添加规则",
     "bulk_add": "批量添加同义词...",
@@ -71,6 +74,24 @@
     "tags_comma": "标签（逗号分隔）",
     "description": "描述",
     "ruleset_path": "规则集路径"
+  },
+  "workspace": {
+    "profile_card_title": "当前配置文件",
+    "profile_hint": "可用此下拉框快速切换。创建/删除/启动默认配置请用“管理配置文件”。",
+    "ruleset_card_title": "当前规则集",
+    "ruleset_hint": "选择已关联的规则集进行编辑，或打开其他规则集文件。",
+    "status_title": "工作区状态",
+    "summary": "正在编辑配置文件“{profile}”的规则集“{ruleset}”（已关联 {count} 个规则集）。",
+    "path": "路径：{path}",
+    "status_saved": "没有未保存的更改。",
+    "status_unsaved": "存在未保存更改，请保存规则集。",
+    "status_missing_ruleset": "所选规则集文件在磁盘上不存在。",
+    "no_profile_selected": "未选择配置文件。",
+    "none": "（无）"
+  },
+  "panels": {
+    "show": "显示",
+    "hide": "隐藏"
   },
   "dialogs": {
     "unsaved": {
@@ -172,7 +193,46 @@
     },
     "manage_profiles": {
       "title": "管理配置文件",
-      "active_hint": "保存时所选行即为活动配置文件。"
+      "active_hint": "保存时所选行即为活动配置文件。",
+      "active_explicit_hint": "请使用“设为启动配置”指定默认加载的配置文件。",
+      "profiles_section": "配置文件",
+      "profile_details_section": "当前选中配置",
+      "rulesets_section": "已关联规则集",
+      "ruleset_details_section": "当前选中规则集",
+      "active_ruleset_label": "活动规则集",
+      "create_profile": "创建配置文件",
+      "delete_profile": "删除配置文件",
+      "set_startup_profile": "设为启动配置",
+      "link_existing_ruleset": "关联已有...",
+      "create_ruleset": "新建...",
+      "unlink_ruleset": "取消关联",
+      "set_active_ruleset": "设为活动",
+      "workflow_hint": "本窗口中的更改为暂存状态。点击“确定”应用，点击“取消”放弃。",
+      "delete_profile_confirm": "删除配置文件“{name}”？\n不会删除规则集文件。",
+      "no_ruleset_selected": "未选择规则集。",
+      "ruleset_name": "名称：{name}",
+      "ruleset_path": "路径：{path}",
+      "ruleset_status_active": "状态：当前配置文件的活动规则集。",
+      "ruleset_status_linked": "状态：已关联到当前配置文件。",
+      "ruleset_status_available": "文件可用。",
+      "ruleset_status_missing": "文件在磁盘上缺失。"
+    },
+    "manage_rulesets": {
+      "title": "规则集库",
+      "list_title": "全部规则集",
+      "preview_title": "规则预览",
+      "no_selection": "未选择规则集。",
+      "path": "路径：{path}",
+      "rules_count": "规则数：{count}",
+      "linked_profiles": "已关联配置文件：{names}",
+      "status_missing": "状态：磁盘上缺失。",
+      "status_available": "状态：可用。",
+      "preview_missing": "该规则集文件在磁盘上不存在。",
+      "preview_empty": "该规则集还没有规则。",
+      "preview_load_error": "无法加载规则集。\n\n{message}",
+      "delete_blocked": "无法删除该规则集，因为它是以下配置文件唯一关联的规则集：\n\n{profiles}",
+      "delete_unlink_confirm": "删除规则集将会把它从以下配置文件中移除：\n\n{profiles}",
+      "delete_final_confirm": "确定要删除吗？"
     },
     "add_ruleset": {
       "title": "添加规则集"
@@ -320,7 +380,9 @@
     },
     "enabled": "启用",
     "disabled": "禁用",
-    "delete_tooltip": "删除规则（Alt+点击跳过确认）"
+    "delete_tooltip": "删除规则（Alt+点击跳过确认）",
+    "empty_title": "该规则集还没有规则。",
+    "empty_hint": "可通过“添加规则”“批量添加同义词”或导入规则集开始。"
   },
   "ruleset": {
     "missing": "{label}（缺失）",
