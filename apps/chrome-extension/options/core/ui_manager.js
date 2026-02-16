@@ -46,6 +46,24 @@ class UIManager {
       "status", "rules-file", "import-file", "export-file", "file-status",
       "custom-ruleset-enabled",
       "profile-rulesets-list", "profile-rulesets-status", "profile-rulesets-refresh",
+      "share-center-open-export", "share-center-open-import",
+      "share-center-export-backdrop", "share-center-export-modal", "share-center-export-close",
+      "share-center-import-backdrop", "share-center-import-modal", "share-center-import-close",
+      "share-center-export-mode-full", "share-center-export-mode-custom", "share-center-tree-panel",
+      "share-center-parent-profile", "share-center-parent-rulesets", "share-center-parent-srs",
+      "share-center-parent-appearance", "share-center-parent-module-histories",
+      "share-center-target-srs-pair",
+      "share-center-target-profile-settings",
+      "share-center-target-appearance-theme",
+      "share-center-ruleset-items", "share-center-ruleset-status",
+      "share-center-module-items", "share-center-module-status",
+      "share-center-summary-target", "share-center-summary-groups",
+      "share-center-summary-size", "share-center-summary-output",
+      "share-center-code", "share-center-code-cjk",
+      "share-center-generate", "share-center-copy", "share-center-export-status",
+      "share-center-import-code", "share-center-import-code-cjk", "share-center-import",
+      "share-center-import-clear", "share-center-import-status",
+      "share-center-status",
       "rules-updated", "rules-count", "share-code", "share-code-scope", "share-code-cjk",
       "generate-code", "import-code", "copy-code", "open-desktop-app",
       "open-bd-plugin"
@@ -56,6 +74,7 @@ class UIManager {
       this.dom[prop] = document.getElementById(id);
     });
     this.dom.rulesSourceInputs = Array.from(document.querySelectorAll("input[name='rules-source']"));
+    this.dom.shareCenterTargetInputs = Array.from(document.querySelectorAll("input[name='share-center-target']"));
   }
 
   setStatus(message, color) {

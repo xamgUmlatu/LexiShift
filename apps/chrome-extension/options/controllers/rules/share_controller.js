@@ -46,6 +46,14 @@
       return "rules";
     }
 
+    async function generateShareCodeWithOptions(optionsArg) {
+      if (!rulesManager) {
+        throw new Error(translate("status_generate_failed", null, "Failed to generate code."));
+      }
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      return rulesManager.generateShareCode(options);
+    }
+
     async function saveRules() {
       if (!rulesManager || !rulesInput) {
         return;
@@ -104,7 +112,7 @@
       }
       try {
         const scope = resolveScope();
-        const code = await rulesManager.generateShareCode({
+        const code = await generateShareCodeWithOptions({
           scope,
           useCjk: shareCodeCjk.checked,
           editorValue: rulesInput ? rulesInput.value : "[]",
@@ -127,13 +135,31 @@
       }
     }
 
+    async function importShareCodeWithOptions(optionsArg) {
+      if (!rulesManager) {
+        throw new Error(translate("status_invalid_code", null, "Invalid code."));
+      }
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      const codeValue = options.code !== undefined
+        ? String(options.code || "")
+        : (shareCodeInput ? String(shareCodeInput.value || "") : "");
+      const useCjk = options.useCjk === true;
+      return rulesManager.importShareCode(codeValue, useCjk, {
+        profileId: options.profileId,
+        helperManager: options.helperManager
+      });
+    }
+
     async function importShareCode() {
       if (!rulesManager || !shareCodeInput || !shareCodeCjk) {
         return;
       }
       try {
-        const result = await rulesManager.importShareCode(shareCodeInput.value, shareCodeCjk.checked);
-        if (shareCodeScopeInput && result && result.scope) {
+        const result = await importShareCodeWithOptions({
+          code: shareCodeInput.value,
+          useCjk: shareCodeCjk.checked
+        });
+        if (shareCodeScopeInput && result && result.scope && result.scope !== "ruleset") {
           shareCodeScopeInput.value = result.scope;
         }
         if (result && result.scope === "rules") {
@@ -152,6 +178,13 @@
             translate("status_code_imported_srs", null, "SRS status imported. Reloading options…"),
             colors.SUCCESS
           );
+          setTimeout(() => {
+            window.location.reload();
+          }, 120);
+          return;
+        }
+        if (result && result.scope === "ruleset") {
+          setStatus("Ruleset imported. Reloading options…", colors.SUCCESS);
           setTimeout(() => {
             window.location.reload();
           }, 120);
@@ -192,7 +225,9 @@
       importFromFile,
       exportToFile,
       generateShareCode,
+      generateShareCodeWithOptions,
       importShareCode,
+      importShareCodeWithOptions,
       copyShareCode
     };
   }

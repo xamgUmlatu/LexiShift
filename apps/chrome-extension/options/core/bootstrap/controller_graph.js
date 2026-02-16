@@ -131,6 +131,7 @@
       cacheTtlMs: 10_000
     });
 
+    let shareCenterController = null;
     const profileRulesetsController = requireControllerFactory("optionsProfileRulesets")({
       settingsManager,
       helperManager,
@@ -138,6 +139,12 @@
       setStatus: uiBridge.setStatus,
       log: logOptions,
       colors: ui.COLORS,
+      onRulesetsUpdated: (event) => {
+        if (!shareCenterController || typeof shareCenterController.syncForProfile !== "function") {
+          return null;
+        }
+        return shareCenterController.syncForProfile(event);
+      },
       elements: {
         profileRulesetsList: dom.profileRulesetsList,
         profileRulesetsStatus: dom.profileRulesetsStatus,
@@ -183,6 +190,57 @@
       }
     });
 
+    shareCenterController = requireControllerFactory("optionsShareCenter")({
+      settingsManager,
+      helperManager,
+      rulesShareController,
+      t,
+      setStatus: uiBridge.setStatus,
+      log: logOptions,
+      colors: ui.COLORS,
+      elements: {
+        openExportButton: dom.shareCenterOpenExportButton,
+        openImportButton: dom.shareCenterOpenImportButton,
+        exportBackdrop: dom.shareCenterExportBackdrop,
+        exportModal: dom.shareCenterExportModal,
+        exportCloseButton: dom.shareCenterExportCloseButton,
+        exportModeFullInput: dom.shareCenterExportModeFullInput,
+        exportModeCustomInput: dom.shareCenterExportModeCustomInput,
+        treePanel: dom.shareCenterTreePanel,
+        importBackdrop: dom.shareCenterImportBackdrop,
+        importModal: dom.shareCenterImportModal,
+        importCloseButton: dom.shareCenterImportCloseButton,
+        parentProfileInput: dom.shareCenterParentProfileInput,
+        parentRulesetsInput: dom.shareCenterParentRulesetsInput,
+        parentSrsInput: dom.shareCenterParentSrsInput,
+        parentAppearanceInput: dom.shareCenterParentAppearanceInput,
+        parentModuleHistoriesInput: dom.shareCenterParentModuleHistoriesInput,
+        targetInputs: dom.shareCenterTargetInputs,
+        targetProfileSettingsInput: dom.shareCenterTargetProfileSettingsInput,
+        targetSrsPairInput: dom.shareCenterTargetSrsPairInput,
+        targetAppearanceThemeInput: dom.shareCenterTargetAppearanceThemeInput,
+        rulesetItemsRoot: dom.shareCenterRulesetItemsRoot,
+        rulesetStatus: dom.shareCenterRulesetStatus,
+        moduleItemsRoot: dom.shareCenterModuleItemsRoot,
+        moduleStatus: dom.shareCenterModuleStatus,
+        summaryTarget: dom.shareCenterSummaryTarget,
+        summaryGroups: dom.shareCenterSummaryGroups,
+        summarySize: dom.shareCenterSummarySize,
+        summaryOutput: dom.shareCenterSummaryOutput,
+        shareCodeInput: dom.shareCenterCodeInput,
+        shareCodeCjk: dom.shareCenterCodeCjk,
+        generateButton: dom.shareCenterGenerateButton,
+        importButton: dom.shareCenterImportButton,
+        importCodeInput: dom.shareCenterImportCodeInput,
+        importCodeCjk: dom.shareCenterImportCodeCjk,
+        importClearButton: dom.shareCenterImportClearButton,
+        importStatusOutput: dom.shareCenterImportStatus,
+        exportStatusOutput: dom.shareCenterExportStatus,
+        copyButton: dom.shareCenterCopyButton,
+        statusOutput: dom.shareCenterStatus
+      }
+    });
+
     const helperActionsController = requireControllerFactory("optionsHelperActions")({
       helperManager,
       t,
@@ -204,6 +262,9 @@
       applyLanguagePrefsToInputs: languagePrefsAdapter.applyLanguagePrefsToInputs,
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
       syncProfileRulesetsForProfile: (optionsArg) => profileRulesetsController.syncForProfile(optionsArg),
+      syncShareCenterForProfile: (optionsArg) => (shareCenterController
+        ? shareCenterController.syncForProfile(optionsArg)
+        : Promise.resolve()),
       clearProfileCache: () => srsProfileSelectorController.clearCache(),
       syncProfileBackgroundForPrefs: (uiPrefs) => profileBackgroundController.syncForLoadedPrefs(uiPrefs),
       setProfileStatusLocalized: (key, substitutions, fallback) => {

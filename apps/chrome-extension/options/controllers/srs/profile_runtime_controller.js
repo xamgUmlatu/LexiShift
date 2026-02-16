@@ -19,6 +19,9 @@
     const syncProfileRulesetsForProfile = typeof opts.syncProfileRulesetsForProfile === "function"
       ? opts.syncProfileRulesetsForProfile
       : (() => Promise.resolve());
+    const syncShareCenterForProfile = typeof opts.syncShareCenterForProfile === "function"
+      ? opts.syncShareCenterForProfile
+      : (() => Promise.resolve());
     const clearProfileCache = typeof opts.clearProfileCache === "function"
       ? opts.clearProfileCache
       : (() => {});
@@ -90,6 +93,11 @@
         profileId: synced.profileId
       });
       await syncProfileRulesetsForProfile({
+        items: synced.items,
+        profileId: synced.profileId,
+        helperProfilesPayload: synced.helperProfilesPayload
+      });
+      await syncShareCenterForProfile({
         items: synced.items,
         profileId: synced.profileId,
         helperProfilesPayload: synced.helperProfilesPayload

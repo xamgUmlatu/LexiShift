@@ -57,6 +57,17 @@ Purpose:
   - The entire "Rules (JSON)" options subcard is intentionally hidden for now via the `hidden` class on that section in `options.html` (DOM/ids preserved for compatibility).
   - To restore the full editor UI, remove `hidden` from the "Rules (JSON)" section class in `options.html`.
   - To restore just the custom-ruleset toggle, also uncomment the labeled `custom-ruleset-enabled` block inside that section.
+  - Profile-linked manual rulesets can now include imported share payloads as local entries (`shared/imported/*.json`), enabled by default per profile.
+
+- Share center rollout
+  - New Share Center card provides grouped/hierarchical share target selection.
+  - During rollout, the legacy Share Code card remains visible and unchanged as fallback.
+  - Compatibility targets map to existing scopes:
+    - `Profile settings` -> `srs`
+    - `Entire profile data` -> `profile`
+  - New share envelope v2 currently adds one payload:
+    - `scope: "ruleset"` for individual manual ruleset export/import.
+  - Backward compatibility is preserved for existing v1 `rules` / `srs` / `profile` codes.
 
 - SRS features
   - SRS gate can filter active rules by replacement lemma.

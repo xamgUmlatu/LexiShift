@@ -79,6 +79,7 @@ apps/chrome-extension/options/
         runtime_bridge.js
         utils.js
     rules/
+      share_center_controller.js
       share_controller.js
     srs/
       profile_selector_controller.js
@@ -113,6 +114,9 @@ Primary ownership:
   - profile image prefs, preview/apply/remove, runtime bridge.
 - `rulesShareController`
   - share-code generate/import/copy + rules text syncing.
+- `shareCenterController`
+  - hierarchical Share Center UX and compatibility bridge to legacy share backend.
+  - owns ruleset-target selection summary and share-center generate/import/copy actions.
 - `helperActionsController`
   - helper diagnostics actions.
 - `displayReplacementController`

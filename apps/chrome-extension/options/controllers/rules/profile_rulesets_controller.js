@@ -19,6 +19,9 @@
           DEFAULT: "#6c675f"
         };
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const onRulesetsUpdated = typeof opts.onRulesetsUpdated === "function"
+      ? opts.onRulesetsUpdated
+      : (() => {});
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
     const listRoot = elements.profileRulesetsList || null;
     const statusOutput = elements.profileRulesetsStatus || null;
@@ -159,6 +162,13 @@
           ruleset.pathKey,
           ruleset.displayPath
         );
+      });
+      existingState.order.forEach((pathKey) => {
+        if (order.includes(pathKey)) {
+          return;
+        }
+        order.push(pathKey);
+        enabledByPath[pathKey] = resolveExistingEnabled(existingState, pathKey, null);
       });
       return {
         order,
@@ -351,6 +361,14 @@
       manualState.enabledByPath[normalizedPath] = enabled === true;
       const persisted = await persistProfileRulesets(items, profileId, manualState, cache);
       renderRulesets(profileId, manualState, cache);
+      Promise.resolve(onRulesetsUpdated({
+        items: persisted.items,
+        profileId,
+        manualState,
+        cache
+      })).catch((error) => {
+        log("Profile rulesets update callback failed.", error);
+      });
       const summary = summarize(manualState, cache, persisted.profileRules);
       setStatus(summary, colors.SUCCESS);
     }
@@ -383,6 +401,14 @@
 
       const persisted = await persistProfileRulesets(items, profileId, manualState, cache);
       renderRulesets(profileId, manualState, cache);
+      Promise.resolve(onRulesetsUpdated({
+        items: persisted.items,
+        profileId,
+        manualState,
+        cache
+      })).catch((error) => {
+        log("Profile rulesets update callback failed.", error);
+      });
       if (helperError) {
         setInlineStatus(helperError);
       }

@@ -183,10 +183,31 @@ Options UI tools (extension)
   - “Run sampled rulegen (5)…” (non-mutating helper preview)
   - helper connection test + open helper data folder
 - Debug focus word: highlights whether a token was seen or replaced.
-- Share code: export/import compressed rules.
+- Share Center (rollout):
+  - grouped/hierarchical share target UI above legacy share controls.
+  - compatibility targets map to existing share scopes:
+    - `Profile settings` -> `srs`
+    - `Entire profile data` -> `profile`
+  - first new payload target:
+    - `Individual ruleset` -> `ruleset` (single manual ruleset, path-free payload).
+- Legacy Share Code card remains visible as fallback during rollout.
 - Logging controls (Advanced):
   - Debug logs → console only (`debugEnabled`).
   - Exposure logging → stored in `chrome.storage.local` (`srsExposureLog`, telemetry).
+
+Share envelope compatibility
+- v1 envelope (`lexishift_share.version = 1`)
+  - scopes: `rules`, `srs`, `profile`
+  - payload in `data`
+- v2 envelope (`lexishift_share.version = 2`)
+  - scope: `ruleset`
+  - payload at `data.ruleset`:
+    - `name`
+    - `rules`
+    - `metadata`
+- Importer is backward compatible:
+  - accepts both v1 and v2 envelopes.
+  - accepts legacy raw rules payloads without an envelope (treated as `rules` scope).
 
 SRS settings (extension)
 - `srsEnabled` (bool): enables SRS gating.

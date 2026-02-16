@@ -261,6 +261,23 @@
           </div>
         </section>
         <section class="card span-2">
+          <h2>Share Center</h2>
+          <p class="hint">
+            Choose a direction first. Detailed selection appears after you enter Export or Import.
+          </p>
+          <div class="share-center-entry-actions">
+            <button id="share-center-open-export" type="button" class="share-center-entry-button">
+              <span class="share-center-entry-title">Export</span>
+              <span class="share-center-entry-hint">Pick data from a profile hierarchy, then generate a code.</span>
+            </button>
+            <button id="share-center-open-import" type="button" class="share-center-entry-button">
+              <span class="share-center-entry-title">Import</span>
+              <span class="share-center-entry-hint">Paste a code and apply it to the selected profile.</span>
+            </button>
+          </div>
+          <p id="share-center-status" class="hint share-center-inline-status"></p>
+        </section>
+        <section class="card span-2">
           <h2 data-i18n="section_share_code">Share Code</h2>
           <p class="hint" data-i18n="hint_share_code">
             Generate a compressed code for manual rules, SRS status, or full profile data.
@@ -415,6 +432,184 @@
         </section>
       </div>
     </main>
+    <div id="share-center-export-backdrop" class="share-center-backdrop hidden" aria-hidden="true">
+      <div
+        id="share-center-export-modal"
+        class="share-center-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Share Center Export"
+        tabindex="-1"
+      >
+        <div class="share-center-modal-header">
+          <h3>Export</h3>
+          <button id="share-center-export-close" type="button" class="share-center-modal-close">Close</button>
+        </div>
+        <p class="hint">
+          Choose export mode. Full profile exports everything; custom selection lets you pick specific nodes.
+        </p>
+        <div class="share-center-mode-selector" role="radiogroup" aria-label="Export mode">
+          <label class="share-center-mode-option">
+            <input id="share-center-export-mode-full" type="radio" name="share-center-export-mode" value="full" checked />
+            <span class="share-center-mode-option-body">
+              <span class="share-center-mode-option-title">Full profile</span>
+              <span class="share-center-mode-option-hint">Recommended. Export complete profile data in one step.</span>
+            </span>
+          </label>
+          <label class="share-center-mode-option">
+            <input id="share-center-export-mode-custom" type="radio" name="share-center-export-mode" value="custom" />
+            <span class="share-center-mode-option-body">
+              <span class="share-center-mode-option-title">Custom selection</span>
+              <span class="share-center-mode-option-hint">Pick individual profile nodes (rulesets, settings, and more).</span>
+            </span>
+          </label>
+        </div>
+        <div class="share-center-layout">
+          <div id="share-center-tree-panel" class="share-center-tree">
+            <section class="share-center-group">
+              <label class="share-center-parent">
+                <input id="share-center-parent-profile" type="checkbox" />
+                <span class="share-center-parent-body">
+                  <span class="share-center-parent-title">Profile</span>
+                  <span class="share-center-parent-hint">Select or clear all exportable nodes under this profile.</span>
+                </span>
+              </label>
+              <div class="share-center-children">
+                <label class="share-center-target">
+                  <input id="share-center-target-profile-settings" type="checkbox" name="share-center-target" value="profile_settings" checked />
+                  <span class="share-center-target-body">
+                    <span class="share-center-target-title">Profile settings</span>
+                    <span class="share-center-target-hint">Profile configuration and SRS settings.</span>
+                  </span>
+                </label>
+                <section class="share-center-subgroup">
+                  <label class="share-center-parent">
+                    <input id="share-center-parent-rulesets" type="checkbox" />
+                    <span class="share-center-parent-body">
+                      <span class="share-center-parent-title">Rulesets</span>
+                    </span>
+                  </label>
+                  <div id="share-center-ruleset-items" class="share-center-children share-center-dynamic-list">
+                    <p class="hint">No profile rulesets available.</p>
+                  </div>
+                  <p id="share-center-ruleset-status" class="hint share-center-inline-status"></p>
+                </section>
+                <section class="share-center-subgroup">
+                  <label class="share-center-parent">
+                    <input id="share-center-parent-srs" type="checkbox" />
+                    <span class="share-center-parent-body">
+                      <span class="share-center-parent-title">SRS Data</span>
+                    </span>
+                  </label>
+                  <div class="share-center-children">
+                    <label class="share-center-target is-disabled">
+                      <input id="share-center-target-srs-pair" type="checkbox" name="share-center-target" value="srs_pair" disabled />
+                      <span class="share-center-target-body">
+                        <span class="share-center-target-title">SRS progress (pair)</span>
+                        <span class="share-center-target-hint">Coming soon.</span>
+                      </span>
+                      <span class="share-center-badge">Coming soon</span>
+                    </label>
+                  </div>
+                </section>
+                <section class="share-center-subgroup">
+                  <label class="share-center-parent">
+                    <input id="share-center-parent-appearance" type="checkbox" />
+                    <span class="share-center-parent-body">
+                      <span class="share-center-parent-title">Appearance</span>
+                    </span>
+                  </label>
+                  <div class="share-center-children">
+                    <label class="share-center-target is-disabled">
+                      <input id="share-center-target-appearance-theme" type="checkbox" name="share-center-target" value="appearance_theme" disabled />
+                      <span class="share-center-target-body">
+                        <span class="share-center-target-title">Theme/colors</span>
+                        <span class="share-center-target-hint">Coming soon.</span>
+                      </span>
+                      <span class="share-center-badge">Coming soon</span>
+                    </label>
+                  </div>
+                </section>
+                <section class="share-center-subgroup">
+                  <label class="share-center-parent">
+                    <input id="share-center-parent-module-histories" type="checkbox" />
+                    <span class="share-center-parent-body">
+                      <span class="share-center-parent-title">Modules</span>
+                    </span>
+                  </label>
+                  <div id="share-center-module-items" class="share-center-children share-center-dynamic-list">
+                    <p class="hint">No modules available for this profile/language.</p>
+                  </div>
+                  <p id="share-center-module-status" class="hint share-center-inline-status"></p>
+                </section>
+              </div>
+            </section>
+          </div>
+          <aside class="share-center-summary">
+            <h3>Selection Summary</h3>
+            <div class="meta-row">
+              <div>
+                <span class="meta-label">Path</span>
+                <span id="share-center-summary-target" class="meta-value">—</span>
+              </div>
+              <div>
+                <span class="meta-label">Includes</span>
+                <span id="share-center-summary-groups" class="meta-value">—</span>
+              </div>
+              <div>
+                <span class="meta-label">Size estimate</span>
+                <span id="share-center-summary-size" class="meta-value">—</span>
+              </div>
+              <div>
+                <span class="meta-label">Suggested output</span>
+                <span id="share-center-summary-output" class="meta-value">—</span>
+              </div>
+            </div>
+            <textarea id="share-center-code" rows="6" spellcheck="false"></textarea>
+            <label class="toggle">
+              <input id="share-center-code-cjk" type="checkbox" checked />
+              <span>Short code (CJK)</span>
+            </label>
+            <div class="actions">
+              <button id="share-center-generate" type="button">Generate</button>
+              <button id="share-center-copy" type="button">Copy</button>
+            </div>
+            <p class="hint share-center-inline-status">
+              Estimate is a lightweight UX hint and may differ from actual encoded length.
+            </p>
+            <p id="share-center-export-status" class="hint share-center-inline-status"></p>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <div id="share-center-import-backdrop" class="share-center-backdrop hidden" aria-hidden="true">
+      <div
+        id="share-center-import-modal"
+        class="share-center-modal share-center-import-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Share Center Import"
+        tabindex="-1"
+      >
+        <div class="share-center-modal-header">
+          <h3>Import</h3>
+          <button id="share-center-import-close" type="button" class="share-center-modal-close">Close</button>
+        </div>
+        <p class="hint">
+          Paste a share code to import into the selected profile. Scope is detected from the decoded payload.
+        </p>
+        <textarea id="share-center-import-code" rows="7" spellcheck="false"></textarea>
+        <label class="toggle">
+          <input id="share-center-import-code-cjk" type="checkbox" checked />
+          <span>Prefer CJK decode</span>
+        </label>
+        <div class="actions">
+          <button id="share-center-import" type="button">Import</button>
+          <button id="share-center-import-clear" type="button">Clear</button>
+        </div>
+        <p id="share-center-import-status" class="hint share-center-inline-status"></p>
+      </div>
+    </div>
     <div id="target-language-prefs-modal-backdrop" class="language-pref-modal-backdrop hidden" aria-hidden="true">
       <div
         id="target-language-prefs-modal"
@@ -482,6 +677,7 @@
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>
     <script src="options/controllers/rules/profile_rulesets_controller.js"></script>
+    <script src="options/controllers/rules/share_center_controller.js"></script>
     <script src="options/controllers/rules/share_controller.js"></script>
     <script src="options/controllers/helper/actions_controller.js"></script>
     <script src="options/controllers/srs/profile_runtime_controller.js"></script>
