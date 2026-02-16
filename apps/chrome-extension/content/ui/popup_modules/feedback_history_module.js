@@ -56,36 +56,39 @@
     return counts;
   }
 
-  function ratingLabel(digit) {
+  function ratingLabel(digit, translate) {
+    const tr = typeof translate === "function" ? translate : t;
     if (digit === "1") {
-      return t("popup_feedback_rating_again", null, "Again");
+      return tr("popup_feedback_rating_again", null, "Again");
     }
     if (digit === "2") {
-      return t("popup_feedback_rating_hard", null, "Hard");
+      return tr("popup_feedback_rating_hard", null, "Hard");
     }
     if (digit === "3") {
-      return t("popup_feedback_rating_good", null, "Good");
+      return tr("popup_feedback_rating_good", null, "Good");
     }
     if (digit === "4") {
-      return t("popup_feedback_rating_easy", null, "Easy");
+      return tr("popup_feedback_rating_easy", null, "Easy");
     }
     return digit;
   }
 
-  function titleText(totalCount) {
+  function titleText(totalCount, translate) {
+    const tr = typeof translate === "function" ? translate : t;
     const total = Number(totalCount || 0);
     if (total > 0) {
-      return t(
+      return tr(
         "popup_feedback_history_count",
         [String(total)],
         `Feedback history (${total})`
       );
     }
-    return t("module_feedback_history", null, "Feedback history");
+    return tr("module_feedback_history", null, "Feedback history");
   }
 
   function build(target, debugLog, context) {
     const ctx = context && typeof context === "object" ? context : {};
+    const translate = typeof ctx.t === "function" ? ctx.t : t;
     const historyStore = ctx.historyStore && typeof ctx.historyStore === "object"
       ? ctx.historyStore
       : null;
@@ -116,7 +119,7 @@
     const toggleButton = document.createElement("button");
     toggleButton.type = "button";
     toggleButton.className = "lexishift-popup-module-toggle lexishift-popup-module-toggle-centered";
-    toggleButton.textContent = titleText(0);
+    toggleButton.textContent = titleText(0, translate);
     const details = document.createElement("div");
     details.className = "lexishift-popup-module-details hidden";
     moduleEl.appendChild(toggleButton);
@@ -130,11 +133,11 @@
       details.classList.toggle("hidden", !open);
       toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
       if (!loaded) {
-        toggleButton.textContent = titleText(0);
+        toggleButton.textContent = titleText(0, translate);
         return;
       }
       const summaryCount = Number(moduleEl.dataset.feedbackTotal || 0);
-      toggleButton.textContent = titleText(summaryCount);
+      toggleButton.textContent = titleText(summaryCount, translate);
     }
 
     async function ensureLoaded() {
@@ -142,7 +145,7 @@
         return;
       }
       toggleButton.disabled = true;
-      toggleButton.textContent = t(
+      toggleButton.textContent = translate(
         "popup_feedback_history_loading",
         null,
         "Feedback history (loading...)"
@@ -161,27 +164,27 @@
         if (!digits.length) {
           const empty = document.createElement("div");
           empty.className = "lexishift-popup-module-line";
-          empty.textContent = t("popup_feedback_history_empty", null, "No feedback yet.");
+          empty.textContent = translate("popup_feedback_history_empty", null, "No feedback yet.");
           details.appendChild(empty);
           loaded = true;
           return;
         }
         const rows = [
-          t("popup_feedback_history_total", [String(total)], `Total: ${total}`),
-          t(
+          translate("popup_feedback_history_total", [String(total)], `Total: ${total}`),
+          translate(
             "popup_feedback_history_breakdown_ah",
             [String(summary["1"]), String(summary["2"])],
             `Again: ${summary["1"]}  Hard: ${summary["2"]}`
           ),
-          t(
+          translate(
             "popup_feedback_history_breakdown_ge",
             [String(summary["3"]), String(summary["4"])],
             `Good: ${summary["3"]}  Easy: ${summary["4"]}`
           ),
-          t(
+          translate(
             "popup_feedback_history_recent",
-            [digits.slice(-12).map((digit) => ratingLabel(digit)).join(", ")],
-            `Recent: ${digits.slice(-12).map((digit) => ratingLabel(digit)).join(", ")}`
+            [digits.slice(-12).map((digit) => ratingLabel(digit, translate)).join(", ")],
+            `Recent: ${digits.slice(-12).map((digit) => ratingLabel(digit, translate)).join(", ")}`
           )
         ];
         for (const text of rows) {
@@ -195,7 +198,7 @@
         details.textContent = "";
         const failed = document.createElement("div");
         failed.className = "lexishift-popup-module-line";
-        failed.textContent = t(
+        failed.textContent = translate(
           "popup_feedback_history_load_failed",
           null,
           "Failed to load feedback history."

@@ -69,6 +69,10 @@
     {
       "resources": ["shared/srs/srs_selector_test_dataset.json"],
       "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["_locales/*/messages.json"],
+      "matches": ["<all_urls>"]
     }
   ]
 }

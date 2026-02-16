@@ -34,14 +34,15 @@
     };
   }
 
-  function scriptLabel(script) {
+  function scriptLabel(script, translate) {
+    const tr = typeof translate === "function" ? translate : t;
     if (script === "kana") {
-      return t("option_ja_script_kana", null, "Kana");
+      return tr("option_ja_script_kana", null, "Kana");
     }
     if (script === "romaji") {
-      return t("option_ja_script_romaji", null, "Romaji");
+      return tr("option_ja_script_romaji", null, "Romaji");
     }
-    return t("option_ja_script_kanji", null, "Kanji");
+    return tr("option_ja_script_kanji", null, "Kanji");
   }
 
   function parseWordPackage(target, debugLog) {
@@ -136,7 +137,9 @@
     return "";
   }
 
-  function build(target, debugLog) {
+  function build(target, debugLog, context) {
+    const ctx = context && typeof context === "object" ? context : {};
+    const translate = typeof ctx.t === "function" ? ctx.t : t;
     if (typeof debugLog === "function") {
       debugLog("Building Japanese script module.", summarizeTarget(target));
     }
@@ -179,7 +182,7 @@
       row.className = "lexishift-script-module-row";
       const label = document.createElement("span");
       label.className = "lexishift-script-module-label";
-      label.textContent = scriptLabel(script);
+      label.textContent = scriptLabel(script, translate);
       const value = document.createElement("span");
       value.className = "lexishift-script-module-value";
       value.textContent = scriptForms[script];

@@ -132,9 +132,20 @@
           setPopupModulePrefs(merged.popupModulePrefs, {
             profileId: merged.srsProfileId,
             targetLanguage: merged.targetLanguage,
-            languagePair: merged.srsPair
+            languagePair: merged.srsPair,
+            uiLanguage: merged.uiLanguage
           });
         }
+      }
+      if (changes.uiLanguage && setPopupModulePrefs) {
+        nextSettings.uiLanguage = changes.uiLanguage.newValue;
+        const merged = mergeSettings(nextSettings);
+        setPopupModulePrefs(merged.popupModulePrefs, {
+          profileId: merged.srsProfileId,
+          targetLanguage: merged.targetLanguage,
+          languagePair: merged.srsPair,
+          uiLanguage: merged.uiLanguage
+        });
       }
       if (changes.srsFeedbackSrsEnabled) {
         nextSettings.srsFeedbackSrsEnabled = changes.srsFeedbackSrsEnabled.newValue;
@@ -179,7 +190,8 @@
         setPopupModulePrefs(merged.popupModulePrefs, {
           profileId: merged.srsProfileId,
           targetLanguage: merged.targetLanguage,
-          languagePair: merged.srsPair
+          languagePair: merged.srsPair,
+          uiLanguage: merged.uiLanguage
         });
       }
 

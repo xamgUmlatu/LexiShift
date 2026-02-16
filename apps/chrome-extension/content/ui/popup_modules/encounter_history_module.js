@@ -40,7 +40,7 @@
     };
   }
 
-  function formatLastSeen(value) {
+  function formatLastSeen(value, locale) {
     const ts = String(value || "").trim();
     if (!ts) {
       return "";
@@ -49,23 +49,30 @@
     if (Number.isNaN(date.getTime())) {
       return "";
     }
+    const localeTag = String(locale || "").trim();
+    if (localeTag) {
+      return date.toLocaleString(localeTag);
+    }
     return date.toLocaleString();
   }
 
-  function titleText(encounterCount) {
+  function titleText(encounterCount, translate) {
+    const tr = typeof translate === "function" ? translate : t;
     const total = Number(encounterCount || 0);
     if (total > 0) {
-      return t(
+      return tr(
         "popup_encounter_history_count",
         [String(total)],
         `Encounter history (${total})`
       );
     }
-    return t("module_encounter_history", null, "Encounter history");
+    return tr("module_encounter_history", null, "Encounter history");
   }
 
   function build(target, debugLog, context) {
     const ctx = context && typeof context === "object" ? context : {};
+    const translate = typeof ctx.t === "function" ? ctx.t : t;
+    const locale = String(ctx.locale || "").trim();
     const historyStore = ctx.historyStore && typeof ctx.historyStore === "object"
       ? ctx.historyStore
       : null;
@@ -96,7 +103,7 @@
     const toggleButton = document.createElement("button");
     toggleButton.type = "button";
     toggleButton.className = "lexishift-popup-module-toggle lexishift-popup-module-toggle-centered";
-    toggleButton.textContent = titleText(0);
+    toggleButton.textContent = titleText(0, translate);
     const details = document.createElement("div");
     details.className = "lexishift-popup-module-details hidden";
     moduleEl.appendChild(toggleButton);
@@ -110,11 +117,11 @@
       details.classList.toggle("hidden", !open);
       toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
       if (!loaded) {
-        toggleButton.textContent = titleText(0);
+        toggleButton.textContent = titleText(0, translate);
         return;
       }
       const summaryCount = Number(moduleEl.dataset.encounterCount || 0);
-      toggleButton.textContent = titleText(summaryCount);
+      toggleButton.textContent = titleText(summaryCount, translate);
     }
 
     async function ensureLoaded() {
@@ -122,7 +129,7 @@
         return;
       }
       toggleButton.disabled = true;
-      toggleButton.textContent = t(
+      toggleButton.textContent = translate(
         "popup_encounter_history_loading",
         null,
         "Encounter history (loading...)"
@@ -135,23 +142,23 @@
         });
         details.textContent = "";
         const encounterCount = Number(history && history.encounter_count ? history.encounter_count : 0);
-        const lastSeen = formatLastSeen(history && history.last_seen ? history.last_seen : "");
+        const lastSeen = formatLastSeen(history && history.last_seen ? history.last_seen : "", locale);
         const excerpt = String(history && history.last_sentence_excerpt ? history.last_sentence_excerpt : "").trim();
         moduleEl.dataset.encounterCount = String(encounterCount);
 
         if (!encounterCount) {
           const empty = document.createElement("div");
           empty.className = "lexishift-popup-module-line";
-          empty.textContent = t("popup_encounter_history_empty", null, "No encounters yet.");
+          empty.textContent = translate("popup_encounter_history_empty", null, "No encounters yet.");
           details.appendChild(empty);
           loaded = true;
           return;
         }
 
         const rows = [
-          t("popup_encounter_history_total", [String(encounterCount)], `Encounters: ${encounterCount}`),
+          translate("popup_encounter_history_total", [String(encounterCount)], `Encounters: ${encounterCount}`),
           lastSeen
-            ? t("popup_encounter_history_last_seen", [lastSeen], `Last seen: ${lastSeen}`)
+            ? translate("popup_encounter_history_last_seen", [lastSeen], `Last seen: ${lastSeen}`)
             : ""
         ].filter(Boolean);
         for (const text of rows) {
@@ -171,7 +178,7 @@
         details.textContent = "";
         const failed = document.createElement("div");
         failed.className = "lexishift-popup-module-line";
-        failed.textContent = t(
+        failed.textContent = translate(
           "popup_encounter_history_load_failed",
           null,
           "Failed to load encounter history."

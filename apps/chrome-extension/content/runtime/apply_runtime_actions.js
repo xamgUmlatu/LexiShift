@@ -64,7 +64,8 @@
         setPopupModulePrefs(currentSettings.popupModulePrefs, {
           profileId: currentSettings.srsProfileId,
           targetLanguage: currentSettings.targetLanguage,
-          languagePair: currentSettings.srsPair
+          languagePair: currentSettings.srsPair,
+          uiLanguage: currentSettings.uiLanguage
         });
       }
       if (attachClickListener) {
