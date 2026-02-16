@@ -810,10 +810,10 @@
     "message": "合計: $1"
   },
   "popup_feedback_history_breakdown_ah": {
-    "message": "Again: $1  Hard: $2"
+    "message": "もう一度: $1  難しい: $2"
   },
   "popup_feedback_history_breakdown_ge": {
-    "message": "Good: $1  Easy: $2"
+    "message": "良い: $1  簡単: $2"
   },
   "popup_feedback_history_recent": {
     "message": "最近: $1"
@@ -822,16 +822,16 @@
     "message": "フィードバック履歴を読み込めませんでした。"
   },
   "popup_feedback_rating_again": {
-    "message": "Again"
+    "message": "もう一度"
   },
   "popup_feedback_rating_hard": {
-    "message": "Hard"
+    "message": "難しい"
   },
   "popup_feedback_rating_good": {
-    "message": "Good"
+    "message": "良い"
   },
   "popup_feedback_rating_easy": {
-    "message": "Easy"
+    "message": "簡単"
   },
   "popup_encounter_history_loading": {
     "message": "遭遇履歴（読み込み中...）"

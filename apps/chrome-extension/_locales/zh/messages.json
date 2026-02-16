@@ -777,7 +777,7 @@
     "message": "主显示脚本"
   },
   "module_feedback_history": {
-    "message": "反馈历史"
+    "message": "评分历史"
   },
   "module_feedback_history_desc": {
     "message": "保存并显示该词的 SRS 评分历史。"
@@ -798,40 +798,40 @@
     "message": "拖动以重新排序"
   },
   "popup_feedback_history_loading": {
-    "message": "反馈历史（加载中...）"
+    "message": "评分历史（加载中...）"
   },
   "popup_feedback_history_count": {
-    "message": "反馈历史（$1）"
+    "message": "评分历史（$1）"
   },
   "popup_feedback_history_empty": {
-    "message": "暂无反馈记录。"
+    "message": "暂无评分记录。"
   },
   "popup_feedback_history_total": {
     "message": "总计：$1"
   },
   "popup_feedback_history_breakdown_ah": {
-    "message": "Again: $1  Hard: $2"
+    "message": "不会: $1  困难: $2"
   },
   "popup_feedback_history_breakdown_ge": {
-    "message": "Good: $1  Easy: $2"
+    "message": "良好: $1  简单: $2"
   },
   "popup_feedback_history_recent": {
     "message": "最近：$1"
   },
   "popup_feedback_history_load_failed": {
-    "message": "无法加载反馈历史。"
+    "message": "无法加载评分历史。"
   },
   "popup_feedback_rating_again": {
-    "message": "Again"
+    "message": "不会"
   },
   "popup_feedback_rating_hard": {
-    "message": "Hard"
+    "message": "困难"
   },
   "popup_feedback_rating_good": {
-    "message": "Good"
+    "message": "良好"
   },
   "popup_feedback_rating_easy": {
-    "message": "Easy"
+    "message": "简单"
   },
   "popup_encounter_history_loading": {
     "message": "遇见历史（加载中...）"
