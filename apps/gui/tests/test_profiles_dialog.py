@@ -114,3 +114,17 @@ def test_profile_id_is_read_only_in_manage_dialog() -> None:
     )
     dialog = ProfilesDialog((profile,), "p1", Path("/tmp"))
     assert dialog.id_edit.isReadOnly() is True
+
+
+def test_ruleset_display_name_hides_path_and_extension() -> None:
+    _app()
+    profile = Profile(
+        profile_id="p1",
+        name="P1",
+        dataset_path="/tmp/my.profile.rules.json",
+        rulesets=("/tmp/my.profile.rules.json",),
+        active_ruleset="/tmp/my.profile.rules.json",
+    )
+    dialog = ProfilesDialog((profile,), "p1", Path("/tmp"))
+    display_name = dialog._ruleset_display_name("/tmp/my.profile.rules.json")
+    assert display_name == "my.profile.rules"

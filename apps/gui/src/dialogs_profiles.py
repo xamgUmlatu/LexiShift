@@ -468,10 +468,19 @@ class ProfilesDialog(QDialog):
         self._refresh_profile_list_labels()
 
     def _format_ruleset_display(self, path: str) -> str:
+        display_name = self._ruleset_display_name(path)
         normalized = Path(os.path.abspath(os.path.expanduser(path)))
         if not normalized.exists():
-            return t("ruleset.missing", label=path)
-        return path
+            return t("ruleset.missing", label=display_name)
+        return display_name
+
+    def _ruleset_display_name(self, path: str) -> str:
+        normalized = Path(os.path.abspath(os.path.expanduser(path)))
+        name = normalized.stem.strip()
+        if name:
+            return name
+        raw_name = Path(path).name
+        return raw_name or path
 
     def _populate_profile_list(self) -> None:
         self.list_widget.clear()
