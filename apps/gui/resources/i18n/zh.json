@@ -91,6 +91,10 @@
     "no_profile_selected": "未选择配置文件。",
     "none": "（无）"
   },
+  "empty_workspace": {
+    "create_profile": "创建新配置文件",
+    "import_profile": "导入现有配置文件"
+  },
   "panels": {
     "show": "显示",
     "hide": "隐藏"

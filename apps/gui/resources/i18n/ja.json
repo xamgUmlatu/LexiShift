@@ -91,6 +91,10 @@
     "no_profile_selected": "プロファイルが選択されていません。",
     "none": "(なし)"
   },
+  "empty_workspace": {
+    "create_profile": "新しいプロファイルを作成",
+    "import_profile": "既存のプロファイルをインポート"
+  },
   "panels": {
     "show": "表示",
     "hide": "非表示"

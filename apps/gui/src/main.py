@@ -50,6 +50,7 @@ from PySide6.QtWidgets import (
     QProgressBar,
     QSlider,
     QSplitter,
+    QStackedWidget,
     QStyledItemDelegate,
     QTableView,
     QTextEdit,
@@ -59,7 +60,6 @@ from PySide6.QtWidgets import (
 )
 
 from lexishift_core import (
-    AppSettings,
     ImportExportSettings,
     Profile,
     RuleMetadata,
@@ -96,7 +96,7 @@ from dialogs import RuleMetadataDialog, SettingsDialog
 from helper_installer import install_helper, is_helper_installed
 from helper_ui import auto_install_helper, ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
 from dialogs_code import BulkRulesDialog, CodeDialog
-from dialogs_profiles import CreateProfileDialog, FirstRunDialog, ProfilesDialog
+from dialogs_profiles import CreateProfileDialog, ProfilesDialog
 from dialogs_rulesets import RulesetLibraryDialog
 from i18n import set_locale, t
 from models import RulesTableModel
@@ -403,12 +403,8 @@ class MainWindow(QMainWindow):
 
         settings_path = _settings_path()
         self.state = AppState(settings_path=settings_path)
-        first_run = not settings_path.exists()
         self.state.load_settings()
         self._migrate_ruleset_paths()
-        if not self.state.settings.profiles:
-            if not self._run_first_time_setup(first_run=first_run):
-                self._seed_default_profile()
 
         self.rules_model = RulesTableModel([])
         self.rules_model.rulesChanged.connect(self._on_rules_changed)
@@ -524,11 +520,16 @@ class MainWindow(QMainWindow):
         splitter.addWidget(right_panel)
         splitter.setStretchFactor(1, 1)
         self._splitter = splitter
+        self._workspace_editor_page = splitter
+        self._workspace_empty_page = self._build_empty_profiles_workspace()
+        self._workspace_stack = QStackedWidget()
+        self._workspace_stack.addWidget(self._workspace_editor_page)
+        self._workspace_stack.addWidget(self._workspace_empty_page)
 
         self._theme_container = ThemedBackgroundWidget()
         container_layout = QVBoxLayout(self._theme_container)
         container_layout.setContentsMargins(12, 12, 12, 12)
-        container_layout.addWidget(splitter)
+        container_layout.addWidget(self._workspace_stack)
         self.setCentralWidget(self._theme_container)
 
         self._setup_actions()
@@ -805,6 +806,40 @@ class MainWindow(QMainWindow):
         header.setLayout(top_row)
         return header
 
+    def _build_empty_profiles_workspace(self) -> QWidget:
+        self.empty_create_profile_button = QPushButton(t("empty_workspace.create_profile"))
+        self.empty_import_profile_button = QPushButton(t("empty_workspace.import_profile"))
+        for button in (self.empty_create_profile_button, self.empty_import_profile_button):
+            button.setProperty("variant", "primary")
+            button.setProperty("size", "large")
+            button.setMinimumHeight(68)
+            button.setMinimumWidth(360)
+
+        self.empty_create_profile_button.clicked.connect(self._on_empty_create_profile)
+        self.empty_import_profile_button.clicked.connect(self._import_profiles_from_file)
+
+        button_col = QVBoxLayout()
+        button_col.setContentsMargins(0, 0, 0, 0)
+        button_col.setSpacing(14)
+        button_col.addWidget(self.empty_create_profile_button)
+        button_col.addWidget(self.empty_import_profile_button)
+
+        centered = QHBoxLayout()
+        centered.setContentsMargins(0, 0, 0, 0)
+        centered.addStretch(1)
+        centered.addLayout(button_col)
+        centered.addStretch(1)
+
+        root = QVBoxLayout()
+        root.setContentsMargins(24, 24, 24, 24)
+        root.addStretch(1)
+        root.addLayout(centered)
+        root.addStretch(1)
+
+        page = QWidget()
+        page.setLayout(root)
+        return page
+
     def _build_replacement_panel(self) -> QWidget:
         title = QLabel(t("replacement.panel_title"))
         slider_label = QLabel(t("replacement.threshold_label"))
@@ -1007,28 +1042,8 @@ class MainWindow(QMainWindow):
             selected_profile = settings.profiles[0]
         self._load_profile(selected_profile)
 
-    def _seed_default_profile(self) -> None:
-        default_dataset = _default_dataset_path()
-        dataset_path = str(default_dataset)
-        profile = Profile(
-            profile_id="default",
-            name=t("profiles.default_name"),
-            dataset_path=dataset_path,
-            rulesets=(dataset_path,),
-            active_ruleset=dataset_path,
-        )
-        settings = AppSettings(profiles=(profile,), active_profile_id="default")
-        self.state.set_profiles(settings.profiles, active_profile_id=settings.active_profile_id)
-        if not default_dataset.exists():
-            self.state.update_dataset(VocabDataset())
-            self.state.save_dataset(path=default_dataset)
-
-    def _run_first_time_setup(self, *, first_run: bool) -> bool:
-        if first_run:
-            dialog = FirstRunDialog(parent=self)
-            if dialog.exec() != QDialog.DialogCode.Accepted:
-                return False
-        return self._create_profile()
+    def _on_empty_create_profile(self) -> None:
+        self._create_profile()
 
     def _open_dataset(self) -> None:
         if not self._confirm_discard_changes():
@@ -1671,10 +1686,7 @@ class MainWindow(QMainWindow):
             return
         payload = Path(path).read_text(encoding="utf-8")
         settings = import_app_settings_json(payload)
-        self.state.update_settings(settings)
-        self._refresh_embedding_index()
-        self._load_active_profile()
-        self._remember_import_path(Path(path))
+        self._apply_imported_profiles_settings(settings=settings, source_path=Path(path))
 
     def _import_profiles_code(self) -> None:
         if not self._confirm_discard_changes():
@@ -1683,9 +1695,33 @@ class MainWindow(QMainWindow):
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         settings = import_app_settings_code(dialog.code())
+        self._apply_imported_profiles_settings(settings=settings)
+
+    def _import_profiles_from_file(self) -> None:
+        if not self._confirm_discard_changes():
+            return
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            t("dialogs.import_profiles_json.title"),
+            self._default_import_dir(),
+            f"{t('filters.json')};;{t('filters.all')}",
+        )
+        if not path:
+            return
+        payload = Path(path).read_text(encoding="utf-8")
+        suffix = Path(path).suffix.lower()
+        if suffix == ".py":
+            settings = import_app_settings_code(payload)
+        else:
+            settings = import_app_settings_json(payload)
+        self._apply_imported_profiles_settings(settings=settings, source_path=Path(path))
+
+    def _apply_imported_profiles_settings(self, *, settings, source_path: Optional[Path] = None) -> None:
         self.state.update_settings(settings)
         self._refresh_embedding_index()
         self._load_active_profile()
+        if source_path is not None:
+            self._remember_import_path(source_path)
 
     def _confirm_discard_changes(self) -> bool:
         if not self.state.dirty:
@@ -2265,7 +2301,16 @@ class MainWindow(QMainWindow):
             self.profile_combo.setCurrentIndex(active_index)
         self.profile_combo.blockSignals(False)
         self._profile_combo_updating = False
+        self._update_workspace_mode()
         self._refresh_ruleset_ui()
+
+    def _update_workspace_mode(self) -> None:
+        if not hasattr(self, "_workspace_stack"):
+            return
+        has_profiles = bool(self.state.settings.profiles)
+        target = self._workspace_editor_page if has_profiles else self._workspace_empty_page
+        if self._workspace_stack.currentWidget() is not target:
+            self._workspace_stack.setCurrentWidget(target)
 
     def _current_profile(self) -> Optional[Profile]:
         active_id = self.state.settings.active_profile_id

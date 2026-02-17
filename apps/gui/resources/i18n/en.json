@@ -92,6 +92,10 @@
     "no_profile_selected": "No profile selected.",
     "none": "(none)"
   },
+  "empty_workspace": {
+    "create_profile": "Create New Profile",
+    "import_profile": "Import Existing Profile"
+  },
   "panels": {
     "show": "Show",
     "hide": "Hide"
