@@ -228,70 +228,151 @@ class RulesTableView(QTableView):
         painter.end()
 
 
-class CollapsiblePanel(QWidget):
+class UtilityDockPanel(QWidget):
     toggled = Signal(bool)
 
-    def __init__(self, title: str, content: QWidget, *, expanded: bool = False, parent=None) -> None:
+    def __init__(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False, parent=None) -> None:
         super().__init__(parent)
+        self._panel_id = str(panel_id or "")
         self._title = str(title or "")
-        self._content = content
         self._expanded = bool(expanded)
+        self._unread_count = 0
+        self.setProperty("utilityDockPanel", True)
 
-        self.toggle_button = QPushButton()
-        self.toggle_button.setCheckable(True)
-        self.toggle_button.setProperty("variant", "secondary")
-        self.toggle_button.setProperty("size", "large")
-        self.toggle_button.setStyleSheet("text-align: right;")
-        self.toggle_button.clicked.connect(self._on_toggle_clicked)
+        self.header_button = QPushButton()
+        self.header_button.setCheckable(True)
+        self.header_button.setProperty("variant", "secondary")
+        self.header_button.setProperty("dockHeader", True)
+        self.header_button.clicked.connect(self._on_toggle_clicked)
 
-        self._group = QGroupBox(self._title)
-        group_layout = QVBoxLayout(self._group)
-        group_layout.setContentsMargins(10, 10, 10, 10)
-        group_layout.setSpacing(6)
+        self.badge_label = QLabel("")
+        self.badge_label.setProperty("utilityDockBadge", True)
+        self.badge_label.setAlignment(Qt.AlignCenter)
+        self.badge_label.setVisible(False)
 
-        header_row = QHBoxLayout()
-        header_row.setContentsMargins(0, 0, 0, 0)
-        header_row.setSpacing(6)
-        header_row.addStretch(1)
-        header_row.addWidget(self.toggle_button)
-        group_layout.addLayout(header_row)
-        group_layout.addWidget(self._content, 1)
+        self._content = content
+        self._content_container = QWidget()
+        content_layout = QVBoxLayout(self._content_container)
+        content_layout.setContentsMargins(0, 0, 0, 0)
+        content_layout.setSpacing(0)
+        content_layout.addWidget(self._content)
 
-        outer_layout = QVBoxLayout(self)
-        outer_layout.setContentsMargins(0, 0, 0, 0)
-        outer_layout.setSpacing(0)
-        outer_layout.addWidget(self._group, 1)
+        row = QHBoxLayout()
+        row.setContentsMargins(0, 0, 0, 0)
+        row.setSpacing(8)
+        row.addWidget(self.header_button, 1)
+        row.addWidget(self.badge_label)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(6)
+        layout.addLayout(row)
+        layout.addWidget(self._content_container, 1)
 
         self.set_expanded(self._expanded)
+
+    def panel_id(self) -> str:
+        return self._panel_id
 
     def is_expanded(self) -> bool:
         return self._expanded
 
     def set_expanded(self, expanded: bool) -> None:
         self._expanded = bool(expanded)
-        self._content.setVisible(self._expanded)
-        self.toggle_button.blockSignals(True)
-        self.toggle_button.setChecked(self._expanded)
-        self.toggle_button.blockSignals(False)
-        self._sync_button_text()
+        self._content_container.setVisible(self._expanded)
+        self.header_button.blockSignals(True)
+        self.header_button.setChecked(self._expanded)
+        self.header_button.blockSignals(False)
+        if self._expanded:
+            self.clear_unread()
+        self._sync_header_text()
         if self._expanded:
             self.setMinimumHeight(0)
             self.setMaximumHeight(16777215)
             return
-        collapsed_height = self.toggle_button.sizeHint().height() + 48
+        collapsed_height = self.header_button.sizeHint().height() + 10
         self.setMinimumHeight(collapsed_height)
         self.setMaximumHeight(collapsed_height)
 
+    def set_unread_count(self, count: int) -> None:
+        self._unread_count = max(0, int(count))
+        if self._expanded:
+            self._unread_count = 0
+        self.badge_label.setVisible(self._unread_count > 0)
+        if self._unread_count > 0:
+            self.badge_label.setText(str(self._unread_count))
+
+    def clear_unread(self) -> None:
+        self.set_unread_count(0)
+
+    def increment_unread(self) -> None:
+        self.set_unread_count(self._unread_count + 1)
+
     def refresh_geometry_hint(self) -> None:
-        # Recompute collapsed height after theme/font changes.
         self.set_expanded(self._expanded)
 
     def _on_toggle_clicked(self, checked: bool) -> None:
         self.set_expanded(bool(checked))
         self.toggled.emit(self._expanded)
 
-    def _sync_button_text(self) -> None:
-        self.toggle_button.setText(t("panels.hide") if self._expanded else t("panels.show"))
+    def _sync_header_text(self) -> None:
+        arrow = "▾" if self._expanded else "▸"
+        self.header_button.setText(f"{arrow} {self._title}")
+
+
+class UtilityDock(QWidget):
+    panelToggled = Signal(str, bool)
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._panels: dict[str, UtilityDockPanel] = {}
+        self._layout = QVBoxLayout(self)
+        self._layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setSpacing(8)
+        self._layout.addStretch(1)
+
+    def add_panel(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False) -> UtilityDockPanel:
+        panel_key = str(panel_id or "").strip()
+        if not panel_key:
+            raise ValueError("panel_id is required")
+        if panel_key in self._panels:
+            raise ValueError(f"panel already exists: {panel_key}")
+        panel = UtilityDockPanel(panel_key, title, content, expanded=expanded, parent=self)
+        panel.toggled.connect(lambda state, key=panel_key: self.panelToggled.emit(key, bool(state)))
+        self._panels[panel_key] = panel
+        self._layout.insertWidget(max(0, self._layout.count() - 1), panel)
+        return panel
+
+    def panel(self, panel_id: str) -> Optional[UtilityDockPanel]:
+        return self._panels.get(str(panel_id or "").strip())
+
+    def is_panel_expanded(self, panel_id: str) -> bool:
+        panel = self.panel(panel_id)
+        if panel is None:
+            return False
+        return panel.is_expanded()
+
+    def set_panel_expanded(self, panel_id: str, expanded: bool) -> None:
+        panel = self.panel(panel_id)
+        if panel is None:
+            return
+        panel.set_expanded(bool(expanded))
+
+    def increment_unread(self, panel_id: str) -> None:
+        panel = self.panel(panel_id)
+        if panel is None:
+            return
+        panel.increment_unread()
+
+    def clear_unread(self, panel_id: str) -> None:
+        panel = self.panel(panel_id)
+        if panel is None:
+            return
+        panel.clear_unread()
+
+    def refresh_geometry_hint(self) -> None:
+        for panel in self._panels.values():
+            panel.refresh_geometry_hint()
 
 
 class EmbeddingLoaderThread(QThread):
@@ -414,12 +495,17 @@ class MainWindow(QMainWindow):
         self.log_edit.setPlaceholderText(t("logs.placeholder"))
         self._configure_log_handlers()
 
-        self._log_collapsible = CollapsiblePanel(
+        self._utility_dock = UtilityDock()
+        logs_expanded = bool(
+            self._ui_settings.value("main_window/utility/logs_expanded", False, type=bool)
+        )
+        self._utility_dock.add_panel(
+            "logs",
             t("logs.title"),
             self.log_edit,
-            expanded=False,
+            expanded=logs_expanded,
         )
-        self._log_collapsible.toggled.connect(lambda _expanded: self._rebalance_right_splitter())
+        self._utility_dock.panelToggled.connect(self._on_utility_panel_toggled)
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -428,7 +514,7 @@ class MainWindow(QMainWindow):
 
         right_panel = QSplitter(Qt.Vertical)
         right_panel.addWidget(self._build_replacement_panel())
-        right_panel.addWidget(self._log_collapsible)
+        right_panel.addWidget(self._utility_dock)
         right_panel.setStretchFactor(0, 1)
         right_panel.setStretchFactor(1, 0)
         self._right_splitter = right_panel
@@ -461,7 +547,7 @@ class MainWindow(QMainWindow):
         self._refresh_profiles_ui()
         self._restore_window_state()
         self._apply_theme()
-        self._rebalance_right_splitter()
+        self._rebalance_right_splitter(keep_current=True)
         self._refresh_window_title()
 
     def _setup_actions(self) -> None:
@@ -642,17 +728,35 @@ class MainWindow(QMainWindow):
         helper_log = _app_data_dir() / "helper_install.log"
         helper_tray_log = _app_data_dir() / "helper_tray.log"
         info = [
-            f"AppDataLocation: {_app_data_dir()}",
-            f"Executable: {sys.executable}",
-            f"Frozen: {getattr(sys, 'frozen', False)}",
-            f"_MEIPASS: {getattr(sys, '_MEIPASS', None)}",
-            "Startup log paths:",
+            t("dialogs.startup_diagnostics.app_data_location", path=str(_app_data_dir())),
+            t("dialogs.startup_diagnostics.executable", path=str(sys.executable)),
+            t("dialogs.startup_diagnostics.frozen", value=getattr(sys, "frozen", False)),
+            t("dialogs.startup_diagnostics.meipass", value=getattr(sys, "_MEIPASS", None)),
+            t("dialogs.startup_diagnostics.startup_log_paths"),
         ]
         for path in log_paths:
-            info.append(f"  - {path} (exists={path.exists()})")
-        info.append(f"Helper install log: {helper_log} (exists={helper_log.exists()})")
-        info.append(f"Helper tray log: {helper_tray_log} (exists={helper_tray_log.exists()})")
-        info.append("If logs are missing, try launching with: --diagnose-startup")
+            info.append(
+                t(
+                    "dialogs.startup_diagnostics.startup_log_entry",
+                    path=str(path),
+                    exists=path.exists(),
+                )
+            )
+        info.append(
+            t(
+                "dialogs.startup_diagnostics.helper_install_log",
+                path=str(helper_log),
+                exists=helper_log.exists(),
+            )
+        )
+        info.append(
+            t(
+                "dialogs.startup_diagnostics.helper_tray_log",
+                path=str(helper_tray_log),
+                exists=helper_tray_log.exists(),
+            )
+        )
+        info.append(t("dialogs.startup_diagnostics.hint"))
         QMessageBox.information(
             self,
             t("dialogs.startup_diagnostics.title"),
@@ -791,6 +895,7 @@ class MainWindow(QMainWindow):
             self._right_splitter.restoreState(right_splitter_state)
         else:
             self._right_splitter.setSizes([620, 180])
+        self._rebalance_right_splitter(keep_current=True)
 
     def _theme_color_hex(self, key: str, *, fallback: str) -> str:
         value = self._theme.get(key)
@@ -815,7 +920,7 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(build_base_styles(self._theme))
         self._splitter.setStyleSheet("background: transparent;")
         self._right_splitter.setStyleSheet("background: transparent;")
-        self._log_collapsible.refresh_geometry_hint()
+        self._utility_dock.refresh_geometry_hint()
         self.rules_table.set_empty_palette(
             card_bg=self._theme_color_hex("panel_top", fallback="#F5F2E9"),
             card_border=self._theme_color_hex("panel_border", fallback="#D5CBB8"),
@@ -826,7 +931,7 @@ class MainWindow(QMainWindow):
         base_delete = self._status_color("error")
         self._delete_button_delegate.set_colors(base_delete, base_delete.darker(115))
         self._configure_log_handlers()
-        self._rebalance_right_splitter()
+        self._rebalance_right_splitter(keep_current=True)
 
     def _save_window_state(self) -> None:
         self._ui_settings.setValue("main_window/geometry", self.saveGeometry())
@@ -864,19 +969,26 @@ class MainWindow(QMainWindow):
     def _setup_rule_selection(self) -> None:
         self.rules_table.selectionModel().currentRowChanged.connect(lambda *_: self._update_rule_actions())
 
-    def _expand_aux_panel(self, panel: CollapsiblePanel) -> None:
-        if panel.is_expanded():
+    def _on_utility_panel_toggled(self, panel_id: str, expanded: bool) -> None:
+        panel_key = str(panel_id or "").strip()
+        if not panel_key:
             return
-        panel.set_expanded(True)
+        self._ui_settings.setValue(f"main_window/utility/{panel_key}_expanded", bool(expanded))
+        if expanded:
+            self._utility_dock.clear_unread(panel_key)
         self._rebalance_right_splitter()
 
-    def _rebalance_right_splitter(self) -> None:
-        if not hasattr(self, "_right_splitter") or not hasattr(self, "_log_collapsible"):
+    def _rebalance_right_splitter(self, *, keep_current: bool = False) -> None:
+        if not hasattr(self, "_right_splitter") or not hasattr(self, "_utility_dock"):
             return
-        if self._log_collapsible.is_expanded():
-            self._right_splitter.setSizes([620, 220])
+        logs_expanded = self._utility_dock.is_panel_expanded("logs")
+        if keep_current and logs_expanded:
             return
-        self._right_splitter.setSizes([760, self._log_collapsible.minimumHeight()])
+        if logs_expanded:
+            self._right_splitter.setSizes([620, 240])
+            return
+        collapsed_height = max(56, self._utility_dock.minimumSizeHint().height())
+        self._right_splitter.setSizes([760, collapsed_height])
 
     def _load_active_profile(self) -> None:
         settings = self.state.settings
@@ -2123,8 +2235,8 @@ class MainWindow(QMainWindow):
     def _append_log(self, message: str, *, color: Optional[QColor] = None) -> None:
         if not message:
             return
-        if hasattr(self, "_log_collapsible") and hasattr(self, "_expand_aux_panel"):
-            self._expand_aux_panel(self._log_collapsible)
+        if hasattr(self, "_utility_dock") and not self._utility_dock.is_panel_expanded("logs"):
+            self._utility_dock.increment_unread("logs")
         cursor = self.log_edit.textCursor()
         cursor.movePosition(QTextCursor.End)
         fmt = QTextCharFormat()

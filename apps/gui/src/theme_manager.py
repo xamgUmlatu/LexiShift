@@ -112,6 +112,12 @@ QFrame[workspaceCard="true"] {{
   border-radius: 12px;
   background: {theme['panel_top']};
 }}
+QWidget[utilityDockPanel="true"] {{
+  border: 2px solid {theme['panel_border']};
+  border-radius: 12px;
+  background: {theme['panel_top']};
+  padding: 8px;
+}}
 QPushButton {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {theme['panel_top']}, stop:1 {theme['accent_soft']});
@@ -126,6 +132,22 @@ QPushButton[size="large"] {{
   min-height: 36px;
   padding: 12px 20px;
   font-size: 13px;
+}}
+QPushButton[dockHeader="true"] {{
+  min-height: 30px;
+  padding: 8px 12px;
+  text-align: left;
+}}
+QPushButton[dockHeader="true"]:checked {{
+  border: 2px solid {theme['accent']};
+}}
+QLabel[utilityDockBadge="true"] {{
+  color: #FFFFFF;
+  background: {theme['primary']};
+  border: 1px solid {theme['primary_hover']};
+  border-radius: 9px;
+  padding: 1px 7px;
+  font-weight: 700;
 }}
 QPushButton:hover {{
   border: 2px solid {theme['accent']};

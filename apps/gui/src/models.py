@@ -172,7 +172,8 @@ class RulesTableModel(QAbstractTableModel):
             return Qt.Checked if rule.enabled else Qt.Unchecked
         if role in (Qt.DisplayRole, Qt.EditRole):
             if column == self.COLUMN_ENABLED:
-                return t("common.yes") if rule.enabled else t("common.no")
+                # Keep this column checkbox-only; text labels make the cell noisy.
+                return ""
             if column == self.COLUMN_SOURCE:
                 return rule.source_phrase
             if column == self.COLUMN_REPLACEMENT:

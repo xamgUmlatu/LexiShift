@@ -143,7 +143,16 @@
       "title": "ルールセットコードをエクスポート"
     },
     "startup_diagnostics": {
-      "title": "起動診断"
+      "title": "起動診断",
+      "app_data_location": "AppDataLocation: {path}",
+      "executable": "実行ファイル: {path}",
+      "frozen": "Frozen: {value}",
+      "meipass": "_MEIPASS: {value}",
+      "startup_log_paths": "起動ログのパス:",
+      "startup_log_entry": "- {path}（存在: {exists}）",
+      "helper_install_log": "ヘルパーインストールログ: {path}（存在: {exists}）",
+      "helper_tray_log": "ヘルパートレイログ: {path}（存在: {exists}）",
+      "hint": "ログが見つからない場合は次で起動してください: --diagnose-startup"
     },
     "export_profiles_json": {
       "title": "プロファイルJSONをエクスポート"
@@ -364,6 +373,20 @@
     "srs_seed_noop": "SRS シードは最新です（合計 {total} / プール {pool}）。",
     "srs_seed_failed": "SRS シード失敗: {error}"
   },
+  "helper_tray": {
+    "status_starting": "状態: 起動中...",
+    "action_open_app": "LexiShift を開く",
+    "action_open_data": "データフォルダを開く",
+    "action_open_status": "SRS ステータスを開く",
+    "action_show_notification": "通知を表示",
+    "action_quit": "ヘルパーを終了",
+    "tooltip": "LexiShift ヘルパー",
+    "status_running": "状態: 実行中",
+    "status_error": "状態: エラー - {error}",
+    "status_last_run": "状態: 最終実行 {value}",
+    "notification_title": "LexiShift ヘルパー",
+    "notification_message": "ヘルパーはバックグラウンドで実行中です。"
+  },
   "profiles": {
     "default_name": "デフォルト",
     "active_label": "{name}（アクティブ）"
@@ -418,6 +441,7 @@
       "invalid": "無効",
       "downloaded": "ダウンロード済み",
       "available": "利用可能",
+      "converting": "変換中...",
       "downloading": "ダウンロード中...",
       "downloading_pct": "ダウンロード中 {percent}%",
       "cancelled": "キャンセル済み",
@@ -439,6 +463,9 @@
     },
     "downloaded_linked": "「{name}」をダウンロードして {path} にリンクしました",
     "downloaded_invalid": "「{name}」をダウンロードしましたが、検証に失敗しました: {message}",
+    "converting_for_optimized_use": "{name} をローカル最適化用に変換中...",
+    "downloaded_but_conversion_failed": "{name} はダウンロードされましたが、最適化変換に失敗しました: {message}",
+    "download_completed_but_conversion_failed": "{name} のダウンロードは完了しましたが、変換に失敗しました: {message}",
     "download_failed": "「{name}」のダウンロードで問題が発生しました。エラー: {error}。Wayback ミラーを試してください: <a href=\"{link}\">{link}</a>"
   },
   "sources": {

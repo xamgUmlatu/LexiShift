@@ -143,7 +143,16 @@
       "title": "导出规则集代码"
     },
     "startup_diagnostics": {
-      "title": "启动诊断"
+      "title": "启动诊断",
+      "app_data_location": "AppDataLocation: {path}",
+      "executable": "可执行文件: {path}",
+      "frozen": "Frozen: {value}",
+      "meipass": "_MEIPASS: {value}",
+      "startup_log_paths": "启动日志路径：",
+      "startup_log_entry": "- {path}（存在：{exists}）",
+      "helper_install_log": "Helper 安装日志: {path}（存在：{exists}）",
+      "helper_tray_log": "Helper 托盘日志: {path}（存在：{exists}）",
+      "hint": "如果日志缺失，请使用以下参数启动：--diagnose-startup"
     },
     "export_profiles_json": {
       "title": "导出配置文件 JSON"
@@ -364,6 +373,20 @@
     "srs_seed_noop": "SRS 种子已最新（总计 {total}，池 {pool}）。",
     "srs_seed_failed": "SRS 种子失败：{error}"
   },
+  "helper_tray": {
+    "status_starting": "状态：启动中...",
+    "action_open_app": "打开 LexiShift",
+    "action_open_data": "打开数据文件夹",
+    "action_open_status": "打开 SRS 状态",
+    "action_show_notification": "显示通知",
+    "action_quit": "退出 Helper",
+    "tooltip": "LexiShift Helper",
+    "status_running": "状态：运行中",
+    "status_error": "状态：错误 - {error}",
+    "status_last_run": "状态：最近运行 {value}",
+    "notification_title": "LexiShift Helper",
+    "notification_message": "Helper 正在后台运行。"
+  },
   "profiles": {
     "default_name": "默认",
     "active_label": "{name}（活动）"
@@ -418,6 +441,7 @@
       "invalid": "无效",
       "downloaded": "已下载",
       "available": "可用",
+      "converting": "转换中...",
       "downloading": "正在下载...",
       "downloading_pct": "正在下载 {percent}%",
       "cancelled": "已取消",
@@ -439,6 +463,9 @@
     },
     "downloaded_linked": "已下载并将 {name} 链接到 {path}",
     "downloaded_invalid": "已下载 {name}，但验证失败：{message}",
+    "converting_for_optimized_use": "正在将 {name} 转换为本地优化格式...",
+    "downloaded_but_conversion_failed": "{name} 已下载，但优化转换失败：{message}",
+    "download_completed_but_conversion_failed": "{name} 下载完成，但转换失败：{message}",
     "download_failed": "下载 {name} 时出现问题。错误：{error}。请尝试 Wayback 镜像：<a href=\"{link}\">{link}</a>"
   },
   "sources": {

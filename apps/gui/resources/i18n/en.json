@@ -144,7 +144,16 @@
       "title": "Export Ruleset Code"
     },
     "startup_diagnostics": {
-      "title": "Startup Diagnostics"
+      "title": "Startup Diagnostics",
+      "app_data_location": "AppDataLocation: {path}",
+      "executable": "Executable: {path}",
+      "frozen": "Frozen: {value}",
+      "meipass": "_MEIPASS: {value}",
+      "startup_log_paths": "Startup log paths:",
+      "startup_log_entry": "- {path} (exists: {exists})",
+      "helper_install_log": "Helper install log: {path} (exists: {exists})",
+      "helper_tray_log": "Helper tray log: {path} (exists: {exists})",
+      "hint": "If logs are missing, try launching with: --diagnose-startup"
     },
     "export_profiles_json": {
       "title": "Export Profiles JSON"
@@ -365,6 +374,20 @@
     "srs_seed_noop": "SRS seed up-to-date (total {total}, pool {pool}).",
     "srs_seed_failed": "SRS seed failed: {error}"
   },
+  "helper_tray": {
+    "status_starting": "Status: starting...",
+    "action_open_app": "Open LexiShift",
+    "action_open_data": "Open data folder",
+    "action_open_status": "Open SRS status",
+    "action_show_notification": "Show notification",
+    "action_quit": "Quit helper",
+    "tooltip": "LexiShift Helper",
+    "status_running": "Status: running",
+    "status_error": "Status: error - {error}",
+    "status_last_run": "Status: last run {value}",
+    "notification_title": "LexiShift Helper",
+    "notification_message": "Helper is running in the background."
+  },
   "profiles": {
     "default_name": "Default",
     "active_label": "{name} (Active)"
@@ -419,6 +442,7 @@
       "invalid": "Invalid",
       "downloaded": "Downloaded",
       "available": "Available",
+      "converting": "Converting...",
       "downloading": "Downloading...",
       "downloading_pct": "Downloading {percent}%",
       "cancelled": "Cancelled",
@@ -440,6 +464,9 @@
     },
     "downloaded_linked": "Downloaded and linked {name} to {path}",
     "downloaded_invalid": "Downloaded {name}, but validation failed: {message}",
+    "converting_for_optimized_use": "Converting {name} for optimized local use...",
+    "downloaded_but_conversion_failed": "{name} downloaded, but optimized conversion failed: {message}",
+    "download_completed_but_conversion_failed": "{name} download completed, but conversion failed: {message}",
     "download_failed": "There was a problem downloading {name}. Error: {error}. Try the Wayback mirror: <a href=\"{link}\">{link}</a>"
   },
   "sources": {

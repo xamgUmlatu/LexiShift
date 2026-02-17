@@ -8,13 +8,14 @@ from typing import Optional
 from datetime import datetime
 
 import os
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import QLocale, QSettings, Qt, QTimer
 from PySide6.QtGui import QAction, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from helper_daemon import DaemonConfig, run_daemon
+from i18n import set_locale, t
 from utils_paths import resource_path, reveal_path
 
 MAIN_APP_BUNDLE_NAME = "LexiShift.app"
@@ -116,22 +117,22 @@ class HelperTrayController:
         _log_line(self.paths, "Helper tray starting.")
         _log_line(self.paths, f"Frozen: {getattr(sys, 'frozen', False)}, OneFile: {hasattr(sys, '_MEIPASS')}")
         _log_line(self.paths, f"System tray available: {QSystemTrayIcon.isSystemTrayAvailable()}")
-        self.status_action = QAction("Helper starting…")
+        self.status_action = QAction(t("helper_tray.status_starting"))
         self.status_action.setEnabled(False)
 
-        self.open_app_action = QAction("Open LexiShift")
+        self.open_app_action = QAction(t("helper_tray.action_open_app"))
         self.open_app_action.triggered.connect(_open_main_app)
 
-        self.open_data_action = QAction("Open Helper Data Folder")
+        self.open_data_action = QAction(t("helper_tray.action_open_data"))
         self.open_data_action.triggered.connect(lambda: reveal_path(str(self.paths.data_root)))
 
-        self.open_status_action = QAction("Open Helper Status")
+        self.open_status_action = QAction(t("helper_tray.action_open_status"))
         self.open_status_action.triggered.connect(lambda: reveal_path(str(self.paths.srs_status_path)))
 
-        self.notify_action = QAction("Show Test Notification")
+        self.notify_action = QAction(t("helper_tray.action_show_notification"))
         self.notify_action.triggered.connect(self._show_notification)
 
-        self.quit_action = QAction("Quit Helper")
+        self.quit_action = QAction(t("helper_tray.action_quit"))
         self.quit_action.triggered.connect(QApplication.quit)
 
         self.menu = QMenu()
@@ -148,7 +149,7 @@ class HelperTrayController:
         sizes = icon.availableSizes()
         _log_line(self.paths, f"Tray icon null: {icon.isNull()}, sizes: {sizes}")
         self.tray = QSystemTrayIcon(icon)
-        self.tray.setToolTip("LexiShift Helper")
+        self.tray.setToolTip(t("helper_tray.tooltip"))
         self.tray.setContextMenu(self.menu)
         self.tray.show()
         self.tray.setVisible(True)
@@ -171,15 +172,18 @@ class HelperTrayController:
 
     def _refresh_status(self) -> None:
         status = load_status(self.paths.srs_status_path)
-        label = "Helper running"
+        label = t("helper_tray.status_running")
         if status.last_error:
-            label = f"Helper error: {status.last_error}"
+            label = t("helper_tray.status_error", error=status.last_error)
         elif status.last_run_at:
-            label = f"Last run: {status.last_run_at}"
+            label = t("helper_tray.status_last_run", value=status.last_run_at)
         self.status_action.setText(label)
 
     def _show_notification(self) -> None:
-        self.tray.showMessage("LexiShift Helper", "Tray helper is running.")
+        self.tray.showMessage(
+            t("helper_tray.notification_title"),
+            t("helper_tray.notification_message"),
+        )
 
 
 def run_helper_tray() -> None:
@@ -189,6 +193,11 @@ def run_helper_tray() -> None:
         app = QApplication(sys.argv)
         app.setQuitOnLastWindowClosed(False)
         app.setWindowIcon(_tray_icon_for_statusbar())
+        ui_settings = QSettings()
+        locale_pref = ui_settings.value("appearance/locale", "system")
+        if locale_pref == "system":
+            locale_pref = QLocale.system().name()
+        set_locale(str(locale_pref))
         controller = HelperTrayController()
         QTimer.singleShot(1500, controller._show_notification)
         ret = app.exec()

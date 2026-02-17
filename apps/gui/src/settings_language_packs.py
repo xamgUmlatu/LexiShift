@@ -1409,13 +1409,13 @@ class LanguagePackPanel(QWidget):
             self._finalize_embedding_pack(pack_id=pack_id, resolved_path=optimized_path)
             return
         self._embedding_pack_paths[pack_id] = dest_path
-        row.status_item.setText("Converting...")
+        row.status_item.setText(t("language_packs.status.converting"))
         self._set_status_item_tone(row.status_item, "info")
         row.status_item.setToolTip(dest_path)
         row.download_button.setEnabled(False)
         row.use_button.setEnabled(False)
         self._set_status_message(
-            f"Converting {pack.display_name()} for optimized local use...",
+            t("language_packs.converting_for_optimized_use", name=pack.display_name()),
             tone="info",
         )
         thread = EmbeddingConversionThread(
@@ -1442,7 +1442,11 @@ class LanguagePackPanel(QWidget):
         if fallback_path and os.path.exists(fallback_path):
             self._finalize_embedding_pack(pack_id=pack_id, resolved_path=fallback_path)
             self._set_status_message(
-                f"{pack.display_name()} downloaded, but optimized conversion failed: {message}",
+                t(
+                    "language_packs.downloaded_but_conversion_failed",
+                    name=pack.display_name(),
+                    message=message,
+                ),
                 tone="warning",
                 tooltip=message,
             )
@@ -1453,7 +1457,11 @@ class LanguagePackPanel(QWidget):
         row.download_button.setText(t("buttons.retry"))
         row.use_button.setEnabled(False)
         self._set_status_message(
-            f"{pack.display_name()} download completed, but conversion failed: {message}",
+            t(
+                "language_packs.download_completed_but_conversion_failed",
+                name=pack.display_name(),
+                message=message,
+            ),
             tone="error",
             tooltip=message,
         )

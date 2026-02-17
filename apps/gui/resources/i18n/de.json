@@ -143,7 +143,16 @@
       "title": "Regelsatz-Code exportieren"
     },
     "startup_diagnostics": {
-      "title": "Startdiagnose"
+      "title": "Startdiagnose",
+      "app_data_location": "AppDataLocation: {path}",
+      "executable": "Executable: {path}",
+      "frozen": "Frozen: {value}",
+      "meipass": "_MEIPASS: {value}",
+      "startup_log_paths": "Startup-Log-Pfade:",
+      "startup_log_entry": "- {path} (vorhanden: {exists})",
+      "helper_install_log": "Helper-Installationslog: {path} (vorhanden: {exists})",
+      "helper_tray_log": "Helper-Tray-Log: {path} (vorhanden: {exists})",
+      "hint": "Wenn Logs fehlen, starten Sie mit: --diagnose-startup"
     },
     "export_profiles_json": {
       "title": "Profile-JSON exportieren"
@@ -364,6 +373,20 @@
     "srs_seed_noop": "SRS-Seed aktuell (gesamt {total}, Pool {pool}).",
     "srs_seed_failed": "SRS-Seed fehlgeschlagen: {error}"
   },
+  "helper_tray": {
+    "status_starting": "Status: wird gestartet...",
+    "action_open_app": "LexiShift öffnen",
+    "action_open_data": "Datenordner öffnen",
+    "action_open_status": "SRS-Status öffnen",
+    "action_show_notification": "Benachrichtigung anzeigen",
+    "action_quit": "Helfer beenden",
+    "tooltip": "LexiShift-Helfer",
+    "status_running": "Status: läuft",
+    "status_error": "Status: Fehler - {error}",
+    "status_last_run": "Status: letzter Lauf {value}",
+    "notification_title": "LexiShift-Helfer",
+    "notification_message": "Der Helfer läuft im Hintergrund."
+  },
   "profiles": {
     "default_name": "Standard",
     "active_label": "{name} (Aktiv)"
@@ -418,6 +441,7 @@
       "invalid": "Ungültig",
       "downloaded": "Heruntergeladen",
       "available": "Verfügbar",
+      "converting": "Konvertieren...",
       "downloading": "Wird heruntergeladen...",
       "downloading_pct": "Wird heruntergeladen {percent}%",
       "cancelled": "Abgebrochen",
@@ -439,6 +463,9 @@
     },
     "downloaded_linked": "{name} heruntergeladen und mit {path} verknüpft",
     "downloaded_invalid": "{name} heruntergeladen, aber Validierung fehlgeschlagen: {message}",
+    "converting_for_optimized_use": "{name} wird für optimierte lokale Nutzung konvertiert...",
+    "downloaded_but_conversion_failed": "{name} wurde heruntergeladen, aber die optimierte Konvertierung ist fehlgeschlagen: {message}",
+    "download_completed_but_conversion_failed": "{name} wurde heruntergeladen, aber die Konvertierung ist fehlgeschlagen: {message}",
     "download_failed": "Beim Herunterladen von {name} ist ein Problem aufgetreten. Fehler: {error}. Versuchen Sie den Wayback-Spiegel: <a href=\"{link}\">{link}</a>"
   },
   "sources": {
