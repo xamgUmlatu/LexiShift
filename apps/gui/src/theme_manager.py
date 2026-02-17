@@ -49,11 +49,35 @@ def resolve_current_theme(*, screen_id: str | None = None) -> dict:
     return resolve_theme(current_theme_id(), screen_id=screen_id)
 
 
+def _blue_darker(hex_color: str, *, darken: float = 0.88, blue_boost: int = 16) -> str:
+    raw = str(hex_color or "").strip()
+    if not raw.startswith("#"):
+        return raw
+    token = raw[1:]
+    if len(token) == 3:
+        token = "".join(ch * 2 for ch in token)
+    if len(token) != 6:
+        return raw
+    try:
+        r = int(token[0:2], 16)
+        g = int(token[2:4], 16)
+        b = int(token[4:6], 16)
+    except ValueError:
+        return raw
+    r = max(0, min(255, int(r * darken)))
+    g = max(0, min(255, int(g * darken)))
+    b = max(0, min(255, int(b * darken) + blue_boost))
+    return f"#{r:02X}{g:02X}{b:02X}"
+
+
 def build_base_styles(theme: dict) -> str:
     status_error = str(theme.get("status_error") or "#B42318")
     status_error_hover = "#8F1A14"
     disabled_bg = str(theme.get("status_muted") or theme["panel_border"])
     button_text = "#FFFFFF"
+    ftue_badge_start = _blue_darker(theme["primary_hover"], darken=0.76, blue_boost=88)
+    ftue_badge_mid = _blue_darker(theme["primary"], darken=0.76, blue_boost=88)
+    ftue_badge_end = _blue_darker(theme["accent"], darken=0.76, blue_boost=88)
     return f"""
 QWidget {{
   color: {theme['text']};
@@ -183,12 +207,12 @@ QPushButton[variant="secondary"]:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {theme['accent_soft']}, stop:1 {theme['table_bg']});
 }}
-QPushButton[ftueLocaleIconButton="true"] {{
+QLabel[ftueLocaleIconBadge="true"] {{
   min-height: 42px;
   max-width: 56px;
   padding: 10px 0px;
-  border: 2px solid {theme['primary_hover']};
-  border-right: 1px solid {theme['primary_hover']};
+  border: 2px solid {ftue_badge_mid};
+  border-right: 1px solid {ftue_badge_mid};
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
   border-top-right-radius: 6px;
@@ -197,13 +221,7 @@ QPushButton[ftueLocaleIconButton="true"] {{
   font-size: 17px;
   font-weight: 900;
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary_hover']}, stop:0.7 {theme['primary']}, stop:1 {theme['accent']});
-}}
-QPushButton[ftueLocaleIconButton="true"]:hover {{
-  border: 2px solid {theme['accent']};
-  border-right: 1px solid {theme['accent']};
-  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+    stop:0 {ftue_badge_start}, stop:0.7 {ftue_badge_mid}, stop:1 {ftue_badge_end});
 }}
 QPushButton[ftueLocaleSelectButton="true"] {{
   min-height: 42px;

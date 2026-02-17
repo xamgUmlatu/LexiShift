@@ -815,12 +815,12 @@ class MainWindow(QMainWindow):
             button.setMinimumHeight(68)
             button.setMinimumWidth(360)
 
-        self.empty_locale_icon_button = QPushButton(t("empty_workspace.locale_icon"))
-        self.empty_locale_icon_button.setProperty("ftueLocaleIconButton", True)
-        self.empty_locale_icon_button.setMinimumHeight(48)
-        self.empty_locale_icon_button.setFixedWidth(56)
-        self.empty_locale_icon_button.setToolTip(t("empty_workspace.locale_tooltip"))
-        self.empty_locale_icon_button.clicked.connect(self._show_empty_locale_menu)
+        self.empty_locale_icon_badge = QLabel(t("empty_workspace.locale_icon"))
+        self.empty_locale_icon_badge.setProperty("ftueLocaleIconBadge", True)
+        self.empty_locale_icon_badge.setAlignment(Qt.AlignCenter)
+        self.empty_locale_icon_badge.setMinimumHeight(48)
+        self.empty_locale_icon_badge.setFixedWidth(56)
+        self.empty_locale_icon_badge.setToolTip(t("empty_workspace.locale_tooltip"))
 
         self.empty_locale_button = QPushButton()
         self.empty_locale_button.setProperty("ftueLocaleSelectButton", True)
@@ -833,7 +833,7 @@ class MainWindow(QMainWindow):
         locale_picker_row = QHBoxLayout()
         locale_picker_row.setContentsMargins(0, 0, 0, 0)
         locale_picker_row.setSpacing(0)
-        locale_picker_row.addWidget(self.empty_locale_icon_button)
+        locale_picker_row.addWidget(self.empty_locale_icon_badge)
         locale_picker_row.addWidget(self.empty_locale_button)
 
         locale_picker = QWidget()
@@ -880,13 +880,19 @@ class MainWindow(QMainWindow):
             else normalize_locale(locale_pref)
         )
         menu = QMenu(self.empty_locale_button)
+        popup_width = self.empty_locale_button.width()
+        anchor_widget = self.empty_locale_button
+        if hasattr(self, "empty_locale_icon_badge"):
+            popup_width += self.empty_locale_icon_badge.width()
+            anchor_widget = self.empty_locale_icon_badge
+        menu.setFixedWidth(popup_width)
         self._apply_empty_locale_menu_style(menu)
         for locale, label in sorted(available_locales().items(), key=lambda item: item[1].lower()):
             action = menu.addAction(label)
             action.setData(locale)
             action.setCheckable(True)
             action.setChecked(active_locale == locale)
-        selected = menu.exec(self.empty_locale_button.mapToGlobal(self.empty_locale_button.rect().bottomLeft()))
+        selected = menu.exec(anchor_widget.mapToGlobal(anchor_widget.rect().bottomLeft()))
         if selected is None:
             return
         selected_locale = str(selected.data() or "")
