@@ -14,6 +14,8 @@
     "save_profiles": "Save Profiles",
     "select_ruleset": "Select...",
     "save_ruleset": "Save Ruleset",
+    "discard": "Discard",
+    "cancel": "Cancel",
     "delete": "Delete",
     "close": "Close",
     "generate": "Generate",

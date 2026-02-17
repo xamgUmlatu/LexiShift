@@ -14,6 +14,8 @@
     "save_profiles": "Profile speichern",
     "select_ruleset": "Auswählen...",
     "save_ruleset": "Regelsatz speichern",
+    "discard": "Verwerfen",
+    "cancel": "Abbrechen",
     "delete": "Löschen",
     "close": "Schließen",
     "generate": "Erzeugen",

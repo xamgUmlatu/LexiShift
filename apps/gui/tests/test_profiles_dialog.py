@@ -80,7 +80,7 @@ def test_remove_profile_keeps_remaining_profile_data() -> None:
     assert remaining[0] == profile_b
 
 
-def test_active_profile_requires_explicit_set_active() -> None:
+def test_profile_list_does_not_show_active_marker() -> None:
     _app()
     profile_a = Profile(
         profile_id="a",
@@ -97,13 +97,11 @@ def test_active_profile_requires_explicit_set_active() -> None:
         active_ruleset="/tmp/b.json",
     )
     dialog = ProfilesDialog((profile_a, profile_b), "a", Path("/tmp"))
-    dialog.list_widget.setCurrentRow(1)
-    assert dialog.result_active_profile_id() == "a"
-    dialog._set_active_profile()
-    assert dialog.result_active_profile_id() == "b"
+    assert dialog.list_widget.item(0).text() == "A"
+    assert dialog.list_widget.item(1).text() == "B"
 
 
-def test_profile_id_is_read_only_in_manage_dialog() -> None:
+def test_profile_id_is_not_modified_from_manage_dialog() -> None:
     _app()
     profile = Profile(
         profile_id="p1",
@@ -113,7 +111,9 @@ def test_profile_id_is_read_only_in_manage_dialog() -> None:
         active_ruleset="/tmp/a.json",
     )
     dialog = ProfilesDialog((profile,), "p1", Path("/tmp"))
-    assert dialog.id_edit.isReadOnly() is True
+    dialog.name_edit.setText("Renamed")
+    dialog._commit_current()
+    assert dialog.result_profiles()[0].profile_id == "p1"
 
 
 def test_ruleset_display_name_hides_path_and_extension() -> None:

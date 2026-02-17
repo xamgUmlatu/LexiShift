@@ -774,10 +774,7 @@ class MainWindow(QMainWindow):
         profile_card = QGroupBox(t("workspace.profile_card_title"))
         profile_card_layout = QVBoxLayout(profile_card)
         profile_card_layout.setContentsMargins(12, 12, 12, 12)
-        profile_card_layout.setSpacing(8)
-        profile_hint = QLabel(t("workspace.profile_hint"))
-        profile_hint.setWordWrap(True)
-        profile_card_layout.addWidget(profile_hint)
+        profile_card_layout.setSpacing(6)
         profile_row = QHBoxLayout()
         profile_row.setContentsMargins(0, 0, 0, 0)
         profile_row.setSpacing(8)
@@ -788,10 +785,7 @@ class MainWindow(QMainWindow):
         ruleset_card = QGroupBox(t("workspace.ruleset_card_title"))
         ruleset_card_layout = QVBoxLayout(ruleset_card)
         ruleset_card_layout.setContentsMargins(12, 12, 12, 12)
-        ruleset_card_layout.setSpacing(8)
-        ruleset_hint = QLabel(t("workspace.ruleset_hint"))
-        ruleset_hint.setWordWrap(True)
-        ruleset_card_layout.addWidget(ruleset_hint)
+        ruleset_card_layout.setSpacing(6)
         ruleset_row = QHBoxLayout()
         ruleset_row.setContentsMargins(0, 0, 0, 0)
         ruleset_row.setSpacing(8)
@@ -954,6 +948,15 @@ class MainWindow(QMainWindow):
             choice.setInformativeText(t("dialogs.unsaved.informative"))
             choice.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
             choice.setDefaultButton(QMessageBox.Save)
+            save_button = choice.button(QMessageBox.Save)
+            if save_button is not None:
+                save_button.setText(t("buttons.save_ruleset"))
+            discard_button = choice.button(QMessageBox.Discard)
+            if discard_button is not None:
+                discard_button.setText(t("buttons.discard"))
+            cancel_button = choice.button(QMessageBox.Cancel)
+            if cancel_button is not None:
+                cancel_button.setText(t("buttons.cancel"))
             result = choice.exec()
             if result == QMessageBox.Save:
                 self._save_dataset()
@@ -1055,8 +1058,7 @@ class MainWindow(QMainWindow):
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         profiles = dialog.result_profiles()
-        active_profile_id = dialog.result_active_profile_id()
-        self.state.set_profiles(profiles, active_profile_id=active_profile_id)
+        self.state.set_profiles(profiles, active_profile_id=self.state.settings.active_profile_id)
         self._load_active_profile()
         self._refresh_profiles_ui()
 

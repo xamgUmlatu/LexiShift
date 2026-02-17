@@ -8,7 +8,7 @@ from typing import Optional
 from datetime import datetime
 
 import os
-from PySide6.QtCore import QLocale, QSettings, Qt, QTimer
+from PySide6.QtCore import QCoreApplication, QLocale, QSettings, Qt, QTimer
 from PySide6.QtGui import QAction, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
@@ -190,6 +190,9 @@ def run_helper_tray() -> None:
     paths = build_helper_paths()
     _log_line(paths, f"[{datetime.now()}] Helper tray process started (PID: {os.getpid()})")
     try:
+        # Match main app identity so QSettings resolves the same locale preference.
+        QCoreApplication.setOrganizationName("LexiShift")
+        QCoreApplication.setApplicationName("LexiShift")
         app = QApplication(sys.argv)
         app.setQuitOnLastWindowClosed(False)
         app.setWindowIcon(_tray_icon_for_statusbar())
