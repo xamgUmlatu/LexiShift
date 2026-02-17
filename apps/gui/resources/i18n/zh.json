@@ -93,7 +93,9 @@
   },
   "empty_workspace": {
     "create_profile": "创建新配置文件",
-    "import_profile": "导入现有配置文件"
+    "import_profile": "导入现有配置文件",
+    "locale_icon": "🌐",
+    "locale_tooltip": "更改界面语言"
   },
   "panels": {
     "show": "显示",
@@ -177,6 +179,10 @@
     },
     "import_profiles_code": {
       "title": "导入配置文件代码"
+    },
+    "locale_change": {
+      "title": "需要重新启动",
+      "message": "语言偏好已保存。请重新启动 LexiShift 以在整个应用中生效。"
     },
     "synonym_expansion": {
       "title": "同义词扩展",

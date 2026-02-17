@@ -93,7 +93,9 @@
   },
   "empty_workspace": {
     "create_profile": "Neues Profil erstellen",
-    "import_profile": "Bestehendes Profil importieren"
+    "import_profile": "Bestehendes Profil importieren",
+    "locale_icon": "🌐",
+    "locale_tooltip": "Sprache der Oberfläche ändern"
   },
   "panels": {
     "show": "Anzeigen",
@@ -177,6 +179,10 @@
     },
     "import_profiles_code": {
       "title": "Profile-Code importieren"
+    },
+    "locale_change": {
+      "title": "Neustart erforderlich",
+      "message": "Die Spracheinstellung wurde gespeichert. Starte LexiShift neu, damit sie in der gesamten App angewendet wird."
     },
     "synonym_expansion": {
       "title": "Synonym-Erweiterung",

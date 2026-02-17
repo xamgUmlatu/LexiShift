@@ -183,6 +183,49 @@ QPushButton[variant="secondary"]:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {theme['accent_soft']}, stop:1 {theme['table_bg']});
 }}
+QPushButton[ftueLocaleIconButton="true"] {{
+  min-height: 42px;
+  max-width: 56px;
+  padding: 10px 0px;
+  border: 2px solid {theme['primary_hover']};
+  border-right: 1px solid {theme['primary_hover']};
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 900;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary_hover']}, stop:0.7 {theme['primary']}, stop:1 {theme['accent']});
+}}
+QPushButton[ftueLocaleIconButton="true"]:hover {{
+  border: 2px solid {theme['accent']};
+  border-right: 1px solid {theme['accent']};
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+}}
+QPushButton[ftueLocaleSelectButton="true"] {{
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 2px solid {theme['primary_hover']};
+  border-left: 1px solid {theme['primary_hover']};
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary_hover']}, stop:0.7 {theme['primary']}, stop:1 {theme['accent']});
+}}
+QPushButton[ftueLocaleSelectButton="true"]:hover {{
+  border: 2px solid {theme['accent']};
+  border-left: 1px solid {theme['accent']};
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+}}
 QPushButton[variant="danger"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {status_error_hover}, stop:1 {status_error});

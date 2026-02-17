@@ -93,7 +93,9 @@
   },
   "empty_workspace": {
     "create_profile": "新しいプロファイルを作成",
-    "import_profile": "既存のプロファイルをインポート"
+    "import_profile": "既存のプロファイルをインポート",
+    "locale_icon": "🌐",
+    "locale_tooltip": "表示言語を変更"
   },
   "panels": {
     "show": "表示",
@@ -177,6 +179,10 @@
     },
     "import_profiles_code": {
       "title": "プロファイルコードをインポート"
+    },
+    "locale_change": {
+      "title": "再起動が必要です",
+      "message": "言語設定を保存しました。アプリ全体に反映するには LexiShift を再起動してください。"
     },
     "synonym_expansion": {
       "title": "同義語展開",

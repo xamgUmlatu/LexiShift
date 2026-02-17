@@ -94,7 +94,9 @@
   },
   "empty_workspace": {
     "create_profile": "Create New Profile",
-    "import_profile": "Import Existing Profile"
+    "import_profile": "Import Existing Profile",
+    "locale_icon": "🌐",
+    "locale_tooltip": "Change interface language"
   },
   "panels": {
     "show": "Show",
@@ -178,6 +180,10 @@
     },
     "import_profiles_code": {
       "title": "Import Profiles Code"
+    },
+    "locale_change": {
+      "title": "Restart Required",
+      "message": "Language preference saved. Restart LexiShift to apply it across the app."
     },
     "synonym_expansion": {
       "title": "Synonym Expansion",

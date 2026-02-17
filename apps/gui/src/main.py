@@ -98,7 +98,7 @@ from helper_ui import auto_install_helper, ensure_helper_autostart, get_helper_e
 from dialogs_code import BulkRulesDialog, CodeDialog
 from dialogs_profiles import CreateProfileDialog, ProfilesDialog
 from dialogs_rulesets import RulesetLibraryDialog
-from i18n import set_locale, t
+from i18n import available_locales, normalize_locale, set_locale, t
 from models import RulesTableModel
 from state import AppState
 from theme_assets import ensure_sample_images, ensure_sample_themes
@@ -815,6 +815,30 @@ class MainWindow(QMainWindow):
             button.setMinimumHeight(68)
             button.setMinimumWidth(360)
 
+        self.empty_locale_icon_button = QPushButton(t("empty_workspace.locale_icon"))
+        self.empty_locale_icon_button.setProperty("ftueLocaleIconButton", True)
+        self.empty_locale_icon_button.setMinimumHeight(48)
+        self.empty_locale_icon_button.setFixedWidth(56)
+        self.empty_locale_icon_button.setToolTip(t("empty_workspace.locale_tooltip"))
+        self.empty_locale_icon_button.clicked.connect(self._show_empty_locale_menu)
+
+        self.empty_locale_button = QPushButton()
+        self.empty_locale_button.setProperty("ftueLocaleSelectButton", True)
+        self.empty_locale_button.setMinimumHeight(48)
+        self.empty_locale_button.setMinimumWidth(210)
+        self.empty_locale_button.setToolTip(t("empty_workspace.locale_tooltip"))
+        self.empty_locale_button.clicked.connect(self._show_empty_locale_menu)
+        self._refresh_empty_locale_button_label()
+
+        locale_picker_row = QHBoxLayout()
+        locale_picker_row.setContentsMargins(0, 0, 0, 0)
+        locale_picker_row.setSpacing(0)
+        locale_picker_row.addWidget(self.empty_locale_icon_button)
+        locale_picker_row.addWidget(self.empty_locale_button)
+
+        locale_picker = QWidget()
+        locale_picker.setLayout(locale_picker_row)
+
         self.empty_create_profile_button.clicked.connect(self._on_empty_create_profile)
         self.empty_import_profile_button.clicked.connect(self._import_profiles_from_file)
 
@@ -830,8 +854,14 @@ class MainWindow(QMainWindow):
         centered.addLayout(button_col)
         centered.addStretch(1)
 
+        top_row = QHBoxLayout()
+        top_row.setContentsMargins(0, 0, 0, 0)
+        top_row.addStretch(1)
+        top_row.addWidget(locale_picker, 0, Qt.AlignRight | Qt.AlignTop)
+
         root = QVBoxLayout()
         root.setContentsMargins(24, 24, 24, 24)
+        root.addLayout(top_row)
         root.addStretch(1)
         root.addLayout(centered)
         root.addStretch(1)
@@ -839,6 +869,52 @@ class MainWindow(QMainWindow):
         page = QWidget()
         page.setLayout(root)
         return page
+
+    def _show_empty_locale_menu(self) -> None:
+        if not hasattr(self, "empty_locale_button"):
+            return
+        locale_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
+        active_locale = (
+            normalize_locale(QLocale.system().name())
+            if locale_pref == "system"
+            else normalize_locale(locale_pref)
+        )
+        menu = QMenu(self.empty_locale_button)
+        for locale, label in sorted(available_locales().items(), key=lambda item: item[1].lower()):
+            action = menu.addAction(f"{t('empty_workspace.locale_icon')}  {label}")
+            action.setData(locale)
+            action.setCheckable(True)
+            action.setChecked(active_locale == locale)
+        selected = menu.exec(self.empty_locale_button.mapToGlobal(self.empty_locale_button.rect().bottomLeft()))
+        if selected is None:
+            return
+        selected_locale = str(selected.data() or "")
+        self._set_locale_preference(selected_locale)
+
+    def _set_locale_preference(self, locale_pref: str) -> None:
+        next_pref = str(locale_pref or "system")
+        current_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
+        if next_pref == current_pref:
+            return
+        self._ui_settings.setValue("appearance/locale", next_pref)
+        self._refresh_empty_locale_button_label()
+        QMessageBox.information(
+            self,
+            t("dialogs.locale_change.title"),
+            t("dialogs.locale_change.message"),
+        )
+
+    def _refresh_empty_locale_button_label(self) -> None:
+        if not hasattr(self, "empty_locale_button"):
+            return
+        locale_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
+        locales = available_locales()
+        if locale_pref == "system":
+            resolved = normalize_locale(QLocale.system().name())
+            selected_label = locales.get(resolved, resolved)
+        else:
+            selected_label = locales.get(locale_pref, locale_pref)
+        self.empty_locale_button.setText(f"{selected_label}  ▾")
 
     def _build_replacement_panel(self) -> QWidget:
         title = QLabel(t("replacement.panel_title"))
@@ -1124,6 +1200,7 @@ class MainWindow(QMainWindow):
         self._apply_theme()
         self._refresh_srs_growth()
         self._refresh_helper_menu_label()
+        self._refresh_empty_locale_button_label()
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
