@@ -2,6 +2,8 @@
 
 This page is the canonical onboarding guide for the desktop GUI app and the fallback public manual target when GitHub Pages is unavailable.
 
+Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.
+
 ## Manual Chapters
 
 1. [Chapter 1: First Launch and Workspace Orientation](#chapter-1-first-launch-and-workspace-orientation)
@@ -100,7 +102,9 @@ Practical backup pattern: daily JSON export + milestone export before dictionary
 
 ## Chapter 7: Chrome Extension Runtime Setup
 
-The extension is the primary runtime where replacements are applied on web pages and frames.
+The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
+
+Browser support in this guide is Chrome-only for now.
 
 This is also where SRS feedback is captured during real reading.
 
@@ -113,16 +117,19 @@ This is also where SRS feedback is captured during real reading.
 
 ### Section 7.2: Setup checklist in Options
 
-1. Open the extension options page.
-2. Select the extension profile used for this learning context.
-3. Confirm language pair and runtime display settings.
-4. Enable feedback behavior you want (`srsFeedbackSrsEnabled`, `srsFeedbackRulesEnabled`, `srsSoundEnabled`).
-5. Turn on debug/exposure logging only when actively diagnosing behavior.
+1. Open Chrome extension options.
+2. Check whether helper is connected in extension options.
+3. If helper is not connected, open the core app and run `App -> Install Helper`, then re-check extension options.
+4. Select the extension profile used for this learning context (from profiles created in the core app).
+5. Confirm language pair and runtime display settings.
+6. Enable feedback behavior you want (`srsFeedbackSrsEnabled`, `srsFeedbackRulesEnabled`, `srsSoundEnabled`).
+7. Turn on debug/exposure logging only when actively diagnosing behavior.
 
 ### Section 7.3: Verify runtime state
 
 - Open a real webpage and confirm replacements render with expected highlighting.
-- Right-click a replacement to confirm feedback popup availability.
+- Right-click a replacement to open modules/feedback popup.
+- Left-click a replacement to show original word view.
 - If needed, run `SRS runtime diagnostics` from options debug tools.
 
 ### Section 7.4: Mismatch triage
@@ -163,10 +170,12 @@ This is the most important chapter. SRS behavior lives in the extension plus hel
 
 ### Section 9.2: Extension preflight before initializing S
 
-1. Install/verify helper connection in extension options.
-2. Select the extension SRS profile (`srsSelectedProfileId`).
-3. Select the language pair for this profile context.
-4. Confirm pair resources are available (dictionaries/frequency inputs for that pair).
+1. Open Chrome extension options and verify helper connection.
+2. If helper is disconnected, open core app and run `App -> Install Helper`, then verify connection again.
+3. Select the extension SRS profile (`srsSelectedProfileId`).
+4. Select the language pair for this profile context.
+5. First-time default values: source language = English, target language = Japanese (pair `en-ja`).
+6. Confirm pair resources are available (dictionaries/frequency inputs for that pair).
 
 ### Section 9.3: Core SRS controls in extension options
 
@@ -189,9 +198,11 @@ Expected result: helper-managed `S` is initialized, ruleset/snapshot publish occ
 ### Section 9.5: Daily feedback loop in pages
 
 1. Read normally on pages where replacements appear.
-2. Right-click replacement spans and rate: 1=Again, 2=Hard, 3=Good, 4=Easy.
-3. Use keyboard shortcut `Ctrl+1/2/3/4` for fast rating.
+2. Right-click replacement spans to open modules/feedback popup, then rate: 1=Again, 2=Hard, 3=Good, 4=Easy.
+3. Left-click replacement spans to show original word view.
 4. Allow helper feedback sync queue to flush ratings to helper store.
+
+Hotkeys can be documented later in an advanced section; this core flow stays pointer-first.
 
 ### Section 9.6: Refresh admissions and publish updates
 
@@ -204,8 +215,9 @@ Current model is explicit/manual refresh. Automatic adaptive refresh policy is s
 
 - Run `SRS runtime diagnostics` for helper/store/ruleset/cache counts.
 - Run helper connection test and open helper data folder when troubleshooting.
-- Use sampled rulegen preview for non-mutating inspection of current helper-managed `S`.
 - If no SRS changes appear, check selected profile id + selected pair + feedback queue state first.
+
+Advanced-only tool: sampled rulegen preview is useful for non-mutating inspection of current helper-managed `S`, but it is not required for baseline setup.
 
 > Screenshot placeholder: `images/ch09-srs-profile-pair-setup.png`  
 > Capture: selected profile, pair controls, and initialize/refresh buttons in extension options.

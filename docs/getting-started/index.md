@@ -26,6 +26,9 @@ title: LexiShift Getting Started
         LexiShift has one authoring surface (desktop GUI) and runtime surfaces (Chrome extension and BetterDiscord plugin).
         Build rules in the GUI, then activate them in the runtime surfaces.
       </p>
+      <p>
+        Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.
+      </p>
     </header>
 
     <section id="chapter-1" class="guide-section" data-guide-section>
@@ -152,7 +155,8 @@ title: LexiShift Getting Started
     <section id="chapter-7" class="guide-section" data-guide-section>
       <h2>Chapter 7: Chrome Extension Runtime Setup</h2>
       <p>
-        The extension is the primary runtime where replacements are applied on web pages and frames.
+        The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
+        Browser support in this guide is Chrome-only for now.
         This is also where SRS feedback is captured during real reading.
       </p>
       <h3>Section 7.1: Runtime model</h3>
@@ -164,8 +168,10 @@ title: LexiShift Getting Started
       </ul>
       <h3>Section 7.2: Setup checklist in Options</h3>
       <ol>
-        <li>Open the extension options page.</li>
-        <li>Select the extension profile used for this learning context.</li>
+        <li>Open Chrome extension options.</li>
+        <li>Check whether helper is connected in extension options.</li>
+        <li>If helper is not connected, open the core app and run <code>App -> Install Helper</code>, then re-check extension options.</li>
+        <li>Select the extension profile used for this learning context (from profiles created in the core app).</li>
         <li>Confirm language pair and runtime display settings.</li>
         <li>Enable feedback behavior you want (<code>srsFeedbackSrsEnabled</code>, <code>srsFeedbackRulesEnabled</code>, <code>srsSoundEnabled</code>).</li>
         <li>Turn on debug/exposure logging only when actively diagnosing behavior.</li>
@@ -173,7 +179,8 @@ title: LexiShift Getting Started
       <h3>Section 7.3: Verify runtime state</h3>
       <ul>
         <li>Open a real webpage and confirm replacements render with expected highlighting.</li>
-        <li>Right-click a replacement to confirm feedback popup availability.</li>
+        <li>Right-click a replacement to open modules/feedback popup.</li>
+        <li>Left-click a replacement to show original word view.</li>
         <li>If needed, run <code>SRS runtime diagnostics</code> from options debug tools.</li>
       </ul>
       <h3>Section 7.4: Mismatch triage</h3>
@@ -229,9 +236,11 @@ title: LexiShift Getting Started
       </ul>
       <h3>Section 9.2: Extension preflight before initializing S</h3>
       <ol>
-        <li>Install/verify helper connection in extension options.</li>
+        <li>Open Chrome extension options and verify helper connection.</li>
+        <li>If helper is disconnected, open core app and run <code>App -> Install Helper</code>, then verify connection again.</li>
         <li>Select the extension SRS profile (<code>srsSelectedProfileId</code>).</li>
         <li>Select the language pair for this profile context.</li>
+        <li>First-time default values: source language = English, target language = Japanese (pair <code>en-ja</code>).</li>
         <li>Confirm pair resources are available (dictionaries/frequency inputs for that pair).</li>
       </ol>
       <h3>Section 9.3: Core SRS controls in extension options</h3>
@@ -256,10 +265,13 @@ title: LexiShift Getting Started
       <h3>Section 9.5: Daily feedback loop in pages</h3>
       <ol>
         <li>Read normally on pages where replacements appear.</li>
-        <li>Right-click replacement spans and rate: 1=Again, 2=Hard, 3=Good, 4=Easy.</li>
-        <li>Use keyboard shortcut <code>Ctrl+1/2/3/4</code> for fast rating.</li>
+        <li>Right-click replacement spans to open modules/feedback popup, then rate: 1=Again, 2=Hard, 3=Good, 4=Easy.</li>
+        <li>Left-click replacement spans to show original word view.</li>
         <li>Allow helper feedback sync queue to flush ratings to helper store.</li>
       </ol>
+      <p>
+        Hotkeys can be documented later in an advanced section; this core flow stays pointer-first.
+      </p>
       <h3>Section 9.6: Refresh admissions and publish updates</h3>
       <ol>
         <li>Run <code>Refresh S + publish rules</code> from extension options.</li>
@@ -272,9 +284,11 @@ title: LexiShift Getting Started
       <ul>
         <li>Run <code>SRS runtime diagnostics</code> for helper/store/ruleset/cache counts.</li>
         <li>Run helper connection test and open helper data folder when troubleshooting.</li>
-        <li>Use sampled rulegen preview for non-mutating inspection of current helper-managed <code>S</code>.</li>
         <li>If no SRS changes appear, check selected profile id + selected pair + feedback queue state first.</li>
       </ul>
+      <p>
+        Advanced-only tool: sampled rulegen preview is useful for non-mutating inspection of current helper-managed <code>S</code>, but it is not required for baseline setup.
+      </p>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for SRS profile and pair setup">
         <p class="guide-screenshot__label">Screenshot Placeholder: SRS Profile and Pair Setup</p>
         <p class="guide-screenshot__note">Capture selected profile, pair controls, and initialize/refresh buttons in extension options.</p>

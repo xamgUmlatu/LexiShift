@@ -462,6 +462,7 @@ Current limitations
 - TODO (S-set visibility/review UX):
   - Add a list view of all the words currently in S.
   - Consider a dedicated study/review view for S.
+  - Move `Run sampled rulegen (5)...` guidance into an Advanced diagnostics-only category in setup docs/UI (not baseline setup flow).
 - TODO (Japanese script quality):
   - Check and improve the accuracy of generated romaji for Japanese words.
 - TODO (rule generation quality):
