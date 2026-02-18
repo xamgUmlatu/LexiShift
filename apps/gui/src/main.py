@@ -460,6 +460,7 @@ class MainWindow(QMainWindow):
         self._profile_combo_updating = False
         self.profile_combo = QComboBox()
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
+        self.profile_combo.view().setObjectName("profileRulesetPopup")
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
         self.manage_rulesets_button = QPushButton(t("buttons.manage_rulesets"))
@@ -467,6 +468,7 @@ class MainWindow(QMainWindow):
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
+        self.ruleset_combo.view().setObjectName("profileRulesetPopup")
         self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
         self.open_ruleset_button = QPushButton(t("buttons.select_ruleset"))

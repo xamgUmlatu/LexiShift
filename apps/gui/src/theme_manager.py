@@ -144,6 +144,11 @@ def build_base_styles(theme: dict) -> str:
     ftue_badge_text = _best_text_color(ftue_badge_bg)
     empty_guide_bg = _blend_hex([theme["primary_hover"], theme["primary"]], fallback=theme["primary"])
     empty_guide_text = _best_text_color(empty_guide_bg)
+    popup_sheen_soft = _blend_hex([theme["table_bg"], "#FFFFFF"], fallback=theme["table_bg"])
+    popup_sheen_hot = _blend_hex([theme["table_bg"], "#FFFFFF", "#FFFFFF"], fallback=popup_sheen_soft)
+    popup_shadow_edge = _blend_hex([theme["panel_border"], theme["accent_soft"]], fallback=theme["panel_border"])
+    popup_hover_sheen = _blend_hex([theme["accent_soft"], "#FFFFFF"], fallback=theme["accent_soft"])
+    popup_selected_sheen = _blend_hex([theme["table_sel_bg"], "#FFFFFF"], fallback=theme["table_sel_bg"])
     return f"""
 QWidget {{
   color: {theme['text']};
@@ -160,6 +165,46 @@ QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
   border: 1px solid {theme['panel_border']};
   border-radius: 10px;
   padding: 7px 9px;
+}}
+QAbstractItemView#profileRulesetPopup {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {popup_sheen_hot},
+    stop:0.06 {popup_sheen_soft},
+    stop:0.14 {theme['table_bg']},
+    stop:0.24 {popup_sheen_soft},
+    stop:0.58 {theme['table_bg']},
+    stop:1 {theme['accent_soft']});
+  color: {theme['text']};
+  border-top: 2px solid {popup_sheen_soft};
+  border-left: 2px solid {popup_sheen_soft};
+  border-right: 2px solid {popup_shadow_edge};
+  border-bottom: 2px solid {popup_shadow_edge};
+  border-radius: 12px;
+  padding: 5px;
+  outline: 0px;
+  selection-background-color: transparent;
+  selection-color: {theme['text']};
+}}
+QAbstractItemView#profileRulesetPopup::item {{
+  min-height: 24px;
+  padding: 6px 10px;
+  margin: 2px;
+  border-radius: 8px;
+  background: transparent;
+}}
+QAbstractItemView#profileRulesetPopup::item:hover {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {popup_hover_sheen},
+    stop:0.22 {theme['accent_soft']},
+    stop:1 {theme['table_bg']});
+  border: 1px solid {theme['panel_border']};
+}}
+QAbstractItemView#profileRulesetPopup::item:selected {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {popup_selected_sheen},
+    stop:0.24 {theme['table_sel_bg']},
+    stop:1 {theme['accent_soft']});
+  border: 1px solid {theme['accent']};
 }}
 QListWidget, QTableView {{
   background: {theme['table_bg']};
