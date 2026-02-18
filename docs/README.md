@@ -42,6 +42,7 @@ If you need SRS/core behavior next:
 - New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
 - GitHub Pages enablement runbook: `runbooks/github_pages_setup.md`
 - Chrome Web Store upload gate runbook: `runbooks/cws_upload_gate.md`
+- Consolidated TODO backlog: `TODOs.md`
 
 ## Source Of Truth Rules
 

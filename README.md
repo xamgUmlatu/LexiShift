@@ -85,6 +85,7 @@ Documentation
 - `docs/srs/srs_schema.md`: SRS data schema (settings/items/store).
 - `docs/rulegen/rule_generation_technical.md`: precomputed rule generation + confidence scoring.
 - `docs/rulegen/synonym_generation_technical.md`: synonym generation pipeline notes.
+- `docs/TODOs.md`: consolidated product backlog and detailed improvements.
 
 Core concepts
 - Tokenization
@@ -181,7 +182,7 @@ Synonym sources (local)
   - Enable embeddings per language-pair in Settings -> App -> Embeddings / Cross-lingual Embeddings (Use button).
   - For cross-lingual similarity, load aligned vectors for both languages in the pair (e.g., `wiki.en.align.vec` + `wiki.de.align.vec`).
   - SQLite conversion also stores a lightweight hash index for fast nearest-neighbor fallback.
-  - TODO: hook embeddings into rule-generation scoring (downloads + one-time conversion are wired; scoring integration is pending).
+  - Embeddings scoring integration is tracked in `docs/TODOs.md` (downloads + one-time conversion are wired; scoring integration is pending).
 Language packs (Settings -> App)
 - Language packs list is shown inside Settings (App tab), with Download/Delete buttons per pack.
 - Each row shows language, source, and size (size is listed in the rightmost column).
@@ -432,79 +433,7 @@ Current limitations
 - No streaming adapter yet (planned).
 - No POS/NER gating yet (possible future accuracy upgrade).
 - Inflection generator is conservative and avoids ambiguous doubling.
-- TODO (GUI app UI overhaul):
-  - Do a full UX pass across all major GUI screens (navigation, hierarchy, spacing, and affordances).
-  - Normalize layout density and visual consistency across locales, themes, and window sizes.
-  - Simplify settings information architecture so language packs, profiles, and SRS controls are easier to find.
-  - Define and implement keyboard shortcuts for profile/ruleset workflows after the Manage Profiles UX architecture is finalized.
-  - Fix squished UI elements in settings of core app.
-  - Fix ghost ruleset populated in ruleset selection UI in core app when no ruleset exists.
-- TODO (getting-started guide completion):
-  - Complete the manual end-to-end (all sections finalized, screenshots added, and setup steps verified against current UI labels).
-  - Keep guide steps synchronized with extension/core app releases when labels or flow change.
-- TODO (ruleset display/highlight settings):
-  - Move manual rules display/highlight controls into per-ruleset settings (not one shared/manual-only setting).
-  - Per-ruleset settings:
-    - Display
-    - Highlight replaced words (click to toggle original)
-    - Highlight color
-- TODO (CJK / no-space languages):
-  - Detect whether input is likely a no-space language (CJK) using lightweight heuristics.
-  - If CJK, choose between:
-    - character/n-gram tokenization with a trie that matches sequences, or
-    - exact substring replacement without token boundaries.
-  - Keep exact substring mode as a user-selectable fallback for mixed-language text.
-- TODO (replacement pacing/sensitivity controls):
-  - Move "Replacement Behavior" settings out of "Manual Rules" scope into global scope for the full experience.
-  - Applies to all replacements (ruleset and SRS).
-  - Settings to move:
-    - Replace max 1 word per text block.
-    - Allow replacing adjacent words.
-    - Max replacements per page (`0` = unlimited).
-    - Max per word per page (`0` = unlimited).
-  - Consider limiting replacements per sentence.
-  - Add settings to adjust sensitivity/strictness for the rules above.
-- TODO (S-set visibility/review UX):
-  - Add a list view of all the words currently in S.
-  - Consider a dedicated study/review view for S.
-  - Move `Run sampled rulegen (5)...` guidance into an Advanced diagnostics-only category in setup docs/UI (not baseline setup flow).
-- TODO (Japanese script quality):
-  - Check and improve the accuracy of generated romaji for Japanese words.
-- TODO (rule generation quality):
-  - Improve rulegen quality by making generation/scoring shallower and higher precision.
-  - Improve SRS rulegen quality (helper-published rules) for better pedagogical precision and fewer broad/ambiguous outputs.
-  - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
-  - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
-- TODO (pair-specific morphology expansion):
-  - Current paired morphology expansion is intentionally narrow (`en-es` noun plural source -> target surface mapping).
-  - Add explicit morphology resolvers per LP (`en-de`, `es-en`, and future pairs) and extend beyond plural nouns.
-
-Plans (ordered by ease/priority)
-1. Persist all GUI knowledge inside profiles/rulesets:
-   - Store per-profile dictionary selection (mono vs cross-lingual) and language choices.
-   - Store synonym settings (thresholds, embeddings) per profile or ruleset where appropriate (currently global).
-2. Sync profiles/rulesets into clients:
-   - Export active profile + ruleset list + language pack selection to Chrome/BD.
-   - Add profile/ruleset switcher in extension/plugin settings.
-   - Allow enabling/disabling multiple manual rulesets under a selected profile (not only one active manual ruleset).
-   - Persist per-ruleset display settings:
-     - Display
-     - Highlight replaced words (click to toggle original)
-     - Highlight color
-3. Finish language pack UX polish:
-   - Pack-specific validators for edge layouts.
-   - Clear handling for external/manual paths vs. app-managed files.
-   - Re-enable Wiktionary when we are ready to handle large downloads.
-4. Add language selection controls tied to profiles/rulesets:
-   - Monolingual vs cross-lingual toggle per profile or per ruleset.
-   - Persist target/source language choices for bulk generation.
-5. Scale large pack handling:
-   - Background indexing for large packs (progress + cancel).
-   - Optional cached indexes for fast reloads.
-6. Add per-rule exception patterns or context gates if needed.
-7. Add streaming/liveness adapter for live text replacement.
-8. Localize the BetterDiscord plugin for multiple languages.
-9. Consider larger Σ symbol spaces for Share Code to shorten codes.
+- Active TODO backlog, planned milestones, and detailed CWS-related product improvements are tracked in `docs/TODOs.md`.
 
 Known inconsistencies / friction points
 - Embedding similarity depends on the selected language pair; auto language detection is still missing.
