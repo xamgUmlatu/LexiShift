@@ -1,3 +1,8 @@
+---
+layout: default
+title: LexiShift Getting Started
+---
+
 # LexiShift Getting Started
 
 This page is the canonical onboarding guide for the desktop GUI app.

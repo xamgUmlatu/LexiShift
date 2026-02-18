@@ -40,6 +40,7 @@ If you need SRS/core behavior next:
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Global app schema: `reference/schema.md`
 - New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
+- GitHub Pages enablement runbook: `runbooks/github_pages_setup.md`
 
 ## Source Of Truth Rules
 

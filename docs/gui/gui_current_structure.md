@@ -62,7 +62,8 @@ Current instruction surface in the app:
 
 The setup guide currently targets:
 
-- `docs/getting-started/README.md`
+- Preferred: `https://xamgUmlatu.github.io/LexiShift/getting-started/` (GitHub Pages)
+- Fallback: `docs/getting-started/README.md` (repository URL)
 
 ### Replacements Panel
 
