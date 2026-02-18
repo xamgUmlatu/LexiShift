@@ -55,3 +55,14 @@ Chrome extension:
 - Developer handbook: [../developer/developer_reference.md](../developer/developer_reference.md)
 - Local setup detail: [../developer/local_setup.md](../developer/local_setup.md)
 - Script categories: [../../scripts/README.md](../../scripts/README.md)
+
+## Local Pages Preview
+
+```bash
+cd /Users/takeyayuki/Documents/projects/LexiShift/docs
+bundle install
+bundle exec jekyll serve --livereload --host 127.0.0.1 --port 4000 --source .
+```
+
+Open:
+- `http://127.0.0.1:4000/LexiShift/`

@@ -20,3 +20,20 @@ Use this after the repository includes `docs/index.md`.
 - Getting started page: `https://xamgUmlatu.github.io/LexiShift/getting-started/`
 
 GitHub Pages may take several minutes to publish the first build.
+
+## Local Preview (Standardized)
+
+Run from `docs/` using the committed Gemfile:
+
+```bash
+cd /Users/takeyayuki/Documents/projects/LexiShift/docs
+bundle install
+bundle exec jekyll serve --livereload --host 127.0.0.1 --port 4000 --source .
+```
+
+Preview URL:
+- `http://127.0.0.1:4000/LexiShift/`
+
+Notes:
+- This replaces the previous temporary `/tmp` Gemfile/Bundler flow.
+- If you changed `baseurl` behavior, verify links from handbook root and diagrams pages.

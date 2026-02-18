@@ -72,6 +72,19 @@ npm --prefix scripts run preflight:cws
 Reference:
 - `../runbooks/cws_upload_gate.md`
 
+## GitHub Pages Local Preview
+
+From `docs/`, use the committed Gemfile (no `/tmp` setup needed):
+
+```bash
+cd /Users/takeyayuki/Documents/projects/LexiShift/docs
+bundle install
+bundle exec jekyll serve --livereload --host 127.0.0.1 --port 4000 --source .
+```
+
+Open:
+- `http://127.0.0.1:4000/LexiShift/`
+
 ## Where To Go Next
 
 - Architecture status + map: `../architecture/README.md`

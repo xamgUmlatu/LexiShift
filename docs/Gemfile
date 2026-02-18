@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+# Local docs preview toolchain (GitHub Pages-compatible enough for this site).
+gem "jekyll", "~> 4.4"
+gem "webrick", "~> 1.8"
+gem "jekyll-theme-cayman", "~> 0.2"

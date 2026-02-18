@@ -41,6 +41,14 @@ node_modules/
 /packaging/output/
 /packaging/build/
 
+# Ignore generated Jekyll/GitHub Pages build artifacts
+docs/_site/
+docs/.jekyll-cache/
+docs/.sass-cache/
+docs/.jekyll-metadata
+docs/.bundle/
+docs/vendor/bundle/
+
 # Ignore local test vocabulary exports (prevent leaking personal word lists)
 TestVocabPool.json
 local_test_*.json

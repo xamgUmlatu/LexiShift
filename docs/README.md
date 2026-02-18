@@ -39,6 +39,7 @@ If you need SRS/core behavior next:
 - Developer handbook (primary): `developer/developer_reference.md`
 - Local setup loop: `developer/local_setup.md`
 - Build/release workflows: `developer/build_and_release.md`
+- GitHub Pages setup + local preview runbook: `runbooks/github_pages_setup.md`
 - Architecture status index: `architecture/README.md`
 - Extension architecture: `architecture/chrome_extension_technical.md`
 - Extension system map: `architecture/extension_system_map.md`
