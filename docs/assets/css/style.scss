@@ -11,14 +11,19 @@
 
 html[data-guide-theme="light"] body {
   background:
-    radial-gradient(980px 420px at 12% 0%, rgba(255, 196, 128, 0.28), transparent 60%),
-    radial-gradient(760px 340px at 88% 8%, rgba(255, 223, 188, 0.42), transparent 58%),
-    linear-gradient(180deg, #fff9f1 0%, #fff3e4 44%, #fff8ee 100%);
+    radial-gradient(980px 420px at 12% 0%, rgba(243, 167, 91, 0.34), transparent 60%),
+    radial-gradient(760px 340px at 88% 8%, rgba(248, 194, 140, 0.46), transparent 58%),
+    linear-gradient(180deg, #fff3e3 0%, #ffe7c9 44%, #fff0db 100%);
 }
 
 html[data-guide-theme="light"] .main-content:has(.guide-layout) {
   border-radius: 14px;
   box-shadow: 0 10px 28px rgba(145, 95, 40, 0.1);
+}
+
+html[data-guide-theme="light"] .guide-content {
+  background: linear-gradient(180deg, #fffdf9 0%, #fff4e5 100%);
+  border-color: #e8d8c3;
 }
 
 .guide-theme-toggle {
