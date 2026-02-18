@@ -1,0 +1,402 @@
+[
+  {
+    "source_phrase": "very",
+    "replacement": "突",
+    "confidence": 0.6425010396762576,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "help",
+    "replacement": "助",
+    "confidence": 0.6370489117014243,
+    "gloss_index": 0,
+    "gloss_total": 8,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "door",
+    "replacement": "戸口",
+    "confidence": 0.6267122310104845,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "road",
+    "replacement": "途",
+    "confidence": 0.6222751203508695,
+    "gloss_index": 0,
+    "gloss_total": 20,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "road",
+    "replacement": "路",
+    "confidence": 0.6222751203508695,
+    "gloss_index": 0,
+    "gloss_total": 24,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "look",
+    "replacement": "ほれ",
+    "confidence": 0.6213363732762522,
+    "gloss_index": 0,
+    "gloss_total": 5,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "blood",
+    "replacement": "血",
+    "confidence": 0.6195451099302414,
+    "gloss_index": 0,
+    "gloss_total": 7,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "response",
+    "replacement": "レスポンス",
+    "confidence": 0.6194039381447269,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "earth",
+    "replacement": "アース",
+    "confidence": 0.6192520077708066,
+    "gloss_index": 0,
+    "gloss_total": 5,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "common",
+    "replacement": "尋常",
+    "confidence": 0.6189034685447445,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "example",
+    "replacement": "用例",
+    "confidence": 0.6184558938346462,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "agency",
+    "replacement": "取り次ぎ",
+    "confidence": 0.6182741743242313,
+    "gloss_index": 0,
+    "gloss_total": 9,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "serious",
+    "replacement": "重々しい",
+    "confidence": 0.6181520002821771,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "clearly",
+    "replacement": "ありあり",
+    "confidence": 0.6164658694384375,
+    "gloss_index": 0,
+    "gloss_total": 3,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "union",
+    "replacement": "接合",
+    "confidence": 0.6161088138011802,
+    "gloss_index": 0,
+    "gloss_total": 3,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "trade",
+    "replacement": "商い",
+    "confidence": 0.6151164967954171,
+    "gloss_index": 0,
+    "gloss_total": 7,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "march",
+    "replacement": "行軍",
+    "confidence": 0.6141692351224903,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "run",
+    "replacement": "走",
+    "confidence": 0.6129493786094,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "agreement",
+    "replacement": "規約",
+    "confidence": 0.6126683266351252,
+    "gloss_index": 0,
+    "gloss_total": 6,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "agreement",
+    "replacement": "約定",
+    "confidence": 0.6126683266351252,
+    "gloss_index": 0,
+    "gloss_total": 3,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "agreement",
+    "replacement": "応",
+    "confidence": 0.6126683266351252,
+    "gloss_index": 0,
+    "gloss_total": 8,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "shape",
+    "replacement": "形象",
+    "confidence": 0.6098074283737612,
+    "gloss_index": 0,
+    "gloss_total": 3,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "shape",
+    "replacement": "格好",
+    "confidence": 0.6098074283737612,
+    "gloss_index": 0,
+    "gloss_total": 13,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "secret",
+    "replacement": "シークレット",
+    "confidence": 0.6077786961696419,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "copy",
+    "replacement": "写し",
+    "confidence": 0.6072156538938407,
+    "gloss_index": 0,
+    "gloss_total": 6,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "stress",
+    "replacement": "応力",
+    "confidence": 0.6067254719380892,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "jury",
+    "replacement": "陪審",
+    "confidence": 0.6064544597150093,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "lock",
+    "replacement": "ロック",
+    "confidence": 0.6058544794092127,
+    "gloss_index": 0,
+    "gloss_total": 9,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "mean",
+    "replacement": "卑劣",
+    "confidence": 0.6052462750014576,
+    "gloss_index": 0,
+    "gloss_total": 7,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "rating",
+    "replacement": "格付け",
+    "confidence": 0.6051103465079102,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "potential",
+    "replacement": "ポテンシャル",
+    "confidence": 0.604910736400861,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "fat",
+    "replacement": "膏",
+    "confidence": 0.6042007739777008,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "column",
+    "replacement": "円柱",
+    "confidence": 0.6039045675369236,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "layer",
+    "replacement": "レイヤー",
+    "confidence": 0.6033712338028046,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "surely",
+    "replacement": "嘸",
+    "confidence": 0.6029751522231819,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "light",
+    "replacement": "光",
+    "confidence": 0.601942562246748,
+    "gloss_index": 0,
+    "gloss_total": 14,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "peak",
+    "replacement": "嶺",
+    "confidence": 0.6018148934556662,
+    "gloss_index": 0,
+    "gloss_total": 5,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "testing",
+    "replacement": "試",
+    "confidence": 0.601030374749545,
+    "gloss_index": 0,
+    "gloss_total": 6,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "rose",
+    "replacement": "バラ",
+    "confidence": 0.6009360659654965,
+    "gloss_index": 0,
+    "gloss_total": 8,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "wisdom",
+    "replacement": "智",
+    "confidence": 0.5998615508268004,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "bias",
+    "replacement": "バイアス",
+    "confidence": 0.59720659223286,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "dump",
+    "replacement": "ダンプ",
+    "confidence": 0.5969921358727326,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "cabin",
+    "replacement": "ケビン",
+    "confidence": 0.5962083243127432,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "ship",
+    "replacement": "シップ",
+    "confidence": 0.5954872755073062,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "genuine",
+    "replacement": "真正",
+    "confidence": 0.5951550306516461,
+    "gloss_index": 0,
+    "gloss_total": 4,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "insect",
+    "replacement": "虫",
+    "confidence": 0.5943149113895823,
+    "gloss_index": 0,
+    "gloss_total": 14,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "joke",
+    "replacement": "ジョーク",
+    "confidence": 0.593658464490721,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "sail",
+    "replacement": "ほ",
+    "confidence": 0.5919520202830664,
+    "gloss_index": 0,
+    "gloss_total": 20,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "eleven",
+    "replacement": "イレブン",
+    "confidence": 0.5915189514177868,
+    "gloss_index": 0,
+    "gloss_total": 2,
+    "language_pair": "en-ja"
+  },
+  {
+    "source_phrase": "soda",
+    "replacement": "ソーダ",
+    "confidence": 0.5912727697346121,
+    "gloss_index": 0,
+    "gloss_total": 1,
+    "language_pair": "en-ja"
+  }
+]

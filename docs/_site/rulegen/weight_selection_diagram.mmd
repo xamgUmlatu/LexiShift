@@ -1,0 +1,33 @@
+flowchart TB
+  %% S Seed + Rulegen (JA target, EN source)
+  subgraph Seed_and_Weighting["S Seed + Weighting (JA target)"]
+    A[Load BCCWJ SUW frequency list]
+    A --> B[Extract core_rank + pmw per lemma]
+    B --> C[Sort by core_rank (ascending)]
+    C --> D[Take top N lemmas]
+    D --> E[Intersect with JMDict lemmas]
+    E --> F[Seed set S (JA lemmas)]
+    F --> G[Attach base stats: core_rank, pmw]
+  end
+
+  subgraph Rulegen["Rule Generation (EN → JA)"]
+    G --> H[JMDict lookup per JA lemma]
+    H --> I[Collect single-word EN glosses]
+    I --> J[Normalize glosses (lowercase, strip punctuation)]
+    J --> K[Score glosses]
+    K --> L[Rule candidates]
+    L --> M[Persist ruleset with confidence + metadata]
+  end
+
+  subgraph Scoring["Scoring (WIP)"]
+    K --> S1[Base weight from pmw (normalize 0..1)]
+    K --> S2[Gloss decay (1st=100%, 2nd=70%, 3rd=50%)]
+    K --> S3[Optional POS / sense quality signals]
+    K --> S4[Optional embedding rank (if enabled)]
+  end
+
+  subgraph Runtime["Runtime Filtering"]
+    M --> R1[Load ruleset]
+    R1 --> R2[Apply confidence threshold slider]
+    R2 --> R3[Active rules]
+  end
