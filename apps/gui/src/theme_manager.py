@@ -244,6 +244,25 @@ QPushButton[ftueLocaleSelectButton="true"]:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
 }}
+QPushButton[emptyGuideFab="true"] {{
+  min-width: 28px;
+  max-width: 28px;
+  min-height: 28px;
+  max-height: 28px;
+  padding: 0px;
+  border-radius: 14px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 900;
+  border: 2px solid {theme['accent']};
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary_hover']}, stop:1 {theme['primary']});
+}}
+QPushButton[emptyGuideFab="true"]:hover {{
+  border: 2px solid {theme['primary_hover']};
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+}}
 QPushButton[variant="danger"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {status_error_hover}, stop:1 {status_error});

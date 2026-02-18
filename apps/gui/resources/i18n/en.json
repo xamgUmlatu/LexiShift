@@ -65,6 +65,8 @@
     "install_helper": "Install LexiShift Helper...",
     "reinstall_helper": "Reinstall LexiShift Helper...",
     "debug": "Debug",
+    "help": "Help",
+    "open_setup_guide": "Open Setup Guide",
     "startup_diagnostics": "Startup Diagnostics...",
     "open_log_directory": "Open Log Directory"
   },
@@ -418,7 +420,8 @@
     "disabled": "Disabled",
     "delete_tooltip": "Delete rule (Alt+click to skip confirmation)",
     "empty_title": "This ruleset has no rules yet.",
-    "empty_hint": "Use Add Rule, Synonym Bulk Add, or import a ruleset to get started."
+    "empty_hint": "Use Add Rule, Synonym Bulk Add, or import a ruleset to get started.",
+    "open_setup_guide": "Open Setup Guide"
   },
   "ruleset": {
     "missing": "{label} (missing)",

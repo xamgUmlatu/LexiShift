@@ -64,6 +64,8 @@
     "install_helper": "LexiShift-Helfer installieren...",
     "reinstall_helper": "LexiShift-Helfer neu installieren...",
     "debug": "Debug",
+    "help": "Hilfe",
+    "open_setup_guide": "Setup-Anleitung öffnen",
     "startup_diagnostics": "Startdiagnose...",
     "open_log_directory": "Log-Verzeichnis öffnen"
   },
@@ -417,7 +419,8 @@
     "disabled": "Inaktiv",
     "delete_tooltip": "Regel löschen (Alt+Klick überspringt Bestätigung)",
     "empty_title": "Dieser Regelsatz enthält noch keine Regeln.",
-    "empty_hint": "Verwenden Sie „Regel hinzufügen“, „Synonyme gesammelt hinzufügen“ oder importieren Sie einen Regelsatz."
+    "empty_hint": "Verwenden Sie „Regel hinzufügen“, „Synonyme gesammelt hinzufügen“ oder importieren Sie einen Regelsatz.",
+    "open_setup_guide": "Setup-Anleitung öffnen"
   },
   "ruleset": {
     "missing": "{label} (fehlend)",

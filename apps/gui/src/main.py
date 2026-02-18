@@ -5,6 +5,7 @@ import subprocess
 import sys
 import traceback
 import time
+import webbrowser
 from datetime import datetime
 from dataclasses import replace
 from pathlib import Path
@@ -109,6 +110,8 @@ from theme_manager import build_base_styles, resolve_current_theme
 from theme_widgets import ThemedBackgroundWidget, apply_theme_background
 from utils_paths import reveal_path
 
+SETUP_GUIDE_URL = "https://github.com/xamgUmlatu/LexiShift/blob/main/docs/getting-started/README.md"
+
 
 class DeleteButtonDelegate(QStyledItemDelegate):
     def __init__(self, parent=None) -> None:
@@ -139,10 +142,13 @@ class DeleteButtonDelegate(QStyledItemDelegate):
 
 
 class RulesTableView(QTableView):
+    emptyGuideRequested = Signal()
+
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self._empty_title = t("rules_table.empty_title")
         self._empty_hint = t("rules_table.empty_hint")
+        self._show_empty_guide_button = False
         self._empty_palette = {
             "card_bg": QColor("#F5F2E9"),
             "card_border": QColor("#D5CBB8"),
@@ -150,6 +156,12 @@ class RulesTableView(QTableView):
             "hint": QColor("#6F6558"),
             "accent": QColor("#4A7DB8"),
         }
+        self._empty_guide_button = QPushButton("?", self.viewport())
+        self._empty_guide_button.setProperty("emptyGuideFab", True)
+        self._empty_guide_button.setFixedSize(28, 28)
+        self._empty_guide_button.setToolTip(t("rules_table.open_setup_guide"))
+        self._empty_guide_button.setVisible(False)
+        self._empty_guide_button.clicked.connect(lambda _checked=False: self.emptyGuideRequested.emit())
 
     def set_empty_palette(
         self,
@@ -169,19 +181,49 @@ class RulesTableView(QTableView):
         }
         self.viewport().update()
 
-    def paintEvent(self, event) -> None:
-        super().paintEvent(event)
-        model = self.model()
-        if model is None or model.rowCount() > 0:
-            return
-        rect = self.viewport().rect()
-        if rect.width() < 260 or rect.height() < 150:
-            return
+    def set_empty_guide_button_visible(self, visible: bool) -> None:
+        self._show_empty_guide_button = bool(visible)
+        self._sync_empty_guide_button_visibility()
 
+    def _empty_card_geometry(self) -> tuple[int, int, int, int]:
+        rect = self.viewport().rect()
         card_width = min(620, max(300, rect.width() - 88))
         card_height = 136
         card_x = rect.center().x() - card_width // 2
         card_y = rect.center().y() - card_height // 2
+        return card_x, card_y, card_width, card_height
+
+    def _sync_empty_guide_button_visibility(self) -> None:
+        model = self.model()
+        is_empty = model is not None and model.rowCount() == 0
+        show = self._show_empty_guide_button and is_empty
+        self._empty_guide_button.setVisible(show)
+        if not show:
+            return
+        card_x, card_y, card_width, card_height = self._empty_card_geometry()
+        button_width = self._empty_guide_button.width()
+        button_height = self._empty_guide_button.height()
+        x = card_x + card_width - button_width - 12
+        y = card_y + 10
+        self._empty_guide_button.setGeometry(x, y, button_width, button_height)
+        self._empty_guide_button.raise_()
+
+    def resizeEvent(self, event) -> None:
+        super().resizeEvent(event)
+        self._sync_empty_guide_button_visibility()
+
+    def paintEvent(self, event) -> None:
+        super().paintEvent(event)
+        model = self.model()
+        if model is None or model.rowCount() > 0:
+            self._empty_guide_button.setVisible(False)
+            return
+        rect = self.viewport().rect()
+        if rect.width() < 260 or rect.height() < 150:
+            self._empty_guide_button.setVisible(False)
+            return
+
+        card_x, card_y, card_width, card_height = self._empty_card_geometry()
 
         painter = QPainter(self.viewport())
         painter.setRenderHint(QPainter.Antialiasing)
@@ -226,6 +268,7 @@ class RulesTableView(QTableView):
             self._empty_hint,
         )
         painter.end()
+        self._sync_empty_guide_button_visibility()
 
 
 class UtilityDockPanel(QWidget):
@@ -443,6 +486,7 @@ class MainWindow(QMainWindow):
 
         self.rules_table = RulesTableView()
         self.rules_table.setModel(self._rules_proxy)
+        self.rules_table.emptyGuideRequested.connect(self._open_setup_guide)
         self.rules_table.setSortingEnabled(True)
         self.rules_table.setMouseTracking(True)
         self._delete_button_delegate = DeleteButtonDelegate(self.rules_table)
@@ -597,6 +641,9 @@ class MainWindow(QMainWindow):
         self._open_log_dir_action = QAction(t("menu.open_log_directory"), self)
         self._open_log_dir_action.triggered.connect(self._open_log_directory)
 
+        self._open_setup_guide_action = QAction(t("menu.open_setup_guide"), self)
+        self._open_setup_guide_action.triggered.connect(self._open_setup_guide)
+
         self._export_json_action = QAction(t("menu.export_ruleset_json"), self)
         self._export_json_action.triggered.connect(self._export_json)
 
@@ -682,6 +729,9 @@ class MainWindow(QMainWindow):
         debug_menu.addAction(self._startup_diagnostics_action)
         debug_menu.addAction(self._open_log_dir_action)
 
+        help_menu = menu_bar.addMenu(t("menu.help"))
+        help_menu.addAction(self._open_setup_guide_action)
+
     def _refresh_helper_menu_label(self) -> None:
         env, extension_id = get_helper_environment(self._ui_settings)
         if env and extension_id and is_helper_installed(str(extension_id), browser=env.browser):
@@ -723,6 +773,9 @@ class MainWindow(QMainWindow):
 
     def _open_log_directory(self) -> None:
         reveal_path(str(_app_data_dir()))
+
+    def _open_setup_guide(self) -> None:
+        webbrowser.open(SETUP_GUIDE_URL)
 
     def _show_startup_diagnostics(self) -> None:
         log_paths = _startup_log_paths()
@@ -2451,6 +2504,8 @@ QMenu::separator {{
         if profile is None:
             self.ruleset_combo.blockSignals(False)
             self._ruleset_combo_updating = False
+            if hasattr(self, "rules_table"):
+                self.rules_table.set_empty_guide_button_visible(False)
             return
         active_path = self._active_ruleset_path(profile)
         active_index = -1
@@ -2474,6 +2529,20 @@ QMenu::separator {{
             self.ruleset_combo.setCurrentIndex(active_index)
         self.ruleset_combo.blockSignals(False)
         self._ruleset_combo_updating = False
+        if hasattr(self, "_update_rules_table_help_affordance"):
+            self._update_rules_table_help_affordance(profile=profile)
+
+    def _update_rules_table_help_affordance(self, *, profile: Optional[Profile]) -> None:
+        if not hasattr(self, "rules_table"):
+            return
+        if profile is None:
+            self.rules_table.set_empty_guide_button_visible(False)
+            return
+        active_path = self._active_ruleset_path(profile)
+        resolved_path = Path(os.path.abspath(os.path.expanduser(active_path))) if active_path else None
+        missing_ruleset = resolved_path is None or not resolved_path.exists()
+        empty_rules = self.rules_model.rowCount() == 0
+        self.rules_table.set_empty_guide_button_visible(empty_rules or missing_ruleset)
 
     def _ruleset_display_name(self, path: str) -> str:
         normalized = Path(os.path.abspath(os.path.expanduser(path)))
