@@ -42,12 +42,30 @@ Shared persistence is handled by `AppState`:
 2. Introduce pure profile/ruleset domain helpers (in progress):
    - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/profile_ruleset_utils.py`
    - Shared `ruleset_display_name` + path normalization now used by main/profile/ruleset dialogs.
-3. Expand domain helper coverage:
+   - Added shared policy helpers for active selection, profile ruleset expansion, unlink/removal constraints.
+   - Main window and ruleset/profile dialogs now call shared helpers for these behaviors.
+3. Introduce profile/ruleset editor service (in progress):
+   - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/profile_ruleset_service.py`
+   - `ProfilesDialog` now delegates commit/add/remove/set-active ruleset edits to service functions.
+4. Extract ruleset-library delete/unlink workflow (in progress):
+   - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/ruleset_library_service.py`
+   - `RulesetLibraryDialog` now delegates delete-impact analysis and unlink/file-delete operations.
+5. Extract ruleset preview formatting (in progress):
+   - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/ruleset_preview_service.py`
+   - `RulesetLibraryDialog` now delegates preview line formatting and overflow labeling.
+6. Extract main-window selector modeling (in progress):
+   - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_profile_ruleset_service.py`
+   - `MainWindow` now delegates active-profile resolution and profile/ruleset combo item construction.
+7. Extract startup ruleset-path migration (in progress):
+   - Added `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/profile_ruleset_migration_service.py`
+   - `MainWindow._migrate_ruleset_paths` now delegates migration logic to the service.
+8. Expand domain helper coverage:
    - New module with deterministic operations (no Qt dependency).
    - Move active-ruleset fallback/unlink safety/deletion constraints out of UI classes.
-4. Add focused tests for domain helpers:
+9. Add focused tests for domain helpers:
    - Active-ruleset fallback, unlink safety, and deletion constraints.
-5. Then iterate on UI information architecture:
+   - Added service-level tests for editor add/remove/set-active/commit behavior.
+10. Then iterate on UI information architecture:
    - Once shared behavior is centralized, reshape dialog layout/workflows with less regression risk.
 
 ## Architecture Direction

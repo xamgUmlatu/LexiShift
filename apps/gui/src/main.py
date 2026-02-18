@@ -97,8 +97,20 @@ from dialogs_code import BulkRulesDialog, CodeDialog
 from dialogs_profiles import CreateProfileDialog, ProfilesDialog
 from dialogs_rulesets import RulesetLibraryDialog
 from i18n import available_locales, normalize_locale, set_locale, t
+from main_profile_ruleset_service import (
+    build_profile_combo_items,
+    build_ruleset_combo_items,
+    find_profile_by_id,
+    resolve_active_profile,
+)
 from models import RulesTableModel
-from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
+from profile_ruleset_migration_service import migrate_profile_ruleset_paths
+from profile_ruleset_utils import (
+    assign_active_ruleset_to_profile,
+    normalize_ruleset_path,
+    preferred_active_ruleset,
+    resolve_profile_dataset_path,
+)
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
 from theme_assets import ensure_sample_images, ensure_sample_themes
@@ -906,16 +918,9 @@ QMenu::separator {{
 
     def _load_active_profile(self) -> None:
         settings = self.state.settings
-        if not settings.profiles:
-            return
-        active_id = settings.active_profile_id
-        selected_profile: Optional[Profile] = None
-        for profile in settings.profiles:
-            if profile.profile_id == active_id:
-                selected_profile = profile
-                break
+        selected_profile = resolve_active_profile(settings.profiles, settings.active_profile_id)
         if selected_profile is None:
-            selected_profile = settings.profiles[0]
+            return
         self._load_profile(selected_profile)
 
     def _on_empty_create_profile(self) -> None:
@@ -948,10 +953,7 @@ QMenu::separator {{
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
-        profiles = dialog.result_profiles()
-        self.state.set_profiles(profiles, active_profile_id=self.state.settings.active_profile_id)
-        self._load_active_profile()
-        self._refresh_profiles_ui()
+        self._apply_profile_collection_update(dialog.result_profiles())
 
     def _manage_rulesets(self) -> None:
         if not self._confirm_discard_changes():
@@ -959,8 +961,12 @@ QMenu::separator {{
         dialog = RulesetLibraryDialog(self.state.settings.profiles, parent=self)
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
-        profiles = dialog.result_profiles()
-        self.state.set_profiles(profiles, active_profile_id=self.state.settings.active_profile_id)
+        self._apply_profile_collection_update(dialog.result_profiles())
+
+    def _apply_profile_collection_update(self, profiles: tuple[Profile, ...]) -> None:
+        # Keep active profile id stable while applying dialog-managed profile/ruleset edits.
+        active_id = self.state.settings.active_profile_id
+        self.state.set_profiles(profiles, active_profile_id=active_id)
         self._load_active_profile()
         self._refresh_profiles_ui()
 
@@ -1623,26 +1629,10 @@ QMenu::separator {{
         self.state.load_dataset(resolved_path)
 
     def _active_ruleset_path(self, profile: Profile) -> str:
-        if profile.active_ruleset:
-            return profile.active_ruleset
-        if profile.rulesets:
-            return profile.rulesets[0]
-        if profile.dataset_path:
-            return profile.dataset_path
-        return str(_default_dataset_path())
+        return preferred_active_ruleset(profile, default_path=str(_default_dataset_path()))
 
     def _resolve_profile_dataset_path(self, profile: Profile) -> Path:
-        candidates: list[str] = []
-        for value in (profile.active_ruleset, *profile.rulesets, profile.dataset_path):
-            if value and value not in candidates:
-                candidates.append(value)
-        if not candidates:
-            return _default_dataset_path()
-        normalized = [Path(os.path.abspath(os.path.expanduser(candidate))) for candidate in candidates]
-        for candidate in normalized:
-            if candidate.exists() and candidate.is_file():
-                return candidate
-        return normalized[0]
+        return resolve_profile_dataset_path(profile, default_path=_default_dataset_path())
 
     def _activate_ruleset_for_profile(self, profile: Profile, path: Path) -> None:
         self._set_active_ruleset_path(path)
@@ -1650,30 +1640,13 @@ QMenu::separator {{
 
     def _set_active_ruleset_path(self, dataset_path: Path) -> None:
         settings = self.state.settings
-        active_id = settings.active_profile_id
-        if not active_id:
-            return
-        updated_profiles = []
-        updated = False
-        for profile in settings.profiles:
-            if profile.profile_id == active_id:
-                rulesets = list(profile.rulesets)
-                path_str = str(dataset_path)
-                if path_str not in rulesets:
-                    rulesets.append(path_str)
-                updated_profiles.append(
-                    replace(
-                        profile,
-                        dataset_path=path_str,
-                        rulesets=tuple(rulesets),
-                        active_ruleset=path_str,
-                    )
-                )
-                updated = True
-            else:
-                updated_profiles.append(profile)
+        updated_profiles, updated = assign_active_ruleset_to_profile(
+            settings.profiles,
+            active_profile_id=settings.active_profile_id,
+            dataset_path=dataset_path,
+        )
         if updated:
-            self.state.set_profiles(tuple(updated_profiles), active_profile_id=active_id)
+            self.state.set_profiles(updated_profiles, active_profile_id=settings.active_profile_id)
 
     def _on_profile_selected(self, index: int) -> None:
         if self._profile_combo_updating:
@@ -2165,15 +2138,12 @@ QMenu::separator {{
     def _refresh_profiles_ui(self) -> None:
         profiles = self.state.settings.profiles
         active_id = self.state.settings.active_profile_id
+        combo_items, active_index = build_profile_combo_items(profiles, active_id)
         self._profile_combo_updating = True
         self.profile_combo.blockSignals(True)
         self.profile_combo.clear()
-        active_index = -1
-        for idx, profile in enumerate(profiles):
-            label = profile.name or profile.profile_id
-            self.profile_combo.addItem(label, profile)
-            if profile.profile_id == active_id:
-                active_index = idx
+        for combo_item in combo_items:
+            self.profile_combo.addItem(combo_item.label, combo_item.profile)
         if active_index >= 0:
             self.profile_combo.setCurrentIndex(active_index)
         self.profile_combo.blockSignals(False)
@@ -2190,11 +2160,7 @@ QMenu::separator {{
             self._workspace_stack.setCurrentWidget(target)
 
     def _current_profile(self) -> Optional[Profile]:
-        active_id = self.state.settings.active_profile_id
-        for profile in self.state.settings.profiles:
-            if profile.profile_id == active_id:
-                return profile
-        return None
+        return find_profile_by_id(self.state.settings.profiles, self.state.settings.active_profile_id)
 
     def _refresh_ruleset_ui(self) -> None:
         profile = self._current_profile()
@@ -2207,24 +2173,16 @@ QMenu::separator {{
             if hasattr(self, "rules_table"):
                 self.rules_table.set_empty_guide_button_visible(False)
             return
-        active_path = self._active_ruleset_path(profile)
-        active_index = -1
-        ruleset_paths: list[str] = [path for path in profile.rulesets if path]
-        if active_path and active_path not in ruleset_paths:
-            ruleset_paths.append(active_path)
-        if not ruleset_paths and active_path:
-            ruleset_paths = [active_path]
-        for idx, path in enumerate(ruleset_paths):
-            if not path:
-                continue
-            label = ruleset_display_name(path)
-            display = label
-            if not normalize_ruleset_path(path).exists():
-                display = t("ruleset.missing", label=label)
-            self.ruleset_combo.addItem(display, path)
-            self.ruleset_combo.setItemData(idx, path, Qt.ToolTipRole)
-            if path == active_path:
-                active_index = idx
+        combo_items, active_index = build_ruleset_combo_items(
+            profile,
+            default_dataset_path=str(_default_dataset_path()),
+        )
+        for idx, combo_item in enumerate(combo_items):
+            display = combo_item.display_name
+            if combo_item.missing:
+                display = t("ruleset.missing", label=display)
+            self.ruleset_combo.addItem(display, combo_item.path)
+            self.ruleset_combo.setItemData(idx, combo_item.path, Qt.ToolTipRole)
         if active_index >= 0:
             self.ruleset_combo.setCurrentIndex(active_index)
         self.ruleset_combo.blockSignals(False)
@@ -2279,59 +2237,13 @@ QMenu::separator {{
         settings = self.state.settings
         if not settings.profiles:
             return
-        base_dir = os.path.abspath(str(_app_data_dir()))
-        rulesets_dir = os.path.abspath(str(_rulesets_dir()))
-        changed = False
-        updated_profiles: list[Profile] = []
-
-        def migrate_path(path: Optional[str]) -> tuple[Optional[str], bool]:
-            if not path:
-                return path, False
-            expanded = os.path.abspath(os.path.expanduser(path))
-            if expanded.startswith(rulesets_dir + os.sep):
-                return path, False
-            try:
-                if os.path.commonpath([expanded, base_dir]) != base_dir:
-                    return path, False
-            except ValueError:
-                return path, False
-            if not os.path.exists(expanded):
-                return path, False
-            new_path = os.path.join(rulesets_dir, os.path.basename(expanded))
-            if expanded != new_path:
-                os.makedirs(rulesets_dir, exist_ok=True)
-                if not os.path.exists(new_path):
-                    try:
-                        os.replace(expanded, new_path)
-                    except OSError:
-                        return path, False
-                return new_path, True
-            return path, False
-
-        for profile in settings.profiles:
-            dataset_path, changed_dataset = migrate_path(profile.dataset_path)
-            active_ruleset, changed_active = migrate_path(profile.active_ruleset)
-            rulesets = []
-            changed_rulesets = False
-            for ruleset_path in profile.rulesets:
-                migrated, changed_rule = migrate_path(ruleset_path)
-                rulesets.append(migrated or ruleset_path)
-                changed_rulesets = changed_rulesets or changed_rule
-            if changed_dataset or changed_active or changed_rulesets:
-                changed = True
-                updated_profiles.append(
-                    replace(
-                        profile,
-                        dataset_path=dataset_path or profile.dataset_path,
-                        active_ruleset=active_ruleset or profile.active_ruleset,
-                        rulesets=tuple(rulesets),
-                    )
-                )
-            else:
-                updated_profiles.append(profile)
-
+        updated_profiles, changed = migrate_profile_ruleset_paths(
+            settings.profiles,
+            base_dir=_app_data_dir(),
+            rulesets_dir=_rulesets_dir(),
+        )
         if changed:
-            self.state.update_settings(replace(settings, profiles=tuple(updated_profiles)))
+            self.state.update_settings(replace(settings, profiles=updated_profiles))
 
 
 def _app_data_dir() -> Path:

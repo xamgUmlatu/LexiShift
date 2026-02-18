@@ -253,6 +253,7 @@
       "preview_missing": "Diese Regelsatzdatei fehlt auf der Festplatte.",
       "preview_empty": "Dieser Regelsatz enthält noch keine Regeln.",
       "preview_load_error": "Regelsatz konnte nicht geladen werden.\n\n{message}",
+      "preview_more": "... +{count} weitere",
       "delete_blocked": "Dieser Regelsatz kann nicht gelöscht werden, da er der einzige verknüpfte Regelsatz ist für:\n\n{profiles}",
       "delete_unlink_confirm": "Das Löschen eines Regelsatzes entfernt ihn aus den folgenden Profilen:\n\n{profiles}",
       "delete_final_confirm": "Möchten Sie ihn wirklich löschen?"

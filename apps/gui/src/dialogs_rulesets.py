@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import replace
-
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QDialog,
@@ -19,7 +17,18 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, load_vocab_dataset
 from i18n import t
-from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
+from profile_ruleset_utils import (
+    collect_profile_rulesets,
+    normalize_ruleset_path,
+    profile_ruleset_paths,
+    ruleset_display_name,
+)
+from ruleset_library_service import (
+    analyze_ruleset_delete_impact,
+    delete_ruleset_file,
+    unlink_ruleset_from_library,
+)
+from ruleset_preview_service import build_ruleset_preview_lines
 from theme_manager import apply_dialog_theme
 from theme_widgets import ThemedBackgroundWidget
 from utils_paths import reveal_path
@@ -115,20 +124,10 @@ class RulesetLibraryDialog(QDialog):
         return tuple(self._profiles)
 
     def _profile_rulesets(self, profile: Profile) -> list[str]:
-        rulesets: list[str] = []
-        for path in tuple(profile.rulesets) + (profile.dataset_path, profile.active_ruleset):
-            value = str(path or "").strip()
-            if value and value not in rulesets:
-                rulesets.append(value)
-        return rulesets
+        return profile_ruleset_paths(profile)
 
     def _collect_rulesets(self) -> list[str]:
-        paths: list[str] = []
-        for profile in self._profiles:
-            for path in self._profile_rulesets(profile):
-                if path not in paths:
-                    paths.append(path)
-        return paths
+        return collect_profile_rulesets(self._profiles)
 
     def _refresh_rulesets(self) -> None:
         previous = self._selected_path()
@@ -169,11 +168,8 @@ class RulesetLibraryDialog(QDialog):
         return path
 
     def _linked_profiles(self, path: str) -> list[Profile]:
-        linked: list[Profile] = []
-        for profile in self._profiles:
-            if path in self._profile_rulesets(profile):
-                linked.append(profile)
-        return linked
+        impact = analyze_ruleset_delete_impact(self._profiles, path)
+        return list(impact.linked_profiles)
 
     def _render_selected_details(self, path: str | None) -> None:
         if not path:
@@ -208,14 +204,10 @@ class RulesetLibraryDialog(QDialog):
         path = self._selected_path()
         if not path:
             return
-        linked_profiles = self._linked_profiles(path)
-        if not linked_profiles:
+        impact = analyze_ruleset_delete_impact(self._profiles, path)
+        if not impact.linked_profiles:
             return
-        blocked = [
-            profile.name or profile.profile_id
-            for profile in linked_profiles
-            if not [entry for entry in self._profile_rulesets(profile) if entry != path]
-        ]
+        blocked = impact.blocked_profile_names()
         if blocked:
             QMessageBox.warning(
                 self,
@@ -232,7 +224,7 @@ class RulesetLibraryDialog(QDialog):
         first_confirm.setWindowTitle(t("dialogs.rulesets.title"))
         first_confirm.setText(t(
             "dialogs.manage_rulesets.delete_unlink_confirm",
-            profiles="\n".join(f"- {profile.name or profile.profile_id}" for profile in linked_profiles),
+            profiles="\n".join(f"- {name}" for name in impact.linked_profile_names()),
         ))
         first_confirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         first_confirm.setDefaultButton(QMessageBox.Cancel)
@@ -248,40 +240,17 @@ class RulesetLibraryDialog(QDialog):
         if second_confirm.exec() != QMessageBox.Yes:
             return
 
-        resolved = normalize_ruleset_path(path)
-        if resolved.exists() and resolved.is_file():
-            try:
-                resolved.unlink()
-            except OSError as exc:
-                QMessageBox.warning(self, t("dialogs.rulesets.title"), str(exc))
-                return
+        try:
+            delete_ruleset_file(path)
+        except OSError as exc:
+            QMessageBox.warning(self, t("dialogs.rulesets.title"), str(exc))
+            return
 
         self._unlink_ruleset(path)
         self._refresh_rulesets()
 
     def _unlink_ruleset(self, path: str) -> None:
-        updated: list[Profile] = []
-        for profile in self._profiles:
-            rulesets = self._profile_rulesets(profile)
-            if path not in rulesets:
-                updated.append(profile)
-                continue
-            remaining = [entry for entry in rulesets if entry != path]
-            if not remaining:
-                updated.append(profile)
-                continue
-            active = profile.active_ruleset
-            if not active or active == path or active not in remaining:
-                active = remaining[0]
-            updated.append(
-                replace(
-                    profile,
-                    dataset_path=active,
-                    rulesets=tuple(remaining),
-                    active_ruleset=active,
-                )
-            )
-        self._profiles = updated
+        self._profiles = list(unlink_ruleset_from_library(self._profiles, path))
 
     def _render_rules_preview(self, path: str) -> None:
         resolved = normalize_ruleset_path(path)
@@ -304,16 +273,12 @@ class RulesetLibraryDialog(QDialog):
             self.rules_preview.setPlainText(t("dialogs.manage_rulesets.preview_empty"))
             return
 
-        max_rows = 140
-        lines: list[str] = []
-        for index, rule in enumerate(rules[:max_rows], start=1):
-            source = str(rule.source_phrase or "").strip()
-            replacement = str(rule.replacement or "").strip()
-            disabled = " [disabled]" if not bool(rule.enabled) else ""
-            lines.append(f"{index}. {source} -> {replacement}{disabled}")
-        if len(rules) > max_rows:
-            remaining = len(rules) - max_rows
-            lines.append(f"... +{remaining} more")
+        lines = build_ruleset_preview_lines(
+            rules,
+            max_rows=140,
+            disabled_label=t("rules_table.disabled"),
+            overflow_template=t("dialogs.manage_rulesets.preview_more"),
+        )
         self.rules_preview.setPlainText("\n".join(lines))
 
     def _ruleset_display_name(self, path: str) -> str:

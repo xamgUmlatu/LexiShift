@@ -138,6 +138,17 @@ Deletion flow is intentionally strict:
 
 Primary state engine: `AppState` in `apps/gui/src/state.py`.
 
+Shared profile/ruleset policy helpers now live in:
+
+1. `apps/gui/src/profile_ruleset_utils.py`
+2. `apps/gui/src/profile_ruleset_service.py`
+3. `apps/gui/src/ruleset_library_service.py`
+4. `apps/gui/src/ruleset_preview_service.py`
+5. `apps/gui/src/main_profile_ruleset_service.py`
+6. `apps/gui/src/profile_ruleset_migration_service.py`
+
+These helpers are used by `main.py`, `dialogs_profiles.py`, and `dialogs_rulesets.py` to keep active-ruleset selection, editor mutations, and unlink behavior consistent.
+
 Relevant persisted UI state:
 
 1. Main window geometry/splitter sizes (`QSettings`)

@@ -253,6 +253,7 @@
       "preview_missing": "このルールセットファイルは見つかりません。",
       "preview_empty": "このルールセットにはまだルールがありません。",
       "preview_load_error": "ルールセットを読み込めませんでした。\n\n{message}",
+      "preview_more": "... さらに {count} 件",
       "delete_blocked": "このルールセットは、次のプロファイルで唯一のリンク先のため削除できません:\n\n{profiles}",
       "delete_unlink_confirm": "ルールセットを削除すると、次のプロファイルからリンクが解除されます:\n\n{profiles}",
       "delete_final_confirm": "本当に削除しますか？"

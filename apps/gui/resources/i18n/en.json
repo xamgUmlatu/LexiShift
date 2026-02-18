@@ -254,6 +254,7 @@
       "preview_missing": "This ruleset file is missing on disk.",
       "preview_empty": "This ruleset has no rules yet.",
       "preview_load_error": "Could not load ruleset.\n\n{message}",
+      "preview_more": "... +{count} more",
       "delete_blocked": "Cannot delete this ruleset because it is the only linked ruleset for:\n\n{profiles}",
       "delete_unlink_confirm": "Deleting a ruleset will remove it from the following profiles:\n\n{profiles}",
       "delete_final_confirm": "Are you sure you want to delete it?"

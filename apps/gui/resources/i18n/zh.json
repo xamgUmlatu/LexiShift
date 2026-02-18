@@ -253,6 +253,7 @@
       "preview_missing": "该规则集文件在磁盘上不存在。",
       "preview_empty": "该规则集还没有规则。",
       "preview_load_error": "无法加载规则集。\n\n{message}",
+      "preview_more": "... 还有 {count} 条",
       "delete_blocked": "无法删除该规则集，因为它是以下配置文件唯一关联的规则集：\n\n{profiles}",
       "delete_unlink_confirm": "删除规则集将会把它从以下配置文件中移除：\n\n{profiles}",
       "delete_final_confirm": "确定要删除吗？"

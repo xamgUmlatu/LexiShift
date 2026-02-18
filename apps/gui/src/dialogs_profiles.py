@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import replace
 import os
 from pathlib import Path
 from typing import Optional
@@ -27,7 +26,18 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, VocabDataset, save_vocab_dataset
 from i18n import t
-from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
+from profile_ruleset_service import (
+    add_ruleset_to_editor_state,
+    commit_profile_edits,
+    remove_ruleset_from_editor_state,
+    set_active_ruleset_in_editor_state,
+)
+from profile_ruleset_utils import (
+    normalize_ruleset_path,
+    profile_ruleset_paths,
+    ruleset_display_name,
+    unique_ruleset_paths,
+)
 from theme_manager import apply_dialog_theme
 from theme_widgets import ThemedBackgroundWidget
 from utils_paths import reveal_path
@@ -247,14 +257,11 @@ class ProfilesDialog(QDialog):
 
     def _commit_profile(self, index: int) -> None:
         profile = self._profiles[index]
-        rulesets = self._collect_rulesets()
-        active_ruleset = self._current_active_ruleset(rulesets, profile)
-        updated = replace(
+        updated, active_ruleset = commit_profile_edits(
             profile,
-            name=self.name_edit.text().strip() or profile.profile_id,
-            dataset_path=active_ruleset or profile.dataset_path,
-            rulesets=tuple(rulesets),
-            active_ruleset=active_ruleset,
+            name=self.name_edit.text(),
+            rulesets=self._collect_rulesets(),
+            override_active=self._active_ruleset_override,
         )
         self._profiles[index] = updated
         self._refresh_profile_list_labels()
@@ -262,16 +269,8 @@ class ProfilesDialog(QDialog):
             self._active_ruleset_override = active_ruleset
 
     def _load_rulesets(self, profile: Profile) -> None:
-        rulesets: list[str] = []
-        for path in profile.rulesets:
-            if path and path not in rulesets:
-                rulesets.append(path)
-        for path in (profile.dataset_path, profile.active_ruleset):
-            if path and path not in rulesets:
-                rulesets.append(path)
+        rulesets = profile_ruleset_paths(profile)
         active_ruleset = profile.active_ruleset or profile.dataset_path
-        if not rulesets and active_ruleset:
-            rulesets.append(active_ruleset)
         self._apply_rulesets(rulesets, active_ruleset)
 
     def _collect_rulesets(self) -> list[str]:
@@ -284,15 +283,6 @@ class ProfilesDialog(QDialog):
             if path and path not in rulesets:
                 rulesets.append(path)
         return rulesets
-
-    def _current_active_ruleset(self, rulesets: list[str], profile: Profile) -> Optional[str]:
-        if self._active_ruleset_override and self._active_ruleset_override in rulesets:
-            return self._active_ruleset_override
-        if profile.active_ruleset and profile.active_ruleset in rulesets:
-            return profile.active_ruleset
-        if rulesets:
-            return rulesets[0]
-        return None
 
     def _ruleset_label(self, path: str, active: Optional[str]) -> str:
         display_path = self._format_ruleset_display(path)
@@ -311,12 +301,12 @@ class ProfilesDialog(QDialog):
         )
         if not path:
             return
-        rulesets = self._collect_rulesets()
-        if path not in rulesets:
-            rulesets.append(path)
-        active = self._current_active_ruleset(rulesets, self._profiles[self._current_index])
-        if active is None:
-            active = path
+        rulesets, active = add_ruleset_to_editor_state(
+            self._profiles[self._current_index],
+            current_rulesets=self._collect_rulesets(),
+            added_path=path,
+            override_active=self._active_ruleset_override,
+        )
         self._apply_rulesets(rulesets, active)
         self._commit_current()
 
@@ -333,12 +323,12 @@ class ProfilesDialog(QDialog):
             return
         if not self._ensure_ruleset_file(path):
             return
-        rulesets = self._collect_rulesets()
-        if path not in rulesets:
-            rulesets.append(path)
-        active = self._current_active_ruleset(rulesets, self._profiles[self._current_index])
-        if active is None:
-            active = path
+        rulesets, active = add_ruleset_to_editor_state(
+            self._profiles[self._current_index],
+            current_rulesets=self._collect_rulesets(),
+            added_path=path,
+            override_active=self._active_ruleset_override,
+        )
         self._apply_rulesets(rulesets, active)
         self._commit_current()
 
@@ -348,9 +338,15 @@ class ProfilesDialog(QDialog):
         row = self.ruleset_list.currentRow()
         if row < 0:
             return
-        self.ruleset_list.takeItem(row)
-        rulesets = self._collect_rulesets()
-        active = self._current_active_ruleset(rulesets, self._profiles[self._current_index])
+        selected_path = self._selected_ruleset_path()
+        if not selected_path:
+            return
+        rulesets, active = remove_ruleset_from_editor_state(
+            self._profiles[self._current_index],
+            current_rulesets=self._collect_rulesets(),
+            removed_path=selected_path,
+            override_active=self._active_ruleset_override,
+        )
         self._apply_rulesets(rulesets, active)
         self._commit_current()
 
@@ -364,7 +360,12 @@ class ProfilesDialog(QDialog):
         if item is None:
             return
         active_path = item.data(Qt.UserRole) or item.text()
-        rulesets = self._collect_rulesets()
+        if not isinstance(active_path, str) or not active_path:
+            return
+        rulesets, active_path = set_active_ruleset_in_editor_state(
+            self._collect_rulesets(),
+            active_path=active_path,
+        )
         self._apply_rulesets(rulesets, active_path)
         self._commit_current()
 
@@ -375,7 +376,7 @@ class ProfilesDialog(QDialog):
 
     def _apply_rulesets(self, rulesets: list[str], active: Optional[str]) -> None:
         self._active_ruleset_override = active
-        unique_rulesets = [path for path in rulesets if path]
+        unique_rulesets = unique_ruleset_paths(rulesets)
         if active and active not in unique_rulesets:
             unique_rulesets.append(active)
         if not unique_rulesets:
