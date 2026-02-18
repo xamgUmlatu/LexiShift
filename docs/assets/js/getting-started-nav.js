@@ -20,18 +20,25 @@
     return;
   }
 
+  root.setAttribute("data-guide-nav-ready", "true");
+
   const linkById = new Map(
     links.map((link) => [link.getAttribute("href").slice(1), link]),
   );
+  const sectionById = new Map(sections.map((section) => [section.id, section]));
 
   let activeId = sections[0].id;
 
   const setActive = (id) => {
     const nextLink = linkById.get(id);
-    if (!nextLink) {
+    const nextSection = sectionById.get(id);
+    if (!nextLink || !nextSection) {
       return;
     }
     links.forEach((link) => link.classList.toggle("is-active", link === nextLink));
+    sections.forEach((section) =>
+      section.classList.toggle("is-current", section === nextSection),
+    );
     activeId = id;
   };
 
@@ -57,6 +64,7 @@
     });
   });
 
+  setActive(activeId);
   window.addEventListener("scroll", updateActive, { passive: true });
   window.addEventListener("resize", updateActive);
   updateActive();

@@ -4,20 +4,20 @@ This page is the canonical onboarding guide for the desktop GUI app and the fall
 
 Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.
 
-## Manual Chapters
+## Manual Sections
 
-1. [Chapter 1: First Launch and Workspace Orientation](#chapter-1-first-launch-and-workspace-orientation)
-2. [Chapter 2: Profile Management](#chapter-2-profile-management)
-3. [Chapter 3: Ruleset Management](#chapter-3-ruleset-management)
-4. [Chapter 4: Manual Rule Authoring](#chapter-4-manual-rule-authoring)
-5. [Chapter 5: Synonym Bulk Generation and Language Packs](#chapter-5-synonym-bulk-generation-and-language-packs)
-6. [Chapter 6: Import, Export, and Backup](#chapter-6-import-export-and-backup)
-7. [Chapter 7: Chrome Extension Runtime Setup](#chapter-7-chrome-extension-runtime-setup)
-8. [Chapter 8: BetterDiscord Plugin Setup](#chapter-8-betterdiscord-plugin-setup)
-9. [Chapter 9: SRS Setup and Expectations](#chapter-9-srs-setup-and-expectations)
-10. [Chapter 10: Troubleshooting and FAQ](#chapter-10-troubleshooting-and-faq)
+1. First Launch and Workspace Orientation
+2. Profile Management
+3. Ruleset Management
+4. Manual Rule Authoring
+5. Synonym Bulk Generation and Language Packs
+6. Import, Export, and Backup
+7. Chrome Extension Runtime Setup
+8. BetterDiscord Plugin Setup
+9. SRS Setup and Expectations
+10. Troubleshooting and FAQ
 
-## Chapter 1: First Launch and Workspace Orientation
+## 1. First Launch and Workspace Orientation
 
 Goal: create a clean authoring baseline before you add any rules.
 
@@ -31,7 +31,7 @@ The GUI is the authoring tool. Runtime replacement happens in the extension/plug
 > Screenshot placeholder: `images/ch01-first-launch-workspace.png`  
 > Capture: initial GUI view with profile/ruleset selectors visible.
 
-## Chapter 2: Profile Management
+## 2. Profile Management
 
 Profiles are top-level containers. They define the active working context and hold links to one or more rulesets.
 
@@ -44,7 +44,7 @@ Recommended structure: one profile per workflow, multiple rulesets per profile, 
 > Screenshot placeholder: `images/ch02-manage-profiles-dialog.png`  
 > Capture: profile list, create/delete controls, active-profile indicator.
 
-## Chapter 3: Ruleset Management
+## 3. Ruleset Management
 
 Rulesets are where actual replacements live.
 
@@ -58,7 +58,7 @@ Runtime surfaces use these rulesets directly (local rules + optional helper-gene
 > Screenshot placeholder: `images/ch03-ruleset-management.png`  
 > Capture: create/link actions and active ruleset selected in top controls.
 
-## Chapter 4: Manual Rule Authoring
+## 4. Manual Rule Authoring
 
 LexiShift replacement is deterministic: left-to-right longest-match using a trie with whitespace-preserving output.
 
@@ -72,7 +72,7 @@ Start with high-confidence manual rules before widening coverage with generated 
 > Screenshot placeholder: `images/ch04-manual-rule-editing.png`  
 > Capture: rules table with source/replacement columns and one metadata edit.
 
-## Chapter 5: Synonym Bulk Generation and Language Packs
+## 5. Synonym Bulk Generation and Language Packs
 
 Bulk Add lets you scale rules quickly from installed dictionaries and language-pair pipelines.
 
@@ -86,7 +86,7 @@ Use conservative confidence thresholds first, then loosen only after reviewing g
 > Screenshot placeholder: `images/ch05-language-packs-bulk-add.png`  
 > Capture: Settings -> App language-pack manager plus synonym bulk-add dialog.
 
-## Chapter 6: Import, Export, and Backup
+## 6. Import, Export, and Backup
 
 LexiShift supports both ruleset-level and profile-level portability.
 
@@ -100,7 +100,7 @@ Practical backup pattern: daily JSON export + milestone export before dictionary
 > Screenshot placeholder: `images/ch06-import-export-actions.png`  
 > Capture: File menu import/export options for rulesets and profiles.
 
-## Chapter 7: Chrome Extension Runtime Setup
+## 7. Chrome Extension Runtime Setup
 
 The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
 
@@ -144,7 +144,7 @@ This is also where SRS feedback is captured during real reading.
 > Screenshot placeholder: `images/ch07-extension-module-preferences.png`  
 > Capture: per-profile module enable/disable, drag reorder, and color preview controls.
 
-## Chapter 8: BetterDiscord Plugin Setup
+## 8. BetterDiscord Plugin Setup
 
 BetterDiscord uses the same replacement core and is best for chat/message environments.
 
@@ -157,9 +157,9 @@ Keep plugin and extension rulesets aligned when you want consistent vocabulary e
 > Screenshot placeholder: `images/ch08-betterdiscord-plugin.png`  
 > Capture: plugin settings panel and a message with replacement highlighting.
 
-## Chapter 9: SRS Setup and Expectations
+## 9. SRS Setup and Expectations
 
-This is the most important chapter. SRS behavior lives in the extension plus helper loop: initialize set `S`, collect feedback, refresh admissions, republish rules.
+This is the most important section. SRS behavior lives in the extension plus helper loop: initialize set `S`, collect feedback, refresh admissions, republish rules.
 
 ### Section 9.1: SRS model you should assume
 
@@ -228,7 +228,7 @@ Advanced-only tool: sampled rulegen preview is useful for non-mutating inspectio
 > Screenshot placeholder: `images/ch09-srs-diagnostics.png`  
 > Capture: runtime diagnostics output including helper/store/ruleset/cache count summary.
 
-## Chapter 10: Troubleshooting and FAQ
+## 10. Troubleshooting and FAQ
 
 ### No replacements are happening
 

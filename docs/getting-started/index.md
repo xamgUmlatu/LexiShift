@@ -3,9 +3,42 @@ layout: default
 title: LexiShift Getting Started
 ---
 
+<script>
+(() => {
+  const key = "lexishift_guide_theme";
+  let theme = "dark";
+  try {
+    const saved = localStorage.getItem(key);
+    theme = saved === "light" ? "light" : "dark";
+  } catch (_error) {
+    theme = "dark";
+  }
+  document.documentElement.setAttribute("data-guide-theme", theme);
+})();
+</script>
+
 <div class="guide-layout" data-guide-nav>
-  <aside class="guide-rail" aria-label="Getting started chapters">
-    <p class="guide-rail__title">Chapters</p>
+  <button
+    class="guide-theme-toggle"
+    type="button"
+    aria-label="Switch to light mode"
+    title="Switch to light mode"
+    data-guide-theme-toggle
+  >
+    <span class="guide-theme-toggle__icon guide-theme-toggle__icon--sun" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" focusable="false">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
+      </svg>
+    </span>
+    <span class="guide-theme-toggle__icon guide-theme-toggle__icon--moon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" focusable="false">
+        <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 1 0 10.7 10.7z"></path>
+      </svg>
+    </span>
+  </button>
+  <aside class="guide-rail" aria-label="Getting started sections">
+    <p class="guide-rail__title">Sections</p>
     <a class="guide-rail__link is-active" href="#chapter-1">1. First Launch</a>
     <a class="guide-rail__link" href="#chapter-2">2. Profiles</a>
     <a class="guide-rail__link" href="#chapter-3">3. Rulesets</a>
@@ -32,7 +65,7 @@ title: LexiShift Getting Started
     </header>
 
     <section id="chapter-1" class="guide-section" data-guide-section>
-      <h2>Chapter 1: First Launch and Workspace Orientation</h2>
+      <h2>1. First Launch and Workspace Orientation</h2>
       <p>Goal: create a clean authoring baseline before you add any rules.</p>
       <ol>
         <li>Launch the desktop GUI app.</li>
@@ -52,7 +85,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-2" class="guide-section" data-guide-section>
-      <h2>Chapter 2: Profile Management</h2>
+      <h2>2. Profile Management</h2>
       <p>
         Profiles are top-level containers. They define the active working context and hold links to one or more rulesets.
       </p>
@@ -72,7 +105,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-3" class="guide-section" data-guide-section>
-      <h2>Chapter 3: Ruleset Management</h2>
+      <h2>3. Ruleset Management</h2>
       <p>Rulesets are where actual replacements live.</p>
       <ul>
         <li>Create a new ruleset for new work.</li>
@@ -92,7 +125,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-4" class="guide-section" data-guide-section>
-      <h2>Chapter 4: Manual Rule Authoring</h2>
+      <h2>4. Manual Rule Authoring</h2>
       <p>
         LexiShift replacement is deterministic: left-to-right longest-match using a trie with whitespace-preserving output.
       </p>
@@ -113,7 +146,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-5" class="guide-section" data-guide-section>
-      <h2>Chapter 5: Synonym Bulk Generation and Language Packs</h2>
+      <h2>5. Synonym Bulk Generation and Language Packs</h2>
       <p>
         Bulk Add lets you scale rules quickly from installed dictionaries and language-pair pipelines.
       </p>
@@ -134,7 +167,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-6" class="guide-section" data-guide-section>
-      <h2>Chapter 6: Import, Export, and Backup</h2>
+      <h2>6. Import, Export, and Backup</h2>
       <p>LexiShift supports both ruleset-level and profile-level portability.</p>
       <ul>
         <li>Export rulesets as JSON or share code.</li>
@@ -153,7 +186,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-7" class="guide-section" data-guide-section>
-      <h2>Chapter 7: Chrome Extension Runtime Setup</h2>
+      <h2>7. Chrome Extension Runtime Setup</h2>
       <p>
         The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
         Browser support in this guide is Chrome-only for now.
@@ -202,7 +235,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-8" class="guide-section" data-guide-section>
-      <h2>Chapter 8: BetterDiscord Plugin Setup</h2>
+      <h2>8. BetterDiscord Plugin Setup</h2>
       <p>
         BetterDiscord uses the same replacement core and is best for chat/message environments.
       </p>
@@ -222,9 +255,9 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-9" class="guide-section" data-guide-section>
-      <h2>Chapter 9: SRS Setup and Expectations</h2>
+      <h2>9. SRS Setup and Expectations</h2>
       <p>
-        This is the most important chapter. SRS behavior lives in the extension plus helper loop:
+        This is the most important section. SRS behavior lives in the extension plus helper loop:
         initialize set <code>S</code>, collect feedback, refresh admissions, republish rules.
       </p>
       <h3>Section 9.1: SRS model you should assume</h3>
@@ -307,7 +340,7 @@ title: LexiShift Getting Started
     </section>
 
     <section id="chapter-10" class="guide-section" data-guide-section>
-      <h2>Chapter 10: Troubleshooting and FAQ</h2>
+      <h2>10. Troubleshooting and FAQ</h2>
       <h3>No replacements are happening</h3>
       <ul>
         <li>Confirm the active profile and active ruleset in GUI and runtime surface.</li>
@@ -340,3 +373,4 @@ title: LexiShift Getting Started
 </div>
 
 <script src="{{ '/assets/js/getting-started-nav.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/getting-started-theme.js' | relative_url }}" defer></script>
