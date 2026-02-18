@@ -9,8 +9,8 @@
     "integrations": "連携"
   },
   "buttons": {
-    "manage_profiles": "管理...",
-    "manage_rulesets": "ルールセット...",
+    "manage_profiles": "管理",
+    "manage_rulesets": "管理",
     "save_profiles": "プロファイルを保存",
     "select_ruleset": "選択...",
     "save_ruleset": "ルールセットを保存",

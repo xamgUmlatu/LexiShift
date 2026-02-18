@@ -9,8 +9,8 @@
     "integrations": "Integrationen"
   },
   "buttons": {
-    "manage_profiles": "Verwalten...",
-    "manage_rulesets": "Regelsätze...",
+    "manage_profiles": "Verwalten",
+    "manage_rulesets": "Verwalten",
     "save_profiles": "Profile speichern",
     "select_ruleset": "Auswählen...",
     "save_ruleset": "Regelsatz speichern",

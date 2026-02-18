@@ -9,8 +9,8 @@
     "integrations": "Integrations"
   },
   "buttons": {
-    "manage_profiles": "Manage...",
-    "manage_rulesets": "Rulesets...",
+    "manage_profiles": "Manage",
+    "manage_rulesets": "Manage",
     "save_profiles": "Save Profiles",
     "select_ruleset": "Select...",
     "save_ruleset": "Save Ruleset",

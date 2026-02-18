@@ -9,8 +9,8 @@
     "integrations": "集成"
   },
   "buttons": {
-    "manage_profiles": "管理...",
-    "manage_rulesets": "规则集...",
+    "manage_profiles": "管理",
+    "manage_rulesets": "管理",
     "save_profiles": "保存配置文件",
     "select_ruleset": "选择...",
     "save_ruleset": "保存规则集",
