@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "preflight:cws": "node dev/cws_preflight.js",
     "build:bd": "node betterdiscord_plugin/build_plugin.js",
     "watch:bd": "node betterdiscord_plugin/watch_plugin.js",
     "sync:bd": "node betterdiscord_plugin/sync_plugin.js",

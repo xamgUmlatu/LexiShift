@@ -437,6 +437,11 @@ Current limitations
   - Normalize layout density and visual consistency across locales, themes, and window sizes.
   - Simplify settings information architecture so language packs, profiles, and SRS controls are easier to find.
   - Define and implement keyboard shortcuts for profile/ruleset workflows after the Manage Profiles UX architecture is finalized.
+  - Fix squished UI elements in settings of core app.
+  - Fix ghost ruleset populated in ruleset selection UI in core app when no ruleset exists.
+- TODO (getting-started guide completion):
+  - Complete the manual end-to-end (all sections finalized, screenshots added, and setup steps verified against current UI labels).
+  - Keep guide steps synchronized with extension/core app releases when labels or flow change.
 - TODO (ruleset display/highlight settings):
   - Move manual rules display/highlight controls into per-ruleset settings (not one shared/manual-only setting).
   - Per-ruleset settings:
@@ -467,6 +472,7 @@ Current limitations
   - Check and improve the accuracy of generated romaji for Japanese words.
 - TODO (rule generation quality):
   - Improve rulegen quality by making generation/scoring shallower and higher precision.
+  - Improve SRS rulegen quality (helper-published rules) for better pedagogical precision and fewer broad/ambiguous outputs.
   - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
   - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
 - TODO (pair-specific morphology expansion):
