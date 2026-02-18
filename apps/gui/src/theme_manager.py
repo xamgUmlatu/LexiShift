@@ -49,6 +49,7 @@ def resolve_current_theme(*, screen_id: str | None = None) -> dict:
     return resolve_theme(current_theme_id(), screen_id=screen_id)
 
 
+# Utility used for FTUE globe badge tinting.
 def _blue_darker(hex_color: str, *, darken: float = 0.88, blue_boost: int = 16) -> str:
     raw = str(hex_color or "").strip()
     if not raw.startswith("#"):
@@ -70,6 +71,7 @@ def _blue_darker(hex_color: str, *, darken: float = 0.88, blue_boost: int = 16) 
     return f"#{r:02X}{g:02X}{b:02X}"
 
 
+# Shared color parsing/blending + contrast helpers keep text readable across themes.
 def _parse_hex_rgb(hex_color: str) -> tuple[int, int, int] | None:
     raw = str(hex_color or "").strip()
     if not raw.startswith("#"):
@@ -144,6 +146,7 @@ def build_base_styles(theme: dict) -> str:
     ftue_badge_text = _best_text_color(ftue_badge_bg)
     empty_guide_bg = _blend_hex([theme["primary_hover"], theme["primary"]], fallback=theme["primary"])
     empty_guide_text = _best_text_color(empty_guide_bg)
+    # Popup sheen tones for the main-window profile/ruleset dropdown list panel.
     popup_sheen_soft = _blend_hex([theme["table_bg"], "#FFFFFF"], fallback=theme["table_bg"])
     popup_sheen_hot = _blend_hex([theme["table_bg"], "#FFFFFF", "#FFFFFF"], fallback=popup_sheen_soft)
     popup_shadow_edge = _blend_hex([theme["panel_border"], theme["accent_soft"]], fallback=theme["panel_border"])
@@ -166,6 +169,7 @@ QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
   border-radius: 10px;
   padding: 7px 9px;
 }}
+/* Main window profile/ruleset selector popup only (objectName: profileRulesetPopup). */
 QAbstractItemView#profileRulesetPopup {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {popup_sheen_hot},

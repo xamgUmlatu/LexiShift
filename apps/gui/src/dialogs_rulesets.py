@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import replace
-import os
-from pathlib import Path
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
@@ -21,6 +19,7 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, load_vocab_dataset
 from i18n import t
+from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
 from theme_manager import apply_dialog_theme
 from theme_widgets import ThemedBackgroundWidget
 from utils_paths import reveal_path
@@ -138,7 +137,7 @@ class RulesetLibraryDialog(QDialog):
         selected_index = -1
         for index, path in enumerate(self._ruleset_paths):
             display = self._ruleset_display_name(path)
-            resolved = Path(os.path.abspath(os.path.expanduser(path)))
+            resolved = normalize_ruleset_path(path)
             if not resolved.exists():
                 display = t("ruleset.missing", label=display)
             item = QListWidgetItem(display)
@@ -190,7 +189,7 @@ class RulesetLibraryDialog(QDialog):
         names = ", ".join(profile.name or profile.profile_id for profile in linked_profiles) or "(none)"
         self.path_label.setText(t("dialogs.manage_rulesets.path", path=path))
         self.details_label.setText(t("dialogs.manage_rulesets.linked_profiles", names=names))
-        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        resolved = normalize_ruleset_path(path)
         if not resolved.exists():
             self.status_label.setText(t("dialogs.manage_rulesets.status_missing"))
         else:
@@ -249,7 +248,7 @@ class RulesetLibraryDialog(QDialog):
         if second_confirm.exec() != QMessageBox.Yes:
             return
 
-        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        resolved = normalize_ruleset_path(path)
         if resolved.exists() and resolved.is_file():
             try:
                 resolved.unlink()
@@ -285,7 +284,7 @@ class RulesetLibraryDialog(QDialog):
         self._profiles = updated
 
     def _render_rules_preview(self, path: str) -> None:
-        resolved = Path(os.path.abspath(os.path.expanduser(path)))
+        resolved = normalize_ruleset_path(path)
         if not resolved.exists() or not resolved.is_file():
             self.rules_count_label.setText(t("dialogs.manage_rulesets.rules_count", count=0))
             self.rules_preview.setPlainText(t("dialogs.manage_rulesets.preview_missing"))
@@ -318,12 +317,7 @@ class RulesetLibraryDialog(QDialog):
         self.rules_preview.setPlainText("\n".join(lines))
 
     def _ruleset_display_name(self, path: str) -> str:
-        normalized = Path(os.path.abspath(os.path.expanduser(path)))
-        name = normalized.stem.strip()
-        if name:
-            return name
-        raw_name = Path(path).name
-        return raw_name or path
+        return ruleset_display_name(path)
 
     def _set_button_variant(self, button: QPushButton | None, variant: str) -> None:
         if button is None:

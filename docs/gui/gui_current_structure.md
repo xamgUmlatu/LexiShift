@@ -1,6 +1,6 @@
 # GUI Current Structure
 
-Last updated: 2026-02-17
+Last updated: 2026-02-18
 
 ## Purpose
 
@@ -45,11 +45,24 @@ These cards are the primary quick-switch controls.
 
 ### Rules Table
 
-`RulesTableView` renders active rules from the currently loaded dataset.
+`RulesTableView` (`apps/gui/src/rules_table_view.py`) renders active rules from the currently loaded dataset.
 
 - Supports sorting via proxy model (`QSortFilterProxyModel`).
 - Uses a custom delete delegate for prominent delete actions.
 - Shows a themed empty-state card when no rules exist.
+- Includes a contextual guide affordance: a small circular `?` button in the empty card.
+  - This button opens the setup guide URL used for onboarding/help.
+
+### Instruction Entry Points
+
+Current instruction surface in the app:
+
+1. `Help` menu -> `Open Setup Guide`
+2. Rules table empty-state `?` button (contextual onboarding affordance)
+
+The setup guide currently targets:
+
+- `docs/getting-started/README.md`
 
 ### Replacements Panel
 
@@ -61,9 +74,17 @@ The replacements panel is always available on the right side and includes:
 
 This panel controls synonym-filter threshold behavior for selected replacement words.
 
+### No-Profile Workspace
+
+When no profiles exist, the editor workspace is replaced with an empty workspace mode:
+
+1. `Create New Profile` button
+2. `Import Existing Profile` button
+3. Segmented locale control (decorative globe badge + locale selector)
+
 ## Utility Dock
 
-Utility Dock lives in `apps/gui/src/main.py`:
+Utility Dock lives in `apps/gui/src/utility_dock.py` and is hosted by `MainWindow`:
 
 1. `UtilityDockPanel`: one collapsible panel with header, content, and unread badge
 2. `UtilityDock`: panel container with add/query/toggle helpers
@@ -89,10 +110,8 @@ Styling hooks are in `apps/gui/src/theme_manager.py`:
 
 `ProfilesDialog` (`apps/gui/src/dialogs_profiles.py`) uses a left-right management layout:
 
-1. Left: profile list + create/delete/set-startup actions
-2. Right top: selected profile details (`Profile ID`, `Name`, active ruleset combo)
-3. Right bottom left: linked rulesets list + link/create/unlink actions
-4. Right bottom right: selected ruleset details + set-active/reveal actions
+1. Left: profile list + create/delete actions + editable profile name
+2. Right: linked rulesets list + link/create/set-active/reveal/unlink actions
 
 Important behavior:
 

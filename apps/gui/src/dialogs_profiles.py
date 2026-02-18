@@ -27,6 +27,7 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, VocabDataset, save_vocab_dataset
 from i18n import t
+from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
 from theme_manager import apply_dialog_theme
 from theme_widgets import ThemedBackgroundWidget
 from utils_paths import reveal_path
@@ -501,18 +502,13 @@ class ProfilesDialog(QDialog):
 
     def _format_ruleset_display(self, path: str) -> str:
         display_name = self._ruleset_display_name(path)
-        normalized = Path(os.path.abspath(os.path.expanduser(path)))
+        normalized = normalize_ruleset_path(path)
         if not normalized.exists():
             return t("ruleset.missing", label=display_name)
         return display_name
 
     def _ruleset_display_name(self, path: str) -> str:
-        normalized = Path(os.path.abspath(os.path.expanduser(path)))
-        name = normalized.stem.strip()
-        if name:
-            return name
-        raw_name = Path(path).name
-        return raw_name or path
+        return ruleset_display_name(path)
 
     def _populate_profile_list(self) -> None:
         self.list_widget.clear()

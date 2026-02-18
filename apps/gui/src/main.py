@@ -26,13 +26,12 @@ from PySide6.QtCore import (
     QSettings,
     QSortFilterProxyModel,
     QStandardPaths,
-    QSize,
     QThread,
     Qt,
     Signal,
 )
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
-from PySide6.QtGui import QAction, QActionGroup, QColor, QPainter, QPen, QTextCharFormat, QTextCursor
+from PySide6.QtGui import QAction, QActionGroup, QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QApplication,
     QComboBox,
@@ -52,8 +51,6 @@ from PySide6.QtWidgets import (
     QSlider,
     QSplitter,
     QStackedWidget,
-    QStyledItemDelegate,
-    QTableView,
     QTextEdit,
     QStyle,
     QWidget,
@@ -101,6 +98,8 @@ from dialogs_profiles import CreateProfileDialog, ProfilesDialog
 from dialogs_rulesets import RulesetLibraryDialog
 from i18n import available_locales, normalize_locale, set_locale, t
 from models import RulesTableModel
+from profile_ruleset_utils import normalize_ruleset_path, ruleset_display_name
+from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
 from theme_assets import ensure_sample_images, ensure_sample_themes
 from theme_loader import theme_dir
@@ -108,314 +107,11 @@ from theme_logger import set_log_handler
 from helper_logger import set_helper_log_handler
 from theme_manager import build_base_styles, resolve_current_theme
 from theme_widgets import ThemedBackgroundWidget, apply_theme_background
+from utility_dock import UtilityDock
 from utils_paths import reveal_path
 
+# Single source for "open instructions" actions (Help menu + empty-state affordances).
 SETUP_GUIDE_URL = "https://github.com/xamgUmlatu/LexiShift/blob/main/docs/getting-started/README.md"
-
-
-class DeleteButtonDelegate(QStyledItemDelegate):
-    def __init__(self, parent=None) -> None:
-        super().__init__(parent)
-        self._color = QColor("#D64545")
-        self._hover_color = QColor("#C73C3C")
-
-    def set_colors(self, color: QColor, hover_color: QColor) -> None:
-        self._color = QColor(color)
-        self._hover_color = QColor(hover_color)
-
-    def paint(self, painter: QPainter, option, index) -> None:
-        painter.save()
-        rect = option.rect.adjusted(6, 4, -6, -4)
-        hover = option.state & QStyle.State_MouseOver
-        color = self._hover_color if hover else self._color
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(color)
-        painter.setPen(Qt.NoPen)
-        painter.drawRoundedRect(rect, 4, 4)
-        painter.setPen(Qt.white)
-        painter.drawText(rect, Qt.AlignCenter, t("buttons.delete"))
-        painter.restore()
-
-    def sizeHint(self, option, index):
-        size = super().sizeHint(option, index)
-        return size.expandedTo(QSize(64, size.height()))
-
-
-class RulesTableView(QTableView):
-    emptyGuideRequested = Signal()
-
-    def __init__(self, parent=None) -> None:
-        super().__init__(parent)
-        self._empty_title = t("rules_table.empty_title")
-        self._empty_hint = t("rules_table.empty_hint")
-        self._show_empty_guide_button = False
-        self._empty_palette = {
-            "card_bg": QColor("#F5F2E9"),
-            "card_border": QColor("#D5CBB8"),
-            "title": QColor("#2C2A24"),
-            "hint": QColor("#6F6558"),
-            "accent": QColor("#4A7DB8"),
-        }
-        self._empty_guide_button = QPushButton("?", self.viewport())
-        self._empty_guide_button.setProperty("emptyGuideFab", True)
-        self._empty_guide_button.setFixedSize(28, 28)
-        self._empty_guide_button.setToolTip(t("rules_table.open_setup_guide"))
-        self._empty_guide_button.setVisible(False)
-        self._empty_guide_button.clicked.connect(lambda _checked=False: self.emptyGuideRequested.emit())
-
-    def set_empty_palette(
-        self,
-        *,
-        card_bg: str,
-        card_border: str,
-        title: str,
-        hint: str,
-        accent: str,
-    ) -> None:
-        self._empty_palette = {
-            "card_bg": QColor(card_bg),
-            "card_border": QColor(card_border),
-            "title": QColor(title),
-            "hint": QColor(hint),
-            "accent": QColor(accent),
-        }
-        self.viewport().update()
-
-    def set_empty_guide_button_visible(self, visible: bool) -> None:
-        self._show_empty_guide_button = bool(visible)
-        self._sync_empty_guide_button_visibility()
-
-    def _empty_card_geometry(self) -> tuple[int, int, int, int]:
-        rect = self.viewport().rect()
-        card_width = min(620, max(300, rect.width() - 88))
-        card_height = 136
-        card_x = rect.center().x() - card_width // 2
-        card_y = rect.center().y() - card_height // 2
-        return card_x, card_y, card_width, card_height
-
-    def _sync_empty_guide_button_visibility(self) -> None:
-        model = self.model()
-        is_empty = model is not None and model.rowCount() == 0
-        show = self._show_empty_guide_button and is_empty
-        self._empty_guide_button.setVisible(show)
-        if not show:
-            return
-        card_x, card_y, card_width, card_height = self._empty_card_geometry()
-        button_width = self._empty_guide_button.width()
-        button_height = self._empty_guide_button.height()
-        x = card_x + card_width - button_width - 12
-        y = card_y + 10
-        self._empty_guide_button.setGeometry(x, y, button_width, button_height)
-        self._empty_guide_button.raise_()
-
-    def resizeEvent(self, event) -> None:
-        super().resizeEvent(event)
-        self._sync_empty_guide_button_visibility()
-
-    def paintEvent(self, event) -> None:
-        super().paintEvent(event)
-        model = self.model()
-        if model is None or model.rowCount() > 0:
-            self._empty_guide_button.setVisible(False)
-            return
-        rect = self.viewport().rect()
-        if rect.width() < 260 or rect.height() < 150:
-            self._empty_guide_button.setVisible(False)
-            return
-
-        card_x, card_y, card_width, card_height = self._empty_card_geometry()
-
-        painter = QPainter(self.viewport())
-        painter.setRenderHint(QPainter.Antialiasing)
-
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(self._empty_palette["card_bg"])
-        painter.drawRoundedRect(card_x, card_y, card_width, card_height, 18, 18)
-
-        painter.setPen(QPen(self._empty_palette["card_border"], 2))
-        painter.setBrush(Qt.NoBrush)
-        painter.drawRoundedRect(card_x, card_y, card_width, card_height, 18, 18)
-
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(self._empty_palette["accent"])
-        painter.drawRoundedRect(card_x + 20, card_y + 20, 44, 8, 4, 4)
-
-        title_font = painter.font()
-        title_font.setBold(True)
-        title_font.setPointSize(max(11, title_font.pointSize() + 1))
-        painter.setFont(title_font)
-        painter.setPen(self._empty_palette["title"])
-        painter.drawText(
-            card_x + 20,
-            card_y + 34,
-            card_width - 40,
-            34,
-            Qt.AlignLeft | Qt.AlignVCenter,
-            self._empty_title,
-        )
-
-        hint_font = painter.font()
-        hint_font.setBold(False)
-        hint_font.setPointSize(max(9, hint_font.pointSize() - 1))
-        painter.setFont(hint_font)
-        painter.setPen(self._empty_palette["hint"])
-        painter.drawText(
-            card_x + 20,
-            card_y + 68,
-            card_width - 40,
-            48,
-            Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap,
-            self._empty_hint,
-        )
-        painter.end()
-        self._sync_empty_guide_button_visibility()
-
-
-class UtilityDockPanel(QWidget):
-    toggled = Signal(bool)
-
-    def __init__(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False, parent=None) -> None:
-        super().__init__(parent)
-        self._panel_id = str(panel_id or "")
-        self._title = str(title or "")
-        self._expanded = bool(expanded)
-        self._unread_count = 0
-        self.setProperty("utilityDockPanel", True)
-
-        self.header_button = QPushButton()
-        self.header_button.setCheckable(True)
-        self.header_button.setProperty("variant", "secondary")
-        self.header_button.setProperty("dockHeader", True)
-        self.header_button.clicked.connect(self._on_toggle_clicked)
-
-        self.badge_label = QLabel("")
-        self.badge_label.setProperty("utilityDockBadge", True)
-        self.badge_label.setAlignment(Qt.AlignCenter)
-        self.badge_label.setVisible(False)
-
-        self._content = content
-        self._content_container = QWidget()
-        content_layout = QVBoxLayout(self._content_container)
-        content_layout.setContentsMargins(0, 0, 0, 0)
-        content_layout.setSpacing(0)
-        content_layout.addWidget(self._content)
-
-        row = QHBoxLayout()
-        row.setContentsMargins(0, 0, 0, 0)
-        row.setSpacing(8)
-        row.addWidget(self.header_button, 1)
-        row.addWidget(self.badge_label)
-
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(6)
-        layout.addLayout(row)
-        layout.addWidget(self._content_container, 1)
-
-        self.set_expanded(self._expanded)
-
-    def panel_id(self) -> str:
-        return self._panel_id
-
-    def is_expanded(self) -> bool:
-        return self._expanded
-
-    def set_expanded(self, expanded: bool) -> None:
-        self._expanded = bool(expanded)
-        self._content_container.setVisible(self._expanded)
-        self.header_button.blockSignals(True)
-        self.header_button.setChecked(self._expanded)
-        self.header_button.blockSignals(False)
-        if self._expanded:
-            self.clear_unread()
-        self._sync_header_text()
-        if self._expanded:
-            self.setMinimumHeight(0)
-            self.setMaximumHeight(16777215)
-            return
-        collapsed_height = self.header_button.sizeHint().height() + 10
-        self.setMinimumHeight(collapsed_height)
-        self.setMaximumHeight(collapsed_height)
-
-    def set_unread_count(self, count: int) -> None:
-        self._unread_count = max(0, int(count))
-        if self._expanded:
-            self._unread_count = 0
-        self.badge_label.setVisible(self._unread_count > 0)
-        if self._unread_count > 0:
-            self.badge_label.setText(str(self._unread_count))
-
-    def clear_unread(self) -> None:
-        self.set_unread_count(0)
-
-    def increment_unread(self) -> None:
-        self.set_unread_count(self._unread_count + 1)
-
-    def refresh_geometry_hint(self) -> None:
-        self.set_expanded(self._expanded)
-
-    def _on_toggle_clicked(self, checked: bool) -> None:
-        self.set_expanded(bool(checked))
-        self.toggled.emit(self._expanded)
-
-    def _sync_header_text(self) -> None:
-        arrow = "▾" if self._expanded else "▸"
-        self.header_button.setText(f"{arrow} {self._title}")
-
-
-class UtilityDock(QWidget):
-    panelToggled = Signal(str, bool)
-
-    def __init__(self, parent=None) -> None:
-        super().__init__(parent)
-        self._panels: dict[str, UtilityDockPanel] = {}
-        self._layout = QVBoxLayout(self)
-        self._layout.setContentsMargins(0, 0, 0, 0)
-        self._layout.setSpacing(8)
-        self._layout.addStretch(1)
-
-    def add_panel(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False) -> UtilityDockPanel:
-        panel_key = str(panel_id or "").strip()
-        if not panel_key:
-            raise ValueError("panel_id is required")
-        if panel_key in self._panels:
-            raise ValueError(f"panel already exists: {panel_key}")
-        panel = UtilityDockPanel(panel_key, title, content, expanded=expanded, parent=self)
-        panel.toggled.connect(lambda state, key=panel_key: self.panelToggled.emit(key, bool(state)))
-        self._panels[panel_key] = panel
-        self._layout.insertWidget(max(0, self._layout.count() - 1), panel)
-        return panel
-
-    def panel(self, panel_id: str) -> Optional[UtilityDockPanel]:
-        return self._panels.get(str(panel_id or "").strip())
-
-    def is_panel_expanded(self, panel_id: str) -> bool:
-        panel = self.panel(panel_id)
-        if panel is None:
-            return False
-        return panel.is_expanded()
-
-    def set_panel_expanded(self, panel_id: str, expanded: bool) -> None:
-        panel = self.panel(panel_id)
-        if panel is None:
-            return
-        panel.set_expanded(bool(expanded))
-
-    def increment_unread(self, panel_id: str) -> None:
-        panel = self.panel(panel_id)
-        if panel is None:
-            return
-        panel.increment_unread()
-
-    def clear_unread(self, panel_id: str) -> None:
-        panel = self.panel(panel_id)
-        if panel is None:
-            return
-        panel.clear_unread()
-
-    def refresh_geometry_hint(self) -> None:
-        for panel in self._panels.values():
-            panel.refresh_geometry_hint()
 
 
 class EmbeddingLoaderThread(QThread):
@@ -460,6 +156,7 @@ class MainWindow(QMainWindow):
         self._profile_combo_updating = False
         self.profile_combo = QComboBox()
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
+        # Style only the popup list (not the closed combo) for main workspace selectors.
         self.profile_combo.view().setObjectName("profileRulesetPopup")
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
@@ -468,6 +165,7 @@ class MainWindow(QMainWindow):
         self._ruleset_combo_updating = False
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
+        # Reuse the same popup styling hook as profile selector for visual consistency.
         self.ruleset_combo.view().setObjectName("profileRulesetPopup")
         self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
@@ -2519,9 +2217,9 @@ QMenu::separator {{
         for idx, path in enumerate(ruleset_paths):
             if not path:
                 continue
-            label = MainWindow._ruleset_display_name(self, path)
+            label = ruleset_display_name(path)
             display = label
-            if not Path(path).exists():
+            if not normalize_ruleset_path(path).exists():
                 display = t("ruleset.missing", label=label)
             self.ruleset_combo.addItem(display, path)
             self.ruleset_combo.setItemData(idx, path, Qt.ToolTipRole)
@@ -2541,18 +2239,11 @@ QMenu::separator {{
             self.rules_table.set_empty_guide_button_visible(False)
             return
         active_path = self._active_ruleset_path(profile)
-        resolved_path = Path(os.path.abspath(os.path.expanduser(active_path))) if active_path else None
+        resolved_path = normalize_ruleset_path(active_path) if active_path else None
         missing_ruleset = resolved_path is None or not resolved_path.exists()
         empty_rules = self.rules_model.rowCount() == 0
+        # Show contextual guidance when users have no editable rules loaded yet.
         self.rules_table.set_empty_guide_button_visible(empty_rules or missing_ruleset)
-
-    def _ruleset_display_name(self, path: str) -> str:
-        normalized = Path(os.path.abspath(os.path.expanduser(path)))
-        name = normalized.stem.strip()
-        if name:
-            return name
-        raw_name = Path(path).name
-        return raw_name or path
 
     def _rebuild_profiles_menu(self) -> None:
         if not hasattr(self, "_profiles_menu"):
