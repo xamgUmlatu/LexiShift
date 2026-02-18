@@ -70,14 +70,80 @@ def _blue_darker(hex_color: str, *, darken: float = 0.88, blue_boost: int = 16) 
     return f"#{r:02X}{g:02X}{b:02X}"
 
 
+def _parse_hex_rgb(hex_color: str) -> tuple[int, int, int] | None:
+    raw = str(hex_color or "").strip()
+    if not raw.startswith("#"):
+        return None
+    token = raw[1:]
+    if len(token) == 3:
+        token = "".join(ch * 2 for ch in token)
+    if len(token) != 6:
+        return None
+    try:
+        return int(token[0:2], 16), int(token[2:4], 16), int(token[4:6], 16)
+    except ValueError:
+        return None
+
+
+def _blend_hex(colors: list[str], *, fallback: str) -> str:
+    parsed: list[tuple[int, int, int]] = []
+    for color in colors:
+        rgb = _parse_hex_rgb(color)
+        if rgb is not None:
+            parsed.append(rgb)
+    if not parsed:
+        return fallback
+    r = int(sum(item[0] for item in parsed) / len(parsed))
+    g = int(sum(item[1] for item in parsed) / len(parsed))
+    b = int(sum(item[2] for item in parsed) / len(parsed))
+    return f"#{r:02X}{g:02X}{b:02X}"
+
+
+def _channel_linear(value: int) -> float:
+    c = value / 255.0
+    if c <= 0.03928:
+        return c / 12.92
+    return ((c + 0.055) / 1.055) ** 2.4
+
+
+def _relative_luminance(hex_color: str, *, fallback: float = 0.5) -> float:
+    rgb = _parse_hex_rgb(hex_color)
+    if rgb is None:
+        return fallback
+    r = _channel_linear(rgb[0])
+    g = _channel_linear(rgb[1])
+    b = _channel_linear(rgb[2])
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def _contrast_ratio(fg_hex: str, bg_hex: str) -> float:
+    l1 = _relative_luminance(fg_hex)
+    l2 = _relative_luminance(bg_hex)
+    high = max(l1, l2)
+    low = min(l1, l2)
+    return (high + 0.05) / (low + 0.05)
+
+
+def _best_text_color(bg_hex: str, *, light: str = "#FFFFFF", dark: str = "#0E1B2C") -> str:
+    light_ratio = _contrast_ratio(light, bg_hex)
+    dark_ratio = _contrast_ratio(dark, bg_hex)
+    return light if light_ratio >= dark_ratio else dark
+
+
 def build_base_styles(theme: dict) -> str:
     status_error = str(theme.get("status_error") or "#B42318")
     status_error_hover = "#8F1A14"
     disabled_bg = str(theme.get("status_muted") or theme["panel_border"])
-    button_text = "#FFFFFF"
     ftue_badge_start = _blue_darker(theme["primary_hover"], darken=0.76, blue_boost=88)
     ftue_badge_mid = _blue_darker(theme["primary"], darken=0.76, blue_boost=88)
     ftue_badge_end = _blue_darker(theme["accent"], darken=0.76, blue_boost=88)
+    primary_bg = _blend_hex([theme["primary_hover"], theme["primary"], theme["accent"]], fallback=theme["primary"])
+    primary_text = _best_text_color(primary_bg)
+    utility_badge_text = _best_text_color(str(theme["primary"]))
+    ftue_badge_bg = _blend_hex([ftue_badge_start, ftue_badge_mid, ftue_badge_end], fallback=ftue_badge_mid)
+    ftue_badge_text = _best_text_color(ftue_badge_bg)
+    empty_guide_bg = _blend_hex([theme["primary_hover"], theme["primary"]], fallback=theme["primary"])
+    empty_guide_text = _best_text_color(empty_guide_bg)
     return f"""
 QWidget {{
   color: {theme['text']};
@@ -166,7 +232,7 @@ QPushButton[dockHeader="true"]:checked {{
   border: 2px solid {theme['accent']};
 }}
 QLabel[utilityDockBadge="true"] {{
-  color: #FFFFFF;
+  color: {utility_badge_text};
   background: {theme['primary']};
   border: 1px solid {theme['primary_hover']};
   border-radius: 9px;
@@ -190,7 +256,7 @@ QPushButton:disabled {{
 QPushButton[variant="primary"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {theme['primary_hover']}, stop:0.55 {theme['primary']}, stop:1 {theme['accent']});
-  color: {button_text};
+  color: {primary_text};
   border: 2px solid {theme['primary_hover']};
 }}
 QPushButton[variant="primary"]:hover {{
@@ -217,7 +283,7 @@ QLabel[ftueLocaleIconBadge="true"] {{
   border-bottom-left-radius: 16px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  color: #FFFFFF;
+  color: {ftue_badge_text};
   font-size: 17px;
   font-weight: 900;
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
@@ -232,7 +298,7 @@ QPushButton[ftueLocaleSelectButton="true"] {{
   border-bottom-left-radius: 6px;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-  color: #FFFFFF;
+  color: {primary_text};
   font-size: 13px;
   font-weight: 800;
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
@@ -251,8 +317,8 @@ QPushButton[emptyGuideFab="true"] {{
   max-height: 28px;
   padding: 0px;
   border-radius: 14px;
-  color: #FFFFFF;
-  font-size: 14px;
+  color: {empty_guide_text};
+  font-size: 16px;
   font-weight: 900;
   border: 2px solid {theme['accent']};
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
