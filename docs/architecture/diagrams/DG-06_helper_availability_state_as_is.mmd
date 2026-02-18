@@ -1,0 +1,29 @@
+stateDiagram-v2
+  %% DG-06 [AS-IS] Helper availability / degraded mode model
+  %% Last verified: 2026-02-19
+  %% Sources:
+  %% - docs/architecture/chrome_web_store_review_working_doc.md
+  %% - docs/architecture/chrome_extension_technical.md
+  %%
+  %% NOTE:
+  %% - Reflects current policy decisions + open UX details.
+
+  [*] --> HelperAvailable
+
+  state HelperAvailable {
+    [*] --> FullMode
+    FullMode: Manual rules + helper-backed SRS controls
+    FullMode: Feedback queue flush succeeds
+  }
+
+  HelperAvailable --> HelperUnavailable: helper missing/offline/crash/id mismatch
+
+  state HelperUnavailable {
+    [*] --> DegradedMode
+    DegradedMode: Manual JSON rules path remains available
+    DegradedMode: SRS control actions fail-fast with warning
+    DegradedMode: Feedback queue retains events for retry
+  }
+
+  HelperUnavailable --> Recovering: helper returns and bridge reachable
+  Recovering --> HelperAvailable: queued feedback flush succeeds

@@ -1,0 +1,20 @@
+flowchart LR
+  %% DG-02 [AS-IS] Settings propagation flow
+  %% Last verified: 2026-02-19
+  %% Sources:
+  %% - docs/architecture/options_controllers_architecture.md
+  %% - docs/architecture/chrome_extension_technical.md
+  %% - docs/architecture/extension_system_map.md
+
+  UI["Options UI controls"] -->|user edits| GRAPH["Controller graph (options/core/bootstrap/controller_graph.js)"]
+  GRAPH --> SAVE["SettingsManager profile-scoped save/load"]
+  SAVE --> STORE["chrome.storage.local keys"]
+
+  STORE -->|publish runtime mirrors| MIRRORS["Runtime mirror keys (srsProfileId, targetDisplayScript, pair settings, etc.)"]
+  MIRRORS --> APPLY["content/runtime/apply_settings_pipeline.js"]
+  APPLY --> ROUTER["content/runtime/settings_change_router.js"]
+  ROUTER --> RULES["active_rules_runtime.js"]
+  ROUTER --> UI_RUNTIME["ui.js / feedback_popup_controller.js"]
+
+  RULES --> DOM["dom_scan_runtime.js replacement pass"]
+  UI_RUNTIME --> POP["Popup behavior + feedback controls"]

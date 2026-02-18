@@ -1,0 +1,16 @@
+flowchart LR
+  %% DG-03 [AS-IS] Rule resolution + DOM replacement pipeline
+  %% Last verified: 2026-02-19
+  %% Sources:
+  %% - docs/architecture/chrome_extension_technical.md
+  %% - docs/architecture/extension_system_map.md
+
+  SETTINGS["Load + normalize settings"] --> RULESET["Resolve base ruleset"]
+  RULESET --> HELPER["Resolve helper rules (profile_id + pair cache path)"]
+  HELPER --> GATE["Apply SRS gate (replacement lemma filtering)"]
+  GATE --> TRIE["Build matcher trie"]
+  TRIE --> SCAN["Scan DOM text nodes (TreeWalker + node filters)"]
+  SCAN --> BUDGET["Apply page/lemma budgets + adjacency rules"]
+  BUDGET --> RENDER["Create replacement spans with metadata"]
+  RENDER --> TRACK["Record exposure + diagnostics counters"]
+  TRACK --> OBS["MutationObserver/rescan triggers"]

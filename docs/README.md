@@ -6,10 +6,11 @@ This directory is organized by purpose to keep architecture, schema, and operati
 
 If you need to understand how the extension works end-to-end, read in this order:
 
-1. `architecture/extension_system_map.md`
-2. `architecture/chrome_extension_technical.md`
-3. `architecture/options_controllers_architecture.md`
-4. `architecture/popup_modules_pattern.md`
+1. `architecture/README.md` (implemented vs WIP map)
+2. `architecture/extension_system_map.md`
+3. `architecture/chrome_extension_technical.md`
+4. `architecture/options_controllers_architecture.md`
+5. `architecture/popup_modules_pattern.md`
 
 If you need SRS/core behavior next:
 
@@ -20,6 +21,8 @@ If you need SRS/core behavior next:
 ## Folders
 
 - `architecture/`: system and extension architecture, integration design, and implementation plans.
+- `developer/`: developer setup, build/release workflows, and resume checklist.
+- `handbook/`: GitHub Pages-friendly handbook entrypoints (developer, architecture, release, diagrams).
 - `gui/`: desktop GUI UX workstreams, fix plans, and implementation notes.
 - `srs/`: SRS-specific design, roadmap, schema, and technical notes.
 - `rulegen/`: rule generation and synonym generation technical docs.
@@ -30,19 +33,38 @@ If you need SRS/core behavior next:
 
 ## Starting Points
 
+- Handbook home (Pages): `handbook/index.md`
+- Handbook diagrams (rendered): `handbook/diagrams.md`
+- Developer docs hub: `developer/README.md`
+- Developer handbook (primary): `developer/developer_reference.md`
+- Local setup loop: `developer/local_setup.md`
+- Build/release workflows: `developer/build_and_release.md`
+- Architecture status index: `architecture/README.md`
 - Extension architecture: `architecture/chrome_extension_technical.md`
 - Extension system map: `architecture/extension_system_map.md`
 - Options architecture: `architecture/options_controllers_architecture.md`
 - Popup module architecture: `architecture/popup_modules_pattern.md`
+- Diagram workplan (all six core diagrams): `architecture/design_diagram_workplan.md`
+- Diagram status tracker + files: `architecture/diagrams/README.md`
 - GUI app fix workstream: `gui/gui_app_fix_workstream.md`
 - GUI UX decision log: `gui/gui_ux_decisions.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Global app schema: `reference/schema.md`
+- Glossary: `reference/glossary.md`
 - New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
 - GitHub Pages enablement runbook: `runbooks/github_pages_setup.md`
 - Chrome Web Store upload gate runbook: `runbooks/cws_upload_gate.md`
 - Consolidated TODO backlog: `TODOs.md`
+
+## Resume After A Break
+
+Use this order when resuming work:
+
+1. `architecture/README.md` (what is solid vs WIP)
+2. `architecture/chrome_web_store_review_working_doc.md` (open product/policy decisions)
+3. `TODOs.md` (current backlog)
+4. `architecture/design_diagram_workplan.md` + `architecture/diagrams/README.md` (diagram update queue)
 
 ## Source Of Truth Rules
 

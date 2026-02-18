@@ -118,6 +118,20 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Chrome extension**: Replaces text in web pages using rulesets + SRS gate.
 - **BetterDiscord plugin**: Replaces text inside Discord messages using rulesets + SRS gate.
 
+## Architecture Documentation Terms
+
+- **As-Is diagram**: Diagram that represents implemented/current behavior, not intended design.
+- **Target diagram**: Diagram that represents planned/future behavior not yet fully implemented.
+- **Data ownership map**: Diagram/view that shows each persistent store, owning component, and authority level.
+- **Runtime mirror key**: Root storage key published for fast runtime reads, derived from profile-scoped canonical settings.
+- **Authoritative store**: Source of truth for a data class; other copies are caches or projections.
+- **Cache store**: Local copy used for resilience/performance; may be stale and must be treated as fallback.
+- **Telemetry store**: Diagnostic/event history data that is explicitly non-authoritative for core scheduling decisions.
+- **Degraded mode**: Explicit helper-unavailable behavior where manual rule runtime remains available while helper-required actions are blocked.
+- **Fail-fast action**: Action that returns immediate structured error when prerequisites are missing (instead of silent degradation).
+- **Eventual retry path**: Queue/retry flow where operations are persisted locally and retried until success or policy limit.
+- **Resume workflow**: Standard document read/update sequence used to quickly restore architecture context after a work pause.
+
 ## Status / Tags
 
 - **Enabled**: Rule or pack is active.

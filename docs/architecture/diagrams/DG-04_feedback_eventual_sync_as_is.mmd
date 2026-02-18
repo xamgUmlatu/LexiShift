@@ -1,0 +1,20 @@
+flowchart LR
+  %% DG-04 [AS-IS] Feedback + eventual sync flow
+  %% Last verified: 2026-02-19
+  %% Sources:
+  %% - docs/architecture/chrome_extension_technical.md
+  %% - docs/architecture/native_messaging_design.md
+  %% - docs/architecture/chrome_web_store_review_working_doc.md
+
+  POPUP["Feedback popup selection (again/hard/good/easy)"] --> ENTRY["Build feedback entry from replacement span"]
+  ENTRY --> LOG["Persist local feedback log (srsFeedbackLog)"]
+  ENTRY --> STORE["Update local SRS store (srsStore)"]
+  ENTRY --> QUEUE["Enqueue helper feedback sync item"]
+
+  QUEUE --> RETRY["Retry worker (backoff + lock + bounded queue)"]
+  RETRY --> SW["Service worker native bridge"]
+  SW --> HOST["Native messaging host"]
+  HOST --> HELPER["Helper record_feedback command"]
+  HELPER --> SIGNAL["Persist signal event (srs_signal_queue.json)"]
+
+  RETRY --> DROP["Dropped/archive path when retry cap/policy reached"]

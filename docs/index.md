@@ -9,12 +9,16 @@ This site is the user manual entrypoint for LexiShift.
 
 ## Start Here
 
+- [Handbook Home](./handbook/)
 - [Getting Started](./getting-started/)
+- [Architecture Diagrams](./handbook/diagrams/)
 
 ## Project Documentation Map
 
 - [Documentation Structure (Repository View)](https://github.com/xamgUmlatu/LexiShift/blob/main/docs/README.md)
 - [Full `docs/` Tree (Repository View)](https://github.com/xamgUmlatu/LexiShift/tree/main/docs)
+- [Developer Docs Hub (Repository View)](https://github.com/xamgUmlatu/LexiShift/blob/main/docs/developer/README.md)
+- [Handbook (Repository View)](https://github.com/xamgUmlatu/LexiShift/tree/main/docs/handbook)
 
 ## Setup Note
 
