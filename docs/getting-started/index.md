@@ -5,38 +5,129 @@ title: LexiShift Getting Started
 
 <script>
 (() => {
-  const key = "lexishift_guide_theme";
+  const themeKey = "lexishift_guide_theme";
+  const localeKey = "lexishift_guide_locale";
+  const supportedLocales = new Set([
+    "system",
+    "en",
+    "es",
+    "fr",
+    "eo",
+    "de",
+    "it",
+    "ja",
+    "zh-hant",
+    "zh-hans",
+  ]);
   let theme = "dark";
+  let localePref = "system";
+
+  const normalizeLocale = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/_/g, "-");
+
+  const resolveLocalePreference = (value) => {
+    const normalized = normalizeLocale(value);
+    if (supportedLocales.has(normalized)) {
+      return normalized;
+    }
+    if (
+      normalized.startsWith("zh-hant")
+      || normalized.startsWith("zh-tw")
+      || normalized.startsWith("zh-hk")
+      || normalized.startsWith("zh-mo")
+    ) {
+      return "zh-hant";
+    }
+    if (normalized.startsWith("zh")) {
+      return "zh-hans";
+    }
+    const languageTag = normalized.split("-")[0];
+    if (supportedLocales.has(languageTag)) {
+      return languageTag;
+    }
+    return "system";
+  };
+
   try {
-    const saved = localStorage.getItem(key);
+    const saved = localStorage.getItem(themeKey);
     theme = saved === "light" ? "light" : "dark";
   } catch (_error) {
     theme = "dark";
   }
+
+  try {
+    localePref = resolveLocalePreference(localStorage.getItem(localeKey));
+  } catch (_error) {
+    localePref = "system";
+  }
+
+  const systemLocale = normalizeLocale(
+    (typeof navigator !== "undefined" && navigator.language) || "en",
+  ) || "en";
+  const resolvedLocale = localePref === "system" ? systemLocale : localePref;
+
   document.documentElement.setAttribute("data-guide-theme", theme);
+  document.documentElement.setAttribute("data-guide-locale-preference", localePref);
+  document.documentElement.setAttribute("data-guide-locale", resolvedLocale);
 })();
 </script>
 
 <div class="guide-layout" data-guide-nav>
-  <button
-    class="guide-theme-toggle"
-    type="button"
-    aria-label="Switch to light mode"
-    title="Switch to light mode"
-    data-guide-theme-toggle
-  >
-    <span class="guide-theme-toggle__icon guide-theme-toggle__icon--sun" aria-hidden="true">
-      <svg viewBox="0 0 24 24" role="img" focusable="false">
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
-      </svg>
-    </span>
-    <span class="guide-theme-toggle__icon guide-theme-toggle__icon--moon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" role="img" focusable="false">
-        <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 1 0 10.7 10.7z"></path>
-      </svg>
-    </span>
-  </button>
+  <div class="guide-floating-controls" aria-label="Guide display controls">
+    <button
+      class="guide-theme-toggle"
+      type="button"
+      aria-label="Switch to light mode"
+      title="Switch to light mode"
+      data-guide-theme-toggle
+    >
+      <span class="guide-theme-toggle__icon guide-theme-toggle__icon--sun" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img" focusable="false">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
+        </svg>
+      </span>
+      <span class="guide-theme-toggle__icon guide-theme-toggle__icon--moon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img" focusable="false">
+          <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 1 0 10.7 10.7z"></path>
+        </svg>
+      </span>
+    </button>
+    <div class="guide-locale-shell" data-guide-locale-shell>
+      <button
+        class="guide-locale-toggle"
+        type="button"
+        aria-label="Language: System default. Click to open language grid."
+        title="Language: System default. Click to open language grid."
+        aria-expanded="false"
+        aria-controls="guide-locale-panel"
+        data-guide-locale-toggle
+      >
+        <span class="guide-locale-toggle__icon" aria-hidden="true">🌐</span>
+      </button>
+      <div
+        class="guide-locale-panel"
+        id="guide-locale-panel"
+        role="listbox"
+        aria-label="Guide language options"
+        aria-hidden="true"
+        data-guide-locale-panel
+      >
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="en">EN</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="es">ES</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="fr">FR</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="eo">EO</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="de">DE</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="it">IT</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="ja">日</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="zh-hant">繁</button>
+        <button class="guide-locale-cell" type="button" role="option" data-guide-locale-option="zh-hans">简</button>
+      </div>
+    </div>
+  </div>
   <aside class="guide-rail" aria-label="Getting started sections">
     <p class="guide-rail__title">Sections</p>
     <a class="guide-rail__link is-active" href="#chapter-1">1. First Launch</a>
@@ -374,3 +465,4 @@ title: LexiShift Getting Started
 
 <script src="{{ '/assets/js/getting-started-nav.js' | relative_url }}" defer></script>
 <script src="{{ '/assets/js/getting-started-theme.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/getting-started-locale.js' | relative_url }}" defer></script>
