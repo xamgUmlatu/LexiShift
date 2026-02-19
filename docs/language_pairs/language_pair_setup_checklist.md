@@ -11,6 +11,7 @@ Scope:
 Related:
 - Core LP architecture contract: `docs/architecture/srs_lp_architecture.md`.
 - For extension + helper focused rollout sequencing, see `docs/language_pairs/extension_lp_generalization_checklist.md`.
+- POS normalization implementation plan: `docs/rulegen/pos_normalization_workstream.md`.
 
 ## 0) Implementation Sequence (Use This Order Every Time)
 
@@ -29,6 +30,7 @@ Related:
    - Add dictionary loader updates for new formats: `core/lexishift_core/resources/dict_loaders.py`
 4. Ensure SRS init/refresh assumptions are LP-safe.
    - Seed/frequency behavior: `core/lexishift_core/srs/seed.py`
+   - POS normalization + bucket mapping behavior: `core/lexishift_core/srs/admission_policy.py`
    - Frequency column fallback behavior: `core/lexishift_core/frequency/providers.py`
    - Rulegen publish orchestration: `core/lexishift_core/helper/rulegen.py`
 5. Wire GUI + extension pair plumbing.
@@ -73,6 +75,8 @@ Related:
 - [ ] Required extracted files are declared (`required_files`) where applicable.
 - [ ] Download/extract/link validation works from Settings -> App.
 - [ ] Frequency pack is registered if SRS bootstrap depends on it.
+- [ ] Raw POS tag inventory is documented for the LP sources (frequency and/or dictionary).
+- [ ] Source provider IDs needed by POS normalization are identified and recorded.
 - [ ] Optional embedding packs are mapped to the LP if ranking is required.
 - [ ] Converter script exists for non-native formats and is documented in:
   - `scripts/data/`
@@ -114,6 +118,9 @@ Related:
 - [ ] Seed/frequency assumptions are validated for LP frequency DB schema:
   - `core/lexishift_core/srs/seed.py`
   - `core/lexishift_core/frequency/providers.py`
+- [ ] POS assumptions are validated for LP raw tags and bucket outcomes:
+  - `core/lexishift_core/srs/admission_policy.py`
+  - `docs/rulegen/pos_normalization_workstream.md`
 
 ## 6) Runtime Integration
 

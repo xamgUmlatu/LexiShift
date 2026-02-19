@@ -52,6 +52,7 @@ If you need SRS/core behavior next:
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
+- POS normalization workstream (SRS + rulegen + LP onboarding): `rulegen/pos_normalization_workstream.md`
 - Global app schema: `reference/schema.md`
 - Glossary: `reference/glossary.md`
 - New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
