@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.replacement.inflect import FORM_PLURAL, InflectionSpec
 from lexishift_core.resources.dict_loaders import load_freedict_glosses_ordered
 from lexishift_core.rulegen.generation import (
     CandidateFilter,
@@ -25,6 +26,7 @@ from lexishift_core.rulegen.utils import (
     PunctuationFilter,
     SingleWordFilter,
     StopwordFilter,
+    sanitize_dictionary_gloss,
 )
 from lexishift_core.scoring.weighting import GlossDecay
 
@@ -40,6 +42,7 @@ class EnDeRulegenConfig:
     language_pair: str = "en-de"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     include_variants: bool = True
     variant_penalty: float = 0.2
     allow_multiword_glosses: bool = False
@@ -52,7 +55,8 @@ class EnDeRulegenConfig:
     min_source_length: int = 2
     max_source_length: Optional[int] = None
     stopwords: Optional[set[str]] = None
-    inflection_suffixes: Sequence[str] = ("s", "es", "ed", "ing")
+    inflection_suffixes: Sequence[str] = ("s", "es")
+    inflection_forms: Sequence[str] = (FORM_PLURAL,)
     allow_hyphen: bool = True
 
 
@@ -69,7 +73,12 @@ def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
     normalizers = [BasicStringNormalizer()]
     expanders = []
     if config.include_variants:
-        expanders.append(InflectionVariantExpander(should_expand=_should_expand_english))
+        expanders.append(
+            InflectionVariantExpander(
+                should_expand=_should_expand_english,
+                spec=InflectionSpec(forms=frozenset(config.inflection_forms)),
+            )
+        )
 
     def variant_penalty_provider(candidate: RuleCandidate) -> float:
         return config.variant_penalty if candidate.metadata.get("variant") else 0.0
@@ -102,6 +111,7 @@ def generate_en_de_results(
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
         tags=("translation", "freedict_de_en"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -129,7 +139,7 @@ class FreedictCandidateSource:
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
-            sources = list(self._mapping.get(target, []))
+            sources = _collect_sanitized_glosses(self._mapping.get(target, ()))
             total = len(sources)
             for index, source in enumerate(sources):
                 yield RuleCandidate(
@@ -178,5 +188,19 @@ def _build_gloss_base_forms(mapping: Mapping[str, Sequence[str]]) -> set[str]:
     base_forms: set[str] = set()
     for glosses in mapping.values():
         for gloss in glosses:
-            base_forms.add(str(gloss).strip().lower())
+            sanitized = sanitize_dictionary_gloss(gloss).lower()
+            if sanitized:
+                base_forms.add(sanitized)
     return base_forms
+
+
+def _collect_sanitized_glosses(glosses: Iterable[object]) -> list[str]:
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for gloss in glosses:
+        sanitized = sanitize_dictionary_gloss(gloss)
+        if not sanitized or sanitized in seen:
+            continue
+        seen.add(sanitized)
+        cleaned.append(sanitized)
+    return cleaned

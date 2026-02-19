@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Iterable, Mapping, Optional, Sequence
 
@@ -14,6 +14,7 @@ from lexishift_core.resources.dict_loaders import (
     JmdictEntryRecord,
     load_jmdict_entry_index_glosses_and_script_forms,
 )
+from lexishift_core.replacement.inflect import FORM_PLURAL, InflectionSpec
 from lexishift_core.resources.japanese_script import contains_kanji, kana_to_romaji
 from lexishift_core.frequency import (
     FrequencyLexicon,
@@ -40,12 +41,23 @@ from lexishift_core.rulegen.utils import (
     PunctuationFilter,
     SingleWordFilter,
     StopwordFilter,
+    sanitize_dictionary_gloss,
 )
 from lexishift_core.scoring.weighting import GlossDecay
 
 
 def _should_expand_english(candidate: RuleCandidate) -> bool:
     return all(ord(ch) < 128 for ch in candidate.source_phrase)
+
+
+DEFAULT_GENERIC_GLOSS_DEMOTIONS: Mapping[str, float] = {
+    "appearing": 0.9,
+    "looking": 0.9,
+    "like": 0.9,
+    "kind": 0.85,
+    "sort": 0.85,
+    "type": 0.85,
+}
 
 
 @dataclass(frozen=True)
@@ -58,6 +70,7 @@ class JaEnRulegenConfig:
     language_pair: str = "en-ja"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     include_variants: bool = True
     variant_penalty: float = 0.2
     allow_multiword_glosses: bool = False
@@ -70,8 +83,12 @@ class JaEnRulegenConfig:
     min_source_length: int = 2
     max_source_length: Optional[int] = None
     stopwords: Optional[set[str]] = None
-    inflection_suffixes: Sequence[str] = ("s", "es", "ed", "ing")
+    inflection_suffixes: Sequence[str] = ("s", "es")
+    inflection_forms: Sequence[str] = (FORM_PLURAL,)
     allow_hyphen: bool = True
+    generic_gloss_demotions: Mapping[str, float] = field(
+        default_factory=lambda: dict(DEFAULT_GENERIC_GLOSS_DEMOTIONS)
+    )
     frequency_config: Optional[FrequencySourceConfig] = None
     frequency_lexicon: Optional[FrequencyLexicon] = None
     frequency_provider: Optional[Callable[[RuleCandidate], float]] = None
@@ -105,11 +122,17 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
         source_type="translation",
         script_forms_by_target=script_forms_by_target,
         word_packages_by_target=word_packages_by_target,
+        generic_gloss_demotions=config.generic_gloss_demotions,
     )
     normalizers = [BasicStringNormalizer()]
     expanders = []
     if config.include_variants:
-        expanders.append(InflectionVariantExpander(should_expand=_should_expand_english))
+        expanders.append(
+            InflectionVariantExpander(
+                should_expand=_should_expand_english,
+                spec=InflectionSpec(forms=frozenset(config.inflection_forms)),
+            )
+        )
 
     def variant_penalty_provider(candidate: RuleCandidate) -> float:
         return config.variant_penalty if candidate.metadata.get("variant") else 0.0
@@ -157,6 +180,7 @@ def generate_ja_en_results(
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
         tags=("translation", "jmdict"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -180,6 +204,7 @@ class JmdictCandidateSource:
         source_type: str,
         script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None,
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
+        generic_gloss_demotions: Optional[Mapping[str, float]] = None,
     ) -> None:
         self._mapping = mapping
         self._entries_by_term = entries_by_term
@@ -187,6 +212,7 @@ class JmdictCandidateSource:
         self._source_type = source_type
         self._script_forms_by_target = script_forms_by_target or {}
         self._word_packages_by_target = word_packages_by_target or {}
+        self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
@@ -237,6 +263,10 @@ class JmdictCandidateSource:
                     "gloss_index": index,
                     "gloss_total": total,
                 }
+                demotion = self._resolve_generic_gloss_demotion(source)
+                if demotion > 0.0:
+                    metadata["semantic_demotion"] = demotion
+                    metadata["semantic_demotion_reason"] = "generic_gloss"
                 if resolved_script_forms:
                     metadata["script_forms"] = resolved_script_forms
                 if resolved_word_package:
@@ -250,18 +280,35 @@ class JmdictCandidateSource:
                     metadata=metadata,
                 )
 
+    def _resolve_generic_gloss_demotion(self, source: object) -> float:
+        normalized = _normalize_gloss_key(source)
+        if not normalized:
+            return 0.0
+        raw = self._generic_gloss_demotions.get(normalized)
+        if raw is None:
+            return 0.0
+        try:
+            value = float(raw)
+        except (TypeError, ValueError):
+            return 0.0
+        return max(0.0, min(1.0, value))
+
 
 def _collect_entry_glosses(entries: Sequence[JmdictEntryRecord]) -> list[str]:
     glosses: list[str] = []
     seen: set[str] = set()
     for entry in entries:
         for gloss in entry.glosses:
-            cleaned = str(gloss or "").strip()
+            cleaned = sanitize_dictionary_gloss(gloss)
             if not cleaned or cleaned in seen:
                 continue
             seen.add(cleaned)
             glosses.append(cleaned)
     return glosses
+
+
+def _normalize_gloss_key(value: object) -> str:
+    return sanitize_dictionary_gloss(value).lower()
 
 
 def _select_entries_for_reading(
@@ -410,7 +457,9 @@ def _build_gloss_base_forms(mapping: Mapping[str, Sequence[str]]) -> set[str]:
     base_forms: set[str] = set()
     for glosses in mapping.values():
         for gloss in glosses:
-            base_forms.add(str(gloss).strip().lower())
+            sanitized = sanitize_dictionary_gloss(gloss).lower()
+            if sanitized:
+                base_forms.add(sanitized)
     return base_forms
 
 

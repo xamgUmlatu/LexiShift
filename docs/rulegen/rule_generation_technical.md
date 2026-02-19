@@ -49,6 +49,15 @@ Pipeline overview
 4) **Scoring**
    - Assign confidence per rule (0–1).
    - Deterministic scoring for V1; embeddings scoring is optional.
+   - Definition ranking for per-target top-K selection is handled by a dedicated mechanism module:
+     - `core/lexishift_core/rulegen/ranking.py`
+     - Current strategy: dictionary entry order (`gloss_index`, earlier is higher rank).
+   - Pair modules can attach ranking metadata (for example `semantic_demotion`) to down-rank known generic/noisy gloss terms before top-K definition selection.
+
+4.5) **Definition Cap (Current Policy)**
+   - Keep top 3 definitions per target (`max_definitions_per_target=3` by default).
+   - Cap is applied after filtering/scoring using definition buckets keyed by dictionary order metadata.
+   - Morphology variants for selected definitions are retained.
 
 5) **Rule Emission**
    - Emit rules with full metadata + confidence.
@@ -66,7 +75,9 @@ Language‑pair specific modules (pluggable)
   - Needed for languages without spaces (JP/CH/KR).
 - **Inflection engine**
   - EN/DE/ES benefit from inflection expansion for high recall.
+  - Current context-free policy is conservative: noun-number style morphology only (plural-focused), with no context-free tense/aspect generation.
   - Current paired morphology implementation: `en-es` noun plural source forms with Spanish display-surface mapping.
+  - Context-dependent morphology (for tense/aspect/disambiguation) is a future/stretch goal and is not part of the current default rulegen path.
 - **POS alignment**
   - Optional, but improves confidence when dictionary provides POS.
 - **Phrase expansion**
@@ -139,6 +150,13 @@ Current known quality gap (important)
 - This is a quality issue in source-candidate selection/scoring, not an SRS storage or scheduling failure.
 
 Quality hardening track (next)
+Reference plan:
+- `docs/rulegen/rulegen_congruity_implementation_plan.md` documents the temporary top-3 source limitation decision and the scoring-framework direction, plus the architecture-investigation checklist used before implementation changes.
+
+Current operational policy update:
+- JA-target rulegen now applies a small generic-gloss demotion list (for terms such as `appearing`, `looking`, `like`) via metadata-driven ranking penalties.
+- This is a conservative heuristic layer and remains tunable; it does not replace future context-dependent disambiguation work.
+
 1) Generic gloss suppression
    - Maintain pair-specific denylist/demotion lists for broad function-like terms and over-generic glosses.
    - Apply strong penalties before final candidate ranking.

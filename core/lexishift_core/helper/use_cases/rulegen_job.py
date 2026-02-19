@@ -73,6 +73,7 @@ def run_rulegen_job(
     rulegen_config = RulegenConfig(
         language_pair=pair,
         confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
     )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Mapping, Optional, Protocol, Sequence
 
@@ -8,6 +9,12 @@ from lexishift_core.lexicon.word_package import (
     resolve_language_tag_from_pair,
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
+from lexishift_core.rulegen.ranking import (
+    CandidateRankingContext,
+    CandidateRankingMechanism,
+    DictionaryEntryOrderRankingMechanism,
+    build_ranking_sort_key,
+)
 
 
 @dataclass(frozen=True)
@@ -87,6 +94,7 @@ class SignalProvider(Protocol):
 class RuleGenerationConfig:
     language_pair: str
     confidence_threshold: float = 0.0
+    max_definitions_per_target: Optional[int] = None
     base_priority: int = 0
     case_policy: str = "match"
     tags: Sequence[str] = field(default_factory=tuple)
@@ -110,6 +118,7 @@ class RuleGenerationPipeline:
         filters: Sequence[CandidateFilter] | None = None,
         scorer: Optional[RuleScorer] = None,
         signal_provider: Optional[SignalProvider] = None,
+        ranking_mechanism: Optional[CandidateRankingMechanism] = None,
     ) -> None:
         self._sources = list(sources)
         self._normalizers = list(normalizers or [])
@@ -117,6 +126,7 @@ class RuleGenerationPipeline:
         self._filters = list(filters or [])
         self._scorer = scorer or RuleScorer()
         self._signal_provider = signal_provider
+        self._ranking_mechanism = ranking_mechanism or DictionaryEntryOrderRankingMechanism()
 
     def generate_results(
         self,
@@ -144,7 +154,13 @@ class RuleGenerationPipeline:
                 continue
             rule = self._to_rule(candidate, confidence, config)
             results.append(RuleGenerationResult(candidate=candidate, confidence=confidence, rule=rule))
-        return results
+        max_definitions = config.max_definitions_per_target
+        if max_definitions is None:
+            return results
+        max_definitions = int(max_definitions)
+        if max_definitions <= 0:
+            return results
+        return self._limit_results_per_target(results, max_definitions_per_target=max_definitions)
 
     def generate_rules(
         self,
@@ -210,6 +226,50 @@ class RuleGenerationPipeline:
             enabled=True,
             tags=tuple(tags),
             metadata=metadata,
+        )
+
+    def _limit_results_per_target(
+        self,
+        results: Sequence[RuleGenerationResult],
+        *,
+        max_definitions_per_target: int,
+    ) -> list[RuleGenerationResult]:
+        grouped: OrderedDict[str, OrderedDict[str, list[RuleGenerationResult]]] = OrderedDict()
+        for result in results:
+            target_key = str(result.candidate.replacement or "").strip().lower()
+            context = self._to_ranking_context(result)
+            definition_key = self._ranking_mechanism.bucket_key(context)
+            target_groups = grouped.setdefault(target_key, OrderedDict())
+            target_groups.setdefault(definition_key, []).append(result)
+
+        limited: list[RuleGenerationResult] = []
+        for definition_groups in grouped.values():
+            ranked_definitions = sorted(
+                definition_groups.values(),
+                key=self._definition_group_sort_key,
+            )
+            for definition_group in ranked_definitions[:max_definitions_per_target]:
+                limited.extend(sorted(definition_group, key=self._ranking_sort_key))
+        return limited
+
+    def _definition_group_sort_key(
+        self,
+        results: Sequence[RuleGenerationResult],
+    ) -> tuple[float, float, str]:
+        best = min(results, key=self._ranking_sort_key)
+        return self._ranking_sort_key(best)
+
+    def _ranking_sort_key(self, result: RuleGenerationResult) -> tuple[float, float, str]:
+        context = self._to_ranking_context(result)
+        score = self._ranking_mechanism.score(context)
+        return build_ranking_sort_key(context, score=score)
+
+    def _to_ranking_context(self, result: RuleGenerationResult) -> CandidateRankingContext:
+        return CandidateRankingContext(
+            source_phrase=result.candidate.source_phrase,
+            replacement=result.candidate.replacement,
+            metadata=result.candidate.metadata,
+            confidence=result.confidence,
         )
 
 

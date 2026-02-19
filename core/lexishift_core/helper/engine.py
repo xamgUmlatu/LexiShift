@@ -62,6 +62,7 @@ class RulegenJobConfig:
     set_source_db: Optional[Path] = None
     set_top_n: Optional[int] = None
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     snapshot_targets: int = 50
     snapshot_sources: int = 6
     initialize_if_empty: bool = True

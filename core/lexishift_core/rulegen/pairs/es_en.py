@@ -21,6 +21,7 @@ from lexishift_core.rulegen.utils import (
     PunctuationFilter,
     SingleWordFilter,
     StopwordFilter,
+    sanitize_dictionary_gloss,
 )
 from lexishift_core.scoring.weighting import GlossDecay
 
@@ -54,6 +55,7 @@ class EsEnRulegenConfig:
     language_pair: str = "es-en"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
     enable_punctuation_filter: bool = True
@@ -104,6 +106,7 @@ def generate_es_en_results(
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
         tags=("translation", "freedict_en_es"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -131,7 +134,7 @@ class FreedictCandidateSource:
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
-            sources = list(self._mapping.get(target, []))
+            sources = _collect_sanitized_glosses(self._mapping.get(target, ()))
             total = len(sources)
             for index, source in enumerate(sources):
                 yield RuleCandidate(
@@ -161,3 +164,15 @@ def _build_filters(config: EsEnRulegenConfig) -> list[CandidateFilter]:
         stopwords = config.stopwords or DEFAULT_SPANISH_STOPWORDS
         filters.append(StopwordFilter(stopwords=stopwords))
     return filters
+
+
+def _collect_sanitized_glosses(glosses: Iterable[object]) -> list[str]:
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for gloss in glosses:
+        sanitized = sanitize_dictionary_gloss(gloss)
+        if not sanitized or sanitized in seen:
+            continue
+        seen.add(sanitized)
+        cleaned.append(sanitized)
+    return cleaned

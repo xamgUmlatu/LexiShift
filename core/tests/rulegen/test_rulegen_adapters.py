@@ -248,6 +248,191 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(hours_metadata.morphology.get("target_surface"), "horas")
         self.assertEqual(hours_metadata.morphology.get("target_lemma"), "hora")
 
+    def test_en_es_adapter_sanitizes_gloss_noise_before_rulegen(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>hora</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">hour (noun).</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("hora",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                    include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["hour"])
+        self.assertEqual(rules[0].replacement, "hora")
+
+    def test_en_es_adapter_caps_to_top_three_by_dictionary_order(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>casa</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+          <cit type="trans"><quote xml:lang="en">home</quote></cit>
+          <cit type="trans"><quote xml:lang="en">dwelling</quote></cit>
+          <cit type="trans"><quote xml:lang="en">residence</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                    include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
+        self.assertTrue(all(rule.replacement == "casa" for rule in rules))
+
+    def test_en_ja_adapter_caps_to_top_three_by_dictionary_order(self) -> None:
+        jmdict_payload = (
+            "<JMdict>"
+            "<entry>"
+            "<k_ele><keb>時</keb></k_ele>"
+            "<r_ele><reb>とき</reb></r_ele>"
+            "<sense>"
+            "<gloss xml:lang='eng'>time</gloss>"
+            "<gloss xml:lang='eng'>occasion</gloss>"
+            "<gloss xml:lang='eng'>moment</gloss>"
+            "<gloss xml:lang='eng'>period</gloss>"
+            "</sense>"
+            "</entry>"
+            "</JMdict>"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            path.write_text(jmdict_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-ja",
+                    targets=("時",),
+                    language_pair="en-ja",
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "時": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "時",
+                            "reading": "とき",
+                            "script_forms": {"kanji": "時", "kana": "とき", "romaji": "toki"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["time", "occasion", "moment"])
+        self.assertTrue(all(rule.replacement == "時" for rule in rules))
+
+    def test_en_ja_adapter_does_not_emit_context_free_verb_inflections(self) -> None:
+        jmdict_payload = (
+            "<JMdict>"
+            "<entry>"
+            "<k_ele><keb>時</keb></k_ele>"
+            "<r_ele><reb>とき</reb></r_ele>"
+            "<sense>"
+            "<gloss xml:lang='eng'>time</gloss>"
+            "<gloss xml:lang='eng'>hour</gloss>"
+            "</sense>"
+            "</entry>"
+            "</JMdict>"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            path.write_text(jmdict_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-ja",
+                    targets=("時",),
+                    language_pair="en-ja",
+                    jmdict_path=path,
+                    include_variants=True,
+                    word_packages_by_target={
+                        "時": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "時",
+                            "reading": "とき",
+                            "script_forms": {"kanji": "時", "kana": "とき", "romaji": "toki"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                )
+            )
+        sources = {rule.source_phrase for rule in rules}
+        self.assertIn("time", sources)
+        self.assertIn("hour", sources)
+        self.assertNotIn("timed", sources)
+        self.assertNotIn("timing", sources)
+        self.assertFalse(any(source.endswith("ed") or source.endswith("ing") for source in sources))
+
+    def test_en_ja_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
+        jmdict_payload = (
+            "<JMdict>"
+            "<entry>"
+            "<k_ele><keb>様</keb></k_ele>"
+            "<r_ele><reb>よう</reb></r_ele>"
+            "<sense>"
+            "<gloss xml:lang='eng'>appearing</gloss>"
+            "<gloss xml:lang='eng'>looking</gloss>"
+            "<gloss xml:lang='eng'>form</gloss>"
+            "<gloss xml:lang='eng'>style</gloss>"
+            "<gloss xml:lang='eng'>design</gloss>"
+            "</sense>"
+            "</entry>"
+            "</JMdict>"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            path.write_text(jmdict_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-ja",
+                    targets=("様",),
+                    language_pair="en-ja",
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "様": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "様",
+                            "reading": "よう",
+                            "script_forms": {"kanji": "様", "kana": "よう", "romaji": "you"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["form", "style", "design"])
+
     def test_es_en_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">

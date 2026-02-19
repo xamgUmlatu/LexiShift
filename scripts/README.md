@@ -19,4 +19,5 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Convert FreeDict Spanish->English to SQLite: `data/convert_freedict_spa_eng_to_sqlite.py`
 - Convert FreeDict English->Spanish to SQLite: `data/convert_freedict_eng_spa_to_sqlite.py`
 - Convert Spanish frequency sample to SQLite: `data/convert_cde_frequency_to_sqlite.py`
+- Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`): `testing/rulegen_probe_words.py`
 - Dev helper cycle: `dev/dev_cycle.sh`

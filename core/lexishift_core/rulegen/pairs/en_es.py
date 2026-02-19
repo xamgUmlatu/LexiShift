@@ -26,6 +26,7 @@ from lexishift_core.rulegen.utils import (
     PunctuationFilter,
     SingleWordFilter,
     StopwordFilter,
+    sanitize_dictionary_gloss,
 )
 from lexishift_core.scoring.weighting import GlossDecay
 
@@ -66,6 +67,7 @@ class EnEsRulegenConfig:
     language_pair: str = "en-es"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     include_variants: bool = True
     variant_penalty: float = 0.2
     allow_multiword_glosses: bool = False
@@ -133,6 +135,7 @@ def generate_en_es_results(
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
         tags=("translation", "freedict_es_en"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -160,7 +163,7 @@ class FreedictCandidateSource:
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
-            sources = list(self._mapping.get(target, []))
+            sources = _collect_sanitized_glosses(self._mapping.get(target, ()))
             total = len(sources)
             for index, source in enumerate(sources):
                 yield RuleCandidate(
@@ -209,5 +212,19 @@ def _build_gloss_base_forms(mapping: Mapping[str, Sequence[str]]) -> set[str]:
     base_forms: set[str] = set()
     for glosses in mapping.values():
         for gloss in glosses:
-            base_forms.add(str(gloss).strip().lower())
+            sanitized = sanitize_dictionary_gloss(gloss).lower()
+            if sanitized:
+                base_forms.add(sanitized)
     return base_forms
+
+
+def _collect_sanitized_glosses(glosses: Iterable[object]) -> list[str]:
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for gloss in glosses:
+        sanitized = sanitize_dictionary_gloss(gloss)
+        if not sanitized or sanitized in seen:
+            continue
+        seen.add(sanitized)
+        cleaned.append(sanitized)
+    return cleaned

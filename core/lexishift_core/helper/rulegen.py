@@ -50,6 +50,7 @@ class SetInitializationReport:
 class RulegenConfig:
     language_pair: str = "en-ja"
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     max_snapshot_targets: int = 50
     max_snapshot_sources: int = 6
     include_variants: bool = True
@@ -233,6 +234,7 @@ def run_ja_en_rulegen(
             targets=tuple(str(target).strip() for target in targets if str(target).strip()),
             language_pair=config.language_pair,
             confidence_threshold=config.confidence_threshold,
+            max_definitions_per_target=config.max_definitions_per_target,
             include_variants=config.include_variants,
             allow_multiword_glosses=config.allow_multiword_glosses,
             gloss_decay=config.gloss_decay,
@@ -335,6 +337,7 @@ def run_rulegen_for_pair(
             targets=targets,
             language_pair=rulegen_config.language_pair,
             confidence_threshold=rulegen_config.confidence_threshold,
+            max_definitions_per_target=rulegen_config.max_definitions_per_target,
             include_variants=rulegen_config.include_variants,
             allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
             gloss_decay=rulegen_config.gloss_decay,

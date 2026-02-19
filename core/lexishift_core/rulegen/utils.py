@@ -14,6 +14,17 @@ from lexishift_core.replacement.inflect import (
 from lexishift_core.rulegen.generation import RuleCandidate
 
 _PUNCT_STRIP = ".,;:!?\"“”'’()[]{}<>"
+_GLOSS_TRAILING_PUNCT_STRIP = " \t\r\n.,;:!?\"“”'’"
+_GLOSS_OUTER_WRAPPERS = (
+    ("“", "”"),
+    ("‘", "’"),
+    ("\"", "\""),
+    ("'", "'"),
+    ("(", ")"),
+    ("[", "]"),
+    ("{", "}"),
+)
+_TRAILING_GLOSS_ANNOTATION_RE = re.compile(r"\s*(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\})\s*$")
 
 
 @dataclass(frozen=True)
@@ -30,7 +41,32 @@ class BasicStringNormalizer:
             text = re.sub(r"\s+", " ", text)
         if self.lower_case:
             text = text.lower()
+        # Punctuation stripping and whitespace collapse can leave trailing spaces.
+        text = text.strip()
         return replace(candidate, source_phrase=text)
+
+
+def sanitize_dictionary_gloss(value: object) -> str:
+    """Normalize lightweight dictionary noise before candidate generation."""
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    text = re.sub(r"\s+", " ", text)
+    previous = None
+    while text and previous != text:
+        previous = text
+        for left, right in _GLOSS_OUTER_WRAPPERS:
+            if text.startswith(left) and text.endswith(right) and len(text) > (len(left) + len(right)):
+                text = text[len(left) : -len(right)].strip()
+                break
+    text = text.strip(_GLOSS_TRAILING_PUNCT_STRIP)
+    previous = None
+    while text and previous != text:
+        previous = text
+        text = _TRAILING_GLOSS_ANNOTATION_RE.sub("", text).strip()
+    text = text.strip(_GLOSS_TRAILING_PUNCT_STRIP)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
 
 @dataclass(frozen=True)

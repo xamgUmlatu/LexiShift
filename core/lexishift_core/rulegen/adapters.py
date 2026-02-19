@@ -19,6 +19,7 @@ class RulegenAdapterRequest:
     targets: Sequence[str]
     language_pair: str
     confidence_threshold: float = 0.0
+    max_definitions_per_target: int = 3
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
@@ -37,6 +38,7 @@ def _run_ja_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         jmdict_path=request.jmdict_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
@@ -53,6 +55,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         freedict_de_en_path=request.freedict_de_en_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
@@ -68,6 +71,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         freedict_es_en_path=request.freedict_de_en_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
@@ -83,6 +87,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         freedict_en_es_path=request.freedict_de_en_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
     )

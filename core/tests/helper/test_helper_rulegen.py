@@ -280,6 +280,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         request = run_rules.call_args.args[0]
         self.assertIn("所", request.word_packages_by_target)
         self.assertEqual(request.word_packages_by_target["所"]["reading"], "ところ")
+        self.assertEqual(request.max_definitions_per_target, 3)
 
 
 if __name__ == "__main__":
