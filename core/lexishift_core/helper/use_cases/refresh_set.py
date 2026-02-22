@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
@@ -89,10 +89,12 @@ def refresh_srs_set(
     )
     selector_candidates = seed_to_selector_candidates(selection)
     signal_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
+    allowed_pos = _normalize_allowed_pos(getattr(config, "allowed_pos", None))
     refresh_policy = AdmissionRefreshPolicy(
         feedback_window_size=effective_feedback_window_size,
         max_active_items_override=config.max_active_items,
         max_new_items_override=config.max_new_items,
+        allowed_pos=allowed_pos or None,
     )
     updated_store, refresh_result = apply_admission_refresh(
         store=store,
@@ -155,6 +157,7 @@ def refresh_srs_set(
         "profile_id": profile_id,
         "set_top_n": effective_set_top_n,
         "feedback_window_size": effective_feedback_window_size,
+        "allowed_pos": sorted(allowed_pos),
         "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "max_active_items": refresh_result.decision.max_active_items,
         "max_new_items_per_day": refresh_result.decision.max_new_items_per_day,
@@ -168,3 +171,20 @@ def refresh_srs_set(
         "persisted": bool(config.persist_store),
         "trigger": str(config.trigger or "manual"),
     }
+
+
+def _normalize_allowed_pos(value: object) -> set[str]:
+    if value is None:
+        return set()
+    if isinstance(value, str):
+        candidates = [part for part in value.split(",")]
+    elif isinstance(value, Sequence):
+        candidates = list(value)
+    else:
+        return set()
+    normalized = {
+        str(item).strip().lower()
+        for item in candidates
+        if str(item).strip()
+    }
+    return normalized

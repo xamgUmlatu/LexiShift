@@ -30,6 +30,12 @@ from lexishift_core.rulegen.generation import (
     RuleGenerationResult,
     RuleScorer,
     SimpleSignalProvider,
+    build_pos_match_provider,
+)
+from lexishift_core.rulegen.pairs.pos_utils import (
+    build_candidate_pos_metadata,
+    extract_target_pos_component,
+    normalize_pos_component,
 )
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
@@ -158,6 +164,7 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
     signal_provider = SimpleSignalProvider(
         dict_priorities={"jmdict": config.dict_priority},
         frequency_provider=frequency_provider,
+        pos_match_provider=build_pos_match_provider(),
         variant_penalty_provider=variant_penalty_provider,
         embedding_provider=config.embedding_provider,
     )
@@ -258,6 +265,17 @@ class JmdictCandidateSource:
                 resolved_word_package,
                 fallback=discovered_script_forms,
             )
+            target_pos = extract_target_pos_component(
+                target_word_package=resolved_word_package,
+                language_pair=language_pair,
+            )
+            entry_pos_raw = _resolve_entry_pos_raw(matched_entries)
+            source_pos = normalize_pos_component(
+                entry_pos_raw,
+                language_pair=language_pair,
+                source_provider=self._source_dict,
+                source_kind="dictionary",
+            )
             for index, source in enumerate(sources):
                 metadata: dict[str, object] = {
                     "gloss_index": index,
@@ -271,6 +289,13 @@ class JmdictCandidateSource:
                     metadata["script_forms"] = resolved_script_forms
                 if resolved_word_package:
                     metadata["word_package"] = resolved_word_package
+                metadata.update(
+                    build_candidate_pos_metadata(
+                        source_pos=source_pos,
+                        target_pos=target_pos,
+                        dictionary_pos=source_pos,
+                    )
+                )
                 yield RuleCandidate(
                     source_phrase=str(source),
                     replacement=str(target),
@@ -305,6 +330,16 @@ def _collect_entry_glosses(entries: Sequence[JmdictEntryRecord]) -> list[str]:
             seen.add(cleaned)
             glosses.append(cleaned)
     return glosses
+
+
+def _resolve_entry_pos_raw(entries: Sequence[JmdictEntryRecord]) -> str:
+    values: list[str] = []
+    for entry in entries:
+        for pos in entry.pos_values:
+            text = str(pos or "").strip()
+            if text and text not in values:
+                values.append(text)
+    return "|".join(values)
 
 
 def _normalize_gloss_key(value: object) -> str:

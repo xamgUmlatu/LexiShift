@@ -81,6 +81,11 @@
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeProfileId(opts.profileId);
+      const allowedPos = Array.isArray(opts.allowedPos)
+        ? opts.allowedPos.map((value) => String(value || "").trim()).filter((value) => value)
+        : (typeof opts.allowedPos === "string"
+          ? opts.allowedPos.split(",").map((value) => String(value || "").trim()).filter((value) => value)
+          : undefined);
       const response = await client.refreshSrsSet({
         pair,
         profile_id: profileId,
@@ -92,6 +97,7 @@
         max_new_items: Number.isFinite(Number(opts.maxNewItems))
           ? Number(opts.maxNewItems)
           : undefined,
+        allowed_pos: allowedPos && allowedPos.length ? allowedPos : undefined,
         persist_store: opts.persistStore !== false,
         trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_refresh_button",
         profile_context: opts.profileContext && typeof opts.profileContext === "object"

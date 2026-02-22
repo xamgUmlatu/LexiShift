@@ -94,6 +94,62 @@ class TestSrsAdmissionPolicy(unittest.TestCase):
         self.assertAlmostEqual(pos_weight, 0.9, places=6)
         self.assertAlmostEqual(admission_weight, 0.45, places=6)
 
+    def test_classify_pos_bucket_prefers_canonical_when_provided(self) -> None:
+        self.assertEqual(
+            classify_pos_bucket(
+                language_pair="en-es",
+                raw_pos="n",
+                canonical_pos="noun",
+            ),
+            "noun",
+        )
+        self.assertEqual(
+            classify_pos_bucket(
+                language_pair="en-ja",
+                raw_pos="動詞-一般",
+                canonical_pos="other",
+            ),
+            "other",
+        )
+
+    def test_compute_admission_weight_uses_canonical_bucket(self) -> None:
+        bucket, pos_weight, admission_weight = compute_admission_weight(
+            language_pair="en-es",
+            raw_pos="v",
+            canonical_pos="verb",
+            base_weight=0.8,
+            pos_weights=AdmissionPosWeights(
+                noun=1.0,
+                adjective=0.9,
+                verb=0.75,
+                adverb=0.5,
+                other=0.25,
+            ),
+        )
+        self.assertEqual(bucket, "verb")
+        self.assertAlmostEqual(pos_weight, 0.75, places=6)
+        self.assertAlmostEqual(admission_weight, 0.6, places=6)
+
+    def test_classify_pos_bucket_invalid_canonical_falls_back_to_raw(self) -> None:
+        self.assertEqual(
+            classify_pos_bucket(
+                language_pair="en-ja",
+                raw_pos="動詞-一般",
+                canonical_pos="not-a-tag",
+            ),
+            "verb",
+        )
+
+    def test_classify_pos_bucket_canonical_other_overrides_raw(self) -> None:
+        self.assertEqual(
+            classify_pos_bucket(
+                language_pair="en-de",
+                raw_pos="SUB:NOM:SIN:NEU",
+                canonical_pos="other",
+            ),
+            "other",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -127,6 +127,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         }
         if normalized_morphology:
             morphology = normalized_morphology
+    pos = _normalize_pos_metadata(data.get("pos"))
     return RuleMetadata(
         label=data.get("label"),
         description=data.get("description"),
@@ -139,6 +140,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         script_forms=script_forms,
         word_package=word_package,
         morphology=morphology,
+        pos=pos,
     )
 
 
@@ -173,10 +175,39 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
             if metadata.morphology
             else None
         ),
+        "pos": _normalize_pos_metadata(metadata.pos),
         "word_package": word_package,
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [])}
     return trimmed or None
+
+
+def _normalize_pos_metadata(value: Optional[Mapping[str, Any]]) -> Optional[dict[str, Any]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, Any] = {}
+    for key in ("source", "target", "dictionary"):
+        component_raw = value.get(key)
+        if not isinstance(component_raw, Mapping):
+            continue
+        component: dict[str, Any] = {}
+        raw = str(component_raw.get("raw") or "").strip()
+        if raw:
+            component["raw"] = raw
+        canonical = str(component_raw.get("canonical") or "").strip().lower()
+        if canonical:
+            component["canonical"] = canonical
+        if "mapped" in component_raw:
+            component["mapped"] = bool(component_raw.get("mapped"))
+        source_profile = str(component_raw.get("source_profile") or "").strip()
+        if source_profile:
+            component["source_profile"] = source_profile
+        matched_rule = str(component_raw.get("matched_rule") or "").strip()
+        if matched_rule:
+            component["matched_rule"] = matched_rule
+        if component:
+            normalized[key] = component
+    return normalized or None
 
 
 def _rule_from_dict(data: Mapping[str, Any]) -> VocabRule:

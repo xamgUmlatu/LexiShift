@@ -44,6 +44,36 @@ class TestWordPackage(unittest.TestCase):
         invalid = normalize_word_package({"surface": "所"})
         self.assertIsNone(invalid)
 
+    def test_word_package_supports_pos_raw_and_pos_canonical(self) -> None:
+        package = build_word_package(
+            language_pair="en-es",
+            surface="gato",
+            reading="gato",
+            source_provider="freq-es-cde",
+            pos="n",
+            pos_raw="n",
+            pos_canonical="noun",
+        )
+        self.assertIsNotNone(package)
+        self.assertEqual(package["pos"], "n")
+        self.assertEqual(package["pos_raw"], "n")
+        self.assertEqual(package["pos_canonical"], "noun")
+
+        legacy = normalize_word_package(
+            {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "gato",
+                "reading": "gato",
+                "script_forms": {"surface": "gato"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": "n",
+            }
+        )
+        self.assertIsNotNone(legacy)
+        self.assertEqual(legacy["pos"], "n")
+        self.assertEqual(legacy["pos_raw"], "n")
+
 
 if __name__ == "__main__":
     unittest.main()

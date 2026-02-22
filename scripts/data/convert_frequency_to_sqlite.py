@@ -2,9 +2,22 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
+import sys
 
-from lexishift_core.frequency.sqlite import ParseConfig, convert_frequency_to_sqlite
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CORE_ROOT = PROJECT_ROOT / "core"
+if CORE_ROOT.exists():
+    core_path = str(CORE_ROOT)
+    if core_path not in sys.path:
+        sys.path.insert(0, core_path)
+
+from lexishift_core.frequency.sqlite import (  # noqa: E402
+    ParseConfig,
+    PosInventoryConfig,
+    convert_frequency_to_sqlite,
+)
 
 
 DEFAULT_SKIP_PREFIXES = ("*", "-----")
@@ -29,6 +42,27 @@ def main() -> None:
         default=list(DEFAULT_SKIP_PREFIXES),
         help="Line prefix to skip (can be repeated)",
     )
+    parser.add_argument(
+        "--pos-provider",
+        default="",
+        help="Optional POS source provider ID for unknown-tag inventory",
+    )
+    parser.add_argument(
+        "--pos-profile",
+        default="",
+        help="Optional POS source profile (for example: bccwj, freq-es-cde)",
+    )
+    parser.add_argument(
+        "--pos-kind",
+        default="frequency",
+        help="Optional POS source kind (default: frequency)",
+    )
+    parser.add_argument(
+        "--pos-column",
+        action="append",
+        default=[],
+        help="POS column name to inventory (repeatable; default: pos,wtype when POS inventory is enabled)",
+    )
     args = parser.parse_args()
 
     config = ParseConfig(
@@ -36,14 +70,26 @@ def main() -> None:
         header_starts_with=args.header_starts_with,
         skip_prefixes=tuple(args.skip_prefix),
     )
-    convert_frequency_to_sqlite(
+    pos_inventory: PosInventoryConfig | None = None
+    if args.pos_provider or args.pos_profile or args.pos_column:
+        pos_columns = tuple(args.pos_column) if args.pos_column else ("pos", "wtype")
+        pos_inventory = PosInventoryConfig(
+            source_provider=str(args.pos_provider or ""),
+            source_profile=str(args.pos_profile or ""),
+            source_kind=str(args.pos_kind or "frequency"),
+            pos_columns=pos_columns,
+        )
+
+    metadata = convert_frequency_to_sqlite(
         args.input,
         args.output,
         table=args.table,
         overwrite=args.overwrite,
         config=config,
         index_column=args.index_column,
+        pos_inventory=pos_inventory,
     )
+    print(json.dumps(metadata, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":

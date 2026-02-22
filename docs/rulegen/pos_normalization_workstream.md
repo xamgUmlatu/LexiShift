@@ -1,6 +1,6 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
-Status: Planned (design captured, implementation pending)  
+Status: In progress (Phases 0-5 implemented; Phase 6 in progress)  
 Last updated: 2026-02-22
 
 ## Purpose
@@ -220,6 +220,22 @@ Acceptance:
 - New module has focused unit tests for ES/JA/DE known tags and unknown-tag fallback.
 - No behavioral change yet outside tests unless explicitly wired.
 
+Phase 1 progress snapshot (2026-02-22):
+
+- Implemented core module:
+  - `core/lexishift_core/pos/normalization.py`
+  - `core/lexishift_core/pos/__init__.py`
+- Added focused tests:
+  - `core/tests/pos/test_pos_normalization.py`
+- Current profile coverage in module:
+  - `bccwj`
+  - `freq-es-cde`
+  - `freq-de-default`
+  - `freedict`
+  - `compact-latin` (for compact one-letter/Penn-style tags such as COCA)
+  - `generic` fallback
+- Not wired into runtime SRS/rulegen paths yet (Phase 2/3 scope), so behavior remains unchanged.
+
 ### Phase 2 - Wire Normalization Into SRS Seed + Admission
 
 Goal:
@@ -242,6 +258,31 @@ Acceptance:
 - S initialization works for all supported pairs without SQL/schema breakage.
 - ES no longer collapses into `other` when valid ES tags are present.
 - Existing JA behavior remains stable (no regression in bucket distribution quality).
+
+Phase 2 progress snapshot (2026-02-22):
+
+- Wired normalization into seed/admission path:
+  - `core/lexishift_core/srs/seed.py`
+  - `core/lexishift_core/srs/admission_policy.py`
+  - `core/lexishift_core/lexicon/word_package.py`
+- Compatibility policy implemented:
+  - admission prefers canonical POS when normalization reports a mapped tag
+  - legacy raw-tag classifier remains fallback when tag is unmapped
+- Added metadata propagation:
+  - `pos_raw`
+  - `pos_canonical`
+  - `pos_source_profile`
+  - `pos_matched_rule`
+  - `pos_mapped`
+- Verification:
+  - existing SRS/helper tests remain green
+  - post-wiring probe artifact:
+    - `docs/test_outputs/phase0_pos_baseline/phase0_pos_probe_2026-02-22_after_phase2.json`
+  - observed mismatch drop (top_n=2000):
+    - `en-es`: `0.9890 -> 0.0000`
+    - `es-en`: `0.9765 -> 0.0000`
+    - `en-ja`: `0.0622 -> 0.0000`
+    - `en-de`: `0.0000 -> 0.0010` (near-zero; tied to ambiguous DE mixed-tag rows)
 
 ### Phase 3 - Wire Normalization Into Rulegen Candidate Metadata
 
@@ -269,6 +310,39 @@ Acceptance:
 - POS scoring is deterministic and unit-tested.
 - Top-3 definition cap still applies after scoring (no ordering regressions).
 
+Phase 3 progress snapshot (2026-02-22):
+
+- Loader extension completed (ordered translation+POS records):
+  - `core/lexishift_core/resources/dict_loaders.py`
+  - New API: `load_freedict_gloss_records_ordered(...)`
+  - Existing gloss-only API kept for compatibility (`load_freedict_glosses_ordered(...)` now projects from records)
+- Rulegen pair wiring completed:
+  - `core/lexishift_core/rulegen/pairs/en_de.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/lexishift_core/rulegen/pairs/es_en.py`
+  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+  - Shared pair helper added:
+    - `core/lexishift_core/rulegen/pairs/pos_utils.py`
+- Adapter/runtime plumbing:
+  - `core/lexishift_core/rulegen/adapters.py` now forwards `word_packages_by_target` to all active pair adapters.
+- POS scoring hook activation:
+  - `core/lexishift_core/rulegen/generation.py`
+  - Added deterministic default `build_pos_match_provider(...)`:
+    - exact canonical match -> `1.0`
+    - compatibility-class match -> `0.5`
+    - unknown/missing -> `0.0`
+- Rule metadata persistence:
+  - `core/lexishift_core/replacement/core.py` (`RuleMetadata.pos`)
+  - `core/lexishift_core/persistence/storage.py` (serialize/deserialize `metadata.pos`)
+- Tests added/updated:
+  - `core/tests/resources/test_dict_loaders_freedict_pos.py`
+  - `core/tests/rulegen/test_rulegen_pos_metadata.py`
+  - `core/tests/persistence/test_storage.py`
+- Verification:
+  - Targeted suite (rulegen/resources/persistence/helper/srs) passed:
+    - `75 passed` on 2026-02-22
+  - Existing top-3 cap tests remain green (`core/tests/rulegen/test_rulegen_adapters.py`).
+
 ### Phase 4 - Optional POS Controls For Selection/Refresh
 
 Goal:
@@ -293,6 +367,34 @@ Acceptance:
 
 - POS filter can be enabled by config without breaking current defaults.
 - Diagnostics clearly show POS effects when enabled.
+
+Phase 4 progress snapshot (2026-02-22):
+
+- Optional `allowed_pos` plumbing added across refresh path:
+  - `core/lexishift_core/helper/engine.py` (`SrsRefreshJobConfig.allowed_pos`)
+  - `core/lexishift_core/helper/use_cases/refresh_set.py` (normalization + policy wiring)
+  - `core/lexishift_core/srs/growth.py` (`allowed_pos` support in growth planning/store growth)
+  - `core/lexishift_core/srs/selector.py` (normalized POS allow-list filtering)
+- Admission refresh diagnostics added:
+  - `core/lexishift_core/srs/admission_refresh.py`
+  - New counters exposed in payload:
+    - `filtered_by_pos`
+    - `admitted_by_pos_bucket`
+    - `unknown_pos_seen`
+  - Additional context:
+    - `allowed_pos`
+    - `candidate_pool_effective`
+- Helper entrypoint support:
+  - `scripts/helper/lexishift_helper.py` (`--allowed-pos`)
+  - `scripts/helper/lexishift_native_host.py` (`allowed_pos` payload parsing)
+  - `apps/chrome-extension/options/core/helper/srs_set_methods.js` (optional `allowed_pos` forwarding)
+- Tests added/updated:
+  - `core/tests/srs/test_srs_admission_refresh.py`
+  - `core/tests/srs/test_srs_growth.py`
+  - `core/tests/helper/test_helper_engine.py`
+- Verification:
+  - Targeted suite covering SRS growth/refresh/helper and prior POS/rulegen changes:
+    - `84 passed` on 2026-02-22
 
 ### Phase 5 - Converter + Resource Pipeline Hardening
 
@@ -319,6 +421,36 @@ Acceptance:
 
 - New pack conversions ship with enough metadata to plug into normalization registry in one edit.
 
+Phase 5 progress snapshot (2026-02-22):
+
+- Converter hardening added for FreeDict conversion:
+  - `scripts/data/convert_freedict_tei_to_sqlite.py`
+  - Metadata now includes:
+    - `rows_with_pos`
+    - `rows_without_pos`
+    - `pos_inventory_size`
+    - `pos_inventory_top`
+    - `unknown_pos_inventory_size`
+    - `unknown_pos_inventory_top`
+    - `pos_mapping_profile`
+    - `pos_mapping_available`
+- Frequency converter hardening added for BCCWJ/CDE/generic paths:
+  - `core/lexishift_core/frequency/sqlite.py`
+  - `scripts/data/convert_bccwj_frequency_to_sqlite.py`
+  - `scripts/data/convert_cde_frequency_to_sqlite.py`
+  - `scripts/data/convert_frequency_to_sqlite.py`
+  - `apps/gui/src/language_packs.py` (GUI download path now passes provider/profile POS inventory config)
+  - Optional POS inventory config now emits unknown-tag diagnostics into SQLite `meta.metadata`.
+- DE frequency builder hardening added:
+  - `core/lexishift_core/frequency/de/build.py`
+  - `core/lexishift_core/frequency/de/pipeline.py`
+  - DE build metadata now stores `meta.metadata.pos_inventory` with unknown-tag inventory.
+- Converter/source documentation completed:
+  - `docs/language_pairs/lp_data_inventory_matrix.md` (per-converter POS mapping matrix)
+  - `docs/language_pairs/language_pack_urls.txt` (frequency converter/provider/profile notes)
+- Remaining:
+  - None for Phase 5 scope.
+
 ### Phase 6 - Tests, Diagnostics, and Docs Completion
 
 Goal:
@@ -337,6 +469,28 @@ Tasks:
 Acceptance:
 
 - A new contributor can follow docs to add a language POS mapping without code archaeology.
+
+Phase 6 progress snapshot (2026-02-22):
+
+- Added targeted unknown-tag fallback tests for converter/build paths:
+  - `core/tests/frequency/test_frequency_sqlite_converter.py`
+  - `core/tests/frequency/test_de_build_pos_inventory.py`
+- Added pair/scoring edge-case tests:
+  - `core/tests/srs/test_srs_admission_policy.py`
+    - invalid canonical tag fallback to raw bucket
+    - explicit canonical `other` override behavior
+  - `core/tests/rulegen/test_rulegen_pos_metadata.py`
+    - dictionary POS fallback when source POS is missing
+    - legacy `dict_entry_pos_canonical` flat-key fallback
+    - canonical `other` ignored in scoring (neutral)
+- Probe script now uses the shared normalization module for canonical outcomes:
+  - `scripts/testing/pos_normalization_probe.py`
+- Documentation touchpoints linked from docs index:
+  - `docs/README.md`
+- LP setup checklist updated with POS-inventory verification step:
+  - `docs/language_pairs/language_pair_setup_checklist.md`
+- Remaining Phase 6 scope:
+  - Run final end-to-end LP onboarding verification and capture a reproducible test-output artifact for the new POS-inventory checks.
 
 ## Required Data For New Languages (What To Gather)
 

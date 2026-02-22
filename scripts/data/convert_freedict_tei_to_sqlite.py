@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import os
 import shutil
 import sqlite3
+import sys
 import tarfile
 import tempfile
 from datetime import datetime
@@ -17,6 +19,17 @@ from xml.etree import ElementTree
 XML_LANG_KEY = "{http://www.w3.org/XML/1998/namespace}lang"
 TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 SQLITE_MAGIC = b"SQLite format 3"
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CORE_ROOT = PROJECT_ROOT / "core"
+if CORE_ROOT.exists():
+    core_path = str(CORE_ROOT)
+    if core_path not in sys.path:
+        sys.path.insert(0, core_path)
+try:
+    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos  # type: ignore
+except Exception:  # noqa: BLE001
+    _normalize_pos = None
 
 
 def _parse_args() -> argparse.Namespace:
@@ -153,6 +166,37 @@ def _collect_translations(elem: ElementTree.Element, *, target_lang: str) -> lis
     return out
 
 
+def _collect_pos_values(elem: ElementTree.Element) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for pos in elem.findall(".//tei:gramGrp/tei:pos", TEI_NS):
+        text = (pos.text or "").strip()
+        if not text or text in seen:
+            continue
+        out.append(text)
+        seen.add(text)
+    return out
+
+
+def _counter_to_ranked(counter: Counter[str], *, limit: int = 100) -> list[dict[str, object]]:
+    ranked: list[dict[str, object]] = []
+    for tag, count in counter.most_common(limit):
+        ranked.append({"tag": tag, "count": int(count)})
+    return ranked
+
+
+def _is_pos_unmapped(raw_tag: str) -> bool:
+    if _normalize_pos is None:
+        return False
+    normalized = _normalize_pos(
+        raw_tag,
+        source_provider="freedict",
+        source_kind="dictionary",
+        source_profile="freedict",
+    )
+    return not bool(normalized.mapped)
+
+
 def convert_freedict_tei_to_sqlite(
     input_path: Path,
     output_path: Path,
@@ -170,6 +214,10 @@ def convert_freedict_tei_to_sqlite(
     seen_pairs: set[tuple[str, str]] = set()
     pair_count = 0
     entry_count = 0
+    pos_tag_counter: Counter[str] = Counter()
+    unknown_pos_tag_counter: Counter[str] = Counter()
+    rows_with_pos = 0
+    rows_without_pos = 0
     try:
         context = ElementTree.iterparse(tei_path, events=("end",))
         entry_tag = f"{{{TEI_NS['tei']}}}entry"
@@ -185,8 +233,12 @@ def convert_freedict_tei_to_sqlite(
             if not translations:
                 elem.clear()
                 continue
-            pos_values = _collect_unique_texts(elem.findall(".//tei:gramGrp/tei:pos", TEI_NS))
+            pos_values = _collect_pos_values(elem)
             pos_text = "|".join(pos_values) if pos_values else ""
+            for pos_tag in pos_values:
+                pos_tag_counter[pos_tag] += 1
+                if _is_pos_unmapped(pos_tag):
+                    unknown_pos_tag_counter[pos_tag] += 1
             for headword in headwords:
                 headword_lc = headword.lower()
                 next_rank = next_rank_by_headword.get(headword_lc, 0)
@@ -197,6 +249,10 @@ def convert_freedict_tei_to_sqlite(
                         continue
                     seen_pairs.add(key)
                     next_rank += 1
+                    if pos_text:
+                        rows_with_pos += 1
+                    else:
+                        rows_without_pos += 1
                     batch.append(
                         (
                             headword,
@@ -238,6 +294,14 @@ def convert_freedict_tei_to_sqlite(
             "entry_count_scanned": entry_count,
             "headword_count": len(next_rank_by_headword),
             "pair_count": pair_count,
+            "rows_with_pos": rows_with_pos,
+            "rows_without_pos": rows_without_pos,
+            "pos_inventory_size": len(pos_tag_counter),
+            "pos_inventory_top": _counter_to_ranked(pos_tag_counter),
+            "unknown_pos_inventory_size": len(unknown_pos_tag_counter),
+            "unknown_pos_inventory_top": _counter_to_ranked(unknown_pos_tag_counter),
+            "pos_mapping_profile": "freedict" if _normalize_pos is not None else None,
+            "pos_mapping_available": bool(_normalize_pos is not None),
             "generated_at_utc": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
         conn.execute(

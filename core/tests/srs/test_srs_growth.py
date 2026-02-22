@@ -83,6 +83,26 @@ class TestSrsGrowth(unittest.TestCase):
         alpha = next(item for item in updated.items if item.lemma == "alpha")
         self.assertIsNotNone(alpha.word_package)
 
+    def test_plan_growth_respects_allowed_pos(self) -> None:
+        candidates = [
+            SelectorCandidate(lemma="alpha", language_pair="en-ja", base_freq=0.9, pos="noun"),
+            SelectorCandidate(lemma="beta", language_pair="en-ja", base_freq=0.8, pos="verb"),
+        ]
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(coverage_scalar=1.0, max_new_items_per_day=5)
+
+        plan = plan_srs_growth(
+            candidates,
+            store=store,
+            settings=settings,
+            allowed_pairs=["en-ja"],
+            allowed_pos={"noun"},
+        )
+        self.assertEqual(plan.pool_size, 2)
+        self.assertEqual(plan.filtered_size, 1)
+        self.assertEqual(len(plan.selected), 1)
+        self.assertEqual(plan.selected[0].lemma, "alpha")
+
 
 if __name__ == "__main__":
     unittest.main()

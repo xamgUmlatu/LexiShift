@@ -8,6 +8,10 @@ from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
+from lexishift_core.pos.normalization import (
+    CANONICAL_POS_OTHER,
+    CANONICAL_POS_TAGS,
+)
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
 from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
@@ -108,6 +112,24 @@ class RuleGenerationResult:
     rule: VocabRule
 
 
+DEFAULT_POS_EXACT_MATCH_BONUS = 1.0
+DEFAULT_POS_COMPATIBLE_MATCH_BONUS = 0.5
+
+DEFAULT_POS_COMPATIBILITY_CLASSES: Mapping[str, str] = {
+    "noun": "nominal",
+    "pronoun": "nominal",
+    "determiner": "nominal",
+    "numeral": "nominal",
+    "adjective": "modifier",
+    "adverb": "modifier",
+    "verb": "verbal",
+    "adposition": "connector",
+    "conjunction": "connector",
+    "interjection": "expressive",
+    "punctuation": "punctuation",
+}
+
+
 class RuleGenerationPipeline:
     def __init__(
         self,
@@ -204,6 +226,9 @@ class RuleGenerationPipeline:
         )
         script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
         morphology = _normalize_morphology(candidate.metadata.get("morphology"))
+        pos = _normalize_pos_metadata(candidate.metadata.get("pos"))
+        if pos is None:
+            pos = _build_pos_metadata_from_flat(candidate.metadata)
         if script_forms is None and word_package is not None:
             script_forms = _normalize_script_forms(word_package.get("script_forms"))
         metadata = RuleMetadata(
@@ -214,6 +239,7 @@ class RuleGenerationPipeline:
             script_forms=script_forms,
             word_package=word_package,
             morphology=morphology,
+            pos=pos,
         )
         tags = list(config.tags)
         if candidate.source_type and candidate.source_type not in tags:
@@ -298,6 +324,71 @@ class SimpleSignalProvider:
         )
 
 
+def build_pos_match_provider(
+    *,
+    exact_match_bonus: float = DEFAULT_POS_EXACT_MATCH_BONUS,
+    compatible_match_bonus: float = DEFAULT_POS_COMPATIBLE_MATCH_BONUS,
+    compatibility_classes: Optional[Mapping[str, str]] = None,
+) -> Callable[[RuleCandidate], float]:
+    def _provider(candidate: RuleCandidate) -> float:
+        return score_candidate_pos_match(
+            candidate,
+            exact_match_bonus=exact_match_bonus,
+            compatible_match_bonus=compatible_match_bonus,
+            compatibility_classes=compatibility_classes,
+        )
+
+    return _provider
+
+
+def score_candidate_pos_match(
+    candidate: RuleCandidate,
+    *,
+    exact_match_bonus: float = DEFAULT_POS_EXACT_MATCH_BONUS,
+    compatible_match_bonus: float = DEFAULT_POS_COMPATIBLE_MATCH_BONUS,
+    compatibility_classes: Optional[Mapping[str, str]] = None,
+) -> float:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    source = _extract_candidate_pos_canonical(
+        metadata,
+        nested_key="source",
+        flat_key="source_pos_canonical",
+    )
+    target = _extract_candidate_pos_canonical(
+        metadata,
+        nested_key="target",
+        flat_key="target_pos_canonical",
+    )
+    if source and target:
+        return _score_canonical_pos_pair(
+            source,
+            target,
+            exact_match_bonus=exact_match_bonus,
+            compatible_match_bonus=compatible_match_bonus,
+            compatibility_classes=compatibility_classes,
+        )
+    dictionary = _extract_candidate_pos_canonical(
+        metadata,
+        nested_key="dictionary",
+        flat_key="dictionary_pos_canonical",
+    )
+    if not dictionary:
+        dictionary = _extract_candidate_pos_canonical(
+            metadata,
+            nested_key="dictionary",
+            flat_key="dict_entry_pos_canonical",
+        )
+    if dictionary and target:
+        return _score_canonical_pos_pair(
+            dictionary,
+            target,
+            exact_match_bonus=exact_match_bonus,
+            compatible_match_bonus=compatible_match_bonus,
+            compatibility_classes=compatibility_classes,
+        )
+    return 0.0
+
+
 @dataclass(frozen=True)
 class MappingCandidateSource:
     mapping: Mapping[str, Sequence[str]]
@@ -339,6 +430,121 @@ def _normalize_morphology(value: object) -> Optional[dict[str, object]]:
             continue
         normalized[name] = raw
     return normalized or None
+
+
+def _normalize_pos_metadata(value: object) -> Optional[dict[str, object]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, object] = {}
+    for key in ("source", "target", "dictionary"):
+        component = _normalize_pos_component(value.get(key))
+        if component:
+            normalized[key] = component
+    return normalized or None
+
+
+def _normalize_pos_component(value: object) -> Optional[dict[str, object]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, object] = {}
+    raw = str(value.get("raw") or "").strip()
+    if raw:
+        normalized["raw"] = raw
+    canonical = _normalize_canonical_pos(value.get("canonical"))
+    if canonical:
+        normalized["canonical"] = canonical
+    if "mapped" in value:
+        normalized["mapped"] = bool(value.get("mapped"))
+    source_profile = str(value.get("source_profile") or "").strip()
+    if source_profile:
+        normalized["source_profile"] = source_profile
+    matched_rule = str(value.get("matched_rule") or "").strip()
+    if matched_rule:
+        normalized["matched_rule"] = matched_rule
+    return normalized or None
+
+
+def _build_pos_metadata_from_flat(metadata: Mapping[str, object]) -> Optional[dict[str, object]]:
+    normalized: dict[str, object] = {}
+    source = _build_flat_pos_component(metadata, prefix="source_pos")
+    if source:
+        normalized["source"] = source
+    target = _build_flat_pos_component(metadata, prefix="target_pos")
+    if target:
+        normalized["target"] = target
+    dictionary = _build_flat_pos_component(metadata, prefix="dictionary_pos")
+    if not dictionary:
+        dictionary = _build_flat_pos_component(metadata, prefix="dict_entry_pos")
+    if dictionary:
+        normalized["dictionary"] = dictionary
+    return normalized or None
+
+
+def _build_flat_pos_component(
+    metadata: Mapping[str, object],
+    *,
+    prefix: str,
+) -> Optional[dict[str, object]]:
+    component: dict[str, object] = {}
+    raw = str(metadata.get(f"{prefix}_raw") or "").strip()
+    if raw:
+        component["raw"] = raw
+    canonical = _normalize_canonical_pos(metadata.get(f"{prefix}_canonical"))
+    if canonical:
+        component["canonical"] = canonical
+    mapped_key = f"{prefix}_mapped"
+    if mapped_key in metadata:
+        component["mapped"] = bool(metadata.get(mapped_key))
+    source_profile = str(metadata.get(f"{prefix}_source_profile") or "").strip()
+    if source_profile:
+        component["source_profile"] = source_profile
+    matched_rule = str(metadata.get(f"{prefix}_matched_rule") or "").strip()
+    if matched_rule:
+        component["matched_rule"] = matched_rule
+    return component or None
+
+
+def _extract_candidate_pos_canonical(
+    metadata: Mapping[str, object],
+    *,
+    nested_key: str,
+    flat_key: str,
+) -> str:
+    pos = metadata.get("pos")
+    if isinstance(pos, Mapping):
+        component = pos.get(nested_key)
+        if isinstance(component, Mapping):
+            canonical = _normalize_canonical_pos(component.get("canonical"))
+            if canonical:
+                return canonical
+    return _normalize_canonical_pos(metadata.get(flat_key))
+
+
+def _score_canonical_pos_pair(
+    left: str,
+    right: str,
+    *,
+    exact_match_bonus: float,
+    compatible_match_bonus: float,
+    compatibility_classes: Optional[Mapping[str, str]],
+) -> float:
+    if left == right:
+        return _clamp(exact_match_bonus)
+    classes = compatibility_classes or DEFAULT_POS_COMPATIBILITY_CLASSES
+    left_class = str(classes.get(left, "")).strip()
+    right_class = str(classes.get(right, "")).strip()
+    if left_class and left_class == right_class:
+        return _clamp(compatible_match_bonus)
+    return 0.0
+
+
+def _normalize_canonical_pos(value: object) -> str:
+    canonical = str(value or "").strip().lower()
+    if canonical not in CANONICAL_POS_TAGS:
+        return ""
+    if canonical == CANONICAL_POS_OTHER:
+        return ""
+    return canonical
 
 
 def _clamp(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

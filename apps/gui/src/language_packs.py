@@ -15,7 +15,11 @@ from datetime import datetime
 from PySide6.QtCore import QThread, Signal, QStandardPaths
 
 from i18n import t
-from lexishift_core.frequency.sqlite import ParseConfig, convert_frequency_to_sqlite
+from lexishift_core.frequency.sqlite import (
+    ParseConfig,
+    PosInventoryConfig,
+    convert_frequency_to_sqlite,
+)
 
 
 def _app_data_root() -> str:
@@ -57,6 +61,33 @@ def _open_request(request: urllib.request.Request, timeout: int) -> urllib.reque
             ctx = ssl._create_unverified_context()
             return urllib.request.urlopen(request, timeout=timeout, context=ctx)
         raise
+
+
+def _frequency_pos_inventory_config(pack_id: str) -> PosInventoryConfig | None:
+    normalized = str(pack_id or "").strip().lower()
+    if normalized == "freq-ja-bccwj":
+        return PosInventoryConfig(
+            source_provider="freq-ja-bccwj",
+            source_kind="frequency",
+            source_profile="bccwj",
+            pos_columns=("pos",),
+        )
+    if normalized == "freq-es-cde":
+        return PosInventoryConfig(
+            source_provider="freq-es-cde",
+            source_kind="frequency",
+            source_profile="freq-es-cde",
+            pos_columns=("pos",),
+        )
+    if normalized == "freq-en-coca":
+        return PosInventoryConfig(
+            source_provider="freq-en-coca",
+            source_kind="frequency",
+            source_profile="compact-latin",
+            pos_columns=("pos",),
+        )
+    return None
+
 
 @dataclass(frozen=True)
 class LanguagePackInfo:
@@ -702,13 +733,22 @@ class FrequencyPackDownloadThread(QThread):
         source_path, cleanup_paths = self._prepare_source(archive_path)
         os.makedirs(os.path.dirname(self._sqlite_path), exist_ok=True)
         try:
-            convert_frequency_to_sqlite(
+            pos_inventory = _frequency_pos_inventory_config(self._pack_id)
+            metadata = convert_frequency_to_sqlite(
                 Path(source_path),
                 Path(self._sqlite_path),
                 overwrite=True,
                 config=self._pack.parse_config,
                 index_column=self._pack.index_column,
+                pos_inventory=pos_inventory,
             )
+            if pos_inventory is not None:
+                _log_download(
+                    f"[{self._pack_id}] pos_inventory"
+                    f" rows_with_pos={int(metadata.get('rows_with_pos', 0))}"
+                    f" rows_without_pos={int(metadata.get('rows_without_pos', 0))}"
+                    f" unknown_pos_inventory_size={int(metadata.get('unknown_pos_inventory_size', 0))}"
+                )
         finally:
             for path in cleanup_paths:
                 self._cleanup_path(path)

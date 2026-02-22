@@ -233,6 +233,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
                 feedback_window_size=args.feedback_window_size,
                 max_active_items=args.max_active_items,
                 max_new_items=args.max_new_items,
+                allowed_pos=args.allowed_pos,
                 persist_store=not args.no_persist_store,
                 trigger=args.trigger,
             ),
@@ -374,6 +375,11 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--feedback-window-size", type=int, help="Feedback window size (defaults from pair policy when omitted).")
     refresh_s.add_argument("--max-active-items", type=int, help="Override max active items for refresh planning.")
     refresh_s.add_argument("--max-new-items", type=int, help="Override max new items/day for refresh planning.")
+    refresh_s.add_argument(
+        "--allowed-pos",
+        nargs="+",
+        help="Optional POS bucket allow-list for admission (e.g. noun adjective verb).",
+    )
     refresh_s.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
     refresh_s.add_argument("--trigger", default="cli")
     refresh_s.set_defaults(func=cmd_refresh_srs_set)

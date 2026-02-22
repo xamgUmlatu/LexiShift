@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from typing import Mapping, Optional
+from typing import Mapping, Optional, Sequence
 
 from lexishift_core.frequency.sqlite_store import validate_frequency_sqlite_db
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
@@ -26,7 +26,9 @@ from lexishift_core.helper.use_cases.refresh_set import (
 )
 from lexishift_core.helper.use_cases.reset import reset_srs_data as _reset_srs_data_use_case
 from lexishift_core.helper.use_cases.rulegen_job import run_rulegen_job as _run_rulegen_job_use_case
-from lexishift_core.helper.use_cases.runtime_diagnostics import get_srs_runtime_diagnostics
+from lexishift_core.helper.use_cases.runtime_diagnostics import (
+    get_srs_runtime_diagnostics as _get_srs_runtime_diagnostics_use_case,
+)
 from lexishift_core.helper.use_cases.set_planning import (
     build_set_plan_payload as _build_set_plan_payload,
     count_items_for_pair as _count_items_for_pair,
@@ -121,6 +123,7 @@ class SrsRefreshJobConfig:
     feedback_window_size: Optional[int] = None
     max_active_items: Optional[int] = None
     max_new_items: Optional[int] = None
+    allowed_pos: Optional[Sequence[str]] = None
     persist_store: bool = True
     trigger: str = "manual"
     profile_context: Optional[Mapping[str, object]] = None
@@ -198,6 +201,19 @@ def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") 
     if not ruleset_path.exists():
         raise FileNotFoundError(ruleset_path)
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
+
+
+def get_srs_runtime_diagnostics(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+) -> dict:
+    return _get_srs_runtime_diagnostics_use_case(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+    )
 
 
 def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:

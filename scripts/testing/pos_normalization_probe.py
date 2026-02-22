@@ -24,6 +24,7 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
 )
 from lexishift_core.helper.pair_resources import resolve_stopwords_path  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths, resolve_data_root  # noqa: E402
+from lexishift_core.pos.normalization import normalize_pos  # noqa: E402
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 
 
@@ -69,23 +70,16 @@ def _split_tokens(value: str) -> list[str]:
 
 def _infer_canonical_pos(raw_pos: str | None, *, pair: str) -> CanonicalPosResult:
     raw = str(raw_pos or "").strip()
-    if not raw:
-        return CanonicalPosResult(canonical="other", mapped=False, rule="empty")
-
-    target = _target_language(pair)
-    if target == "ja":
-        return _infer_ja_canonical_pos(raw)
-    if target == "de":
-        return _infer_de_canonical_pos(raw)
-    if target in {"en", "es"}:
-        compact = _infer_compact_latin_canonical_pos(raw)
-        if compact.mapped:
-            return compact
-
-    generic = _infer_generic_canonical_pos(raw)
-    if generic.mapped:
-        return generic
-    return CanonicalPosResult(canonical="other", mapped=False, rule="unmapped")
+    normalized = normalize_pos(
+        raw,
+        language_pair=pair,
+        source_kind="frequency",
+    )
+    return CanonicalPosResult(
+        canonical=normalized.canonical,
+        mapped=bool(normalized.mapped),
+        rule=normalized.matched_rule,
+    )
 
 
 def _infer_ja_canonical_pos(raw: str) -> CanonicalPosResult:

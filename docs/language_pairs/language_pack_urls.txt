@@ -281,7 +281,7 @@ filename: lemmas_60k.txt
 unzipped_name: lemmas_60k.txt
 layout: tab-delimited text with rank/lemma/POS/frequency columns
 parse_hint: ParseConfig(delimiter="\t", header_starts_with="rank", skip_prefixes=("*", "-----"))
-notes: current GUI frequency pack id is freq-en-coca
+notes: current GUI frequency pack id is freq-en-coca; converter: scripts/data/convert_frequency_to_sqlite.py (recommended flags: --pos-provider freq-en-coca --pos-profile compact-latin --pos-column pos)
 
 pack_id: freq-ja-bccwj
 name: BCCWJ Japanese Frequency (SUW)
@@ -294,7 +294,7 @@ filename: BCCWJ_frequencylist_suw_ver1_0.zip
 unzipped_name: BCCWJ_frequencylist_suw_ver1_0.tsv
 layout: zip containing TSV
 parse_hint: ParseConfig(delimiter="\t", header_starts_with="rank", skip_prefixes=())
-notes: current GUI frequency pack id is freq-ja-bccwj
+notes: current GUI frequency pack id is freq-ja-bccwj; converter: scripts/data/convert_bccwj_frequency_to_sqlite.py (provider/profile: freq-ja-bccwj / bccwj)
 
 pack_id: freq-de-default
 name: German News Frequency (Lemmas)
@@ -307,7 +307,7 @@ filename: deu_news_2023_1M.tar.gz
 unzipped_name: freq-de-default.sqlite
 layout: custom pipeline output SQLite
 parse_hint: built by lexishift_core.frequency.de.pipeline (Leipzig + LanguageTool POS lexicon)
-notes: current GUI frequency pack id is freq-de-default
+notes: current GUI frequency pack id is freq-de-default; POS provider/profile: freq-de-default / freq-de-default; metadata includes unknown POS inventory in meta.metadata.pos_inventory
 
 pack_id: freq-es-cde
 name: Corpus del Espanol Lemma Frequency (sample)
@@ -320,4 +320,4 @@ filename: spanish_lemmas20k.txt
 unzipped_name: spanish_lemmas20k.txt
 layout: tab-delimited text sample
 parse_hint: ParseConfig(delimiter="\t", header_starts_with="ID", skip_prefixes=("----",)); decode Latin-1 to preserve accents
-notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list); converter: scripts/data/convert_cde_frequency_to_sqlite.py
+notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list); converter: scripts/data/convert_cde_frequency_to_sqlite.py; converter provider/profile: freq-es-cde / freq-es-cde

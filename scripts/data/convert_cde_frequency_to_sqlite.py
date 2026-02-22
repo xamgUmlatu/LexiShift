@@ -2,9 +2,22 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
+import sys
 
-from lexishift_core.frequency.sqlite import ParseConfig, convert_frequency_to_sqlite
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CORE_ROOT = PROJECT_ROOT / "core"
+if CORE_ROOT.exists():
+    core_path = str(CORE_ROOT)
+    if core_path not in sys.path:
+        sys.path.insert(0, core_path)
+
+from lexishift_core.frequency.sqlite import (  # noqa: E402
+    ParseConfig,
+    PosInventoryConfig,
+    convert_frequency_to_sqlite,
+)
 
 
 def main() -> None:
@@ -25,14 +38,21 @@ def main() -> None:
         encoding="latin-1",
         errors="strict",
     )
-    convert_frequency_to_sqlite(
+    metadata = convert_frequency_to_sqlite(
         args.input,
         args.output,
         table=args.table,
         overwrite=args.overwrite,
         config=config,
         index_column=args.index_column,
+        pos_inventory=PosInventoryConfig(
+            source_provider="freq-es-cde",
+            source_kind="frequency",
+            source_profile="freq-es-cde",
+            pos_columns=("pos",),
+        ),
     )
+    print(json.dumps(metadata, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":

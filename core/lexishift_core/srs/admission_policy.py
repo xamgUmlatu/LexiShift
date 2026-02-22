@@ -4,6 +4,8 @@ from dataclasses import dataclass
 import re
 from typing import Optional
 
+from lexishift_core.pos.normalization import CANONICAL_POS_TAGS, canonical_pos_to_bucket
+
 
 POS_BUCKET_NOUN = "noun"
 POS_BUCKET_ADJECTIVE = "adjective"
@@ -58,7 +60,16 @@ def resolve_default_pos_weights(*, language_pair: str) -> AdmissionPosWeights:
     return AdmissionPosWeights()
 
 
-def classify_pos_bucket(*, language_pair: str, raw_pos: Optional[str]) -> str:
+def classify_pos_bucket(
+    *,
+    language_pair: str,
+    raw_pos: Optional[str] = None,
+    canonical_pos: Optional[str] = None,
+) -> str:
+    canonical = str(canonical_pos or "").strip().lower()
+    if canonical in CANONICAL_POS_TAGS:
+        return canonical_pos_to_bucket(canonical)
+
     normalized = str(raw_pos or "").strip()
     if not normalized:
         return POS_BUCKET_OTHER
@@ -75,11 +86,16 @@ def compute_admission_weight(
     *,
     language_pair: str,
     raw_pos: Optional[str],
+    canonical_pos: Optional[str] = None,
     base_weight: float,
     pos_weights: Optional[AdmissionPosWeights] = None,
 ) -> tuple[str, float, float]:
     resolved_weights = pos_weights or resolve_default_pos_weights(language_pair=language_pair)
-    bucket = classify_pos_bucket(language_pair=language_pair, raw_pos=raw_pos)
+    bucket = classify_pos_bucket(
+        language_pair=language_pair,
+        raw_pos=raw_pos,
+        canonical_pos=canonical_pos,
+    )
     pos_weight = resolved_weights.for_bucket(bucket)
     admission_weight = max(0.0, float(base_weight)) * max(0.0, float(pos_weight))
     return bucket, pos_weight, admission_weight

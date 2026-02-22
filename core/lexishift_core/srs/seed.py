@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 from lexishift_core.lexicon.word_package import build_word_package
+from lexishift_core.pos.normalization import normalize_pos
 from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.srs.admission_policy import (
@@ -30,6 +31,11 @@ class SeedWord:
     base_weight: float
     admission_weight: float
     metadata: dict[str, object]
+    pos_raw: Optional[str] = None
+    pos_canonical: Optional[str] = None
+    pos_source_profile: Optional[str] = None
+    pos_matched_rule: Optional[str] = None
+    pos_mapped: bool = False
 
 
 @dataclass(frozen=True)
@@ -155,6 +161,12 @@ def build_seed_candidates(
                 if include_pos and resolved_pos_column in columns and row[resolved_pos_column] is not None
                 else None
             )
+            normalized_pos = normalize_pos(
+                raw_pos,
+                language_pair=config.language_pair,
+                source_provider=source_label,
+                source_kind="frequency",
+            )
             raw_lform = (
                 str(row[resolved_lform_column]).strip()
                 if include_lform
@@ -182,6 +194,8 @@ def build_seed_candidates(
                 reading=raw_lform or lemma,
                 source_provider=source_label,
                 pos=raw_pos,
+                pos_raw=raw_pos,
+                pos_canonical=normalized_pos.canonical,
                 wtype=raw_wtype,
                 sublemma=raw_sublemma,
                 core_rank=core_rank,
@@ -200,9 +214,13 @@ def build_seed_candidates(
                 },
             )
             base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
+            canonical_pos_for_admission = (
+                normalized_pos.canonical if normalized_pos.mapped else None
+            )
             pos_bucket, pos_weight, admission_weight = compute_admission_weight(
                 language_pair=config.language_pair,
                 raw_pos=raw_pos,
+                canonical_pos=canonical_pos_for_admission,
                 base_weight=base_weight,
                 pos_weights=resolved_pos_weights,
             )
@@ -220,6 +238,11 @@ def build_seed_candidates(
                     admission_weight=admission_weight,
                     metadata={
                         "source": source_label,
+                        "pos_raw": raw_pos,
+                        "pos_canonical": normalized_pos.canonical,
+                        "pos_mapped": normalized_pos.mapped,
+                        "pos_source_profile": normalized_pos.source_profile,
+                        "pos_matched_rule": normalized_pos.matched_rule,
                         "rank_column": resolved_rank_column,
                         "pmw_column": resolved_pmw_column,
                         "pos_column": resolved_pos_column if include_pos else None,
@@ -230,6 +253,11 @@ def build_seed_candidates(
                         "pos_weight": pos_weight,
                         "admission_weight": admission_weight,
                     },
+                    pos_raw=raw_pos,
+                    pos_canonical=normalized_pos.canonical,
+                    pos_source_profile=normalized_pos.source_profile,
+                    pos_matched_rule=normalized_pos.matched_rule,
+                    pos_mapped=normalized_pos.mapped,
                 )
             )
         if config.sort_by_admission_weight:
@@ -240,9 +268,19 @@ def build_seed_candidates(
 def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandidate]:
     candidates: list[SelectorCandidate] = []
     for seed in seeds:
+        pos_raw = getattr(seed, "pos_raw", None)
+        pos_canonical = getattr(seed, "pos_canonical", None)
+        pos_mapped = bool(getattr(seed, "pos_mapped", False))
+        pos_source_profile = getattr(seed, "pos_source_profile", None)
+        pos_matched_rule = getattr(seed, "pos_matched_rule", None)
         metadata = {
             "core_rank": seed.core_rank,
             "pos": seed.pos,
+            "pos_raw": pos_raw if pos_raw is not None else seed.pos,
+            "pos_canonical": pos_canonical,
+            "pos_mapped": pos_mapped,
+            "pos_source_profile": pos_source_profile,
+            "pos_matched_rule": pos_matched_rule,
             "pos_bucket": seed.pos_bucket,
             "pos_weight": seed.pos_weight,
             "pmw": seed.pmw,

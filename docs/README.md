@@ -53,6 +53,8 @@ If you need SRS/core behavior next:
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
 - POS normalization workstream (SRS + rulegen + LP onboarding): `rulegen/pos_normalization_workstream.md`
+- LP data inventory matrix (all databases/resources): `language_pairs/lp_data_inventory_matrix.md`
+- LP resource recovery playbook (invalid/unlinked packs): `language_pairs/resource_recovery_playbook.md`
 - Global app schema: `reference/schema.md`
 - Glossary: `reference/glossary.md`
 - New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`

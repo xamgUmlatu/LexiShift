@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import csv
 import json
 import sqlite3
@@ -13,6 +14,11 @@ from pathlib import Path
 import re
 from typing import Callable, Optional
 from xml.etree import ElementTree
+
+try:
+    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos
+except Exception:  # noqa: BLE001
+    _normalize_pos = None
 
 TOKEN_ALLOWED = re.compile(
     r"^[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF]"
@@ -78,6 +84,7 @@ class BuildResult:
     discovered_paths: dict[str, Optional[str]]
     pos_lexicon_path: Optional[Path]
     requested_whitelist_enabled: bool
+    pos_inventory: dict[str, object]
     ranked: list[tuple[str, int]]
     row_count: int
     total_pmw: float
@@ -246,6 +253,64 @@ def normalize_pos_tag(value: str) -> str:
     if not raw:
         return ""
     return raw.upper().replace("-", "_").replace(" ", "_")
+
+
+def _split_pos_tags(value: str) -> list[str]:
+    text = str(value or "").strip()
+    if not text:
+        return []
+    parts = [part.strip() for part in re.split(r"[|/,;]+", text) if part.strip()]
+    return parts or [text]
+
+
+def _counter_to_ranked(counter: Counter[str], *, limit: int = 100) -> list[dict[str, object]]:
+    ranked: list[dict[str, object]] = []
+    for tag, count in counter.most_common(max(1, int(limit))):
+        ranked.append({"tag": tag, "count": int(count)})
+    return ranked
+
+
+def _is_pos_unmapped(raw_tag: str) -> bool:
+    if _normalize_pos is None:
+        return False
+    normalized = _normalize_pos(
+        raw_tag,
+        source_provider="freq-de-default",
+        source_kind="frequency",
+        source_profile="freq-de-default",
+    )
+    return not bool(normalized.mapped)
+
+
+def build_pos_inventory(pos_by_lemma: dict[str, Optional[str]]) -> dict[str, object]:
+    rows_with_pos = 0
+    rows_without_pos = 0
+    pos_tag_counter: Counter[str] = Counter()
+    unknown_pos_tag_counter: Counter[str] = Counter()
+
+    for raw_value in pos_by_lemma.values():
+        raw_text = str(raw_value or "").strip()
+        if not raw_text:
+            rows_without_pos += 1
+            continue
+        rows_with_pos += 1
+        for tag in _split_pos_tags(raw_text):
+            pos_tag_counter[tag] += 1
+            if _is_pos_unmapped(tag):
+                unknown_pos_tag_counter[tag] += 1
+
+    return {
+        "rows_with_pos": rows_with_pos,
+        "rows_without_pos": rows_without_pos,
+        "pos_inventory_size": len(pos_tag_counter),
+        "pos_inventory_top": _counter_to_ranked(pos_tag_counter),
+        "unknown_pos_inventory_size": len(unknown_pos_tag_counter),
+        "unknown_pos_inventory_top": _counter_to_ranked(unknown_pos_tag_counter),
+        "pos_source_provider": "freq-de-default",
+        "pos_source_kind": "frequency",
+        "pos_mapping_profile": "freq-de-default" if _normalize_pos is not None else None,
+        "pos_mapping_available": bool(_normalize_pos is not None),
+    }
 
 
 def is_proper_noun_tag(tag: str) -> bool:
@@ -650,6 +715,7 @@ def write_frequency_db(
     *,
     lemma_counts: dict[str, int],
     pos_by_lemma: dict[str, Optional[str]],
+    pos_inventory: dict[str, object],
     stats: BuildStats,
     source_path: Path,
     lemmatized: bool,
@@ -724,6 +790,7 @@ def write_frequency_db(
             },
             "discovered_paths": discovered_paths,
             "pos_lexicon_path": str(pos_lexicon_path) if pos_lexicon_path else None,
+            "pos_inventory": pos_inventory,
             "build_stats": {
                 "input_rows": stats.input_rows,
                 "malformed_rows": stats.malformed_rows,
@@ -869,6 +936,7 @@ def build_de_frequency_sqlite(
         pos_tags=pos_tags,
         config=filter_config,
     )
+    pos_inventory = build_pos_inventory(pos_by_lemma)
 
     stats = BuildStats(
         input_rows=input_rows,
@@ -891,6 +959,7 @@ def build_de_frequency_sqlite(
         output_path,
         lemma_counts=filtered_lemma_counts,
         pos_by_lemma=pos_by_lemma,
+        pos_inventory=pos_inventory,
         stats=stats,
         source_path=input_path,
         lemmatized=not no_lemmatize,
@@ -912,6 +981,7 @@ def build_de_frequency_sqlite(
         discovered_paths=discovered_paths,
         pos_lexicon_path=resolved_pos_lexicon_path,
         requested_whitelist_enabled=requested_whitelist_enabled,
+        pos_inventory=pos_inventory,
         ranked=ranked,
         row_count=row_count,
         total_pmw=total_pmw,
@@ -978,6 +1048,13 @@ def main() -> None:
         f" db_rows={result.row_count:,},"
         f" total_tokens_post_filter={result.stats.total_tokens_post_filter:,},"
         f" total_pmw={result.total_pmw:.2f}"
+    )
+    print(
+        "POS inventory:"
+        f" rows_with_pos={int(result.pos_inventory.get('rows_with_pos', 0)):,},"
+        f" rows_without_pos={int(result.pos_inventory.get('rows_without_pos', 0)):,},"
+        f" pos_inventory_size={int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
+        f" unknown_pos_inventory_size={int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
     )
     print(
         "Paths:"

@@ -71,13 +71,21 @@ def filter_candidates(
     blocked = blocked_lemmas or set()
     existing = in_s or set()
     allowed_pairs_set = set(allowed_pairs or [])
+    allowed_pos_set = {
+        str(value).strip().lower()
+        for value in (allowed_pos or set())
+        if str(value).strip()
+    }
     result: list[SelectorCandidate] = []
     for item in candidates:
         if not item.lemma or item.lemma in blocked or item.lemma in existing:
             continue
         if allowed_pairs_set and item.language_pair not in allowed_pairs_set:
             continue
-        if allowed_pos and item.pos and item.pos not in allowed_pos:
+        item_pos = str(item.pos or "").strip().lower()
+        if not item_pos and isinstance(item.metadata, Mapping):
+            item_pos = str(item.metadata.get("pos_bucket") or "").strip().lower()
+        if allowed_pos_set and item_pos and item_pos not in allowed_pos_set:
             continue
         result.append(item)
     return result

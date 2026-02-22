@@ -87,6 +87,23 @@ def _build_freq_db_with_spanish_style_columns(path: Path) -> None:
     conn.close()
 
 
+def _build_freq_db_with_compact_spanish_tags(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute("CREATE TABLE frequency (ID REAL, freq REAL, lemma TEXT, pos TEXT)")
+    conn.executemany(
+        "INSERT INTO frequency (ID, freq, lemma, pos) VALUES (?, ?, ?, ?)",
+        [
+            (1, 1000.0, "gato", "n"),
+            (2, 900.0, "bonito", "j"),
+            (3, 800.0, "correr", "v"),
+            (4, 700.0, "rapidamente", "r"),
+            (5, 600.0, "hola", "i"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
 def _build_freq_db_with_pmw_and_freq(path: Path) -> None:
     conn = sqlite3.connect(path)
     conn.execute(
@@ -257,6 +274,47 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertEqual(str(selected[0].metadata["rank_column"]).lower(), "id")
             self.assertEqual(str(selected[0].metadata["pmw_column"]).lower(), "freq")
             self.assertAlmostEqual(float(selected[0].pmw or 0.0), 950.0)
+
+    def test_seed_uses_canonical_pos_for_compact_spanish_tags(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq-es.sqlite"
+            _build_freq_db_with_compact_spanish_tags(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-es",
+                    top_n=5,
+                    require_jmdict=False,
+                ),
+            )
+
+            by_lemma = {item.lemma: item for item in selected}
+            self.assertEqual(by_lemma["gato"].pos_bucket, "noun")
+            self.assertEqual(by_lemma["bonito"].pos_bucket, "adjective")
+            self.assertEqual(by_lemma["correr"].pos_bucket, "verb")
+            self.assertEqual(by_lemma["rapidamente"].pos_bucket, "adverb")
+            self.assertEqual(by_lemma["hola"].pos_bucket, "other")
+
+            gato = by_lemma["gato"]
+            self.assertEqual(gato.pos_raw, "n")
+            self.assertEqual(gato.pos_canonical, "noun")
+            self.assertTrue(gato.pos_mapped)
+            self.assertEqual(gato.metadata["pos_raw"], "n")
+            self.assertEqual(gato.metadata["pos_canonical"], "noun")
+
+            package = gato.word_package
+            self.assertIsNotNone(package)
+            self.assertEqual(package.get("pos"), "n")
+            self.assertEqual(package.get("pos_raw"), "n")
+            self.assertEqual(package.get("pos_canonical"), "noun")
+
+            selector_candidates = seed_to_selector_candidates(selected)
+            selector_by_lemma = {item.lemma: item for item in selector_candidates}
+            self.assertEqual(selector_by_lemma["gato"].pos, "noun")
+            self.assertEqual(selector_by_lemma["gato"].metadata["pos_raw"], "n")
+            self.assertEqual(selector_by_lemma["gato"].metadata["pos_canonical"], "noun")
 
     def test_seed_prefers_pmw_when_pmw_and_freq_are_both_present(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -73,6 +73,8 @@ def build_word_package(
     script_forms: Optional[Mapping[str, object]] = None,
     source_extra: Optional[Mapping[str, object]] = None,
     pos: Optional[object] = None,
+    pos_raw: Optional[object] = None,
+    pos_canonical: Optional[object] = None,
     wtype: Optional[object] = None,
     sublemma: Optional[object] = None,
     core_rank: Optional[object] = None,
@@ -97,6 +99,8 @@ def build_word_package(
         "script_forms": script_forms,
         "source": source,
         "pos": pos,
+        "pos_raw": pos_raw,
+        "pos_canonical": pos_canonical,
         "wtype": wtype,
         "sublemma": sublemma,
         "core_rank": core_rank,
@@ -183,11 +187,21 @@ def normalize_word_package(
         "source": source,
     }
 
-    optional_text_fields = ("pos", "wtype", "sublemma", "lform_raw")
+    optional_text_fields = (
+        "pos",
+        "pos_raw",
+        "pos_canonical",
+        "wtype",
+        "sublemma",
+        "lform_raw",
+    )
     for field in optional_text_fields:
         text = str(raw.get(field) or "").strip()
         if text:
             normalized[field] = text
+    # Backwards compatibility: preserve existing `pos` while exposing explicit raw POS.
+    if "pos" in normalized and "pos_raw" not in normalized:
+        normalized["pos_raw"] = str(normalized["pos"])
 
     optional_float_fields = ("core_rank", "pmw", "row_rank")
     for field in optional_float_fields:

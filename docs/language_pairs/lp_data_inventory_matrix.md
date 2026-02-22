@@ -23,6 +23,19 @@ recorded in-repo, it is marked as pending verification instead of guessed.
 - Runtime path/link resolution: `core/lexishift_core/helper/pair_resources.py`
 - Frequency integrity audit script: `scripts/testing/resource_integrity_audit.py`
 
+## Converter POS Mapping Matrix (Phase 5)
+
+The table below defines the POS source contract per converter/build path so new LP onboarding can wire normalization in one place.
+
+| Converter / build path | Output packs | Raw POS source field(s) | Expected raw tag family | Normalization provider/profile | Unknown-tag inventory output |
+| --- | --- | --- | --- | --- | --- |
+| `scripts/data/convert_freedict_tei_to_sqlite.py` | `freedict-en-es`, `freedict-es-en`, `freedict-en-de`, `freedict-de-en` (SQLite `entries`) | TEI `gramGrp/pos` | FreeDict free-text POS labels and abbreviations (`noun`, `verb`, etc.) | provider=`freedict`, profile=`freedict`, kind=`dictionary` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
+| `scripts/data/convert_bccwj_frequency_to_sqlite.py` | `freq-ja-bccwj` | `pos` column from BCCWJ SUW TSV (`wtype` preserved separately but not used for POS mapping) | BCCWJ tags (`名詞-*`, `動詞-*`, etc.) | provider=`freq-ja-bccwj`, profile=`bccwj`, kind=`frequency` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
+| `scripts/data/convert_cde_frequency_to_sqlite.py` | `freq-es-cde` | `pos` column from CDE sample list | compact one-letter/Penn-like tags (`n`, `j`, `v`, `r`, etc.) | provider=`freq-es-cde`, profile=`freq-es-cde`, kind=`frequency` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
+| `scripts/data/convert_frequency_to_sqlite.py` + `apps/gui/src/language_packs.py` | generic frequency packs (for example `freq-en-coca`) | CLI-configurable via `--pos-column` (default `pos,wtype` when enabled); GUI path uses pack-id defaults | source-defined (compact, Penn-like, or custom) | CLI-configurable via `--pos-provider` and `--pos-profile`; GUI path maps known packs to provider/profile defaults | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` when POS inventory is enabled |
+| `core/lexishift_core/frequency/de/build.py` | `freq-de-default` SQLite writer | DE POS lexicon tag payload attached to lemma (`pos`) | LanguageTool/Morfologik-derived tags (`SUB:*`, `VV*`, etc.) | provider=`freq-de-default`, profile=`freq-de-default`, kind=`frequency` | `meta.metadata.pos_inventory` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
+| `core/lexishift_core/frequency/de/pipeline.py` | `freq-de-default` end-to-end pipeline | Delegates to `de/build.py` after POS lexicon compilation | same as above (depends on selected source: `german.dict` or `EIG+sonstige`) | same as above | prints summary counters and persists `meta.metadata.pos_inventory` |
+
 ## Runtime Status Probe (Downloaded / Linked / Validated)
 
 Frequency DBs are machine-state dependent and must be probed from the local data root:

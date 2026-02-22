@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core import (
+from lexishift_core import (  # noqa: E402
     InflectionSettings,
     InflectionSpec,
     LearningSettings,
@@ -16,7 +16,11 @@ from lexishift_core import (
     VocabRule,
     VocabSettings,
 )
-from lexishift_core.persistence.storage import VocabDataset, load_vocab_dataset, save_vocab_dataset
+from lexishift_core.persistence.storage import (  # noqa: E402
+    VocabDataset,
+    load_vocab_dataset,
+    save_vocab_dataset,
+)
 
 
 class StorageTests(unittest.TestCase):
@@ -36,6 +40,18 @@ class StorageTests(unittest.TestCase):
                         "source_form": "plural",
                         "target_surface": "horas",
                         "target_lemma": "hora",
+                    },
+                    pos={
+                        "source": {
+                            "raw": "n",
+                            "canonical": "noun",
+                            "mapped": True,
+                        },
+                        "target": {
+                            "raw": "SUB",
+                            "canonical": "noun",
+                            "mapped": True,
+                        },
                     },
                     word_package={
                         "version": 1,
@@ -74,6 +90,8 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(loaded.rules[0].metadata.label, "time")
         self.assertEqual(loaded.rules[0].metadata.script_forms["kana"], "ねこ")
         self.assertEqual(loaded.rules[0].metadata.morphology["target_surface"], "horas")
+        self.assertEqual(loaded.rules[0].metadata.pos["source"]["canonical"], "noun")
+        self.assertEqual(loaded.rules[0].metadata.pos["target"]["raw"], "SUB")
         self.assertEqual(loaded.rules[0].metadata.word_package["reading"], "ねこ")
         self.assertEqual(loaded.meaning_rules[0].source_phrases[0], "stunned into silence")
         self.assertEqual(loaded.synonyms["dawn"], "twilight")

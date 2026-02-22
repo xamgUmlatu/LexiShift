@@ -639,6 +639,13 @@ def main() -> None:
         f" total_pmw={result.total_pmw:.2f}"
     )
     print(
+        "POS inventory:"
+        f" rows_with_pos={int(result.pos_inventory.get('rows_with_pos', 0)):,},"
+        f" rows_without_pos={int(result.pos_inventory.get('rows_without_pos', 0)):,},"
+        f" pos_inventory_size={int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
+        f" unknown_pos_inventory_size={int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
+    )
+    print(
         "Paths:"
         f" language_packs_dir={result.language_packs_dir},"
         f" freedict_de_en_path={result.discovered_paths['freedict_de_en_path']},"

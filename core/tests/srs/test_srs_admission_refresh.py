@@ -152,6 +152,70 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         self.assertIn("gamma", lemmas)
         self.assertNotIn("delta", lemmas)
 
+    def test_apply_refresh_tracks_pos_diagnostics_with_allowed_pos(self) -> None:
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(max_active_items=10, max_new_items_per_day=1)
+        events = [
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma=f"lemma{index}",
+                source_type="extension",
+                rating="good",
+            )
+            for index in range(10)
+        ]
+        candidates = [
+            SelectorCandidate(
+                lemma="alpha",
+                language_pair="en-ja",
+                base_freq=0.95,
+                confidence=0.95,
+                source_type="frequency_list",
+                pos="noun",
+            ),
+            SelectorCandidate(
+                lemma="beta",
+                language_pair="en-ja",
+                base_freq=0.90,
+                confidence=0.90,
+                source_type="frequency_list",
+                pos="verb",
+            ),
+            SelectorCandidate(
+                lemma="gamma",
+                language_pair="en-ja",
+                base_freq=0.50,
+                confidence=0.50,
+                source_type="frequency_list",
+                metadata={"pos_mapped": False},
+            ),
+        ]
+
+        updated_store, result = apply_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=candidates,
+            events=events,
+            policy=AdmissionRefreshPolicy(
+                feedback_window_size=100,
+                allowed_pos={"noun"},
+            ),
+        )
+
+        self.assertTrue(result.applied)
+        self.assertEqual(result.admitted_count, 1)
+        self.assertEqual(result.selected_lemmas, ("alpha",))
+        self.assertEqual(result.diagnostics.filtered_by_pos, 1)
+        self.assertEqual(result.diagnostics.unknown_pos_seen, 1)
+        self.assertEqual(result.diagnostics.candidate_pool_effective, 2)
+        self.assertEqual(result.diagnostics.admitted_by_pos_bucket.get("noun"), 1)
+        self.assertEqual(tuple(result.diagnostics.allowed_pos), ("noun",))
+        lemmas = {item.lemma for item in updated_store.items if item.language_pair == "en-ja"}
+        self.assertIn("alpha", lemmas)
+        self.assertNotIn("beta", lemmas)
+
 
 if __name__ == "__main__":
     unittest.main()

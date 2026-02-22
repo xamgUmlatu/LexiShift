@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from math import floor
-from typing import Iterable, Optional, Sequence
+from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store
@@ -51,6 +51,7 @@ class AdmissionRefreshPolicy:
     )
     max_active_items_override: Optional[int] = None
     max_new_items_override: Optional[int] = None
+    allowed_pos: Optional[set[str]] = None
     selector_config: SelectorConfig = field(
         default_factory=lambda: SelectorConfig(
             weights=SelectorWeights(
@@ -84,12 +85,22 @@ class AdmissionRefreshDecision:
 
 
 @dataclass(frozen=True)
+class AdmissionRefreshDiagnostics:
+    filtered_by_pos: int = 0
+    admitted_by_pos_bucket: Mapping[str, int] = field(default_factory=dict)
+    unknown_pos_seen: int = 0
+    allowed_pos: Sequence[str] = field(default_factory=tuple)
+    candidate_pool_effective: int = 0
+
+
+@dataclass(frozen=True)
 class AdmissionRefreshResult:
     decision: AdmissionRefreshDecision
     candidate_pool_size: int
     admitted_count: int
     selected_lemmas: Sequence[str]
     applied: bool
+    diagnostics: AdmissionRefreshDiagnostics = field(default_factory=AdmissionRefreshDiagnostics)
 
 
 def compute_feedback_window_stats(
@@ -231,6 +242,9 @@ def apply_admission_refresh(
     now: Optional[datetime] = None,
 ) -> tuple[SrsStore, AdmissionRefreshResult]:
     policy = policy or AdmissionRefreshPolicy()
+    allowed_pos = _normalize_allowed_pos(policy.allowed_pos)
+    filtered_by_pos = _count_filtered_by_allowed_pos(candidates, allowed_pos=allowed_pos)
+    unknown_pos_seen = _count_unknown_pos(candidates)
     decision = plan_admission_refresh(
         store=store,
         settings=settings,
@@ -239,38 +253,57 @@ def apply_admission_refresh(
         policy=policy,
         now=now,
     )
+    effective_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
     if decision.admission_budget <= 0:
+        diagnostics = AdmissionRefreshDiagnostics(
+            filtered_by_pos=filtered_by_pos,
+            admitted_by_pos_bucket={},
+            unknown_pos_seen=unknown_pos_seen,
+            allowed_pos=tuple(sorted(allowed_pos)),
+            candidate_pool_effective=len(effective_candidates),
+        )
         return store, AdmissionRefreshResult(
             decision=decision,
             candidate_pool_size=len(candidates),
             admitted_count=0,
             selected_lemmas=tuple(),
             applied=False,
+            diagnostics=diagnostics,
         )
 
     growth_config = SrsGrowthConfig(
         selector_config=policy.selector_config,
         coverage_scalar=1.0,
         max_new_items=decision.admission_budget,
+        allowed_pos=allowed_pos or None,
         initial_stability=policy.initial_stability,
         initial_difficulty=policy.initial_difficulty,
         default_source_type=policy.default_source_type,
         confidence_min=None,
     )
     updated_store, growth_plan = grow_srs_store(
-        candidates,
+        effective_candidates,
         store=store,
         settings=settings,
         config=growth_config,
         allowed_pairs=[pair],
+        allowed_pos=allowed_pos or None,
     )
     selected_lemmas = tuple(candidate.lemma for candidate in growth_plan.selected)
+    diagnostics = AdmissionRefreshDiagnostics(
+        filtered_by_pos=filtered_by_pos,
+        admitted_by_pos_bucket=_count_admitted_by_pos_bucket(growth_plan.selected),
+        unknown_pos_seen=unknown_pos_seen,
+        allowed_pos=tuple(sorted(allowed_pos)),
+        candidate_pool_effective=len(effective_candidates),
+    )
     return updated_store, AdmissionRefreshResult(
         decision=decision,
         candidate_pool_size=len(candidates),
         admitted_count=len(selected_lemmas),
         selected_lemmas=selected_lemmas,
         applied=len(selected_lemmas) > 0,
+        diagnostics=diagnostics,
     )
 
 
@@ -306,6 +339,16 @@ def admission_refresh_result_to_dict(result: AdmissionRefreshResult) -> dict[str
         "candidate_pool_size": result.candidate_pool_size,
         "admitted_count": result.admitted_count,
         "selected_lemmas": list(result.selected_lemmas),
+        "diagnostics": {
+            "filtered_by_pos": int(result.diagnostics.filtered_by_pos),
+            "admitted_by_pos_bucket": {
+                str(key): int(value)
+                for key, value in dict(result.diagnostics.admitted_by_pos_bucket).items()
+            },
+            "unknown_pos_seen": int(result.diagnostics.unknown_pos_seen),
+            "allowed_pos": list(result.diagnostics.allowed_pos),
+            "candidate_pool_effective": int(result.diagnostics.candidate_pool_effective),
+        },
         "applied": result.applied,
     }
 
@@ -324,3 +367,95 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
     else:
         parsed = int(value)
     return max(0, parsed)
+
+
+def _normalize_allowed_pos(value: Optional[Sequence[str]]) -> set[str]:
+    if not value:
+        return set()
+    return {
+        str(item).strip().lower()
+        for item in value
+        if str(item).strip()
+    }
+
+
+def _apply_allowed_pos_filter(
+    candidates: Sequence[SelectorCandidate],
+    *,
+    allowed_pos: set[str],
+) -> list[SelectorCandidate]:
+    if not allowed_pos:
+        return list(candidates)
+    filtered: list[SelectorCandidate] = []
+    for candidate in candidates:
+        bucket = _resolve_candidate_pos_bucket(candidate)
+        if bucket and bucket not in allowed_pos:
+            continue
+        filtered.append(candidate)
+    return filtered
+
+
+def _count_filtered_by_allowed_pos(
+    candidates: Sequence[SelectorCandidate],
+    *,
+    allowed_pos: set[str],
+) -> int:
+    if not allowed_pos:
+        return 0
+    filtered_count = 0
+    for candidate in candidates:
+        bucket = _resolve_candidate_pos_bucket(candidate)
+        if bucket and bucket not in allowed_pos:
+            filtered_count += 1
+    return filtered_count
+
+
+def _count_unknown_pos(candidates: Sequence[SelectorCandidate]) -> int:
+    count = 0
+    for candidate in candidates:
+        if _is_unknown_candidate_pos(candidate):
+            count += 1
+    return count
+
+
+def _is_unknown_candidate_pos(candidate: SelectorCandidate) -> bool:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    mapped = metadata.get("pos_mapped")
+    if mapped is False:
+        return True
+    canonical = str(metadata.get("pos_canonical") or "").strip().lower()
+    if canonical:
+        return canonical == "other"
+    bucket = _resolve_candidate_pos_bucket(candidate)
+    return not bucket or bucket == "other"
+
+
+def _count_admitted_by_pos_bucket(
+    candidates: Sequence[SelectorCandidate],
+) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for candidate in candidates:
+        bucket = _resolve_candidate_pos_bucket(candidate) or "other"
+        counts[bucket] = counts.get(bucket, 0) + 1
+    return _sort_pos_bucket_counts(counts)
+
+
+def _sort_pos_bucket_counts(counts: Mapping[str, int]) -> dict[str, int]:
+    preferred = ("noun", "adjective", "verb", "adverb", "other")
+    ordered_keys: list[str] = []
+    for key in preferred:
+        if key in counts:
+            ordered_keys.append(key)
+    for key in sorted(counts.keys()):
+        if key not in ordered_keys:
+            ordered_keys.append(key)
+    return {key: int(counts[key]) for key in ordered_keys}
+
+
+def _resolve_candidate_pos_bucket(candidate: SelectorCandidate) -> str:
+    pos = str(candidate.pos or "").strip().lower()
+    if pos:
+        return pos
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    fallback = str(metadata.get("pos_bucket") or "").strip().lower()
+    return fallback

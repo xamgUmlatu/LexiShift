@@ -24,6 +24,7 @@ class SrsGrowthConfig:
     selector_config: SelectorConfig = field(default_factory=SelectorConfig)
     coverage_scalar: Optional[float] = None
     max_new_items: Optional[int] = None
+    allowed_pos: Optional[set[str]] = None
     initial_stability: float = 1.0
     initial_difficulty: float = 0.5
     default_source_type: str = SOURCE_FREQUENCY_LIST
@@ -71,9 +72,11 @@ def plan_srs_growth(
     settings: SrsSettings,
     config: Optional[SrsGrowthConfig] = None,
     allowed_pairs: Optional[Sequence[str]] = None,
+    allowed_pos: Optional[set[str]] = None,
     blocked_lemmas: Optional[set[str]] = None,
 ) -> SrsGrowthPlan:
     config = config or SrsGrowthConfig()
+    effective_allowed_pos = allowed_pos if allowed_pos is not None else config.allowed_pos
     pairs = resolve_allowed_pairs(settings, allowed_pairs=allowed_pairs)
     pair_set = set(pairs)
 
@@ -100,6 +103,7 @@ def plan_srs_growth(
         blocked_lemmas=blocked_lemmas,
         in_s=existing,
         allowed_pairs=pairs if pairs else None,
+        allowed_pos=effective_allowed_pos,
     )
     scored = rank_candidates(filtered, config=config.selector_config)
 
@@ -156,6 +160,7 @@ def grow_srs_store(
     settings: SrsSettings,
     config: Optional[SrsGrowthConfig] = None,
     allowed_pairs: Optional[Sequence[str]] = None,
+    allowed_pos: Optional[set[str]] = None,
     blocked_lemmas: Optional[set[str]] = None,
 ) -> tuple[SrsStore, SrsGrowthPlan]:
     config = config or SrsGrowthConfig()
@@ -165,6 +170,7 @@ def grow_srs_store(
         settings=settings,
         config=config,
         allowed_pairs=allowed_pairs,
+        allowed_pos=allowed_pos,
         blocked_lemmas=blocked_lemmas,
     )
     updated = apply_growth_plan(store, plan, config=config)

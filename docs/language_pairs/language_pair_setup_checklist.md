@@ -77,6 +77,7 @@ Related:
 - [ ] Frequency pack is registered if SRS bootstrap depends on it.
 - [ ] Raw POS tag inventory is documented for the LP sources (frequency and/or dictionary).
 - [ ] Source provider IDs needed by POS normalization are identified and recorded.
+- [ ] Converter/build metadata includes unknown POS inventory counters and they are reviewed before LP enablement.
 - [ ] Optional embedding packs are mapped to the LP if ranking is required.
 - [ ] Converter script exists for non-native formats and is documented in:
   - `scripts/data/`

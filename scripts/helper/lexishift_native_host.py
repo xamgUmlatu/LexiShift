@@ -86,6 +86,20 @@ def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
     value = payload.get(key)
     if value is None:
         return None
+
+
+def _optional_string_list(payload: Dict[str, Any], key: str) -> Optional[list[str]]:
+    value = payload.get(key)
+    if value is None:
+        return None
+    if isinstance(value, str):
+        items = [part.strip() for part in value.split(",")]
+    elif isinstance(value, (list, tuple, set)):
+        items = [str(item).strip() for item in value]
+    else:
+        return None
+    normalized = [item for item in items if item]
+    return normalized or None
     try:
         return int(value)
     except (TypeError, ValueError):
@@ -278,6 +292,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 feedback_window_size=feedback_window_size,
                 max_active_items=_optional_int(payload, "max_active_items"),
                 max_new_items=_optional_int(payload, "max_new_items"),
+                allowed_pos=_optional_string_list(payload, "allowed_pos"),
                 persist_store=bool(payload.get("persist_store", True)),
                 trigger=str(payload.get("trigger", "manual")),
                 profile_context=payload.get("profile_context")

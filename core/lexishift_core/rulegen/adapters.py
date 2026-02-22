@@ -59,6 +59,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
     )
     results = generate_en_de_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -75,6 +76,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
     )
     results = generate_en_es_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -90,6 +92,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         max_definitions_per_target=request.max_definitions_per_target,
         allow_multiword_glosses=request.allow_multiword_glosses,
         gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
     )
     results = generate_es_en_results(request.targets, config=config)
     return [result.rule for result in results]
