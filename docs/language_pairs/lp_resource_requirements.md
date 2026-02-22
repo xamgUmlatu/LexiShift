@@ -11,6 +11,9 @@ Related:
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/architecture/srs_lp_architecture.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/extension_lp_generalization_checklist.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/language_packs.py`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/lp_data_inventory_matrix.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/resource_integrity_audit.py`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/resource_recovery_playbook.md`
 
 ## 1) Resource Classes and What They Are For
 

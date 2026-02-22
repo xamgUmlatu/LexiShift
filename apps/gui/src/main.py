@@ -1016,6 +1016,33 @@ QMenu::separator {{
         self._refresh_profiles_ui()
         return True
 
+    def _sync_resource_settings_from_dialog(self, dialog: SettingsDialog) -> None:
+        panel = getattr(dialog, "language_pack_panel", None)
+        if panel is None:
+            return
+        language_pack_paths = dict(panel.paths() or {})
+        frequency_pack_paths = dict(panel.frequency_paths() or {})
+        embedding_pack_paths = dict(panel.embedding_paths() or {})
+        embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
+        embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
+        current_settings = self.state.settings
+        current_synonyms = current_settings.synonyms or SynonymSourceSettings()
+        wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
+        moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
+        updated_synonyms = replace(
+            current_synonyms,
+            wordnet_dir=wordnet_dir,
+            moby_path=moby_path,
+            language_packs=language_pack_paths,
+            frequency_packs=frequency_pack_paths,
+            embedding_packs=embedding_pack_paths,
+            embedding_pair_paths=embedding_pair_paths,
+            embedding_pair_enabled=embedding_pair_enabled,
+        )
+        if updated_synonyms == current_synonyms:
+            return
+        self.state.update_settings(replace(current_settings, synonyms=updated_synonyms))
+
     def _open_settings(self) -> None:
         dialog = SettingsDialog(
             app_settings=self.state.settings,
@@ -1023,6 +1050,7 @@ QMenu::separator {{
             parent=self,
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
+            self._sync_resource_settings_from_dialog(dialog)
             return
         self.state.update_settings(dialog.result_app_settings())
         dataset = replace(self.state.dataset, settings=dialog.result_dataset_settings())
@@ -1851,6 +1879,10 @@ QMenu::separator {{
                 nested = candidate / default_db_name
                 if nested.is_file():
                     return nested
+        if default_db_name:
+            fallback = _app_data_dir() / "frequency_packs" / default_db_name
+            if fallback.is_file():
+                return fallback
         return None
 
     def _resolve_jmdict_for_pair(

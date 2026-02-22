@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Mapping, Optional
 
+from lexishift_core.frequency.sqlite_store import validate_frequency_sqlite_db
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.pair_resources import (
@@ -255,6 +256,13 @@ def _ensure_pair_requirements(
             raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
         if not set_source_db.exists():
             raise FileNotFoundError(set_source_db)
+    should_validate_frequency_db = bool(
+        set_source_db is not None
+        and set_source_db.exists()
+        and (require_frequency_db or check_seed_resources)
+    )
+    if should_validate_frequency_db:
+        validate_frequency_sqlite_db(set_source_db, table="frequency")
 
 
 def run_rulegen_job(

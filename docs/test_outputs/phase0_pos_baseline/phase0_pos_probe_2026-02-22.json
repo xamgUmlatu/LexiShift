@@ -1,0 +1,4996 @@
+{
+  "generated_at_utc": "2026-02-22T03:05:20Z",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "pairs": [
+    "en-ja",
+    "en-es",
+    "es-en",
+    "en-de"
+  ],
+  "top_n": 2000,
+  "sample_limit": 5,
+  "pair_reports": {
+    "en-ja": {
+      "pair": "en-ja",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 2000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj.sqlite",
+      "frequency_resolution": "linked:freq-ja-bccwj",
+      "require_jmdict": true,
+      "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e",
+      "stopwords_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/stopwords/stopwords-ja.json",
+      "seed_count": 1898,
+      "pos_nonempty_count": 1898,
+      "raw_tag_distribution": [
+        {
+          "value": "名詞-普通名詞-一般",
+          "count": 650
+        },
+        {
+          "value": "名詞-普通名詞-サ変可能",
+          "count": 367
+        },
+        {
+          "value": "動詞-一般",
+          "count": 215
+        },
+        {
+          "value": "名詞-普通名詞-副詞可能",
+          "count": 96
+        },
+        {
+          "value": "接尾辞-名詞的-一般",
+          "count": 91
+        },
+        {
+          "value": "副詞",
+          "count": 61
+        },
+        {
+          "value": "名詞-普通名詞-助数詞可能",
+          "count": 60
+        },
+        {
+          "value": "名詞-数詞",
+          "count": 50
+        },
+        {
+          "value": "動詞-非自立可能",
+          "count": 40
+        },
+        {
+          "value": "形容詞-一般",
+          "count": 40
+        },
+        {
+          "value": "形状詞-一般",
+          "count": 36
+        },
+        {
+          "value": "名詞-普通名詞-形状詞可能",
+          "count": 31
+        },
+        {
+          "value": "接頭辞",
+          "count": 27
+        },
+        {
+          "value": "代名詞",
+          "count": 15
+        },
+        {
+          "value": "名詞-固有名詞-地名-国",
+          "count": 15
+        },
+        {
+          "value": "接続詞",
+          "count": 12
+        },
+        {
+          "value": "連体詞",
+          "count": 12
+        },
+        {
+          "value": "名詞-普通名詞-サ変形状詞可能",
+          "count": 11
+        },
+        {
+          "value": "助詞-副助詞",
+          "count": 10
+        },
+        {
+          "value": "助動詞",
+          "count": 8
+        },
+        {
+          "value": "名詞-固有名詞-一般",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-名詞的-副詞可能",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-名詞的-助数詞",
+          "count": 6
+        },
+        {
+          "value": "助詞-終助詞",
+          "count": 4
+        },
+        {
+          "value": "名詞-固有名詞-地名-一般",
+          "count": 4
+        },
+        {
+          "value": "形容詞-非自立可能",
+          "count": 3
+        },
+        {
+          "value": "形状詞-助動詞語幹",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-形容詞的",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-形状詞的",
+          "count": 3
+        },
+        {
+          "value": "助詞-接続助詞",
+          "count": 2
+        },
+        {
+          "value": "接尾辞-名詞的-サ変可能",
+          "count": 2
+        },
+        {
+          "value": "助詞-係助詞",
+          "count": 1
+        },
+        {
+          "value": "名詞-助動詞語幹",
+          "count": 1
+        },
+        {
+          "value": "名詞-固有名詞-人名-一般",
+          "count": 1
+        },
+        {
+          "value": "名詞-固有名詞-人名-姓",
+          "count": 1
+        },
+        {
+          "value": "感動詞-一般",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 1185
+        },
+        {
+          "value": "adjective",
+          "count": 82
+        },
+        {
+          "value": "verb",
+          "count": 263
+        },
+        {
+          "value": "adverb",
+          "count": 61
+        },
+        {
+          "value": "pronoun",
+          "count": 15
+        },
+        {
+          "value": "determiner",
+          "count": 12
+        },
+        {
+          "value": "adposition",
+          "count": 17
+        },
+        {
+          "value": "conjunction",
+          "count": 12
+        },
+        {
+          "value": "interjection",
+          "count": 1
+        },
+        {
+          "value": "numeral",
+          "count": 116
+        },
+        {
+          "value": "other",
+          "count": 134
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "noun",
+          "count": 1295
+        },
+        {
+          "value": "verb",
+          "count": 255
+        },
+        {
+          "value": "other",
+          "count": 205
+        },
+        {
+          "value": "adjective",
+          "count": 82
+        },
+        {
+          "value": "adverb",
+          "count": 61
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "noun",
+          "count": 1185
+        },
+        {
+          "value": "other",
+          "count": 307
+        },
+        {
+          "value": "verb",
+          "count": 263
+        },
+        {
+          "value": "adjective",
+          "count": 82
+        },
+        {
+          "value": "adverb",
+          "count": 61
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "ja_head:名詞",
+          "count": 1185
+        },
+        {
+          "value": "ja_head:動詞",
+          "count": 255
+        },
+        {
+          "value": "ja_contains_numeric",
+          "count": 116
+        },
+        {
+          "value": "ja_unmapped:接尾辞",
+          "count": 107
+        },
+        {
+          "value": "ja_head:副詞",
+          "count": 61
+        },
+        {
+          "value": "ja_head:形容詞",
+          "count": 43
+        },
+        {
+          "value": "ja_head:形状詞",
+          "count": 39
+        },
+        {
+          "value": "ja_unmapped:接頭辞",
+          "count": 27
+        },
+        {
+          "value": "ja_head:助詞",
+          "count": 17
+        },
+        {
+          "value": "ja_head:代名詞",
+          "count": 15
+        },
+        {
+          "value": "ja_head:接続詞",
+          "count": 12
+        },
+        {
+          "value": "ja_head:連体詞",
+          "count": 12
+        },
+        {
+          "value": "ja_head:助動詞",
+          "count": 8
+        },
+        {
+          "value": "ja_head:感動詞",
+          "count": 1
+        }
+      ],
+      "unmapped_raw_tags": [
+        {
+          "value": "接尾辞-名詞的-一般",
+          "count": 91
+        },
+        {
+          "value": "接頭辞",
+          "count": 27
+        },
+        {
+          "value": "接尾辞-名詞的-副詞可能",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-形容詞的",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-形状詞的",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-名詞的-サ変可能",
+          "count": 2
+        }
+      ],
+      "bucket_mismatch_distribution": [
+        {
+          "value": "other -> noun",
+          "count": 110
+        },
+        {
+          "value": "verb -> other",
+          "count": 8
+        }
+      ],
+      "bucket_mismatch_count": 118,
+      "bucket_mismatch_rate": 0.06217070600632244,
+      "mapped_seed_count": 1764,
+      "mapped_seed_rate": 0.9293993677555321,
+      "samples_by_runtime_bucket": {
+        "noun": [
+          {
+            "lemma": "事",
+            "raw_pos": "名詞-普通名詞-一般",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 18.0,
+            "pmw": 7082.8012463
+          },
+          {
+            "lemma": "一",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 21.0,
+            "pmw": 4851.6991142
+          },
+          {
+            "lemma": "二",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 24.0,
+            "pmw": 3845.8816693
+          },
+          {
+            "lemma": "三",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 27.0,
+            "pmw": 2985.2286282
+          },
+          {
+            "lemma": "十",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 26.0,
+            "pmw": 2927.2431631
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "無い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 29.0,
+            "pmw": 4381.8409597
+          },
+          {
+            "lemma": "様",
+            "raw_pos": "形状詞-助動詞語幹",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 39.0,
+            "pmw": 3570.1018033
+          },
+          {
+            "lemma": "良い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 58.0,
+            "pmw": 1902.2023799
+          },
+          {
+            "lemma": "多い",
+            "raw_pos": "形容詞-一般",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 147.0,
+            "pmw": 533.5695169
+          },
+          {
+            "lemma": "高い",
+            "raw_pos": "形容詞-一般",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 160.0,
+            "pmw": 387.0955173
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "為る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 8.0,
+            "pmw": 24508.1791099
+          },
+          {
+            "lemma": "居る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 13.0,
+            "pmw": 10717.4938487
+          },
+          {
+            "lemma": "有る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 15.0,
+            "pmw": 9147.0971856
+          },
+          {
+            "lemma": "言う",
+            "raw_pos": "動詞-一般",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 19.0,
+            "pmw": 7677.3673429
+          },
+          {
+            "lemma": "成る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 23.0,
+            "pmw": 5391.7401378
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "そう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 110.0,
+            "pmw": 1253.2163604
+          },
+          {
+            "lemma": "どう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 95.0,
+            "pmw": 1125.9656991
+          },
+          {
+            "lemma": "もう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 203.0,
+            "pmw": 599.1162254
+          },
+          {
+            "lemma": "こう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 195.0,
+            "pmw": 565.5924823
+          },
+          {
+            "lemma": "良く",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 250.0,
+            "pmw": 404.4165959
+          }
+        ],
+        "other": [
+          {
+            "lemma": "的",
+            "raw_pos": "接尾辞-形状詞的",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 36.0,
+            "pmw": 2632.8421817
+          },
+          {
+            "lemma": "御",
+            "raw_pos": "接頭辞",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 53.0,
+            "pmw": 2456.1710037
+          },
+          {
+            "lemma": "者",
+            "raw_pos": "接尾辞-名詞的-一般",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 32.0,
+            "pmw": 1866.7954952
+          },
+          {
+            "lemma": "ね",
+            "raw_pos": "助詞-終助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 74.0,
+            "pmw": 1730.100449
+          },
+          {
+            "lemma": "よ",
+            "raw_pos": "助詞-終助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 77.0,
+            "pmw": 1681.2821552
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "noun": [
+          {
+            "lemma": "事",
+            "raw_pos": "名詞-普通名詞-一般",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 18.0,
+            "pmw": 7082.8012463
+          },
+          {
+            "lemma": "物",
+            "raw_pos": "名詞-普通名詞-サ変可能",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 52.0,
+            "pmw": 2641.4836028
+          },
+          {
+            "lemma": "時",
+            "raw_pos": "名詞-普通名詞-副詞可能",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 84.0,
+            "pmw": 1548.7931104
+          },
+          {
+            "lemma": "人",
+            "raw_pos": "名詞-普通名詞-一般",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 64.0,
+            "pmw": 1499.7262801
+          },
+          {
+            "lemma": "日本",
+            "raw_pos": "名詞-固有名詞-地名-国",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 63.0,
+            "pmw": 1160.7321245
+          }
+        ],
+        "numeral": [
+          {
+            "lemma": "一",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 21.0,
+            "pmw": 4851.6991142
+          },
+          {
+            "lemma": "二",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 24.0,
+            "pmw": 3845.8816693
+          },
+          {
+            "lemma": "三",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 27.0,
+            "pmw": 2985.2286282
+          },
+          {
+            "lemma": "十",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 26.0,
+            "pmw": 2927.2431631
+          },
+          {
+            "lemma": "年",
+            "raw_pos": "名詞-普通名詞-助数詞可能",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "noun",
+            "core_rank": 30.0,
+            "pmw": 2357.5498294
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "無い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 29.0,
+            "pmw": 4381.8409597
+          },
+          {
+            "lemma": "様",
+            "raw_pos": "形状詞-助動詞語幹",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 39.0,
+            "pmw": 3570.1018033
+          },
+          {
+            "lemma": "良い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 58.0,
+            "pmw": 1902.2023799
+          },
+          {
+            "lemma": "多い",
+            "raw_pos": "形容詞-一般",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 147.0,
+            "pmw": 533.5695169
+          },
+          {
+            "lemma": "高い",
+            "raw_pos": "形容詞-一般",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 160.0,
+            "pmw": 387.0955173
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "為る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 8.0,
+            "pmw": 24508.1791099
+          },
+          {
+            "lemma": "居る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 13.0,
+            "pmw": 10717.4938487
+          },
+          {
+            "lemma": "有る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 15.0,
+            "pmw": 9147.0971856
+          },
+          {
+            "lemma": "言う",
+            "raw_pos": "動詞-一般",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 19.0,
+            "pmw": 7677.3673429
+          },
+          {
+            "lemma": "成る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 23.0,
+            "pmw": 5391.7401378
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "そう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 110.0,
+            "pmw": 1253.2163604
+          },
+          {
+            "lemma": "どう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 95.0,
+            "pmw": 1125.9656991
+          },
+          {
+            "lemma": "もう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 203.0,
+            "pmw": 599.1162254
+          },
+          {
+            "lemma": "こう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 195.0,
+            "pmw": 565.5924823
+          },
+          {
+            "lemma": "良く",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 250.0,
+            "pmw": 404.4165959
+          }
+        ],
+        "other": [
+          {
+            "lemma": "的",
+            "raw_pos": "接尾辞-形状詞的",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 36.0,
+            "pmw": 2632.8421817
+          },
+          {
+            "lemma": "御",
+            "raw_pos": "接頭辞",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 53.0,
+            "pmw": 2456.1710037
+          },
+          {
+            "lemma": "者",
+            "raw_pos": "接尾辞-名詞的-一般",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 32.0,
+            "pmw": 1866.7954952
+          },
+          {
+            "lemma": "さん",
+            "raw_pos": "接尾辞-名詞的-一般",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 41.0,
+            "pmw": 1624.8357043
+          },
+          {
+            "lemma": "第",
+            "raw_pos": "接頭辞",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 93.0,
+            "pmw": 1359.3031872
+          }
+        ],
+        "adposition": [
+          {
+            "lemma": "ね",
+            "raw_pos": "助詞-終助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 74.0,
+            "pmw": 1730.100449
+          },
+          {
+            "lemma": "よ",
+            "raw_pos": "助詞-終助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 77.0,
+            "pmw": 1681.2821552
+          },
+          {
+            "lemma": "だけ",
+            "raw_pos": "助詞-副助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 88.0,
+            "pmw": 1193.0036263
+          },
+          {
+            "lemma": "って",
+            "raw_pos": "助詞-副助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 114.0,
+            "pmw": 994.9296366
+          },
+          {
+            "lemma": "けれど",
+            "raw_pos": "助詞-接続助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 139.0,
+            "pmw": 926.3718134
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "何",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 75.0,
+            "pmw": 1616.2994332
+          },
+          {
+            "lemma": "此処",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 230.0,
+            "pmw": 542.92787
+          },
+          {
+            "lemma": "其処",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 223.0,
+            "pmw": 525.8744461
+          },
+          {
+            "lemma": "僕",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 268.0,
+            "pmw": 455.5577496
+          },
+          {
+            "lemma": "何時",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 332.0,
+            "pmw": 387.1911083
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "又",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 91.0,
+            "pmw": 1111.435876
+          },
+          {
+            "lemma": "然し",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 161.0,
+            "pmw": 683.5325858
+          },
+          {
+            "lemma": "或いは",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1074.0,
+            "pmw": 254.558677
+          },
+          {
+            "lemma": "更に",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 360.0,
+            "pmw": 180.5808475
+          },
+          {
+            "lemma": "唯",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 713.0,
+            "pmw": 158.193449
+          }
+        ],
+        "determiner": [
+          {
+            "lemma": "同じ",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 275.0,
+            "pmw": 401.176063
+          },
+          {
+            "lemma": "そんな",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 276.0,
+            "pmw": 384.524121
+          },
+          {
+            "lemma": "彼の",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 501.0,
+            "pmw": 327.7717791
+          },
+          {
+            "lemma": "大きな",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 364.0,
+            "pmw": 291.4854577
+          },
+          {
+            "lemma": "何の",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 556.0,
+            "pmw": 254.7307407
+          }
+        ],
+        "interjection": [
+          {
+            "lemma": "ああ",
+            "raw_pos": "感動詞-一般",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1478.0,
+            "pmw": 114.0782295
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [
+        {
+          "lemma": "一",
+          "raw_pos": "名詞-数詞",
+          "canonical_pos": "numeral",
+          "expected_bucket": "other",
+          "runtime_bucket": "noun",
+          "core_rank": 21.0,
+          "pmw": 4851.6991142
+        },
+        {
+          "lemma": "二",
+          "raw_pos": "名詞-数詞",
+          "canonical_pos": "numeral",
+          "expected_bucket": "other",
+          "runtime_bucket": "noun",
+          "core_rank": 24.0,
+          "pmw": 3845.8816693
+        },
+        {
+          "lemma": "三",
+          "raw_pos": "名詞-数詞",
+          "canonical_pos": "numeral",
+          "expected_bucket": "other",
+          "runtime_bucket": "noun",
+          "core_rank": 27.0,
+          "pmw": 2985.2286282
+        },
+        {
+          "lemma": "十",
+          "raw_pos": "名詞-数詞",
+          "canonical_pos": "numeral",
+          "expected_bucket": "other",
+          "runtime_bucket": "noun",
+          "core_rank": 26.0,
+          "pmw": 2927.2431631
+        },
+        {
+          "lemma": "年",
+          "raw_pos": "名詞-普通名詞-助数詞可能",
+          "canonical_pos": "numeral",
+          "expected_bucket": "other",
+          "runtime_bucket": "noun",
+          "core_rank": 30.0,
+          "pmw": 2357.5498294
+        }
+      ],
+      "unmapped_examples": [
+        {
+          "lemma": "的",
+          "raw_pos": "接尾辞-形状詞的",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 36.0,
+          "pmw": 2632.8421817
+        },
+        {
+          "lemma": "御",
+          "raw_pos": "接頭辞",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 53.0,
+          "pmw": 2456.1710037
+        },
+        {
+          "lemma": "者",
+          "raw_pos": "接尾辞-名詞的-一般",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 32.0,
+          "pmw": 1866.7954952
+        },
+        {
+          "lemma": "さん",
+          "raw_pos": "接尾辞-名詞的-一般",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 41.0,
+          "pmw": 1624.8357043
+        },
+        {
+          "lemma": "第",
+          "raw_pos": "接頭辞",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 93.0,
+          "pmw": 1359.3031872
+        }
+      ]
+    },
+    "en-es": {
+      "pair": "en-es",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 2000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "frequency_resolution": "linked:freq-es-cde",
+      "require_jmdict": false,
+      "jmdict_path": null,
+      "stopwords_path": null,
+      "seed_count": 2000,
+      "pos_nonempty_count": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 1105
+        },
+        {
+          "value": "j",
+          "count": 489
+        },
+        {
+          "value": "v",
+          "count": 312
+        },
+        {
+          "value": "r",
+          "count": 72
+        },
+        {
+          "value": "c",
+          "count": 6
+        },
+        {
+          "value": "e",
+          "count": 4
+        },
+        {
+          "value": "i",
+          "count": 3
+        },
+        {
+          "value": "m",
+          "count": 3
+        },
+        {
+          "value": "d",
+          "count": 2
+        },
+        {
+          "value": "p",
+          "count": 2
+        },
+        {
+          "value": "-",
+          "count": 1
+        },
+        {
+          "value": "l",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 1105
+        },
+        {
+          "value": "adjective",
+          "count": 489
+        },
+        {
+          "value": "verb",
+          "count": 312
+        },
+        {
+          "value": "adverb",
+          "count": 72
+        },
+        {
+          "value": "pronoun",
+          "count": 2
+        },
+        {
+          "value": "determiner",
+          "count": 3
+        },
+        {
+          "value": "adposition",
+          "count": 4
+        },
+        {
+          "value": "conjunction",
+          "count": 6
+        },
+        {
+          "value": "interjection",
+          "count": 3
+        },
+        {
+          "value": "numeral",
+          "count": 3
+        },
+        {
+          "value": "punctuation",
+          "count": 1
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "other",
+          "count": 2000
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "noun",
+          "count": 1105
+        },
+        {
+          "value": "adjective",
+          "count": 489
+        },
+        {
+          "value": "verb",
+          "count": 312
+        },
+        {
+          "value": "adverb",
+          "count": 72
+        },
+        {
+          "value": "other",
+          "count": 22
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "latin_compact:n",
+          "count": 1105
+        },
+        {
+          "value": "latin_compact:j",
+          "count": 489
+        },
+        {
+          "value": "latin_compact:v",
+          "count": 312
+        },
+        {
+          "value": "latin_compact:r",
+          "count": 72
+        },
+        {
+          "value": "latin_compact:c",
+          "count": 6
+        },
+        {
+          "value": "latin_compact:e",
+          "count": 4
+        },
+        {
+          "value": "latin_compact:i",
+          "count": 3
+        },
+        {
+          "value": "latin_compact:m",
+          "count": 3
+        },
+        {
+          "value": "latin_compact:d",
+          "count": 2
+        },
+        {
+          "value": "latin_compact:p",
+          "count": 2
+        },
+        {
+          "value": "latin_compact:-",
+          "count": 1
+        },
+        {
+          "value": "latin_compact:l",
+          "count": 1
+        }
+      ],
+      "unmapped_raw_tags": [],
+      "bucket_mismatch_distribution": [
+        {
+          "value": "noun -> other",
+          "count": 1105
+        },
+        {
+          "value": "adjective -> other",
+          "count": 489
+        },
+        {
+          "value": "verb -> other",
+          "count": 312
+        },
+        {
+          "value": "adverb -> other",
+          "count": 72
+        }
+      ],
+      "bucket_mismatch_count": 1978,
+      "bucket_mismatch_rate": 0.989,
+      "mapped_seed_count": 2000,
+      "mapped_seed_rate": 1.0,
+      "samples_by_runtime_bucket": {
+        "other": [
+          {
+            "lemma": "el",
+            "raw_pos": "l",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1.0,
+            "pmw": 1173068.0
+          },
+          {
+            "lemma": "no",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 11.0,
+            "pmw": 209116.0
+          },
+          {
+            "lemma": "más",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 21.0,
+            "pmw": 86998.0
+          },
+          {
+            "lemma": "ese",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 31.0,
+            "pmw": 51685.0
+          },
+          {
+            "lemma": "entre",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 41.0,
+            "pmw": 33206.0
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "determiner": [
+          {
+            "lemma": "el",
+            "raw_pos": "l",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1.0,
+            "pmw": 1173068.0
+          },
+          {
+            "lemma": "ese",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 31.0,
+            "pmw": 51685.0
+          },
+          {
+            "lemma": "tanto",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 421.0,
+            "pmw": 3960.0
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "no",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 11.0,
+            "pmw": 209116.0
+          },
+          {
+            "lemma": "más",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 21.0,
+            "pmw": 86998.0
+          },
+          {
+            "lemma": "sólo",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 81.0,
+            "pmw": 16175.0
+          },
+          {
+            "lemma": "tarde",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 441.0,
+            "pmw": 3845.0
+          },
+          {
+            "lemma": "jamás",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 891.0,
+            "pmw": 2009.0
+          }
+        ],
+        "adposition": [
+          {
+            "lemma": "entre",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 41.0,
+            "pmw": 33206.0
+          },
+          {
+            "lemma": "hasta",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 51.0,
+            "pmw": 26319.0
+          },
+          {
+            "lemma": "según",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 201.0,
+            "pmw": 7810.0
+          },
+          {
+            "lemma": "dentro",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 231.0,
+            "pmw": 6788.0
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "deber",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 61.0,
+            "pmw": 21510.0
+          },
+          {
+            "lemma": "poner",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 91.0,
+            "pmw": 15136.0
+          },
+          {
+            "lemma": "llamar",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 111.0,
+            "pmw": 12925.0
+          },
+          {
+            "lemma": "preguntar",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 161.0,
+            "pmw": 9710.0
+          },
+          {
+            "lemma": "trabajar",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 181.0,
+            "pmw": 8394.0
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "pues",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 71.0,
+            "pmw": 18246.0
+          },
+          {
+            "lemma": "sobre",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 281.0,
+            "pmw": 5868.0
+          },
+          {
+            "lemma": "cuándo",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1661.0,
+            "pmw": 1059.0
+          },
+          {
+            "lemma": "empero",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 7071.0,
+            "pmw": 131.0
+          },
+          {
+            "lemma": "aun",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 14071.0,
+            "pmw": 38.0
+          }
+        ],
+        "noun": [
+          {
+            "lemma": "siglo",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 101.0,
+            "pmw": 14131.0
+          },
+          {
+            "lemma": "millón",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 151.0,
+            "pmw": 10209.0
+          },
+          {
+            "lemma": "hora",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 171.0,
+            "pmw": 8983.0
+          },
+          {
+            "lemma": "música",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 241.0,
+            "pmw": 6491.0
+          },
+          {
+            "lemma": "principio",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 261.0,
+            "pmw": 6241.0
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "mayor",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 121.0,
+            "pmw": 12251.0
+          },
+          {
+            "lemma": "nacional",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 131.0,
+            "pmw": 11529.0
+          },
+          {
+            "lemma": "político",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 141.0,
+            "pmw": 10637.0
+          },
+          {
+            "lemma": "pequeño",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 191.0,
+            "pmw": 8077.0
+          },
+          {
+            "lemma": "junto",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 291.0,
+            "pmw": 5717.0
+          }
+        ],
+        "numeral": [
+          {
+            "lemma": "mil",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 271.0,
+            "pmw": 5968.0
+          },
+          {
+            "lemma": "ocho",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 661.0,
+            "pmw": 2672.0
+          },
+          {
+            "lemma": "veintitrés",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 7381.0,
+            "pmw": 122.0
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "vos",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 741.0,
+            "pmw": 2394.0
+          },
+          {
+            "lemma": "ésa",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1911.0,
+            "pmw": 886.0
+          }
+        ],
+        "interjection": [
+          {
+            "lemma": "oh",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 2641.0,
+            "pmw": 586.0
+          },
+          {
+            "lemma": "center",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 8131.0,
+            "pmw": 105.0
+          },
+          {
+            "lemma": "o",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 8511.0,
+            "pmw": 97.0
+          }
+        ],
+        "punctuation": [
+          {
+            "lemma": "apartar",
+            "raw_pos": "-",
+            "canonical_pos": "punctuation",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 9851.0,
+            "pmw": 75.0
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [
+        {
+          "lemma": "no",
+          "raw_pos": "r",
+          "canonical_pos": "adverb",
+          "expected_bucket": "adverb",
+          "runtime_bucket": "other",
+          "core_rank": 11.0,
+          "pmw": 209116.0
+        },
+        {
+          "lemma": "más",
+          "raw_pos": "r",
+          "canonical_pos": "adverb",
+          "expected_bucket": "adverb",
+          "runtime_bucket": "other",
+          "core_rank": 21.0,
+          "pmw": 86998.0
+        },
+        {
+          "lemma": "deber",
+          "raw_pos": "v",
+          "canonical_pos": "verb",
+          "expected_bucket": "verb",
+          "runtime_bucket": "other",
+          "core_rank": 61.0,
+          "pmw": 21510.0
+        },
+        {
+          "lemma": "sólo",
+          "raw_pos": "r",
+          "canonical_pos": "adverb",
+          "expected_bucket": "adverb",
+          "runtime_bucket": "other",
+          "core_rank": 81.0,
+          "pmw": 16175.0
+        },
+        {
+          "lemma": "poner",
+          "raw_pos": "v",
+          "canonical_pos": "verb",
+          "expected_bucket": "verb",
+          "runtime_bucket": "other",
+          "core_rank": 91.0,
+          "pmw": 15136.0
+        }
+      ],
+      "unmapped_examples": []
+    },
+    "es-en": {
+      "pair": "es-en",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 2000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "frequency_resolution": "fallback_default",
+      "require_jmdict": false,
+      "jmdict_path": null,
+      "stopwords_path": null,
+      "seed_count": 2000,
+      "pos_nonempty_count": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 1008
+        },
+        {
+          "value": "j",
+          "count": 471
+        },
+        {
+          "value": "v",
+          "count": 369
+        },
+        {
+          "value": "r",
+          "count": 101
+        },
+        {
+          "value": "i",
+          "count": 14
+        },
+        {
+          "value": "m",
+          "count": 11
+        },
+        {
+          "value": "u",
+          "count": 10
+        },
+        {
+          "value": "p",
+          "count": 7
+        },
+        {
+          "value": "a",
+          "count": 4
+        },
+        {
+          "value": "d",
+          "count": 3
+        },
+        {
+          "value": "c",
+          "count": 1
+        },
+        {
+          "value": "e",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 1008
+        },
+        {
+          "value": "adjective",
+          "count": 475
+        },
+        {
+          "value": "verb",
+          "count": 369
+        },
+        {
+          "value": "adverb",
+          "count": 101
+        },
+        {
+          "value": "pronoun",
+          "count": 7
+        },
+        {
+          "value": "determiner",
+          "count": 3
+        },
+        {
+          "value": "adposition",
+          "count": 1
+        },
+        {
+          "value": "conjunction",
+          "count": 1
+        },
+        {
+          "value": "interjection",
+          "count": 14
+        },
+        {
+          "value": "numeral",
+          "count": 11
+        },
+        {
+          "value": "other",
+          "count": 10
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "other",
+          "count": 2000
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "noun",
+          "count": 1008
+        },
+        {
+          "value": "adjective",
+          "count": 475
+        },
+        {
+          "value": "verb",
+          "count": 369
+        },
+        {
+          "value": "adverb",
+          "count": 101
+        },
+        {
+          "value": "other",
+          "count": 47
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "latin_compact:n",
+          "count": 1008
+        },
+        {
+          "value": "latin_compact:j",
+          "count": 471
+        },
+        {
+          "value": "latin_compact:v",
+          "count": 369
+        },
+        {
+          "value": "latin_compact:r",
+          "count": 101
+        },
+        {
+          "value": "latin_compact:i",
+          "count": 14
+        },
+        {
+          "value": "latin_compact:m",
+          "count": 11
+        },
+        {
+          "value": "unmapped",
+          "count": 10
+        },
+        {
+          "value": "latin_compact:p",
+          "count": 7
+        },
+        {
+          "value": "latin_compact:a",
+          "count": 4
+        },
+        {
+          "value": "latin_compact:d",
+          "count": 3
+        },
+        {
+          "value": "latin_compact:c",
+          "count": 1
+        },
+        {
+          "value": "latin_compact:e",
+          "count": 1
+        }
+      ],
+      "unmapped_raw_tags": [
+        {
+          "value": "u",
+          "count": 10
+        }
+      ],
+      "bucket_mismatch_distribution": [
+        {
+          "value": "noun -> other",
+          "count": 1008
+        },
+        {
+          "value": "adjective -> other",
+          "count": 475
+        },
+        {
+          "value": "verb -> other",
+          "count": 369
+        },
+        {
+          "value": "adverb -> other",
+          "count": 101
+        }
+      ],
+      "bucket_mismatch_count": 1953,
+      "bucket_mismatch_rate": 0.9765,
+      "mapped_seed_count": 1990,
+      "mapped_seed_rate": 0.995,
+      "samples_by_runtime_bucket": {
+        "other": [
+          {
+            "lemma": "of",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 23159162.0
+          },
+          {
+            "lemma": "do",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 15.0,
+            "pmw": 8186412.0
+          },
+          {
+            "lemma": "they",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 25.0,
+            "pmw": 4503650.0
+          },
+          {
+            "lemma": "she",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 35.0,
+            "pmw": 3188078.0
+          },
+          {
+            "lemma": "about",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 45.0,
+            "pmw": 2427703.0
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "interjection": [
+          {
+            "lemma": "of",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 23159162.0
+          },
+          {
+            "lemma": "about",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 45.0,
+            "pmw": 2427703.0
+          },
+          {
+            "lemma": "down",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1135.0,
+            "pmw": 85515.0
+          },
+          {
+            "lemma": "worth",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1175.0,
+            "pmw": 82178.0
+          },
+          {
+            "lemma": "regarding",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1915.0,
+            "pmw": 46854.0
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "do",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 15.0,
+            "pmw": 8186412.0
+          },
+          {
+            "lemma": "could",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 75.0,
+            "pmw": 1529795.0
+          },
+          {
+            "lemma": "work",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 115.0,
+            "pmw": 854095.0
+          },
+          {
+            "lemma": "call",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 125.0,
+            "pmw": 768117.0
+          },
+          {
+            "lemma": "help",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "other",
+            "core_rank": 155.0,
+            "pmw": 606887.0
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "they",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 25.0,
+            "pmw": 4503650.0
+          },
+          {
+            "lemma": "she",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 35.0,
+            "pmw": 3188078.0
+          },
+          {
+            "lemma": "him",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 65.0,
+            "pmw": 1717209.0
+          },
+          {
+            "lemma": "anything",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 245.0,
+            "pmw": 384508.0
+          },
+          {
+            "lemma": "everyone",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 405.0,
+            "pmw": 241313.0
+          }
+        ],
+        "adposition": [
+          {
+            "lemma": "there",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 55.0,
+            "pmw": 1980173.0
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "no",
+            "raw_pos": "a",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 85.0,
+            "pmw": 1206112.0
+          },
+          {
+            "lemma": "every",
+            "raw_pos": "a",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 165.0,
+            "pmw": 567233.0
+          },
+          {
+            "lemma": "its",
+            "raw_pos": "a",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 185.0,
+            "pmw": 511922.0
+          },
+          {
+            "lemma": "long",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 285.0,
+            "pmw": 345005.0
+          },
+          {
+            "lemma": "able",
+            "raw_pos": "j",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "other",
+            "core_rank": 355.0,
+            "pmw": 279559.0
+          }
+        ],
+        "noun": [
+          {
+            "lemma": "man",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 95.0,
+            "pmw": 1091176.0
+          },
+          {
+            "lemma": "case",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 205.0,
+            "pmw": 458383.0
+          },
+          {
+            "lemma": "money",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 215.0,
+            "pmw": 437583.0
+          },
+          {
+            "lemma": "home",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 255.0,
+            "pmw": 370758.0
+          },
+          {
+            "lemma": "percent",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "other",
+            "core_rank": 265.0,
+            "pmw": 357515.0
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "very",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 105.0,
+            "pmw": 963552.0
+          },
+          {
+            "lemma": "in",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 135.0,
+            "pmw": 726590.0
+          },
+          {
+            "lemma": "as",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 145.0,
+            "pmw": 662376.0
+          },
+          {
+            "lemma": "off",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 195.0,
+            "pmw": 479459.0
+          },
+          {
+            "lemma": "today",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "other",
+            "core_rank": 225.0,
+            "pmw": 431562.0
+          }
+        ],
+        "other": [
+          {
+            "lemma": "yes",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 175.0,
+            "pmw": 537066.0
+          },
+          {
+            "lemma": "ah",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1655.0,
+            "pmw": 56374.0
+          },
+          {
+            "lemma": "hmm",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 2785.0,
+            "pmw": 28510.0
+          },
+          {
+            "lemma": "bye",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 3075.0,
+            "pmw": 25081.0
+          },
+          {
+            "lemma": "ooh",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 3215.0,
+            "pmw": 23498.0
+          }
+        ],
+        "numeral": [
+          {
+            "lemma": "five",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 365.0,
+            "pmw": 270274.0
+          },
+          {
+            "lemma": "forty",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 4275.0,
+            "pmw": 15352.0
+          },
+          {
+            "lemma": "eleven",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 4815.0,
+            "pmw": 12779.0
+          },
+          {
+            "lemma": "nineteenth",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 6625.0,
+            "pmw": 7532.0
+          },
+          {
+            "lemma": "seventeen",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 6985.0,
+            "pmw": 6875.0
+          }
+        ],
+        "determiner": [
+          {
+            "lemma": "whose",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 655.0,
+            "pmw": 147491.0
+          },
+          {
+            "lemma": "neither",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 2935.0,
+            "pmw": 26586.0
+          },
+          {
+            "lemma": "whatsoever",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5415.0,
+            "pmw": 10650.0
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "seeing",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5545.0,
+            "pmw": 10279.0
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [
+        {
+          "lemma": "do",
+          "raw_pos": "v",
+          "canonical_pos": "verb",
+          "expected_bucket": "verb",
+          "runtime_bucket": "other",
+          "core_rank": 15.0,
+          "pmw": 8186412.0
+        },
+        {
+          "lemma": "could",
+          "raw_pos": "v",
+          "canonical_pos": "verb",
+          "expected_bucket": "verb",
+          "runtime_bucket": "other",
+          "core_rank": 75.0,
+          "pmw": 1529795.0
+        },
+        {
+          "lemma": "no",
+          "raw_pos": "a",
+          "canonical_pos": "adjective",
+          "expected_bucket": "adjective",
+          "runtime_bucket": "other",
+          "core_rank": 85.0,
+          "pmw": 1206112.0
+        },
+        {
+          "lemma": "man",
+          "raw_pos": "n",
+          "canonical_pos": "noun",
+          "expected_bucket": "noun",
+          "runtime_bucket": "other",
+          "core_rank": 95.0,
+          "pmw": 1091176.0
+        },
+        {
+          "lemma": "very",
+          "raw_pos": "r",
+          "canonical_pos": "adverb",
+          "expected_bucket": "adverb",
+          "runtime_bucket": "other",
+          "core_rank": 105.0,
+          "pmw": 963552.0
+        }
+      ],
+      "unmapped_examples": [
+        {
+          "lemma": "yes",
+          "raw_pos": "u",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 175.0,
+          "pmw": 537066.0
+        },
+        {
+          "lemma": "ah",
+          "raw_pos": "u",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 1655.0,
+          "pmw": 56374.0
+        },
+        {
+          "lemma": "hmm",
+          "raw_pos": "u",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 2785.0,
+          "pmw": 28510.0
+        },
+        {
+          "lemma": "bye",
+          "raw_pos": "u",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 3075.0,
+          "pmw": 25081.0
+        },
+        {
+          "lemma": "ooh",
+          "raw_pos": "u",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 3215.0,
+          "pmw": 23498.0
+        }
+      ]
+    },
+    "en-de": {
+      "pair": "en-de",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 2000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "frequency_resolution": "linked:freq-de-default",
+      "require_jmdict": false,
+      "jmdict_path": null,
+      "stopwords_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/stopwords/stopwords-de.json",
+      "seed_count": 1981,
+      "pos_nonempty_count": 319,
+      "raw_tag_distribution": [
+        {
+          "value": "<EMPTY>",
+          "count": 1662
+        },
+        {
+          "value": "ADV:MOD",
+          "count": 64
+        },
+        {
+          "value": "ZUS",
+          "count": 43
+        },
+        {
+          "value": "ADV:TMP",
+          "count": 38
+        },
+        {
+          "value": "ADV:LOK",
+          "count": 12
+        },
+        {
+          "value": "ZAL",
+          "count": 12
+        },
+        {
+          "value": "KON:UNT",
+          "count": 11
+        },
+        {
+          "value": "ADV:CAU",
+          "count": 9
+        },
+        {
+          "value": "ADV:PRO|ZUS",
+          "count": 9
+        },
+        {
+          "value": "ADV:LOK|ZUS",
+          "count": 8
+        },
+        {
+          "value": "ADV:MOD|KON:NEB",
+          "count": 5
+        },
+        {
+          "value": "PRP:MOD:GEN",
+          "count": 5
+        },
+        {
+          "value": "ADV:INR",
+          "count": 3
+        },
+        {
+          "value": "ADV:MOD|ZUS",
+          "count": 3
+        },
+        {
+          "value": "ADV:PRO",
+          "count": 3
+        },
+        {
+          "value": "ADV|KON:NEB",
+          "count": 3
+        },
+        {
+          "value": "KON:NEB",
+          "count": 3
+        },
+        {
+          "value": "PRP:LOK:AKK",
+          "count": 3
+        },
+        {
+          "value": "ADV:MOD+PRO|ZUS",
+          "count": 2
+        },
+        {
+          "value": "ADV:MOD+TMP",
+          "count": 2
+        },
+        {
+          "value": "ADV:TMP+MOD",
+          "count": 2
+        },
+        {
+          "value": "ADV:TMP|ZUS",
+          "count": 2
+        },
+        {
+          "value": "NEG",
+          "count": 2
+        },
+        {
+          "value": "PRO:DEM:AKK:PLU:ALG|PRO:DEM:AKK:SIN:FEM|PRO:DEM:AKK:SIN:MAS|PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:PLU:ALG|PRO:DEM:DAT:SIN:FEM|PRO:DEM:DAT:SIN:MAS|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:PLU:ALG|PRO:DEM:GEN:SIN:FEM|PRO:DEM:GEN:SIN:MAS|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:PLU:ALG|PRO:DEM:NOM:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:DEM:NOM:SIN:NEU",
+          "count": 2
+        },
+        {
+          "value": "PRP:CAU:GEN",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK+TMP:DAT",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK:DAT",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK:DAT|ZUS",
+          "count": 2
+        },
+        {
+          "value": "PRP:MOD:AKK",
+          "count": 2
+        },
+        {
+          "value": "ABK:DOKTOR:SUB",
+          "count": 1
+        },
+        {
+          "value": "ABK:SANKT:SUB",
+          "count": 1
+        },
+        {
+          "value": "ABK:WORT=BEZIEHUNGSWEISE:PAR",
+          "count": 1
+        },
+        {
+          "value": "ADV",
+          "count": 1
+        },
+        {
+          "value": "ADV:INR+PRO",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK+CAU|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK+MOD|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK|KON:UNT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD+TMP+LOK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|KON:PRI|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRO:IND:SIN:ALG:3:B/S",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRP:LOK+TMP:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO+CAU",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO+TMP",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+LOK+MOD|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+MOD|KON:INF|KON:PRI|PRP:LOK+TMP+CAU:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+MOD|PRP:MOD:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP|KON:UNT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV|KON:UNT|PRP:LOK+TMP+MOD:AKK",
+          "count": 1
+        },
+        {
+          "value": "ADV|PRO:DEM",
+          "count": 1
+        },
+        {
+          "value": "ADV|ZUS",
+          "count": 1
+        },
+        {
+          "value": "KON:INF|KON:UNT|PRP:MOD:AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:INF|PRP:MOD:GEN|ZUS",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:PRI|PRP:NOM+AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:UNT|KON:VGL|PRP:NOM+DAT+AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:VGL",
+          "count": 1
+        },
+        {
+          "value": "KON:UNT|PRP:TMP:DAT",
+          "count": 1
+        },
+        {
+          "value": "KON:UNT|PRP:TMP:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:PLU:FEM:B/S|PRO:DEM:AKK:PLU:MAS:B/S|PRO:DEM:AKK:PLU:NEU:B/S|PRO:DEM:AKK:SIN:FEM:B/S|PRO:DEM:AKK:SIN:MAS:B/S|PRO:DEM:AKK:SIN:NEU:B/S|PRO:DEM:DAT:PLU:FEM:B/S|PRO:DEM:DAT:PLU:MAS:B/S|PRO:DEM:DAT:PLU:NEU:B/S|PRO:DEM:DAT:SIN:FEM:B/S|PRO:DEM:DAT:SIN:MAS:B/S|PRO:DEM:DAT:SIN:NEU:B/S|PRO:DEM:GEN:PLU:FEM:B/S|PRO:DEM:GEN:PLU:MAS:B/S|PRO:DEM:GEN:PLU:NEU:B/S|PRO:DEM:GEN:SIN:FEM:B/S|PRO:DEM:GEN:SIN:MAS:B/S|PRO:DEM:GEN:SIN:NEU:B/S|PRO:DEM:NOM:PLU:FEM:B/S|PRO:DEM:NOM:PLU:MAS:B/S|PRO:DEM:NOM:PLU:NEU:B/S|PRO:DEM:NOM:SIN:FEM:B/S|PRO:DEM:NOM:SIN:MAS:B/S|PRO:DEM:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG:B/S|PRO:IND:NOM:SIN:ALG:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG|PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:PER:GEN:SIN:ALG:2:B|PRO:POS:AKK:PLU:FEM:B/S|PRO:POS:AKK:PLU:FEM:BEG|PRO:POS:AKK:PLU:FEM:STV|PRO:POS:AKK:PLU:MAS:B/S|PRO:POS:AKK:PLU:MAS:BEG|PRO:POS:AKK:PLU:MAS:STV|PRO:POS:AKK:PLU:NEU:B/S|PRO:POS:AKK:PLU:NEU:BEG|PRO:POS:AKK:PLU:NEU:STV|PRO:POS:AKK:SIN:FEM:B/S|PRO:POS:AKK:SIN:FEM:BEG|PRO:POS:AKK:SIN:FEM:STV|PRO:POS:AKK:SIN:MAS:B/S|PRO:POS:AKK:SIN:MAS:BEG|PRO:POS:AKK:SIN:MAS:STV|PRO:POS:AKK:SIN:NEU:B/S|PRO:POS:AKK:SIN:NEU:BEG|PRO:POS:AKK:SIN:NEU:STV|PRO:POS:DAT:PLU:FEM:B/S|PRO:POS:DAT:PLU:FEM:BEG|PRO:POS:DAT:PLU:FEM:STV|PRO:POS:DAT:PLU:MAS:B/S|PRO:POS:DAT:PLU:MAS:BEG|PRO:POS:DAT:PLU:MAS:STV|PRO:POS:DAT:PLU:NEU:B/S|PRO:POS:DAT:PLU:NEU:BEG|PRO:POS:DAT:PLU:NEU:STV|PRO:POS:DAT:SIN:FEM:BEG|PRO:POS:DAT:SIN:FEM:STV|PRO:POS:DAT:SIN:MAS:B/S|PRO:POS:DAT:SIN:MAS:BEG|PRO:POS:DAT:SIN:MAS:STV|PRO:POS:DAT:SIN:NEU:B/S|PRO:POS:DAT:SIN:NEU:BEG|PRO:POS:DAT:SIN:NEU:STV|PRO:POS:GEN:PLU:FEM:BEG|PRO:POS:GEN:PLU:FEM:STV|PRO:POS:GEN:PLU:MAS:BEG|PRO:POS:GEN:PLU:MAS:STV|PRO:POS:GEN:PLU:NEU:BEG|PRO:POS:GEN:PLU:NEU:STV|PRO:POS:GEN:SIN:FEM:BEG|PRO:POS:GEN:SIN:FEM:STV|PRO:POS:GEN:SIN:MAS:B/S|PRO:POS:GEN:SIN:MAS:BEG|PRO:POS:GEN:SIN:MAS:STV|PRO:POS:GEN:SIN:NEU:B/S|PRO:POS:GEN:SIN:NEU:BEG|PRO:POS:GEN:SIN:NEU:STV|PRO:POS:NOM:PLU:FEM:B/S|PRO:POS:NOM:PLU:FEM:BEG|PRO:POS:NOM:PLU:FEM:STV|PRO:POS:NOM:PLU:MAS:B/S|PRO:POS:NOM:PLU:MAS:BEG|PRO:POS:NOM:PLU:MAS:STV|PRO:POS:NOM:PLU:NEU:B/S|PRO:POS:NOM:PLU:NEU:BEG|PRO:POS:NOM:PLU:NEU:STV|PRO:POS:NOM:SIN:FEM:B/S|PRO:POS:NOM:SIN:FEM:BEG|PRO:POS:NOM:SIN:FEM:STV|PRO:POS:NOM:SIN:MAS:B/S|PRO:POS:NOM:SIN:MAS:BEG|PRO:POS:NOM:SIN:MAS:STV|PRO:POS:NOM:SIN:NEU:B/S|PRO:POS:NOM:SIN:NEU:BEG|PRO:POS:NOM:SIN:NEU:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:RIN:AKK:FEM|PRO:RIN:AKK:MAS|PRO:RIN:AKK:NEU|PRO:RIN:DAT:FEM|PRO:RIN:DAT:MAS|PRO:RIN:GEN:ALG:B/S|PRO:RIN:NOM:FEM|PRO:RIN:NOM:MAS|PRO:RIN:NOM:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:RIN:AKK:PLU:FEM:B/S|PRO:RIN:AKK:PLU:MAS:B/S|PRO:RIN:AKK:PLU:NEU:B/S|PRO:RIN:AKK:SIN:FEM:B/S|PRO:RIN:AKK:SIN:MAS:B/S|PRO:RIN:AKK:SIN:NEU:B/S|PRO:RIN:DAT:PLU:FEM:B/S|PRO:RIN:DAT:PLU:MAS:B/S|PRO:RIN:DAT:PLU:NEU:B/S|PRO:RIN:DAT:SIN:FEM:B/S|PRO:RIN:DAT:SIN:MAS:B/S|PRO:RIN:DAT:SIN:NEU:B/S|PRO:RIN:GEN:PLU:FEM:B/S|PRO:RIN:GEN:PLU:MAS:B/S|PRO:RIN:GEN:PLU:NEU:B/S|PRO:RIN:GEN:SIN:FEM:B/S|PRO:RIN:GEN:SIN:MAS:B/S|PRO:RIN:GEN:SIN:NEU:B/S|PRO:RIN:NOM:PLU:FEM:B/S|PRO:RIN:NOM:PLU:MAS:B/S|PRO:RIN:NOM:PLU:NEU:B/S|PRO:RIN:NOM:SIN:FEM:B/S|PRO:RIN:NOM:SIN:MAS:B/S|PRO:RIN:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRP:CAU:GEN|PRP:MOD:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+CAU:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+MOD:DAT+AKK",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+MOD:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD+CAU:DAT",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP:GEN|PRP:TMP+LOK:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:DAT+AKK|PRP:TMP:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:DAT|PRP:MOD:GEN+DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN+DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN|PRP:MOD:GEN+DAT",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:DAT",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:NOM",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:NOM+AKK",
+          "count": 1
+        },
+        {
+          "value": "PRP:TMP:GEN",
+          "count": 1
+        },
+        {
+          "value": "ZAL|ZUS",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 2
+        },
+        {
+          "value": "adverb",
+          "count": 187
+        },
+        {
+          "value": "pronoun",
+          "count": 56
+        },
+        {
+          "value": "conjunction",
+          "count": 16
+        },
+        {
+          "value": "other",
+          "count": 1720
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "other",
+          "count": 1792
+        },
+        {
+          "value": "adverb",
+          "count": 187
+        },
+        {
+          "value": "noun",
+          "count": 2
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "other",
+          "count": 1792
+        },
+        {
+          "value": "adverb",
+          "count": 187
+        },
+        {
+          "value": "noun",
+          "count": 2
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "empty",
+          "count": 1662
+        },
+        {
+          "value": "de_token:adv",
+          "count": 187
+        },
+        {
+          "value": "de_token:pron",
+          "count": 56
+        },
+        {
+          "value": "de_unmapped:ZUS",
+          "count": 43
+        },
+        {
+          "value": "de_token:conj",
+          "count": 16
+        },
+        {
+          "value": "de_unmapped:ZAL",
+          "count": 12
+        },
+        {
+          "value": "de_token:noun",
+          "count": 2
+        },
+        {
+          "value": "de_unmapped:NEG",
+          "count": 2
+        },
+        {
+          "value": "de_unmapped:ZAL|ZUS",
+          "count": 1
+        }
+      ],
+      "unmapped_raw_tags": [
+        {
+          "value": "ZUS",
+          "count": 43
+        },
+        {
+          "value": "ZAL",
+          "count": 12
+        },
+        {
+          "value": "NEG",
+          "count": 2
+        },
+        {
+          "value": "ZAL|ZUS",
+          "count": 1
+        }
+      ],
+      "bucket_mismatch_distribution": [],
+      "bucket_mismatch_count": 0,
+      "bucket_mismatch_rate": 0.0,
+      "mapped_seed_count": 1923,
+      "mapped_seed_rate": 0.9707218576476527,
+      "samples_by_runtime_bucket": {
+        "noun": [
+          {
+            "lemma": "st",
+            "raw_pos": "ABK:SANKT:SUB",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 528.0,
+            "pmw": 312.27478535394226
+          },
+          {
+            "lemma": "dr",
+            "raw_pos": "ABK:DOKTOR:SUB",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 1065.0,
+            "pmw": 164.5716918861356
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "erst",
+            "raw_pos": "ADV:MOD",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 17.0,
+            "pmw": 2415.3638645821834
+          },
+          {
+            "lemma": "da",
+            "raw_pos": "ADV:LOK|KON:UNT|ZUS",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 22.0,
+            "pmw": 2072.7804593058777
+          },
+          {
+            "lemma": "ganz",
+            "raw_pos": "ADV:MOD",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 28.0,
+            "pmw": 1895.5916043751383
+          },
+          {
+            "lemma": "hier",
+            "raw_pos": "ADV:LOK",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 34.0,
+            "pmw": 1771.2028339245342
+          },
+          {
+            "lemma": "mal",
+            "raw_pos": "ADV:MOD|ZUS",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 51.0,
+            "pmw": 1431.3622901796641
+          }
+        ],
+        "other": [
+          {
+            "lemma": "sein",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1.0,
+            "pmw": 7450.846207068217
+          },
+          {
+            "lemma": "kommen",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 3.0,
+            "pmw": 4172.16667546668
+          },
+          {
+            "lemma": "dies",
+            "raw_pos": "PRO:DEM:AKK:PLU:FEM:B/S|PRO:DEM:AKK:PLU:MAS:B/S|PRO:DEM:AKK:PLU:NEU:B/S|PRO:DEM:AKK:SIN:FEM:B/S|PRO:DEM:AKK:SIN:MAS:B/S|PRO:DEM:AKK:SIN:NEU:B/S|PRO:DEM:DAT:PLU:FEM:B/S|PRO:DEM:DAT:PLU:MAS:B/S|PRO:DEM:DAT:PLU:NEU:B/S|PRO:DEM:DAT:SIN:FEM:B/S|PRO:DEM:DAT:SIN:MAS:B/S|PRO:DEM:DAT:SIN:NEU:B/S|PRO:DEM:GEN:PLU:FEM:B/S|PRO:DEM:GEN:PLU:MAS:B/S|PRO:DEM:GEN:PLU:NEU:B/S|PRO:DEM:GEN:SIN:FEM:B/S|PRO:DEM:GEN:SIN:MAS:B/S|PRO:DEM:GEN:SIN:NEU:B/S|PRO:DEM:NOM:PLU:FEM:B/S|PRO:DEM:NOM:PLU:MAS:B/S|PRO:DEM:NOM:PLU:NEU:B/S|PRO:DEM:NOM:SIN:FEM:B/S|PRO:DEM:NOM:SIN:MAS:B/S|PRO:DEM:NOM:SIN:NEU:B/S",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 4.0,
+            "pmw": 4110.178004856236
+          },
+          {
+            "lemma": "können",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 3977.6977928878973
+          },
+          {
+            "lemma": "groß",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 6.0,
+            "pmw": 3715.89165971237
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "noun": [
+          {
+            "lemma": "st",
+            "raw_pos": "ABK:SANKT:SUB",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 528.0,
+            "pmw": 312.27478535394226
+          },
+          {
+            "lemma": "dr",
+            "raw_pos": "ABK:DOKTOR:SUB",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 1065.0,
+            "pmw": 164.5716918861356
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "erst",
+            "raw_pos": "ADV:MOD",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 17.0,
+            "pmw": 2415.3638645821834
+          },
+          {
+            "lemma": "da",
+            "raw_pos": "ADV:LOK|KON:UNT|ZUS",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 22.0,
+            "pmw": 2072.7804593058777
+          },
+          {
+            "lemma": "ganz",
+            "raw_pos": "ADV:MOD",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 28.0,
+            "pmw": 1895.5916043751383
+          },
+          {
+            "lemma": "hier",
+            "raw_pos": "ADV:LOK",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 34.0,
+            "pmw": 1771.2028339245342
+          },
+          {
+            "lemma": "mal",
+            "raw_pos": "ADV:MOD|ZUS",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 51.0,
+            "pmw": 1431.3622901796641
+          }
+        ],
+        "other": [
+          {
+            "lemma": "sein",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1.0,
+            "pmw": 7450.846207068217
+          },
+          {
+            "lemma": "kommen",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 3.0,
+            "pmw": 4172.16667546668
+          },
+          {
+            "lemma": "können",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 3977.6977928878973
+          },
+          {
+            "lemma": "groß",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 6.0,
+            "pmw": 3715.89165971237
+          },
+          {
+            "lemma": "ander",
+            "raw_pos": "<EMPTY>",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 7.0,
+            "pmw": 3335.868194531968
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "dies",
+            "raw_pos": "PRO:DEM:AKK:PLU:FEM:B/S|PRO:DEM:AKK:PLU:MAS:B/S|PRO:DEM:AKK:PLU:NEU:B/S|PRO:DEM:AKK:SIN:FEM:B/S|PRO:DEM:AKK:SIN:MAS:B/S|PRO:DEM:AKK:SIN:NEU:B/S|PRO:DEM:DAT:PLU:FEM:B/S|PRO:DEM:DAT:PLU:MAS:B/S|PRO:DEM:DAT:PLU:NEU:B/S|PRO:DEM:DAT:SIN:FEM:B/S|PRO:DEM:DAT:SIN:MAS:B/S|PRO:DEM:DAT:SIN:NEU:B/S|PRO:DEM:GEN:PLU:FEM:B/S|PRO:DEM:GEN:PLU:MAS:B/S|PRO:DEM:GEN:PLU:NEU:B/S|PRO:DEM:GEN:SIN:FEM:B/S|PRO:DEM:GEN:SIN:MAS:B/S|PRO:DEM:GEN:SIN:NEU:B/S|PRO:DEM:NOM:PLU:FEM:B/S|PRO:DEM:NOM:PLU:MAS:B/S|PRO:DEM:NOM:PLU:NEU:B/S|PRO:DEM:NOM:SIN:FEM:B/S|PRO:DEM:NOM:SIN:MAS:B/S|PRO:DEM:NOM:SIN:NEU:B/S",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 4.0,
+            "pmw": 4110.178004856236
+          },
+          {
+            "lemma": "alle",
+            "raw_pos": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 9.0,
+            "pmw": 3201.1936933384804
+          },
+          {
+            "lemma": "laut",
+            "raw_pos": "PRP:MOD:GEN",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 37.0,
+            "pmw": 1745.282792452468
+          },
+          {
+            "lemma": "beide",
+            "raw_pos": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 39.0,
+            "pmw": 1731.2941986421463
+          },
+          {
+            "lemma": "ins",
+            "raw_pos": "PRP:LOK:AKK",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 57.0,
+            "pmw": 1387.202219523551
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "denn",
+            "raw_pos": "KON:NEB|KON:VGL",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 45.0,
+            "pmw": 1557.5339206257015
+          },
+          {
+            "lemma": "weil",
+            "raw_pos": "KON:UNT",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 61.0,
+            "pmw": 1344.9621519394432
+          },
+          {
+            "lemma": "ob",
+            "raw_pos": "KON:UNT",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 70.0,
+            "pmw": 1255.6820090912145
+          },
+          {
+            "lemma": "sondern",
+            "raw_pos": "KON:NEB|KON:UNT",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 87.0,
+            "pmw": 1127.178946343457
+          },
+          {
+            "lemma": "wenn",
+            "raw_pos": "KON:UNT",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 129.0,
+            "pmw": 921.4643314857875
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [],
+      "unmapped_examples": [
+        {
+          "lemma": "stehen",
+          "raw_pos": "ZUS",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 10.0,
+          "pmw": 3096.9649551439284
+        },
+        {
+          "lemma": "gut",
+          "raw_pos": "ZUS",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 14.0,
+          "pmw": 2695.4100269417577
+        },
+        {
+          "lemma": "hoch",
+          "raw_pos": "ZUS",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 35.0,
+          "pmw": 1762.8371062536557
+        },
+        {
+          "lemma": "liegen",
+          "raw_pos": "ZUS",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 38.0,
+          "pmw": 1735.4084909392998
+        },
+        {
+          "lemma": "bleiben",
+          "raw_pos": "ZUS",
+          "canonical_pos": "other",
+          "expected_bucket": "other",
+          "runtime_bucket": "other",
+          "core_rank": 41.0,
+          "pmw": 1637.8997634967645
+        }
+      ]
+    }
+  },
+  "source_pack_reports": {
+    "freq-de-default.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "top_n": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "<EMPTY>",
+          "count": 1666
+        },
+        {
+          "value": "ADV:MOD",
+          "count": 64
+        },
+        {
+          "value": "ZUS",
+          "count": 43
+        },
+        {
+          "value": "ADV:TMP",
+          "count": 38
+        },
+        {
+          "value": "ADV:LOK",
+          "count": 12
+        },
+        {
+          "value": "ZAL",
+          "count": 12
+        },
+        {
+          "value": "KON:UNT",
+          "count": 11
+        },
+        {
+          "value": "ADV:CAU",
+          "count": 9
+        },
+        {
+          "value": "ADV:PRO|ZUS",
+          "count": 9
+        },
+        {
+          "value": "ADV:LOK|ZUS",
+          "count": 8
+        },
+        {
+          "value": "ADV:MOD|KON:NEB",
+          "count": 6
+        },
+        {
+          "value": "PRP:MOD:GEN",
+          "count": 5
+        },
+        {
+          "value": "KON:NEB",
+          "count": 4
+        },
+        {
+          "value": "ADV:INR",
+          "count": 3
+        },
+        {
+          "value": "ADV:MOD|ZUS",
+          "count": 3
+        },
+        {
+          "value": "ADV:PRO",
+          "count": 3
+        },
+        {
+          "value": "ADV|KON:NEB",
+          "count": 3
+        },
+        {
+          "value": "NEG",
+          "count": 3
+        },
+        {
+          "value": "PRP:LOK:AKK",
+          "count": 3
+        },
+        {
+          "value": "ADV:MOD+PRO|ZUS",
+          "count": 2
+        },
+        {
+          "value": "ADV:MOD+TMP",
+          "count": 2
+        },
+        {
+          "value": "ADV:TMP+MOD",
+          "count": 2
+        },
+        {
+          "value": "ADV:TMP|ZUS",
+          "count": 2
+        },
+        {
+          "value": "PRO:DEM:AKK:PLU:ALG|PRO:DEM:AKK:SIN:FEM|PRO:DEM:AKK:SIN:MAS|PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:PLU:ALG|PRO:DEM:DAT:SIN:FEM|PRO:DEM:DAT:SIN:MAS|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:PLU:ALG|PRO:DEM:GEN:SIN:FEM|PRO:DEM:GEN:SIN:MAS|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:PLU:ALG|PRO:DEM:NOM:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:DEM:NOM:SIN:NEU",
+          "count": 2
+        },
+        {
+          "value": "PRP:CAU:GEN",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD+CAU:DAT",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK+TMP:DAT",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK:DAT",
+          "count": 2
+        },
+        {
+          "value": "PRP:LOK:DAT|ZUS",
+          "count": 2
+        },
+        {
+          "value": "PRP:MOD:AKK",
+          "count": 2
+        },
+        {
+          "value": "ABK:DOKTOR:SUB",
+          "count": 1
+        },
+        {
+          "value": "ABK:SANKT:SUB",
+          "count": 1
+        },
+        {
+          "value": "ABK:WORT=BEZIEHUNGSWEISE:PAR",
+          "count": 1
+        },
+        {
+          "value": "ADV",
+          "count": 1
+        },
+        {
+          "value": "ADV:INR+PRO",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK+CAU|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK+MOD|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:LOK|KON:UNT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD+TMP+LOK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|KON:PRI|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRO:IND:SIN:ALG:3:B/S",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRP:LOK+TMP+CAU+MOD:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRP:LOK+TMP+CAU:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRP:LOK+TMP+MOD+CAU:DAT+AKK",
+          "count": 1
+        },
+        {
+          "value": "ADV:MOD|PRP:LOK+TMP:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO+CAU",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO+TMP",
+          "count": 1
+        },
+        {
+          "value": "ADV:PRO|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+LOK+MOD|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+MOD|KON:INF|KON:PRI|PRP:LOK+TMP+CAU:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP+MOD|PRP:MOD:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP|KON:UNT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV:TMP|PRP:LOK+TMP+CAU:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ADV|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "ADV|KON:UNT|PRP:LOK+TMP+MOD:AKK",
+          "count": 1
+        },
+        {
+          "value": "ADV|PRO:DEM",
+          "count": 1
+        },
+        {
+          "value": "ADV|ZUS",
+          "count": 1
+        },
+        {
+          "value": "ART:DEF:AKK:PLU:FEM|ART:DEF:AKK:PLU:MAS|ART:DEF:AKK:PLU:NEU|ART:DEF:AKK:SIN:FEM|ART:DEF:AKK:SIN:MAS|ART:DEF:AKK:SIN:NEU|ART:DEF:DAT:PLU:FEM|ART:DEF:DAT:PLU:MAS|ART:DEF:DAT:PLU:NEU|ART:DEF:DAT:SIN:FEM|ART:DEF:DAT:SIN:MAS|ART:DEF:DAT:SIN:NEU|ART:DEF:GEN:PLU:FEM|ART:DEF:GEN:PLU:MAS|ART:DEF:GEN:PLU:NEU|ART:DEF:GEN:SIN:FEM|ART:DEF:GEN:SIN:MAS|ART:DEF:GEN:SIN:NEU|ART:DEF:NOM:PLU:FEM|ART:DEF:NOM:PLU:MAS|ART:DEF:NOM:PLU:NEU|ART:DEF:NOM:SIN:FEM|ART:DEF:NOM:SIN:MAS|ART:DEF:NOM:SIN:NEU|PRO:DEM:AKK:PLU:ALG|PRO:DEM:AKK:SIN:FEM|PRO:DEM:AKK:SIN:MAS|PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:PLU:ALG|PRO:DEM:DAT:SIN:FEM|PRO:DEM:DAT:SIN:MAS|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:PLU:ALG|PRO:DEM:GEN:SIN:FEM|PRO:DEM:GEN:SIN:MAS|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:PLU:ALG|PRO:DEM:NOM:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:DEM:NOM:SIN:NEU|PRO:PER:AKK:PLU:ALG|PRO:PER:AKK:SIN:FEM|PRO:PER:AKK:SIN:MAS|PRO:PER:AKK:SIN:NEU|PRO:PER:DAT:PLU:ALG|PRO:PER:DAT:SIN:MAS|PRO:PER:DAT:SIN:NEU|PRO:PER:GEN:PLU:ALG|PRO:PER:GEN:SIN:FEM|PRO:PER:GEN:SIN:MAS|PRO:PER:GEN:SIN:NEU|PRO:PER:NOM:PLU:ALG|PRO:PER:NOM:SIN:FEM|PRO:PER:NOM:SIN:MAS|PRO:PER:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "ART:IND:AKK:SIN:FEM|ART:IND:AKK:SIN:MAS|ART:IND:AKK:SIN:NEU|ART:IND:DAT:SIN:FEM|ART:IND:DAT:SIN:MAS|ART:IND:DAT:SIN:NEU|ART:IND:GEN:SIN:FEM|ART:IND:GEN:SIN:MAS|ART:IND:GEN:SIN:NEU|ART:IND:NOM:SIN:FEM|ART:IND:NOM:SIN:MAS|ART:IND:NOM:SIN:NEU|PRO:IND:AKK:SIN:FEM:STV|PRO:IND:AKK:SIN:MAS:STV|PRO:IND:AKK:SIN:NEU:STV|PRO:IND:DAT:SIN:FEM:STV|PRO:IND:DAT:SIN:MAS:STV|PRO:IND:DAT:SIN:NEU:STV|PRO:IND:GEN:SIN:FEM:STV|PRO:IND:GEN:SIN:MAS:STV|PRO:IND:GEN:SIN:NEU:STV|PRO:IND:NOM:SIN:FEM:STV|PRO:IND:NOM:SIN:MAS:STV|PRO:IND:NOM:SIN:NEU:STV|ZUS",
+          "count": 1
+        },
+        {
+          "value": "KON:INF|KON:UNT|PRP:MOD:AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:INF|PRP:MOD:GEN|ZUS",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:PRI|PRP:NOM+AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:UNT",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:UNT|KON:VGL|PRP:NOM+DAT+AKK",
+          "count": 1
+        },
+        {
+          "value": "KON:NEB|KON:VGL",
+          "count": 1
+        },
+        {
+          "value": "KON:UNT|PRP:TMP:DAT",
+          "count": 1
+        },
+        {
+          "value": "KON:UNT|PRP:TMP:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:PLU:FEM:B/S|PRO:DEM:AKK:PLU:MAS:B/S|PRO:DEM:AKK:PLU:NEU:B/S|PRO:DEM:AKK:SIN:FEM:B/S|PRO:DEM:AKK:SIN:MAS:B/S|PRO:DEM:AKK:SIN:NEU:B/S|PRO:DEM:DAT:PLU:FEM:B/S|PRO:DEM:DAT:PLU:MAS:B/S|PRO:DEM:DAT:PLU:NEU:B/S|PRO:DEM:DAT:SIN:FEM:B/S|PRO:DEM:DAT:SIN:MAS:B/S|PRO:DEM:DAT:SIN:NEU:B/S|PRO:DEM:GEN:PLU:FEM:B/S|PRO:DEM:GEN:PLU:MAS:B/S|PRO:DEM:GEN:PLU:NEU:B/S|PRO:DEM:GEN:SIN:FEM:B/S|PRO:DEM:GEN:SIN:MAS:B/S|PRO:DEM:GEN:SIN:NEU:B/S|PRO:DEM:NOM:PLU:FEM:B/S|PRO:DEM:NOM:PLU:MAS:B/S|PRO:DEM:NOM:PLU:NEU:B/S|PRO:DEM:NOM:SIN:FEM:B/S|PRO:DEM:NOM:SIN:MAS:B/S|PRO:DEM:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:DEM:AKK:SIN:NEU|PRO:DEM:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:PLU:FEM:BEG|PRO:IND:AKK:PLU:FEM:STV|PRO:IND:AKK:PLU:MAS:BEG|PRO:IND:AKK:PLU:MAS:STV|PRO:IND:AKK:PLU:NEU:BEG|PRO:IND:AKK:PLU:NEU:STV|PRO:IND:AKK:SIN:FEM:BEG|PRO:IND:AKK:SIN:FEM:STV|PRO:IND:AKK:SIN:MAS:BEG|PRO:IND:AKK:SIN:MAS:STV|PRO:IND:AKK:SIN:NEU:BEG|PRO:IND:AKK:SIN:NEU:STV|PRO:IND:DAT:PLU:FEM:BEG|PRO:IND:DAT:PLU:FEM:STV|PRO:IND:DAT:PLU:MAS:BEG|PRO:IND:DAT:PLU:MAS:STV|PRO:IND:DAT:PLU:NEU:BEG|PRO:IND:DAT:PLU:NEU:STV|PRO:IND:DAT:SIN:FEM:BEG|PRO:IND:DAT:SIN:FEM:STV|PRO:IND:DAT:SIN:MAS:BEG|PRO:IND:DAT:SIN:MAS:STV|PRO:IND:DAT:SIN:NEU:BEG|PRO:IND:DAT:SIN:NEU:STV|PRO:IND:GEN:PLU:FEM:BEG|PRO:IND:GEN:PLU:FEM:STV|PRO:IND:GEN:PLU:MAS:BEG|PRO:IND:GEN:PLU:MAS:STV|PRO:IND:GEN:PLU:NEU:BEG|PRO:IND:GEN:PLU:NEU:STV|PRO:IND:GEN:SIN:FEM:BEG|PRO:IND:GEN:SIN:FEM:STV|PRO:IND:GEN:SIN:MAS:BEG|PRO:IND:GEN:SIN:MAS:STV|PRO:IND:GEN:SIN:NEU:BEG|PRO:IND:GEN:SIN:NEU:STV|PRO:IND:NOM:PLU:FEM:BEG|PRO:IND:NOM:PLU:FEM:STV|PRO:IND:NOM:PLU:MAS:BEG|PRO:IND:NOM:PLU:MAS:STV|PRO:IND:NOM:PLU:NEU:BEG|PRO:IND:NOM:PLU:NEU:STV|PRO:IND:NOM:SIN:FEM:BEG|PRO:IND:NOM:SIN:FEM:STV|PRO:IND:NOM:SIN:MAS:BEG|PRO:IND:NOM:SIN:MAS:STV|PRO:IND:NOM:SIN:NEU:BEG|PRO:IND:NOM:SIN:NEU:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG:B/S|PRO:IND:NOM:SIN:ALG:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:AKK:SIN:ALG|PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:IND:NOM:SIN:ALG:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:PER:AKK:PLU:ALG|PRO:PER:AKK:PLU:ALG:2:A|PRO:PER:AKK:PLU:ALG:2:B|PRO:PER:AKK:SIN:ALG|PRO:PER:AKK:SIN:ALG:2:A|PRO:PER:AKK:SIN:ALG:2:B|PRO:PER:AKK:SIN:FEM|PRO:PER:AKK:SIN:MAS|PRO:PER:AKK:SIN:NEU|PRO:PER:DAT:PLU:ALG|PRO:PER:DAT:PLU:ALG:2:A|PRO:PER:DAT:PLU:ALG:2:B|PRO:PER:DAT:SIN:ALG|PRO:PER:DAT:SIN:ALG:2:A|PRO:PER:DAT:SIN:ALG:2:B|PRO:PER:DAT:SIN:FEM|PRO:PER:DAT:SIN:MAS|PRO:PER:DAT:SIN:NEU|PRO:PER:GEN:PLU:ALG|PRO:PER:GEN:PLU:ALG:2:A|PRO:PER:GEN:SIN:ALG|PRO:PER:GEN:SIN:ALG:2:B|PRO:PER:GEN:SIN:FEM|PRO:PER:GEN:SIN:MAS|PRO:PER:GEN:SIN:NEU|PRO:PER:NOM:PLU:ALG|PRO:PER:NOM:PLU:ALG:2:B|PRO:PER:NOM:SIN:ALG|PRO:PER:NOM:SIN:ALG:2:A|PRO:PER:NOM:SIN:ALG:2:B|PRO:PER:NOM:SIN:FEM|PRO:PER:NOM:SIN:MAS|PRO:PER:NOM:SIN:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:PER:GEN:SIN:ALG:2:B|PRO:POS:AKK:PLU:FEM:B/S|PRO:POS:AKK:PLU:FEM:BEG|PRO:POS:AKK:PLU:FEM:STV|PRO:POS:AKK:PLU:MAS:B/S|PRO:POS:AKK:PLU:MAS:BEG|PRO:POS:AKK:PLU:MAS:STV|PRO:POS:AKK:PLU:NEU:B/S|PRO:POS:AKK:PLU:NEU:BEG|PRO:POS:AKK:PLU:NEU:STV|PRO:POS:AKK:SIN:FEM:B/S|PRO:POS:AKK:SIN:FEM:BEG|PRO:POS:AKK:SIN:FEM:STV|PRO:POS:AKK:SIN:MAS:B/S|PRO:POS:AKK:SIN:MAS:BEG|PRO:POS:AKK:SIN:MAS:STV|PRO:POS:AKK:SIN:NEU:B/S|PRO:POS:AKK:SIN:NEU:BEG|PRO:POS:AKK:SIN:NEU:STV|PRO:POS:DAT:PLU:FEM:B/S|PRO:POS:DAT:PLU:FEM:BEG|PRO:POS:DAT:PLU:FEM:STV|PRO:POS:DAT:PLU:MAS:B/S|PRO:POS:DAT:PLU:MAS:BEG|PRO:POS:DAT:PLU:MAS:STV|PRO:POS:DAT:PLU:NEU:B/S|PRO:POS:DAT:PLU:NEU:BEG|PRO:POS:DAT:PLU:NEU:STV|PRO:POS:DAT:SIN:FEM:BEG|PRO:POS:DAT:SIN:FEM:STV|PRO:POS:DAT:SIN:MAS:B/S|PRO:POS:DAT:SIN:MAS:BEG|PRO:POS:DAT:SIN:MAS:STV|PRO:POS:DAT:SIN:NEU:B/S|PRO:POS:DAT:SIN:NEU:BEG|PRO:POS:DAT:SIN:NEU:STV|PRO:POS:GEN:PLU:FEM:BEG|PRO:POS:GEN:PLU:FEM:STV|PRO:POS:GEN:PLU:MAS:BEG|PRO:POS:GEN:PLU:MAS:STV|PRO:POS:GEN:PLU:NEU:BEG|PRO:POS:GEN:PLU:NEU:STV|PRO:POS:GEN:SIN:FEM:BEG|PRO:POS:GEN:SIN:FEM:STV|PRO:POS:GEN:SIN:MAS:B/S|PRO:POS:GEN:SIN:MAS:BEG|PRO:POS:GEN:SIN:MAS:STV|PRO:POS:GEN:SIN:NEU:B/S|PRO:POS:GEN:SIN:NEU:BEG|PRO:POS:GEN:SIN:NEU:STV|PRO:POS:NOM:PLU:FEM:B/S|PRO:POS:NOM:PLU:FEM:BEG|PRO:POS:NOM:PLU:FEM:STV|PRO:POS:NOM:PLU:MAS:B/S|PRO:POS:NOM:PLU:MAS:BEG|PRO:POS:NOM:PLU:MAS:STV|PRO:POS:NOM:PLU:NEU:B/S|PRO:POS:NOM:PLU:NEU:BEG|PRO:POS:NOM:PLU:NEU:STV|PRO:POS:NOM:SIN:FEM:B/S|PRO:POS:NOM:SIN:FEM:BEG|PRO:POS:NOM:SIN:FEM:STV|PRO:POS:NOM:SIN:MAS:B/S|PRO:POS:NOM:SIN:MAS:BEG|PRO:POS:NOM:SIN:MAS:STV|PRO:POS:NOM:SIN:NEU:B/S|PRO:POS:NOM:SIN:NEU:BEG|PRO:POS:NOM:SIN:NEU:STV",
+          "count": 1
+        },
+        {
+          "value": "PRO:RIN:AKK:FEM|PRO:RIN:AKK:MAS|PRO:RIN:AKK:NEU|PRO:RIN:DAT:FEM|PRO:RIN:DAT:MAS|PRO:RIN:GEN:ALG:B/S|PRO:RIN:NOM:FEM|PRO:RIN:NOM:MAS|PRO:RIN:NOM:NEU",
+          "count": 1
+        },
+        {
+          "value": "PRO:RIN:AKK:PLU:FEM:B/S|PRO:RIN:AKK:PLU:MAS:B/S|PRO:RIN:AKK:PLU:NEU:B/S|PRO:RIN:AKK:SIN:FEM:B/S|PRO:RIN:AKK:SIN:MAS:B/S|PRO:RIN:AKK:SIN:NEU:B/S|PRO:RIN:DAT:PLU:FEM:B/S|PRO:RIN:DAT:PLU:MAS:B/S|PRO:RIN:DAT:PLU:NEU:B/S|PRO:RIN:DAT:SIN:FEM:B/S|PRO:RIN:DAT:SIN:MAS:B/S|PRO:RIN:DAT:SIN:NEU:B/S|PRO:RIN:GEN:PLU:FEM:B/S|PRO:RIN:GEN:PLU:MAS:B/S|PRO:RIN:GEN:PLU:NEU:B/S|PRO:RIN:GEN:SIN:FEM:B/S|PRO:RIN:GEN:SIN:MAS:B/S|PRO:RIN:GEN:SIN:NEU:B/S|PRO:RIN:NOM:PLU:FEM:B/S|PRO:RIN:NOM:PLU:MAS:B/S|PRO:RIN:NOM:PLU:NEU:B/S|PRO:RIN:NOM:SIN:FEM:B/S|PRO:RIN:NOM:SIN:MAS:B/S|PRO:RIN:NOM:SIN:NEU:B/S",
+          "count": 1
+        },
+        {
+          "value": "PRP:CAU:GEN|PRP:MOD:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+CAU:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+MOD+CAU+TMP:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+MOD:DAT+AKK",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+MOD:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD+CAU:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD:AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP+MOD:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP:DAT+AKK|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK+TMP:GEN|PRP:TMP+LOK:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:DAT+AKK|PRP:TMP:DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:DAT|PRP:MOD:GEN+DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN+DAT|ZUS",
+          "count": 1
+        },
+        {
+          "value": "PRP:LOK:GEN|PRP:MOD:GEN+DAT",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:DAT",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:NOM",
+          "count": 1
+        },
+        {
+          "value": "PRP:MOD:NOM+AKK",
+          "count": 1
+        },
+        {
+          "value": "PRP:TMP:GEN",
+          "count": 1
+        },
+        {
+          "value": "ZAL|ZUS",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "<EMPTY>": [
+          "sein",
+          "ihr",
+          "kommen",
+          "können",
+          "groß"
+        ],
+        "ADV:MOD": [
+          "erst",
+          "ganz",
+          "zudem",
+          "also",
+          "einmal"
+        ],
+        "ZUS": [
+          "stehen",
+          "gut",
+          "hoch",
+          "liegen",
+          "bleiben"
+        ],
+        "ADV:TMP": [
+          "heute",
+          "derzeit",
+          "zuletzt",
+          "oft",
+          "bisher"
+        ],
+        "ADV:LOK": [
+          "hier",
+          "dort",
+          "links",
+          "oben",
+          "rechts"
+        ],
+        "ZAL": [
+          "vier",
+          "fünf",
+          "zehn",
+          "sechs",
+          "sieben"
+        ],
+        "KON:UNT": [
+          "weil",
+          "ob",
+          "wenn",
+          "dass",
+          "nachdem"
+        ],
+        "ADV:CAU": [
+          "zwar",
+          "deshalb",
+          "demnach",
+          "dennoch",
+          "trotzdem"
+        ],
+        "ADV:PRO|ZUS": [
+          "dazu",
+          "davon",
+          "darauf",
+          "darüber",
+          "daran"
+        ],
+        "ADV:LOK|ZUS": [
+          "weg",
+          "hin",
+          "vorbei",
+          "heraus",
+          "her"
+        ],
+        "ADV:MOD|KON:NEB": [
+          "aber",
+          "doch",
+          "jedoch",
+          "ebenfalls",
+          "nur"
+        ],
+        "PRP:MOD:GEN": [
+          "laut",
+          "kraft",
+          "angesichts",
+          "plus",
+          "inklusive"
+        ],
+        "KON:NEB": [
+          "sowohl",
+          "oder",
+          "weder",
+          "beziehungsweise"
+        ],
+        "ADV:INR": [
+          "warum",
+          "wann",
+          "weshalb"
+        ],
+        "ADV:MOD|ZUS": [
+          "mal",
+          "rund",
+          "los"
+        ],
+        "ADV:PRO": [
+          "dabei",
+          "dadurch",
+          "daraus"
+        ],
+        "ADV|KON:NEB": [
+          "allerdings",
+          "allein",
+          "ebenso"
+        ],
+        "NEG": [
+          "nie",
+          "nicht",
+          "nein"
+        ],
+        "PRP:LOK:AKK": [
+          "ins",
+          "aufs",
+          "ans"
+        ],
+        "ADV:MOD+PRO|ZUS": [
+          "dafür",
+          "dagegen"
+        ],
+        "ADV:MOD+TMP": [
+          "eben",
+          "gleichzeitig"
+        ],
+        "ADV:TMP+MOD": [
+          "bereits",
+          "stets"
+        ],
+        "ADV:TMP|ZUS": [
+          "zuvor",
+          "vorher"
+        ],
+        "PRO:DEM:AKK:PLU:ALG|PRO:DEM:AKK:SIN:FEM|PRO:DEM:AKK:SIN:MAS|PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:PLU:ALG|PRO:DEM:DAT:SIN:FEM|PRO:DEM:DAT:SIN:MAS|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:PLU:ALG|PRO:DEM:GEN:SIN:FEM|PRO:DEM:GEN:SIN:MAS|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:PLU:ALG|PRO:DEM:NOM:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:DEM:NOM:SIN:NEU": [
+          "derselbe",
+          "derjenige"
+        ],
+        "PRP:CAU:GEN": [
+          "wegen",
+          "aufgrund"
+        ],
+        "PRP:LOK+TMP+MOD+CAU:DAT": [
+          "von",
+          "vom"
+        ],
+        "PRP:LOK+TMP:DAT": [
+          "zum",
+          "zur"
+        ],
+        "PRP:LOK:DAT": [
+          "beim",
+          "entsprechend"
+        ],
+        "PRP:LOK:DAT|ZUS": [
+          "nahe",
+          "fern"
+        ],
+        "PRP:MOD:AKK": [
+          "ums",
+          "fürs"
+        ],
+        "ABK:DOKTOR:SUB": [
+          "dr"
+        ],
+        "ABK:SANKT:SUB": [
+          "st"
+        ],
+        "ABK:WORT=BEZIEHUNGSWEISE:PAR": [
+          "bzw"
+        ],
+        "ADV": [
+          "wo"
+        ],
+        "ADV:INR+PRO": [
+          "wobei"
+        ],
+        "ADV:LOK+CAU|ZUS": [
+          "daher"
+        ],
+        "ADV:LOK+MOD|ZUS": [
+          "hinaus"
+        ],
+        "ADV:LOK|KON:UNT|ZUS": [
+          "da"
+        ],
+        "ADV:MOD+TMP+LOK|ZUS": [
+          "zusammen"
+        ],
+        "ADV:MOD|KON:PRI|KON:UNT": [
+          "so"
+        ],
+        "ADV:MOD|PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S|ZUS": [
+          "viel"
+        ],
+        "ADV:MOD|PRO:IND:SIN:ALG:3:B/S": [
+          "etwas"
+        ],
+        "ADV:MOD|PRP:LOK+TMP+CAU+MOD:DAT+AKK|ZUS": [
+          "zu"
+        ],
+        "ADV:MOD|PRP:LOK+TMP+CAU:DAT+AKK|ZUS": [
+          "über"
+        ],
+        "ADV:MOD|PRP:LOK+TMP+MOD+CAU:DAT+AKK": [
+          "unter"
+        ],
+        "ADV:MOD|PRP:LOK+TMP:DAT+AKK|ZUS": [
+          "ab"
+        ],
+        "ADV:PRO+CAU": [
+          "darum"
+        ],
+        "ADV:PRO+TMP": [
+          "danach"
+        ],
+        "ADV:PRO|KON:UNT": [
+          "damit"
+        ],
+        "ADV:TMP+LOK+MOD|ZUS": [
+          "zurück"
+        ],
+        "ADV:TMP+MOD|KON:INF|KON:PRI|PRP:LOK+TMP+CAU:AKK|ZUS": [
+          "um"
+        ],
+        "ADV:TMP+MOD|PRP:MOD:DAT|ZUS": [
+          "gleich"
+        ],
+        "ADV:TMP|KON:UNT": [
+          "nun"
+        ],
+        "ADV:TMP|KON:UNT|ZUS": [
+          "bevor"
+        ],
+        "ADV:TMP|PRP:LOK+TMP+CAU:DAT+AKK|ZUS": [
+          "vor"
+        ],
+        "ADV|KON:UNT": [
+          "indes"
+        ],
+        "ADV|KON:UNT|PRP:LOK+TMP+MOD:AKK": [
+          "bis"
+        ],
+        "ADV|PRO:DEM": [
+          "selbst"
+        ],
+        "ADV|ZUS": [
+          "gerade"
+        ],
+        "ART:DEF:AKK:PLU:FEM|ART:DEF:AKK:PLU:MAS|ART:DEF:AKK:PLU:NEU|ART:DEF:AKK:SIN:FEM|ART:DEF:AKK:SIN:MAS|ART:DEF:AKK:SIN:NEU|ART:DEF:DAT:PLU:FEM|ART:DEF:DAT:PLU:MAS|ART:DEF:DAT:PLU:NEU|ART:DEF:DAT:SIN:FEM|ART:DEF:DAT:SIN:MAS|ART:DEF:DAT:SIN:NEU|ART:DEF:GEN:PLU:FEM|ART:DEF:GEN:PLU:MAS|ART:DEF:GEN:PLU:NEU|ART:DEF:GEN:SIN:FEM|ART:DEF:GEN:SIN:MAS|ART:DEF:GEN:SIN:NEU|ART:DEF:NOM:PLU:FEM|ART:DEF:NOM:PLU:MAS|ART:DEF:NOM:PLU:NEU|ART:DEF:NOM:SIN:FEM|ART:DEF:NOM:SIN:MAS|ART:DEF:NOM:SIN:NEU|PRO:DEM:AKK:PLU:ALG|PRO:DEM:AKK:SIN:FEM|PRO:DEM:AKK:SIN:MAS|PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:PLU:ALG|PRO:DEM:DAT:SIN:FEM|PRO:DEM:DAT:SIN:MAS|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:PLU:ALG|PRO:DEM:GEN:SIN:FEM|PRO:DEM:GEN:SIN:MAS|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:PLU:ALG|PRO:DEM:NOM:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:DEM:NOM:SIN:NEU|PRO:PER:AKK:PLU:ALG|PRO:PER:AKK:SIN:FEM|PRO:PER:AKK:SIN:MAS|PRO:PER:AKK:SIN:NEU|PRO:PER:DAT:PLU:ALG|PRO:PER:DAT:SIN:MAS|PRO:PER:DAT:SIN:NEU|PRO:PER:GEN:PLU:ALG|PRO:PER:GEN:SIN:FEM|PRO:PER:GEN:SIN:MAS|PRO:PER:GEN:SIN:NEU|PRO:PER:NOM:PLU:ALG|PRO:PER:NOM:SIN:FEM|PRO:PER:NOM:SIN:MAS|PRO:PER:NOM:SIN:NEU": [
+          "der"
+        ],
+        "ART:IND:AKK:SIN:FEM|ART:IND:AKK:SIN:MAS|ART:IND:AKK:SIN:NEU|ART:IND:DAT:SIN:FEM|ART:IND:DAT:SIN:MAS|ART:IND:DAT:SIN:NEU|ART:IND:GEN:SIN:FEM|ART:IND:GEN:SIN:MAS|ART:IND:GEN:SIN:NEU|ART:IND:NOM:SIN:FEM|ART:IND:NOM:SIN:MAS|ART:IND:NOM:SIN:NEU|PRO:IND:AKK:SIN:FEM:STV|PRO:IND:AKK:SIN:MAS:STV|PRO:IND:AKK:SIN:NEU:STV|PRO:IND:DAT:SIN:FEM:STV|PRO:IND:DAT:SIN:MAS:STV|PRO:IND:DAT:SIN:NEU:STV|PRO:IND:GEN:SIN:FEM:STV|PRO:IND:GEN:SIN:MAS:STV|PRO:IND:GEN:SIN:NEU:STV|PRO:IND:NOM:SIN:FEM:STV|PRO:IND:NOM:SIN:MAS:STV|PRO:IND:NOM:SIN:NEU:STV|ZUS": [
+          "ein"
+        ],
+        "KON:INF|KON:UNT|PRP:MOD:AKK": [
+          "ohne"
+        ],
+        "KON:INF|PRP:MOD:GEN|ZUS": [
+          "statt"
+        ],
+        "KON:NEB|KON:PRI|PRP:NOM+AKK": [
+          "je"
+        ],
+        "KON:NEB|KON:UNT": [
+          "sondern"
+        ],
+        "KON:NEB|KON:UNT|KON:VGL|PRP:NOM+DAT+AKK": [
+          "als"
+        ],
+        "KON:NEB|KON:VGL": [
+          "denn"
+        ],
+        "KON:UNT|PRP:TMP:DAT": [
+          "seit"
+        ],
+        "KON:UNT|PRP:TMP:GEN": [
+          "während"
+        ],
+        "PRO:DEM:AKK:PLU:FEM:B/S|PRO:DEM:AKK:PLU:MAS:B/S|PRO:DEM:AKK:PLU:NEU:B/S|PRO:DEM:AKK:SIN:FEM:B/S|PRO:DEM:AKK:SIN:MAS:B/S|PRO:DEM:AKK:SIN:NEU:B/S|PRO:DEM:DAT:PLU:FEM:B/S|PRO:DEM:DAT:PLU:MAS:B/S|PRO:DEM:DAT:PLU:NEU:B/S|PRO:DEM:DAT:SIN:FEM:B/S|PRO:DEM:DAT:SIN:MAS:B/S|PRO:DEM:DAT:SIN:NEU:B/S|PRO:DEM:GEN:PLU:FEM:B/S|PRO:DEM:GEN:PLU:MAS:B/S|PRO:DEM:GEN:PLU:NEU:B/S|PRO:DEM:GEN:SIN:FEM:B/S|PRO:DEM:GEN:SIN:MAS:B/S|PRO:DEM:GEN:SIN:NEU:B/S|PRO:DEM:NOM:PLU:FEM:B/S|PRO:DEM:NOM:PLU:MAS:B/S|PRO:DEM:NOM:PLU:NEU:B/S|PRO:DEM:NOM:SIN:FEM:B/S|PRO:DEM:NOM:SIN:MAS:B/S|PRO:DEM:NOM:SIN:NEU:B/S": [
+          "dies"
+        ],
+        "PRO:DEM:AKK:SIN:NEU|PRO:DEM:DAT:SIN:NEU|PRO:DEM:GEN:SIN:NEU|PRO:DEM:NOM:SIN:NEU": [
+          "alle"
+        ],
+        "PRO:DEM:AKK:SIN:NEU|PRO:DEM:NOM:SIN:NEU": [
+          "beide"
+        ],
+        "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:AKK:SIN:MAS:B/S|PRO:IND:AKK:SIN:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:DAT:SIN:FEM:B/S|PRO:IND:DAT:SIN:MAS:B/S|PRO:IND:DAT:SIN:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:GEN:SIN:FEM:B/S|PRO:IND:GEN:SIN:MAS:B/S|PRO:IND:GEN:SIN:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S|PRO:IND:NOM:SIN:FEM:B/S|PRO:IND:NOM:SIN:MAS:B/S|PRO:IND:NOM:SIN:NEU:B/S": [
+          "jed"
+        ],
+        "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:DAT:PLU:FEM:B/S|PRO:IND:DAT:PLU:MAS:B/S|PRO:IND:DAT:PLU:NEU:B/S|PRO:IND:GEN:PLU:FEM:B/S|PRO:IND:GEN:PLU:MAS:B/S|PRO:IND:GEN:PLU:NEU:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:NEU:B/S": [
+          "etlich"
+        ],
+        "PRO:IND:AKK:PLU:FEM:BEG|PRO:IND:AKK:PLU:FEM:STV|PRO:IND:AKK:PLU:MAS:BEG|PRO:IND:AKK:PLU:MAS:STV|PRO:IND:AKK:PLU:NEU:BEG|PRO:IND:AKK:PLU:NEU:STV|PRO:IND:AKK:SIN:FEM:BEG|PRO:IND:AKK:SIN:FEM:STV|PRO:IND:AKK:SIN:MAS:BEG|PRO:IND:AKK:SIN:MAS:STV|PRO:IND:AKK:SIN:NEU:BEG|PRO:IND:AKK:SIN:NEU:STV|PRO:IND:DAT:PLU:FEM:BEG|PRO:IND:DAT:PLU:FEM:STV|PRO:IND:DAT:PLU:MAS:BEG|PRO:IND:DAT:PLU:MAS:STV|PRO:IND:DAT:PLU:NEU:BEG|PRO:IND:DAT:PLU:NEU:STV|PRO:IND:DAT:SIN:FEM:BEG|PRO:IND:DAT:SIN:FEM:STV|PRO:IND:DAT:SIN:MAS:BEG|PRO:IND:DAT:SIN:MAS:STV|PRO:IND:DAT:SIN:NEU:BEG|PRO:IND:DAT:SIN:NEU:STV|PRO:IND:GEN:PLU:FEM:BEG|PRO:IND:GEN:PLU:FEM:STV|PRO:IND:GEN:PLU:MAS:BEG|PRO:IND:GEN:PLU:MAS:STV|PRO:IND:GEN:PLU:NEU:BEG|PRO:IND:GEN:PLU:NEU:STV|PRO:IND:GEN:SIN:FEM:BEG|PRO:IND:GEN:SIN:FEM:STV|PRO:IND:GEN:SIN:MAS:BEG|PRO:IND:GEN:SIN:MAS:STV|PRO:IND:GEN:SIN:NEU:BEG|PRO:IND:GEN:SIN:NEU:STV|PRO:IND:NOM:PLU:FEM:BEG|PRO:IND:NOM:PLU:FEM:STV|PRO:IND:NOM:PLU:MAS:BEG|PRO:IND:NOM:PLU:MAS:STV|PRO:IND:NOM:PLU:NEU:BEG|PRO:IND:NOM:PLU:NEU:STV|PRO:IND:NOM:SIN:FEM:BEG|PRO:IND:NOM:SIN:FEM:STV|PRO:IND:NOM:SIN:MAS:BEG|PRO:IND:NOM:SIN:MAS:STV|PRO:IND:NOM:SIN:NEU:BEG|PRO:IND:NOM:SIN:NEU:STV": [
+          "kein"
+        ],
+        "PRO:IND:AKK:SIN:ALG:B/S|PRO:IND:NOM:SIN:ALG:B/S": [
+          "nichts"
+        ],
+        "PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV": [
+          "niemand"
+        ],
+        "PRO:IND:AKK:SIN:ALG|PRO:IND:AKK:SIN:ALG:STV|PRO:IND:DAT:SIN:ALG|PRO:IND:DAT:SIN:ALG:STV|PRO:IND:GEN:SIN:ALG:STV|PRO:IND:NOM:SIN:ALG:STV": [
+          "jemand"
+        ],
+        "PRO:IND:NOM:SIN:ALG:STV": [
+          "man"
+        ],
+        "PRO:PER:AKK:PLU:ALG|PRO:PER:AKK:PLU:ALG:2:A|PRO:PER:AKK:PLU:ALG:2:B|PRO:PER:AKK:SIN:ALG|PRO:PER:AKK:SIN:ALG:2:A|PRO:PER:AKK:SIN:ALG:2:B|PRO:PER:AKK:SIN:FEM|PRO:PER:AKK:SIN:MAS|PRO:PER:AKK:SIN:NEU|PRO:PER:DAT:PLU:ALG|PRO:PER:DAT:PLU:ALG:2:A|PRO:PER:DAT:PLU:ALG:2:B|PRO:PER:DAT:SIN:ALG|PRO:PER:DAT:SIN:ALG:2:A|PRO:PER:DAT:SIN:ALG:2:B|PRO:PER:DAT:SIN:FEM|PRO:PER:DAT:SIN:MAS|PRO:PER:DAT:SIN:NEU|PRO:PER:GEN:PLU:ALG|PRO:PER:GEN:PLU:ALG:2:A|PRO:PER:GEN:SIN:ALG|PRO:PER:GEN:SIN:ALG:2:B|PRO:PER:GEN:SIN:FEM|PRO:PER:GEN:SIN:MAS|PRO:PER:GEN:SIN:NEU|PRO:PER:NOM:PLU:ALG|PRO:PER:NOM:PLU:ALG:2:B|PRO:PER:NOM:SIN:ALG|PRO:PER:NOM:SIN:ALG:2:A|PRO:PER:NOM:SIN:ALG:2:B|PRO:PER:NOM:SIN:FEM|PRO:PER:NOM:SIN:MAS|PRO:PER:NOM:SIN:NEU": [
+          "ich"
+        ],
+        "PRO:PER:GEN:SIN:ALG:2:B|PRO:POS:AKK:PLU:FEM:B/S|PRO:POS:AKK:PLU:FEM:BEG|PRO:POS:AKK:PLU:FEM:STV|PRO:POS:AKK:PLU:MAS:B/S|PRO:POS:AKK:PLU:MAS:BEG|PRO:POS:AKK:PLU:MAS:STV|PRO:POS:AKK:PLU:NEU:B/S|PRO:POS:AKK:PLU:NEU:BEG|PRO:POS:AKK:PLU:NEU:STV|PRO:POS:AKK:SIN:FEM:B/S|PRO:POS:AKK:SIN:FEM:BEG|PRO:POS:AKK:SIN:FEM:STV|PRO:POS:AKK:SIN:MAS:B/S|PRO:POS:AKK:SIN:MAS:BEG|PRO:POS:AKK:SIN:MAS:STV|PRO:POS:AKK:SIN:NEU:B/S|PRO:POS:AKK:SIN:NEU:BEG|PRO:POS:AKK:SIN:NEU:STV|PRO:POS:DAT:PLU:FEM:B/S|PRO:POS:DAT:PLU:FEM:BEG|PRO:POS:DAT:PLU:FEM:STV|PRO:POS:DAT:PLU:MAS:B/S|PRO:POS:DAT:PLU:MAS:BEG|PRO:POS:DAT:PLU:MAS:STV|PRO:POS:DAT:PLU:NEU:B/S|PRO:POS:DAT:PLU:NEU:BEG|PRO:POS:DAT:PLU:NEU:STV|PRO:POS:DAT:SIN:FEM:BEG|PRO:POS:DAT:SIN:FEM:STV|PRO:POS:DAT:SIN:MAS:B/S|PRO:POS:DAT:SIN:MAS:BEG|PRO:POS:DAT:SIN:MAS:STV|PRO:POS:DAT:SIN:NEU:B/S|PRO:POS:DAT:SIN:NEU:BEG|PRO:POS:DAT:SIN:NEU:STV|PRO:POS:GEN:PLU:FEM:BEG|PRO:POS:GEN:PLU:FEM:STV|PRO:POS:GEN:PLU:MAS:BEG|PRO:POS:GEN:PLU:MAS:STV|PRO:POS:GEN:PLU:NEU:BEG|PRO:POS:GEN:PLU:NEU:STV|PRO:POS:GEN:SIN:FEM:BEG|PRO:POS:GEN:SIN:FEM:STV|PRO:POS:GEN:SIN:MAS:B/S|PRO:POS:GEN:SIN:MAS:BEG|PRO:POS:GEN:SIN:MAS:STV|PRO:POS:GEN:SIN:NEU:B/S|PRO:POS:GEN:SIN:NEU:BEG|PRO:POS:GEN:SIN:NEU:STV|PRO:POS:NOM:PLU:FEM:B/S|PRO:POS:NOM:PLU:FEM:BEG|PRO:POS:NOM:PLU:FEM:STV|PRO:POS:NOM:PLU:MAS:B/S|PRO:POS:NOM:PLU:MAS:BEG|PRO:POS:NOM:PLU:MAS:STV|PRO:POS:NOM:PLU:NEU:B/S|PRO:POS:NOM:PLU:NEU:BEG|PRO:POS:NOM:PLU:NEU:STV|PRO:POS:NOM:SIN:FEM:B/S|PRO:POS:NOM:SIN:FEM:BEG|PRO:POS:NOM:SIN:FEM:STV|PRO:POS:NOM:SIN:MAS:B/S|PRO:POS:NOM:SIN:MAS:BEG|PRO:POS:NOM:SIN:MAS:STV|PRO:POS:NOM:SIN:NEU:B/S|PRO:POS:NOM:SIN:NEU:BEG|PRO:POS:NOM:SIN:NEU:STV": [
+          "mein"
+        ],
+        "PRO:RIN:AKK:FEM|PRO:RIN:AKK:MAS|PRO:RIN:AKK:NEU|PRO:RIN:DAT:FEM|PRO:RIN:DAT:MAS|PRO:RIN:GEN:ALG:B/S|PRO:RIN:NOM:FEM|PRO:RIN:NOM:MAS|PRO:RIN:NOM:NEU": [
+          "wer"
+        ],
+        "PRO:RIN:AKK:PLU:FEM:B/S|PRO:RIN:AKK:PLU:MAS:B/S|PRO:RIN:AKK:PLU:NEU:B/S|PRO:RIN:AKK:SIN:FEM:B/S|PRO:RIN:AKK:SIN:MAS:B/S|PRO:RIN:AKK:SIN:NEU:B/S|PRO:RIN:DAT:PLU:FEM:B/S|PRO:RIN:DAT:PLU:MAS:B/S|PRO:RIN:DAT:PLU:NEU:B/S|PRO:RIN:DAT:SIN:FEM:B/S|PRO:RIN:DAT:SIN:MAS:B/S|PRO:RIN:DAT:SIN:NEU:B/S|PRO:RIN:GEN:PLU:FEM:B/S|PRO:RIN:GEN:PLU:MAS:B/S|PRO:RIN:GEN:PLU:NEU:B/S|PRO:RIN:GEN:SIN:FEM:B/S|PRO:RIN:GEN:SIN:MAS:B/S|PRO:RIN:GEN:SIN:NEU:B/S|PRO:RIN:NOM:PLU:FEM:B/S|PRO:RIN:NOM:PLU:MAS:B/S|PRO:RIN:NOM:PLU:NEU:B/S|PRO:RIN:NOM:SIN:FEM:B/S|PRO:RIN:NOM:SIN:MAS:B/S|PRO:RIN:NOM:SIN:NEU:B/S": [
+          "welch"
+        ],
+        "PRP:CAU:GEN|PRP:MOD:GEN": [
+          "trotz"
+        ],
+        "PRP:LOK+CAU:AKK|ZUS": [
+          "durch"
+        ],
+        "PRP:LOK+MOD+CAU+TMP:DAT+AKK|ZUS": [
+          "auf"
+        ],
+        "PRP:LOK+MOD:DAT+AKK": [
+          "neben"
+        ],
+        "PRP:LOK+MOD:DAT|ZUS": [
+          "gegenüber"
+        ],
+        "PRP:LOK+TMP+MOD+CAU:DAT|ZUS": [
+          "aus"
+        ],
+        "PRP:LOK+TMP+MOD:AKK|ZUS": [
+          "gegen"
+        ],
+        "PRP:LOK+TMP+MOD:DAT+AKK|ZUS": [
+          "an"
+        ],
+        "PRP:LOK+TMP:DAT+AKK|ZUS": [
+          "zwischen"
+        ],
+        "PRP:LOK+TMP:GEN|PRP:TMP+LOK:GEN": [
+          "innerhalb"
+        ],
+        "PRP:LOK:DAT+AKK|PRP:TMP:DAT|ZUS": [
+          "hinter"
+        ],
+        "PRP:LOK:DAT|PRP:MOD:GEN+DAT|ZUS": [
+          "entgegen"
+        ],
+        "PRP:LOK:GEN": [
+          "außerhalb"
+        ],
+        "PRP:LOK:GEN+DAT|ZUS": [
+          "entlang"
+        ],
+        "PRP:LOK:GEN|PRP:MOD:GEN+DAT": [
+          "außer"
+        ],
+        "PRP:MOD:DAT": [
+          "samt"
+        ],
+        "PRP:MOD:NOM": [
+          "per"
+        ],
+        "PRP:MOD:NOM+AKK": [
+          "pro"
+        ],
+        "PRP:TMP:GEN": [
+          "zeit"
+        ],
+        "ZAL|ZUS": [
+          "acht"
+        ]
+      }
+    },
+    "freq-en-coca.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "top_n": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 1008
+        },
+        {
+          "value": "j",
+          "count": 471
+        },
+        {
+          "value": "v",
+          "count": 369
+        },
+        {
+          "value": "r",
+          "count": 101
+        },
+        {
+          "value": "i",
+          "count": 14
+        },
+        {
+          "value": "m",
+          "count": 11
+        },
+        {
+          "value": "u",
+          "count": 10
+        },
+        {
+          "value": "p",
+          "count": 7
+        },
+        {
+          "value": "a",
+          "count": 4
+        },
+        {
+          "value": "d",
+          "count": 3
+        },
+        {
+          "value": "c",
+          "count": 1
+        },
+        {
+          "value": "e",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "n": [
+          "man",
+          "case",
+          "money",
+          "home",
+          "percent"
+        ],
+        "j": [
+          "long",
+          "able",
+          "wrong",
+          "simple",
+          "common"
+        ],
+        "v": [
+          "do",
+          "could",
+          "work",
+          "call",
+          "help"
+        ],
+        "r": [
+          "very",
+          "in",
+          "as",
+          "off",
+          "today"
+        ],
+        "i": [
+          "of",
+          "about",
+          "down",
+          "worth",
+          "regarding"
+        ],
+        "m": [
+          "five",
+          "forty",
+          "eleven",
+          "nineteenth",
+          "seventeen"
+        ],
+        "u": [
+          "yes",
+          "ah",
+          "hmm",
+          "bye",
+          "ooh"
+        ],
+        "p": [
+          "they",
+          "she",
+          "him",
+          "anything",
+          "everyone"
+        ],
+        "a": [
+          "no",
+          "every",
+          "its",
+          "his/her"
+        ],
+        "d": [
+          "whose",
+          "neither",
+          "whatsoever"
+        ],
+        "c": [
+          "seeing"
+        ],
+        "e": [
+          "there"
+        ]
+      }
+    },
+    "freq-es-cde.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "top_n": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 1105
+        },
+        {
+          "value": "j",
+          "count": 489
+        },
+        {
+          "value": "v",
+          "count": 312
+        },
+        {
+          "value": "r",
+          "count": 72
+        },
+        {
+          "value": "c",
+          "count": 6
+        },
+        {
+          "value": "e",
+          "count": 4
+        },
+        {
+          "value": "i",
+          "count": 3
+        },
+        {
+          "value": "m",
+          "count": 3
+        },
+        {
+          "value": "d",
+          "count": 2
+        },
+        {
+          "value": "p",
+          "count": 2
+        },
+        {
+          "value": "-",
+          "count": 1
+        },
+        {
+          "value": "l",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "n": [
+          "siglo",
+          "millón",
+          "hora",
+          "música",
+          "principio"
+        ],
+        "j": [
+          "mayor",
+          "nacional",
+          "político",
+          "pequeño",
+          "junto"
+        ],
+        "v": [
+          "deber",
+          "poner",
+          "llamar",
+          "preguntar",
+          "trabajar"
+        ],
+        "r": [
+          "no",
+          "más",
+          "sólo",
+          "tarde",
+          "jamás"
+        ],
+        "c": [
+          "pues",
+          "sobre",
+          "cuándo",
+          "empero",
+          "aun"
+        ],
+        "e": [
+          "entre",
+          "hasta",
+          "según",
+          "dentro"
+        ],
+        "i": [
+          "oh",
+          "center",
+          "o"
+        ],
+        "m": [
+          "mil",
+          "ocho",
+          "veintitrés"
+        ],
+        "d": [
+          "ese",
+          "tanto"
+        ],
+        "p": [
+          "vos",
+          "ésa"
+        ],
+        "-": [
+          "apartar"
+        ],
+        "l": [
+          "el"
+        ]
+      }
+    },
+    "freq-ja-bccwj.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj.sqlite",
+      "top_n": 2000,
+      "raw_tag_distribution": [
+        {
+          "value": "名詞-普通名詞-一般",
+          "count": 651
+        },
+        {
+          "value": "名詞-普通名詞-サ変可能",
+          "count": 367
+        },
+        {
+          "value": "動詞-一般",
+          "count": 216
+        },
+        {
+          "value": "名詞-普通名詞-副詞可能",
+          "count": 97
+        },
+        {
+          "value": "接尾辞-名詞的-一般",
+          "count": 92
+        },
+        {
+          "value": "副詞",
+          "count": 62
+        },
+        {
+          "value": "名詞-普通名詞-助数詞可能",
+          "count": 60
+        },
+        {
+          "value": "名詞-数詞",
+          "count": 54
+        },
+        {
+          "value": "動詞-非自立可能",
+          "count": 40
+        },
+        {
+          "value": "形容詞-一般",
+          "count": 40
+        },
+        {
+          "value": "形状詞-一般",
+          "count": 36
+        },
+        {
+          "value": "名詞-普通名詞-形状詞可能",
+          "count": 31
+        },
+        {
+          "value": "接頭辞",
+          "count": 27
+        },
+        {
+          "value": "代名詞",
+          "count": 23
+        },
+        {
+          "value": "名詞-固有名詞-地名-一般",
+          "count": 22
+        },
+        {
+          "value": "助動詞",
+          "count": 19
+        },
+        {
+          "value": "助詞-副助詞",
+          "count": 17
+        },
+        {
+          "value": "名詞-固有名詞-地名-国",
+          "count": 15
+        },
+        {
+          "value": "接続詞",
+          "count": 15
+        },
+        {
+          "value": "連体詞",
+          "count": 14
+        },
+        {
+          "value": "名詞-普通名詞-サ変形状詞可能",
+          "count": 11
+        },
+        {
+          "value": "助詞-接続助詞",
+          "count": 10
+        },
+        {
+          "value": "名詞-固有名詞-人名-姓",
+          "count": 10
+        },
+        {
+          "value": "助詞-格助詞",
+          "count": 9
+        },
+        {
+          "value": "助詞-終助詞",
+          "count": 8
+        },
+        {
+          "value": "名詞-固有名詞-一般",
+          "count": 8
+        },
+        {
+          "value": "名詞-固有名詞-人名-名",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-名詞的-副詞可能",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-名詞的-助数詞",
+          "count": 7
+        },
+        {
+          "value": "助詞-係助詞",
+          "count": 3
+        },
+        {
+          "value": "形容詞-非自立可能",
+          "count": 3
+        },
+        {
+          "value": "形状詞-助動詞語幹",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-形容詞的",
+          "count": 3
+        },
+        {
+          "value": "接尾辞-形状詞的",
+          "count": 3
+        },
+        {
+          "value": "名詞-固有名詞-人名-一般",
+          "count": 2
+        },
+        {
+          "value": "感動詞-一般",
+          "count": 2
+        },
+        {
+          "value": "接尾辞-名詞的-サ変可能",
+          "count": 2
+        },
+        {
+          "value": "助詞-準体助詞",
+          "count": 1
+        },
+        {
+          "value": "名詞-助動詞語幹",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "名詞-普通名詞-一般": [
+          "事",
+          "人",
+          "．",
+          "自分",
+          "会"
+        ],
+        "名詞-普通名詞-サ変可能": [
+          "物",
+          "関係",
+          "整備",
+          "研究",
+          "活動"
+        ],
+        "動詞-一般": [
+          "言う",
+          "因る",
+          "思う",
+          "つく",
+          "行う"
+        ],
+        "名詞-普通名詞-副詞可能": [
+          "為",
+          "時",
+          "中",
+          "今",
+          "所"
+        ],
+        "接尾辞-名詞的-一般": [
+          "者",
+          "さん",
+          "等",
+          "人",
+          "達"
+        ],
+        "副詞": [
+          "どう",
+          "そう",
+          "こう",
+          "もう",
+          "良く"
+        ],
+        "名詞-普通名詞-助数詞可能": [
+          "年",
+          "月",
+          "日",
+          "円",
+          "パーセント"
+        ],
+        "名詞-数詞": [
+          "一",
+          "二",
+          "十",
+          "三",
+          "五"
+        ],
+        "動詞-非自立可能": [
+          "為る",
+          "居る",
+          "有る",
+          "成る",
+          "来る"
+        ],
+        "形容詞-一般": [
+          "多い",
+          "高い",
+          "大きい",
+          "強い",
+          "少ない"
+        ],
+        "形状詞-一般": [
+          "可能",
+          "重要",
+          "好き",
+          "様々",
+          "新た"
+        ],
+        "名詞-普通名詞-形状詞可能": [
+          "必要",
+          "別",
+          "安全",
+          "自由",
+          "最高"
+        ],
+        "接頭辞": [
+          "御",
+          "第",
+          "約",
+          "大",
+          "新"
+        ],
+        "代名詞": [
+          "其れ",
+          "此れ",
+          "私",
+          "何",
+          "彼"
+        ],
+        "名詞-固有名詞-地名-一般": [
+          "トウキョウ",
+          "オオサカ",
+          "アジア",
+          "サッポロ",
+          "キョウト"
+        ],
+        "助動詞": [
+          "た",
+          "だ",
+          "ます",
+          "です",
+          "れる"
+        ],
+        "助詞-副助詞": [
+          "や",
+          "など",
+          "か",
+          "まで",
+          "だけ"
+        ],
+        "名詞-固有名詞-地名-国": [
+          "日本",
+          "中国",
+          "米国",
+          "北朝鮮",
+          "アメリカ"
+        ],
+        "接続詞": [
+          "又",
+          "及び",
+          "然し",
+          "そして",
+          "更に"
+        ],
+        "連体詞": [
+          "其の",
+          "此の",
+          "同じ",
+          "そんな",
+          "大きな"
+        ],
+        "名詞-普通名詞-サ変形状詞可能": [
+          "安定",
+          "反対",
+          "独立",
+          "心配",
+          "連続"
+        ],
+        "助詞-接続助詞": [
+          "て",
+          "が",
+          "と",
+          "ば",
+          "から"
+        ],
+        "名詞-固有名詞-人名-姓": [
+          "■■",
+          "コイズミ",
+          "キン",
+          "タナカ",
+          "ナカジマ"
+        ],
+        "助詞-格助詞": [
+          "の",
+          "に",
+          "を",
+          "が",
+          "と"
+        ],
+        "助詞-終助詞": [
+          "か",
+          "ね",
+          "よ",
+          "な",
+          "の"
+        ],
+        "名詞-固有名詞-一般": [
+          "平成",
+          "昭和",
+          "自民",
+          "国連",
+          "ＮＨＫ"
+        ],
+        "名詞-固有名詞-人名-名": [
+          "■■",
+          "タカコ",
+          "マサオ",
+          "ヒビキ",
+          "トウコ"
+        ],
+        "接尾辞-名詞的-副詞可能": [
+          "中",
+          "後",
+          "上",
+          "間",
+          "末"
+        ],
+        "接尾辞-名詞的-助数詞": [
+          "つ",
+          "日",
+          "歳",
+          "本",
+          "個"
+        ],
+        "助詞-係助詞": [
+          "は",
+          "も",
+          "こそ"
+        ],
+        "形容詞-非自立可能": [
+          "無い",
+          "良い",
+          "欲しい"
+        ],
+        "形状詞-助動詞語幹": [
+          "様",
+          "そう",
+          "みたい"
+        ],
+        "接尾辞-形容詞的": [
+          "易い",
+          "難い",
+          "らしい"
+        ],
+        "接尾辞-形状詞的": [
+          "的",
+          "風",
+          "勝ち"
+        ],
+        "名詞-固有名詞-人名-一般": [
+          "ブッシュ",
+          "フセイン"
+        ],
+        "感動詞-一般": [
+          "あっ",
+          "ああ"
+        ],
+        "接尾辞-名詞的-サ変可能": [
+          "化",
+          "分"
+        ],
+        "助詞-準体助詞": [
+          "の"
+        ],
+        "名詞-助動詞語幹": [
+          "そう"
+        ]
+      }
+    }
+  },
+  "errors": []
+}

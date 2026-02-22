@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -78,6 +79,20 @@ def _build_seed_candidates() -> list[SimpleNamespace]:
     return candidates
 
 
+def _create_frequency_db(path: Path) -> Path:
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+        conn.execute(
+            "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+            ("alpha", 1.0, 100.0),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    return path
+
+
 def _stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
     pair_lemmas = sorted({item.lemma for item in store.items if item.language_pair == pair})
     rules = tuple(
@@ -108,7 +123,7 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             save_srs_settings(
                 SrsSettings(max_active_items=8, max_new_items_per_day=2),

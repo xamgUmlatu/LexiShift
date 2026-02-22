@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -60,6 +61,20 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     paths.ruleset_path("en-ja").write_text("{}", encoding="utf-8")
     paths.ruleset_path("en-en").write_text("{}", encoding="utf-8")
     return paths
+
+
+def _create_frequency_db(path: Path) -> Path:
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+        conn.execute(
+            "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+            ("alpha", 1.0, 100.0),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    return path
 
 
 class TestHelperPathsDefaults(unittest.TestCase):
@@ -385,7 +400,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             root = Path(tmp)
             paths = build_helper_paths(root)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
             freedict_path = root / "deu-eng.tei"
             freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
 
@@ -428,7 +443,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             root = Path(tmp)
             paths = build_helper_paths(root)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
             freedict_path = root / "deu-eng.tei"
             freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
             save_srs_settings(
@@ -581,7 +596,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             initial_store = SrsStore(
                 items=(
@@ -654,7 +669,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             initial_store = SrsStore(
                 items=(
@@ -731,7 +746,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             persisted_after_init = SrsStore(items=tuple(), version=1)
             init_report = SimpleNamespace(
@@ -860,7 +875,7 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             save_srs_settings(
                 SrsSettings(max_active_items=10, max_new_items_per_day=4),
@@ -976,7 +991,7 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             save_srs_settings(
                 SrsSettings(max_active_items=10, max_new_items_per_day=4),
@@ -1039,7 +1054,7 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
             save_srs_store(SrsStore(items=tuple(), version=1), paths.srs_store_path)
 
             with patch(
@@ -1073,7 +1088,7 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             save_srs_settings(
                 SrsSettings(max_active_items=20, max_new_items_per_day=4),
@@ -1162,7 +1177,7 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
             source_db = root / "freq.sqlite"
-            source_db.touch()
+            _create_frequency_db(source_db)
 
             save_srs_settings(
                 SrsSettings(max_active_items=20, max_new_items_per_day=2),

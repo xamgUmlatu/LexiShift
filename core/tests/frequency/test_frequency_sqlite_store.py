@@ -15,6 +15,29 @@ from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteF
 
 
 class TestSqliteFrequencyStore(unittest.TestCase):
+    def test_missing_database_file_raises_file_not_found(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "missing.sqlite"
+            with self.assertRaises(FileNotFoundError):
+                SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
+
+    def test_invalid_sqlite_file_raises_value_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "invalid.sqlite"
+            db_path.write_text("not-a-sqlite-file", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
+
+    def test_missing_frequency_table_raises_value_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "freq.sqlite"
+            conn = sqlite3.connect(db_path)
+            conn.execute("CREATE TABLE other (lemma TEXT)")
+            conn.commit()
+            conn.close()
+            with self.assertRaises(ValueError):
+                SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
+
     def test_iter_top_by_rank_pushes_null_ranks_last(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "freq.sqlite"

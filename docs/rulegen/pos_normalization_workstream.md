@@ -1,7 +1,7 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
 Status: Planned (design captured, implementation pending)  
-Last updated: 2026-02-19
+Last updated: 2026-02-22
 
 ## Purpose
 
@@ -150,16 +150,48 @@ Tasks:
 2. Capture baseline reports for:
    - `en-ja`, `en-es`, `es-en`, `en-de`
 3. Record representative words and POS-driven behavior checks in docs.
+4. Add resource integrity audit checks for frequency DBs used by SRS/rulegen:
+   - file exists
+   - valid SQLite header
+   - required `frequency` table exists
+   - pack is linked in `settings.json` (`synonyms.frequency_packs`) when downloaded
+5. Produce a cross-language data inventory table covering all active language resources (frequency, dictionaries, embeddings, stopwords) with:
+   - language pair / target language
+   - resource type
+   - pack ID / logical name
+   - source URL
+   - local filename/path convention
+   - license
+   - schema/tables/required columns
+   - POS fields and raw tag inventory status
+   - current integration status (downloaded, linked, validated)
+6. Document a short recovery playbook for invalid or unlinked packs (for example: zero-byte SQLite, header mismatch, missing `frequency` table, downloaded-but-not-linked).
 
 Suggested code touchpoints:
 
 - `scripts/testing/rulegen_probe_words.py` (extend or companion script)
 - new script candidate: `scripts/testing/pos_normalization_probe.py`
+- new inventory doc candidate: `docs/language_pairs/lp_data_inventory_matrix.md`
+- frequency integrity script (implemented): `scripts/testing/resource_integrity_audit.py`
+
+Phase 0 progress snapshot (2026-02-22):
+
+- Completed:
+  - Task 1 delivered via `scripts/testing/pos_normalization_probe.py`.
+  - Task 2 baseline artifact captured at `docs/test_outputs/phase0_pos_baseline/phase0_pos_probe_2026-02-22.json`.
+  - Task 3 representative behavior notes captured at `docs/rulegen/phase0_pos_baseline_findings.md`.
+  - Task 4 delivered via `scripts/testing/resource_integrity_audit.py`.
+  - Task 5 delivered via `docs/language_pairs/lp_data_inventory_matrix.md`.
+  - Task 6 delivered via `docs/language_pairs/resource_recovery_playbook.md`.
+- Remaining:
+  - None for Phase 0 baseline scope.
 
 Acceptance:
 
 - Baseline report artifacts exist and are reproducible from CLI.
 - Unknown/raw-unmapped POS tags are explicitly listed.
+- Frequency DB integrity/linkage checks are reproducible and produce actionable failures.
+- A single inventory table doc exists and covers all active language resources with ownership and validation status.
 
 ### Phase 1 - Introduce POS Normalization Module
 

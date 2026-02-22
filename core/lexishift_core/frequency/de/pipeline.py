@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import shutil
 import ssl
+import subprocess
 import tarfile
 import tempfile
 from typing import Any, Callable, Optional
@@ -34,6 +36,42 @@ GERMAN_POS_SONSTIGE_URL = (
     "https://raw.githubusercontent.com/languagetool-org/german-pos-dict/"
     "master/src/main/resources/org/languagetool/resource/de/sonstige.txt"
 )
+GERMAN_POS_DICT_URL = (
+    "https://raw.githubusercontent.com/languagetool-org/german-pos-dict/"
+    "master/src/main/resources/org/languagetool/resource/de/german.dict"
+)
+GERMAN_POS_INFO_URL = (
+    "https://raw.githubusercontent.com/languagetool-org/german-pos-dict/"
+    "master/src/main/resources/org/languagetool/resource/de/german.info"
+)
+MORFOLOGIK_TOOLS = {
+    "morfologik-tools-2.1.9.jar": (
+        "https://repo1.maven.org/maven2/org/carrot2/morfologik-tools/2.1.9/"
+        "morfologik-tools-2.1.9.jar"
+    ),
+    "morfologik-fsa-2.1.9.jar": (
+        "https://repo1.maven.org/maven2/org/carrot2/morfologik-fsa/2.1.9/"
+        "morfologik-fsa-2.1.9.jar"
+    ),
+    "morfologik-fsa-builders-2.1.9.jar": (
+        "https://repo1.maven.org/maven2/org/carrot2/morfologik-fsa-builders/2.1.9/"
+        "morfologik-fsa-builders-2.1.9.jar"
+    ),
+    "morfologik-stemming-2.1.9.jar": (
+        "https://repo1.maven.org/maven2/org/carrot2/morfologik-stemming/2.1.9/"
+        "morfologik-stemming-2.1.9.jar"
+    ),
+    "hppc-0.7.2.jar": (
+        "https://repo1.maven.org/maven2/com/carrotsearch/hppc/0.7.2/hppc-0.7.2.jar"
+    ),
+    "jcommander-1.78.jar": (
+        "https://repo1.maven.org/maven2/com/beust/jcommander/1.78/jcommander-1.78.jar"
+    ),
+}
+
+DE_POS_SOURCE_AUTO = "auto"
+DE_POS_SOURCE_GERMAN_DICT = "german_dict"
+DE_POS_SOURCE_EIG_SONSTIGE = "eig_sonstige"
 
 ProgressCallback = Callable[[int, int], None]
 CancelCallback = Callable[[], bool]
@@ -91,6 +129,15 @@ def parse_args() -> argparse.Namespace:
         "--disable-pos",
         action="store_true",
         help="Disable POS enrichment/filtering",
+    )
+    parser.add_argument(
+        "--de-pos-source",
+        default=DE_POS_SOURCE_AUTO,
+        choices=(DE_POS_SOURCE_AUTO, DE_POS_SOURCE_GERMAN_DICT, DE_POS_SOURCE_EIG_SONSTIGE),
+        help=(
+            "DE POS source. auto: try german.dict via Morfologik first then fallback to "
+            "EIG+sonstige. german_dict: require german.dict path. eig_sonstige: legacy path."
+        ),
     )
     parser.add_argument(
         "--drop-proper-nouns",
@@ -237,6 +284,182 @@ def _combine_pos_sources(*, eig_path: Path, sonstige_path: Path, output_path: Pa
                     out.write(line)
 
 
+def _normalize_de_pos_source(value: str) -> str:
+    normalized = str(value or "").strip().lower().replace("-", "_")
+    if not normalized or normalized == DE_POS_SOURCE_AUTO:
+        return DE_POS_SOURCE_AUTO
+    if normalized in (DE_POS_SOURCE_GERMAN_DICT, "dict", "german"):
+        return DE_POS_SOURCE_GERMAN_DICT
+    if normalized in (DE_POS_SOURCE_EIG_SONSTIGE, "legacy"):
+        return DE_POS_SOURCE_EIG_SONSTIGE
+    raise ValueError(
+        f"Unsupported DE POS source '{value}'. Expected one of: "
+        f"{DE_POS_SOURCE_AUTO}, {DE_POS_SOURCE_GERMAN_DICT}, {DE_POS_SOURCE_EIG_SONSTIGE}."
+    )
+
+
+def _resolve_de_pos_source_order(requested_source: str) -> list[str]:
+    resolved = _normalize_de_pos_source(requested_source)
+    if resolved == DE_POS_SOURCE_AUTO:
+        return [DE_POS_SOURCE_GERMAN_DICT, DE_POS_SOURCE_EIG_SONSTIGE]
+    return [resolved]
+
+
+def _ensure_morfologik_tool_jars(
+    *,
+    cache_dir: Path,
+    cancel_cb: Optional[CancelCallback] = None,
+) -> list[Path]:
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    jar_paths: list[Path] = []
+    for filename, url in MORFOLOGIK_TOOLS.items():
+        target_path = cache_dir / filename
+        if not target_path.exists() or not target_path.is_file():
+            _download_file(url=url, dest=target_path, cancel_cb=cancel_cb)
+        jar_paths.append(target_path)
+    return jar_paths
+
+
+def _run_process_or_raise(
+    *,
+    command: list[str],
+    cancel_cb: Optional[CancelCallback] = None,
+) -> None:
+    _check_cancel(cancel_cb)
+    try:
+        completed = subprocess.run(
+            command,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except FileNotFoundError as exc:
+        raise RuntimeError(f"Missing executable: {command[0]}") from exc
+    except subprocess.CalledProcessError as exc:
+        stderr = str(exc.stderr or "").strip()
+        stdout = str(exc.stdout or "").strip()
+        detail = stderr or stdout or str(exc)
+        raise RuntimeError(f"Command failed: {' '.join(command)} :: {detail}") from exc
+    _check_cancel(cancel_cb)
+    if completed.returncode != 0:
+        raise RuntimeError(f"Command failed: {' '.join(command)}")
+
+
+def _decompile_german_dict(
+    *,
+    dictionary_path: Path,
+    output_path: Path,
+    morfologik_jars: list[Path],
+    cancel_cb: Optional[CancelCallback] = None,
+) -> None:
+    classpath = os.pathsep.join(str(path) for path in morfologik_jars)
+    command = [
+        "java",
+        "-cp",
+        classpath,
+        "morfologik.tools.Launcher",
+        "dict_decompile",
+        "-i",
+        str(dictionary_path),
+        "-o",
+        str(output_path),
+        "--overwrite",
+    ]
+    _run_process_or_raise(command=command, cancel_cb=cancel_cb)
+
+
+def _convert_morfologik_decompiled_to_tsv(
+    *,
+    input_path: Path,
+    output_path: Path,
+) -> int:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    rows_written = 0
+    with input_path.open("r", encoding="utf-8", errors="ignore") as source, output_path.open(
+        "w",
+        encoding="utf-8",
+    ) as target:
+        for raw in source:
+            line = raw.strip()
+            if not line:
+                continue
+            if " -- " in line:
+                line = line.split(" -- ", 1)[0].rstrip()
+            if not line:
+                continue
+            parts = [part.strip() for part in line.rsplit("_", 2)]
+            if len(parts) != 3:
+                continue
+            surface, lemma, tag = parts
+            if not surface or not lemma or not tag:
+                continue
+            target.write(f"{surface}\t{lemma}\t{tag}\n")
+            rows_written += 1
+    if rows_written <= 0:
+        raise ValueError(f"No POS rows were parsed from Morfologik dictionary: {input_path}")
+    return rows_written
+
+
+def _build_pos_compact_from_eig_sonstige(
+    *,
+    workspace: Path,
+    cancel_cb: Optional[CancelCallback] = None,
+) -> Path:
+    eig_path = workspace / "EIG.txt"
+    sonstige_path = workspace / "sonstige.txt"
+    merged_pos_path = workspace / "german_pos_merged.txt"
+    pos_compact_path = workspace / "de-pos-compact-eig-sonstige.tsv"
+    _download_file(url=GERMAN_POS_EIG_URL, dest=eig_path, cancel_cb=cancel_cb)
+    _download_file(url=GERMAN_POS_SONSTIGE_URL, dest=sonstige_path, cancel_cb=cancel_cb)
+    _combine_pos_sources(
+        eig_path=eig_path,
+        sonstige_path=sonstige_path,
+        output_path=merged_pos_path,
+    )
+    write_compact_pos_lexicon(
+        input_path=merged_pos_path,
+        output_path=pos_compact_path,
+        overwrite=True,
+    )
+    return pos_compact_path
+
+
+def _build_pos_compact_from_german_dict(
+    *,
+    workspace: Path,
+    language_packs_dir: Path,
+    cancel_cb: Optional[CancelCallback] = None,
+) -> Path:
+    dictionary_path = workspace / "german.dict"
+    metadata_path = workspace / "german.info"
+    decompiled_path = workspace / "german_pos_decompiled.txt"
+    decompiled_tsv_path = workspace / "german_pos_decompiled.tsv"
+    pos_compact_path = workspace / "de-pos-compact-german-dict.tsv"
+
+    _download_file(url=GERMAN_POS_DICT_URL, dest=dictionary_path, cancel_cb=cancel_cb)
+    _download_file(url=GERMAN_POS_INFO_URL, dest=metadata_path, cancel_cb=cancel_cb)
+    morfologik_jars = _ensure_morfologik_tool_jars(
+        cache_dir=language_packs_dir / ".de_pos_tools" / "morfologik-2.1.9",
+        cancel_cb=cancel_cb,
+    )
+    _decompile_german_dict(
+        dictionary_path=dictionary_path,
+        output_path=decompiled_path,
+        morfologik_jars=morfologik_jars,
+        cancel_cb=cancel_cb,
+    )
+    _convert_morfologik_decompiled_to_tsv(
+        input_path=decompiled_path,
+        output_path=decompiled_tsv_path,
+    )
+    write_compact_pos_lexicon(
+        input_path=decompiled_tsv_path,
+        output_path=pos_compact_path,
+        overwrite=True,
+    )
+    return pos_compact_path
+
+
 def _stage_download_progress(
     *,
     base: int,
@@ -261,6 +484,7 @@ def run_de_frequency_pipeline(
     whitelist_min_count: int = 20,
     disable_lexicon_whitelist: bool = False,
     disable_pos: bool = False,
+    de_pos_source: str = DE_POS_SOURCE_AUTO,
     drop_proper_nouns: bool = True,
     keep_temp: bool = False,
     progress_cb: Optional[ProgressCallback] = None,
@@ -314,22 +538,33 @@ def run_de_frequency_pipeline(
 
         pos_compact_path: Optional[Path] = None
         if not disable_pos:
-            eig_path = workspace / "EIG.txt"
-            sonstige_path = workspace / "sonstige.txt"
-            merged_pos_path = workspace / "german_pos_merged.txt"
-            pos_compact_path = workspace / "de-pos-compact.tsv"
-            _download_file(url=GERMAN_POS_EIG_URL, dest=eig_path, cancel_cb=cancel_cb)
-            _download_file(url=GERMAN_POS_SONSTIGE_URL, dest=sonstige_path, cancel_cb=cancel_cb)
-            _combine_pos_sources(
-                eig_path=eig_path,
-                sonstige_path=sonstige_path,
-                output_path=merged_pos_path,
-            )
-            write_compact_pos_lexicon(
-                input_path=merged_pos_path,
-                output_path=pos_compact_path,
-                overwrite=True,
-            )
+            source_order = _resolve_de_pos_source_order(de_pos_source)
+            last_error: Optional[Exception] = None
+            for source_name in source_order:
+                try:
+                    if source_name == DE_POS_SOURCE_GERMAN_DICT:
+                        pos_compact_path = _build_pos_compact_from_german_dict(
+                            workspace=workspace,
+                            language_packs_dir=language_packs_dir,
+                            cancel_cb=cancel_cb,
+                        )
+                    elif source_name == DE_POS_SOURCE_EIG_SONSTIGE:
+                        pos_compact_path = _build_pos_compact_from_eig_sonstige(
+                            workspace=workspace,
+                            cancel_cb=cancel_cb,
+                        )
+                    else:
+                        raise ValueError(f"Unsupported DE POS source: {source_name}")
+                    last_error = None
+                    break
+                except Exception as exc:
+                    if isinstance(exc, RuntimeError) and str(exc).strip().lower() == "cancelled":
+                        raise
+                    last_error = exc
+                    pos_compact_path = None
+                    continue
+            if last_error is not None and pos_compact_path is None:
+                raise last_error
             _check_cancel(cancel_cb)
         _emit_progress(progress_cb, 88, 100)
 
@@ -363,6 +598,7 @@ def main() -> None:
         whitelist_min_count=max(1, int(args.whitelist_min_count)),
         disable_lexicon_whitelist=bool(args.disable_lexicon_whitelist),
         disable_pos=bool(args.disable_pos),
+        de_pos_source=str(args.de_pos_source or DE_POS_SOURCE_AUTO),
         drop_proper_nouns=bool(args.drop_proper_nouns),
         keep_temp=bool(args.keep_temp),
     )

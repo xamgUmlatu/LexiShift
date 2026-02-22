@@ -27,10 +27,36 @@ class SqliteFrequencyConfig:
     rank_column: str = "core_rank"
 
 
+def validate_frequency_sqlite_db(path: Path, *, table: str = "frequency") -> None:
+    candidate = Path(path)
+    if not candidate.exists() or not candidate.is_file():
+        raise FileNotFoundError(candidate)
+    try:
+        with candidate.open("rb") as handle:
+            header = handle.read(16)
+    except OSError as exc:
+        raise ValueError(f"Failed to read frequency DB file: {candidate}") from exc
+    if not header.startswith(b"SQLite format 3"):
+        raise ValueError(f"Invalid SQLite frequency DB file: {candidate}")
+    uri = f"{candidate.resolve().as_uri()}?mode=ro"
+    try:
+        with sqlite3.connect(uri, uri=True) as conn:
+            row = conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND lower(name)=lower(?) LIMIT 1;",
+                (table,),
+            ).fetchone()
+            if row is None:
+                raise ValueError(f"Missing table '{table}' in frequency DB: {candidate}")
+    except sqlite3.Error as exc:
+        raise ValueError(f"Failed to open frequency DB '{candidate}': {exc}") from exc
+
+
 class SqliteFrequencyStore:
     def __init__(self, config: SqliteFrequencyConfig) -> None:
         self._config = config
-        self._conn = sqlite3.connect(str(config.path))
+        validate_frequency_sqlite_db(config.path, table=config.table)
+        uri = f"{Path(config.path).resolve().as_uri()}?mode=ro"
+        self._conn = sqlite3.connect(uri, uri=True)
         self._conn.row_factory = sqlite3.Row
         self._cache: dict[tuple[str, str], Optional[float]] = {}
         self._max_cache: dict[str, Optional[float]] = {}
