@@ -32,11 +32,11 @@
       "srs_selectable": true,
       "expected_pack_id": "freq-en-coca",
       "expected_filename": "freq-en-coca.sqlite",
-      "linked_key": null,
-      "linked_path": null,
+      "linked_key": "freq-en-coca",
+      "linked_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "fallback_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "resolved_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-      "status": "downloaded_unlinked",
+      "status": "linked",
       "row_count": 6100
     },
     {
@@ -44,11 +44,11 @@
       "srs_selectable": true,
       "expected_pack_id": "freq-en-coca",
       "expected_filename": "freq-en-coca.sqlite",
-      "linked_key": null,
-      "linked_path": null,
+      "linked_key": "freq-en-coca",
+      "linked_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "fallback_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "resolved_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-      "status": "downloaded_unlinked",
+      "status": "linked",
       "row_count": 6100
     },
     {
@@ -56,12 +56,12 @@
       "srs_selectable": true,
       "expected_pack_id": "freq-de-default",
       "expected_filename": "freq-de-default.sqlite",
-      "linked_key": "freq-de-default",
-      "linked_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "linked_key": null,
+      "linked_path": null,
       "fallback_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
-      "resolved_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
-      "status": "linked",
-      "row_count": 70355
+      "resolved_path": null,
+      "status": "missing",
+      "row_count": null
     },
     {
       "pair": "en-es",
@@ -80,11 +80,11 @@
       "srs_selectable": true,
       "expected_pack_id": "freq-en-coca",
       "expected_filename": "freq-en-coca.sqlite",
-      "linked_key": null,
-      "linked_path": null,
+      "linked_key": "freq-en-coca",
+      "linked_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "fallback_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "resolved_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-      "status": "downloaded_unlinked",
+      "status": "linked",
       "row_count": 6100
     },
     {
@@ -104,12 +104,12 @@
       "srs_selectable": true,
       "expected_pack_id": "freq-de-default",
       "expected_filename": "freq-de-default.sqlite",
-      "linked_key": "freq-de-default",
-      "linked_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "linked_key": null,
+      "linked_path": null,
       "fallback_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
-      "resolved_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
-      "status": "linked",
-      "row_count": 70355
+      "resolved_path": null,
+      "status": "missing",
+      "row_count": null
     },
     {
       "pair": "en-zh",
@@ -126,12 +126,12 @@
   ],
   "settings_rows": [
     {
-      "key": "freq-de-default",
-      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "key": "freq-en-coca",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "exists": true,
       "header_ok": true,
       "has_frequency_table": true,
-      "row_count": 70355,
+      "row_count": 6100,
       "status": "ok"
     },
     {
@@ -155,24 +155,11 @@
   ],
   "file_rows": [
     {
-      "filename": "freq-de-default.sqlite",
-      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
-      "linked_keys": [
-        "freq-de-default"
-      ],
-      "used_by_pairs": [
-        "de-de",
-        "en-de"
-      ],
-      "header_ok": true,
-      "has_frequency_table": true,
-      "row_count": 70355,
-      "status": "ok"
-    },
-    {
       "filename": "freq-en-coca.sqlite",
       "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-      "linked_keys": [],
+      "linked_keys": [
+        "freq-en-coca"
+      ],
       "used_by_pairs": [
         "de-en",
         "en-en",
@@ -181,7 +168,7 @@
       "header_ok": true,
       "has_frequency_table": true,
       "row_count": 6100,
-      "status": "unlinked"
+      "status": "ok"
     },
     {
       "filename": "freq-es-cde.sqlite",
@@ -216,29 +203,19 @@
   ],
   "issues": [
     {
-      "severity": "WARN",
-      "code": "FREQ_DOWNLOADED_UNLINKED",
-      "message": "en-en: downloaded frequency DB exists at /Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite but no settings link was found for keys ('freq-en-coca', 'freq-en-coca.sqlite')."
+      "severity": "ERROR",
+      "code": "FREQ_MISSING",
+      "message": "en-de: no linked frequency DB and fallback file missing (/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite)."
     },
     {
-      "severity": "WARN",
-      "code": "FREQ_DOWNLOADED_UNLINKED",
-      "message": "de-en: downloaded frequency DB exists at /Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite but no settings link was found for keys ('freq-en-coca', 'freq-en-coca.sqlite')."
-    },
-    {
-      "severity": "WARN",
-      "code": "FREQ_DOWNLOADED_UNLINKED",
-      "message": "es-en: downloaded frequency DB exists at /Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite but no settings link was found for keys ('freq-en-coca', 'freq-en-coca.sqlite')."
+      "severity": "ERROR",
+      "code": "FREQ_MISSING",
+      "message": "de-de: no linked frequency DB and fallback file missing (/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite)."
     },
     {
       "severity": "WARN",
       "code": "FREQ_MISSING",
       "message": "en-zh: no linked frequency DB and fallback file missing (/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-zh-default.sqlite)."
-    },
-    {
-      "severity": "WARN",
-      "code": "FILE_UNLINKED",
-      "message": "Downloaded DB is not linked in settings: /Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite"
     }
   ]
 }

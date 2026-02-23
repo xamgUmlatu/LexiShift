@@ -67,8 +67,17 @@ class TestPosNormalization(unittest.TestCase):
         self.assertEqual(numeral.bucket, "other")
         self.assertTrue(numeral.mapped)
 
-        unknown = normalize_pos(
+        suffix = normalize_pos(
             "接尾辞-名詞的-一般",
+            language_pair="en-ja",
+            source_provider="freq-ja-bccwj",
+        )
+        self.assertEqual(suffix.canonical, "other")
+        self.assertEqual(suffix.bucket, "other")
+        self.assertTrue(suffix.mapped)
+
+        unknown = normalize_pos(
+            "未知カテゴリ-テスト",
             language_pair="en-ja",
             source_provider="freq-ja-bccwj",
         )
@@ -105,7 +114,7 @@ class TestPosNormalization(unittest.TestCase):
         )
         self.assertEqual(unknown.canonical, "other")
         self.assertEqual(unknown.bucket, "other")
-        self.assertFalse(unknown.mapped)
+        self.assertTrue(unknown.mapped)
 
     def test_german_profile_tags(self) -> None:
         noun = normalize_pos(

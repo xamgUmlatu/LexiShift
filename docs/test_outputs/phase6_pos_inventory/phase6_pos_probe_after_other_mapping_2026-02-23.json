@@ -1,0 +1,1315 @@
+{
+  "generated_at_utc": "2026-02-23T00:28:01Z",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "pairs": [
+    "en-en",
+    "en-ja"
+  ],
+  "top_n": 200000,
+  "sample_limit": 1,
+  "pair_reports": {
+    "en-en": {
+      "pair": "en-en",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 200000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "frequency_resolution": "linked:freq-en-coca",
+      "require_jmdict": false,
+      "jmdict_path": null,
+      "stopwords_path": null,
+      "seed_count": 6100,
+      "pos_nonempty_count": 6100,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 2886
+        },
+        {
+          "value": "j",
+          "count": 2219
+        },
+        {
+          "value": "v",
+          "count": 609
+        },
+        {
+          "value": "r",
+          "count": 292
+        },
+        {
+          "value": "m",
+          "count": 33
+        },
+        {
+          "value": "u",
+          "count": 21
+        },
+        {
+          "value": "i",
+          "count": 17
+        },
+        {
+          "value": "p",
+          "count": 12
+        },
+        {
+          "value": "a",
+          "count": 4
+        },
+        {
+          "value": "c",
+          "count": 3
+        },
+        {
+          "value": "d",
+          "count": 3
+        },
+        {
+          "value": "e",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 2886
+        },
+        {
+          "value": "adjective",
+          "count": 2223
+        },
+        {
+          "value": "verb",
+          "count": 609
+        },
+        {
+          "value": "adverb",
+          "count": 292
+        },
+        {
+          "value": "pronoun",
+          "count": 12
+        },
+        {
+          "value": "determiner",
+          "count": 3
+        },
+        {
+          "value": "adposition",
+          "count": 1
+        },
+        {
+          "value": "conjunction",
+          "count": 3
+        },
+        {
+          "value": "interjection",
+          "count": 17
+        },
+        {
+          "value": "numeral",
+          "count": 33
+        },
+        {
+          "value": "other",
+          "count": 21
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "noun",
+          "count": 2886
+        },
+        {
+          "value": "adjective",
+          "count": 2223
+        },
+        {
+          "value": "verb",
+          "count": 609
+        },
+        {
+          "value": "adverb",
+          "count": 292
+        },
+        {
+          "value": "other",
+          "count": 90
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "noun",
+          "count": 2886
+        },
+        {
+          "value": "adjective",
+          "count": 2223
+        },
+        {
+          "value": "verb",
+          "count": 609
+        },
+        {
+          "value": "adverb",
+          "count": 292
+        },
+        {
+          "value": "other",
+          "count": 90
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "compact_compact:n",
+          "count": 2886
+        },
+        {
+          "value": "compact_compact:j",
+          "count": 2219
+        },
+        {
+          "value": "compact_compact:v",
+          "count": 609
+        },
+        {
+          "value": "compact_compact:r",
+          "count": 292
+        },
+        {
+          "value": "compact_compact:m",
+          "count": 33
+        },
+        {
+          "value": "compact_compact:u",
+          "count": 21
+        },
+        {
+          "value": "compact_compact:i",
+          "count": 17
+        },
+        {
+          "value": "compact_compact:p",
+          "count": 12
+        },
+        {
+          "value": "compact_compact:a",
+          "count": 4
+        },
+        {
+          "value": "compact_compact:c",
+          "count": 3
+        },
+        {
+          "value": "compact_compact:d",
+          "count": 3
+        },
+        {
+          "value": "compact_compact:e",
+          "count": 1
+        }
+      ],
+      "unmapped_raw_tags": [],
+      "bucket_mismatch_distribution": [],
+      "bucket_mismatch_count": 0,
+      "bucket_mismatch_rate": 0.0,
+      "mapped_seed_count": 6100,
+      "mapped_seed_rate": 1.0,
+      "samples_by_runtime_bucket": {
+        "noun": [
+          {
+            "lemma": "man",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 95.0,
+            "pmw": 1091176.0
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "no",
+            "raw_pos": "a",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 85.0,
+            "pmw": 1206112.0
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "do",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 15.0,
+            "pmw": 8186412.0
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "very",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 105.0,
+            "pmw": 963552.0
+          }
+        ],
+        "other": [
+          {
+            "lemma": "of",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 23159162.0
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "noun": [
+          {
+            "lemma": "man",
+            "raw_pos": "n",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 95.0,
+            "pmw": 1091176.0
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "no",
+            "raw_pos": "a",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 85.0,
+            "pmw": 1206112.0
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "do",
+            "raw_pos": "v",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 15.0,
+            "pmw": 8186412.0
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "very",
+            "raw_pos": "r",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 105.0,
+            "pmw": 963552.0
+          }
+        ],
+        "interjection": [
+          {
+            "lemma": "of",
+            "raw_pos": "i",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5.0,
+            "pmw": 23159162.0
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "they",
+            "raw_pos": "p",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 25.0,
+            "pmw": 4503650.0
+          }
+        ],
+        "adposition": [
+          {
+            "lemma": "there",
+            "raw_pos": "e",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 55.0,
+            "pmw": 1980173.0
+          }
+        ],
+        "other": [
+          {
+            "lemma": "yes",
+            "raw_pos": "u",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 175.0,
+            "pmw": 537066.0
+          }
+        ],
+        "numeral": [
+          {
+            "lemma": "five",
+            "raw_pos": "m",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 365.0,
+            "pmw": 270274.0
+          }
+        ],
+        "determiner": [
+          {
+            "lemma": "whose",
+            "raw_pos": "d",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 655.0,
+            "pmw": 147491.0
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "seeing",
+            "raw_pos": "c",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 5545.0,
+            "pmw": 10279.0
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [],
+      "unmapped_examples": []
+    },
+    "en-ja": {
+      "pair": "en-ja",
+      "srs_selectable": true,
+      "status": "ok",
+      "top_n": 200000,
+      "frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj.sqlite",
+      "frequency_resolution": "linked:freq-ja-bccwj",
+      "require_jmdict": true,
+      "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e",
+      "stopwords_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/stopwords/stopwords-ja.json",
+      "seed_count": 78007,
+      "pos_nonempty_count": 78007,
+      "raw_tag_distribution": [
+        {
+          "value": "名詞-普通名詞-一般",
+          "count": 51250
+        },
+        {
+          "value": "名詞-普通名詞-サ変可能",
+          "count": 8495
+        },
+        {
+          "value": "動詞-一般",
+          "count": 5459
+        },
+        {
+          "value": "副詞",
+          "count": 1914
+        },
+        {
+          "value": "名詞-固有名詞-人名-一般",
+          "count": 1537
+        },
+        {
+          "value": "名詞-普通名詞-形状詞可能",
+          "count": 1346
+        },
+        {
+          "value": "名詞-固有名詞-一般",
+          "count": 1216
+        },
+        {
+          "value": "形状詞-一般",
+          "count": 1192
+        },
+        {
+          "value": "名詞-固有名詞-地名-一般",
+          "count": 1030
+        },
+        {
+          "value": "形容詞-一般",
+          "count": 656
+        },
+        {
+          "value": "接尾辞-名詞的-一般",
+          "count": 599
+        },
+        {
+          "value": "名詞-固有名詞-人名-姓",
+          "count": 484
+        },
+        {
+          "value": "名詞-固有名詞-人名-名",
+          "count": 428
+        },
+        {
+          "value": "名詞-普通名詞-副詞可能",
+          "count": 401
+        },
+        {
+          "value": "名詞-普通名詞-助数詞可能",
+          "count": 381
+        },
+        {
+          "value": "名詞-固有名詞-地名-国",
+          "count": 327
+        },
+        {
+          "value": "形状詞-タリ",
+          "count": 244
+        },
+        {
+          "value": "接頭辞",
+          "count": 226
+        },
+        {
+          "value": "感動詞-一般",
+          "count": 197
+        },
+        {
+          "value": "代名詞",
+          "count": 102
+        },
+        {
+          "value": "動詞-非自立可能",
+          "count": 84
+        },
+        {
+          "value": "名詞-数詞",
+          "count": 79
+        },
+        {
+          "value": "名詞-普通名詞-サ変形状詞可能",
+          "count": 72
+        },
+        {
+          "value": "連体詞",
+          "count": 43
+        },
+        {
+          "value": "助動詞",
+          "count": 42
+        },
+        {
+          "value": "接尾辞-名詞的-助数詞",
+          "count": 38
+        },
+        {
+          "value": "助詞-終助詞",
+          "count": 28
+        },
+        {
+          "value": "接続詞",
+          "count": 25
+        },
+        {
+          "value": "助詞-副助詞",
+          "count": 24
+        },
+        {
+          "value": "接尾辞-名詞的-副詞可能",
+          "count": 18
+        },
+        {
+          "value": "接尾辞-形状詞的",
+          "count": 13
+        },
+        {
+          "value": "助詞-接続助詞",
+          "count": 12
+        },
+        {
+          "value": "接尾辞-形容詞的",
+          "count": 10
+        },
+        {
+          "value": "接尾辞-動詞的",
+          "count": 9
+        },
+        {
+          "value": "感動詞-フィラー",
+          "count": 8
+        },
+        {
+          "value": "接尾辞-名詞的-サ変可能",
+          "count": 5
+        },
+        {
+          "value": "助詞-係助詞",
+          "count": 3
+        },
+        {
+          "value": "助詞-格助詞",
+          "count": 3
+        },
+        {
+          "value": "形容詞-非自立可能",
+          "count": 3
+        },
+        {
+          "value": "形状詞-助動詞語幹",
+          "count": 3
+        },
+        {
+          "value": "名詞-助動詞語幹",
+          "count": 1
+        }
+      ],
+      "canonical_distribution": [
+        {
+          "value": "noun",
+          "count": 66587
+        },
+        {
+          "value": "adjective",
+          "count": 2098
+        },
+        {
+          "value": "verb",
+          "count": 5585
+        },
+        {
+          "value": "adverb",
+          "count": 1914
+        },
+        {
+          "value": "pronoun",
+          "count": 102
+        },
+        {
+          "value": "determiner",
+          "count": 43
+        },
+        {
+          "value": "adposition",
+          "count": 70
+        },
+        {
+          "value": "conjunction",
+          "count": 25
+        },
+        {
+          "value": "interjection",
+          "count": 205
+        },
+        {
+          "value": "numeral",
+          "count": 498
+        },
+        {
+          "value": "other",
+          "count": 880
+        }
+      ],
+      "runtime_bucket_distribution": [
+        {
+          "value": "noun",
+          "count": 66587
+        },
+        {
+          "value": "verb",
+          "count": 5585
+        },
+        {
+          "value": "adjective",
+          "count": 2098
+        },
+        {
+          "value": "adverb",
+          "count": 1914
+        },
+        {
+          "value": "other",
+          "count": 1823
+        }
+      ],
+      "expected_bucket_distribution_from_canonical": [
+        {
+          "value": "noun",
+          "count": 66587
+        },
+        {
+          "value": "verb",
+          "count": 5585
+        },
+        {
+          "value": "adjective",
+          "count": 2098
+        },
+        {
+          "value": "adverb",
+          "count": 1914
+        },
+        {
+          "value": "other",
+          "count": 1823
+        }
+      ],
+      "mapping_rule_distribution": [
+        {
+          "value": "bccwj_head:名詞",
+          "count": 66587
+        },
+        {
+          "value": "bccwj_head:動詞",
+          "count": 5543
+        },
+        {
+          "value": "bccwj_head:副詞",
+          "count": 1914
+        },
+        {
+          "value": "bccwj_head:形状詞",
+          "count": 1439
+        },
+        {
+          "value": "bccwj_head:形容詞",
+          "count": 659
+        },
+        {
+          "value": "bccwj_head:接尾辞",
+          "count": 654
+        },
+        {
+          "value": "bccwj_contains:数詞",
+          "count": 498
+        },
+        {
+          "value": "bccwj_head:接頭辞",
+          "count": 226
+        },
+        {
+          "value": "bccwj_head:感動詞",
+          "count": 205
+        },
+        {
+          "value": "bccwj_head:代名詞",
+          "count": 102
+        },
+        {
+          "value": "bccwj_head:助詞",
+          "count": 70
+        },
+        {
+          "value": "bccwj_head:連体詞",
+          "count": 43
+        },
+        {
+          "value": "bccwj_head:助動詞",
+          "count": 42
+        },
+        {
+          "value": "bccwj_head:接続詞",
+          "count": 25
+        }
+      ],
+      "unmapped_raw_tags": [],
+      "bucket_mismatch_distribution": [],
+      "bucket_mismatch_count": 0,
+      "bucket_mismatch_rate": 0.0,
+      "mapped_seed_count": 78007,
+      "mapped_seed_rate": 1.0,
+      "samples_by_runtime_bucket": {
+        "noun": [
+          {
+            "lemma": "事",
+            "raw_pos": "名詞-普通名詞-一般",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 18.0,
+            "pmw": 7082.8012463
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "無い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 29.0,
+            "pmw": 4381.8409597
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "為る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 8.0,
+            "pmw": 24508.1791099
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "そう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 110.0,
+            "pmw": 1253.2163604
+          }
+        ],
+        "other": [
+          {
+            "lemma": "一",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 21.0,
+            "pmw": 4851.6991142
+          }
+        ]
+      },
+      "samples_by_canonical": {
+        "noun": [
+          {
+            "lemma": "事",
+            "raw_pos": "名詞-普通名詞-一般",
+            "canonical_pos": "noun",
+            "expected_bucket": "noun",
+            "runtime_bucket": "noun",
+            "core_rank": 18.0,
+            "pmw": 7082.8012463
+          }
+        ],
+        "adjective": [
+          {
+            "lemma": "無い",
+            "raw_pos": "形容詞-非自立可能",
+            "canonical_pos": "adjective",
+            "expected_bucket": "adjective",
+            "runtime_bucket": "adjective",
+            "core_rank": 29.0,
+            "pmw": 4381.8409597
+          }
+        ],
+        "verb": [
+          {
+            "lemma": "為る",
+            "raw_pos": "動詞-非自立可能",
+            "canonical_pos": "verb",
+            "expected_bucket": "verb",
+            "runtime_bucket": "verb",
+            "core_rank": 8.0,
+            "pmw": 24508.1791099
+          }
+        ],
+        "adverb": [
+          {
+            "lemma": "そう",
+            "raw_pos": "副詞",
+            "canonical_pos": "adverb",
+            "expected_bucket": "adverb",
+            "runtime_bucket": "adverb",
+            "core_rank": 110.0,
+            "pmw": 1253.2163604
+          }
+        ],
+        "numeral": [
+          {
+            "lemma": "一",
+            "raw_pos": "名詞-数詞",
+            "canonical_pos": "numeral",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 21.0,
+            "pmw": 4851.6991142
+          }
+        ],
+        "other": [
+          {
+            "lemma": "的",
+            "raw_pos": "接尾辞-形状詞的",
+            "canonical_pos": "other",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 36.0,
+            "pmw": 2632.8421817
+          }
+        ],
+        "adposition": [
+          {
+            "lemma": "ね",
+            "raw_pos": "助詞-終助詞",
+            "canonical_pos": "adposition",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 74.0,
+            "pmw": 1730.100449
+          }
+        ],
+        "pronoun": [
+          {
+            "lemma": "何",
+            "raw_pos": "代名詞",
+            "canonical_pos": "pronoun",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 75.0,
+            "pmw": 1616.2994332
+          }
+        ],
+        "conjunction": [
+          {
+            "lemma": "又",
+            "raw_pos": "接続詞",
+            "canonical_pos": "conjunction",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 91.0,
+            "pmw": 1111.435876
+          }
+        ],
+        "determiner": [
+          {
+            "lemma": "同じ",
+            "raw_pos": "連体詞",
+            "canonical_pos": "determiner",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 275.0,
+            "pmw": 401.176063
+          }
+        ],
+        "interjection": [
+          {
+            "lemma": "ああ",
+            "raw_pos": "感動詞-一般",
+            "canonical_pos": "interjection",
+            "expected_bucket": "other",
+            "runtime_bucket": "other",
+            "core_rank": 1478.0,
+            "pmw": 114.0782295
+          }
+        ]
+      },
+      "bucket_mismatch_examples": [],
+      "unmapped_examples": []
+    }
+  },
+  "source_pack_reports": {
+    "freq-en-coca.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "top_n": 200000,
+      "raw_tag_distribution": [
+        {
+          "value": "n",
+          "count": 2886
+        },
+        {
+          "value": "j",
+          "count": 2219
+        },
+        {
+          "value": "v",
+          "count": 609
+        },
+        {
+          "value": "r",
+          "count": 292
+        },
+        {
+          "value": "m",
+          "count": 33
+        },
+        {
+          "value": "u",
+          "count": 21
+        },
+        {
+          "value": "i",
+          "count": 17
+        },
+        {
+          "value": "p",
+          "count": 12
+        },
+        {
+          "value": "a",
+          "count": 4
+        },
+        {
+          "value": "c",
+          "count": 3
+        },
+        {
+          "value": "d",
+          "count": 3
+        },
+        {
+          "value": "e",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "n": [
+          "man"
+        ],
+        "j": [
+          "long"
+        ],
+        "v": [
+          "do"
+        ],
+        "r": [
+          "very"
+        ],
+        "m": [
+          "five"
+        ],
+        "u": [
+          "yes"
+        ],
+        "i": [
+          "of"
+        ],
+        "p": [
+          "they"
+        ],
+        "a": [
+          "no"
+        ],
+        "c": [
+          "seeing"
+        ],
+        "d": [
+          "whose"
+        ],
+        "e": [
+          "there"
+        ]
+      }
+    },
+    "freq-ja-bccwj.sqlite": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj.sqlite",
+      "top_n": 200000,
+      "raw_tag_distribution": [
+        {
+          "value": "名詞-普通名詞-一般",
+          "count": 89009
+        },
+        {
+          "value": "名詞-固有名詞-人名-一般",
+          "count": 22385
+        },
+        {
+          "value": "名詞-固有名詞-地名-一般",
+          "count": 15262
+        },
+        {
+          "value": "名詞-固有名詞-人名-名",
+          "count": 10734
+        },
+        {
+          "value": "名詞-普通名詞-サ変可能",
+          "count": 9984
+        },
+        {
+          "value": "動詞-一般",
+          "count": 9440
+        },
+        {
+          "value": "名詞-固有名詞-人名-姓",
+          "count": 9218
+        },
+        {
+          "value": "名詞-固有名詞-一般",
+          "count": 8361
+        },
+        {
+          "value": "副詞",
+          "count": 3071
+        },
+        {
+          "value": "名詞-普通名詞-形状詞可能",
+          "count": 1577
+        },
+        {
+          "value": "形状詞-一般",
+          "count": 1374
+        },
+        {
+          "value": "形容詞-一般",
+          "count": 788
+        },
+        {
+          "value": "接尾辞-名詞的-一般",
+          "count": 670
+        },
+        {
+          "value": "名詞-固有名詞-地名-国",
+          "count": 532
+        },
+        {
+          "value": "名詞-普通名詞-助数詞可能",
+          "count": 523
+        },
+        {
+          "value": "名詞-普通名詞-副詞可能",
+          "count": 426
+        },
+        {
+          "value": "感動詞-一般",
+          "count": 358
+        },
+        {
+          "value": "形状詞-タリ",
+          "count": 309
+        },
+        {
+          "value": "接頭辞",
+          "count": 268
+        },
+        {
+          "value": "代名詞",
+          "count": 121
+        },
+        {
+          "value": "名詞-数詞",
+          "count": 114
+        },
+        {
+          "value": "動詞-非自立可能",
+          "count": 100
+        },
+        {
+          "value": "名詞-普通名詞-サ変形状詞可能",
+          "count": 84
+        },
+        {
+          "value": "助動詞",
+          "count": 71
+        },
+        {
+          "value": "連体詞",
+          "count": 48
+        },
+        {
+          "value": "接尾辞-名詞的-助数詞",
+          "count": 47
+        },
+        {
+          "value": "助詞-終助詞",
+          "count": 44
+        },
+        {
+          "value": "助詞-副助詞",
+          "count": 39
+        },
+        {
+          "value": "接続詞",
+          "count": 35
+        },
+        {
+          "value": "助詞-接続助詞",
+          "count": 27
+        },
+        {
+          "value": "接尾辞-名詞的-副詞可能",
+          "count": 20
+        },
+        {
+          "value": "助詞-格助詞",
+          "count": 17
+        },
+        {
+          "value": "接尾辞-形状詞的",
+          "count": 16
+        },
+        {
+          "value": "感動詞-フィラー",
+          "count": 13
+        },
+        {
+          "value": "接尾辞-形容詞的",
+          "count": 12
+        },
+        {
+          "value": "助詞-係助詞",
+          "count": 10
+        },
+        {
+          "value": "接尾辞-動詞的",
+          "count": 9
+        },
+        {
+          "value": "形容詞-非自立可能",
+          "count": 6
+        },
+        {
+          "value": "形状詞-助動詞語幹",
+          "count": 6
+        },
+        {
+          "value": "接尾辞-名詞的-サ変可能",
+          "count": 5
+        },
+        {
+          "value": "助詞-準体助詞",
+          "count": 2
+        },
+        {
+          "value": "名詞-助動詞語幹",
+          "count": 1
+        }
+      ],
+      "raw_tag_examples": {
+        "名詞-普通名詞-一般": [
+          "事"
+        ],
+        "名詞-固有名詞-人名-一般": [
+          "ブッシュ"
+        ],
+        "名詞-固有名詞-地名-一般": [
+          "トウキョウ"
+        ],
+        "名詞-固有名詞-人名-名": [
+          "■■"
+        ],
+        "名詞-普通名詞-サ変可能": [
+          "物"
+        ],
+        "動詞-一般": [
+          "言う"
+        ],
+        "名詞-固有名詞-人名-姓": [
+          "■■"
+        ],
+        "名詞-固有名詞-一般": [
+          "平成"
+        ],
+        "副詞": [
+          "どう"
+        ],
+        "名詞-普通名詞-形状詞可能": [
+          "必要"
+        ],
+        "形状詞-一般": [
+          "可能"
+        ],
+        "形容詞-一般": [
+          "多い"
+        ],
+        "接尾辞-名詞的-一般": [
+          "者"
+        ],
+        "名詞-固有名詞-地名-国": [
+          "日本"
+        ],
+        "名詞-普通名詞-助数詞可能": [
+          "年"
+        ],
+        "名詞-普通名詞-副詞可能": [
+          "為"
+        ],
+        "感動詞-一般": [
+          "あっ"
+        ],
+        "形状詞-タリ": [
+          "混沌"
+        ],
+        "接頭辞": [
+          "御"
+        ],
+        "代名詞": [
+          "其れ"
+        ],
+        "名詞-数詞": [
+          "一"
+        ],
+        "動詞-非自立可能": [
+          "為る"
+        ],
+        "名詞-普通名詞-サ変形状詞可能": [
+          "安定"
+        ],
+        "助動詞": [
+          "た"
+        ],
+        "連体詞": [
+          "其の"
+        ],
+        "接尾辞-名詞的-助数詞": [
+          "つ"
+        ],
+        "助詞-終助詞": [
+          "か"
+        ],
+        "助詞-副助詞": [
+          "や"
+        ],
+        "接続詞": [
+          "又"
+        ],
+        "助詞-接続助詞": [
+          "て"
+        ],
+        "接尾辞-名詞的-副詞可能": [
+          "中"
+        ],
+        "助詞-格助詞": [
+          "の"
+        ],
+        "接尾辞-形状詞的": [
+          "的"
+        ],
+        "感動詞-フィラー": [
+          "あの"
+        ],
+        "接尾辞-形容詞的": [
+          "易い"
+        ],
+        "助詞-係助詞": [
+          "は"
+        ],
+        "接尾辞-動詞的": [
+          "兼ねる"
+        ],
+        "形容詞-非自立可能": [
+          "無い"
+        ],
+        "形状詞-助動詞語幹": [
+          "様"
+        ],
+        "接尾辞-名詞的-サ変可能": [
+          "化"
+        ],
+        "助詞-準体助詞": [
+          "の"
+        ],
+        "名詞-助動詞語幹": [
+          "そう"
+        ]
+      }
+    }
+  },
+  "errors": []
+}

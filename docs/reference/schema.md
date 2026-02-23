@@ -49,6 +49,16 @@ Top-level fields
     - `source_phrase_base` (string; non-inflected source form)
     - `target_surface` (string; display surface form for the inflected source)
     - `target_lemma` (string; canonical SRS lemma identity)
+- `pos` (object, optional; POS metadata for scoring/inspection)
+  - `source` (object, optional)
+  - `target` (object, optional)
+  - `dictionary` (object, optional)
+  - Component keys:
+    - `raw` (string, optional)
+    - `canonical` (string, optional; canonical POS contract)
+    - `mapped` (bool, optional; whether normalization matched a known rule)
+    - `source_profile` (string, optional; normalization profile id)
+    - `matched_rule` (string, optional; debug/audit rule id)
 - `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
 
 ### WordPackage
@@ -59,6 +69,11 @@ Top-level fields
 - `script_forms` (object map, required; for Japanese typically `kanji`, `kana`, `romaji`)
 - `source` (object, required; minimum `{ "provider": "<source>" }`)
 - `pos` (string, optional)
+- `pos_raw` (string, optional; original raw POS tag from source DB)
+- `pos_canonical` (string, optional; normalized canonical POS tag)
+- `pos_source_profile` (string, optional; resolved normalization profile id)
+- `pos_matched_rule` (string, optional; debug/audit normalization rule id)
+- `pos_mapped` (bool, optional; true when raw POS mapped by profile)
 - `wtype` (string, optional)
 - `sublemma` (string, optional)
 - `core_rank` (float, optional)

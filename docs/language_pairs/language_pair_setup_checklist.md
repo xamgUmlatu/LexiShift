@@ -68,6 +68,8 @@ Related:
 - [ ] Frequency source selected for SRS bootstrap/growth.
 - [ ] Required files and formats are documented (CSV/TSV/XML/SQLite/etc).
 - [ ] Licensing and redistribution constraints are confirmed.
+- [ ] Licensing/distribution status is reviewed in:
+  - `docs/language_pairs/data_source_licensing_and_distribution.md`
 
 ## 2) Pack Registration And Validation
 
@@ -78,6 +80,9 @@ Related:
 - [ ] Raw POS tag inventory is documented for the LP sources (frequency and/or dictionary).
 - [ ] Source provider IDs needed by POS normalization are identified and recorded.
 - [ ] Converter/build metadata includes unknown POS inventory counters and they are reviewed before LP enablement.
+- [ ] POS inventory audit is run and archived:
+  - `scripts/testing/pos_inventory_audit.py`
+  - `docs/test_outputs/phase6_pos_inventory/`
 - [ ] Optional embedding packs are mapped to the LP if ranking is required.
 - [ ] Converter script exists for non-native formats and is documented in:
   - `scripts/data/`

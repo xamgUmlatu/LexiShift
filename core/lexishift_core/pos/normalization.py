@@ -77,6 +77,8 @@ _COMPACT_ONE_CHAR_MAP = {
     "c": CANONICAL_POS_CONJUNCTION,
     "i": CANONICAL_POS_INTERJECTION,
     "m": CANONICAL_POS_NUMERAL,
+    # COCA sample data includes "u" as a residual class; treat as mapped-other.
+    "u": CANONICAL_POS_OTHER,
     "-": CANONICAL_POS_PUNCTUATION,
 }
 
@@ -289,6 +291,9 @@ def _normalize_bccwj(raw: str) -> tuple[str, str, bool]:
         "感動詞": CANONICAL_POS_INTERJECTION,
         "記号": CANONICAL_POS_PUNCTUATION,
         "補助記号": CANONICAL_POS_PUNCTUATION,
+        # BCCWJ affix classes are non-lexical for our buckets; map explicitly to other.
+        "接頭辞": CANONICAL_POS_OTHER,
+        "接尾辞": CANONICAL_POS_OTHER,
     }
     canonical = mapping.get(head)
     if canonical:

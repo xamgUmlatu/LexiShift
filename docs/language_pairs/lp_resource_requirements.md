@@ -12,7 +12,10 @@ Related:
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/extension_lp_generalization_checklist.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/language_packs.py`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/lp_data_inventory_matrix.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/data_source_licensing_and_distribution.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/pos_source_and_pipeline_reference.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/resource_integrity_audit.py`
+- `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/pos_inventory_audit.py`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/resource_recovery_playbook.md`
 
 ## 1) Resource Classes and What They Are For

@@ -22,6 +22,9 @@ recorded in-repo, it is marked as pending verification instead of guessed.
 - LP capability defaults: `core/lexishift_core/helper/lp_capabilities.py`
 - Runtime path/link resolution: `core/lexishift_core/helper/pair_resources.py`
 - Frequency integrity audit script: `scripts/testing/resource_integrity_audit.py`
+- POS inventory audit script: `scripts/testing/pos_inventory_audit.py`
+- POS handling reference: `docs/language_pairs/pos_source_and_pipeline_reference.md`
+- Licensing/distribution register: `docs/language_pairs/data_source_licensing_and_distribution.md`
 
 ## Converter POS Mapping Matrix (Phase 5)
 

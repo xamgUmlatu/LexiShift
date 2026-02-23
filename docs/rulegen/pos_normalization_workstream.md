@@ -1,7 +1,7 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
 Status: In progress (Phases 0-5 implemented; Phase 6 in progress)  
-Last updated: 2026-02-22
+Last updated: 2026-02-23
 
 ## Purpose
 
@@ -470,11 +470,12 @@ Acceptance:
 
 - A new contributor can follow docs to add a language POS mapping without code archaeology.
 
-Phase 6 progress snapshot (2026-02-22):
+Phase 6 progress snapshot (2026-02-23):
 
 - Added targeted unknown-tag fallback tests for converter/build paths:
   - `core/tests/frequency/test_frequency_sqlite_converter.py`
   - `core/tests/frequency/test_de_build_pos_inventory.py`
+  - `core/tests/frequency/test_pos_inventory_audit.py`
 - Added pair/scoring edge-case tests:
   - `core/tests/srs/test_srs_admission_policy.py`
     - invalid canonical tag fallback to raw bucket
@@ -483,10 +484,21 @@ Phase 6 progress snapshot (2026-02-22):
     - dictionary POS fallback when source POS is missing
     - legacy `dict_entry_pos_canonical` flat-key fallback
     - canonical `other` ignored in scoring (neutral)
+- Added explicit `other` mappings for high-volume residual tags:
+  - compact-latin profile: `u`
+  - bccwj profile: `接頭辞`, `接尾辞-*`
+  - covered in `core/tests/pos/test_pos_normalization.py`
 - Probe script now uses the shared normalization module for canonical outcomes:
   - `scripts/testing/pos_normalization_probe.py`
+- Added dedicated POS inventory audit script + artifact path:
+  - `scripts/testing/pos_inventory_audit.py`
+  - `docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23.json`
 - Documentation touchpoints linked from docs index:
   - `docs/README.md`
+- Added single POS reference doc for all language sources and runtime behavior:
+  - `docs/language_pairs/pos_source_and_pipeline_reference.md`
+- Added data-source licensing/distribution register with manual-supply policy tracking:
+  - `docs/language_pairs/data_source_licensing_and_distribution.md`
 - LP setup checklist updated with POS-inventory verification step:
   - `docs/language_pairs/language_pair_setup_checklist.md`
 - Remaining Phase 6 scope:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import shutil
+import sqlite3
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -79,6 +80,20 @@ def _is_sqlite_db_file(path: str | Path) -> bool:
     except OSError:
         return False
     return header.startswith(b"SQLite format 3")
+
+
+def _has_frequency_table(path: str | Path) -> bool:
+    target = Path(path)
+    if not target.exists() or not target.is_file():
+        return False
+    try:
+        with sqlite3.connect(str(target)) as conn:
+            row = conn.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND lower(name)=lower('frequency') LIMIT 1;"
+            ).fetchone()
+    except sqlite3.Error:
+        return False
+    return row is not None
 
 
 def _resolve_embedding_converter_script() -> Path:
@@ -1161,6 +1176,8 @@ class LanguagePackPanel(QWidget):
             return False, t("language_packs.validation.expected_file", name=pack.display_name())
         if not self._is_sqlite_db(path):
             return False, t("language_packs.validation.sqlite")
+        if not _has_frequency_table(path):
+            return False, f"{t('language_packs.validation.sqlite')} (missing frequency table)"
         return True, ""
 
     def _auto_link_downloaded_packs(self) -> None:
