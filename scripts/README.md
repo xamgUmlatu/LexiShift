@@ -21,3 +21,5 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Convert Spanish frequency sample to SQLite: `data/convert_cde_frequency_to_sqlite.py`
 - Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`): `testing/rulegen_probe_words.py`
 - Dev helper cycle: `dev/dev_cycle.sh`
+- Audit licensing headers for `expected-not-verified` packs: `dev/licensing_header_audit.py`
+- Download and inspect source archive headers for licensing verification (dev-only): `dev/licensing_source_header_fetch.py`

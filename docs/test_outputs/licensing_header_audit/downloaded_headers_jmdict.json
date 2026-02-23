@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-02-23T16:35:32.339940+00:00",
+  "register_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/data_source_licensing_and_distribution.md",
+  "url_registry_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/language_pack_urls.txt",
+  "cache_dir": "/Users/takeyayuki/.cache/lexishift/licensing_source_header_fetch",
+  "status_filter": [
+    "expected-not-verified"
+  ],
+  "pack_filter": [
+    "jmdict-ja-en"
+  ],
+  "max_download_bytes": 800000000,
+  "rows": [
+    {
+      "pack_id": "jmdict-ja-en",
+      "row_status": "expected-not-verified",
+      "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+      "source_note": "registry",
+      "downloaded_path": "/Users/takeyayuki/.cache/lexishift/licensing_source_header_fetch/jmdict-ja-en/JMdict_e.gz",
+      "downloaded_bytes": 10308913,
+      "status": "inspected",
+      "target_name": "JMdict_e",
+      "probes": [
+        {
+          "entry_name": "JMdict_e",
+          "kind": "text",
+          "sampled_bytes": 262144,
+          "sqlite_header_ok": false,
+          "preview_lines": [
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+            "<!-- Rev 1.09",
+            "Added the g_type attribute",
+            "-->",
+            "<!-- Rev 1.08",
+            "Delete <info> and <example> elements",
+            "-->",
+            "<!-- Rev 1.07",
+            "Revised POS tags for the adjectives",
+            "-->",
+            "<!-- Rev 1.06",
+            "Dropped the \"*\" from the end of the entry element.",
+            "Dropped the g_lang attribute in favour of xml:lang",
+            "Dropped the <lang> element and replaced it with <lsource> at the",
+            "sense level.",
+            "Moved <dial> from the entry level to the sense level.",
+            "Changed \"info*\" to \"info?\".",
+            "-->",
+            "<!-- Rev 1.05",
+            "Changed the <gram> element name to <pos>",
+            "Added the g_gend attribute",
+            "moved the s_inf element",
+            "-->",
+            "<!-- Rev 1.04",
+            "Changes:",
+            "Rename the project \"JMdict\" and add the g_lang attribute to the",
+            "<gloss> entity - 08 May 1999",
+            "Moved the <gram>, <field> and <misc> elements down to be in the",
+            "<sense> region, as suggested by Chris Czeyka. I have also tidied up",
+            "some of the \"*\" as he suggested. - 27 May 2000",
+            "Added the re_nokanji element - Sep 2003.",
+            "-->",
+            "<!DOCTYPE JMdict [",
+            "<!ELEMENT JMdict (entry*)>",
+            "<!-- -->",
+            "<!ELEMENT entry (ent_seq, k_ele*, r_ele+, sense+)>",
+            "<!-- Entries consist of kanji elements, reading elements,",
+            "general information and sense elements. Each entry must have at",
+            "least one reading element and one sense element. Others are optional.",
+            "-->"
+          ],
+          "license_hits": [],
+          "error": null
+        }
+      ],
+      "error": null
+    }
+  ],
+  "issues": []
+}
