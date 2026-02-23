@@ -1,6 +1,6 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
-Status: In progress (Phases 0-5 implemented; Phase 6 in progress)  
+Status: Completed (Phases 0-6 implemented)  
 Last updated: 2026-02-23
 
 ## Purpose
@@ -501,8 +501,18 @@ Phase 6 progress snapshot (2026-02-23):
   - `docs/language_pairs/data_source_licensing_and_distribution.md`
 - LP setup checklist updated with POS-inventory verification step:
   - `docs/language_pairs/language_pair_setup_checklist.md`
-- Remaining Phase 6 scope:
-  - Run final end-to-end LP onboarding verification and capture a reproducible test-output artifact for the new POS-inventory checks.
+- Final end-to-end LP onboarding verification captured (2026-02-23):
+  - POS inventory audit:
+    - `docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json`
+  - Pair probe (canonical mapping + mismatch):
+    - `docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json`
+  - Resource/link integrity audit:
+    - `docs/test_outputs/phase6_pos_inventory/phase6_resource_integrity_2026-02-23_final.json`
+  - Targeted regression slice:
+    - `docs/test_outputs/phase6_pos_inventory/phase6_targeted_tests_2026-02-23_final.txt`
+- Operational notes captured in final artifacts:
+  - `freq-de-default.sqlite` was rebuilt and linked in local settings; `en-de`/`de-de` verification now passes.
+  - Remaining resource warning is only for inactive `en-zh` placeholder frequency DB (`freq-zh-default.sqlite` missing).
 
 ## Required Data For New Languages (What To Gather)
 

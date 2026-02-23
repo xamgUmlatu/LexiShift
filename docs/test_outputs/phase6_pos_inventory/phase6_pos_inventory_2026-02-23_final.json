@@ -1,0 +1,184 @@
+{
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "frequency_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs",
+  "issues": [
+    {
+      "code": "POS_UNKNOWN_TAGS_PRESENT",
+      "message": "freq-de-default.sqlite: unknown_pos_inventory_size=34; top=[{'tag': 'ZUS', 'count': 154}, {'tag': 'S', 'count': 93}, {'tag': 'PA2:PRD:GRU', 'count': 37}]",
+      "severity": "WARN"
+    },
+    {
+      "code": "POS_UNKNOWN_TAGS_PRESENT",
+      "message": "freq-en-coca.sqlite: unknown_pos_inventory_size=1; top=[{'tag': 'u', 'count': 21}]",
+      "severity": "WARN"
+    },
+    {
+      "code": "POS_UNKNOWN_TAGS_PRESENT",
+      "message": "freq-ja-bccwj.sqlite: unknown_pos_inventory_size=7; top=[{'tag': '\u63a5\u5c3e\u8f9e-\u540d\u8a5e\u7684-\u4e00\u822c', 'count': 670}, {'tag': '\u63a5\u982d\u8f9e', 'count': 268}, {'tag': '\u63a5\u5c3e\u8f9e-\u540d\u8a5e\u7684-\u526f\u8a5e\u53ef\u80fd', 'count': 20}]",
+      "severity": "WARN"
+    }
+  ],
+  "rows": [
+    {
+      "error": null,
+      "exists": true,
+      "filename": "freq-de-default.sqlite",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-de-default.sqlite",
+      "pos_columns_resolved": [],
+      "pos_inventory_size": 948,
+      "pos_mapping_profile": "freq-de-default",
+      "pos_source_provider": "freq-de-default",
+      "row_count": null,
+      "rows_with_pos": 31595,
+      "rows_without_pos": 37984,
+      "status": "ok",
+      "unknown_pos_inventory_size": 34,
+      "unknown_pos_inventory_top": [
+        {
+          "count": 154,
+          "tag": "ZUS"
+        },
+        {
+          "count": 93,
+          "tag": "S"
+        },
+        {
+          "count": 37,
+          "tag": "PA2:PRD:GRU"
+        },
+        {
+          "count": 25,
+          "tag": "INJ"
+        },
+        {
+          "count": 14,
+          "tag": "PA1:PRD:GRU"
+        },
+        {
+          "count": 2,
+          "tag": "ABK:WORT=UNDSOWEITER:PAR"
+        },
+        {
+          "count": 1,
+          "tag": "ABK:WORT=BEZIEHUNGSWEISE:PAR"
+        },
+        {
+          "count": 1,
+          "tag": "ABK:WORT=ZIRKA:PAR"
+        },
+        {
+          "count": 1,
+          "tag": "ABK:WORT=DIENSTAGS:PAR"
+        },
+        {
+          "count": 1,
+          "tag": "ABK:WORT=VERSUS:PAR"
+        }
+      ]
+    },
+    {
+      "error": null,
+      "exists": true,
+      "filename": "freq-en-coca.sqlite",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "pos_columns_resolved": [
+        "pos"
+      ],
+      "pos_inventory_size": 12,
+      "pos_mapping_profile": "compact-latin",
+      "pos_source_provider": "freq-en-coca",
+      "row_count": 6100,
+      "rows_with_pos": 6100,
+      "rows_without_pos": 0,
+      "status": "ok",
+      "unknown_pos_inventory_size": 1,
+      "unknown_pos_inventory_top": [
+        {
+          "count": 21,
+          "tag": "u"
+        }
+      ]
+    },
+    {
+      "error": null,
+      "exists": true,
+      "filename": "freq-es-cde.sqlite",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "pos_columns_resolved": [
+        "pos"
+      ],
+      "pos_inventory_size": 12,
+      "pos_mapping_profile": "freq-es-cde",
+      "pos_source_provider": "freq-es-cde",
+      "row_count": 2000,
+      "rows_with_pos": 2000,
+      "rows_without_pos": 0,
+      "status": "ok",
+      "unknown_pos_inventory_size": 0,
+      "unknown_pos_inventory_top": []
+    },
+    {
+      "error": null,
+      "exists": true,
+      "filename": "freq-ja-bccwj.sqlite",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj.sqlite",
+      "pos_columns_resolved": [
+        "pos"
+      ],
+      "pos_inventory_size": 42,
+      "pos_mapping_profile": "bccwj",
+      "pos_source_provider": "freq-ja-bccwj",
+      "row_count": 185136,
+      "rows_with_pos": 185136,
+      "rows_without_pos": 0,
+      "status": "ok",
+      "unknown_pos_inventory_size": 7,
+      "unknown_pos_inventory_top": [
+        {
+          "count": 670,
+          "tag": "\u63a5\u5c3e\u8f9e-\u540d\u8a5e\u7684-\u4e00\u822c"
+        },
+        {
+          "count": 268,
+          "tag": "\u63a5\u982d\u8f9e"
+        },
+        {
+          "count": 20,
+          "tag": "\u63a5\u5c3e\u8f9e-\u540d\u8a5e\u7684-\u526f\u8a5e\u53ef\u80fd"
+        },
+        {
+          "count": 16,
+          "tag": "\u63a5\u5c3e\u8f9e-\u5f62\u72b6\u8a5e\u7684"
+        },
+        {
+          "count": 12,
+          "tag": "\u63a5\u5c3e\u8f9e-\u5f62\u5bb9\u8a5e\u7684"
+        },
+        {
+          "count": 9,
+          "tag": "\u63a5\u5c3e\u8f9e-\u52d5\u8a5e\u7684"
+        },
+        {
+          "count": 5,
+          "tag": "\u63a5\u5c3e\u8f9e-\u540d\u8a5e\u7684-\u30b5\u5909\u53ef\u80fd"
+        }
+      ]
+    },
+    {
+      "error": "Missing file.",
+      "exists": false,
+      "filename": "freq-zh-default.sqlite",
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-zh-default.sqlite",
+      "pos_columns_resolved": [],
+      "pos_inventory_size": null,
+      "pos_mapping_profile": null,
+      "pos_source_provider": null,
+      "row_count": null,
+      "rows_with_pos": null,
+      "rows_without_pos": null,
+      "status": "missing",
+      "unknown_pos_inventory_size": null,
+      "unknown_pos_inventory_top": []
+    }
+  ]
+}
