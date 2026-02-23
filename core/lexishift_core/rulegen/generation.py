@@ -51,6 +51,20 @@ class RuleScoreWeights:
     embedding_weight: float = 0.2
 
 
+@dataclass(frozen=True)
+class PosMatchScoringConfig:
+    enabled: bool = True
+    exact_match_bonus: float = 1.0
+    compatible_match_bonus: float = 0.5
+    compatibility_classes: Optional[Mapping[str, str]] = None
+
+
+@dataclass(frozen=True)
+class RuleScoringConfig:
+    weights: RuleScoreWeights = field(default_factory=RuleScoreWeights)
+    pos_match: PosMatchScoringConfig = field(default_factory=PosMatchScoringConfig)
+
+
 class RuleScorer:
     def __init__(self, weights: Optional[RuleScoreWeights] = None) -> None:
         self._weights = weights or RuleScoreWeights()
@@ -99,6 +113,7 @@ class RuleGenerationConfig:
     language_pair: str
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = None
+    max_rules_per_target: Optional[int] = None
     base_priority: int = 0
     case_policy: str = "match"
     tags: Sequence[str] = field(default_factory=tuple)
@@ -176,13 +191,24 @@ class RuleGenerationPipeline:
                 continue
             rule = self._to_rule(candidate, confidence, config)
             results.append(RuleGenerationResult(candidate=candidate, confidence=confidence, rule=rule))
+        limited_results = results
         max_definitions = config.max_definitions_per_target
-        if max_definitions is None:
-            return results
-        max_definitions = int(max_definitions)
-        if max_definitions <= 0:
-            return results
-        return self._limit_results_per_target(results, max_definitions_per_target=max_definitions)
+        if max_definitions is not None:
+            max_definitions = int(max_definitions)
+            if max_definitions > 0:
+                limited_results = self._limit_results_per_target(
+                    limited_results,
+                    max_definitions_per_target=max_definitions,
+                )
+        max_rules = config.max_rules_per_target
+        if max_rules is not None:
+            max_rules = int(max_rules)
+            if max_rules > 0:
+                limited_results = self._limit_rule_count_per_target(
+                    limited_results,
+                    max_rules_per_target=max_rules,
+                )
+        return limited_results
 
     def generate_rules(
         self,
@@ -298,6 +324,23 @@ class RuleGenerationPipeline:
             confidence=result.confidence,
         )
 
+    def _limit_rule_count_per_target(
+        self,
+        results: Sequence[RuleGenerationResult],
+        *,
+        max_rules_per_target: int,
+    ) -> list[RuleGenerationResult]:
+        grouped: OrderedDict[str, list[RuleGenerationResult]] = OrderedDict()
+        for result in results:
+            target_key = str(result.candidate.replacement or "").strip().lower()
+            grouped.setdefault(target_key, []).append(result)
+
+        limited: list[RuleGenerationResult] = []
+        for group in grouped.values():
+            ranked = sorted(group, key=self._ranking_sort_key)
+            limited.extend(ranked[:max_rules_per_target])
+        return limited
+
 
 @dataclass(frozen=True)
 class SimpleSignalProvider:
@@ -339,6 +382,19 @@ def build_pos_match_provider(
         )
 
     return _provider
+
+
+def build_optional_pos_match_provider(
+    config: Optional[PosMatchScoringConfig],
+) -> Optional[Callable[[RuleCandidate], float]]:
+    resolved = config or PosMatchScoringConfig()
+    if not bool(resolved.enabled):
+        return None
+    return build_pos_match_provider(
+        exact_match_bonus=resolved.exact_match_bonus,
+        compatible_match_bonus=resolved.compatible_match_bonus,
+        compatibility_classes=resolved.compatibility_classes,
+    )
 
 
 def score_candidate_pos_match(

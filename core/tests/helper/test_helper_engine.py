@@ -32,6 +32,7 @@ from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa:
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.rulegen.tuning import resolve_pair_rulegen_tuning  # noqa: E402
 
 
 def _seed_store_and_outputs(root: Path) -> HelperPaths:
@@ -352,6 +353,97 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             sampling = result["sampling"]
             self.assertEqual(sampling["sample_count_effective"], 2)
             self.assertEqual(sampling["total_items_for_pair"], 3)
+
+    def test_rulegen_uses_pair_tuning_defaults_when_overrides_omitted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            freedict_path = root / "spa-eng.tei"
+            freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
+
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output()),
+            ) as run_rulegen, patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
+                "lexishift_core.helper.engine._update_status"
+            ):
+                run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-es",
+                        jmdict_path=None,
+                        freedict_de_en_path=freedict_path,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                    ),
+                )
+
+            rulegen_config = run_rulegen.call_args.kwargs["rulegen_config"]
+            defaults = resolve_pair_rulegen_tuning("en-es")
+            self.assertAlmostEqual(
+                rulegen_config.confidence_threshold,
+                defaults.confidence_threshold,
+                places=6,
+            )
+            self.assertEqual(
+                rulegen_config.max_definitions_per_target,
+                defaults.max_definitions_per_target,
+            )
+            self.assertEqual(
+                rulegen_config.max_rules_per_target,
+                defaults.max_rules_per_target,
+            )
+            self.assertAlmostEqual(
+                rulegen_config.scoring.weights.pos_match,
+                defaults.scoring.weights.pos_match,
+                places=6,
+            )
+            self.assertEqual(
+                rulegen_config.scoring.pos_match.enabled,
+                defaults.scoring.pos_match.enabled,
+            )
+
+    def test_rulegen_overrides_take_precedence_over_pair_tuning_defaults(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            freedict_path = root / "spa-eng.tei"
+            freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
+
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output()),
+            ) as run_rulegen, patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
+                "lexishift_core.helper.engine._update_status"
+            ):
+                run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-es",
+                        jmdict_path=None,
+                        freedict_de_en_path=freedict_path,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                        confidence_threshold=0.25,
+                        max_definitions_per_target=2,
+                        max_rules_per_target=4,
+                        pos_scoring_enabled=False,
+                        score_weight_pos_match=0.35,
+                    ),
+                )
+
+            rulegen_config = run_rulegen.call_args.kwargs["rulegen_config"]
+            self.assertAlmostEqual(rulegen_config.confidence_threshold, 0.25, places=6)
+            self.assertEqual(rulegen_config.max_definitions_per_target, 2)
+            self.assertEqual(rulegen_config.max_rules_per_target, 4)
+            self.assertFalse(rulegen_config.scoring.pos_match.enabled)
+            self.assertAlmostEqual(rulegen_config.scoring.weights.pos_match, 0.35, places=6)
 
 
 class TestHelperEnginePairGeneralization(unittest.TestCase):

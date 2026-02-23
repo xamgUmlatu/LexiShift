@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
@@ -15,8 +15,9 @@ from lexishift_core.rulegen.generation import (
     RuleGenerationPipeline,
     RuleGenerationResult,
     RuleScorer,
+    RuleScoringConfig,
     SimpleSignalProvider,
-    build_pos_match_provider,
+    build_optional_pos_match_provider,
 )
 from lexishift_core.rulegen.pairs.pos_utils import (
     build_candidate_pos_metadata,
@@ -67,7 +68,9 @@ class EsEnRulegenConfig:
     language_pair: str = "es-en"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
-    max_definitions_per_target: int = 3
+    max_definitions_per_target: Optional[int] = 3
+    max_rules_per_target: Optional[int] = None
+    scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
     enable_punctuation_filter: bool = True
@@ -96,14 +99,14 @@ def build_es_en_pipeline(config: EsEnRulegenConfig) -> RuleGenerationPipeline:
     signal_provider = SimpleSignalProvider(
         dict_priorities={"freedict_en_es": config.dict_priority},
         frequency_provider=gloss_decay_weight,
-        pos_match_provider=build_pos_match_provider(),
+        pos_match_provider=build_optional_pos_match_provider(config.scoring.pos_match),
     )
     return RuleGenerationPipeline(
         sources=[source],
         normalizers=normalizers,
         expanders=[],
         filters=_build_filters(config),
-        scorer=RuleScorer(),
+        scorer=RuleScorer(weights=config.scoring.weights),
         signal_provider=signal_provider,
     )
 
@@ -118,6 +121,7 @@ def generate_es_en_results(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
         max_definitions_per_target=config.max_definitions_per_target,
+        max_rules_per_target=config.max_rules_per_target,
         tags=("translation", "freedict_en_es"),
     )
     return pipeline.generate_results(targets, config=rule_config)

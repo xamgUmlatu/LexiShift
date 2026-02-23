@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from datetime import datetime
 import json
 from pathlib import Path
@@ -13,6 +13,7 @@ from lexishift_core.lexicon.word_package import (
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
+from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
@@ -50,7 +51,9 @@ class SetInitializationReport:
 class RulegenConfig:
     language_pair: str = "en-ja"
     confidence_threshold: float = 0.0
-    max_definitions_per_target: int = 3
+    max_definitions_per_target: Optional[int] = 3
+    max_rules_per_target: Optional[int] = None
+    scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     max_snapshot_targets: int = 50
     max_snapshot_sources: int = 6
     include_variants: bool = True
@@ -235,8 +238,10 @@ def run_ja_en_rulegen(
             language_pair=config.language_pair,
             confidence_threshold=config.confidence_threshold,
             max_definitions_per_target=config.max_definitions_per_target,
+            max_rules_per_target=config.max_rules_per_target,
             include_variants=config.include_variants,
             allow_multiword_glosses=config.allow_multiword_glosses,
+            scoring=config.scoring,
             gloss_decay=config.gloss_decay,
             jmdict_path=jmdict_path,
             word_packages_by_target=word_packages_by_target,
@@ -338,8 +343,10 @@ def run_rulegen_for_pair(
             language_pair=rulegen_config.language_pair,
             confidence_threshold=rulegen_config.confidence_threshold,
             max_definitions_per_target=rulegen_config.max_definitions_per_target,
+            max_rules_per_target=rulegen_config.max_rules_per_target,
             include_variants=rulegen_config.include_variants,
             allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
+            scoring=rulegen_config.scoring,
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
             freedict_de_en_path=freedict_de_en_path,

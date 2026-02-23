@@ -1,6 +1,6 @@
 # Rulegen Congruity Hardening: Implementation Plan
 
-Status: Phase 0 complete; Phase 1 (top-3 by dictionary-order scoring) implemented (2026-02-19)
+Status: Phase 0 complete; Phase 1 implemented (2026-02-19); Phase 2 groundwork implemented (2026-02-23); Phase 3 pair-level tuning resolution implemented (2026-02-23); Phase 4 benchmark harness implemented (2026-02-23)
 
 Purpose:
 - Record two immediate decisions for rule quality control.
@@ -226,3 +226,95 @@ Current scoring strategy for definition selection:
 Current morphology strategy:
 - Generic context-free inflection paths are limited to plural-focused expansion (`FORM_PLURAL`) in `ja_en` and `en_de`.
 - `en-es` continues to use paired noun plural morphology with canonical target identity + surface display metadata.
+
+## Phase 2 Groundwork (Completed 2026-02-23)
+
+Goal:
+- Make scoring and emission limits tunable for iterative experiments without entangling pair adapters.
+
+Delivered:
+- Shared scoring config model in generation core:
+  - `RuleScoringConfig` (`weights` + `pos_match` sub-config)
+  - `PosMatchScoringConfig` (`enabled`, exact/compatible bonus, compatibility classes)
+  - file: `core/lexishift_core/rulegen/generation.py`
+- Optional POS scoring provider resolver:
+  - `build_optional_pos_match_provider(...)`
+  - file: `core/lexishift_core/rulegen/generation.py`
+- New optional per-target final rule cap:
+  - `RuleGenerationConfig.max_rules_per_target`
+  - enforced after definition cap in pipeline output.
+- Full config thread-through (helper -> adapter -> pair pipelines):
+  - `core/lexishift_core/helper/rulegen.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/rulegen/pairs/en_de.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/lexishift_core/rulegen/pairs/es_en.py`
+  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+- Rulegen job tuning inputs for CLI/native host experimentation:
+  - `core/lexishift_core/helper/engine.py`
+  - `core/lexishift_core/helper/use_cases/rulegen_job.py`
+  - `scripts/helper/lexishift_native_host.py`
+  - `scripts/helper/lexishift_helper.py`
+- Probe script tuning flags added:
+  - `scripts/testing/rulegen_probe_words.py`
+
+## Phase 3 Pair-Level Tuning Resolution (Completed 2026-02-23)
+
+Goal:
+- Make tuning defaults pair-aware while keeping per-run overrides simple and explicit.
+
+Delivered:
+- New pair-level tuning registry + resolver:
+  - `core/lexishift_core/rulegen/tuning.py`
+  - resolution order is `pair defaults -> explicit runtime overrides`.
+- Rulegen job integration uses resolved effective tuning values (instead of hard-coded global defaults):
+  - `core/lexishift_core/helper/use_cases/rulegen_job.py`
+- Helper-side job config now treats tuning values as optional overrides:
+  - `core/lexishift_core/helper/engine.py`
+- CLI/native-host now pass only explicitly requested overrides:
+  - `scripts/helper/lexishift_helper.py`
+  - `scripts/helper/lexishift_native_host.py`
+
+Notes:
+- Current pair defaults intentionally mirror existing behavior (no quality-policy shift yet).
+- Pair-level adjustments can now be applied in one place (`rulegen/tuning.py`) without changing adapter wiring.
+
+Default behavior:
+- Preserves existing output profile:
+  - `max_definitions_per_target=3` remains default.
+  - `max_rules_per_target` defaults to disabled.
+  - POS scoring remains enabled with prior bonus defaults.
+
+Added tests:
+- Adapter threading + total rule cap behavior:
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+- POS scoring toggle behavior:
+  - `core/tests/rulegen/test_rulegen_pos_metadata.py`
+- Helper passthrough defaults:
+  - `core/tests/helper/test_helper_rulegen.py`
+
+## Phase 4 Benchmark Harness (Completed 2026-02-23)
+
+Goal:
+- Make iterative tuning measurable, repeatable, and comparable across language pairs.
+
+Delivered:
+- Benchmark evaluation core:
+  - `core/lexishift_core/rulegen/benchmarking.py`
+  - Computes per-case outcomes and aggregate metrics:
+    - top-1 correctness
+    - top-3 containment
+    - forbidden top-1/any rates
+    - rule density and variant rates
+    - weighted objective score
+- Sweep runner + leaderboard output:
+  - `scripts/testing/rulegen_benchmark.py`
+  - Executes parameter grids per pair and ranks runs by objective.
+  - Writes JSON and Markdown reports.
+- Starter labeled benchmark dataset:
+  - `docs/test_inputs/rulegen_benchmark_cases.json`
+  - Includes initial `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
+
+Next extension path:
+- Expand labeled cases per pair/domain.
+- Add regression gates in CI based on benchmark score floors.

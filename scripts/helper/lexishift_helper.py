@@ -116,6 +116,12 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
         freedict_de_en_arg=args.freedict_de_en,
         set_source_db_arg=args.set_source_db,
     )
+    if args.enable_pos_scoring:
+        pos_scoring_enabled = True
+    elif args.disable_pos_scoring:
+        pos_scoring_enabled = False
+    else:
+        pos_scoring_enabled = None
 
     try:
         payload = run_rulegen_job(
@@ -128,6 +134,17 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
                 confidence_threshold=args.confidence_threshold,
+                max_definitions_per_target=args.max_definitions_per_target,
+                max_rules_per_target=args.max_rules_per_target,
+                pos_scoring_enabled=pos_scoring_enabled,
+                pos_exact_match_bonus=args.pos_exact_match_bonus,
+                pos_compatible_match_bonus=args.pos_compatible_match_bonus,
+                score_weight_dict_priority=args.score_weight_dict_priority,
+                score_weight_frequency_weight=args.score_weight_frequency_weight,
+                score_weight_pos_match=args.score_weight_pos_match,
+                score_weight_variant_penalty=args.score_weight_variant_penalty,
+                score_weight_phrase_penalty=args.score_weight_phrase_penalty,
+                score_weight_embedding=args.score_weight_embedding,
                 snapshot_targets=args.snapshot_targets,
                 snapshot_sources=args.snapshot_sources,
                 initialize_if_empty=not args.no_initialize_if_empty,
@@ -322,7 +339,78 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
     run.add_argument("--no-persist-outputs", action="store_true", help="Do not write ruleset/snapshot JSON files")
     run.add_argument("--no-status-update", action="store_true", help="Do not update helper status file")
-    run.add_argument("--confidence-threshold", type=float, default=0.0)
+    run.add_argument(
+        "--confidence-threshold",
+        type=float,
+        help="Override confidence threshold (defaults from pair tuning when omitted).",
+    )
+    run.add_argument(
+        "--max-definitions-per-target",
+        type=int,
+        help=(
+            "Top-K definitions retained per target before optional rule-count cap "
+            "(defaults from pair tuning; pass 0 to disable)."
+        ),
+    )
+    run.add_argument(
+        "--max-rules-per-target",
+        type=int,
+        help=(
+            "Optional final cap on emitted rules per target (includes variants). "
+            "Defaults from pair tuning; pass 0 to disable."
+        ),
+    )
+    pos_scoring_group = run.add_mutually_exclusive_group()
+    pos_scoring_group.add_argument(
+        "--enable-pos-scoring",
+        action="store_true",
+        help="Force-enable POS congruence contribution to confidence scoring.",
+    )
+    pos_scoring_group.add_argument(
+        "--disable-pos-scoring",
+        action="store_true",
+        help="Force-disable POS congruence contribution to confidence scoring.",
+    )
+    run.add_argument(
+        "--pos-exact-match-bonus",
+        type=float,
+        help="Override POS exact-match bonus (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--pos-compatible-match-bonus",
+        type=float,
+        help="Override POS compatibility-class bonus (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-dict-priority",
+        type=float,
+        help="Override dictionary-priority score weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-frequency-weight",
+        type=float,
+        help="Override frequency score weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-pos-match",
+        type=float,
+        help="Override POS score weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-variant-penalty",
+        type=float,
+        help="Override variant penalty weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-phrase-penalty",
+        type=float,
+        help="Override phrase penalty weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--score-weight-embedding",
+        type=float,
+        help="Override embedding score weight (defaults from pair tuning).",
+    )
     run.add_argument("--snapshot-targets", type=int, default=50)
     run.add_argument("--snapshot-sources", type=int, default=6)
     run.add_argument("--sample-count", type=int, help="Sample N target lemmas from current S before rulegen.")

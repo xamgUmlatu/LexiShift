@@ -6,6 +6,14 @@ from typing import Callable
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput, SetInitializationConfig
+from lexishift_core.rulegen.tuning import (
+    RulegenTuningOverrides,
+    resolve_pair_rulegen_tuning,
+    resolve_rulegen_tuning,
+    resolved_rulegen_tuning_to_dict,
+    rulegen_pair_tuning_to_dict,
+    rulegen_tuning_overrides_to_dict,
+)
 from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.sampling import SrsSamplingResult, sample_store_items, sampling_result_to_dict
@@ -70,10 +78,28 @@ def run_rulegen_job(
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
         )
-    rulegen_config = RulegenConfig(
-        language_pair=pair,
+    pair_tuning = resolve_pair_rulegen_tuning(pair)
+    rulegen_overrides = RulegenTuningOverrides(
         confidence_threshold=config.confidence_threshold,
         max_definitions_per_target=config.max_definitions_per_target,
+        max_rules_per_target=config.max_rules_per_target,
+        pos_scoring_enabled=config.pos_scoring_enabled,
+        pos_exact_match_bonus=config.pos_exact_match_bonus,
+        pos_compatible_match_bonus=config.pos_compatible_match_bonus,
+        score_weight_dict_priority=config.score_weight_dict_priority,
+        score_weight_frequency_weight=config.score_weight_frequency_weight,
+        score_weight_pos_match=config.score_weight_pos_match,
+        score_weight_variant_penalty=config.score_weight_variant_penalty,
+        score_weight_phrase_penalty=config.score_weight_phrase_penalty,
+        score_weight_embedding=config.score_weight_embedding,
+    )
+    effective_rulegen_tuning = resolve_rulegen_tuning(pair, overrides=rulegen_overrides)
+    rulegen_config = RulegenConfig(
+        language_pair=pair,
+        confidence_threshold=effective_rulegen_tuning.confidence_threshold,
+        max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
+        max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
+        scoring=effective_rulegen_tuning.scoring,
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
     )
@@ -95,6 +121,47 @@ def run_rulegen_job(
             "pair": pair,
             "requirements": pair_requirements(pair),
             "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
+            "rulegen_tuning": {
+                "confidence_threshold": float(effective_rulegen_tuning.confidence_threshold),
+                "max_definitions_per_target": (
+                    int(effective_rulegen_tuning.max_definitions_per_target)
+                    if effective_rulegen_tuning.max_definitions_per_target is not None
+                    else None
+                ),
+                "max_rules_per_target": (
+                    int(effective_rulegen_tuning.max_rules_per_target)
+                    if effective_rulegen_tuning.max_rules_per_target is not None
+                    else None
+                ),
+                "pos_scoring_enabled": bool(effective_rulegen_tuning.scoring.pos_match.enabled),
+                "pos_exact_match_bonus": float(
+                    effective_rulegen_tuning.scoring.pos_match.exact_match_bonus
+                ),
+                "pos_compatible_match_bonus": float(
+                    effective_rulegen_tuning.scoring.pos_match.compatible_match_bonus
+                ),
+                "score_weights": {
+                    "dict_priority": float(
+                        effective_rulegen_tuning.scoring.weights.dict_priority
+                    ),
+                    "frequency_weight": float(
+                        effective_rulegen_tuning.scoring.weights.frequency_weight
+                    ),
+                    "pos_match": float(effective_rulegen_tuning.scoring.weights.pos_match),
+                    "variant_penalty": float(
+                        effective_rulegen_tuning.scoring.weights.variant_penalty
+                    ),
+                    "phrase_penalty": float(
+                        effective_rulegen_tuning.scoring.weights.phrase_penalty
+                    ),
+                    "embedding_weight": float(
+                        effective_rulegen_tuning.scoring.weights.embedding_weight
+                    ),
+                },
+                "pair_defaults": rulegen_pair_tuning_to_dict(pair_tuning),
+                "overrides": rulegen_tuning_overrides_to_dict(rulegen_overrides),
+                "effective": resolved_rulegen_tuning_to_dict(effective_rulegen_tuning),
+            },
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
             "freedict_de_en_path": (

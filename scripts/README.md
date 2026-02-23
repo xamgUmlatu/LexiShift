@@ -19,7 +19,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Convert FreeDict Spanish->English to SQLite: `data/convert_freedict_spa_eng_to_sqlite.py`
 - Convert FreeDict English->Spanish to SQLite: `data/convert_freedict_eng_spa_to_sqlite.py`
 - Convert Spanish frequency sample to SQLite: `data/convert_cde_frequency_to_sqlite.py`
-- Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`): `testing/rulegen_probe_words.py`
+- Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`) with tunable scoring/caps:
+  `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`)
+- Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
+  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, also emits a styled HTML dashboard)
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Audit licensing headers for `expected-not-verified` packs: `dev/licensing_header_audit.py`
 - Download and inspect source archive headers for licensing verification (dev-only): `dev/licensing_source_header_fetch.py`

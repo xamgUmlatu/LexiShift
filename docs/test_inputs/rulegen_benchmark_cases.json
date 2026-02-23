@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "name": "LexiShift Rulegen Benchmark Cases",
+  "description": "Starter labeled cases for iterative rulegen parameter tuning. Expand over time per language pair.",
+  "cases": [
+    {
+      "case_id": "en-es:hora",
+      "pair": "en-es",
+      "target": "hora",
+      "expected_any": [
+        "hour",
+        "time"
+      ],
+      "expected_top1_any": [
+        "hour"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [
+        "times"
+      ],
+      "notes": "Plural morphology may emit hours/horas, but top-1 should stay semantically stable."
+    },
+    {
+      "case_id": "en-es:trabajo",
+      "pair": "en-es",
+      "target": "trabajo",
+      "expected_any": [
+        "work",
+        "job",
+        "labor"
+      ],
+      "expected_top1_any": [
+        "work",
+        "job"
+      ],
+      "forbidden_top1": [
+        "toil"
+      ],
+      "forbidden_any": [],
+      "notes": "Keep common senses prominent for SRS practice."
+    },
+    {
+      "case_id": "en-ja:様",
+      "pair": "en-ja",
+      "target": "様",
+      "target_reading": "よう",
+      "expected_any": [
+        "form",
+        "style",
+        "design",
+        "way",
+        "kind"
+      ],
+      "expected_top1_any": [
+        "form",
+        "style",
+        "design"
+      ],
+      "forbidden_top1": [
+        "appearing",
+        "looking",
+        "like"
+      ],
+      "forbidden_any": [],
+      "notes": "Generic glosses should be demoted for top-K selection."
+    },
+    {
+      "case_id": "en-ja:時",
+      "pair": "en-ja",
+      "target": "時",
+      "target_reading": "とき",
+      "expected_any": [
+        "time",
+        "occasion",
+        "moment",
+        "period",
+        "hour"
+      ],
+      "expected_top1_any": [
+        "time",
+        "occasion",
+        "moment"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [],
+      "notes": "Avoid unstable plural/context-dependent top substitutions."
+    },
+    {
+      "case_id": "en-de:Haus",
+      "pair": "en-de",
+      "target": "Haus",
+      "expected_any": [
+        "house",
+        "home"
+      ],
+      "expected_top1_any": [
+        "house"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Baseline DE dictionary sanity case."
+    },
+    {
+      "case_id": "es-en:house",
+      "pair": "es-en",
+      "target": "house",
+      "expected_any": [
+        "casa",
+        "hogar"
+      ],
+      "expected_top1_any": [
+        "casa"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse direction sanity case."
+    }
+  ]
+}

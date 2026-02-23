@@ -11,7 +11,9 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.generation import (  # noqa: E402
+    PosMatchScoringConfig,
     RuleCandidate,
+    RuleScoringConfig,
     build_pos_match_provider,
 )
 from lexishift_core.rulegen.pairs.en_de import (  # noqa: E402
@@ -141,6 +143,49 @@ class TestRulegenPosMetadata(unittest.TestCase):
         self.assertEqual(metadata.pos["source"]["canonical"], "noun")
         self.assertEqual(metadata.pos["target"]["canonical"], "noun")
         self.assertEqual(metadata.pos["dictionary"]["canonical"], "noun")
+
+    def test_en_de_rulegen_can_disable_pos_scoring_signal(self) -> None:
+        records = {"Haus": [FreedictGlossRecord(translation="house", pos_raw="noun")]}
+        config_pos_enabled = EnDeRulegenConfig(
+            freedict_de_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            include_variants=False,
+            word_packages_by_target={
+                "Haus": {
+                    "version": 1,
+                    "language_tag": "de",
+                    "surface": "Haus",
+                    "source": {"provider": "freq-de-default"},
+                    "pos_raw": "SUB",
+                    "pos_canonical": "noun",
+                }
+            },
+        )
+        config_pos_disabled = EnDeRulegenConfig(
+            freedict_de_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            include_variants=False,
+            word_packages_by_target={
+                "Haus": {
+                    "version": 1,
+                    "language_tag": "de",
+                    "surface": "Haus",
+                    "source": {"provider": "freq-de-default"},
+                    "pos_raw": "SUB",
+                    "pos_canonical": "noun",
+                }
+            },
+            scoring=RuleScoringConfig(
+                pos_match=PosMatchScoringConfig(enabled=False),
+            ),
+        )
+
+        enabled = generate_en_de_results(("Haus",), config=config_pos_enabled)
+        disabled = generate_en_de_results(("Haus",), config=config_pos_disabled)
+
+        self.assertEqual(len(enabled), 1)
+        self.assertEqual(len(disabled), 1)
+        self.assertGreater(enabled[0].confidence, disabled[0].confidence)
 
 
 if __name__ == "__main__":

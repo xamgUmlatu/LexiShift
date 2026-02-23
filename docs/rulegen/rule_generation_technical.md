@@ -202,6 +202,9 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
   - Supports `--top-n`, `--thresholds`, `--decays`, and optional `--coca` weighting.
 - All-in-one runner (writes output files): `scripts/testing/run_ja_en_tests.py`
 - Human review sampler: `scripts/testing/ja_en_sample_review.py`
+- Pair-level benchmark sweep + leaderboard: `scripts/testing/rulegen_benchmark.py`
+  - Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+  - Outputs ranked JSON/Markdown reports for iterative tuning across pairs.
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.
    - Needed from you: preferred output path + any S test list you want to use.

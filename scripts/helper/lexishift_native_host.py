@@ -86,6 +86,36 @@ def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
     value = payload.get(key)
     if value is None:
         return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _optional_float(payload: Dict[str, Any], key: str) -> Optional[float]:
+    value = payload.get(key)
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _optional_bool(payload: Dict[str, Any], key: str) -> Optional[bool]:
+    value = payload.get(key)
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    normalized = str(value).strip().lower()
+    if normalized in {"1", "true", "yes", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "off"}:
+        return False
+    return None
 
 
 def _optional_string_list(payload: Dict[str, Any], key: str) -> Optional[list[str]]:
@@ -100,10 +130,6 @@ def _optional_string_list(payload: Dict[str, Any], key: str) -> Optional[list[st
         return None
     normalized = [item for item in items if item]
     return normalized or None
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return None
 
 
 def _optional_profile_id(payload: Dict[str, Any]) -> Optional[str]:
@@ -209,7 +235,18 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
             set_source_db=set_source_db,
             set_top_n=_optional_int(payload, "set_top_n"),
-            confidence_threshold=float(payload.get("confidence_threshold", 0.0)),
+            confidence_threshold=_optional_float(payload, "confidence_threshold"),
+            max_definitions_per_target=_optional_int(payload, "max_definitions_per_target"),
+            max_rules_per_target=_optional_int(payload, "max_rules_per_target"),
+            pos_scoring_enabled=_optional_bool(payload, "pos_scoring_enabled"),
+            pos_exact_match_bonus=_optional_float(payload, "pos_exact_match_bonus"),
+            pos_compatible_match_bonus=_optional_float(payload, "pos_compatible_match_bonus"),
+            score_weight_dict_priority=_optional_float(payload, "score_weight_dict_priority"),
+            score_weight_frequency_weight=_optional_float(payload, "score_weight_frequency_weight"),
+            score_weight_pos_match=_optional_float(payload, "score_weight_pos_match"),
+            score_weight_variant_penalty=_optional_float(payload, "score_weight_variant_penalty"),
+            score_weight_phrase_penalty=_optional_float(payload, "score_weight_phrase_penalty"),
+            score_weight_embedding=_optional_float(payload, "score_weight_embedding"),
             snapshot_targets=int(payload.get("snapshot_targets", 50)),
             snapshot_sources=int(payload.get("snapshot_sources", 6)),
             initialize_if_empty=payload.get("initialize_if_empty", True),

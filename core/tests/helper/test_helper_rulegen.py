@@ -281,6 +281,9 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("所", request.word_packages_by_target)
         self.assertEqual(request.word_packages_by_target["所"]["reading"], "ところ")
         self.assertEqual(request.max_definitions_per_target, 3)
+        self.assertIsNone(request.max_rules_per_target)
+        self.assertTrue(request.scoring.pos_match.enabled)
+        self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
 
 
 if __name__ == "__main__":

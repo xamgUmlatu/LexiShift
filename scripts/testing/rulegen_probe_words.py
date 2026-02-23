@@ -17,6 +17,11 @@ from lexishift_core.lexicon.word_package import (  # noqa: E402
     normalize_word_package,
 )
 from lexishift_core.rulegen.generation import RuleGenerationResult  # noqa: E402
+from lexishift_core.rulegen.generation import (  # noqa: E402
+    PosMatchScoringConfig,
+    RuleScoreWeights,
+    RuleScoringConfig,
+)
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsRulegenConfig,
     generate_en_es_results,
@@ -239,9 +244,37 @@ def main() -> None:
         help="Minimum confidence threshold for both runs.",
     )
     parser.add_argument(
+        "--max-rules-per-target",
+        type=int,
+        help="Optional final cap on emitted rules per target in capped run.",
+    )
+    parser.add_argument(
         "--no-variants",
         action="store_true",
         help="Disable variant expansion in probes.",
+    )
+    parser.add_argument(
+        "--disable-pos-scoring",
+        action="store_true",
+        help="Disable POS congruence scoring in both runs.",
+    )
+    parser.add_argument(
+        "--pos-exact-match-bonus",
+        type=float,
+        default=1.0,
+        help="POS exact-match bonus used in both runs.",
+    )
+    parser.add_argument(
+        "--pos-compatible-match-bonus",
+        type=float,
+        default=0.5,
+        help="POS compatibility-class bonus used in both runs.",
+    )
+    parser.add_argument(
+        "--score-weight-pos-match",
+        type=float,
+        default=0.1,
+        help="Weight of POS signal in confidence scoring.",
     )
     parser.add_argument(
         "--profile-id",
@@ -275,6 +308,19 @@ def main() -> None:
     japanese_targets = _parse_csv_words(args.japanese_targets)
     reading_overrides = _parse_reading_overrides(args.ja_readings)
     max_definitions = max(1, int(args.max_definitions))
+    max_rules_per_target = (
+        max(1, int(args.max_rules_per_target))
+        if args.max_rules_per_target is not None
+        else None
+    )
+    scoring = RuleScoringConfig(
+        weights=RuleScoreWeights(pos_match=float(args.score_weight_pos_match)),
+        pos_match=PosMatchScoringConfig(
+            enabled=not args.disable_pos_scoring,
+            exact_match_bonus=float(args.pos_exact_match_bonus),
+            compatible_match_bonus=float(args.pos_compatible_match_bonus),
+        ),
+    )
 
     paths = build_helper_paths(args.data_root)
     store_path = paths.srs_store_path_for(args.profile_id)
@@ -317,7 +363,9 @@ def main() -> None:
             freedict_es_en_path=resolved_freedict_es_en,
             include_variants=include_variants,
             confidence_threshold=args.confidence_threshold,
-            max_definitions_per_target=None,  # type: ignore[arg-type]
+            max_definitions_per_target=None,
+            max_rules_per_target=None,
+            scoring=scoring,
         ),
     )
     ja_uncapped = generate_ja_en_results(
@@ -327,7 +375,9 @@ def main() -> None:
             include_variants=include_variants,
             confidence_threshold=args.confidence_threshold,
             word_packages_by_target=ja_word_packages,
-            max_definitions_per_target=None,  # type: ignore[arg-type]
+            max_definitions_per_target=None,
+            max_rules_per_target=None,
+            scoring=scoring,
         ),
     )
 
@@ -339,6 +389,8 @@ def main() -> None:
             include_variants=include_variants,
             confidence_threshold=args.confidence_threshold,
             max_definitions_per_target=max_definitions,
+            max_rules_per_target=max_rules_per_target,
+            scoring=scoring,
         ),
     )
     ja_capped = generate_ja_en_results(
@@ -349,6 +401,8 @@ def main() -> None:
             confidence_threshold=args.confidence_threshold,
             word_packages_by_target=ja_word_packages,
             max_definitions_per_target=max_definitions,
+            max_rules_per_target=max_rules_per_target,
+            scoring=scoring,
         ),
     )
 
@@ -360,7 +414,11 @@ def main() -> None:
     print(f"  jmdict: {resolved_jmdict}")
     print(
         f"  config: max_definitions={max_definitions}, "
-        f"confidence_threshold={args.confidence_threshold}, include_variants={include_variants}"
+        f"max_rules_per_target={max_rules_per_target}, "
+        f"confidence_threshold={args.confidence_threshold}, include_variants={include_variants}, "
+        f"pos_scoring_enabled={not args.disable_pos_scoring}, "
+        f"pos_exact={args.pos_exact_match_bonus}, pos_compatible={args.pos_compatible_match_bonus}, "
+        f"score_weight_pos_match={args.score_weight_pos_match}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -373,8 +431,13 @@ def main() -> None:
     output_payload: dict[str, object] = {
         "config": {
             "max_definitions": max_definitions,
+            "max_rules_per_target": max_rules_per_target,
             "confidence_threshold": args.confidence_threshold,
             "include_variants": include_variants,
+            "pos_scoring_enabled": (not args.disable_pos_scoring),
+            "pos_exact_match_bonus": args.pos_exact_match_bonus,
+            "pos_compatible_match_bonus": args.pos_compatible_match_bonus,
+            "score_weight_pos_match": args.score_weight_pos_match,
         },
         "paths": {
             "data_root": str(paths.data_root),

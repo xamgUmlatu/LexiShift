@@ -13,6 +13,11 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.rulegen.generation import (  # noqa: E402
+    PosMatchScoringConfig,
+    RuleScoreWeights,
+    RuleScoringConfig,
+)
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
     run_rules_with_adapter,
@@ -177,6 +182,36 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(rules[0].replacement, "casa")
         generate.assert_called_once()
 
+    def test_en_es_dispatches_scoring_and_rule_caps(self) -> None:
+        scoring = RuleScoringConfig(
+            weights=RuleScoreWeights(pos_match=0.35),
+            pos_match=PosMatchScoringConfig(enabled=False),
+        )
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(
+                    rule=VocabRule(source_phrase="house", replacement="casa")
+                )
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/spa-eng.tei"),
+                    max_rules_per_target=5,
+                    scoring=scoring,
+                )
+            )
+        generate.assert_called_once()
+        args, kwargs = generate.call_args
+        _ = args
+        self.assertEqual(kwargs["config"].max_rules_per_target, 5)
+        self.assertAlmostEqual(kwargs["config"].scoring.weights.pos_match, 0.35, places=6)
+        self.assertFalse(kwargs["config"].scoring.pos_match.enabled)
+
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -247,6 +282,38 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(hours_metadata.morphology.get("source_form"), "plural")
         self.assertEqual(hours_metadata.morphology.get("target_surface"), "horas")
         self.assertEqual(hours_metadata.morphology.get("target_lemma"), "hora")
+
+    def test_en_es_adapter_caps_total_rules_per_target_after_variants(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>hora</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">hour</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("hora",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                    include_variants=True,
+                    max_rules_per_target=1,
+                )
+            )
+
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "hour")
 
     def test_en_es_adapter_sanitizes_gloss_noise_before_rulegen(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
