@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "name": "Rulegen Quality Policy",
+  "description": "Guardrails for iterative rulegen tuning so score/quality movement is measurable and regressions are bounded.",
+  "required_benchmark_pairs": [
+    "en-es"
+  ],
+  "recommended_benchmark_pairs": [
+    "en-ja",
+    "en-de",
+    "es-en"
+  ],
+  "dataset_contract": {
+    "required_case_fields": [
+      "case_id",
+      "pair",
+      "target",
+      "expected_any",
+      "expected_top1_any",
+      "forbidden_top1",
+      "forbidden_any",
+      "tier"
+    ],
+    "allowed_tiers": [
+      "smoke",
+      "hard"
+    ],
+    "min_cases_per_pair": {
+      "en-es": 2,
+      "en-ja": 2,
+      "en-de": 1,
+      "es-en": 1
+    },
+    "min_hard_cases_per_pair": {
+      "en-es": 1,
+      "en-ja": 1,
+      "en-de": 0,
+      "es-en": 0
+    }
+  },
+  "benchmark_quality_floors": {
+    "en-es": {
+      "min_top1_accuracy": 0.95,
+      "min_top3_recall": 0.95,
+      "max_forbidden_top1_rate": 0.05,
+      "max_forbidden_any_rate": 0.10,
+      "max_avg_rules_per_target": 3.0
+    },
+    "en-ja": {
+      "min_top1_accuracy": 0.90,
+      "min_top3_recall": 0.95,
+      "max_forbidden_top1_rate": 0.10,
+      "max_forbidden_any_rate": 0.20,
+      "max_avg_rules_per_target": 4.0
+    },
+    "en-de": {
+      "min_top1_accuracy": 0.85,
+      "min_top3_recall": 0.90,
+      "max_forbidden_top1_rate": 0.15,
+      "max_forbidden_any_rate": 0.25,
+      "max_avg_rules_per_target": 4.0
+    },
+    "es-en": {
+      "min_top1_accuracy": 0.85,
+      "min_top3_recall": 0.90,
+      "max_forbidden_top1_rate": 0.15,
+      "max_forbidden_any_rate": 0.25,
+      "max_avg_rules_per_target": 4.0
+    }
+  },
+  "delta_budgets": {
+    "max_top1_accuracy_drop": 0.00,
+    "max_top3_recall_drop": 0.00,
+    "max_forbidden_top1_rate_increase": 0.00,
+    "max_forbidden_any_rate_increase": 0.00,
+    "max_avg_rules_per_target_increase": 0.50
+  },
+  "saturation": {
+    "warn_if_top_metric_vector_share_gte": 0.50,
+    "fail_if_top_metric_vector_share_gt": 0.90,
+    "warn_if_unique_metric_vectors_lt": 5
+  },
+  "pos_guardrails": {
+    "max_bucket_mismatch_rate_by_pair": {
+      "en-ja": 0.01,
+      "en-es": 0.01,
+      "es-en": 0.01,
+      "en-de": 0.01
+    },
+    "max_bucket_mismatch_rate_increase": 0.00,
+    "default_unknown_pos_growth_budget": 0,
+    "unknown_pos_growth_budget_by_pack": {
+      "freq-de-default.sqlite": 0,
+      "freq-en-coca.sqlite": 0,
+      "freq-es-cde.sqlite": 0,
+      "freq-ja-bccwj.sqlite": 0
+    },
+    "allow_missing_packs": [
+      "freq-zh-default.sqlite"
+    ]
+  }
+}

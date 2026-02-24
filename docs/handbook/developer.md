@@ -53,6 +53,7 @@ Chrome extension:
 
 - Developer docs hub: [../developer/README.md](../developer/README.md)
 - Developer handbook: [../developer/developer_reference.md](../developer/developer_reference.md)
+- AI-assisted quality loop: [../developer/ai_workflow.md](../developer/ai_workflow.md)
 - Local setup detail: [../developer/local_setup.md](../developer/local_setup.md)
 - Script categories: [../../scripts/README.md](../../scripts/README.md)
 

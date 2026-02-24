@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-02-23T22:27:16.343837+00:00",
+  "source_artifacts": {
+    "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json",
+    "pos_probe_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json",
+    "pos_inventory_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json"
+  },
+  "benchmark_best_by_pair": {
+    "en-es": {
+      "top1_accuracy": 1.0,
+      "top3_recall": 1.0,
+      "forbidden_top1_rate": 0.0,
+      "forbidden_any_rate": 0.0,
+      "avg_rules_per_target": 1.0,
+      "objective_score": 154.0
+    }
+  },
+  "pos_pair_mismatch_rate": {
+    "en-ja": 0.0,
+    "en-es": 0.0,
+    "es-en": 0.0,
+    "en-de": 0.0
+  },
+  "pos_unknown_counts": {
+    "freq-de-default.sqlite": 34,
+    "freq-en-coca.sqlite": 1,
+    "freq-es-cde.sqlite": 0,
+    "freq-ja-bccwj.sqlite": 7
+  }
+}

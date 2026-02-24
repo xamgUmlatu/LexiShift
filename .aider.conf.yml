@@ -1,0 +1,25 @@
+# Aider defaults for LexiShift rulegen/POS work.
+# Keep this file lightweight and repo-local.
+
+auto-commits: false
+dirty-commits: false
+auto-test: false
+
+# Fast baseline checks for regular edits.
+lint-cmd: "mypy core/lexishift_core"
+test-cmd: "python -m unittest discover -s core/tests"
+
+# Rulegen quality gate command (run manually when touching rulegen/POS paths).
+# python3 scripts/testing/rulegen_quality_gate.py \
+#   --benchmark-json docs/test_outputs/rulegen_benchmark_en_es_latest.json \
+#   --policy-json docs/test_inputs/rulegen_quality_policy.json \
+#   --baseline-json docs/test_outputs/baselines/rulegen_quality_baseline.json \
+#   --pos-probe-json docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json \
+#   --pos-inventory-json docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json
+
+read:
+  - AGENTS.md
+  - docs/developer/ai_workflow.md
+  - docs/rulegen/rule_generation_technical.md
+  - docs/rulegen/rulegen_congruity_implementation_plan.md
+  - docs/rulegen/pos_normalization_workstream.md

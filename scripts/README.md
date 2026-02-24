@@ -23,6 +23,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
   `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, also emits a styled HTML dashboard)
+- Gate benchmark/POS artifacts against quality floors, delta budgets, and POS drift guardrails:
+  `testing/rulegen_quality_gate.py` (policy default: `docs/test_inputs/rulegen_quality_policy.json`)
+- Extract FAIL/REVIEW benchmark cases from best runs and write triage artifacts:
+  `testing/rulegen_benchmark_triage.py`
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Audit licensing headers for `expected-not-verified` packs: `dev/licensing_header_audit.py`
 - Download and inspect source archive headers for licensing verification (dev-only): `dev/licensing_source_header_fetch.py`

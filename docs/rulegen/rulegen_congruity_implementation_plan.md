@@ -314,7 +314,35 @@ Delivered:
 - Starter labeled benchmark dataset:
   - `docs/test_inputs/rulegen_benchmark_cases.json`
   - Includes initial `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
+- Breadth expansion (v2):
+  - `docs/test_inputs/rulegen_benchmark_cases.json` expanded to 65 labeled cases.
+  - Coverage now includes broader core-lexicon checks plus hard cases (`hora`/`時`/`様` style instability guards).
 
 Next extension path:
 - Expand labeled cases per pair/domain.
 - Add regression gates in CI based on benchmark score floors.
+
+## Phase 5 Quality Gate Scaffolding (Completed 2026-02-24)
+
+Goal:
+- Convert benchmark/POS quality expectations from notes into enforceable guardrails.
+
+Delivered:
+- New policy contract file:
+  - `docs/test_inputs/rulegen_quality_policy.json`
+  - defines required/recommended pair coverage, dataset contract, quality floors, delta budgets, saturation thresholds, and POS guardrails.
+- New baseline file:
+  - `docs/test_outputs/baselines/rulegen_quality_baseline.json`
+  - anchors benchmark and POS drift budgets for iterative comparisons.
+- New quality gate script:
+  - `scripts/testing/rulegen_quality_gate.py`
+  - validates benchmark outputs, dataset coverage/tiering, delta budgets, saturation signals, and POS unknown-tag/mismatch drift.
+- New triage extractor:
+  - `scripts/testing/rulegen_benchmark_triage.py`
+  - promotes FAIL/REVIEW benchmark outcomes into explicit follow-up artifacts.
+- CI integration (artifact-policy gate):
+  - `.github/workflows/ci.yml` runs `rulegen_quality_gate.py` against committed benchmark/POS artifacts.
+
+Notes:
+- Current hard-gated benchmark pair is `en-es`; other pairs remain recommended until benchmark artifact cadence is expanded.
+- Saturation checks currently warn by default and can be escalated via `--strict-saturation`.

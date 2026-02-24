@@ -1,123 +1,679 @@
 {
-  "version": 1,
+  "version": 2,
   "name": "LexiShift Rulegen Benchmark Cases",
-  "description": "Starter labeled cases for iterative rulegen parameter tuning. Expand over time per language pair.",
+  "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
+  "breadth": "v2-expanded",
   "cases": [
     {
       "case_id": "en-es:hora",
       "pair": "en-es",
       "target": "hora",
-      "expected_any": [
-        "hour",
-        "time"
-      ],
-      "expected_top1_any": [
-        "hour"
-      ],
-      "forbidden_top1": [
-        "times"
-      ],
-      "forbidden_any": [
-        "times"
-      ],
-      "notes": "Plural morphology may emit hours/horas, but top-1 should stay semantically stable."
+      "tier": "hard",
+      "expected_any": ["hour", "time"],
+      "expected_top1_any": ["hour"],
+      "forbidden_top1": ["times"],
+      "forbidden_any": ["times"],
+      "notes": "Avoid unstable plural/context mapping as top-1."
     },
     {
       "case_id": "en-es:trabajo",
       "pair": "en-es",
       "target": "trabajo",
-      "expected_any": [
-        "work",
-        "job",
-        "labor"
-      ],
-      "expected_top1_any": [
-        "work",
-        "job"
-      ],
-      "forbidden_top1": [
-        "toil"
-      ],
-      "forbidden_any": [],
-      "notes": "Keep common senses prominent for SRS practice."
+      "tier": "smoke",
+      "expected_any": ["work", "job", "labor"],
+      "expected_top1_any": ["work", "job"],
+      "forbidden_top1": ["toil"],
+      "forbidden_any": []
     },
+    {
+      "case_id": "en-es:casa",
+      "pair": "en-es",
+      "target": "casa",
+      "tier": "smoke",
+      "expected_any": ["house", "home"],
+      "expected_top1_any": ["house", "home"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:agua",
+      "pair": "en-es",
+      "target": "agua",
+      "tier": "smoke",
+      "expected_any": ["water"],
+      "expected_top1_any": ["water"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:libro",
+      "pair": "en-es",
+      "target": "libro",
+      "tier": "smoke",
+      "expected_any": ["book"],
+      "expected_top1_any": ["book"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:mundo",
+      "pair": "en-es",
+      "target": "mundo",
+      "tier": "smoke",
+      "expected_any": ["world"],
+      "expected_top1_any": ["world"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:vida",
+      "pair": "en-es",
+      "target": "vida",
+      "tier": "smoke",
+      "expected_any": ["life"],
+      "expected_top1_any": ["life"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:ciudad",
+      "pair": "en-es",
+      "target": "ciudad",
+      "tier": "smoke",
+      "expected_any": ["city", "town"],
+      "expected_top1_any": ["city", "town"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:familia",
+      "pair": "en-es",
+      "target": "familia",
+      "tier": "smoke",
+      "expected_any": ["family"],
+      "expected_top1_any": ["family"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amigo",
+      "pair": "en-es",
+      "target": "amigo",
+      "tier": "smoke",
+      "expected_any": ["friend"],
+      "expected_top1_any": ["friend"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:madre",
+      "pair": "en-es",
+      "target": "madre",
+      "tier": "smoke",
+      "expected_any": ["mother", "mom"],
+      "expected_top1_any": ["mother", "mom"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:padre",
+      "pair": "en-es",
+      "target": "padre",
+      "tier": "smoke",
+      "expected_any": ["father", "dad"],
+      "expected_top1_any": ["father", "dad"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amor",
+      "pair": "en-es",
+      "target": "amor",
+      "tier": "smoke",
+      "expected_any": ["love"],
+      "expected_top1_any": ["love"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:dinero",
+      "pair": "en-es",
+      "target": "dinero",
+      "tier": "smoke",
+      "expected_any": ["money"],
+      "expected_top1_any": ["money"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:escuela",
+      "pair": "en-es",
+      "target": "escuela",
+      "tier": "smoke",
+      "expected_any": ["school"],
+      "expected_top1_any": ["school"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:camino",
+      "pair": "en-es",
+      "target": "camino",
+      "tier": "smoke",
+      "expected_any": ["road", "way", "path"],
+      "expected_top1_any": ["road", "way", "path"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+
+    {
+      "case_id": "es-en:house",
+      "pair": "es-en",
+      "target": "house",
+      "tier": "smoke",
+      "expected_any": ["casa", "hogar"],
+      "expected_top1_any": ["casa", "hogar"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:water",
+      "pair": "es-en",
+      "target": "water",
+      "tier": "smoke",
+      "expected_any": ["agua"],
+      "expected_top1_any": ["agua"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:book",
+      "pair": "es-en",
+      "target": "book",
+      "tier": "smoke",
+      "expected_any": ["libro"],
+      "expected_top1_any": ["libro"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:world",
+      "pair": "es-en",
+      "target": "world",
+      "tier": "smoke",
+      "expected_any": ["mundo"],
+      "expected_top1_any": ["mundo"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:life",
+      "pair": "es-en",
+      "target": "life",
+      "tier": "smoke",
+      "expected_any": ["vida"],
+      "expected_top1_any": ["vida"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:city",
+      "pair": "es-en",
+      "target": "city",
+      "tier": "smoke",
+      "expected_any": ["ciudad"],
+      "expected_top1_any": ["ciudad"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:family",
+      "pair": "es-en",
+      "target": "family",
+      "tier": "smoke",
+      "expected_any": ["familia"],
+      "expected_top1_any": ["familia"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:friend",
+      "pair": "es-en",
+      "target": "friend",
+      "tier": "smoke",
+      "expected_any": ["amigo", "amiga"],
+      "expected_top1_any": ["amigo", "amiga"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:mother",
+      "pair": "es-en",
+      "target": "mother",
+      "tier": "smoke",
+      "expected_any": ["madre"],
+      "expected_top1_any": ["madre"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:father",
+      "pair": "es-en",
+      "target": "father",
+      "tier": "smoke",
+      "expected_any": ["padre"],
+      "expected_top1_any": ["padre"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:love",
+      "pair": "es-en",
+      "target": "love",
+      "tier": "smoke",
+      "expected_any": ["amor"],
+      "expected_top1_any": ["amor"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:money",
+      "pair": "es-en",
+      "target": "money",
+      "tier": "smoke",
+      "expected_any": ["dinero"],
+      "expected_top1_any": ["dinero"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:school",
+      "pair": "es-en",
+      "target": "school",
+      "tier": "smoke",
+      "expected_any": ["escuela"],
+      "expected_top1_any": ["escuela"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:road",
+      "pair": "es-en",
+      "target": "road",
+      "tier": "smoke",
+      "expected_any": ["camino", "ruta", "carretera"],
+      "expected_top1_any": ["camino", "ruta", "carretera"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:work",
+      "pair": "es-en",
+      "target": "work",
+      "tier": "smoke",
+      "expected_any": ["trabajo"],
+      "expected_top1_any": ["trabajo"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:time",
+      "pair": "es-en",
+      "target": "time",
+      "tier": "hard",
+      "expected_any": ["tiempo", "hora"],
+      "expected_top1_any": ["tiempo", "hora"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+
+    {
+      "case_id": "en-de:Haus",
+      "pair": "en-de",
+      "target": "Haus",
+      "tier": "smoke",
+      "expected_any": ["house", "home"],
+      "expected_top1_any": ["house", "home"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Wasser",
+      "pair": "en-de",
+      "target": "Wasser",
+      "tier": "smoke",
+      "expected_any": ["water"],
+      "expected_top1_any": ["water"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Buch",
+      "pair": "en-de",
+      "target": "Buch",
+      "tier": "smoke",
+      "expected_any": ["book"],
+      "expected_top1_any": ["book"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Welt",
+      "pair": "en-de",
+      "target": "Welt",
+      "tier": "smoke",
+      "expected_any": ["world"],
+      "expected_top1_any": ["world"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Leben",
+      "pair": "en-de",
+      "target": "Leben",
+      "tier": "smoke",
+      "expected_any": ["life"],
+      "expected_top1_any": ["life"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Stadt",
+      "pair": "en-de",
+      "target": "Stadt",
+      "tier": "smoke",
+      "expected_any": ["city", "town"],
+      "expected_top1_any": ["city", "town"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Familie",
+      "pair": "en-de",
+      "target": "Familie",
+      "tier": "smoke",
+      "expected_any": ["family"],
+      "expected_top1_any": ["family"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Freund",
+      "pair": "en-de",
+      "target": "Freund",
+      "tier": "smoke",
+      "expected_any": ["friend"],
+      "expected_top1_any": ["friend"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Mutter",
+      "pair": "en-de",
+      "target": "Mutter",
+      "tier": "smoke",
+      "expected_any": ["mother", "mom"],
+      "expected_top1_any": ["mother", "mom"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Vater",
+      "pair": "en-de",
+      "target": "Vater",
+      "tier": "smoke",
+      "expected_any": ["father", "dad"],
+      "expected_top1_any": ["father", "dad"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Liebe",
+      "pair": "en-de",
+      "target": "Liebe",
+      "tier": "smoke",
+      "expected_any": ["love"],
+      "expected_top1_any": ["love"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Geld",
+      "pair": "en-de",
+      "target": "Geld",
+      "tier": "smoke",
+      "expected_any": ["money"],
+      "expected_top1_any": ["money"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Schule",
+      "pair": "en-de",
+      "target": "Schule",
+      "tier": "smoke",
+      "expected_any": ["school"],
+      "expected_top1_any": ["school"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Weg",
+      "pair": "en-de",
+      "target": "Weg",
+      "tier": "smoke",
+      "expected_any": ["way", "path", "road"],
+      "expected_top1_any": ["way", "path", "road"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Arbeit",
+      "pair": "en-de",
+      "target": "Arbeit",
+      "tier": "smoke",
+      "expected_any": ["work", "job", "labor"],
+      "expected_top1_any": ["work", "job"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Zeit",
+      "pair": "en-de",
+      "target": "Zeit",
+      "tier": "hard",
+      "expected_any": ["time"],
+      "expected_top1_any": ["time"],
+      "forbidden_top1": ["times"],
+      "forbidden_any": ["times"]
+    },
+
     {
       "case_id": "en-ja:様",
       "pair": "en-ja",
       "target": "様",
+      "tier": "hard",
       "target_reading": "よう",
-      "expected_any": [
-        "form",
-        "style",
-        "design",
-        "way",
-        "kind"
-      ],
-      "expected_top1_any": [
-        "form",
-        "style",
-        "design"
-      ],
-      "forbidden_top1": [
-        "appearing",
-        "looking",
-        "like"
-      ],
-      "forbidden_any": [],
-      "notes": "Generic glosses should be demoted for top-K selection."
+      "expected_any": ["form", "style", "design", "way", "kind"],
+      "expected_top1_any": ["form", "style", "design"],
+      "forbidden_top1": ["appearing", "looking", "like"],
+      "forbidden_any": []
     },
     {
       "case_id": "en-ja:時",
       "pair": "en-ja",
       "target": "時",
+      "tier": "hard",
       "target_reading": "とき",
-      "expected_any": [
-        "time",
-        "occasion",
-        "moment",
-        "period",
-        "hour"
-      ],
-      "expected_top1_any": [
-        "time",
-        "occasion",
-        "moment"
-      ],
-      "forbidden_top1": [
-        "times"
-      ],
-      "forbidden_any": [],
-      "notes": "Avoid unstable plural/context-dependent top substitutions."
+      "expected_any": ["time", "occasion", "moment", "hour", "period"],
+      "expected_top1_any": ["time", "occasion", "moment", "hour"],
+      "forbidden_top1": ["times"],
+      "forbidden_any": ["times"]
     },
     {
-      "case_id": "en-de:Haus",
-      "pair": "en-de",
-      "target": "Haus",
-      "expected_any": [
-        "house",
-        "home"
-      ],
-      "expected_top1_any": [
-        "house"
-      ],
+      "case_id": "en-ja:仕事",
+      "pair": "en-ja",
+      "target": "仕事",
+      "tier": "smoke",
+      "target_reading": "しごと",
+      "expected_any": ["work", "job", "occupation", "business"],
+      "expected_top1_any": ["work", "job", "occupation"],
       "forbidden_top1": [],
-      "forbidden_any": [],
-      "notes": "Baseline DE dictionary sanity case."
+      "forbidden_any": []
     },
     {
-      "case_id": "es-en:house",
-      "pair": "es-en",
-      "target": "house",
-      "expected_any": [
-        "casa",
-        "hogar"
-      ],
-      "expected_top1_any": [
-        "casa"
-      ],
+      "case_id": "en-ja:家",
+      "pair": "en-ja",
+      "target": "家",
+      "tier": "smoke",
+      "target_reading": "いえ",
+      "expected_any": ["house", "home"],
+      "expected_top1_any": ["house", "home"],
       "forbidden_top1": [],
-      "forbidden_any": [],
-      "notes": "Reverse direction sanity case."
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:友達",
+      "pair": "en-ja",
+      "target": "友達",
+      "tier": "smoke",
+      "target_reading": "ともだち",
+      "expected_any": ["friend"],
+      "expected_top1_any": ["friend"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:学校",
+      "pair": "en-ja",
+      "target": "学校",
+      "tier": "smoke",
+      "target_reading": "がっこう",
+      "expected_any": ["school"],
+      "expected_top1_any": ["school"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:先生",
+      "pair": "en-ja",
+      "target": "先生",
+      "tier": "smoke",
+      "target_reading": "せんせい",
+      "expected_any": ["teacher", "instructor", "master"],
+      "expected_top1_any": ["teacher", "instructor"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:学生",
+      "pair": "en-ja",
+      "target": "学生",
+      "tier": "smoke",
+      "target_reading": "がくせい",
+      "expected_any": ["student", "pupil"],
+      "expected_top1_any": ["student", "pupil"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:水",
+      "pair": "en-ja",
+      "target": "水",
+      "tier": "smoke",
+      "target_reading": "みず",
+      "expected_any": ["water"],
+      "expected_top1_any": ["water"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:山",
+      "pair": "en-ja",
+      "target": "山",
+      "tier": "smoke",
+      "target_reading": "やま",
+      "expected_any": ["mountain"],
+      "expected_top1_any": ["mountain"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:川",
+      "pair": "en-ja",
+      "target": "川",
+      "tier": "smoke",
+      "target_reading": "かわ",
+      "expected_any": ["river", "stream"],
+      "expected_top1_any": ["river", "stream"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:道",
+      "pair": "en-ja",
+      "target": "道",
+      "tier": "smoke",
+      "target_reading": "みち",
+      "expected_any": ["road", "way", "path"],
+      "expected_top1_any": ["road", "way", "path"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:世界",
+      "pair": "en-ja",
+      "target": "世界",
+      "tier": "smoke",
+      "target_reading": "せかい",
+      "expected_any": ["world"],
+      "expected_top1_any": ["world"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:言葉",
+      "pair": "en-ja",
+      "target": "言葉",
+      "tier": "smoke",
+      "target_reading": "ことば",
+      "expected_any": ["word", "language", "expression"],
+      "expected_top1_any": ["word", "language"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:愛",
+      "pair": "en-ja",
+      "target": "愛",
+      "tier": "smoke",
+      "target_reading": "あい",
+      "expected_any": ["love"],
+      "expected_top1_any": ["love"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:父",
+      "pair": "en-ja",
+      "target": "父",
+      "tier": "smoke",
+      "target_reading": "ちち",
+      "expected_any": ["father", "dad"],
+      "expected_top1_any": ["father", "dad"],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:母",
+      "pair": "en-ja",
+      "target": "母",
+      "tier": "smoke",
+      "target_reading": "はは",
+      "expected_any": ["mother", "mom"],
+      "expected_top1_any": ["mother", "mom"],
+      "forbidden_top1": [],
+      "forbidden_any": []
     }
   ]
 }
