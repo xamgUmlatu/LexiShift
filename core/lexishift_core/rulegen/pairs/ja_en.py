@@ -38,6 +38,10 @@ from lexishift_core.rulegen.pairs.pos_utils import (
     extract_target_pos_component,
     normalize_pos_component,
 )
+from lexishift_core.rulegen.semantic_demotion import (
+    resolve_generic_gloss_demotion,
+    resolve_pair_generic_gloss_demotions,
+)
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionVariantExpander,
@@ -57,16 +61,6 @@ def _should_expand_english(candidate: RuleCandidate) -> bool:
     return all(ord(ch) < 128 for ch in candidate.source_phrase)
 
 
-DEFAULT_GENERIC_GLOSS_DEMOTIONS: Mapping[str, float] = {
-    "appearing": 0.9,
-    "looking": 0.9,
-    "like": 0.9,
-    "kind": 0.85,
-    "sort": 0.85,
-    "type": 0.85,
-}
-
-
 @dataclass(frozen=True)
 class JaEnRulegenConfig:
     jmdict_path: Path
@@ -79,6 +73,7 @@ class JaEnRulegenConfig:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     include_variants: bool = True
     variant_penalty: float = 0.2
@@ -96,7 +91,7 @@ class JaEnRulegenConfig:
     inflection_forms: Sequence[str] = (FORM_PLURAL,)
     allow_hyphen: bool = True
     generic_gloss_demotions: Mapping[str, float] = field(
-        default_factory=lambda: dict(DEFAULT_GENERIC_GLOSS_DEMOTIONS)
+        default_factory=lambda: resolve_pair_generic_gloss_demotions("en-ja")
     )
     frequency_config: Optional[FrequencySourceConfig] = None
     frequency_lexicon: Optional[FrequencyLexicon] = None
@@ -192,6 +187,7 @@ def generate_ja_en_results(
         confidence_threshold=config.confidence_threshold,
         max_definitions_per_target=config.max_definitions_per_target,
         max_rules_per_target=config.max_rules_per_target,
+        semantic_demotion_scale=config.semantic_demotion_scale,
         tags=("translation", "jmdict"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -310,17 +306,10 @@ class JmdictCandidateSource:
                 )
 
     def _resolve_generic_gloss_demotion(self, source: object) -> float:
-        normalized = _normalize_gloss_key(source)
-        if not normalized:
-            return 0.0
-        raw = self._generic_gloss_demotions.get(normalized)
-        if raw is None:
-            return 0.0
-        try:
-            value = float(raw)
-        except (TypeError, ValueError):
-            return 0.0
-        return max(0.0, min(1.0, value))
+        return resolve_generic_gloss_demotion(
+            source,
+            demotions=self._generic_gloss_demotions,
+        )
 
 
 def _collect_entry_glosses(entries: Sequence[JmdictEntryRecord]) -> list[str]:
@@ -344,10 +333,6 @@ def _resolve_entry_pos_raw(entries: Sequence[JmdictEntryRecord]) -> str:
             if text and text not in values:
                 values.append(text)
     return "|".join(values)
-
-
-def _normalize_gloss_key(value: object) -> str:
-    return sanitize_dictionary_gloss(value).lower()
 
 
 def _select_entries_for_reading(

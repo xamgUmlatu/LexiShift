@@ -43,6 +43,7 @@ class SweepConfig:
     max_definitions_per_target: Optional[int]
     max_rules_per_target: Optional[int]
     confidence_threshold: float
+    semantic_demotion_scale: float
     include_variants: bool
     pos_scoring_enabled: bool
     pos_exact_match_bonus: float
@@ -59,6 +60,7 @@ class SweepConfig:
             "max_definitions_per_target": self.max_definitions_per_target,
             "max_rules_per_target": self.max_rules_per_target,
             "confidence_threshold": self.confidence_threshold,
+            "semantic_demotion_scale": self.semantic_demotion_scale,
             "include_variants": self.include_variants,
             "pos_scoring_enabled": self.pos_scoring_enabled,
             "pos_exact_match_bonus": self.pos_exact_match_bonus,
@@ -79,6 +81,7 @@ class SweepConfig:
             f"md={_cap_text(self.max_definitions_per_target)} "
             f"mr={_cap_text(self.max_rules_per_target)} "
             f"thr={self.confidence_threshold:.3f} "
+            f"sd={self.semantic_demotion_scale:.2f} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"w_pos={self.score_weight_pos_match:.3f}"
@@ -299,6 +302,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.confidence_threshold_values,
         name="confidence-threshold-values",
     )
+    semantic_demotion_scale_values = _parse_csv_floats(
+        args.semantic_demotion_scale_values,
+        name="semantic-demotion-scale-values",
+    )
     include_variants_values = _parse_csv_bools(
         args.include_variants_values,
         name="include-variants-values",
@@ -342,6 +349,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         max_definitions_values,
         max_rules_values,
         confidence_values,
+        semantic_demotion_scale_values,
         include_variants_values,
         pos_scoring_values,
         pos_exact_values,
@@ -358,16 +366,17 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 max_definitions_per_target=combo[0],
                 max_rules_per_target=combo[1],
                 confidence_threshold=float(combo[2]),
-                include_variants=bool(combo[3]),
-                pos_scoring_enabled=bool(combo[4]),
-                pos_exact_match_bonus=float(combo[5]),
-                pos_compatible_match_bonus=float(combo[6]),
-                score_weight_dict_priority=float(combo[7]),
-                score_weight_frequency_weight=float(combo[8]),
-                score_weight_pos_match=float(combo[9]),
-                score_weight_variant_penalty=float(combo[10]),
-                score_weight_phrase_penalty=float(combo[11]),
-                score_weight_embedding=float(combo[12]),
+                semantic_demotion_scale=float(combo[3]),
+                include_variants=bool(combo[4]),
+                pos_scoring_enabled=bool(combo[5]),
+                pos_exact_match_bonus=float(combo[6]),
+                pos_compatible_match_bonus=float(combo[7]),
+                score_weight_dict_priority=float(combo[8]),
+                score_weight_frequency_weight=float(combo[9]),
+                score_weight_pos_match=float(combo[10]),
+                score_weight_variant_penalty=float(combo[11]),
+                score_weight_phrase_penalty=float(combo[12]),
+                score_weight_embedding=float(combo[13]),
             )
         )
     return configs
@@ -1250,6 +1259,7 @@ def main() -> None:
     parser.add_argument("--max-definitions-values", default="3")
     parser.add_argument("--max-rules-values", default="none")
     parser.add_argument("--confidence-threshold-values", default="0.0")
+    parser.add_argument("--semantic-demotion-scale-values", default="1.0")
     parser.add_argument("--include-variants-values", default="true,false")
     parser.add_argument("--pos-scoring-values", default="true,false")
     parser.add_argument("--pos-exact-values", default="1.0")
@@ -1363,6 +1373,7 @@ def main() -> None:
                     confidence_threshold=config.confidence_threshold,
                     max_definitions_per_target=config.max_definitions_per_target,
                     max_rules_per_target=config.max_rules_per_target,
+                    semantic_demotion_scale=config.semantic_demotion_scale,
                     include_variants=config.include_variants,
                     scoring=config.scoring(),
                     jmdict_path=jmdict_path,

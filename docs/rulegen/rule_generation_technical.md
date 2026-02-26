@@ -154,7 +154,9 @@ Reference plan:
 - `docs/rulegen/rulegen_congruity_implementation_plan.md` documents the temporary top-3 source limitation decision and the scoring-framework direction, plus the architecture-investigation checklist used before implementation changes.
 
 Current operational policy update:
-- JA-target rulegen now applies a small generic-gloss demotion list (for terms such as `appearing`, `looking`, `like`) via metadata-driven ranking penalties.
+- Rulegen now applies pair-specific generic-gloss demotion lists (for example `appearing`, `looking`, `like` for English-source LPs) via metadata-driven ranking penalties.
+- The defaults are centralized in `core/lexishift_core/rulegen/semantic_demotion.py` and consumed by pair adapters.
+- Penalty sensitivity is controlled by `semantic_demotion_scale` (threaded through pair tuning / benchmarks; `0` disables, `1` uses base priors).
 - This is a conservative heuristic layer and remains tunable; it does not replace future context-dependent disambiguation work.
 
 1) Generic gloss suppression

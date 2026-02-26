@@ -238,6 +238,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             confidence_threshold=_optional_float(payload, "confidence_threshold"),
             max_definitions_per_target=_optional_int(payload, "max_definitions_per_target"),
             max_rules_per_target=_optional_int(payload, "max_rules_per_target"),
+            semantic_demotion_scale=_optional_float(payload, "semantic_demotion_scale"),
             include_variants=_optional_bool(payload, "include_variants"),
             allow_multiword_glosses=_optional_bool(payload, "allow_multiword_glosses"),
             pos_scoring_enabled=_optional_bool(payload, "pos_scoring_enabled"),

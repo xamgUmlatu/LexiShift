@@ -53,6 +53,7 @@ class RulegenConfig:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     max_snapshot_targets: int = 50
     max_snapshot_sources: int = 6
@@ -239,6 +240,7 @@ def run_ja_en_rulegen(
             confidence_threshold=config.confidence_threshold,
             max_definitions_per_target=config.max_definitions_per_target,
             max_rules_per_target=config.max_rules_per_target,
+            semantic_demotion_scale=config.semantic_demotion_scale,
             include_variants=config.include_variants,
             allow_multiword_glosses=config.allow_multiword_glosses,
             scoring=config.scoring,
@@ -344,6 +346,7 @@ def run_rulegen_for_pair(
             confidence_threshold=rulegen_config.confidence_threshold,
             max_definitions_per_target=rulegen_config.max_definitions_per_target,
             max_rules_per_target=rulegen_config.max_rules_per_target,
+            semantic_demotion_scale=rulegen_config.semantic_demotion_scale,
             include_variants=rulegen_config.include_variants,
             allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
             scoring=rulegen_config.scoring,

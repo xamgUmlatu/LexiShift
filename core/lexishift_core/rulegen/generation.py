@@ -114,6 +114,7 @@ class RuleGenerationConfig:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     base_priority: int = 0
     case_policy: str = "match"
     tags: Sequence[str] = field(default_factory=tuple)
@@ -171,6 +172,9 @@ class RuleGenerationPipeline:
         *,
         config: RuleGenerationConfig,
     ) -> list[RuleGenerationResult]:
+        semantic_demotion_scale = _normalize_semantic_demotion_scale(
+            config.semantic_demotion_scale
+        )
         seen: set[tuple[str, str, str]] = set()
         results: list[RuleGenerationResult] = []
         for candidate in self._iter_candidates(targets, config.language_pair):
@@ -199,6 +203,7 @@ class RuleGenerationPipeline:
                 limited_results = self._limit_results_per_target(
                     limited_results,
                     max_definitions_per_target=max_definitions,
+                    semantic_demotion_scale=semantic_demotion_scale,
                 )
         max_rules = config.max_rules_per_target
         if max_rules is not None:
@@ -207,6 +212,7 @@ class RuleGenerationPipeline:
                 limited_results = self._limit_rule_count_per_target(
                     limited_results,
                     max_rules_per_target=max_rules,
+                    semantic_demotion_scale=semantic_demotion_scale,
                 )
         return limited_results
 
@@ -285,11 +291,15 @@ class RuleGenerationPipeline:
         results: Sequence[RuleGenerationResult],
         *,
         max_definitions_per_target: int,
+        semantic_demotion_scale: float,
     ) -> list[RuleGenerationResult]:
         grouped: OrderedDict[str, OrderedDict[str, list[RuleGenerationResult]]] = OrderedDict()
         for result in results:
             target_key = str(result.candidate.replacement or "").strip().lower()
-            context = self._to_ranking_context(result)
+            context = self._to_ranking_context(
+                result,
+                semantic_demotion_scale=semantic_demotion_scale,
+            )
             definition_key = self._ranking_mechanism.bucket_key(context)
             target_groups = grouped.setdefault(target_key, OrderedDict())
             target_groups.setdefault(definition_key, []).append(result)
@@ -298,30 +308,66 @@ class RuleGenerationPipeline:
         for definition_groups in grouped.values():
             ranked_definitions = sorted(
                 definition_groups.values(),
-                key=self._definition_group_sort_key,
+                key=lambda group: self._definition_group_sort_key(
+                    group,
+                    semantic_demotion_scale=semantic_demotion_scale,
+                ),
             )
             for definition_group in ranked_definitions[:max_definitions_per_target]:
-                limited.extend(sorted(definition_group, key=self._ranking_sort_key))
+                limited.extend(
+                    sorted(
+                        definition_group,
+                        key=lambda result: self._ranking_sort_key(
+                            result,
+                            semantic_demotion_scale=semantic_demotion_scale,
+                        ),
+                    )
+                )
         return limited
 
     def _definition_group_sort_key(
         self,
         results: Sequence[RuleGenerationResult],
+        *,
+        semantic_demotion_scale: float,
     ) -> tuple[float, float, str]:
-        best = min(results, key=self._ranking_sort_key)
-        return self._ranking_sort_key(best)
+        best = min(
+            results,
+            key=lambda result: self._ranking_sort_key(
+                result,
+                semantic_demotion_scale=semantic_demotion_scale,
+            ),
+        )
+        return self._ranking_sort_key(
+            best,
+            semantic_demotion_scale=semantic_demotion_scale,
+        )
 
-    def _ranking_sort_key(self, result: RuleGenerationResult) -> tuple[float, float, str]:
-        context = self._to_ranking_context(result)
+    def _ranking_sort_key(
+        self,
+        result: RuleGenerationResult,
+        *,
+        semantic_demotion_scale: float,
+    ) -> tuple[float, float, str]:
+        context = self._to_ranking_context(
+            result,
+            semantic_demotion_scale=semantic_demotion_scale,
+        )
         score = self._ranking_mechanism.score(context)
         return build_ranking_sort_key(context, score=score)
 
-    def _to_ranking_context(self, result: RuleGenerationResult) -> CandidateRankingContext:
+    def _to_ranking_context(
+        self,
+        result: RuleGenerationResult,
+        *,
+        semantic_demotion_scale: float,
+    ) -> CandidateRankingContext:
         return CandidateRankingContext(
             source_phrase=result.candidate.source_phrase,
             replacement=result.candidate.replacement,
             metadata=result.candidate.metadata,
             confidence=result.confidence,
+            semantic_demotion_scale=semantic_demotion_scale,
         )
 
     def _limit_rule_count_per_target(
@@ -329,6 +375,7 @@ class RuleGenerationPipeline:
         results: Sequence[RuleGenerationResult],
         *,
         max_rules_per_target: int,
+        semantic_demotion_scale: float,
     ) -> list[RuleGenerationResult]:
         grouped: OrderedDict[str, list[RuleGenerationResult]] = OrderedDict()
         for result in results:
@@ -337,7 +384,13 @@ class RuleGenerationPipeline:
 
         limited: list[RuleGenerationResult] = []
         for group in grouped.values():
-            ranked = sorted(group, key=self._ranking_sort_key)
+            ranked = sorted(
+                group,
+                key=lambda result: self._ranking_sort_key(
+                    result,
+                    semantic_demotion_scale=semantic_demotion_scale,
+                ),
+            )
             limited.extend(ranked[:max_rules_per_target])
         return limited
 
@@ -601,6 +654,20 @@ def _normalize_canonical_pos(value: object) -> str:
     if canonical == CANONICAL_POS_OTHER:
         return ""
     return canonical
+
+
+def _normalize_semantic_demotion_scale(value: object) -> float:
+    if isinstance(value, (int, float)):
+        return max(0.0, float(value))
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return 1.0
+        try:
+            return max(0.0, float(text))
+        except ValueError:
+            return 1.0
+    return 1.0
 
 
 def _clamp(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

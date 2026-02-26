@@ -148,6 +148,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=args.max_definitions_per_target,
                 max_rules_per_target=args.max_rules_per_target,
+                semantic_demotion_scale=args.semantic_demotion_scale,
                 include_variants=include_variants,
                 allow_multiword_glosses=allow_multiword_glosses,
                 pos_scoring_enabled=pos_scoring_enabled,
@@ -372,6 +373,14 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Optional final cap on emitted rules per target (includes variants). "
             "Defaults from pair tuning; pass 0 to disable."
+        ),
+    )
+    run.add_argument(
+        "--semantic-demotion-scale",
+        type=float,
+        help=(
+            "Scale for metadata-driven semantic/polysemy demotion during definition ranking "
+            "(defaults from pair tuning; 0 disables, 1 uses base penalties)."
         ),
     )
     variants_group = run.add_mutually_exclusive_group()

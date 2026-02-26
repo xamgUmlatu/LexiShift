@@ -27,6 +27,10 @@ from lexishift_core.rulegen.pairs.pos_utils import (
     normalize_pos_component,
     resolve_target_word_package,
 )
+from lexishift_core.rulegen.semantic_demotion import (
+    resolve_generic_gloss_demotion,
+    resolve_pair_generic_gloss_demotions,
+)
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionArtifactFilter,
@@ -82,6 +86,7 @@ class EnEsRulegenConfig:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     include_variants: bool = True
     variant_penalty: float = 0.2
@@ -97,6 +102,9 @@ class EnEsRulegenConfig:
     stopwords: Optional[set[str]] = None
     inflection_suffixes: Sequence[str] = ("s", "es", "ed", "ing")
     allow_hyphen: bool = True
+    generic_gloss_demotions: Mapping[str, float] = field(
+        default_factory=lambda: resolve_pair_generic_gloss_demotions("en-es")
+    )
 
 
 def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
@@ -107,6 +115,7 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         source_dict="freedict_es_en",
         source_type="translation",
         word_packages_by_target=config.word_packages_by_target,
+        generic_gloss_demotions=config.generic_gloss_demotions,
     )
     normalizers = [BasicStringNormalizer()]
     expanders = []
@@ -152,6 +161,7 @@ def generate_en_es_results(
         confidence_threshold=config.confidence_threshold,
         max_definitions_per_target=config.max_definitions_per_target,
         max_rules_per_target=config.max_rules_per_target,
+        semantic_demotion_scale=config.semantic_demotion_scale,
         tags=("translation", "freedict_es_en"),
     )
     return pipeline.generate_results(targets, config=rule_config)
@@ -173,11 +183,13 @@ class FreedictCandidateSource:
         source_dict: str,
         source_type: str,
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
+        generic_gloss_demotions: Optional[Mapping[str, float]] = None,
     ) -> None:
         self._records_by_target = records_by_target
         self._source_dict = source_dict
         self._source_type = source_type
         self._word_packages_by_target = word_packages_by_target or {}
+        self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
@@ -205,6 +217,13 @@ class FreedictCandidateSource:
                     "gloss_index": index,
                     "gloss_total": total,
                 }
+                demotion = resolve_generic_gloss_demotion(
+                    entry.translation,
+                    demotions=self._generic_gloss_demotions,
+                )
+                if demotion > 0.0:
+                    metadata["semantic_demotion"] = demotion
+                    metadata["semantic_demotion_reason"] = "generic_gloss"
                 if target_word_package is not None:
                     metadata["word_package"] = target_word_package
                 metadata.update(

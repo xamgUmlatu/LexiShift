@@ -144,6 +144,10 @@ Acceptance criteria:
 - Improve SRS rulegen quality (helper-published rules) for better pedagogical precision and fewer broad/ambiguous outputs.
 - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
 - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
+- Add runtime apply-time polysemy safeguards (pair-aware):
+  - abstain from replacement for high-risk ambiguous matches when confidence/sense margin is weak,
+  - optional local-context heuristics around the matched source token,
+  - structured runtime diagnostics for skipped replacements and reason codes.
 
 ### Pair-specific morphology expansion
 - Current paired morphology expansion is intentionally narrow (`en-es` noun plural source -> target surface mapping).

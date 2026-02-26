@@ -16,6 +16,7 @@ class RulegenPairTuning:
     confidence_threshold: float = 0.0
     max_definitions_per_target: int = 3
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
@@ -27,6 +28,7 @@ class RulegenTuningOverrides:
     confidence_threshold: Optional[float] = None
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: Optional[float] = None
     include_variants: Optional[bool] = None
     allow_multiword_glosses: Optional[bool] = None
     pos_scoring_enabled: Optional[bool] = None
@@ -46,6 +48,7 @@ class ResolvedRulegenTuning:
     confidence_threshold: float
     max_definitions_per_target: Optional[int]
     max_rules_per_target: Optional[int]
+    semantic_demotion_scale: float
     include_variants: bool
     allow_multiword_glosses: bool
     scoring: RuleScoringConfig
@@ -108,6 +111,11 @@ def resolve_rulegen_tuning(
         if applied_overrides.max_rules_per_target is not None
         else _normalize_optional_cap(resolved_pair.max_rules_per_target)
     )
+    semantic_demotion_scale = (
+        _normalize_semantic_demotion_scale(applied_overrides.semantic_demotion_scale)
+        if applied_overrides.semantic_demotion_scale is not None
+        else _normalize_semantic_demotion_scale(resolved_pair.semantic_demotion_scale)
+    )
     include_variants = (
         bool(applied_overrides.include_variants)
         if applied_overrides.include_variants is not None
@@ -133,6 +141,7 @@ def resolve_rulegen_tuning(
         confidence_threshold=confidence_threshold,
         max_definitions_per_target=max_definitions_per_target,
         max_rules_per_target=max_rules_per_target,
+        semantic_demotion_scale=semantic_demotion_scale,
         include_variants=include_variants,
         allow_multiword_glosses=allow_multiword_glosses,
         scoring=RuleScoringConfig(weights=weights, pos_match=pos_match),
@@ -149,6 +158,7 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
             if policy.max_rules_per_target is not None
             else None
         ),
+        "semantic_demotion_scale": float(policy.semantic_demotion_scale),
         "include_variants": bool(policy.include_variants),
         "allow_multiword_glosses": bool(policy.allow_multiword_glosses),
         "scoring": _scoring_to_dict(policy.scoring),
@@ -170,6 +180,7 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
             if tuning.max_rules_per_target is not None
             else None
         ),
+        "semantic_demotion_scale": float(tuning.semantic_demotion_scale),
         "include_variants": bool(tuning.include_variants),
         "allow_multiword_glosses": bool(tuning.allow_multiword_glosses),
         "scoring": _scoring_to_dict(tuning.scoring),
@@ -185,6 +196,7 @@ def rulegen_tuning_overrides_to_dict(
         "confidence_threshold": overrides.confidence_threshold,
         "max_definitions_per_target": overrides.max_definitions_per_target,
         "max_rules_per_target": overrides.max_rules_per_target,
+        "semantic_demotion_scale": overrides.semantic_demotion_scale,
         "include_variants": overrides.include_variants,
         "allow_multiword_glosses": overrides.allow_multiword_glosses,
         "pos_scoring_enabled": overrides.pos_scoring_enabled,
@@ -209,6 +221,20 @@ def _normalize_optional_cap(value: Optional[int]) -> Optional[int]:
     if parsed <= 0:
         return None
     return parsed
+
+
+def _normalize_semantic_demotion_scale(value: object) -> float:
+    if isinstance(value, (int, float)):
+        return max(0.0, float(value))
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return 1.0
+        try:
+            return max(0.0, float(text))
+        except ValueError:
+            return 1.0
+    return 1.0
 
 
 def _resolve_rule_score_weights(

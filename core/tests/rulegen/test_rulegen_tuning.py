@@ -25,6 +25,11 @@ class TestRulegenTuning(unittest.TestCase):
         self.assertAlmostEqual(resolved.confidence_threshold, defaults.confidence_threshold, places=6)
         self.assertEqual(resolved.max_definitions_per_target, defaults.max_definitions_per_target)
         self.assertEqual(resolved.max_rules_per_target, defaults.max_rules_per_target)
+        self.assertAlmostEqual(
+            resolved.semantic_demotion_scale,
+            defaults.semantic_demotion_scale,
+            places=6,
+        )
         self.assertEqual(resolved.include_variants, defaults.include_variants)
         self.assertEqual(resolved.allow_multiword_glosses, defaults.allow_multiword_glosses)
         self.assertAlmostEqual(
@@ -41,6 +46,7 @@ class TestRulegenTuning(unittest.TestCase):
                 confidence_threshold=0.25,
                 max_definitions_per_target=2,
                 max_rules_per_target=5,
+                semantic_demotion_scale=0.6,
                 include_variants=False,
                 allow_multiword_glosses=True,
                 pos_scoring_enabled=False,
@@ -54,6 +60,7 @@ class TestRulegenTuning(unittest.TestCase):
         self.assertAlmostEqual(resolved.confidence_threshold, 0.25, places=6)
         self.assertEqual(resolved.max_definitions_per_target, 2)
         self.assertEqual(resolved.max_rules_per_target, 5)
+        self.assertAlmostEqual(resolved.semantic_demotion_scale, 0.6, places=6)
         self.assertFalse(resolved.include_variants)
         self.assertTrue(resolved.allow_multiword_glosses)
         self.assertFalse(resolved.scoring.pos_match.enabled)
@@ -75,9 +82,20 @@ class TestRulegenTuning(unittest.TestCase):
 
     def test_overrides_dict_omits_none(self) -> None:
         payload = rulegen_tuning_overrides_to_dict(
-            RulegenTuningOverrides(score_weight_pos_match=0.3, include_variants=False)
+            RulegenTuningOverrides(
+                score_weight_pos_match=0.3,
+                include_variants=False,
+                semantic_demotion_scale=0.5,
+            )
         )
-        self.assertEqual(payload, {"score_weight_pos_match": 0.3, "include_variants": False})
+        self.assertEqual(
+            payload,
+            {
+                "score_weight_pos_match": 0.3,
+                "include_variants": False,
+                "semantic_demotion_scale": 0.5,
+            },
+        )
 
 
 if __name__ == "__main__":

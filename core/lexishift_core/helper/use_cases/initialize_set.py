@@ -166,6 +166,7 @@ def initialize_srs_set(
             confidence_threshold=effective_rulegen_tuning.confidence_threshold,
             max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
             max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
+            semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
             include_variants=effective_rulegen_tuning.include_variants,
             allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
             scoring=effective_rulegen_tuning.scoring,

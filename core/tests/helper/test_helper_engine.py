@@ -396,6 +396,11 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                 rulegen_config.max_rules_per_target,
                 defaults.max_rules_per_target,
             )
+            self.assertAlmostEqual(
+                rulegen_config.semantic_demotion_scale,
+                defaults.semantic_demotion_scale,
+                places=6,
+            )
             self.assertEqual(
                 rulegen_config.include_variants,
                 defaults.include_variants,
@@ -441,6 +446,7 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                         confidence_threshold=0.25,
                         max_definitions_per_target=2,
                         max_rules_per_target=4,
+                        semantic_demotion_scale=0.65,
                         include_variants=True,
                         allow_multiword_glosses=True,
                         pos_scoring_enabled=False,
@@ -452,6 +458,7 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertAlmostEqual(rulegen_config.confidence_threshold, 0.25, places=6)
             self.assertEqual(rulegen_config.max_definitions_per_target, 2)
             self.assertEqual(rulegen_config.max_rules_per_target, 4)
+            self.assertAlmostEqual(rulegen_config.semantic_demotion_scale, 0.65, places=6)
             self.assertTrue(rulegen_config.include_variants)
             self.assertTrue(rulegen_config.allow_multiword_glosses)
             self.assertFalse(rulegen_config.scoring.pos_match.enabled)

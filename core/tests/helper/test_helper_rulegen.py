@@ -282,6 +282,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(request.word_packages_by_target["所"]["reading"], "ところ")
         self.assertEqual(request.max_definitions_per_target, 3)
         self.assertIsNone(request.max_rules_per_target)
+        self.assertAlmostEqual(request.semantic_demotion_scale, 1.0, places=6)
         self.assertTrue(request.scoring.pos_match.enabled)
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
 

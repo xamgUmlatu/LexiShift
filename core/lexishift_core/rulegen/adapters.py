@@ -22,6 +22,7 @@ class RulegenAdapterRequest:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
+    semantic_demotion_scale: float = 1.0
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
@@ -43,6 +44,7 @@ def _run_ja_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
+        semantic_demotion_scale=request.semantic_demotion_scale,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
@@ -62,6 +64,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
+        semantic_demotion_scale=request.semantic_demotion_scale,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
@@ -81,6 +84,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
+        semantic_demotion_scale=request.semantic_demotion_scale,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
@@ -100,6 +104,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
+        semantic_demotion_scale=request.semantic_demotion_scale,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
         gloss_decay=request.gloss_decay,

@@ -59,6 +59,32 @@ class TestRulegenRanking(unittest.TestCase):
         self.assertGreater(mechanism.score(base), mechanism.score(demoted))
         self.assertAlmostEqual(mechanism.score(demoted), 0.1, places=6)
 
+    def test_semantic_demotion_scale_modulates_penalty(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism()
+        demoted = CandidateRankingContext(
+            source_phrase="appearing",
+            replacement="様",
+            metadata={"gloss_index": 0, "semantic_demotion": 0.9},
+            confidence=0.5,
+        )
+        disabled = CandidateRankingContext(
+            source_phrase="appearing",
+            replacement="様",
+            metadata={"gloss_index": 0, "semantic_demotion": 0.9},
+            confidence=0.5,
+            semantic_demotion_scale=0.0,
+        )
+        softened = CandidateRankingContext(
+            source_phrase="appearing",
+            replacement="様",
+            metadata={"gloss_index": 0, "semantic_demotion": 0.9},
+            confidence=0.5,
+            semantic_demotion_scale=0.5,
+        )
+        self.assertAlmostEqual(mechanism.score(disabled), 1.0, places=6)
+        self.assertAlmostEqual(mechanism.score(softened), 0.55, places=6)
+        self.assertAlmostEqual(mechanism.score(demoted), 0.1, places=6)
+
     def test_sort_key_prefers_score_then_confidence_then_source(self) -> None:
         alpha = CandidateRankingContext(
             source_phrase="alpha",

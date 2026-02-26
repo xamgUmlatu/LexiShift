@@ -1,0 +1,448 @@
+{
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_polysemic_demotion_latest.json",
+  "pairs_processed": 4,
+  "failing_or_review_count": 12,
+  "items": [
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Haus",
+      "target": "Haus",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "establishment",
+      "top3_sources": [
+        "establishment",
+        "institution",
+        "house"
+      ],
+      "expected_matches": [
+        "house"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: establishment",
+          "Observed top3 sources: establishment, institution, house"
+        ],
+        "candidate_forbidden_top1": [
+          "establishment"
+        ],
+        "candidate_expected_any": [
+          "establishment",
+          "institution",
+          "house"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Schule",
+      "target": "Schule",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "pod",
+      "top3_sources": [
+        "pod",
+        "school",
+        "group"
+      ],
+      "expected_matches": [
+        "school"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: pod",
+          "Observed top3 sources: pod, school, group"
+        ],
+        "candidate_forbidden_top1": [
+          "pod"
+        ],
+        "candidate_expected_any": [
+          "pod",
+          "school",
+          "group"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Weg",
+      "target": "Weg",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "alley",
+      "top3_sources": [
+        "alley",
+        "way",
+        "walk"
+      ],
+      "expected_matches": [
+        "way"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: alley",
+          "Observed top3 sources: alley, way, walk"
+        ],
+        "candidate_forbidden_top1": [
+          "alley"
+        ],
+        "candidate_expected_any": [
+          "alley",
+          "way",
+          "walk"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Zeit",
+      "target": "Zeit",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "spell",
+      "top3_sources": [
+        "spell",
+        "time",
+        "faff"
+      ],
+      "expected_matches": [
+        "time"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: spell",
+          "Observed top3 sources: spell, time, faff"
+        ],
+        "candidate_forbidden_top1": [
+          "spell"
+        ],
+        "candidate_expected_any": [
+          "spell",
+          "time",
+          "faff"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:madre",
+      "target": "madre",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "bed",
+      "top3_sources": [
+        "bed",
+        "watercourse",
+        "mother"
+      ],
+      "expected_matches": [
+        "mother"
+      ],
+      "forbidden_matches": [
+        "bed",
+        "watercourse"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: bed",
+          "Observed top3 sources: bed, watercourse, mother"
+        ],
+        "candidate_forbidden_top1": [
+          "bed"
+        ],
+        "candidate_expected_any": [
+          "bed",
+          "watercourse",
+          "mother"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:山",
+      "target": "山",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "mountain",
+      "top3_sources": [
+        "mountain",
+        "hill",
+        "mine"
+      ],
+      "expected_matches": [
+        "mountain",
+        "hill"
+      ],
+      "forbidden_matches": [
+        "mine"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: mountain",
+          "Observed top3 sources: mountain, hill, mine"
+        ],
+        "candidate_forbidden_top1": [
+          "mountain"
+        ],
+        "candidate_expected_any": [
+          "mountain",
+          "hill",
+          "mine"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:世界",
+      "target": "世界",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "society",
+      "top3_sources": [
+        "society",
+        "sphere",
+        "circle"
+      ],
+      "expected_matches": [
+        "society"
+      ],
+      "forbidden_matches": [
+        "sphere",
+        "circle"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: society",
+          "Observed top3 sources: society, sphere, circle"
+        ],
+        "candidate_forbidden_top1": [
+          "society"
+        ],
+        "candidate_expected_any": [
+          "society",
+          "sphere",
+          "circle"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:愛",
+      "target": "愛",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "love",
+      "top3_sources": [
+        "love",
+        "affection",
+        "care"
+      ],
+      "expected_matches": [
+        "love",
+        "affection"
+      ],
+      "forbidden_matches": [
+        "care"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: love",
+          "Observed top3 sources: love, affection, care"
+        ],
+        "candidate_forbidden_top1": [
+          "love"
+        ],
+        "candidate_expected_any": [
+          "love",
+          "affection",
+          "care"
+        ]
+      }
+    },
+    {
+      "pair": "es-en",
+      "case_id": "es-en:house",
+      "target": "house",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "casalicio",
+      "top3_sources": [
+        "casalicio",
+        "casa",
+        "teatro"
+      ],
+      "expected_matches": [
+        "casa"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: casalicio",
+          "Observed top3 sources: casalicio, casa, teatro"
+        ],
+        "candidate_forbidden_top1": [
+          "casalicio"
+        ],
+        "candidate_expected_any": [
+          "casalicio",
+          "casa",
+          "teatro"
+        ]
+      }
+    },
+    {
+      "pair": "es-en",
+      "case_id": "es-en:love",
+      "target": "love",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "cero",
+      "top3_sources": [
+        "cero",
+        "nada",
+        "amor"
+      ],
+      "expected_matches": [
+        "amor"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: cero",
+          "Observed top3 sources: cero, nada, amor"
+        ],
+        "candidate_forbidden_top1": [
+          "cero"
+        ],
+        "candidate_expected_any": [
+          "cero",
+          "nada",
+          "amor"
+        ]
+      }
+    },
+    {
+      "pair": "es-en",
+      "case_id": "es-en:money",
+      "target": "money",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "pasta",
+      "top3_sources": [
+        "pasta",
+        "cobres",
+        "lana"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: pasta",
+          "Observed top3 sources: pasta, cobres, lana"
+        ],
+        "candidate_forbidden_top1": [
+          "pasta"
+        ],
+        "candidate_expected_any": [
+          "pasta",
+          "cobres",
+          "lana"
+        ]
+      }
+    },
+    {
+      "pair": "es-en",
+      "case_id": "es-en:time",
+      "target": "time",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "mes",
+      "top3_sources": [
+        "mes",
+        "semestre",
+        "temporada"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: mes",
+          "Observed top3 sources: mes, semestre, temporada"
+        ],
+        "candidate_forbidden_top1": [
+          "mes"
+        ],
+        "candidate_expected_any": [
+          "mes",
+          "semestre",
+          "temporada"
+        ]
+      }
+    }
+  ]
+}

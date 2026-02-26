@@ -10,6 +10,7 @@ class CandidateRankingContext:
     replacement: str
     metadata: Mapping[str, object]
     confidence: float
+    semantic_demotion_scale: float = 1.0
 
 
 class CandidateRankingMechanism(Protocol):
@@ -32,7 +33,10 @@ class DictionaryEntryOrderRankingMechanism:
         if gloss_index is not None:
             # 0 -> 1.0, 1 -> 0.5, 2 -> 0.333..., etc.
             base_score = 1.0 / (1.0 + float(gloss_index))
-        demotion = extract_semantic_demotion(candidate.metadata)
+        demotion = resolve_effective_semantic_demotion(
+            candidate.metadata,
+            scale=candidate.semantic_demotion_scale,
+        )
         if demotion <= 0.0:
             return base_score
         return max(0.0, base_score * (1.0 - demotion))
@@ -101,6 +105,23 @@ def extract_semantic_demotion(metadata: Mapping[str, object]) -> float:
         except ValueError:
             return 0.0
     return 0.0
+
+
+def resolve_effective_semantic_demotion(
+    metadata: Mapping[str, object],
+    *,
+    scale: float,
+) -> float:
+    base = extract_semantic_demotion(metadata)
+    if base <= 0.0:
+        return 0.0
+    try:
+        parsed_scale = float(scale)
+    except (TypeError, ValueError):
+        parsed_scale = 1.0
+    if parsed_scale <= 0.0:
+        return 0.0
+    return _clamp_float(base * parsed_scale)
 
 
 def _clamp_float(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

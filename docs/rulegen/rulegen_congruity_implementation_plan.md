@@ -26,7 +26,8 @@ Purpose:
 
 4) Generic gloss demotion decision (current)
 - Pair-specific generic/noisy glosses may be demoted via ranking metadata (for example `semantic_demotion`) before top-K definition selection.
-- Initial rollout is JA-target focused and intentionally small/tunable.
+- Current rollout covers `en-ja`, `en-es`, `en-de`, and `es-en`, with pair defaults in `core/lexishift_core/rulegen/semantic_demotion.py`.
+- Sensitivity is controlled by `semantic_demotion_scale` (pair tuning + benchmark sweep knob).
 
 ## First Implementation Step: Architecture Investigation (Phase 0)
 
@@ -221,7 +222,7 @@ Implemented:
 Current scoring strategy for definition selection:
 - Dictionary entry order only (earlier `gloss_index` => higher rank).
 - This is intentionally simple and designed to be replaced/extended in `rulegen/ranking.py`.
-- Current extension: metadata-driven semantic demotion for known generic glosses (JA-target initial list).
+- Current extension: metadata-driven semantic demotion for known generic glosses across active LP adapters (`en-ja`, `en-es`, `en-de`, `es-en`).
 
 Current morphology strategy:
 - Generic context-free inflection paths are limited to plural-focused expansion (`FORM_PLURAL`) in `ja_en` and `en_de`.
