@@ -22,7 +22,9 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`) with tunable scoring/caps:
   `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
-  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, also emits a styled HTML dashboard)
+  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
+- Apply exported HTML label overrides back into benchmark dataset cases:
+  `testing/apply_rulegen_label_overrides.py`
 - Gate benchmark/POS artifacts against quality floors, delta budgets, and POS drift guardrails:
   `testing/rulegen_quality_gate.py` (policy default: `docs/test_inputs/rulegen_quality_policy.json`)
 - Extract FAIL/REVIEW benchmark cases from best runs and write triage artifacts:

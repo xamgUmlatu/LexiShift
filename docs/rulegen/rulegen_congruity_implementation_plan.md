@@ -310,7 +310,11 @@ Delivered:
 - Sweep runner + leaderboard output:
   - `scripts/testing/rulegen_benchmark.py`
   - Executes parameter grids per pair and ranks runs by objective.
-  - Writes JSON and Markdown reports.
+  - Writes JSON, Markdown, and styled HTML reports.
+  - HTML dashboard now includes right-click per-source labeling (greenlist/blacklist), decisions export JSON, and LP-by-LP workflow controls (Done/Skip/Next/Prev) with resume state for faster multi-pair curation.
+- Label override merge utility:
+  - `scripts/testing/apply_rulegen_label_overrides.py`
+  - Applies exported labeling decisions back into `docs/test_inputs/rulegen_benchmark_cases.json` (or another dataset copy).
 - Starter labeled benchmark dataset:
   - `docs/test_inputs/rulegen_benchmark_cases.json`
   - Includes initial `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
