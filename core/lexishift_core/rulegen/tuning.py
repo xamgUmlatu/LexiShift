@@ -16,6 +16,8 @@ class RulegenPairTuning:
     confidence_threshold: float = 0.0
     max_definitions_per_target: int = 3
     max_rules_per_target: Optional[int] = None
+    include_variants: bool = True
+    allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     notes: Sequence[str] = ()
 
@@ -25,6 +27,8 @@ class RulegenTuningOverrides:
     confidence_threshold: Optional[float] = None
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
+    include_variants: Optional[bool] = None
+    allow_multiword_glosses: Optional[bool] = None
     pos_scoring_enabled: Optional[bool] = None
     pos_exact_match_bonus: Optional[float] = None
     pos_compatible_match_bonus: Optional[float] = None
@@ -42,15 +46,33 @@ class ResolvedRulegenTuning:
     confidence_threshold: float
     max_definitions_per_target: Optional[int]
     max_rules_per_target: Optional[int]
+    include_variants: bool
+    allow_multiword_glosses: bool
     scoring: RuleScoringConfig
 
 
 _DEFAULT_PAIR_TUNING = RulegenPairTuning(pair="*")
 
 _PAIR_TUNINGS: dict[str, RulegenPairTuning] = {
-    "en-ja": RulegenPairTuning(pair="en-ja"),
+    "en-ja": RulegenPairTuning(
+        pair="en-ja",
+        max_definitions_per_target=2,
+        max_rules_per_target=1,
+        include_variants=True,
+        notes=(
+            "Production default tuned from benchmark sweeps: prioritize high-precision top-1 mapping with one rule per target.",
+        ),
+    ),
     "en-de": RulegenPairTuning(pair="en-de"),
-    "en-es": RulegenPairTuning(pair="en-es"),
+    "en-es": RulegenPairTuning(
+        pair="en-es",
+        max_definitions_per_target=3,
+        max_rules_per_target=None,
+        include_variants=False,
+        notes=(
+            "Production default tuned from benchmark sweeps: variant expansion disabled to reduce forbidden and noisy multi-meaning candidates.",
+        ),
+    ),
     "es-en": RulegenPairTuning(pair="es-en"),
 }
 
@@ -86,6 +108,16 @@ def resolve_rulegen_tuning(
         if applied_overrides.max_rules_per_target is not None
         else _normalize_optional_cap(resolved_pair.max_rules_per_target)
     )
+    include_variants = (
+        bool(applied_overrides.include_variants)
+        if applied_overrides.include_variants is not None
+        else bool(resolved_pair.include_variants)
+    )
+    allow_multiword_glosses = (
+        bool(applied_overrides.allow_multiword_glosses)
+        if applied_overrides.allow_multiword_glosses is not None
+        else bool(resolved_pair.allow_multiword_glosses)
+    )
 
     weights = _resolve_rule_score_weights(
         resolved_pair.scoring.weights,
@@ -101,6 +133,8 @@ def resolve_rulegen_tuning(
         confidence_threshold=confidence_threshold,
         max_definitions_per_target=max_definitions_per_target,
         max_rules_per_target=max_rules_per_target,
+        include_variants=include_variants,
+        allow_multiword_glosses=allow_multiword_glosses,
         scoring=RuleScoringConfig(weights=weights, pos_match=pos_match),
     )
 
@@ -115,6 +149,8 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
             if policy.max_rules_per_target is not None
             else None
         ),
+        "include_variants": bool(policy.include_variants),
+        "allow_multiword_glosses": bool(policy.allow_multiword_glosses),
         "scoring": _scoring_to_dict(policy.scoring),
         "notes": list(policy.notes),
     }
@@ -134,6 +170,8 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
             if tuning.max_rules_per_target is not None
             else None
         ),
+        "include_variants": bool(tuning.include_variants),
+        "allow_multiword_glosses": bool(tuning.allow_multiword_glosses),
         "scoring": _scoring_to_dict(tuning.scoring),
     }
 
@@ -147,6 +185,8 @@ def rulegen_tuning_overrides_to_dict(
         "confidence_threshold": overrides.confidence_threshold,
         "max_definitions_per_target": overrides.max_definitions_per_target,
         "max_rules_per_target": overrides.max_rules_per_target,
+        "include_variants": overrides.include_variants,
+        "allow_multiword_glosses": overrides.allow_multiword_glosses,
         "pos_scoring_enabled": overrides.pos_scoring_enabled,
         "pos_exact_match_bonus": overrides.pos_exact_match_bonus,
         "pos_compatible_match_bonus": overrides.pos_compatible_match_bonus,

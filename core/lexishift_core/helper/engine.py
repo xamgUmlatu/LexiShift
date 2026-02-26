@@ -67,6 +67,8 @@ class RulegenJobConfig:
     confidence_threshold: Optional[float] = None
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
+    include_variants: Optional[bool] = None
+    allow_multiword_glosses: Optional[bool] = None
     pos_scoring_enabled: Optional[bool] = None
     pos_exact_match_bonus: Optional[float] = None
     pos_compatible_match_bonus: Optional[float] = None

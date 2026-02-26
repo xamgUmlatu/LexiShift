@@ -6,6 +6,7 @@ from typing import Callable, Sequence
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
+from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
 from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
@@ -113,6 +114,7 @@ def refresh_srs_set(
     added_items = max(0, after_pair_count - before_pair_count)
     published_rulegen = None
     if refresh_result.applied:
+        effective_rulegen_tuning = resolve_rulegen_tuning(pair)
         _updated_store, rulegen_output = run_rulegen_for_pair_fn(
             paths=paths,
             pair=pair,
@@ -121,7 +123,15 @@ def refresh_srs_set(
             settings=settings,
             jmdict_path=resolved_jmdict_path,
             freedict_de_en_path=resolved_freedict_de_en_path,
-            rulegen_config=RulegenConfig(language_pair=pair),
+            rulegen_config=RulegenConfig(
+                language_pair=pair,
+                confidence_threshold=effective_rulegen_tuning.confidence_threshold,
+                max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
+                max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
+                include_variants=effective_rulegen_tuning.include_variants,
+                allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
+                scoring=effective_rulegen_tuning.scoring,
+            ),
             initialize_if_empty=False,
             persist_store=False,
         )

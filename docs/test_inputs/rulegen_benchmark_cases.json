@@ -172,7 +172,10 @@
         "mother",
         "mom"
       ],
-      "forbidden_top1": [],
+      "forbidden_top1": [
+        "bed",
+        "watercourse"
+      ],
       "forbidden_any": [
         "bed",
         "watercourse"
@@ -204,7 +207,8 @@
         "affection"
       ],
       "expected_top1_any": [
-        "love"
+        "love",
+        "affection"
       ],
       "forbidden_top1": [],
       "forbidden_any": []

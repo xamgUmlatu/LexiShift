@@ -122,6 +122,18 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
         pos_scoring_enabled = False
     else:
         pos_scoring_enabled = None
+    if args.include_variants:
+        include_variants = True
+    elif args.no_include_variants:
+        include_variants = False
+    else:
+        include_variants = None
+    if args.allow_multiword_glosses:
+        allow_multiword_glosses = True
+    elif args.disallow_multiword_glosses:
+        allow_multiword_glosses = False
+    else:
+        allow_multiword_glosses = None
 
     try:
         payload = run_rulegen_job(
@@ -136,6 +148,8 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=args.max_definitions_per_target,
                 max_rules_per_target=args.max_rules_per_target,
+                include_variants=include_variants,
+                allow_multiword_glosses=allow_multiword_glosses,
                 pos_scoring_enabled=pos_scoring_enabled,
                 pos_exact_match_bonus=args.pos_exact_match_bonus,
                 pos_compatible_match_bonus=args.pos_compatible_match_bonus,
@@ -359,6 +373,28 @@ def build_parser() -> argparse.ArgumentParser:
             "Optional final cap on emitted rules per target (includes variants). "
             "Defaults from pair tuning; pass 0 to disable."
         ),
+    )
+    variants_group = run.add_mutually_exclusive_group()
+    variants_group.add_argument(
+        "--include-variants",
+        action="store_true",
+        help="Force-enable variant expansion regardless of pair tuning defaults.",
+    )
+    variants_group.add_argument(
+        "--no-include-variants",
+        action="store_true",
+        help="Force-disable variant expansion regardless of pair tuning defaults.",
+    )
+    multiword_gloss_group = run.add_mutually_exclusive_group()
+    multiword_gloss_group.add_argument(
+        "--allow-multiword-glosses",
+        action="store_true",
+        help="Allow dictionary glosses containing whitespace to emit rules.",
+    )
+    multiword_gloss_group.add_argument(
+        "--disallow-multiword-glosses",
+        action="store_true",
+        help="Filter dictionary glosses containing whitespace.",
     )
     pos_scoring_group = run.add_mutually_exclusive_group()
     pos_scoring_group.add_argument(

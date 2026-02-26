@@ -396,6 +396,14 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                 rulegen_config.max_rules_per_target,
                 defaults.max_rules_per_target,
             )
+            self.assertEqual(
+                rulegen_config.include_variants,
+                defaults.include_variants,
+            )
+            self.assertEqual(
+                rulegen_config.allow_multiword_glosses,
+                defaults.allow_multiword_glosses,
+            )
             self.assertAlmostEqual(
                 rulegen_config.scoring.weights.pos_match,
                 defaults.scoring.weights.pos_match,
@@ -433,6 +441,8 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                         confidence_threshold=0.25,
                         max_definitions_per_target=2,
                         max_rules_per_target=4,
+                        include_variants=True,
+                        allow_multiword_glosses=True,
                         pos_scoring_enabled=False,
                         score_weight_pos_match=0.35,
                     ),
@@ -442,6 +452,8 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertAlmostEqual(rulegen_config.confidence_threshold, 0.25, places=6)
             self.assertEqual(rulegen_config.max_definitions_per_target, 2)
             self.assertEqual(rulegen_config.max_rules_per_target, 4)
+            self.assertTrue(rulegen_config.include_variants)
+            self.assertTrue(rulegen_config.allow_multiword_glosses)
             self.assertFalse(rulegen_config.scoring.pos_match.enabled)
             self.assertAlmostEqual(rulegen_config.scoring.weights.pos_match, 0.35, places=6)
 
@@ -862,7 +874,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             ) as init_patch, patch(
                 "lexishift_core.helper.engine.run_rulegen_for_pair",
                 return_value=(persisted_after_init, rulegen_output),
-            ):
+            ) as run_rulegen_patch:
                 result = initialize_srs_set(
                     paths,
                     config=SetInitializationJobConfig(
@@ -877,6 +889,20 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             set_init_config = init_patch.call_args.kwargs["config"]
             self.assertEqual(set_init_config.top_n, 800)
             self.assertEqual(set_init_config.initial_active_count, 40)
+            rulegen_config = run_rulegen_patch.call_args.kwargs["rulegen_config"]
+            rulegen_defaults = resolve_pair_rulegen_tuning("en-ja")
+            self.assertEqual(
+                rulegen_config.max_definitions_per_target,
+                rulegen_defaults.max_definitions_per_target,
+            )
+            self.assertEqual(
+                rulegen_config.max_rules_per_target,
+                rulegen_defaults.max_rules_per_target,
+            )
+            self.assertEqual(
+                rulegen_config.include_variants,
+                rulegen_defaults.include_variants,
+            )
             self.assertEqual(result["set_top_n"], 800)
             self.assertEqual(result["initial_active_count"], 40)
             self.assertEqual(result["pair_policy"]["pair"], "en-ja")
@@ -1465,7 +1491,7 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             ), patch(
                 "lexishift_core.helper.engine.run_rulegen_for_pair",
                 side_effect=_stub_run_rulegen_for_pair,
-            ):
+            ) as run_rulegen_patch:
                 result = refresh_srs_set(
                     paths,
                     config=SrsRefreshJobConfig(
@@ -1484,6 +1510,20 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(result["added_items"], 2)
             self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
             self.assertEqual(result["admission_refresh"]["feedback_window"]["feedback_count"], 8)
+            rulegen_config = run_rulegen_patch.call_args.kwargs["rulegen_config"]
+            rulegen_defaults = resolve_pair_rulegen_tuning("en-ja")
+            self.assertEqual(
+                rulegen_config.max_definitions_per_target,
+                rulegen_defaults.max_definitions_per_target,
+            )
+            self.assertEqual(
+                rulegen_config.max_rules_per_target,
+                rulegen_defaults.max_rules_per_target,
+            )
+            self.assertEqual(
+                rulegen_config.include_variants,
+                rulegen_defaults.include_variants,
+            )
 
             rulegen_payload = result.get("rulegen")
             self.assertIsNotNone(rulegen_payload)
