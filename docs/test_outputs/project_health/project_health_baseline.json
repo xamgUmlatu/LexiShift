@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-02-27T22:37:17.738Z",
+  "generated_at_utc": "2026-02-27T22:49:45.277Z",
   "source_script": "scripts/dev/check_project_health.js",
   "rules_path": "scripts/dev/project_health_rules.js",
   "options": {
@@ -10,8 +10,8 @@
     "base_ref": ""
   },
   "summary": {
-    "files_checked": 245,
-    "violations": 17,
+    "files_checked": 248,
+    "violations": 13,
     "warnings": 6,
     "changed_only": false,
     "changed_file_count": null,
@@ -482,10 +482,10 @@
       "file": "apps/chrome-extension/shared/helper/helper_feedback_sync.js",
       "language": "javascript",
       "metrics": {
-        "lines": 533,
+        "lines": 386,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 23
+        "functions": 5
       },
       "limits": {
         "maxLines": 500,
@@ -494,14 +494,36 @@
         "maxFunctions": 45
       },
       "overages": {
-        "lines": 33,
+        "lines": 0,
         "imports": 0,
         "domainBreadth": 0,
         "functions": 0
       },
-      "violation_metrics": [
-        "lines"
-      ],
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/helper/helper_feedback_sync_primitives.js": {
+      "file": "apps/chrome-extension/shared/helper/helper_feedback_sync_primitives.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 236,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 20
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
       "warning_metrics": []
     },
     "apps/chrome-extension/shared/helper/helper_transport_extension.js": {
@@ -1360,10 +1382,10 @@
       "file": "apps/chrome-extension/options/controllers/profile/background_controller.js",
       "language": "javascript",
       "metrics": {
-        "lines": 583,
+        "lines": 394,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 38
+        "functions": 24
       },
       "limits": {
         "maxLines": 500,
@@ -1372,14 +1394,12 @@
         "maxFunctions": 45
       },
       "overages": {
-        "lines": 83,
+        "lines": 0,
         "imports": 0,
         "domainBreadth": 0,
         "functions": 0
       },
-      "violation_metrics": [
-        "lines"
-      ],
+      "violation_metrics": [],
       "warning_metrics": []
     },
     "apps/chrome-extension/options/controllers/profile/status_controller.js": {
@@ -1486,6 +1506,30 @@
         "imports": 0,
         "domainBreadth": 0,
         "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/controller_context.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/controller_context.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 293,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
       },
       "limits": {
         "maxLines": 500,
@@ -2345,14 +2389,14 @@
       "violation_metrics": [],
       "warning_metrics": []
     },
-    "apps/chrome-extension/content/processing/replacements.js": {
-      "file": "apps/chrome-extension/content/processing/replacements.js",
+    "apps/chrome-extension/content/processing/replacement_selection.js": {
+      "file": "apps/chrome-extension/content/processing/replacement_selection.js",
       "language": "javascript",
       "metrics": {
-        "lines": 534,
+        "lines": 204,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 24
+        "functions": 14
       },
       "limits": {
         "maxLines": 500,
@@ -2361,14 +2405,36 @@
         "maxFunctions": 45
       },
       "overages": {
-        "lines": 34,
+        "lines": 0,
         "imports": 0,
         "domainBreadth": 0,
         "functions": 0
       },
-      "violation_metrics": [
-        "lines"
-      ],
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/processing/replacements.js": {
+      "file": "apps/chrome-extension/content/processing/replacements.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 346,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
       "warning_metrics": []
     },
     "apps/chrome-extension/content/processing/tokenizer.js": {
@@ -2954,7 +3020,7 @@
       "language": "python",
       "metrics": {
         "lines": 213,
-        "imports": 26,
+        "imports": 16,
         "domainBreadth": 1,
         "functions": 11
       },
@@ -2966,13 +3032,11 @@
       },
       "overages": {
         "lines": 0,
-        "imports": 2,
+        "imports": 0,
         "domainBreadth": 0,
         "functions": 0
       },
-      "violation_metrics": [
-        "imports"
-      ],
+      "violation_metrics": [],
       "warning_metrics": []
     },
     "apps/gui/src/helper_ui.py": {

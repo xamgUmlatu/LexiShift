@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import sys
-import threading
-import subprocess
-from pathlib import Path
-from typing import Optional
 from datetime import datetime
+from importlib import import_module
+from os import environ, getpid, path
+from pathlib import Path
+from subprocess import Popen
+from threading import Thread
+from traceback import format_exc
 
-import os
 from PySide6.QtCore import QCoreApplication, QLocale, QSettings, Qt, QTimer
 from PySide6.QtGui import QAction, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
@@ -19,23 +19,24 @@ from i18n import set_locale, t
 from utils_paths import resource_path, reveal_path
 
 MAIN_APP_BUNDLE_NAME = "LexiShift.app"
+SYS = import_module("sys")
 
 
 def _tray_icon() -> QIcon:
-    if sys.platform == "darwin":
+    if SYS.platform == "darwin":
         candidate = resource_path("ttbn.icns")
-        if os.path.exists(candidate):
+        if path.exists(candidate):
             return QIcon(candidate)
         # Fallback: look in bundle resources if running from .app
         try:
-            bundle_res = Path(sys.executable).parent.parent / "Resources" / "ttbn.icns"
+            bundle_res = Path(SYS.executable).parent.parent / "Resources" / "ttbn.icns"
             if bundle_res.exists():
                 return QIcon(str(bundle_res))
         except Exception:
             pass
     else:
         candidate = resource_path("ttbn.ico")
-        if os.path.exists(candidate):
+        if path.exists(candidate):
             return QIcon(candidate)
     return QApplication.windowIcon()
 
@@ -52,7 +53,7 @@ def _debug_icon() -> QIcon:
 
 
 def _tray_icon_for_statusbar() -> QIcon:
-    if os.environ.get("LEXISHIFT_TRAY_DEBUG"):
+    if environ.get("LEXISHIFT_TRAY_DEBUG"):
         return _debug_icon()
     base = _tray_icon()
     pixmap = base.pixmap(18, 18)
@@ -74,13 +75,13 @@ def _log_line(paths, message: str) -> None:
 def _open_main_app() -> None:
     paths = build_helper_paths()
 
-    env = dict(os.environ)
+    env = dict(environ)
     cmd = []
 
-    if getattr(sys, "frozen", False):
+    if getattr(SYS, "frozen", False):
         # On macOS helper builds, open the main app bundle directly.
-        if sys.platform == "darwin":
-            exe_path = Path(sys.executable)
+        if SYS.platform == "darwin":
+            exe_path = Path(SYS.executable)
             if exe_path.parent.name == "MacOS" and exe_path.parent.parent.name == "Contents":
                 current_bundle = exe_path.parent.parent.parent
                 main_bundle = current_bundle.with_name(MAIN_APP_BUNDLE_NAME)
@@ -90,7 +91,7 @@ def _open_main_app() -> None:
                 cmd = ["open", str(main_bundle)]
                 try:
                     _log_line(paths, f"[{datetime.now()}] Tray launching via open: {cmd}")
-                    subprocess.Popen(cmd, close_fds=True)
+                    Popen(cmd, close_fds=True)
                     return
                 except Exception as e:
                     _log_line(paths, f"[{datetime.now()}] Tray failed to launch via open: {e}")
@@ -99,14 +100,14 @@ def _open_main_app() -> None:
         # Clean up environment to prevent PyInstaller one-file conflicts
         for key in ["_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]:
             env.pop(key, None)
-        cmd = [sys.executable]
+        cmd = [SYS.executable]
     else:
         entry = Path(__file__).resolve().parent / "main.py"
-        cmd = [sys.executable, str(entry)]
+        cmd = [SYS.executable, str(entry)]
 
     try:
         _log_line(paths, f"[{datetime.now()}] Tray launching: {cmd}")
-        subprocess.Popen(cmd, close_fds=True, env=env)
+        Popen(cmd, close_fds=True, env=env)
     except Exception as e:
         _log_line(paths, f"[{datetime.now()}] Tray failed to launch app: {e}")
 
@@ -160,7 +161,7 @@ class HelperTrayController:
 
     def _start_daemon(self) -> None:
         config = DaemonConfig()
-        thread = threading.Thread(target=run_daemon, args=(config,), daemon=True)
+        thread = Thread(target=run_daemon, args=(config,), daemon=True)
         thread.start()
 
     def _start_status_timer(self) -> None:
@@ -188,12 +189,12 @@ class HelperTrayController:
 
 def run_helper_tray() -> None:
     paths = build_helper_paths()
-    _log_line(paths, f"[{datetime.now()}] Helper tray process started (PID: {os.getpid()})")
+    _log_line(paths, f"[{datetime.now()}] Helper tray process started (PID: {getpid()})")
     try:
         # Match main app identity so QSettings resolves the same locale preference.
         QCoreApplication.setOrganizationName("LexiShift")
         QCoreApplication.setApplicationName("LexiShift")
-        app = QApplication(sys.argv)
+        app = QApplication(SYS.argv)
         app.setQuitOnLastWindowClosed(False)
         app.setWindowIcon(_tray_icon_for_statusbar())
         ui_settings = QSettings()
@@ -205,8 +206,7 @@ def run_helper_tray() -> None:
         QTimer.singleShot(1500, controller._show_notification)
         ret = app.exec()
         _log_line(paths, f"[{datetime.now()}] Helper tray process exited cleanly (Code: {ret})")
-        sys.exit(ret)
+        SYS.exit(ret)
     except Exception:
-        import traceback
-        _log_line(paths, f"[{datetime.now()}] Helper tray process crashed:\n{traceback.format_exc()}")
-        sys.exit(1)
+        _log_line(paths, f"[{datetime.now()}] Helper tray process crashed:\n{format_exc()}")
+        SYS.exit(1)
