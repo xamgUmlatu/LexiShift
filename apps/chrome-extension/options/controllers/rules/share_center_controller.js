@@ -59,6 +59,13 @@
     const importStatusOutput = elements.importStatusOutput || null;
     const tr = (key, fallback, substitutions) => translate(key, substitutions, fallback);
     const pathJoiner = " > ";
+    const shareCenterUtils = root.optionsShareCenterUtils;
+    const shareCenterStatus = root.optionsShareCenterStatus;
+    const shareCenterModal = root.optionsShareCenterModal;
+    const shareCenterSelection = root.optionsShareCenterSelection;
+    if (!shareCenterUtils || !shareCenterStatus || !shareCenterModal || !shareCenterSelection) {
+      throw new Error("Share Center dependencies are missing.");
+    }
     const labels = {
       profile: tr("share_center_group_profile", "Profile"),
       profileConfiguration: tr("share_center_group_profile_configuration", "Profile configuration"),
@@ -123,81 +130,51 @@
     let exportMode = "full";
     const dynamicLeafState = new Map();
 
-    function normalizeProfileId(profileId) {
-      if (settingsManager && typeof settingsManager.normalizeSrsProfileId === "function") {
-        return settingsManager.normalizeSrsProfileId(profileId);
-      }
-      const normalized = String(profileId || "").trim();
-      return normalized || "default";
-    }
-
-    function normalizePath(path) {
-      const normalized = String(path || "").trim();
-      return normalized || "";
-    }
-
-    function pathBasename(path) {
-      const normalized = normalizePath(path);
-      if (!normalized) {
-        return tr("share_center_value_unknown", "(unknown)");
-      }
-      const slashIndex = Math.max(normalized.lastIndexOf("/"), normalized.lastIndexOf("\\"));
-      return slashIndex >= 0 ? normalized.slice(slashIndex + 1) : normalized;
-    }
-
-    function isObject(value) {
-      return Boolean(value) && typeof value === "object" && !Array.isArray(value);
-    }
-
-    function getPopupModulesRegistry() {
-      const registry = root.popupModulesRegistry;
-      return registry && typeof registry === "object" ? registry : null;
-    }
-
-    function setOutputStatus(output, message, color) {
-      if (!output) {
-        return;
-      }
-      output.textContent = message || "";
-      output.style.color = color || colors.DEFAULT;
-    }
-
-    function setCardStatus(message, color) {
-      setOutputStatus(statusOutput, message, color);
-      if (message) {
-        setStatus(message, color || colors.DEFAULT);
-      }
-    }
-
-    function setRulesetStatus(message, color) {
-      setOutputStatus(rulesetStatus, message, color);
-    }
-
-    function setSrsPairStatus(message, color) {
-      setOutputStatus(srsPairStatus, message, color);
-    }
-
-    function setModuleStatus(message, color) {
-      setOutputStatus(moduleStatus, message, color);
-    }
-
-    function setExportStatus(message, color) {
-      setOutputStatus(exportStatusOutput, message, color);
-      if (message) {
-        setCardStatus(message, color);
-      }
-    }
-
-    function setExportHint(message) {
-      setOutputStatus(exportStatusOutput, message, colors.DEFAULT);
-    }
-
-    function setImportStatus(message, color) {
-      setOutputStatus(importStatusOutput, message, color);
-      if (message) {
-        setCardStatus(message, color);
-      }
-    }
+    const normalizePath = shareCenterUtils.normalizePath;
+    const pathBasename = (path) => shareCenterUtils.pathBasename(
+      path,
+      tr("share_center_value_unknown", "(unknown)"),
+      normalizePath
+    );
+    const isObject = shareCenterUtils.isObject;
+    const normalizeSrsPairKey = (rawPair, fallbackPair) => shareCenterUtils.normalizeSrsPairKey(
+      rawPair,
+      fallbackPair,
+      settingsManager && typeof settingsManager._normalizePairKey === "function"
+        ? settingsManager._normalizePairKey.bind(settingsManager)
+        : null
+    );
+    const hasMeaningfulValue = (value, depth) => shareCenterUtils.hasMeaningfulValue(value, depth, isObject);
+    const resolveExportFileName = shareCenterUtils.resolveExportFileName;
+    const formatByteSize = shareCenterUtils.formatByteSize;
+    const downloadJsonFile = shareCenterUtils.downloadJsonFile;
+    const statusHelpers = shareCenterStatus.createStatusHelpers({
+      colors,
+      setStatus,
+      statusOutput,
+      rulesetStatus,
+      srsPairStatus,
+      moduleStatus,
+      exportStatusOutput,
+      importStatusOutput
+    });
+    const modalHelpers = shareCenterModal.createModalHelpers({
+      exportBackdrop,
+      exportModal,
+      importBackdrop,
+      importModal,
+      body: document.body
+    });
+    const setOutputStatus = statusHelpers.setOutputStatus;
+    const setRulesetStatus = statusHelpers.setRulesetStatus;
+    const setSrsPairStatus = statusHelpers.setSrsPairStatus;
+    const setModuleStatus = statusHelpers.setModuleStatus;
+    const setExportStatus = statusHelpers.setExportStatus;
+    const setExportHint = statusHelpers.setExportHint;
+    const setImportStatus = statusHelpers.setImportStatus;
+    const openModal = modalHelpers.openModal;
+    const closeModal = modalHelpers.closeModal;
+    const closeAllModals = modalHelpers.closeAllModals;
 
     function isFullMode() {
       return exportMode !== "custom";
@@ -458,7 +435,9 @@
       const byId = isObject(modulePrefs && modulePrefs.byId) ? modulePrefs.byId : {};
       const prefsOrder = Array.isArray(modulePrefs && modulePrefs.order) ? modulePrefs.order : [];
 
-      const registry = getPopupModulesRegistry();
+      const registry = root.popupModulesRegistry && typeof root.popupModulesRegistry === "object"
+        ? root.popupModulesRegistry
+        : null;
       if (!registry || typeof registry.resolveVisibleSettingModules !== "function") {
         const fallbackOrder = [];
         const fallbackSeen = new Set();
@@ -555,48 +534,6 @@
         targetLanguage,
         modules
       };
-    }
-
-    function normalizeSrsPairKey(rawPair, fallbackPair) {
-      const fallback = String(fallbackPair || "en-en").trim() || "en-en";
-      if (settingsManager && typeof settingsManager._normalizePairKey === "function") {
-        return settingsManager._normalizePairKey(rawPair || fallback);
-      }
-      const normalized = String(rawPair || fallback).trim();
-      return normalized || fallback;
-    }
-
-    function hasMeaningfulValue(value, depth) {
-      const level = Number.isFinite(Number(depth)) ? Number(depth) : 0;
-      if (level > 8) {
-        return false;
-      }
-      if (value === null || value === undefined) {
-        return false;
-      }
-      if (Array.isArray(value)) {
-        if (!value.length) {
-          return false;
-        }
-        return value.some((entry) => hasMeaningfulValue(entry, level + 1));
-      }
-      if (isObject(value)) {
-        const keys = Object.keys(value);
-        if (!keys.length) {
-          return false;
-        }
-        return keys.some((key) => hasMeaningfulValue(value[key], level + 1));
-      }
-      if (typeof value === "string") {
-        return String(value).trim().length > 0;
-      }
-      if (typeof value === "number") {
-        return Number.isFinite(value);
-      }
-      if (typeof value === "boolean") {
-        return true;
-      }
-      return true;
     }
 
     function resolveProfileSrsPairs(items, profileId) {
@@ -1019,142 +956,6 @@
       );
     }
 
-    function resolveSelectionPlan() {
-      const selectedEntries = getSelectedLeafEntries();
-      const selectedTargets = selectedEntries.map((entry) => entry.meta).filter(Boolean);
-      const supportedTargets = selectedTargets.filter((target) => target.enabled !== false && Boolean(target.scope));
-      const unsupportedTargets = selectedTargets.filter((target) => target.enabled === false || !target.scope);
-      return {
-        selectedTargets,
-        supportedTargets,
-        unsupportedTargets
-      };
-    }
-
-    function recommendOutput() {
-      return tr("share_center_output_json_file", "JSON file");
-    }
-
-    function buildPathSummary(plan) {
-      const selectedTargets = Array.isArray(plan && plan.selectedTargets) ? plan.selectedTargets : [];
-      if (!selectedTargets.length) {
-        return tr("share_center_path_none", `None (${currentProfileId})`, [currentProfileId]);
-      }
-      if (selectedTargets.length === 1) {
-        const only = selectedTargets[0];
-        const label = String(only.path || only.label || tr("share_center_summary_selection", "Selection")).trim();
-        return tr("share_center_path_single_with_profile", `${label} (${currentProfileId})`, [label, currentProfileId]);
-      }
-      return tr(
-        "share_center_path_selected_nodes",
-        `${selectedTargets.length} selected nodes (${currentProfileId})`,
-        [String(selectedTargets.length), currentProfileId]
-      );
-    }
-
-    function buildIncludesSummary(plan) {
-      const selectedTargets = Array.isArray(plan && plan.selectedTargets) ? plan.selectedTargets : [];
-      if (!selectedTargets.length) {
-        return tr("share_center_includes_nothing_selected", "Nothing selected.");
-      }
-      const counters = {
-        profileSettings: 0,
-        rulesets: 0,
-        srsPairs: 0,
-        appearance: 0,
-        modules: 0
-      };
-      selectedTargets.forEach((target) => {
-        if (!target || !target.kind) {
-          return;
-        }
-        if (target.kind === "profile_settings") {
-          counters.profileSettings += 1;
-          return;
-        }
-        if (target.kind === "ruleset_item") {
-          counters.rulesets += 1;
-          return;
-        }
-        if (target.kind === "srs_pair_item") {
-          counters.srsPairs += 1;
-          return;
-        }
-        if (target.kind === "appearance_theme") {
-          counters.appearance += 1;
-          return;
-        }
-        if (target.kind === "module_item") {
-          counters.modules += 1;
-        }
-      });
-      const parts = [];
-      if (counters.profileSettings > 0) {
-        parts.push(tr("share_center_includes_profile_settings", "Profile settings"));
-      }
-      if (counters.rulesets > 0) {
-        parts.push(tr("share_center_includes_rulesets", `Rulesets (${counters.rulesets})`, [String(counters.rulesets)]));
-      }
-      if (counters.srsPairs > 0) {
-        parts.push(tr("share_center_includes_srs_pairs", `SRS pairs (${counters.srsPairs})`, [String(counters.srsPairs)]));
-      }
-      if (counters.appearance > 0) {
-        parts.push(tr("share_center_includes_appearance", "Appearance"));
-      }
-      if (counters.modules > 0) {
-        parts.push(tr("share_center_includes_modules", `Modules (${counters.modules})`, [String(counters.modules)]));
-      }
-      return parts.length ? parts.join(" | ") : tr("share_center_includes_selected_nodes", "Selected nodes");
-    }
-
-    function resolveGenerateSelection(planArg) {
-      const plan = planArg && typeof planArg === "object" ? planArg : resolveSelectionPlan();
-      if (!plan.selectedTargets.length) {
-        return {
-          ok: false,
-          message: tr("share_center_error_select_nodes", "Select one or more nodes.")
-        };
-      }
-      if (!plan.supportedTargets.length) {
-        return {
-          ok: false,
-          message: tr("share_center_error_nodes_not_exportable", "Selected nodes are not exportable yet.")
-        };
-      }
-      const invalidRuleset = plan.supportedTargets.find((target) => (
-        target.kind === "ruleset_item" && !normalizePath(target.rulesetPath)
-      ));
-      if (invalidRuleset) {
-        return {
-          ok: false,
-          message: tr("share_center_error_choose_ruleset_entry", "Choose a ruleset entry before generating.")
-        };
-      }
-      const invalidModule = plan.supportedTargets.find((target) => (
-        target.kind === "module_item" && !String(target.moduleId || "").trim()
-      ));
-      if (invalidModule) {
-        return {
-          ok: false,
-          message: tr("share_center_error_choose_module_entry", "Choose a valid module entry before generating.")
-        };
-      }
-      const invalidSrsPair = plan.supportedTargets.find((target) => (
-        target.kind === "srs_pair_item" && !String(target.srsPair || "").trim()
-      ));
-      if (invalidSrsPair) {
-        return {
-          ok: false,
-          message: tr("share_center_error_choose_srs_pair_entry", "Choose a valid SRS pair entry before generating.")
-        };
-      }
-      return {
-        ok: true,
-        supportedTargets: plan.supportedTargets,
-        ignoredCount: plan.unsupportedTargets.length
-      };
-    }
-
     function updateSummary() {
       if (isFullMode()) {
         if (summaryTarget) {
@@ -1168,7 +969,7 @@
           summaryGroups.textContent = FULL_PROFILE_GROUPS.join(" | ");
         }
         if (summaryOutput) {
-          summaryOutput.textContent = recommendOutput();
+          summaryOutput.textContent = shareCenterSelection.recommendOutput(tr);
         }
         if (generateButton) {
           generateButton.disabled = false;
@@ -1176,18 +977,22 @@
         setExportHint(tr("share_center_hint_ready_full_export", "Ready to export full profile as JSON file."));
         return;
       }
-      const plan = resolveSelectionPlan();
-      const outputRecommendation = recommendOutput();
+      const plan = shareCenterSelection.resolveSelectionPlan(getSelectedLeafEntries());
+      const outputRecommendation = shareCenterSelection.recommendOutput(tr);
       if (summaryTarget) {
-        summaryTarget.textContent = buildPathSummary(plan);
+        summaryTarget.textContent = shareCenterSelection.buildPathSummary(plan, currentProfileId, tr);
       }
       if (summaryGroups) {
-        summaryGroups.textContent = buildIncludesSummary(plan);
+        summaryGroups.textContent = shareCenterSelection.buildIncludesSummary(plan, tr);
       }
       if (summaryOutput) {
         summaryOutput.textContent = outputRecommendation;
       }
-      const resolution = resolveGenerateSelection(plan);
+      const resolution = shareCenterSelection.resolveGenerateSelection({
+        plan,
+        tr,
+        normalizePath
+      });
       if (generateButton) {
         generateButton.disabled = resolution.ok !== true;
       }
@@ -1208,102 +1013,6 @@
       }
     }
 
-    function isModalOpen(backdrop) {
-      return Boolean(backdrop) && !backdrop.classList.contains("hidden");
-    }
-
-    function syncBodyModalState() {
-      const hasOpen = isModalOpen(exportBackdrop) || isModalOpen(importBackdrop);
-      document.body.classList.toggle("modal-open", hasOpen);
-    }
-
-    function openModal(kind) {
-      if (kind === "export" && exportBackdrop) {
-        exportBackdrop.classList.remove("hidden");
-        exportBackdrop.setAttribute("aria-hidden", "false");
-        if (exportModal) {
-          exportModal.focus();
-        }
-      }
-      if (kind === "import" && importBackdrop) {
-        importBackdrop.classList.remove("hidden");
-        importBackdrop.setAttribute("aria-hidden", "false");
-        if (importModal) {
-          importModal.focus();
-        }
-      }
-      syncBodyModalState();
-    }
-
-    function closeModal(kind) {
-      if (kind === "export" && exportBackdrop) {
-        exportBackdrop.classList.add("hidden");
-        exportBackdrop.setAttribute("aria-hidden", "true");
-      }
-      if (kind === "import" && importBackdrop) {
-        importBackdrop.classList.add("hidden");
-        importBackdrop.setAttribute("aria-hidden", "true");
-      }
-      syncBodyModalState();
-    }
-
-    function closeAllModals() {
-      closeModal("export");
-      closeModal("import");
-    }
-
-    function slugifyFileSegment(value, fallback) {
-      const normalized = String(value || "").trim().toLowerCase();
-      const slug = normalized
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-      return slug || String(fallback || "export");
-    }
-
-    function resolveExportFileName(scope, profileId) {
-      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-      const profileSlug = slugifyFileSegment(profileId, "profile");
-      const baseByScope = {
-        profile: "profile",
-        bundle: "selection",
-        ruleset: "ruleset",
-        srs_pair: "srs-pair",
-        appearance_theme: "appearance",
-        module_item: "module"
-      };
-      const base = Object.prototype.hasOwnProperty.call(baseByScope, scope)
-        ? baseByScope[scope]
-        : "selection";
-      return `lexishift-share-${base}-${profileSlug}-${timestamp}.json`;
-    }
-
-    function formatByteSize(sizeBytes) {
-      const bytes = Number(sizeBytes);
-      if (!Number.isFinite(bytes) || bytes < 0) {
-        return "0 B";
-      }
-      if (bytes < 1024) {
-        return `${Math.round(bytes)} B`;
-      }
-      if (bytes < 1024 * 1024) {
-        return `${(bytes / 1024).toFixed(1)} KB`;
-      }
-      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-    }
-
-    function downloadJsonFile(content, fileName) {
-      const blob = new Blob([content], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.href = url;
-      anchor.download = fileName;
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-      URL.revokeObjectURL(url);
-      return blob.size;
-    }
-
     async function generateShareCode() {
       if (!rulesShareController || typeof rulesShareController.generateSharePayloadWithOptions !== "function") {
         return;
@@ -1319,7 +1028,11 @@
             profileId: currentProfileId
           });
         } else {
-          const resolution = resolveGenerateSelection();
+          const resolution = shareCenterSelection.resolveGenerateSelection({
+            plan: shareCenterSelection.resolveSelectionPlan(getSelectedLeafEntries()),
+            tr,
+            normalizePath
+          });
           if (resolution.ok !== true) {
             setExportStatus(
               resolution.message || tr("share_center_error_cannot_generate_selection", "Cannot generate with current selection."),
@@ -1762,13 +1475,14 @@
       }
       const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
       const items = isObject(options.items) ? options.items : await settingsManager.load();
-      const profileId = normalizeProfileId(
-        options.profileId !== undefined
-          ? options.profileId
-          : (settingsManager.getSelectedSrsProfileId
-            ? settingsManager.getSelectedSrsProfileId(items)
-            : "default")
-      );
+      const selectedProfileId = options.profileId !== undefined
+        ? options.profileId
+        : (settingsManager.getSelectedSrsProfileId
+          ? settingsManager.getSelectedSrsProfileId(items)
+          : "default");
+      const profileId = settingsManager && typeof settingsManager.normalizeSrsProfileId === "function"
+        ? settingsManager.normalizeSrsProfileId(selectedProfileId)
+        : (String(selectedProfileId || "").trim() || "default");
       const profilesRoot = isObject(items.srsProfiles) ? items.srsProfiles : {};
       const profileEntry = isObject(profilesRoot[profileId]) ? profilesRoot[profileId] : {};
       const manualStateRoot = isObject(profileEntry.manualRulesets) ? profileEntry.manualRulesets : {};

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-27T22:55:36.186Z",
+  "generated_at_utc": "2026-02-27T23:15:44.318Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -12,8 +12,8 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 250,
-    "violations": 12,
+    "files_checked": 258,
+    "violations": 11,
     "warnings": 6,
     "changed_only": false,
     "changed_file_count": null,
@@ -51,40 +51,13 @@
       "warning_metrics": []
     },
     {
-      "file": "apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 1230,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 78
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 730,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 33
-      },
-      "violation_metrics": [
-        "lines",
-        "functions"
-      ],
-      "warning_metrics": []
-    },
-    {
       "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
       "language": "javascript",
       "metrics": {
-        "lines": 1836,
+        "lines": 1550,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 74
+        "functions": 45
       },
       "limits": {
         "maxLines": 500,
@@ -93,14 +66,13 @@
         "maxFunctions": 45
       },
       "overages": {
-        "lines": 1336,
+        "lines": 1050,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 29
+        "functions": 0
       },
       "violation_metrics": [
-        "lines",
-        "functions"
+        "lines"
       ],
       "warning_metrics": []
     },

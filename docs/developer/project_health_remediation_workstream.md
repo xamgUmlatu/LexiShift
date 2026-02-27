@@ -23,25 +23,25 @@ npm run health:project
 
 Current violation profile:
 
-1. Total violations: `12` files (out of `250` scanned)
+1. Total violations: `11` files (out of `258` scanned)
 2. By area:
-   - `apps/chrome-extension`: `3`
+   - `apps/chrome-extension`: `2`
    - `apps/gui/src`: `2`
    - `core/lexishift_core`: `3`
    - `scripts/*`: `4`
 3. By metric:
-   - `lines`: `10`
-   - `functions`: `4`
+   - `lines`: `9`
+   - `functions`: `3`
    - `imports`: `3`
    - `domainBreadth`: `0`
 
 Top hotspots by line overage:
 
 1. `apps/gui/src/main.py` (`2455/900`, `122/50`, `41/24`)
-2. `apps/chrome-extension/options/controllers/rules/share_center_controller.js` (`1836/500`, `74/45`)
+2. `apps/chrome-extension/options/controllers/rules/share_center_controller.js` (`1550/500`, `45/45`)
 3. `apps/chrome-extension/options/core/rules_manager.js` (`1505/500`)
-4. `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js` (`1230/500`, `78/45`)
-5. `apps/gui/src/settings_language_packs.py` (`1617/900`, `86/50`)
+4. `apps/gui/src/settings_language_packs.py` (`1617/900`, `86/50`)
+5. `core/lexishift_core/frequency/de/build.py` (`1074/900`)
 
 ## Progress Log
 
@@ -60,9 +60,23 @@ Top hotspots by line overage:
    `apps/chrome-extension/content/ui/ui.js` into
    `apps/chrome-extension/content/ui/popup_locale_helpers.js` and
    `apps/chrome-extension/content/ui/popup_helpers.js`.
-6. Result: removed five full advisory violations (`helper_feedback_sync.js`,
-   `replacements.js`, `background_controller.js`, `helper_tray.py`, `ui.js`)
-   without changing runtime API shape.
+6. 2026-02-27: split target language modal flow into dedicated modules:
+   - `apps/chrome-extension/options/controllers/ui/target_language_modal/utils.js`
+   - `apps/chrome-extension/options/controllers/ui/target_language_modal/renderer.js`
+   - `apps/chrome-extension/options/controllers/ui/target_language_modal/interactions.js`
+   - `apps/chrome-extension/options/controllers/ui/target_language_modal/focus.js`
+   and reduced `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js`
+   to orchestration.
+7. Result: removed six full advisory violations (`helper_feedback_sync.js`,
+   `replacements.js`, `background_controller.js`, `helper_tray.py`, `ui.js`,
+   `target_language_modal_controller.js`) without changing runtime API shape.
+8. 2026-02-27: extracted Share Center helpers into:
+   - `apps/chrome-extension/options/controllers/rules/share_center/utils.js`
+   - `apps/chrome-extension/options/controllers/rules/share_center/status.js`
+   - `apps/chrome-extension/options/controllers/rules/share_center/modal.js`
+   - `apps/chrome-extension/options/controllers/rules/share_center/selection.js`
+   and rewired `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
+   to consume shared modules (now `1550` lines / `45` functions from `1836` / `74`).
 
 ## Leaf-First Remediation Queue (Current)
 
@@ -72,25 +86,23 @@ Hotspot-first globally, then leaf-first per hotspot:
    - Extract: payload normalization, validator policies, API client adapters, modal state reducers.
 2. `apps/chrome-extension/options/core/rules_manager.js`
    - Extract: pure diff/merge ops, sorting/grouping helpers, persistence adapter wrapper.
-3. `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js`
-   - Extract: filter/query helpers, rendering mappers, mutation commands.
-4. `apps/gui/src/main.py`
+3. `apps/gui/src/main.py`
    - Extract: non-Qt app services, command wiring, data loading orchestration.
-5. `apps/gui/src/settings_language_packs.py`
+4. `apps/gui/src/settings_language_packs.py`
    - Extract: download/use-case services, table mappers, validation logic.
-6. `core/lexishift_core/__init__.py`
+5. `core/lexishift_core/__init__.py`
    - Extract: optional/advanced exports into lazy import boundary to reduce import fanout.
-7. `core/lexishift_core/helper/engine.py`
+6. `core/lexishift_core/helper/engine.py`
    - Extract: optional dependencies and heavyweight integrations into dedicated modules.
-8. `core/lexishift_core/frequency/de/build.py`
+7. `core/lexishift_core/frequency/de/build.py`
    - Extract: parsing pipeline stages into focused builder helpers.
-9. `scripts/testing/rulegen_benchmark.py`
+8. `scripts/testing/rulegen_benchmark.py`
    - Extract: case loading, runner, metrics, renderers into separate script helpers.
-10. `scripts/testing/rulegen_quality_gate.py`
+9. `scripts/testing/rulegen_quality_gate.py`
    - Extract: policy evaluation core and report rendering.
-11. `scripts/dev/licensing_header_audit.py`
+10. `scripts/dev/licensing_header_audit.py`
    - Extract: scanners, license classifiers, report writer.
-12. `scripts/dev/licensing_source_header_fetch.py`
+11. `scripts/dev/licensing_source_header_fetch.py`
    - Extract: source fetch adapters, cache/store logic, retry policy.
 
 ## Remediation Strategy
@@ -134,7 +146,6 @@ Target files (initial):
 
 1. `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
 2. `apps/chrome-extension/options/core/rules_manager.js`
-3. `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js`
 
 Extraction order per file:
 
