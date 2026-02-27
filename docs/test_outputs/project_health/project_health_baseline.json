@@ -1,0 +1,5958 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-02-27T22:37:17.738Z",
+  "source_script": "scripts/dev/check_project_health.js",
+  "rules_path": "scripts/dev/project_health_rules.js",
+  "options": {
+    "advisory": true,
+    "changed_only": false,
+    "staged": false,
+    "base_ref": ""
+  },
+  "summary": {
+    "files_checked": 245,
+    "violations": 17,
+    "warnings": 6,
+    "changed_only": false,
+    "changed_file_count": null,
+    "baseline_path": "",
+    "baseline_legacy_violations": null,
+    "baseline_new_violations": null,
+    "baseline_regressions": null,
+    "advisory": true
+  },
+  "files": {
+    "apps/chrome-extension/background.js": {
+      "file": "apps/chrome-extension/background.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 103,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content_script.js": {
+      "file": "apps/chrome-extension/content_script.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 365,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 25
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options.js": {
+      "file": "apps/chrome-extension/options.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 110,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/popup_module_history_store.js": {
+      "file": "apps/chrome-extension/shared/srs/popup_module_history_store.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 353,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 25
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/popup_modules_registry.js": {
+      "file": "apps/chrome-extension/shared/srs/popup_modules_registry.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 370,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_feedback.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_feedback.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 97,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_gate.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_gate.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 78,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_metrics.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_metrics.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 66,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_runtime_diagnostics.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_runtime_diagnostics.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 72,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_selector.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_selector.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 226,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/srs/srs_store.js": {
+      "file": "apps/chrome-extension/shared/srs/srs_store.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 198,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/settings/profile_ui_theme_constants.js": {
+      "file": "apps/chrome-extension/shared/settings/profile_ui_theme_constants.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 63,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/settings/profile_ui_theme_prefs.js": {
+      "file": "apps/chrome-extension/shared/settings/profile_ui_theme_prefs.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 200,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/settings/settings_defaults.js": {
+      "file": "apps/chrome-extension/shared/settings/settings_defaults.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 78,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/profile/profile_media_store.js": {
+      "file": "apps/chrome-extension/shared/profile/profile_media_store.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 227,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/language/language_prefs.js": {
+      "file": "apps/chrome-extension/shared/language/language_prefs.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 51,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/language/lemmatizer.js": {
+      "file": "apps/chrome-extension/shared/language/lemmatizer.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 21,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/helper/helper_cache.js": {
+      "file": "apps/chrome-extension/shared/helper/helper_cache.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 107,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/helper/helper_client.js": {
+      "file": "apps/chrome-extension/shared/helper/helper_client.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 81,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/helper/helper_feedback_sync.js": {
+      "file": "apps/chrome-extension/shared/helper/helper_feedback_sync.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 533,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 33,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/shared/helper/helper_transport_extension.js": {
+      "file": "apps/chrome-extension/shared/helper/helper_transport_extension.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 52,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/vendor/cjk_codec.js": {
+      "file": "apps/chrome-extension/options/vendor/cjk_codec.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 160,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/vendor/lzstring.js": {
+      "file": "apps/chrome-extension/options/vendor/lzstring.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 448,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/helper_manager.js": {
+      "file": "apps/chrome-extension/options/core/helper_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 22,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/localization_service.js": {
+      "file": "apps/chrome-extension/options/core/localization_service.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 89,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/rules_manager.js": {
+      "file": "apps/chrome-extension/options/core/rules_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1505,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 1005,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings_manager.js": {
+      "file": "apps/chrome-extension/options/core/settings_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 42,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/ui_manager.js": {
+      "file": "apps/chrome-extension/options/core/ui_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 280,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/base_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/base_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 139,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/language_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/language_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 190,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/module_prefs_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/module_prefs_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 160,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/signals_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/signals_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 81,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/srs_profile_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/srs_profile_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 174,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/settings/ui_prefs_methods.js": {
+      "file": "apps/chrome-extension/options/core/settings/ui_prefs_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 199,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/helper/base_methods.js": {
+      "file": "apps/chrome-extension/options/core/helper/base_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 214,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/helper/diagnostics_methods.js": {
+      "file": "apps/chrome-extension/options/core/helper/diagnostics_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 185,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/helper/srs_set_methods.js": {
+      "file": "apps/chrome-extension/options/core/helper/srs_set_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 158,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/controller_adapters.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/controller_adapters.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 146,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/controller_factory.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/controller_factory.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 27,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/controller_graph.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/controller_graph.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 451,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "apps/chrome-extension/options/core/bootstrap/dom_aliases.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/dom_aliases.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 131,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/language_prefs_adapter.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/language_prefs_adapter.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 97,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/translate_resolver.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/translate_resolver.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 15,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/core/bootstrap/ui_bridge.js": {
+      "file": "apps/chrome-extension/options/core/bootstrap/ui_bridge.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 48,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/ui/display_replacement_settings_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/ui/display_replacement_settings_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 85,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1230,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 78
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 730,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 33
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/actions_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/actions_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 138,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 297,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/profile_selector_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/profile_selector_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 190,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/actions/formatters.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/actions/formatters.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 382,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/actions/shared.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/actions/shared.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 82,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/srs/actions/workflows.js": {
+      "file": "apps/chrome-extension/options/controllers/srs/actions/workflows.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 398,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 458,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "apps/chrome-extension/options/controllers/rules/share_center_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1836,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 74
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 1336,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/rules/share_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/rules/share_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 279,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 583,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 83,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/status_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/status_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 69,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/actions.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/actions.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 334,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/card_theme_actions.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/card_theme_actions.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 113,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/card_theme_manager.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/card_theme_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 321,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/card_theme_presenter.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/card_theme_presenter.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 193,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/page_background_manager.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/page_background_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 113,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/prefs_service.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/prefs_service.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 78,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/preview_manager.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/preview_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 204,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 22
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/runtime_bridge.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/runtime_bridge.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 267,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/profile/background/utils.js": {
+      "file": "apps/chrome-extension/options/controllers/profile/background/utils.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 59,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/event_wiring_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/page/event_wiring_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 164,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 22
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/init_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/page/init_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 147,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/general_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/general_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 66,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/profile_background_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/profile_background_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 125,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/srs_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/srs_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 137,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/general/display_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/general/display_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 114,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/general/integrations_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/general/integrations_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 35,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/general/language_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/general/language_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 119,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/page/events/general/rules_bindings.js": {
+      "file": "apps/chrome-extension/options/controllers/page/events/general/rules_bindings.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 95,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/options/controllers/helper/actions_controller.js": {
+      "file": "apps/chrome-extension/options/controllers/helper/actions_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 61,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/feedback_popup_controller.js": {
+      "file": "apps/chrome-extension/content/ui/feedback_popup_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 328,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/ui.js": {
+      "file": "apps/chrome-extension/content/ui/ui.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 828,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 62
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 328,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 17
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/utils.js": {
+      "file": "apps/chrome-extension/content/ui/utils.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 88,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/popup_modules/encounter_history_module.js": {
+      "file": "apps/chrome-extension/content/ui/popup_modules/encounter_history_module.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 216,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/popup_modules/feedback_history_module.js": {
+      "file": "apps/chrome-extension/content/ui/popup_modules/feedback_history_module.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 236,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/popup_modules/japanese_script_module.js": {
+      "file": "apps/chrome-extension/content/ui/popup_modules/japanese_script_module.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 209,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/ui/popup_modules/module_registry.js": {
+      "file": "apps/chrome-extension/content/ui/popup_modules/module_registry.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 72,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/apply_runtime_actions.js": {
+      "file": "apps/chrome-extension/content/runtime/apply_runtime_actions.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 120,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/apply_settings_pipeline.js": {
+      "file": "apps/chrome-extension/content/runtime/apply_settings_pipeline.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 146,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/dom_scan_runtime.js": {
+      "file": "apps/chrome-extension/content/runtime/dom_scan_runtime.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 406,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 33
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/settings_change_router.js": {
+      "file": "apps/chrome-extension/content/runtime/settings_change_router.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 215,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/rules/active_rules_runtime.js": {
+      "file": "apps/chrome-extension/content/runtime/rules/active_rules_runtime.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 140,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js": {
+      "file": "apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 126,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js": {
+      "file": "apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 195,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 20
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/dom_scan/node_filters.js": {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/node_filters.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 43,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js": {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 65,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/dom_scan/scan_counters.js": {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/scan_counters.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 62,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js": {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 318,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 22
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js": {
+      "file": "apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 157,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/processing/matcher.js": {
+      "file": "apps/chrome-extension/content/processing/matcher.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 98,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/processing/replacements.js": {
+      "file": "apps/chrome-extension/content/processing/replacements.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 534,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 24
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 34,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "apps/chrome-extension/content/processing/tokenizer.js": {
+      "file": "apps/chrome-extension/content/processing/tokenizer.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 54,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/annotations.js": {
+      "file": "apps/betterdiscord-plugin/src/annotations.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 170,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/cjk_codec.js": {
+      "file": "apps/betterdiscord-plugin/src/cjk_codec.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 153,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/constants.js": {
+      "file": "apps/betterdiscord-plugin/src/constants.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 27,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/footer.js": {
+      "file": "apps/betterdiscord-plugin/src/footer.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 3,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/header.js": {
+      "file": "apps/betterdiscord-plugin/src/header.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 55,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/lzstring.js": {
+      "file": "apps/betterdiscord-plugin/src/lzstring.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 448,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/plugin_class.js": {
+      "file": "apps/betterdiscord-plugin/src/plugin_class.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 329,
+        "imports": 1,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/replacer.js": {
+      "file": "apps/betterdiscord-plugin/src/replacer.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 66,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/state.js": {
+      "file": "apps/betterdiscord-plugin/src/state.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 4,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/betterdiscord-plugin/src/ui.js": {
+      "file": "apps/betterdiscord-plugin/src/ui.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 426,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/check_project_health.js": {
+      "file": "scripts/dev/check_project_health.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 727,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 37
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/cws_preflight.js": {
+      "file": "scripts/dev/cws_preflight.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 442,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 36
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/project_health_rules.js": {
+      "file": "scripts/dev/project_health_rules.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 96,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/__init__.py": {
+      "file": "apps/gui/src/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/__main__.py": {
+      "file": "apps/gui/src/__main__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 40,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/dialogs.py": {
+      "file": "apps/gui/src/dialogs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 897,
+        "imports": 17,
+        "domainBreadth": 1,
+        "functions": 41
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "apps/gui/src/dialogs_code.py": {
+      "file": "apps/gui/src/dialogs_code.py",
+      "language": "python",
+      "metrics": {
+        "lines": 155,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/dialogs_profiles.py": {
+      "file": "apps/gui/src/dialogs_profiles.py",
+      "language": "python",
+      "metrics": {
+        "lines": 684,
+        "imports": 13,
+        "domainBreadth": 1,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/dialogs_rulesets.py": {
+      "file": "apps/gui/src/dialogs_rulesets.py",
+      "language": "python",
+      "metrics": {
+        "lines": 291,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_app.py": {
+      "file": "apps/gui/src/helper_app.py",
+      "language": "python",
+      "metrics": {
+        "lines": 12,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_daemon.py": {
+      "file": "apps/gui/src/helper_daemon.py",
+      "language": "python",
+      "metrics": {
+        "lines": 126,
+        "imports": 15,
+        "domainBreadth": 1,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_installer.py": {
+      "file": "apps/gui/src/helper_installer.py",
+      "language": "python",
+      "metrics": {
+        "lines": 427,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_logger.py": {
+      "file": "apps/gui/src/helper_logger.py",
+      "language": "python",
+      "metrics": {
+        "lines": 16,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_tray.py": {
+      "file": "apps/gui/src/helper_tray.py",
+      "language": "python",
+      "metrics": {
+        "lines": 213,
+        "imports": 26,
+        "domainBreadth": 1,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    "apps/gui/src/helper_ui.py": {
+      "file": "apps/gui/src/helper_ui.py",
+      "language": "python",
+      "metrics": {
+        "lines": 193,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/i18n.py": {
+      "file": "apps/gui/src/i18n.py",
+      "language": "python",
+      "metrics": {
+        "lines": 83,
+        "imports": 5,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/integrations.py": {
+      "file": "apps/gui/src/integrations.py",
+      "language": "python",
+      "metrics": {
+        "lines": 17,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/language_packs.py": {
+      "file": "apps/gui/src/language_packs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 825,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "apps/gui/src/main.py": {
+      "file": "apps/gui/src/main.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2455,
+        "imports": 41,
+        "domainBreadth": 1,
+        "functions": 122
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1555,
+        "imports": 17,
+        "domainBreadth": 0,
+        "functions": 72
+      },
+      "violation_metrics": [
+        "lines",
+        "imports",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    "apps/gui/src/main_profile_ruleset_service.py": {
+      "file": "apps/gui/src/main_profile_ruleset_service.py",
+      "language": "python",
+      "metrics": {
+        "lines": 74,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/models.py": {
+      "file": "apps/gui/src/models.py",
+      "language": "python",
+      "metrics": {
+        "lines": 279,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/preview.py": {
+      "file": "apps/gui/src/preview.py",
+      "language": "python",
+      "metrics": {
+        "lines": 148,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/profile_ruleset_migration_service.py": {
+      "file": "apps/gui/src/profile_ruleset_migration_service.py",
+      "language": "python",
+      "metrics": {
+        "lines": 68,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/profile_ruleset_service.py": {
+      "file": "apps/gui/src/profile_ruleset_service.py",
+      "language": "python",
+      "metrics": {
+        "lines": 74,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/profile_ruleset_utils.py": {
+      "file": "apps/gui/src/profile_ruleset_utils.py",
+      "language": "python",
+      "metrics": {
+        "lines": 155,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/rules_table_view.py": {
+      "file": "apps/gui/src/rules_table_view.py",
+      "language": "python",
+      "metrics": {
+        "lines": 169,
+        "imports": 5,
+        "domainBreadth": 0,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/ruleset_library_service.py": {
+      "file": "apps/gui/src/ruleset_library_service.py",
+      "language": "python",
+      "metrics": {
+        "lines": 42,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/ruleset_preview_service.py": {
+      "file": "apps/gui/src/ruleset_preview_service.py",
+      "language": "python",
+      "metrics": {
+        "lines": 28,
+        "imports": 3,
+        "domainBreadth": 1,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/settings_language_packs.py": {
+      "file": "apps/gui/src/settings_language_packs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1617,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 86
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 717,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    "apps/gui/src/state.py": {
+      "file": "apps/gui/src/state.py",
+      "language": "python",
+      "metrics": {
+        "lines": 233,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 20
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_assets.py": {
+      "file": "apps/gui/src/theme_assets.py",
+      "language": "python",
+      "metrics": {
+        "lines": 50,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_loader.py": {
+      "file": "apps/gui/src/theme_loader.py",
+      "language": "python",
+      "metrics": {
+        "lines": 141,
+        "imports": 6,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_logger.py": {
+      "file": "apps/gui/src/theme_logger.py",
+      "language": "python",
+      "metrics": {
+        "lines": 20,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_manager.py": {
+      "file": "apps/gui/src/theme_manager.py",
+      "language": "python",
+      "metrics": {
+        "lines": 420,
+        "imports": 5,
+        "domainBreadth": 0,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_registry.py": {
+      "file": "apps/gui/src/theme_registry.py",
+      "language": "python",
+      "metrics": {
+        "lines": 83,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/theme_widgets.py": {
+      "file": "apps/gui/src/theme_widgets.py",
+      "language": "python",
+      "metrics": {
+        "lines": 112,
+        "imports": 5,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/utility_dock.py": {
+      "file": "apps/gui/src/utility_dock.py",
+      "language": "python",
+      "metrics": {
+        "lines": 153,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "apps/gui/src/utils_paths.py": {
+      "file": "apps/gui/src/utils_paths.py",
+      "language": "python",
+      "metrics": {
+        "lines": 39,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/__init__.py": {
+      "file": "core/lexishift_core/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 373,
+        "imports": 27,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/__init__.py": {
+      "file": "core/lexishift_core/srs/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 40,
+        "imports": 1,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/admission_policy.py": {
+      "file": "core/lexishift_core/srs/admission_policy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 171,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/admission_refresh.py": {
+      "file": "core/lexishift_core/srs/admission_refresh.py",
+      "language": "python",
+      "metrics": {
+        "lines": 462,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/gate.py": {
+      "file": "core/lexishift_core/srs/gate.py",
+      "language": "python",
+      "metrics": {
+        "lines": 47,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/growth.py": {
+      "file": "core/lexishift_core/srs/growth.py",
+      "language": "python",
+      "metrics": {
+        "lines": 211,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/pair_policy.py": {
+      "file": "core/lexishift_core/srs/pair_policy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 104,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/sampling.py": {
+      "file": "core/lexishift_core/srs/sampling.py",
+      "language": "python",
+      "metrics": {
+        "lines": 228,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/scheduler.py": {
+      "file": "core/lexishift_core/srs/scheduler.py",
+      "language": "python",
+      "metrics": {
+        "lines": 82,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/seed.py": {
+      "file": "core/lexishift_core/srs/seed.py",
+      "language": "python",
+      "metrics": {
+        "lines": 369,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/selector.py": {
+      "file": "core/lexishift_core/srs/selector.py",
+      "language": "python",
+      "metrics": {
+        "lines": 140,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/set_planner.py": {
+      "file": "core/lexishift_core/srs/set_planner.py",
+      "language": "python",
+      "metrics": {
+        "lines": 131,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/set_policy.py": {
+      "file": "core/lexishift_core/srs/set_policy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 115,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/set_strategy.py": {
+      "file": "core/lexishift_core/srs/set_strategy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 44,
+        "imports": 1,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/signal_queue.py": {
+      "file": "core/lexishift_core/srs/signal_queue.py",
+      "language": "python",
+      "metrics": {
+        "lines": 125,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/source.py": {
+      "file": "core/lexishift_core/srs/source.py",
+      "language": "python",
+      "metrics": {
+        "lines": 40,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/store.py": {
+      "file": "core/lexishift_core/srs/store.py",
+      "language": "python",
+      "metrics": {
+        "lines": 217,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/store_ops.py": {
+      "file": "core/lexishift_core/srs/store_ops.py",
+      "language": "python",
+      "metrics": {
+        "lines": 172,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/srs/time.py": {
+      "file": "core/lexishift_core/srs/time.py",
+      "language": "python",
+      "metrics": {
+        "lines": 25,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/scoring/__init__.py": {
+      "file": "core/lexishift_core/scoring/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/scoring/weighting.py": {
+      "file": "core/lexishift_core/scoring/weighting.py",
+      "language": "python",
+      "metrics": {
+        "lines": 46,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/__init__.py": {
+      "file": "core/lexishift_core/rulegen/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 4,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/adapters.py": {
+      "file": "core/lexishift_core/rulegen/adapters.py",
+      "language": "python",
+      "metrics": {
+        "lines": 136,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/benchmarking.py": {
+      "file": "core/lexishift_core/rulegen/benchmarking.py",
+      "language": "python",
+      "metrics": {
+        "lines": 317,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/generation.py": {
+      "file": "core/lexishift_core/rulegen/generation.py",
+      "language": "python",
+      "metrics": {
+        "lines": 675,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 37
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/ranking.py": {
+      "file": "core/lexishift_core/rulegen/ranking.py",
+      "language": "python",
+      "metrics": {
+        "lines": 129,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/semantic_demotion.py": {
+      "file": "core/lexishift_core/rulegen/semantic_demotion.py",
+      "language": "python",
+      "metrics": {
+        "lines": 52,
+        "imports": 3,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/tuning.py": {
+      "file": "core/lexishift_core/rulegen/tuning.py",
+      "language": "python",
+      "metrics": {
+        "lines": 300,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/utils.py": {
+      "file": "core/lexishift_core/rulegen/utils.py",
+      "language": "python",
+      "metrics": {
+        "lines": 268,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/__init__.py": {
+      "file": "core/lexishift_core/rulegen/pairs/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 36,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/en_de.py": {
+      "file": "core/lexishift_core/rulegen/pairs/en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 317,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/en_es.py": {
+      "file": "core/lexishift_core/rulegen/pairs/en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 356,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 17
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/es_en.py": {
+      "file": "core/lexishift_core/rulegen/pairs/es_en.py",
+      "language": "python",
+      "metrics": {
+        "lines": 279,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/ja_en.py": {
+      "file": "core/lexishift_core/rulegen/pairs/ja_en.py",
+      "language": "python",
+      "metrics": {
+        "lines": 561,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 20
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/pairs/pos_utils.py": {
+      "file": "core/lexishift_core/rulegen/pairs/pos_utils.py",
+      "language": "python",
+      "metrics": {
+        "lines": 172,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/resources/__init__.py": {
+      "file": "core/lexishift_core/resources/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/resources/db_handlers.py": {
+      "file": "core/lexishift_core/resources/db_handlers.py",
+      "language": "python",
+      "metrics": {
+        "lines": 74,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/resources/dict_loaders.py": {
+      "file": "core/lexishift_core/resources/dict_loaders.py",
+      "language": "python",
+      "metrics": {
+        "lines": 404,
+        "imports": 7,
+        "domainBreadth": 1,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/resources/japanese_script.py": {
+      "file": "core/lexishift_core/resources/japanese_script.py",
+      "language": "python",
+      "metrics": {
+        "lines": 248,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/resources/synonyms.py": {
+      "file": "core/lexishift_core/resources/synonyms.py",
+      "language": "python",
+      "metrics": {
+        "lines": 853,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "core/lexishift_core/replacement/__init__.py": {
+      "file": "core/lexishift_core/replacement/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/replacement/builder.py": {
+      "file": "core/lexishift_core/replacement/builder.py",
+      "language": "python",
+      "metrics": {
+        "lines": 79,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/replacement/core.py": {
+      "file": "core/lexishift_core/replacement/core.py",
+      "language": "python",
+      "metrics": {
+        "lines": 327,
+        "imports": 8,
+        "domainBreadth": 0,
+        "functions": 25
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/replacement/inflect.py": {
+      "file": "core/lexishift_core/replacement/inflect.py",
+      "language": "python",
+      "metrics": {
+        "lines": 211,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/replacement/pipeline.py": {
+      "file": "core/lexishift_core/replacement/pipeline.py",
+      "language": "python",
+      "metrics": {
+        "lines": 54,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/pos/__init__.py": {
+      "file": "core/lexishift_core/pos/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 20,
+        "imports": 1,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/pos/normalization.py": {
+      "file": "core/lexishift_core/pos/normalization.py",
+      "language": "python",
+      "metrics": {
+        "lines": 455,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/persistence/__init__.py": {
+      "file": "core/lexishift_core/persistence/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/persistence/import_export.py": {
+      "file": "core/lexishift_core/persistence/import_export.py",
+      "language": "python",
+      "metrics": {
+        "lines": 111,
+        "imports": 8,
+        "domainBreadth": 1,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/persistence/settings.py": {
+      "file": "core/lexishift_core/persistence/settings.py",
+      "language": "python",
+      "metrics": {
+        "lines": 222,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/persistence/storage.py": {
+      "file": "core/lexishift_core/persistence/storage.py",
+      "language": "python",
+      "metrics": {
+        "lines": 431,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/lexicon/__init__.py": {
+      "file": "core/lexishift_core/lexicon/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 24,
+        "imports": 1,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/lexicon/word_package.py": {
+      "file": "core/lexishift_core/lexicon/word_package.py",
+      "language": "python",
+      "metrics": {
+        "lines": 361,
+        "imports": 3,
+        "domainBreadth": 1,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/__init__.py": {
+      "file": "core/lexishift_core/helper/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 4,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/engine.py": {
+      "file": "core/lexishift_core/helper/engine.py",
+      "language": "python",
+      "metrics": {
+        "lines": 435,
+        "imports": 26,
+        "domainBreadth": 1,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/lp_capabilities.py": {
+      "file": "core/lexishift_core/helper/lp_capabilities.py",
+      "language": "python",
+      "metrics": {
+        "lines": 181,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/os.py": {
+      "file": "core/lexishift_core/helper/os.py",
+      "language": "python",
+      "metrics": {
+        "lines": 18,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/pair_resources.py": {
+      "file": "core/lexishift_core/helper/pair_resources.py",
+      "language": "python",
+      "metrics": {
+        "lines": 64,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/paths.py": {
+      "file": "core/lexishift_core/helper/paths.py",
+      "language": "python",
+      "metrics": {
+        "lines": 151,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/profiles.py": {
+      "file": "core/lexishift_core/helper/profiles.py",
+      "language": "python",
+      "metrics": {
+        "lines": 139,
+        "imports": 6,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/rulegen.py": {
+      "file": "core/lexishift_core/helper/rulegen.py",
+      "language": "python",
+      "metrics": {
+        "lines": 374,
+        "imports": 21,
+        "domainBreadth": 1,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    "core/lexishift_core/helper/status.py": {
+      "file": "core/lexishift_core/helper/status.py",
+      "language": "python",
+      "metrics": {
+        "lines": 59,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/__init__.py": {
+      "file": "core/lexishift_core/helper/use_cases/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 3,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/initialize_set.py": {
+      "file": "core/lexishift_core/helper/use_cases/initialize_set.py",
+      "language": "python",
+      "metrics": {
+        "lines": 235,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/refresh_set.py": {
+      "file": "core/lexishift_core/helper/use_cases/refresh_set.py",
+      "language": "python",
+      "metrics": {
+        "lines": 202,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/reset.py": {
+      "file": "core/lexishift_core/helper/use_cases/reset.py",
+      "language": "python",
+      "metrics": {
+        "lines": 84,
+        "imports": 7,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/rulegen_job.py": {
+      "file": "core/lexishift_core/helper/use_cases/rulegen_job.py",
+      "language": "python",
+      "metrics": {
+        "lines": 254,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/runtime_diagnostics.py": {
+      "file": "core/lexishift_core/helper/use_cases/runtime_diagnostics.py",
+      "language": "python",
+      "metrics": {
+        "lines": 143,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/set_planning.py": {
+      "file": "core/lexishift_core/helper/use_cases/set_planning.py",
+      "language": "python",
+      "metrics": {
+        "lines": 144,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 3
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/helper/use_cases/signals.py": {
+      "file": "core/lexishift_core/helper/use_cases/signals.py",
+      "language": "python",
+      "metrics": {
+        "lines": 88,
+        "imports": 7,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/__init__.py": {
+      "file": "core/lexishift_core/frequency/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 14,
+        "imports": 1,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/core.py": {
+      "file": "core/lexishift_core/frequency/core.py",
+      "language": "python",
+      "metrics": {
+        "lines": 190,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/providers.py": {
+      "file": "core/lexishift_core/frequency/providers.py",
+      "language": "python",
+      "metrics": {
+        "lines": 81,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/sqlite.py": {
+      "file": "core/lexishift_core/frequency/sqlite.py",
+      "language": "python",
+      "metrics": {
+        "lines": 257,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/sqlite_store.py": {
+      "file": "core/lexishift_core/frequency/sqlite_store.py",
+      "language": "python",
+      "metrics": {
+        "lines": 220,
+        "imports": 6,
+        "domainBreadth": 0,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/de/__init__.py": {
+      "file": "core/lexishift_core/frequency/de/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 11,
+        "imports": 3,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/de/build.py": {
+      "file": "core/lexishift_core/frequency/de/build.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1074,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 28
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 174,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/de/pipeline.py": {
+      "file": "core/lexishift_core/frequency/de/pipeline.py",
+      "language": "python",
+      "metrics": {
+        "lines": 664,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 25
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "core/lexishift_core/frequency/de/pos_compile.py": {
+      "file": "core/lexishift_core/frequency/de/pos_compile.py",
+      "language": "python",
+      "metrics": {
+        "lines": 117,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/apply_rulegen_label_overrides.py": {
+      "file": "scripts/testing/apply_rulegen_label_overrides.py",
+      "language": "python",
+      "metrics": {
+        "lines": 217,
+        "imports": 4,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/ja_en_rulegen_sweep.py": {
+      "file": "scripts/testing/ja_en_rulegen_sweep.py",
+      "language": "python",
+      "metrics": {
+        "lines": 130,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 5
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/ja_en_sample_review.py": {
+      "file": "scripts/testing/ja_en_sample_review.py",
+      "language": "python",
+      "metrics": {
+        "lines": 120,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/ja_en_seed_report.py": {
+      "file": "scripts/testing/ja_en_seed_report.py",
+      "language": "python",
+      "metrics": {
+        "lines": 55,
+        "imports": 5,
+        "domainBreadth": 1,
+        "functions": 1
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/pos_inventory_audit.py": {
+      "file": "scripts/testing/pos_inventory_audit.py",
+      "language": "python",
+      "metrics": {
+        "lines": 373,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/pos_normalization_probe.py": {
+      "file": "scripts/testing/pos_normalization_probe.py",
+      "language": "python",
+      "metrics": {
+        "lines": 720,
+        "imports": 15,
+        "domainBreadth": 1,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/resource_integrity_audit.py": {
+      "file": "scripts/testing/resource_integrity_audit.py",
+      "language": "python",
+      "metrics": {
+        "lines": 760,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/rulegen_benchmark.py": {
+      "file": "scripts/testing/rulegen_benchmark.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1487,
+        "imports": 19,
+        "domainBreadth": 1,
+        "functions": 24
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 587,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "scripts/testing/rulegen_benchmark_triage.py": {
+      "file": "scripts/testing/rulegen_benchmark_triage.py",
+      "language": "python",
+      "metrics": {
+        "lines": 252,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/rulegen_pair_audit_cycle.py": {
+      "file": "scripts/testing/rulegen_pair_audit_cycle.py",
+      "language": "python",
+      "metrics": {
+        "lines": 265,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 6
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/rulegen_probe_words.py": {
+      "file": "scripts/testing/rulegen_probe_words.py",
+      "language": "python",
+      "metrics": {
+        "lines": 512,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 9
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/testing/rulegen_quality_gate.py": {
+      "file": "scripts/testing/rulegen_quality_gate.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1138,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 238,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "scripts/testing/run_ja_en_tests.py": {
+      "file": "scripts/testing/run_ja_en_tests.py",
+      "language": "python",
+      "metrics": {
+        "lines": 230,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/dev_utils.py": {
+      "file": "scripts/dev/dev_utils.py",
+      "language": "python",
+      "metrics": {
+        "lines": 143,
+        "imports": 2,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/licensing_header_audit.py": {
+      "file": "scripts/dev/licensing_header_audit.py",
+      "language": "python",
+      "metrics": {
+        "lines": 652,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 520,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 132,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "scripts/dev/licensing_source_header_fetch.py": {
+      "file": "scripts/dev/licensing_source_header_fetch.py",
+      "language": "python",
+      "metrics": {
+        "lines": 636,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 520,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 116,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    "scripts/dev/srs_selector_demo.py": {
+      "file": "scripts/dev/srs_selector_demo.py",
+      "language": "python",
+      "metrics": {
+        "lines": 54,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/dev/test_embeddings.py": {
+      "file": "scripts/dev/test_embeddings.py",
+      "language": "python",
+      "metrics": {
+        "lines": 66,
+        "imports": 3,
+        "domainBreadth": 1,
+        "functions": 2
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/helper/lexishift_helper.py": {
+      "file": "scripts/helper/lexishift_helper.py",
+      "language": "python",
+      "metrics": {
+        "lines": 561,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 17
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    },
+    "scripts/helper/lexishift_native_host.py": {
+      "file": "scripts/helper/lexishift_native_host.py",
+      "language": "python",
+      "metrics": {
+        "lines": 373,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": []
+    }
+  }
+}

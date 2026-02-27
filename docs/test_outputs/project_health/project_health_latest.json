@@ -1,0 +1,635 @@
+{
+  "generated_at_utc": "2026-02-27T22:37:17.571Z",
+  "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
+  "options": {
+    "advisory": true,
+    "changed_only": false,
+    "staged": false,
+    "base_ref": "",
+    "baseline_json": "",
+    "fail_on_new": false,
+    "fail_on_regressions": false,
+    "enforce_all": false
+  },
+  "summary": {
+    "files_checked": 245,
+    "violations": 17,
+    "warnings": 6,
+    "changed_only": false,
+    "changed_file_count": null,
+    "baseline_path": "",
+    "baseline_legacy_violations": null,
+    "baseline_new_violations": null,
+    "baseline_regressions": null,
+    "advisory": true
+  },
+  "violations": [
+    {
+      "file": "apps/chrome-extension/shared/helper/helper_feedback_sync.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 533,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 33,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/options/core/rules_manager.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1505,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 1005,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1230,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 78
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 730,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 33
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 1836,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 74
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 1336,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/profile/background_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 583,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 83,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/content/ui/ui.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 828,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 62
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 328,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 17
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/chrome-extension/content/processing/replacements.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 534,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 24
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 34,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/gui/src/helper_tray.py",
+      "language": "python",
+      "metrics": {
+        "lines": 213,
+        "imports": 26,
+        "domainBreadth": 1,
+        "functions": 11
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/gui/src/main.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2455,
+        "imports": 41,
+        "domainBreadth": 1,
+        "functions": 122
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1555,
+        "imports": 17,
+        "domainBreadth": 0,
+        "functions": 72
+      },
+      "violation_metrics": [
+        "lines",
+        "imports",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/gui/src/settings_language_packs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1617,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 86
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 717,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/__init__.py",
+      "language": "python",
+      "metrics": {
+        "lines": 373,
+        "imports": 27,
+        "domainBreadth": 1,
+        "functions": 0
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 3,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/helper/engine.py",
+      "language": "python",
+      "metrics": {
+        "lines": 435,
+        "imports": 26,
+        "domainBreadth": 1,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/frequency/de/build.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1074,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 28
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 174,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/rulegen_benchmark.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1487,
+        "imports": 19,
+        "domainBreadth": 1,
+        "functions": 24
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 587,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/rulegen_quality_gate.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1138,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 238,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/dev/licensing_header_audit.py",
+      "language": "python",
+      "metrics": {
+        "lines": 652,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 520,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 132,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/dev/licensing_source_header_fetch.py",
+      "language": "python",
+      "metrics": {
+        "lines": 636,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 520,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 116,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    }
+  ],
+  "warnings": [
+    {
+      "file": "apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 458,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/core/bootstrap/controller_graph.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 451,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/gui/src/dialogs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 897,
+        "imports": 17,
+        "domainBreadth": 1,
+        "functions": 41
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/gui/src/language_packs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 825,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/rulegen.py",
+      "language": "python",
+      "metrics": {
+        "lines": 374,
+        "imports": 21,
+        "domainBreadth": 1,
+        "functions": 12
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/resources/synonyms.py",
+      "language": "python",
+      "metrics": {
+        "lines": 853,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    }
+  ],
+  "baseline_delta": null
+}

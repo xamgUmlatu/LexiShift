@@ -33,5 +33,6 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `testing/rulegen_benchmark_triage.py`
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
+  - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.
 - Audit licensing headers for `expected-not-verified` packs: `dev/licensing_header_audit.py`
 - Download and inspect source archive headers for licensing verification (dev-only): `dev/licensing_source_header_fetch.py`
