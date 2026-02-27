@@ -58,6 +58,8 @@
         "content/ui/popup_modules/feedback_history_module.js",
         "content/ui/popup_modules/encounter_history_module.js",
         "content/ui/feedback_popup_controller.js",
+        "content/ui/popup_locale_helpers.js",
+        "content/ui/popup_helpers.js",
         "content/ui/ui.js",
         "content/ui/utils.js",
         "content_script.js"

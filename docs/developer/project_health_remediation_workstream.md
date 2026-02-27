@@ -12,7 +12,7 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Baseline Snapshot (2026-02-27, post first remediation)
+## Baseline Snapshot (2026-02-27, current)
 
 Source command:
 
@@ -23,15 +23,15 @@ npm run health:project
 
 Current violation profile:
 
-1. Total violations: `13` files (out of `248` scanned)
+1. Total violations: `12` files (out of `250` scanned)
 2. By area:
-   - `apps/chrome-extension`: `4`
+   - `apps/chrome-extension`: `3`
    - `apps/gui/src`: `2`
    - `core/lexishift_core`: `3`
    - `scripts/*`: `4`
 3. By metric:
-   - `lines`: `11`
-   - `functions`: `5`
+   - `lines`: `10`
+   - `functions`: `4`
    - `imports`: `3`
    - `domainBreadth`: `0`
 
@@ -56,8 +56,13 @@ Top hotspots by line overage:
    into `apps/chrome-extension/options/controllers/profile/background/controller_context.js`.
 4. 2026-02-27: normalized helper tray imports in
    `apps/gui/src/helper_tray.py` to remove a checker import-overage violation.
-5. Result: removed four full advisory violations (`helper_feedback_sync.js`,
-   `replacements.js`, `background_controller.js`, `helper_tray.py`) without changing runtime API shape.
+5. 2026-02-27: extracted popup locale/theme/runtime-order helpers from
+   `apps/chrome-extension/content/ui/ui.js` into
+   `apps/chrome-extension/content/ui/popup_locale_helpers.js` and
+   `apps/chrome-extension/content/ui/popup_helpers.js`.
+6. Result: removed five full advisory violations (`helper_feedback_sync.js`,
+   `replacements.js`, `background_controller.js`, `helper_tray.py`, `ui.js`)
+   without changing runtime API shape.
 
 ## Leaf-First Remediation Queue (Current)
 
@@ -69,25 +74,23 @@ Hotspot-first globally, then leaf-first per hotspot:
    - Extract: pure diff/merge ops, sorting/grouping helpers, persistence adapter wrapper.
 3. `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js`
    - Extract: filter/query helpers, rendering mappers, mutation commands.
-4. `apps/chrome-extension/content/ui/ui.js`
-   - Extract: popup view-model formatters, event routing table, isolated DOM writer.
-5. `apps/gui/src/main.py`
+4. `apps/gui/src/main.py`
    - Extract: non-Qt app services, command wiring, data loading orchestration.
-6. `apps/gui/src/settings_language_packs.py`
+5. `apps/gui/src/settings_language_packs.py`
    - Extract: download/use-case services, table mappers, validation logic.
-7. `core/lexishift_core/__init__.py`
+6. `core/lexishift_core/__init__.py`
    - Extract: optional/advanced exports into lazy import boundary to reduce import fanout.
-8. `core/lexishift_core/helper/engine.py`
+7. `core/lexishift_core/helper/engine.py`
    - Extract: optional dependencies and heavyweight integrations into dedicated modules.
-9. `core/lexishift_core/frequency/de/build.py`
+8. `core/lexishift_core/frequency/de/build.py`
    - Extract: parsing pipeline stages into focused builder helpers.
-10. `scripts/testing/rulegen_benchmark.py`
+9. `scripts/testing/rulegen_benchmark.py`
    - Extract: case loading, runner, metrics, renderers into separate script helpers.
-11. `scripts/testing/rulegen_quality_gate.py`
+10. `scripts/testing/rulegen_quality_gate.py`
    - Extract: policy evaluation core and report rendering.
-12. `scripts/dev/licensing_header_audit.py`
+11. `scripts/dev/licensing_header_audit.py`
    - Extract: scanners, license classifiers, report writer.
-13. `scripts/dev/licensing_source_header_fetch.py`
+12. `scripts/dev/licensing_source_header_fetch.py`
    - Extract: source fetch adapters, cache/store logic, retry policy.
 
 ## Remediation Strategy
@@ -132,7 +135,6 @@ Target files (initial):
 1. `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
 2. `apps/chrome-extension/options/core/rules_manager.js`
 3. `apps/chrome-extension/options/controllers/ui/target_language_modal_controller.js`
-4. `apps/chrome-extension/content/ui/ui.js`
 
 Extraction order per file:
 
@@ -152,7 +154,6 @@ Target files (initial):
 
 1. `apps/gui/src/main.py`
 2. `apps/gui/src/settings_language_packs.py`
-3. `apps/gui/src/helper_tray.py`
 
 Extraction order per file:
 
