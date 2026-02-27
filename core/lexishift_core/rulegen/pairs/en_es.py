@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 from typing import Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.pos.normalization import CANONICAL_POS_NOUN
 from lexishift_core.resources.dict_loaders import (
     FreedictGlossRecord,
     load_freedict_gloss_records_ordered,
@@ -56,6 +57,8 @@ _SPANISH_NOUN_WORD_RE = re.compile(r"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$")
 def _resolve_spanish_target_surface(candidate: RuleCandidate, form: str) -> Optional[str]:
     if form != "plural":
         return None
+    if _extract_target_pos_canonical(candidate) != CANONICAL_POS_NOUN:
+        return None
     return _pluralize_spanish_noun(candidate.replacement)
 
 
@@ -73,6 +76,18 @@ def _pluralize_spanish_noun(word: str) -> Optional[str]:
     if lowered.endswith(("s", "x")):
         return None
     return text + "es"
+
+
+def _extract_target_pos_canonical(candidate: RuleCandidate) -> str:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    pos = metadata.get("pos")
+    if isinstance(pos, Mapping):
+        target = pos.get("target")
+        if isinstance(target, Mapping):
+            canonical = str(target.get("canonical") or "").strip().lower()
+            if canonical:
+                return canonical
+    return str(metadata.get("target_pos_canonical") or "").strip().lower()
 
 
 @dataclass(frozen=True)

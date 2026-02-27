@@ -270,6 +270,12 @@ class TestRulegenAdapters(unittest.TestCase):
                     targets=("hora",),
                     language_pair="en-es",
                     freedict_de_en_path=path,
+                    word_packages_by_target={
+                        "hora": {
+                            "version": 1,
+                            "pos_canonical": "noun",
+                        }
+                    },
                 )
             )
 
@@ -284,6 +290,44 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(hours_metadata.morphology.get("source_form"), "plural")
         self.assertEqual(hours_metadata.morphology.get("target_surface"), "horas")
         self.assertEqual(hours_metadata.morphology.get("target_lemma"), "hora")
+
+    def test_en_es_adapter_skips_plural_target_surface_for_non_noun_targets(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>mostrar</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">show</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("mostrar",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                    include_variants=True,
+                    word_packages_by_target={
+                        "mostrar": {
+                            "version": 1,
+                            "pos_canonical": "verb",
+                        }
+                    },
+                )
+            )
+
+        by_source = {rule.source_phrase: rule for rule in rules}
+        self.assertIn("show", by_source)
+        self.assertNotIn("shows", by_source)
 
     def test_en_es_adapter_caps_total_rules_per_target_after_variants(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

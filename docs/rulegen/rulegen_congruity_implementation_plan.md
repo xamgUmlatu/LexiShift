@@ -1,6 +1,6 @@
 # Rulegen Congruity Hardening: Implementation Plan
 
-Status: Phase 0 complete; Phase 1 implemented (2026-02-19); Phase 2 groundwork implemented (2026-02-23); Phase 3 pair-level tuning resolution implemented (2026-02-23); Phase 4 benchmark harness implemented (2026-02-23)
+Status: Phase 0 complete; Phase 1 implemented (2026-02-19); Phase 2 groundwork implemented (2026-02-23); Phase 3 pair-level tuning resolution implemented (2026-02-23); Phase 4 benchmark harness implemented (2026-02-23); Phase 5 quality gate scaffolding implemented (2026-02-24); Phase 6 polysemy hardening options documented (2026-02-27)
 
 Purpose:
 - Record two immediate decisions for rule quality control.
@@ -351,3 +351,54 @@ Delivered:
 Notes:
 - Current hard-gated benchmark pair is `en-es`; other pairs remain recommended until benchmark artifact cadence is expanded.
 - Saturation checks currently warn by default and can be escalated via `--strict-saturation`.
+
+## Phase 6 Polysemy Hardening Options (Documented 2026-02-27, Planned)
+
+Goal:
+- Move beyond scalar tuning toward stronger sense-congruity signals, with precision-first behavior for SRS replacements.
+
+Documented option set:
+1) Reverse-check scoring
+- Add forward/reverse consistency features to ranking (`source -> target` and reverse `target -> source` support).
+- Target code touchpoints:
+  - `core/lexishift_core/rulegen/pairs/*.py` (attach reverse evidence metadata)
+  - `core/lexishift_core/rulegen/ranking.py` (bonus/penalty integration)
+- Candidate data sources:
+  - FreeDict reverse directions where available.
+
+2) Sense-risk penalties
+- Demote specialized/ambiguous senses using qualifier/domain/register cues.
+- Target code touchpoints:
+  - `core/lexishift_core/resources/dict_loaders.py` (qualifier extraction)
+  - `core/lexishift_core/rulegen/pairs/*.py` (metadata)
+  - `core/lexishift_core/rulegen/ranking.py` (risk penalties)
+- Candidate data sources:
+  - FreeDict TEI sense notes/labels, JMDict sense metadata, optional Kaikki/Wiktionary exports.
+
+3) Translation probability + entropy features
+- Compute lexical probabilities (`P(target|source)`, `P(source|target)`) and ambiguity entropy from aligned corpora.
+- Store features in SQLite and feed rulegen ranking.
+- Candidate data sources/tooling:
+  - OPUS parallel corpora + `fast_align`.
+
+4) Multi-source agreement bonus
+- Reward candidates with corroboration across independent resources.
+- Track support count/provenance in candidate metadata and ranking.
+
+5) Runtime abstain guard
+- At apply time, abstain on high-risk polysemous cases when confidence margin is weak.
+- Emit reason-coded diagnostics for skipped replacements.
+- Target code touchpoint:
+  - `apps/chrome-extension/content/processing/replacements.js`
+
+6) Embeddings policy (explicit)
+- Keep static/contextless embedding similarity as a low-weight auxiliary signal.
+- Do not treat static embedding similarity as a primary sense disambiguation mechanism.
+
+Execution note:
+- Recommended near-term order for impact:
+  1) runtime abstain guard,
+  2) reverse-check scoring,
+  3) sense-risk penalties,
+  4) multi-source agreement,
+  5) translation probability/entropy integration.

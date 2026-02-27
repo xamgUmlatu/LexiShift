@@ -124,7 +124,7 @@ Data requirements (by pair)
   - Optional: tokenizer for JP.
 
 Current morphology handling (`en-es`)
-- Rulegen emits both canonical and plural source forms when applicable (for example `hour` and `hours`).
+- Rulegen emits both canonical and plural source forms only when target canonical POS is `noun` (for example `hour` and `hours` for `hora`).
 - Emitted rules keep canonical `replacement` lemma (for example `hora`) for SRS identity.
 - Plural display form is carried in `metadata.morphology.target_surface` (for example `horas`) and consumed by extension runtime.
 
@@ -171,6 +171,31 @@ Current operational policy update:
 4) Emission diagnostics
    - Persist reason codes for why a candidate survived filtering (for auditability and tuning).
    - Add review reports showing top noisy candidates by pair.
+
+Polysemy disambiguation candidates (research backlog)
+1) Reverse-check scoring (forward + reverse dictionary consistency)
+   - Add a score bonus/penalty when `source -> target` is or is not supported by reverse lookup.
+   - Example: for `en-es`, validate candidate English source against reverse dictionary evidence from ES back to EN.
+   - Expected impact: better rejection of one-way or sense-misaligned translations.
+2) Sense-risk penalties from dictionary metadata
+   - Use available sense/domain/register/qualifier cues to demote ambiguous or specialized senses.
+   - Candidate sources: FreeDict TEI sense notes/labels, JMDict sense metadata, and optional Wiktionary/Kaikki exports.
+   - Expected impact: fewer incorrect replacements for high-polysemy glosses.
+3) Translation-probability + entropy features (parallel corpus)
+   - Build lexical probability tables (`P(target|source)`, `P(source|target)`) from aligned corpora (for example OPUS + `fast_align`).
+   - Persist to a compact SQLite feature store and use as rulegen ranking signals.
+   - Expected impact: stronger statistical filtering of weak/rare sense mappings.
+4) Multi-source agreement bonus
+   - Reward candidates corroborated by multiple independent resources (for example FreeDict + aligned probabilities + optional WordNet links).
+   - Track provenance count/support in rule metadata.
+   - Expected impact: higher precision on accepted mappings.
+5) Runtime abstain for high-risk ambiguity
+   - At apply time, skip replacement when confidence margin is weak and polysemy risk is high.
+   - Emit diagnostics reason codes for abstained replacements.
+   - Expected impact: immediate user-trust improvement before full offline disambiguation is complete.
+6) Embeddings usage policy
+   - Treat static/contextless embedding similarity as a secondary signal only.
+   - Use it for weak bonus/penalty and uncertainty margin; do not rely on it as primary polysemy disambiguation.
 
 Next steps (current workstream focus)
 1) **Frequency provider for EN glosses (JA→EN)**

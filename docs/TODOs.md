@@ -144,10 +144,16 @@ Acceptance criteria:
 - Improve SRS rulegen quality (helper-published rules) for better pedagogical precision and fewer broad/ambiguous outputs.
 - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.
 - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
+- Add reverse-check scoring when reverse dictionaries are available:
+  - score/penalize candidate rules by source->target consistency in reverse lookup.
+- Add sense-risk penalties for ambiguous/specialized senses:
+  - use lexical cues/metadata to demote risky polysemic or niche senses.
 - Add runtime apply-time polysemy safeguards (pair-aware):
   - abstain from replacement for high-risk ambiguous matches when confidence/sense margin is weak,
   - optional local-context heuristics around the matched source token,
   - structured runtime diagnostics for skipped replacements and reason codes.
+- Add multi-source agreement bonus:
+  - increase confidence when a candidate mapping is supported by multiple independent resources.
 
 ### Pair-specific morphology expansion
 - Current paired morphology expansion is intentionally narrow (`en-es` noun plural source -> target surface mapping).
