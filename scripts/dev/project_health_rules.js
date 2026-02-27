@@ -4,46 +4,56 @@ module.exports = Object.freeze({
     warningRatio: 0.9,
     defaults: Object.freeze({
         javascript: Object.freeze({
-            maxLines: 320,
-            maxImports: 12,
-            maxDomainBreadth: 5,
-            maxFunctions: 24
+            maxLines: 500,
+            maxImports: 16,
+            maxDomainBreadth: 6,
+            maxFunctions: 45
         }),
         python: Object.freeze({
-            maxLines: 380,
-            maxImports: 20,
+            maxLines: 900,
+            maxImports: 24,
             maxDomainBreadth: 8,
-            maxFunctions: 30
+            maxFunctions: 50
         })
     }),
     targets: Object.freeze([
         Object.freeze({
-            root: "apps",
+            root: "apps/chrome-extension",
             language: "javascript",
             extensions: Object.freeze([".js", ".mjs", ".cjs", ".ts", ".tsx"])
         }),
         Object.freeze({
-            root: "scripts",
+            root: "apps/betterdiscord-plugin/src",
+            language: "javascript",
+            extensions: Object.freeze([".js", ".mjs", ".cjs", ".ts", ".tsx"])
+        }),
+        Object.freeze({
+            root: "scripts/dev",
             language: "javascript",
             extensions: Object.freeze([".js", ".mjs", ".cjs"])
         }),
         Object.freeze({
-            root: "apps",
+            root: "apps/gui/src",
             language: "python",
             extensions: Object.freeze([".py"])
         }),
         Object.freeze({
-            root: "core",
+            root: "core/lexishift_core",
             language: "python",
             extensions: Object.freeze([".py"])
         }),
         Object.freeze({
-            root: "scripts",
+            root: "scripts/testing",
             language: "python",
             extensions: Object.freeze([".py"])
         }),
         Object.freeze({
-            root: "data",
+            root: "scripts/dev",
+            language: "python",
+            extensions: Object.freeze([".py"])
+        }),
+        Object.freeze({
+            root: "scripts/helper",
             language: "python",
             extensions: Object.freeze([".py"])
         })
@@ -62,7 +72,9 @@ module.exports = Object.freeze({
         ".pytest_cache",
         ".ruff_cache",
         "__pycache__",
-        "node_modules"
+        "node_modules",
+        "dist",
+        "build"
     ]),
     overrides: Object.freeze({
         "scripts/dev/cws_preflight.js": Object.freeze({

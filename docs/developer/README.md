@@ -18,6 +18,7 @@ Purpose:
 - Local setup and day-to-day loops: `local_setup.md`
 - Build/release packaging flows: `build_and_release.md`
 - AI-assisted rulegen/POS quality loop: `ai_workflow.md`
+- Project health gate structure: `project_health_gate_structure.md`
 - Script map: `../../scripts/README.md`
 - Architecture docs map: `../README.md`
 

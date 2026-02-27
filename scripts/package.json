@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "preflight:cws": "node dev/cws_preflight.js",
+    "health:project": "node dev/check_project_health.js --advisory",
     "quality:rulegen:gate": "python3 testing/rulegen_quality_gate.py",
     "quality:rulegen:triage": "python3 testing/rulegen_benchmark_triage.py",
     "build:bd": "node betterdiscord_plugin/build_plugin.js",
