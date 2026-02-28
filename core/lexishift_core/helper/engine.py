@@ -48,6 +48,14 @@ from lexishift_core.srs.source import SOURCE_EXTENSION
 from lexishift_core.srs.time import now_utc
 
 
+def build_seed_candidates(*args, **kwargs):
+    seed_module = __import__(
+        "lexishift_core.srs.seed",
+        fromlist=["build_seed_candidates"],
+    )
+    return seed_module.build_seed_candidates(*args, **kwargs)
+
+
 def _get_srs_runtime_diagnostics_use_case(*args, **kwargs):
     diagnostics_module = __import__(
         "lexishift_core.helper.use_cases.runtime_diagnostics",
@@ -385,8 +393,6 @@ def refresh_srs_set(
     *,
     config: SrsRefreshJobConfig,
 ) -> dict:
-    seed_module = __import__("lexishift_core.srs.seed", fromlist=["build_seed_candidates"])
-
     return _refresh_srs_set_use_case(
         paths,
         config=config,
@@ -399,7 +405,7 @@ def refresh_srs_set(
         ensure_store_fn=_ensure_store,
         count_items_for_pair_fn=_count_items_for_pair,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
-        build_seed_candidates_fn=seed_module.build_seed_candidates,
+        build_seed_candidates_fn=build_seed_candidates,
         run_rulegen_for_pair_fn=run_rulegen_for_pair,
         write_rulegen_outputs_fn=write_rulegen_outputs,
         update_status_fn=_update_status,

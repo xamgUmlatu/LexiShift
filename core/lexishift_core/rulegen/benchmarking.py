@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterable as IterableCollection
 from dataclasses import dataclass, field
 from statistics import mean
 from typing import Iterable, Mapping, Optional, Sequence
@@ -17,6 +18,16 @@ def normalize_benchmark_phrase(value: object) -> str:
 def _normalize_phrase_list(values: Iterable[object]) -> tuple[str, ...]:
     normalized = [normalize_benchmark_phrase(value) for value in values]
     return tuple(item for item in normalized if item)
+
+
+def _coerce_phrase_values(value: object) -> Iterable[object]:
+    if value is None:
+        return ()
+    if isinstance(value, (str, bytes)):
+        return (value,)
+    if isinstance(value, IterableCollection):
+        return value
+    return ()
 
 
 @dataclass(frozen=True)
@@ -48,12 +59,18 @@ class RulegenBenchmarkCase:
             case_id=case_id,
             pair=pair,
             target=target,
-            expected_any=_normalize_phrase_list(payload.get("expected_any", ()) or ()),
-            expected_top1_any=_normalize_phrase_list(
-                payload.get("expected_top1_any", ()) or ()
+            expected_any=_normalize_phrase_list(
+                _coerce_phrase_values(payload.get("expected_any", ()) or ())
             ),
-            forbidden_top1=_normalize_phrase_list(payload.get("forbidden_top1", ()) or ()),
-            forbidden_any=_normalize_phrase_list(payload.get("forbidden_any", ()) or ()),
+            expected_top1_any=_normalize_phrase_list(
+                _coerce_phrase_values(payload.get("expected_top1_any", ()) or ())
+            ),
+            forbidden_top1=_normalize_phrase_list(
+                _coerce_phrase_values(payload.get("forbidden_top1", ()) or ())
+            ),
+            forbidden_any=_normalize_phrase_list(
+                _coerce_phrase_values(payload.get("forbidden_any", ()) or ())
+            ),
             target_reading=str(payload.get("target_reading") or "").strip() or None,
             notes=str(payload.get("notes") or "").strip() or None,
         )

@@ -123,6 +123,7 @@ Advisory (non-blocking introduction mode):
 
 ```bash
 node scripts/dev/check_project_health.js --advisory
+```
 
 Write baseline snapshot:
 
@@ -150,17 +151,11 @@ node scripts/dev/check_project_health.js \
   --advisory \
   --json-output docs/test_outputs/project_health/project_health_latest.json
 ```
-```
 
 From `scripts/` package scripts:
 
 ```bash
 npm run health:project
-```
-
-From `scripts/` package scripts:
-
-```bash
 npm run health:project:report
 npm run health:project:baseline
 npm run health:project:changed

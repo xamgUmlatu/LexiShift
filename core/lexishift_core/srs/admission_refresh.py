@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterable as IterableCollection
 from dataclasses import dataclass, field
 from datetime import datetime
 from math import floor
@@ -369,7 +370,7 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
     return max(0, parsed)
 
 
-def _normalize_allowed_pos(value: Optional[Sequence[str]]) -> set[str]:
+def _normalize_allowed_pos(value: Optional[IterableCollection[str]]) -> set[str]:
     if not value:
         return set()
     return {

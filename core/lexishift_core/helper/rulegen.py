@@ -79,6 +79,11 @@ def _load_seed_module():
     )
 
 
+def build_seed_candidates(*args, **kwargs):
+    seed_module = _load_seed_module()
+    return seed_module.build_seed_candidates(*args, **kwargs)
+
+
 def load_targets_from_store(store: SrsStore, *, pair: str) -> list[str]:
     return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
 
@@ -132,7 +137,7 @@ def initialize_store_from_frequency_list_with_report(
         require_jmdict=config.require_jmdict,
         admission_pos_weights=resolved_pos_weights,
     )
-    selected_words = seed_module.build_seed_candidates(
+    selected_words = build_seed_candidates(
         frequency_db=config.frequency_db,
         config=selection_config,
     )

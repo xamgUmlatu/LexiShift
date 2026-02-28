@@ -189,6 +189,20 @@ def _emit_progress(callback: Optional[ProgressCallback], value: int, total: int 
     callback(max(0, min(value, total)), total)
 
 
+def _to_int(value: object, *, default: int = 0) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        parsed = int(str(value).strip())
+    except (TypeError, ValueError):
+        return default
+    return parsed
+
+
 def _check_cancel(cancel_cb: Optional[CancelCallback]) -> None:
     if cancel_cb and cancel_cb():
         raise RuntimeError("cancelled")
@@ -640,10 +654,10 @@ def main() -> None:
     )
     print(
         "POS inventory:"
-        f" rows_with_pos={int(result.pos_inventory.get('rows_with_pos', 0)):,},"
-        f" rows_without_pos={int(result.pos_inventory.get('rows_without_pos', 0)):,},"
-        f" pos_inventory_size={int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
-        f" unknown_pos_inventory_size={int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
+        f" rows_with_pos={_to_int(result.pos_inventory.get('rows_with_pos', 0)):,},"
+        f" rows_without_pos={_to_int(result.pos_inventory.get('rows_without_pos', 0)):,},"
+        f" pos_inventory_size={_to_int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
+        f" unknown_pos_inventory_size={_to_int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
     )
     print(
         "Paths:"

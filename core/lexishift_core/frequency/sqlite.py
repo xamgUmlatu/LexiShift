@@ -6,12 +6,15 @@ import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
 import re
-from typing import Any, Iterable, Optional, Sequence
+from typing import Any, Callable, Iterable, Optional, Sequence
 
+_normalize_pos: Optional[Callable[..., Any]]
 try:
-    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos
+    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos_impl
 except Exception:  # noqa: BLE001
     _normalize_pos = None
+else:
+    _normalize_pos = _normalize_pos_impl
 
 
 @dataclass(frozen=True)

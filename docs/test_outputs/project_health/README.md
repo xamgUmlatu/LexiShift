@@ -31,6 +31,12 @@ cd scripts
 npm run health:project:changed
 ```
 
+CI integration:
+
+1. Pull requests run `.github/workflows/ci.yml` job `project-health-changed`.
+2. The CI gate uses the same baseline-delta policy as `health:project:changed`
+   (`fail-on-new`, `fail-on-regressions`).
+
 Artifacts:
 
 - `project_health_latest.json`: latest advisory scan payload.

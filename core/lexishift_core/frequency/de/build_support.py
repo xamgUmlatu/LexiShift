@@ -4,14 +4,17 @@ import argparse
 from collections import Counter
 from pathlib import Path
 import re
-from typing import Optional
+from typing import Any, Callable, Optional
 import unicodedata
 from xml.etree import ElementTree
 
+_normalize_pos: Optional[Callable[..., Any]]
 try:
-    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos
+    from lexishift_core.pos.normalization import normalize_pos as _normalize_pos_impl
 except Exception:  # noqa: BLE001
     _normalize_pos = None
+else:
+    _normalize_pos = _normalize_pos_impl
 
 TOKEN_ALLOWED = re.compile(
     r"^[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF]"

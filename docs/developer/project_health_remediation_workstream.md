@@ -250,6 +250,19 @@ Near-limit watchlist (non-blocking): none (`0` warnings).
     `.github/workflows/ci.yml` via `project-health-changed` (PR-only) using
     baseline-delta gating (`--fail-on-new`, `--fail-on-regressions`) against
     `docs/test_outputs/project_health/project_health_baseline.json`.
+53. 2026-02-28: restored patch-compatible seed entry points after lazy-import changes:
+    - `core/lexishift_core/helper/engine.py` now exposes `build_seed_candidates` wrapper.
+    - `core/lexishift_core/helper/rulegen.py` now exposes and uses a module-level
+      `build_seed_candidates` wrapper.
+    This preserved test patch seams while keeping import pressure low.
+54. 2026-02-28: completed mypy health pass for core by fixing typing issues in:
+    - `core/lexishift_core/frequency/sqlite.py`
+    - `core/lexishift_core/frequency/de/build_support.py`
+    - `core/lexishift_core/rulegen/benchmarking.py`
+    - `core/lexishift_core/frequency/de/build.py`
+    - `core/lexishift_core/frequency/de/pipeline.py`
+    - `core/lexishift_core/srs/admission_refresh.py`
+    resulting in `mypy core/lexishift_core` passing with `0` errors.
 
 ## Leaf-First Remediation Queue (Current)
 
@@ -258,6 +271,59 @@ Current queue is maintenance-only:
 
 1. Keep `npm run -s health:project:changed` in the PR loop and block new warnings/regressions.
 2. Re-run full `npm run -s health:project:report` before release cuts or large refactors.
+
+## Post-Refactor Status Checkpoint (2026-02-28)
+
+Verification snapshot after the large split/refactor set:
+
+1. Maintainability gate:
+   - `npm run -s health:project:report`: pass (`302` files, `0` violations, `0` warnings)
+   - `npm run -s health:project:changed`: pass (`legacy=0`, `new=0`, `regressions=0`)
+2. Core runtime tests:
+   - `python3 -m unittest discover -s core/tests`: pass (`197` tests)
+3. Targeted regression suites impacted by lazy-import compatibility changes:
+   - `python3 -m unittest core.tests.helper.test_helper_rulegen core.tests.helper.test_helper_engine core.tests.srs.test_srs_feedback_simulation`: pass (`38` tests)
+4. CI enforcement:
+   - PR workflow now includes `project-health-changed` gate in `.github/workflows/ci.yml`.
+5. Known non-health quality checks currently not green:
+   - `python3 scripts/testing/rulegen_quality_gate.py ...` currently fails en-es floor/delta checks against current baseline.
+
+Interpretation:
+
+1. Refactor stability is good for architecture/maintainability and core unit runtime behavior.
+2. Rulegen quality remains an active workstream, independent from the health refactor itself.
+
+## Responsibility Map (Current)
+
+High-value module boundaries after refactor:
+
+1. Extension options bootstrap:
+   - `apps/chrome-extension/options/core/bootstrap/controller_graph.js`: orchestration/composition root only.
+   - `apps/chrome-extension/options/core/bootstrap/controller_graph_elements.js`: static DOM element mapping groups.
+2. Extension profile rulesets:
+   - `apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js`: async flow + persistence orchestration.
+   - `apps/chrome-extension/options/controllers/rules/profile_rulesets_state.js`: pure state normalization/merge/summarize helpers.
+3. Extension share center:
+   - `apps/chrome-extension/options/controllers/rules/share_center_controller.js`: top-level wiring.
+   - `apps/chrome-extension/options/controllers/rules/share_center/*.js`: focused helpers (status/render/sync/selection/tree/workflow).
+4. GUI app shell:
+   - `apps/gui/src/main.py`: app/window composition + high-level wiring.
+   - `apps/gui/src/main_*_mixin.py`: feature-domain behavior (profiles, SRS, menus, import/export, locale, bulk rules).
+   - `apps/gui/src/main_ui_components.py`: import aggregation adapter to reduce top-level import fanout.
+5. GUI language packs:
+   - `apps/gui/src/settings_language_packs.py`: panel orchestration.
+   - `apps/gui/src/settings_language_packs_*_mixin.py`: layout/path/table/transfer/panel-state responsibilities.
+   - `apps/gui/src/language_packs_catalog.py`: data catalog + pack declarations.
+6. Core package surfaces:
+   - `core/lexishift_core/__init__.py`: public exports + lazy export resolution.
+   - `core/lexishift_core/helper/engine.py`: helper use-case orchestration with compatibility-safe lazy loading.
+   - `core/lexishift_core/helper/rulegen.py`: rulegen/set initialization flows with patch-friendly seed wrappers.
+
+Assessment:
+
+1. Responsibility boundaries are more coherent than before (orchestrators vs pure helpers are now mostly separated).
+2. Feature changes should generally be easier, because most edits now land in domain-specific helper modules instead of giant multi-domain files.
+3. Main risk introduced by the refactor is coordination overhead (more files + load-order coupling in extension script tags + lazy import wrappers). This is manageable with current docs and CI gate coverage.
 
 ## Remediation Strategy
 

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 import re
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 try:
     from .build_support import (
@@ -502,7 +502,21 @@ def sanity_check_db(path: Path) -> tuple[int, float]:
             raise ValueError(
                 f"pmw sum validation failed (expected around 1,000,000; got {total_pmw:.2f})."
             )
-        return row_count, total_pmw
+    return row_count, total_pmw
+
+
+def _to_int(value: object, *, default: int = 0) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        parsed = int(str(value).strip())
+    except (TypeError, ValueError):
+        return default
+    return parsed
 
 
 def build_de_frequency_sqlite(
@@ -721,10 +735,10 @@ def main() -> None:
     )
     print(
         "POS inventory:"
-        f" rows_with_pos={int(result.pos_inventory.get('rows_with_pos', 0)):,},"
-        f" rows_without_pos={int(result.pos_inventory.get('rows_without_pos', 0)):,},"
-        f" pos_inventory_size={int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
-        f" unknown_pos_inventory_size={int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
+        f" rows_with_pos={_to_int(result.pos_inventory.get('rows_with_pos', 0)):,},"
+        f" rows_without_pos={_to_int(result.pos_inventory.get('rows_without_pos', 0)):,},"
+        f" pos_inventory_size={_to_int(result.pos_inventory.get('pos_inventory_size', 0)):,},"
+        f" unknown_pos_inventory_size={_to_int(result.pos_inventory.get('unknown_pos_inventory_size', 0)):,}"
     )
     print(
         "Paths:"
