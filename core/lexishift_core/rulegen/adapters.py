@@ -29,6 +29,7 @@ class RulegenAdapterRequest:
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
     jmdict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
+    freedict_reverse_path: Optional[Path] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
 
 
@@ -80,6 +81,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         raise ValueError("Missing FreeDict ES->EN path for en-es rule generation.")
     config = EnEsRulegenConfig(
         freedict_es_en_path=request.freedict_de_en_path,
+        reverse_freedict_en_es_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
@@ -100,6 +102,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         raise ValueError("Missing FreeDict EN->ES path for es-en rule generation.")
     config = EsEnRulegenConfig(
         freedict_en_es_path=request.freedict_de_en_path,
+        reverse_freedict_es_en_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,

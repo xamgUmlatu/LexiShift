@@ -93,8 +93,10 @@ def _extract_target_pos_canonical(candidate: RuleCandidate) -> str:
 @dataclass(frozen=True)
 class EnEsRulegenConfig:
     freedict_es_en_path: Path
+    reverse_freedict_en_es_path: Optional[Path] = None
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-es"
     dict_priority: float = 0.8
@@ -124,11 +126,14 @@ class EnEsRulegenConfig:
 
 def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
     records_by_target = _resolve_gloss_records(config)
+    reverse_records_by_source = _resolve_reverse_gloss_records(config)
     mapping = _records_to_gloss_mapping(records_by_target)
     source = FreedictCandidateSource(
         records_by_target=records_by_target,
         source_dict="freedict_es_en",
         source_type="translation",
+        reverse_records_by_source=reverse_records_by_source,
+        reverse_source_dict="freedict_en_es",
         word_packages_by_target=config.word_packages_by_target,
         generic_gloss_demotions=config.generic_gloss_demotions,
     )
@@ -197,17 +202,26 @@ class FreedictCandidateSource:
         records_by_target: Mapping[str, Sequence[FreedictGlossRecord]],
         source_dict: str,
         source_type: str,
+        reverse_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None,
+        reverse_source_dict: str = "",
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
         generic_gloss_demotions: Optional[Mapping[str, float]] = None,
     ) -> None:
         self._records_by_target = records_by_target
         self._source_dict = source_dict
         self._source_type = source_type
+        self._reverse_source_dict = str(reverse_source_dict or "").strip()
+        self._reverse_lookup = (
+            _build_reverse_lookup(reverse_records_by_source)
+            if reverse_records_by_source is not None
+            else None
+        )
         self._word_packages_by_target = word_packages_by_target or {}
         self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
+            target_reverse_norm = _normalize_reverse_token(target)
             target_word_package = resolve_target_word_package(
                 target=target,
                 language_pair=language_pair,
@@ -232,6 +246,28 @@ class FreedictCandidateSource:
                     "gloss_index": index,
                     "gloss_total": total,
                 }
+                source_reverse_norm = _normalize_reverse_token(entry.translation)
+                reverse_targets = (
+                    self._reverse_lookup.get(source_reverse_norm, ())
+                    if self._reverse_lookup is not None
+                    else ()
+                )
+                reverse_rank = (
+                    reverse_targets.index(target_reverse_norm)
+                    if target_reverse_norm and target_reverse_norm in reverse_targets
+                    else None
+                )
+                metadata.update(
+                    {
+                        "reverse_check_supported": self._reverse_lookup is not None,
+                        "reverse_check_hit": reverse_rank is not None,
+                        "reverse_check_rank": reverse_rank,
+                        "reverse_check_total": len(reverse_targets),
+                        "reverse_check_source_dict": self._reverse_source_dict or None,
+                        "reverse_check_target_norm": target_reverse_norm,
+                        "reverse_check_source_norm": source_reverse_norm,
+                    }
+                )
                 demotion = resolve_generic_gloss_demotion(
                     entry.translation,
                     demotions=self._generic_gloss_demotions,
@@ -323,6 +359,21 @@ def _coerce_gloss_records(
     return records_by_target
 
 
+def _resolve_reverse_gloss_records(
+    config: EnEsRulegenConfig,
+) -> Optional[dict[str, list[FreedictGlossRecord]]]:
+    if config.reverse_gloss_records_by_source is not None:
+        return _coerce_gloss_records(config.reverse_gloss_records_by_source)
+    if config.reverse_freedict_en_es_path is None:
+        return None
+    if not config.reverse_freedict_en_es_path.exists():
+        return None
+    return load_freedict_gloss_records_ordered(
+        config.reverse_freedict_en_es_path,
+        target_lang="es",
+    )
+
+
 def _records_to_gloss_mapping(
     records_by_target: Mapping[str, Sequence[FreedictGlossRecord]],
 ) -> dict[str, list[str]]:
@@ -353,3 +404,27 @@ def _collect_sanitized_gloss_records(
                 pos_raw=normalized_pos,
             )
     return cleaned
+
+
+def _normalize_reverse_token(value: object) -> str:
+    return sanitize_dictionary_gloss(value).lower()
+
+
+def _build_reverse_lookup(
+    records_by_source: Mapping[str, Sequence[FreedictGlossRecord]],
+) -> dict[str, tuple[str, ...]]:
+    lookup: dict[str, tuple[str, ...]] = {}
+    for raw_source, raw_records in records_by_source.items():
+        source_norm = _normalize_reverse_token(raw_source)
+        if not source_norm:
+            continue
+        ordered: list[str] = []
+        seen: set[str] = set()
+        for record in raw_records:
+            target_norm = _normalize_reverse_token(record.translation)
+            if not target_norm or target_norm in seen:
+                continue
+            seen.add(target_norm)
+            ordered.append(target_norm)
+        lookup[source_norm] = tuple(ordered)
+    return lookup

@@ -146,6 +146,7 @@ Acceptance criteria:
 - Evaluate a disposal/pruning policy for those unmatched S targets (for example, remove or quarantine after repeated misses).
 - Add reverse-check scoring when reverse dictionaries are available:
   - score/penalize candidate rules by source->target consistency in reverse lookup.
+  - implementation spec: `docs/rulegen/reverse_check_scoring_phase1.md`
 - Add sense-risk penalties for ambiguous/specialized senses:
   - use lexical cues/metadata to demote risky polysemic or niche senses.
 - Add runtime apply-time polysemy safeguards (pair-aware):

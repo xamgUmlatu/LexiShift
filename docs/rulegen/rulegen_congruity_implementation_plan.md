@@ -365,6 +365,8 @@ Documented option set:
   - `core/lexishift_core/rulegen/ranking.py` (bonus/penalty integration)
 - Candidate data sources:
   - FreeDict reverse directions where available.
+- Phase 1 implementation spec:
+  - `docs/rulegen/reverse_check_scoring_phase1.md`
 
 2) Sense-risk penalties
 - Demote specialized/ambiguous senses using qualifier/domain/register cues.

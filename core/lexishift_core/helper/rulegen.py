@@ -11,6 +11,7 @@ from lexishift_core.lexicon.word_package import (
     resolve_language_tag_from_pair,
 )
 from lexishift_core.replacement.core import VocabRule
+from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
@@ -350,6 +351,12 @@ def run_rulegen_for_pair(
         pair=pair,
         targets=targets,
     )
+    resolved_reverse_freedict_path = default_freedict_reverse_path(
+        pair,
+        language_packs_dir=paths.language_packs_dir,
+    )
+    if resolved_reverse_freedict_path is not None and not resolved_reverse_freedict_path.exists():
+        resolved_reverse_freedict_path = None
     rules = run_rules_with_adapter(
         RulegenAdapterRequest(
             pair=pair,
@@ -365,6 +372,7 @@ def run_rulegen_for_pair(
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
             freedict_de_en_path=freedict_de_en_path,
+            freedict_reverse_path=resolved_reverse_freedict_path,
             word_packages_by_target=target_word_packages or None,
         )
     )

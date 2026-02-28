@@ -154,6 +154,37 @@ def default_freedict_de_en_path(
     return language_packs_dir / filenames[0]
 
 
+def default_freedict_reverse_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if not capability.requires_freedict_de_en_for_rulegen:
+        return None
+    reverse_pair = _reverse_pair_key(capability.pair)
+    if not reverse_pair:
+        return None
+    filenames = _default_freedict_filenames_for_pair(reverse_pair)
+    for filename in filenames:
+        direct_candidate = language_packs_dir / filename
+        if direct_candidate.exists():
+            return direct_candidate
+    for filename in filenames:
+        discovered = sorted(language_packs_dir.rglob(filename))
+        if discovered:
+            return discovered[0]
+    return language_packs_dir / filenames[0]
+
+
+def _reverse_pair_key(pair: str) -> str:
+    normalized = normalize_pair_key(pair)
+    left, sep, right = normalized.partition("-")
+    if not sep or not left or not right:
+        return ""
+    return f"{right}-{left}"
+
+
 def _default_freedict_filenames_for_pair(pair: str) -> tuple[str, ...]:
     if pair == "en-es":
         return ("spa-eng.tei", "freedict-es-en.sqlite", "spa-eng.sqlite")
