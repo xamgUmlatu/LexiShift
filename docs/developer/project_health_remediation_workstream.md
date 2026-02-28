@@ -2,7 +2,7 @@
 
 Status: active  
 Owner: engineering  
-Last updated: 2026-02-27
+Last updated: 2026-02-28
 
 ## Objective
 
@@ -12,7 +12,7 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Baseline Snapshot (2026-02-27, current)
+## Baseline Snapshot (2026-02-28, current)
 
 Source command:
 
@@ -23,24 +23,24 @@ npm run health:project
 
 Current violation profile:
 
-1. Total violations: `9` files (out of `270` scanned)
+1. Total violations: `7` files (out of `285` scanned)
 2. By area:
-   - `apps/gui/src`: `2`
+   - `apps/gui/src`: `0`
    - `core/lexishift_core`: `3`
    - `scripts/*`: `4`
 3. By metric:
-   - `lines`: `7`
-   - `functions`: `2`
-   - `imports`: `3`
+   - `lines`: `5`
+   - `functions`: `0`
+   - `imports`: `2`
    - `domainBreadth`: `0`
 
 Top hotspots by line overage:
 
-1. `apps/gui/src/main.py` (`2411/900`, `116/50`, `42/24`)
-2. `apps/gui/src/settings_language_packs.py` (`1617/900`, `86/50`)
-3. `scripts/testing/rulegen_benchmark.py` (`1487/900`)
-4. `scripts/testing/rulegen_quality_gate.py` (`1138/900`)
-5. `core/lexishift_core/frequency/de/build.py` (`1074/900`)
+1. `scripts/testing/rulegen_benchmark.py` (`1487/900`)
+2. `scripts/testing/rulegen_quality_gate.py` (`1138/900`)
+3. `core/lexishift_core/frequency/de/build.py` (`1074/900`)
+4. `scripts/dev/licensing_header_audit.py` (`652/520`)
+5. `scripts/dev/licensing_source_header_fetch.py` (`636/520`)
 
 ## Progress Log
 
@@ -107,28 +107,75 @@ Top hotspots by line overage:
     while reducing `apps/chrome-extension/options/core/rules_manager.js` to `262` lines.
 14. 2026-02-27: started GUI hotspot extraction by moving app-data/ruleset/startup path helpers from
     `apps/gui/src/main.py` into `apps/gui/src/main_paths.py`, reducing `main.py` line/function pressure.
+15. 2026-02-27: extracted runtime/bootstrap helpers from `apps/gui/src/main.py` into
+    `apps/gui/src/main_runtime.py` (startup logging, crash hook, single-instance handling,
+    activation binding, theme priming), reducing `main.py` imports from `42` to `37`
+    and further lowering line/function count.
+16. 2026-02-28: extracted setup-guide URL probing/opening from `apps/gui/src/main.py` into
+    `apps/gui/src/main_help.py`, removing network/browser helper logic from the root window module.
+17. 2026-02-28: extracted dataset/profile import-export and unsaved-change confirmation flows from
+    `apps/gui/src/main.py` into `apps/gui/src/main_import_export_mixin.py`.
+18. 2026-02-28: extracted menu/action wiring + helper install diagnostics + profile menu rebuild logic from
+    `apps/gui/src/main.py` into `apps/gui/src/main_menu_mixin.py`, reducing `main.py`
+    from `2360` to `1927` lines and from `113` to `90` functions while preserving baseline gate status.
+19. 2026-02-28: extracted empty-workspace locale selection/rendering methods from `apps/gui/src/main.py`
+    into `apps/gui/src/main_locale_mixin.py`, further reducing `main.py` to `1835` lines
+    and `86` functions.
+20. 2026-02-28: extracted profile/ruleset lifecycle + profile UI refresh + ruleset migration helpers from
+    `apps/gui/src/main.py` into `apps/gui/src/main_profiles_mixin.py`, reducing `main.py`
+    to `1591` lines, `62` functions, and `31` imports.
+21. 2026-02-28: extracted bulk synonym/rulegen pipeline from `apps/gui/src/main.py` into
+    `apps/gui/src/main_bulk_rules_mixin.py` (bulk dialog defaults, pack selection memory,
+    source probing/stats, and candidate rule expansion).
+22. 2026-02-28: extracted SRS seed-growth and replacement-filter/embedding flows into:
+    - `apps/gui/src/main_srs_mixin.py`
+    - `apps/gui/src/main_replacement_filter_mixin.py`
+    and moved embedding loader thread to `apps/gui/src/main_embedding_loader.py`.
+23. 2026-02-28: consolidated GUI mixin imports via `apps/gui/src/main_mixins.py`,
+    reducing `apps/gui/src/main.py` to `750` lines, `35` functions, `24` imports, and
+    fully clearing `main.py` from the health-violation list (now only near-limit import warning).
+24. 2026-02-28: started `settings_language_packs.py` remediation by extracting support primitives into
+    `apps/gui/src/settings_language_packs_support.py`:
+    - row dataclasses (`LanguagePackRow`, `FrequencyPackRow`, `EmbeddingPackRow`)
+    - SQLite/path probes (`is_sqlite_db_file`, `has_frequency_table`)
+    - embedding conversion thread (`EmbeddingConversionThread`)
+    - app-data directory resolvers for language/frequency/embedding packs
+    resulting in `settings_language_packs.py` reduction from `1617` to `1483` lines and
+    from `86` to `78` functions.
+25. 2026-02-28: extracted download-path/filesystem utility methods from
+    `apps/gui/src/settings_language_packs.py` into `apps/gui/src/settings_language_packs_path_mixin.py`
+    (`_download_archive_path`, `_resolve_downloaded_path`, `_remove_path`, wordnet/sqlite helpers, etc.),
+    reducing `settings_language_packs.py` from `1483` to `1370` lines and from `78` to `65` functions.
+26. 2026-02-28: extracted panel-state/status helper methods from
+    `apps/gui/src/settings_language_packs.py` into
+    `apps/gui/src/settings_language_packs_panel_state_mixin.py`
+    (`apply_synonym_settings`, path accessors, theme/status tone helpers, dir/help actions, seed helpers),
+    reducing `settings_language_packs.py` from `1370` to `1247` lines and from `65` to `45` functions.
+27. 2026-02-28: extracted table refresh/population methods from
+    `apps/gui/src/settings_language_packs.py` into
+    `apps/gui/src/settings_language_packs_table_mixin.py` (`_refresh_*`, `_populate_*`, embedding row resolver),
+    reducing `settings_language_packs.py` to `896` lines and `35` functions.
+28. 2026-02-28: completed Phase 2 cleanup milestone:
+    both GUI hotspot files (`apps/gui/src/main.py`, `apps/gui/src/settings_language_packs.py`)
+    are now out of health violations; `health:project:changed` reports `legacy=0 new=0 regressions=0`.
 
 ## Leaf-First Remediation Queue (Current)
 
 Hotspot-first globally, then leaf-first per hotspot:
 
-1. `apps/gui/src/main.py`
-   - Extract: non-Qt app services, command wiring, data loading orchestration.
-2. `apps/gui/src/settings_language_packs.py`
-   - Extract: download/use-case services, table mappers, validation logic.
-3. `core/lexishift_core/__init__.py`
+1. `core/lexishift_core/__init__.py`
    - Extract: optional/advanced exports into lazy import boundary to reduce import fanout.
-4. `core/lexishift_core/helper/engine.py`
+2. `core/lexishift_core/helper/engine.py`
    - Extract: optional dependencies and heavyweight integrations into dedicated modules.
-5. `core/lexishift_core/frequency/de/build.py`
+3. `core/lexishift_core/frequency/de/build.py`
    - Extract: parsing pipeline stages into focused builder helpers.
-6. `scripts/testing/rulegen_benchmark.py`
+4. `scripts/testing/rulegen_benchmark.py`
    - Extract: case loading, runner, metrics, renderers into separate script helpers.
-7. `scripts/testing/rulegen_quality_gate.py`
+5. `scripts/testing/rulegen_quality_gate.py`
    - Extract: policy evaluation core and report rendering.
-8. `scripts/dev/licensing_header_audit.py`
+6. `scripts/dev/licensing_header_audit.py`
    - Extract: scanners, license classifiers, report writer.
-9. `scripts/dev/licensing_source_header_fetch.py`
+7. `scripts/dev/licensing_source_header_fetch.py`
    - Extract: source fetch adapters, cache/store logic, retry policy.
 
 ## Remediation Strategy
@@ -188,6 +235,8 @@ Exit criteria:
 2. Function count reduced to cap or documented temporary exception.
 
 ### Phase 2 - GUI Hotspots
+
+Status: completed (2026-02-28)
 
 Target files (initial):
 

@@ -3,15 +3,9 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
-import traceback
-import time
-import webbrowser
-from datetime import datetime
 from dataclasses import replace
 from pathlib import Path
 from typing import Optional
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", "..", ".."))
@@ -27,25 +21,19 @@ from PySide6.QtCore import (
     QLocale,
     QSettings,
     QSortFilterProxyModel,
-    QThread,
     Qt,
-    Signal,
 )
-from PySide6.QtNetwork import QLocalServer, QLocalSocket
-from PySide6.QtGui import QAction, QActionGroup, QColor, QTextCharFormat, QTextCursor
+from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QApplication,
     QComboBox,
     QDialog,
-    QFileDialog,
     QGroupBox,
     QHeaderView,
     QHBoxLayout,
     QLabel,
     QListWidget,
-    QListWidgetItem,
     QMainWindow,
-    QMenu,
     QMessageBox,
     QPushButton,
     QProgressBar,
@@ -53,75 +41,47 @@ from PySide6.QtWidgets import (
     QSplitter,
     QStackedWidget,
     QTextEdit,
-    QStyle,
     QWidget,
     QVBoxLayout,
 )
 
 from lexishift_core import (
     ImportExportSettings,
-    Profile,
-    RuleMetadata,
-    SeedSelectionConfig,
-    SrsGrowthConfig,
     SynonymSourceSettings,
     VocabDataset,
     VocabRule,
-    export_app_settings_code,
-    export_app_settings_json,
-    export_dataset_code,
-    export_dataset_json,
-    import_app_settings_code,
-    import_app_settings_json,
-    import_dataset_code,
-    import_dataset_json,
-    build_seed_candidates,
-    grow_srs_store,
-    resolve_allowed_pairs,
-    seed_to_selector_candidates,
-    SynonymGenerator,
-    SynonymOptions,
-    SynonymSources,
-)
-from lexishift_core.resources.synonyms import EmbeddingIndex
-from lexishift_core.helper.lp_capabilities import (
-    default_frequency_db_path,
-    default_jmdict_path,
-    resolve_pair_capability,
 )
 
 from dialogs import RuleMetadataDialog, SettingsDialog
-from helper_installer import install_helper, is_helper_installed
-from helper_ui import auto_install_helper, ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
-from dialogs_code import BulkRulesDialog, CodeDialog
-from dialogs_profiles import CreateProfileDialog, ProfilesDialog
-from dialogs_rulesets import RulesetLibraryDialog
-from i18n import available_locales, normalize_locale, set_locale, t
-from main_profile_ruleset_service import (
-    build_profile_combo_items,
-    build_ruleset_combo_items,
-    find_profile_by_id,
-    resolve_active_profile,
+from helper_ui import auto_install_helper
+from i18n import set_locale, t
+from main_mixins import (
+    MainWindowBulkRulesMixin,
+    MainWindowImportExportMixin,
+    MainWindowLocaleMixin,
+    MainWindowMenuMixin,
+    MainWindowProfilesMixin,
+    MainWindowReplacementFilterMixin,
+    MainWindowSrsMixin,
+)
+from main_runtime import (
+    StartupLogger,
+    acquire_singleton_server,
+    bind_activation_handler,
+    handle_startup_cli_flags,
+    install_exception_hook,
+    prime_theme_assets,
+    run_helper_daemon_if_requested,
+    singleton_socket_name,
 )
 from models import RulesTableModel
-from profile_ruleset_migration_service import migrate_profile_ruleset_paths
-from profile_ruleset_utils import (
-    assign_active_ruleset_to_profile,
-    normalize_ruleset_path,
-    preferred_active_ruleset,
-    resolve_profile_dataset_path,
-)
 from main_paths import (
     _app_data_dir,
-    _default_dataset_path,
-    _rulesets_dir,
     _settings_path,
     _startup_log_paths,
 )
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
-from theme_assets import ensure_sample_images, ensure_sample_themes
-from theme_loader import theme_dir
 from theme_logger import set_log_handler
 from helper_logger import set_helper_log_handler
 from theme_manager import build_base_styles, resolve_current_theme
@@ -129,48 +89,17 @@ from theme_widgets import ThemedBackgroundWidget, apply_theme_background
 from utility_dock import UtilityDock
 from utils_paths import reveal_path
 
-# Single source for "open instructions" actions (Help menu + empty-state affordances).
-# Prefer the GitHub Pages manual, but fall back to the repository README until Pages is enabled.
-SETUP_GUIDE_URLS: tuple[str, ...] = (
-    "https://xamgUmlatu.github.io/LexiShift/getting-started/",
-    "https://github.com/xamgUmlatu/LexiShift/blob/main/docs/getting-started/README.md",
-)
 
-
-def _url_is_reachable(url: str, timeout: float = 1.0) -> bool:
-    request = Request(url, method="HEAD", headers={"User-Agent": "LexiShift-GUI"})
-    try:
-        with urlopen(request, timeout=timeout) as response:
-            status_code = int(getattr(response, "status", 200))
-            return 200 <= status_code < 400
-    except HTTPError as exc:
-        # 401/403/405 still indicate the endpoint is up; avoid treating only 404/410 as hard misses.
-        return exc.code < 500 and exc.code not in {404, 410}
-    except URLError:
-        return False
-    except Exception:  # noqa: BLE001
-        return False
-
-
-class EmbeddingLoaderThread(QThread):
-    loaded = Signal(str, object, str)
-
-    def __init__(self, pair_key: str, paths: list[Path], *, lower_case: bool, parent=None) -> None:
-        super().__init__(parent)
-        self._pair_key = pair_key
-        self._paths = paths
-        self._lower_case = lower_case
-
-    def run(self) -> None:
-        try:
-            index = EmbeddingIndex(self._paths, lower_case=self._lower_case)
-        except Exception as exc:
-            self.loaded.emit(self._pair_key, None, str(exc))
-            return
-        self.loaded.emit(self._pair_key, index, "")
-
-
-class MainWindow(QMainWindow):
+class MainWindow(
+    MainWindowReplacementFilterMixin,
+    MainWindowSrsMixin,
+    MainWindowBulkRulesMixin,
+    MainWindowProfilesMixin,
+    MainWindowLocaleMixin,
+    MainWindowMenuMixin,
+    MainWindowImportExportMixin,
+    QMainWindow,
+):
     def __init__(self) -> None:
         super().__init__()
         self._window_title_base = t("app.window_title")
@@ -247,8 +176,8 @@ class MainWindow(QMainWindow):
 
         self._replacement_thresholds: dict[str, float] = {}
         self._replacement_slider_updating = False
-        self._embedding_indices: dict[str, EmbeddingIndex] = {}
-        self._embedding_thread: Optional[EmbeddingLoaderThread] = None
+        self._embedding_indices: dict[str, object] = {}
+        self._embedding_thread: Optional[object] = None
         self._embedding_loading = False
         self._embedding_load_error: Optional[str] = None
         self._embedding_loading_pair: Optional[str] = None
@@ -332,233 +261,6 @@ class MainWindow(QMainWindow):
         self._apply_theme()
         self._rebalance_right_splitter(keep_current=True)
         self._refresh_window_title()
-
-    def _setup_actions(self) -> None:
-        self._open_action = QAction(t("menu.open_ruleset"), self)
-        self._open_action.triggered.connect(self._open_dataset)
-
-        self._save_action = QAction(t("menu.save_ruleset"), self)
-        self._save_action.triggered.connect(self._save_dataset)
-
-        self._save_as_action = QAction(t("menu.save_ruleset_as"), self)
-        self._save_as_action.triggered.connect(self._save_dataset_as)
-
-        self._settings_action = QAction(t("menu.settings"), self)
-        self._settings_action.setMenuRole(QAction.PreferencesRole)
-        self._settings_action.triggered.connect(self._open_settings)
-
-        self._manage_profiles_action = QAction(t("menu.manage_profiles"), self)
-        self._manage_profiles_action.triggered.connect(self._manage_profiles)
-
-        self._manage_rulesets_action = QAction(t("menu.manage_rulesets"), self)
-        self._manage_rulesets_action.triggered.connect(self._manage_rulesets)
-
-        self._save_profiles_action = QAction(t("menu.save_profiles"), self)
-        self._save_profiles_action.triggered.connect(self._save_profiles)
-
-        self._add_rule_action = QAction(t("menu.add_rule"), self)
-        self._add_rule_action.triggered.connect(self._add_rule)
-
-        self._bulk_add_action = QAction(t("menu.bulk_add"), self)
-        self._bulk_add_action.triggered.connect(self._bulk_add_rules)
-
-        self._delete_rule_action = QAction(t("menu.delete_rule"), self)
-        self._delete_rule_action.triggered.connect(self._delete_rule)
-
-        self._edit_metadata_action = QAction(t("menu.edit_metadata"), self)
-        self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
-
-        self._install_helper_action = QAction(t("menu.install_helper"), self)
-        self._install_helper_action.setMenuRole(QAction.ApplicationSpecificRole)
-        self._install_helper_action.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
-        self._install_helper_action.triggered.connect(self._install_helper)
-
-        self._startup_diagnostics_action = QAction(t("menu.startup_diagnostics"), self)
-        self._startup_diagnostics_action.triggered.connect(self._show_startup_diagnostics)
-
-        self._open_log_dir_action = QAction(t("menu.open_log_directory"), self)
-        self._open_log_dir_action.triggered.connect(self._open_log_directory)
-
-        self._open_setup_guide_action = QAction(t("menu.open_setup_guide"), self)
-        self._open_setup_guide_action.triggered.connect(self._open_setup_guide)
-
-        self._export_json_action = QAction(t("menu.export_ruleset_json"), self)
-        self._export_json_action.triggered.connect(self._export_json)
-
-        self._export_code_action = QAction(t("menu.export_ruleset_code"), self)
-        self._export_code_action.triggered.connect(self._export_code)
-
-        self._export_profiles_json_action = QAction(t("menu.export_profiles_json"), self)
-        self._export_profiles_json_action.triggered.connect(self._export_profiles_json)
-
-        self._export_profiles_code_action = QAction(t("menu.export_profiles_code"), self)
-        self._export_profiles_code_action.triggered.connect(self._export_profiles_code)
-
-        self._import_json_action = QAction(t("menu.import_ruleset_json"), self)
-        self._import_json_action.triggered.connect(self._import_json)
-
-        self._import_code_action = QAction(t("menu.import_ruleset_code"), self)
-        self._import_code_action.triggered.connect(self._import_code)
-
-        self._import_profiles_json_action = QAction(t("menu.import_profiles_json"), self)
-        self._import_profiles_json_action.triggered.connect(self._import_profiles_json)
-
-        self._import_profiles_code_action = QAction(t("menu.import_profiles_code"), self)
-        self._import_profiles_code_action.triggered.connect(self._import_profiles_code)
-
-        self._save_action.setEnabled(False)
-        self._update_rule_actions()
-        self._apply_import_export_settings()
-
-    def _setup_menu(self) -> None:
-        menu_bar = self.menuBar()
-
-        app_menu = menu_bar.addMenu(t("menu.app"))
-        app_menu.addAction(self._install_helper_action)
-
-        file_menu = menu_bar.addMenu(t("menu.file"))
-        file_menu.addAction(self._open_action)
-        file_menu.addAction(self._save_action)
-        file_menu.addAction(self._save_as_action)
-
-        import_menu = file_menu.addMenu(t("menu.import"))
-        import_menu.addAction(self._import_json_action)
-        import_menu.addAction(self._import_code_action)
-        import_menu.addSeparator()
-        import_menu.addAction(self._import_profiles_json_action)
-        import_menu.addAction(self._import_profiles_code_action)
-
-        export_menu = file_menu.addMenu(t("menu.export"))
-        export_menu.addAction(self._export_json_action)
-        export_menu.addAction(self._export_code_action)
-        export_menu.addSeparator()
-        export_menu.addAction(self._export_profiles_json_action)
-        export_menu.addAction(self._export_profiles_code_action)
-
-        file_menu.addSeparator()
-        file_menu.addAction(self._settings_action)
-        file_menu.addSeparator()
-
-        self._quit_action = QAction(t("menu.quit"), self)
-        self._quit_action.setMenuRole(QAction.QuitRole)
-        self._quit_action.triggered.connect(self.close)
-        file_menu.addAction(self._quit_action)
-
-        profiles_menu = menu_bar.addMenu(t("menu.profiles"))
-        profiles_menu.addAction(self._manage_profiles_action)
-        profiles_menu.addAction(self._manage_rulesets_action)
-        profiles_menu.addAction(self._save_profiles_action)
-        profiles_menu.addSeparator()
-
-        self._profiles_menu = profiles_menu
-        self._profiles_action_group = QActionGroup(self)
-        self._profiles_action_group.setExclusive(True)
-        self._profile_actions: list[QAction] = []
-        self._rebuild_profiles_menu()
-
-        edit_menu = menu_bar.addMenu(t("menu.edit"))
-        edit_menu.addAction(self._add_rule_action)
-        edit_menu.addAction(self._bulk_add_action)
-        edit_menu.addSeparator()
-        edit_menu.addAction(self._edit_metadata_action)
-        edit_menu.addAction(self._delete_rule_action)
-
-        debug_menu = menu_bar.addMenu(t("menu.debug"))
-        debug_menu.addAction(self._startup_diagnostics_action)
-        debug_menu.addAction(self._open_log_dir_action)
-
-        help_menu = menu_bar.addMenu(t("menu.help"))
-        help_menu.addAction(self._open_setup_guide_action)
-
-    def _refresh_helper_menu_label(self) -> None:
-        env, extension_id = get_helper_environment(self._ui_settings)
-        if env and extension_id and is_helper_installed(str(extension_id), browser=env.browser):
-            self._install_helper_action.setText(t("menu.reinstall_helper"))
-        else:
-            self._install_helper_action.setText(t("menu.install_helper"))
-
-    def _install_helper(self) -> None:
-        choice = prompt_for_helper_environment(self, self._ui_settings)
-        if not choice:
-            return
-        env, extension_id, host_path = choice
-        result = install_helper(
-            extension_id=str(extension_id).strip(),
-            browser=env.browser,
-            host_path=host_path,
-        )
-        if result.installed:
-            try:
-                ensure_helper_autostart()
-                QMessageBox.information(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
-                )
-            except Exception as exc:  # noqa: BLE001
-                QMessageBox.warning(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.failed", message=str(exc)),
-                )
-        else:
-            QMessageBox.warning(
-                self,
-                t("dialogs.helper_install.title"),
-                t("dialogs.helper_install.failed", message=str(result.message)),
-            )
-        self._refresh_helper_menu_label()
-
-    def _open_log_directory(self) -> None:
-        reveal_path(str(_app_data_dir()))
-
-    def _open_setup_guide(self) -> None:
-        for url in SETUP_GUIDE_URLS:
-            if _url_is_reachable(url):
-                webbrowser.open(url)
-                return
-        # Final fallback: still attempt to open the preferred URL.
-        webbrowser.open(SETUP_GUIDE_URLS[0])
-
-    def _show_startup_diagnostics(self) -> None:
-        log_paths = _startup_log_paths()
-        helper_log = _app_data_dir() / "helper_install.log"
-        helper_tray_log = _app_data_dir() / "helper_tray.log"
-        info = [
-            t("dialogs.startup_diagnostics.app_data_location", path=str(_app_data_dir())),
-            t("dialogs.startup_diagnostics.executable", path=str(sys.executable)),
-            t("dialogs.startup_diagnostics.frozen", value=getattr(sys, "frozen", False)),
-            t("dialogs.startup_diagnostics.meipass", value=getattr(sys, "_MEIPASS", None)),
-            t("dialogs.startup_diagnostics.startup_log_paths"),
-        ]
-        for path in log_paths:
-            info.append(
-                t(
-                    "dialogs.startup_diagnostics.startup_log_entry",
-                    path=str(path),
-                    exists=path.exists(),
-                )
-            )
-        info.append(
-            t(
-                "dialogs.startup_diagnostics.helper_install_log",
-                path=str(helper_log),
-                exists=helper_log.exists(),
-            )
-        )
-        info.append(
-            t(
-                "dialogs.startup_diagnostics.helper_tray_log",
-                path=str(helper_tray_log),
-                exists=helper_tray_log.exists(),
-            )
-        )
-        info.append(t("dialogs.startup_diagnostics.hint"))
-        QMessageBox.information(
-            self,
-            t("dialogs.startup_diagnostics.title"),
-            "\n".join(info),
-        )
 
     def _build_profile_header(self) -> QWidget:
         self.manage_profiles_button.setToolTip(t("dialogs.manage_profiles.title"))
@@ -665,99 +367,6 @@ class MainWindow(QMainWindow):
         page = QWidget()
         page.setLayout(root)
         return page
-
-    def _show_empty_locale_menu(self) -> None:
-        if not hasattr(self, "empty_locale_button"):
-            return
-        locale_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
-        active_locale = (
-            normalize_locale(QLocale.system().name())
-            if locale_pref == "system"
-            else normalize_locale(locale_pref)
-        )
-        menu = QMenu(self.empty_locale_button)
-        popup_width = self.empty_locale_button.width()
-        anchor_widget = self.empty_locale_button
-        if hasattr(self, "empty_locale_icon_badge"):
-            popup_width += self.empty_locale_icon_badge.width()
-            anchor_widget = self.empty_locale_icon_badge
-        menu.setFixedWidth(popup_width)
-        self._apply_empty_locale_menu_style(menu)
-        for locale, label in sorted(available_locales().items(), key=lambda item: item[1].lower()):
-            action = menu.addAction(label)
-            action.setData(locale)
-            action.setCheckable(True)
-            action.setChecked(active_locale == locale)
-        selected = menu.exec(anchor_widget.mapToGlobal(anchor_widget.rect().bottomLeft()))
-        if selected is None:
-            return
-        selected_locale = str(selected.data() or "")
-        self._set_locale_preference(selected_locale)
-
-    def _apply_empty_locale_menu_style(self, menu: QMenu) -> None:
-        panel_top = self._theme_color_hex("panel_top", fallback="#F5F2E9")
-        panel_border = self._theme_color_hex("panel_border", fallback="#D5CBB8")
-        text = self._theme_color_hex("text", fallback="#2C2A24")
-        muted = self._theme_color_hex("muted", fallback="#6F6558")
-        accent = self._theme_color_hex("accent", fallback="#4A7DB8")
-        accent_soft = self._theme_color_hex("accent_soft", fallback="#DCE8F7")
-        primary = self._theme_color_hex("primary", fallback="#4A7DB8")
-        menu.setStyleSheet(
-            f"""
-QMenu {{
-  background: {panel_top};
-  color: {text};
-  border: 2px solid {panel_border};
-  border-radius: 12px;
-  padding: 6px;
-}}
-QMenu::item {{
-  padding: 8px 12px;
-  margin: 2px 4px;
-  border-radius: 8px;
-  background: transparent;
-}}
-QMenu::item:selected {{
-  background: {accent_soft};
-  border: 1px solid {accent};
-}}
-QMenu::item:checked {{
-  background: {accent_soft};
-  border: 1px solid {primary};
-  font-weight: 700;
-}}
-QMenu::separator {{
-  height: 1px;
-  margin: 6px 10px;
-  background: {muted};
-}}
-"""
-        )
-
-    def _set_locale_preference(self, locale_pref: str) -> None:
-        next_pref = str(locale_pref or "system")
-        current_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
-        if next_pref == current_pref:
-            return
-        self._ui_settings.setValue("appearance/locale", next_pref)
-        self._refresh_empty_locale_button_label()
-        QMessageBox.information(
-            self,
-            t("dialogs.locale_change.title"),
-            t("dialogs.locale_change.message"),
-        )
-
-    def _refresh_empty_locale_button_label(self) -> None:
-        if not hasattr(self, "empty_locale_button"):
-            return
-        locale_pref = str(self._ui_settings.value("appearance/locale", "system") or "system")
-        locales = available_locales()
-        if locale_pref == "system":
-            resolved = normalize_locale(QLocale.system().name())
-            selected_label = locales.get(resolved, resolved)
-        else:
-            selected_label = locales.get(locale_pref, locale_pref)
-        self.empty_locale_button.setText(f"{selected_label}  ▾")
 
     def _build_replacement_panel(self) -> QWidget:
         title = QLabel(t("replacement.panel_title"))
@@ -947,80 +556,6 @@ QMenu::separator {{
         collapsed_height = max(56, self._utility_dock.minimumSizeHint().height())
         self._right_splitter.setSizes([760, collapsed_height])
 
-    def _load_active_profile(self) -> None:
-        settings = self.state.settings
-        selected_profile = resolve_active_profile(settings.profiles, settings.active_profile_id)
-        if selected_profile is None:
-            return
-        self._load_profile(selected_profile)
-
-    def _on_empty_create_profile(self) -> None:
-        self._create_profile()
-
-    def _open_dataset(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.open_ruleset.title"),
-            self._default_import_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        dataset_path = Path(path)
-        self._set_active_ruleset_path(dataset_path)
-        self.state.load_dataset(dataset_path)
-        self._remember_import_path(dataset_path)
-
-    def _manage_profiles(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        dialog = ProfilesDialog(
-            profiles=self.state.settings.profiles,
-            active_profile_id=self.state.settings.active_profile_id,
-            default_dir=_rulesets_dir(),
-            parent=self,
-        )
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return
-        self._apply_profile_collection_update(dialog.result_profiles())
-
-    def _manage_rulesets(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        dialog = RulesetLibraryDialog(self.state.settings.profiles, parent=self)
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return
-        self._apply_profile_collection_update(dialog.result_profiles())
-
-    def _apply_profile_collection_update(self, profiles: tuple[Profile, ...]) -> None:
-        # Keep active profile id stable while applying dialog-managed profile/ruleset edits.
-        active_id = self.state.settings.active_profile_id
-        self.state.set_profiles(profiles, active_profile_id=active_id)
-        self._load_active_profile()
-        self._refresh_profiles_ui()
-
-    def _create_profile(self) -> bool:
-        if not self._confirm_discard_changes():
-            return False
-        dialog = CreateProfileDialog(default_dir=_rulesets_dir(), parent=self)
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return False
-        profile = dialog.profile()
-        if any(existing.profile_id == profile.profile_id for existing in self.state.settings.profiles):
-            QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
-            return False
-        profiles = tuple(self.state.settings.profiles) + (profile,)
-        self.state.set_profiles(profiles, active_profile_id=profile.profile_id)
-        dataset_path = Path(profile.dataset_path)
-        if not dataset_path.exists():
-            self.state.update_dataset(VocabDataset())
-            self.state.save_dataset(path=dataset_path)
-        self._load_profile(profile)
-        self._refresh_profiles_ui()
-        return True
-
     def _sync_resource_settings_from_dialog(self, dialog: SettingsDialog) -> None:
         panel = getattr(dialog, "language_pack_panel", None)
         if panel is None:
@@ -1076,64 +611,6 @@ QMenu::separator {{
             self.rules_table.setCurrentIndex(proxy_index)
             self.rules_table.edit(proxy_index)
 
-    def _bulk_add_rules(self) -> None:
-        default_pack_ids = self._default_bulk_pack_ids()
-        dialog = BulkRulesDialog(default_pack_ids=default_pack_ids, parent=self)
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return
-        targets = dialog.targets()
-        if not targets:
-            return
-        selected_pack_ids = dialog.selected_pack_ids()
-        if not selected_pack_ids:
-            QMessageBox.information(
-                self,
-                t("dialogs.bulk_add.title"),
-                t("dialogs.bulk_add.select_dictionary"),
-            )
-            return
-        self._remember_bulk_pack_selection(selected_pack_ids)
-        self._append_log(t("logs.bulk_add_targets", count=len(targets)))
-        rules = self._generate_synonym_rules(targets, selected_pack_ids=selected_pack_ids)
-        if not rules:
-            QMessageBox.information(
-                self,
-                t("dialogs.bulk_add.title"),
-                t("dialogs.bulk_add.no_synonyms"),
-            )
-            return
-        self.rules_model.add_rules(rules)
-
-    def _default_bulk_pack_ids(self) -> set[str]:
-        settings = self.state.settings.synonyms
-        pack_ids: set[str] = set()
-        if not settings:
-            return pack_ids
-        if settings.wordnet_dir:
-            pack_ids.add("wordnet-en")
-        if settings.moby_path:
-            pack_ids.add("moby-en")
-        if settings.last_selected_pack_ids:
-            return set(settings.last_selected_pack_ids)
-        language_packs = settings.language_packs or {}
-        if language_packs.get("odenet-de"):
-            pack_ids.add("odenet-de")
-        elif language_packs.get("openthesaurus-de"):
-            pack_ids.add("openthesaurus-de")
-        if language_packs.get("jp-wordnet-sqlite"):
-            pack_ids.add("jp-wordnet-sqlite")
-        elif language_packs.get("jp-wordnet"):
-            pack_ids.add("jp-wordnet")
-        for pack_id in ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en"):
-            if language_packs.get(pack_id):
-                pack_ids.add(pack_id)
-        return pack_ids
-
-    def _remember_bulk_pack_selection(self, selected_pack_ids: set[str]) -> None:
-        settings = self.state.settings.synonyms or SynonymSourceSettings()
-        updated = replace(settings, last_selected_pack_ids=tuple(sorted(selected_pack_ids)))
-        self.state.update_settings(replace(self.state.settings, synonyms=updated))
-
     def _delete_rule(self) -> None:
         row = self._current_source_row()
         if row < 0:
@@ -1181,567 +658,6 @@ QMenu::separator {{
                 skip_confirm = bool(QApplication.keyboardModifiers() & Qt.AltModifier)
                 self._confirm_and_delete_rule(row=row, skip_confirm=skip_confirm)
 
-    def _generate_synonym_rules(
-        self,
-        targets: list[str],
-        *,
-        selected_pack_ids: set[str] | None = None,
-    ) -> list[VocabRule]:
-        settings = self.state.settings.synonyms
-        selected_pack_ids = set(selected_pack_ids or [])
-        language_packs = settings.language_packs if settings else {}
-        if not settings:
-            QMessageBox.warning(
-                self,
-                t("dialogs.synonym_expansion.title"),
-                t("dialogs.synonym_expansion.configure_sources"),
-            )
-            return []
-        packs_by_pair: dict[str, set[str]] = {}
-        for pack_id in selected_pack_ids:
-            pair_key = self._pair_for_pack(pack_id)
-            if not pair_key:
-                continue
-            packs_by_pair.setdefault(pair_key, set()).add(pack_id)
-        openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
-        odenet_path = language_packs.get("odenet-de") if language_packs else None
-        jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
-        jp_wordnet_sqlite_path = (
-            language_packs.get("jp-wordnet-sqlite") if language_packs else None
-        )
-        jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
-        freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
-        freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
-        cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
-        if cc_cedict_path and Path(cc_cedict_path).is_dir():
-            candidate = Path(cc_cedict_path) / "cedict_ts.u8"
-            cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
-        if freedict_de_en_path and Path(freedict_de_en_path).is_dir():
-            candidate = Path(freedict_de_en_path) / "deu-eng.tei"
-            freedict_de_en_path = str(candidate) if candidate.exists() else freedict_de_en_path
-        if freedict_en_de_path and Path(freedict_en_de_path).is_dir():
-            candidate = Path(freedict_en_de_path) / "eng-deu.tei"
-            freedict_en_de_path = str(candidate) if candidate.exists() else freedict_en_de_path
-        rules: list[VocabRule] = []
-        seen_sources: set[str] = set()
-        duplicate_count = 0
-        for pair_key, pack_ids in sorted(packs_by_pair.items()):
-            use_wordnet = "wordnet-en" in pack_ids
-            use_moby = "moby-en" in pack_ids
-            use_openthesaurus = "openthesaurus-de" in pack_ids
-            use_odenet = "odenet-de" in pack_ids
-            use_jp_wordnet = "jp-wordnet" in pack_ids
-            use_jp_wordnet_sqlite = "jp-wordnet-sqlite" in pack_ids
-            use_jmdict = "jmdict-ja-en" in pack_ids
-            use_freedict_de_en = "freedict-de-en" in pack_ids
-            use_freedict_en_de = "freedict-en-de" in pack_ids
-            use_cc_cedict = "cc-cedict-zh-en" in pack_ids
-
-            if not any(
-                [
-                    use_wordnet and settings.wordnet_dir,
-                    use_moby and settings.moby_path,
-                    use_openthesaurus and openthesaurus_path,
-                    use_odenet and odenet_path,
-                    use_jp_wordnet and jp_wordnet_path,
-                    use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
-                    use_jmdict and jmdict_path,
-                    use_freedict_de_en and freedict_de_en_path,
-                    use_freedict_en_de and freedict_en_de_path,
-                    use_cc_cedict and cc_cedict_path,
-                ]
-            ):
-                continue
-
-            missing_sources = []
-            if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
-                missing_sources.append(t("sources.wordnet_dir"))
-            if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
-                missing_sources.append(t("sources.moby_file"))
-            if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
-                missing_sources.append(t("sources.openthesaurus_file"))
-            if use_odenet and odenet_path and not Path(odenet_path).exists():
-                missing_sources.append(t("sources.odenet_file"))
-            if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
-                missing_sources.append(t("sources.jp_wordnet_file"))
-            if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path and not Path(jp_wordnet_sqlite_path).exists():
-                missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
-            if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
-                missing_sources.append(t("sources.jmdict_file"))
-            if use_freedict_de_en and freedict_de_en_path and not Path(freedict_de_en_path).exists():
-                missing_sources.append(t("sources.freedict_de_en_file"))
-            if use_freedict_en_de and freedict_en_de_path and not Path(freedict_en_de_path).exists():
-                missing_sources.append(t("sources.freedict_en_de_file"))
-            if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
-                missing_sources.append(t("sources.cc_cedict_file"))
-            if use_cc_cedict and cc_cedict_path and not Path(cc_cedict_path).exists():
-                missing_sources.append(t("sources.cc_cedict_file"))
-            if missing_sources:
-                QMessageBox.warning(
-                    self,
-                    t("dialogs.synonym_expansion.title"),
-                    t("dialogs.synonym_expansion.missing_sources", sources=", ".join(missing_sources)),
-                )
-                return []
-
-            selected_labels = []
-            label_map = {
-                "wordnet-en": t("packs.wordnet"),
-                "moby-en": t("packs.moby"),
-                "openthesaurus-de": t("packs.openthesaurus"),
-                "odenet-de": t("packs.odenet"),
-                "jp-wordnet": t("packs.jp_wordnet"),
-                "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
-                "jmdict-ja-en": t("packs.jmdict"),
-                "freedict-de-en": t("packs.freedict_de_en"),
-                "freedict-en-de": t("packs.freedict_en_de"),
-                "cc-cedict-zh-en": t("packs.cc_cedict"),
-            }
-            for pack_id in pack_ids:
-                selected_labels.append(label_map.get(pack_id, pack_id))
-            if selected_labels:
-                self._append_log(
-                    t("logs.dictionaries", dictionaries=", ".join(sorted(selected_labels)))
-                )
-
-            cc_cedict_file = (
-                Path(cc_cedict_path)
-                if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_file()
-                else None
-            )
-            sources = SynonymSources(
-                wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
-                moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
-                openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
-                odenet_path=Path(odenet_path) if use_odenet and odenet_path else None,
-                jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
-                jp_wordnet_sqlite_path=(
-                    Path(jp_wordnet_sqlite_path)
-                    if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
-                    else None
-                ),
-                jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
-                freedict_de_en_path=(
-                    Path(freedict_de_en_path)
-                    if use_freedict_de_en and freedict_de_en_path
-                    else None
-                ),
-                freedict_en_de_path=(
-                    Path(freedict_en_de_path)
-                    if use_freedict_en_de and freedict_en_de_path
-                    else None
-                ),
-                cc_cedict_path=cc_cedict_file,
-            )
-            embedding_paths = self._embedding_paths_for_pair(settings, pair_key)
-            options = SynonymOptions(
-                max_synonyms=settings.max_synonyms,
-                include_phrases=settings.include_phrases,
-                lower_case=settings.lower_case,
-                require_consensus=settings.require_consensus,
-                use_embeddings=settings.use_embeddings,
-                embedding_paths=embedding_paths,
-                embedding_pair=pair_key,
-                embedding_threshold=settings.embedding_threshold,
-                embedding_fallback=settings.embedding_fallback,
-            )
-            generator = SynonymGenerator(sources, options=options)
-            self._log_source_stats(pack_ids, generator.stats())
-            if generator.total_entries() == 0:
-                stats = generator.stats()
-                QMessageBox.information(
-                    self,
-                    t("dialogs.synonym_expansion.title"),
-                    t(
-                        "dialogs.synonym_expansion.no_entries",
-                        wordnet=stats.get("wordnet", 0),
-                        moby=stats.get("moby", 0),
-                        openthesaurus=stats.get("openthesaurus", 0),
-                        odenet=stats.get("odenet", 0),
-                        jp_wordnet=stats.get("jp_wordnet", 0),
-                        jmdict=stats.get("jmdict", 0),
-                        cc_cedict=stats.get("cc_cedict", 0),
-                        freedict_de_en=stats.get("freedict_de_en", 0),
-                        freedict_en_de=stats.get("freedict_en_de", 0),
-                    ),
-                )
-                continue
-
-            for target in targets:
-                synonyms, used_fallback = generator.synonyms_for_detail(target)
-                if not synonyms:
-                    self._append_log(
-                        t("logs.no_synonyms_for", target=target),
-                        color=self._status_color("error"),
-                    )
-                    if settings and settings.use_embeddings and settings.embedding_fallback:
-                        if not generator.has_embeddings():
-                            self._append_log(t("logs.embeddings_not_loaded", target=target))
-                        elif not generator.embeddings_support_neighbors():
-                            self._append_log(
-                                t("logs.embeddings_no_neighbors")
-                            )
-                        elif not generator.embeddings_has_vector(target):
-                            self._append_log(t("logs.no_embedding_vector", target=target))
-                        else:
-                            self._append_log(t("logs.embeddings_zero_neighbors", target=target))
-                else:
-                    if used_fallback:
-                        self._append_log(
-                            t("logs.embeddings_fallback_count", target=target, count=len(synonyms))
-                        )
-                    else:
-                        self._append_log(
-                            t("logs.synonyms_found", target=target, count=len(synonyms))
-                        )
-                for synonym in synonyms:
-                    if synonym in seen_sources:
-                        duplicate_count += 1
-                        tags = ("synonym", "conflict")
-                        rules.append(
-                            VocabRule(
-                                source_phrase=synonym,
-                                replacement=target,
-                                enabled=False,
-                                tags=tags,
-                                metadata=RuleMetadata(language_pair=pair_key),
-                            )
-                        )
-                        continue
-                    seen_sources.add(synonym)
-                    rules.append(
-                        VocabRule(
-                            source_phrase=synonym,
-                            replacement=target,
-                            tags=("synonym",),
-                            metadata=RuleMetadata(language_pair=pair_key),
-                        )
-                    )
-        if not rules and selected_pack_ids:
-            QMessageBox.warning(
-                self,
-                t("dialogs.synonym_expansion.title"),
-                t("dialogs.synonym_expansion.select_configured"),
-            )
-            return []
-        if duplicate_count:
-            message = t("dialogs.bulk_add.duplicates", count=duplicate_count)
-            QMessageBox.information(self, t("dialogs.bulk_add.title"), message)
-            self._append_log(message)
-        return rules
-
-    def _log_source_stats(self, selected_pack_ids: set[str], stats: dict[str, int]) -> None:
-        if not selected_pack_ids:
-            return
-        settings = self.state.settings.synonyms or SynonymSourceSettings()
-        language_packs = settings.language_packs or {}
-        pack_to_stat = {
-            "wordnet-en": "wordnet",
-            "moby-en": "moby",
-            "openthesaurus-de": "openthesaurus",
-            "odenet-de": "odenet",
-            "jp-wordnet": "jp_wordnet",
-            "jp-wordnet-sqlite": "jp_wordnet",
-            "jmdict-ja-en": "jmdict",
-            "cc-cedict-zh-en": "cc_cedict",
-            "freedict-de-en": "freedict_de_en",
-            "freedict-en-de": "freedict_en_de",
-        }
-        pack_to_path = {
-            "wordnet-en": settings.wordnet_dir,
-            "moby-en": settings.moby_path,
-            "openthesaurus-de": language_packs.get("openthesaurus-de"),
-            "odenet-de": language_packs.get("odenet-de"),
-            "jp-wordnet": language_packs.get("jp-wordnet"),
-            "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
-            "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
-            "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
-            "freedict-de-en": language_packs.get("freedict-de-en"),
-            "freedict-en-de": language_packs.get("freedict-en-de"),
-        }
-        label_map = {
-            "wordnet-en": t("packs.wordnet"),
-            "moby-en": t("packs.moby"),
-            "openthesaurus-de": t("packs.openthesaurus"),
-            "odenet-de": t("packs.odenet"),
-            "jp-wordnet": t("packs.jp_wordnet"),
-            "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
-            "jmdict-ja-en": t("packs.jmdict"),
-            "cc-cedict-zh-en": t("packs.cc_cedict"),
-            "freedict-de-en": t("packs.freedict_de_en"),
-            "freedict-en-de": t("packs.freedict_en_de"),
-        }
-        for pack_id in sorted(selected_pack_ids):
-            stat_key = pack_to_stat.get(pack_id)
-            if not stat_key:
-                continue
-            count = stats.get(stat_key, 0)
-            if count > 0:
-                self._append_log(
-                    t("logs.source_loaded", name=label_map.get(pack_id, pack_id), count=count)
-                )
-            else:
-                path = pack_to_path.get(pack_id) or ""
-                size = ""
-                if path and Path(path).exists():
-                    try:
-                        size = str(Path(path).stat().st_size)
-                    except OSError:
-                        size = ""
-                self._append_log(
-                    t(
-                        "logs.source_empty",
-                        name=label_map.get(pack_id, pack_id),
-                        path=path,
-                        size=size,
-                    ),
-                    color=self._status_color("error"),
-                )
-                if pack_id == "odenet-de" and path:
-                    probe = self._probe_odenet(path)
-                    if probe:
-                        self._append_log(
-                            t(
-                                "logs.odenet_probe",
-                                entries=probe.get("entries", 0),
-                                lemmas=probe.get("lemmas", 0),
-                                senses=probe.get("senses", 0),
-                            ),
-                            color=self._status_color("error"),
-                        )
-                        if probe.get("parse_error"):
-                            self._append_log(
-                                t("logs.odenet_parse_error", error=probe.get("parse_error")),
-                                color=self._status_color("error"),
-                            )
-
-    def _probe_odenet(self, path: str) -> dict[str, int]:
-        from xml.etree import ElementTree
-
-        try:
-            text = Path(path).read_text(encoding="utf-8", errors="ignore")
-        except OSError:
-            return {}
-        data: dict[str, int | str] = {
-            "entries": text.count("LexicalEntry"),
-            "lemmas": text.count("Lemma"),
-            "senses": text.count("Sense"),
-        }
-        try:
-            for _event, _elem in ElementTree.iterparse(path, events=("end",)):
-                pass
-        except ElementTree.ParseError as exc:
-            data["parse_error"] = str(exc)
-        return data
-
-    def _save_dataset(self) -> None:
-        if self.state.dataset_path is None:
-            self._save_dataset_as()
-            return
-        self.state.save_dataset()
-
-    def _save_dataset_as(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(
-            self,
-            t("dialogs.save_ruleset_as.title"),
-            self._default_export_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        dataset_path = Path(path)
-        self.state.save_dataset(path=dataset_path)
-        self._set_active_ruleset_path(dataset_path)
-        self._remember_export_path(dataset_path)
-
-    def _export_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(
-            self,
-            t("dialogs.export_ruleset_json.title"),
-            self._default_export_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        payload = export_dataset_json(self.state.dataset)
-        Path(path).write_text(payload, encoding="utf-8")
-        self._remember_export_path(Path(path))
-
-    def _export_code(self) -> None:
-        payload = export_dataset_code(self.state.dataset)
-        dialog = CodeDialog(t("dialogs.export_ruleset_code.title"), code=payload, read_only=True, parent=self)
-        dialog.exec()
-
-    def _export_profiles_json(self) -> None:
-        path, _ = QFileDialog.getSaveFileName(
-            self,
-            t("dialogs.export_profiles_json.title"),
-            self._default_export_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        payload = export_app_settings_json(self.state.settings)
-        Path(path).write_text(payload, encoding="utf-8")
-        self._remember_export_path(Path(path))
-
-    def _export_profiles_code(self) -> None:
-        payload = export_app_settings_code(self.state.settings)
-        dialog = CodeDialog(t("dialogs.export_profiles_code.title"), code=payload, read_only=True, parent=self)
-        dialog.exec()
-
-    def _import_json(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.import_ruleset_json.title"),
-            self._default_import_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        payload = Path(path).read_text(encoding="utf-8")
-        dataset = import_dataset_json(payload)
-        self.state.update_dataset(dataset)
-        self._remember_import_path(Path(path))
-
-    def _import_code(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        dialog = CodeDialog(t("dialogs.import_ruleset_code.title"), parent=self)
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return
-        dataset = import_dataset_code(dialog.code())
-        self.state.update_dataset(dataset)
-
-    def _import_profiles_json(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.import_profiles_json.title"),
-            self._default_import_dir(),
-            t("filters.json"),
-        )
-        if not path:
-            return
-        payload = Path(path).read_text(encoding="utf-8")
-        settings = import_app_settings_json(payload)
-        self._apply_imported_profiles_settings(settings=settings, source_path=Path(path))
-
-    def _import_profiles_code(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        dialog = CodeDialog(t("dialogs.import_profiles_code.title"), parent=self)
-        if dialog.exec() != QDialog.DialogCode.Accepted:
-            return
-        settings = import_app_settings_code(dialog.code())
-        self._apply_imported_profiles_settings(settings=settings)
-
-    def _import_profiles_from_file(self) -> None:
-        if not self._confirm_discard_changes():
-            return
-        path, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.import_profiles_json.title"),
-            self._default_import_dir(),
-            f"{t('filters.json')};;{t('filters.all')}",
-        )
-        if not path:
-            return
-        payload = Path(path).read_text(encoding="utf-8")
-        suffix = Path(path).suffix.lower()
-        if suffix == ".py":
-            settings = import_app_settings_code(payload)
-        else:
-            settings = import_app_settings_json(payload)
-        self._apply_imported_profiles_settings(settings=settings, source_path=Path(path))
-
-    def _apply_imported_profiles_settings(self, *, settings, source_path: Optional[Path] = None) -> None:
-        self.state.update_settings(settings)
-        self._refresh_embedding_index()
-        self._load_active_profile()
-        if source_path is not None:
-            self._remember_import_path(source_path)
-
-    def _confirm_discard_changes(self) -> bool:
-        if not self.state.dirty:
-            return True
-        reply = QMessageBox.question(
-            self,
-            t("dialogs.unsaved.title"),
-            t("dialogs.unsaved.discard"),
-            QMessageBox.Yes | QMessageBox.No,
-        )
-        return reply == QMessageBox.Yes
-
-    def _load_profile(self, profile: Profile) -> None:
-        settings = self.state.settings
-        if settings.active_profile_id != profile.profile_id:
-            self.state.set_profiles(settings.profiles, active_profile_id=profile.profile_id)
-            profile = self._current_profile() or profile
-        current_path = Path(self._active_ruleset_path(profile))
-        resolved_path = self._resolve_profile_dataset_path(profile)
-        if resolved_path != current_path:
-            self._set_active_ruleset_path(resolved_path)
-        self.state.load_dataset(resolved_path)
-
-    def _active_ruleset_path(self, profile: Profile) -> str:
-        return preferred_active_ruleset(profile, default_path=str(_default_dataset_path()))
-
-    def _resolve_profile_dataset_path(self, profile: Profile) -> Path:
-        return resolve_profile_dataset_path(profile, default_path=_default_dataset_path())
-
-    def _activate_ruleset_for_profile(self, profile: Profile, path: Path) -> None:
-        self._set_active_ruleset_path(path)
-        self.state.load_dataset(path)
-
-    def _set_active_ruleset_path(self, dataset_path: Path) -> None:
-        settings = self.state.settings
-        updated_profiles, updated = assign_active_ruleset_to_profile(
-            settings.profiles,
-            active_profile_id=settings.active_profile_id,
-            dataset_path=dataset_path,
-        )
-        if updated:
-            self.state.set_profiles(updated_profiles, active_profile_id=settings.active_profile_id)
-
-    def _on_profile_selected(self, index: int) -> None:
-        if self._profile_combo_updating:
-            return
-        profile = self.profile_combo.itemData(index)
-        if profile is None:
-            return
-        if not self._confirm_discard_changes():
-            self._refresh_profiles_ui()
-            return
-        self._load_profile(profile)
-
-    def _on_ruleset_selected(self, index: int) -> None:
-        if self._ruleset_combo_updating:
-            return
-        profile = self._current_profile()
-        if profile is None:
-            return
-        path = self.ruleset_combo.itemData(index)
-        if not path:
-            return
-        if not self._confirm_discard_changes():
-            self._refresh_ruleset_ui()
-            return
-        self._activate_ruleset_for_profile(profile, Path(path))
-
-    def _ruleset_context_menu(self, position) -> None:
-        path = self.ruleset_combo.currentData()
-        if not path:
-            return
-        menu = QMenu(self)
-        reveal_action = menu.addAction(t("menu.reveal_in_finder"))
-        action = menu.exec(self.ruleset_combo.mapToGlobal(position))
-        if action == reveal_action:
-            self._reveal_path(path)
-
     def _on_dataset_loaded(self, dataset: VocabDataset) -> None:
         self.rules_model.set_rules(list(dataset.rules))
         self._refresh_ruleset_ui()
@@ -1757,14 +673,6 @@ QMenu::separator {{
         self.save_ruleset_button.setEnabled(dirty)
         self._refresh_window_title(dirty)
 
-    def _on_profiles_changed(self, profiles) -> None:
-        self._refresh_profiles_ui()
-        self._rebuild_profiles_menu()
-
-    def _select_active_profile(self, *_args) -> None:
-        self._refresh_profiles_ui()
-        self._rebuild_profiles_menu()
-
     def _update_rule_actions(self) -> None:
         has_selection = self._current_source_row() >= 0
         self._delete_rule_action.setEnabled(has_selection)
@@ -1778,410 +686,6 @@ QMenu::separator {{
             return
         self._export_code_action.setEnabled(settings.allow_code_export)
         self._export_profiles_code_action.setEnabled(settings.allow_code_export)
-
-    def _save_profiles(self) -> None:
-        self.state.save_settings()
-
-    def _refresh_srs_growth(self) -> None:
-        settings = self.state.settings.srs
-        if not settings or not settings.enabled:
-            return
-        synonym_settings = self.state.settings.synonyms
-        if not synonym_settings:
-            return
-        language_packs = synonym_settings.language_packs or {}
-        frequency_packs = synonym_settings.frequency_packs or {}
-        allowed_pairs = tuple(resolve_allowed_pairs(settings))
-        if not allowed_pairs:
-            return
-        try:
-            candidates = []
-            for pair in allowed_pairs:
-                capability = resolve_pair_capability(pair)
-                frequency_db_path = self._resolve_frequency_db_for_pair(
-                    pair,
-                    frequency_packs=frequency_packs,
-                )
-                if not frequency_db_path or not frequency_db_path.exists():
-                    continue
-                jmdict_path = self._resolve_jmdict_for_pair(
-                    pair,
-                    language_packs=language_packs,
-                )
-                if capability.requires_jmdict_for_seed and (
-                    not jmdict_path or not jmdict_path.exists()
-                ):
-                    continue
-                seed_config = SeedSelectionConfig(
-                    language_pair=pair,
-                    top_n=2000,
-                    jmdict_path=jmdict_path,
-                    require_jmdict=capability.requires_jmdict_for_seed,
-                )
-                seeds = build_seed_candidates(
-                    frequency_db=frequency_db_path,
-                    config=seed_config,
-                )
-                candidates.extend(seed_to_selector_candidates(seeds))
-            if not candidates:
-                self._append_log(t("logs.srs_seed_missing"))
-                return
-            growth_config = SrsGrowthConfig(
-                coverage_scalar=settings.coverage_scalar,
-                max_new_items=settings.max_new_items_per_day,
-            )
-            updated_store, plan = grow_srs_store(
-                candidates,
-                store=self.state.srs_store,
-                settings=settings,
-                config=growth_config,
-                allowed_pairs=allowed_pairs,
-            )
-            if plan.add_count > 0:
-                self.state.update_srs_store(updated_store)
-                self._append_log(
-                    t(
-                        "logs.srs_seed_updated",
-                        added=plan.add_count,
-                        total=len(updated_store.items),
-                        pool=plan.pool_size,
-                    )
-                )
-            else:
-                self._append_log(
-                    t(
-                        "logs.srs_seed_noop",
-                        total=len(updated_store.items),
-                        pool=plan.pool_size,
-                    )
-                )
-        except Exception as exc:
-            self._append_log(t("logs.srs_seed_failed", error=str(exc)))
-
-    def _resolve_frequency_db_for_pair(
-        self,
-        pair: str,
-        *,
-        frequency_packs: dict[str, str],
-    ) -> Optional[Path]:
-        default_db_name = None
-        default_db_path = default_frequency_db_path(pair, frequency_packs_dir=Path("."))
-        if default_db_path:
-            default_db_name = default_db_path.name
-        lookup_keys: list[str] = []
-        if default_db_name:
-            if default_db_name.endswith(".sqlite"):
-                lookup_keys.append(default_db_name[: -len(".sqlite")])
-            lookup_keys.append(default_db_name)
-        for key in lookup_keys:
-            raw_path = str(frequency_packs.get(key, "")).strip()
-            if not raw_path:
-                continue
-            candidate = Path(raw_path)
-            if candidate.is_file():
-                return candidate
-            if candidate.is_dir() and default_db_name:
-                nested = candidate / default_db_name
-                if nested.is_file():
-                    return nested
-        if default_db_name:
-            fallback = _app_data_dir() / "frequency_packs" / default_db_name
-            if fallback.is_file():
-                return fallback
-        return None
-
-    def _resolve_jmdict_for_pair(
-        self,
-        pair: str,
-        *,
-        language_packs: dict[str, str],
-    ) -> Optional[Path]:
-        default_jmdict = default_jmdict_path(pair, language_packs_dir=Path("."))
-        if default_jmdict is None:
-            return None
-        lookup_keys = ("jmdict-ja-en", default_jmdict.name)
-        for key in lookup_keys:
-            raw_path = str(language_packs.get(key, "")).strip()
-            if not raw_path:
-                continue
-            candidate = Path(raw_path)
-            if candidate.is_file():
-                return candidate
-            if candidate.is_dir():
-                nested = candidate / default_jmdict.name
-                if nested.is_file():
-                    return nested
-        return None
-
-    def _refresh_embedding_index(self) -> None:
-        self._embedding_indices.clear()
-        self._embedding_load_error = None
-        self._embedding_loading = False
-        self._embedding_loading_pair = None
-        self._update_replacement_filter_state()
-        self._ensure_embedding_loaded_for_selection()
-
-    def _ensure_embedding_loaded_for_selection(self) -> None:
-        pair_key = self._embedding_pair_for_replacement(self._selected_replacement())
-        if not pair_key:
-            self._update_replacement_filter_state()
-            return
-        self._ensure_embedding_loaded(pair_key)
-
-    def _ensure_embedding_loaded(self, pair_key: str) -> None:
-        if pair_key in self._embedding_indices:
-            self._update_replacement_filter_state()
-            return
-        settings = self.state.settings.synonyms
-        paths = self._embedding_paths_for_pair(settings, pair_key)
-        if not settings or not settings.use_embeddings or not paths:
-            self._embedding_load_error = t("replacement.embeddings_missing")
-            self._update_replacement_filter_state()
-            return
-        self._embedding_loading = True
-        self._embedding_loading_pair = pair_key
-        self._embedding_load_id += 1
-        load_id = self._embedding_load_id
-        self._embedding_thread = EmbeddingLoaderThread(
-            pair_key,
-            paths,
-            lower_case=settings.lower_case,
-            parent=self,
-        )
-        self._embedding_thread.loaded.connect(
-            lambda loaded_pair, index, error, load_id=load_id: self._on_embeddings_loaded(
-                load_id, loaded_pair, index, error
-            )
-        )
-        self._embedding_thread.start()
-        self._update_replacement_filter_state()
-
-    def _update_replacement_filter_state(self) -> None:
-        replacement = self._selected_replacement()
-        has_selection = replacement is not None
-        pair_key = self._embedding_pair_for_replacement(replacement)
-        has_embeddings = bool(pair_key and pair_key in self._embedding_indices)
-        scope = self._replacement_filter_scope(replacement)
-        enabled = has_embeddings and has_selection and scope != "none" and not self._embedding_loading
-        self.replacement_threshold_slider.setEnabled(enabled)
-        self.replacement_threshold_value.setEnabled(enabled)
-        self.embedding_progress.setVisible(self._embedding_loading)
-        if self._embedding_loading:
-            self.replacement_hint_label.setText(t("replacement.loading_embeddings"))
-            self.replacement_hint_label.setVisible(True)
-        elif self._embedding_load_error:
-            self.replacement_hint_label.setText(self._embedding_load_error)
-            self.replacement_hint_label.setVisible(True)
-        elif not has_embeddings:
-            self.replacement_hint_label.setText(t("replacement.enable_embeddings_hint"))
-            self.replacement_hint_label.setVisible(True)
-        elif scope == "all":
-            self.replacement_hint_label.setText(t("replacement.no_synonym_tags"))
-            self.replacement_hint_label.setVisible(True)
-        else:
-            self.replacement_hint_label.setVisible(False)
-
-    def _refresh_replacement_list(self) -> None:
-        selected = self._selected_replacement()
-        replacement_counts: dict[str, tuple[int, int, int]] = {}
-        for rule in self.rules_model.rules():
-            replacement = rule.replacement.strip()
-            if not replacement:
-                continue
-            syn_total, syn_enabled, total = replacement_counts.get(replacement, (0, 0, 0))
-            total += 1
-            if "synonym" in rule.tags:
-                syn_total += 1
-                if rule.enabled:
-                    syn_enabled += 1
-            replacement_counts[replacement] = (syn_total, syn_enabled, total)
-        self.replacement_list.blockSignals(True)
-        self.replacement_list.clear()
-        for replacement in sorted(replacement_counts.keys(), key=str.lower):
-            syn_total, syn_enabled, total = replacement_counts[replacement]
-            if syn_total:
-                label = t(
-                    "replacement.list_label",
-                    replacement=replacement,
-                    enabled=syn_enabled,
-                    total=syn_total,
-                )
-            else:
-                label = replacement
-            item = QListWidgetItem(label)
-            item.setData(Qt.UserRole, replacement)
-            if syn_total:
-                item.setToolTip(
-                    t(
-                        "replacement.tooltip_counts",
-                        enabled=syn_enabled,
-                        total=syn_total,
-                        overall=total,
-                    )
-                )
-            self.replacement_list.addItem(item)
-        restored = False
-        if selected:
-            for row in range(self.replacement_list.count()):
-                item = self.replacement_list.item(row)
-                if item and item.data(Qt.UserRole) == selected:
-                    self.replacement_list.setCurrentRow(row)
-                    restored = True
-                    break
-        self.replacement_list.blockSignals(False)
-        if selected and not restored:
-            self.replacement_selected_label.setText(t("replacement.select_hint"))
-        self._update_replacement_filter_state()
-
-    def _selected_replacement(self) -> Optional[str]:
-        item = self.replacement_list.currentItem()
-        if not item:
-            return None
-        return item.data(Qt.UserRole)
-
-    def _normalize_pair(self, lang_a: str, lang_b: str) -> str:
-        if lang_a == lang_b:
-            return f"{lang_a}-{lang_b}"
-        return "-".join(sorted([lang_a, lang_b]))
-
-    def _pair_for_pack(self, pack_id: str) -> Optional[str]:
-        if pack_id in {"wordnet-en", "moby-en"}:
-            return "en-en"
-        if pack_id in {"openthesaurus-de", "odenet-de"}:
-            return "de-de"
-        if pack_id in {"jp-wordnet", "jp-wordnet-sqlite"}:
-            return "ja-ja"
-        if pack_id == "freedict-de-en":
-            return "en-de"
-        if pack_id == "freedict-en-de":
-            return "de-en"
-        if pack_id == "jmdict-ja-en":
-            return "en-ja"
-        if pack_id == "cc-cedict-zh-en":
-            return "en-zh"
-        return None
-
-    def _embedding_pair_for_replacement(self, replacement: Optional[str]) -> Optional[str]:
-        if not replacement:
-            return None
-        counts: dict[str, int] = {}
-        for rule in self.rules_model.rules():
-            if rule.replacement != replacement:
-                continue
-            pair = rule.metadata.language_pair if rule.metadata else None
-            if not pair:
-                continue
-            counts[pair] = counts.get(pair, 0) + 1
-        if not counts:
-            return None
-        return max(counts.items(), key=lambda item: item[1])[0]
-
-    def _embedding_paths_for_pair(
-        self,
-        settings: Optional[SynonymSourceSettings],
-        pair_key: Optional[str],
-    ) -> list[Path]:
-        if not settings or not settings.use_embeddings or not pair_key:
-            return []
-        enabled = dict(settings.embedding_pair_enabled or {})
-        if pair_key in enabled and not enabled[pair_key]:
-            return []
-        pair_paths = dict(settings.embedding_pair_paths or {}).get(pair_key)
-        paths: list[Path] = []
-        if pair_paths:
-            paths = [Path(path) for path in pair_paths if path]
-        existing = [path for path in paths if path.exists()]
-        return existing
-
-    def _replacement_filter_scope(self, replacement: Optional[str]) -> str:
-        if not replacement:
-            return "none"
-        has_any = False
-        for rule in self.rules_model.rules():
-            if rule.replacement != replacement:
-                continue
-            has_any = True
-            if "synonym" in rule.tags:
-                return "synonyms"
-        return "all" if has_any else "none"
-
-    def _default_embedding_threshold(self) -> float:
-        settings = self.state.settings.synonyms
-        if settings:
-            return settings.embedding_threshold
-        return 0.0
-
-    def _on_replacement_selected(self, current: Optional[QListWidgetItem], _previous: Optional[QListWidgetItem]) -> None:
-        replacement = current.data(Qt.UserRole) if current else None
-        if replacement:
-            threshold = self._replacement_thresholds.get(replacement, self._default_embedding_threshold())
-            self._replacement_slider_updating = True
-            self.replacement_threshold_slider.setValue(int(round(threshold * 100)))
-            self.replacement_threshold_value.setText(f"{threshold:.2f}")
-            self._replacement_slider_updating = False
-            scope = self._replacement_filter_scope(replacement)
-            if scope == "all":
-                self.replacement_selected_label.setText(
-                    t("replacement.filter_rules", replacement=replacement)
-                )
-            else:
-                self.replacement_selected_label.setText(
-                    t("replacement.filter_synonyms", replacement=replacement)
-                )
-        else:
-            self.replacement_selected_label.setText(t("replacement.select_hint"))
-        self._ensure_embedding_loaded_for_selection()
-        self._update_replacement_filter_state()
-
-    def _on_replacement_threshold_changed(self, value: int) -> None:
-        if self._replacement_slider_updating:
-            return
-        replacement = self._selected_replacement()
-        if not replacement:
-            return
-        threshold = value / 100.0
-        self.replacement_threshold_value.setText(f"{threshold:.2f}")
-        self._replacement_thresholds[replacement] = threshold
-        self._apply_replacement_threshold(replacement, threshold)
-
-    def _on_embeddings_loaded(self, load_id: int, pair_key: str, index: Optional[EmbeddingIndex], error: str) -> None:
-        if load_id != self._embedding_load_id:
-            return
-        self._embedding_loading = False
-        if index is not None:
-            self._embedding_indices[pair_key] = index
-        self._embedding_load_error = error or None
-        self._embedding_loading_pair = None
-        if self._embedding_thread:
-            self._embedding_thread.quit()
-            self._embedding_thread = None
-        self._update_replacement_filter_state()
-
-    def _apply_replacement_threshold(self, replacement: str, threshold: float) -> None:
-        pair_key = self._embedding_pair_for_replacement(replacement)
-        if not pair_key:
-            return
-        index = self._embedding_indices.get(pair_key)
-        if index is None:
-            return
-        scope = self._replacement_filter_scope(replacement)
-        if scope == "none":
-            return
-        updates: list[tuple[int, VocabRule]] = []
-        for row, rule in enumerate(self.rules_model.rules()):
-            if rule.replacement != replacement:
-                continue
-            if scope == "synonyms" and "synonym" not in rule.tags:
-                continue
-            score = index.similarity(rule.source_phrase, replacement)
-            if score is None:
-                enabled = threshold <= 0.0
-            else:
-                enabled = score >= threshold
-            if rule.enabled != enabled:
-                updates.append((row, replace(rule, enabled=enabled)))
-        if updates:
-            self.rules_model.update_rules_bulk(updates)
 
     def _append_log(self, message: str, *, color: Optional[QColor] = None) -> None:
         if not message:
@@ -2198,211 +702,46 @@ QMenu::separator {{
         self.log_edit.setTextCursor(cursor)
         self.log_edit.ensureCursorVisible()
 
-    def _refresh_profiles_ui(self) -> None:
-        profiles = self.state.settings.profiles
-        active_id = self.state.settings.active_profile_id
-        combo_items, active_index = build_profile_combo_items(profiles, active_id)
-        self._profile_combo_updating = True
-        self.profile_combo.blockSignals(True)
-        self.profile_combo.clear()
-        for combo_item in combo_items:
-            self.profile_combo.addItem(combo_item.label, combo_item.profile)
-        if active_index >= 0:
-            self.profile_combo.setCurrentIndex(active_index)
-        self.profile_combo.blockSignals(False)
-        self._profile_combo_updating = False
-        self._update_workspace_mode()
-        self._refresh_ruleset_ui()
-
-    def _update_workspace_mode(self) -> None:
-        if not hasattr(self, "_workspace_stack"):
-            return
-        has_profiles = bool(self.state.settings.profiles)
-        target = self._workspace_editor_page if has_profiles else self._workspace_empty_page
-        if self._workspace_stack.currentWidget() is not target:
-            self._workspace_stack.setCurrentWidget(target)
-
-    def _current_profile(self) -> Optional[Profile]:
-        return find_profile_by_id(self.state.settings.profiles, self.state.settings.active_profile_id)
-
-    def _refresh_ruleset_ui(self) -> None:
-        profile = self._current_profile()
-        self._ruleset_combo_updating = True
-        self.ruleset_combo.blockSignals(True)
-        self.ruleset_combo.clear()
-        if profile is None:
-            self.ruleset_combo.blockSignals(False)
-            self._ruleset_combo_updating = False
-            if hasattr(self, "rules_table"):
-                self.rules_table.set_empty_guide_button_visible(False)
-            return
-        combo_items, active_index = build_ruleset_combo_items(
-            profile,
-            default_dataset_path=str(_default_dataset_path()),
-        )
-        for idx, combo_item in enumerate(combo_items):
-            display = combo_item.display_name
-            if combo_item.missing:
-                display = t("ruleset.missing", label=display)
-            self.ruleset_combo.addItem(display, combo_item.path)
-            self.ruleset_combo.setItemData(idx, combo_item.path, Qt.ToolTipRole)
-        if active_index >= 0:
-            self.ruleset_combo.setCurrentIndex(active_index)
-        self.ruleset_combo.blockSignals(False)
-        self._ruleset_combo_updating = False
-        if hasattr(self, "_update_rules_table_help_affordance"):
-            self._update_rules_table_help_affordance(profile=profile)
-
-    def _update_rules_table_help_affordance(self, *, profile: Optional[Profile]) -> None:
-        if not hasattr(self, "rules_table"):
-            return
-        if profile is None:
-            self.rules_table.set_empty_guide_button_visible(False)
-            return
-        active_path = self._active_ruleset_path(profile)
-        resolved_path = normalize_ruleset_path(active_path) if active_path else None
-        missing_ruleset = resolved_path is None or not resolved_path.exists()
-        empty_rules = self.rules_model.rowCount() == 0
-        # Show contextual guidance when users have no editable rules loaded yet.
-        self.rules_table.set_empty_guide_button_visible(empty_rules or missing_ruleset)
-
-    def _rebuild_profiles_menu(self) -> None:
-        if not hasattr(self, "_profiles_menu"):
-            return
-        for action in self._profile_actions:
-            self._profiles_menu.removeAction(action)
-            self._profiles_action_group.removeAction(action)
-        self._profile_actions = []
-
-        settings = self.state.settings
-        active_id = settings.active_profile_id
-        for profile in settings.profiles:
-            label = profile.name or profile.profile_id
-            action = QAction(label, self)
-            action.setCheckable(True)
-            action.setChecked(profile.profile_id == active_id)
-            action.triggered.connect(
-                lambda checked, p=profile: self._switch_profile_from_menu(p, checked)
-            )
-            self._profiles_action_group.addAction(action)
-            self._profiles_menu.addAction(action)
-            self._profile_actions.append(action)
-
-    def _switch_profile_from_menu(self, profile: Profile, checked: bool) -> None:
-        if not checked:
-            return
-        if not self._confirm_discard_changes():
-            self._rebuild_profiles_menu()
-            return
-        self._load_profile(profile)
-
-    def _migrate_ruleset_paths(self) -> None:
-        settings = self.state.settings
-        if not settings.profiles:
-            return
-        updated_profiles, changed = migrate_profile_ruleset_paths(
-            settings.profiles,
-            base_dir=_app_data_dir(),
-            rulesets_dir=_rulesets_dir(),
-        )
-        if changed:
-            self.state.update_settings(replace(settings, profiles=updated_profiles))
-
 def main() -> None:
     # Ensure AppDataLocation is scoped to LexiShift before any logging.
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     startup_logs = _startup_log_paths()
-    start_time = time.perf_counter()
-    last_time = start_time
-
-    def log_startup(label: str) -> None:
-        nonlocal last_time
-        now = time.perf_counter()
-        delta_ms = (now - last_time) * 1000.0
-        total_ms = (now - start_time) * 1000.0
-        last_time = now
-        message = f"[startup] {label} (+{delta_ms:.1f} ms, total {total_ms:.1f} ms)"
-        for path in startup_logs:
-            try:
-                with open(path, "a", encoding="utf-8") as handle:
-                    handle.write(message + "\n")
-            except OSError:
-                continue
-        print(message)
+    startup_logger = StartupLogger(startup_logs)
 
     print("[LexiShift] STARTUP MARKER")
-    log_startup("main() begin")
-    if "--print-data-dir" in sys.argv:
-        print(f"[LexiShift] AppDataLocation={_app_data_dir()}")
-        print(f"[LexiShift] Startup log paths={startup_logs}")
+    startup_logger.log("main() begin")
+    if handle_startup_cli_flags(sys.argv, startup_logs):
         return
-    if "--diagnose-startup" in sys.argv:
-        print(f"[LexiShift] AppDataLocation={_app_data_dir()}")
-        print(f"[LexiShift] Startup log paths={startup_logs}")
-    if "--helper-daemon" in sys.argv:
-        from helper_daemon import run_daemon_from_cli
-
-        filtered_args = [arg for arg in sys.argv[1:] if arg != "--helper-daemon"]
-        run_daemon_from_cli(filtered_args)
+    if run_helper_daemon_if_requested(sys.argv):
         return
 
-    # Setup global exception hook to catch crashes
-    def exception_hook(exctype, value, tb):
-        error_msg = "".join(traceback.format_exception(exctype, value, tb))
-        crash_log = _app_data_dir() / "crash.log"
-        with open(crash_log, "a", encoding="utf-8") as f:
-            f.write(f"[{datetime.now()}] Crash:\n{error_msg}\n\n")
-        sys.__excepthook__(exctype, value, tb)
-    sys.excepthook = exception_hook
-    log_startup("exception hook installed")
+    install_exception_hook(_app_data_dir)
+    startup_logger.log("exception hook installed")
 
     app = QApplication(sys.argv)
-    log_startup("QApplication created")
+    startup_logger.log("QApplication created")
 
     # Singleton check: ensure only one GUI window runs
-    import getpass
-    socket_name = f"LexiShiftGUI_{getpass.getuser()}"
-    socket = QLocalSocket()
-    socket.connectToServer(socket_name)
-    if socket.waitForConnected(500):
-        socket.write(b"ACTIVATE")
-        socket.waitForBytesWritten(1000)
-        socket.disconnectFromServer()
+    server = acquire_singleton_server(singleton_socket_name())
+    if server is None:
         sys.exit(0)
+    startup_logger.log("single-instance server ready")
 
-    server = QLocalServer()
-    server.removeServer(socket_name)
-    server.listen(socket_name)
-    log_startup("single-instance server ready")
-
-    theme_dir()
-    log_startup("theme_dir()")
-    ensure_sample_images()
-    log_startup("ensure_sample_images()")
-    ensure_sample_themes()
-    log_startup("ensure_sample_themes()")
+    prime_theme_assets(startup_logger)
     ui_settings = QSettings()
     locale_pref = ui_settings.value("appearance/locale", "system")
     if locale_pref == "system":
         locale_pref = QLocale.system().name()
     set_locale(str(locale_pref))
-    log_startup("locale initialized")
+    startup_logger.log("locale initialized")
     window = MainWindow()
-    log_startup("MainWindow constructed")
+    startup_logger.log("MainWindow constructed")
 
-    def handle_activation():
-        client = server.nextPendingConnection()
-        if client:
-            client.waitForReadyRead(100)
-            window.show()
-            window.raise_()
-            window.activateWindow()
-            client.disconnectFromServer()
-    server.newConnection.connect(handle_activation)
+    bind_activation_handler(server, window)
 
     window.show()
-    log_startup("window shown")
+    startup_logger.log("window shown")
     sys.exit(app.exec())
 
 
