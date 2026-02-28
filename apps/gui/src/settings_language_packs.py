@@ -7,14 +7,12 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QFileDialog,
-    QHBoxLayout,
     QHeaderView,
     QLabel,
     QMessageBox,
     QPushButton,
     QStyle,
     QTabWidget,
-    QToolButton,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
@@ -30,12 +28,13 @@ from language_packs import (
     FrequencyPackDownloadThread,
     FrequencyPackInfo,
     FREQUENCY_PACKS,
-    download_log_path,
 )
 from i18n import t
+from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
 from settings_language_packs_path_mixin import LanguagePackPanelPathMixin
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
 from settings_language_packs_table_mixin import LanguagePackPanelTableMixin
+from settings_language_packs_transfer_mixin import LanguagePackPanelTransferMixin
 from settings_language_packs_support import (
     EmbeddingConversionThread,
     EmbeddingPackRow,
@@ -49,7 +48,14 @@ from settings_language_packs_support import (
 )
 from theme_manager import resolve_current_theme
 
-class LanguagePackPanel(LanguagePackPanelPathMixin, LanguagePackPanelStateMixin, LanguagePackPanelTableMixin, QWidget):
+class LanguagePackPanel(
+    LanguagePackPanelLayoutMixin,
+    LanguagePackPanelPathMixin,
+    LanguagePackPanelStateMixin,
+    LanguagePackPanelTableMixin,
+    LanguagePackPanelTransferMixin,
+    QWidget,
+):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self._theme = dict(resolve_current_theme(screen_id="settings_dialog"))
@@ -169,77 +175,6 @@ class LanguagePackPanel(LanguagePackPanelPathMixin, LanguagePackPanelStateMixin,
         )
         layout.addWidget(self._resource_tabs)
         layout.addWidget(self.language_pack_status)
-
-    def _build_language_pack_tab(self) -> QWidget:
-        tab = QWidget(self)
-        layout = QVBoxLayout(tab)
-        header_row = QHBoxLayout()
-        section_title = QLabel(t("language_packs.title"))
-        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        header_row.addWidget(section_title)
-        header_row.addStretch(1)
-        header_row.addWidget(self.open_language_pack_button)
-        layout.addLayout(header_row)
-        layout.addWidget(self.language_pack_table)
-        return tab
-
-    def _build_frequency_pack_tab(self) -> QWidget:
-        tab = QWidget(self)
-        layout = QVBoxLayout(tab)
-        header_row = QHBoxLayout()
-        section_title = QLabel(t("language_packs.frequency_title"))
-        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        header_row.addWidget(section_title)
-        header_row.addStretch(1)
-        header_row.addWidget(self.open_frequency_pack_button)
-        layout.addLayout(header_row)
-        description = QLabel(t("language_packs.frequency_description"))
-        description.setWordWrap(True)
-        layout.addWidget(description)
-        layout.addWidget(self.frequency_pack_table)
-        return tab
-
-    def _build_embedding_pack_tab(self) -> QWidget:
-        tab = QWidget(self)
-        layout = QVBoxLayout(tab)
-        header_row = QHBoxLayout()
-        section_title = QLabel(t("language_packs.embeddings_title"))
-        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        help_button = QToolButton(tab)
-        help_button.setText("?")
-        help_button.setToolTip(t("language_packs.embeddings_help"))
-        help_button.setAutoRaise(True)
-        help_button.clicked.connect(self._show_embeddings_help)
-        header_row.addWidget(section_title)
-        header_row.addWidget(help_button)
-        header_row.addStretch(1)
-        layout.addLayout(header_row)
-        description = QLabel(t("language_packs.embeddings_description"))
-        description.setWordWrap(True)
-        layout.addWidget(description)
-        layout.addWidget(self.embedding_pack_table)
-        return tab
-
-    def _build_cross_embedding_pack_tab(self) -> QWidget:
-        tab = QWidget(self)
-        layout = QVBoxLayout(tab)
-        header_row = QHBoxLayout()
-        section_title = QLabel(t("language_packs.cross_embeddings_title"))
-        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        help_button = QToolButton(tab)
-        help_button.setText("?")
-        help_button.setToolTip(t("language_packs.cross_embeddings_help"))
-        help_button.setAutoRaise(True)
-        help_button.clicked.connect(self._show_cross_embeddings_help)
-        header_row.addWidget(section_title)
-        header_row.addWidget(help_button)
-        header_row.addStretch(1)
-        layout.addLayout(header_row)
-        description = QLabel(t("language_packs.cross_embeddings_description"))
-        description.setWordWrap(True)
-        layout.addWidget(description)
-        layout.addWidget(self.cross_embedding_pack_table)
-        return tab
 
     def _download_language_pack(self, pack_id: str) -> None:
         pack = self._language_pack_info.get(pack_id)
@@ -626,39 +561,6 @@ class LanguagePackPanel(LanguagePackPanelPathMixin, LanguagePackPanelStateMixin,
             if candidate:
                 self._embedding_pack_paths[pack_id] = candidate
 
-    def _on_language_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
-        row = self._language_pack_rows.get(pack_id)
-        if not row:
-            return
-        self._set_status_item_tone(row.status_item, "info")
-        if total > 0:
-            pct = int((downloaded / total) * 100)
-            row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
-        else:
-            row.status_item.setText(t("language_packs.status.downloading"))
-
-    def _on_frequency_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
-        row = self._frequency_pack_rows.get(pack_id)
-        if not row:
-            return
-        self._set_status_item_tone(row.status_item, "info")
-        if total > 0:
-            pct = int((downloaded / total) * 100)
-            row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
-        else:
-            row.status_item.setText(t("language_packs.status.downloading"))
-
-    def _on_embedding_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
-        row = self._embedding_row_for(pack_id)
-        if not row:
-            return
-        self._set_status_item_tone(row.status_item, "info")
-        if total > 0:
-            pct = int((downloaded / total) * 100)
-            row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
-        else:
-            row.status_item.setText(t("language_packs.status.downloading"))
-
     def _on_language_pack_completed(self, pack_id: str, dest_path: str) -> None:
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
@@ -807,90 +709,3 @@ class LanguagePackPanel(LanguagePackPanelPathMixin, LanguagePackPanelStateMixin,
         row.use_button.setEnabled(True)
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
-
-    def _on_language_pack_failed(self, pack_id: str, message: str) -> None:
-        pack = self._language_pack_info.get(pack_id)
-        row = self._language_pack_rows.get(pack_id)
-        if not pack or not row:
-            return
-        if message == "cancelled" and self._closing:
-            row.status_item.setText(t("language_packs.status.cancelled"))
-            self._set_status_item_tone(row.status_item, "muted")
-            row.download_button.setEnabled(True)
-            row.download_button.setText(t("buttons.download"))
-            return
-        row.status_item.setText(t("language_packs.status.failed"))
-        self._set_status_item_tone(row.status_item, "error")
-        row.download_button.setEnabled(True)
-        row.download_button.setText(t("buttons.retry"))
-        link = pack.wayback_url
-        log_path = download_log_path()
-        row.status_item.setToolTip(log_path)
-        self._set_status_message(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
-            tone="error",
-            tooltip=log_path,
-        )
-
-    def _on_frequency_pack_failed(self, pack_id: str, message: str) -> None:
-        pack = self._frequency_pack_info.get(pack_id)
-        row = self._frequency_pack_rows.get(pack_id)
-        if not pack or not row:
-            return
-        if message == "cancelled" and self._closing:
-            row.status_item.setText(t("language_packs.status.cancelled"))
-            self._set_status_item_tone(row.status_item, "muted")
-            row.download_button.setEnabled(True)
-            row.download_button.setText(t("buttons.download"))
-            return
-        row.status_item.setText(t("language_packs.status.failed"))
-        self._set_status_item_tone(row.status_item, "error")
-        row.download_button.setEnabled(True)
-        row.download_button.setText(t("buttons.retry"))
-        link = pack.wayback_url
-        log_path = download_log_path()
-        row.status_item.setToolTip(log_path)
-        self._set_status_message(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
-            tone="error",
-            tooltip=log_path,
-        )
-
-    def _on_embedding_pack_failed(self, pack_id: str, message: str) -> None:
-        pack = self._embedding_pack_info.get(pack_id)
-        row = self._embedding_row_for(pack_id)
-        if not pack or not row:
-            return
-        if message == "cancelled" and self._closing:
-            row.status_item.setText(t("language_packs.status.cancelled"))
-            self._set_status_item_tone(row.status_item, "muted")
-            row.download_button.setEnabled(True)
-            row.download_button.setText(t("buttons.download"))
-            return
-        row.status_item.setText(t("language_packs.status.failed"))
-        self._set_status_item_tone(row.status_item, "error")
-        row.download_button.setEnabled(True)
-        row.download_button.setText(t("buttons.retry"))
-        link = pack.wayback_url
-        log_path = download_log_path()
-        row.status_item.setToolTip(log_path)
-        self._set_status_message(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
-            tone="error",
-            tooltip=log_path,
-        )
-
-    def _cleanup_language_pack_thread(self, thread: LanguagePackDownloadThread) -> None:
-        if thread in self._language_pack_threads:
-            self._language_pack_threads.remove(thread)
-        thread.deleteLater()
-
-    def _cleanup_frequency_pack_thread(self, thread: FrequencyPackDownloadThread) -> None:
-        if thread in self._frequency_pack_threads:
-            self._frequency_pack_threads.remove(thread)
-        thread.deleteLater()
-
-    def _cleanup_embedding_conversion_thread(self, thread: EmbeddingConversionThread) -> None:
-        if thread in self._embedding_conversion_threads:
-            self._embedding_conversion_threads.remove(thread)
-        thread.deleteLater()

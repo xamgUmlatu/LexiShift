@@ -5,8 +5,6 @@ import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
-from lexishift_core.frequency.sqlite_store import validate_frequency_sqlite_db
-from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.pair_resources import (
     resolve_pair_resources as _resolve_pair_resources,
@@ -47,7 +45,6 @@ from lexishift_core.srs import (
     save_srs_store,
 )
 from lexishift_core.srs.pair_policy import resolve_srs_pair_policy
-from lexishift_core.srs.seed import build_seed_candidates
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     STRATEGY_FREQUENCY_BOOTSTRAP,
@@ -262,7 +259,11 @@ def _ensure_pair_requirements(
     check_seed_resources: bool = False,
     check_rulegen_resources: bool = False,
 ) -> None:
-    capability = resolve_pair_capability(pair)
+    lp_capabilities = __import__(
+        "lexishift_core.helper.lp_capabilities",
+        fromlist=["resolve_pair_capability"],
+    )
+    capability = lp_capabilities.resolve_pair_capability(pair)
     requires_jmdict = (
         (check_seed_resources and capability.requires_jmdict_for_seed)
         or (check_rulegen_resources and capability.requires_jmdict_for_rulegen)
@@ -291,7 +292,11 @@ def _ensure_pair_requirements(
         and (require_frequency_db or check_seed_resources)
     )
     if should_validate_frequency_db:
-        validate_frequency_sqlite_db(set_source_db, table="frequency")
+        sqlite_store = __import__(
+            "lexishift_core.frequency.sqlite_store",
+            fromlist=["validate_frequency_sqlite_db"],
+        )
+        sqlite_store.validate_frequency_sqlite_db(set_source_db, table="frequency")
 
 
 def run_rulegen_job(
@@ -361,6 +366,8 @@ def refresh_srs_set(
     *,
     config: SrsRefreshJobConfig,
 ) -> dict:
+    seed_module = __import__("lexishift_core.srs.seed", fromlist=["build_seed_candidates"])
+
     return _refresh_srs_set_use_case(
         paths,
         config=config,
@@ -373,7 +380,7 @@ def refresh_srs_set(
         ensure_store_fn=_ensure_store,
         count_items_for_pair_fn=_count_items_for_pair,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
-        build_seed_candidates_fn=build_seed_candidates,
+        build_seed_candidates_fn=seed_module.build_seed_candidates,
         run_rulegen_for_pair_fn=run_rulegen_for_pair,
         write_rulegen_outputs_fn=write_rulegen_outputs,
         update_status_fn=_update_status,

@@ -70,7 +70,8 @@
     const shareCenterTreeState = root.optionsShareCenterTreeState;
     const shareCenterRenderers = root.optionsShareCenterRenderers;
     const shareCenterSelection = root.optionsShareCenterSelection;
-    if (!shareCenterUtils || !shareCenterStatus || !shareCenterModal || !shareCenterDataResolvers || !shareCenterEventBinders || !shareCenterWorkflows || !shareCenterSummary || !shareCenterSync || !shareCenterTreeState || !shareCenterRenderers || !shareCenterSelection) {
+    const shareCenterProfileResolvers = root.optionsShareCenterProfileResolvers;
+    if (!shareCenterUtils || !shareCenterStatus || !shareCenterModal || !shareCenterDataResolvers || !shareCenterEventBinders || !shareCenterWorkflows || !shareCenterSummary || !shareCenterSync || !shareCenterTreeState || !shareCenterRenderers || !shareCenterSelection || !shareCenterProfileResolvers) {
       throw new Error("Share Center dependencies are missing.");
     }
     const labels = {
@@ -262,27 +263,17 @@
     const applyParentToggle = shareCenterTreeApi.applyParentToggle;
     const onLeafChanged = shareCenterTreeApi.onLeafChanged;
 
-    function resolveProfileModules(items, profileId) {
-      return shareCenterDataResolvers.resolveProfileModules({
-        settingsManager,
-        translate,
-        labels,
-        getPopupModulesRegistry: () => {
-          const registry = root.popupModulesRegistry;
-          return registry && typeof registry === "object" ? registry : null;
-        },
-        isObject
-      }, items, profileId);
-    }
-
-    function resolveProfileSrsPairs(items, profileId) {
-      return shareCenterDataResolvers.resolveProfileSrsPairs({
-        settingsManager,
-        isObject,
-        normalizeSrsPairKey,
-        hasMeaningfulValue
-      }, items, profileId);
-    }
+    const profileResolverHelpers = shareCenterProfileResolvers.createProfileResolverHelpers({
+      settingsManager,
+      translate,
+      labels,
+      isObject,
+      normalizeSrsPairKey,
+      hasMeaningfulValue,
+      shareCenterDataResolvers
+    });
+    const resolveProfileModules = profileResolverHelpers.resolveProfileModules;
+    const resolveProfileSrsPairs = profileResolverHelpers.resolveProfileSrsPairs;
 
     const shareCenterRendererApi = shareCenterRenderers.createRenderers({
       srsPairItemsRoot,

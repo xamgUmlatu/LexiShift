@@ -80,14 +80,16 @@ from main_paths import (
     _settings_path,
     _startup_log_paths,
 )
+from main_ui_components import (
+    ThemedBackgroundWidget,
+    UtilityDock,
+    apply_theme_background,
+    configure_log_handlers,
+    reveal_path,
+)
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
-from theme_logger import set_log_handler
-from helper_logger import set_helper_log_handler
 from theme_manager import build_base_styles, resolve_current_theme
-from theme_widgets import ThemedBackgroundWidget, apply_theme_background
-from utility_dock import UtilityDock
-from utils_paths import reveal_path
 
 
 class MainWindow(
@@ -468,8 +470,10 @@ class MainWindow(
         return QColor(mapping.get(tone, self._theme_color_hex("text", fallback="#1F1F1F")))
 
     def _configure_log_handlers(self) -> None:
-        set_log_handler(lambda message: self._append_log(message, color=self._status_color("error")))
-        set_helper_log_handler(lambda message: self._append_log(message, color=self._status_color("info")))
+        configure_log_handlers(
+            error_handler=lambda message: self._append_log(message, color=self._status_color("error")),
+            info_handler=lambda message: self._append_log(message, color=self._status_color("info")),
+        )
 
     def _apply_theme(self) -> None:
         self._theme = resolve_current_theme(screen_id="main_window")

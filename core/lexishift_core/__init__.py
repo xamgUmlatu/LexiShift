@@ -51,34 +51,6 @@ from lexishift_core.persistence.settings import (
     settings_from_dict,
     settings_to_dict,
 )
-from lexishift_core.srs import (
-    PracticeGateState,
-    SrsHistoryEntry,
-    SrsItem,
-    SrsPairSettings,
-    SrsSettings,
-    SrsStore,
-    SrsSync,
-    load_srs_settings,
-    load_srs_store,
-    save_srs_settings,
-    save_srs_store,
-    srs_bundle_from_dict,
-    srs_bundle_to_dict,
-    srs_settings_from_dict,
-    srs_settings_to_dict,
-    srs_store_from_dict,
-    srs_store_to_dict,
-)
-from lexishift_core.srs.scheduler import (
-    RATING_AGAIN,
-    RATING_EASY,
-    RATING_GOOD,
-    RATING_HARD,
-    apply_feedback,
-    select_active_items,
-)
-from lexishift_core.srs.gate import PracticeGate, select_rules_for_practice
 from lexishift_core.srs.selector import (
     ScoredCandidate,
     ScoreBreakdown,
@@ -196,6 +168,34 @@ from lexishift_core.persistence.storage import (
     save_vocab_dataset,
     save_vocab_pool,
 )
+
+_LAZY_EXPORT_MODULES = {
+    "PracticeGateState": "lexishift_core.srs",
+    "SrsHistoryEntry": "lexishift_core.srs",
+    "SrsItem": "lexishift_core.srs",
+    "SrsPairSettings": "lexishift_core.srs",
+    "SrsSettings": "lexishift_core.srs",
+    "SrsStore": "lexishift_core.srs",
+    "SrsSync": "lexishift_core.srs",
+    "load_srs_settings": "lexishift_core.srs",
+    "load_srs_store": "lexishift_core.srs",
+    "save_srs_settings": "lexishift_core.srs",
+    "save_srs_store": "lexishift_core.srs",
+    "srs_bundle_from_dict": "lexishift_core.srs",
+    "srs_bundle_to_dict": "lexishift_core.srs",
+    "srs_settings_from_dict": "lexishift_core.srs",
+    "srs_settings_to_dict": "lexishift_core.srs",
+    "srs_store_from_dict": "lexishift_core.srs",
+    "srs_store_to_dict": "lexishift_core.srs",
+    "RATING_AGAIN": "lexishift_core.srs.scheduler",
+    "RATING_EASY": "lexishift_core.srs.scheduler",
+    "RATING_GOOD": "lexishift_core.srs.scheduler",
+    "RATING_HARD": "lexishift_core.srs.scheduler",
+    "apply_feedback": "lexishift_core.srs.scheduler",
+    "select_active_items": "lexishift_core.srs.scheduler",
+    "PracticeGate": "lexishift_core.srs.gate",
+    "select_rules_for_practice": "lexishift_core.srs.gate",
+}
 
 __all__ = [
     "Match",
@@ -370,3 +370,17 @@ __all__ = [
     "now_utc",
     "parse_ts",
 ]
+
+
+def __getattr__(name: str):
+    module_name = _LAZY_EXPORT_MODULES.get(name)
+    if module_name is None:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    module = __import__(module_name, fromlist=[name])
+    value = getattr(module, name)
+    globals()[name] = value
+    return value
+
+
+def __dir__() -> list[str]:
+    return sorted(set(globals()) | set(__all__))

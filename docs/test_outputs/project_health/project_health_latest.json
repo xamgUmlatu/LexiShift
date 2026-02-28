@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-28T20:24:49.649Z",
+  "generated_at_utc": "2026-02-28T21:14:24.761Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -12,9 +12,9 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 285,
-    "violations": 7,
-    "warnings": 10,
+    "files_checked": 300,
+    "violations": 0,
+    "warnings": 5,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -23,190 +23,7 @@
     "baseline_regressions": null,
     "advisory": true
   },
-  "violations": [
-    {
-      "file": "core/lexishift_core/__init__.py",
-      "language": "python",
-      "metrics": {
-        "lines": 373,
-        "imports": 27,
-        "domainBreadth": 1,
-        "functions": 0
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 3,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "imports"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "core/lexishift_core/helper/engine.py",
-      "language": "python",
-      "metrics": {
-        "lines": 435,
-        "imports": 26,
-        "domainBreadth": 1,
-        "functions": 18
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 2,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "imports"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "core/lexishift_core/frequency/de/build.py",
-      "language": "python",
-      "metrics": {
-        "lines": 1074,
-        "imports": 12,
-        "domainBreadth": 1,
-        "functions": 28
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 174,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "scripts/testing/rulegen_benchmark.py",
-      "language": "python",
-      "metrics": {
-        "lines": 1487,
-        "imports": 19,
-        "domainBreadth": 1,
-        "functions": 24
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 587,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "scripts/testing/rulegen_quality_gate.py",
-      "language": "python",
-      "metrics": {
-        "lines": 1138,
-        "imports": 9,
-        "domainBreadth": 0,
-        "functions": 16
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 238,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "scripts/dev/licensing_header_audit.py",
-      "language": "python",
-      "metrics": {
-        "lines": 652,
-        "imports": 11,
-        "domainBreadth": 1,
-        "functions": 19
-      },
-      "limits": {
-        "maxLines": 520,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 132,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "scripts/dev/licensing_source_header_fetch.py",
-      "language": "python",
-      "metrics": {
-        "lines": 636,
-        "imports": 10,
-        "domainBreadth": 0,
-        "functions": 18
-      },
-      "limits": {
-        "maxLines": 520,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 116,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    }
-  ],
+  "violations": [],
   "warnings": [
     {
       "file": "apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js",
@@ -216,58 +33,6 @@
         "imports": 0,
         "domainBreadth": 0,
         "functions": 29
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 452,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 15
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "apps/chrome-extension/options/controllers/rules/share_center/renderers.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 451,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 25
       },
       "limits": {
         "maxLines": 500,
@@ -313,65 +78,13 @@
       ]
     },
     {
-      "file": "apps/gui/src/dialogs.py",
+      "file": "core/lexishift_core/__init__.py",
       "language": "python",
       "metrics": {
-        "lines": 897,
-        "imports": 17,
-        "domainBreadth": 1,
-        "functions": 41
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "apps/gui/src/language_packs.py",
-      "language": "python",
-      "metrics": {
-        "lines": 825,
-        "imports": 12,
-        "domainBreadth": 1,
-        "functions": 29
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "apps/gui/src/main.py",
-      "language": "python",
-      "metrics": {
-        "lines": 750,
+        "lines": 387,
         "imports": 24,
         "domainBreadth": 1,
-        "functions": 35
+        "functions": 2
       },
       "limits": {
         "maxLines": 900,
@@ -391,13 +104,13 @@
       ]
     },
     {
-      "file": "apps/gui/src/settings_language_packs.py",
+      "file": "core/lexishift_core/helper/engine.py",
       "language": "python",
       "metrics": {
-        "lines": 897,
-        "imports": 12,
-        "domainBreadth": 0,
-        "functions": 35
+        "lines": 442,
+        "imports": 23,
+        "domainBreadth": 1,
+        "functions": 18
       },
       "limits": {
         "maxLines": 900,
@@ -413,7 +126,7 @@
       },
       "violation_metrics": [],
       "warning_metrics": [
-        "lines"
+        "imports"
       ]
     },
     {
@@ -440,32 +153,6 @@
       "violation_metrics": [],
       "warning_metrics": [
         "imports"
-      ]
-    },
-    {
-      "file": "core/lexishift_core/resources/synonyms.py",
-      "language": "python",
-      "metrics": {
-        "lines": 853,
-        "imports": 11,
-        "domainBreadth": 1,
-        "functions": 44
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
       ]
     }
   ],
