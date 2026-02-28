@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-27T23:15:44.318Z",
+  "generated_at_utc": "2026-02-28T01:54:11.899Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -12,9 +12,9 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 258,
-    "violations": 11,
-    "warnings": 6,
+    "files_checked": 270,
+    "violations": 9,
+    "warnings": 8,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -25,65 +25,13 @@
   },
   "violations": [
     {
-      "file": "apps/chrome-extension/options/core/rules_manager.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 1505,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 18
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 1005,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
-      "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 1550,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 45
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 1050,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [
-        "lines"
-      ],
-      "warning_metrics": []
-    },
-    {
       "file": "apps/gui/src/main.py",
       "language": "python",
       "metrics": {
-        "lines": 2455,
-        "imports": 41,
+        "lines": 2411,
+        "imports": 42,
         "domainBreadth": 1,
-        "functions": 122
+        "functions": 116
       },
       "limits": {
         "maxLines": 900,
@@ -92,10 +40,10 @@
         "maxFunctions": 50
       },
       "overages": {
-        "lines": 1555,
-        "imports": 17,
+        "lines": 1511,
+        "imports": 18,
         "domainBreadth": 0,
-        "functions": 72
+        "functions": 66
       },
       "violation_metrics": [
         "lines",
@@ -323,6 +271,58 @@
         "imports": 0,
         "domainBreadth": 0,
         "functions": 29
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/rules/share_center_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 452,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/rules/share_center/renderers.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 451,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 25
       },
       "limits": {
         "maxLines": 500,

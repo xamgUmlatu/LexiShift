@@ -27,7 +27,6 @@ from PySide6.QtCore import (
     QLocale,
     QSettings,
     QSortFilterProxyModel,
-    QStandardPaths,
     QThread,
     Qt,
     Signal,
@@ -65,7 +64,6 @@ from lexishift_core import (
     RuleMetadata,
     SeedSelectionConfig,
     SrsGrowthConfig,
-    SrsSettings,
     SynonymSourceSettings,
     VocabDataset,
     VocabRule,
@@ -112,6 +110,13 @@ from profile_ruleset_utils import (
     normalize_ruleset_path,
     preferred_active_ruleset,
     resolve_profile_dataset_path,
+)
+from main_paths import (
+    _app_data_dir,
+    _default_dataset_path,
+    _rulesets_dir,
+    _settings_path,
+    _startup_log_paths,
 )
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
@@ -2302,55 +2307,6 @@ QMenu::separator {{
         )
         if changed:
             self.state.update_settings(replace(settings, profiles=updated_profiles))
-
-
-def _app_data_dir() -> Path:
-    base_dir = Path(QStandardPaths.writableLocation(QStandardPaths.AppDataLocation))
-    base_dir.mkdir(parents=True, exist_ok=True)
-    return base_dir
-
-
-def _fallback_log_dirs() -> list[Path]:
-    paths: list[Path] = []
-    paths.append(Path("/tmp"))
-    home = Path.home()
-    if sys.platform == "darwin":
-        paths.append(home / "Library" / "Logs" / "LexiShift")
-    elif sys.platform.startswith("win"):
-        paths.append(home / "AppData" / "Local" / "LexiShift" / "Logs")
-    else:
-        paths.append(home / ".local" / "state" / "LexiShift")
-    return paths
-
-
-def _startup_log_paths() -> list[Path]:
-    paths: list[Path] = []
-    try:
-        paths.append(_app_data_dir() / "startup_timing.log")
-    except Exception:
-        pass
-    for base in _fallback_log_dirs():
-        try:
-            base.mkdir(parents=True, exist_ok=True)
-            paths.append(base / "lexishift_startup.log")
-        except OSError:
-            continue
-    return paths
-
-
-def _rulesets_dir() -> Path:
-    target = Path(os.path.join(str(_app_data_dir()), "rulesets"))
-    target.mkdir(parents=True, exist_ok=True)
-    return target
-
-
-def _settings_path() -> Path:
-    return _app_data_dir() / "settings.json"
-
-
-def _default_dataset_path() -> Path:
-    return _rulesets_dir() / "vocab.json"
-
 
 def main() -> None:
     # Ensure AppDataLocation is scoped to LexiShift before any logging.

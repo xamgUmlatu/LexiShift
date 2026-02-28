@@ -23,24 +23,23 @@ npm run health:project
 
 Current violation profile:
 
-1. Total violations: `11` files (out of `258` scanned)
+1. Total violations: `9` files (out of `270` scanned)
 2. By area:
-   - `apps/chrome-extension`: `2`
    - `apps/gui/src`: `2`
    - `core/lexishift_core`: `3`
    - `scripts/*`: `4`
 3. By metric:
-   - `lines`: `9`
-   - `functions`: `3`
+   - `lines`: `7`
+   - `functions`: `2`
    - `imports`: `3`
    - `domainBreadth`: `0`
 
 Top hotspots by line overage:
 
-1. `apps/gui/src/main.py` (`2455/900`, `122/50`, `41/24`)
-2. `apps/chrome-extension/options/controllers/rules/share_center_controller.js` (`1550/500`, `45/45`)
-3. `apps/chrome-extension/options/core/rules_manager.js` (`1505/500`)
-4. `apps/gui/src/settings_language_packs.py` (`1617/900`, `86/50`)
+1. `apps/gui/src/main.py` (`2411/900`, `116/50`, `42/24`)
+2. `apps/gui/src/settings_language_packs.py` (`1617/900`, `86/50`)
+3. `scripts/testing/rulegen_benchmark.py` (`1487/900`)
+4. `scripts/testing/rulegen_quality_gate.py` (`1138/900`)
 5. `core/lexishift_core/frequency/de/build.py` (`1074/900`)
 
 ## Progress Log
@@ -77,32 +76,59 @@ Top hotspots by line overage:
    - `apps/chrome-extension/options/controllers/rules/share_center/selection.js`
    and rewired `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
    to consume shared modules (now `1550` lines / `45` functions from `1836` / `74`).
+9. 2026-02-27: split `RulesManager` internals into dedicated prototype modules:
+   - `apps/chrome-extension/options/core/rules_manager/base_methods.js`
+   - `apps/chrome-extension/options/core/rules_manager/ruleset_methods.js`
+   - `apps/chrome-extension/options/core/rules_manager/profile_share_methods.js`
+   - `apps/chrome-extension/options/core/rules_manager/bundle_methods.js`
+   and reduced `apps/chrome-extension/options/core/rules_manager.js` to public API orchestration
+   (`262` lines from `1505`), removing one full advisory violation.
+10. 2026-02-27: extracted Share Center data resolvers into
+    `apps/chrome-extension/options/controllers/rules/share_center/data_resolvers.js`
+    and reduced `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
+    from `1550` to `1373` lines while preserving behavior.
+11. 2026-02-27: extracted Share Center event binding boilerplate into
+    `apps/chrome-extension/options/controllers/rules/share_center/event_binders.js`
+    and reduced `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
+    from `1373` to `1281` lines.
+12. 2026-02-27: completed full Share Center split into dedicated modules:
+    - `apps/chrome-extension/options/controllers/rules/share_center/workflows.js`
+    - `apps/chrome-extension/options/controllers/rules/share_center/summary.js`
+    - `apps/chrome-extension/options/controllers/rules/share_center/sync.js`
+    - `apps/chrome-extension/options/controllers/rules/share_center/tree_state.js`
+    - `apps/chrome-extension/options/controllers/rules/share_center/renderers.js`
+    reducing `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
+    from `1836` to `452` lines and removing the violation entirely.
+13. 2026-02-27: completed RulesManager split and removed its violation by moving internals into:
+    - `apps/chrome-extension/options/core/rules_manager/base_methods.js`
+    - `apps/chrome-extension/options/core/rules_manager/ruleset_methods.js`
+    - `apps/chrome-extension/options/core/rules_manager/profile_share_methods.js`
+    - `apps/chrome-extension/options/core/rules_manager/bundle_methods.js`
+    while reducing `apps/chrome-extension/options/core/rules_manager.js` to `262` lines.
+14. 2026-02-27: started GUI hotspot extraction by moving app-data/ruleset/startup path helpers from
+    `apps/gui/src/main.py` into `apps/gui/src/main_paths.py`, reducing `main.py` line/function pressure.
 
 ## Leaf-First Remediation Queue (Current)
 
 Hotspot-first globally, then leaf-first per hotspot:
 
-1. `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
-   - Extract: payload normalization, validator policies, API client adapters, modal state reducers.
-2. `apps/chrome-extension/options/core/rules_manager.js`
-   - Extract: pure diff/merge ops, sorting/grouping helpers, persistence adapter wrapper.
-3. `apps/gui/src/main.py`
+1. `apps/gui/src/main.py`
    - Extract: non-Qt app services, command wiring, data loading orchestration.
-4. `apps/gui/src/settings_language_packs.py`
+2. `apps/gui/src/settings_language_packs.py`
    - Extract: download/use-case services, table mappers, validation logic.
-5. `core/lexishift_core/__init__.py`
+3. `core/lexishift_core/__init__.py`
    - Extract: optional/advanced exports into lazy import boundary to reduce import fanout.
-6. `core/lexishift_core/helper/engine.py`
+4. `core/lexishift_core/helper/engine.py`
    - Extract: optional dependencies and heavyweight integrations into dedicated modules.
-7. `core/lexishift_core/frequency/de/build.py`
+5. `core/lexishift_core/frequency/de/build.py`
    - Extract: parsing pipeline stages into focused builder helpers.
-8. `scripts/testing/rulegen_benchmark.py`
+6. `scripts/testing/rulegen_benchmark.py`
    - Extract: case loading, runner, metrics, renderers into separate script helpers.
-9. `scripts/testing/rulegen_quality_gate.py`
+7. `scripts/testing/rulegen_quality_gate.py`
    - Extract: policy evaluation core and report rendering.
-10. `scripts/dev/licensing_header_audit.py`
+8. `scripts/dev/licensing_header_audit.py`
    - Extract: scanners, license classifiers, report writer.
-11. `scripts/dev/licensing_source_header_fetch.py`
+9. `scripts/dev/licensing_source_header_fetch.py`
    - Extract: source fetch adapters, cache/store logic, retry policy.
 
 ## Remediation Strategy
@@ -142,7 +168,9 @@ Exit criteria:
 
 ### Phase 1 - Chrome Extension Hotspots
 
-Target files (initial):
+Status: completed (2026-02-27)
+
+Completed targets:
 
 1. `apps/chrome-extension/options/controllers/rules/share_center_controller.js`
 2. `apps/chrome-extension/options/core/rules_manager.js`
