@@ -5,6 +5,30 @@ on:
   push:
 
 jobs:
+  project-health-changed:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Ensure base branch ref is available
+        run: git fetch --no-tags --prune --depth=1 origin "${{ github.base_ref }}"
+      - name: Project health gate (changed files)
+        working-directory: scripts
+        run: |
+          node dev/check_project_health.js \
+            --changed-only \
+            --base-ref "origin/${{ github.base_ref }}" \
+            --baseline-json ../docs/test_outputs/project_health/project_health_baseline.json \
+            --fail-on-new \
+            --fail-on-regressions
+
   core-tests:
     runs-on: ubuntu-latest
     steps:

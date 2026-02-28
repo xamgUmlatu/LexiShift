@@ -34,6 +34,13 @@
       : ((_err, _key, fallback) => fallback || "");
     const logOptions = typeof opts.logOptions === "function" ? opts.logOptions : (() => {});
     const dom = opts.dom && typeof opts.dom === "object" ? opts.dom : {};
+    const graphElements = root.optionsControllerGraphElements
+      && typeof root.optionsControllerGraphElements.buildElements === "function"
+      ? root.optionsControllerGraphElements.buildElements(dom)
+      : null;
+    if (!graphElements) {
+      throw new Error("[LexiShift][Options] Missing controller graph elements bootstrap module.");
+    }
 
     let languagePrefsAdapter = languagePrefsAdapterFactory({
       settingsManager,
@@ -86,29 +93,7 @@
       setStatus: uiBridge.setStatus,
       colors: ui.COLORS,
       maxUploadBytes: 8 * 1024 * 1024,
-      elements: {
-        profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
-        profileBgOpacityInput: dom.profileBgOpacityInput,
-        profileBgOpacityValueOutput: dom.profileBgOpacityValueOutput,
-        profileBgFileInput: dom.profileBgFileInput,
-        profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
-        profileBgStatusOutput: dom.profileBgStatusOutput,
-        profileBgPreviewWrap: dom.profileBgPreviewWrap,
-        profileBgPreviewImage: dom.profileBgPreviewImage,
-        profileBgFocalMarker: dom.profileBgFocalMarker,
-        profileBgPositionResetButton: dom.profileBgPositionResetButton,
-        profileCardThemeHueInput: dom.profileCardThemeHueInput,
-        profileCardThemeHueValueOutput: dom.profileCardThemeHueValueOutput,
-        profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,
-        profileCardThemeSaturationValueOutput: dom.profileCardThemeSaturationValueOutput,
-        profileCardThemeBrightnessInput: dom.profileCardThemeBrightnessInput,
-        profileCardThemeBrightnessValueOutput: dom.profileCardThemeBrightnessValueOutput,
-        profileCardThemeTransparencyInput: dom.profileCardThemeTransparencyInput,
-        profileCardThemeTransparencyValueOutput: dom.profileCardThemeTransparencyValueOutput,
-        profileCardThemeResetButton: dom.profileCardThemeResetButton
-      }
+      elements: graphElements.profileBackground
     });
 
     const srsProfileSelectorController = requireControllerFactory("optionsSrsProfileSelector")({
@@ -145,11 +130,7 @@
         }
         return shareCenterController.syncForProfile(event);
       },
-      elements: {
-        profileRulesetsList: dom.profileRulesetsList,
-        profileRulesetsStatus: dom.profileRulesetsStatus,
-        profileRulesetsRefreshButton: dom.profileRulesetsRefreshButton
-      }
+      elements: graphElements.profileRulesets
     });
 
     const srsActionsController = requireControllerFactory("optionsSrsActions")({
@@ -162,14 +143,7 @@
       log: logOptions,
       confirm: (message) => globalThis.confirm(message),
       colors: ui.COLORS,
-      elements: {
-        output: dom.srsRulegenOutput,
-        initializeButton: dom.srsInitializeSetButton,
-        refreshButton: dom.srsRefreshSetButton,
-        diagnosticsButton: dom.srsRuntimeDiagnosticsButton,
-        sampledButton: dom.srsRulegenSampledButton,
-        resetButton: dom.srsResetButton
-      }
+      elements: graphElements.srsActions
     });
 
     const rulesShareController = requireControllerFactory("optionsRulesShare")({
@@ -180,14 +154,7 @@
       updateRulesMeta: uiBridge.updateRulesMeta,
       errorMessage,
       colors: ui.COLORS,
-      elements: {
-        rulesInput: dom.rulesInput,
-        rulesFileInput: dom.rulesFileInput,
-        fileStatus: dom.fileStatus,
-        shareCodeInput: dom.shareCodeInput,
-        shareCodeScopeInput: dom.shareCodeScopeInput,
-        shareCodeCjk: dom.shareCodeCjk
-      }
+      elements: graphElements.rulesShare
     });
 
     shareCenterController = requireControllerFactory("optionsShareCenter")({
@@ -198,55 +165,14 @@
       setStatus: uiBridge.setStatus,
       log: logOptions,
       colors: ui.COLORS,
-      elements: {
-        openExportButton: dom.shareCenterOpenExportButton,
-        openImportButton: dom.shareCenterOpenImportButton,
-        exportBackdrop: dom.shareCenterExportBackdrop,
-        exportModal: dom.shareCenterExportModal,
-        exportCloseButton: dom.shareCenterExportCloseButton,
-        exportModeFullInput: dom.shareCenterExportModeFullInput,
-        exportModeCustomInput: dom.shareCenterExportModeCustomInput,
-        treePanel: dom.shareCenterTreePanel,
-        importBackdrop: dom.shareCenterImportBackdrop,
-        importModal: dom.shareCenterImportModal,
-        importCloseButton: dom.shareCenterImportCloseButton,
-        parentProfileInput: dom.shareCenterParentProfileInput,
-        parentRulesetsInput: dom.shareCenterParentRulesetsInput,
-        parentSrsInput: dom.shareCenterParentSrsInput,
-        parentAppearanceInput: dom.shareCenterParentAppearanceInput,
-        parentModuleHistoriesInput: dom.shareCenterParentModuleHistoriesInput,
-        targetInputs: dom.shareCenterTargetInputs,
-        targetProfileSettingsInput: dom.shareCenterTargetProfileSettingsInput,
-        srsPairItemsRoot: dom.shareCenterSrsPairItemsRoot,
-        srsPairStatus: dom.shareCenterSrsPairStatus,
-        targetAppearanceThemeInput: dom.shareCenterTargetAppearanceThemeInput,
-        rulesetItemsRoot: dom.shareCenterRulesetItemsRoot,
-        rulesetStatus: dom.shareCenterRulesetStatus,
-        moduleItemsRoot: dom.shareCenterModuleItemsRoot,
-        moduleStatus: dom.shareCenterModuleStatus,
-        summaryTarget: dom.shareCenterSummaryTarget,
-        summaryGroups: dom.shareCenterSummaryGroups,
-        summaryOutput: dom.shareCenterSummaryOutput,
-        generateButton: dom.shareCenterGenerateButton,
-        importButton: dom.shareCenterImportButton,
-        importFileInput: dom.shareCenterImportFileInput,
-        importFileNameOutput: dom.shareCenterImportFileNameOutput,
-        importStatusOutput: dom.shareCenterImportStatus,
-        exportStatusOutput: dom.shareCenterExportStatus,
-        statusOutput: dom.shareCenterStatus
-      }
+      elements: graphElements.shareCenter
     });
 
     const helperActionsController = requireControllerFactory("optionsHelperActions")({
       helperManager,
       t,
       setHelperStatus: uiBridge.setHelperStatus,
-      elements: {
-        debugHelperTestButton: dom.debugHelperTestButton,
-        debugHelperTestOutput: dom.debugHelperTestOutput,
-        debugOpenDataDirButton: dom.debugOpenDataDirButton,
-        debugOpenDataDirOutput: dom.debugOpenDataDirOutput
-      }
+      elements: graphElements.helperActions
     });
 
     const srsProfileRuntimeController = requireControllerFactory("optionsSrsProfileRuntime")({
@@ -271,22 +197,7 @@
       },
       log: logOptions,
       colors: ui.COLORS,
-      elements: {
-        sourceLanguageInput: dom.sourceLanguageInput,
-        targetLanguageInput: dom.targetLanguageInput,
-        srsEnabledInput: dom.srsEnabledInput,
-        srsMaxActiveInput: dom.srsMaxActiveInput,
-        srsBootstrapTopNInput: dom.srsBootstrapTopNInput,
-        srsInitialActiveCountInput: dom.srsInitialActiveCountInput,
-        srsSoundInput: dom.srsSoundInput,
-        srsHighlightInput: dom.srsHighlightInput,
-        srsHighlightTextInput: dom.srsHighlightTextInput,
-        srsFeedbackSrsInput: dom.srsFeedbackSrsInput,
-        srsFeedbackRulesInput: dom.srsFeedbackRulesInput,
-        srsExposureLoggingInput: dom.srsExposureLoggingInput,
-        srsProfileIdInput: dom.srsProfileIdInput,
-        srsProfileRefreshButton: dom.srsProfileRefreshButton
-      }
+      elements: graphElements.srsProfileRuntime
     });
 
     const displayReplacementController = requireControllerFactory("optionsDisplayReplacement")({
@@ -294,16 +205,7 @@
       t,
       setStatus: uiBridge.setStatus,
       colors: ui.COLORS,
-      elements: {
-        highlightEnabledInput: dom.highlightEnabledInput,
-        highlightColorInput: dom.highlightColorInput,
-        debugEnabledInput: dom.debugEnabledInput,
-        debugFocusInput: dom.debugFocusInput,
-        maxOnePerBlockInput: dom.maxOnePerBlockInput,
-        allowAdjacentInput: dom.allowAdjacentInput,
-        maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
-        maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput
-      }
+      elements: graphElements.displayReplacement
     });
 
     if (!controllerAdaptersFactory) {
@@ -331,25 +233,7 @@
       renderSrsProfileStatus: controllerAdapters.renderSrsProfileStatus,
       renderProfileBackgroundStatus: controllerAdapters.renderProfileBackgroundStatus,
       setSrsProfileStatusLocalized: controllerAdapters.setSrsProfileStatusLocalized,
-      elements: {
-        enabledInput: dom.enabledInput,
-        highlightEnabledInput: dom.highlightEnabledInput,
-        highlightColorInput: dom.highlightColorInput,
-        highlightColorText: dom.highlightColorText,
-        maxOnePerBlockInput: dom.maxOnePerBlockInput,
-        allowAdjacentInput: dom.allowAdjacentInput,
-        maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
-        maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
-        debugEnabledInput: dom.debugEnabledInput,
-        debugFocusInput: dom.debugFocusInput,
-        srsRulegenOutput: dom.srsRulegenOutput,
-        debugHelperTestOutput: dom.debugHelperTestOutput,
-        debugOpenDataDirOutput: dom.debugOpenDataDirOutput,
-        languageSelect: dom.languageSelect,
-        rulesInput: dom.rulesInput,
-        fileStatus: dom.fileStatus,
-        customRulesetEnabledInput: dom.customRulesetEnabledInput
-      }
+      elements: graphElements.pageInit
     });
 
     const eventWiringController = requireControllerFactory("optionsEventWiring")({
@@ -375,67 +259,7 @@
       renderProfileBackgroundStatus: controllerAdapters.renderProfileBackgroundStatus,
       updateTargetLanguagePrefsModalVisibility: controllerAdapters.updateTargetLanguagePrefsModalVisibility,
       setTargetLanguagePrefsModalOpen: controllerAdapters.setTargetLanguagePrefsModalOpen,
-      elements: {
-        saveButton: dom.saveButton,
-        importFileButton: dom.importFileButton,
-        exportFileButton: dom.exportFileButton,
-        rulesSourceInputs: dom.rulesSourceInputs,
-        customRulesetEnabledInput: dom.customRulesetEnabledInput,
-        highlightEnabledInput: dom.highlightEnabledInput,
-        highlightColorInput: dom.highlightColorInput,
-        highlightColorText: dom.highlightColorText,
-        maxOnePerBlockInput: dom.maxOnePerBlockInput,
-        allowAdjacentInput: dom.allowAdjacentInput,
-        maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
-        maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
-        srsEnabledInput: dom.srsEnabledInput,
-        srsProfileIdInput: dom.srsProfileIdInput,
-        srsProfileRefreshButton: dom.srsProfileRefreshButton,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
-        profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
-        profileBgOpacityInput: dom.profileBgOpacityInput,
-        profileBgFileInput: dom.profileBgFileInput,
-        profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
-        profileBgPositionResetButton: dom.profileBgPositionResetButton,
-        profileCardThemeHueInput: dom.profileCardThemeHueInput,
-        profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,
-        profileCardThemeBrightnessInput: dom.profileCardThemeBrightnessInput,
-        profileCardThemeTransparencyInput: dom.profileCardThemeTransparencyInput,
-        profileCardThemeResetButton: dom.profileCardThemeResetButton,
-        srsMaxActiveInput: dom.srsMaxActiveInput,
-        srsBootstrapTopNInput: dom.srsBootstrapTopNInput,
-        srsInitialActiveCountInput: dom.srsInitialActiveCountInput,
-        srsSoundInput: dom.srsSoundInput,
-        srsHighlightInput: dom.srsHighlightInput,
-        srsHighlightTextInput: dom.srsHighlightTextInput,
-        srsFeedbackSrsInput: dom.srsFeedbackSrsInput,
-        srsFeedbackRulesInput: dom.srsFeedbackRulesInput,
-        srsExposureLoggingInput: dom.srsExposureLoggingInput,
-        srsInitializeSetButton: dom.srsInitializeSetButton,
-        srsRefreshSetButton: dom.srsRefreshSetButton,
-        srsRuntimeDiagnosticsButton: dom.srsRuntimeDiagnosticsButton,
-        srsRulegenSampledButton: dom.srsRulegenSampledButton,
-        srsResetButton: dom.srsResetButton,
-        debugHelperTestButton: dom.debugHelperTestButton,
-        debugOpenDataDirButton: dom.debugOpenDataDirButton,
-        debugEnabledInput: dom.debugEnabledInput,
-        debugFocusInput: dom.debugFocusInput,
-        enabledInput: dom.enabledInput,
-        languageSelect: dom.languageSelect,
-        sourceLanguageInput: dom.sourceLanguageInput,
-        targetLanguageInput: dom.targetLanguageInput,
-        targetLanguageGearButton: dom.targetLanguageGearButton,
-        targetLanguageModulesList: dom.targetLanguageModulesList,
-        targetLanguagePrefsModalBackdrop: dom.targetLanguagePrefsModalBackdrop,
-        targetLanguagePrefsModalOkButton: dom.targetLanguagePrefsModalOkButton,
-        openDesktopAppButton: dom.openDesktopAppButton,
-        openBdPluginButton: dom.openBdPluginButton,
-        generateCodeButton: dom.generateCodeButton,
-        importCodeButton: dom.importCodeButton,
-        copyCodeButton: dom.copyCodeButton,
-        srsRulegenOutput: dom.srsRulegenOutput
-      }
+      elements: graphElements.eventWiring
     });
 
     return {

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-28T21:14:24.761Z",
+  "generated_at_utc": "2026-02-28T21:23:18.670Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -12,9 +12,9 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 300,
+    "files_checked": 302,
     "violations": 0,
-    "warnings": 5,
+    "warnings": 0,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -24,137 +24,6 @@
     "advisory": true
   },
   "violations": [],
-  "warnings": [
-    {
-      "file": "apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 458,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 29
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "apps/chrome-extension/options/core/bootstrap/controller_graph.js",
-      "language": "javascript",
-      "metrics": {
-        "lines": 451,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 8
-      },
-      "limits": {
-        "maxLines": 500,
-        "maxImports": 16,
-        "maxDomainBreadth": 6,
-        "maxFunctions": 45
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    },
-    {
-      "file": "core/lexishift_core/__init__.py",
-      "language": "python",
-      "metrics": {
-        "lines": 387,
-        "imports": 24,
-        "domainBreadth": 1,
-        "functions": 2
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "imports"
-      ]
-    },
-    {
-      "file": "core/lexishift_core/helper/engine.py",
-      "language": "python",
-      "metrics": {
-        "lines": 442,
-        "imports": 23,
-        "domainBreadth": 1,
-        "functions": 18
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "imports"
-      ]
-    },
-    {
-      "file": "core/lexishift_core/helper/rulegen.py",
-      "language": "python",
-      "metrics": {
-        "lines": 374,
-        "imports": 21,
-        "domainBreadth": 1,
-        "functions": 12
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "imports"
-      ]
-    }
-  ],
+  "warnings": [],
   "baseline_delta": null
 }

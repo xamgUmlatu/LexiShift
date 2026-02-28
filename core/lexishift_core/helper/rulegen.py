@@ -17,7 +17,6 @@ from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
-from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 from lexishift_core.scoring.weighting import GlossDecay
@@ -73,6 +72,13 @@ def _now_iso() -> str:
     return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
 
+def _load_seed_module():
+    return __import__(
+        "lexishift_core.srs.seed",
+        fromlist=["SeedSelectionConfig", "build_seed_candidates"],
+    )
+
+
 def load_targets_from_store(store: SrsStore, *, pair: str) -> list[str]:
     return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
 
@@ -117,7 +123,8 @@ def initialize_store_from_frequency_list_with_report(
     config: SetInitializationConfig,
 ) -> tuple[SrsStore, SetInitializationReport]:
     resolved_pos_weights = resolve_default_pos_weights(language_pair=config.language_pair)
-    selection_config = SeedSelectionConfig(
+    seed_module = _load_seed_module()
+    selection_config = seed_module.SeedSelectionConfig(
         language_pair=config.language_pair,
         top_n=config.top_n,
         jmdict_path=config.jmdict_path,
@@ -125,7 +132,7 @@ def initialize_store_from_frequency_list_with_report(
         require_jmdict=config.require_jmdict,
         admission_pos_weights=resolved_pos_weights,
     )
-    selected_words = build_seed_candidates(
+    selected_words = seed_module.build_seed_candidates(
         frequency_db=config.frequency_db,
         config=selection_config,
     )

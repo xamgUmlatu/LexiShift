@@ -22,11 +22,6 @@ from lexishift_core.helper.use_cases.initialize_set import (
 from lexishift_core.helper.use_cases.refresh_set import (
     refresh_srs_set as _refresh_srs_set_use_case,
 )
-from lexishift_core.helper.use_cases.reset import reset_srs_data as _reset_srs_data_use_case
-from lexishift_core.helper.use_cases.rulegen_job import run_rulegen_job as _run_rulegen_job_use_case
-from lexishift_core.helper.use_cases.runtime_diagnostics import (
-    get_srs_runtime_diagnostics as _get_srs_runtime_diagnostics_use_case,
-)
 from lexishift_core.helper.use_cases.set_planning import (
     build_set_plan_payload as _build_set_plan_payload,
     count_items_for_pair as _count_items_for_pair,
@@ -51,6 +46,30 @@ from lexishift_core.srs.set_strategy import (
 )
 from lexishift_core.srs.source import SOURCE_EXTENSION
 from lexishift_core.srs.time import now_utc
+
+
+def _get_srs_runtime_diagnostics_use_case(*args, **kwargs):
+    diagnostics_module = __import__(
+        "lexishift_core.helper.use_cases.runtime_diagnostics",
+        fromlist=["get_srs_runtime_diagnostics"],
+    )
+    return diagnostics_module.get_srs_runtime_diagnostics(*args, **kwargs)
+
+
+def _run_rulegen_job_use_case(*args, **kwargs):
+    rulegen_job_module = __import__(
+        "lexishift_core.helper.use_cases.rulegen_job",
+        fromlist=["run_rulegen_job"],
+    )
+    return rulegen_job_module.run_rulegen_job(*args, **kwargs)
+
+
+def _reset_srs_data_use_case(*args, **kwargs):
+    reset_module = __import__(
+        "lexishift_core.helper.use_cases.reset",
+        fromlist=["reset_srs_data"],
+    )
+    return reset_module.reset_srs_data(*args, **kwargs)
 
 
 @dataclass(frozen=True)

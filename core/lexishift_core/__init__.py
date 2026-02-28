@@ -118,12 +118,6 @@ from lexishift_core.frequency import (
     build_frequency_provider,
     load_frequency_lexicon,
 )
-from lexishift_core.frequency.providers import (
-    SqliteFrequencyProvider,
-    SqliteFrequencyProviderConfig,
-    build_sqlite_frequency_provider,
-)
-from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.rulegen.generation import (
     MappingCandidateSource,
     RuleCandidate,
@@ -141,19 +135,6 @@ from lexishift_core.rulegen.utils import (
     NonEmptyFilter,
     SingleWordFilter,
 )
-from lexishift_core.rulegen.pairs.ja_en import (
-    JaEnRulegenConfig,
-    build_ja_en_pipeline,
-    generate_ja_en_results,
-    generate_ja_en_rules,
-)
-from lexishift_core.srs.seed import (
-    SeedSelectionConfig,
-    SeedWord,
-    build_seed_candidates,
-    seed_to_selector_candidates,
-)
-from lexishift_core.scoring.weighting import GlossDecay, PmwWeighting, RankWeighting
 from lexishift_core.persistence.storage import (
     InflectionSettings,
     LearningSettings,
@@ -170,6 +151,22 @@ from lexishift_core.persistence.storage import (
 )
 
 _LAZY_EXPORT_MODULES = {
+    "SqliteFrequencyProvider": "lexishift_core.frequency.providers",
+    "SqliteFrequencyProviderConfig": "lexishift_core.frequency.providers",
+    "build_sqlite_frequency_provider": "lexishift_core.frequency.providers",
+    "SqliteFrequencyConfig": "lexishift_core.frequency.sqlite_store",
+    "SqliteFrequencyStore": "lexishift_core.frequency.sqlite_store",
+    "JaEnRulegenConfig": "lexishift_core.rulegen.pairs.ja_en",
+    "build_ja_en_pipeline": "lexishift_core.rulegen.pairs.ja_en",
+    "generate_ja_en_results": "lexishift_core.rulegen.pairs.ja_en",
+    "generate_ja_en_rules": "lexishift_core.rulegen.pairs.ja_en",
+    "SeedSelectionConfig": "lexishift_core.srs.seed",
+    "SeedWord": "lexishift_core.srs.seed",
+    "build_seed_candidates": "lexishift_core.srs.seed",
+    "seed_to_selector_candidates": "lexishift_core.srs.seed",
+    "GlossDecay": "lexishift_core.scoring.weighting",
+    "PmwWeighting": "lexishift_core.scoring.weighting",
+    "RankWeighting": "lexishift_core.scoring.weighting",
     "PracticeGateState": "lexishift_core.srs",
     "SrsHistoryEntry": "lexishift_core.srs",
     "SrsItem": "lexishift_core.srs",

@@ -23,7 +23,7 @@ npm run health:project
 
 Current violation profile:
 
-1. Total violations: `0` files (out of `300` scanned)
+1. Total violations: `0` files (out of `302` scanned)
 2. By area:
    - `apps/gui/src`: `0`
    - `core/lexishift_core`: `0`
@@ -34,13 +34,7 @@ Current violation profile:
    - `imports`: `0`
    - `domainBreadth`: `0`
 
-Near-limit watchlist (non-blocking):
-
-1. `core/lexishift_core/__init__.py` (imports `24/24`)
-2. `core/lexishift_core/helper/engine.py` (imports `24/24`)
-3. `core/lexishift_core/helper/rulegen.py` (imports `21/24`)
-4. `apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js` (`458/500`)
-5. `apps/chrome-extension/options/core/bootstrap/controller_graph.js` (`451/500`)
+Near-limit watchlist (non-blocking): none (`0` warnings).
 
 ## Progress Log
 
@@ -231,18 +225,39 @@ Near-limit watchlist (non-blocking):
     with script-order updates in `apps/chrome-extension/options.html`,
     reducing renderers (`450` -> `403`) and controller (`451` -> `442`) and clearing
     changed-only near-limit warnings.
+46. 2026-02-28: extracted profile-ruleset state/normalization helpers from
+    `apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js`
+    into `apps/chrome-extension/options/controllers/rules/profile_rulesets_state.js`,
+    reducing the controller from `458` to `284` lines and removing it from near-limit warnings.
+47. 2026-02-28: extracted options bootstrap element maps from
+    `apps/chrome-extension/options/core/bootstrap/controller_graph.js` into
+    `apps/chrome-extension/options/core/bootstrap/controller_graph_elements.js`,
+    reducing `controller_graph.js` from `451` to `274` lines and removing it from near-limit warnings.
+48. 2026-02-28: converted additional high-fanout exports in
+    `core/lexishift_core/__init__.py` to lazy export resolution
+    (`frequency providers/sqlite`, `ja_en rulegen`, `seed`, `weighting`),
+    reducing import pressure and removing `__init__.py` from near-limit warnings.
+49. 2026-02-28: reduced import pressure in `core/lexishift_core/helper/engine.py`
+    by lazy-loading low-frequency use-case modules (`runtime_diagnostics`,
+    `rulegen_job`, `reset`) through local runtime wrappers.
+50. 2026-02-28: reduced import pressure in `core/lexishift_core/helper/rulegen.py`
+    by lazy-loading the seed module (`SeedSelectionConfig`, `build_seed_candidates`)
+    and fully clearing the remaining near-limit warning list.
+51. 2026-02-28: project health is now fully clean in advisory mode:
+    `npm run -s health:project:report` and `npm run -s health:project:changed`
+    both pass with `0` violations and `0` warnings.
+52. 2026-02-28: enabled changed-file project-health CI enforcement in
+    `.github/workflows/ci.yml` via `project-health-changed` (PR-only) using
+    baseline-delta gating (`--fail-on-new`, `--fail-on-regressions`) against
+    `docs/test_outputs/project_health/project_health_baseline.json`.
 
 ## Leaf-First Remediation Queue (Current)
 
-Active health violations are now cleared (`0`). Current queue is near-limit hardening only:
+Active health violations are now cleared (`0`) and near-limit warnings are also cleared (`0`).
+Current queue is maintenance-only:
 
-1. `core/lexishift_core/__init__.py` and `core/lexishift_core/helper/engine.py`
-   - Reduce import-pressure near limits (`24/24`) with additional adapter/lazy import splits.
-2. `apps/chrome-extension/options/controllers/rules/profile_rulesets_controller.js`
-   and `apps/chrome-extension/options/core/bootstrap/controller_graph.js`
-   - Keep extension orchestration modules below line near-limit to avoid recurrent warnings.
-3. `core/lexishift_core/helper/rulegen.py`
-   - Optional import-surface trim before upcoming rulegen expansion work.
+1. Keep `npm run -s health:project:changed` in the PR loop and block new warnings/regressions.
+2. Re-run full `npm run -s health:project:report` before release cuts or large refactors.
 
 ## Remediation Strategy
 

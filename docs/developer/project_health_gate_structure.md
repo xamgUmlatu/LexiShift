@@ -20,6 +20,8 @@ This implementation starts simple and now supports baseline/delta gating so it c
    - `docs/test_outputs/project_health/project_health_baseline.json`
 5. Remediation workstream:
    - `project_health_remediation_workstream.md`
+6. CI workflow gate:
+   - `.github/workflows/ci.yml` (`project-health-changed`)
 
 ## Rule Model
 
@@ -100,6 +102,14 @@ Optional machine-readable output:
    - fail on `--fail-on-new` and `--fail-on-regressions`
 5. Keep global strict mode (`--enforce-all`) disabled until legacy debt is near zero.
 6. Ratchet limits/overrides as remediation proceeds.
+
+## CI Integration (Current)
+
+1. CI enforcement is active for pull requests via `.github/workflows/ci.yml` job `project-health-changed`.
+2. Mode is changed-files baseline gating (`--changed-only`) against `docs/test_outputs/project_health/project_health_baseline.json`.
+3. Failures are limited to new/regressed debt (`--fail-on-new`, `--fail-on-regressions`).
+4. Base ref is derived from PR target branch (`origin/${{ github.base_ref }}`).
+5. Global strict mode remains disabled (`--enforce-all` is not used in CI).
 
 ## Command
 
