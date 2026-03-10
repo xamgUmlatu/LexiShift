@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Mapping, Optional, Protocol
 
 
@@ -22,10 +22,20 @@ class CandidateRankingMechanism(Protocol):
 
 
 @dataclass(frozen=True)
+class ReverseCheckScoringConfig:
+    enabled: bool = False
+    match_bonus: float = 0.2
+    near_bonus: float = 0.1
+    near_rank_max: int = 2
+    miss_penalty: float = 0.2
+
+
+@dataclass(frozen=True)
 class DictionaryEntryOrderRankingMechanism:
     """Ranks candidates by dictionary entry order (earlier glosses rank higher)."""
 
     missing_index_score: float = 0.0
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
 
     def score(self, candidate: CandidateRankingContext) -> float:
         gloss_index = extract_dictionary_order_index(candidate.metadata)
@@ -37,9 +47,15 @@ class DictionaryEntryOrderRankingMechanism:
             candidate.metadata,
             scale=candidate.semantic_demotion_scale,
         )
-        if demotion <= 0.0:
-            return base_score
-        return max(0.0, base_score * (1.0 - demotion))
+        if demotion > 0.0:
+            base_score = max(0.0, base_score * (1.0 - demotion))
+        reverse_delta = resolve_reverse_check_delta(
+            candidate.metadata,
+            config=self.reverse_check,
+        )
+        if reverse_delta != 0.0:
+            base_score = _clamp_float(base_score + reverse_delta)
+        return _clamp_float(base_score)
 
     def bucket_key(self, candidate: CandidateRankingContext) -> str:
         return resolve_dictionary_order_bucket_key(candidate)
@@ -122,6 +138,93 @@ def resolve_effective_semantic_demotion(
     if parsed_scale <= 0.0:
         return 0.0
     return _clamp_float(base * parsed_scale)
+
+
+def resolve_reverse_check_delta(
+    metadata: Mapping[str, object],
+    *,
+    config: ReverseCheckScoringConfig,
+) -> float:
+    if not bool(config.enabled):
+        return 0.0
+    supported = _extract_optional_bool(metadata.get("reverse_check_supported"))
+    if supported is not True:
+        return 0.0
+    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
+    if hit is True:
+        rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
+        match_bonus = _normalize_non_negative_float(config.match_bonus)
+        near_bonus = _normalize_non_negative_float(config.near_bonus)
+        near_rank_max = _normalize_non_negative_int(config.near_rank_max, default=2)
+        if rank is None:
+            return match_bonus
+        if rank == 0:
+            return match_bonus
+        if rank <= near_rank_max:
+            return near_bonus
+        return 0.0
+    if hit is False:
+        miss_penalty = _normalize_non_negative_float(config.miss_penalty)
+        if miss_penalty <= 0.0:
+            return 0.0
+        return -miss_penalty
+    return 0.0
+
+
+def _extract_optional_bool(value: object) -> Optional[bool]:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        text = value.strip().lower()
+        if not text:
+            return None
+        if text in {"1", "true", "yes", "on"}:
+            return True
+        if text in {"0", "false", "no", "off"}:
+            return False
+    return None
+
+
+def _extract_non_negative_int(value: object) -> Optional[int]:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value if value >= 0 else None
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return None
+        try:
+            parsed = int(text)
+        except ValueError:
+            return None
+        return parsed if parsed >= 0 else None
+    return None
+
+
+def _normalize_non_negative_float(value: object) -> float:
+    if isinstance(value, bool):
+        return 0.0
+    if isinstance(value, (int, float)):
+        return max(0.0, float(value))
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return 0.0
+        try:
+            return max(0.0, float(text))
+        except ValueError:
+            return 0.0
+    return 0.0
+
+
+def _normalize_non_negative_int(value: object, *, default: int = 0) -> int:
+    parsed = _extract_non_negative_int(value)
+    if parsed is None:
+        return max(0, int(default))
+    return parsed
 
 
 def _clamp_float(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

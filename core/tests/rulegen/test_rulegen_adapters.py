@@ -18,6 +18,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
     run_rules_with_adapter,
@@ -187,6 +188,13 @@ class TestRulegenAdapters(unittest.TestCase):
             weights=RuleScoreWeights(pos_match=0.35),
             pos_match=PosMatchScoringConfig(enabled=False),
         )
+        reverse_check = ReverseCheckScoringConfig(
+            enabled=True,
+            match_bonus=0.25,
+            near_bonus=0.12,
+            near_rank_max=1,
+            miss_penalty=0.22,
+        )
         with patch(
             "lexishift_core.rulegen.adapters.generate_en_es_results",
             return_value=[
@@ -204,6 +212,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     max_rules_per_target=5,
                     semantic_demotion_scale=0.4,
                     scoring=scoring,
+                    reverse_check=reverse_check,
                 )
             )
         generate.assert_called_once()
@@ -213,6 +222,11 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertAlmostEqual(kwargs["config"].semantic_demotion_scale, 0.4, places=6)
         self.assertAlmostEqual(kwargs["config"].scoring.weights.pos_match, 0.35, places=6)
         self.assertFalse(kwargs["config"].scoring.pos_match.enabled)
+        self.assertTrue(kwargs["config"].reverse_check.enabled)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.match_bonus, 0.25, places=6)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.near_bonus, 0.12, places=6)
+        self.assertEqual(kwargs["config"].reverse_check.near_rank_max, 1)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.miss_penalty, 0.22, places=6)
 
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
@@ -645,6 +659,40 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("casa", sources)
         self.assertIn("hogar", sources)
         self.assertTrue(all(rule.replacement == "house" for rule in rules))
+
+    def test_es_en_dispatches_reverse_check_config(self) -> None:
+        reverse_check = ReverseCheckScoringConfig(
+            enabled=True,
+            match_bonus=0.21,
+            near_bonus=0.11,
+            near_rank_max=2,
+            miss_penalty=0.18,
+        )
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_es_en_results",
+            return_value=[
+                SimpleNamespace(
+                    rule=VocabRule(source_phrase="casa", replacement="house")
+                )
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="es-en",
+                    targets=("house",),
+                    language_pair="es-en",
+                    freedict_de_en_path=Path("/tmp/eng-spa.tei"),
+                    reverse_check=reverse_check,
+                )
+            )
+        generate.assert_called_once()
+        args, kwargs = generate.call_args
+        _ = args
+        self.assertTrue(kwargs["config"].reverse_check.enabled)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.match_bonus, 0.21, places=6)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.near_bonus, 0.11, places=6)
+        self.assertEqual(kwargs["config"].reverse_check.near_rank_max, 2)
+        self.assertAlmostEqual(kwargs["config"].reverse_check.miss_penalty, 0.18, places=6)
 
     def test_es_en_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

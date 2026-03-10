@@ -1,6 +1,6 @@
 # Reverse-Check Scoring (Phase 1) Specification
 
-Status: draft (implementation start)  
+Status: implemented (configurable, conservative defaults)  
 Last updated: 2026-02-28
 
 ## Goal
@@ -128,11 +128,12 @@ Add pair-tunable knobs (default disabled globally):
 4. `reverse_near_rank_max` (`int`)
 5. `reverse_miss_penalty` (`float`)
 
-Rollout defaults:
+Rollout defaults (current):
 
 1. Global default: disabled.
-2. Enable for benchmark experiments on `en-es` and `es-en`.
-3. Promote to production pair defaults only after benchmark/triage acceptance.
+2. Pair-level tuning and runtime overrides are fully wired (`rulegen/tuning.py`, helper job config, benchmark sweep).
+3. Enable for benchmark experiments on `en-es` and `es-en`.
+4. Promote to production pair defaults only after benchmark/triage acceptance.
 
 ## Implementation Steps
 
@@ -181,6 +182,11 @@ Quality loop (required for scoring changes):
 3. No runtime crashes when reverse resources are missing.
 4. Unit tests pass.
 5. Benchmark/quality gate evidence shows net precision gain (or at minimum no regression) for enabled pairs.
+
+## Current Known Unresolved Cases
+
+1. `en-es:madre` may still fail with FreeDict-first senses (`bed`, `watercourse`) when reverse-check is disabled.
+2. This remains a tracked benchmark/triage item and is intentionally unresolved in default production tuning until pair-level reverse-check rollout is validated.
 
 ## Risks and Mitigations
 

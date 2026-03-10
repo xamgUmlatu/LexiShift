@@ -7,6 +7,7 @@ from typing import Callable, Mapping, Optional, Sequence
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.rulegen.generation import RuleScoringConfig
+from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
 from lexishift_core.rulegen.pairs.en_es import EnEsRulegenConfig, generate_en_es_results
 from lexishift_core.rulegen.pairs.es_en import EsEnRulegenConfig, generate_es_en_results
@@ -26,6 +27,7 @@ class RulegenAdapterRequest:
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
     jmdict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
@@ -90,6 +92,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
+        reverse_check=request.reverse_check,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
     )
@@ -110,6 +113,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         semantic_demotion_scale=request.semantic_demotion_scale,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
+        reverse_check=request.reverse_check,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
     )

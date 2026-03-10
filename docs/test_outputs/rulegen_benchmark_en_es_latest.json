@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-28T23:19:17.284413+00:00",
+  "generated_at": "2026-02-28T23:35:43.343699+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
   "dataset_metadata": {
     "version": 2,
@@ -50,9 +50,14 @@
           "score_weight_pos_match": 0.1,
           "score_weight_variant_penalty": 0.1,
           "score_weight_phrase_penalty": 0.1,
-          "score_weight_embedding": 0.2
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_miss_penalty": 0.2
         },
-        "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on w_pos=0.100",
+        "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
         "summary": {
           "pair": "en-es",
           "case_count": 16,
@@ -503,9 +508,14 @@
             "score_weight_pos_match": 0.1,
             "score_weight_variant_penalty": 0.1,
             "score_weight_phrase_penalty": 0.1,
-            "score_weight_embedding": 0.2
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_miss_penalty": 0.2
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on w_pos=0.100",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
             "case_count": 16,
@@ -544,9 +554,14 @@
             "score_weight_pos_match": 0.1,
             "score_weight_variant_penalty": 0.1,
             "score_weight_phrase_penalty": 0.1,
-            "score_weight_embedding": 0.2
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_miss_penalty": 0.2
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off w_pos=0.100",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
             "case_count": 16,
@@ -585,9 +600,14 @@
             "score_weight_pos_match": 0.1,
             "score_weight_variant_penalty": 0.1,
             "score_weight_phrase_penalty": 0.1,
-            "score_weight_embedding": 0.2
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_miss_penalty": 0.2
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on w_pos=0.100",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
             "case_count": 16,
@@ -626,9 +646,14 @@
             "score_weight_pos_match": 0.1,
             "score_weight_variant_penalty": 0.1,
             "score_weight_phrase_penalty": 0.1,
-            "score_weight_embedding": 0.2
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_miss_penalty": 0.2
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off w_pos=0.100",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
             "case_count": 16,

@@ -122,6 +122,12 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
         pos_scoring_enabled = False
     else:
         pos_scoring_enabled = None
+    if args.enable_reverse_check:
+        reverse_check_enabled = True
+    elif args.disable_reverse_check:
+        reverse_check_enabled = False
+    else:
+        reverse_check_enabled = None
     if args.include_variants:
         include_variants = True
     elif args.no_include_variants:
@@ -160,6 +166,11 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 score_weight_variant_penalty=args.score_weight_variant_penalty,
                 score_weight_phrase_penalty=args.score_weight_phrase_penalty,
                 score_weight_embedding=args.score_weight_embedding,
+                reverse_check_enabled=reverse_check_enabled,
+                reverse_check_match_bonus=args.reverse_check_match_bonus,
+                reverse_check_near_bonus=args.reverse_check_near_bonus,
+                reverse_check_near_rank_max=args.reverse_check_near_rank_max,
+                reverse_check_miss_penalty=args.reverse_check_miss_penalty,
                 snapshot_targets=args.snapshot_targets,
                 snapshot_sources=args.snapshot_sources,
                 initialize_if_empty=not args.no_initialize_if_empty,
@@ -416,6 +427,17 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Force-disable POS congruence contribution to confidence scoring.",
     )
+    reverse_check_group = run.add_mutually_exclusive_group()
+    reverse_check_group.add_argument(
+        "--enable-reverse-check",
+        action="store_true",
+        help="Force-enable reverse dictionary consistency ranking adjustments.",
+    )
+    reverse_check_group.add_argument(
+        "--disable-reverse-check",
+        action="store_true",
+        help="Force-disable reverse dictionary consistency ranking adjustments.",
+    )
     run.add_argument(
         "--pos-exact-match-bonus",
         type=float,
@@ -455,6 +477,26 @@ def build_parser() -> argparse.ArgumentParser:
         "--score-weight-embedding",
         type=float,
         help="Override embedding score weight (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--reverse-check-match-bonus",
+        type=float,
+        help="Override reverse-check rank-0 bonus (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--reverse-check-near-bonus",
+        type=float,
+        help="Override reverse-check near-rank bonus (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--reverse-check-near-rank-max",
+        type=int,
+        help="Override max reverse rank treated as near match (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--reverse-check-miss-penalty",
+        type=float,
+        help="Override reverse-check miss penalty (defaults from pair tuning).",
     )
     run.add_argument("--snapshot-targets", type=int, default=50)
     run.add_argument("--snapshot-sources", type=int, default=6)

@@ -8,6 +8,7 @@ from lexishift_core.rulegen.generation import (
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 
 
 @dataclass(frozen=True)
@@ -20,6 +21,7 @@ class RulegenPairTuning:
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     notes: Sequence[str] = ()
 
 
@@ -40,6 +42,11 @@ class RulegenTuningOverrides:
     score_weight_variant_penalty: Optional[float] = None
     score_weight_phrase_penalty: Optional[float] = None
     score_weight_embedding: Optional[float] = None
+    reverse_check_enabled: Optional[bool] = None
+    reverse_check_match_bonus: Optional[float] = None
+    reverse_check_near_bonus: Optional[float] = None
+    reverse_check_near_rank_max: Optional[int] = None
+    reverse_check_miss_penalty: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -52,6 +59,7 @@ class ResolvedRulegenTuning:
     include_variants: bool
     allow_multiword_glosses: bool
     scoring: RuleScoringConfig
+    reverse_check: ReverseCheckScoringConfig
 
 
 _DEFAULT_PAIR_TUNING = RulegenPairTuning(pair="*")
@@ -135,6 +143,10 @@ def resolve_rulegen_tuning(
         resolved_pair.scoring.pos_match,
         overrides=applied_overrides,
     )
+    reverse_check = _resolve_reverse_check_scoring(
+        resolved_pair.reverse_check,
+        overrides=applied_overrides,
+    )
 
     return ResolvedRulegenTuning(
         pair=resolved_pair.pair,
@@ -145,6 +157,7 @@ def resolve_rulegen_tuning(
         include_variants=include_variants,
         allow_multiword_glosses=allow_multiword_glosses,
         scoring=RuleScoringConfig(weights=weights, pos_match=pos_match),
+        reverse_check=reverse_check,
     )
 
 
@@ -162,6 +175,7 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
         "include_variants": bool(policy.include_variants),
         "allow_multiword_glosses": bool(policy.allow_multiword_glosses),
         "scoring": _scoring_to_dict(policy.scoring),
+        "reverse_check": _reverse_check_to_dict(policy.reverse_check),
         "notes": list(policy.notes),
     }
 
@@ -184,6 +198,7 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
         "include_variants": bool(tuning.include_variants),
         "allow_multiword_glosses": bool(tuning.allow_multiword_glosses),
         "scoring": _scoring_to_dict(tuning.scoring),
+        "reverse_check": _reverse_check_to_dict(tuning.reverse_check),
     }
 
 
@@ -208,6 +223,11 @@ def rulegen_tuning_overrides_to_dict(
         "score_weight_variant_penalty": overrides.score_weight_variant_penalty,
         "score_weight_phrase_penalty": overrides.score_weight_phrase_penalty,
         "score_weight_embedding": overrides.score_weight_embedding,
+        "reverse_check_enabled": overrides.reverse_check_enabled,
+        "reverse_check_match_bonus": overrides.reverse_check_match_bonus,
+        "reverse_check_near_bonus": overrides.reverse_check_near_bonus,
+        "reverse_check_near_rank_max": overrides.reverse_check_near_rank_max,
+        "reverse_check_miss_penalty": overrides.reverse_check_miss_penalty,
     }
     if include_none:
         return payload
@@ -274,6 +294,41 @@ def _resolve_pos_match_scoring(
             compatible_match_bonus=float(overrides.pos_compatible_match_bonus),
         )
     return resolved
+
+
+def _resolve_reverse_check_scoring(
+    defaults: ReverseCheckScoringConfig,
+    *,
+    overrides: RulegenTuningOverrides,
+) -> ReverseCheckScoringConfig:
+    resolved = defaults
+    if overrides.reverse_check_enabled is not None:
+        resolved = replace(resolved, enabled=bool(overrides.reverse_check_enabled))
+    if overrides.reverse_check_match_bonus is not None:
+        resolved = replace(resolved, match_bonus=max(0.0, float(overrides.reverse_check_match_bonus)))
+    if overrides.reverse_check_near_bonus is not None:
+        resolved = replace(resolved, near_bonus=max(0.0, float(overrides.reverse_check_near_bonus)))
+    if overrides.reverse_check_near_rank_max is not None:
+        resolved = replace(
+            resolved,
+            near_rank_max=max(0, int(overrides.reverse_check_near_rank_max)),
+        )
+    if overrides.reverse_check_miss_penalty is not None:
+        resolved = replace(
+            resolved,
+            miss_penalty=max(0.0, float(overrides.reverse_check_miss_penalty)),
+        )
+    return resolved
+
+
+def _reverse_check_to_dict(reverse_check: ReverseCheckScoringConfig) -> dict[str, object]:
+    return {
+        "enabled": bool(reverse_check.enabled),
+        "match_bonus": float(reverse_check.match_bonus),
+        "near_bonus": float(reverse_check.near_bonus),
+        "near_rank_max": int(reverse_check.near_rank_max),
+        "miss_penalty": float(reverse_check.miss_penalty),
+    }
 
 
 def _scoring_to_dict(scoring: RuleScoringConfig) -> dict[str, object]:

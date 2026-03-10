@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-28T23:19:29.533Z",
+  "generated_at_utc": "2026-02-28T23:35:39.129Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -14,7 +14,7 @@
   "summary": {
     "files_checked": 302,
     "violations": 0,
-    "warnings": 1,
+    "warnings": 2,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -29,10 +29,36 @@
       "file": "core/lexishift_core/helper/rulegen.py",
       "language": "python",
       "metrics": {
-        "lines": 394,
-        "imports": 21,
+        "lines": 397,
+        "imports": 22,
         "domainBreadth": 1,
         "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "scripts/testing/rulegen_benchmark.py",
+      "language": "python",
+      "metrics": {
+        "lines": 777,
+        "imports": 21,
+        "domainBreadth": 2,
+        "functions": 21
       },
       "limits": {
         "maxLines": 900,

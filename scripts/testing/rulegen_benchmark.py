@@ -34,6 +34,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
 
 try:
@@ -58,6 +59,11 @@ class SweepConfig:
     score_weight_variant_penalty: float
     score_weight_phrase_penalty: float
     score_weight_embedding: float
+    reverse_check_enabled: bool
+    reverse_check_match_bonus: float
+    reverse_check_near_bonus: float
+    reverse_check_near_rank_max: int
+    reverse_check_miss_penalty: float
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -75,6 +81,11 @@ class SweepConfig:
             "score_weight_variant_penalty": self.score_weight_variant_penalty,
             "score_weight_phrase_penalty": self.score_weight_phrase_penalty,
             "score_weight_embedding": self.score_weight_embedding,
+            "reverse_check_enabled": self.reverse_check_enabled,
+            "reverse_check_match_bonus": self.reverse_check_match_bonus,
+            "reverse_check_near_bonus": self.reverse_check_near_bonus,
+            "reverse_check_near_rank_max": self.reverse_check_near_rank_max,
+            "reverse_check_miss_penalty": self.reverse_check_miss_penalty,
         }
 
     def label(self) -> str:
@@ -88,6 +99,7 @@ class SweepConfig:
             f"sd={self.semantic_demotion_scale:.2f} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
+            f"rev={'on' if self.reverse_check_enabled else 'off'} "
             f"w_pos={self.score_weight_pos_match:.3f}"
         )
 
@@ -106,6 +118,15 @@ class SweepConfig:
                 exact_match_bonus=self.pos_exact_match_bonus,
                 compatible_match_bonus=self.pos_compatible_match_bonus,
             ),
+        )
+
+    def reverse_check(self) -> ReverseCheckScoringConfig:
+        return ReverseCheckScoringConfig(
+            enabled=bool(self.reverse_check_enabled),
+            match_bonus=float(self.reverse_check_match_bonus),
+            near_bonus=float(self.reverse_check_near_bonus),
+            near_rank_max=max(0, int(self.reverse_check_near_rank_max)),
+            miss_penalty=float(self.reverse_check_miss_penalty),
         )
 
 
@@ -141,6 +162,19 @@ def _parse_csv_floats(text: str, *, name: str) -> list[float]:
     parsed: list[float] = []
     for item in values:
         parsed.append(float(item))
+    return parsed
+
+
+def _parse_csv_ints(text: str, *, name: str, min_value: Optional[int] = None) -> list[int]:
+    values = _parse_csv_strings(text)
+    if not values:
+        raise ValueError(f"{name}: expected at least one value.")
+    parsed: list[int] = []
+    for item in values:
+        value = int(item)
+        if min_value is not None:
+            value = max(int(min_value), value)
+        parsed.append(value)
     return parsed
 
 
@@ -347,6 +381,27 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.score_weight_embedding_values,
         name="score-weight-embedding-values",
     )
+    reverse_check_enabled_values = _parse_csv_bools(
+        args.reverse_check_enabled_values,
+        name="reverse-check-enabled-values",
+    )
+    reverse_check_match_bonus_values = _parse_csv_floats(
+        args.reverse_check_match_bonus_values,
+        name="reverse-check-match-bonus-values",
+    )
+    reverse_check_near_bonus_values = _parse_csv_floats(
+        args.reverse_check_near_bonus_values,
+        name="reverse-check-near-bonus-values",
+    )
+    reverse_check_near_rank_max_values = _parse_csv_ints(
+        args.reverse_check_near_rank_max_values,
+        name="reverse-check-near-rank-max-values",
+        min_value=0,
+    )
+    reverse_check_miss_penalty_values = _parse_csv_floats(
+        args.reverse_check_miss_penalty_values,
+        name="reverse-check-miss-penalty-values",
+    )
 
     configs: list[SweepConfig] = []
     for combo in itertools.product(
@@ -364,6 +419,11 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         score_weight_variant_values,
         score_weight_phrase_values,
         score_weight_embedding_values,
+        reverse_check_enabled_values,
+        reverse_check_match_bonus_values,
+        reverse_check_near_bonus_values,
+        reverse_check_near_rank_max_values,
+        reverse_check_miss_penalty_values,
     ):
         configs.append(
             SweepConfig(
@@ -381,6 +441,11 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 score_weight_variant_penalty=float(combo[11]),
                 score_weight_phrase_penalty=float(combo[12]),
                 score_weight_embedding=float(combo[13]),
+                reverse_check_enabled=bool(combo[14]),
+                reverse_check_match_bonus=float(combo[15]),
+                reverse_check_near_bonus=float(combo[16]),
+                reverse_check_near_rank_max=max(0, int(combo[17])),
+                reverse_check_miss_penalty=float(combo[18]),
             )
         )
     return configs
@@ -489,6 +554,11 @@ def main() -> None:
     parser.add_argument("--score-weight-variant-values", default="0.1")
     parser.add_argument("--score-weight-phrase-values", default="0.1")
     parser.add_argument("--score-weight-embedding-values", default="0.2")
+    parser.add_argument("--reverse-check-enabled-values", default="false")
+    parser.add_argument("--reverse-check-match-bonus-values", default="0.2")
+    parser.add_argument("--reverse-check-near-bonus-values", default="0.1")
+    parser.add_argument("--reverse-check-near-rank-max-values", default="2")
+    parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
     parser.add_argument("--objective-top1-weight", type=float, default=100.0)
     parser.add_argument("--objective-top3-weight", type=float, default=60.0)
     parser.add_argument("--objective-forbidden-top1-weight", type=float, default=120.0)
@@ -595,6 +665,7 @@ def main() -> None:
                     semantic_demotion_scale=config.semantic_demotion_scale,
                     include_variants=config.include_variants,
                     scoring=config.scoring(),
+                    reverse_check=config.reverse_check(),
                     jmdict_path=jmdict_path,
                     freedict_de_en_path=freedict_path,
                     word_packages_by_target=word_packages,

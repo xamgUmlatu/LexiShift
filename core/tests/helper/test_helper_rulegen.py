@@ -285,6 +285,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertAlmostEqual(request.semantic_demotion_scale, 1.0, places=6)
         self.assertTrue(request.scoring.pos_match.enabled)
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
+        self.assertFalse(request.reverse_check.enabled)
 
 
 if __name__ == "__main__":

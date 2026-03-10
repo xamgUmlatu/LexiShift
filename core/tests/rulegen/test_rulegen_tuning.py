@@ -38,6 +38,7 @@ class TestRulegenTuning(unittest.TestCase):
             places=6,
         )
         self.assertTrue(resolved.scoring.pos_match.enabled)
+        self.assertEqual(resolved.reverse_check.enabled, defaults.reverse_check.enabled)
 
     def test_overrides_replace_pair_defaults(self) -> None:
         resolved = resolve_rulegen_tuning(
@@ -54,6 +55,11 @@ class TestRulegenTuning(unittest.TestCase):
                 pos_compatible_match_bonus=0.3,
                 score_weight_dict_priority=0.9,
                 score_weight_pos_match=0.4,
+                reverse_check_enabled=True,
+                reverse_check_match_bonus=0.25,
+                reverse_check_near_bonus=0.12,
+                reverse_check_near_rank_max=1,
+                reverse_check_miss_penalty=0.22,
             ),
         )
 
@@ -68,6 +74,11 @@ class TestRulegenTuning(unittest.TestCase):
         self.assertAlmostEqual(resolved.scoring.pos_match.compatible_match_bonus, 0.3, places=6)
         self.assertAlmostEqual(resolved.scoring.weights.dict_priority, 0.9, places=6)
         self.assertAlmostEqual(resolved.scoring.weights.pos_match, 0.4, places=6)
+        self.assertTrue(resolved.reverse_check.enabled)
+        self.assertAlmostEqual(resolved.reverse_check.match_bonus, 0.25, places=6)
+        self.assertAlmostEqual(resolved.reverse_check.near_bonus, 0.12, places=6)
+        self.assertEqual(resolved.reverse_check.near_rank_max, 1)
+        self.assertAlmostEqual(resolved.reverse_check.miss_penalty, 0.22, places=6)
 
     def test_non_positive_caps_disable_limiters(self) -> None:
         resolved = resolve_rulegen_tuning(
@@ -86,6 +97,7 @@ class TestRulegenTuning(unittest.TestCase):
                 score_weight_pos_match=0.3,
                 include_variants=False,
                 semantic_demotion_scale=0.5,
+                reverse_check_enabled=True,
             )
         )
         self.assertEqual(
@@ -94,6 +106,7 @@ class TestRulegenTuning(unittest.TestCase):
                 "score_weight_pos_match": 0.3,
                 "include_variants": False,
                 "semantic_demotion_scale": 0.5,
+                "reverse_check_enabled": True,
             },
         )
 

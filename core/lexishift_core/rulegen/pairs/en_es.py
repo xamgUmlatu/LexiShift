@@ -21,6 +21,10 @@ from lexishift_core.rulegen.generation import (
     SimpleSignalProvider,
     build_optional_pos_match_provider,
 )
+from lexishift_core.rulegen.ranking import (
+    DictionaryEntryOrderRankingMechanism,
+    ReverseCheckScoringConfig,
+)
 from lexishift_core.rulegen.pairs.ja_en import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.pairs.pos_utils import (
     build_candidate_pos_metadata,
@@ -94,6 +98,7 @@ def _extract_target_pos_canonical(candidate: RuleCandidate) -> str:
 class EnEsRulegenConfig:
     freedict_es_en_path: Path
     reverse_freedict_en_es_path: Optional[Path] = None
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
@@ -167,6 +172,7 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         filters=_build_filters(config, mapping),
         scorer=RuleScorer(weights=config.scoring.weights),
         signal_provider=signal_provider,
+        ranking_mechanism=DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check),
     )
 
 

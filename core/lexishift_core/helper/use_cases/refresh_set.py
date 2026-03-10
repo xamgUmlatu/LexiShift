@@ -132,6 +132,7 @@ def refresh_srs_set(
                 include_variants=effective_rulegen_tuning.include_variants,
                 allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
                 scoring=effective_rulegen_tuning.scoring,
+                reverse_check=effective_rulegen_tuning.reverse_check,
             ),
             initialize_if_empty=False,
             persist_store=False,

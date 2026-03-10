@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
+    ReverseCheckScoringConfig,
     build_ranking_sort_key,
 )
 
@@ -101,6 +102,83 @@ class TestRulegenRanking(unittest.TestCase):
         alpha_key = build_ranking_sort_key(alpha, score=0.5)
         beta_key = build_ranking_sort_key(beta, score=0.5)
         self.assertLess(alpha_key, beta_key)
+
+    def test_reverse_check_hit_bonus_applies_when_enabled(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                miss_penalty=0.2,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.7, places=6)
+
+    def test_reverse_check_miss_penalty_applies_when_enabled(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                miss_penalty=0.2,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="bed",
+            replacement="madre",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": False,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.8, places=6)
+
+    def test_reverse_check_ignored_when_unsupported_or_disabled(self) -> None:
+        enabled = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(enabled=True)
+        )
+        disabled = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(enabled=False)
+        )
+        unsupported = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": False,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+            },
+            confidence=0.4,
+        )
+        supported = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(enabled.score(unsupported), 0.5, places=6)
+        self.assertAlmostEqual(disabled.score(supported), 0.5, places=6)
 
 
 if __name__ == "__main__":

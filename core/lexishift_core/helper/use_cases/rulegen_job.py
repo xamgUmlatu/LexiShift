@@ -95,6 +95,11 @@ def run_rulegen_job(
         score_weight_variant_penalty=config.score_weight_variant_penalty,
         score_weight_phrase_penalty=config.score_weight_phrase_penalty,
         score_weight_embedding=config.score_weight_embedding,
+        reverse_check_enabled=config.reverse_check_enabled,
+        reverse_check_match_bonus=config.reverse_check_match_bonus,
+        reverse_check_near_bonus=config.reverse_check_near_bonus,
+        reverse_check_near_rank_max=config.reverse_check_near_rank_max,
+        reverse_check_miss_penalty=config.reverse_check_miss_penalty,
     )
     effective_rulegen_tuning = resolve_rulegen_tuning(pair, overrides=rulegen_overrides)
     rulegen_config = RulegenConfig(
@@ -106,6 +111,7 @@ def run_rulegen_job(
         include_variants=effective_rulegen_tuning.include_variants,
         allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
         scoring=effective_rulegen_tuning.scoring,
+        reverse_check=effective_rulegen_tuning.reverse_check,
         max_snapshot_targets=config.snapshot_targets,
         max_snapshot_sources=config.snapshot_sources,
     )
@@ -166,6 +172,13 @@ def run_rulegen_job(
                     "embedding_weight": float(
                         effective_rulegen_tuning.scoring.weights.embedding_weight
                     ),
+                },
+                "reverse_check": {
+                    "enabled": bool(effective_rulegen_tuning.reverse_check.enabled),
+                    "match_bonus": float(effective_rulegen_tuning.reverse_check.match_bonus),
+                    "near_bonus": float(effective_rulegen_tuning.reverse_check.near_bonus),
+                    "near_rank_max": int(effective_rulegen_tuning.reverse_check.near_rank_max),
+                    "miss_penalty": float(effective_rulegen_tuning.reverse_check.miss_penalty),
                 },
                 "pair_defaults": rulegen_pair_tuning_to_dict(pair_tuning),
                 "overrides": rulegen_tuning_overrides_to_dict(rulegen_overrides),

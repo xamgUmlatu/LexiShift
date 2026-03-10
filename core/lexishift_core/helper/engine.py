@@ -103,6 +103,11 @@ class RulegenJobConfig:
     score_weight_variant_penalty: Optional[float] = None
     score_weight_phrase_penalty: Optional[float] = None
     score_weight_embedding: Optional[float] = None
+    reverse_check_enabled: Optional[bool] = None
+    reverse_check_match_bonus: Optional[float] = None
+    reverse_check_near_bonus: Optional[float] = None
+    reverse_check_near_rank_max: Optional[int] = None
+    reverse_check_miss_penalty: Optional[float] = None
     snapshot_targets: int = 50
     snapshot_sources: int = 6
     initialize_if_empty: bool = True

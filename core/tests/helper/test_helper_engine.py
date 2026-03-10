@@ -418,6 +418,15 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                 rulegen_config.scoring.pos_match.enabled,
                 defaults.scoring.pos_match.enabled,
             )
+            self.assertEqual(
+                rulegen_config.reverse_check.enabled,
+                defaults.reverse_check.enabled,
+            )
+            self.assertAlmostEqual(
+                rulegen_config.reverse_check.match_bonus,
+                defaults.reverse_check.match_bonus,
+                places=6,
+            )
 
     def test_rulegen_overrides_take_precedence_over_pair_tuning_defaults(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -451,6 +460,11 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                         allow_multiword_glosses=True,
                         pos_scoring_enabled=False,
                         score_weight_pos_match=0.35,
+                        reverse_check_enabled=True,
+                        reverse_check_match_bonus=0.24,
+                        reverse_check_near_bonus=0.09,
+                        reverse_check_near_rank_max=1,
+                        reverse_check_miss_penalty=0.19,
                     ),
                 )
 
@@ -463,6 +477,11 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertTrue(rulegen_config.allow_multiword_glosses)
             self.assertFalse(rulegen_config.scoring.pos_match.enabled)
             self.assertAlmostEqual(rulegen_config.scoring.weights.pos_match, 0.35, places=6)
+            self.assertTrue(rulegen_config.reverse_check.enabled)
+            self.assertAlmostEqual(rulegen_config.reverse_check.match_bonus, 0.24, places=6)
+            self.assertAlmostEqual(rulegen_config.reverse_check.near_bonus, 0.09, places=6)
+            self.assertEqual(rulegen_config.reverse_check.near_rank_max, 1)
+            self.assertAlmostEqual(rulegen_config.reverse_check.miss_penalty, 0.19, places=6)
 
 
 class TestHelperEnginePairGeneralization(unittest.TestCase):
@@ -909,6 +928,10 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertEqual(
                 rulegen_config.include_variants,
                 rulegen_defaults.include_variants,
+            )
+            self.assertEqual(
+                rulegen_config.reverse_check.enabled,
+                rulegen_defaults.reverse_check.enabled,
             )
             self.assertEqual(result["set_top_n"], 800)
             self.assertEqual(result["initial_active_count"], 40)
@@ -1530,6 +1553,10 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(
                 rulegen_config.include_variants,
                 rulegen_defaults.include_variants,
+            )
+            self.assertEqual(
+                rulegen_config.reverse_check.enabled,
+                rulegen_defaults.reverse_check.enabled,
             )
 
             rulegen_payload = result.get("rulegen")

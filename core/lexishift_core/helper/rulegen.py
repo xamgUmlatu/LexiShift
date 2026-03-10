@@ -15,6 +15,7 @@ from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
+from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
@@ -55,6 +56,7 @@ class RulegenConfig:
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: float = 1.0
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     max_snapshot_targets: int = 50
     max_snapshot_sources: int = 6
     include_variants: bool = True
@@ -369,6 +371,7 @@ def run_rulegen_for_pair(
             include_variants=rulegen_config.include_variants,
             allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
             scoring=rulegen_config.scoring,
+            reverse_check=rulegen_config.reverse_check,
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
             freedict_de_en_path=freedict_de_en_path,
