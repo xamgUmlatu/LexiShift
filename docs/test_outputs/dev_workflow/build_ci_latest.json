@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-11T20:06:27.615650+00:00",
+  "generated_at_utc": "2026-03-11T20:04:24.060020+00:00",
   "overall_exit_code": 0,
   "skip_bd": false,
   "skip_gui": false,
-  "ci_safe": false,
+  "ci_safe": true,
   "platform": "Darwin",
   "skipped_commands": [],
   "commands": [

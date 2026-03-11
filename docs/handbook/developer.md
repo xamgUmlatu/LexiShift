@@ -31,10 +31,22 @@ npm --prefix scripts run hooks:install
 npm --prefix scripts run check
 ```
 
+Feature-state audit:
+
+```bash
+npm --prefix scripts run check:state
+```
+
 ## Build Safety
 
 ```bash
 npm --prefix scripts run build
+```
+
+Hosted-runner build normalization:
+
+```bash
+npm --prefix scripts run build:ci:report
 ```
 
 ## Run Surfaces

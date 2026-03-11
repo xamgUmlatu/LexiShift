@@ -40,6 +40,43 @@ python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
 python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
 ```
 
+When a concise handoff is needed from the latest rulegen artifacts:
+
+```bash
+npm --prefix scripts run quality:rulegen:benchmark:summary
+npm --prefix scripts run quality:rulegen:gate:summary
+npm --prefix scripts run quality:rulegen:triage:summary
+```
+
+## Primary quality loop (SRS scheduler / admission / publication changes)
+
+If a change touches SRS scheduling, admission refresh, helper publication, set execution, or runtime SRS serving:
+
+1. Run the synthetic SRS quality harness.
+2. Render the Markdown summary when a human-facing handoff is needed.
+3. Run targeted tests for changed SRS modules.
+4. Keep synthetic coverage limits explicit if the touched pair is outside current harness support.
+
+Required command (default artifact):
+
+```bash
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+```
+
+Human-facing summary:
+
+```bash
+python3 scripts/testing/srs_quality_summary.py \
+  --quality-json docs/test_outputs/srs_quality_latest.json \
+  --markdown-out docs/test_outputs/srs_quality_summary_latest.md
+```
+
+Current harness coverage:
+- bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`
+- feedback-cycle pause/resume scenario for `en-ja`
+- due-aware publication mismatch surfaced as a warning, not a hard pass/fail gate
+
 ## Baseline and policy safety
 
 - Do not update `docs/test_outputs/baselines/rulegen_quality_baseline.json` in routine tuning PRs.
@@ -59,8 +96,10 @@ For each FAIL/REVIEW triage item:
 - Keep known contradictions explicit until code and docs converge; do not silently mark features as shipped based on docs alone.
 - Use `docs/developer/genai_workflow_architecture.md` for agent-role boundaries, model-instance split guidance, and harness policy.
 - Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes.
+- Use `npm --prefix scripts run check:state` when workflow changes update `docs/developer/feature_state_matrix.md` or when a status claim/evidence path changes materially.
 - Treat the local `pre-push` hook as a mirror of `npm --prefix scripts run check`, not as a separate validation policy.
 - Use `npm --prefix scripts run build` when validating build/package workflow changes or when a local build smoke is warranted.
+- Use `npm --prefix scripts run build:ci:report` when validating hosted-runner build behavior or CI-safe build normalization.
 
 ## Source of truth docs
 

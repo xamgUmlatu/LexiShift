@@ -1,0 +1,1186 @@
+{
+  "version": 1,
+  "generated_at": "2026-03-11T19:43:57.924281+00:00",
+  "fail_on_warn": false,
+  "supported_pairs": [
+    "en-ja",
+    "en-de"
+  ],
+  "unsupported_pairs": [],
+  "summary": {
+    "status": "WARN",
+    "pass_count": 15,
+    "warn_count": 1,
+    "fail_count": 0,
+    "should_fail": false
+  },
+  "pair_bootstrap_scenarios": [
+    {
+      "pair": "en-ja",
+      "init": {
+        "pair": "en-ja",
+        "profile_id": "default",
+        "set_top_n": 200,
+        "bootstrap_top_n": 200,
+        "initial_active_count": 40,
+        "max_active_items_hint": null,
+        "pair_policy": {
+          "pair": "en-ja",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "source_type": "initial_set",
+        "replace_pair": true,
+        "added_items": 40,
+        "total_items_for_pair": 40,
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_store.json",
+        "stopwords_path": null,
+        "bootstrap_diagnostics": {
+          "selected_count": 70,
+          "selected_unique_count": 70,
+          "admitted_count": 40,
+          "inserted_count": 40,
+          "updated_count": 0,
+          "selected_preview": [
+            "jaaaa",
+            "jaaab",
+            "jaaac",
+            "jaaad",
+            "jaaae",
+            "jaaaf",
+            "jaaag",
+            "jaaah",
+            "jaaai",
+            "jaaaj"
+          ],
+          "initial_active_preview": [
+            "jaaaa",
+            "jaaab",
+            "jaaac",
+            "jaaad",
+            "jaaae",
+            "jaaaf",
+            "jaaag",
+            "jaaah",
+            "jaaai",
+            "jaaaj",
+            "jaaak",
+            "jaaal",
+            "jaaam",
+            "jaaan",
+            "jaaao",
+            "jaaap",
+            "jaaaq",
+            "jaaar",
+            "jaaas",
+            "jaaat",
+            "jaaau",
+            "jaaav",
+            "jaaaw",
+            "jaaax",
+            "jaaay",
+            "jaaaz",
+            "jaaba",
+            "jaabb",
+            "jaabc",
+            "jaabd",
+            "jaabe",
+            "jaabf",
+            "jaabg",
+            "jaabh",
+            "jaabi",
+            "jaabj",
+            "jaabk",
+            "jaabl",
+            "jaabm",
+            "jaabn"
+          ],
+          "admission_weight_profile": {
+            "noun": 1.0,
+            "adjective": 0.85,
+            "verb": 0.7,
+            "adverb": 0.55,
+            "other": 0.4
+          },
+          "initial_active_weight_preview": [
+            {
+              "lemma": "jaaaa",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 1.0,
+              "pos_weight": 1.0,
+              "admission_weight": 1.0
+            },
+            {
+              "lemma": "jaaab",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.996672,
+              "pos_weight": 1.0,
+              "admission_weight": 0.996672
+            },
+            {
+              "lemma": "jaaac",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.993297,
+              "pos_weight": 1.0,
+              "admission_weight": 0.993297
+            },
+            {
+              "lemma": "jaaad",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.989872,
+              "pos_weight": 1.0,
+              "admission_weight": 0.989872
+            },
+            {
+              "lemma": "jaaae",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.986397,
+              "pos_weight": 1.0,
+              "admission_weight": 0.986397
+            },
+            {
+              "lemma": "jaaaf",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.982869,
+              "pos_weight": 1.0,
+              "admission_weight": 0.982869
+            },
+            {
+              "lemma": "jaaag",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.979287,
+              "pos_weight": 1.0,
+              "admission_weight": 0.979287
+            },
+            {
+              "lemma": "jaaah",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.97565,
+              "pos_weight": 1.0,
+              "admission_weight": 0.97565
+            },
+            {
+              "lemma": "jaaai",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.971955,
+              "pos_weight": 1.0,
+              "admission_weight": 0.971955
+            },
+            {
+              "lemma": "jaaaj",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.968202,
+              "pos_weight": 1.0,
+              "admission_weight": 0.968202
+            },
+            {
+              "lemma": "jaaak",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.964387,
+              "pos_weight": 1.0,
+              "admission_weight": 0.964387
+            },
+            {
+              "lemma": "jaaal",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.96051,
+              "pos_weight": 1.0,
+              "admission_weight": 0.96051
+            },
+            {
+              "lemma": "jaaam",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.956567,
+              "pos_weight": 1.0,
+              "admission_weight": 0.956567
+            },
+            {
+              "lemma": "jaaan",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.952556,
+              "pos_weight": 1.0,
+              "admission_weight": 0.952556
+            },
+            {
+              "lemma": "jaaao",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.948476,
+              "pos_weight": 1.0,
+              "admission_weight": 0.948476
+            },
+            {
+              "lemma": "jaaap",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.944324,
+              "pos_weight": 1.0,
+              "admission_weight": 0.944324
+            },
+            {
+              "lemma": "jaaaq",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.940097,
+              "pos_weight": 1.0,
+              "admission_weight": 0.940097
+            },
+            {
+              "lemma": "jaaar",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.935793,
+              "pos_weight": 1.0,
+              "admission_weight": 0.935793
+            },
+            {
+              "lemma": "jaaas",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.931407,
+              "pos_weight": 1.0,
+              "admission_weight": 0.931407
+            },
+            {
+              "lemma": "jaaat",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.926939,
+              "pos_weight": 1.0,
+              "admission_weight": 0.926939
+            }
+          ]
+        },
+        "rulegen": {
+          "published": true,
+          "targets": 40,
+          "rules": 40,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_ruleset_en-ja.json"
+        },
+        "applied": true,
+        "plan": {
+          "pair": "en-ja",
+          "strategy_requested": "frequency_bootstrap",
+          "strategy_effective": "frequency_bootstrap",
+          "objective": "bootstrap",
+          "can_execute": true,
+          "execution_mode": "frequency_bootstrap",
+          "requires_profile_fields": [],
+          "notes": [
+            "Using frequency bootstrap strategy."
+          ],
+          "diagnostics": {
+            "pair": "en-ja",
+            "set_top_n": 200,
+            "bootstrap_top_n": 200,
+            "initial_active_count": 40,
+            "max_active_items_hint": 0,
+            "replace_pair": true,
+            "trigger": "manual",
+            "existing_items_for_pair": 0,
+            "profile_keys": [],
+            "signal_summary_keys": [
+              "event_count",
+              "event_types",
+              "last_event_at",
+              "pair",
+              "unique_lemmas"
+            ]
+          }
+        },
+        "signal_summary": {
+          "pair": "en-ja",
+          "event_count": 0,
+          "event_types": {},
+          "unique_lemmas": 0,
+          "last_event_at": null
+        }
+      },
+      "refresh": {
+        "pair": "en-ja",
+        "profile_id": "default",
+        "set_top_n": 200,
+        "feedback_window_size": 40,
+        "allowed_pos": [],
+        "pair_policy": {
+          "pair": "en-ja",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "max_active_items": 100,
+        "max_new_items_per_day": 8,
+        "added_items": 8,
+        "total_items_for_pair": 48,
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_store.json",
+        "stopwords_path": null,
+        "admission_refresh": {
+          "pair": "en-ja",
+          "max_active_items": 100,
+          "max_new_items_per_day": 8,
+          "due_count": 40,
+          "due_pressure": 0.4,
+          "capacity_budget": 60,
+          "base_admission_budget": 8,
+          "admission_budget": 8,
+          "reason_code": "normal",
+          "notes": [
+            "Feedback window is small; using capacity-based admission budget."
+          ],
+          "feedback_window": {
+            "pair": "en-ja",
+            "window_size_requested": 40,
+            "window_size_effective": 0,
+            "feedback_count": 0,
+            "count_again": 0,
+            "count_hard": 0,
+            "count_good": 0,
+            "count_easy": 0,
+            "retention_ratio": null,
+            "strain_ratio": null
+          },
+          "candidate_pool_size": 70,
+          "admitted_count": 8,
+          "selected_lemmas": [
+            "jaabo",
+            "jaabp",
+            "jaabq",
+            "jaabr",
+            "jaabs",
+            "jaabt",
+            "jaabu",
+            "jaabv"
+          ],
+          "diagnostics": {
+            "filtered_by_pos": 0,
+            "admitted_by_pos_bucket": {
+              "noun": 8
+            },
+            "unknown_pos_seen": 0,
+            "allowed_pos": [],
+            "candidate_pool_effective": 70
+          },
+          "applied": true,
+          "weight_terms": {
+            "admission_weight": "Entry/growth score for adding words into S.",
+            "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+          }
+        },
+        "rulegen": {
+          "published": true,
+          "targets": 48,
+          "rules": 48,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_ruleset_en-ja.json"
+        },
+        "applied": true,
+        "persisted": true,
+        "trigger": "manual"
+      },
+      "diagnostics": {
+        "pair": "en-ja",
+        "profile_id": "default",
+        "requirements": {
+          "pair": "en-ja",
+          "rulegen_mode": "ja_en",
+          "supports_rulegen": true,
+          "srs_selectable": true,
+          "default_frequency_db": "freq-ja-bccwj.sqlite",
+          "requires_jmdict_for_seed": true,
+          "requires_jmdict_for_rulegen": true,
+          "requires_freedict_de_en_for_rulegen": false
+        },
+        "pair_policy": {
+          "pair": "en-ja",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/language_packs/JMdict_e",
+        "jmdict_exists": true,
+        "freedict_de_en_path": null,
+        "freedict_de_en_exists": false,
+        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/frequency_packs/freq-ja-bccwj.sqlite",
+        "set_source_db_exists": true,
+        "stopwords_path": null,
+        "stopwords_exists": false,
+        "missing_inputs": [],
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_store.json",
+        "store_exists": true,
+        "store_items_total": 48,
+        "store_items_for_pair": 48,
+        "store_items_with_word_package_total": 48,
+        "store_items_with_word_package_for_pair": 48,
+        "store_error": null,
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_ruleset_en-ja.json",
+        "ruleset_exists": true,
+        "ruleset_rules_count": 48,
+        "ruleset_rules_with_script_forms": 48,
+        "ruleset_rules_with_word_package": 48,
+        "ruleset_error": null,
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_b7iwizv/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_exists": true,
+        "snapshot_target_count": 48,
+        "snapshot_error": null,
+        "status": {
+          "version": 1,
+          "helper_version": "0.1.0",
+          "last_run_at": "2026-03-11T19:43:57.733890+00:00",
+          "last_error": null,
+          "last_pair": "en-ja",
+          "last_rule_count": 48,
+          "last_target_count": 48
+        }
+      },
+      "store_items_for_pair": 48,
+      "due_count": 48,
+      "ruleset_unique_targets": 48,
+      "snapshot_target_count": 48,
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_INITIALIZE_APPLIED",
+          "pair": "en-ja",
+          "message": "Initialization applied and published helper outputs.",
+          "details": "added_items=40"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_REFRESH_APPLIED",
+          "pair": "en-ja",
+          "message": "Refresh applied and published helper outputs.",
+          "details": "added_items=8"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
+          "pair": "en-ja",
+          "message": "Store, ruleset, and snapshot artifacts are present.",
+          "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_RUNTIME_INPUTS_PRESENT",
+          "pair": "en-ja",
+          "message": "Synthetic scenario resolved all helper inputs.",
+          "details": null
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_DUE_QUEUE_NONEMPTY",
+          "pair": "en-ja",
+          "message": "Due-item selector returns active items for practice.",
+          "details": "due_count=48"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
+          "pair": "en-ja",
+          "message": "Published targets do not exceed admitted store items.",
+          "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+        }
+      ]
+    },
+    {
+      "pair": "en-de",
+      "init": {
+        "pair": "en-de",
+        "profile_id": "default",
+        "set_top_n": 200,
+        "bootstrap_top_n": 200,
+        "initial_active_count": 40,
+        "max_active_items_hint": null,
+        "pair_policy": {
+          "pair": "en-de",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "source_type": "initial_set",
+        "replace_pair": true,
+        "added_items": 40,
+        "total_items_for_pair": 40,
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_store.json",
+        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/stopwords/stopwords-de.json",
+        "bootstrap_diagnostics": {
+          "selected_count": 70,
+          "selected_unique_count": 70,
+          "admitted_count": 40,
+          "inserted_count": 40,
+          "updated_count": 0,
+          "selected_preview": [
+            "deaaa",
+            "deaab",
+            "deaac",
+            "deaad",
+            "deaae",
+            "deaaf",
+            "deaag",
+            "deaah",
+            "deaai",
+            "deaaj"
+          ],
+          "initial_active_preview": [
+            "deaaa",
+            "deaab",
+            "deaac",
+            "deaad",
+            "deaae",
+            "deaaf",
+            "deaag",
+            "deaah",
+            "deaai",
+            "deaaj",
+            "deaak",
+            "deaal",
+            "deaam",
+            "deaan",
+            "deaao",
+            "deaap",
+            "deaaq",
+            "deaar",
+            "deaas",
+            "deaat",
+            "deaau",
+            "deaav",
+            "deaaw",
+            "deaax",
+            "deaay",
+            "deaaz",
+            "deaba",
+            "deabb",
+            "deabc",
+            "deabd",
+            "deabe",
+            "deabf",
+            "deabg",
+            "deabh",
+            "deabi",
+            "deabj",
+            "deabk",
+            "deabl",
+            "deabm",
+            "deabn"
+          ],
+          "admission_weight_profile": {
+            "noun": 1.0,
+            "adjective": 0.85,
+            "verb": 0.7,
+            "adverb": 0.55,
+            "other": 0.4
+          },
+          "initial_active_weight_preview": [
+            {
+              "lemma": "deaaa",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 1.0,
+              "pos_weight": 1.0,
+              "admission_weight": 1.0
+            },
+            {
+              "lemma": "deaab",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.996672,
+              "pos_weight": 1.0,
+              "admission_weight": 0.996672
+            },
+            {
+              "lemma": "deaac",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.993297,
+              "pos_weight": 1.0,
+              "admission_weight": 0.993297
+            },
+            {
+              "lemma": "deaad",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.989872,
+              "pos_weight": 1.0,
+              "admission_weight": 0.989872
+            },
+            {
+              "lemma": "deaae",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.986397,
+              "pos_weight": 1.0,
+              "admission_weight": 0.986397
+            },
+            {
+              "lemma": "deaaf",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.982869,
+              "pos_weight": 1.0,
+              "admission_weight": 0.982869
+            },
+            {
+              "lemma": "deaag",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.979287,
+              "pos_weight": 1.0,
+              "admission_weight": 0.979287
+            },
+            {
+              "lemma": "deaah",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.97565,
+              "pos_weight": 1.0,
+              "admission_weight": 0.97565
+            },
+            {
+              "lemma": "deaai",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.971955,
+              "pos_weight": 1.0,
+              "admission_weight": 0.971955
+            },
+            {
+              "lemma": "deaaj",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.968202,
+              "pos_weight": 1.0,
+              "admission_weight": 0.968202
+            },
+            {
+              "lemma": "deaak",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.964387,
+              "pos_weight": 1.0,
+              "admission_weight": 0.964387
+            },
+            {
+              "lemma": "deaal",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.96051,
+              "pos_weight": 1.0,
+              "admission_weight": 0.96051
+            },
+            {
+              "lemma": "deaam",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.956567,
+              "pos_weight": 1.0,
+              "admission_weight": 0.956567
+            },
+            {
+              "lemma": "deaan",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.952556,
+              "pos_weight": 1.0,
+              "admission_weight": 0.952556
+            },
+            {
+              "lemma": "deaao",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.948476,
+              "pos_weight": 1.0,
+              "admission_weight": 0.948476
+            },
+            {
+              "lemma": "deaap",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.944324,
+              "pos_weight": 1.0,
+              "admission_weight": 0.944324
+            },
+            {
+              "lemma": "deaaq",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.940097,
+              "pos_weight": 1.0,
+              "admission_weight": 0.940097
+            },
+            {
+              "lemma": "deaar",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.935793,
+              "pos_weight": 1.0,
+              "admission_weight": 0.935793
+            },
+            {
+              "lemma": "deaas",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.931407,
+              "pos_weight": 1.0,
+              "admission_weight": 0.931407
+            },
+            {
+              "lemma": "deaat",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.926939,
+              "pos_weight": 1.0,
+              "admission_weight": 0.926939
+            }
+          ]
+        },
+        "rulegen": {
+          "published": true,
+          "targets": 40,
+          "rules": 40,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_ruleset_en-de.json"
+        },
+        "applied": true,
+        "plan": {
+          "pair": "en-de",
+          "strategy_requested": "frequency_bootstrap",
+          "strategy_effective": "frequency_bootstrap",
+          "objective": "bootstrap",
+          "can_execute": true,
+          "execution_mode": "frequency_bootstrap",
+          "requires_profile_fields": [],
+          "notes": [
+            "Using frequency bootstrap strategy."
+          ],
+          "diagnostics": {
+            "pair": "en-de",
+            "set_top_n": 200,
+            "bootstrap_top_n": 200,
+            "initial_active_count": 40,
+            "max_active_items_hint": 0,
+            "replace_pair": true,
+            "trigger": "manual",
+            "existing_items_for_pair": 0,
+            "profile_keys": [],
+            "signal_summary_keys": [
+              "event_count",
+              "event_types",
+              "last_event_at",
+              "pair",
+              "unique_lemmas"
+            ]
+          }
+        },
+        "signal_summary": {
+          "pair": "en-de",
+          "event_count": 0,
+          "event_types": {},
+          "unique_lemmas": 0,
+          "last_event_at": null
+        }
+      },
+      "refresh": {
+        "pair": "en-de",
+        "profile_id": "default",
+        "set_top_n": 200,
+        "feedback_window_size": 40,
+        "allowed_pos": [],
+        "pair_policy": {
+          "pair": "en-de",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "max_active_items": 100,
+        "max_new_items_per_day": 8,
+        "added_items": 8,
+        "total_items_for_pair": 48,
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_store.json",
+        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/stopwords/stopwords-de.json",
+        "admission_refresh": {
+          "pair": "en-de",
+          "max_active_items": 100,
+          "max_new_items_per_day": 8,
+          "due_count": 40,
+          "due_pressure": 0.4,
+          "capacity_budget": 60,
+          "base_admission_budget": 8,
+          "admission_budget": 8,
+          "reason_code": "normal",
+          "notes": [
+            "Feedback window is small; using capacity-based admission budget."
+          ],
+          "feedback_window": {
+            "pair": "en-de",
+            "window_size_requested": 40,
+            "window_size_effective": 0,
+            "feedback_count": 0,
+            "count_again": 0,
+            "count_hard": 0,
+            "count_good": 0,
+            "count_easy": 0,
+            "retention_ratio": null,
+            "strain_ratio": null
+          },
+          "candidate_pool_size": 70,
+          "admitted_count": 8,
+          "selected_lemmas": [
+            "deabo",
+            "deabp",
+            "deabq",
+            "deabr",
+            "deabs",
+            "deabt",
+            "deabu",
+            "deabv"
+          ],
+          "diagnostics": {
+            "filtered_by_pos": 0,
+            "admitted_by_pos_bucket": {
+              "noun": 8
+            },
+            "unknown_pos_seen": 0,
+            "allowed_pos": [],
+            "candidate_pool_effective": 70
+          },
+          "applied": true,
+          "weight_terms": {
+            "admission_weight": "Entry/growth score for adding words into S.",
+            "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+          }
+        },
+        "rulegen": {
+          "published": true,
+          "targets": 48,
+          "rules": 48,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_ruleset_en-de.json"
+        },
+        "applied": true,
+        "persisted": true,
+        "trigger": "manual"
+      },
+      "diagnostics": {
+        "pair": "en-de",
+        "profile_id": "default",
+        "requirements": {
+          "pair": "en-de",
+          "rulegen_mode": "en_de",
+          "supports_rulegen": true,
+          "srs_selectable": true,
+          "default_frequency_db": "freq-de-default.sqlite",
+          "requires_jmdict_for_seed": false,
+          "requires_jmdict_for_rulegen": false,
+          "requires_freedict_de_en_for_rulegen": true
+        },
+        "pair_policy": {
+          "pair": "en-de",
+          "bootstrap_top_n_default": 800,
+          "refresh_top_n_default": 2000,
+          "feedback_window_size_default": 100,
+          "initial_active_count_default": 40,
+          "max_new_items_per_day_default": null,
+          "notes": []
+        },
+        "jmdict_path": null,
+        "jmdict_exists": false,
+        "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/language_packs/deu-eng.tei",
+        "freedict_de_en_exists": true,
+        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/frequency_packs/freq-de-default.sqlite",
+        "set_source_db_exists": true,
+        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/stopwords/stopwords-de.json",
+        "stopwords_exists": true,
+        "missing_inputs": [],
+        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_store.json",
+        "store_exists": true,
+        "store_items_total": 48,
+        "store_items_for_pair": 48,
+        "store_items_with_word_package_total": 48,
+        "store_items_with_word_package_for_pair": 48,
+        "store_error": null,
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_ruleset_en-de.json",
+        "ruleset_exists": true,
+        "ruleset_rules_count": 48,
+        "ruleset_rules_with_script_forms": 48,
+        "ruleset_rules_with_word_package": 48,
+        "ruleset_error": null,
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmplqmt_z9w/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+        "snapshot_exists": true,
+        "snapshot_target_count": 48,
+        "snapshot_error": null,
+        "status": {
+          "version": 1,
+          "helper_version": "0.1.0",
+          "last_run_at": "2026-03-11T19:43:57.863241+00:00",
+          "last_error": null,
+          "last_pair": "en-de",
+          "last_rule_count": 48,
+          "last_target_count": 48
+        }
+      },
+      "store_items_for_pair": 48,
+      "due_count": 48,
+      "ruleset_unique_targets": 48,
+      "snapshot_target_count": 48,
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_INITIALIZE_APPLIED",
+          "pair": "en-de",
+          "message": "Initialization applied and published helper outputs.",
+          "details": "added_items=40"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_REFRESH_APPLIED",
+          "pair": "en-de",
+          "message": "Refresh applied and published helper outputs.",
+          "details": "added_items=8"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
+          "pair": "en-de",
+          "message": "Store, ruleset, and snapshot artifacts are present.",
+          "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_RUNTIME_INPUTS_PRESENT",
+          "pair": "en-de",
+          "message": "Synthetic scenario resolved all helper inputs.",
+          "details": null
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_DUE_QUEUE_NONEMPTY",
+          "pair": "en-de",
+          "message": "Due-item selector returns active items for practice.",
+          "details": "due_count=48"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
+          "pair": "en-de",
+          "message": "Published targets do not exceed admitted store items.",
+          "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+        }
+      ]
+    }
+  ],
+  "feedback_cycle_scenario": {
+    "pair": "en-ja",
+    "phases": [
+      {
+        "label": "high_retention_1",
+        "applied": true,
+        "added_items": 2,
+        "total_items_for_pair": 3,
+        "reason_code": "normal",
+        "feedback_count": 8,
+        "retention_ratio": 1.0,
+        "ruleset_count": 3,
+        "snapshot_target_count": 3,
+        "due_count": 2
+      },
+      {
+        "label": "low_retention_pause",
+        "applied": false,
+        "added_items": 0,
+        "total_items_for_pair": 3,
+        "reason_code": "retention_low",
+        "feedback_count": 8,
+        "retention_ratio": 0.0,
+        "ruleset_count": 3,
+        "snapshot_target_count": 3,
+        "due_count": 2
+      },
+      {
+        "label": "high_retention_2",
+        "applied": true,
+        "added_items": 2,
+        "total_items_for_pair": 5,
+        "reason_code": "normal",
+        "feedback_count": 8,
+        "retention_ratio": 1.0,
+        "ruleset_count": 5,
+        "snapshot_target_count": 5,
+        "due_count": 4
+      }
+    ],
+    "findings": [
+      {
+        "level": "PASS",
+        "code": "SRS_FEEDBACK_GROWTH_CURVE",
+        "pair": "en-ja",
+        "message": "Feedback cycle grows, pauses, then resumes SRS admissions as expected.",
+        "details": "totals=[3,3,5]"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_RETENTION_PAUSE_TRIGGERED",
+        "pair": "en-ja",
+        "message": "Low retention pauses new admissions.",
+        "details": "reason_code=retention_low"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_FEEDBACK_RULESET_ALIGNMENT",
+        "pair": "en-ja",
+        "message": "Ruleset and snapshot target counts remain aligned across feedback phases.",
+        "details": null
+      },
+      {
+        "level": "WARN",
+        "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+        "pair": "en-ja",
+        "message": "Published ruleset appears to cover admitted items beyond the due subset.",
+        "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "SRS_INITIALIZE_APPLIED",
+      "pair": "en-ja",
+      "message": "Initialization applied and published helper outputs.",
+      "details": "added_items=40"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_REFRESH_APPLIED",
+      "pair": "en-ja",
+      "message": "Refresh applied and published helper outputs.",
+      "details": "added_items=8"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
+      "pair": "en-ja",
+      "message": "Store, ruleset, and snapshot artifacts are present.",
+      "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_RUNTIME_INPUTS_PRESENT",
+      "pair": "en-ja",
+      "message": "Synthetic scenario resolved all helper inputs.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_DUE_QUEUE_NONEMPTY",
+      "pair": "en-ja",
+      "message": "Due-item selector returns active items for practice.",
+      "details": "due_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
+      "pair": "en-ja",
+      "message": "Published targets do not exceed admitted store items.",
+      "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_INITIALIZE_APPLIED",
+      "pair": "en-de",
+      "message": "Initialization applied and published helper outputs.",
+      "details": "added_items=40"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_REFRESH_APPLIED",
+      "pair": "en-de",
+      "message": "Refresh applied and published helper outputs.",
+      "details": "added_items=8"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
+      "pair": "en-de",
+      "message": "Store, ruleset, and snapshot artifacts are present.",
+      "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_RUNTIME_INPUTS_PRESENT",
+      "pair": "en-de",
+      "message": "Synthetic scenario resolved all helper inputs.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_DUE_QUEUE_NONEMPTY",
+      "pair": "en-de",
+      "message": "Due-item selector returns active items for practice.",
+      "details": "due_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
+      "pair": "en-de",
+      "message": "Published targets do not exceed admitted store items.",
+      "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_FEEDBACK_GROWTH_CURVE",
+      "pair": "en-ja",
+      "message": "Feedback cycle grows, pauses, then resumes SRS admissions as expected.",
+      "details": "totals=[3,3,5]"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_RETENTION_PAUSE_TRIGGERED",
+      "pair": "en-ja",
+      "message": "Low retention pauses new admissions.",
+      "details": "reason_code=retention_low"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_FEEDBACK_RULESET_ALIGNMENT",
+      "pair": "en-ja",
+      "message": "Ruleset and snapshot target counts remain aligned across feedback phases.",
+      "details": null
+    },
+    {
+      "level": "WARN",
+      "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+      "pair": "en-ja",
+      "message": "Published ruleset appears to cover admitted items beyond the due subset.",
+      "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+    }
+  ]
+}

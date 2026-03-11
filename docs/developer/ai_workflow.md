@@ -1,7 +1,7 @@
 # AI-Assisted Rulegen Iteration Workflow
 
 Status: active workflow
-Last updated: 2026-03-11
+Last updated: 2026-03-12
 
 Purpose:
 - Keep rulegen tuning fast without sacrificing stability.
@@ -27,8 +27,12 @@ The scripts and policy below enforce a tighter loop.
 - Baseline metrics: `docs/test_outputs/baselines/rulegen_quality_baseline.json`
 - Benchmark runner: `scripts/testing/rulegen_benchmark.py`
 - Quality gate: `scripts/testing/rulegen_quality_gate.py`
+- Benchmark summary renderer: `scripts/testing/rulegen_benchmark_summary.py`
 - Quality gate summary renderer: `scripts/testing/rulegen_quality_gate_summary.py`
 - Triage extractor: `scripts/testing/rulegen_benchmark_triage.py`
+- Triage summary renderer: `scripts/testing/rulegen_benchmark_triage_summary.py`
+- SRS quality harness: `scripts/testing/srs_quality_harness.py`
+- SRS quality summary renderer: `scripts/testing/srs_quality_summary.py`
 - Focused audit wrapper: `scripts/testing/rulegen_pair_audit_cycle.py`
 - Change-aware audit wrapper: `scripts/testing/rulegen_auto_audit.py`
 - Feature state ledger: `docs/developer/feature_state_matrix.md`
@@ -129,11 +133,33 @@ For meaningful runs:
 
 The auto-audit wrapper handles this automatically for standard rulegen runs.
 
-When a human-facing summary is needed from the gate artifact, use:
+When human-facing summaries are needed from the latest rulegen artifacts, use:
 
 ```bash
+npm --prefix scripts run quality:rulegen:benchmark:summary
 npm --prefix scripts run quality:rulegen:gate:summary
+npm --prefix scripts run quality:rulegen:triage:summary
 ```
+
+## SRS quality harness
+
+For SRS scheduler/admission/publication work, use the synthetic harness before relying on prose or code inspection alone:
+
+```bash
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+```
+
+Human-facing summary:
+
+```bash
+npm --prefix scripts run quality:srs:summary
+```
+
+Current intent:
+- keep bootstrap/publication/runtime diagnostics measurable for `en-ja` and `en-de`,
+- keep feedback-driven pause/resume behavior measurable for `en-ja`,
+- surface due-aware publication gaps as explicit warnings until end-to-end due-aware serving is implemented and verified.
 
 ## State tracking
 

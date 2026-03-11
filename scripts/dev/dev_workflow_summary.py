@@ -140,14 +140,26 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
 def _render_build_section(payload: dict[str, Any]) -> list[str]:
     passed, total = _passed_command_count(payload)
     overall_exit_code = int(payload.get("overall_exit_code") or 0)
+    skipped = payload.get("skipped_commands")
+    skipped_items = skipped if isinstance(skipped, list) else []
+    status = _bool_status(overall_exit_code)
+    if overall_exit_code == 0 and bool(payload.get("ci_safe")) and skipped_items:
+        status = "PASS (ci-safe partial)"
     lines = [
         "## Build Safety",
-        f"- Status: {_bool_status(overall_exit_code)}",
+        f"- Status: {status}",
         f"- Commands passed: {passed}/{total}",
     ]
     failed = _first_failed_command(payload)
     if failed:
         lines.append(f"- First failed command: `{failed}`")
+    if skipped_items:
+        for item in skipped_items:
+            if not isinstance(item, dict):
+                continue
+            label = str(item.get("label") or "").strip() or "<unknown>"
+            reason = str(item.get("reason") or "").strip() or "no reason provided"
+            lines.append(f"- Skipped: `{label}` ({reason})")
     return lines
 
 

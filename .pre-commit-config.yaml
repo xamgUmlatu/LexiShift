@@ -30,6 +30,13 @@ repos:
         language: system
         pass_filenames: false
         stages: [pre-commit]
+      - id: feature-state-audit
+        name: feature-state-audit
+        entry: python3 scripts/dev/feature_state_audit.py
+        language: system
+        pass_filenames: false
+        files: ^docs/developer/feature_state_matrix\.md$
+        stages: [pre-commit]
       - id: repo-safety-check
         name: repo-safety-check
         entry: npm --prefix scripts run check

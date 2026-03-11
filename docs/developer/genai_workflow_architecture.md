@@ -182,7 +182,9 @@ Wrapper policy:
   - dated artifact paths,
   - `*_latest` alias updates,
   - manifest output for run provenance.
-- `rulegen_quality_gate_summary.py` is the preferred human-facing renderer for gate JSON in CI and handoff docs.
+- `rulegen_benchmark_summary.py`, `rulegen_quality_gate_summary.py`, and `rulegen_benchmark_triage_summary.py` are the preferred human-facing renderers for the latest rulegen artifacts in CI and handoff docs.
+- `srs_quality_harness.py` is the current synthetic SRS quality surface for bootstrap/publication/runtime behavior.
+- `srs_quality_summary.py` is the preferred human-facing renderer for SRS quality JSON in CI and handoff docs.
 
 Use the canonical commands directly when:
 - wrapper defaults are not appropriate,
@@ -216,8 +218,10 @@ Current intent:
 - `check` is stable and non-mutating.
 - `check:changed` is the preferred branch-scope workflow command before heavier quality work.
 - `build` is a local build smoke for maintained build surfaces.
+- `build:ci` / `build:ci:report` are the normalized hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
 - `check:style` is the advisory path for repo-wide Ruff debt.
 - `check:report`, `check:changed:report`, and `build:report` are the machine-readable workflow surfaces for automation and agent hand-offs.
+- `check:state` audits the feature ledger so status claims stay backed by dated evidence paths.
 - `check:summary` renders a stable Markdown handoff from the JSON workflow reports and is the preferred human-facing summary layer.
 - local `pre-push` should mirror `check`, not a separate ad hoc command set.
 - Repo-wide style lint is intentionally not part of default `check` until existing Ruff debt is reduced.
@@ -263,6 +267,6 @@ These items should remain visible in `feature_state_matrix.md` until code, docs,
 ## Near-Term Meta Priorities
 
 1. Keep reverse-check experiments in the standard audit loop while the feature is being tuned.
-2. Extend the same artifact discipline to SRS quality work once due-aware serving starts.
+2. Keep the SRS synthetic quality harness in the loop for scheduler/admission/publication changes and expand it as due-aware serving becomes executable.
 3. Preserve a fresh-reviewer step for ranking, SRS scheduler, and harness changes.
 4. Keep feature-state dates exact so future agents can recover current behavior quickly.

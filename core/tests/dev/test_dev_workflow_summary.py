@@ -61,6 +61,29 @@ class TestDevWorkflowSummary(unittest.TestCase):
         )
         self.assertIn("- Rulegen quality: required (`dry-run`), PASS", markdown)
 
+    def test_render_summary_reports_ci_safe_build_skips(self) -> None:
+        markdown = render_summary(
+            build_payload={
+                "overall_exit_code": 0,
+                "ci_safe": True,
+                "commands": [
+                    {"label": "betterdiscord_build", "exit_code": 0},
+                ],
+                "skipped_commands": [
+                    {
+                        "label": "gui_build_validate",
+                        "reason": "macOS app-bundle validation is not supported on this host",
+                    }
+                ],
+            }
+        )
+        self.assertIn("## Build Safety", markdown)
+        self.assertIn("- Status: PASS (ci-safe partial)", markdown)
+        self.assertIn(
+            "- Skipped: `gui_build_validate` (macOS app-bundle validation is not supported on this host)",
+            markdown,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

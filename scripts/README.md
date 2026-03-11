@@ -15,6 +15,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Repo safety check (tests + mypy + workflow script compile + advisory project health):
   `dev/dev_workflow_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:report`
+  - Includes `dev/feature_state_audit.py` so feature-state claims stay structured and evidence-backed
+- Feature-state matrix audit:
+  `dev/feature_state_audit.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run check:state`
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
@@ -26,6 +30,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Repo build safety (BetterDiscord bundle + GUI PyInstaller build/validate):
   `dev/dev_workflow_build.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run build:report`
+  - `--ci-safe` skips intentionally unsupported build surfaces on the current host while keeping the same report format
 - Build app bundle: `build/gui_app.py`
 - Build installers: `build/installer.py`
 - Convert embeddings: `data/convert_embeddings.py`
@@ -37,6 +42,8 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
   `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
+- Render Markdown summaries from benchmark JSON artifacts:
+  `testing/rulegen_benchmark_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:benchmark:summary`)
 - Focused audit cycle for selected pairs (benchmark -> quality gate -> triage) with sensible defaults for `en-es,en-ja`:
   `testing/rulegen_pair_audit_cycle.py` (also forwards reverse-check tuning values and can emit quality-gate JSON)
 - Change-aware audit wrapper that infers touched pairs, writes dated artifacts, updates `*_latest` aliases, and stores a manifest:
@@ -49,6 +56,12 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `testing/rulegen_quality_gate_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:gate:summary`)
 - Extract FAIL/REVIEW benchmark cases from best runs and write triage artifacts:
   `testing/rulegen_benchmark_triage.py`
+- Render Markdown summaries from triage JSON artifacts:
+  `testing/rulegen_benchmark_triage_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:triage:summary`)
+- Synthetic SRS quality harness for bootstrap/publication/runtime diagnostics plus feedback-cycle behavior:
+  `testing/srs_quality_harness.py` (also exposed via `npm --prefix scripts run quality:srs:harness`)
+- Render Markdown summaries from SRS quality JSON artifacts:
+  `testing/srs_quality_summary.py` (also exposed via `npm --prefix scripts run quality:srs:summary`)
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.

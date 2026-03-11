@@ -104,10 +104,24 @@ Machine-readable report:
 npm --prefix scripts run check:report
 ```
 
+Feature-state discipline audit:
+
+```bash
+npm --prefix scripts run check:state
+```
+
 Markdown summary from the latest workflow reports:
 
 ```bash
 npm --prefix scripts run check:summary
+```
+
+Rulegen artifact summaries:
+
+```bash
+npm --prefix scripts run quality:rulegen:benchmark:summary
+npm --prefix scripts run quality:rulegen:gate:summary
+npm --prefix scripts run quality:rulegen:triage:summary
 ```
 
 Build safety loop:
@@ -120,6 +134,19 @@ Machine-readable build report:
 
 ```bash
 npm --prefix scripts run build:report
+```
+
+CI-safe build report:
+
+```bash
+npm --prefix scripts run build:ci:report
+```
+
+Synthetic SRS quality harness:
+
+```bash
+npm --prefix scripts run quality:srs:harness
+npm --prefix scripts run quality:srs:summary
 ```
 
 Pre-commit hooks:

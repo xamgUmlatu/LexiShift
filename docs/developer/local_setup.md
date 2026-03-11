@@ -20,6 +20,7 @@ Installed pre-commit hooks currently cover:
 - whitespace / EOF / YAML / TOML hygiene
 - Ruff formatting
 - BetterDiscord generated bundle freshness
+- feature-state ledger structure/evidence audit
 - changed-only project health gating against the checked-in baseline
 - pre-push repo safety via `npm --prefix scripts run check`
 
@@ -40,10 +41,24 @@ Machine-readable report:
 npm --prefix scripts run check:report
 ```
 
+Feature-state discipline audit:
+
+```bash
+npm --prefix scripts run check:state
+```
+
 Markdown summary from the latest workflow reports:
 
 ```bash
 npm --prefix scripts run check:summary
+```
+
+Rulegen artifact summaries:
+
+```bash
+npm --prefix scripts run quality:rulegen:benchmark:summary
+npm --prefix scripts run quality:rulegen:gate:summary
+npm --prefix scripts run quality:rulegen:triage:summary
 ```
 
 This stable safety check currently runs:
@@ -109,6 +124,19 @@ Machine-readable build report:
 
 ```bash
 npm --prefix scripts run build:report
+```
+
+CI-safe build report:
+
+```bash
+npm --prefix scripts run build:ci:report
+```
+
+Synthetic SRS quality harness:
+
+```bash
+npm --prefix scripts run quality:srs:harness
+npm --prefix scripts run quality:srs:summary
 ```
 
 This build safety currently runs:

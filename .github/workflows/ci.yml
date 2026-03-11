@@ -72,6 +72,20 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Repo safety report
         run: npm --prefix scripts run check:report
+      - name: Write rulegen benchmark summary
+        if: always()
+        run: |
+          python scripts/testing/rulegen_benchmark_summary.py \
+            --benchmark-json docs/test_outputs/rulegen_benchmark_en_es_latest.json \
+            --title "Rulegen Benchmark" \
+            --markdown-out docs/test_outputs/rulegen_benchmark_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload rulegen benchmark summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rulegen-benchmark-summary
+          path: docs/test_outputs/rulegen_benchmark_ci.md
       - name: Rulegen quality gate (artifact policy)
         run: |
           python scripts/testing/rulegen_quality_gate.py \
@@ -101,6 +115,33 @@ jobs:
         with:
           name: rulegen-quality-gate-summary
           path: docs/test_outputs/rulegen_quality_gate_ci.md
+      - name: Rebuild rulegen benchmark triage from latest benchmark artifact
+        if: always()
+        run: |
+          python scripts/testing/rulegen_benchmark_triage.py \
+            --benchmark-json docs/test_outputs/rulegen_benchmark_en_es_latest.json \
+            --json-out docs/test_outputs/rulegen_benchmark_triage_ci.json \
+            --markdown-out docs/test_outputs/rulegen_benchmark_triage_ci_full.md
+      - name: Upload rulegen benchmark triage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rulegen-benchmark-triage-report
+          path: docs/test_outputs/rulegen_benchmark_triage_ci.json
+      - name: Write rulegen benchmark triage summary
+        if: always()
+        run: |
+          python scripts/testing/rulegen_benchmark_triage_summary.py \
+            --triage-json docs/test_outputs/rulegen_benchmark_triage_ci.json \
+            --title "Rulegen Benchmark Triage" \
+            --markdown-out docs/test_outputs/rulegen_benchmark_triage_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload rulegen benchmark triage summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rulegen-benchmark-triage-summary
+          path: docs/test_outputs/rulegen_benchmark_triage_ci.md
       - name: Upload repo safety report
         if: always()
         uses: actions/upload-artifact@v4
@@ -121,3 +162,81 @@ jobs:
         with:
           name: workflow-check-summary
           path: docs/test_outputs/dev_workflow/check_ci.md
+
+  build-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Build safety report (CI-safe)
+        run: npm --prefix scripts run build:ci:report
+      - name: Upload build safety report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-report
+          path: docs/test_outputs/dev_workflow/build_ci_latest.json
+      - name: Write build safety summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_summary.py \
+            --build-json docs/test_outputs/dev_workflow/build_ci_latest.json \
+            --title "Build Safety (CI Safe)" \
+            --markdown-out docs/test_outputs/dev_workflow/build_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload build safety summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-summary
+          path: docs/test_outputs/dev_workflow/build_ci.md
+
+  srs-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Run SRS quality harness
+        run: |
+          python scripts/testing/srs_quality_harness.py \
+            --json-out docs/test_outputs/srs_quality_ci.json
+      - name: Upload SRS quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: srs-quality-report
+          path: docs/test_outputs/srs_quality_ci.json
+      - name: Write SRS quality summary
+        if: always()
+        run: |
+          python scripts/testing/srs_quality_summary.py \
+            --quality-json docs/test_outputs/srs_quality_ci.json \
+            --title "SRS Quality Harness" \
+            --markdown-out docs/test_outputs/srs_quality_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload SRS quality summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: srs-quality-summary
+          path: docs/test_outputs/srs_quality_ci.md

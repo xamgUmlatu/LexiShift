@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import platform
 import shlex
 import subprocess
 import sys
@@ -17,6 +18,10 @@ def _run(command: list[str]) -> int:
     print(f"+ {shlex.join(command)}", flush=True)
     result = subprocess.run(command, cwd=PROJECT_ROOT, check=False)
     return int(result.returncode)
+
+
+def _supports_gui_build_validate() -> bool:
+    return platform.system() == "Darwin"
 
 
 def main() -> None:
@@ -40,17 +45,31 @@ def main() -> None:
         type=Path,
         help="Optional JSON report output path.",
     )
+    parser.add_argument(
+        "--ci-safe",
+        action="store_true",
+        help="Skip build surfaces that are intentionally unsupported on the current CI host.",
+    )
     args = parser.parse_args()
 
     commands: list[tuple[str, list[str]]] = []
+    skipped_commands: list[dict[str, object]] = []
     if not args.skip_bd:
         commands.append(
             ("betterdiscord_build", ["node", "apps/betterdiscord-plugin/build_plugin.js"])
         )
     if not args.skip_gui:
-        commands.append(
-            ("gui_build_validate", [sys.executable, "scripts/build/gui_app.py", "--validate"])
-        )
+        if args.ci_safe and not _supports_gui_build_validate():
+            skipped_commands.append(
+                {
+                    "label": "gui_build_validate",
+                    "reason": "macOS app-bundle validation is not supported on this host",
+                }
+            )
+        else:
+            commands.append(
+                ("gui_build_validate", [sys.executable, "scripts/build/gui_app.py", "--validate"])
+            )
 
     results: list[dict[str, object]] = []
     overall_exit_code = 0
@@ -73,6 +92,9 @@ def main() -> None:
         "overall_exit_code": overall_exit_code,
         "skip_bd": bool(args.skip_bd),
         "skip_gui": bool(args.skip_gui),
+        "ci_safe": bool(args.ci_safe),
+        "platform": platform.system(),
+        "skipped_commands": skipped_commands,
         "commands": results,
     }
     if args.json_out:

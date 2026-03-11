@@ -1,7 +1,7 @@
 # Feature State Matrix
 
 Status: active ledger
-Last updated: 2026-03-11
+Last updated: 2026-03-12
 
 Purpose:
 - Keep feature state explicit for GenAI-driven development.
@@ -31,20 +31,25 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-02-24`
-- Last verified: `2026-03-11` local gate rerun + summary artifact
+- Last verified: `2026-03-12` local summary rerender + CI wiring review
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
+  - Latest rulegen artifacts now have human-facing Markdown summaries for benchmark, gate, and triage surfaces.
 - Evidence:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
   - `scripts/testing/rulegen_benchmark.py`
+  - `scripts/testing/rulegen_benchmark_summary.py`
   - `scripts/testing/rulegen_quality_gate.py`
   - `scripts/testing/rulegen_quality_gate_summary.py`
   - `scripts/testing/rulegen_benchmark_triage.py`
+  - `scripts/testing/rulegen_benchmark_triage_summary.py`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_summary_latest.md`
   - `docs/test_outputs/rulegen_quality_gate_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_summary_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_triage_summary_latest.md`
 - Known gaps:
   - Current `docs/test_outputs/rulegen_quality_gate_latest.json` has FAIL findings for `en-es` quality floor and delta budget.
   - Recommended pairs (`en-ja`, `en-de`, `es-en`) are still advisory rather than hard-gated.
@@ -69,20 +74,44 @@ Use this file when:
   - Pair inference is heuristic and should not replace explicit `--pairs` when the touched scope is ambiguous.
   - Wrapper coverage is currently specific to the rulegen quality loop and not yet mirrored for SRS quality work.
 
+## SRS Quality Harness
+
+- Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication workflow
+- Last documented checkpoint: `2026-03-12`
+- Last verified: `2026-03-12` synthetic harness run + summary artifact
+- Default behavior:
+  - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
+  - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
+  - Human-facing summary is available from the JSON artifact.
+- Evidence:
+  - `AGENTS.md`
+  - `docs/developer/ai_workflow.md`
+  - `scripts/testing/srs_quality_harness.py`
+  - `scripts/testing/srs_quality_summary.py`
+  - `docs/test_outputs/srs_quality_latest.json`
+  - `docs/test_outputs/srs_quality_summary_latest.md`
+- Known gaps:
+  - Coverage is synthetic and pair-limited; it does not yet grade pedagogical quality or real user data.
+  - Current harness intentionally surfaces the due-aware publication mismatch as a warning, not a hard failure.
+  - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
+
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-11`
-- Last verified: `2026-03-11` command execution
+- Last verified: `2026-03-12` command execution + CI wiring review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
+  - `npm --prefix scripts run build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip unsupported surfaces on hosted runners.
   - `npm --prefix scripts run check:style` is the advisory repo-wide style/debt command.
+  - `npm --prefix scripts run check:state` audits the feature-state ledger for required fields, dated checkpoints, and evidence paths.
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
 - Evidence:
+  - `scripts/dev/feature_state_audit.py`
   - `scripts/dev/dev_workflow_check.py`
   - `scripts/dev/dev_workflow_changed_check.py`
   - `scripts/dev/dev_workflow_build.py`
@@ -91,17 +120,39 @@ Use this file when:
   - `.pre-commit-config.yaml`
   - `.github/workflows/ci.yml`
   - `scripts/package.json`
+  - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
   - `docs/test_outputs/dev_workflow/check_latest.json`
   - `docs/test_outputs/dev_workflow/check_changed_latest.json`
   - `docs/test_outputs/dev_workflow/build_latest.json`
+  - `docs/test_outputs/dev_workflow/build_ci_latest.json`
   - `docs/test_outputs/dev_workflow/summary_latest.md`
   - `docs/developer/local_setup.md`
   - `docs/developer/build_and_release.md`
 - Known gaps:
   - Repo-wide Ruff lint is still outside the default `check` command because current unrelated style debt would make the safety gate noisy.
   - GUI packaging makes `build` materially slower than `check`.
+  - CI-safe build mode does not yet reproduce full macOS GUI validation on hosted runners; it records an explicit skip instead.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
+
+## Feature-State Evidence Audit
+
+- Status: `implemented`, `default-on`, `verified`
+- Last documented checkpoint: `2026-03-12`
+- Last verified: `2026-03-12` local audit run + repo safety integration
+- Default behavior:
+  - `scripts/dev/feature_state_audit.py` validates that feature entries include status, dated checkpoints, default behavior bullets, evidence bullets, and known gaps.
+  - Evidence paths in `docs/developer/feature_state_matrix.md` must resolve on disk.
+  - Repo safety now runs this audit directly, and pre-commit runs it when the feature ledger changes.
+- Evidence:
+  - `scripts/dev/feature_state_audit.py`
+  - `core/tests/dev/test_feature_state_audit.py`
+  - `scripts/dev/dev_workflow_check.py`
+  - `.pre-commit-config.yaml`
+  - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
+- Known gaps:
+  - The audit enforces structure and evidence existence, not semantic correctness of every status claim.
+  - It does not yet require every status transition to update its verification date in the same commit.
 
 ## Generic Gloss Demotion
 
@@ -221,7 +272,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-11`
-- Last verified: `2026-03-11`
+- Last verified: `2026-03-12`
 - Default behavior:
   - Use the rulegen quality loop already defined in `AGENTS.md` and `docs/developer/ai_workflow.md`.
   - Use `docs/developer/genai_workflow_architecture.md` for agent roles, instance splitting, and harness policy.
@@ -231,8 +282,8 @@ Use this file when:
   - `scripts/testing/rulegen_auto_audit.py`
   - `scripts/testing/rulegen_pair_audit_cycle.py`
 - Known gaps:
-  - SRS still lacks a rulegen-equivalent quality harness.
-  - Feature-state discipline depends on this file being updated as part of workflow changes.
+  - Feature-state discipline is stronger now, but status transitions are not yet enforced against commit-scoped artifact diffs.
+  - Hosted CI still uses an explicit CI-safe build mode rather than full macOS GUI validation.
 
 ## Current State Mismatches To Preserve Explicitly
 
