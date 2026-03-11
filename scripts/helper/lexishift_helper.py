@@ -59,17 +59,29 @@ def _resolve_pair_resource_paths(
     freedict_de_en_arg: Optional[str],
     set_source_db_arg: Optional[str],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
-    jmdict_path = Path(jmdict_arg) if jmdict_arg else default_jmdict_path(
-        pair,
-        language_packs_dir=paths.language_packs_dir,
+    jmdict_path = (
+        Path(jmdict_arg)
+        if jmdict_arg
+        else default_jmdict_path(
+            pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
     )
-    freedict_de_en_path = Path(freedict_de_en_arg) if freedict_de_en_arg else default_freedict_de_en_path(
-        pair,
-        language_packs_dir=paths.language_packs_dir,
+    freedict_de_en_path = (
+        Path(freedict_de_en_arg)
+        if freedict_de_en_arg
+        else default_freedict_de_en_path(
+            pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
     )
-    set_source_db = Path(set_source_db_arg) if set_source_db_arg else default_frequency_db_path(
-        pair,
-        frequency_packs_dir=paths.frequency_packs_dir,
+    set_source_db = (
+        Path(set_source_db_arg)
+        if set_source_db_arg
+        else default_frequency_db_path(
+            pair,
+            frequency_packs_dir=paths.frequency_packs_dir,
+        )
     )
     return jmdict_path, freedict_de_en_path, set_source_db
 
@@ -92,7 +104,9 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
         _print_json(
             {
                 "error": "snapshot_not_found",
-                "path": str(paths.snapshot_path(args.pair, profile_id=args.profile_id or "default")),
+                "path": str(
+                    paths.snapshot_path(args.pair, profile_id=args.profile_id or "default")
+                ),
             }
         )
         return 1
@@ -102,7 +116,9 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
 
 def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = get_srs_runtime_diagnostics(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    payload = get_srs_runtime_diagnostics(
+        paths, pair=args.pair, profile_id=args.profile_id or "default"
+    )
     _print_json(payload)
     return 0
 
@@ -360,11 +376,23 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
     run.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
-    run.add_argument("--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted).")
-    run.add_argument("--no-initialize-if-empty", action="store_true", help="Skip S initialization when store is empty")
-    run.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
-    run.add_argument("--no-persist-outputs", action="store_true", help="Do not write ruleset/snapshot JSON files")
-    run.add_argument("--no-status-update", action="store_true", help="Do not update helper status file")
+    run.add_argument(
+        "--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted)."
+    )
+    run.add_argument(
+        "--no-initialize-if-empty",
+        action="store_true",
+        help="Skip S initialization when store is empty",
+    )
+    run.add_argument(
+        "--no-persist-store", action="store_true", help="Do not write changes to srs_store.json"
+    )
+    run.add_argument(
+        "--no-persist-outputs", action="store_true", help="Do not write ruleset/snapshot JSON files"
+    )
+    run.add_argument(
+        "--no-status-update", action="store_true", help="Do not update helper status file"
+    )
     run.add_argument(
         "--confidence-threshold",
         type=float,
@@ -500,13 +528,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run.add_argument("--snapshot-targets", type=int, default=50)
     run.add_argument("--snapshot-sources", type=int, default=6)
-    run.add_argument("--sample-count", type=int, help="Sample N target lemmas from current S before rulegen.")
+    run.add_argument(
+        "--sample-count", type=int, help="Sample N target lemmas from current S before rulegen."
+    )
     run.add_argument(
         "--sample-strategy",
         choices=("weighted_priority", "uniform"),
         help="Sampling strategy used with --sample-count.",
     )
-    run.add_argument("--sample-seed", type=int, help="Optional RNG seed for deterministic sampling.")
+    run.add_argument(
+        "--sample-seed", type=int, help="Optional RNG seed for deterministic sampling."
+    )
     run.set_defaults(func=cmd_run_rulegen)
 
     init_s = sub.add_parser("init_srs_set", help="Initialize S for a language pair")
@@ -515,26 +547,56 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     init_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
-    init_s.add_argument("--set-top-n", type=int, help="Bootstrap top-N cap (defaults from pair policy when omitted).")
-    init_s.add_argument("--replace-pair", action="store_true", help="Replace existing pair entries before initializing S")
-    init_s.add_argument("--bootstrap-top-n", type=int, help="Explicit bootstrap size for S (preferred over --set-top-n).")
-    init_s.add_argument("--initial-active-count", type=int, help="Initial active subset size within bootstrap S.")
-    init_s.add_argument("--max-active-items-hint", type=int, help="Hint for active workload cap during planning.")
+    init_s.add_argument(
+        "--set-top-n",
+        type=int,
+        help="Bootstrap top-N cap (defaults from pair policy when omitted).",
+    )
+    init_s.add_argument(
+        "--replace-pair",
+        action="store_true",
+        help="Replace existing pair entries before initializing S",
+    )
+    init_s.add_argument(
+        "--bootstrap-top-n",
+        type=int,
+        help="Explicit bootstrap size for S (preferred over --set-top-n).",
+    )
+    init_s.add_argument(
+        "--initial-active-count", type=int, help="Initial active subset size within bootstrap S."
+    )
+    init_s.add_argument(
+        "--max-active-items-hint", type=int, help="Hint for active workload cap during planning."
+    )
     init_s.add_argument("--strategy", default="frequency_bootstrap")
     init_s.add_argument("--objective", default="bootstrap")
     init_s.add_argument("--trigger", default="cli")
     init_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
     init_s.set_defaults(func=cmd_init_srs_set)
 
-    plan_s = sub.add_parser("plan_srs_set", help="Build a set planning decision without mutating store")
+    plan_s = sub.add_parser(
+        "plan_srs_set", help="Build a set planning decision without mutating store"
+    )
     plan_s.add_argument("--pair", default="en-ja")
     plan_s.add_argument("--profile-id", help="Profile id (default: default)")
     plan_s.add_argument("--strategy", default="profile_bootstrap")
     plan_s.add_argument("--objective", default="bootstrap")
-    plan_s.add_argument("--set-top-n", type=int, help="Bootstrap top-N cap (defaults from pair policy when omitted).")
-    plan_s.add_argument("--bootstrap-top-n", type=int, help="Explicit bootstrap size for S (preferred over --set-top-n).")
-    plan_s.add_argument("--initial-active-count", type=int, help="Initial active subset size within bootstrap S.")
-    plan_s.add_argument("--max-active-items-hint", type=int, help="Hint for active workload cap during planning.")
+    plan_s.add_argument(
+        "--set-top-n",
+        type=int,
+        help="Bootstrap top-N cap (defaults from pair policy when omitted).",
+    )
+    plan_s.add_argument(
+        "--bootstrap-top-n",
+        type=int,
+        help="Explicit bootstrap size for S (preferred over --set-top-n).",
+    )
+    plan_s.add_argument(
+        "--initial-active-count", type=int, help="Initial active subset size within bootstrap S."
+    )
+    plan_s.add_argument(
+        "--max-active-items-hint", type=int, help="Hint for active workload cap during planning."
+    )
     plan_s.add_argument("--replace-pair", action="store_true")
     plan_s.add_argument("--trigger", default="cli")
     plan_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
@@ -544,18 +606,36 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--pair", default="en-ja")
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
-    refresh_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
-    refresh_s.add_argument("--set-source-db", help="Path to frequency SQLite used for candidate pool")
-    refresh_s.add_argument("--set-top-n", type=int, help="Refresh candidate pool size (defaults from pair policy when omitted).")
-    refresh_s.add_argument("--feedback-window-size", type=int, help="Feedback window size (defaults from pair policy when omitted).")
-    refresh_s.add_argument("--max-active-items", type=int, help="Override max active items for refresh planning.")
-    refresh_s.add_argument("--max-new-items", type=int, help="Override max new items/day for refresh planning.")
+    refresh_s.add_argument(
+        "--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)"
+    )
+    refresh_s.add_argument(
+        "--set-source-db", help="Path to frequency SQLite used for candidate pool"
+    )
+    refresh_s.add_argument(
+        "--set-top-n",
+        type=int,
+        help="Refresh candidate pool size (defaults from pair policy when omitted).",
+    )
+    refresh_s.add_argument(
+        "--feedback-window-size",
+        type=int,
+        help="Feedback window size (defaults from pair policy when omitted).",
+    )
+    refresh_s.add_argument(
+        "--max-active-items", type=int, help="Override max active items for refresh planning."
+    )
+    refresh_s.add_argument(
+        "--max-new-items", type=int, help="Override max new items/day for refresh planning."
+    )
     refresh_s.add_argument(
         "--allowed-pos",
         nargs="+",
         help="Optional POS bucket allow-list for admission (e.g. noun adjective verb).",
     )
-    refresh_s.add_argument("--no-persist-store", action="store_true", help="Do not write changes to srs_store.json")
+    refresh_s.add_argument(
+        "--no-persist-store", action="store_true", help="Do not write changes to srs_store.json"
+    )
     refresh_s.add_argument("--trigger", default="cli")
     refresh_s.set_defaults(func=cmd_refresh_srs_set)
 
@@ -579,14 +659,18 @@ def build_parser() -> argparse.ArgumentParser:
     reset.add_argument("--profile-id", help="Profile id (default: default)")
     reset.set_defaults(func=cmd_reset_srs)
 
-    profiles_get = sub.add_parser("profiles_get", help="Show helper profile snapshot from settings.json")
+    profiles_get = sub.add_parser(
+        "profiles_get", help="Show helper profile snapshot from settings.json"
+    )
     profiles_get.set_defaults(func=cmd_profiles_get)
 
     profile_rulesets_get = sub.add_parser(
         "profile_rulesets_get",
         help="Show manual rulesets for a profile from settings.json",
     )
-    profile_rulesets_get.add_argument("--profile-id", help="Profile id (default: resolved active profile)")
+    profile_rulesets_get.add_argument(
+        "--profile-id", help="Profile id (default: resolved active profile)"
+    )
     profile_rulesets_get.set_defaults(func=cmd_profile_rulesets_get)
 
     return parser

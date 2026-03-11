@@ -16,7 +16,11 @@ from lexishift_core.rulegen.tuning import (
 )
 from lexishift_core.srs import SrsSettings, SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
-from lexishift_core.srs.sampling import SrsSamplingResult, sample_store_items, sampling_result_to_dict
+from lexishift_core.srs.sampling import (
+    SrsSamplingResult,
+    sample_store_items,
+    sampling_result_to_dict,
+)
 
 
 def run_rulegen_job(
@@ -41,12 +45,14 @@ def run_rulegen_job(
         requested_top_n=config.set_top_n,
         purpose="refresh",
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = resolve_pair_resources_fn(
-        paths,
-        pair=pair,
-        jmdict_path=config.jmdict_path,
-        freedict_de_en_path=config.freedict_de_en_path,
-        set_source_db=config.set_source_db,
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+        resolve_pair_resources_fn(
+            paths,
+            pair=pair,
+            jmdict_path=config.jmdict_path,
+            freedict_de_en_path=config.freedict_de_en_path,
+            set_source_db=config.set_source_db,
+        )
     )
     should_seed_from_frequency = bool(
         config.initialize_if_empty
@@ -156,9 +162,7 @@ def run_rulegen_job(
                     effective_rulegen_tuning.scoring.pos_match.compatible_match_bonus
                 ),
                 "score_weights": {
-                    "dict_priority": float(
-                        effective_rulegen_tuning.scoring.weights.dict_priority
-                    ),
+                    "dict_priority": float(effective_rulegen_tuning.scoring.weights.dict_priority),
                     "frequency_weight": float(
                         effective_rulegen_tuning.scoring.weights.frequency_weight
                     ),
@@ -202,10 +206,12 @@ def run_rulegen_job(
             "stopwords_exists": bool(stopwords_path and stopwords_path.exists()),
             "missing_inputs": missing_inputs,
             "store_items": len(store.items),
-            "store_items_for_pair": len([item for item in store.items if item.language_pair == pair]),
-            "store_sample": [
-                item.lemma for item in store.items if item.language_pair == pair
-            ][: max(1, int(config.debug_sample_size))],
+            "store_items_for_pair": len(
+                [item for item in store.items if item.language_pair == pair]
+            ),
+            "store_sample": [item.lemma for item in store.items if item.language_pair == pair][
+                : max(1, int(config.debug_sample_size))
+            ],
         }
         if sampling_result is not None:
             diagnostics["sampling"] = sampling_result_to_dict(sampling_result)
@@ -252,9 +258,7 @@ def run_rulegen_job(
             else None
         ),
         "ruleset_path": (
-            str(paths.ruleset_path(pair, profile_id=profile_id))
-            if config.persist_outputs
-            else None
+            str(paths.ruleset_path(pair, profile_id=profile_id)) if config.persist_outputs else None
         ),
         "store_persisted": config.persist_store,
         "outputs_persisted": config.persist_outputs,

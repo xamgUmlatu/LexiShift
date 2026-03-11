@@ -47,9 +47,7 @@ class AdmissionRefreshPolicy:
     feedback_window_size: int = 100
     min_feedback_events: int = 8
     partial_admission_ratio: float = 0.50
-    thresholds: AdmissionRefreshThresholds = field(
-        default_factory=AdmissionRefreshThresholds
-    )
+    thresholds: AdmissionRefreshThresholds = field(default_factory=AdmissionRefreshThresholds)
     max_active_items_override: Optional[int] = None
     max_new_items_override: Optional[int] = None
     allowed_pos: Optional[set[str]] = None
@@ -112,9 +110,7 @@ def compute_feedback_window_stats(
 ) -> FeedbackWindowStats:
     requested_size = max(1, int(window_size))
     feedback_events = [
-        event
-        for event in events
-        if event.event_type == SIGNAL_FEEDBACK and event.pair == pair
+        event for event in events if event.event_type == SIGNAL_FEEDBACK and event.pair == pair
     ]
     scoped = feedback_events[-requested_size:]
 
@@ -203,7 +199,9 @@ def plan_admission_refresh(
         reason_code = "due_pressure_high"
         notes.append("Due pressure is above threshold; paused new admissions.")
     elif feedback_stats.feedback_count >= policy.min_feedback_events:
-        retention = feedback_stats.retention_ratio if feedback_stats.retention_ratio is not None else 1.0
+        retention = (
+            feedback_stats.retention_ratio if feedback_stats.retention_ratio is not None else 1.0
+        )
         if retention < policy.thresholds.retention_low:
             admission_budget = 0
             reason_code = "retention_low"
@@ -213,9 +211,7 @@ def plan_admission_refresh(
             reason_code = "retention_mid"
             notes.append("Retention is mid-range; reduced new admissions.")
     else:
-        notes.append(
-            "Feedback window is small; using capacity-based admission budget."
-        )
+        notes.append("Feedback window is small; using capacity-based admission budget.")
 
     return AdmissionRefreshDecision(
         pair=pair,
@@ -373,11 +369,7 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
 def _normalize_allowed_pos(value: Optional[IterableCollection[str]]) -> set[str]:
     if not value:
         return set()
-    return {
-        str(item).strip().lower()
-        for item in value
-        if str(item).strip()
-    }
+    return {str(item).strip().lower() for item in value if str(item).strip()}
 
 
 def _apply_allowed_pos_filter(

@@ -4,6 +4,7 @@ import html
 import json
 from typing import Iterable, Mapping, Sequence
 
+
 def _escape_html(value: object) -> str:
     return html.escape(str(value), quote=True)
 
@@ -61,7 +62,7 @@ def render_html_report(
         best_summary = best_run.summary
 
         top_rows: list[str] = []
-        for rank, run in enumerate(runs[:max(1, int(top_n))], start=1):
+        for rank, run in enumerate(runs[: max(1, int(top_n))], start=1):
             summary = run.summary
             top_rows.append(
                 "<tr>"
@@ -93,10 +94,11 @@ def render_html_report(
 
             all_sources_raw = case_result.get("all_sources")
             all_sources: list[str] = []
-            if isinstance(all_sources_raw, Sequence) and not isinstance(all_sources_raw, (str, bytes)):
+            if isinstance(all_sources_raw, Sequence) and not isinstance(
+                all_sources_raw, (str, bytes)
+            ):
                 all_sources = _dedupe_preserve_order(
-                    str(item or "").strip()
-                    for item in all_sources_raw
+                    str(item or "").strip() for item in all_sources_raw
                 )
 
             source_chips: list[str] = []
@@ -112,24 +114,28 @@ def render_html_report(
                     base_label = "neutral"
                     chip_class = "chip-neutral"
                 source_chips.append(
-                    "<button type=\"button\" class=\"source-chip "
-                    f"{chip_class}\" "
-                    f"data-pair=\"{pair_html}\" "
-                    f"data-case-id=\"{case_id_html}\" "
-                    f"data-target=\"{target_html}\" "
-                    f"data-phrase=\"{source_html}\" "
-                    f"data-base-label=\"{base_label}\" "
-                    f"data-current-label=\"{base_label}\" "
-                    "title=\"Right-click to label\">"
+                    '<button type="button" class="source-chip '
+                    f'{chip_class}" '
+                    f'data-pair="{pair_html}" '
+                    f'data-case-id="{case_id_html}" '
+                    f'data-target="{target_html}" '
+                    f'data-phrase="{source_html}" '
+                    f'data-base-label="{base_label}" '
+                    f'data-current-label="{base_label}" '
+                    'title="Right-click to label">'
                     f"{source_html}</button>"
                 )
-            all_sources_html = "".join(source_chips) if source_chips else "<span class=\"text-muted\">-</span>"
+            all_sources_html = (
+                "".join(source_chips) if source_chips else '<span class="text-muted">-</span>'
+            )
             label_hint = _escape_html(f"G:{len(known_green)} / B:{len(known_black)}")
 
             top1_source = _escape_html(case_result.get("top1_source", "-") or "-")
             top1_conf = _format_optional_float(case_result.get("top1_confidence"), digits=4)
             top3_sources_raw = case_result.get("top3_sources")
-            if isinstance(top3_sources_raw, Sequence) and not isinstance(top3_sources_raw, (str, bytes)):
+            if isinstance(top3_sources_raw, Sequence) and not isinstance(
+                top3_sources_raw, (str, bytes)
+            ):
                 top3_sources = ", ".join(_escape_html(item) for item in top3_sources_raw) or "-"
             else:
                 top3_sources = "-"
@@ -169,38 +175,34 @@ def render_html_report(
             )
 
         pair_sections.append(
-            f"<section class=\"pair-section\" data-pair=\"{pair_html}\">"
-            f"<div class=\"pair-head\"><h2>{pair_html}</h2>"
+            f'<section class="pair-section" data-pair="{pair_html}">'
+            f'<div class="pair-head"><h2>{pair_html}</h2>'
             f"<p>best objective <strong>{best_summary.objective_score:.3f}</strong> "
             f"| top1 {_format_percent(best_summary.top1_accuracy)} "
             f"| top3 {_format_percent(best_summary.top3_recall)}</p></div>"
-            "<div class=\"metric-grid\">"
-            f"<article class=\"metric-card\"><h3>Top1</h3><p>{_format_percent(best_summary.top1_accuracy)}</p></article>"
-            f"<article class=\"metric-card\"><h3>Top3</h3><p>{_format_percent(best_summary.top3_recall)}</p></article>"
-            f"<article class=\"metric-card\"><h3>Forbidden Top1</h3><p>{_format_percent(best_summary.forbidden_top1_rate)}</p></article>"
-            f"<article class=\"metric-card\"><h3>Forbidden Any</h3><p>{_format_percent(best_summary.forbidden_any_rate)}</p></article>"
-            f"<article class=\"metric-card\"><h3>Avg Rules</h3><p>{best_summary.avg_rules_per_target:.2f}</p></article>"
-            f"<article class=\"metric-card\"><h3>Variant Top1</h3><p>{_format_percent(best_summary.variant_top1_rate)}</p></article>"
+            '<div class="metric-grid">'
+            f'<article class="metric-card"><h3>Top1</h3><p>{_format_percent(best_summary.top1_accuracy)}</p></article>'
+            f'<article class="metric-card"><h3>Top3</h3><p>{_format_percent(best_summary.top3_recall)}</p></article>'
+            f'<article class="metric-card"><h3>Forbidden Top1</h3><p>{_format_percent(best_summary.forbidden_top1_rate)}</p></article>'
+            f'<article class="metric-card"><h3>Forbidden Any</h3><p>{_format_percent(best_summary.forbidden_any_rate)}</p></article>'
+            f'<article class="metric-card"><h3>Avg Rules</h3><p>{best_summary.avg_rules_per_target:.2f}</p></article>'
+            f'<article class="metric-card"><h3>Variant Top1</h3><p>{_format_percent(best_summary.variant_top1_rate)}</p></article>'
             "</div>"
             "<details open>"
             "<summary>Leaderboard</summary>"
-            "<div class=\"table-wrap\"><table><thead><tr>"
+            '<div class="table-wrap"><table><thead><tr>'
             "<th>Rank</th><th>Objective</th><th>Top1</th><th>Top3</th><th>Forbidden Top1</th>"
             "<th>Forbidden Any</th><th>Avg Rules</th><th>Config</th>"
-            "</tr></thead><tbody>"
-            + "".join(top_rows)
-            + "</tbody></table></div>"
+            "</tr></thead><tbody>" + "".join(top_rows) + "</tbody></table></div>"
             "</details>"
             "<details>"
             "<summary>Best Run Case Diagnostics + Labeling</summary>"
-            "<div class=\"table-wrap\"><table><thead><tr>"
+            '<div class="table-wrap"><table><thead><tr>'
             "<th>Status</th><th>Case</th><th>Target</th><th>Top1 Source</th><th>Top1 Conf</th><th>Top3 Sources</th>"
             "<th>All Sources (right-click chips)</th><th>Known Labels</th>"
             "<th>Top1 Correct</th><th>Top3 Hit</th><th>Top1 Forbidden</th><th>Forbidden Any</th>"
             "<th>Rules</th><th>Variants</th>"
-            "</tr></thead><tbody>"
-            + "".join(case_rows)
-            + "</tbody></table></div>"
+            "</tr></thead><tbody>" + "".join(case_rows) + "</tbody></table></div>"
             "</details>"
             "</section>"
         )
@@ -661,10 +663,10 @@ applyPairVisibility({ scroll: false });
     return "".join(
         [
             "<!doctype html>",
-            "<html lang=\"en\">",
+            '<html lang="en">',
             "<head>",
-            "<meta charset=\"utf-8\">",
-            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+            '<meta charset="utf-8">',
+            '<meta name="viewport" content="width=device-width, initial-scale=1">',
             "<title>LexiShift Rulegen Benchmark</title>",
             "<style>",
             ":root{",
@@ -743,49 +745,47 @@ applyPairVisibility({ scroll: false });
             "<main>",
             "<header>",
             "<h1>Rulegen Benchmark Dashboard</h1>",
-            "<div class=\"meta\">",
+            '<div class="meta">',
             f"<span>generated <code>{generated_at}</code></span>",
             f"<span>pairs <code>{len(pair_runs)}</code></span>",
             f"<span>configs per pair <code>{configuration_count}</code></span>",
             f"<span>profile <code>{profile_id}</code></span>",
             f"<span>data root <code>{data_root}</code></span>",
             "</div>",
-            "<section class=\"label-workbench\">",
+            '<section class="label-workbench">',
             "<p>Right-click any source chip to mark greenlist or blacklist. Export the decisions JSON to update benchmark cases.</p>",
-            "<div class=\"label-actions\">",
-            "<button id=\"download-labels\" class=\"btn\" type=\"button\">Download labels JSON</button>",
-            "<button id=\"copy-labels\" class=\"btn btn-secondary\" type=\"button\">Copy labels JSON</button>",
-            "<button id=\"clear-labels\" class=\"btn btn-secondary\" type=\"button\">Clear local labels</button>",
-            "<span id=\"label-count\">0 decisions across 0 cases</span>",
+            '<div class="label-actions">',
+            '<button id="download-labels" class="btn" type="button">Download labels JSON</button>',
+            '<button id="copy-labels" class="btn btn-secondary" type="button">Copy labels JSON</button>',
+            '<button id="clear-labels" class="btn btn-secondary" type="button">Clear local labels</button>',
+            '<span id="label-count">0 decisions across 0 cases</span>',
             f"<span>dataset <code>{dataset_path}</code></span>",
             "</div>",
-            "<div class=\"pair-workflow\">",
-            "<div class=\"pair-workflow-head\">",
-            "<span id=\"pair-workflow-state\" class=\"pair-workflow-state\">LP workflow</span>",
-            "<div class=\"pair-workflow-buttons\">",
-            "<button id=\"prev-pair\" class=\"btn btn-secondary\" type=\"button\">Prev LP</button>",
-            "<button id=\"next-pair\" class=\"btn btn-secondary\" type=\"button\">Next LP</button>",
-            "<button id=\"mark-pair-done\" class=\"btn\" type=\"button\">Mark Done + Next</button>",
-            "<button id=\"skip-pair\" class=\"btn btn-secondary\" type=\"button\">Skip LP</button>",
-            "<button id=\"reset-pair-status\" class=\"btn btn-secondary\" type=\"button\">Reset LP</button>",
-            "<label class=\"show-all-wrap\"><input id=\"show-all-pairs\" type=\"checkbox\">Show all LPs</label>",
+            '<div class="pair-workflow">',
+            '<div class="pair-workflow-head">',
+            '<span id="pair-workflow-state" class="pair-workflow-state">LP workflow</span>',
+            '<div class="pair-workflow-buttons">',
+            '<button id="prev-pair" class="btn btn-secondary" type="button">Prev LP</button>',
+            '<button id="next-pair" class="btn btn-secondary" type="button">Next LP</button>',
+            '<button id="mark-pair-done" class="btn" type="button">Mark Done + Next</button>',
+            '<button id="skip-pair" class="btn btn-secondary" type="button">Skip LP</button>',
+            '<button id="reset-pair-status" class="btn btn-secondary" type="button">Reset LP</button>',
+            '<label class="show-all-wrap"><input id="show-all-pairs" type="checkbox">Show all LPs</label>',
             "</div>",
             "</div>",
-            "<div id=\"pair-nav-list\" class=\"pair-nav\"></div>",
+            '<div id="pair-nav-list" class="pair-nav"></div>',
             "</div>",
             "</section>",
             "</header>",
             "".join(pair_sections),
             "</main>",
-            "<div id=\"label-menu\" class=\"label-menu\" hidden>",
-            "<button type=\"button\" data-action=\"green\">Greenlist</button>",
-            "<button type=\"button\" data-action=\"black\">Blacklist</button>",
-            "<button type=\"button\" data-action=\"neutral\">Clear label</button>",
+            '<div id="label-menu" class="label-menu" hidden>',
+            '<button type="button" data-action="green">Greenlist</button>',
+            '<button type="button" data-action="black">Blacklist</button>',
+            '<button type="button" data-action="neutral">Clear label</button>',
             "</div>",
             label_script,
             "</body>",
             "</html>",
         ]
     )
-
-

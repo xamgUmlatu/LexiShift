@@ -55,7 +55,9 @@ class MainWindowImportExportMixin:
 
     def _export_code(self) -> None:
         payload = export_dataset_code(self.state.dataset)
-        dialog = CodeDialog(t("dialogs.export_ruleset_code.title"), code=payload, read_only=True, parent=self)
+        dialog = CodeDialog(
+            t("dialogs.export_ruleset_code.title"), code=payload, read_only=True, parent=self
+        )
         dialog.exec()
 
     def _export_profiles_json(self) -> None:
@@ -73,7 +75,9 @@ class MainWindowImportExportMixin:
 
     def _export_profiles_code(self) -> None:
         payload = export_app_settings_code(self.state.settings)
-        dialog = CodeDialog(t("dialogs.export_profiles_code.title"), code=payload, read_only=True, parent=self)
+        dialog = CodeDialog(
+            t("dialogs.export_profiles_code.title"), code=payload, read_only=True, parent=self
+        )
         dialog.exec()
 
     def _import_json(self) -> None:
@@ -144,7 +148,9 @@ class MainWindowImportExportMixin:
             settings = import_app_settings_json(payload)
         self._apply_imported_profiles_settings(settings=settings, source_path=Path(path))
 
-    def _apply_imported_profiles_settings(self, *, settings, source_path: Optional[Path] = None) -> None:
+    def _apply_imported_profiles_settings(
+        self, *, settings, source_path: Optional[Path] = None
+    ) -> None:
         self.state.update_settings(settings)
         self._refresh_embedding_index()
         self._load_active_profile()

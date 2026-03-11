@@ -3,13 +3,18 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
+        stages: [pre-commit]
       - id: end-of-file-fixer
+        stages: [pre-commit]
       - id: check-yaml
+        stages: [pre-commit]
       - id: check-toml
+        stages: [pre-commit]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.8
     hooks:
       - id: ruff-format
+        stages: [pre-commit]
   - repo: local
     hooks:
       - id: betterdiscord-plugin-build-check
@@ -18,11 +23,13 @@ repos:
         language: system
         pass_filenames: false
         files: ^(apps/betterdiscord-plugin/src/|apps/chrome-extension/content/processing/tokenizer\.js|apps/chrome-extension/content/processing/matcher\.js|apps/chrome-extension/shared/language/language_prefs\.js|apps/betterdiscord-plugin/build_plugin\.js)
+        stages: [pre-commit]
       - id: project-health-changed
         name: project-health-changed
         entry: node scripts/dev/check_project_health.js --changed-only --staged --baseline-json docs/test_outputs/project_health/project_health_baseline.json --fail-on-new --fail-on-regressions
         language: system
         pass_filenames: false
+        stages: [pre-commit]
       - id: repo-safety-check
         name: repo-safety-check
         entry: npm --prefix scripts run check

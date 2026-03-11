@@ -11,15 +11,11 @@ from urllib import error as url_error
 from urllib import request as url_request
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-REGISTER_PATH = PROJECT_ROOT / "docs" / "language_pairs" / "data_source_licensing_and_distribution.md"
-URL_REGISTRY_PATH = PROJECT_ROOT / "docs" / "language_pairs" / "language_pack_urls.txt"
-DEFAULT_JSON_OUT = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_outputs"
-    / "licensing_header_audit"
-    / "latest.json"
+REGISTER_PATH = (
+    PROJECT_ROOT / "docs" / "language_pairs" / "data_source_licensing_and_distribution.md"
 )
+URL_REGISTRY_PATH = PROJECT_ROOT / "docs" / "language_pairs" / "language_pack_urls.txt"
+DEFAULT_JSON_OUT = PROJECT_ROOT / "docs" / "test_outputs" / "licensing_header_audit" / "latest.json"
 
 LICENSE_KEYWORDS = (
     "license",
@@ -102,7 +98,9 @@ class LicenseAuditReport:
 
 def parse_args(*, data_root_default: Path) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description=("Download and inspect header/license snippets for rows in the licensing register.")
+        description=(
+            "Download and inspect header/license snippets for rows in the licensing register."
+        )
     )
     parser.add_argument(
         "--register",
@@ -400,7 +398,11 @@ def probe_local_artifact(path: Path | None, *, max_lines: int) -> LocalArtifactP
         for pattern in ("LICENSE*", "COPYING*", "README*", "*.md", "*.txt"):
             candidate_files.extend(path.glob(pattern))
         candidate_files = sorted(
-            {candidate.resolve(strict=False) for candidate in candidate_files if candidate.is_file()},
+            {
+                candidate.resolve(strict=False)
+                for candidate in candidate_files
+                if candidate.is_file()
+            },
             key=lambda item: item.name.lower(),
         )
         if candidate_files:
@@ -480,8 +482,12 @@ def probe_local_artifact(path: Path | None, *, max_lines: int) -> LocalArtifactP
     )
 
 
-def resolve_artifact_probe(artifact_cell: str, data_root: Path, *, max_lines: int) -> LocalArtifactProbe:
-    return probe_local_artifact(_resolve_artifact_path(artifact_cell, data_root), max_lines=max_lines)
+def resolve_artifact_probe(
+    artifact_cell: str, data_root: Path, *, max_lines: int
+) -> LocalArtifactProbe:
+    return probe_local_artifact(
+        _resolve_artifact_path(artifact_cell, data_root), max_lines=max_lines
+    )
 
 
 def print_summary(report: LicenseAuditReport) -> None:

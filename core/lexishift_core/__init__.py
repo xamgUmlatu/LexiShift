@@ -26,7 +26,12 @@ from lexishift_core.replacement.inflect import (
     InflectionSpec,
     expand_phrase,
 )
-from lexishift_core.replacement.pipeline import ReplacementMode, ReplacementPipeline, build_meaning_pool, compile_pipeline
+from lexishift_core.replacement.pipeline import (
+    ReplacementMode,
+    ReplacementPipeline,
+    build_meaning_pool,
+    compile_pipeline,
+)
 from lexishift_core.persistence.import_export import (
     export_app_settings_json,
     export_app_settings_code,

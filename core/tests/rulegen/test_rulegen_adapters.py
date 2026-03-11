@@ -50,11 +50,7 @@ class TestRulegenAdapters(unittest.TestCase):
     def test_en_ja_dispatches_to_ja_en_generator(self) -> None:
         with patch(
             "lexishift_core.rulegen.adapters.generate_ja_en_results",
-            return_value=[
-                SimpleNamespace(
-                    rule=VocabRule(source_phrase="word", replacement="語")
-                )
-            ],
+            return_value=[SimpleNamespace(rule=VocabRule(source_phrase="word", replacement="語"))],
         ) as generate:
             rules = run_rules_with_adapter(
                 RulegenAdapterRequest(
@@ -100,9 +96,7 @@ class TestRulegenAdapters(unittest.TestCase):
         with patch(
             "lexishift_core.rulegen.adapters.generate_en_de_results",
             return_value=[
-                SimpleNamespace(
-                    rule=VocabRule(source_phrase="house", replacement="Haus")
-                )
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
             ],
         ) as generate:
             rules = run_rules_with_adapter(
@@ -165,9 +159,7 @@ class TestRulegenAdapters(unittest.TestCase):
         with patch(
             "lexishift_core.rulegen.adapters.generate_en_es_results",
             return_value=[
-                SimpleNamespace(
-                    rule=VocabRule(source_phrase="house", replacement="casa")
-                )
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
             ],
         ) as generate:
             rules = run_rules_with_adapter(
@@ -198,9 +190,7 @@ class TestRulegenAdapters(unittest.TestCase):
         with patch(
             "lexishift_core.rulegen.adapters.generate_en_es_results",
             return_value=[
-                SimpleNamespace(
-                    rule=VocabRule(source_phrase="house", replacement="casa")
-                )
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
             ],
         ) as generate:
             run_rules_with_adapter(
@@ -671,9 +661,7 @@ class TestRulegenAdapters(unittest.TestCase):
         with patch(
             "lexishift_core.rulegen.adapters.generate_es_en_results",
             return_value=[
-                SimpleNamespace(
-                    rule=VocabRule(source_phrase="casa", replacement="house")
-                )
+                SimpleNamespace(rule=VocabRule(source_phrase="casa", replacement="house"))
             ],
         ) as generate:
             run_rules_with_adapter(

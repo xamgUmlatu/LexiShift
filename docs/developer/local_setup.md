@@ -24,6 +24,9 @@ Installed pre-commit hooks currently cover:
 - pre-push repo safety via `npm --prefix scripts run check`
 
 `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push` hooks.
+Current split:
+- `pre-commit`: hygiene fixers, BetterDiscord freshness, changed-only project health
+- `pre-push`: repo safety via `npm --prefix scripts run check`
 
 ## Core Validation Loop
 

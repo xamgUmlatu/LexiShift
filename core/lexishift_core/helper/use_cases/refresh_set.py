@@ -50,12 +50,14 @@ def refresh_srs_set(
         pair=pair,
         requested_size=config.feedback_window_size,
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = resolve_pair_resources_fn(
-        paths,
-        pair=pair,
-        jmdict_path=config.jmdict_path,
-        freedict_de_en_path=config.freedict_de_en_path,
-        set_source_db=config.set_source_db,
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+        resolve_pair_resources_fn(
+            paths,
+            pair=pair,
+            jmdict_path=config.jmdict_path,
+            freedict_de_en_path=config.freedict_de_en_path,
+            set_source_db=config.set_source_db,
+        )
     )
     ensure_pair_requirements_fn(
         pair=pair,
@@ -194,9 +196,5 @@ def _normalize_allowed_pos(value: object) -> set[str]:
         candidates = list(value)
     else:
         return set()
-    normalized = {
-        str(item).strip().lower()
-        for item in candidates
-        if str(item).strip()
-    }
+    normalized = {str(item).strip().lower() for item in candidates if str(item).strip()}
     return normalized

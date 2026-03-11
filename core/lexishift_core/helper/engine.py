@@ -296,9 +296,8 @@ def _ensure_pair_requirements(
         fromlist=["resolve_pair_capability"],
     )
     capability = lp_capabilities.resolve_pair_capability(pair)
-    requires_jmdict = (
-        (check_seed_resources and capability.requires_jmdict_for_seed)
-        or (check_rulegen_resources and capability.requires_jmdict_for_rulegen)
+    requires_jmdict = (check_seed_resources and capability.requires_jmdict_for_seed) or (
+        check_rulegen_resources and capability.requires_jmdict_for_rulegen
     )
     if requires_jmdict:
         if jmdict_path is None:

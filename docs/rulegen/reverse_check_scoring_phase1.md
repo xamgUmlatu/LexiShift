@@ -1,6 +1,6 @@
 # Reverse-Check Scoring (Phase 1) Specification
 
-Status: implemented (configurable, conservative defaults)  
+Status: implemented (configurable, conservative defaults)
 Last updated: 2026-02-28
 
 ## Goal
@@ -18,7 +18,7 @@ Primary immediate target:
 
 ## Problem Statement
 
-Current ranking is mostly based on dictionary gloss order + existing scoring signals.  
+Current ranking is mostly based on dictionary gloss order + existing scoring signals.
 This allows cases where a low-congruity forward gloss survives if listed early.
 
 Reverse-check scoring is designed to reduce these failures without adding sentence-level context.

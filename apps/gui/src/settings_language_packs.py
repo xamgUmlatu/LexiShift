@@ -48,6 +48,7 @@ from settings_language_packs_support import (
 )
 from theme_manager import resolve_current_theme
 
+
 class LanguagePackPanel(
     LanguagePackPanelLayoutMixin,
     LanguagePackPanelPathMixin,
@@ -167,8 +168,12 @@ class LanguagePackPanel(
 
         self._resource_tabs = QTabWidget(self)
         self._resource_tabs.addTab(self._build_language_pack_tab(), t("language_packs.title"))
-        self._resource_tabs.addTab(self._build_frequency_pack_tab(), t("language_packs.frequency_title"))
-        self._resource_tabs.addTab(self._build_embedding_pack_tab(), t("language_packs.embeddings_title"))
+        self._resource_tabs.addTab(
+            self._build_frequency_pack_tab(), t("language_packs.frequency_title")
+        )
+        self._resource_tabs.addTab(
+            self._build_embedding_pack_tab(), t("language_packs.embeddings_title")
+        )
         self._resource_tabs.addTab(
             self._build_cross_embedding_pack_tab(),
             t("language_packs.cross_embeddings_title"),
@@ -185,7 +190,9 @@ class LanguagePackPanel(
         row.status_item.setText(t("language_packs.status.downloading"))
         self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
-        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
+        self._set_status_message(
+            t("language_packs.downloading", name=pack.display_name()), tone="info"
+        )
         thread = LanguagePackDownloadThread(pack, dest_path, self)
         thread.progress.connect(self._on_language_pack_progress)
         thread.completed.connect(self._on_language_pack_completed)
@@ -204,7 +211,9 @@ class LanguagePackPanel(
         row.status_item.setText(t("language_packs.status.downloading"))
         self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
-        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
+        self._set_status_message(
+            t("language_packs.downloading", name=pack.display_name()), tone="info"
+        )
         thread = FrequencyPackDownloadThread(pack, archive_path, sqlite_path, self)
         thread.progress.connect(self._on_frequency_pack_progress)
         thread.completed.connect(self._on_frequency_pack_completed)
@@ -223,7 +232,9 @@ class LanguagePackPanel(
         self._set_status_item_tone(row.status_item, "info")
         row.download_button.setEnabled(False)
         row.use_button.setEnabled(False)
-        self._set_status_message(t("language_packs.downloading", name=pack.display_name()), tone="info")
+        self._set_status_message(
+            t("language_packs.downloading", name=pack.display_name()), tone="info"
+        )
         thread = LanguagePackDownloadThread(pack, dest_path, self)
         thread.progress.connect(self._on_embedding_pack_progress)
         thread.completed.connect(self._on_embedding_pack_completed)
@@ -305,7 +316,11 @@ class LanguagePackPanel(
         if not path:
             return
         if not os.path.isfile(path):
-            QMessageBox.warning(self, t("dialogs.invalid_resource.title"), t("language_packs.validation.expected_file", name=pack.display_name()))
+            QMessageBox.warning(
+                self,
+                t("dialogs.invalid_resource.title"),
+                t("language_packs.validation.expected_file", name=pack.display_name()),
+            )
             return
         self._embedding_pack_paths[pack_id] = path
         self._set_status_message(
@@ -328,7 +343,11 @@ class LanguagePackPanel(
             delete_paths.append(local_path)
         if archive_path and os.path.exists(archive_path) and self._is_app_data_path(archive_path):
             delete_paths.append(archive_path)
-        if resolved_path and os.path.exists(resolved_path) and self._is_app_data_path(resolved_path):
+        if (
+            resolved_path
+            and os.path.exists(resolved_path)
+            and self._is_app_data_path(resolved_path)
+        ):
             delete_paths.append(resolved_path)
         delete_paths = list(dict.fromkeys(delete_paths))
         unlink_only = local_path and not delete_paths
@@ -371,9 +390,17 @@ class LanguagePackPanel(
         delete_paths = []
         if local_path and self._is_frequency_pack_data_path(local_path):
             delete_paths.append(local_path)
-        if archive_path and os.path.exists(archive_path) and self._is_frequency_pack_data_path(archive_path):
+        if (
+            archive_path
+            and os.path.exists(archive_path)
+            and self._is_frequency_pack_data_path(archive_path)
+        ):
             delete_paths.append(archive_path)
-        if sqlite_path and os.path.exists(sqlite_path) and self._is_frequency_pack_data_path(sqlite_path):
+        if (
+            sqlite_path
+            and os.path.exists(sqlite_path)
+            and self._is_frequency_pack_data_path(sqlite_path)
+        ):
             delete_paths.append(sqlite_path)
         delete_paths = list(dict.fromkeys(delete_paths))
         unlink_only = local_path and not delete_paths
@@ -415,22 +442,38 @@ class LanguagePackPanel(
         archive_path = self._download_archive_path(pack, embeddings=True)
         archive_optimized_path = self._embedding_sqlite_path(archive_path)
         resolved_path = self._resolve_downloaded_path(pack, embeddings=True)
-        resolved_optimized_path = self._embedding_sqlite_path(resolved_path) if resolved_path else None
+        resolved_optimized_path = (
+            self._embedding_sqlite_path(resolved_path) if resolved_path else None
+        )
         delete_paths = []
         if local_path and self._is_app_data_path(local_path, embeddings=True):
             delete_paths.append(local_path)
         if local_optimized_path and local_optimized_path != local_path:
-            if os.path.exists(local_optimized_path) and self._is_app_data_path(local_optimized_path, embeddings=True):
+            if os.path.exists(local_optimized_path) and self._is_app_data_path(
+                local_optimized_path, embeddings=True
+            ):
                 delete_paths.append(local_optimized_path)
-        if archive_path and os.path.exists(archive_path) and self._is_app_data_path(archive_path, embeddings=True):
+        if (
+            archive_path
+            and os.path.exists(archive_path)
+            and self._is_app_data_path(archive_path, embeddings=True)
+        ):
             delete_paths.append(archive_path)
         if archive_optimized_path and archive_optimized_path != archive_path:
-            if os.path.exists(archive_optimized_path) and self._is_app_data_path(archive_optimized_path, embeddings=True):
+            if os.path.exists(archive_optimized_path) and self._is_app_data_path(
+                archive_optimized_path, embeddings=True
+            ):
                 delete_paths.append(archive_optimized_path)
-        if resolved_path and os.path.exists(resolved_path) and self._is_app_data_path(resolved_path, embeddings=True):
+        if (
+            resolved_path
+            and os.path.exists(resolved_path)
+            and self._is_app_data_path(resolved_path, embeddings=True)
+        ):
             delete_paths.append(resolved_path)
         if resolved_optimized_path and resolved_optimized_path != resolved_path:
-            if os.path.exists(resolved_optimized_path) and self._is_app_data_path(resolved_optimized_path, embeddings=True):
+            if os.path.exists(resolved_optimized_path) and self._is_app_data_path(
+                resolved_optimized_path, embeddings=True
+            ):
                 delete_paths.append(resolved_optimized_path)
         delete_paths = list(dict.fromkeys(delete_paths))
         unlink_only = local_path and not delete_paths
@@ -460,7 +503,9 @@ class LanguagePackPanel(
         self._embedding_pack_paths.pop(pack_id, None)
         if pack.pair_key and local_path:
             pair_key = pack.pair_key
-            paths = [path for path in self._embedding_pair_paths.get(pair_key, []) if path != local_path]
+            paths = [
+                path for path in self._embedding_pair_paths.get(pair_key, []) if path != local_path
+            ]
             if paths:
                 self._embedding_pair_paths[pair_key] = paths
             else:

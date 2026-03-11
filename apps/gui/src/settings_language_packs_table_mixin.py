@@ -111,7 +111,9 @@ class LanguagePackPanelTableMixin:
             is_active = False
             if pair_key:
                 enabled = self._embedding_pair_enabled.get(pair_key, True)
-                active_paths = {os.path.abspath(path) for path in self._embedding_pair_paths.get(pair_key, [])}
+                active_paths = {
+                    os.path.abspath(path) for path in self._embedding_pair_paths.get(pair_key, [])
+                }
                 if enabled and local_path and os.path.abspath(local_path) in active_paths:
                     is_active = True
                 if enabled and resolved_path and os.path.abspath(resolved_path) in active_paths:
@@ -143,7 +145,9 @@ class LanguagePackPanelTableMixin:
                 row.download_button.setText(t("buttons.download"))
 
     def _embedding_row_for(self, pack_id: str) -> Optional[EmbeddingPackRow]:
-        return self._embedding_pack_rows.get(pack_id) or self._cross_embedding_pack_rows.get(pack_id)
+        return self._embedding_pack_rows.get(pack_id) or self._cross_embedding_pack_rows.get(
+            pack_id
+        )
 
     def _populate_language_packs(self) -> None:
         self._language_pack_rows.clear()
@@ -199,7 +203,9 @@ class LanguagePackPanelTableMixin:
             )
             local_button = QPushButton(t("buttons.select"))
             local_button.clicked.connect(
-                lambda checked=False, pack_id=pack.pack_id: self._select_frequency_pack_path(pack_id)
+                lambda checked=False, pack_id=pack.pack_id: self._select_frequency_pack_path(
+                    pack_id
+                )
             )
             delete_button = QPushButton(t("buttons.delete"))
             delete_button.clicked.connect(
@@ -267,7 +273,9 @@ class LanguagePackPanelTableMixin:
             )
             local_button = QPushButton(t("buttons.select"))
             local_button.clicked.connect(
-                lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(pack_id)
+                lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(
+                    pack_id
+                )
             )
             use_button = QPushButton(t("buttons.use_embedding"))
             use_button.clicked.connect(
@@ -340,7 +348,9 @@ class LanguagePackPanelTableMixin:
             )
             local_button = QPushButton(t("buttons.select"))
             local_button.clicked.connect(
-                lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(pack_id)
+                lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(
+                    pack_id
+                )
             )
             use_button = QPushButton(t("buttons.use_embedding"))
             use_button.clicked.connect(

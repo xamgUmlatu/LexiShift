@@ -131,7 +131,9 @@ class LanguagePackPanelStateMixin:
         self._embedding_pack_paths = dict(getattr(synonym_settings, "embedding_packs", {}) or {})
         self._embedding_pair_paths = {
             key: list(value)
-            for key, value in dict(getattr(synonym_settings, "embedding_pair_paths", {}) or {}).items()
+            for key, value in dict(
+                getattr(synonym_settings, "embedding_pair_paths", {}) or {}
+            ).items()
             if isinstance(value, (list, tuple))
         }
         self._embedding_pair_enabled = dict(

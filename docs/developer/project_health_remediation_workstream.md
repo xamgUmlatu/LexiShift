@@ -1,7 +1,7 @@
 # Project Health Remediation Workstream
 
-Status: active  
-Owner: engineering  
+Status: active
+Owner: engineering
 Last updated: 2026-02-28
 
 ## Objective

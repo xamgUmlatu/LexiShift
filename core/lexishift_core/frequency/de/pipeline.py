@@ -61,9 +61,7 @@ MORFOLOGIK_TOOLS = {
         "https://repo1.maven.org/maven2/org/carrot2/morfologik-stemming/2.1.9/"
         "morfologik-stemming-2.1.9.jar"
     ),
-    "hppc-0.7.2.jar": (
-        "https://repo1.maven.org/maven2/com/carrotsearch/hppc/0.7.2/hppc-0.7.2.jar"
-    ),
+    "hppc-0.7.2.jar": ("https://repo1.maven.org/maven2/com/carrotsearch/hppc/0.7.2/hppc-0.7.2.jar"),
     "jcommander-1.78.jar": (
         "https://repo1.maven.org/maven2/com/beust/jcommander/1.78/jcommander-1.78.jar"
     ),
@@ -389,10 +387,13 @@ def _convert_morfologik_decompiled_to_tsv(
 ) -> int:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     rows_written = 0
-    with input_path.open("r", encoding="utf-8", errors="ignore") as source, output_path.open(
-        "w",
-        encoding="utf-8",
-    ) as target:
+    with (
+        input_path.open("r", encoding="utf-8", errors="ignore") as source,
+        output_path.open(
+            "w",
+            encoding="utf-8",
+        ) as target,
+    ):
         for raw in source:
             line = raw.strip()
             if not line:
@@ -635,7 +636,9 @@ def main() -> None:
         f" whitelist_enabled={result.filter_config.whitelist_enabled}"
     )
     if result.requested_whitelist_enabled and not result.filter_config.whitelist_enabled:
-        print("Note: whitelist filtering was requested but no whitelist lemmas were available; disabled.")
+        print(
+            "Note: whitelist filtering was requested but no whitelist lemmas were available; disabled."
+        )
     print(
         "Filter stats:"
         f" dropped_min_lemma_count={result.stats.dropped_min_lemma_count:,},"

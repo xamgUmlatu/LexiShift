@@ -518,7 +518,9 @@ def main() -> None:
         "--pairs",
         help="Optional comma-separated pair filter (default: all pairs present in dataset).",
     )
-    parser.add_argument("--profile-id", default="default", help="SRS profile id for word_package hints.")
+    parser.add_argument(
+        "--profile-id", default="default", help="SRS profile id for word_package hints."
+    )
     parser.add_argument(
         "--data-root",
         type=Path,
@@ -598,9 +600,7 @@ def main() -> None:
     args = parser.parse_args()
 
     pair_filter = (
-        {item.strip().lower() for item in _parse_csv_strings(args.pairs)}
-        if args.pairs
-        else None
+        {item.strip().lower() for item in _parse_csv_strings(args.pairs)} if args.pairs else None
     )
     dataset_payload, cases_by_pair = _load_dataset_cases(args.dataset, pair_filter=pair_filter)
     if not cases_by_pair:
@@ -697,9 +697,7 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "dataset_path": str(args.dataset),
         "dataset_metadata": {
-            key: value
-            for key, value in dataset_payload.items()
-            if key != "cases"
+            key: value for key, value in dataset_payload.items() if key != "cases"
         },
         "profile_id": str(args.profile_id),
         "data_root": str(paths.data_root),
@@ -724,10 +722,7 @@ def main() -> None:
             "case_count": len(cases_by_pair.get(pair, ())),
             "run_count": len(runs),
             "best_run": runs[0].to_dict(include_case_results=True) if runs else None,
-            "runs": [
-                run.to_dict(include_case_results=args.include_case_results)
-                for run in runs
-            ],
+            "runs": [run.to_dict(include_case_results=args.include_case_results) for run in runs],
         }
 
     top_runs = max(1, int(args.top_runs))

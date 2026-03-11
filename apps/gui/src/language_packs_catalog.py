@@ -87,6 +87,7 @@ class FrequencyPackInfo:
     def display_source(self) -> str:
         return t(self.source_key) if self.source_key else self.source
 
+
 LANGUAGE_PACKS = [
     LanguagePackInfo(
         pack_id="wordnet-en",
@@ -457,5 +458,3 @@ FREQUENCY_PACKS = [
         index_column="lemma",
     ),
 ]
-
-

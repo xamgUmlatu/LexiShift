@@ -38,6 +38,7 @@ except Exception:  # noqa: BLE001
         parse_args,
     )
 
+
 @dataclass(frozen=True)
 class BuildStats:
     input_rows: int
@@ -716,7 +717,9 @@ def main() -> None:
         f" whitelist_enabled={result.filter_config.whitelist_enabled}"
     )
     if result.requested_whitelist_enabled and not result.filter_config.whitelist_enabled:
-        print("Note: whitelist filtering was requested but no whitelist lemmas were available; disabled.")
+        print(
+            "Note: whitelist filtering was requested but no whitelist lemmas were available; disabled."
+        )
     print(
         "Filter stats:"
         f" dropped_min_lemma_count={result.stats.dropped_min_lemma_count:,},"

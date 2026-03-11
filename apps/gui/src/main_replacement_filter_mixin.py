@@ -63,7 +63,9 @@ class MainWindowReplacementFilterMixin:
         pair_key = self._embedding_pair_for_replacement(replacement)
         has_embeddings = bool(pair_key and pair_key in self._embedding_indices)
         scope = self._replacement_filter_scope(replacement)
-        enabled = has_embeddings and has_selection and scope != "none" and not self._embedding_loading
+        enabled = (
+            has_embeddings and has_selection and scope != "none" and not self._embedding_loading
+        )
         self.replacement_threshold_slider.setEnabled(enabled)
         self.replacement_threshold_value.setEnabled(enabled)
         self.embedding_progress.setVisible(self._embedding_loading)
@@ -195,10 +197,14 @@ class MainWindowReplacementFilterMixin:
             return settings.embedding_threshold
         return 0.0
 
-    def _on_replacement_selected(self, current: Optional[QListWidgetItem], _previous: Optional[QListWidgetItem]) -> None:
+    def _on_replacement_selected(
+        self, current: Optional[QListWidgetItem], _previous: Optional[QListWidgetItem]
+    ) -> None:
         replacement = current.data(Qt.UserRole) if current else None
         if replacement:
-            threshold = self._replacement_thresholds.get(replacement, self._default_embedding_threshold())
+            threshold = self._replacement_thresholds.get(
+                replacement, self._default_embedding_threshold()
+            )
             self._replacement_slider_updating = True
             self.replacement_threshold_slider.setValue(int(round(threshold * 100)))
             self.replacement_threshold_value.setText(f"{threshold:.2f}")
@@ -228,7 +234,9 @@ class MainWindowReplacementFilterMixin:
         self._replacement_thresholds[replacement] = threshold
         self._apply_replacement_threshold(replacement, threshold)
 
-    def _on_embeddings_loaded(self, load_id: int, pair_key: str, index: Optional[EmbeddingIndex], error: str) -> None:
+    def _on_embeddings_loaded(
+        self, load_id: int, pair_key: str, index: Optional[EmbeddingIndex], error: str
+    ) -> None:
         if load_id != self._embedding_load_id:
             return
         self._embedding_loading = False

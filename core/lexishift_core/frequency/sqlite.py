@@ -204,7 +204,9 @@ def _convert_value(value: str, column_type: str):
 _POS_SPLIT_PATTERN = re.compile(r"[|/,;]+")
 
 
-def _resolve_pos_column_indexes(column_names: Sequence[str], pos_columns: Sequence[str]) -> list[int]:
+def _resolve_pos_column_indexes(
+    column_names: Sequence[str], pos_columns: Sequence[str]
+) -> list[int]:
     if not pos_columns:
         return []
     indexes: list[int] = []

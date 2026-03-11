@@ -87,7 +87,9 @@ def validate_dataset_contract(
                 )
         tier = str(case.get("tier") or "").strip()
         if allowed_tier_values and tier not in allowed_tier_values:
-            bad_tier_rows.append(f"index={index} case_id={case.get('case_id')} has invalid tier '{tier}'")
+            bad_tier_rows.append(
+                f"index={index} case_id={case.get('case_id')} has invalid tier '{tier}'"
+            )
         if pair and tier == "hard":
             hard_count_by_pair[pair] += 1
 
@@ -283,7 +285,9 @@ def validate_quality_floors(
         floor_failures: list[str] = []
         for floor_key, metric_key, threshold, actual in checks:
             if threshold > 0.0 and actual < threshold:
-                floor_failures.append(f"{metric_key}={actual:.4f} below {floor_key}={threshold:.4f}")
+                floor_failures.append(
+                    f"{metric_key}={actual:.4f} below {floor_key}={threshold:.4f}"
+                )
 
         if max_forbidden_top1 is not None:
             actual = as_float(summary.get("forbidden_top1_rate"), default=0.0)
@@ -361,7 +365,9 @@ def validate_delta_budgets(
     best_by_pair = pair_best_summary(benchmark_payload)
     budget_top1_drop = as_float(budgets.get("max_top1_accuracy_drop"), default=0.0)
     budget_top3_drop = as_float(budgets.get("max_top3_recall_drop"), default=0.0)
-    budget_forbidden_top1_inc = as_float(budgets.get("max_forbidden_top1_rate_increase"), default=0.0)
+    budget_forbidden_top1_inc = as_float(
+        budgets.get("max_forbidden_top1_rate_increase"), default=0.0
+    )
     budget_forbidden_any_inc = as_float(budgets.get("max_forbidden_any_rate_increase"), default=0.0)
     budget_avg_rules_inc = as_float(budgets.get("max_avg_rules_per_target_increase"), default=0.0)
 
@@ -396,10 +402,14 @@ def validate_delta_budgets(
         failures: list[str] = []
         top1_drop = max(0.0, base_top1 - cur_top1)
         if top1_drop > budget_top1_drop:
-            failures.append(f"top1_accuracy drop={top1_drop:.4f} exceeds budget={budget_top1_drop:.4f}")
+            failures.append(
+                f"top1_accuracy drop={top1_drop:.4f} exceeds budget={budget_top1_drop:.4f}"
+            )
         top3_drop = max(0.0, base_top3 - cur_top3)
         if top3_drop > budget_top3_drop:
-            failures.append(f"top3_recall drop={top3_drop:.4f} exceeds budget={budget_top3_drop:.4f}")
+            failures.append(
+                f"top3_recall drop={top3_drop:.4f} exceeds budget={budget_top3_drop:.4f}"
+            )
         forbidden_top1_inc = max(0.0, cur_forbidden_top1 - base_forbidden_top1)
         if forbidden_top1_inc > budget_forbidden_top1_inc:
             failures.append(
@@ -558,7 +568,11 @@ def validate_pos_guardrails(
         else None
     )
     baseline_mismatch_by_pair = baseline_mismatch if isinstance(baseline_mismatch, Mapping) else {}
-    baseline_unknown = baseline_payload.get("pos_unknown_counts") if isinstance(baseline_payload, Mapping) else None
+    baseline_unknown = (
+        baseline_payload.get("pos_unknown_counts")
+        if isinstance(baseline_payload, Mapping)
+        else None
+    )
     baseline_unknown_by_pack = baseline_unknown if isinstance(baseline_unknown, Mapping) else {}
 
     if pos_probe_payload is None:
@@ -725,5 +739,3 @@ def validate_pos_guardrails(
                     f"allowed_max={allowed_max} (baseline={base_count}, budget={budget})."
                 ),
             )
-
-

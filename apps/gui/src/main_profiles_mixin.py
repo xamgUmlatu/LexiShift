@@ -89,7 +89,9 @@ class MainWindowProfilesMixin:
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return False
         profile = dialog.profile()
-        if any(existing.profile_id == profile.profile_id for existing in self.state.settings.profiles):
+        if any(
+            existing.profile_id == profile.profile_id for existing in self.state.settings.profiles
+        ):
             QMessageBox.warning(self, t("dialogs.profile_id.title"), t("dialogs.profile_id.exists"))
             return False
         profiles = tuple(self.state.settings.profiles) + (profile,)
@@ -204,7 +206,9 @@ class MainWindowProfilesMixin:
             self._workspace_stack.setCurrentWidget(target)
 
     def _current_profile(self) -> Optional[Profile]:
-        return find_profile_by_id(self.state.settings.profiles, self.state.settings.active_profile_id)
+        return find_profile_by_id(
+            self.state.settings.profiles, self.state.settings.active_profile_id
+        )
 
     def _refresh_ruleset_ui(self) -> None:
         profile = self._current_profile()

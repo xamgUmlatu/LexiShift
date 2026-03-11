@@ -13,7 +13,9 @@ from urllib import request as url_request
 import zipfile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-REGISTER_PATH = PROJECT_ROOT / "docs" / "language_pairs" / "data_source_licensing_and_distribution.md"
+REGISTER_PATH = (
+    PROJECT_ROOT / "docs" / "language_pairs" / "data_source_licensing_and_distribution.md"
+)
 URL_REGISTRY_PATH = PROJECT_ROOT / "docs" / "language_pairs" / "language_pack_urls.txt"
 DEFAULT_JSON_OUT = (
     PROJECT_ROOT
@@ -402,14 +404,24 @@ def _download(
     max_download_bytes: int,
     timeout_seconds: float,
 ) -> tuple[str, int | None, str | None]:
-    request = url_request.Request(url, headers={"User-Agent": "LexiShift licensing-source-fetch/1.0"})
+    request = url_request.Request(
+        url, headers={"User-Agent": "LexiShift licensing-source-fetch/1.0"}
+    )
     try:
         with url_request.urlopen(request, timeout=timeout_seconds) as response:
             content_length_text = response.headers.get("Content-Length")
-            content_length = int(content_length_text) if content_length_text and content_length_text.isdigit() else None
+            content_length = (
+                int(content_length_text)
+                if content_length_text and content_length_text.isdigit()
+                else None
+            )
             if content_length is not None and content_length > max_download_bytes:
-                return "skipped_too_large", content_length, (
-                    f"content-length {content_length} exceeds max-download-bytes {max_download_bytes}"
+                return (
+                    "skipped_too_large",
+                    content_length,
+                    (
+                        f"content-length {content_length} exceeds max-download-bytes {max_download_bytes}"
+                    ),
                 )
             dest_path.parent.mkdir(parents=True, exist_ok=True)
             downloaded = 0
@@ -420,8 +432,10 @@ def _download(
                         break
                     downloaded += len(chunk)
                     if downloaded > max_download_bytes:
-                        return "skipped_too_large", downloaded, (
-                            f"download exceeded max-download-bytes {max_download_bytes}"
+                        return (
+                            "skipped_too_large",
+                            downloaded,
+                            (f"download exceeded max-download-bytes {max_download_bytes}"),
                         )
                     handle.write(chunk)
             return "downloaded", downloaded, None

@@ -89,7 +89,9 @@ class LanguagePackDownloadThread(QThread):
             request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
             with _open_request(request, timeout=30) as response:
                 status = getattr(response, "status", None)
-                _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
+                _log_download(
+                    f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
+                )
                 total = int(response.headers.get("Content-Length") or 0)
                 downloaded = 0
                 os.makedirs(os.path.dirname(self._dest_path), exist_ok=True)
@@ -144,7 +146,9 @@ class LanguagePackDownloadThread(QThread):
         if not self._pack.required_files:
             self._cleanup_archive(archive_path)
             return extracted_path
-        target_dir = extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
+        target_dir = (
+            extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
+        )
         required = list(self._pack.required_files)
         found = {}
         for root, _dirs, files in os.walk(target_dir):
@@ -236,7 +240,9 @@ class FrequencyPackDownloadThread(QThread):
         request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
         with _open_request(request, timeout=30) as response:
             status = getattr(response, "status", None)
-            _log_download(f"[{self._pack_id}] response status={status} final_url={response.geturl()}")
+            _log_download(
+                f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
+            )
             total = int(response.headers.get("Content-Length") or 0)
             downloaded = 0
             os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)

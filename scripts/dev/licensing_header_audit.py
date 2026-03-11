@@ -141,7 +141,9 @@ def main() -> int:
 
     json_out = args.json_out.expanduser().resolve(strict=False)
     json_out.parent.mkdir(parents=True, exist_ok=True)
-    json_out.write_text(json.dumps(report.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+    json_out.write_text(
+        json.dumps(report.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     print_summary(report)
     print(f"[licensing_header_audit] wrote {json_out}")
     return 0

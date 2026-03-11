@@ -20,7 +20,7 @@ TOKEN_ALLOWED = re.compile(
     r"^[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF]"
     r"[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF'-]*$"
 )
-TRIM_PUNCT = ".,;:!?\"`~^()[]{}<>|/\\"
+TRIM_PUNCT = '.,;:!?"`~^()[]{}<>|/\\'
 TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 
 PROPER_NOUN_TOKENS = {
@@ -42,7 +42,9 @@ def parse_args() -> argparse.Namespace:
             "([id]\\t[surface]\\t[count])."
         )
     )
-    parser.add_argument("--input", type=Path, required=True, help="Path to deu_news_2023_1M-words.txt")
+    parser.add_argument(
+        "--input", type=Path, required=True, help="Path to deu_news_2023_1M-words.txt"
+    )
     parser.add_argument(
         "--output",
         type=Path,
@@ -149,7 +151,9 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip lemmatization and use normalized surface forms as lemmas",
     )
-    parser.add_argument("--overwrite", action="store_true", help="Overwrite output DB if it already exists")
+    parser.add_argument(
+        "--overwrite", action="store_true", help="Overwrite output DB if it already exists"
+    )
     parser.add_argument(
         "--max-rows",
         type=int,

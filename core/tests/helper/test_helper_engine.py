@@ -30,7 +30,15 @@ from lexishift_core.helper.engine import (  # noqa: E402
 )
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
-from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore, load_srs_store, save_srs_settings, save_srs_store  # noqa: E402
+from lexishift_core.srs import (
+    SrsHistoryEntry,
+    SrsItem,
+    SrsSettings,
+    SrsStore,
+    load_srs_store,
+    save_srs_settings,
+    save_srs_store,
+)  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.tuning import resolve_pair_rulegen_tuning  # noqa: E402
 
@@ -166,9 +174,15 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
                 paths.srs_store_path_for(other_profile),
             )
 
-            paths.snapshot_path("en-ja", profile_id=default_profile).write_text("{}", encoding="utf-8")
-            paths.ruleset_path("en-ja", profile_id=default_profile).write_text("{}", encoding="utf-8")
-            paths.snapshot_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
+            paths.snapshot_path("en-ja", profile_id=default_profile).write_text(
+                "{}", encoding="utf-8"
+            )
+            paths.ruleset_path("en-ja", profile_id=default_profile).write_text(
+                "{}", encoding="utf-8"
+            )
+            paths.snapshot_path("en-ja", profile_id=other_profile).write_text(
+                "{}", encoding="utf-8"
+            )
             paths.ruleset_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
 
             result = reset_srs_data(paths, pair="en-ja", profile_id=other_profile)
@@ -205,12 +219,14 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             jmdict_dir = root / "jmdict"
             jmdict_dir.mkdir(parents=True, exist_ok=True)
 
-            with patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(SrsStore(), self._stub_output()),
-            ), patch("lexishift_core.helper.engine.write_rulegen_outputs") as write_outputs, patch(
-                "lexishift_core.helper.engine._update_status"
-            ) as update_status:
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(SrsStore(), self._stub_output()),
+                ),
+                patch("lexishift_core.helper.engine.write_rulegen_outputs") as write_outputs,
+                patch("lexishift_core.helper.engine._update_status") as update_status,
+            ):
                 result = run_rulegen_job(
                     paths,
                     config=RulegenJobConfig(
@@ -268,11 +284,13 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                 version=1,
             )
 
-            with patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(mutated_store, self._stub_output()),
-            ), patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
-                "lexishift_core.helper.engine._update_status"
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(mutated_store, self._stub_output()),
+                ),
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
             ):
                 run_rulegen_job(
                     paths,
@@ -325,11 +343,13 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                 paths.srs_store_path,
             )
 
-            with patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(load_srs_store(paths.srs_store_path), self._stub_output()),
-            ) as run_rulegen, patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
-                "lexishift_core.helper.engine._update_status"
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(load_srs_store(paths.srs_store_path), self._stub_output()),
+                ) as run_rulegen,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
             ):
                 result = run_rulegen_job(
                     paths,
@@ -361,11 +381,13 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             freedict_path = root / "spa-eng.tei"
             freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
 
-            with patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(SrsStore(), self._stub_output()),
-            ) as run_rulegen, patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
-                "lexishift_core.helper.engine._update_status"
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(SrsStore(), self._stub_output()),
+                ) as run_rulegen,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
             ):
                 run_rulegen_job(
                     paths,
@@ -435,11 +457,13 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             freedict_path = root / "spa-eng.tei"
             freedict_path.write_text("<TEI></TEI>", encoding="utf-8")
 
-            with patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(SrsStore(), self._stub_output()),
-            ) as run_rulegen, patch("lexishift_core.helper.engine.write_rulegen_outputs"), patch(
-                "lexishift_core.helper.engine._update_status"
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(SrsStore(), self._stub_output()),
+                ) as run_rulegen,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
             ):
                 run_rulegen_job(
                     paths,
@@ -545,12 +569,15 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                 admission_weight_profile={},
                 initial_active_weight_preview=(),
             )
-            with patch(
-                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
-                return_value=(SrsStore(), init_report),
-            ) as initialize_store, patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(SrsStore(), self._stub_output("en-de")),
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(SrsStore(), init_report),
+                ) as initialize_store,
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(SrsStore(), self._stub_output("en-de")),
+                ),
             ):
                 result = initialize_srs_set(
                     paths,
@@ -864,7 +891,9 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
-            self.assertEqual(len([item for item in persisted.items if item.language_pair == "en-ja"]), 1)
+            self.assertEqual(
+                len([item for item in persisted.items if item.language_pair == "en-ja"]), 1
+            )
             self.assertEqual(result["added_items"], 1)
             self.assertEqual(result["total_items_for_pair"], 1)
             self.assertEqual(result["replace_pair"], True)
@@ -894,13 +923,16 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 target_count=0,
             )
 
-            with patch(
-                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
-                return_value=(persisted_after_init, init_report),
-            ) as init_patch, patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                return_value=(persisted_after_init, rulegen_output),
-            ) as run_rulegen_patch:
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(persisted_after_init, init_report),
+                ) as init_patch,
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(persisted_after_init, rulegen_output),
+                ) as run_rulegen_patch,
+            ):
                 result = initialize_srs_set(
                     paths,
                     config=SetInitializationJobConfig(
@@ -1382,7 +1414,11 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertIsNotNone(alpha.difficulty)
 
             events = load_signal_events(paths.srs_signal_queue_path)
-            feedback_events = [event for event in events if event.event_type == "feedback" and event.pair == "en-ja"]
+            feedback_events = [
+                event
+                for event in events
+                if event.event_type == "feedback" and event.pair == "en-ja"
+            ]
             self.assertEqual(len(feedback_events), 8)
             self.assertTrue(all(event.rating == "again" for event in feedback_events))
 
@@ -1515,13 +1551,16 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                 }
                 return store, SimpleNamespace(rules=rules, snapshot=snapshot, target_count=2)
 
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
-            ), patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                side_effect=_stub_run_rulegen_for_pair,
-            ) as run_rulegen_patch:
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_stub_run_rulegen_for_pair,
+                ) as run_rulegen_patch,
+            ):
                 result = refresh_srs_set(
                     paths,
                     config=SrsRefreshJobConfig(
@@ -1611,8 +1650,16 @@ class TestHelperEngineExposureOnly(unittest.TestCase):
             self.assertNotEqual(alpha.last_seen, initial_last_seen)
 
             events = load_signal_events(paths.srs_signal_queue_path)
-            exposure_events = [event for event in events if event.event_type == "exposure" and event.pair == "en-ja"]
-            feedback_events = [event for event in events if event.event_type == "feedback" and event.pair == "en-ja"]
+            exposure_events = [
+                event
+                for event in events
+                if event.event_type == "exposure" and event.pair == "en-ja"
+            ]
+            feedback_events = [
+                event
+                for event in events
+                if event.event_type == "feedback" and event.pair == "en-ja"
+            ]
             self.assertEqual(len(exposure_events), 2)
             self.assertEqual(len(feedback_events), 0)
             self.assertTrue(all(event.rating is None for event in exposure_events))

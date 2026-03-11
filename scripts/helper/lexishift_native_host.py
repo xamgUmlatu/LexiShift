@@ -10,6 +10,7 @@ from typing import Any, Dict, Optional
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
+
 def _inject_core_path() -> None:
     candidates = [
         SCRIPT_DIR / "lexishift_core",
@@ -79,7 +80,12 @@ def _write_message(payload: dict) -> None:
 
 
 def _error_response(request_id: str, message: str, code: str = "invalid_request") -> dict:
-    return {"id": request_id, "ok": False, "data": None, "error": {"code": code, "message": message}}
+    return {
+        "id": request_id,
+        "ok": False,
+        "data": None,
+        "error": {"code": code, "message": message},
+    }
 
 
 def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
@@ -292,7 +298,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 replace_pair=bool(payload.get("replace_pair", False)),
                 strategy=str(payload.get("strategy", "frequency_bootstrap")),
                 objective=str(payload.get("objective", "bootstrap")),
-                profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
                 trigger=str(payload.get("trigger", "manual")),
             ),
         )
@@ -312,7 +320,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 initial_active_count=_optional_int(payload, "initial_active_count"),
                 max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
                 replace_pair=bool(payload.get("replace_pair", False)),
-                profile_context=payload.get("profile_context") if isinstance(payload.get("profile_context"), dict) else None,
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
                 trigger=str(payload.get("trigger", "manual")),
             ),
         )

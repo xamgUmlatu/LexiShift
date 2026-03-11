@@ -56,7 +56,14 @@ def _merge_theme(base: dict, override: dict) -> dict:
     for key in THEME_ALL_COLOR_KEYS:
         if key in override:
             merged[key] = override[key]
-    for key in ("_background", "_background_path", "_name", "_source", "_base_dir", "_screen_overrides"):
+    for key in (
+        "_background",
+        "_background_path",
+        "_name",
+        "_source",
+        "_base_dir",
+        "_screen_overrides",
+    ):
         if key in override:
             merged[key] = override[key]
     return merged

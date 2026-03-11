@@ -14,11 +14,9 @@ class CandidateRankingContext:
 
 
 class CandidateRankingMechanism(Protocol):
-    def score(self, candidate: CandidateRankingContext) -> float:
-        ...
+    def score(self, candidate: CandidateRankingContext) -> float: ...
 
-    def bucket_key(self, candidate: CandidateRankingContext) -> str:
-        ...
+    def bucket_key(self, candidate: CandidateRankingContext) -> str: ...
 
 
 @dataclass(frozen=True)

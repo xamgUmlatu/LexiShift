@@ -110,9 +110,7 @@ class RuleMetadataDialog(QDialog):
         label = self.label_edit.text().strip() or None
         description = self.description_edit.toPlainText().strip() or None
         examples = tuple(
-            line.strip()
-            for line in self.examples_edit.toPlainText().splitlines()
-            if line.strip()
+            line.strip() for line in self.examples_edit.toPlainText().splitlines() if line.strip()
         )
         notes = self.notes_edit.toPlainText().strip() or None
         source = self.source_edit.text().strip() or None
@@ -256,7 +254,10 @@ class SettingsDialog(QDialog):
         learning = LearningSettings(
             enabled=self.learning_enabled_check.isChecked(),
             show_original=self.show_original_check.isChecked(),
-            show_original_mode=str(self.show_original_mode_combo.currentData() or self.show_original_mode_combo.currentText()),
+            show_original_mode=str(
+                self.show_original_mode_combo.currentData()
+                or self.show_original_mode_combo.currentText()
+            ),
             highlight_replacements=self.highlight_replacements_check.isChecked(),
         )
         return VocabSettings(inflections=inflections, learning=learning)
@@ -315,9 +316,7 @@ class SettingsDialog(QDialog):
         self.embedding_threshold_slider.setRange(0, 100)
         self.embedding_threshold_value = QLabel("0.00")
         self.embedding_fallback_check = QCheckBox(t("settings.embedding_fallback"))
-        self.embedding_fallback_check.setToolTip(
-            t("settings.embedding_fallback_tip")
-        )
+        self.embedding_fallback_check.setToolTip(t("settings.embedding_fallback_tip"))
         self.embedding_threshold_slider.valueChanged.connect(self._update_embedding_threshold_label)
         self.use_embeddings_check.toggled.connect(self._toggle_embedding_fields)
 

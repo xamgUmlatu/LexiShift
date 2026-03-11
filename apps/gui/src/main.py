@@ -189,7 +189,9 @@ class MainWindow(
         self.replacement_selected_label = QLabel(t("replacement.select_hint"))
         self.replacement_threshold_slider = QSlider(Qt.Horizontal)
         self.replacement_threshold_slider.setRange(0, 100)
-        self.replacement_threshold_slider.valueChanged.connect(self._on_replacement_threshold_changed)
+        self.replacement_threshold_slider.valueChanged.connect(
+            self._on_replacement_threshold_changed
+        )
         self.replacement_threshold_value = QLabel("0.00")
         self.replacement_hint_label = QLabel(t("replacement.enable_embeddings_hint"))
         self.replacement_hint_label.setWordWrap(True)
@@ -449,7 +451,9 @@ class MainWindow(
             self._splitter.restoreState(splitter_state)
         else:
             self._splitter.setSizes([320, 780])
-        right_splitter_state = self._ui_settings.value("main_window/right_splitter", type=QByteArray)
+        right_splitter_state = self._ui_settings.value(
+            "main_window/right_splitter", type=QByteArray
+        )
         if right_splitter_state:
             self._right_splitter.restoreState(right_splitter_state)
         else:
@@ -471,8 +475,12 @@ class MainWindow(
 
     def _configure_log_handlers(self) -> None:
         configure_log_handlers(
-            error_handler=lambda message: self._append_log(message, color=self._status_color("error")),
-            info_handler=lambda message: self._append_log(message, color=self._status_color("info")),
+            error_handler=lambda message: self._append_log(
+                message, color=self._status_color("error")
+            ),
+            info_handler=lambda message: self._append_log(
+                message, color=self._status_color("info")
+            ),
         )
 
     def _apply_theme(self) -> None:
@@ -537,7 +545,9 @@ class MainWindow(
         super().closeEvent(event)
 
     def _setup_rule_selection(self) -> None:
-        self.rules_table.selectionModel().currentRowChanged.connect(lambda *_: self._update_rule_actions())
+        self.rules_table.selectionModel().currentRowChanged.connect(
+            lambda *_: self._update_rule_actions()
+        )
 
     def _on_utility_panel_toggled(self, panel_id: str, expanded: bool) -> None:
         panel_key = str(panel_id or "").strip()
@@ -705,6 +715,7 @@ class MainWindow(
         cursor.insertText(message + "\n")
         self.log_edit.setTextCursor(cursor)
         self.log_edit.ensureCursorVisible()
+
 
 def main() -> None:
     # Ensure AppDataLocation is scoped to LexiShift before any logging.

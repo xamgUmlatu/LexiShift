@@ -22,7 +22,9 @@ class TestRulegenTuning(unittest.TestCase):
         resolved = resolve_rulegen_tuning("en-es")
 
         self.assertEqual(resolved.pair, "en-es")
-        self.assertAlmostEqual(resolved.confidence_threshold, defaults.confidence_threshold, places=6)
+        self.assertAlmostEqual(
+            resolved.confidence_threshold, defaults.confidence_threshold, places=6
+        )
         self.assertEqual(resolved.max_definitions_per_target, defaults.max_definitions_per_target)
         self.assertEqual(resolved.max_rules_per_target, defaults.max_rules_per_target)
         self.assertAlmostEqual(

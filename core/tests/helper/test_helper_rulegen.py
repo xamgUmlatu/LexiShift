@@ -264,7 +264,9 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                 ),
                 version=1,
             )
-            with patch("lexishift_core.helper.rulegen.run_rules_with_adapter", return_value=[]) as run_rules:
+            with patch(
+                "lexishift_core.helper.rulegen.run_rules_with_adapter", return_value=[]
+            ) as run_rules:
                 run_rulegen_for_pair(
                     paths=paths,
                     pair="en-ja",

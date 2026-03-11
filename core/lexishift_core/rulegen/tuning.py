@@ -167,9 +167,7 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
         "confidence_threshold": float(policy.confidence_threshold),
         "max_definitions_per_target": int(policy.max_definitions_per_target),
         "max_rules_per_target": (
-            int(policy.max_rules_per_target)
-            if policy.max_rules_per_target is not None
-            else None
+            int(policy.max_rules_per_target) if policy.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(policy.semantic_demotion_scale),
         "include_variants": bool(policy.include_variants),
@@ -190,9 +188,7 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
             else None
         ),
         "max_rules_per_target": (
-            int(tuning.max_rules_per_target)
-            if tuning.max_rules_per_target is not None
-            else None
+            int(tuning.max_rules_per_target) if tuning.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(tuning.semantic_demotion_scale),
         "include_variants": bool(tuning.include_variants),
@@ -305,7 +301,9 @@ def _resolve_reverse_check_scoring(
     if overrides.reverse_check_enabled is not None:
         resolved = replace(resolved, enabled=bool(overrides.reverse_check_enabled))
     if overrides.reverse_check_match_bonus is not None:
-        resolved = replace(resolved, match_bonus=max(0.0, float(overrides.reverse_check_match_bonus)))
+        resolved = replace(
+            resolved, match_bonus=max(0.0, float(overrides.reverse_check_match_bonus))
+        )
     if overrides.reverse_check_near_bonus is not None:
         resolved = replace(resolved, near_bonus=max(0.0, float(overrides.reverse_check_near_bonus)))
     if overrides.reverse_check_near_rank_max is not None:

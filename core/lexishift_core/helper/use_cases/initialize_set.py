@@ -55,12 +55,14 @@ def initialize_srs_set(
         pair=pair,
         requested_count=config.initial_active_count,
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = resolve_pair_resources_fn(
-        paths,
-        pair=pair,
-        jmdict_path=config.jmdict_path,
-        freedict_de_en_path=config.freedict_de_en_path,
-        set_source_db=config.set_source_db,
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+        resolve_pair_resources_fn(
+            paths,
+            pair=pair,
+            jmdict_path=config.jmdict_path,
+            freedict_de_en_path=config.freedict_de_en_path,
+            set_source_db=config.set_source_db,
+        )
     )
     ensure_pair_requirements_fn(
         pair=pair,

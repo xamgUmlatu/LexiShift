@@ -1,6 +1,6 @@
 # LexiShift TODOs
 
-Status: Active backlog  
+Status: Active backlog
 Last updated: 2026-02-19
 
 This file is the consolidated TODO source of truth. It replaces the large TODO and plan sections that previously lived in the root `README.md`.

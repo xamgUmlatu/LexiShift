@@ -102,9 +102,7 @@ class MainWindowBulkRulesMixin:
         openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
         odenet_path = language_packs.get("odenet-de") if language_packs else None
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
-        jp_wordnet_sqlite_path = (
-            language_packs.get("jp-wordnet-sqlite") if language_packs else None
-        )
+        jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
         freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
         freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
@@ -160,13 +158,25 @@ class MainWindowBulkRulesMixin:
                 missing_sources.append(t("sources.odenet_file"))
             if use_jp_wordnet and jp_wordnet_path and not Path(jp_wordnet_path).exists():
                 missing_sources.append(t("sources.jp_wordnet_file"))
-            if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path and not Path(jp_wordnet_sqlite_path).exists():
+            if (
+                use_jp_wordnet_sqlite
+                and jp_wordnet_sqlite_path
+                and not Path(jp_wordnet_sqlite_path).exists()
+            ):
                 missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
             if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
                 missing_sources.append(t("sources.jmdict_file"))
-            if use_freedict_de_en and freedict_de_en_path and not Path(freedict_de_en_path).exists():
+            if (
+                use_freedict_de_en
+                and freedict_de_en_path
+                and not Path(freedict_de_en_path).exists()
+            ):
                 missing_sources.append(t("sources.freedict_de_en_file"))
-            if use_freedict_en_de and freedict_en_de_path and not Path(freedict_en_de_path).exists():
+            if (
+                use_freedict_en_de
+                and freedict_en_de_path
+                and not Path(freedict_en_de_path).exists()
+            ):
                 missing_sources.append(t("sources.freedict_en_de_file"))
             if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
                 missing_sources.append(t("sources.cc_cedict_file"))
@@ -176,7 +186,10 @@ class MainWindowBulkRulesMixin:
                 QMessageBox.warning(
                     self,
                     t("dialogs.synonym_expansion.title"),
-                    t("dialogs.synonym_expansion.missing_sources", sources=", ".join(missing_sources)),
+                    t(
+                        "dialogs.synonym_expansion.missing_sources",
+                        sources=", ".join(missing_sources),
+                    ),
                 )
                 return []
 
@@ -206,11 +219,17 @@ class MainWindowBulkRulesMixin:
                 else None
             )
             sources = SynonymSources(
-                wordnet_dir=Path(settings.wordnet_dir) if use_wordnet and settings.wordnet_dir else None,
+                wordnet_dir=Path(settings.wordnet_dir)
+                if use_wordnet and settings.wordnet_dir
+                else None,
                 moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
-                openthesaurus_path=Path(openthesaurus_path) if use_openthesaurus and openthesaurus_path else None,
+                openthesaurus_path=Path(openthesaurus_path)
+                if use_openthesaurus and openthesaurus_path
+                else None,
                 odenet_path=Path(odenet_path) if use_odenet and odenet_path else None,
-                jp_wordnet_path=Path(jp_wordnet_path) if use_jp_wordnet and jp_wordnet_path else None,
+                jp_wordnet_path=Path(jp_wordnet_path)
+                if use_jp_wordnet and jp_wordnet_path
+                else None,
                 jp_wordnet_sqlite_path=(
                     Path(jp_wordnet_sqlite_path)
                     if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
@@ -274,9 +293,7 @@ class MainWindowBulkRulesMixin:
                         if not generator.has_embeddings():
                             self._append_log(t("logs.embeddings_not_loaded", target=target))
                         elif not generator.embeddings_support_neighbors():
-                            self._append_log(
-                                t("logs.embeddings_no_neighbors")
-                            )
+                            self._append_log(t("logs.embeddings_no_neighbors"))
                         elif not generator.embeddings_has_vector(target):
                             self._append_log(t("logs.no_embedding_vector", target=target))
                         else:

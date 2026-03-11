@@ -208,15 +208,13 @@ def evaluate_benchmark_case(
     forbidden_any = {normalize_benchmark_phrase(item) for item in case.forbidden_any}
     forbidden_any.discard("")
 
-    expected_matches = tuple(
-        source for source in sources if source in expected_any
-    )
-    forbidden_matches = tuple(
-        source for source in sources if source in forbidden_any
-    )
+    expected_matches = tuple(source for source in sources if source in expected_any)
+    forbidden_matches = tuple(source for source in sources if source in forbidden_any)
 
     top1_correct = bool(top1_source and expected_top1 and top1_source in expected_top1)
-    top3_contains_expected = bool(expected_any and any(source in expected_any for source in top3_sources))
+    top3_contains_expected = bool(
+        expected_any and any(source in expected_any for source in top3_sources)
+    )
     top1_forbidden = bool(top1_source and forbidden_top1 and top1_source in forbidden_top1)
     forbidden_any_present = bool(forbidden_matches)
 
@@ -260,21 +258,15 @@ def summarize_benchmark_results(
     variant_rule_count = sum(result.variant_rule_count for result in case_results)
     avg_rules_per_target = (total_rule_count / case_count) if case_count else 0.0
     top1_confidences = [
-        result.top1_confidence
-        for result in case_results
-        if result.top1_confidence is not None
+        result.top1_confidence for result in case_results if result.top1_confidence is not None
     ]
-    avg_top1_confidence = (
-        float(mean(top1_confidences)) if top1_confidences else None
-    )
+    avg_top1_confidence = float(mean(top1_confidences)) if top1_confidences else None
 
     top1_accuracy = (top1_correct_count / case_count) if case_count else 0.0
     top3_recall = (top3_contains_expected_count / case_count) if case_count else 0.0
     forbidden_top1_rate = (forbidden_top1_count / case_count) if case_count else 0.0
     forbidden_any_rate = (forbidden_any_count / case_count) if case_count else 0.0
-    variant_rule_rate = (
-        (variant_rule_count / total_rule_count) if total_rule_count else 0.0
-    )
+    variant_rule_rate = (variant_rule_count / total_rule_count) if total_rule_count else 0.0
     variant_top1_rate = (variant_top1_count / case_count) if case_count else 0.0
 
     objective_score = (

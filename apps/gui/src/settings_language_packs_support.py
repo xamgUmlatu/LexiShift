@@ -70,7 +70,9 @@ def resolve_embedding_converter_script() -> Path:
     for candidate in candidates:
         if candidate.exists():
             return candidate
-    raise FileNotFoundError("Embedding conversion script not found: scripts/data/convert_embeddings.py")
+    raise FileNotFoundError(
+        "Embedding conversion script not found: scripts/data/convert_embeddings.py"
+    )
 
 
 class EmbeddingConversionThread(QThread):

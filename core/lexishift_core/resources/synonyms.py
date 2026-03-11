@@ -11,6 +11,7 @@ from lexishift_core.resources.db_handlers import load_synonyms_from_db
 from lexishift_core.resources.dict_loaders import load_jmdict_glosses
 from lexishift_core.resources.synonyms_embeddings import EmbeddingIndex
 
+
 @dataclass(frozen=True)
 class SynonymSources:
     wordnet_dir: Optional[Path] = None
@@ -123,7 +124,9 @@ class SynonymGenerator:
             results = results[: self._options.max_synonyms]
         return results, used_fallback
 
-    def generate_rules(self, targets: Iterable[str], *, avoid_duplicates: bool = True) -> list[tuple[str, str]]:
+    def generate_rules(
+        self, targets: Iterable[str], *, avoid_duplicates: bool = True
+    ) -> list[tuple[str, str]]:
         seen_sources: set[str] = set()
         rules: list[tuple[str, str]] = []
         for target in targets:
@@ -203,7 +206,11 @@ class SynonymGenerator:
     def _load_embeddings(self) -> None:
         if not self._options.use_embeddings:
             return
-        paths = [Path(item) for item in self._options.embedding_paths if item] if self._options.embedding_paths else []
+        paths = (
+            [Path(item) for item in self._options.embedding_paths if item]
+            if self._options.embedding_paths
+            else []
+        )
         if not paths:
             return
         existing = [path for path in paths if path.exists()]
@@ -491,4 +498,3 @@ def _apply_consensus_filter(
         if filtered:
             consensus[head] = filtered
     return consensus
-

@@ -212,11 +212,11 @@ Next steps (current workstream focus)
 ### Current plan (JA target, EN source)
 We are locking in a **JMDict‑filtered core set** for initial S bootstrap:
 
-1) **Selection (initial S):** use `core_rank` from BCCWJ SUW.  
-2) **Filter:** intersect top‑N by `core_rank` with **JMDict lemmas** (to avoid junk).  
-3) **Weighting:** use `pmw` (per‑million‑words) as the primary frequency signal.  
-4) **Rulegen:** for each JA lemma in S, use JMDict glosses, **single‑word English only**.  
-5) **Confidence decay:** the first gloss gets 100% of base weight; secondary glosses decay (e.g. 70%/50%).  
+1) **Selection (initial S):** use `core_rank` from BCCWJ SUW.
+2) **Filter:** intersect top‑N by `core_rank` with **JMDict lemmas** (to avoid junk).
+3) **Weighting:** use `pmw` (per‑million‑words) as the primary frequency signal.
+4) **Rulegen:** for each JA lemma in S, use JMDict glosses, **single‑word English only**.
+5) **Confidence decay:** the first gloss gets 100% of base weight; secondary glosses decay (e.g. 70%/50%).
 
 > **Note:** confidence scoring is WIP and will evolve. This is a baseline model.
 

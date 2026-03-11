@@ -25,7 +25,9 @@ class LanguagePackPanelPathMixin:
             return source_path
         return f"{source_path}.sqlite"
 
-    def _resolve_downloaded_path(self, pack: Optional[LanguagePackInfo], *, embeddings: bool = False) -> Optional[str]:
+    def _resolve_downloaded_path(
+        self, pack: Optional[LanguagePackInfo], *, embeddings: bool = False
+    ) -> Optional[str]:
         if not pack:
             return None
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
@@ -103,7 +105,13 @@ class LanguagePackPanelPathMixin:
         return all(os.path.exists(os.path.join(path, name)) for name in required)
 
     def _has_wordnet_json(self, path: str) -> bool:
-        markers = ("entries-a.json", "adj.all.json", "adv.all.json", "noun.act.json", "verb.body.json")
+        markers = (
+            "entries-a.json",
+            "adj.all.json",
+            "adv.all.json",
+            "noun.act.json",
+            "verb.body.json",
+        )
         return any(os.path.exists(os.path.join(path, name)) for name in markers)
 
     def _normalize_wordnet_path(self, path: str) -> str:

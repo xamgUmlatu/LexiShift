@@ -127,9 +127,7 @@ def default_jmdict_path(
     language_packs_dir: Path,
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
-    if not (
-        capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen
-    ):
+    if not (capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen):
         return None
     return language_packs_dir / "JMdict_e"
 

@@ -116,7 +116,10 @@ class HelperTrayController:
     def __init__(self) -> None:
         self.paths = build_helper_paths()
         _log_line(self.paths, "Helper tray starting.")
-        _log_line(self.paths, f"Frozen: {getattr(sys, 'frozen', False)}, OneFile: {hasattr(sys, '_MEIPASS')}")
+        _log_line(
+            self.paths,
+            f"Frozen: {getattr(sys, 'frozen', False)}, OneFile: {hasattr(sys, '_MEIPASS')}",
+        )
         _log_line(self.paths, f"System tray available: {QSystemTrayIcon.isSystemTrayAvailable()}")
         self.status_action = QAction(t("helper_tray.status_starting"))
         self.status_action.setEnabled(False)
@@ -128,7 +131,9 @@ class HelperTrayController:
         self.open_data_action.triggered.connect(lambda: reveal_path(str(self.paths.data_root)))
 
         self.open_status_action = QAction(t("helper_tray.action_open_status"))
-        self.open_status_action.triggered.connect(lambda: reveal_path(str(self.paths.srs_status_path)))
+        self.open_status_action.triggered.connect(
+            lambda: reveal_path(str(self.paths.srs_status_path))
+        )
 
         self.notify_action = QAction(t("helper_tray.action_show_notification"))
         self.notify_action.triggered.connect(self._show_notification)
