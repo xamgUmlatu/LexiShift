@@ -22,14 +22,19 @@ Quick navigation:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
+npm --prefix scripts run hooks:install
 ```
 
 ## Daily Validation Loop
 
 ```bash
-python -m unittest discover -s core/tests
-ruff format .
-mypy core/lexishift_core
+npm --prefix scripts run check
+```
+
+## Build Safety
+
+```bash
+npm --prefix scripts run build
 ```
 
 ## Run Surfaces
@@ -54,8 +59,19 @@ Chrome extension:
 - Developer docs hub: [../developer/README.md](../developer/README.md)
 - Developer handbook: [../developer/developer_reference.md](../developer/developer_reference.md)
 - AI-assisted quality loop: [../developer/ai_workflow.md](../developer/ai_workflow.md)
+- GenAI workflow architecture: [../developer/genai_workflow_architecture.md](../developer/genai_workflow_architecture.md)
+- Feature state ledger: [../developer/feature_state_matrix.md](../developer/feature_state_matrix.md)
 - Local setup detail: [../developer/local_setup.md](../developer/local_setup.md)
 - Script categories: [../../scripts/README.md](../../scripts/README.md)
+
+## Quality Automation
+
+Rulegen/POS workflow wrappers:
+
+```bash
+python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
+python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
+```
 
 ## Local Pages Preview
 

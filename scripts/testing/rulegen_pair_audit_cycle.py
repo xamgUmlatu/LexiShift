@@ -102,6 +102,10 @@ def main() -> None:
         default="0.0,0.05",
     )
     parser.add_argument(
+        "--semantic-demotion-scale-values",
+        default="1.0",
+    )
+    parser.add_argument(
         "--include-variants-values",
         default="false",
     )
@@ -112,6 +116,26 @@ def main() -> None:
     parser.add_argument(
         "--score-weight-pos-values",
         default="0.0,0.1",
+    )
+    parser.add_argument(
+        "--reverse-check-enabled-values",
+        default="false",
+    )
+    parser.add_argument(
+        "--reverse-check-match-bonus-values",
+        default="0.2",
+    )
+    parser.add_argument(
+        "--reverse-check-near-bonus-values",
+        default="0.1",
+    )
+    parser.add_argument(
+        "--reverse-check-near-rank-max-values",
+        default="2",
+    )
+    parser.add_argument(
+        "--reverse-check-miss-penalty-values",
+        default="0.2",
     )
     parser.add_argument(
         "--top-runs",
@@ -126,7 +150,10 @@ def main() -> None:
     parser.add_argument(
         "--benchmark-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_en_es_en_ja_latest.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "rulegen_benchmark_en_es_en_ja_latest.json",
     )
     parser.add_argument(
         "--benchmark-markdown",
@@ -136,17 +163,26 @@ def main() -> None:
     parser.add_argument(
         "--benchmark-html",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_en_es_en_ja_latest.html",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "rulegen_benchmark_en_es_en_ja_latest.html",
     )
     parser.add_argument(
         "--triage-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_triage_en_es_en_ja_latest.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "rulegen_benchmark_triage_en_es_en_ja_latest.json",
     )
     parser.add_argument(
         "--triage-markdown",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_triage_en_es_en_ja_latest.md",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "rulegen_benchmark_triage_en_es_en_ja_latest.md",
     )
     parser.add_argument(
         "--policy-json",
@@ -156,17 +192,34 @@ def main() -> None:
     parser.add_argument(
         "--baseline-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "baselines" / "rulegen_quality_baseline.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "baselines"
+        / "rulegen_quality_baseline.json",
+    )
+    parser.add_argument(
+        "--quality-gate-json",
+        type=Path,
+        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_quality_gate_latest.json",
     )
     parser.add_argument(
         "--pos-probe-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "phase6_pos_inventory" / "phase6_pos_probe_2026-02-23_final.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "phase6_pos_inventory"
+        / "phase6_pos_probe_2026-02-23_final.json",
     )
     parser.add_argument(
         "--pos-inventory-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "phase6_pos_inventory" / "phase6_pos_inventory_2026-02-23_final.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "phase6_pos_inventory"
+        / "phase6_pos_inventory_2026-02-23_final.json",
     )
     parser.add_argument(
         "--strict-gate",
@@ -190,12 +243,24 @@ def main() -> None:
         str(args.max_rules_values),
         "--confidence-threshold-values",
         str(args.confidence_threshold_values),
+        "--semantic-demotion-scale-values",
+        str(args.semantic_demotion_scale_values),
         "--include-variants-values",
         str(args.include_variants_values),
         "--pos-scoring-values",
         str(args.pos_scoring_values),
         "--score-weight-pos-values",
         str(args.score_weight_pos_values),
+        "--reverse-check-enabled-values",
+        str(args.reverse_check_enabled_values),
+        "--reverse-check-match-bonus-values",
+        str(args.reverse_check_match_bonus_values),
+        "--reverse-check-near-bonus-values",
+        str(args.reverse_check_near_bonus_values),
+        "--reverse-check-near-rank-max-values",
+        str(args.reverse_check_near_rank_max_values),
+        "--reverse-check-miss-penalty-values",
+        str(args.reverse_check_miss_penalty_values),
         "--max-configurations",
         str(int(args.max_configurations)),
         "--top-runs",
@@ -221,6 +286,8 @@ def main() -> None:
         str(args.pos_probe_json),
         "--pos-inventory-json",
         str(args.pos_inventory_json),
+        "--json-out",
+        str(args.quality_gate_json),
     ]
 
     triage_cmd = [
@@ -246,6 +313,7 @@ def main() -> None:
     print(f"benchmark_json: {args.benchmark_json}")
     print(f"benchmark_markdown: {args.benchmark_markdown}")
     print(f"benchmark_html: {args.benchmark_html}")
+    print(f"quality_gate_json: {args.quality_gate_json}")
     print(f"triage_json: {args.triage_json}")
     print(f"triage_markdown: {args.triage_markdown}")
     print(f"quality_gate_exit_code: {gate_rc}")

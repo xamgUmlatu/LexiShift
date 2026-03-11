@@ -8,6 +8,7 @@ try:
         print_findings,
         read_json,
         record,
+        summarize_findings,
     )
     from .rulegen_quality_gate_validators import (
         validate_benchmark_pairs,
@@ -25,6 +26,7 @@ except Exception:  # noqa: BLE001
         print_findings,
         read_json,
         record,
+        summarize_findings,
     )
     from rulegen_quality_gate_validators import (  # type: ignore[no-redef]
         validate_benchmark_pairs,
@@ -42,6 +44,7 @@ __all__ = [
     "print_findings",
     "read_json",
     "record",
+    "summarize_findings",
     "validate_benchmark_pairs",
     "validate_dataset_contract",
     "validate_delta_budgets",

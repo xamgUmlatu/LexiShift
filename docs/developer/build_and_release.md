@@ -2,6 +2,20 @@
 
 This page centralizes packaging/signing/release commands for developer/operator use.
 
+## Developer Safety Entry Points
+
+Quick local safety commands:
+
+```bash
+npm --prefix scripts run check
+npm --prefix scripts run build
+```
+
+Notes:
+- `check` is the stable non-mutating repo safety loop.
+- `build` is the local build smoke for surfaces with maintained build paths.
+- Repo-wide style lint remains separate until the current Ruff debt is reduced.
+
 ## GUI App Packaging (PyInstaller)
 
 Install packaging deps:

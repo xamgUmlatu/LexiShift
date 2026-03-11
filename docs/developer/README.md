@@ -17,7 +17,10 @@ Purpose:
 - Developer handbook (primary reference): `developer_reference.md`
 - Local setup and day-to-day loops: `local_setup.md`
 - Build/release packaging flows: `build_and_release.md`
+- Repo safety commands: `npm --prefix scripts run check` and `npm --prefix scripts run build`
 - AI-assisted rulegen/POS quality loop: `ai_workflow.md`
+- GenAI workflow architecture and harness policy: `genai_workflow_architecture.md`
+- Feature state ledger: `feature_state_matrix.md`
 - Project health gate structure: `project_health_gate_structure.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
 - Script map: `../../scripts/README.md`

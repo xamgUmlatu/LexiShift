@@ -1,5 +1,8 @@
 # AI-Assisted Rulegen Iteration Workflow
 
+Status: active workflow
+Last updated: 2026-03-11
+
 Purpose:
 - Keep rulegen tuning fast without sacrificing stability.
 - Make each tuning change measurable, reviewable, and reversible.
@@ -24,7 +27,12 @@ The scripts and policy below enforce a tighter loop.
 - Baseline metrics: `docs/test_outputs/baselines/rulegen_quality_baseline.json`
 - Benchmark runner: `scripts/testing/rulegen_benchmark.py`
 - Quality gate: `scripts/testing/rulegen_quality_gate.py`
+- Quality gate summary renderer: `scripts/testing/rulegen_quality_gate_summary.py`
 - Triage extractor: `scripts/testing/rulegen_benchmark_triage.py`
+- Focused audit wrapper: `scripts/testing/rulegen_pair_audit_cycle.py`
+- Change-aware audit wrapper: `scripts/testing/rulegen_auto_audit.py`
+- Feature state ledger: `docs/developer/feature_state_matrix.md`
+- GenAI workflow contract: `docs/developer/genai_workflow_architecture.md`
 
 ## Standard loop
 
@@ -64,6 +72,28 @@ python3 scripts/testing/rulegen_benchmark_triage.py \
 
 5. Re-run steps 1-3 until gate passes and triage is empty (or clearly justified).
 
+## Preferred wrappers
+
+The commands above remain canonical. Use these wrappers when they fit the change:
+
+```bash
+python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
+python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
+python3 scripts/testing/rulegen_auto_audit.py --pairs en-es --reverse-check-profile experiment --strict-gate
+```
+
+Wrapper responsibilities:
+- `rulegen_pair_audit_cycle.py`
+  - runs benchmark -> quality gate -> triage with one command,
+  - forwards tuning knobs and emits summarized output.
+- `rulegen_auto_audit.py`
+  - infers touched rulegen pairs from git changes,
+  - writes dated artifacts,
+  - refreshes `*_latest` aliases,
+  - records a manifest for run provenance.
+
+Use direct commands instead of the wrappers when pair inference is ambiguous or artifact paths need manual control.
+
 ## Policy mechanics
 
 `rulegen_quality_policy.json` currently enforces:
@@ -88,6 +118,36 @@ When baseline is updated, include in PR notes:
 - why shift is intentional,
 - rollback strategy.
 
+## Artifact policy
+
+For meaningful runs:
+
+1. Keep immutable dated artifacts.
+2. Update `*_latest` aliases from the same run.
+3. Treat runs as non-comparable if policy, baseline, grader, or benchmark labels changed.
+4. Preserve enough run metadata to recover the exact sweep later.
+
+The auto-audit wrapper handles this automatically for standard rulegen runs.
+
+When a human-facing summary is needed from the gate artifact, use:
+
+```bash
+npm --prefix scripts run quality:rulegen:gate:summary
+```
+
+## State tracking
+
+Update `feature_state_matrix.md` when:
+- default behavior changes,
+- a feature becomes executable or default-on,
+- the latest verification artifact changes materially,
+- a doc/code mismatch is discovered or resolved.
+
+Examples that should stay explicit:
+- reverse-check implemented but not default-on,
+- due-aware SRS serving documented but not end-to-end verified,
+- extension-side helper-rule confidence gating documented but not code-verified.
+
 ## Future extension path
 
 Current artifact gate is strict for `en-es` and advisory for `en-ja` / `en-de` / `es-en` until those pair artifacts are produced regularly.
@@ -108,3 +168,9 @@ Keep human review mandatory for:
 - benchmark label updates,
 - baseline changes,
 - quality policy threshold changes.
+
+Use a fresh reviewer/evaluator instance for:
+- ranking logic changes,
+- reverse-check tuning rollouts,
+- benchmark policy or harness changes,
+- any change that would redefine default quality claims.

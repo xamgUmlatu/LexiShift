@@ -13,15 +13,104 @@
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
+npm --prefix scripts run hooks:install
 ```
+
+Installed pre-commit hooks currently cover:
+- whitespace / EOF / YAML / TOML hygiene
+- Ruff formatting
+- BetterDiscord generated bundle freshness
+- changed-only project health gating against the checked-in baseline
+- pre-push repo safety via `npm --prefix scripts run check`
+
+`npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push` hooks.
 
 ## Core Validation Loop
 
 ```bash
-python -m unittest discover -s core/tests
-ruff format .
-mypy core/lexishift_core
+npm --prefix scripts run check
 ```
+
+Machine-readable report:
+
+```bash
+npm --prefix scripts run check:report
+```
+
+Markdown summary from the latest workflow reports:
+
+```bash
+npm --prefix scripts run check:summary
+```
+
+This stable safety check currently runs:
+- Python unit tests under `core/tests`
+- `mypy core/lexishift_core`
+- BetterDiscord generated bundle freshness check
+- `py_compile` for workflow-critical Python entrypoints
+- advisory project health checks
+
+Repo-wide style lint is not yet the default `check` gate because `ruff check .` still has existing unrelated debt. Keep that debt explicit instead of making `check` permanently noisy.
+
+Style/debt advisory command:
+
+```bash
+npm --prefix scripts run check:style
+```
+
+Strict variant for cleanup branches:
+
+```bash
+npm --prefix scripts run check:style:strict
+```
+
+Changed-scope branch command:
+
+```bash
+npm --prefix scripts run check:changed
+```
+
+This runs:
+- changed-only project health against the checked-in baseline
+- Ruff lint/format checks on changed Python files only
+- BetterDiscord generated bundle freshness when relevant files changed
+- rulegen quality-loop detection, with a dry-run command when rulegen/POS quality work is detected
+
+Machine-readable branch report:
+
+```bash
+npm --prefix scripts run check:changed:report
+```
+
+If branch-scope output is noisy on a long-running branch, use `check:changed:local` or `check:changed:staged` for the day-to-day loop and keep `check:changed` as the broader integration view.
+
+Local working-tree scope:
+
+```bash
+npm --prefix scripts run check:changed:local
+```
+
+Staged-only scope:
+
+```bash
+npm --prefix scripts run check:changed:staged
+```
+
+## Build Safety
+
+```bash
+npm --prefix scripts run build
+```
+
+Machine-readable build report:
+
+```bash
+npm --prefix scripts run build:report
+```
+
+This build safety currently runs:
+- BetterDiscord plugin bundle build
+- GUI PyInstaller build + bundle validation
 
 ## Runtime Surfaces
 

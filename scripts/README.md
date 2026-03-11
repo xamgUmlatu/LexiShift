@@ -12,6 +12,20 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 
 ## Common Entry Points
 
+- Repo safety check (tests + mypy + workflow script compile + advisory project health):
+  `dev/dev_workflow_check.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run check:report`
+- Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
+  `dev/dev_workflow_changed_check.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
+- Workflow Markdown summary renderer for JSON reports:
+  `dev/dev_workflow_summary.py`
+  - Used by `npm --prefix scripts run check:summary` and CI step summaries
+- Repo-wide style/debt advisory check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
+  `dev/dev_workflow_style_check.py`
+- Repo build safety (BetterDiscord bundle + GUI PyInstaller build/validate):
+  `dev/dev_workflow_build.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run build:report`
 - Build app bundle: `build/gui_app.py`
 - Build installers: `build/installer.py`
 - Convert embeddings: `data/convert_embeddings.py`
@@ -24,11 +38,15 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
   `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
 - Focused audit cycle for selected pairs (benchmark -> quality gate -> triage) with sensible defaults for `en-es,en-ja`:
-  `testing/rulegen_pair_audit_cycle.py`
+  `testing/rulegen_pair_audit_cycle.py` (also forwards reverse-check tuning values and can emit quality-gate JSON)
+- Change-aware audit wrapper that infers touched pairs, writes dated artifacts, updates `*_latest` aliases, and stores a manifest:
+  `testing/rulegen_auto_audit.py`
 - Apply exported HTML label overrides back into benchmark dataset cases:
   `testing/apply_rulegen_label_overrides.py`
 - Gate benchmark/POS artifacts against quality floors, delta budgets, and POS drift guardrails:
   `testing/rulegen_quality_gate.py` (policy default: `docs/test_inputs/rulegen_quality_policy.json`)
+- Render Markdown summaries from quality-gate JSON artifacts:
+  `testing/rulegen_quality_gate_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:gate:summary`)
 - Extract FAIL/REVIEW benchmark cases from best runs and write triage artifacts:
   `testing/rulegen_benchmark_triage.py`
 - Dev helper cycle: `dev/dev_cycle.sh`

@@ -14,6 +14,7 @@ try:
         print_findings,
         read_json,
         record,
+        summarize_findings,
         validate_benchmark_pairs,
         validate_dataset_contract,
         validate_delta_budgets,
@@ -29,6 +30,7 @@ except Exception:  # noqa: BLE001
         print_findings,
         read_json,
         record,
+        summarize_findings,
         validate_benchmark_pairs,
         validate_dataset_contract,
         validate_delta_budgets,
@@ -63,7 +65,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--baseline-json",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "baselines" / "rulegen_quality_baseline.json",
+        default=PROJECT_ROOT
+        / "docs"
+        / "test_outputs"
+        / "baselines"
+        / "rulegen_quality_baseline.json",
         help="Baseline metrics JSON used for delta-budget checks.",
     )
     parser.add_argument(
@@ -273,9 +279,10 @@ def main() -> None:
 
     print_findings(findings)
 
-    fail_count = sum(1 for item in findings if item.level == "FAIL")
-    warn_count = sum(1 for item in findings if item.level == "WARN")
-    pass_count = sum(1 for item in findings if item.level == "PASS")
+    summary = summarize_findings(findings, fail_on_warn=bool(args.fail_on_warn))
+    fail_count = int(summary["fail_count"])
+    warn_count = int(summary["warn_count"])
+    pass_count = int(summary["pass_count"])
     print(f"summary: pass={pass_count} warn={warn_count} fail={fail_count}")
 
     report = QualityReport(
@@ -285,6 +292,9 @@ def main() -> None:
         dataset_json=str(args.dataset_json) if args.dataset_json else None,
         pos_probe_json=str(args.pos_probe_json) if args.pos_probe_json else None,
         pos_inventory_json=str(args.pos_inventory_json) if args.pos_inventory_json else None,
+        strict_saturation=bool(args.strict_saturation),
+        fail_on_warn=bool(args.fail_on_warn),
+        summary=summary,
         findings=findings,
     )
     if args.json_out:
@@ -294,7 +304,7 @@ def main() -> None:
             encoding="utf-8",
         )
 
-    should_fail = fail_count > 0 or (bool(args.fail_on_warn) and warn_count > 0)
+    should_fail = bool(summary["should_fail"])
     raise SystemExit(1 if should_fail else 0)
 
 

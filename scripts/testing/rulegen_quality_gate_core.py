@@ -22,6 +22,9 @@ class QualityReport:
     dataset_json: str | None
     pos_probe_json: str | None
     pos_inventory_json: str | None
+    strict_saturation: bool
+    fail_on_warn: bool
+    summary: dict[str, object]
     findings: list[QualityFinding]
 
     def to_dict(self) -> dict[str, object]:
@@ -32,6 +35,9 @@ class QualityReport:
             "dataset_json": self.dataset_json,
             "pos_probe_json": self.pos_probe_json,
             "pos_inventory_json": self.pos_inventory_json,
+            "strict_saturation": self.strict_saturation,
+            "fail_on_warn": self.fail_on_warn,
+            "summary": self.summary,
             "findings": [asdict(item) for item in self.findings],
         }
 
@@ -117,6 +123,24 @@ def record(
 ) -> None:
     findings.append(QualityFinding(level=level, code=code, message=message, details=details))
 
+
+def summarize_findings(
+    findings: Sequence[QualityFinding],
+    *,
+    fail_on_warn: bool,
+) -> dict[str, object]:
+    fail_count = sum(1 for item in findings if item.level == "FAIL")
+    warn_count = sum(1 for item in findings if item.level == "WARN")
+    pass_count = sum(1 for item in findings if item.level == "PASS")
+    should_fail = fail_count > 0 or (bool(fail_on_warn) and warn_count > 0)
+    status = "FAIL" if should_fail else "WARN" if warn_count > 0 else "PASS"
+    return {
+        "pass_count": pass_count,
+        "warn_count": warn_count,
+        "fail_count": fail_count,
+        "status": status,
+        "should_fail": should_fail,
+    }
 
 
 def print_findings(findings: Sequence[QualityFinding]) -> None:

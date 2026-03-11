@@ -1,7 +1,7 @@
 # Developer Handbook
 
-Status: Active handbook  
-Last updated: 2026-02-19
+Status: Active handbook
+Last updated: 2026-03-11
 
 This document is the primary developer-facing reference for LexiShift implementation work.
 
@@ -89,14 +89,74 @@ Create environment:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
+npm --prefix scripts run hooks:install
 ```
 
 Primary validation loop:
 
 ```bash
-python -m unittest discover -s core/tests
-ruff format .
-mypy core/lexishift_core
+npm --prefix scripts run check
+```
+
+Machine-readable report:
+
+```bash
+npm --prefix scripts run check:report
+```
+
+Markdown summary from the latest workflow reports:
+
+```bash
+npm --prefix scripts run check:summary
+```
+
+Build safety loop:
+
+```bash
+npm --prefix scripts run build
+```
+
+Machine-readable build report:
+
+```bash
+npm --prefix scripts run build:report
+```
+
+Pre-commit hooks:
+- `.pre-commit-config.yaml`
+- use `npm --prefix scripts run hooks:install` after dependency setup
+- current local hooks cover formatting hygiene, BetterDiscord generated bundle freshness, changed-only project health gating, and a pre-push repo safety check
+
+Style/debt advisory loop:
+
+```bash
+npm --prefix scripts run check:style
+```
+
+Strict cleanup variant:
+
+```bash
+npm --prefix scripts run check:style:strict
+```
+
+Changed-scope branch loop:
+
+```bash
+npm --prefix scripts run check:changed
+```
+
+Machine-readable branch report:
+
+```bash
+npm --prefix scripts run check:changed:report
+```
+
+Use `check:changed:local` or `check:changed:staged` when a long-running branch makes the branch-scope view too noisy for local iteration.
+
+Local working-tree variant:
+
+```bash
+npm --prefix scripts run check:changed:local
 ```
 
 See also:
@@ -199,6 +259,15 @@ Helper diagnostics scripts:
 - `../../scripts/dev/check_helper_status.sh`
 - `../../scripts/dev/cleanup_helper.sh`
 
+Rulegen quality workflow references:
+- `ai_workflow.md`
+- `genai_workflow_architecture.md`
+- `feature_state_matrix.md`
+- `../../scripts/testing/rulegen_pair_audit_cycle.py`
+- `../../scripts/testing/rulegen_auto_audit.py`
+- `../../scripts/dev/dev_workflow_check.py`
+- `../../scripts/dev/dev_workflow_build.py`
+
 Extension architecture debug references:
 - `../architecture/extension_system_map.md` (fast debug paths)
 - `../architecture/chrome_extension_technical.md`
@@ -231,6 +300,9 @@ When resuming after a break:
 
 - Architecture map: `../architecture/README.md`
 - Docs structure map: `../README.md`
+- AI workflow: `ai_workflow.md`
+- GenAI workflow architecture: `genai_workflow_architecture.md`
+- Feature state ledger: `feature_state_matrix.md`
 - Glossary: `../reference/glossary.md`
 - Global schema: `../reference/schema.md`
 - SRS roadmap: `../srs/srs_roadmap.md`

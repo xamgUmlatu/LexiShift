@@ -37,7 +37,10 @@ If you need SRS/core behavior next:
 - Handbook diagrams (rendered): `handbook/diagrams.md`
 - Developer docs hub: `developer/README.md`
 - Developer handbook (primary): `developer/developer_reference.md`
+- Repo safety commands: `npm --prefix scripts run check` and `npm --prefix scripts run build`
 - AI-assisted quality loop (rulegen/POS): `developer/ai_workflow.md`
+- GenAI workflow architecture: `developer/genai_workflow_architecture.md`
+- Feature state ledger: `developer/feature_state_matrix.md`
 - Local setup loop: `developer/local_setup.md`
 - Build/release workflows: `developer/build_and_release.md`
 - GitHub Pages setup + local preview runbook: `runbooks/github_pages_setup.md`

@@ -33,6 +33,13 @@ python3 scripts/testing/rulegen_benchmark_triage.py \
   --markdown-out docs/test_outputs/rulegen_benchmark_triage_latest.md
 ```
 
+Convenience wrappers may orchestrate the same loop, but they do not replace the canonical commands above:
+
+```bash
+python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
+python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
+```
+
 ## Baseline and policy safety
 
 - Do not update `docs/test_outputs/baselines/rulegen_quality_baseline.json` in routine tuning PRs.
@@ -45,6 +52,16 @@ For each FAIL/REVIEW triage item:
 - either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases.json`,
 - or document why it remains unresolved.
 
+## Meta workflow and state tracking
+
+- For workflow/meta changes, keep `implemented`, `default-on`, and `verified` as separate states.
+- Update `docs/developer/feature_state_matrix.md` when default behavior, verification evidence, or known doc/code mismatches change.
+- Keep known contradictions explicit until code and docs converge; do not silently mark features as shipped based on docs alone.
+- Use `docs/developer/genai_workflow_architecture.md` for agent-role boundaries, model-instance split guidance, and harness policy.
+- Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes.
+- Treat the local `pre-push` hook as a mirror of `npm --prefix scripts run check`, not as a separate validation policy.
+- Use `npm --prefix scripts run build` when validating build/package workflow changes or when a local build smoke is warranted.
+
 ## Source of truth docs
 
 Read before major changes:
@@ -52,3 +69,5 @@ Read before major changes:
 - `docs/rulegen/rulegen_congruity_implementation_plan.md`
 - `docs/rulegen/pos_normalization_workstream.md`
 - `docs/developer/ai_workflow.md`
+- `docs/developer/genai_workflow_architecture.md`
+- `docs/developer/feature_state_matrix.md`

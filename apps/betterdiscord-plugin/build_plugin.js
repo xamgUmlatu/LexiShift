@@ -22,20 +22,41 @@ const parts = [
 	"footer.js"
 ];
 
-function buildPlugin() {
+function buildPluginOutput() {
 	const chunks = parts.map((filename) => {
 		const fullPath = path.isAbsolute(filename) ? filename : path.join(srcDir, filename);
 		return fs.readFileSync(fullPath, "utf8").trimEnd();
 	});
+	return `${chunks.join("\n\n")}\n`;
+}
 
-	const output = `${chunks.join("\n\n")}\n`;
+function buildPlugin() {
+	const output = buildPluginOutput();
 	fs.writeFileSync(outPath, output);
 	return outPath;
 }
 
+function checkPluginBuild() {
+	const expected = buildPluginOutput();
+	if (!fs.existsSync(outPath)) {
+		console.error(`Missing built plugin: ${outPath}`);
+		return false;
+	}
+	const current = fs.readFileSync(outPath, "utf8");
+	if (current !== expected) {
+		console.error(`Built plugin is out of date: ${outPath}`);
+		return false;
+	}
+	console.log(`Plugin build is up to date: ${outPath}`);
+	return true;
+}
+
 if (require.main === module) {
+	if (process.argv.includes("--check")) {
+		process.exit(checkPluginBuild() ? 0 : 1);
+	}
 	const builtPath = buildPlugin();
 	console.log(`Built ${builtPath}`);
 }
 
-module.exports = { buildPlugin };
+module.exports = { buildPlugin, buildPluginOutput, checkPluginBuild };

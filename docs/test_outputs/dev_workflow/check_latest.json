@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-03-11T02:27:27.666655+00:00",
+  "overall_exit_code": 0,
+  "commands": [
+    {
+      "label": "unit_tests",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "core/tests"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "-m",
+        "mypy",
+        "core/lexishift_core"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "betterdiscord_freshness",
+      "command": [
+        "node",
+        "apps/betterdiscord-plugin/build_plugin.js",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "workflow_py_compile",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "-m",
+        "py_compile",
+        "scripts/testing/rulegen_pair_audit_cycle.py",
+        "scripts/testing/rulegen_auto_audit.py",
+        "scripts/testing/rulegen_quality_gate_summary.py",
+        "scripts/dev/dev_workflow_check.py",
+        "scripts/dev/dev_workflow_build.py",
+        "scripts/dev/dev_workflow_changed_check.py",
+        "scripts/dev/dev_workflow_summary.py",
+        "scripts/dev/dev_workflow_style_check.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "project_health_advisory",
+      "command": [
+        "node",
+        "scripts/dev/check_project_health.js",
+        "--advisory"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

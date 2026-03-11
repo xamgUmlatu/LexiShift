@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-03-11T01:22:31.038251+00:00",
+  "overall_exit_code": 0,
+  "skip_bd": false,
+  "skip_gui": false,
+  "commands": [
+    {
+      "label": "betterdiscord_build",
+      "command": [
+        "node",
+        "apps/betterdiscord-plugin/build_plugin.js"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "gui_build_validate",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "scripts/build/gui_app.py",
+        "--validate"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

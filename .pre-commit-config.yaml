@@ -10,3 +10,22 @@ repos:
     rev: v0.6.8
     hooks:
       - id: ruff-format
+  - repo: local
+    hooks:
+      - id: betterdiscord-plugin-build-check
+        name: betterdiscord-plugin-build-check
+        entry: node apps/betterdiscord-plugin/build_plugin.js --check
+        language: system
+        pass_filenames: false
+        files: ^(apps/betterdiscord-plugin/src/|apps/chrome-extension/content/processing/tokenizer\.js|apps/chrome-extension/content/processing/matcher\.js|apps/chrome-extension/shared/language/language_prefs\.js|apps/betterdiscord-plugin/build_plugin\.js)
+      - id: project-health-changed
+        name: project-health-changed
+        entry: node scripts/dev/check_project_health.js --changed-only --staged --baseline-json docs/test_outputs/project_health/project_health_baseline.json --fail-on-new --fail-on-regressions
+        language: system
+        pass_filenames: false
+      - id: repo-safety-check
+        name: repo-safety-check
+        entry: npm --prefix scripts run check
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  project-health-changed:
+  changed-workflow-check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -17,23 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Ensure base branch ref is available
-        run: git fetch --no-tags --prune --depth=1 origin "${{ github.base_ref }}"
-      - name: Project health gate (changed files)
-        working-directory: scripts
-        run: |
-          node dev/check_project_health.js \
-            --changed-only \
-            --base-ref "origin/${{ github.base_ref }}" \
-            --baseline-json ../docs/test_outputs/project_health/project_health_baseline.json \
-            --fail-on-new \
-            --fail-on-regressions
-
-  core-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -42,10 +25,53 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
-      - name: Typecheck core
-        run: mypy core/lexishift_core
-      - name: Core tests
-        run: python -m unittest discover -s core/tests
+      - name: Ensure base branch ref is available
+        run: git fetch --no-tags --prune --depth=1 origin "${{ github.base_ref }}"
+      - name: Changed-scope workflow report
+        run: |
+          python scripts/dev/dev_workflow_changed_check.py \
+            --base-ref "origin/${{ github.base_ref }}" \
+            --json-out docs/test_outputs/dev_workflow/check_changed_ci.json
+      - name: Upload changed-scope workflow report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-check-changed-report
+          path: docs/test_outputs/dev_workflow/check_changed_ci.json
+      - name: Write changed-scope summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_summary.py \
+            --changed-json docs/test_outputs/dev_workflow/check_changed_ci.json \
+            --title "Changed Workflow Check" \
+            --markdown-out docs/test_outputs/dev_workflow/check_changed_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload changed-scope workflow summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-check-changed-summary
+          path: docs/test_outputs/dev_workflow/check_changed_ci.md
+
+  repo-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Repo safety report
+        run: npm --prefix scripts run check:report
       - name: Rulegen quality gate (artifact policy)
         run: |
           python scripts/testing/rulegen_quality_gate.py \
@@ -53,4 +79,45 @@ jobs:
             --policy-json docs/test_inputs/rulegen_quality_policy.json \
             --baseline-json docs/test_outputs/baselines/rulegen_quality_baseline.json \
             --pos-probe-json docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json \
-            --pos-inventory-json docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json
+            --pos-inventory-json docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json \
+            --json-out docs/test_outputs/rulegen_quality_gate_ci.json
+      - name: Upload rulegen quality gate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rulegen-quality-gate-report
+          path: docs/test_outputs/rulegen_quality_gate_ci.json
+      - name: Write rulegen quality gate summary
+        if: always()
+        run: |
+          python scripts/testing/rulegen_quality_gate_summary.py \
+            --gate-json docs/test_outputs/rulegen_quality_gate_ci.json \
+            --title "Rulegen Quality Gate" \
+            --markdown-out docs/test_outputs/rulegen_quality_gate_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload rulegen quality gate summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rulegen-quality-gate-summary
+          path: docs/test_outputs/rulegen_quality_gate_ci.md
+      - name: Upload repo safety report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-check-report
+          path: docs/test_outputs/dev_workflow/check_latest.json
+      - name: Write repo safety summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_summary.py \
+            --check-json docs/test_outputs/dev_workflow/check_latest.json \
+            --title "Repo Safety" \
+            --markdown-out docs/test_outputs/dev_workflow/check_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload repo safety summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-check-summary
+          path: docs/test_outputs/dev_workflow/check_ci.md
