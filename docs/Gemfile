@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Local docs preview toolchain (GitHub Pages-compatible enough for this site).
-gem "jekyll", "~> 4.4"
+# Keep local preview aligned with the hosted GitHub Pages dependency set.
+# Update this with https://pages.github.com/versions/ when GitHub Pages moves.
+gem "github-pages", "~> 232", group: :jekyll_plugins
 gem "webrick", "~> 1.8"
-gem "jekyll-theme-cayman", "~> 0.2"

@@ -225,7 +225,7 @@ Reference:
 
 ## GitHub Pages Local Preview
 
-From `docs/`, use the committed Gemfile (no `/tmp` setup needed):
+From `docs/`, use the committed GitHub Pages Gemfile (no `/tmp` setup needed):
 
 ```bash
 cd /Users/takeyayuki/Documents/projects/LexiShift/docs
@@ -234,7 +234,16 @@ bundle exec jekyll serve --livereload --host 127.0.0.1 --port 4000 --source .
 ```
 
 Open:
-- `http://127.0.0.1:4000/LexiShift/`
+- `http://127.0.0.1:4000/`
+
+Notes:
+- `docs/Gemfile` is pinned to the supported `github-pages` dependency set rather
+  than a separate local Jekyll version.
+- When GitHub Pages updates, refresh the Gemfile against
+  `https://pages.github.com/versions/`.
+- Hosted docs deployment is controlled by `.github/workflows/pages.yml`.
+- Pull requests touching `docs/**` should now expect a dedicated Pages build
+  validation workflow in GitHub Actions.
 
 ## Where To Go Next
 

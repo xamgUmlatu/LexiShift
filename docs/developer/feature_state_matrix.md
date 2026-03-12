@@ -1,7 +1,7 @@
 # Feature State Matrix
 
 Status: active ledger
-Last updated: 2026-03-12
+Last updated: 2026-03-13
 
 Purpose:
 - Keep feature state explicit for GenAI-driven development.
@@ -152,6 +152,27 @@ Use this file when:
   - Hosted build coverage is now macOS full, Windows full-build plus artifact verification with a separate strict parity gate, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
+
+## GitHub Pages Docs Deployment
+
+- Status: `implemented`, `verified`, `default-on` = `no` until repository Pages source is switched to `GitHub Actions`
+- Last documented checkpoint: `2026-03-13`
+- Last verified: `2026-03-13` local `bundle exec jekyll build --trace` + workflow YAML review
+- Default behavior:
+  - Repo-owned Pages workflow now lives in `.github/workflows/pages.yml`.
+  - Pull requests touching `docs/**` run a build-only Pages validation job.
+  - Pushes to `main` touching `docs/**` build and deploy the site once repository Pages settings use `GitHub Actions`.
+  - Local parity command is `cd docs && bundle exec jekyll build --trace`.
+- Evidence:
+  - `.github/workflows/pages.yml`
+  - `docs/runbooks/github_pages_setup.md`
+  - `docs/Gemfile`
+  - `docs/Gemfile.lock`
+  - `docs/_config.yml`
+  - `docs/developer/local_setup.md`
+- Known gaps:
+  - The repository setting still has to be switched from `Deploy from a branch` to `GitHub Actions`; code cannot enforce that by itself.
+  - Current workflow validates Jekyll build/deploy only; it does not yet run link checking or browser-level UI smoke tests for docs JavaScript.
 
 ## Windows GUI Parity Audit
 

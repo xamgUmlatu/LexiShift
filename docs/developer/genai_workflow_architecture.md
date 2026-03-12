@@ -1,7 +1,7 @@
 # GenAI Workflow Architecture
 
 Status: active meta workflow
-Last updated: 2026-03-11
+Last updated: 2026-03-13
 
 ## Purpose
 
@@ -228,6 +228,7 @@ Current intent:
 - `check:summary` renders a stable Markdown handoff from the JSON workflow reports and is the preferred human-facing summary layer.
 - local `pre-push` should mirror `check`, not a separate ad hoc command set.
 - Keep repo-wide style clean enough that `check` can continue to enforce it without turning the default gate noisy again.
+- The GitHub Pages docs site should use a repo-owned workflow (`.github/workflows/pages.yml`) when deployment behavior needs explicit PR validation and repo-controlled build semantics; local parity for that workflow is `cd docs && bundle exec jekyll build --trace`.
 
 When a workflow stage is consumed by another agent step, prefer the JSON-report variants over scraping terminal output.
 When branch-scope change reports are dominated by earlier branch work, use `check:changed:local` or `check:changed:staged` for the current edit loop and keep `check:changed` as the broader integration signal.

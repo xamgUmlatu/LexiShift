@@ -104,6 +104,7 @@ For each FAIL/REVIEW triage item:
 - Use `npm --prefix scripts run check:windows:parity` when GUI/helper packaging, Windows build parity, helper autostart, native-messaging install, or Windows workflow coverage changes and you need the standalone parity JSON/Markdown artifacts.
 - `npm --prefix scripts run check:changed` now infers and runs the Windows parity audit when those files change; Windows CI runs the strict parity variant.
 - `npm --prefix scripts run check:changed` now infers heavier quality loops from substantive file changes so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger rulegen audit.
+- For GitHub Pages workflow changes or docs-site deployment changes, run `cd docs && bundle exec jekyll build --trace` before concluding the change, and keep `docs/runbooks/github_pages_setup.md` aligned with the active deployment model.
 
 ## Source of truth docs
 
