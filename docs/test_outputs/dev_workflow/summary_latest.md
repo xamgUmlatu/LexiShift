@@ -1,6 +1,6 @@
 # Development Workflow Summary
 
-Generated: 2026-03-12T02:54:00.330138+00:00
+Generated: 2026-03-12T03:07:37.623222+00:00
 
 ## Repo Safety
 - Status: PASS
@@ -9,14 +9,15 @@ Generated: 2026-03-12T02:54:00.330138+00:00
 ## Changed Scope
 - Status: PASS
 - Scope: `branch` (`origin/main`)
-- Changed files: 133
-- Substantive changed files: 65
+- Changed files: 97
+- Substantive changed files: 29
 - Project health: PASS
-- Changed Python files: 104
+- Changed Python files: 83
+- Format-only Python files ignored for heavy-loop inference: 68
 - Style: `clean`
 - BetterDiscord freshness: skipped
-- Feature-state audit: required (`origin/main`), PASS
-- Windows parity: required, PASS
+- Feature-state audit: required (`origin/main`), PASS via `docs/developer/feature_state_matrix.md`
+- Windows parity: not required
 - Rulegen quality: not required
 
 ## Build Safety

@@ -107,7 +107,7 @@ Changed-scope branch command:
 npm --prefix scripts run check:changed
 ```
 
-`check:changed` reports both all touched files and substantive changed files. Heavier follow-on loops, such as rulegen audit inference, now key off the substantive set so formatting-only Python churn stays cheap.
+`check:changed` reports both all touched files and substantive changed files. Heavier follow-on loops, such as rulegen audit inference, now key off the substantive set so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow stay cheap.
 
 This runs:
 - changed-only project health against the checked-in baseline

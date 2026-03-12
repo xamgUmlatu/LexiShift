@@ -6,6 +6,7 @@ import ast
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import shlex
 import subprocess
 import sys
@@ -15,6 +16,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROJECT_HEALTH_BASELINE = (
     PROJECT_ROOT / "docs" / "test_outputs" / "project_health" / "project_health_baseline.json"
 )
+JSON_NORMALIZED_EXTENSIONS: tuple[str, ...] = (".json",)
+WHITESPACE_NORMALIZED_TEXT_EXTENSIONS: tuple[str, ...] = (".md", ".txt", ".rst")
 BETTERDISCORD_PATH_HINTS: tuple[str, ...] = (
     "apps/betterdiscord-plugin/src/",
     "apps/chrome-extension/content/processing/tokenizer.js",
@@ -134,6 +137,22 @@ def _changed_python_files(changed_files: list[str]) -> list[str]:
     ]
 
 
+def _matching_paths(
+    changed_files: list[str],
+    hints: tuple[str, ...],
+    *,
+    exclude_prefixes: tuple[str, ...] = (),
+) -> list[str]:
+    matched: list[str] = []
+    for path in changed_files:
+        normalized = path.replace("\\", "/")
+        if any(normalized.startswith(prefix) for prefix in exclude_prefixes):
+            continue
+        if any(normalized.startswith(hint) or normalized == hint for hint in hints):
+            matched.append(normalized)
+    return matched
+
+
 def _run_git_capture(command: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         command,
@@ -186,6 +205,27 @@ def _python_change_is_substantive(base_source: str | None, current_source: str |
     return base_signature != current_signature
 
 
+def _json_change_is_substantive(base_source: str | None, current_source: str | None) -> bool:
+    if base_source is None or current_source is None:
+        return True
+    try:
+        base_json = json.loads(base_source)
+        current_json = json.loads(current_source)
+    except json.JSONDecodeError:
+        return True
+    return base_json != current_json
+
+
+def _collapse_whitespace(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _text_change_is_substantive(base_source: str | None, current_source: str | None) -> bool:
+    if base_source is None or current_source is None:
+        return True
+    return _collapse_whitespace(base_source) != _collapse_whitespace(current_source)
+
+
 def _current_file_text(path: str, scope: str) -> str | None:
     if scope == "staged":
         return _git_index_file_text(path)
@@ -210,13 +250,17 @@ def _collect_substantive_changed_files(
     substantive: set[str] = set()
     for path in changed_files:
         normalized = path.replace("\\", "/")
-        if not normalized.endswith(".py"):
-            if normalized in non_whitespace_changed:
-                substantive.add(normalized)
-            continue
         base_source = _git_tracked_file_text(tracked_base_revision, normalized)
         current_source = _current_file_text(normalized, scope)
-        if _python_change_is_substantive(base_source, current_source):
+        if normalized.endswith(".py"):
+            is_substantive = _python_change_is_substantive(base_source, current_source)
+        elif normalized.endswith(JSON_NORMALIZED_EXTENSIONS):
+            is_substantive = _json_change_is_substantive(base_source, current_source)
+        elif normalized.endswith(WHITESPACE_NORMALIZED_TEXT_EXTENSIONS):
+            is_substantive = _text_change_is_substantive(base_source, current_source)
+        else:
+            is_substantive = normalized in non_whitespace_changed
+        if is_substantive:
             substantive.add(normalized)
     return sorted(substantive)
 
@@ -305,6 +349,20 @@ def main() -> None:
         args.scope,
         changed_files,
     )
+    changed_python_files = _changed_python_files(changed_files)
+    substantive_python_files = _changed_python_files(substantive_changed_files)
+    format_only_python_files = sorted(set(changed_python_files) - set(substantive_python_files))
+    changed_text_files = [
+        path
+        for path in changed_files
+        if path.endswith(JSON_NORMALIZED_EXTENSIONS + WHITESPACE_NORMALIZED_TEXT_EXTENSIONS)
+    ]
+    substantive_text_files = [
+        path
+        for path in substantive_changed_files
+        if path.endswith(JSON_NORMALIZED_EXTENSIONS + WHITESPACE_NORMALIZED_TEXT_EXTENSIONS)
+    ]
+    format_only_text_files = sorted(set(changed_text_files) - set(substantive_text_files))
     payload: dict[str, object] = {
         "version": 1,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -316,6 +374,12 @@ def main() -> None:
         "changed_files_sample": changed_files[:10],
         "substantive_changed_files_count": len(substantive_changed_files),
         "substantive_changed_files_sample": substantive_changed_files[:10],
+        "changed_python_files_count": len(changed_python_files),
+        "substantive_python_files_count": len(substantive_python_files),
+        "format_only_python_files_count": len(format_only_python_files),
+        "format_only_python_files_sample": format_only_python_files[:10],
+        "format_only_text_files_count": len(format_only_text_files),
+        "format_only_text_files_sample": format_only_text_files[:10],
     }
     print(f"scope: {args.scope}")
     print(f"changed_files_count: {len(changed_files)}")
@@ -327,6 +391,16 @@ def main() -> None:
     if substantive_changed_files:
         print("substantive_changed_files_sample:")
         for path in substantive_changed_files[:10]:
+            print(f"  - {path}")
+    print(f"format_only_python_files_count: {len(format_only_python_files)}")
+    if format_only_python_files:
+        print("format_only_python_files_sample:")
+        for path in format_only_python_files[:10]:
+            print(f"  - {path}")
+    print(f"format_only_text_files_count: {len(format_only_text_files)}")
+    if format_only_text_files:
+        print("format_only_text_files_sample:")
+        for path in format_only_text_files[:10]:
             print(f"  - {path}")
 
     project_health_command = [
@@ -353,7 +427,6 @@ def main() -> None:
         _write_json_report(args.json_out, payload)
         raise SystemExit(project_health_exit_code)
 
-    changed_python_files = _changed_python_files(changed_files)
     payload["changed_python_files"] = changed_python_files
     if changed_python_files:
         print(f"changed_python_files: {len(changed_python_files)}")
@@ -389,7 +462,11 @@ def main() -> None:
         print("changed_python_files: 0")
         payload["style"] = {"status": "skipped"}
 
+    feature_state_trigger_files = []
     if _needs_feature_state_audit(changed_files):
+        feature_state_trigger_files = [
+            path for path in changed_files if path == FEATURE_STATE_MATRIX_PATH
+        ]
         compare_ref = str(args.base_ref) if args.scope == "branch" else "HEAD"
         feature_state_command = [
             sys.executable,
@@ -401,6 +478,7 @@ def main() -> None:
         payload["feature_state"] = {
             "required": True,
             "compare_ref": compare_ref,
+            "trigger_files": feature_state_trigger_files,
             "command": feature_state_command,
             "exit_code": feature_state_exit_code,
         }
@@ -411,11 +489,13 @@ def main() -> None:
         print("feature_state_audit_required: no")
         payload["feature_state"] = {"required": False, "status": "not-needed"}
 
-    if _needs_betterdiscord_freshness(changed_files):
+    betterdiscord_trigger_files = _matching_paths(changed_files, BETTERDISCORD_PATH_HINTS)
+    if betterdiscord_trigger_files:
         betterdiscord_command = ["node", "apps/betterdiscord-plugin/build_plugin.js", "--check"]
         betterdiscord_exit_code = _run(betterdiscord_command, strict=False)
         payload["betterdiscord_freshness"] = {
             "required": True,
+            "trigger_files": betterdiscord_trigger_files[:10],
             "command": betterdiscord_command,
             "exit_code": betterdiscord_exit_code,
         }
@@ -426,11 +506,13 @@ def main() -> None:
         print("betterdiscord_freshness_check: skipped")
         payload["betterdiscord_freshness"] = {"required": False, "status": "skipped"}
 
-    if _needs_windows_parity(changed_files):
+    windows_parity_trigger_files = _matching_paths(changed_files, WINDOWS_PARITY_PATH_HINTS)
+    if windows_parity_trigger_files:
         windows_parity_command = [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"]
         windows_parity_exit_code = _run(windows_parity_command, strict=False)
         payload["windows_parity"] = {
             "required": True,
+            "trigger_files": windows_parity_trigger_files[:10],
             "command": windows_parity_command,
             "exit_code": windows_parity_exit_code,
         }
@@ -441,7 +523,12 @@ def main() -> None:
         print("windows_parity_required: no")
         payload["windows_parity"] = {"required": False, "status": "not-needed"}
 
-    if _needs_rulegen_quality(substantive_changed_files):
+    rulegen_trigger_files = _matching_paths(
+        substantive_changed_files,
+        RULEGEN_QUALITY_PATH_HINTS,
+        exclude_prefixes=RULEGEN_META_ONLY_PATHS,
+    )
+    if rulegen_trigger_files:
         print("rulegen_quality_required: yes")
         command = [
             sys.executable,
@@ -458,6 +545,7 @@ def main() -> None:
                 "required": True,
                 "mode": "run",
                 "inference_basis": "substantive_changed_files",
+                "trigger_files": rulegen_trigger_files[:10],
                 "command": command,
                 "exit_code": rulegen_exit_code,
             }
@@ -471,6 +559,7 @@ def main() -> None:
                 "required": True,
                 "mode": "dry-run",
                 "inference_basis": "substantive_changed_files",
+                "trigger_files": rulegen_trigger_files[:10],
                 "command": command,
                 "exit_code": rulegen_exit_code,
             }

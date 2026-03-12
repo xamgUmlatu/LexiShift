@@ -103,7 +103,7 @@ For each FAIL/REVIEW triage item:
 - Use `npm --prefix scripts run build:ci:report` when validating non-macOS hosted-runner behavior or CI-safe build normalization.
 - Use `npm --prefix scripts run check:windows:parity` when GUI/helper packaging, Windows build parity, helper autostart, native-messaging install, or Windows workflow coverage changes and you need the standalone parity JSON/Markdown artifacts.
 - `npm --prefix scripts run check:changed` now infers and runs the Windows parity audit when those files change; Windows CI runs the strict parity variant.
-- `npm --prefix scripts run check:changed` now infers heavier quality loops from substantive file changes so Python formatting-only churn does not automatically trigger rulegen audit.
+- `npm --prefix scripts run check:changed` now infers heavier quality loops from substantive file changes so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger rulegen audit.
 
 ## Source of truth docs
 

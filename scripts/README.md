@@ -23,7 +23,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
-  - Tracks both total changed files and substantive changed files so formatting-only Python churn does not automatically trigger heavy quality loops
+  - Tracks both total changed files and substantive changed files so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger heavy quality loops
   - Automatically runs the Windows parity audit when parity-related GUI/helper/build files change
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`

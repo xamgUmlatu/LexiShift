@@ -106,6 +106,8 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
     changed_python_count = (
         len(changed_python_files) if isinstance(changed_python_files, list) else 0
     )
+    format_only_python_count = int(payload.get("format_only_python_files_count") or 0)
+    format_only_text_count = int(payload.get("format_only_text_files_count") or 0)
     lines = [
         "## Changed Scope",
         f"- Status: {status}",
@@ -115,6 +117,14 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
         f"- Project health: {project_health_status}",
         f"- Changed Python files: {changed_python_count}",
     ]
+    if format_only_python_count > 0:
+        lines.append(
+            f"- Format-only Python files ignored for heavy-loop inference: {format_only_python_count}"
+        )
+    if format_only_text_count > 0:
+        lines.append(
+            f"- Format-only text/data files ignored for heavy-loop inference: {format_only_text_count}"
+        )
     if style_status:
         style_line = f"- Style: `{style_status}`"
         details: list[str] = []
@@ -129,9 +139,11 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
     if isinstance(betterdiscord, dict):
         required = bool(betterdiscord.get("required"))
         if required:
-            lines.append(
-                f"- BetterDiscord freshness: {_bool_status(int(betterdiscord.get('exit_code') or 0))}"
-            )
+            line = f"- BetterDiscord freshness: {_bool_status(int(betterdiscord.get('exit_code') or 0))}"
+            trigger_files = betterdiscord.get("trigger_files")
+            if isinstance(trigger_files, list) and trigger_files:
+                line += f" via `{trigger_files[0]}`"
+            lines.append(line)
         else:
             lines.append("- BetterDiscord freshness: skipped")
     feature_state = payload.get("feature_state")
@@ -139,16 +151,22 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
         if bool(feature_state.get("required")):
             compare_ref = str(feature_state.get("compare_ref") or "unknown")
             exit_code = int(feature_state.get("exit_code") or 0)
-            lines.append(
-                f"- Feature-state audit: required (`{compare_ref}`), {_bool_status(exit_code)}"
-            )
+            line = f"- Feature-state audit: required (`{compare_ref}`), {_bool_status(exit_code)}"
+            trigger_files = feature_state.get("trigger_files")
+            if isinstance(trigger_files, list) and trigger_files:
+                line += f" via `{trigger_files[0]}`"
+            lines.append(line)
         else:
             lines.append("- Feature-state audit: not required")
     windows_parity = payload.get("windows_parity")
     if isinstance(windows_parity, dict):
         if bool(windows_parity.get("required")):
             exit_code = int(windows_parity.get("exit_code") or 0)
-            lines.append(f"- Windows parity: required, {_bool_status(exit_code)}")
+            line = f"- Windows parity: required, {_bool_status(exit_code)}"
+            trigger_files = windows_parity.get("trigger_files")
+            if isinstance(trigger_files, list) and trigger_files:
+                line += f" via `{trigger_files[0]}`"
+            lines.append(line)
         else:
             lines.append("- Windows parity: not required")
     rulegen = payload.get("rulegen_quality")
@@ -160,6 +178,9 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
             line = f"- Rulegen quality: required (`{mode}`), {_bool_status(exit_code)}"
             if inference_basis:
                 line += f" via `{inference_basis}`"
+            trigger_files = rulegen.get("trigger_files")
+            if isinstance(trigger_files, list) and trigger_files:
+                line += f" from `{trigger_files[0]}`"
             lines.append(line)
         else:
             lines.append("- Rulegen quality: not required")

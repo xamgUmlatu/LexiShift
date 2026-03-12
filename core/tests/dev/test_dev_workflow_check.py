@@ -11,7 +11,9 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from dev_workflow_check import build_commands  # noqa: E402
 from dev_workflow_changed_check import (  # noqa: E402
+    _json_change_is_substantive,
     _python_change_is_substantive,
+    _text_change_is_substantive,
 )
 
 
@@ -45,6 +47,26 @@ class TestDevWorkflowCheck(unittest.TestCase):
         base = "value = {'name': 'lexishift'}\n"
         current = 'value = {"name": "codex"}\n'
         self.assertTrue(_python_change_is_substantive(base, current))
+
+    def test_json_change_is_not_substantive_for_pretty_print_only(self) -> None:
+        base = '{"name":"lexishift","enabled":true}\n'
+        current = '{\n  "enabled": true,\n  "name": "lexishift"\n}\n'
+        self.assertFalse(_json_change_is_substantive(base, current))
+
+    def test_json_change_is_substantive_for_value_change(self) -> None:
+        base = '{"name":"lexishift","enabled":true}\n'
+        current = '{"name":"lexishift","enabled":false}\n'
+        self.assertTrue(_json_change_is_substantive(base, current))
+
+    def test_text_change_is_not_substantive_for_reflow_only(self) -> None:
+        base = "Line one wraps here.\nLine two continues.\n"
+        current = "Line one wraps here. Line two continues.\n"
+        self.assertFalse(_text_change_is_substantive(base, current))
+
+    def test_text_change_is_substantive_for_content_change(self) -> None:
+        base = "Line one wraps here.\nLine two continues.\n"
+        current = "Line one wraps here.\nLine two changed.\n"
+        self.assertTrue(_text_change_is_substantive(base, current))
 
 
 if __name__ == "__main__":

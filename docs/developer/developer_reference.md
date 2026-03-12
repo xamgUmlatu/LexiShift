@@ -184,7 +184,7 @@ Changed-scope branch loop:
 npm --prefix scripts run check:changed
 ```
 
-`check:changed` distinguishes total changed files from substantive changed files so formatting-only Python sweeps do not automatically trigger heavier quality loops.
+`check:changed` distinguishes total changed files from substantive changed files so Python AST-equivalent sweeps, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger heavier quality loops.
 
 Machine-readable branch report:
 
