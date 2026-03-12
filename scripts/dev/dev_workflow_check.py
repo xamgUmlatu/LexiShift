@@ -74,6 +74,7 @@ def build_commands() -> list[tuple[str, list[str]]]:
                 "-m",
                 "py_compile",
                 "scripts/dev/feature_state_audit.py",
+                "scripts/dev/ci_report_gate.py",
                 "scripts/testing/rulegen_pair_audit_cycle.py",
                 "scripts/testing/rulegen_auto_audit.py",
                 "scripts/testing/rulegen_benchmark_summary.py",

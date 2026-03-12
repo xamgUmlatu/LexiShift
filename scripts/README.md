@@ -28,6 +28,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`
   - Used by `npm --prefix scripts run check:summary` and CI step summaries
+  - Includes first-failure stdout/stderr tails and missing-artifact lists when the JSON report contains them
+- CI report gate for JSON workflow artifacts:
+  `dev/ci_report_gate.py`
+  - Lets CI upload summaries/artifacts first, then fail the job from `check` / `build` / parity / gate JSON status
 - Cross-platform Python launcher for npm workflow scripts:
   `dev/run_python.js`
   - Keeps `npm --prefix scripts run check` / `build` / quality wrappers usable on Windows where `python3` may not exist by name

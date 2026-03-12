@@ -98,8 +98,8 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + workflow failure-detail reporting review
+- Last documented checkpoint: `2026-03-12` CI report-gate orchestration
+- Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + workflow failure-detail reporting + CI report-gate orchestration review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -117,6 +117,7 @@ Use this file when:
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - Failed `check` / `build` commands now record stdout/stderr tail lines and missing-artifact details in the JSON reports so hosted CI failures remain inspectable from artifacts and summaries.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports and now surfaces first-failure detail tails when present.
+  - Hosted CI now lets report-producing steps continue long enough to upload summaries/artifacts, then fails the job via explicit JSON-based gate steps.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
   - `pre-commit` now runs repo-wide Ruff lint and Ruff format before commit, while `pre-push` keeps the full repo-safety gate.
 - Evidence:
@@ -126,6 +127,7 @@ Use this file when:
   - `scripts/dev/dev_workflow_build.py`
   - `scripts/dev/dev_workflow_style_check.py`
   - `scripts/dev/dev_workflow_style_summary.py`
+  - `scripts/dev/ci_report_gate.py`
   - `scripts/dev/run_python.js`
   - `apps/betterdiscord-plugin/build_plugin.js`
   - `.pre-commit-config.yaml`
