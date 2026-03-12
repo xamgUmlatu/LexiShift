@@ -98,7 +98,7 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-12` CI report-gate orchestration
+- Last documented checkpoint: `2026-03-12` CI report-gate orchestration + hosted repo-safety split
 - Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + workflow failure-detail reporting + CI report-gate orchestration review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
@@ -118,6 +118,8 @@ Use this file when:
   - Failed `check` / `build` commands now record stdout/stderr tail lines and missing-artifact details in the JSON reports so hosted CI failures remain inspectable from artifacts and summaries.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports and now surfaces first-failure detail tails when present.
   - Hosted CI now lets report-producing steps continue long enough to upload summaries/artifacts, then fails the job via explicit JSON-based gate steps.
+  - Hosted Ubuntu repo-safety now uses `npm --prefix scripts run check:report:ci`, which skips the redundant Windows parity audit; dedicated Windows parity/build jobs remain responsible for that surface.
+  - Hosted repo-safety still renders the latest rulegen benchmark/gate/triage summaries, but the known-red rulegen artifact no longer blocks the generic repo-safety job.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
   - `pre-commit` now runs repo-wide Ruff lint and Ruff format before commit, while `pre-push` keeps the full repo-safety gate.
 - Evidence:

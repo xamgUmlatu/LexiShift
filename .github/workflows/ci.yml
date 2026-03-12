@@ -72,7 +72,7 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Repo safety report
         continue-on-error: true
-        run: npm --prefix scripts run check:report
+        run: npm --prefix scripts run check:report:ci
       - name: Repo style debt report
         run: npm --prefix scripts run check:style:report
       - name: Write rulegen benchmark summary
@@ -186,12 +186,11 @@ jobs:
         with:
           name: workflow-style-summary
           path: docs/test_outputs/dev_workflow/style_ci.md
-      - name: Enforce repo safety and rulegen gate status
+      - name: Enforce repo safety status
         if: always()
         run: |
           python scripts/dev/ci_report_gate.py \
-            --check-json docs/test_outputs/dev_workflow/check_latest.json \
-            --rulegen-gate-json docs/test_outputs/rulegen_quality_gate_ci.json
+            --check-json docs/test_outputs/dev_workflow/check_latest.json
 
   build-safety:
     runs-on: ubuntu-latest

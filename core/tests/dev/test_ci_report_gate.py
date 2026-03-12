@@ -63,7 +63,11 @@ class TestCiReportGate(unittest.TestCase):
                     "overall_exit_code": 1,
                     "commands": [
                         {"label": "unit_tests", "exit_code": 0},
-                        {"label": "mypy", "exit_code": 1},
+                        {
+                            "label": "mypy",
+                            "exit_code": 1,
+                            "stderr_tail": ["error: bad type"],
+                        },
                     ],
                 },
             )
@@ -98,11 +102,11 @@ class TestCiReportGate(unittest.TestCase):
 
         self.assertEqual(result.returncode, 1)
         self.assertIn(
-            "[FAIL] check_report overall_exit_code=1 first_failed_command=mypy",
+            "[FAIL] check_report overall_exit_code=1 first_failed_command=mypy detail=error: bad type",
             result.stdout,
         )
         self.assertIn(
-            "[FAIL] build_report overall_exit_code=1 first_failed_command=gui_build_validate missing_artifacts=1",
+            "[FAIL] build_report overall_exit_code=1 first_failed_command=gui_build_validate missing_artifact_sample=/tmp/LexiShift.app",
             result.stdout,
         )
 

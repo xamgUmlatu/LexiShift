@@ -29,6 +29,20 @@ def _first_failed_command(payload: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
+def _snippet_from_command(item: dict[str, Any]) -> str:
+    missing = item.get("missing_artifacts")
+    if isinstance(missing, list) and missing:
+        sample = str(missing[0])
+        return f" missing_artifact_sample={sample}"
+    for key in ("stderr_tail", "stdout_tail"):
+        value = item.get(key)
+        if isinstance(value, list) and value:
+            snippet = str(value[-1]).strip().replace("\n", " ")
+            if snippet:
+                return f" detail={snippet}"
+    return ""
+
+
 def _gate_check(path: Path) -> tuple[bool, str]:
     payload = _load_json(path)
     exit_code = int(payload.get("overall_exit_code") or 0)
@@ -36,6 +50,7 @@ def _gate_check(path: Path) -> tuple[bool, str]:
     failed = _first_failed_command(payload)
     if failed:
         message += f" first_failed_command={failed.get('label')}"
+        message += _snippet_from_command(failed)
     return exit_code == 0, message
 
 
@@ -46,9 +61,7 @@ def _gate_build(path: Path) -> tuple[bool, str]:
     failed = _first_failed_command(payload)
     if failed:
         message += f" first_failed_command={failed.get('label')}"
-        missing = failed.get("missing_artifacts")
-        if isinstance(missing, list) and missing:
-            message += f" missing_artifacts={len(missing)}"
+        message += _snippet_from_command(failed)
     return exit_code == 0, message
 
 

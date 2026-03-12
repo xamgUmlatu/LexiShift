@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T03:32:00.822753+00:00",
+  "generated_at_utc": "2026-03-12T03:43:59.310794+00:00",
   "overall_exit_code": 0,
   "commands": [
     {
@@ -17,7 +17,7 @@
       "stderr_tail": [
         "............................................................................................................................................................................................................",
         "----------------------------------------------------------------------",
-        "Ran 204 tests in 0.395s",
+        "Ran 204 tests in 0.442s",
         "OK"
       ]
     },
@@ -84,19 +84,6 @@
       "stdout_tail": [
         "sections_audited: 13",
         "issues: 0"
-      ]
-    },
-    {
-      "label": "windows_parity_audit",
-      "command": [
-        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
-        "scripts/dev/windows_parity_audit.py",
-        "--strict"
-      ],
-      "exit_code": 0,
-      "stdout_tail": [
-        "status: PASS",
-        "counts: pass=9 warn=0 fail=0"
       ]
     },
     {

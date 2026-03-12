@@ -52,6 +52,11 @@ def parse_args() -> argparse.Namespace:
         description="Run the stable non-mutating repository safety checks."
     )
     parser.add_argument(
+        "--skip-windows-parity",
+        action="store_true",
+        help="Skip the strict Windows parity audit in this run.",
+    )
+    parser.add_argument(
         "--json-out",
         type=Path,
         help="Optional JSON report output path.",
@@ -59,8 +64,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def build_commands() -> list[tuple[str, list[str]]]:
-    return [
+def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list[str]]]:
+    commands: list[tuple[str, list[str]]] = [
         ("unit_tests", [sys.executable, "-m", "unittest", "discover", "-s", "core/tests"]),
         ("mypy", [sys.executable, "-m", "mypy", "core/lexishift_core"]),
         (
@@ -97,20 +102,25 @@ def build_commands() -> list[tuple[str, list[str]]]:
             [sys.executable, "scripts/dev/feature_state_audit.py", "--compare-ref", "HEAD"],
         ),
         (
-            "windows_parity_audit",
-            [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"],
-        ),
-        (
             "repo_style_strict",
             [sys.executable, "scripts/dev/dev_workflow_style_check.py", "--strict"],
         ),
         ("project_health_advisory", ["node", "scripts/dev/check_project_health.js", "--advisory"]),
     ]
+    if not skip_windows_parity:
+        commands.insert(
+            5,
+            (
+                "windows_parity_audit",
+                [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"],
+            ),
+        )
+    return commands
 
 
 def main() -> None:
     args = parse_args()
-    commands = build_commands()
+    commands = build_commands(skip_windows_parity=bool(args.skip_windows_parity))
     results: list[dict[str, object]] = []
     overall_exit_code = 0
     for label, command in commands:

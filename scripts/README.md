@@ -15,6 +15,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Repo safety check (tests + mypy + workflow script compile + advisory project health):
   `dev/dev_workflow_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:report`
+  - Hosted Ubuntu CI uses `npm --prefix scripts run check:report:ci` to skip the redundant Windows parity audit; Windows parity is enforced in the dedicated Windows job
   - Includes `dev/feature_state_audit.py` so feature-state claims stay structured and evidence-backed
 - Feature-state matrix audit:
   `dev/feature_state_audit.py`

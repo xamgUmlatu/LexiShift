@@ -28,6 +28,11 @@ class TestDevWorkflowCheck(unittest.TestCase):
             [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"],
         )
 
+    def test_build_commands_can_skip_windows_parity_audit(self) -> None:
+        commands = build_commands(skip_windows_parity=True)
+        labels = [label for label, _command in commands]
+        self.assertNotIn("windows_parity_audit", labels)
+
     def test_build_commands_include_repo_style_strict(self) -> None:
         commands = build_commands()
         labels = [label for label, _command in commands]
