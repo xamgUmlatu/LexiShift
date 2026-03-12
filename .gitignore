@@ -10,6 +10,8 @@ build/
 dist/
 *.spec
 !apps/gui/packaging/pyinstaller.spec
+!scripts/build/
+!scripts/build/*.py
 
 # --- OS Generated ---
 .DS_Store

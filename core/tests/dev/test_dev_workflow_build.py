@@ -10,10 +10,27 @@ SCRIPT_DIR = REPO_ROOT / "scripts" / "dev"
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from dev_workflow_build import collect_artifact_records  # noqa: E402
+from dev_workflow_build import (  # noqa: E402
+    BETTERDISCORD_BUILD_SCRIPT,
+    GUI_BUILD_SCRIPT,
+    betterdiscord_build_command,
+    collect_artifact_records,
+    gui_build_command,
+)
 
 
 class TestDevWorkflowBuild(unittest.TestCase):
+    def test_betterdiscord_build_command_uses_absolute_script_path(self) -> None:
+        command = betterdiscord_build_command()
+        self.assertEqual(command, ["node", str(BETTERDISCORD_BUILD_SCRIPT)])
+
+    def test_gui_build_command_uses_absolute_script_path_and_no_clean(self) -> None:
+        command = gui_build_command("/tmp/python")
+        self.assertEqual(
+            command,
+            ["/tmp/python", str(GUI_BUILD_SCRIPT), "--validate", "--no-clean"],
+        )
+
     def test_collect_artifact_records_for_betterdiscord_bundle(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)

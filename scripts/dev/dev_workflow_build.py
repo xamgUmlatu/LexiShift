@@ -15,6 +15,8 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_TAIL_LINE_LIMIT = 20
+BETTERDISCORD_BUILD_SCRIPT = PROJECT_ROOT / "apps" / "betterdiscord-plugin" / "build_plugin.js"
+GUI_BUILD_SCRIPT = PROJECT_ROOT / "scripts" / "build" / "gui_app.py"
 
 
 @dataclass(frozen=True)
@@ -54,6 +56,15 @@ def _run(command: list[str]) -> dict[str, Any]:
     if stderr_tail:
         payload["stderr_tail"] = stderr_tail
     return payload
+
+
+def betterdiscord_build_command() -> list[str]:
+    return ["node", str(BETTERDISCORD_BUILD_SCRIPT)]
+
+
+def gui_build_command(python_executable: str | None = None) -> list[str]:
+    executable = python_executable or sys.executable
+    return [executable, str(GUI_BUILD_SCRIPT), "--validate", "--no-clean"]
 
 
 def _supports_gui_build_validate() -> bool:
@@ -177,9 +188,7 @@ def main() -> None:
     commands: list[tuple[str, list[str]]] = []
     skipped_commands: list[dict[str, object]] = []
     if not args.skip_bd:
-        commands.append(
-            ("betterdiscord_build", ["node", "apps/betterdiscord-plugin/build_plugin.js"])
-        )
+        commands.append(("betterdiscord_build", betterdiscord_build_command()))
     if not args.skip_gui:
         if args.ci_safe and not _supports_gui_build_validate():
             skipped_commands.append(
@@ -189,9 +198,7 @@ def main() -> None:
                 }
             )
         else:
-            commands.append(
-                ("gui_build_validate", [sys.executable, "scripts/build/gui_app.py", "--validate"])
-            )
+            commands.append(("gui_build_validate", gui_build_command()))
 
     results: list[dict[str, object]] = []
     all_artifacts: list[dict[str, object]] = []
