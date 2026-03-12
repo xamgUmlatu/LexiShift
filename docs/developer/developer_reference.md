@@ -104,6 +104,8 @@ Machine-readable report:
 npm --prefix scripts run check:report
 ```
 
+The JSON now includes stdout/stderr tails for failed commands so CI artifacts and summaries can expose the first actionable failure.
+
 Feature-state discipline audit:
 
 ```bash
@@ -139,6 +141,8 @@ npm --prefix scripts run build:report
 ```
 
 Hosted macOS CI uses the same full build-report entrypoint.
+
+The build JSON also carries missing-artifact details when validation fails.
 
 CI-safe build report:
 

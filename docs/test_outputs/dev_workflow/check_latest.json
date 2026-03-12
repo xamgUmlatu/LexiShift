@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T02:48:59.308676+00:00",
+  "generated_at_utc": "2026-03-12T03:27:51.885719+00:00",
   "overall_exit_code": 0,
   "commands": [
     {
@@ -13,7 +13,13 @@
         "-s",
         "core/tests"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stderr_tail": [
+        "............................................................................................................................................................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 204 tests in 0.408s",
+        "OK"
+      ]
     },
     {
       "label": "mypy",
@@ -23,7 +29,10 @@
         "mypy",
         "core/lexishift_core"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "Success: no issues found in 81 source files"
+      ]
     },
     {
       "label": "betterdiscord_freshness",
@@ -32,7 +41,10 @@
         "apps/betterdiscord-plugin/build_plugin.js",
         "--check"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "Plugin build is up to date: /Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js"
+      ]
     },
     {
       "label": "workflow_py_compile",
@@ -67,7 +79,11 @@
         "--compare-ref",
         "HEAD"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "sections_audited: 13",
+        "issues: 0"
+      ]
     },
     {
       "label": "windows_parity_audit",
@@ -76,7 +92,11 @@
         "scripts/dev/windows_parity_audit.py",
         "--strict"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "status: PASS",
+        "counts: pass=9 warn=0 fail=0"
+      ]
     },
     {
       "label": "repo_style_strict",
@@ -85,7 +105,13 @@
         "scripts/dev/dev_workflow_style_check.py",
         "--strict"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "+ /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m ruff check . --statistics",
+        "+ /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m ruff format . --check",
+        "278 files already formatted",
+        "style_status: clean"
+      ]
     },
     {
       "label": "project_health_advisory",
@@ -94,7 +120,14 @@
         "scripts/dev/check_project_health.js",
         "--advisory"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "stdout_tail": [
+        "[check-project-health] PASS (319 files checked)",
+        "[check-project-health] Near-limit files:",
+        "  - core/lexishift_core/helper/rulegen.py [imports] (L 397/900, I 22/24, D 1/8, F 14/50)",
+        "  - scripts/testing/rulegen_benchmark.py [imports] (L 772/900, I 21/24, D 2/8, F 21/50)",
+        "  - scripts/testing/srs_quality_harness.py [lines] (L 819/900, I 18/24, D 1/8, F 23/50)"
+      ]
     }
   ]
 }

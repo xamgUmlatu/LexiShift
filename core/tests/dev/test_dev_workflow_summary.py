@@ -143,6 +143,14 @@ class TestDevWorkflowSummary(unittest.TestCase):
                         "label": "gui_build_validate",
                         "exit_code": 0,
                         "artifact_verification_exit_code": 1,
+                        "missing_artifacts": [
+                            "/tmp/LexiShift.app",
+                            "/tmp/LexiShift Helper.app",
+                        ],
+                        "stdout_tail": [
+                            "Build complete!",
+                            "[validate] Main app not found: /tmp/LexiShift.app",
+                        ],
                     }
                 ],
             }
@@ -150,6 +158,37 @@ class TestDevWorkflowSummary(unittest.TestCase):
         self.assertIn("- Status: FAIL", markdown)
         self.assertIn("- Commands passed: 0/1", markdown)
         self.assertIn("- First failed command: `gui_build_validate`", markdown)
+        self.assertIn("- Missing artifacts:", markdown)
+        self.assertIn("`/tmp/LexiShift.app`", markdown)
+        self.assertIn("- Failure stdout tail:", markdown)
+        self.assertIn("[validate] Main app not found: /tmp/LexiShift.app", markdown)
+
+    def test_render_summary_includes_repo_safety_failure_output_tails(self) -> None:
+        markdown = render_summary(
+            check_payload={
+                "overall_exit_code": 1,
+                "commands": [
+                    {
+                        "label": "unit_tests",
+                        "exit_code": 0,
+                    },
+                    {
+                        "label": "mypy",
+                        "exit_code": 1,
+                        "stdout_tail": ["+ python -m mypy core/lexishift_core"],
+                        "stderr_tail": [
+                            "core/lexishift_core/example.py:10: error: Incompatible types"
+                        ],
+                    },
+                ],
+            }
+        )
+        self.assertIn("- Status: FAIL", markdown)
+        self.assertIn("- First failed command: `mypy`", markdown)
+        self.assertIn("- Failure stdout tail:", markdown)
+        self.assertIn("+ python -m mypy core/lexishift_core", markdown)
+        self.assertIn("- Failure stderr tail:", markdown)
+        self.assertIn("error: Incompatible types", markdown)
 
 
 if __name__ == "__main__":

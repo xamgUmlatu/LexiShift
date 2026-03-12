@@ -48,6 +48,8 @@ Machine-readable report:
 npm --prefix scripts run check:report
 ```
 
+Failed commands now keep stdout/stderr tail lines in the JSON report so CI artifact summaries can show the first actionable failure without relying only on raw hosted logs.
+
 Feature-state discipline audit:
 
 ```bash
@@ -148,6 +150,8 @@ Machine-readable build report:
 ```bash
 npm --prefix scripts run build:report
 ```
+
+Failed build commands now keep stdout/stderr tail lines and missing-artifact details in the JSON report for the same reason.
 
 This is the full build contract. Hosted macOS CI uses the same entrypoint.
 

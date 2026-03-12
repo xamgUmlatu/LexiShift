@@ -8,15 +8,43 @@ from pathlib import Path
 import shlex
 import subprocess
 import sys
+from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+OUTPUT_TAIL_LINE_LIMIT = 20
 
 
-def _run(command: list[str]) -> int:
+def _tail_lines(text: str, *, limit: int = OUTPUT_TAIL_LINE_LIMIT) -> list[str]:
+    lines = [line.rstrip() for line in text.splitlines() if line.strip()]
+    if len(lines) <= limit:
+        return lines
+    return lines[-limit:]
+
+
+def _run(command: list[str]) -> dict[str, Any]:
     print(f"+ {shlex.join(command)}", flush=True)
-    result = subprocess.run(command, cwd=PROJECT_ROOT, check=False)
-    return int(result.returncode)
+    result = subprocess.run(
+        command,
+        cwd=PROJECT_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.stdout:
+        print(result.stdout.rstrip())
+    if result.stderr:
+        print(result.stderr.rstrip(), file=sys.stderr)
+    payload: dict[str, Any] = {
+        "exit_code": int(result.returncode),
+    }
+    stdout_tail = _tail_lines(result.stdout or "")
+    stderr_tail = _tail_lines(result.stderr or "")
+    if stdout_tail:
+        payload["stdout_tail"] = stdout_tail
+    if stderr_tail:
+        payload["stderr_tail"] = stderr_tail
+    return payload
 
 
 def parse_args() -> argparse.Namespace:
@@ -85,14 +113,20 @@ def main() -> None:
     results: list[dict[str, object]] = []
     overall_exit_code = 0
     for label, command in commands:
-        exit_code = _run(command)
-        results.append(
-            {
-                "label": label,
-                "command": command,
-                "exit_code": exit_code,
-            }
-        )
+        command_result = _run(command)
+        exit_code = int(command_result["exit_code"])
+        result_entry: dict[str, object] = {
+            "label": label,
+            "command": command,
+            "exit_code": exit_code,
+        }
+        stdout_tail = command_result.get("stdout_tail")
+        stderr_tail = command_result.get("stderr_tail")
+        if isinstance(stdout_tail, list) and stdout_tail:
+            result_entry["stdout_tail"] = stdout_tail
+        if isinstance(stderr_tail, list) and stderr_tail:
+            result_entry["stderr_tail"] = stderr_tail
+        results.append(result_entry)
         if exit_code != 0:
             overall_exit_code = exit_code
             break

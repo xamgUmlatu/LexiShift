@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T02:36:47.646194+00:00",
+  "generated_at_utc": "2026-03-12T03:28:25.804108+00:00",
   "overall_exit_code": 0,
   "skip_bd": false,
   "skip_gui": false,
@@ -18,6 +18,9 @@
         "apps/betterdiscord-plugin/build_plugin.js"
       ],
       "exit_code": 0,
+      "stdout_tail": [
+        "Built /Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js"
+      ],
       "artifacts": [
         {
           "label": "betterdiscord_bundle",
@@ -36,6 +39,41 @@
         "--validate"
       ],
       "exit_code": 0,
+      "stdout_tail": [
+        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
+        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
+        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
+        "Platform: Darwin 25.3.0",
+        "Python: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "Spec: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec",
+        "Dist: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
+        "Work: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build",
+        "Build Mode: ONEDIR",
+        "Cleaning dist/work directories...",
+        "Running: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m PyInstaller --clean --noconfirm --distpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist --workpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec"
+      ],
+      "stderr_tail": [
+        "25821 INFO: Building EXE from EXE-01.toc completed successfully.",
+        "25829 INFO: checking COLLECT",
+        "25829 INFO: Building COLLECT because COLLECT-00.toc is non existent",
+        "25829 INFO: Building COLLECT COLLECT-00.toc",
+        "26730 INFO: Building COLLECT COLLECT-00.toc completed successfully.",
+        "26739 INFO: checking BUNDLE",
+        "26739 INFO: Building BUNDLE because BUNDLE-00.toc is non existent",
+        "26739 INFO: Building BUNDLE BUNDLE-00.toc",
+        "31753 INFO: Signing the BUNDLE...",
+        "32154 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.",
+        "32165 INFO: checking COLLECT",
+        "32165 INFO: Building COLLECT because COLLECT-01.toc is non existent",
+        "32165 INFO: Building COLLECT COLLECT-01.toc",
+        "33447 INFO: Building COLLECT COLLECT-01.toc completed successfully.",
+        "33453 INFO: checking BUNDLE",
+        "33453 INFO: Building BUNDLE because BUNDLE-01.toc is non existent",
+        "33453 INFO: Building BUNDLE BUNDLE-01.toc",
+        "34724 INFO: Signing the BUNDLE...",
+        "34880 INFO: Building BUNDLE BUNDLE-01.toc completed successfully.",
+        "34885 INFO: Build complete! The results are available in: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist"
+      ],
       "artifacts": [
         {
           "label": "gui_main_app_bundle",

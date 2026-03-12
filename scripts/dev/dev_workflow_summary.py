@@ -54,6 +54,49 @@ def _first_failed_command(payload: dict[str, Any]) -> str | None:
     return None
 
 
+def _failed_command(payload: dict[str, Any]) -> dict[str, Any] | None:
+    commands = payload.get("commands")
+    if not isinstance(commands, list):
+        return None
+    for item in commands:
+        if not isinstance(item, dict):
+            continue
+        if _command_status_exit_code(item) != 0:
+            return item
+    return None
+
+
+def _failure_detail_lines(payload: dict[str, Any]) -> list[str]:
+    failed = _failed_command(payload)
+    if failed is None:
+        return []
+
+    lines: list[str] = []
+    missing_artifacts = failed.get("missing_artifacts")
+    if isinstance(missing_artifacts, list) and missing_artifacts:
+        lines.append("- Missing artifacts:")
+        for item in missing_artifacts[:5]:
+            lines.append(f"  - `{item}`")
+        if len(missing_artifacts) > 5:
+            lines.append(f"  - ... and {len(missing_artifacts) - 5} more")
+
+    stdout_tail = failed.get("stdout_tail")
+    if isinstance(stdout_tail, list) and stdout_tail:
+        lines.append("- Failure stdout tail:")
+        lines.append("```text")
+        lines.extend(str(item) for item in stdout_tail[-10:])
+        lines.append("```")
+
+    stderr_tail = failed.get("stderr_tail")
+    if isinstance(stderr_tail, list) and stderr_tail:
+        lines.append("- Failure stderr tail:")
+        lines.append("```text")
+        lines.extend(str(item) for item in stderr_tail[-10:])
+        lines.append("```")
+
+    return lines
+
+
 def _extract_lint_error_count(text: str) -> int | None:
     match = re.search(r"Found\s+(\d+)\s+errors?\.", text)
     if not match:
@@ -83,6 +126,7 @@ def _render_check_section(payload: dict[str, Any]) -> list[str]:
     failed = _first_failed_command(payload)
     if failed:
         lines.append(f"- First failed command: `{failed}`")
+        lines.extend(_failure_detail_lines(payload))
     return lines
 
 
@@ -208,6 +252,7 @@ def _render_build_section(payload: dict[str, Any]) -> list[str]:
     failed = _first_failed_command(payload)
     if failed:
         lines.append(f"- First failed command: `{failed}`")
+        lines.extend(_failure_detail_lines(payload))
     if skipped_items:
         for item in skipped_items:
             if not isinstance(item, dict):
