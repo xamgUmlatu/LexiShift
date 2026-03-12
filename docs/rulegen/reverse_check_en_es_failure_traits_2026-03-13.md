@@ -1,7 +1,7 @@
 # Reverse-Check EN-ES Failure Traits (2026-03-13)
 
 Purpose:
-- classify the current `en-es` red failures after widening the benchmark slice
+- classify the current `en-es` hard cases after widening the benchmark slice
 - separate "tunable with current reverse-check model" from "needs a different signal"
 - give a quicker feel for how product-critical these cases are
 - keep the raw reverse-rank positions explicit for manual review
@@ -83,22 +83,21 @@ What still remains:
 
 ## Immediate Conclusion
 
-1. The raw reverse-rank position matters, and the current red cases show why.
+1. The raw reverse-rank position matters, and the current slice shows why.
    - `plant` is `0 / 10` while `sole` is `3 / 8`
    - `right` is only `5 / 23`
    - `bank` is later than `bench`, but still early within a much larger reverse list (`3 / 24` vs `0 / 8`)
 
-2. Rank-aware far-hit scoring improves `en-es`, but does not finish it.
-   - Reverse-specific experiment result:
+2. The current reverse model now handles the reverse-solvable cases well enough.
+   - Named reverse lane result:
      - top-1: `95.83%`
-     - top-3: `100.00%`
-     - forbidden top-1: `4.17%`
-     - triage count: `3`
-   - Fixed top-1:
+     - objective-best forbidden-any: `4.17%`
+     - remaining triage count: `1`
+   - Reverse-solvable cases now clean up as expected:
      - `madre` -> `mother`
      - `planta` -> `plant`
      - `derecho` -> `right`
 
-3. The remaining problem has shifted.
-   - `cuadro` still shows the limit of reverse evidence alone.
-   - `madre` and `derecho` still carry forbidden candidates in top-3, so the remaining blocker is now more about candidate suppression / top-3 hygiene than top-1 rescue.
+3. The remaining blocker is now concentrated.
+   - `cuadro` is the only remaining hard failure in the named reverse lane.
+   - That is strong evidence that the next product step should not be “more reverse tuning everywhere”; it should be a different signal for the non-reverse class.

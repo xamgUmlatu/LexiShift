@@ -18,6 +18,7 @@ from lexishift_core.rulegen.ranking import (
     CandidateRankingMechanism,
     DictionaryEntryOrderRankingMechanism,
     build_ranking_sort_key,
+    resolve_reverse_check_strength,
 )
 
 
@@ -141,6 +142,10 @@ DEFAULT_POS_COMPATIBILITY_CLASSES: Mapping[str, str] = {
     "interjection": "expressive",
     "punctuation": "punctuation",
 }
+
+REVERSE_HYGIENE_MIN_GROUP_COUNT = 3
+REVERSE_HYGIENE_STRONG_TOP_STRENGTH = 0.75
+REVERSE_HYGIENE_WEAK_GROUP_STRENGTH = 0.20
 
 
 class RuleGenerationPipeline:
@@ -311,12 +316,16 @@ class RuleGenerationPipeline:
 
         limited: list[RuleGenerationResult] = []
         for definition_groups in grouped.values():
-            ranked_definitions = sorted(
+            ranked_definitions: Sequence[Sequence[RuleGenerationResult]] = sorted(
                 definition_groups.values(),
                 key=lambda group: self._definition_group_sort_key(
                     group,
                     semantic_demotion_scale=semantic_demotion_scale,
                 ),
+            )
+            ranked_definitions = self._apply_reverse_definition_hygiene(
+                ranked_definitions,
+                semantic_demotion_scale=semantic_demotion_scale,
             )
             for definition_group in ranked_definitions[:max_definitions_per_target]:
                 limited.extend(
@@ -329,6 +338,37 @@ class RuleGenerationPipeline:
                     )
                 )
         return limited
+
+    def _apply_reverse_definition_hygiene(
+        self,
+        ranked_groups: Sequence[Sequence[RuleGenerationResult]],
+        *,
+        semantic_demotion_scale: float,
+    ) -> list[Sequence[RuleGenerationResult]]:
+        if len(ranked_groups) < REVERSE_HYGIENE_MIN_GROUP_COUNT:
+            return list(ranked_groups)
+        reverse_config = self._resolve_reverse_check_config()
+        if reverse_config is None or not bool(reverse_config.enabled):
+            return list(ranked_groups)
+        top_strength = self._definition_group_reverse_strength(
+            ranked_groups[0],
+            semantic_demotion_scale=semantic_demotion_scale,
+        )
+        if top_strength is None or top_strength < REVERSE_HYGIENE_STRONG_TOP_STRENGTH:
+            return list(ranked_groups)
+        filtered: list[Sequence[RuleGenerationResult]] = [ranked_groups[0]]
+        for group in ranked_groups[1:]:
+            strength = self._definition_group_reverse_strength(
+                group,
+                semantic_demotion_scale=semantic_demotion_scale,
+            )
+            if strength is None:
+                filtered.append(group)
+                continue
+            if strength <= REVERSE_HYGIENE_WEAK_GROUP_STRENGTH:
+                continue
+            filtered.append(group)
+        return filtered
 
     def _definition_group_sort_key(
         self,
@@ -346,6 +386,31 @@ class RuleGenerationPipeline:
         return self._ranking_sort_key(
             best,
             semantic_demotion_scale=semantic_demotion_scale,
+        )
+
+    def _definition_group_reverse_strength(
+        self,
+        results: Sequence[RuleGenerationResult],
+        *,
+        semantic_demotion_scale: float,
+    ) -> Optional[float]:
+        reverse_config = self._resolve_reverse_check_config()
+        if reverse_config is None:
+            return None
+        best = min(
+            results,
+            key=lambda result: self._ranking_sort_key(
+                result,
+                semantic_demotion_scale=semantic_demotion_scale,
+            ),
+        )
+        context = self._to_ranking_context(
+            best,
+            semantic_demotion_scale=semantic_demotion_scale,
+        )
+        return resolve_reverse_check_strength(
+            context.metadata,
+            config=reverse_config,
         )
 
     def _ranking_sort_key(
@@ -374,6 +439,12 @@ class RuleGenerationPipeline:
             confidence=result.confidence,
             semantic_demotion_scale=semantic_demotion_scale,
         )
+
+    def _resolve_reverse_check_config(self):
+        mechanism = self._ranking_mechanism
+        if isinstance(mechanism, DictionaryEntryOrderRankingMechanism):
+            return mechanism.reverse_check
+        return None
 
     def _limit_rule_count_per_target(
         self,

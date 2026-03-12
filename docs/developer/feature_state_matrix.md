@@ -245,10 +245,11 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-03-13`
-- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, and rank-aware far-hit experiment
+- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, rank-aware far-hit experiment, and named reverse-check audit lane
 - Default behavior:
   - Configurable and pair-aware for `en-es` and `es-en`.
   - Not yet promoted to default production tuning.
+  - Reverse-check-specific evaluation now has a named `en-es` lane via `npm --prefix scripts run quality:rulegen:reverse:en-es`.
 - Evidence:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
   - `docs/rulegen/reverse_check_rollout_matrix.md`
@@ -264,6 +265,10 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md`
   - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`
+  - `docs/test_outputs/rulegen_quality_gate_en_es_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.md`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
@@ -272,7 +277,8 @@ Use this file when:
   - The canonical latest benchmark loop still defaults to `rev=off`; reverse-check-specific evaluation currently requires explicit benchmark overrides.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
   - `en-es` hard-case coverage is better, but the canonical artifact still shows four red cases: `madre`, `planta`, `derecho`, `cuadro`.
-  - A promising `en-es` experiment with rank-aware `reverse_far_hit_penalty` improves top-1 to `95.83%`, reduces triage to three items, and fixes top-1 for `madre`, `planta`, and `derecho`, but `forbidden_any_rate` remains `12.50%`.
+  - The current named `en-es` reverse lane reduces remaining triage to one item (`cuadro`) and lowers `forbidden_any_rate` to `4.17%`.
+  - The best objective run in the reverse lane currently uses `max_rules_per_target=1`; a near-best `mr=none` run retains `top3=100.00%` with the same remaining failure set.
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone.
   - Current rollout is scoring-only, not strict candidate blocking.
 

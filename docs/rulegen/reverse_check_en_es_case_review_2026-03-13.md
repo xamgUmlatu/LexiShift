@@ -10,6 +10,12 @@ Artifacts:
 - Triage: `docs/test_outputs/rulegen_benchmark_triage_latest.json`
 - Probe (`rev=off`): `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
 - Probe (`rev=on`): `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
+- Named reverse lane benchmark: `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.json`
+- Named reverse lane triage: `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.json`
+- Named reverse lane summaries:
+  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_summary_latest.md`
+  - `docs/test_outputs/rulegen_quality_gate_en_es_reverse_summary_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_summary_latest.md`
 - Reverse-specific experiment benchmark: `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
 - Reverse-specific experiment triage: `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json`
 - Reverse-specific experiment probe: `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
@@ -39,9 +45,15 @@ Artifacts:
 5. The canonical benchmark artifact and the reverse-specific experiment now diverge in an important way:
    - the canonical latest benchmark still defaults to `rev=off` because `scripts/testing/rulegen_benchmark.py` only sweeps `--reverse-check-enabled-values false` unless explicitly overridden
    - the reverse-specific experiment is therefore the relevant artifact for this workstream
-6. Current reverse-specific experiment evidence says rank-aware reverse scoring is useful, but still partial:
-   - best `en-es` experiment run has `rev=on`
+6. The named reverse lane now captures the current best practical state for this workstream:
+   - best `en-es` run has `rev=on`
    - top-1 improves to `95.83%`
-   - triage drops from `4` failing items to `3`
+   - `forbidden_any_rate` improves to `4.17%`
+   - the remaining triage set drops to one item: `cuadro`
+7. There are two relevant reverse-lane operating points:
+   - objective winner: `mr=1`, which collapses the candidate set to one rule per target and leaves only `cuadro`
+   - near-winner: `mr=none`, which keeps `top3=100.00%` while still leaving only `cuadro`
+8. The practical reverse-check story for `en-es` is now much better:
    - `madre`, `planta`, and `derecho` all move to acceptable top-1 outputs
-   - but `madre` / `derecho` still retain forbidden candidates in top-3, and `cuadro` still fails outright
+   - top-3 hygiene also cleans the forbidden-any tail for `madre` / `derecho`
+   - `cuadro` remains the only visible non-reverse failure class

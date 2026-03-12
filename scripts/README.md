@@ -70,7 +70,9 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Render Markdown summaries from benchmark JSON artifacts:
   `testing/rulegen_benchmark_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:benchmark:summary`)
 - Focused audit cycle for selected pairs (benchmark -> quality gate -> triage) with sensible defaults for `en-es,en-ja`:
-  `testing/rulegen_pair_audit_cycle.py` (also forwards reverse-check tuning values and can emit quality-gate JSON)
+  `testing/rulegen_pair_audit_cycle.py` (also forwards reverse-check tuning values, accepts named reverse-check profiles such as `far-hit-experiment`, and can emit quality-gate JSON)
+- First-class `en-es` reverse-check lane:
+  `npm --prefix scripts run quality:rulegen:reverse:en-es` plus `npm --prefix scripts run quality:rulegen:reverse:summary`
 - Change-aware audit wrapper that infers touched pairs, writes dated artifacts, updates `*_latest` aliases, and stores a manifest:
   `testing/rulegen_auto_audit.py`
 - Apply exported HTML label overrides back into benchmark dataset cases:

@@ -8,6 +8,8 @@ import shlex
 import subprocess
 import sys
 
+from rulegen_reverse_profiles import REVERSE_CHECK_PROFILES
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -28,6 +30,12 @@ def _run_command(command: list[str]) -> int:
 
 def _load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _resolve_repo_path(path: Path) -> Path:
+    if path.is_absolute():
+        return path
+    return path.resolve()
 
 
 def _summarize_benchmark(path: Path, *, pairs: list[str]) -> None:
@@ -119,27 +127,33 @@ def main() -> None:
     )
     parser.add_argument(
         "--reverse-check-enabled-values",
-        default="false",
+        default=None,
     )
     parser.add_argument(
         "--reverse-check-match-bonus-values",
-        default="0.2",
+        default=None,
     )
     parser.add_argument(
         "--reverse-check-near-bonus-values",
-        default="0.1",
+        default=None,
     )
     parser.add_argument(
         "--reverse-check-near-rank-max-values",
-        default="2",
+        default=None,
     )
     parser.add_argument(
         "--reverse-check-far-hit-penalty-values",
-        default="0.0",
+        default=None,
     )
     parser.add_argument(
         "--reverse-check-miss-penalty-values",
-        default="0.2",
+        default=None,
+    )
+    parser.add_argument(
+        "--reverse-check-profile",
+        choices=tuple(REVERSE_CHECK_PROFILES.keys()),
+        default="default",
+        help="Preset for reverse-check sweep values.",
     )
     parser.add_argument(
         "--top-runs",
@@ -232,6 +246,49 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    args.benchmark_json = _resolve_repo_path(args.benchmark_json)
+    args.benchmark_markdown = _resolve_repo_path(args.benchmark_markdown)
+    args.benchmark_html = _resolve_repo_path(args.benchmark_html)
+    args.triage_json = _resolve_repo_path(args.triage_json)
+    args.triage_markdown = _resolve_repo_path(args.triage_markdown)
+    args.policy_json = _resolve_repo_path(args.policy_json)
+    args.baseline_json = _resolve_repo_path(args.baseline_json)
+    args.quality_gate_json = _resolve_repo_path(args.quality_gate_json)
+    args.pos_probe_json = _resolve_repo_path(args.pos_probe_json)
+    args.pos_inventory_json = _resolve_repo_path(args.pos_inventory_json)
+
+    reverse_profile = REVERSE_CHECK_PROFILES[str(args.reverse_check_profile)]
+    reverse_enabled_values = (
+        str(args.reverse_check_enabled_values)
+        if args.reverse_check_enabled_values is not None
+        else reverse_profile["enabled_values"]
+    )
+    reverse_match_bonus_values = (
+        str(args.reverse_check_match_bonus_values)
+        if args.reverse_check_match_bonus_values is not None
+        else reverse_profile["match_bonus_values"]
+    )
+    reverse_near_bonus_values = (
+        str(args.reverse_check_near_bonus_values)
+        if args.reverse_check_near_bonus_values is not None
+        else reverse_profile["near_bonus_values"]
+    )
+    reverse_near_rank_max_values = (
+        str(args.reverse_check_near_rank_max_values)
+        if args.reverse_check_near_rank_max_values is not None
+        else reverse_profile["near_rank_max_values"]
+    )
+    reverse_far_hit_penalty_values = (
+        str(args.reverse_check_far_hit_penalty_values)
+        if args.reverse_check_far_hit_penalty_values is not None
+        else reverse_profile["far_hit_penalty_values"]
+    )
+    reverse_miss_penalty_values = (
+        str(args.reverse_check_miss_penalty_values)
+        if args.reverse_check_miss_penalty_values is not None
+        else reverse_profile["miss_penalty_values"]
+    )
+
     pairs = [item.strip().lower() for item in str(args.pairs).split(",") if item.strip()]
     if not pairs:
         raise ValueError("No pairs provided.")
@@ -256,17 +313,17 @@ def main() -> None:
         "--score-weight-pos-values",
         str(args.score_weight_pos_values),
         "--reverse-check-enabled-values",
-        str(args.reverse_check_enabled_values),
+        reverse_enabled_values,
         "--reverse-check-match-bonus-values",
-        str(args.reverse_check_match_bonus_values),
+        reverse_match_bonus_values,
         "--reverse-check-near-bonus-values",
-        str(args.reverse_check_near_bonus_values),
+        reverse_near_bonus_values,
         "--reverse-check-near-rank-max-values",
-        str(args.reverse_check_near_rank_max_values),
+        reverse_near_rank_max_values,
         "--reverse-check-far-hit-penalty-values",
-        str(args.reverse_check_far_hit_penalty_values),
+        reverse_far_hit_penalty_values,
         "--reverse-check-miss-penalty-values",
-        str(args.reverse_check_miss_penalty_values),
+        reverse_miss_penalty_values,
         "--max-configurations",
         str(int(args.max_configurations)),
         "--top-runs",

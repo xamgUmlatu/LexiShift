@@ -178,6 +178,33 @@ def resolve_reverse_check_delta(
     return 0.0
 
 
+def resolve_reverse_check_strength(
+    metadata: Mapping[str, object],
+    *,
+    config: ReverseCheckScoringConfig,
+) -> Optional[float]:
+    supported = _extract_optional_bool(metadata.get("reverse_check_supported"))
+    if supported is not True:
+        return None
+    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
+    if hit is not True:
+        return 0.0
+    rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
+    if rank is None or rank == 0:
+        return 1.0
+    total = _extract_non_negative_int(metadata.get("reverse_check_total"))
+    if total is not None and total > 1:
+        max_rank = max(0, int(total) - 1)
+        if max_rank <= 0:
+            return 1.0
+        effective_rank = min(max(0, int(rank)), max_rank)
+        return _clamp_float(1.0 - (effective_rank / float(max_rank)))
+    near_rank_max = _normalize_non_negative_int(config.near_rank_max, default=2)
+    if rank <= near_rank_max:
+        return 0.75
+    return 0.25
+
+
 def resolve_reverse_far_hit_penalty(
     *,
     rank: int,

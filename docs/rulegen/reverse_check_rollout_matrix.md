@@ -18,7 +18,7 @@ Purpose:
 
 | Pair | Rulegen | Reverse Resources | Metadata Emitted | Ranking Hooked | Benchmarked | Default-On | Current State | Primary Evidence | Main Blocker |
 |---|---|---|---|---|---|---|---|---|---|
-| `en-es` | yes | yes | yes | yes | yes | no | `wired`, `benchmarked` | `core/lexishift_core/rulegen/pairs/en_es.py`; `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`; `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`; `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md`; `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`; `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json` | Rank-aware far-hit scoring lifts top-1 to `95.83%` and reduces triage to three items, but `madre` / `derecho` still keep forbidden top-3 candidates and `cuadro` still lacks reverse separation. |
+| `en-es` | yes | yes | yes | yes | yes | no | `wired`, `benchmarked` | `core/lexishift_core/rulegen/pairs/en_es.py`; `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`; `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`; `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`; `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.md`; `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json` | Rank-aware far-hit scoring plus top-3 hygiene now reduces the reverse-lane triage to one item (`cuadro`), but default rollout is still off and the remaining non-reverse failure class needs a different signal. |
 | `es-en` | yes | yes | yes | yes | no committed pair artifact | no | `wired` | `core/lexishift_core/rulegen/pairs/es_en.py`; `core/tests/rulegen/test_rulegen_reverse_check_metadata.py` | No committed benchmark/gate/triage artifact showing pair-level win or safe default rollout. |
 | `en-de` | yes | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/en_de.py` | Pair module has no reverse-path config or reverse metadata emission. |
 | `en-ja` | yes (via `ja_en` mode) | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/ja_en.py`; `core/lexishift_core/helper/lp_capabilities.py` | Current JMdict-backed path has no reverse-check phase-1 design or plumbing. |
@@ -60,8 +60,8 @@ For a new pair, reverse-check rollout is complete only when all of these are tru
 1. `en-es`
    - best evidence exists
    - hard-case breadth is now explicit
-   - reverse-specific winning configuration now uses reverse-check with rank-aware far-hit scoring
-   - remaining blockers are no longer wiring; they are failure-class specific scoring limits and top-3 hygiene
+   - named reverse lane now gives a stable benchmark/gate/triage surface for the workstream
+   - remaining blocker is no longer generic reverse scoring; it is the single non-reverse failure class (`cuadro`)
 2. `es-en`
    - code is wired, but artifact evidence is thin
 3. `en-de` / `en-ja`
