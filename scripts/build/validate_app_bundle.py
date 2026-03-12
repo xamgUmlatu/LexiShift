@@ -44,7 +44,9 @@ def _validate_macos_main_app(app_path: Path) -> list[str]:
 
     info = _load_info_plist(info_path)
     if info.get("CFBundleIdentifier") != MAIN_BUNDLE_ID:
-        errors.append(f"Unexpected bundle identifier for main app: {info.get('CFBundleIdentifier')}")
+        errors.append(
+            f"Unexpected bundle identifier for main app: {info.get('CFBundleIdentifier')}"
+        )
 
     exe_name = info.get("CFBundleExecutable")
     if exe_name:
@@ -80,7 +82,9 @@ def _validate_macos_helper_app(app_path: Path) -> list[str]:
 
     info = _load_info_plist(info_path)
     if info.get("CFBundleIdentifier") != HELPER_BUNDLE_ID:
-        errors.append(f"Unexpected bundle identifier for helper app: {info.get('CFBundleIdentifier')}")
+        errors.append(
+            f"Unexpected bundle identifier for helper app: {info.get('CFBundleIdentifier')}"
+        )
 
     exe_name = info.get("CFBundleExecutable")
     if exe_name:
@@ -136,24 +140,38 @@ def _find_windows_exe(dist_path: Path, exe_name: str) -> Path:
 def _validate_windows_main_exe(exe_path: Path) -> list[str]:
     errors: list[str] = []
     root = exe_path.parent
+    contents_root = root / "_internal" if (root / "_internal").exists() else root
     _check_path(exe_path, "Main executable", errors)
-    _check_path(root / "resources", "resources root", errors)
-    _check_path(root / "resources" / "i18n", "i18n resources", errors)
-    _check_path(root / "resources" / "themes", "themes resources", errors)
-    _check_path(root / "resources" / "sample_images", "sample images", errors)
-    _check_path(root / "resources" / "helper" / "lexishift_native_host.py", "native host", errors)
-    _check_path(root / "resources" / "helper" / "lexishift_core", "lexishift_core helper", errors)
-    _check_path(root / "resources" / "helper" / "helper_daemon.py", "helper daemon", errors)
+    _check_path(contents_root / "resources", "resources root", errors)
+    _check_path(contents_root / "resources" / "i18n", "i18n resources", errors)
+    _check_path(contents_root / "resources" / "themes", "themes resources", errors)
+    _check_path(contents_root / "resources" / "sample_images", "sample images", errors)
+    _check_path(
+        contents_root / "resources" / "helper" / "lexishift_native_host.py",
+        "native host",
+        errors,
+    )
+    _check_path(
+        contents_root / "resources" / "helper" / "lexishift_core",
+        "lexishift_core helper",
+        errors,
+    )
+    _check_path(
+        contents_root / "resources" / "helper" / "helper_daemon.py",
+        "helper daemon",
+        errors,
+    )
     return errors
 
 
 def _validate_windows_helper_exe(exe_path: Path) -> list[str]:
     errors: list[str] = []
     root = exe_path.parent
+    contents_root = root / "_internal" if (root / "_internal").exists() else root
     _check_path(exe_path, "Helper executable", errors)
-    _check_path(root / "resources", "resources root", errors)
-    _check_path(root / "resources" / "i18n", "i18n resources", errors)
-    _check_path(root / "resources" / "ttbn.ico", "helper icon", errors)
+    _check_path(contents_root / "resources", "resources root", errors)
+    _check_path(contents_root / "resources" / "i18n", "i18n resources", errors)
+    _check_path(contents_root / "resources" / "ttbn.ico", "helper icon", errors)
     return errors
 
 

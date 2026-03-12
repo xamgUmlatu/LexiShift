@@ -45,6 +45,37 @@ class TestValidateAppBundle(unittest.TestCase):
 
         self.assertEqual(result, 0)
 
+    def test_validate_windows_dist_passes_for_internal_resource_layout(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            dist = Path(tmpdir) / "dist"
+            main_root = dist / "LexiShift"
+            helper_root = dist / "LexiShiftHelper"
+            host_root = dist / "LexiShiftNativeHost"
+            main_internal = main_root / "_internal" / "resources"
+            helper_internal = helper_root / "_internal" / "resources"
+            (main_internal / "helper" / "lexishift_core").mkdir(parents=True, exist_ok=True)
+            (main_internal / "i18n").mkdir(parents=True, exist_ok=True)
+            (main_internal / "themes").mkdir(parents=True, exist_ok=True)
+            (main_internal / "sample_images").mkdir(parents=True, exist_ok=True)
+            (helper_internal / "i18n").mkdir(parents=True, exist_ok=True)
+            host_root.mkdir(parents=True, exist_ok=True)
+            (main_root / "LexiShift.exe").write_bytes(b"main")
+            (helper_root / "LexiShiftHelper.exe").write_bytes(b"helper")
+            (host_root / "lexishift_native_host.exe").write_bytes(b"host")
+            (main_internal / "helper" / "lexishift_native_host.py").write_text(
+                "host\n",
+                encoding="utf-8",
+            )
+            (main_internal / "helper" / "helper_daemon.py").write_text(
+                "daemon\n",
+                encoding="utf-8",
+            )
+            (helper_internal / "ttbn.ico").write_bytes(b"ico")
+
+            result = _validate_dist(dist)
+
+        self.assertEqual(result, 0)
+
 
 if __name__ == "__main__":
     unittest.main()
