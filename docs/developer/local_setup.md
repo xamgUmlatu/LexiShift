@@ -24,6 +24,7 @@ pip install -r requirements-build.txt
 
 Installed pre-commit hooks currently cover:
 - whitespace / EOF / YAML / TOML hygiene
+- Ruff lint
 - Ruff formatting
 - BetterDiscord generated bundle freshness
 - feature-state ledger structure/evidence audit
@@ -32,7 +33,7 @@ Installed pre-commit hooks currently cover:
 
 `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push` hooks.
 Current split:
-- `pre-commit`: hygiene fixers, BetterDiscord freshness, changed-only project health
+- `pre-commit`: hygiene fixers, Ruff lint/format, BetterDiscord freshness, changed-only project health
 - `pre-push`: repo safety via `npm --prefix scripts run check`
 
 ## Core Validation Loop

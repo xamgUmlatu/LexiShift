@@ -159,7 +159,7 @@ Pre-commit hooks:
 - `.pre-commit-config.yaml`
 - use `npm --prefix scripts run hooks:install` after dependency setup
 - current local hooks cover formatting hygiene, BetterDiscord generated bundle freshness, changed-only project health gating, and a pre-push repo safety check
-- current split is intentional: fixers stay on `pre-commit`, while `pre-push` runs the repo safety gate only
+- current split is intentional: `pre-commit` now covers hygiene plus Ruff lint/format, while `pre-push` runs the repo safety gate only
 - the repo safety gate now includes the strict Windows parity audit alongside tests, mypy, feature-state audit, and BetterDiscord freshness
 
 Style/debt advisory loop:

@@ -99,7 +99,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` repo-wide Ruff cleanup + repo-safety style/parity integration + substantive changed-scope inference review
+- Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + substantive changed-scope inference review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -117,6 +117,7 @@ Use this file when:
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
+  - `pre-commit` now runs repo-wide Ruff lint and Ruff format before commit, while `pre-push` keeps the full repo-safety gate.
 - Evidence:
   - `scripts/dev/feature_state_audit.py`
   - `scripts/dev/dev_workflow_check.py`
