@@ -66,6 +66,7 @@ REVERSE_CHECK_PROFILES: dict[str, dict[str, str]] = {
         "match_bonus_values": "0.2",
         "near_bonus_values": "0.1",
         "near_rank_max_values": "2",
+        "far_hit_penalty_values": "0.0",
         "miss_penalty_values": "0.2",
     },
     "experiment": {
@@ -73,6 +74,7 @@ REVERSE_CHECK_PROFILES: dict[str, dict[str, str]] = {
         "match_bonus_values": "0.2",
         "near_bonus_values": "0.1",
         "near_rank_max_values": "2",
+        "far_hit_penalty_values": "0.0",
         "miss_penalty_values": "0.2",
     },
     "force-on": {
@@ -80,7 +82,16 @@ REVERSE_CHECK_PROFILES: dict[str, dict[str, str]] = {
         "match_bonus_values": "0.2",
         "near_bonus_values": "0.1",
         "near_rank_max_values": "2",
+        "far_hit_penalty_values": "0.0",
         "miss_penalty_values": "0.2",
+    },
+    "far-hit-experiment": {
+        "enabled_values": "false,true",
+        "match_bonus_values": "0.6",
+        "near_bonus_values": "0.1",
+        "near_rank_max_values": "2",
+        "far_hit_penalty_values": "0.05",
+        "miss_penalty_values": "0.8",
     },
 }
 
@@ -361,6 +372,8 @@ def main() -> None:
         reverse_profile["near_bonus_values"],
         "--reverse-check-near-rank-max-values",
         reverse_profile["near_rank_max_values"],
+        "--reverse-check-far-hit-penalty-values",
+        reverse_profile["far_hit_penalty_values"],
         "--reverse-check-miss-penalty-values",
         reverse_profile["miss_penalty_values"],
         "--top-runs",

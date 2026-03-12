@@ -107,6 +107,7 @@ class RulegenJobConfig:
     reverse_check_match_bonus: Optional[float] = None
     reverse_check_near_bonus: Optional[float] = None
     reverse_check_near_rank_max: Optional[int] = None
+    reverse_check_far_hit_penalty: Optional[float] = None
     reverse_check_miss_penalty: Optional[float] = None
     snapshot_targets: int = 50
     snapshot_sources: int = 6

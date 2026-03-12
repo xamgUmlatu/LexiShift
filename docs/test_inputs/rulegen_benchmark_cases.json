@@ -179,7 +179,8 @@
       "forbidden_any": [
         "bed",
         "watercourse"
-      ]
+      ],
+      "notes": "Reverse-check red anchor: avoid rare FreeDict senses outranking mother/mom."
     },
     {
       "case_id": "en-es:padre",
@@ -258,6 +259,164 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:banco",
+      "pair": "en-es",
+      "target": "banco",
+      "tier": "smoke",
+      "expected_any": [
+        "bank",
+        "bench"
+      ],
+      "expected_top1_any": [
+        "bank",
+        "bench"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: stable polysemy anchor; both common noun senses are acceptable without context."
+    },
+    {
+      "case_id": "en-es:capital",
+      "pair": "en-es",
+      "target": "capital",
+      "tier": "smoke",
+      "expected_any": [
+        "capital",
+        "metropolis"
+      ],
+      "expected_top1_any": [
+        "capital"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: current output is stable; keep city-related readings from regressing."
+    },
+    {
+      "case_id": "en-es:luz",
+      "pair": "en-es",
+      "target": "luz",
+      "tier": "smoke",
+      "expected_any": [
+        "light"
+      ],
+      "expected_top1_any": [
+        "light"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: one-to-one anchor used to detect collateral regressions."
+    },
+    {
+      "case_id": "en-es:fondo",
+      "pair": "en-es",
+      "target": "fondo",
+      "tier": "smoke",
+      "expected_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "expected_top1_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguous case; multiple common noun senses are acceptable."
+    },
+    {
+      "case_id": "en-es:medio",
+      "pair": "en-es",
+      "target": "medio",
+      "tier": "smoke",
+      "expected_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "expected_top1_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguity case; use it to watch ranking shifts without hard-blocking a single sense."
+    },
+    {
+      "case_id": "en-es:planta",
+      "pair": "en-es",
+      "target": "planta",
+      "tier": "hard",
+      "expected_any": [
+        "plant",
+        "floor"
+      ],
+      "expected_top1_any": [
+        "plant",
+        "floor"
+      ],
+      "forbidden_top1": [
+        "sole"
+      ],
+      "forbidden_any": [],
+      "notes": "Reverse-check Red: sole is a rare sense and should not outrank the common plant/floor readings."
+    },
+    {
+      "case_id": "en-es:derecho",
+      "pair": "en-es",
+      "target": "derecho",
+      "tier": "hard",
+      "expected_any": [
+        "right",
+        "law",
+        "straight"
+      ],
+      "expected_top1_any": [
+        "right",
+        "law"
+      ],
+      "forbidden_top1": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "forbidden_any": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "notes": "Reverse-check Red: current top outputs drift into low-value legal glosses instead of the dominant right/law readings."
+    },
+    {
+      "case_id": "en-es:cuadro",
+      "pair": "en-es",
+      "target": "cuadro",
+      "tier": "hard",
+      "expected_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "expected_top1_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "forbidden_top1": [
+        "bed"
+      ],
+      "forbidden_any": [
+        "bed"
+      ],
+      "notes": "Reverse-check Red: picture/chart senses are acceptable; bed should not survive as a product-facing candidate."
     },
     {
       "case_id": "es-en:house",

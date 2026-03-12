@@ -148,6 +148,92 @@ class TestRulegenRanking(unittest.TestCase):
         )
         self.assertAlmostEqual(mechanism.score(context), 0.8, places=6)
 
+    def test_reverse_check_far_hit_penalty_applies_beyond_near_window(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                far_hit_penalty=0.15,
+                miss_penalty=0.2,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="sole",
+            replacement="planta",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 3,
+                "reverse_check_total": 8,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 1.0 - (0.15 * (3.0 / 7.0)), places=6)
+
+    def test_reverse_check_far_hit_penalty_uses_relative_reverse_rank(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                far_hit_penalty=0.15,
+                miss_penalty=0.2,
+            )
+        )
+        earlier = CandidateRankingContext(
+            source_phrase="bank",
+            replacement="banco",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 3,
+                "reverse_check_total": 24,
+            },
+            confidence=0.4,
+        )
+        later = CandidateRankingContext(
+            source_phrase="sole",
+            replacement="planta",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 3,
+                "reverse_check_total": 8,
+            },
+            confidence=0.4,
+        )
+        self.assertGreater(mechanism.score(earlier), mechanism.score(later))
+
+    def test_reverse_check_far_hit_penalty_falls_back_when_total_missing(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                far_hit_penalty=0.15,
+                miss_penalty=0.2,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="sole",
+            replacement="planta",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 3,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.85, places=6)
+
     def test_reverse_check_ignored_when_unsupported_or_disabled(self) -> None:
         enabled = DictionaryEntryOrderRankingMechanism(
             reverse_check=ReverseCheckScoringConfig(enabled=True)

@@ -186,6 +186,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
                 reverse_check_match_bonus=args.reverse_check_match_bonus,
                 reverse_check_near_bonus=args.reverse_check_near_bonus,
                 reverse_check_near_rank_max=args.reverse_check_near_rank_max,
+                reverse_check_far_hit_penalty=args.reverse_check_far_hit_penalty,
                 reverse_check_miss_penalty=args.reverse_check_miss_penalty,
                 snapshot_targets=args.snapshot_targets,
                 snapshot_sources=args.snapshot_sources,
@@ -520,6 +521,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--reverse-check-near-rank-max",
         type=int,
         help="Override max reverse rank treated as near match (defaults from pair tuning).",
+    )
+    run.add_argument(
+        "--reverse-check-far-hit-penalty",
+        type=float,
+        help="Override reverse-check penalty for hits beyond the near-rank window (defaults from pair tuning).",
     )
     run.add_argument(
         "--reverse-check-miss-penalty",

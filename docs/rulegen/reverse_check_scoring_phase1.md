@@ -1,7 +1,7 @@
 # Reverse-Check Scoring (Phase 1) Specification
 
 Status: implemented (configurable, conservative defaults)
-Last updated: 2026-02-28
+Last updated: 2026-03-13
 
 ## Goal
 
@@ -103,16 +103,19 @@ Base score remains current dictionary-order score with semantic demotion applied
 
 Reverse delta is then applied:
 
-1. Supported + exact/near hit: add bonus.
-2. Supported + miss: apply penalty.
-3. Unsupported: no delta.
+1. Supported + exact hit: add `match_bonus`.
+2. Supported + near hit (`rank <= near_rank_max`): add `near_bonus`.
+3. Supported + farther hit: apply a far-hit penalty scaled by the reverse-rank position when `reverse_check_total` is available.
+4. Supported + miss: apply penalty.
+5. Unsupported: no delta.
 
 Recommended initial constants:
 
 1. `reverse_match_bonus = +0.20` (rank 0)
 2. `reverse_near_bonus = +0.10` (rank <= `reverse_near_rank_max`)
 3. `reverse_near_rank_max = 2`
-4. `reverse_miss_penalty = -0.20`
+4. `reverse_far_hit_penalty = 0.00` (optional; when enabled, acts as the maximum far-hit penalty; actual penalty scales with `rank / (total - 1)` when reverse totals are known)
+5. `reverse_miss_penalty = -0.20`
 
 Score clamp:
 
@@ -126,7 +129,8 @@ Add pair-tunable knobs (default disabled globally):
 2. `reverse_match_bonus` (`float`)
 3. `reverse_near_bonus` (`float`)
 4. `reverse_near_rank_max` (`int`)
-5. `reverse_miss_penalty` (`float`)
+5. `reverse_far_hit_penalty` (`float`)
+6. `reverse_miss_penalty` (`float`)
 
 Rollout defaults (current):
 
@@ -213,6 +217,6 @@ Mitigation:
 
 After Phase 1:
 
-1. Integrate sense qualifiers into reverse-check confidence (not just rank hit/miss).
+1. Integrate sense qualifiers into reverse-check confidence beyond raw reverse rank/percentile.
 2. Combine reverse-check with multi-source agreement bonus.
 3. Optional runtime abstain synergy for low-margin, high-risk candidates.

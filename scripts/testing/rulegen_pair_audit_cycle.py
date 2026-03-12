@@ -134,6 +134,10 @@ def main() -> None:
         default="2",
     )
     parser.add_argument(
+        "--reverse-check-far-hit-penalty-values",
+        default="0.0",
+    )
+    parser.add_argument(
         "--reverse-check-miss-penalty-values",
         default="0.2",
     )
@@ -259,6 +263,8 @@ def main() -> None:
         str(args.reverse_check_near_bonus_values),
         "--reverse-check-near-rank-max-values",
         str(args.reverse_check_near_rank_max_values),
+        "--reverse-check-far-hit-penalty-values",
+        str(args.reverse_check_far_hit_penalty_values),
         "--reverse-check-miss-penalty-values",
         str(args.reverse_check_miss_penalty_values),
         "--max-configurations",

@@ -1,7 +1,7 @@
 {
-  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json",
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 4,
+  "failing_or_review_count": 3,
   "items": [
     {
       "pair": "en-es",
@@ -9,14 +9,13 @@
       "target": "madre",
       "status": "FAIL",
       "reasons": [
-        "top1_is_forbidden",
         "forbidden_candidate_present"
       ],
-      "top1_source": "bed",
+      "top1_source": "mother",
       "top3_sources": [
+        "mother",
         "bed",
-        "watercourse",
-        "mother"
+        "watercourse"
       ],
       "expected_matches": [
         "mother"
@@ -30,50 +29,16 @@
         "priority": "high",
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: bed",
-          "Observed top3 sources: bed, watercourse, mother"
+          "Observed top1 source: mother",
+          "Observed top3 sources: mother, bed, watercourse"
         ],
         "candidate_forbidden_top1": [
-          "bed"
-        ],
-        "candidate_expected_any": [
-          "bed",
-          "watercourse",
           "mother"
-        ]
-      }
-    },
-    {
-      "pair": "en-es",
-      "case_id": "en-es:planta",
-      "target": "planta",
-      "status": "FAIL",
-      "reasons": [
-        "top1_is_forbidden"
-      ],
-      "top1_source": "sole",
-      "top3_sources": [
-        "sole",
-        "plant"
-      ],
-      "expected_matches": [
-        "plant"
-      ],
-      "forbidden_matches": [],
-      "suggested_case_patch": {
-        "action": "review_labels",
-        "priority": "high",
-        "notes": [
-          "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: sole",
-          "Observed top3 sources: sole, plant"
-        ],
-        "candidate_forbidden_top1": [
-          "sole"
         ],
         "candidate_expected_any": [
-          "sole",
-          "plant"
+          "mother",
+          "bed",
+          "watercourse"
         ]
       }
     },
@@ -83,37 +48,36 @@
       "target": "derecho",
       "status": "FAIL",
       "reasons": [
-        "top1_is_forbidden",
-        "forbidden_candidate_present",
-        "expected_candidate_missing_from_top3"
+        "forbidden_candidate_present"
       ],
-      "top1_source": "claim",
+      "top1_source": "right",
       "top3_sources": [
+        "right",
         "claim",
-        "presumption",
-        "pretence"
+        "straight"
       ],
-      "expected_matches": [],
+      "expected_matches": [
+        "right",
+        "straight"
+      ],
       "forbidden_matches": [
-        "claim",
-        "presumption",
-        "pretence"
+        "claim"
       ],
       "suggested_case_patch": {
         "action": "review_labels",
         "priority": "high",
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: claim",
-          "Observed top3 sources: claim, presumption, pretence"
+          "Observed top1 source: right",
+          "Observed top3 sources: right, claim, straight"
         ],
         "candidate_forbidden_top1": [
-          "claim"
+          "right"
         ],
         "candidate_expected_any": [
+          "right",
           "claim",
-          "presumption",
-          "pretence"
+          "straight"
         ]
       }
     },

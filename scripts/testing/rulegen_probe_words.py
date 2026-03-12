@@ -10,6 +10,7 @@ from typing import Iterable, Mapping, Optional
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
+from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path  # noqa: E402
 from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.lexicon.word_package import (  # noqa: E402
@@ -33,6 +34,7 @@ from lexishift_core.rulegen.pairs.ja_en import (  # noqa: E402
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
+    ReverseCheckScoringConfig,
     build_ranking_sort_key,
 )
 from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
@@ -146,6 +148,10 @@ def _serialize_result(
         "variant": result.candidate.metadata.get("variant"),
         "source_form": morphology_map.get("source_form"),
         "target_surface": morphology_map.get("target_surface"),
+        "reverse_check_supported": result.candidate.metadata.get("reverse_check_supported"),
+        "reverse_check_hit": result.candidate.metadata.get("reverse_check_hit"),
+        "reverse_check_rank": result.candidate.metadata.get("reverse_check_rank"),
+        "reverse_check_total": result.candidate.metadata.get("reverse_check_total"),
     }
 
 
@@ -191,21 +197,42 @@ def _print_target_block(
         variant = str(row.get("variant") or "-")
         source_form = str(row.get("source_form") or "-")
         target_surface = str(row.get("target_surface") or "-")
+        reverse_supported = bool(row.get("reverse_check_supported"))
+        reverse_hit = bool(row.get("reverse_check_hit"))
+        reverse_rank = row.get("reverse_check_rank")
+        reverse_total = row.get("reverse_check_total")
+        reverse_note = ""
+        if reverse_supported:
+            if reverse_hit:
+                reverse_note = f" reverse=hit@{reverse_rank}/{reverse_total}"
+            else:
+                reverse_note = f" reverse=miss/{reverse_total}"
         print(
             f"    {index:02d}. [{marker}] src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
             f"bucket={bucket} gloss_index={gloss_index} "
             f"variant={variant} source_form={source_form} target_surface={target_surface}"
+            f"{reverse_note}"
         )
 
     print("  capped:")
     for index, row in enumerate(capped_rows, start=1):
         bucket = str(row["bucket_key"])
         gloss_index = row.get("gloss_index")
+        reverse_supported = bool(row.get("reverse_check_supported"))
+        reverse_hit = bool(row.get("reverse_check_hit"))
+        reverse_rank = row.get("reverse_check_rank")
+        reverse_total = row.get("reverse_check_total")
+        reverse_note = ""
+        if reverse_supported:
+            if reverse_hit:
+                reverse_note = f" reverse=hit@{reverse_rank}/{reverse_total}"
+            else:
+                reverse_note = f" reverse=miss/{reverse_total}"
         print(
             f"    {index:02d}. src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
-            f"bucket={bucket} gloss_index={gloss_index}"
+            f"bucket={bucket} gloss_index={gloss_index}{reverse_note}"
         )
 
 
@@ -292,9 +319,49 @@ def main() -> None:
         help="Override FreeDict ES->EN path for en-es probe.",
     )
     parser.add_argument(
+        "--freedict-en-es-reverse",
+        type=Path,
+        help="Override FreeDict EN->ES path used for reverse-check metadata in en-es probe.",
+    )
+    parser.add_argument(
         "--jmdict",
         type=Path,
         help="Override JMDict path for en-ja probe.",
+    )
+    parser.add_argument(
+        "--reverse-check-enabled",
+        action="store_true",
+        help="Enable reverse-check ranking adjustments for the en-es probe.",
+    )
+    parser.add_argument(
+        "--reverse-check-match-bonus",
+        type=float,
+        default=0.2,
+        help="Score bonus when reverse-check finds an exact match.",
+    )
+    parser.add_argument(
+        "--reverse-check-near-bonus",
+        type=float,
+        default=0.1,
+        help="Score bonus when reverse-check finds a near match within the rank window.",
+    )
+    parser.add_argument(
+        "--reverse-check-near-rank-max",
+        type=int,
+        default=2,
+        help="Maximum reverse rank treated as a near match.",
+    )
+    parser.add_argument(
+        "--reverse-check-far-hit-penalty",
+        type=float,
+        default=0.0,
+        help="Score penalty applied when reverse-check hits beyond the near-rank window.",
+    )
+    parser.add_argument(
+        "--reverse-check-miss-penalty",
+        type=float,
+        default=0.2,
+        help="Score penalty when reverse-check is supported but misses.",
     )
     parser.add_argument(
         "--json-output",
@@ -319,31 +386,49 @@ def main() -> None:
             compatible_match_bonus=float(args.pos_compatible_match_bonus),
         ),
     )
+    reverse_check = ReverseCheckScoringConfig(
+        enabled=bool(args.reverse_check_enabled),
+        match_bonus=max(0.0, float(args.reverse_check_match_bonus)),
+        near_bonus=max(0.0, float(args.reverse_check_near_bonus)),
+        near_rank_max=max(0, int(args.reverse_check_near_rank_max)),
+        far_hit_penalty=max(0.0, float(args.reverse_check_far_hit_penalty)),
+        miss_penalty=max(0.0, float(args.reverse_check_miss_penalty)),
+    )
 
     paths = build_helper_paths(args.data_root)
     store_path = paths.srs_store_path_for(args.profile_id)
     store = _load_store(store_path)
 
-    _resolved_jmdict, _resolved_freedict_es_en, _ = resolve_pair_resources(
-        paths,
-        pair="en-es",
-        jmdict_path=args.jmdict,
-        freedict_de_en_path=args.freedict_es_en,
-        set_source_db=None,
-    )
-    resolved_freedict_es_en = _resolve_required_file(
-        "FreeDict ES->EN",
-        _resolved_freedict_es_en,
-    )
+    resolved_freedict_es_en: Optional[Path] = None
+    resolved_freedict_en_es_reverse: Optional[Path] = None
+    if spanish_targets:
+        _resolved_jmdict, _resolved_freedict_es_en, _ = resolve_pair_resources(
+            paths,
+            pair="en-es",
+            jmdict_path=args.jmdict,
+            freedict_de_en_path=args.freedict_es_en,
+            set_source_db=None,
+        )
+        resolved_freedict_es_en = _resolve_required_file(
+            "FreeDict ES->EN",
+            _resolved_freedict_es_en,
+        )
+        resolved_freedict_en_es_reverse = _resolve_required_file(
+            "FreeDict EN->ES",
+            args.freedict_en_es_reverse
+            or default_freedict_reverse_path("en-es", language_packs_dir=paths.language_packs_dir),
+        )
 
-    _resolved_jmdict, _unused_freedict, _ = resolve_pair_resources(
-        paths,
-        pair="en-ja",
-        jmdict_path=args.jmdict,
-        freedict_de_en_path=args.freedict_es_en,
-        set_source_db=None,
-    )
-    resolved_jmdict = _resolve_required_file("JMDict", _resolved_jmdict)
+    resolved_jmdict: Optional[Path] = None
+    if japanese_targets:
+        _resolved_jmdict, _unused_freedict, _ = resolve_pair_resources(
+            paths,
+            pair="en-ja",
+            jmdict_path=args.jmdict,
+            freedict_de_en_path=args.freedict_es_en,
+            set_source_db=None,
+        )
+        resolved_jmdict = _resolve_required_file("JMDict", _resolved_jmdict)
 
     ja_word_packages, missing_ja_targets, notes = _build_ja_word_packages(
         targets=japanese_targets,
@@ -352,63 +437,87 @@ def main() -> None:
     )
     resolved_japanese_targets = [lemma for lemma in japanese_targets if lemma in ja_word_packages]
 
-    ranking = DictionaryEntryOrderRankingMechanism()
+    es_ranking = DictionaryEntryOrderRankingMechanism(reverse_check=reverse_check)
+    ja_ranking = DictionaryEntryOrderRankingMechanism()
 
     # Uncapped baseline run.
-    es_uncapped = generate_en_es_results(
-        spanish_targets,
-        config=EnEsRulegenConfig(
-            freedict_es_en_path=resolved_freedict_es_en,
-            include_variants=include_variants,
-            confidence_threshold=args.confidence_threshold,
-            max_definitions_per_target=None,
-            max_rules_per_target=None,
-            scoring=scoring,
-        ),
-    )
-    ja_uncapped = generate_ja_en_results(
-        resolved_japanese_targets,
-        config=JaEnRulegenConfig(
-            jmdict_path=resolved_jmdict,
-            include_variants=include_variants,
-            confidence_threshold=args.confidence_threshold,
-            word_packages_by_target=ja_word_packages,
-            max_definitions_per_target=None,
-            max_rules_per_target=None,
-            scoring=scoring,
-        ),
-    )
+    es_uncapped: list[RuleGenerationResult] = []
+    if spanish_targets:
+        es_uncapped = generate_en_es_results(
+            spanish_targets,
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=_resolve_required_file(
+                    "FreeDict ES->EN", resolved_freedict_es_en
+                ),
+                reverse_freedict_en_es_path=_resolve_required_file(
+                    "FreeDict EN->ES",
+                    resolved_freedict_en_es_reverse,
+                ),
+                reverse_check=reverse_check,
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                max_definitions_per_target=None,
+                max_rules_per_target=None,
+                scoring=scoring,
+            ),
+        )
+    ja_uncapped: list[RuleGenerationResult] = []
+    if resolved_japanese_targets:
+        ja_uncapped = generate_ja_en_results(
+            resolved_japanese_targets,
+            config=JaEnRulegenConfig(
+                jmdict_path=_resolve_required_file("JMDict", resolved_jmdict),
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                word_packages_by_target=ja_word_packages,
+                max_definitions_per_target=None,
+                max_rules_per_target=None,
+                scoring=scoring,
+            ),
+        )
 
     # Capped run (top-K definitions).
-    es_capped = generate_en_es_results(
-        spanish_targets,
-        config=EnEsRulegenConfig(
-            freedict_es_en_path=resolved_freedict_es_en,
-            include_variants=include_variants,
-            confidence_threshold=args.confidence_threshold,
-            max_definitions_per_target=max_definitions,
-            max_rules_per_target=max_rules_per_target,
-            scoring=scoring,
-        ),
-    )
-    ja_capped = generate_ja_en_results(
-        resolved_japanese_targets,
-        config=JaEnRulegenConfig(
-            jmdict_path=resolved_jmdict,
-            include_variants=include_variants,
-            confidence_threshold=args.confidence_threshold,
-            word_packages_by_target=ja_word_packages,
-            max_definitions_per_target=max_definitions,
-            max_rules_per_target=max_rules_per_target,
-            scoring=scoring,
-        ),
-    )
+    es_capped: list[RuleGenerationResult] = []
+    if spanish_targets:
+        es_capped = generate_en_es_results(
+            spanish_targets,
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=_resolve_required_file(
+                    "FreeDict ES->EN", resolved_freedict_es_en
+                ),
+                reverse_freedict_en_es_path=_resolve_required_file(
+                    "FreeDict EN->ES",
+                    resolved_freedict_en_es_reverse,
+                ),
+                reverse_check=reverse_check,
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                max_definitions_per_target=max_definitions,
+                max_rules_per_target=max_rules_per_target,
+                scoring=scoring,
+            ),
+        )
+    ja_capped: list[RuleGenerationResult] = []
+    if resolved_japanese_targets:
+        ja_capped = generate_ja_en_results(
+            resolved_japanese_targets,
+            config=JaEnRulegenConfig(
+                jmdict_path=_resolve_required_file("JMDict", resolved_jmdict),
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                word_packages_by_target=ja_word_packages,
+                max_definitions_per_target=max_definitions,
+                max_rules_per_target=max_rules_per_target,
+                scoring=scoring,
+            ),
+        )
 
     print("Rulegen Probe")
     print(f"  data_root: {paths.data_root}")
     print(f"  profile_id: {args.profile_id}")
     print(f"  srs_store: {store_path}")
     print(f"  freedict_es_en: {resolved_freedict_es_en}")
+    print(f"  freedict_en_es_reverse: {resolved_freedict_en_es_reverse}")
     print(f"  jmdict: {resolved_jmdict}")
     print(
         f"  config: max_definitions={max_definitions}, "
@@ -416,7 +525,13 @@ def main() -> None:
         f"confidence_threshold={args.confidence_threshold}, include_variants={include_variants}, "
         f"pos_scoring_enabled={not args.disable_pos_scoring}, "
         f"pos_exact={args.pos_exact_match_bonus}, pos_compatible={args.pos_compatible_match_bonus}, "
-        f"score_weight_pos_match={args.score_weight_pos_match}"
+        f"score_weight_pos_match={args.score_weight_pos_match}, "
+        f"reverse_check_enabled={reverse_check.enabled}, "
+        f"reverse_match={reverse_check.match_bonus}, "
+        f"reverse_near={reverse_check.near_bonus}, "
+        f"reverse_near_rank_max={reverse_check.near_rank_max}, "
+        f"reverse_far_hit_penalty={reverse_check.far_hit_penalty}, "
+        f"reverse_miss_penalty={reverse_check.miss_penalty}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -436,13 +551,24 @@ def main() -> None:
             "pos_exact_match_bonus": args.pos_exact_match_bonus,
             "pos_compatible_match_bonus": args.pos_compatible_match_bonus,
             "score_weight_pos_match": args.score_weight_pos_match,
+            "reverse_check": {
+                "enabled": reverse_check.enabled,
+                "match_bonus": reverse_check.match_bonus,
+                "near_bonus": reverse_check.near_bonus,
+                "near_rank_max": reverse_check.near_rank_max,
+                "far_hit_penalty": reverse_check.far_hit_penalty,
+                "miss_penalty": reverse_check.miss_penalty,
+            },
         },
         "paths": {
             "data_root": str(paths.data_root),
             "profile_id": args.profile_id,
             "srs_store": str(store_path),
-            "freedict_es_en": str(resolved_freedict_es_en),
-            "jmdict": str(resolved_jmdict),
+            "freedict_es_en": str(resolved_freedict_es_en) if resolved_freedict_es_en else None,
+            "freedict_en_es_reverse": (
+                str(resolved_freedict_en_es_reverse) if resolved_freedict_en_es_reverse else None
+            ),
+            "jmdict": str(resolved_jmdict) if resolved_jmdict else None,
         },
         "notes": notes,
         "warnings": [
@@ -457,8 +583,8 @@ def main() -> None:
 
     es_pair_payload: dict[str, object] = {}
     for target in spanish_targets:
-        uncapped_rows = _collect_rows_for_target(es_uncapped, target=target, mechanism=ranking)
-        capped_rows = _collect_rows_for_target(es_capped, target=target, mechanism=ranking)
+        uncapped_rows = _collect_rows_for_target(es_uncapped, target=target, mechanism=es_ranking)
+        capped_rows = _collect_rows_for_target(es_capped, target=target, mechanism=es_ranking)
         _print_target_block(
             pair="en-es",
             target=target,
@@ -473,8 +599,8 @@ def main() -> None:
 
     ja_pair_payload: dict[str, object] = {}
     for target in japanese_targets:
-        uncapped_rows = _collect_rows_for_target(ja_uncapped, target=target, mechanism=ranking)
-        capped_rows = _collect_rows_for_target(ja_capped, target=target, mechanism=ranking)
+        uncapped_rows = _collect_rows_for_target(ja_uncapped, target=target, mechanism=ja_ranking)
+        capped_rows = _collect_rows_for_target(ja_capped, target=target, mechanism=ja_ranking)
         _print_target_block(
             pair="en-ja",
             target=target,
@@ -502,7 +628,8 @@ if __name__ == "__main__":
     except FileNotFoundError as exc:
         print(f"error: {exc}", file=sys.stderr)
         print(
-            "hint: pass explicit resource paths with --jmdict and --freedict-es-en "
+            "hint: pass explicit resource paths with --jmdict, --freedict-es-en, "
+            "--freedict-en-es-reverse "
             "or ensure language packs are installed in the LexiShift data directory.",
             file=sys.stderr,
         )

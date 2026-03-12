@@ -46,6 +46,7 @@ class RulegenTuningOverrides:
     reverse_check_match_bonus: Optional[float] = None
     reverse_check_near_bonus: Optional[float] = None
     reverse_check_near_rank_max: Optional[int] = None
+    reverse_check_far_hit_penalty: Optional[float] = None
     reverse_check_miss_penalty: Optional[float] = None
 
 
@@ -223,6 +224,7 @@ def rulegen_tuning_overrides_to_dict(
         "reverse_check_match_bonus": overrides.reverse_check_match_bonus,
         "reverse_check_near_bonus": overrides.reverse_check_near_bonus,
         "reverse_check_near_rank_max": overrides.reverse_check_near_rank_max,
+        "reverse_check_far_hit_penalty": overrides.reverse_check_far_hit_penalty,
         "reverse_check_miss_penalty": overrides.reverse_check_miss_penalty,
     }
     if include_none:
@@ -311,6 +313,11 @@ def _resolve_reverse_check_scoring(
             resolved,
             near_rank_max=max(0, int(overrides.reverse_check_near_rank_max)),
         )
+    if overrides.reverse_check_far_hit_penalty is not None:
+        resolved = replace(
+            resolved,
+            far_hit_penalty=max(0.0, float(overrides.reverse_check_far_hit_penalty)),
+        )
     if overrides.reverse_check_miss_penalty is not None:
         resolved = replace(
             resolved,
@@ -325,6 +332,7 @@ def _reverse_check_to_dict(reverse_check: ReverseCheckScoringConfig) -> dict[str
         "match_bonus": float(reverse_check.match_bonus),
         "near_bonus": float(reverse_check.near_bonus),
         "near_rank_max": int(reverse_check.near_rank_max),
+        "far_hit_penalty": float(reverse_check.far_hit_penalty),
         "miss_penalty": float(reverse_check.miss_penalty),
     }
 

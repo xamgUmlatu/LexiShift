@@ -61,6 +61,7 @@ class TestRulegenTuning(unittest.TestCase):
                 reverse_check_match_bonus=0.25,
                 reverse_check_near_bonus=0.12,
                 reverse_check_near_rank_max=1,
+                reverse_check_far_hit_penalty=0.07,
                 reverse_check_miss_penalty=0.22,
             ),
         )
@@ -80,6 +81,7 @@ class TestRulegenTuning(unittest.TestCase):
         self.assertAlmostEqual(resolved.reverse_check.match_bonus, 0.25, places=6)
         self.assertAlmostEqual(resolved.reverse_check.near_bonus, 0.12, places=6)
         self.assertEqual(resolved.reverse_check.near_rank_max, 1)
+        self.assertAlmostEqual(resolved.reverse_check.far_hit_penalty, 0.07, places=6)
         self.assertAlmostEqual(resolved.reverse_check.miss_penalty, 0.22, places=6)
 
     def test_non_positive_caps_disable_limiters(self) -> None:
@@ -100,6 +102,7 @@ class TestRulegenTuning(unittest.TestCase):
                 include_variants=False,
                 semantic_demotion_scale=0.5,
                 reverse_check_enabled=True,
+                reverse_check_far_hit_penalty=0.05,
             )
         )
         self.assertEqual(
@@ -109,6 +112,7 @@ class TestRulegenTuning(unittest.TestCase):
                 "include_variants": False,
                 "semantic_demotion_scale": 0.5,
                 "reverse_check_enabled": True,
+                "reverse_check_far_hit_penalty": 0.05,
             },
         )
 

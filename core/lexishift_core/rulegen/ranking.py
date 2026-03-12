@@ -25,6 +25,7 @@ class ReverseCheckScoringConfig:
     match_bonus: float = 0.2
     near_bonus: float = 0.1
     near_rank_max: int = 2
+    far_hit_penalty: float = 0.0
     miss_penalty: float = 0.2
 
 
@@ -151,6 +152,7 @@ def resolve_reverse_check_delta(
     hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
     if hit is True:
         rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
+        total = _extract_non_negative_int(metadata.get("reverse_check_total"))
         match_bonus = _normalize_non_negative_float(config.match_bonus)
         near_bonus = _normalize_non_negative_float(config.near_bonus)
         near_rank_max = _normalize_non_negative_int(config.near_rank_max, default=2)
@@ -160,13 +162,39 @@ def resolve_reverse_check_delta(
             return match_bonus
         if rank <= near_rank_max:
             return near_bonus
-        return 0.0
+        far_hit_penalty = _normalize_non_negative_float(config.far_hit_penalty)
+        if far_hit_penalty <= 0.0:
+            return 0.0
+        return -resolve_reverse_far_hit_penalty(
+            rank=rank,
+            total=total,
+            penalty=far_hit_penalty,
+        )
     if hit is False:
         miss_penalty = _normalize_non_negative_float(config.miss_penalty)
         if miss_penalty <= 0.0:
             return 0.0
         return -miss_penalty
     return 0.0
+
+
+def resolve_reverse_far_hit_penalty(
+    *,
+    rank: int,
+    total: Optional[int],
+    penalty: float,
+) -> float:
+    normalized_penalty = _normalize_non_negative_float(penalty)
+    if normalized_penalty <= 0.0:
+        return 0.0
+    normalized_rank = max(0, int(rank))
+    if total is None or total <= 1:
+        return normalized_penalty
+    max_rank = max(0, int(total) - 1)
+    if max_rank <= 0:
+        return normalized_penalty
+    effective_rank = min(normalized_rank, max_rank)
+    return normalized_penalty * (effective_rank / float(max_rank))
 
 
 def _extract_optional_bool(value: object) -> Optional[bool]:

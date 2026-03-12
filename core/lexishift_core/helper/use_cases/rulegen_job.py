@@ -105,6 +105,7 @@ def run_rulegen_job(
         reverse_check_match_bonus=config.reverse_check_match_bonus,
         reverse_check_near_bonus=config.reverse_check_near_bonus,
         reverse_check_near_rank_max=config.reverse_check_near_rank_max,
+        reverse_check_far_hit_penalty=config.reverse_check_far_hit_penalty,
         reverse_check_miss_penalty=config.reverse_check_miss_penalty,
     )
     effective_rulegen_tuning = resolve_rulegen_tuning(pair, overrides=rulegen_overrides)
@@ -182,6 +183,9 @@ def run_rulegen_job(
                     "match_bonus": float(effective_rulegen_tuning.reverse_check.match_bonus),
                     "near_bonus": float(effective_rulegen_tuning.reverse_check.near_bonus),
                     "near_rank_max": int(effective_rulegen_tuning.reverse_check.near_rank_max),
+                    "far_hit_penalty": float(
+                        effective_rulegen_tuning.reverse_check.far_hit_penalty
+                    ),
                     "miss_penalty": float(effective_rulegen_tuning.reverse_check.miss_penalty),
                 },
                 "pair_defaults": rulegen_pair_tuning_to_dict(pair_tuning),

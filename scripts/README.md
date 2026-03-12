@@ -64,7 +64,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Convert FreeDict English->Spanish to SQLite: `data/convert_freedict_eng_spa_to_sqlite.py`
 - Convert Spanish frequency sample to SQLite: `data/convert_cde_frequency_to_sqlite.py`
 - Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`) with tunable scoring/caps:
-  `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`)
+  `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`, `--reverse-check-enabled`, `--reverse-check-far-hit-penalty`, `--freedict-en-es-reverse`; prints reverse-check hit/miss metadata in uncapped/capped views and can probe `en-es` without requiring JMDict when `--japanese-targets ''`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
   `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
 - Render Markdown summaries from benchmark JSON artifacts:

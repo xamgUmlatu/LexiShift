@@ -244,22 +244,36 @@ Use this file when:
 ## Reverse-Check Scoring
 
 - Status: `implemented`, `verified`, `default-on` = `no`
-- Last documented checkpoint: `2026-02-28`
-- Last verified: `2026-02-28` benchmark artifact review; `2026-03-11` code inspection
+- Last documented checkpoint: `2026-03-13`
+- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, and rank-aware far-hit experiment
 - Default behavior:
   - Configurable and pair-aware for `en-es` and `es-en`.
   - Not yet promoted to default production tuning.
 - Evidence:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
+  - `docs/rulegen/reverse_check_rollout_matrix.md`
+  - `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`
+  - `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`
   - `core/lexishift_core/rulegen/ranking.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
   - `core/lexishift_core/rulegen/tuning.py`
+  - `scripts/testing/rulegen_benchmark.py`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.md`
   - `docs/test_outputs/rulegen_benchmark_triage_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
+  - `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
+  - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 - Known gaps:
-  - Stored `en-es` best run still has `rev=off`.
-  - Needs stronger hard-case coverage before default enablement.
+  - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
+  - The canonical latest benchmark loop still defaults to `rev=off`; reverse-check-specific evaluation currently requires explicit benchmark overrides.
+  - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
+  - `en-es` hard-case coverage is better, but the canonical artifact still shows four red cases: `madre`, `planta`, `derecho`, `cuadro`.
+  - A promising `en-es` experiment with rank-aware `reverse_far_hit_penalty` improves top-1 to `95.83%`, reduces triage to three items, and fixes top-1 for `madre`, `planta`, and `derecho`, but `forbidden_any_rate` remains `12.50%`.
+  - `cuadro` still exposes a non-separable failure class for reverse evidence alone.
   - Current rollout is scoring-only, not strict candidate blocking.
 
 ## POS Normalization

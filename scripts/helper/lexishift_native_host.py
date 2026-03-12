@@ -260,6 +260,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             reverse_check_match_bonus=_optional_float(payload, "reverse_check_match_bonus"),
             reverse_check_near_bonus=_optional_float(payload, "reverse_check_near_bonus"),
             reverse_check_near_rank_max=_optional_int(payload, "reverse_check_near_rank_max"),
+            reverse_check_far_hit_penalty=_optional_float(payload, "reverse_check_far_hit_penalty"),
             reverse_check_miss_penalty=_optional_float(payload, "reverse_check_miss_penalty"),
             snapshot_targets=int(payload.get("snapshot_targets", 50)),
             snapshot_sources=int(payload.get("snapshot_sources", 6)),

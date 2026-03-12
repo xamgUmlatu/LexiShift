@@ -13,7 +13,10 @@ from typing import Mapping, Optional, Sequence
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
-from lexishift_core.helper.lp_capabilities import resolve_pair_capability  # noqa: E402
+from lexishift_core.helper.lp_capabilities import (  # noqa: E402
+    default_freedict_reverse_path,
+    resolve_pair_capability,
+)
 from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.lexicon.word_package import build_word_package  # noqa: E402
@@ -63,6 +66,7 @@ class SweepConfig:
     reverse_check_match_bonus: float
     reverse_check_near_bonus: float
     reverse_check_near_rank_max: int
+    reverse_check_far_hit_penalty: float
     reverse_check_miss_penalty: float
 
     def to_dict(self) -> dict[str, object]:
@@ -85,6 +89,7 @@ class SweepConfig:
             "reverse_check_match_bonus": self.reverse_check_match_bonus,
             "reverse_check_near_bonus": self.reverse_check_near_bonus,
             "reverse_check_near_rank_max": self.reverse_check_near_rank_max,
+            "reverse_check_far_hit_penalty": self.reverse_check_far_hit_penalty,
             "reverse_check_miss_penalty": self.reverse_check_miss_penalty,
         }
 
@@ -126,6 +131,7 @@ class SweepConfig:
             match_bonus=float(self.reverse_check_match_bonus),
             near_bonus=float(self.reverse_check_near_bonus),
             near_rank_max=max(0, int(self.reverse_check_near_rank_max)),
+            far_hit_penalty=float(self.reverse_check_far_hit_penalty),
             miss_penalty=float(self.reverse_check_miss_penalty),
         )
 
@@ -297,7 +303,8 @@ def _resolve_pair_resources_for_benchmark(
     pair: str,
     jmdict_override: Optional[Path],
     freedict_override: Optional[Path],
-) -> tuple[Optional[Path], Optional[Path]]:
+    freedict_reverse_override: Optional[Path],
+) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     jmdict_path, freedict_path, _ = resolve_pair_resources(
         paths,
         pair=pair,
@@ -305,6 +312,12 @@ def _resolve_pair_resources_for_benchmark(
         freedict_de_en_path=freedict_override,
         set_source_db=None,
     )
+    reverse_freedict_path = freedict_reverse_override
+    if reverse_freedict_path is None:
+        reverse_freedict_path = default_freedict_reverse_path(
+            pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
     capability = resolve_pair_capability(pair)
     if capability.requires_jmdict_for_rulegen:
         if jmdict_path is None or not jmdict_path.exists():
@@ -312,7 +325,12 @@ def _resolve_pair_resources_for_benchmark(
     if capability.requires_freedict_de_en_for_rulegen:
         if freedict_path is None or not freedict_path.exists():
             raise FileNotFoundError(f"FreeDict path not found for pair {pair}: {freedict_path}")
-    return jmdict_path, freedict_path
+    if pair in {"en-es", "es-en"} and reverse_freedict_path is not None:
+        if not reverse_freedict_path.exists():
+            raise FileNotFoundError(
+                f"Reverse FreeDict path not found for pair {pair}: {reverse_freedict_path}"
+            )
+    return jmdict_path, freedict_path, reverse_freedict_path
 
 
 def _group_rules_by_target(rules: Sequence[VocabRule]) -> dict[str, list[VocabRule]]:
@@ -398,6 +416,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         name="reverse-check-near-rank-max-values",
         min_value=0,
     )
+    reverse_check_far_hit_penalty_values = _parse_csv_floats(
+        args.reverse_check_far_hit_penalty_values,
+        name="reverse-check-far-hit-penalty-values",
+    )
     reverse_check_miss_penalty_values = _parse_csv_floats(
         args.reverse_check_miss_penalty_values,
         name="reverse-check-miss-penalty-values",
@@ -423,6 +445,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_match_bonus_values,
         reverse_check_near_bonus_values,
         reverse_check_near_rank_max_values,
+        reverse_check_far_hit_penalty_values,
         reverse_check_miss_penalty_values,
     ):
         configs.append(
@@ -445,7 +468,8 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_match_bonus=float(combo[15]),
                 reverse_check_near_bonus=float(combo[16]),
                 reverse_check_near_rank_max=max(0, int(combo[17])),
-                reverse_check_miss_penalty=float(combo[18]),
+                reverse_check_far_hit_penalty=float(combo[18]),
+                reverse_check_miss_penalty=float(combo[19]),
             )
         )
     return configs
@@ -560,6 +584,7 @@ def main() -> None:
     parser.add_argument("--reverse-check-match-bonus-values", default="0.2")
     parser.add_argument("--reverse-check-near-bonus-values", default="0.1")
     parser.add_argument("--reverse-check-near-rank-max-values", default="2")
+    parser.add_argument("--reverse-check-far-hit-penalty-values", default="0.0")
     parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
     parser.add_argument("--objective-top1-weight", type=float, default=100.0)
     parser.add_argument("--objective-top3-weight", type=float, default=60.0)
@@ -629,6 +654,10 @@ def main() -> None:
         "en-es": args.freedict_en_es,
         "es-en": args.freedict_es_en,
     }
+    reverse_freedict_overrides: dict[str, Optional[Path]] = {
+        "en-es": args.freedict_es_en,
+        "es-en": args.freedict_en_es,
+    }
 
     pair_runs: dict[str, list[SweepRun]] = {}
     pair_resources: dict[str, dict[str, Optional[str]]] = {}
@@ -636,15 +665,17 @@ def main() -> None:
         capability = resolve_pair_capability(pair)
         if capability.rulegen_mode is None:
             continue
-        jmdict_path, freedict_path = _resolve_pair_resources_for_benchmark(
+        jmdict_path, freedict_path, reverse_freedict_path = _resolve_pair_resources_for_benchmark(
             paths=paths,
             pair=pair,
             jmdict_override=args.jmdict,
             freedict_override=freedict_overrides.get(pair),
+            freedict_reverse_override=reverse_freedict_overrides.get(pair),
         )
         pair_resources[pair] = {
             "jmdict_path": str(jmdict_path) if jmdict_path else None,
             "freedict_path": str(freedict_path) if freedict_path else None,
+            "freedict_reverse_path": str(reverse_freedict_path) if reverse_freedict_path else None,
         }
 
         target_set = {case.target for case in cases}
@@ -668,6 +699,7 @@ def main() -> None:
                     reverse_check=config.reverse_check(),
                     jmdict_path=jmdict_path,
                     freedict_de_en_path=freedict_path,
+                    freedict_reverse_path=reverse_freedict_path,
                     word_packages_by_target=word_packages,
                 )
             )
