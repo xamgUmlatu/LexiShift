@@ -98,15 +98,18 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-11`
-- Last verified: `2026-03-12` command execution + CI wiring review
+- Last documented checkpoint: `2026-03-12`
+- Last verified: `2026-03-12` build report rerun + CI review + Windows parity audit
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
-  - `npm --prefix scripts run build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip unsupported surfaces on hosted runners.
+  - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
+  - Hosted CI now runs both the full macOS `build:report` path and the explicit Ubuntu `build:ci:report` partial path.
+  - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
+  - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
   - `npm --prefix scripts run check:style` is the advisory repo-wide style/debt command.
-  - `npm --prefix scripts run check:state` audits the feature-state ledger for required fields, dated checkpoints, and evidence paths.
+  - `npm --prefix scripts run check:state` audits the feature-state ledger for required fields, dated checkpoints, evidence paths, and transition-aware updates relative to `HEAD`.
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
@@ -116,9 +119,11 @@ Use this file when:
   - `scripts/dev/dev_workflow_changed_check.py`
   - `scripts/dev/dev_workflow_build.py`
   - `scripts/dev/dev_workflow_style_check.py`
+  - `scripts/dev/run_python.js`
   - `apps/betterdiscord-plugin/build_plugin.js`
   - `.pre-commit-config.yaml`
   - `.github/workflows/ci.yml`
+  - `requirements-build.txt`
   - `scripts/package.json`
   - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
   - `docs/test_outputs/dev_workflow/check_latest.json`
@@ -131,19 +136,39 @@ Use this file when:
 - Known gaps:
   - Repo-wide Ruff lint is still outside the default `check` command because current unrelated style debt would make the safety gate noisy.
   - GUI packaging makes `build` materially slower than `check`.
-  - CI-safe build mode does not yet reproduce full macOS GUI validation on hosted runners; it records an explicit skip instead.
+  - Hosted CI still lacks Windows build validation; current hosted build proof is macOS full + Ubuntu CI-safe partial.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
+
+## Windows GUI Parity Audit
+
+- Status: `implemented`, `verified`, `default-on` = `advisory`
+- Last documented checkpoint: `2026-03-12`
+- Last verified: `2026-03-12` code audit + Windows CI planning review
+- Default behavior:
+  - `npm --prefix scripts run check:windows:parity` writes a machine-readable advisory audit of Windows GUI/helper/build parity.
+  - `npm --prefix scripts run check:windows:parity:summary` renders the current parity state into Markdown for human handoff.
+  - Hosted CI now has a Windows advisory lane for CI-safe build reporting plus parity audit artifacts.
+- Evidence:
+  - `docs/developer/windows_gui_parity_workstream.md`
+  - `scripts/dev/windows_parity_audit.py`
+  - `scripts/dev/windows_parity_summary.py`
+  - `docs/test_outputs/dev_workflow/windows_parity_latest.json`
+  - `docs/test_outputs/dev_workflow/windows_parity_summary_latest.md`
+  - `.github/workflows/ci.yml`
+- Known gaps:
+  - Current audit should report explicit parity failures until Windows helper packaging, Windows build-output validation, Windows helper autostart, and Windows frozen tray-launch handoff are implemented.
+  - The new Windows CI lane is advisory and CI-safe; it does not yet run a full Windows GUI build.
 
 ## Feature-State Evidence Audit
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` local audit run + repo safety integration
+- Last verified: `2026-03-12` local audit run + repo safety/base-ref integration
 - Default behavior:
   - `scripts/dev/feature_state_audit.py` validates that feature entries include status, dated checkpoints, default behavior bullets, evidence bullets, and known gaps.
   - Evidence paths in `docs/developer/feature_state_matrix.md` must resolve on disk.
-  - Repo safety now runs this audit directly, and pre-commit runs it when the feature ledger changes.
+  - Repo safety now runs this audit directly against `HEAD`, pre-commit runs it when the feature ledger changes, and changed-scope workflow checks run it against the branch base when the ledger is touched.
 - Evidence:
   - `scripts/dev/feature_state_audit.py`
   - `core/tests/dev/test_feature_state_audit.py`

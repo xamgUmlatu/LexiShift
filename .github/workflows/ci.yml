@@ -186,7 +186,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: workflow-build-report
+          name: workflow-build-report-ci-safe
           path: docs/test_outputs/dev_workflow/build_ci_latest.json
       - name: Write build safety summary
         if: always()
@@ -200,8 +200,110 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: workflow-build-summary
+          name: workflow-build-summary-ci-safe
           path: docs/test_outputs/dev_workflow/build_ci.md
+
+  build-safety-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-build.txt
+      - name: Build safety report (macOS full)
+        run: npm --prefix scripts run build:report
+      - name: Upload macOS build safety report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-report-macos
+          path: docs/test_outputs/dev_workflow/build_latest.json
+      - name: Write macOS build safety summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_summary.py \
+            --build-json docs/test_outputs/dev_workflow/build_latest.json \
+            --title "Build Safety (macOS Full)" \
+            --markdown-out docs/test_outputs/dev_workflow/build_macos_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Upload macOS build safety summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-summary-macos
+          path: docs/test_outputs/dev_workflow/build_macos_ci.md
+
+  windows-parity:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Windows CI-safe build report
+        run: npm --prefix scripts run build:ci:report
+      - name: Upload Windows CI-safe build report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-report-windows
+          path: docs/test_outputs/dev_workflow/build_ci_latest.json
+      - name: Write Windows CI-safe build summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_summary.py `
+            --build-json docs/test_outputs/dev_workflow/build_ci_latest.json `
+            --title "Build Safety (Windows CI Safe)" `
+            --markdown-out docs/test_outputs/dev_workflow/build_windows_ci.md `
+            --append-to "$env:GITHUB_STEP_SUMMARY"
+      - name: Upload Windows CI-safe build summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-build-summary-windows
+          path: docs/test_outputs/dev_workflow/build_windows_ci.md
+      - name: Windows parity audit
+        run: npm --prefix scripts run check:windows:parity
+      - name: Upload Windows parity audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-windows-parity-report
+          path: docs/test_outputs/dev_workflow/windows_parity_latest.json
+      - name: Write Windows parity summary
+        if: always()
+        run: |
+          python scripts/dev/windows_parity_summary.py `
+            --audit-json docs/test_outputs/dev_workflow/windows_parity_latest.json `
+            --title "Windows GUI Parity Audit" `
+            --markdown-out docs/test_outputs/dev_workflow/windows_parity_ci.md `
+            --append-to "$env:GITHUB_STEP_SUMMARY"
+      - name: Upload Windows parity summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-windows-parity-summary
+          path: docs/test_outputs/dev_workflow/windows_parity_ci.md
 
   srs-quality:
     runs-on: ubuntu-latest

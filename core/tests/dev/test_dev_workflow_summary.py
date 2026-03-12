@@ -24,6 +24,9 @@ class TestDevWorkflowSummary(unittest.TestCase):
             },
             build_payload={
                 "overall_exit_code": 0,
+                "platform": "Darwin",
+                "expected_artifact_count": 2,
+                "verified_artifact_count": 2,
                 "commands": [
                     {"label": "betterdiscord_build", "exit_code": 0},
                 ],
@@ -35,7 +38,9 @@ class TestDevWorkflowSummary(unittest.TestCase):
         self.assertIn("- Status: PASS", markdown)
         self.assertIn("- Commands passed: 2/2", markdown)
         self.assertIn("## Build Safety", markdown)
+        self.assertIn("- Platform: `Darwin`", markdown)
         self.assertIn("- Commands passed: 1/1", markdown)
+        self.assertIn("- Verified artifacts: 2/2", markdown)
 
     def test_render_summary_reports_changed_scope_advisory_style_debt(self) -> None:
         markdown = render_summary(
@@ -51,6 +56,7 @@ class TestDevWorkflowSummary(unittest.TestCase):
                     "format_summary": "46 files would be reformatted",
                 },
                 "betterdiscord_freshness": {"required": True, "exit_code": 0},
+                "feature_state": {"required": True, "compare_ref": "origin/main", "exit_code": 0},
                 "rulegen_quality": {"required": True, "mode": "dry-run", "exit_code": 0},
             }
         )
@@ -59,6 +65,7 @@ class TestDevWorkflowSummary(unittest.TestCase):
         self.assertIn(
             "- Style: `advisory-fail` (39 lint errors, 46 files need formatting)", markdown
         )
+        self.assertIn("- Feature-state audit: required (`origin/main`), PASS", markdown)
         self.assertIn("- Rulegen quality: required (`dry-run`), PASS", markdown)
 
     def test_render_summary_reports_ci_safe_build_skips(self) -> None:
@@ -66,6 +73,9 @@ class TestDevWorkflowSummary(unittest.TestCase):
             build_payload={
                 "overall_exit_code": 0,
                 "ci_safe": True,
+                "platform": "Linux",
+                "expected_artifact_count": 1,
+                "verified_artifact_count": 1,
                 "commands": [
                     {"label": "betterdiscord_build", "exit_code": 0},
                 ],
@@ -79,10 +89,31 @@ class TestDevWorkflowSummary(unittest.TestCase):
         )
         self.assertIn("## Build Safety", markdown)
         self.assertIn("- Status: PASS (ci-safe partial)", markdown)
+        self.assertIn("- Verified artifacts: 1/1", markdown)
         self.assertIn(
             "- Skipped: `gui_build_validate` (macOS app-bundle validation is not supported on this host)",
             markdown,
         )
+
+    def test_render_summary_treats_artifact_verification_failure_as_failed_command(self) -> None:
+        markdown = render_summary(
+            build_payload={
+                "overall_exit_code": 1,
+                "platform": "Darwin",
+                "expected_artifact_count": 4,
+                "verified_artifact_count": 3,
+                "commands": [
+                    {
+                        "label": "gui_build_validate",
+                        "exit_code": 0,
+                        "artifact_verification_exit_code": 1,
+                    }
+                ],
+            }
+        )
+        self.assertIn("- Status: FAIL", markdown)
+        self.assertIn("- Commands passed: 0/1", markdown)
+        self.assertIn("- First failed command: `gui_build_validate`", markdown)
 
 
 if __name__ == "__main__":

@@ -218,10 +218,12 @@ Current intent:
 - `check` is stable and non-mutating.
 - `check:changed` is the preferred branch-scope workflow command before heavier quality work.
 - `build` is a local build smoke for maintained build surfaces.
-- `build:ci` / `build:ci:report` are the normalized hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
+- `build:report` is the full build contract; hosted macOS CI should use it directly instead of a custom job-local command.
+- `build:ci` / `build:ci:report` are the explicit non-macOS hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
+- `check:windows:parity` is the advisory Windows GUI/helper/build parity inventory; use it when parity work is touched so known gaps stay explicit.
 - `check:style` is the advisory path for repo-wide Ruff debt.
 - `check:report`, `check:changed:report`, and `build:report` are the machine-readable workflow surfaces for automation and agent hand-offs.
-- `check:state` audits the feature ledger so status claims stay backed by dated evidence paths.
+- `check:state` audits the feature ledger so status claims stay backed by dated evidence paths, and compares against `HEAD` to catch status/default-behavior transitions without matching verification updates.
 - `check:summary` renders a stable Markdown handoff from the JSON workflow reports and is the preferred human-facing summary layer.
 - local `pre-push` should mirror `check`, not a separate ad hoc command set.
 - Repo-wide style lint is intentionally not part of default `check` until existing Ruff debt is reduced.

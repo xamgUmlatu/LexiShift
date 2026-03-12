@@ -29,9 +29,16 @@ def _passed_command_count(payload: dict[str, Any]) -> tuple[int, int]:
         if not isinstance(item, dict):
             continue
         total += 1
-        if int(item.get("exit_code") or 0) == 0:
+        if _command_status_exit_code(item) == 0:
             passed += 1
     return passed, total
+
+
+def _command_status_exit_code(item: dict[str, Any]) -> int:
+    exit_code = int(item.get("exit_code") or 0)
+    if exit_code != 0:
+        return exit_code
+    return int(item.get("artifact_verification_exit_code") or 0)
 
 
 def _first_failed_command(payload: dict[str, Any]) -> str | None:
@@ -41,7 +48,7 @@ def _first_failed_command(payload: dict[str, Any]) -> str | None:
     for item in commands:
         if not isinstance(item, dict):
             continue
-        if int(item.get("exit_code") or 0) != 0:
+        if _command_status_exit_code(item) != 0:
             label = str(item.get("label") or "").strip()
             return label or None
     return None
@@ -126,6 +133,16 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
             )
         else:
             lines.append("- BetterDiscord freshness: skipped")
+    feature_state = payload.get("feature_state")
+    if isinstance(feature_state, dict):
+        if bool(feature_state.get("required")):
+            compare_ref = str(feature_state.get("compare_ref") or "unknown")
+            exit_code = int(feature_state.get("exit_code") or 0)
+            lines.append(
+                f"- Feature-state audit: required (`{compare_ref}`), {_bool_status(exit_code)}"
+            )
+        else:
+            lines.append("- Feature-state audit: not required")
     rulegen = payload.get("rulegen_quality")
     if isinstance(rulegen, dict):
         if bool(rulegen.get("required")):
@@ -142,14 +159,19 @@ def _render_build_section(payload: dict[str, Any]) -> list[str]:
     overall_exit_code = int(payload.get("overall_exit_code") or 0)
     skipped = payload.get("skipped_commands")
     skipped_items = skipped if isinstance(skipped, list) else []
+    expected_artifact_count = int(payload.get("expected_artifact_count") or 0)
+    verified_artifact_count = int(payload.get("verified_artifact_count") or 0)
     status = _bool_status(overall_exit_code)
     if overall_exit_code == 0 and bool(payload.get("ci_safe")) and skipped_items:
         status = "PASS (ci-safe partial)"
     lines = [
         "## Build Safety",
         f"- Status: {status}",
+        f"- Platform: `{payload.get('platform', 'unknown')}`",
         f"- Commands passed: {passed}/{total}",
     ]
+    if expected_artifact_count > 0:
+        lines.append(f"- Verified artifacts: {verified_artifact_count}/{expected_artifact_count}")
     failed = _first_failed_command(payload)
     if failed:
         lines.append(f"- First failed command: `{failed}`")

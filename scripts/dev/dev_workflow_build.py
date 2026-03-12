@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -14,6 +15,13 @@ import sys
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
+@dataclass(frozen=True)
+class ExpectedArtifact:
+    label: str
+    path: Path
+    kind: str
+
+
 def _run(command: list[str]) -> int:
     print(f"+ {shlex.join(command)}", flush=True)
     result = subprocess.run(command, cwd=PROJECT_ROOT, check=False)
@@ -22,6 +30,66 @@ def _run(command: list[str]) -> int:
 
 def _supports_gui_build_validate() -> bool:
     return platform.system() == "Darwin"
+
+
+def _artifact_specs(
+    label: str, *, project_root: Path, platform_name: str
+) -> list[ExpectedArtifact]:
+    if label == "betterdiscord_build":
+        return [
+            ExpectedArtifact(
+                label="betterdiscord_bundle",
+                path=project_root / "apps" / "betterdiscord-plugin" / "LexiShift.plugin.js",
+                kind="file",
+            )
+        ]
+    if label == "gui_build_validate" and platform_name == "Darwin":
+        main_app = project_root / "apps" / "gui" / "dist" / "LexiShift.app"
+        helper_app = project_root / "apps" / "gui" / "dist" / "LexiShift Helper.app"
+        return [
+            ExpectedArtifact("gui_main_app_bundle", main_app, "directory"),
+            ExpectedArtifact("gui_helper_app_bundle", helper_app, "directory"),
+            ExpectedArtifact("gui_main_info_plist", main_app / "Contents" / "Info.plist", "file"),
+            ExpectedArtifact(
+                "gui_helper_info_plist",
+                helper_app / "Contents" / "Info.plist",
+                "file",
+            ),
+        ]
+    return []
+
+
+def _artifact_record(spec: ExpectedArtifact) -> dict[str, object]:
+    exists = spec.path.exists()
+    payload: dict[str, object] = {
+        "label": spec.label,
+        "path": str(spec.path),
+        "kind": spec.kind,
+        "exists": exists,
+    }
+    if exists and spec.path.is_file():
+        payload["size_bytes"] = spec.path.stat().st_size
+    elif exists and spec.path.is_dir():
+        payload["entry_count"] = sum(1 for _ in spec.path.iterdir())
+    return payload
+
+
+def collect_artifact_records(
+    label: str, *, project_root: Path = PROJECT_ROOT, platform_name: str | None = None
+) -> list[dict[str, object]]:
+    resolved_platform = platform_name or platform.system()
+    return [
+        _artifact_record(spec)
+        for spec in _artifact_specs(
+            label,
+            project_root=project_root,
+            platform_name=resolved_platform,
+        )
+    ]
+
+
+def _missing_artifact_paths(artifacts: list[dict[str, object]]) -> list[str]:
+    return [str(item["path"]) for item in artifacts if not bool(item.get("exists"))]
 
 
 def main() -> None:
@@ -72,16 +140,28 @@ def main() -> None:
             )
 
     results: list[dict[str, object]] = []
+    all_artifacts: list[dict[str, object]] = []
     overall_exit_code = 0
     for label, command in commands:
         exit_code = _run(command)
-        results.append(
-            {
-                "label": label,
-                "command": command,
-                "exit_code": exit_code,
-            }
-        )
+        result_entry: dict[str, object] = {
+            "label": label,
+            "command": command,
+            "exit_code": exit_code,
+        }
+        if exit_code == 0:
+            artifacts = collect_artifact_records(label)
+            if artifacts:
+                result_entry["artifacts"] = artifacts
+                all_artifacts.extend(artifacts)
+                missing_artifacts = _missing_artifact_paths(artifacts)
+                if missing_artifacts:
+                    result_entry["artifact_verification_exit_code"] = 1
+                    result_entry["missing_artifacts"] = missing_artifacts
+                    overall_exit_code = 1
+                    results.append(result_entry)
+                    break
+        results.append(result_entry)
         if exit_code != 0:
             overall_exit_code = exit_code
             break
@@ -94,8 +174,14 @@ def main() -> None:
         "skip_gui": bool(args.skip_gui),
         "ci_safe": bool(args.ci_safe),
         "platform": platform.system(),
+        "platform_release": platform.release(),
+        "python_executable": sys.executable,
+        "host_supports_gui_build_validate": _supports_gui_build_validate(),
         "skipped_commands": skipped_commands,
         "commands": results,
+        "artifacts": all_artifacts,
+        "expected_artifact_count": len(all_artifacts),
+        "verified_artifact_count": sum(1 for item in all_artifacts if bool(item.get("exists"))),
     }
     if args.json_out:
         args.json_out.parent.mkdir(parents=True, exist_ok=True)

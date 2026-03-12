@@ -59,11 +59,13 @@ def main() -> None:
                 "scripts/dev/dev_workflow_changed_check.py",
                 "scripts/dev/dev_workflow_summary.py",
                 "scripts/dev/dev_workflow_style_check.py",
+                "scripts/dev/windows_parity_audit.py",
+                "scripts/dev/windows_parity_summary.py",
             ],
         ),
         (
             "feature_state_audit",
-            [sys.executable, "scripts/dev/feature_state_audit.py"],
+            [sys.executable, "scripts/dev/feature_state_audit.py", "--compare-ref", "HEAD"],
         ),
         ("project_health_advisory", ["node", "scripts/dev/check_project_health.js", "--advisory"]),
     ]

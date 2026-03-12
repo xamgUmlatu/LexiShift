@@ -96,10 +96,12 @@ For each FAIL/REVIEW triage item:
 - Keep known contradictions explicit until code and docs converge; do not silently mark features as shipped based on docs alone.
 - Use `docs/developer/genai_workflow_architecture.md` for agent-role boundaries, model-instance split guidance, and harness policy.
 - Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes.
-- Use `npm --prefix scripts run check:state` when workflow changes update `docs/developer/feature_state_matrix.md` or when a status claim/evidence path changes materially.
+- Use `npm --prefix scripts run check:state` when workflow changes update `docs/developer/feature_state_matrix.md` or when a status claim/evidence path changes materially; it compares against `HEAD` and should stay clean before commit.
 - Treat the local `pre-push` hook as a mirror of `npm --prefix scripts run check`, not as a separate validation policy.
 - Use `npm --prefix scripts run build` when validating build/package workflow changes or when a local build smoke is warranted.
-- Use `npm --prefix scripts run build:ci:report` when validating hosted-runner build behavior or CI-safe build normalization.
+- Use `npm --prefix scripts run build:report` for the full build contract; hosted macOS CI should mirror that exact entrypoint.
+- Use `npm --prefix scripts run build:ci:report` when validating non-macOS hosted-runner behavior or CI-safe build normalization.
+- Use `npm --prefix scripts run check:windows:parity` when GUI/helper packaging, Windows build parity, helper autostart, or Windows workflow coverage changes.
 
 ## Source of truth docs
 
@@ -110,3 +112,4 @@ Read before major changes:
 - `docs/developer/ai_workflow.md`
 - `docs/developer/genai_workflow_architecture.md`
 - `docs/developer/feature_state_matrix.md`
+- `docs/developer/windows_gui_parity_workstream.md`

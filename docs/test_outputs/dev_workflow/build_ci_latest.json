@@ -1,11 +1,14 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-11T20:04:24.060020+00:00",
+  "generated_at_utc": "2026-03-12T00:07:22.891853+00:00",
   "overall_exit_code": 0,
   "skip_bd": false,
   "skip_gui": false,
   "ci_safe": true,
   "platform": "Darwin",
+  "platform_release": "25.3.0",
+  "python_executable": "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+  "host_supports_gui_build_validate": true,
   "skipped_commands": [],
   "commands": [
     {
@@ -14,7 +17,16 @@
         "node",
         "apps/betterdiscord-plugin/build_plugin.js"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "artifacts": [
+        {
+          "label": "betterdiscord_bundle",
+          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
+          "kind": "file",
+          "exists": true,
+          "size_bytes": 58377
+        }
+      ]
     },
     {
       "label": "gui_build_validate",
@@ -23,7 +35,76 @@
         "scripts/build/gui_app.py",
         "--validate"
       ],
-      "exit_code": 0
+      "exit_code": 0,
+      "artifacts": [
+        {
+          "label": "gui_main_app_bundle",
+          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
+          "kind": "directory",
+          "exists": true,
+          "entry_count": 1
+        },
+        {
+          "label": "gui_helper_app_bundle",
+          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
+          "kind": "directory",
+          "exists": true,
+          "entry_count": 1
+        },
+        {
+          "label": "gui_main_info_plist",
+          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+          "kind": "file",
+          "exists": true,
+          "size_bytes": 1032
+        },
+        {
+          "label": "gui_helper_info_plist",
+          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+          "kind": "file",
+          "exists": true,
+          "size_bytes": 1090
+        }
+      ]
     }
-  ]
+  ],
+  "artifacts": [
+    {
+      "label": "betterdiscord_bundle",
+      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
+      "kind": "file",
+      "exists": true,
+      "size_bytes": 58377
+    },
+    {
+      "label": "gui_main_app_bundle",
+      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
+      "kind": "directory",
+      "exists": true,
+      "entry_count": 1
+    },
+    {
+      "label": "gui_helper_app_bundle",
+      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
+      "kind": "directory",
+      "exists": true,
+      "entry_count": 1
+    },
+    {
+      "label": "gui_main_info_plist",
+      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+      "kind": "file",
+      "exists": true,
+      "size_bytes": 1032
+    },
+    {
+      "label": "gui_helper_info_plist",
+      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+      "kind": "file",
+      "exists": true,
+      "size_bytes": 1090
+    }
+  ],
+  "expected_artifact_count": 5,
+  "verified_artifact_count": 5
 }

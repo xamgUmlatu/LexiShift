@@ -14,6 +14,7 @@ npm --prefix scripts run build
 Notes:
 - `check` is the stable non-mutating repo safety loop.
 - `build` is the local build smoke for surfaces with maintained build paths.
+- `build:report` is the full build contract and is what hosted macOS CI runs.
 - `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip macOS-only GUI validation on unsupported hosts.
 - Repo-wide style lint remains separate until the current Ruff debt is reduced.
 
@@ -21,8 +22,10 @@ Notes:
 
 Install packaging deps:
 ```bash
-pip install pyside6 pyinstaller
+pip install -r requirements-build.txt
 ```
+
+This installs the shared developer tools plus the maintained GUI packaging deps used by hosted macOS build validation.
 
 Build app bundles:
 ```bash

@@ -16,6 +16,12 @@ pip install -r requirements-dev.txt
 npm --prefix scripts run hooks:install
 ```
 
+GUI packaging / hosted macOS build-validation deps:
+
+```bash
+pip install -r requirements-build.txt
+```
+
 Installed pre-commit hooks currently cover:
 - whitespace / EOF / YAML / TOML hygiene
 - Ruff formatting
@@ -47,10 +53,19 @@ Feature-state discipline audit:
 npm --prefix scripts run check:state
 ```
 
+This compares the current ledger against `HEAD` and fails if status/default-behavior transitions do not bring matching verification/evidence updates.
+
 Markdown summary from the latest workflow reports:
 
 ```bash
 npm --prefix scripts run check:summary
+```
+
+Windows GUI parity audit:
+
+```bash
+npm --prefix scripts run check:windows:parity
+npm --prefix scripts run check:windows:parity:summary
 ```
 
 Rulegen artifact summaries:
@@ -91,6 +106,7 @@ npm --prefix scripts run check:changed
 This runs:
 - changed-only project health against the checked-in baseline
 - Ruff lint/format checks on changed Python files only
+- feature-state transition audit when `docs/developer/feature_state_matrix.md` changes
 - BetterDiscord generated bundle freshness when relevant files changed
 - rulegen quality-loop detection, with a dry-run command when rulegen/POS quality work is detected
 
@@ -126,11 +142,15 @@ Machine-readable build report:
 npm --prefix scripts run build:report
 ```
 
+This is the full build contract. Hosted macOS CI uses the same entrypoint.
+
 CI-safe build report:
 
 ```bash
 npm --prefix scripts run build:ci:report
 ```
+
+This is the explicit non-macOS partial lane. It keeps the same report format while recording skipped GUI validation on unsupported hosts.
 
 Synthetic SRS quality harness:
 

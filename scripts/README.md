@@ -19,18 +19,30 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Feature-state matrix audit:
   `dev/feature_state_audit.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:state`
+  - `check:state` compares against `HEAD` so status/default-behavior transitions need matching verification and evidence updates
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`
   - Used by `npm --prefix scripts run check:summary` and CI step summaries
+- Cross-platform Python launcher for npm workflow scripts:
+  `dev/run_python.js`
+  - Keeps `npm --prefix scripts run check` / `build` / quality wrappers usable on Windows where `python3` may not exist by name
 - Repo-wide style/debt advisory check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
   `dev/dev_workflow_style_check.py`
 - Repo build safety (BetterDiscord bundle + GUI PyInstaller build/validate):
   `dev/dev_workflow_build.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run build:report`
+  - Verifies expected build artifacts in the JSON report instead of relying on exit codes alone
   - `--ci-safe` skips intentionally unsupported build surfaces on the current host while keeping the same report format
+- Windows GUI parity audit:
+  `dev/windows_parity_audit.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run check:windows:parity`
+  - Tracks known Windows parity gaps as advisory workflow evidence
+- Windows GUI parity Markdown summary renderer:
+  `dev/windows_parity_summary.py`
+  - Used by `npm --prefix scripts run check:windows:parity:summary` and Windows CI summaries
 - Build app bundle: `build/gui_app.py`
 - Build installers: `build/installer.py`
 - Convert embeddings: `data/convert_embeddings.py`

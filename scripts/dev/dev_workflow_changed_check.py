@@ -40,6 +40,7 @@ RULEGEN_QUALITY_PATH_HINTS: tuple[str, ...] = (
     "scripts/testing/rulegen_quality_gate_",
     "scripts/testing/rulegen_benchmark_triage.py",
 )
+FEATURE_STATE_MATRIX_PATH = "docs/developer/feature_state_matrix.md"
 
 
 def _print_command(command: list[str]) -> None:
@@ -126,6 +127,10 @@ def _needs_rulegen_quality(changed_files: list[str]) -> bool:
         if normalized.startswith(RULEGEN_QUALITY_PATH_HINTS):
             return True
     return False
+
+
+def _needs_feature_state_audit(changed_files: list[str]) -> bool:
+    return any(path.replace("\\", "/") == FEATURE_STATE_MATRIX_PATH for path in changed_files)
 
 
 def _write_json_report(path: Path | None, payload: dict[str, object]) -> None:
@@ -253,6 +258,28 @@ def main() -> None:
     else:
         print("changed_python_files: 0")
         payload["style"] = {"status": "skipped"}
+
+    if _needs_feature_state_audit(changed_files):
+        compare_ref = str(args.base_ref) if args.scope == "branch" else "HEAD"
+        feature_state_command = [
+            sys.executable,
+            "scripts/dev/feature_state_audit.py",
+            "--compare-ref",
+            compare_ref,
+        ]
+        feature_state_exit_code = _run(feature_state_command, strict=False)
+        payload["feature_state"] = {
+            "required": True,
+            "compare_ref": compare_ref,
+            "command": feature_state_command,
+            "exit_code": feature_state_exit_code,
+        }
+        if feature_state_exit_code != 0:
+            _write_json_report(args.json_out, payload)
+            raise SystemExit(feature_state_exit_code)
+    else:
+        print("feature_state_audit_required: no")
+        payload["feature_state"] = {"required": False, "status": "not-needed"}
 
     if _needs_betterdiscord_freshness(changed_files):
         betterdiscord_command = ["node", "apps/betterdiscord-plugin/build_plugin.js", "--check"]

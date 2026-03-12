@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-03-12T00:08:35.995278+00:00",
+  "status": "FAIL",
+  "counts": {
+    "pass": 4,
+    "warn": 0,
+    "fail": 4
+  },
+  "checks": [
+    {
+      "key": "windows_data_paths",
+      "title": "Windows Data Paths",
+      "status": "PASS",
+      "summary": "Windows AppData / Roaming path handling exists in helper and GUI startup paths.",
+      "evidence": [
+        "core/lexishift_core/helper/paths.py",
+        "apps/gui/src/main_paths.py",
+        "apps/gui/src/__main__.py"
+      ]
+    },
+    {
+      "key": "windows_shell_integration",
+      "title": "Windows Shell Integration",
+      "status": "PASS",
+      "summary": "Windows shell integration exists for open/reveal path actions.",
+      "evidence": [
+        "core/lexishift_core/helper/os.py",
+        "apps/gui/src/main.py",
+        "apps/gui/src/utils_paths.py"
+      ]
+    },
+    {
+      "key": "windows_installer_support",
+      "title": "Windows Installer Scaffolding",
+      "status": "PASS",
+      "summary": "Windows installer scaffolding exists via Inno Setup and signing hooks.",
+      "evidence": [
+        "scripts/build/installer.py",
+        "apps/gui/packaging/installer_windows.iss"
+      ]
+    },
+    {
+      "key": "windows_helper_packaging",
+      "title": "Windows Helper Packaging",
+      "status": "FAIL",
+      "summary": "PyInstaller packaging only builds the helper app in the macOS branch; Windows packaging currently emits the main app only.",
+      "evidence": [
+        "apps/gui/packaging/pyinstaller.spec"
+      ]
+    },
+    {
+      "key": "windows_bundle_validation",
+      "title": "Windows Build Validation",
+      "status": "FAIL",
+      "summary": "Build output validation is macOS-only today; there is no Windows dist/exe validator.",
+      "evidence": [
+        "scripts/build/validate_app_bundle.py"
+      ]
+    },
+    {
+      "key": "windows_helper_autostart",
+      "title": "Windows Helper Autostart",
+      "status": "FAIL",
+      "summary": "Helper autostart is implemented for macOS LaunchAgent only; no Windows startup-registration path is tracked in code.",
+      "evidence": [
+        "apps/gui/src/helper_installer.py",
+        "docs/architecture/native_messaging_checklist.md"
+      ]
+    },
+    {
+      "key": "windows_tray_launch",
+      "title": "Windows Tray Launch Path",
+      "status": "FAIL",
+      "summary": "Frozen helper tray launch has macOS-specific app-bundle handoff, but no Windows-specific main-app launch path.",
+      "evidence": [
+        "apps/gui/src/helper_tray.py"
+      ]
+    },
+    {
+      "key": "hosted_windows_validation",
+      "title": "Hosted Windows Validation",
+      "status": "PASS",
+      "summary": "Hosted CI includes a Windows runner for parity reporting.",
+      "evidence": [
+        ".github/workflows/ci.yml"
+      ]
+    }
+  ]
+}

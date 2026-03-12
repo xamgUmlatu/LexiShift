@@ -110,6 +110,8 @@ Feature-state discipline audit:
 npm --prefix scripts run check:state
 ```
 
+This compares the current ledger against `HEAD` and fails when status/default-behavior transitions land without matching verification/evidence updates.
+
 Markdown summary from the latest workflow reports:
 
 ```bash
@@ -136,11 +138,15 @@ Machine-readable build report:
 npm --prefix scripts run build:report
 ```
 
+Hosted macOS CI uses the same full build-report entrypoint.
+
 CI-safe build report:
 
 ```bash
 npm --prefix scripts run build:ci:report
 ```
+
+Use this when validating non-macOS hosted-runner behavior; it records explicit skips instead of pretending GUI validation ran.
 
 Synthetic SRS quality harness:
 
@@ -177,6 +183,13 @@ Machine-readable branch report:
 
 ```bash
 npm --prefix scripts run check:changed:report
+```
+
+Windows parity audit:
+
+```bash
+npm --prefix scripts run check:windows:parity
+npm --prefix scripts run check:windows:parity:summary
 ```
 
 Use `check:changed:local` or `check:changed:staged` when a long-running branch makes the branch-scope view too noisy for local iteration.

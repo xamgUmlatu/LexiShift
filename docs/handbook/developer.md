@@ -25,6 +25,12 @@ pip install -r requirements-dev.txt
 npm --prefix scripts run hooks:install
 ```
 
+Packaging deps for GUI build validation:
+
+```bash
+pip install -r requirements-build.txt
+```
+
 ## Daily Validation Loop
 
 ```bash
@@ -35,6 +41,12 @@ Feature-state audit:
 
 ```bash
 npm --prefix scripts run check:state
+```
+
+Windows parity audit:
+
+```bash
+npm --prefix scripts run check:windows:parity
 ```
 
 ## Build Safety
@@ -48,6 +60,8 @@ Hosted-runner build normalization:
 ```bash
 npm --prefix scripts run build:ci:report
 ```
+
+Hosted macOS CI runs the full `npm --prefix scripts run build:report` path; `build:ci:report` is the explicit non-macOS partial lane.
 
 ## Run Surfaces
 
