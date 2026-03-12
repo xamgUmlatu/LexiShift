@@ -155,13 +155,13 @@ Use this file when:
 
 ## GitHub Pages Docs Deployment
 
-- Status: `implemented`, `verified`, `default-on` = `no` until repository Pages source is switched to `GitHub Actions`
+- Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-13`
-- Last verified: `2026-03-13` local `bundle exec jekyll build --trace` + workflow YAML review
+- Last verified: `2026-03-13` local `bundle exec jekyll build --trace` + hosted `pages` / `pages-build-deployment` success on `302bba5`
 - Default behavior:
   - Repo-owned Pages workflow now lives in `.github/workflows/pages.yml`.
   - Pull requests touching `docs/**` run a build-only Pages validation job.
-  - Pushes to `main` touching `docs/**` build and deploy the site once repository Pages settings use `GitHub Actions`.
+  - Pushes to `main` touching `docs/**` build and deploy the site through GitHub Actions.
   - Local parity command is `cd docs && bundle exec jekyll build --trace`.
 - Evidence:
   - `.github/workflows/pages.yml`
@@ -170,8 +170,8 @@ Use this file when:
   - `docs/Gemfile.lock`
   - `docs/_config.yml`
   - `docs/developer/local_setup.md`
+  - `docs/test_outputs/dev_workflow/github_pages_workflow_verification_latest.md`
 - Known gaps:
-  - The repository setting still has to be switched from `Deploy from a branch` to `GitHub Actions`; code cannot enforce that by itself.
   - Current workflow validates Jekyll build/deploy only; it does not yet run link checking or browser-level UI smoke tests for docs JavaScript.
 
 ## Windows GUI Parity Audit

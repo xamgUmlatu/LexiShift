@@ -47,6 +47,5 @@ Notes:
   updates, refresh it against `https://pages.github.com/versions/`.
 - Hosted deployment is controlled by `.github/workflows/pages.yml`, not by a
   branch-directory selection.
-- If Pages is still configured for `Deploy from a branch`, the custom workflow
-  will exist in-repo but will not become the active deployment path until the
-  repo setting is switched to `GitHub Actions`.
+- Repository Pages is now configured to use `GitHub Actions` as the active
+  deployment source.
