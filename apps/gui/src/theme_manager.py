@@ -139,33 +139,45 @@ def build_base_styles(theme: dict) -> str:
     ftue_badge_start = _blue_darker(theme["primary_hover"], darken=0.76, blue_boost=88)
     ftue_badge_mid = _blue_darker(theme["primary"], darken=0.76, blue_boost=88)
     ftue_badge_end = _blue_darker(theme["accent"], darken=0.76, blue_boost=88)
-    primary_bg = _blend_hex([theme["primary_hover"], theme["primary"], theme["accent"]], fallback=theme["primary"])
+    primary_bg = _blend_hex(
+        [theme["primary_hover"], theme["primary"], theme["accent"]], fallback=theme["primary"]
+    )
     primary_text = _best_text_color(primary_bg)
     utility_badge_text = _best_text_color(str(theme["primary"]))
-    ftue_badge_bg = _blend_hex([ftue_badge_start, ftue_badge_mid, ftue_badge_end], fallback=ftue_badge_mid)
+    ftue_badge_bg = _blend_hex(
+        [ftue_badge_start, ftue_badge_mid, ftue_badge_end], fallback=ftue_badge_mid
+    )
     ftue_badge_text = _best_text_color(ftue_badge_bg)
-    empty_guide_bg = _blend_hex([theme["primary_hover"], theme["primary"]], fallback=theme["primary"])
+    empty_guide_bg = _blend_hex(
+        [theme["primary_hover"], theme["primary"]], fallback=theme["primary"]
+    )
     empty_guide_text = _best_text_color(empty_guide_bg)
     # Popup sheen tones for the main-window profile/ruleset dropdown list panel.
     popup_sheen_soft = _blend_hex([theme["table_bg"], "#FFFFFF"], fallback=theme["table_bg"])
-    popup_sheen_hot = _blend_hex([theme["table_bg"], "#FFFFFF", "#FFFFFF"], fallback=popup_sheen_soft)
-    popup_shadow_edge = _blend_hex([theme["panel_border"], theme["accent_soft"]], fallback=theme["panel_border"])
+    popup_sheen_hot = _blend_hex(
+        [theme["table_bg"], "#FFFFFF", "#FFFFFF"], fallback=popup_sheen_soft
+    )
+    popup_shadow_edge = _blend_hex(
+        [theme["panel_border"], theme["accent_soft"]], fallback=theme["panel_border"]
+    )
     popup_hover_sheen = _blend_hex([theme["accent_soft"], "#FFFFFF"], fallback=theme["accent_soft"])
-    popup_selected_sheen = _blend_hex([theme["table_sel_bg"], "#FFFFFF"], fallback=theme["table_sel_bg"])
+    popup_selected_sheen = _blend_hex(
+        [theme["table_sel_bg"], "#FFFFFF"], fallback=theme["table_sel_bg"]
+    )
     return f"""
 QWidget {{
-  color: {theme['text']};
+  color: {theme["text"]};
 }}
 QDialog, QMainWindow {{
-  background: {theme['bg']};
+  background: {theme["bg"]};
 }}
 QLabel {{
-  color: {theme['text']};
+  color: {theme["text"]};
 }}
 QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
-  background: {theme['table_bg']};
-  color: {theme['text']};
-  border: 1px solid {theme['panel_border']};
+  background: {theme["table_bg"]};
+  color: {theme["text"]};
+  border: 1px solid {theme["panel_border"]};
   border-radius: 10px;
   padding: 7px 9px;
 }}
@@ -174,11 +186,11 @@ QAbstractItemView#profileRulesetPopup {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {popup_sheen_hot},
     stop:0.06 {popup_sheen_soft},
-    stop:0.14 {theme['table_bg']},
+    stop:0.14 {theme["table_bg"]},
     stop:0.24 {popup_sheen_soft},
-    stop:0.58 {theme['table_bg']},
-    stop:1 {theme['accent_soft']});
-  color: {theme['text']};
+    stop:0.58 {theme["table_bg"]},
+    stop:1 {theme["accent_soft"]});
+  color: {theme["text"]};
   border-top: 2px solid {popup_sheen_soft};
   border-left: 2px solid {popup_sheen_soft};
   border-right: 2px solid {popup_shadow_edge};
@@ -187,7 +199,7 @@ QAbstractItemView#profileRulesetPopup {{
   padding: 5px;
   outline: 0px;
   selection-background-color: transparent;
-  selection-color: {theme['text']};
+  selection-color: {theme["text"]};
 }}
 QAbstractItemView#profileRulesetPopup::item {{
   min-height: 24px;
@@ -199,20 +211,20 @@ QAbstractItemView#profileRulesetPopup::item {{
 QAbstractItemView#profileRulesetPopup::item:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {popup_hover_sheen},
-    stop:0.22 {theme['accent_soft']},
-    stop:1 {theme['table_bg']});
-  border: 1px solid {theme['panel_border']};
+    stop:0.22 {theme["accent_soft"]},
+    stop:1 {theme["table_bg"]});
+  border: 1px solid {theme["panel_border"]};
 }}
 QAbstractItemView#profileRulesetPopup::item:selected {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
     stop:0 {popup_selected_sheen},
-    stop:0.24 {theme['table_sel_bg']},
-    stop:1 {theme['accent_soft']});
-  border: 1px solid {theme['accent']};
+    stop:0.24 {theme["table_sel_bg"]},
+    stop:1 {theme["accent_soft"]});
+  border: 1px solid {theme["accent"]};
 }}
 QListWidget, QTableView {{
-  background: {theme['table_bg']};
-  border: 2px solid {theme['panel_border']};
+  background: {theme["table_bg"]};
+  border: 2px solid {theme["panel_border"]};
   border-radius: 12px;
 }}
 QListWidget::item {{
@@ -221,47 +233,47 @@ QListWidget::item {{
   margin: 2px;
 }}
 QListWidget::item:hover {{
-  background: {theme['accent_soft']};
+  background: {theme["accent_soft"]};
 }}
 QListWidget::item:selected {{
-  background: {theme['table_sel_bg']};
-  border: 1px solid {theme['accent']};
+  background: {theme["table_sel_bg"]};
+  border: 1px solid {theme["accent"]};
 }}
 QHeaderView::section {{
-  background: {theme['accent_soft']};
-  color: {theme['text']};
+  background: {theme["accent_soft"]};
+  color: {theme["text"]};
   padding: 8px;
   border: none;
 }}
 QGroupBox {{
-  border: 2px solid {theme['panel_border']};
+  border: 2px solid {theme["panel_border"]};
   border-radius: 12px;
   margin-top: 10px;
-  background: {theme['panel_top']};
+  background: {theme["panel_top"]};
 }}
 QGroupBox::title {{
-  color: {theme['accent']};
+  color: {theme["accent"]};
   subcontrol-origin: margin;
   left: 10px;
   padding: 0 4px;
   font-weight: 700;
 }}
 QFrame[workspaceCard="true"] {{
-  border: 2px solid {theme['panel_border']};
+  border: 2px solid {theme["panel_border"]};
   border-radius: 12px;
-  background: {theme['panel_top']};
+  background: {theme["panel_top"]};
 }}
 QWidget[utilityDockPanel="true"] {{
-  border: 2px solid {theme['panel_border']};
+  border: 2px solid {theme["panel_border"]};
   border-radius: 12px;
-  background: {theme['panel_top']};
+  background: {theme["panel_top"]};
   padding: 8px;
 }}
 QPushButton {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['panel_top']}, stop:1 {theme['accent_soft']});
-  color: {theme['text']};
-  border: 2px solid {theme['panel_border']};
+    stop:0 {theme["panel_top"]}, stop:1 {theme["accent_soft"]});
+  color: {theme["text"]};
+  border: 2px solid {theme["panel_border"]};
   border-radius: 12px;
   padding: 10px 18px;
   min-height: 28px;
@@ -278,20 +290,20 @@ QPushButton[dockHeader="true"] {{
   text-align: left;
 }}
 QPushButton[dockHeader="true"]:checked {{
-  border: 2px solid {theme['accent']};
+  border: 2px solid {theme["accent"]};
 }}
 QLabel[utilityDockBadge="true"] {{
   color: {utility_badge_text};
-  background: {theme['primary']};
-  border: 1px solid {theme['primary_hover']};
+  background: {theme["primary"]};
+  border: 1px solid {theme["primary_hover"]};
   border-radius: 9px;
   padding: 1px 7px;
   font-weight: 700;
 }}
 QPushButton:hover {{
-  border: 2px solid {theme['accent']};
+  border: 2px solid {theme["accent"]};
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['table_bg']}, stop:1 {theme['panel_top']});
+    stop:0 {theme["table_bg"]}, stop:1 {theme["panel_top"]});
 }}
 QPushButton:pressed {{
   padding-top: 12px;
@@ -299,28 +311,28 @@ QPushButton:pressed {{
 }}
 QPushButton:disabled {{
   background: {disabled_bg};
-  color: {theme['muted']};
-  border: 2px solid {theme['panel_border']};
+  color: {theme["muted"]};
+  border: 2px solid {theme["panel_border"]};
 }}
 QPushButton[variant="primary"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary_hover']}, stop:0.55 {theme['primary']}, stop:1 {theme['accent']});
+    stop:0 {theme["primary_hover"]}, stop:0.55 {theme["primary"]}, stop:1 {theme["accent"]});
   color: {primary_text};
-  border: 2px solid {theme['primary_hover']};
+  border: 2px solid {theme["primary_hover"]};
 }}
 QPushButton[variant="primary"]:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+    stop:0 {theme["primary"]}, stop:1 {theme["primary_hover"]});
 }}
 QPushButton[variant="secondary"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['table_bg']}, stop:1 {theme['accent_soft']});
-  color: {theme['text']};
-  border: 2px solid {theme['accent']};
+    stop:0 {theme["table_bg"]}, stop:1 {theme["accent_soft"]});
+  color: {theme["text"]};
+  border: 2px solid {theme["accent"]};
 }}
 QPushButton[variant="secondary"]:hover {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['accent_soft']}, stop:1 {theme['table_bg']});
+    stop:0 {theme["accent_soft"]}, stop:1 {theme["table_bg"]});
 }}
 QLabel[ftueLocaleIconBadge="true"] {{
   min-height: 42px;
@@ -341,8 +353,8 @@ QLabel[ftueLocaleIconBadge="true"] {{
 QPushButton[ftueLocaleSelectButton="true"] {{
   min-height: 42px;
   padding: 10px 14px;
-  border: 2px solid {theme['primary_hover']};
-  border-left: 1px solid {theme['primary_hover']};
+  border: 2px solid {theme["primary_hover"]};
+  border-left: 1px solid {theme["primary_hover"]};
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   border-top-right-radius: 16px;
@@ -351,13 +363,13 @@ QPushButton[ftueLocaleSelectButton="true"] {{
   font-size: 13px;
   font-weight: 800;
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary_hover']}, stop:0.7 {theme['primary']}, stop:1 {theme['accent']});
+    stop:0 {theme["primary_hover"]}, stop:0.7 {theme["primary"]}, stop:1 {theme["accent"]});
 }}
 QPushButton[ftueLocaleSelectButton="true"]:hover {{
-  border: 2px solid {theme['accent']};
-  border-left: 1px solid {theme['accent']};
+  border: 2px solid {theme["accent"]};
+  border-left: 1px solid {theme["accent"]};
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+    stop:0 {theme["primary"]}, stop:1 {theme["primary_hover"]});
 }}
 QPushButton[emptyGuideFab="true"] {{
   min-width: 28px;
@@ -369,14 +381,14 @@ QPushButton[emptyGuideFab="true"] {{
   color: {empty_guide_text};
   font-size: 16px;
   font-weight: 900;
-  border: 2px solid {theme['accent']};
+  border: 2px solid {theme["accent"]};
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary_hover']}, stop:1 {theme['primary']});
+    stop:0 {theme["primary_hover"]}, stop:1 {theme["primary"]});
 }}
 QPushButton[emptyGuideFab="true"]:hover {{
-  border: 2px solid {theme['primary_hover']};
+  border: 2px solid {theme["primary_hover"]};
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-    stop:0 {theme['primary']}, stop:1 {theme['primary_hover']});
+    stop:0 {theme["primary"]}, stop:1 {theme["primary_hover"]});
 }}
 QPushButton[variant="danger"] {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
@@ -389,7 +401,7 @@ QPushButton[variant="danger"]:hover {{
     stop:0 {status_error}, stop:1 {status_error_hover});
 }}
 QSplitter::handle {{
-  background: {theme['panel_border']};
+  background: {theme["panel_border"]};
 }}
 """
 

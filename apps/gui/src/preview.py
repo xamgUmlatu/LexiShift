@@ -6,7 +6,13 @@ from typing import Iterable, List, Optional, Sequence
 from PySide6.QtCore import QObject, QThread, Signal
 from PySide6.QtGui import QColor, QTextCharFormat, QSyntaxHighlighter
 
-from lexishift_core import Match, PracticeGate, Replacer, VocabDataset, build_vocab_pool_from_dataset
+from lexishift_core import (
+    Match,
+    PracticeGate,
+    Replacer,
+    VocabDataset,
+    build_vocab_pool_from_dataset,
+)
 
 
 @dataclass(frozen=True)
@@ -47,7 +53,9 @@ class PreviewController(QObject):
         self._job_id = 0
         self._workers: List[PreviewWorker] = []
 
-    def request(self, dataset: VocabDataset, text: str, *, practice_gate: Optional[PracticeGate] = None) -> None:
+    def request(
+        self, dataset: VocabDataset, text: str, *, practice_gate: Optional[PracticeGate] = None
+    ) -> None:
         self._job_id += 1
         worker = PreviewWorker(self._job_id, dataset, text, practice_gate=practice_gate)
         worker.previewReady.connect(self._handle_preview)

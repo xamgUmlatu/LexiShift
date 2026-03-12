@@ -99,7 +99,9 @@ def _suggest_patch(case: Mapping[str, object], status: str) -> dict[str, object]
     notes = patch["notes"]
     if isinstance(notes, list):
         if status == "FAIL":
-            notes.append("Review case labels and pair tuning; this case violates hard quality expectations.")
+            notes.append(
+                "Review case labels and pair tuning; this case violates hard quality expectations."
+            )
         else:
             notes.append("Review expected_top1_any labels or scoring weights for this case.")
         if top1_source:

@@ -87,9 +87,7 @@ def _write_freedict_de_en(path: Path, *, targets: list[str], sources: list[str])
     payload = (
         "<?xml version='1.0' encoding='UTF-8'?>"
         "<TEI xmlns='http://www.tei-c.org/ns/1.0'>"
-        "<text><body>"
-        + "".join(entries)
-        + "</body></text>"
+        "<text><body>" + "".join(entries) + "</body></text>"
         "</TEI>"
     )
     path.parent.mkdir(parents=True, exist_ok=True)

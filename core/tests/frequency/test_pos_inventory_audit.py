@@ -24,7 +24,9 @@ def _write_frequency_db_with_metadata(path: Path, metadata: dict[str, object]) -
     path.parent.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(path) as conn:
         conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL, pos TEXT);")
-        conn.execute("INSERT INTO frequency (lemma, core_rank, pmw, pos) VALUES ('alpha', 1, 10, 'n');")
+        conn.execute(
+            "INSERT INTO frequency (lemma, core_rank, pmw, pos) VALUES ('alpha', 1, 10, 'n');"
+        )
         conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);")
         conn.execute(
             "INSERT INTO meta (key, value) VALUES (?, ?);",

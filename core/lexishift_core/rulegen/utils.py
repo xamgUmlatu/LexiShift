@@ -18,7 +18,7 @@ _GLOSS_TRAILING_PUNCT_STRIP = " \t\r\n.,;:!?\"“”'’"
 _GLOSS_OUTER_WRAPPERS = (
     ("“", "”"),
     ("‘", "’"),
-    ("\"", "\""),
+    ('"', '"'),
     ("'", "'"),
     ("(", ")"),
     ("[", "]"),
@@ -56,7 +56,11 @@ def sanitize_dictionary_gloss(value: object) -> str:
     while text and previous != text:
         previous = text
         for left, right in _GLOSS_OUTER_WRAPPERS:
-            if text.startswith(left) and text.endswith(right) and len(text) > (len(left) + len(right)):
+            if (
+                text.startswith(left)
+                and text.endswith(right)
+                and len(text) > (len(left) + len(right))
+            ):
                 text = text[len(left) : -len(right)].strip()
                 break
     text = text.strip(_GLOSS_TRAILING_PUNCT_STRIP)
@@ -226,7 +230,9 @@ class PairedInflectionVariantExpander:
                 if not inflected_word or inflected_word == base_word:
                     continue
                 updated_tokens = list(tokens)
-                updated_tokens[target_index] = replace(updated_tokens[target_index], text=inflected_word)
+                updated_tokens[target_index] = replace(
+                    updated_tokens[target_index], text=inflected_word
+                )
                 source_phrase = "".join(token.text for token in updated_tokens)
                 if source_phrase in seen_phrases:
                     continue

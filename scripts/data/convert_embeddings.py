@@ -21,8 +21,12 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--input", required=True, help="Path to .vec/.txt/.bin embeddings file.")
     parser.add_argument("--output", required=True, help="Path to output .db/.sqlite file.")
     parser.add_argument("--lowercase-words", action="store_true", help="Store words lowercased.")
-    parser.add_argument("--lsh-bits", type=int, default=16, help="Number of LSH bits to store (0 to disable).")
-    parser.add_argument("--lsh-seed", type=int, default=1337, help="Random seed for LSH bit selection.")
+    parser.add_argument(
+        "--lsh-bits", type=int, default=16, help="Number of LSH bits to store (0 to disable)."
+    )
+    parser.add_argument(
+        "--lsh-seed", type=int, default=1337, help="Random seed for LSH bit selection."
+    )
     parser.add_argument("--overwrite", action="store_true", help="Overwrite output if it exists.")
     parser.add_argument("--limit", type=int, default=0, help="Limit number of rows (debug).")
     parser.add_argument("--batch", type=int, default=5000, help="Batch size for inserts.")
@@ -35,9 +39,7 @@ def _init_db(path: Path) -> sqlite3.Connection:
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA temp_store=MEMORY")
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
-    )
+    conn.execute("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
     conn.execute(
         "CREATE TABLE IF NOT EXISTS vectors ("
         "word TEXT PRIMARY KEY, "

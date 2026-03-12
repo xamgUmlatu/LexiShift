@@ -17,7 +17,9 @@ class ReplacementPipeline:
     exact: Replacer
     meaning: Optional[Replacer] = None
 
-    def replace_text(self, text: str, *, mode: ReplacementMode = ReplacementMode.EXACT, with_stats: bool = False):
+    def replace_text(
+        self, text: str, *, mode: ReplacementMode = ReplacementMode.EXACT, with_stats: bool = False
+    ):
         if mode is ReplacementMode.MEANING and self.meaning is not None:
             return self.meaning.replace_text(text, with_stats=with_stats)
         return self.exact.replace_text(text, with_stats=with_stats)

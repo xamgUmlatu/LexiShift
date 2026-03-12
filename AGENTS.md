@@ -95,7 +95,7 @@ For each FAIL/REVIEW triage item:
 - Update `docs/developer/feature_state_matrix.md` when default behavior, verification evidence, or known doc/code mismatches change.
 - Keep known contradictions explicit until code and docs converge; do not silently mark features as shipped based on docs alone.
 - Use `docs/developer/genai_workflow_architecture.md` for agent-role boundaries, model-instance split guidance, and harness policy.
-- Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes; it now includes the strict Windows parity audit in the default repo-safety gate.
+- Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes; it now includes strict Windows parity and strict repo-wide Ruff style in the default repo-safety gate.
 - Use `npm --prefix scripts run check:state` when workflow changes update `docs/developer/feature_state_matrix.md` or when a status claim/evidence path changes materially; it compares against `HEAD` and should stay clean before commit.
 - Treat the local `pre-push` hook as a mirror of `npm --prefix scripts run check`, not as a separate validation policy.
 - Use `npm --prefix scripts run build` when validating build/package workflow changes or when a local build smoke is warranted.
@@ -103,6 +103,7 @@ For each FAIL/REVIEW triage item:
 - Use `npm --prefix scripts run build:ci:report` when validating non-macOS hosted-runner behavior or CI-safe build normalization.
 - Use `npm --prefix scripts run check:windows:parity` when GUI/helper packaging, Windows build parity, helper autostart, native-messaging install, or Windows workflow coverage changes and you need the standalone parity JSON/Markdown artifacts.
 - `npm --prefix scripts run check:changed` now infers and runs the Windows parity audit when those files change; Windows CI runs the strict parity variant.
+- `npm --prefix scripts run check:changed` now infers heavier quality loops from substantive file changes so Python formatting-only churn does not automatically trigger rulegen audit.
 
 ## Source of truth docs
 

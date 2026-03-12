@@ -123,9 +123,8 @@ def build_seed_candidates(
             )
             if column
         ]
-        resolved_pos_weights = (
-            config.admission_pos_weights
-            or resolve_default_pos_weights(language_pair=config.language_pair)
+        resolved_pos_weights = config.admission_pos_weights or resolve_default_pos_weights(
+            language_pair=config.language_pair
         )
         max_pmw = store.max_value(resolved_pmw_column) if resolved_pmw_column else None
         results: list[SeedWord] = []
@@ -158,7 +157,9 @@ def build_seed_candidates(
             )
             raw_pos = (
                 str(row[resolved_pos_column]).strip()
-                if include_pos and resolved_pos_column in columns and row[resolved_pos_column] is not None
+                if include_pos
+                and resolved_pos_column in columns
+                and row[resolved_pos_column] is not None
                 else None
             )
             normalized_pos = normalize_pos(
@@ -341,14 +342,10 @@ def _load_stopwords(path: Path) -> set[str]:
     stopwords: set[str] = set()
     for index, item in enumerate(payload):
         if not isinstance(item, str):
-            raise ValueError(
-                f"Invalid stopwords format in {path}: item #{index} is not a string."
-            )
+            raise ValueError(f"Invalid stopwords format in {path}: item #{index} is not a string.")
         value = item.strip()
         if not value:
-            raise ValueError(
-                f"Invalid stopwords format in {path}: item #{index} is empty."
-            )
+            raise ValueError(f"Invalid stopwords format in {path}: item #{index} is empty.")
         stopwords.add(value)
     return stopwords
 

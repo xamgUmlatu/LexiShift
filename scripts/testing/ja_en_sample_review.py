@@ -5,7 +5,6 @@ import argparse
 import json
 import random
 import sys
-from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 
@@ -44,8 +43,12 @@ def main() -> None:
     parser.add_argument("--decay", default="1.0,0.7,0.5", help="Gloss decay schedule")
     parser.add_argument("--mode", choices=("top", "random"), default="top")
     parser.add_argument("--sample", type=int, default=50, help="Number of rules to sample")
-    parser.add_argument("--targets", default="", help="Comma-separated target lemmas to include (optional)")
-    parser.add_argument("--out-dir", type=Path, default=Path("docs/test_outputs/ja_en"), help="Output base dir")
+    parser.add_argument(
+        "--targets", default="", help="Comma-separated target lemmas to include (optional)"
+    )
+    parser.add_argument(
+        "--out-dir", type=Path, default=Path("docs/test_outputs/ja_en"), help="Output base dir"
+    )
     parser.add_argument("--seed", type=int, default=1337, help="Random seed for random mode")
     args = parser.parse_args()
 
@@ -53,7 +56,9 @@ def main() -> None:
     frequency_provider = None
     if args.coca and args.coca.exists():
         sqlite_cfg = SqliteFrequencyConfig(path=args.coca)
-        provider_cfg = SqliteFrequencyProviderConfig(sqlite=sqlite_cfg, value_column=args.coca_column)
+        provider_cfg = SqliteFrequencyProviderConfig(
+            sqlite=sqlite_cfg, value_column=args.coca_column
+        )
         frequency_provider = build_sqlite_frequency_provider(provider_cfg)
 
     target_list = [item.strip() for item in args.targets.split(",") if item.strip()]

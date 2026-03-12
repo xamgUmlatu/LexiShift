@@ -1,26 +1,10 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T02:41:00.241154+00:00",
-  "lint_exit_code": 1,
-  "format_exit_code": 1,
-  "lint_statistics": [
-    {
-      "count": 42,
-      "code": "E402",
-      "label": "[ ] module-import-not-at-top-of-file"
-    },
-    {
-      "count": 17,
-      "code": "F401",
-      "label": "[*] unused-import"
-    },
-    {
-      "count": 1,
-      "code": "F841",
-      "label": "[ ] unused-variable"
-    }
-  ],
-  "lint_summary": "42\tE402\t[ ] module-import-not-at-top-of-file\n17\tF401\t[*] unused-import\n 1\tF841\t[ ] unused-variable\nFound 60 errors.\n[*] 17 fixable with the `--fix` option (1 hidden fix can be enabled with the `--unsafe-fixes` option).",
-  "format_summary": "Would reformat: apps/gui/src/__main__.py\nWould reformat: apps/gui/src/dialogs_code.py\nWould reformat: apps/gui/src/dialogs_profiles.py\nWould reformat: apps/gui/src/dialogs_rulesets.py\nWould reformat: apps/gui/src/main_profile_ruleset_service.py\nWould reformat: apps/gui/src/models.py\nWould reformat: apps/gui/src/preview.py\nWould reformat: apps/gui/src/profile_ruleset_utils.py\nWould reformat: apps/gui/src/rules_table_view.py\nWould reformat: apps/gui/src/ruleset_library_service.py\nWould reformat: apps/gui/src/state.py\nWould reformat: apps/gui/src/theme_loader.py\nWould reformat: apps/gui/src/theme_manager.py\nWould reformat: apps/gui/src/utility_dock.py\nWould reformat: apps/gui/tests/test_main_log_colors.py\nWould reformat: apps/gui/tests/test_main_profile_loading.py\nWould reformat: apps/gui/tests/test_main_settings_resource_persistence.py\nWould reformat: apps/gui/tests/test_profile_ruleset_utils.py\nWould reformat: core/lexishift_core/frequency/core.py\nWould reformat: core/lexishift_core/frequency/de/pipeline.py\nWould reformat: core/lexishift_core/frequency/de/pos_compile.py\nWould reformat: core/lexishift_core/frequency/providers.py\nWould reformat: core/lexishift_core/frequency/sqlite_store.py\nWould reformat: core/lexishift_core/helper/pair_resources.py\nWould reformat: core/lexishift_core/helper/profiles.py\nWould reformat: core/lexishift_core/helper/status.py\nWould reformat: core/lexishift_core/helper/use_cases/__init__.py\nWould reformat: core/lexishift_core/helper/use_cases/reset.py\nWould reformat: core/lexishift_core/helper/use_cases/runtime_diagnostics.py\nWould reformat: core/lexishift_core/persistence/settings.py\nWould reformat: core/lexishift_core/persistence/storage.py\nWould reformat: core/lexishift_core/replacement/core.py\nWould reformat: core/lexishift_core/replacement/pipeline.py\nWould reformat: core/lexishift_core/resources/japanese_script.py\nWould reformat: core/lexishift_core/rulegen/generation.py\nWould reformat: core/lexishift_core/rulegen/pairs/ja_en.py\nWould reformat: core/lexishift_core/rulegen/pairs/pos_utils.py\nWould reformat: core/lexishift_core/rulegen/utils.py\nWould reformat: core/lexishift_core/srs/admission_policy.py\nWould reformat: core/lexishift_core/srs/growth.py\nWould reformat: core/lexishift_core/srs/seed.py\nWould reformat: core/lexishift_core/srs/selector.py\nWould reformat: core/lexishift_core/srs/set_planner.py\nWould reformat: core/lexishift_core/srs/set_policy.py\nWould reformat: core/lexishift_core/srs/signal_queue.py\nWould reformat: core/lexishift_core/srs/store.py\nWould reformat: core/tests/architecture/test_architecture_boundaries.py\nWould reformat: core/tests/architecture/test_extension_structure.py\nWould reformat: core/tests/dev/test_licensing_header_audit.py\nWould reformat: core/tests/dev/test_licensing_source_header_fetch.py\nWould reformat: core/tests/frequency/test_frequency_sqlite_store.py\nWould reformat: core/tests/frequency/test_pos_inventory_audit.py\nWould reformat: core/tests/persistence/test_storage.py\nWould reformat: core/tests/rulegen/test_rulegen_benchmarking.py\nWould reformat: core/tests/rulegen/test_rulegen_reverse_check_metadata.py\nWould reformat: core/tests/srs/test_srs_feedback_simulation.py\nWould reformat: core/tests/srs/test_srs_lp_e2e.py\nWould reformat: core/tests/srs/test_srs_set_policy.py\nWould reformat: core/tests/srs/test_srs_source.py\nWould reformat: scripts/data/convert_embeddings.py\nWould reformat: scripts/data/convert_freedict_tei_to_sqlite.py\nWould reformat: scripts/dev/srs_selector_demo.py\nWould reformat: scripts/testing/ja_en_rulegen_sweep.py\nWould reformat: scripts/testing/ja_en_sample_review.py\nWould reformat: scripts/testing/ja_en_seed_report.py\nWould reformat: scripts/testing/pos_inventory_audit.py\nWould reformat: scripts/testing/pos_normalization_probe.py\nWould reformat: scripts/testing/resource_integrity_audit.py\nWould reformat: scripts/testing/rulegen_benchmark_html.py\nWould reformat: scripts/testing/rulegen_benchmark_triage.py\nWould reformat: scripts/testing/rulegen_probe_words.py\nWould reformat: scripts/testing/run_ja_en_tests.py\n72 files would be reformatted, 206 files already formatted",
+  "generated_at_utc": "2026-03-12T02:47:58.499938+00:00",
+  "lint_exit_code": 0,
+  "format_exit_code": 0,
+  "lint_statistics": [],
+  "lint_summary": "",
+  "format_summary": "278 files already formatted",
   "strict": false
 }

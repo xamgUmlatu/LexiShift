@@ -48,6 +48,7 @@ class TestDevWorkflowSummary(unittest.TestCase):
                 "scope": "branch",
                 "base_ref": "origin/main",
                 "changed_files_count": 12,
+                "substantive_changed_files_count": 4,
                 "project_health": {"exit_code": 0},
                 "changed_python_files": ["a.py", "b.py"],
                 "style": {
@@ -58,17 +59,26 @@ class TestDevWorkflowSummary(unittest.TestCase):
                 "betterdiscord_freshness": {"required": True, "exit_code": 0},
                 "feature_state": {"required": True, "compare_ref": "origin/main", "exit_code": 0},
                 "windows_parity": {"required": True, "exit_code": 0},
-                "rulegen_quality": {"required": True, "mode": "dry-run", "exit_code": 0},
+                "rulegen_quality": {
+                    "required": True,
+                    "mode": "dry-run",
+                    "exit_code": 0,
+                    "inference_basis": "substantive_changed_files",
+                },
             }
         )
         self.assertIn("## Changed Scope", markdown)
         self.assertIn("- Status: PASS (advisory style debt)", markdown)
+        self.assertIn("- Substantive changed files: 4", markdown)
         self.assertIn(
             "- Style: `advisory-fail` (39 lint errors, 46 files need formatting)", markdown
         )
         self.assertIn("- Feature-state audit: required (`origin/main`), PASS", markdown)
         self.assertIn("- Windows parity: required, PASS", markdown)
-        self.assertIn("- Rulegen quality: required (`dry-run`), PASS", markdown)
+        self.assertIn(
+            "- Rulegen quality: required (`dry-run`), PASS via `substantive_changed_files`",
+            markdown,
+        )
 
     def test_render_summary_reports_ci_safe_build_skips(self) -> None:
         markdown = render_summary(

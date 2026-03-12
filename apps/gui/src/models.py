@@ -32,7 +32,9 @@ class ProfilesListModel(QAbstractListModel):
             return
         top_left = self.index(0, 0)
         bottom_right = self.index(len(self._profiles) - 1, 0)
-        self.dataChanged.emit(top_left, bottom_right, [Qt.DisplayRole, Qt.FontRole, Qt.ForegroundRole])
+        self.dataChanged.emit(
+            top_left, bottom_right, [Qt.DisplayRole, Qt.FontRole, Qt.ForegroundRole]
+        )
 
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
         return 0 if parent.isValid() else len(self._profiles)

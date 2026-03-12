@@ -239,7 +239,11 @@ def _build_pair_rows(
             continue
 
         expected_filename = expected_path.name
-        expected_pack_id = expected_filename[: -len(".sqlite")] if expected_filename.endswith(".sqlite") else expected_filename
+        expected_pack_id = (
+            expected_filename[: -len(".sqlite")]
+            if expected_filename.endswith(".sqlite")
+            else expected_filename
+        )
         pairs_by_filename.setdefault(expected_filename, []).append(pair)
         lookup_keys = _expected_lookup_keys(expected_filename)
 
@@ -378,13 +382,17 @@ def _build_settings_rows(
     for key in sorted(settings_frequency_packs):
         raw_path = str(settings_frequency_packs.get(key, "")).strip()
         candidate = _canonical_path(raw_path) if raw_path else Path("")
-        probe = _probe_sqlite(candidate) if raw_path else SqliteProbe(
-            path="",
-            exists=False,
-            header_ok=False,
-            has_frequency_table=False,
-            row_count=None,
-            error="Empty path.",
+        probe = (
+            _probe_sqlite(candidate)
+            if raw_path
+            else SqliteProbe(
+                path="",
+                exists=False,
+                header_ok=False,
+                has_frequency_table=False,
+                row_count=None,
+                error="Empty path.",
+            )
         )
 
         status = "ok"
@@ -697,10 +705,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data-root",
         type=Path,
-        help=(
-            "LexiShift data root override. "
-            "Default is platform path or LEXISHIFT_DATA_DIR."
-        ),
+        help=("LexiShift data root override. Default is platform path or LEXISHIFT_DATA_DIR."),
     )
     parser.add_argument(
         "--settings-path",

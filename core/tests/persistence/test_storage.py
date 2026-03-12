@@ -73,7 +73,9 @@ class StorageTests(unittest.TestCase):
         ]
         settings = VocabSettings(
             inflections=InflectionSettings(spec=InflectionSpec()),
-            learning=LearningSettings(enabled=True, show_original=True, show_original_mode="inline"),
+            learning=LearningSettings(
+                enabled=True, show_original=True, show_original_mode="inline"
+            ),
         )
         dataset = VocabDataset(
             rules=tuple(rules),

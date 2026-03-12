@@ -64,11 +64,7 @@ class TestLicensingHeaderAudit(unittest.TestCase):
             artifact_path = data_root / "language_packs" / "eng-deu.tei"
             artifact_path.parent.mkdir(parents=True, exist_ok=True)
             artifact_path.write_text(
-                (
-                    "<availability status=\"free\">"
-                    "Licensed under GPL v2 or later."
-                    "</availability>"
-                ),
+                ('<availability status="free">Licensed under GPL v2 or later.</availability>'),
                 encoding="utf-8",
             )
 

@@ -121,9 +121,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
     morphology = None
     if isinstance(raw_morphology, Mapping):
         normalized_morphology = {
-            str(key): value
-            for key, value in dict(raw_morphology).items()
-            if str(key).strip()
+            str(key): value for key, value in dict(raw_morphology).items() if str(key).strip()
         }
         if normalized_morphology:
             morphology = normalized_morphology
@@ -291,7 +289,9 @@ def _settings_to_dict(settings: Optional[VocabSettings]) -> Optional[dict[str, A
     return data or None
 
 
-def _inflection_settings_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[InflectionSettings]:
+def _inflection_settings_from_dict(
+    data: Optional[Mapping[str, Any]],
+) -> Optional[InflectionSettings]:
     if not data:
         return None
     return InflectionSettings(
@@ -305,7 +305,9 @@ def _inflection_settings_from_dict(data: Optional[Mapping[str, Any]]) -> Optiona
     )
 
 
-def _inflection_settings_to_dict(settings: Optional[InflectionSettings]) -> Optional[dict[str, Any]]:
+def _inflection_settings_to_dict(
+    settings: Optional[InflectionSettings],
+) -> Optional[dict[str, Any]]:
     if settings is None:
         return None
     data: dict[str, Any] = {
@@ -349,7 +351,11 @@ def _inflection_spec_from_dict(data: Optional[Mapping[str, Any]]) -> InflectionS
     if not data:
         return InflectionSpec()
     forms_data = data.get("forms")
-    forms = InflectionSpec().forms if forms_data is None else frozenset(str(item) for item in forms_data)
+    forms = (
+        InflectionSpec().forms
+        if forms_data is None
+        else frozenset(str(item) for item in forms_data)
+    )
     return InflectionSpec(
         forms=forms,
         apply_to=str(data.get("apply_to", "last_word")),

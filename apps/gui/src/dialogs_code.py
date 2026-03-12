@@ -118,7 +118,9 @@ class BulkRulesDialog(QDialog):
         apply_dialog_theme(self, self._theme_container, screen_id="code_dialog")
 
     def selected_pack_ids(self) -> set[str]:
-        return {pack_id for pack_id, checkbox in self._pack_checkboxes.items() if checkbox.isChecked()}
+        return {
+            pack_id for pack_id, checkbox in self._pack_checkboxes.items() if checkbox.isChecked()
+        }
 
     def targets(self) -> list[str]:
         return _split_terms(self.targets_edit.toPlainText())

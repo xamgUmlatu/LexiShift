@@ -147,7 +147,9 @@ def _read_rows(
             yield row
 
 
-def _read_header(rows: Iterable[list[str]], *, header_starts_with: Optional[str]) -> Optional[list[str]]:
+def _read_header(
+    rows: Iterable[list[str]], *, header_starts_with: Optional[str]
+) -> Optional[list[str]]:
     if header_starts_with is None:
         try:
             return next(iter(rows))

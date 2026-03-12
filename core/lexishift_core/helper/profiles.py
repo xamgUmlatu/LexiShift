@@ -53,7 +53,9 @@ def _resolve_active_profile_id(settings: AppSettings) -> str:
     return "default"
 
 
-def _resolve_profile(settings: AppSettings, requested_profile_id: str | None) -> tuple[Profile | None, str]:
+def _resolve_profile(
+    settings: AppSettings, requested_profile_id: str | None
+) -> tuple[Profile | None, str]:
     requested = str(requested_profile_id or "").strip()
     if requested:
         for profile in settings.profiles:
@@ -115,12 +117,17 @@ def get_profiles_snapshot(paths: HelperPaths) -> dict[str, Any]:
     }
 
 
-def get_profile_rulesets_snapshot(paths: HelperPaths, *, profile_id: str | None = None) -> dict[str, Any]:
+def get_profile_rulesets_snapshot(
+    paths: HelperPaths, *, profile_id: str | None = None
+) -> dict[str, Any]:
     settings, load_error = _load_settings(paths)
     requested_profile_id = str(profile_id or "").strip() or None
     profile, resolved_profile_id = _resolve_profile(settings, requested_profile_id)
     rulesets = (
-        [_ruleset_payload(path, settings_path=paths.app_settings_path) for path in _profile_rulesets(profile)]
+        [
+            _ruleset_payload(path, settings_path=paths.app_settings_path)
+            for path in _profile_rulesets(profile)
+        ]
         if profile is not None
         else []
     )

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -85,23 +86,31 @@ def _run_capture(command: list[str]) -> subprocess.CompletedProcess[str]:
     return result
 
 
-def _collect_changed_files(base_ref: str | None, scope: str) -> list[str]:
+def _collect_changed_files(
+    base_ref: str | None,
+    scope: str,
+    *,
+    ignore_whitespace: bool = False,
+) -> list[str]:
     changed: set[str] = set()
     git_commands: list[list[str]] = []
+    diff_prefix = ["git", "diff"]
+    if ignore_whitespace:
+        diff_prefix.append("-w")
     if scope == "branch" and base_ref:
         git_commands.append(
-            ["git", "diff", "--name-only", "--diff-filter=ACMR", f"{base_ref}...HEAD"]
+            [*diff_prefix, "--name-only", "--diff-filter=ACMR", f"{base_ref}...HEAD"]
         )
     if scope in {"branch", "local"}:
         git_commands.extend(
             [
-                ["git", "diff", "--name-only", "--diff-filter=ACMR"],
-                ["git", "diff", "--name-only", "--cached", "--diff-filter=ACMR"],
+                [*diff_prefix, "--name-only", "--diff-filter=ACMR"],
+                [*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMR"],
                 ["git", "ls-files", "--others", "--exclude-standard"],
             ]
         )
     elif scope == "staged":
-        git_commands.append(["git", "diff", "--name-only", "--cached", "--diff-filter=ACMR"])
+        git_commands.append([*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMR"])
     for command in git_commands:
         result = subprocess.run(
             command,
@@ -123,6 +132,93 @@ def _changed_python_files(changed_files: list[str]) -> list[str]:
     return [
         path for path in changed_files if path.endswith(".py") and (PROJECT_ROOT / path).exists()
     ]
+
+
+def _run_git_capture(command: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        command,
+        cwd=PROJECT_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+
+def _git_merge_base(base_ref: str | None) -> str | None:
+    if not base_ref:
+        return None
+    result = _run_git_capture(["git", "merge-base", base_ref, "HEAD"])
+    if result.returncode != 0:
+        return None
+    value = result.stdout.strip()
+    return value or None
+
+
+def _git_tracked_file_text(revision: str, path: str) -> str | None:
+    result = _run_git_capture(["git", "show", f"{revision}:{path}"])
+    if result.returncode != 0:
+        return None
+    return result.stdout
+
+
+def _git_index_file_text(path: str) -> str | None:
+    result = _run_git_capture(["git", "show", f":{path}"])
+    if result.returncode != 0:
+        return None
+    return result.stdout
+
+
+def _python_semantics_signature(source: str) -> str | None:
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return None
+    return ast.dump(tree, annotate_fields=True, include_attributes=False)
+
+
+def _python_change_is_substantive(base_source: str | None, current_source: str | None) -> bool:
+    if base_source is None or current_source is None:
+        return True
+    base_signature = _python_semantics_signature(base_source)
+    current_signature = _python_semantics_signature(current_source)
+    if base_signature is None or current_signature is None:
+        return True
+    return base_signature != current_signature
+
+
+def _current_file_text(path: str, scope: str) -> str | None:
+    if scope == "staged":
+        return _git_index_file_text(path)
+    file_path = PROJECT_ROOT / path
+    if not file_path.exists():
+        return None
+    try:
+        return file_path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return None
+
+
+def _collect_substantive_changed_files(
+    base_ref: str | None,
+    scope: str,
+    changed_files: list[str],
+) -> list[str]:
+    non_whitespace_changed = set(_collect_changed_files(base_ref, scope, ignore_whitespace=True))
+    tracked_base_revision = "HEAD"
+    if scope == "branch":
+        tracked_base_revision = _git_merge_base(base_ref) or "HEAD"
+    substantive: set[str] = set()
+    for path in changed_files:
+        normalized = path.replace("\\", "/")
+        if not normalized.endswith(".py"):
+            if normalized in non_whitespace_changed:
+                substantive.add(normalized)
+            continue
+        base_source = _git_tracked_file_text(tracked_base_revision, normalized)
+        current_source = _current_file_text(normalized, scope)
+        if _python_change_is_substantive(base_source, current_source):
+            substantive.add(normalized)
+    return sorted(substantive)
 
 
 def _needs_betterdiscord_freshness(changed_files: list[str]) -> bool:
@@ -204,6 +300,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     changed_files = _collect_changed_files(args.base_ref, args.scope)
+    substantive_changed_files = _collect_substantive_changed_files(
+        args.base_ref,
+        args.scope,
+        changed_files,
+    )
     payload: dict[str, object] = {
         "version": 1,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -213,12 +314,19 @@ def main() -> None:
         "run_rulegen_quality": bool(args.run_rulegen_quality),
         "changed_files_count": len(changed_files),
         "changed_files_sample": changed_files[:10],
+        "substantive_changed_files_count": len(substantive_changed_files),
+        "substantive_changed_files_sample": substantive_changed_files[:10],
     }
     print(f"scope: {args.scope}")
     print(f"changed_files_count: {len(changed_files)}")
     if changed_files:
         print("changed_files_sample:")
         for path in changed_files[:10]:
+            print(f"  - {path}")
+    print(f"substantive_changed_files_count: {len(substantive_changed_files)}")
+    if substantive_changed_files:
+        print("substantive_changed_files_sample:")
+        for path in substantive_changed_files[:10]:
             print(f"  - {path}")
 
     project_health_command = [
@@ -333,7 +441,7 @@ def main() -> None:
         print("windows_parity_required: no")
         payload["windows_parity"] = {"required": False, "status": "not-needed"}
 
-    if _needs_rulegen_quality(changed_files):
+    if _needs_rulegen_quality(substantive_changed_files):
         print("rulegen_quality_required: yes")
         command = [
             sys.executable,
@@ -349,6 +457,7 @@ def main() -> None:
             payload["rulegen_quality"] = {
                 "required": True,
                 "mode": "run",
+                "inference_basis": "substantive_changed_files",
                 "command": command,
                 "exit_code": rulegen_exit_code,
             }
@@ -361,6 +470,7 @@ def main() -> None:
             payload["rulegen_quality"] = {
                 "required": True,
                 "mode": "dry-run",
+                "inference_basis": "substantive_changed_files",
                 "command": command,
                 "exit_code": rulegen_exit_code,
             }

@@ -35,7 +35,9 @@ class Normalizer:
 
 
 class SynonymNormalizer(Normalizer):
-    def __init__(self, synonyms: Mapping[str, str], *, fallback: Optional[Normalizer] = None) -> None:
+    def __init__(
+        self, synonyms: Mapping[str, str], *, fallback: Optional[Normalizer] = None
+    ) -> None:
         self._fallback = fallback or Normalizer()
         self._synonyms = {
             self._fallback.normalize_word(key): self._fallback.normalize_word(value)
@@ -241,7 +243,9 @@ class Replacer:
             return ReplacementResult(text=replaced_text, matches=matches)
         return replaced_text
 
-    def _compute_word_gaps_ok(self, tokens: Sequence[Token], word_positions: Sequence[int]) -> List[bool]:
+    def _compute_word_gaps_ok(
+        self, tokens: Sequence[Token], word_positions: Sequence[int]
+    ) -> List[bool]:
         gap_ok: List[bool] = []
         for idx in range(len(word_positions) - 1):
             start = word_positions[idx] + 1
@@ -299,7 +303,9 @@ class Replacer:
             output_parts.extend(token.text for token in tokens[token_cursor:start_token_idx])
 
             source_words = word_texts[match.start_word_index : match.end_word_index + 1]
-            replacement_text = _apply_case(match.rule.replacement, source_words, match.rule.case_policy)
+            replacement_text = _apply_case(
+                match.rule.replacement, source_words, match.rule.case_policy
+            )
             output_parts.append(replacement_text)
 
             token_cursor = end_token_idx + 1

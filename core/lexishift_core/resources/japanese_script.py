@@ -220,7 +220,7 @@ def kana_to_romaji(text: str) -> str:
                 out.append(vowel)
             idx += 1
             continue
-        pair = source[idx: idx + 2]
+        pair = source[idx : idx + 2]
         mapped = _DIGRAPH_MAP.get(pair)
         consumed = 2
         if mapped is None:

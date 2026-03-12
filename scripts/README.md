@@ -23,6 +23,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
+  - Tracks both total changed files and substantive changed files so formatting-only Python churn does not automatically trigger heavy quality loops
   - Automatically runs the Windows parity audit when parity-related GUI/helper/build files change
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`
@@ -30,9 +31,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Cross-platform Python launcher for npm workflow scripts:
   `dev/run_python.js`
   - Keeps `npm --prefix scripts run check` / `build` / quality wrappers usable on Windows where `python3` may not exist by name
-- Repo-wide style/debt advisory check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
+- Repo-wide style check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
   `dev/dev_workflow_style_check.py`
   - JSON artifact via `npm --prefix scripts run check:style:report`
+  - `npm --prefix scripts run check` now runs the strict style gate directly
 - Repo-wide style/debt Markdown summary renderer:
   `dev/dev_workflow_style_summary.py`
   - Used by `npm --prefix scripts run check:style:summary` and CI advisory summaries

@@ -28,7 +28,9 @@ class RulesetDeleteImpact:
 def analyze_ruleset_delete_impact(profiles: Sequence[Profile], path: str) -> RulesetDeleteImpact:
     linked = tuple(linked_profiles_for_ruleset(profiles, path))
     blocked = tuple(blocked_profiles_for_ruleset_removal(profiles, path))
-    return RulesetDeleteImpact(path=str(path or ""), linked_profiles=linked, blocked_profiles=blocked)
+    return RulesetDeleteImpact(
+        path=str(path or ""), linked_profiles=linked, blocked_profiles=blocked
+    )
 
 
 def delete_ruleset_file(path: str) -> None:

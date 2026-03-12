@@ -74,10 +74,14 @@ def main() -> None:
     parser.add_argument("--bccwj", required=True, type=Path, help="Path to BCCWJ SUW SQLite")
     parser.add_argument("--jmdict", required=True, type=Path, help="Path to JMDict XML")
     parser.add_argument("--coca", type=Path, help="Path to COCA SQLite (optional)")
-    parser.add_argument("--coca-column", default="frequency", help="COCA value column (e.g., frequency, pmw)")
+    parser.add_argument(
+        "--coca-column", default="frequency", help="COCA value column (e.g., frequency, pmw)"
+    )
     parser.add_argument("--top-n", default="2000", help="Comma list of top-N values")
     parser.add_argument("--thresholds", default="0.0", help="Comma list of confidence thresholds")
-    parser.add_argument("--decays", default="1.0,0.7,0.5", help="Semicolon list of gloss decay schedules")
+    parser.add_argument(
+        "--decays", default="1.0,0.7,0.5", help="Semicolon list of gloss decay schedules"
+    )
     parser.add_argument("--output", type=Path, help="Optional JSON output path")
     args = parser.parse_args()
 
@@ -89,7 +93,9 @@ def main() -> None:
     frequency_provider = None
     if args.coca and args.coca.exists():
         sqlite_cfg = SqliteFrequencyConfig(path=args.coca)
-        provider_cfg = SqliteFrequencyProviderConfig(sqlite=sqlite_cfg, value_column=args.coca_column)
+        provider_cfg = SqliteFrequencyProviderConfig(
+            sqlite=sqlite_cfg, value_column=args.coca_column
+        )
         frequency_provider = build_sqlite_frequency_provider(provider_cfg)
 
     report = []

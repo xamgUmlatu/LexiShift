@@ -84,28 +84,25 @@ class RuleScorer:
 
 
 class CandidateSource(Protocol):
-    def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
-        ...
+    def generate(
+        self, targets: Iterable[str], *, language_pair: str
+    ) -> Iterable[RuleCandidate]: ...
 
 
 class CandidateNormalizer(Protocol):
-    def normalize(self, candidate: RuleCandidate) -> RuleCandidate:
-        ...
+    def normalize(self, candidate: RuleCandidate) -> RuleCandidate: ...
 
 
 class VariantExpander(Protocol):
-    def expand(self, candidate: RuleCandidate) -> Iterable[RuleCandidate]:
-        ...
+    def expand(self, candidate: RuleCandidate) -> Iterable[RuleCandidate]: ...
 
 
 class CandidateFilter(Protocol):
-    def accept(self, candidate: RuleCandidate) -> bool:
-        ...
+    def accept(self, candidate: RuleCandidate) -> bool: ...
 
 
 class SignalProvider(Protocol):
-    def signals(self, candidate: RuleCandidate) -> RuleConfidenceSignals:
-        ...
+    def signals(self, candidate: RuleCandidate) -> RuleConfidenceSignals: ...
 
 
 @dataclass(frozen=True)
@@ -172,9 +169,7 @@ class RuleGenerationPipeline:
         *,
         config: RuleGenerationConfig,
     ) -> list[RuleGenerationResult]:
-        semantic_demotion_scale = _normalize_semantic_demotion_scale(
-            config.semantic_demotion_scale
-        )
+        semantic_demotion_scale = _normalize_semantic_demotion_scale(config.semantic_demotion_scale)
         seen: set[tuple[str, str, str]] = set()
         results: list[RuleGenerationResult] = []
         for candidate in self._iter_candidates(targets, config.language_pair):
@@ -189,12 +184,18 @@ class RuleGenerationPipeline:
                 seen.add(key)
             if not self._accept(candidate):
                 continue
-            signals = self._signal_provider.signals(candidate) if self._signal_provider else RuleConfidenceSignals()
+            signals = (
+                self._signal_provider.signals(candidate)
+                if self._signal_provider
+                else RuleConfidenceSignals()
+            )
             confidence = self._scorer.score(signals)
             if confidence < config.confidence_threshold:
                 continue
             rule = self._to_rule(candidate, confidence, config)
-            results.append(RuleGenerationResult(candidate=candidate, confidence=confidence, rule=rule))
+            results.append(
+                RuleGenerationResult(candidate=candidate, confidence=confidence, rule=rule)
+            )
         limited_results = results
         max_definitions = config.max_definitions_per_target
         if max_definitions is not None:
@@ -224,7 +225,9 @@ class RuleGenerationPipeline:
     ) -> list[VocabRule]:
         return [result.rule for result in self.generate_results(targets, config=config)]
 
-    def _iter_candidates(self, targets: Iterable[str], language_pair: str) -> Iterable[RuleCandidate]:
+    def _iter_candidates(
+        self, targets: Iterable[str], language_pair: str
+    ) -> Iterable[RuleCandidate]:
         for source in self._sources:
             for candidate in source.generate(targets, language_pair=language_pair):
                 normalized = self._normalize(candidate)
@@ -249,7 +252,9 @@ class RuleGenerationPipeline:
     def _accept(self, candidate: RuleCandidate) -> bool:
         return all(filt.accept(candidate) for filt in self._filters)
 
-    def _to_rule(self, candidate: RuleCandidate, confidence: float, config: RuleGenerationConfig) -> VocabRule:
+    def _to_rule(
+        self, candidate: RuleCandidate, confidence: float, config: RuleGenerationConfig
+    ) -> VocabRule:
         word_package = normalize_word_package(
             candidate.metadata.get("word_package"),
             fallback_surface=candidate.replacement,
@@ -407,7 +412,9 @@ class SimpleSignalProvider:
         dict_priority = self.dict_priorities.get(candidate.source_dict, 0.0)
         frequency_weight = self.frequency_provider(candidate) if self.frequency_provider else 0.0
         pos_match = self.pos_match_provider(candidate) if self.pos_match_provider else 0.0
-        variant_penalty = self.variant_penalty_provider(candidate) if self.variant_penalty_provider else 0.0
+        variant_penalty = (
+            self.variant_penalty_provider(candidate) if self.variant_penalty_provider else 0.0
+        )
         phrase_penalty = 1.0 if " " in candidate.source_phrase.strip() else 0.0
         embedding_score = self.embedding_provider(candidate) if self.embedding_provider else None
         return RuleConfidenceSignals(

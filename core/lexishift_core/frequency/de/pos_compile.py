@@ -11,14 +11,13 @@ TOKEN_ALLOWED = re.compile(
     r"^[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF]"
     r"[A-Za-z\u00C4\u00D6\u00DC\u00E4\u00F6\u00FC\u00DF'-]*$"
 )
-TRIM_PUNCT = ".,;:!?\"`~^()[]{}<>|/\\"
+TRIM_PUNCT = '.,;:!?"`~^()[]{}<>|/\\'
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Compile german-pos-dict into compact lemma->tagset TSV "
-            "(lemma<TAB>TAG1|TAG2|...)."
+            "Compile german-pos-dict into compact lemma->tagset TSV (lemma<TAB>TAG1|TAG2|...)."
         )
     )
     parser.add_argument("--input", type=Path, required=True, help="Path to german-pos-dict.txt")

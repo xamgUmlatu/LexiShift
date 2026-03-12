@@ -111,6 +111,7 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
         f"- Status: {status}",
         f"- Scope: `{payload.get('scope', 'unknown')}` (`{payload.get('base_ref', '')}`)",
         f"- Changed files: {int(payload.get('changed_files_count') or 0)}",
+        f"- Substantive changed files: {int(payload.get('substantive_changed_files_count') or 0)}",
         f"- Project health: {project_health_status}",
         f"- Changed Python files: {changed_python_count}",
     ]
@@ -155,7 +156,11 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
         if bool(rulegen.get("required")):
             mode = str(rulegen.get("mode") or "unknown")
             exit_code = int(rulegen.get("exit_code") or 0)
-            lines.append(f"- Rulegen quality: required (`{mode}`), {_bool_status(exit_code)}")
+            inference_basis = str(rulegen.get("inference_basis") or "").strip()
+            line = f"- Rulegen quality: required (`{mode}`), {_bool_status(exit_code)}"
+            if inference_basis:
+                line += f" via `{inference_basis}`"
+            lines.append(line)
         else:
             lines.append("- Rulegen quality: not required")
     return lines

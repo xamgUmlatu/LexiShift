@@ -182,7 +182,9 @@ class RulesetLibraryDialog(QDialog):
             self.rules_preview.setPlainText("")
             return
         linked_profiles = self._linked_profiles(path)
-        names = ", ".join(profile.name or profile.profile_id for profile in linked_profiles) or "(none)"
+        names = (
+            ", ".join(profile.name or profile.profile_id for profile in linked_profiles) or "(none)"
+        )
         self.path_label.setText(t("dialogs.manage_rulesets.path", path=path))
         self.details_label.setText(t("dialogs.manage_rulesets.linked_profiles", names=names))
         resolved = normalize_ruleset_path(path)
@@ -222,10 +224,12 @@ class RulesetLibraryDialog(QDialog):
         first_confirm = QMessageBox(self)
         first_confirm.setIcon(QMessageBox.Warning)
         first_confirm.setWindowTitle(t("dialogs.rulesets.title"))
-        first_confirm.setText(t(
-            "dialogs.manage_rulesets.delete_unlink_confirm",
-            profiles="\n".join(f"- {name}" for name in impact.linked_profile_names()),
-        ))
+        first_confirm.setText(
+            t(
+                "dialogs.manage_rulesets.delete_unlink_confirm",
+                profiles="\n".join(f"- {name}" for name in impact.linked_profile_names()),
+            )
+        )
         first_confirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         first_confirm.setDefaultButton(QMessageBox.Cancel)
         if first_confirm.exec() != QMessageBox.Ok:

@@ -24,9 +24,7 @@ def _build_tei_entry(headword: str, quotes: list[tuple[str, str]]) -> str:
     quote_xml = "".join(
         f'<cit type="trans"><quote xml:lang="{lang}">{text}</quote></cit>' for lang, text in quotes
     )
-    return (
-        "<entry>" f"<form><orth>{headword}</orth></form>" f"<sense>{quote_xml}</sense>" "</entry>"
-    )
+    return f"<entry><form><orth>{headword}</orth></form><sense>{quote_xml}</sense></entry>"
 
 
 def _build_tei(entries: list[str]) -> str:

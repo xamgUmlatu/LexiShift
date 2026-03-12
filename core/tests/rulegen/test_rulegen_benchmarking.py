@@ -57,7 +57,11 @@ class TestRulegenBenchmarking(unittest.TestCase):
                 "hours",
                 "hora",
                 confidence=0.4,
-                morphology={"source_form": "plural", "target_surface": "horas", "target_lemma": "hora"},
+                morphology={
+                    "source_form": "plural",
+                    "target_surface": "horas",
+                    "target_lemma": "hora",
+                },
             ),
         ]
 
@@ -97,7 +101,11 @@ class TestRulegenBenchmarking(unittest.TestCase):
                     "laboring",
                     "trabajo",
                     confidence=0.5,
-                    morphology={"source_form": "plural", "target_surface": "trabajos", "target_lemma": "trabajo"},
+                    morphology={
+                        "source_form": "plural",
+                        "target_surface": "trabajos",
+                        "target_lemma": "trabajo",
+                    },
                 )
             ],
         )

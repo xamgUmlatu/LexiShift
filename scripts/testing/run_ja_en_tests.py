@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 from statistics import mean
@@ -164,9 +163,13 @@ def main() -> None:
     parser.add_argument("--coca-column", default="frequency", help="COCA value column")
     parser.add_argument("--top-n", default="2000", help="Comma list of top-N values")
     parser.add_argument("--thresholds", default="0.0", help="Comma list of confidence thresholds")
-    parser.add_argument("--decays", default="1.0,0.7,0.5", help="Semicolon list of gloss decay schedules")
+    parser.add_argument(
+        "--decays", default="1.0,0.7,0.5", help="Semicolon list of gloss decay schedules"
+    )
     parser.add_argument("--sample", type=int, default=10, help="Sample size for seed report")
-    parser.add_argument("--out-dir", type=Path, default=Path("docs/test_outputs/ja_en"), help="Output base dir")
+    parser.add_argument(
+        "--out-dir", type=Path, default=Path("docs/test_outputs/ja_en"), help="Output base dir"
+    )
     args = parser.parse_args()
 
     top_ns = parse_int_list(args.top_n)

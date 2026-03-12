@@ -76,9 +76,7 @@ def extract_target_pos_component(
             provider = provider_text
     canonical = str(target_word_package.get("pos_canonical") or "").strip().lower()
     raw_pos = str(
-        target_word_package.get("pos_raw")
-        or target_word_package.get("pos")
-        or ""
+        target_word_package.get("pos_raw") or target_word_package.get("pos") or ""
     ).strip()
     if canonical in CANONICAL_POS_TAGS and canonical != CANONICAL_POS_OTHER:
         component: dict[str, object] = {

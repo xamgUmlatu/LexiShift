@@ -103,7 +103,9 @@ def _profile_from_dict(data: Mapping[str, Any]) -> Profile:
     rulesets = tuple(data.get("rulesets", []))
     if not rulesets and dataset_path:
         rulesets = (dataset_path,)
-    active_ruleset = data.get("active_ruleset") or dataset_path or (rulesets[0] if rulesets else None)
+    active_ruleset = (
+        data.get("active_ruleset") or dataset_path or (rulesets[0] if rulesets else None)
+    )
     return Profile(
         profile_id=str(data.get("profile_id", "")),
         name=str(data.get("name", "")),
@@ -118,7 +120,11 @@ def _profile_from_dict(data: Mapping[str, Any]) -> Profile:
 
 
 def _profile_to_dict(profile: Profile) -> dict[str, Any]:
-    dataset_path = profile.dataset_path or profile.active_ruleset or (profile.rulesets[0] if profile.rulesets else "")
+    dataset_path = (
+        profile.dataset_path
+        or profile.active_ruleset
+        or (profile.rulesets[0] if profile.rulesets else "")
+    )
     data: dict[str, Any] = {
         "profile_id": profile.profile_id,
         "name": profile.name,
@@ -157,7 +163,9 @@ def _import_export_to_dict(settings: Optional[ImportExportSettings]) -> Optional
     return trimmed or None
 
 
-def _synonym_sources_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[SynonymSourceSettings]:
+def _synonym_sources_from_dict(
+    data: Optional[Mapping[str, Any]],
+) -> Optional[SynonymSourceSettings]:
     if not data:
         return None
     return SynonymSourceSettings(

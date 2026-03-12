@@ -35,7 +35,9 @@ def test_preferred_active_ruleset_fallback_chain() -> None:
         rulesets=("/tmp/r.json",),
         active_ruleset="",
     )
-    assert preferred_active_ruleset(profile_ruleset, default_path="/tmp/default.json") == "/tmp/r.json"
+    assert (
+        preferred_active_ruleset(profile_ruleset, default_path="/tmp/default.json") == "/tmp/r.json"
+    )
 
     profile_dataset = Profile(
         profile_id="p2",
@@ -44,7 +46,9 @@ def test_preferred_active_ruleset_fallback_chain() -> None:
         rulesets=tuple(),
         active_ruleset="",
     )
-    assert preferred_active_ruleset(profile_dataset, default_path="/tmp/default.json") == "/tmp/d.json"
+    assert (
+        preferred_active_ruleset(profile_dataset, default_path="/tmp/default.json") == "/tmp/d.json"
+    )
 
     profile_default = Profile(
         profile_id="p3",
@@ -53,7 +57,10 @@ def test_preferred_active_ruleset_fallback_chain() -> None:
         rulesets=tuple(),
         active_ruleset="",
     )
-    assert preferred_active_ruleset(profile_default, default_path="/tmp/default.json") == "/tmp/default.json"
+    assert (
+        preferred_active_ruleset(profile_default, default_path="/tmp/default.json")
+        == "/tmp/default.json"
+    )
 
 
 def test_resolve_profile_dataset_path_prefers_existing_file() -> None:
@@ -115,7 +122,9 @@ def test_blocked_profiles_for_removal_and_unlink_behavior() -> None:
         rulesets=("/tmp/shared.json", "/tmp/b.json"),
         active_ruleset="/tmp/shared.json",
     )
-    blocked = blocked_profiles_for_ruleset_removal((profile_blocked, profile_ok), "/tmp/shared.json")
+    blocked = blocked_profiles_for_ruleset_removal(
+        (profile_blocked, profile_ok), "/tmp/shared.json"
+    )
     assert [profile.profile_id for profile in blocked] == ["a"]
 
     unlinked = unlink_ruleset_from_profiles((profile_blocked, profile_ok), "/tmp/shared.json")
@@ -140,6 +149,10 @@ def test_collect_rulesets_and_linked_profiles() -> None:
         rulesets=("/tmp/b.json", "/tmp/shared.json"),
         active_ruleset="/tmp/b.json",
     )
-    assert collect_profile_rulesets((profile_a, profile_b)) == ["/tmp/a.json", "/tmp/shared.json", "/tmp/b.json"]
+    assert collect_profile_rulesets((profile_a, profile_b)) == [
+        "/tmp/a.json",
+        "/tmp/shared.json",
+        "/tmp/b.json",
+    ]
     linked = linked_profiles_for_ruleset((profile_a, profile_b), "/tmp/shared.json")
     assert [profile.profile_id for profile in linked] == ["a", "b"]

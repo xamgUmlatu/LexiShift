@@ -84,15 +84,11 @@ def plan_srs_growth(
     pool_size = len(pool)
 
     existing = {
-        item.lemma
-        for item in store.items
-        if not pair_set or item.language_pair in pair_set
+        item.lemma for item in store.items if not pair_set or item.language_pair in pair_set
     }
 
     coverage_scalar = (
-        config.coverage_scalar
-        if config.coverage_scalar is not None
-        else settings.coverage_scalar
+        config.coverage_scalar if config.coverage_scalar is not None else settings.coverage_scalar
     )
     coverage_ratio = normalize_coverage_scalar(coverage_scalar)
     target_size = int(round(pool_size * coverage_ratio))
@@ -108,7 +104,9 @@ def plan_srs_growth(
     scored = rank_candidates(filtered, config=config.selector_config)
 
     add_count = max(0, target_size - existing_count)
-    max_new = config.max_new_items if config.max_new_items is not None else settings.max_new_items_per_day
+    max_new = (
+        config.max_new_items if config.max_new_items is not None else settings.max_new_items_per_day
+    )
     if max_new is not None:
         add_count = min(add_count, max(0, int(max_new)))
     add_count = min(add_count, len(scored))
@@ -186,7 +184,9 @@ def _resolve_source_type(candidate: SelectorCandidate, *, default: str) -> str:
     return normalize_source_type(default)
 
 
-def _resolve_confidence(candidate: SelectorCandidate, *, min_value: Optional[float]) -> Optional[float]:
+def _resolve_confidence(
+    candidate: SelectorCandidate, *, min_value: Optional[float]
+) -> Optional[float]:
     value = candidate.confidence
     if min_value is None:
         return value if value > 0 else None

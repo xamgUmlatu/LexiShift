@@ -17,10 +17,6 @@ from lexishift_core.frequency.sqlite import (
     convert_frequency_to_sqlite,
 )
 from language_packs_catalog import (
-    CROSS_EMBEDDING_PACKS,
-    EMBEDDING_PACKS,
-    FREQUENCY_PACKS,
-    LANGUAGE_PACKS,
     FrequencyPackInfo,
     LanguagePackInfo,
     _frequency_pos_inventory_config,

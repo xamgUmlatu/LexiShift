@@ -57,9 +57,7 @@ def resolve_set_sizing_policy(
     requested_top_n = _parse_optional_int(bootstrap_top_n)
     if requested_top_n is None:
         effective_top_n = DEFAULT_BOOTSTRAP_TOP_N
-        notes.append(
-            f"bootstrap_top_n missing/invalid; defaulting to {DEFAULT_BOOTSTRAP_TOP_N}."
-        )
+        notes.append(f"bootstrap_top_n missing/invalid; defaulting to {DEFAULT_BOOTSTRAP_TOP_N}.")
     else:
         effective_top_n = _clamp(
             requested_top_n,

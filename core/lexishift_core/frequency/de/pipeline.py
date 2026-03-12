@@ -17,8 +17,7 @@ from lexishift_core.frequency.de.pos_compile import write_compact_pos_lexicon
 
 LEIPZIG_CORPUS_URL = "https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz"
 FREEDICT_DE_EN_URL = (
-    "https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/"
-    "freedict-deu-eng-1.9-fd1.src.tar.xz"
+    "https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz"
 )
 ODENET_URL = (
     "https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/"
@@ -50,8 +49,7 @@ MORFOLOGIK_TOOLS = {
         "morfologik-tools-2.1.9.jar"
     ),
     "morfologik-fsa-2.1.9.jar": (
-        "https://repo1.maven.org/maven2/org/carrot2/morfologik-fsa/2.1.9/"
-        "morfologik-fsa-2.1.9.jar"
+        "https://repo1.maven.org/maven2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar"
     ),
     "morfologik-fsa-builders-2.1.9.jar": (
         "https://repo1.maven.org/maven2/org/carrot2/morfologik-fsa-builders/2.1.9/"

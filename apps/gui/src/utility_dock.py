@@ -9,7 +9,9 @@ from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWi
 class UtilityDockPanel(QWidget):
     toggled = Signal(bool)
 
-    def __init__(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False, parent=None) -> None:
+    def __init__(
+        self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False, parent=None
+    ) -> None:
         super().__init__(parent)
         self._panel_id = str(panel_id or "")
         self._title = str(title or "")
@@ -108,7 +110,9 @@ class UtilityDock(QWidget):
         self._layout.setSpacing(8)
         self._layout.addStretch(1)
 
-    def add_panel(self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False) -> UtilityDockPanel:
+    def add_panel(
+        self, panel_id: str, title: str, content: QWidget, *, expanded: bool = False
+    ) -> UtilityDockPanel:
         panel_key = str(panel_id or "").strip()
         if not panel_key:
             raise ValueError("panel_id is required")

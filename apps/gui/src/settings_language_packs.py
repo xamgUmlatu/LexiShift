@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import Optional
 
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QFileDialog,
@@ -14,7 +12,6 @@ from PySide6.QtWidgets import (
     QStyle,
     QTabWidget,
     QTableWidget,
-    QTableWidgetItem,
     QVBoxLayout,
     QWidget,
 )
@@ -43,7 +40,6 @@ from settings_language_packs_support import (
     embedding_pack_dir as _embedding_pack_dir,
     frequency_pack_dir as _frequency_pack_dir,
     has_frequency_table as _has_frequency_table,
-    is_sqlite_db_file as _is_sqlite_db_file,
     language_pack_dir as _language_pack_dir,
 )
 from theme_manager import resolve_current_theme

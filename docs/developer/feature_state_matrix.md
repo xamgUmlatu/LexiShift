@@ -99,18 +99,20 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` build report rerun + repo-safety parity integration + CI review
+- Last verified: `2026-03-12` repo-wide Ruff cleanup + repo-safety style/parity integration + CI review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
+  - `npm --prefix scripts run check` now includes strict repo-wide Ruff lint/format checks because the repo-wide style baseline is clean.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
+  - `npm --prefix scripts run check:changed` now records both total changed files and substantive changed files, and uses the substantive set when inferring heavier quality loops such as rulegen audit.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
   - Hosted CI now runs both the full macOS `build:report` path and the explicit Ubuntu `build:ci:report` partial path.
   - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
   - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
-  - `npm --prefix scripts run check:style` is the advisory repo-wide style/debt command.
-  - `npm --prefix scripts run check:style:report` and `check:style:summary` publish the current repo-wide Ruff debt as JSON and Markdown artifacts without failing the default repo-safety gate.
+  - `npm --prefix scripts run check:style` is the standalone repo-wide style loop.
+  - `npm --prefix scripts run check:style:report` and `check:style:summary` publish the current repo-wide Ruff style state as JSON and Markdown artifacts.
   - `npm --prefix scripts run check:state` audits the feature-state ledger for required fields, dated checkpoints, evidence paths, and transition-aware updates relative to `HEAD`.
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports.
@@ -139,7 +141,6 @@ Use this file when:
   - `docs/developer/local_setup.md`
   - `docs/developer/build_and_release.md`
 - Known gaps:
-  - Repo-wide Ruff lint is still outside the default `check` command because current unrelated style debt would make the safety gate noisy.
   - GUI packaging makes `build` materially slower than `check`.
   - Hosted build coverage is now macOS full, Windows full, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.

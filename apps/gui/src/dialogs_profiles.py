@@ -21,7 +21,6 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSizePolicy,
     QVBoxLayout,
-    QWidget,
 )
 
 from lexishift_core import Profile, VocabDataset, save_vocab_dataset
@@ -81,7 +80,9 @@ class ProfilesDialog(QDialog):
         self.ruleset_link_button = QPushButton(t("dialogs.manage_profiles.link_existing_ruleset"))
         self.ruleset_create_button = QPushButton(t("dialogs.manage_profiles.create_ruleset"))
         self.ruleset_unlink_button = QPushButton(t("dialogs.manage_profiles.unlink_ruleset"))
-        self.ruleset_set_active_button = QPushButton(t("dialogs.manage_profiles.set_active_ruleset"))
+        self.ruleset_set_active_button = QPushButton(
+            t("dialogs.manage_profiles.set_active_ruleset")
+        )
         self.ruleset_reveal_button = QPushButton(t("menu.reveal_in_finder"))
         self.ruleset_link_button.clicked.connect(self._link_ruleset)
         self.ruleset_create_button.clicked.connect(self._create_ruleset)
@@ -251,7 +252,11 @@ class ProfilesDialog(QDialog):
     def _commit_current(self) -> None:
         if self._updating:
             return
-        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+        if (
+            self._current_index is None
+            or self._current_index < 0
+            or self._current_index >= len(self._profiles)
+        ):
             return
         self._commit_profile(self._current_index)
 
@@ -291,7 +296,11 @@ class ProfilesDialog(QDialog):
         return display_path
 
     def _link_ruleset(self) -> None:
-        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+        if (
+            self._current_index is None
+            or self._current_index < 0
+            or self._current_index >= len(self._profiles)
+        ):
             return
         path, _ = QFileDialog.getOpenFileName(
             self,
@@ -311,7 +320,11 @@ class ProfilesDialog(QDialog):
         self._commit_current()
 
     def _create_ruleset(self) -> None:
-        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+        if (
+            self._current_index is None
+            or self._current_index < 0
+            or self._current_index >= len(self._profiles)
+        ):
             return
         path, _ = QFileDialog.getSaveFileName(
             self,
@@ -333,7 +346,11 @@ class ProfilesDialog(QDialog):
         self._commit_current()
 
     def _remove_ruleset(self) -> None:
-        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+        if (
+            self._current_index is None
+            or self._current_index < 0
+            or self._current_index >= len(self._profiles)
+        ):
             return
         row = self.ruleset_list.currentRow()
         if row < 0:
@@ -351,7 +368,11 @@ class ProfilesDialog(QDialog):
         self._commit_current()
 
     def _set_active_ruleset(self) -> None:
-        if self._current_index is None or self._current_index < 0 or self._current_index >= len(self._profiles):
+        if (
+            self._current_index is None
+            or self._current_index < 0
+            or self._current_index >= len(self._profiles)
+        ):
             return
         row = self.ruleset_list.currentRow()
         if row < 0:
@@ -474,13 +495,18 @@ class ProfilesDialog(QDialog):
         if row < 0 or row >= len(self._profiles):
             return
         if len(self._profiles) <= 1:
-            QMessageBox.information(self, t("dialogs.profiles.title"), t("dialogs.profiles.required"))
+            QMessageBox.information(
+                self, t("dialogs.profiles.title"), t("dialogs.profiles.required")
+            )
             return
         profile = self._profiles[row]
         confirm = QMessageBox.question(
             self,
             t("dialogs.profiles.title"),
-            t("dialogs.manage_profiles.delete_profile_confirm", name=profile.name or profile.profile_id),
+            t(
+                "dialogs.manage_profiles.delete_profile_confirm",
+                name=profile.name or profile.profile_id,
+            ),
             QMessageBox.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel,
         )
@@ -489,7 +515,7 @@ class ProfilesDialog(QDialog):
         self._commit_current()
         self._updating = True
         self.list_widget.blockSignals(True)
-        removed = self._profiles.pop(row)
+        self._profiles.pop(row)
         self.list_widget.takeItem(row)
         if row >= len(self._profiles):
             row = len(self._profiles) - 1
@@ -603,7 +629,9 @@ class CreateProfileDialog(QDialog):
     def profile(self) -> Profile:
         profile_id = self.id_edit.text().strip() or _slugify(self.name_edit.text()) or "profile"
         name = self.name_edit.text().strip() or profile_id
-        dataset_path = self.path_edit.text().strip() or str(self._default_dir / f"{profile_id}.json")
+        dataset_path = self.path_edit.text().strip() or str(
+            self._default_dir / f"{profile_id}.json"
+        )
         return Profile(
             profile_id=profile_id,
             name=name,
@@ -641,9 +669,7 @@ class FirstRunDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle(t("dialogs.first_run.title"))
-        label = QLabel(
-            t("dialogs.first_run.message")
-        )
+        label = QLabel(t("dialogs.first_run.message"))
         label.setWordWrap(True)
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)

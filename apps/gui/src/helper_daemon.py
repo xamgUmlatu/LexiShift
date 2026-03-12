@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 import time
-from pathlib import Path
 from typing import Optional
 
 from lexishift_core.helper.engine import RulegenJobConfig, run_rulegen_job

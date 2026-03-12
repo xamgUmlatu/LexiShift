@@ -170,6 +170,8 @@ npm --prefix scripts run check:style:report
 npm --prefix scripts run check:style:summary
 ```
 
+`npm --prefix scripts run check` now runs the strict repo-wide Ruff gate directly. Use the standalone style commands for dedicated reporting or a style-only pass.
+
 Strict cleanup variant:
 
 ```bash
@@ -181,6 +183,8 @@ Changed-scope branch loop:
 ```bash
 npm --prefix scripts run check:changed
 ```
+
+`check:changed` distinguishes total changed files from substantive changed files so formatting-only Python sweeps do not automatically trigger heavier quality loops.
 
 Machine-readable branch report:
 

@@ -157,14 +157,14 @@ def render_html_report(
                 status_text = "FAIL"
             case_rows.append(
                 "<tr>"
-                f"<td><span class=\"status-pill {status_class}\">{status_text}</span></td>"
+                f'<td><span class="status-pill {status_class}">{status_text}</span></td>'
                 f"<td><code>{case_id_html}</code></td>"
                 f"<td>{target_html}</td>"
                 f"<td>{top1_source}</td>"
                 f"<td>{top1_conf}</td>"
                 f"<td>{top3_sources}</td>"
-                f"<td class=\"source-cell\">{all_sources_html}</td>"
-                f"<td><span class=\"label-hint\">{label_hint}</span></td>"
+                f'<td class="source-cell">{all_sources_html}</td>'
+                f'<td><span class="label-hint">{label_hint}</span></td>'
                 f"<td>{'yes' if top1_correct else 'no'}</td>"
                 f"<td>{'yes' if top3_contains else 'no'}</td>"
                 f"<td>{'yes' if top1_forbidden else 'no'}</td>"

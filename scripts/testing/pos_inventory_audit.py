@@ -330,7 +330,9 @@ def _print_summary(report: PosInventoryAuditReport) -> None:
         profile = row.pos_mapping_profile or "-"
         provider_profile = f"{provider}/{profile}"
         rows_with_pos = "-" if row.rows_with_pos is None else str(row.rows_with_pos)
-        unknown = "-" if row.unknown_pos_inventory_size is None else str(row.unknown_pos_inventory_size)
+        unknown = (
+            "-" if row.unknown_pos_inventory_size is None else str(row.unknown_pos_inventory_size)
+        )
         print(
             row.filename.ljust(22)
             + " | "

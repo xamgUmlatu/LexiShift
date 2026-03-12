@@ -42,9 +42,7 @@ class TestSqliteFrequencyStore(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "freq.sqlite"
             conn = sqlite3.connect(db_path)
-            conn.execute(
-                "CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)"
-            )
+            conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
             conn.executemany(
                 "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
                 [
@@ -57,9 +55,7 @@ class TestSqliteFrequencyStore(unittest.TestCase):
             conn.commit()
             conn.close()
 
-            store = SqliteFrequencyStore(
-                SqliteFrequencyConfig(path=db_path, table="frequency")
-            )
+            store = SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
             try:
                 rows = list(store.iter_top_by_rank(limit=4))
             finally:
@@ -83,9 +79,7 @@ class TestSqliteFrequencyStore(unittest.TestCase):
             conn.commit()
             conn.close()
 
-            store = SqliteFrequencyStore(
-                SqliteFrequencyConfig(path=db_path, table="frequency")
-            )
+            store = SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
             try:
                 rows = list(store.iter_top_by_rank(limit=2))
             finally:
@@ -109,9 +103,7 @@ class TestSqliteFrequencyStore(unittest.TestCase):
             conn.commit()
             conn.close()
 
-            store = SqliteFrequencyStore(
-                SqliteFrequencyConfig(path=db_path, table="frequency")
-            )
+            store = SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
             try:
                 value = store.max_value("pmw")
             finally:
@@ -134,9 +126,7 @@ class TestSqliteFrequencyStore(unittest.TestCase):
             conn.commit()
             conn.close()
 
-            store = SqliteFrequencyStore(
-                SqliteFrequencyConfig(path=db_path, table="frequency")
-            )
+            store = SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
             try:
                 rows = list(store.iter_top_by_rank(limit=2))
             finally:

@@ -103,7 +103,8 @@ def srs_settings_to_dict(settings: SrsSettings) -> dict[str, Any]:
         "max_new_items_per_day": settings.max_new_items_per_day,
         "feedback_scale": settings.feedback_scale,
         "pair_rules": {
-            key: {"enabled": value.enabled} for key, value in dict(settings.pair_rules or {}).items()
+            key: {"enabled": value.enabled}
+            for key, value in dict(settings.pair_rules or {}).items()
         },
     }
     if settings.sync:
@@ -173,9 +174,7 @@ def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
             "last_seen": item.last_seen,
             "next_due": item.next_due,
             "exposures": item.exposures,
-            "srs_history": [
-                {"ts": entry.ts, "rating": entry.rating} for entry in item.history
-            ],
+            "srs_history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history],
             "word_package": word_package,
         }
         trimmed = {key: value for key, value in record.items() if value not in (None, [], "")}

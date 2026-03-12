@@ -43,11 +43,15 @@ def main() -> None:
 
     pmw_values = [seed.pmw for seed in filtered_seeds if seed.pmw is not None]
     if pmw_values:
-        print(f"PMW mean: {mean(pmw_values):.2f} | min: {min(pmw_values):.2f} | max: {max(pmw_values):.2f}")
+        print(
+            f"PMW mean: {mean(pmw_values):.2f} | min: {min(pmw_values):.2f} | max: {max(pmw_values):.2f}"
+        )
 
     print("\nSample seeds:")
     for seed in filtered_seeds[: args.sample]:
-        print(f"- {seed.lemma} | core_rank={seed.core_rank} | pmw={seed.pmw} | weight={seed.base_weight:.4f}")
+        print(
+            f"- {seed.lemma} | core_rank={seed.core_rank} | pmw={seed.pmw} | weight={seed.base_weight:.4f}"
+        )
 
 
 if __name__ == "__main__":

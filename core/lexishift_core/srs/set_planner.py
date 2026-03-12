@@ -85,7 +85,9 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         notes.append("Unknown strategy. Falling back to frequency bootstrap.")
 
     if objective == "unknown":
-        notes.append("Unknown objective was provided; caller should choose bootstrap/growth/refresh.")
+        notes.append(
+            "Unknown objective was provided; caller should choose bootstrap/growth/refresh."
+        )
     if not pair:
         notes.append("Missing pair; caller should provide a language pair.")
         can_execute = False

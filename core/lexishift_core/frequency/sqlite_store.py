@@ -93,7 +93,9 @@ class SqliteFrequencyStore:
 
     def get_value(self, lemma: str, column: str) -> Optional[float]:
         columns = self.column_names()
-        resolved_lemma_column = self.resolve_column(self._config.lemma_column, available_columns=columns)
+        resolved_lemma_column = self.resolve_column(
+            self._config.lemma_column, available_columns=columns
+        )
         resolved_value_column = self.resolve_column(column, available_columns=columns)
         if not resolved_value_column and self._looks_like_frequency_column(column):
             resolved_value_column = self.resolve_frequency_column(column, available_columns=columns)
@@ -161,14 +163,13 @@ class SqliteFrequencyStore:
         if resolved_pmw_column:
             order_terms.append(f"{resolved_pmw_column} DESC")
         order_sql = f" ORDER BY {', '.join(order_terms)}" if order_terms else ""
-        query = (
-            f"SELECT {col_sql} FROM {self._config.table}"
-            f"{order_sql} LIMIT ?;"
-        )
+        query = f"SELECT {col_sql} FROM {self._config.table}{order_sql} LIMIT ?;"
         for row in self._conn.execute(query, (limit,)):
             yield row
 
-    def resolve_column(self, requested: Optional[str], *, available_columns: list[str]) -> Optional[str]:
+    def resolve_column(
+        self, requested: Optional[str], *, available_columns: list[str]
+    ) -> Optional[str]:
         if not requested:
             return None
         lowered = {name.lower(): name for name in available_columns}

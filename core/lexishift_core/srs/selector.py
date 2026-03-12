@@ -72,9 +72,7 @@ def filter_candidates(
     existing = in_s or set()
     allowed_pairs_set = set(allowed_pairs or [])
     allowed_pos_set = {
-        str(value).strip().lower()
-        for value in (allowed_pos or set())
-        if str(value).strip()
+        str(value).strip().lower() for value in (allowed_pos or set()) if str(value).strip()
     }
     result: list[SelectorCandidate] = []
     for item in candidates:

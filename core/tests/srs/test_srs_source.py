@@ -26,7 +26,9 @@ class TestSrsSource(unittest.TestCase):
         self.assertEqual(normalize_source_type("profile_model"), "profile_model")
 
     def test_merge_source_types_preserves_order_and_deduplicates(self) -> None:
-        merged = merge_source_types(["initial_set", "initial_set", "USER_STREAM", "", None, "curated"])
+        merged = merge_source_types(
+            ["initial_set", "initial_set", "USER_STREAM", "", None, "curated"]
+        )
         self.assertEqual(merged, (SOURCE_INITIAL_SET, "user_stream", SOURCE_UNKNOWN, "curated"))
 
 

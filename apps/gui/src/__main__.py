@@ -18,7 +18,7 @@ def _log_crash(exctype, value, tb):
         log_dir = home / "AppData" / "Roaming" / "LexiShift" / "LexiShift"
     else:
         log_dir = home / ".local" / "share" / "LexiShift" / "LexiShift"
-    
+
     try:
         log_dir.mkdir(parents=True, exist_ok=True)
         crash_log = log_dir / "crash.log"
@@ -33,6 +33,7 @@ def _log_crash(exctype, value, tb):
 if __name__ == "__main__":
     try:
         from main import main
+
         main()
     except Exception:
         _log_crash(*sys.exc_info())

@@ -55,4 +55,3 @@ def save_status(status: HelperStatus, path: str | Path) -> None:
         json.dumps(status_to_dict(status), indent=2, sort_keys=True),
         encoding="utf-8",
     )
-

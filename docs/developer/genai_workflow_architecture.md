@@ -221,12 +221,13 @@ Current intent:
 - `build:report` is the full build contract; hosted macOS CI should use it directly instead of a custom job-local command.
 - `build:ci` / `build:ci:report` are the explicit non-macOS hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
 - `check` now includes the strict Windows parity audit; `check:windows:parity` remains the dedicated inventory/report command, `check:changed` runs it automatically when parity-related files change, and Windows CI uses the strict variant to fail regressions.
-- `check:style` is the advisory path for repo-wide Ruff debt; `check:style:report` and `check:style:summary` make that debt visible in artifacts and CI without turning it into the default green gate.
+- `check` now enforces repo-wide Ruff style directly. `check:style`, `check:style:report`, and `check:style:summary` remain useful when you want a style-only loop or dedicated style artifacts.
+- `check:changed` now tracks both total changed files and substantive changed files; heavy follow-on loops should key off the substantive set so formatting-only Python churn does not force unnecessary audits.
 - `check:report`, `check:changed:report`, and `build:report` are the machine-readable workflow surfaces for automation and agent hand-offs.
 - `check:state` audits the feature ledger so status claims stay backed by dated evidence paths, and compares against `HEAD` to catch status/default-behavior transitions without matching verification updates.
 - `check:summary` renders a stable Markdown handoff from the JSON workflow reports and is the preferred human-facing summary layer.
 - local `pre-push` should mirror `check`, not a separate ad hoc command set.
-- Repo-wide style lint is intentionally not part of default `check` until existing Ruff debt is reduced.
+- Keep repo-wide style clean enough that `check` can continue to enforce it without turning the default gate noisy again.
 
 When a workflow stage is consumed by another agent step, prefer the JSON-report variants over scraping terminal output.
 When branch-scope change reports are dominated by earlier branch work, use `check:changed:local` or `check:changed:staged` for the current edit loop and keep `check:changed` as the broader integration signal.

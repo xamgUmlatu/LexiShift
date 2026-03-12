@@ -58,6 +58,8 @@ def resolve_pair_resources(
     resolved_frequency_db = (
         Path(set_source_db)
         if set_source_db is not None
-        else default_frequency_db_path(capability.pair, frequency_packs_dir=paths.frequency_packs_dir)
+        else default_frequency_db_path(
+            capability.pair, frequency_packs_dir=paths.frequency_packs_dir
+        )
     )
     return resolved_jmdict, resolved_freedict_de_en, resolved_frequency_db

@@ -71,6 +71,10 @@ def build_commands() -> list[tuple[str, list[str]]]:
             "windows_parity_audit",
             [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"],
         ),
+        (
+            "repo_style_strict",
+            [sys.executable, "scripts/dev/dev_workflow_style_check.py", "--strict"],
+        ),
         ("project_health_advisory", ["node", "scripts/dev/check_project_health.js", "--advisory"]),
     ]
 

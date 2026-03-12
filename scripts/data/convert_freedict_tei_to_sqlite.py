@@ -92,17 +92,14 @@ def _find_tei_in_dir(root: Path, tei_filename: str = "") -> Path:
         for candidate in root.rglob(tei_filename):
             if candidate.is_file():
                 return candidate
-        raise FileNotFoundError(
-            f"Could not find expected TEI file '{tei_filename}' under: {root}"
-        )
+        raise FileNotFoundError(f"Could not find expected TEI file '{tei_filename}' under: {root}")
     candidates = list(_iter_tei_candidates(root))
     if not candidates:
         raise FileNotFoundError(f"No .tei files found under: {root}")
     if len(candidates) > 1:
         listed = "\n".join(str(path) for path in sorted(candidates)[:10])
         raise ValueError(
-            "Multiple .tei files found. Pass --tei-filename to disambiguate.\n"
-            f"{listed}"
+            f"Multiple .tei files found. Pass --tei-filename to disambiguate.\n{listed}"
         )
     return candidates[0]
 

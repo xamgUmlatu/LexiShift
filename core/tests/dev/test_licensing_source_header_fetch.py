@@ -49,7 +49,7 @@ class TestLicensingSourceHeaderFetch(unittest.TestCase):
             root = Path(tmp)
             archive_path = root / "freedict-eng-deu.src.tar.xz"
             tei_text = (
-                "<availability status=\"free\">\n"
+                '<availability status="free">\n'
                 "Licensed under GNU General Public License.\n"
                 "</availability>\n"
             ).encode("utf-8")

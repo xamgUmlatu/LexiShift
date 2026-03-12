@@ -57,7 +57,9 @@ class RulesTableView(QTableView):
         self._empty_guide_button.setFixedSize(28, 28)
         self._empty_guide_button.setToolTip(t("rules_table.open_setup_guide"))
         self._empty_guide_button.setVisible(False)
-        self._empty_guide_button.clicked.connect(lambda _checked=False: self.emptyGuideRequested.emit())
+        self._empty_guide_button.clicked.connect(
+            lambda _checked=False: self.emptyGuideRequested.emit()
+        )
 
     def set_empty_palette(
         self,

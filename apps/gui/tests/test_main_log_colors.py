@@ -31,8 +31,8 @@ def test_append_log_defaults_to_theme_text_color() -> None:
         log_edit=QTextEdit(),
         _theme={"text": "#224466"},
     )
-    dummy._theme_color_hex = (
-        lambda key, fallback: MainWindow._theme_color_hex(dummy, key, fallback=fallback)
+    dummy._theme_color_hex = lambda key, fallback: MainWindow._theme_color_hex(
+        dummy, key, fallback=fallback
     )
 
     MainWindow._append_log(dummy, "hello")

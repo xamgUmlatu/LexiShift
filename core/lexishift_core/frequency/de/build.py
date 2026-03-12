@@ -8,8 +8,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-import re
-from typing import Any, Callable, Optional
+from typing import Callable, Optional
 
 try:
     from .build_support import (

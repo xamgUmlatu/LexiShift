@@ -20,12 +20,14 @@ def get_srs_runtime_diagnostics(
     normalized_pair = capability.pair
     normalized_profile_id = paths.normalize_profile_id(profile_id)
     pair_policy = resolve_srs_pair_policy(normalized_pair)
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = resolve_pair_resources(
-        paths,
-        pair=normalized_pair,
-        jmdict_path=None,
-        freedict_de_en_path=None,
-        set_source_db=None,
+    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+        resolve_pair_resources(
+            paths,
+            pair=normalized_pair,
+            jmdict_path=None,
+            freedict_de_en_path=None,
+            set_source_db=None,
+        )
     )
     resolved_stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     missing_inputs: list[dict[str, object]] = []

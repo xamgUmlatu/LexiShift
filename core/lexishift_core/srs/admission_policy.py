@@ -138,17 +138,8 @@ def _classify_generic_pos_bucket(raw_pos: str) -> str:
 
 def _classify_de_pos_bucket(raw_pos: str) -> str:
     upper = raw_pos.upper()
-    tokens = {
-        token
-        for token in re.split(r"[:|+_\-\s]+", upper)
-        if token
-    }
-    if (
-        "SUB" in tokens
-        or "NOUN" in tokens
-        or "NOMEN" in tokens
-        or "NN" in tokens
-    ):
+    tokens = {token for token in re.split(r"[:|+_\-\s]+", upper) if token}
+    if "SUB" in tokens or "NOUN" in tokens or "NOMEN" in tokens or "NN" in tokens:
         return POS_BUCKET_NOUN
     if (
         "ADJ" in tokens

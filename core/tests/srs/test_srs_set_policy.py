@@ -26,7 +26,9 @@ class TestSrsSetPolicy(unittest.TestCase):
         self.assertEqual(policy.initial_active_count_effective, DEFAULT_INITIAL_ACTIVE_COUNT)
         self.assertIsNone(policy.max_active_items_hint)
         self.assertTrue(any("bootstrap_top_n missing/invalid" in note for note in policy.notes))
-        self.assertTrue(any("initial_active_count missing/invalid" in note for note in policy.notes))
+        self.assertTrue(
+            any("initial_active_count missing/invalid" in note for note in policy.notes)
+        )
 
     def test_initial_active_defaults_to_hint_when_available(self) -> None:
         policy = resolve_set_sizing_policy(
@@ -50,10 +52,7 @@ class TestSrsSetPolicy(unittest.TestCase):
         self.assertTrue(any("bootstrap_top_n clamped" in note for note in policy.notes))
         self.assertTrue(any("initial_active_count clamped" in note for note in policy.notes))
         self.assertTrue(
-            any(
-                "initial_active_count exceeded bootstrap_top_n" in note
-                for note in policy.notes
-            )
+            any("initial_active_count exceeded bootstrap_top_n" in note for note in policy.notes)
         )
 
     def test_invalid_inputs_fall_back_to_defaults(self) -> None:

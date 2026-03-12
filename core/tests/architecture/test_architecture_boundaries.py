@@ -32,11 +32,7 @@ def _collect_import_modules(file_path: Path) -> set[str]:
 
 class TestArchitectureBoundaries(unittest.TestCase):
     def test_core_top_level_is_package_only(self) -> None:
-        top_level_python = sorted(
-            path.name
-            for path in PACKAGE_ROOT.glob("*.py")
-            if path.is_file()
-        )
+        top_level_python = sorted(path.name for path in PACKAGE_ROOT.glob("*.py") if path.is_file())
         self.assertEqual(top_level_python, ["__init__.py"])
 
     def test_core_does_not_import_apps_or_scripts(self) -> None:

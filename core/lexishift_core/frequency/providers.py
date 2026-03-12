@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Callable, Optional
+from typing import Callable
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
 from lexishift_core.scoring.weighting import PmwWeighting
@@ -61,7 +61,11 @@ class SqliteFrequencyProvider:
         for name in preferred:
             if name in lowered:
                 return lowered[name]
-        fallback = [name for name in columns if name.lower() not in {"lemma", "pos", "sublemma", "lform", "wtype"}]
+        fallback = [
+            name
+            for name in columns
+            if name.lower() not in {"lemma", "pos", "sublemma", "lform", "wtype"}
+        ]
         return fallback[0] if fallback else (columns[0] if columns else requested)
 
 

@@ -131,10 +131,34 @@ class TestExtensionStructure(unittest.TestCase):
 
     def test_page_general_event_binders_exist(self) -> None:
         required = [
-            EXT_ROOT / "options" / "controllers" / "page" / "events" / "general" / "rules_bindings.js",
-            EXT_ROOT / "options" / "controllers" / "page" / "events" / "general" / "display_bindings.js",
-            EXT_ROOT / "options" / "controllers" / "page" / "events" / "general" / "language_bindings.js",
-            EXT_ROOT / "options" / "controllers" / "page" / "events" / "general" / "integrations_bindings.js",
+            EXT_ROOT
+            / "options"
+            / "controllers"
+            / "page"
+            / "events"
+            / "general"
+            / "rules_bindings.js",
+            EXT_ROOT
+            / "options"
+            / "controllers"
+            / "page"
+            / "events"
+            / "general"
+            / "display_bindings.js",
+            EXT_ROOT
+            / "options"
+            / "controllers"
+            / "page"
+            / "events"
+            / "general"
+            / "language_bindings.js",
+            EXT_ROOT
+            / "options"
+            / "controllers"
+            / "page"
+            / "events"
+            / "general"
+            / "integrations_bindings.js",
         ]
         missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
         self.assertEqual(missing, [])

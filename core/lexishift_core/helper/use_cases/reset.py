@@ -80,4 +80,3 @@ def reset_srs_data(
         "removed_snapshots": removed_snapshots,
         "removed_rulesets": removed_rulesets,
     }
-

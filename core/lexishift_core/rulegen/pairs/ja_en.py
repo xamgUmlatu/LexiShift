@@ -100,9 +100,7 @@ class JaEnRulegenConfig:
 
 
 def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
-    script_forms_by_target: Mapping[str, Mapping[str, str]] = (
-        config.script_forms_by_target or {}
-    )
+    script_forms_by_target: Mapping[str, Mapping[str, str]] = config.script_forms_by_target or {}
     jmdict_entries_by_term: Mapping[str, Sequence[JmdictEntryRecord]] = (
         config.jmdict_entries_by_term or {}
     )
@@ -112,8 +110,8 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
     if config.gloss_mapping is not None:
         mapping = config.gloss_mapping
     else:
-        discovered_entries, mapping, discovered_forms = load_jmdict_entry_index_glosses_and_script_forms(
-            config.jmdict_path
+        discovered_entries, mapping, discovered_forms = (
+            load_jmdict_entry_index_glosses_and_script_forms(config.jmdict_path)
         )
         if not jmdict_entries_by_term:
             jmdict_entries_by_term = discovered_entries
@@ -402,9 +400,7 @@ def _resolve_target_word_package(
     )
     if normalized_hint is None:
         return None
-    normalized_hint_script_forms = _normalize_script_forms_map(
-        normalized_hint.get("script_forms")
-    )
+    normalized_hint_script_forms = _normalize_script_forms_map(normalized_hint.get("script_forms"))
     merged_forms = merge_script_forms(
         normalized_hint_script_forms,
         discovered_script_forms,
@@ -458,7 +454,9 @@ def _build_filters(
     if not config.allow_multiword_glosses:
         filters.append(SingleWordFilter(allow_hyphen=config.allow_hyphen))
     if config.enable_length_filter:
-        filters.append(LengthFilter(min_length=config.min_source_length, max_length=config.max_source_length))
+        filters.append(
+            LengthFilter(min_length=config.min_source_length, max_length=config.max_source_length)
+        )
     if config.enable_punctuation_filter:
         filters.append(PunctuationFilter())
     if config.enable_possessive_filter:

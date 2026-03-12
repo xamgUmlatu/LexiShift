@@ -85,7 +85,7 @@ This stable safety check currently runs:
 - `py_compile` for workflow-critical Python entrypoints
 - advisory project health checks
 
-Repo-wide style lint is not yet the default `check` gate because `ruff check .` still has existing unrelated debt. Keep that debt explicit instead of making `check` permanently noisy.
+Repo-wide style lint is now part of the default `check` gate because the repo-wide Ruff debt was reduced to a clean baseline. Use the standalone style commands when you want dedicated artifacts or a style-only loop.
 
 Style/debt advisory command:
 
@@ -106,6 +106,8 @@ Changed-scope branch command:
 ```bash
 npm --prefix scripts run check:changed
 ```
+
+`check:changed` reports both all touched files and substantive changed files. Heavier follow-on loops, such as rulegen audit inference, now key off the substantive set so formatting-only Python churn stays cheap.
 
 This runs:
 - changed-only project health against the checked-in baseline

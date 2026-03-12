@@ -113,7 +113,9 @@ def _parse_screen_overrides(raw: dict[str, Any], base_dir: str) -> dict[str, dic
         entry: dict[str, Any] = {}
         colors = override.get("colors")
         if isinstance(colors, dict):
-            entry["colors"] = {key: str(value) for key, value in colors.items() if key in THEME_ALL_COLOR_KEYS}
+            entry["colors"] = {
+                key: str(value) for key, value in colors.items() if key in THEME_ALL_COLOR_KEYS
+            }
         background = override.get("background")
         if isinstance(background, dict):
             entry["_background"] = background

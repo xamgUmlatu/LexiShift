@@ -96,8 +96,7 @@ def _create_frequency_db(path: Path) -> Path:
 def _stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
     pair_lemmas = sorted({item.lemma for item in store.items if item.language_pair == pair})
     rules = tuple(
-        VocabRule(source_phrase=f"src_{lemma}", replacement=lemma)
-        for lemma in pair_lemmas
+        VocabRule(source_phrase=f"src_{lemma}", replacement=lemma) for lemma in pair_lemmas
     )
     snapshot_targets = [{"lemma": lemma, "sources": [f"src_{lemma}"]} for lemma in pair_lemmas]
     snapshot = {
@@ -161,10 +160,22 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
                 )
                 total_for_pair = _pair_count(paths, pair)
                 rulegen_payload = result.get("rulegen") or {}
-                ruleset_path = Path(rulegen_payload.get("ruleset_path")) if rulegen_payload else paths.ruleset_path(pair)
-                snapshot_path = Path(rulegen_payload.get("snapshot_path")) if rulegen_payload else paths.snapshot_path(pair)
-                ruleset_count = _load_ruleset_rule_count(ruleset_path) if ruleset_path.exists() else 0
-                snapshot_targets = _load_snapshot_target_count(snapshot_path) if snapshot_path.exists() else 0
+                ruleset_path = (
+                    Path(rulegen_payload.get("ruleset_path"))
+                    if rulegen_payload
+                    else paths.ruleset_path(pair)
+                )
+                snapshot_path = (
+                    Path(rulegen_payload.get("snapshot_path"))
+                    if rulegen_payload
+                    else paths.snapshot_path(pair)
+                )
+                ruleset_count = (
+                    _load_ruleset_rule_count(ruleset_path) if ruleset_path.exists() else 0
+                )
+                snapshot_targets = (
+                    _load_snapshot_target_count(snapshot_path) if snapshot_path.exists() else 0
+                )
                 cycle = {
                     "label": label,
                     "applied": bool(result.get("applied")),
@@ -185,43 +196,68 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
                 cycle_report.append(cycle)
                 return cycle
 
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=_build_seed_candidates(),
-            ), patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                side_effect=_stub_run_rulegen_for_pair,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=_build_seed_candidates(),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_stub_run_rulegen_for_pair,
+                ),
             ):
                 for rating in ("good", "easy", "good", "easy", "good", "easy", "good", "easy"):
-                    apply_feedback(paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id)
+                    apply_feedback(
+                        paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id
+                    )
                 phase_1 = run_refresh("high_retention_1")
 
                 for rating in ("again", "hard", "again", "hard", "again", "hard", "again", "hard"):
-                    apply_feedback(paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id)
+                    apply_feedback(
+                        paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id
+                    )
                 phase_2 = run_refresh("low_retention_pause")
 
                 for rating in ("easy", "good", "easy", "good", "easy", "good", "easy", "good"):
-                    apply_feedback(paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id)
+                    apply_feedback(
+                        paths, pair=pair, lemma="alpha", rating=rating, profile_id=profile_id
+                    )
                 phase_3 = run_refresh("high_retention_2")
 
             if os.environ.get("LEXISHIFT_VERBOSE_SRS_SIM", "").strip() == "1":
                 print(json.dumps(cycle_report, indent=2, ensure_ascii=False))
 
             self.assertEqual(
-                [phase_1["total_items_for_pair"], phase_2["total_items_for_pair"], phase_3["total_items_for_pair"]],
+                [
+                    phase_1["total_items_for_pair"],
+                    phase_2["total_items_for_pair"],
+                    phase_3["total_items_for_pair"],
+                ],
                 [3, 3, 5],
                 msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
             )
-            self.assertTrue(bool(phase_1["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
-            self.assertEqual(phase_1["reason_code"], "normal", msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
-            self.assertEqual(phase_1["ruleset_count"], 3, msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
+            self.assertTrue(
+                bool(phase_1["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False)
+            )
+            self.assertEqual(
+                phase_1["reason_code"],
+                "normal",
+                msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
+            )
+            self.assertEqual(
+                phase_1["ruleset_count"],
+                3,
+                msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
+            )
             self.assertEqual(
                 phase_1["snapshot_target_count"],
                 3,
                 msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
             )
 
-            self.assertFalse(bool(phase_2["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
+            self.assertFalse(
+                bool(phase_2["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False)
+            )
             self.assertEqual(
                 phase_2["reason_code"],
                 "retention_low",
@@ -238,9 +274,19 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
                 msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
             )
 
-            self.assertTrue(bool(phase_3["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
-            self.assertEqual(phase_3["reason_code"], "normal", msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
-            self.assertEqual(phase_3["ruleset_count"], 5, msg=json.dumps(cycle_report, indent=2, ensure_ascii=False))
+            self.assertTrue(
+                bool(phase_3["applied"]), msg=json.dumps(cycle_report, indent=2, ensure_ascii=False)
+            )
+            self.assertEqual(
+                phase_3["reason_code"],
+                "normal",
+                msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
+            )
+            self.assertEqual(
+                phase_3["ruleset_count"],
+                5,
+                msg=json.dumps(cycle_report, indent=2, ensure_ascii=False),
+            )
             self.assertEqual(
                 phase_3["snapshot_target_count"],
                 5,

@@ -32,7 +32,9 @@ def unique_ruleset_paths(paths: Iterable[str | None]) -> list[str]:
 
 def profile_ruleset_paths(profile: Profile) -> list[str]:
     # Canonical profile->ruleset expansion order used across dialogs and main UI.
-    return unique_ruleset_paths(tuple(profile.rulesets) + (profile.dataset_path, profile.active_ruleset))
+    return unique_ruleset_paths(
+        tuple(profile.rulesets) + (profile.dataset_path, profile.active_ruleset)
+    )
 
 
 def preferred_active_ruleset(profile: Profile, *, default_path: str) -> str:
@@ -63,7 +65,9 @@ def select_active_ruleset(
 
 def resolve_profile_dataset_path(profile: Profile, *, default_path: Path) -> Path:
     # Prefer the first real file from active/rulesets/dataset; otherwise use first candidate.
-    candidates = unique_ruleset_paths((profile.active_ruleset, *profile.rulesets, profile.dataset_path))
+    candidates = unique_ruleset_paths(
+        (profile.active_ruleset, *profile.rulesets, profile.dataset_path)
+    )
     if not candidates:
         return default_path
     normalized = [normalize_ruleset_path(path) for path in candidates]

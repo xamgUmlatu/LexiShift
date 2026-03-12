@@ -16,7 +16,7 @@ Notes:
 - `build` is the local build smoke for surfaces with maintained build paths.
 - `build:report` is the full build contract and is what hosted macOS CI runs.
 - `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip macOS-only GUI validation on unsupported hosts.
-- Repo-wide style lint remains separate until the current Ruff debt is reduced; use `check:style:report` / `check:style:summary` when you want a durable advisory artifact instead of terminal output only.
+- Repo-wide style lint is now part of `check`; use `check:style:report` / `check:style:summary` when you want durable style artifacts without running the full safety loop.
 
 ## GUI App Packaging (PyInstaller)
 

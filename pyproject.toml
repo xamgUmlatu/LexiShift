@@ -3,6 +3,21 @@ line-length = 100
 target-version = "py310"
 extend-exclude = ["build", "dist", ".mypy_cache", ".ruff_cache", ".venv"]
 
+[tool.ruff.lint.per-file-ignores]
+# These entrypoints/tests must adjust import paths before importing project modules.
+"apps/gui/src/main.py" = ["E402"]
+"core/tests/helper/test_helper_engine.py" = ["E402"]
+"core/tests/replacement/test_core.py" = ["E402"]
+"core/tests/srs/test_srs_gate.py" = ["E402"]
+"core/tests/srs/test_srs_scheduler.py" = ["E402"]
+"scripts/data/convert_embeddings.py" = ["E402"]
+"scripts/dev/dev_utils.py" = ["E402"]
+"scripts/dev/srs_selector_demo.py" = ["E402"]
+"scripts/dev/test_embeddings.py" = ["E402"]
+"scripts/helper/lexishift_helper.py" = ["E402"]
+"scripts/helper/lexishift_native_host.py" = ["E402"]
+"scripts/testing/ja_en_rulegen_sweep.py" = ["E402"]
+
 [tool.ruff.format]
 quote-style = "double"
 

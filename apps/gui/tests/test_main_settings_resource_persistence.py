@@ -82,8 +82,8 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
             return QDialog.DialogCode.Rejected
 
     dummy = SimpleNamespace(state=state)
-    dummy._sync_resource_settings_from_dialog = lambda dialog: MainWindow._sync_resource_settings_from_dialog(
-        dummy, dialog
+    dummy._sync_resource_settings_from_dialog = lambda dialog: (
+        MainWindow._sync_resource_settings_from_dialog(dummy, dialog)
     )
 
     with patch("main.SettingsDialog", _FakeSettingsDialog):

@@ -4,7 +4,12 @@ from dataclasses import dataclass
 from typing import Optional, Sequence
 
 from lexishift_core import Profile
-from profile_ruleset_utils import normalize_ruleset_path, preferred_active_ruleset, ruleset_display_name, unique_ruleset_paths
+from profile_ruleset_utils import (
+    normalize_ruleset_path,
+    preferred_active_ruleset,
+    ruleset_display_name,
+    unique_ruleset_paths,
+)
 
 
 @dataclass(frozen=True)
@@ -28,7 +33,9 @@ def find_profile_by_id(profiles: Sequence[Profile], profile_id: Optional[str]) -
     return None
 
 
-def resolve_active_profile(profiles: Sequence[Profile], active_profile_id: Optional[str]) -> Optional[Profile]:
+def resolve_active_profile(
+    profiles: Sequence[Profile], active_profile_id: Optional[str]
+) -> Optional[Profile]:
     active = find_profile_by_id(profiles, active_profile_id)
     if active is not None:
         return active

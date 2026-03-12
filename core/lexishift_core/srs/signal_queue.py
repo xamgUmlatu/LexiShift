@@ -86,7 +86,9 @@ def load_signal_events(path: Path) -> tuple[SrsSignalEvent, ...]:
     return tuple(parsed)
 
 
-def save_signal_events(path: Path, events: Sequence[SrsSignalEvent], *, max_events: int = 5000) -> None:
+def save_signal_events(
+    path: Path, events: Sequence[SrsSignalEvent], *, max_events: int = 5000
+) -> None:
     bounded = list(events)[-max(1, int(max_events)) :]
     payload = {
         "version": 1,
@@ -104,9 +106,7 @@ def append_signal_event(path: Path, event: SrsSignalEvent, *, max_events: int = 
 
 def summarize_signal_events(path: Path, *, pair: Optional[str] = None) -> dict[str, object]:
     events = load_signal_events(path)
-    scoped = [
-        event for event in events if not pair or event.pair == pair
-    ]
+    scoped = [event for event in events if not pair or event.pair == pair]
     event_types: dict[str, int] = {}
     unique_lemmas = set()
     last_event_at = ""

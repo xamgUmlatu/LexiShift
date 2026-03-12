@@ -7,7 +7,12 @@ import sys
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
-from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig, filter_candidates, rank_candidates
+from lexishift_core.srs.selector import (
+    SelectorCandidate,
+    SelectorConfig,
+    filter_candidates,
+    rank_candidates,
+)
 
 
 def _load_candidates(path: Path) -> list[SelectorCandidate]:

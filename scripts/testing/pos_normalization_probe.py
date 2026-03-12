@@ -110,12 +110,7 @@ def _infer_ja_canonical_pos(raw: str) -> CanonicalPosResult:
 def _infer_de_canonical_pos(raw: str) -> CanonicalPosResult:
     upper = raw.upper()
     tokens = set(_split_tokens(upper))
-    if (
-        "SUB" in tokens
-        or "NOUN" in tokens
-        or "NOMEN" in tokens
-        or "NN" in tokens
-    ):
+    if "SUB" in tokens or "NOUN" in tokens or "NOMEN" in tokens or "NN" in tokens:
         return CanonicalPosResult(canonical="noun", mapped=True, rule="de_token:noun")
     if (
         "ADJ" in tokens
@@ -136,10 +131,7 @@ def _infer_de_canonical_pos(raw: str) -> CanonicalPosResult:
         return CanonicalPosResult(canonical="adverb", mapped=True, rule="de_token:adv")
     if "ART" in tokens or "DET" in tokens:
         return CanonicalPosResult(canonical="determiner", mapped=True, rule="de_token:det")
-    if (
-        "PRO" in tokens
-        or any(token.startswith("P") and len(token) <= 5 for token in tokens)
-    ):
+    if "PRO" in tokens or any(token.startswith("P") and len(token) <= 5 for token in tokens):
         return CanonicalPosResult(canonical="pronoun", mapped=True, rule="de_token:pron")
     if (
         "APPR" in tokens
@@ -149,12 +141,7 @@ def _infer_de_canonical_pos(raw: str) -> CanonicalPosResult:
         or "PREP" in tokens
     ):
         return CanonicalPosResult(canonical="adposition", mapped=True, rule="de_token:adp")
-    if (
-        "KON" in tokens
-        or "KOUS" in tokens
-        or "KOUI" in tokens
-        or "CONJ" in tokens
-    ):
+    if "KON" in tokens or "KOUS" in tokens or "KOUI" in tokens or "CONJ" in tokens:
         return CanonicalPosResult(canonical="conjunction", mapped=True, rule="de_token:conj")
     if "ITJ" in tokens or "INTJ" in tokens:
         return CanonicalPosResult(canonical="interjection", mapped=True, rule="de_token:intj")
@@ -376,7 +363,9 @@ def _build_source_pack_probe(
     }
 
 
-def _seed_example(seed: Any, *, raw_pos: str, canonical_pos: str, expected_bucket: str) -> dict[str, Any]:
+def _seed_example(
+    seed: Any, *, raw_pos: str, canonical_pos: str, expected_bucket: str
+) -> dict[str, Any]:
     return {
         "lemma": str(seed.lemma),
         "raw_pos": raw_pos,
@@ -506,15 +495,15 @@ def _build_pair_probe(
                 if canonical_counter.get(tag, 0) > 0
             ],
             "runtime_bucket_distribution": _counter_to_rows(bucket_counter),
-            "expected_bucket_distribution_from_canonical": _counter_to_rows(expected_bucket_counter),
+            "expected_bucket_distribution_from_canonical": _counter_to_rows(
+                expected_bucket_counter
+            ),
             "mapping_rule_distribution": _counter_to_rows(mapping_rule_counter, limit=20),
             "unmapped_raw_tags": _counter_to_rows(unknown_counter),
             "bucket_mismatch_distribution": _counter_to_rows(mismatch_counter),
             "bucket_mismatch_count": int(sum(mismatch_counter.values())),
             "bucket_mismatch_rate": (
-                float(sum(mismatch_counter.values())) / float(seed_count)
-                if seed_count
-                else 0.0
+                float(sum(mismatch_counter.values())) / float(seed_count) if seed_count else 0.0
             ),
             "mapped_seed_count": int(mapped_seed_count),
             "mapped_seed_rate": float(mapped_seed_count) / float(seed_count) if seed_count else 0.0,

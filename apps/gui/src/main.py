@@ -85,7 +85,6 @@ from main_ui_components import (
     UtilityDock,
     apply_theme_background,
     configure_log_handlers,
-    reveal_path,
 )
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState

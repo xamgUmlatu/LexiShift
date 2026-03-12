@@ -309,9 +309,7 @@ def main() -> None:
     reading_overrides = _parse_reading_overrides(args.ja_readings)
     max_definitions = max(1, int(args.max_definitions))
     max_rules_per_target = (
-        max(1, int(args.max_rules_per_target))
-        if args.max_rules_per_target is not None
-        else None
+        max(1, int(args.max_rules_per_target)) if args.max_rules_per_target is not None else None
     )
     scoring = RuleScoringConfig(
         weights=RuleScoreWeights(pos_match=float(args.score_weight_pos_match)),

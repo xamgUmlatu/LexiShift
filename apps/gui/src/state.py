@@ -98,7 +98,9 @@ def _normalize_profiles(
     profile_ids = [profile.profile_id for profile in normalized if profile.profile_id]
     active_raw = str(active_profile_id or "").strip()
     mapped_active = id_mapping.get(active_raw, active_raw)
-    resolved_active = mapped_active if mapped_active in profile_ids else (profile_ids[0] if profile_ids else None)
+    resolved_active = (
+        mapped_active if mapped_active in profile_ids else (profile_ids[0] if profile_ids else None)
+    )
     return normalized, resolved_active
 
 
@@ -175,7 +177,9 @@ class AppState(QObject):
         self._srs_store = store
         self.save_srs_store()
 
-    def set_profiles(self, profiles: tuple[Profile, ...], *, active_profile_id: Optional[str]) -> None:
+    def set_profiles(
+        self, profiles: tuple[Profile, ...], *, active_profile_id: Optional[str]
+    ) -> None:
         normalized_profiles, normalized_active = _normalize_profiles(
             tuple(profiles),
             active_profile_id=active_profile_id,

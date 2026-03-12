@@ -59,7 +59,9 @@ def test_load_profile_recovers_from_missing_active_ruleset_path() -> None:
             ),
             _current_profile=lambda: profile,
             _active_ruleset_path=lambda selected: MainWindow._active_ruleset_path(dummy, selected),
-            _resolve_profile_dataset_path=lambda selected: MainWindow._resolve_profile_dataset_path(dummy, selected),
+            _resolve_profile_dataset_path=lambda selected: MainWindow._resolve_profile_dataset_path(
+                dummy, selected
+            ),
             _set_active_ruleset_path=lambda path: activated.append(os.path.abspath(str(path))),
         )
 
