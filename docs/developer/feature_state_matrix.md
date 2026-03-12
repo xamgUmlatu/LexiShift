@@ -98,7 +98,7 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-12` CI report-gate orchestration + hosted repo-safety split
+- Last documented checkpoint: `2026-03-12` CI report-gate orchestration + hosted repo-safety split + Windows build-validator triage
 - Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + workflow failure-detail reporting + CI report-gate orchestration review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
@@ -108,6 +108,7 @@ Use this file when:
   - `npm --prefix scripts run check:changed` now records both total changed files and substantive changed files, and uses the substantive set when inferring heavier quality loops such as rulegen audit; Python uses AST comparison, JSON uses parsed equality, and Markdown/text uses whitespace-normalized comparison.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
+  - Hosted macOS `build:report` keeps the full GUI bundle validation path; hosted Windows `build:report` now uses the full GUI build plus artifact verification, while the strict Windows parity audit remains the dedicated Windows-specific validation gate.
   - Hosted CI now runs both the full macOS `build:report` path and the explicit Ubuntu `build:ci:report` partial path.
   - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
   - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
@@ -148,7 +149,7 @@ Use this file when:
   - `docs/developer/build_and_release.md`
 - Known gaps:
   - GUI packaging makes `build` materially slower than `check`.
-  - Hosted build coverage is now macOS full, Windows full, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
+  - Hosted build coverage is now macOS full, Windows full-build plus artifact verification with a separate strict parity gate, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
 
