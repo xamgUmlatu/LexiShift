@@ -23,7 +23,7 @@ ArchitecturesInstallIn64BitMode=x64
 WizardStyle=modern
 
 [Files]
-Source: "{#DistDir}\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#DistDir}\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "installers\\*"
 
 [Icons]
 Name: "{group}\\{#AppName}"; Filename: "{app}\\{#AppExeName}"

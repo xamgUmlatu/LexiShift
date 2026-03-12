@@ -206,6 +206,45 @@ main_exe = EXE(
     uac_uiaccess=WIN_UAC_UIACCESS,
 )
 
+helper_a = Analysis(
+    [os.path.join(repo_root, "apps", "gui", "src", "helper_app.py")],
+    pathex=common_pathex,
+    binaries=[],
+    datas=[(os.path.join(repo_root, "apps", "gui", "resources"), "resources")],
+    hiddenimports=["lexishift_core"],
+    hookspath=[],
+    runtime_hooks=[],
+    excludes=[],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
+)
+
+helper_pyz = PYZ(helper_a.pure, helper_a.zipped_data, cipher=block_cipher)
+
+helper_exe = EXE(
+    helper_pyz,
+    helper_a.scripts,
+    helper_a.binaries,
+    helper_a.zipfiles,
+    helper_a.datas,
+    [],
+    name=HELPER_APP_NAME,
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
+    console=False,
+    disable_windowed_traceback=False,
+    argv_emulation=sys.platform == "darwin",
+    target_arch=None,
+    codesign_identity=MACOS_CODESIGN_IDENTITY,
+    entitlements_file=MACOS_ENTITLEMENTS_FILE,
+    icon=icon_path,
+)
+
 if sys.platform == "darwin":
     main_coll = COLLECT(
         main_exe,
@@ -222,45 +261,6 @@ if sys.platform == "darwin":
         icon=icon_icns,
         bundle_identifier=APP_BUNDLE_ID,
         info_plist=MACOS_INFO_PLIST,
-    )
-
-    helper_a = Analysis(
-        [os.path.join(repo_root, "apps", "gui", "src", "helper_app.py")],
-        pathex=common_pathex,
-        binaries=[],
-        datas=[(os.path.join(repo_root, "apps", "gui", "resources"), "resources")],
-        hiddenimports=["lexishift_core"],
-        hookspath=[],
-        runtime_hooks=[],
-        excludes=[],
-        win_no_prefer_redirects=False,
-        win_private_assemblies=False,
-        cipher=block_cipher,
-    )
-
-    helper_pyz = PYZ(helper_a.pure, helper_a.zipped_data, cipher=block_cipher)
-
-    helper_exe = EXE(
-        helper_pyz,
-        helper_a.scripts,
-        helper_a.binaries,
-        helper_a.zipfiles,
-        helper_a.datas,
-        [],
-        name=HELPER_APP_NAME,
-        debug=False,
-        bootloader_ignore_signals=False,
-        strip=False,
-        upx=True,
-        upx_exclude=[],
-        runtime_tmpdir=None,
-        console=False,
-        disable_windowed_traceback=False,
-        argv_emulation=True,
-        target_arch=None,
-        codesign_identity=MACOS_CODESIGN_IDENTITY,
-        entitlements_file=MACOS_ENTITLEMENTS_FILE,
-        icon=icon_icns,
     )
 
     helper_coll = COLLECT(
@@ -289,4 +289,13 @@ else:
         strip=False,
         upx=True,
         name=COLLECT_NAME,
+    )
+    helper_coll = COLLECT(
+        helper_exe,
+        helper_a.binaries,
+        helper_a.zipfiles,
+        helper_a.datas,
+        strip=False,
+        upx=True,
+        name=HELPER_APP_NAME,
     )

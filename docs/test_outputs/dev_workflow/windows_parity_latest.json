@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T00:08:35.995278+00:00",
+  "generated_at_utc": "2026-03-12T00:54:28.902747+00:00",
   "status": "FAIL",
   "counts": {
-    "pass": 4,
+    "pass": 8,
     "warn": 0,
-    "fail": 4
+    "fail": 1
   },
   "checks": [
     {
@@ -43,8 +43,8 @@
     {
       "key": "windows_helper_packaging",
       "title": "Windows Helper Packaging",
-      "status": "FAIL",
-      "summary": "PyInstaller packaging only builds the helper app in the macOS branch; Windows packaging currently emits the main app only.",
+      "status": "PASS",
+      "summary": "PyInstaller packaging includes Windows helper parity.",
       "evidence": [
         "apps/gui/packaging/pyinstaller.spec"
       ]
@@ -52,8 +52,8 @@
     {
       "key": "windows_bundle_validation",
       "title": "Windows Build Validation",
-      "status": "FAIL",
-      "summary": "Build output validation is macOS-only today; there is no Windows dist/exe validator.",
+      "status": "PASS",
+      "summary": "Build output validation includes Windows checks.",
       "evidence": [
         "scripts/build/validate_app_bundle.py"
       ]
@@ -61,18 +61,28 @@
     {
       "key": "windows_helper_autostart",
       "title": "Windows Helper Autostart",
-      "status": "FAIL",
-      "summary": "Helper autostart is implemented for macOS LaunchAgent only; no Windows startup-registration path is tracked in code.",
+      "status": "PASS",
+      "summary": "Helper autostart includes a Windows path.",
       "evidence": [
         "apps/gui/src/helper_installer.py",
         "docs/architecture/native_messaging_checklist.md"
       ]
     },
     {
+      "key": "windows_native_messaging_install",
+      "title": "Windows Native Messaging Install",
+      "status": "FAIL",
+      "summary": "Windows native-messaging install is still unsupported in the GUI helper flow; helper manifest/registry registration remains macOS/Linux-only.",
+      "evidence": [
+        "apps/gui/src/helper_installer.py",
+        "scripts/helper/native_messaging/com.lexishift.helper-win.json"
+      ]
+    },
+    {
       "key": "windows_tray_launch",
       "title": "Windows Tray Launch Path",
-      "status": "FAIL",
-      "summary": "Frozen helper tray launch has macOS-specific app-bundle handoff, but no Windows-specific main-app launch path.",
+      "status": "PASS",
+      "summary": "Frozen helper tray launch includes Windows-specific handling.",
       "evidence": [
         "apps/gui/src/helper_tray.py"
       ]

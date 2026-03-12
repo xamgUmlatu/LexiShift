@@ -33,6 +33,8 @@ class ExtensionEnvironment:
 
 
 _ID_PLACEHOLDERS = {"", "__FILL_ME__", "<FILL_ME>"}
+WINDOWS_RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
+WINDOWS_RUN_VALUE_NAME = "LexiShiftHelper"
 
 
 def _helper_log_path() -> Path:
@@ -42,7 +44,9 @@ def _helper_log_path() -> Path:
 def _log_helper_file(message: str) -> None:
     try:
         stamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-        _helper_log_path().write_text("", encoding="utf-8") if not _helper_log_path().exists() else None
+        _helper_log_path().write_text(
+            "", encoding="utf-8"
+        ) if not _helper_log_path().exists() else None
         with _helper_log_path().open("a", encoding="utf-8") as handle:
             handle.write(f"[{stamp}] {message}\n")
     except OSError:
@@ -74,9 +78,13 @@ def _log_app_bundle_info() -> None:
                 icon_name = icon_name + ".icns"
             icon_path = resources / icon_name
         log_helper(f"[Helper] App bundle: exe={exe} contents={contents} resources={resources}")
-        log_helper(f"[Helper] App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}")
+        log_helper(
+            f"[Helper] App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}"
+        )
         _log_helper_file(f"App bundle exe={exe} contents={contents} resources={resources}")
-        _log_helper_file(f"App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}")
+        _log_helper_file(
+            f"App icon file={icon_file} resolved={icon_path} exists={icon_path.exists() if icon_path else None}"
+        )
     except Exception as exc:
         log_helper(f"[Helper] Failed to inspect app bundle icon: {exc}")
         _log_helper_file(f"Failed to inspect app bundle icon: {exc}")
@@ -139,7 +147,9 @@ def default_host_script() -> Path:
         )
         return candidate
     repo_path = _repo_root() / "scripts" / "helper" / "lexishift_native_host.py"
-    log_helper_install(f"[Helper] Dev mode, using repo path: {repo_path} exists={repo_path.exists()}")
+    log_helper_install(
+        f"[Helper] Dev mode, using repo path: {repo_path} exists={repo_path.exists()}"
+    )
     return repo_path
 
 
@@ -219,11 +229,15 @@ def build_launch_agent(
     *,
     associated_bundle_identifiers: Sequence[str] | None = None,
 ) -> str:
-    args = "\n".join([f'    <string>{arg}</string>' for arg in program_args])
-    associated_ids = [str(value).strip() for value in (associated_bundle_identifiers or []) if str(value).strip()]
+    args = "\n".join([f"    <string>{arg}</string>" for arg in program_args])
+    associated_ids = [
+        str(value).strip() for value in (associated_bundle_identifiers or []) if str(value).strip()
+    ]
     associated_xml = ""
     if associated_ids:
-        associated_values = "\n".join([f'      <string>{bundle_id}</string>' for bundle_id in associated_ids])
+        associated_values = "\n".join(
+            [f"      <string>{bundle_id}</string>" for bundle_id in associated_ids]
+        )
         associated_xml = (
             "    <key>AssociatedBundleIdentifiers</key>\n"
             "    <array>\n"
@@ -265,13 +279,19 @@ def install_launch_agent(
     _log_app_bundle_info()
     log_helper(f"[Helper] LaunchAgent program args: {program_args}")
     if associated_bundle_identifiers:
-        log_helper(f"[Helper] LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}")
+        log_helper(
+            f"[Helper] LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}"
+        )
     _log_helper_file(f"LaunchAgent program args: {program_args}")
     if associated_bundle_identifiers:
-        _log_helper_file(f"LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}")
+        _log_helper_file(
+            f"LaunchAgent associated bundle ids: {list(associated_bundle_identifiers)}"
+        )
     plist_path.parent.mkdir(parents=True, exist_ok=True)
     plist_path.write_text(
-        build_launch_agent(program_args, associated_bundle_identifiers=associated_bundle_identifiers),
+        build_launch_agent(
+            program_args, associated_bundle_identifiers=associated_bundle_identifiers
+        ),
         encoding="utf-8",
     )
     log_helper(f"[Helper] Installed LaunchAgent: {plist_path}")
@@ -279,6 +299,50 @@ def install_launch_agent(
     subprocess.run(["launchctl", "unload", str(plist_path)], check=False)
     subprocess.run(["launchctl", "load", str(plist_path)], check=False)
     return True
+
+
+def build_windows_startup_command(program_args: Sequence[str]) -> str:
+    return subprocess.list2cmdline([str(value) for value in program_args])
+
+
+def install_windows_startup(program_args: Sequence[str]) -> bool:
+    if not sys.platform.startswith("win"):
+        log_helper("[Helper] Windows startup registration is not supported on this platform.")
+        return False
+    command = build_windows_startup_command(program_args)
+    try:
+        import winreg
+
+        with winreg.CreateKeyEx(
+            winreg.HKEY_CURRENT_USER,
+            WINDOWS_RUN_KEY,
+            0,
+            winreg.KEY_SET_VALUE,
+        ) as key:
+            winreg.SetValueEx(key, WINDOWS_RUN_VALUE_NAME, 0, winreg.REG_SZ, command)
+    except OSError as exc:
+        log_helper(f"[Helper] Failed to register Windows startup command: {exc}")
+        _log_helper_file(f"Failed to register Windows startup command: {exc}")
+        return False
+    log_helper(f"[Helper] Registered Windows startup command: {command}")
+    _log_helper_file(f"Registered Windows startup command: {command}")
+    return True
+
+
+def install_helper_autostart(
+    program_args: Sequence[str],
+    *,
+    associated_bundle_identifiers: Sequence[str] | None = None,
+) -> bool:
+    if sys.platform == "darwin":
+        return install_launch_agent(
+            program_args,
+            associated_bundle_identifiers=associated_bundle_identifiers,
+        )
+    if sys.platform.startswith("win"):
+        return install_windows_startup(program_args)
+    log_helper("[Helper] Helper autostart is not supported on this platform.")
+    return False
 
 
 def load_extension_environments() -> tuple[list[ExtensionEnvironment], str]:
@@ -329,7 +393,9 @@ def resolve_extension_id(env: ExtensionEnvironment, custom_id: Optional[str]) ->
     return None
 
 
-def get_environment(env_key: str, envs: list[ExtensionEnvironment]) -> Optional[ExtensionEnvironment]:
+def get_environment(
+    env_key: str, envs: list[ExtensionEnvironment]
+) -> Optional[ExtensionEnvironment]:
     for env in envs:
         if env.key == env_key:
             return env
@@ -342,8 +408,17 @@ def _chrome_host_dir(browser: str = "chrome") -> Optional[Path]:
         if browser == "chromium":
             return home / "Library" / "Application Support" / "Chromium" / "NativeMessagingHosts"
         if browser == "brave":
-            return home / "Library" / "Application Support" / "BraveSoftware" / "Brave-Browser" / "NativeMessagingHosts"
-        return home / "Library" / "Application Support" / "Google" / "Chrome" / "NativeMessagingHosts"
+            return (
+                home
+                / "Library"
+                / "Application Support"
+                / "BraveSoftware"
+                / "Brave-Browser"
+                / "NativeMessagingHosts"
+            )
+        return (
+            home / "Library" / "Application Support" / "Google" / "Chrome" / "NativeMessagingHosts"
+        )
     if sys.platform.startswith("win"):
         return None
     return home / ".config" / "google-chrome" / "NativeMessagingHosts"
@@ -369,10 +444,14 @@ def build_manifest(*, host_path: Path, extension_id: str) -> dict:
 def is_helper_installed(extension_id: Optional[str] = None, *, browser: str = "chrome") -> bool:
     manifest = manifest_path(browser)
     if not manifest or not manifest.exists():
-        log_helper_install(f"[Helper] is_helper_installed: manifest missing for {browser} at {manifest}")
+        log_helper_install(
+            f"[Helper] is_helper_installed: manifest missing for {browser} at {manifest}"
+        )
         return False
     if not extension_id:
-        log_helper_install("[Helper] is_helper_installed: extension_id not provided; manifest exists.")
+        log_helper_install(
+            "[Helper] is_helper_installed: extension_id not provided; manifest exists."
+        )
         return True
     try:
         data = json.loads(manifest.read_text(encoding="utf-8"))
@@ -403,14 +482,20 @@ def install_helper(
         log_helper_install("[Helper] install_helper failed: unsupported OS.")
         return HelperInstallResult(False, "Helper install not supported on this OS yet.")
     host_path = host_path or default_host_script()
-    log_helper_install(f"[Helper] install_helper: host_path={host_path} exists={host_path.exists()}")
-    
+    log_helper_install(
+        f"[Helper] install_helper: host_path={host_path} exists={host_path.exists()}"
+    )
+
     # Force copy to stable location and use THAT path for the manifest
     stable_path = _ensure_stable_helper(host_path)
-    log_helper_install(f"[Helper] install_helper: stable_path={stable_path} exists={stable_path.exists()}")
-    
+    log_helper_install(
+        f"[Helper] install_helper: stable_path={stable_path} exists={stable_path.exists()}"
+    )
+
     if not stable_path.exists():
-        log_helper_install(f"[Helper] install_helper failed: stable host not found at {stable_path}")
+        log_helper_install(
+            f"[Helper] install_helper failed: stable host not found at {stable_path}"
+        )
         return HelperInstallResult(False, f"Helper host not found: {stable_path}")
     try:
         mode = stable_path.stat().st_mode

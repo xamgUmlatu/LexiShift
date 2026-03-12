@@ -29,7 +29,28 @@ def _run(command: list[str]) -> int:
 
 
 def _supports_gui_build_validate() -> bool:
-    return platform.system() == "Darwin"
+    return platform.system() in {"Darwin", "Windows"}
+
+
+def _find_windows_artifact_paths(project_root: Path) -> list[ExpectedArtifact]:
+    dist_root = project_root / "apps" / "gui" / "dist"
+    main_direct = dist_root / "LexiShift.exe"
+    helper_direct = dist_root / "LexiShiftHelper.exe"
+    if main_direct.exists() and helper_direct.exists():
+        return [
+            ExpectedArtifact("gui_main_windows_exe", main_direct, "file"),
+            ExpectedArtifact("gui_helper_windows_exe", helper_direct, "file"),
+        ]
+
+    nested_specs: list[ExpectedArtifact] = []
+    nested_candidates = {
+        "gui_main_windows_exe": sorted(dist_root.glob("*/LexiShift.exe")),
+        "gui_helper_windows_exe": sorted(dist_root.glob("*/LexiShiftHelper.exe")),
+    }
+    for label, matches in nested_candidates.items():
+        if matches:
+            nested_specs.append(ExpectedArtifact(label, matches[0], "file"))
+    return nested_specs
 
 
 def _artifact_specs(
@@ -56,6 +77,8 @@ def _artifact_specs(
                 "file",
             ),
         ]
+    if label == "gui_build_validate" and platform_name == "Windows":
+        return _find_windows_artifact_paths(project_root)
     return []
 
 

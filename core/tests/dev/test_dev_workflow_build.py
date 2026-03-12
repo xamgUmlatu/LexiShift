@@ -85,6 +85,29 @@ class TestDevWorkflowBuild(unittest.TestCase):
 
         self.assertEqual(records, [])
 
+    def test_collect_artifact_records_for_windows_gui_build(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            project_root = Path(tmpdir)
+            main_exe = project_root / "apps" / "gui" / "dist" / "LexiShift" / "LexiShift.exe"
+            helper_exe = (
+                project_root / "apps" / "gui" / "dist" / "LexiShiftHelper" / "LexiShiftHelper.exe"
+            )
+            main_exe.parent.mkdir(parents=True, exist_ok=True)
+            helper_exe.parent.mkdir(parents=True, exist_ok=True)
+            main_exe.write_bytes(b"main")
+            helper_exe.write_bytes(b"helper")
+
+            records = collect_artifact_records(
+                "gui_build_validate",
+                project_root=project_root,
+                platform_name="Windows",
+            )
+
+        labels = {str(record["label"]): record for record in records}
+        self.assertEqual(set(labels), {"gui_main_windows_exe", "gui_helper_windows_exe"})
+        self.assertTrue(labels["gui_main_windows_exe"]["exists"])
+        self.assertTrue(labels["gui_helper_windows_exe"]["exists"])
+
 
 if __name__ == "__main__":
     unittest.main()

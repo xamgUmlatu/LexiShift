@@ -136,7 +136,7 @@ Use this file when:
 - Known gaps:
   - Repo-wide Ruff lint is still outside the default `check` command because current unrelated style debt would make the safety gate noisy.
   - GUI packaging makes `build` materially slower than `check`.
-  - Hosted CI still lacks Windows build validation; current hosted build proof is macOS full + Ubuntu CI-safe partial.
+  - Hosted build coverage is now macOS full, Windows full, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
 
@@ -144,21 +144,25 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `advisory`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` code audit + Windows CI planning review
+- Last verified: `2026-03-12` parity audit rerun + targeted Windows helper/runtime tests
 - Default behavior:
   - `npm --prefix scripts run check:windows:parity` writes a machine-readable advisory audit of Windows GUI/helper/build parity.
   - `npm --prefix scripts run check:windows:parity:summary` renders the current parity state into Markdown for human handoff.
-  - Hosted CI now has a Windows advisory lane for CI-safe build reporting plus parity audit artifacts.
+  - Hosted CI now has a Windows full-build lane plus parity audit artifacts.
 - Evidence:
   - `docs/developer/windows_gui_parity_workstream.md`
   - `scripts/dev/windows_parity_audit.py`
   - `scripts/dev/windows_parity_summary.py`
+  - `apps/gui/src/frozen_layout.py`
+  - `apps/gui/src/helper_installer.py`
+  - `apps/gui/src/helper_ui.py`
+  - `apps/gui/src/helper_tray.py`
   - `docs/test_outputs/dev_workflow/windows_parity_latest.json`
   - `docs/test_outputs/dev_workflow/windows_parity_summary_latest.md`
   - `.github/workflows/ci.yml`
 - Known gaps:
-  - Current audit should report explicit parity failures until Windows helper packaging, Windows build-output validation, Windows helper autostart, and Windows frozen tray-launch handoff are implemented.
-  - The new Windows CI lane is advisory and CI-safe; it does not yet run a full Windows GUI build.
+  - The parity audit now explicitly fails on Windows native-messaging manifest/registry installation because the GUI helper flow still treats Windows helper install as unsupported.
+  - The Windows lane is still an advisory parity signal, not a hard release gate.
 
 ## Feature-State Evidence Audit
 

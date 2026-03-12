@@ -256,27 +256,27 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-      - name: Install dev tools
+      - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
-      - name: Windows CI-safe build report
-        run: npm --prefix scripts run build:ci:report
-      - name: Upload Windows CI-safe build report
+          pip install -r requirements-build.txt
+      - name: Windows build report
+        run: npm --prefix scripts run build:report
+      - name: Upload Windows build report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: workflow-build-report-windows
-          path: docs/test_outputs/dev_workflow/build_ci_latest.json
-      - name: Write Windows CI-safe build summary
+          path: docs/test_outputs/dev_workflow/build_latest.json
+      - name: Write Windows build summary
         if: always()
         run: |
           python scripts/dev/dev_workflow_summary.py `
-            --build-json docs/test_outputs/dev_workflow/build_ci_latest.json `
-            --title "Build Safety (Windows CI Safe)" `
+            --build-json docs/test_outputs/dev_workflow/build_latest.json `
+            --title "Build Safety (Windows Full)" `
             --markdown-out docs/test_outputs/dev_workflow/build_windows_ci.md `
             --append-to "$env:GITHUB_STEP_SUMMARY"
-      - name: Upload Windows CI-safe build summary
+      - name: Upload Windows build summary
         if: always()
         uses: actions/upload-artifact@v4
         with:

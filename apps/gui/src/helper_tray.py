@@ -12,13 +12,19 @@ from PySide6.QtCore import QCoreApplication, QLocale, QSettings, Qt, QTimer
 from PySide6.QtGui import QAction, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
+from frozen_layout import (
+    MAIN_APP_BUNDLE_NAME,
+    MAIN_WINDOWS_DIR_NAME,
+    MAIN_WINDOWS_EXE_NAME,
+    resolve_macos_sibling_bundle,
+    resolve_windows_sibling_executable,
+)
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from helper_daemon import DaemonConfig, run_daemon
 from i18n import set_locale, t
 from utils_paths import resource_path, reveal_path
 
-MAIN_APP_BUNDLE_NAME = "LexiShift.app"
 SYS = import_module("sys")
 
 
@@ -81,25 +87,44 @@ def _open_main_app() -> None:
     if getattr(SYS, "frozen", False):
         # On macOS helper builds, open the main app bundle directly.
         if SYS.platform == "darwin":
-            exe_path = Path(SYS.executable)
-            if exe_path.parent.name == "MacOS" and exe_path.parent.parent.name == "Contents":
-                current_bundle = exe_path.parent.parent.parent
-                main_bundle = current_bundle.with_name(MAIN_APP_BUNDLE_NAME)
-                if not main_bundle.exists():
-                    _log_line(paths, f"[{datetime.now()}] Main app bundle not found: {main_bundle}")
-                    return
-                cmd = ["open", str(main_bundle)]
-                try:
-                    _log_line(paths, f"[{datetime.now()}] Tray launching via open: {cmd}")
-                    Popen(cmd, close_fds=True)
-                    return
-                except Exception as e:
-                    _log_line(paths, f"[{datetime.now()}] Tray failed to launch via open: {e}")
-                    return
+            exe_path = Path(SYS.executable).resolve()
+            main_bundle = resolve_macos_sibling_bundle(exe_path, MAIN_APP_BUNDLE_NAME)
+            if main_bundle is None:
+                _log_line(
+                    paths, f"[{datetime.now()}] Main app bundle not found next to: {exe_path}"
+                )
+                return
+            cmd = ["open", str(main_bundle)]
+            try:
+                _log_line(paths, f"[{datetime.now()}] Tray launching via open: {cmd}")
+                Popen(cmd, close_fds=True)
+                return
+            except Exception as e:
+                _log_line(paths, f"[{datetime.now()}] Tray failed to launch via open: {e}")
+                return
 
-        # Clean up environment to prevent PyInstaller one-file conflicts
         for key in ["_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]:
             env.pop(key, None)
+        if SYS.platform.startswith("win"):
+            exe_path = Path(SYS.executable).resolve()
+            main_executable = resolve_windows_sibling_executable(
+                exe_path,
+                preferred_dir_name=MAIN_WINDOWS_DIR_NAME,
+                exe_name=MAIN_WINDOWS_EXE_NAME,
+            )
+            if main_executable is None:
+                _log_line(
+                    paths, f"[{datetime.now()}] Main executable not found next to: {exe_path}"
+                )
+                return
+            cmd = [str(main_executable)]
+            try:
+                _log_line(paths, f"[{datetime.now()}] Tray launching Windows main app: {cmd}")
+                Popen(cmd, close_fds=True, env=env)
+                return
+            except Exception as e:
+                _log_line(paths, f"[{datetime.now()}] Tray failed to launch Windows main app: {e}")
+                return
         cmd = [SYS.executable]
     else:
         entry = Path(__file__).resolve().parent / "main.py"

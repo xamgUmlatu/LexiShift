@@ -7,12 +7,19 @@ from typing import Optional, Tuple
 from PySide6.QtCore import QSettings
 from PySide6.QtWidgets import QInputDialog, QFileDialog
 
+from frozen_layout import (
+    HELPER_APP_BUNDLE_NAME,
+    HELPER_WINDOWS_DIR_NAME,
+    HELPER_WINDOWS_EXE_NAME,
+    resolve_macos_sibling_bundle,
+    resolve_windows_sibling_executable,
+)
 from helper_installer import (
     ExtensionEnvironment,
     default_host_script,
     get_environment,
     install_helper,
-    install_launch_agent,
+    install_helper_autostart,
     is_helper_installed,
     log_helper_install,
     load_extension_environments,
@@ -21,13 +28,54 @@ from helper_installer import (
 from helper_logger import log_helper
 from i18n import t
 
-HELPER_APP_BUNDLE_NAME = "LexiShift Helper.app"
 HELPER_EXECUTABLE_NAME = "LexiShiftHelper"
 HELPER_BUNDLE_IDENTIFIER = "com.lexishift.helper.agent"
 MAIN_BUNDLE_IDENTIFIER = "com.lexishift.app"
 
 
-def get_helper_environment(ui_settings: QSettings) -> tuple[Optional[ExtensionEnvironment], Optional[str]]:
+def _prefer_windows_gui_python(executable: str) -> str:
+    candidate = Path(executable)
+    if candidate.name.lower() == "python.exe":
+        pythonw = candidate.with_name("pythonw.exe")
+        if pythonw.exists():
+            return str(pythonw)
+    return str(candidate)
+
+
+def _helper_program_args() -> list[str]:
+    if getattr(sys, "frozen", False):
+        current_exe = Path(sys.executable).resolve()
+        if sys.platform == "darwin":
+            helper_bundle = resolve_macos_sibling_bundle(current_exe, HELPER_APP_BUNDLE_NAME)
+            if helper_bundle is None:
+                raise RuntimeError(f"Helper app bundle not found next to: {current_exe}")
+            helper_executable = helper_bundle / "Contents" / "MacOS" / HELPER_EXECUTABLE_NAME
+            if not helper_executable.exists():
+                raise RuntimeError(f"Helper executable not found: {helper_executable}")
+            return [str(helper_executable)]
+        if sys.platform.startswith("win"):
+            helper_executable = resolve_windows_sibling_executable(
+                current_exe,
+                preferred_dir_name=HELPER_WINDOWS_DIR_NAME,
+                exe_name=HELPER_WINDOWS_EXE_NAME,
+            )
+            if helper_executable is None:
+                raise RuntimeError(f"Helper executable not found next to: {current_exe}")
+            return [str(helper_executable)]
+        return [str(current_exe)]
+
+    entry = Path(__file__).resolve().parent / "helper_app.py"
+    python_executable = (
+        _prefer_windows_gui_python(sys.executable)
+        if sys.platform.startswith("win")
+        else sys.executable
+    )
+    return [python_executable, str(entry)]
+
+
+def get_helper_environment(
+    ui_settings: QSettings,
+) -> tuple[Optional[ExtensionEnvironment], Optional[str]]:
     envs, default_key = load_extension_environments()
     if not envs:
         log_helper_install("[Helper] get_helper_environment: no environments loaded.")
@@ -123,29 +171,15 @@ def prompt_for_helper_environment(
 
 
 def ensure_helper_autostart() -> None:
-    if sys.platform != "darwin":
-        raise RuntimeError("Helper autostart is currently supported on macOS only.")
-    if getattr(sys, "frozen", False):
-        current_exe = Path(sys.executable).resolve()
-        current_macos_dir = current_exe.parent
-        current_contents_dir = current_macos_dir.parent
-        current_bundle_dir = current_contents_dir.parent
-        if current_macos_dir.name != "MacOS" or current_contents_dir.name != "Contents" or current_bundle_dir.suffix != ".app":
-            raise RuntimeError(f"Unexpected app executable layout: {current_exe}")
-        helper_bundle = current_bundle_dir.with_name(HELPER_APP_BUNDLE_NAME)
-        helper_executable = helper_bundle / "Contents" / "MacOS" / HELPER_EXECUTABLE_NAME
-        if not helper_executable.exists():
-            raise RuntimeError(f"Helper executable not found: {helper_executable}")
-        program_args = [str(helper_executable)]
-    else:
-        entry = Path(__file__).resolve().parent / "helper_app.py"
-        program_args = [sys.executable, str(entry)]
-    log_helper(f"[Helper] Ensuring LaunchAgent with args: {program_args}")
-    if not install_launch_agent(
+    if sys.platform != "darwin" and not sys.platform.startswith("win"):
+        raise RuntimeError("Helper autostart is currently supported on macOS and Windows only.")
+    program_args = _helper_program_args()
+    log_helper(f"[Helper] Ensuring helper autostart with args: {program_args}")
+    if not install_helper_autostart(
         program_args,
         associated_bundle_identifiers=[HELPER_BUNDLE_IDENTIFIER, MAIN_BUNDLE_IDENTIFIER],
     ):
-        raise RuntimeError("Failed to install LaunchAgent for helper tray.")
+        raise RuntimeError("Failed to install helper autostart for helper tray.")
 
 
 def auto_install_helper(ui_settings: QSettings) -> bool:
@@ -187,6 +221,8 @@ def auto_install_helper(ui_settings: QSettings) -> bool:
             ensure_helper_autostart()
             return True
         except Exception as exc:  # noqa: BLE001
-            log_helper(f"[Helper] auto_install_helper: helper installed but autostart failed: {exc}")
+            log_helper(
+                f"[Helper] auto_install_helper: helper installed but autostart failed: {exc}"
+            )
             return False
     return False

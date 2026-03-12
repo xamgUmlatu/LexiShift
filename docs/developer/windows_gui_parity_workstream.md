@@ -26,14 +26,12 @@ Current interpretation:
 - `FAIL`: parity gap is explicit and should remain tracked until resolved
 
 Current known gaps:
-- helper tray packaging is macOS-only in the PyInstaller spec
-- build-output validation is macOS-only
-- helper autostart is macOS-only
-- frozen helper tray launch has no Windows-specific handoff to the main app
-- hosted Windows CI validation is still advisory until a Windows lane is added and stabilized
+- native-messaging install and browser-host registration are now tracked explicitly and remain unimplemented on Windows
+- the current audit should remain `FAIL` until Windows native-messaging manifest and registry installation are implemented in the GUI helper flow
+- full Windows release confidence still depends on hosted build stability over time, not just one green audit snapshot
 
 Recommended rollout order:
-1. keep the Windows parity audit green for areas that already have parity
-2. add hosted Windows reporting before attempting full Windows GUI build parity
-3. add Windows build validation once `.exe` / dist expectations are explicit
+1. keep the packaged GUI/helper parity checks green while tracking Windows native-messaging install as an explicit failure
+2. keep the hosted Windows full-build lane stable enough to become a trusted release signal
+3. expand the audit beyond packaging/runtime parity into Windows native-messaging install coverage
 4. only then promote Windows GUI parity items from advisory to required workflow gates

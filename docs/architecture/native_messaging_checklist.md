@@ -56,9 +56,10 @@ Status key:
 - `[x]` Fallback to cached ruleset if helper offline.
 - `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
 - `[x]` Scope helper cache + feedback payloads by `profile_id` to avoid cross-profile leakage.
+- `[ ]` Support Windows native-messaging manifest + registry installation from the GUI helper flow.
 
 ## Phase 4 — Background Scheduling
-- `[x]` Start helper tray at login on macOS (LaunchAgent).
+- `[x]` Start helper tray at login on macOS and Windows (LaunchAgent / Run key).
 - `[x]` Schedule periodic rulegen (daemon loop).
 - `[ ]` Trigger planner-driven refresh on signal thresholds.
 - `[ ]` Add policy to decide bootstrap vs growth vs adaptive refresh.

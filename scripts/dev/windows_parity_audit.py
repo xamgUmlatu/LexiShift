@@ -110,7 +110,13 @@ def assess_windows_helper_packaging(spec_text: str) -> ParityCheck:
     windows_else = "coll = COLLECT(" in spec_after_else
     windows_helper_branch = any(
         marker in spec_after_else
-        for marker in ("helper_a = Analysis(", "helper_pyz = PYZ(", "helper_app = BUNDLE(")
+        for marker in (
+            "helper_a = Analysis(",
+            "helper_pyz = PYZ(",
+            "helper_app = BUNDLE(",
+            "helper_coll = COLLECT(",
+            "helper_exe,",
+        )
     )
     if helper_defined and windows_else and not windows_helper_branch:
         status = "FAIL"
@@ -174,6 +180,41 @@ def assess_windows_helper_autostart(helper_installer_text: str, checklist_text: 
         evidence=[
             "apps/gui/src/helper_installer.py",
             "docs/architecture/native_messaging_checklist.md",
+        ],
+    )
+
+
+def assess_windows_native_messaging_install(helper_installer_text: str) -> ParityCheck:
+    unsupported_markers = (
+        'if sys.platform.startswith("win"):\n        return None',
+        "Helper install not supported on this OS yet.",
+    )
+    registry_markers = (
+        r"Software\Google\Chrome\NativeMessagingHosts",
+        r"Software\Chromium\NativeMessagingHosts",
+        r"Software\BraveSoftware\Brave-Browser\NativeMessagingHosts",
+    )
+    has_windows_registry_support = any(
+        marker in helper_installer_text for marker in registry_markers
+    )
+    explicitly_unsupported = any(marker in helper_installer_text for marker in unsupported_markers)
+    if explicitly_unsupported or not has_windows_registry_support:
+        status = "FAIL"
+        summary = (
+            "Windows native-messaging install is still unsupported in the GUI helper flow; "
+            "helper manifest/registry registration remains macOS/Linux-only."
+        )
+    else:
+        status = "PASS"
+        summary = "Windows native-messaging install includes manifest and registry registration."
+    return ParityCheck(
+        key="windows_native_messaging_install",
+        title="Windows Native Messaging Install",
+        status=status,
+        summary=summary,
+        evidence=[
+            "apps/gui/src/helper_installer.py",
+            "scripts/helper/native_messaging/com.lexishift.helper-win.json",
         ],
     )
 
@@ -260,6 +301,7 @@ def build_audit(project_root: Path = PROJECT_ROOT) -> dict[str, object]:
         assess_windows_helper_packaging(spec_text),
         assess_windows_bundle_validation(validator_text),
         assess_windows_helper_autostart(helper_installer_text, checklist_text),
+        assess_windows_native_messaging_install(helper_installer_text),
         assess_windows_tray_launch(helper_tray_text),
         assess_hosted_windows_validation(ci_text),
     ]

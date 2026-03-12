@@ -13,6 +13,7 @@ from windows_parity_audit import (  # noqa: E402
     assess_hosted_windows_validation,
     assess_windows_bundle_validation,
     assess_windows_helper_packaging,
+    assess_windows_native_messaging_install,
     assess_windows_tray_launch,
 )
 
@@ -45,6 +46,18 @@ jobs:
 """
         result = assess_hosted_windows_validation(ci_text)
         self.assertEqual(result.status, "PASS")
+
+    def test_native_messaging_install_fails_when_windows_path_is_unsupported(self) -> None:
+        helper_installer_text = """
+def _chrome_host_dir(browser: str = "chrome"):
+    if sys.platform.startswith("win"):
+        return None
+
+def install_helper():
+    return "Helper install not supported on this OS yet."
+"""
+        result = assess_windows_native_messaging_install(helper_installer_text)
+        self.assertEqual(result.status, "FAIL")
 
     def test_tray_launch_fails_without_windows_specific_frozen_launch(self) -> None:
         helper_tray_text = """
