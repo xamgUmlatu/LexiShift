@@ -62,9 +62,15 @@ def betterdiscord_build_command() -> list[str]:
     return ["node", str(BETTERDISCORD_BUILD_SCRIPT)]
 
 
-def gui_build_command(python_executable: str | None = None) -> list[str]:
+def gui_build_command(
+    python_executable: str | None = None, *, platform_name: str | None = None
+) -> list[str]:
     executable = python_executable or sys.executable
-    return [executable, str(GUI_BUILD_SCRIPT), "--validate", "--no-clean"]
+    resolved_platform = platform_name or platform.system()
+    command = [executable, str(GUI_BUILD_SCRIPT), "--no-clean"]
+    if resolved_platform == "Darwin":
+        command.append("--validate")
+    return command
 
 
 def _supports_gui_build_validate() -> bool:
@@ -198,7 +204,9 @@ def main() -> None:
                 }
             )
         else:
-            commands.append(("gui_build_validate", gui_build_command()))
+            commands.append(
+                ("gui_build_validate", gui_build_command(platform_name=platform.system()))
+            )
 
     results: list[dict[str, object]] = []
     all_artifacts: list[dict[str, object]] = []

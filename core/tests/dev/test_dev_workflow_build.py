@@ -24,12 +24,16 @@ class TestDevWorkflowBuild(unittest.TestCase):
         command = betterdiscord_build_command()
         self.assertEqual(command, ["node", str(BETTERDISCORD_BUILD_SCRIPT)])
 
-    def test_gui_build_command_uses_absolute_script_path_and_no_clean(self) -> None:
-        command = gui_build_command("/tmp/python")
+    def test_gui_build_command_uses_absolute_script_path_and_no_clean_on_macos(self) -> None:
+        command = gui_build_command("/tmp/python", platform_name="Darwin")
         self.assertEqual(
             command,
-            ["/tmp/python", str(GUI_BUILD_SCRIPT), "--validate", "--no-clean"],
+            ["/tmp/python", str(GUI_BUILD_SCRIPT), "--no-clean", "--validate"],
         )
+
+    def test_gui_build_command_skips_validate_on_windows(self) -> None:
+        command = gui_build_command("/tmp/python", platform_name="Windows")
+        self.assertEqual(command, ["/tmp/python", str(GUI_BUILD_SCRIPT), "--no-clean"])
 
     def test_collect_artifact_records_for_betterdiscord_bundle(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
