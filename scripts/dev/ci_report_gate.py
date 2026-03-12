@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -15,16 +16,40 @@ def _load_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _first_failed_command(payload: dict[str, Any]) -> dict[str, Any] | None:
+    commands = payload.get("commands")
+    if not isinstance(commands, list):
+        return None
+    for item in commands:
+        if not isinstance(item, dict):
+            continue
+        exit_code = int(item.get("artifact_verification_exit_code") or item.get("exit_code") or 0)
+        if exit_code != 0:
+            return item
+    return None
+
+
 def _gate_check(path: Path) -> tuple[bool, str]:
     payload = _load_json(path)
     exit_code = int(payload.get("overall_exit_code") or 0)
-    return exit_code == 0, f"check_report overall_exit_code={exit_code}"
+    message = f"check_report overall_exit_code={exit_code}"
+    failed = _first_failed_command(payload)
+    if failed:
+        message += f" first_failed_command={failed.get('label')}"
+    return exit_code == 0, message
 
 
 def _gate_build(path: Path) -> tuple[bool, str]:
     payload = _load_json(path)
     exit_code = int(payload.get("overall_exit_code") or 0)
-    return exit_code == 0, f"build_report overall_exit_code={exit_code}"
+    message = f"build_report overall_exit_code={exit_code}"
+    failed = _first_failed_command(payload)
+    if failed:
+        message += f" first_failed_command={failed.get('label')}"
+        missing = failed.get("missing_artifacts")
+        if isinstance(missing, list) and missing:
+            message += f" missing_artifacts={len(missing)}"
+    return exit_code == 0, message
 
 
 def _gate_windows_parity(path: Path) -> tuple[bool, str]:
@@ -74,6 +99,8 @@ def main() -> None:
     for ok, message in evaluations:
         prefix = "PASS" if ok else "FAIL"
         print(f"[{prefix}] {message}")
+        if not ok and os.environ.get("GITHUB_ACTIONS") == "true":
+            print(f"::error title=CI report gate::{message}")
 
     raise SystemExit(1 if failures else 0)
 

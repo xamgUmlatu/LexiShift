@@ -57,8 +57,30 @@ class TestCiReportGate(unittest.TestCase):
             root = Path(tmpdir)
             check_json = root / "check.json"
             build_json = root / "build.json"
-            self._write_json(check_json, {"overall_exit_code": 1})
-            self._write_json(build_json, {"overall_exit_code": 0})
+            self._write_json(
+                check_json,
+                {
+                    "overall_exit_code": 1,
+                    "commands": [
+                        {"label": "unit_tests", "exit_code": 0},
+                        {"label": "mypy", "exit_code": 1},
+                    ],
+                },
+            )
+            self._write_json(
+                build_json,
+                {
+                    "overall_exit_code": 1,
+                    "commands": [
+                        {
+                            "label": "gui_build_validate",
+                            "exit_code": 0,
+                            "artifact_verification_exit_code": 1,
+                            "missing_artifacts": ["/tmp/LexiShift.app"],
+                        }
+                    ],
+                },
+            )
 
             result = subprocess.run(
                 [
@@ -75,8 +97,14 @@ class TestCiReportGate(unittest.TestCase):
             )
 
         self.assertEqual(result.returncode, 1)
-        self.assertIn("[FAIL] check_report overall_exit_code=1", result.stdout)
-        self.assertIn("[PASS] build_report overall_exit_code=0", result.stdout)
+        self.assertIn(
+            "[FAIL] check_report overall_exit_code=1 first_failed_command=mypy",
+            result.stdout,
+        )
+        self.assertIn(
+            "[FAIL] build_report overall_exit_code=1 first_failed_command=gui_build_validate missing_artifacts=1",
+            result.stdout,
+        )
 
 
 if __name__ == "__main__":
