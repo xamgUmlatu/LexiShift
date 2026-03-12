@@ -9,6 +9,8 @@ MAIN_WINDOWS_EXE_NAME = "LexiShift.exe"
 HELPER_APP_BUNDLE_NAME = "LexiShift Helper.app"
 HELPER_WINDOWS_DIR_NAME = "LexiShiftHelper"
 HELPER_WINDOWS_EXE_NAME = "LexiShiftHelper.exe"
+NATIVE_HOST_WINDOWS_DIR_NAME = "LexiShiftNativeHost"
+NATIVE_HOST_WINDOWS_EXE_NAME = "lexishift_native_host.exe"
 
 
 def resolve_macos_sibling_bundle(current_executable: Path, bundle_name: str) -> Path | None:

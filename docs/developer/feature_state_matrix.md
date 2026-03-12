@@ -99,9 +99,10 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` build report rerun + CI review + Windows parity audit
+- Last verified: `2026-03-12` build report rerun + repo-safety parity integration + CI review
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
+  - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
@@ -109,6 +110,7 @@ Use this file when:
   - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
   - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
   - `npm --prefix scripts run check:style` is the advisory repo-wide style/debt command.
+  - `npm --prefix scripts run check:style:report` and `check:style:summary` publish the current repo-wide Ruff debt as JSON and Markdown artifacts without failing the default repo-safety gate.
   - `npm --prefix scripts run check:state` audits the feature-state ledger for required fields, dated checkpoints, evidence paths, and transition-aware updates relative to `HEAD`.
   - `npm --prefix scripts run check:report`, `check:changed:report`, and `build:report` emit machine-readable JSON artifacts for automation.
   - `npm --prefix scripts run check:summary` renders a Markdown summary from the latest workflow reports.
@@ -119,6 +121,7 @@ Use this file when:
   - `scripts/dev/dev_workflow_changed_check.py`
   - `scripts/dev/dev_workflow_build.py`
   - `scripts/dev/dev_workflow_style_check.py`
+  - `scripts/dev/dev_workflow_style_summary.py`
   - `scripts/dev/run_python.js`
   - `apps/betterdiscord-plugin/build_plugin.js`
   - `.pre-commit-config.yaml`
@@ -131,6 +134,8 @@ Use this file when:
   - `docs/test_outputs/dev_workflow/build_latest.json`
   - `docs/test_outputs/dev_workflow/build_ci_latest.json`
   - `docs/test_outputs/dev_workflow/summary_latest.md`
+  - `docs/test_outputs/dev_workflow/style_latest.json`
+  - `docs/test_outputs/dev_workflow/style_summary_latest.md`
   - `docs/developer/local_setup.md`
   - `docs/developer/build_and_release.md`
 - Known gaps:
@@ -142,13 +147,16 @@ Use this file when:
 
 ## Windows GUI Parity Audit
 
-- Status: `implemented`, `verified`, `default-on` = `advisory`
+- Status: `implemented`, `verified`, `default-on`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` parity audit rerun + targeted Windows helper/runtime tests
+- Last verified: `2026-03-12` parity audit rerun + repo-safety integration + changed-scope/CI workflow wiring review
 - Default behavior:
-  - `npm --prefix scripts run check:windows:parity` writes a machine-readable advisory audit of Windows GUI/helper/build parity.
+  - `npm --prefix scripts run check` now runs the strict Windows parity audit as part of repo safety and pre-push.
+  - `npm --prefix scripts run check:windows:parity` writes a machine-readable parity audit of Windows GUI/helper/build parity.
   - `npm --prefix scripts run check:windows:parity:summary` renders the current parity state into Markdown for human handoff.
   - Hosted CI now has a Windows full-build lane plus parity audit artifacts.
+  - `npm --prefix scripts run check:changed` now runs the Windows parity audit automatically when parity-related files change.
+  - Windows CI now uses the strict parity audit command so parity regressions fail the hosted workflow.
 - Evidence:
   - `docs/developer/windows_gui_parity_workstream.md`
   - `scripts/dev/windows_parity_audit.py`
@@ -157,12 +165,13 @@ Use this file when:
   - `apps/gui/src/helper_installer.py`
   - `apps/gui/src/helper_ui.py`
   - `apps/gui/src/helper_tray.py`
+  - `docs/architecture/native_messaging_design.md`
   - `docs/test_outputs/dev_workflow/windows_parity_latest.json`
   - `docs/test_outputs/dev_workflow/windows_parity_summary_latest.md`
   - `.github/workflows/ci.yml`
 - Known gaps:
-  - The parity audit now explicitly fails on Windows native-messaging manifest/registry installation because the GUI helper flow still treats Windows helper install as unsupported.
-  - The Windows lane is still an advisory parity signal, not a hard release gate.
+  - The parity audit is now a required workflow gate, but it is still not a complete release certification on its own.
+  - Current browser coverage is limited to the supported GUI helper environments (`chrome`, `chromium`, `brave`).
 
 ## Feature-State Evidence Audit
 

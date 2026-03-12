@@ -19,6 +19,7 @@ class TestValidateAppBundle(unittest.TestCase):
             dist = Path(tmpdir) / "dist"
             main_root = dist / "LexiShift"
             helper_root = dist / "LexiShiftHelper"
+            host_root = dist / "LexiShiftNativeHost"
             (main_root / "resources" / "helper" / "lexishift_core").mkdir(
                 parents=True, exist_ok=True
             )
@@ -26,8 +27,10 @@ class TestValidateAppBundle(unittest.TestCase):
             (main_root / "resources" / "themes").mkdir(parents=True, exist_ok=True)
             (main_root / "resources" / "sample_images").mkdir(parents=True, exist_ok=True)
             (helper_root / "resources" / "i18n").mkdir(parents=True, exist_ok=True)
+            host_root.mkdir(parents=True, exist_ok=True)
             (main_root / "LexiShift.exe").write_bytes(b"main")
             (helper_root / "LexiShiftHelper.exe").write_bytes(b"helper")
+            (host_root / "lexishift_native_host.exe").write_bytes(b"host")
             (main_root / "resources" / "helper" / "lexishift_native_host.py").write_text(
                 "host\n",
                 encoding="utf-8",

@@ -13,6 +13,8 @@
     "check:changed:strict-style": "node dev/run_python.js dev/dev_workflow_changed_check.py --base-ref origin/main --strict-style",
     "check:summary": "node dev/run_python.js dev/dev_workflow_summary.py --check-json ../docs/test_outputs/dev_workflow/check_latest.json --changed-json ../docs/test_outputs/dev_workflow/check_changed_latest.json --build-json ../docs/test_outputs/dev_workflow/build_latest.json --markdown-out ../docs/test_outputs/dev_workflow/summary_latest.md",
     "check:style": "node dev/run_python.js dev/dev_workflow_style_check.py",
+    "check:style:report": "node dev/run_python.js dev/dev_workflow_style_check.py --json-out ../docs/test_outputs/dev_workflow/style_latest.json",
+    "check:style:summary": "node dev/run_python.js dev/dev_workflow_style_summary.py --style-json ../docs/test_outputs/dev_workflow/style_latest.json --markdown-out ../docs/test_outputs/dev_workflow/style_summary_latest.md",
     "check:style:strict": "node dev/run_python.js dev/dev_workflow_style_check.py --strict",
     "check:windows:parity": "node dev/run_python.js dev/windows_parity_audit.py --json-out ../docs/test_outputs/dev_workflow/windows_parity_latest.json",
     "check:windows:parity:strict": "node dev/run_python.js dev/windows_parity_audit.py --strict --json-out ../docs/test_outputs/dev_workflow/windows_parity_latest.json",

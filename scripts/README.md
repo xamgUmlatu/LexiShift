@@ -23,6 +23,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
+  - Automatically runs the Windows parity audit when parity-related GUI/helper/build files change
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`
   - Used by `npm --prefix scripts run check:summary` and CI step summaries
@@ -31,6 +32,10 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   - Keeps `npm --prefix scripts run check` / `build` / quality wrappers usable on Windows where `python3` may not exist by name
 - Repo-wide style/debt advisory check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
   `dev/dev_workflow_style_check.py`
+  - JSON artifact via `npm --prefix scripts run check:style:report`
+- Repo-wide style/debt Markdown summary renderer:
+  `dev/dev_workflow_style_summary.py`
+  - Used by `npm --prefix scripts run check:style:summary` and CI advisory summaries
 - Repo build safety (BetterDiscord bundle + GUI PyInstaller build/validate):
   `dev/dev_workflow_build.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run build:report`
@@ -39,7 +44,8 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Windows GUI parity audit:
   `dev/windows_parity_audit.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:windows:parity`
-  - Tracks known Windows parity gaps as advisory workflow evidence
+  - The strict parity audit now runs inside `npm --prefix scripts run check`
+  - Windows CI uses the strict variant so parity regressions fail the hosted workflow
 - Windows GUI parity Markdown summary renderer:
   `dev/windows_parity_summary.py`
   - Used by `npm --prefix scripts run check:windows:parity:summary` and Windows CI summaries

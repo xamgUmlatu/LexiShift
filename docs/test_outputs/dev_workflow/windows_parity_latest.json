@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T00:54:28.902747+00:00",
-  "status": "FAIL",
+  "generated_at_utc": "2026-03-12T02:35:44.118405+00:00",
+  "status": "PASS",
   "counts": {
-    "pass": 8,
+    "pass": 9,
     "warn": 0,
-    "fail": 1
+    "fail": 0
   },
   "checks": [
     {
@@ -71,8 +71,8 @@
     {
       "key": "windows_native_messaging_install",
       "title": "Windows Native Messaging Install",
-      "status": "FAIL",
-      "summary": "Windows native-messaging install is still unsupported in the GUI helper flow; helper manifest/registry registration remains macOS/Linux-only.",
+      "status": "PASS",
+      "summary": "Windows native-messaging install includes manifest and registry registration.",
       "evidence": [
         "apps/gui/src/helper_installer.py",
         "scripts/helper/native_messaging/com.lexishift.helper-win.json"

@@ -160,11 +160,14 @@ Pre-commit hooks:
 - use `npm --prefix scripts run hooks:install` after dependency setup
 - current local hooks cover formatting hygiene, BetterDiscord generated bundle freshness, changed-only project health gating, and a pre-push repo safety check
 - current split is intentional: fixers stay on `pre-commit`, while `pre-push` runs the repo safety gate only
+- the repo safety gate now includes the strict Windows parity audit alongside tests, mypy, feature-state audit, and BetterDiscord freshness
 
 Style/debt advisory loop:
 
 ```bash
 npm --prefix scripts run check:style
+npm --prefix scripts run check:style:report
+npm --prefix scripts run check:style:summary
 ```
 
 Strict cleanup variant:
@@ -191,6 +194,8 @@ Windows parity audit:
 npm --prefix scripts run check:windows:parity
 npm --prefix scripts run check:windows:parity:summary
 ```
+
+Use the standalone parity commands when you want dedicated JSON/Markdown parity artifacts; the default `check` command already enforces the strict audit.
 
 Use `check:changed:local` or `check:changed:staged` when a long-running branch makes the branch-scope view too noisy for local iteration.
 

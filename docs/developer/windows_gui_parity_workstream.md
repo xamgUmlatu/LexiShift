@@ -7,6 +7,7 @@ Purpose:
 Primary commands:
 
 ```bash
+npm --prefix scripts run check
 npm --prefix scripts run check:windows:parity
 npm --prefix scripts run check:windows:parity:summary
 ```
@@ -18,6 +19,7 @@ What the audit currently checks:
 - Windows helper packaging parity in PyInstaller spec
 - Windows build-output validation coverage
 - Windows helper autostart coverage
+- Windows native-messaging manifest + registry installation coverage
 - Windows frozen tray-to-main-app launch behavior
 - Hosted CI Windows runner coverage
 
@@ -26,12 +28,12 @@ Current interpretation:
 - `FAIL`: parity gap is explicit and should remain tracked until resolved
 
 Current known gaps:
-- native-messaging install and browser-host registration are now tracked explicitly and remain unimplemented on Windows
-- the current audit should remain `FAIL` until Windows native-messaging manifest and registry installation are implemented in the GUI helper flow
 - full Windows release confidence still depends on hosted build stability over time, not just one green audit snapshot
+- the parity audit is now a required workflow gate in `check` / pre-push / Windows CI, but it is not by itself a full release certification
+- browser-specific install coverage is currently limited to the supported GUI environments (`chrome`, `chromium`, `brave`)
 
 Recommended rollout order:
-1. keep the packaged GUI/helper parity checks green while tracking Windows native-messaging install as an explicit failure
+1. keep the packaged GUI/helper/native-host parity checks green
 2. keep the hosted Windows full-build lane stable enough to become a trusted release signal
-3. expand the audit beyond packaging/runtime parity into Windows native-messaging install coverage
-4. only then promote Windows GUI parity items from advisory to required workflow gates
+3. expand the audit further only when new Windows-specific surfaces are added
+4. then decide whether to promote Windows GUI parity items from advisory to required workflow gates

@@ -143,6 +143,13 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
             )
         else:
             lines.append("- Feature-state audit: not required")
+    windows_parity = payload.get("windows_parity")
+    if isinstance(windows_parity, dict):
+        if bool(windows_parity.get("required")):
+            exit_code = int(windows_parity.get("exit_code") or 0)
+            lines.append(f"- Windows parity: required, {_bool_status(exit_code)}")
+        else:
+            lines.append("- Windows parity: not required")
     rulegen = payload.get("rulegen_quality")
     if isinstance(rulegen, dict):
         if bool(rulegen.get("required")):

@@ -12,11 +12,11 @@ npm --prefix scripts run build
 ```
 
 Notes:
-- `check` is the stable non-mutating repo safety loop.
+- `check` is the stable non-mutating repo safety loop and now includes the strict Windows parity audit.
 - `build` is the local build smoke for surfaces with maintained build paths.
 - `build:report` is the full build contract and is what hosted macOS CI runs.
 - `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip macOS-only GUI validation on unsupported hosts.
-- Repo-wide style lint remains separate until the current Ruff debt is reduced.
+- Repo-wide style lint remains separate until the current Ruff debt is reduced; use `check:style:report` / `check:style:summary` when you want a durable advisory artifact instead of terminal output only.
 
 ## GUI App Packaging (PyInstaller)
 

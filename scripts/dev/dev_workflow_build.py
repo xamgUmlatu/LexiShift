@@ -36,16 +36,19 @@ def _find_windows_artifact_paths(project_root: Path) -> list[ExpectedArtifact]:
     dist_root = project_root / "apps" / "gui" / "dist"
     main_direct = dist_root / "LexiShift.exe"
     helper_direct = dist_root / "LexiShiftHelper.exe"
-    if main_direct.exists() and helper_direct.exists():
+    host_direct = dist_root / "lexishift_native_host.exe"
+    if main_direct.exists() and helper_direct.exists() and host_direct.exists():
         return [
             ExpectedArtifact("gui_main_windows_exe", main_direct, "file"),
             ExpectedArtifact("gui_helper_windows_exe", helper_direct, "file"),
+            ExpectedArtifact("gui_native_host_windows_exe", host_direct, "file"),
         ]
 
     nested_specs: list[ExpectedArtifact] = []
     nested_candidates = {
         "gui_main_windows_exe": sorted(dist_root.glob("*/LexiShift.exe")),
         "gui_helper_windows_exe": sorted(dist_root.glob("*/LexiShiftHelper.exe")),
+        "gui_native_host_windows_exe": sorted(dist_root.glob("*/lexishift_native_host.exe")),
     }
     for label, matches in nested_candidates.items():
         if matches:

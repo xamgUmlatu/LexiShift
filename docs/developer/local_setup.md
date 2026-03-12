@@ -28,7 +28,7 @@ Installed pre-commit hooks currently cover:
 - BetterDiscord generated bundle freshness
 - feature-state ledger structure/evidence audit
 - changed-only project health gating against the checked-in baseline
-- pre-push repo safety via `npm --prefix scripts run check`
+- pre-push repo safety via `npm --prefix scripts run check` (including strict Windows parity audit)
 
 `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push` hooks.
 Current split:
@@ -68,6 +68,8 @@ npm --prefix scripts run check:windows:parity
 npm --prefix scripts run check:windows:parity:summary
 ```
 
+`npm --prefix scripts run check` already runs the strict parity audit. Use the standalone commands when you need the dedicated parity artifacts or are iterating on Windows-only workflow changes.
+
 Rulegen artifact summaries:
 
 ```bash
@@ -89,6 +91,8 @@ Style/debt advisory command:
 
 ```bash
 npm --prefix scripts run check:style
+npm --prefix scripts run check:style:report
+npm --prefix scripts run check:style:summary
 ```
 
 Strict variant for cleanup branches:

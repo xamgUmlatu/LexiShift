@@ -40,6 +40,20 @@ RULEGEN_QUALITY_PATH_HINTS: tuple[str, ...] = (
     "scripts/testing/rulegen_quality_gate_",
     "scripts/testing/rulegen_benchmark_triage.py",
 )
+WINDOWS_PARITY_PATH_HINTS: tuple[str, ...] = (
+    "apps/gui/packaging/pyinstaller.spec",
+    "apps/gui/packaging/installer_windows.iss",
+    "apps/gui/src/frozen_layout.py",
+    "apps/gui/src/helper_installer.py",
+    "apps/gui/src/helper_ui.py",
+    "apps/gui/src/helper_tray.py",
+    "scripts/build/installer.py",
+    "scripts/build/validate_app_bundle.py",
+    "scripts/dev/dev_workflow_build.py",
+    "scripts/dev/windows_parity_audit.py",
+    "scripts/dev/windows_parity_summary.py",
+    "docs/developer/windows_gui_parity_workstream.md",
+)
 FEATURE_STATE_MATRIX_PATH = "docs/developer/feature_state_matrix.md"
 
 
@@ -127,6 +141,14 @@ def _needs_rulegen_quality(changed_files: list[str]) -> bool:
         if normalized.startswith(RULEGEN_QUALITY_PATH_HINTS):
             return True
     return False
+
+
+def _needs_windows_parity(changed_files: list[str]) -> bool:
+    return any(
+        path.replace("\\", "/").startswith(WINDOWS_PARITY_PATH_HINTS)
+        or path.replace("\\", "/") in WINDOWS_PARITY_PATH_HINTS
+        for path in changed_files
+    )
 
 
 def _needs_feature_state_audit(changed_files: list[str]) -> bool:
@@ -295,6 +317,21 @@ def main() -> None:
     else:
         print("betterdiscord_freshness_check: skipped")
         payload["betterdiscord_freshness"] = {"required": False, "status": "skipped"}
+
+    if _needs_windows_parity(changed_files):
+        windows_parity_command = [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"]
+        windows_parity_exit_code = _run(windows_parity_command, strict=False)
+        payload["windows_parity"] = {
+            "required": True,
+            "command": windows_parity_command,
+            "exit_code": windows_parity_exit_code,
+        }
+        if windows_parity_exit_code != 0:
+            _write_json_report(args.json_out, payload)
+            raise SystemExit(windows_parity_exit_code)
+    else:
+        print("windows_parity_required: no")
+        payload["windows_parity"] = {"required": False, "status": "not-needed"}
 
     if _needs_rulegen_quality(changed_files):
         print("rulegen_quality_required: yes")

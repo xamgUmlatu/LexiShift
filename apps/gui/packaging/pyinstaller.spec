@@ -50,6 +50,8 @@ HELPER_BUNDLE_NAME = "LexiShift Helper"
 HELPER_DESCRIPTION = "LexiShift helper tray app"
 HELPER_BUNDLE_ID = "com.lexishift.helper.agent"
 HELPER_CATEGORY = "public.app-category.utilities"
+NATIVE_HOST_WINDOWS_DIR_NAME = "LexiShiftNativeHost"
+NATIVE_HOST_WINDOWS_EXE_NAME = "lexishift_native_host"
 
 # Paths to branding assets in the new structure
 icon_icns = os.path.join(repo_root, "apps", "gui", "resources", "ttbn.icns")
@@ -245,6 +247,50 @@ helper_exe = EXE(
     icon=icon_path,
 )
 
+if sys.platform == "win32":
+    host_a = Analysis(
+        [os.path.join(repo_root, "scripts", "helper", "lexishift_native_host.py")],
+        pathex=common_pathex + [os.path.join(repo_root, "scripts", "helper")],
+        binaries=[],
+        datas=[],
+        hiddenimports=["lexishift_core"],
+        hookspath=[],
+        runtime_hooks=[],
+        excludes=[],
+        win_no_prefer_redirects=False,
+        win_private_assemblies=False,
+        cipher=block_cipher,
+    )
+
+    host_pyz = PYZ(host_a.pure, host_a.zipped_data, cipher=block_cipher)
+
+    host_exe = EXE(
+        host_pyz,
+        host_a.scripts,
+        host_a.binaries,
+        host_a.zipfiles,
+        host_a.datas,
+        [],
+        name=NATIVE_HOST_WINDOWS_EXE_NAME,
+        debug=False,
+        bootloader_ignore_signals=False,
+        strip=False,
+        upx=True,
+        upx_exclude=[],
+        runtime_tmpdir=None,
+        console=True,
+        disable_windowed_traceback=False,
+        argv_emulation=False,
+        target_arch=None,
+        codesign_identity=None,
+        entitlements_file=None,
+        icon=None,
+        version=WIN_VERSION_FILE,
+        manifest=WIN_MANIFEST_FILE,
+        uac_admin=False,
+        uac_uiaccess=False,
+    )
+
 if sys.platform == "darwin":
     main_coll = COLLECT(
         main_exe,
@@ -279,6 +325,34 @@ if sys.platform == "darwin":
         icon=icon_icns,
         bundle_identifier=HELPER_BUNDLE_ID,
         info_plist=HELPER_MACOS_INFO_PLIST,
+    )
+elif sys.platform == "win32":
+    coll = COLLECT(
+        main_exe,
+        main_a.binaries,
+        main_a.zipfiles,
+        main_a.datas,
+        strip=False,
+        upx=True,
+        name=COLLECT_NAME,
+    )
+    helper_coll = COLLECT(
+        helper_exe,
+        helper_a.binaries,
+        helper_a.zipfiles,
+        helper_a.datas,
+        strip=False,
+        upx=True,
+        name=HELPER_APP_NAME,
+    )
+    host_coll = COLLECT(
+        host_exe,
+        host_a.binaries,
+        host_a.zipfiles,
+        host_a.datas,
+        strip=False,
+        upx=True,
+        name=NATIVE_HOST_WINDOWS_DIR_NAME,
     )
 else:
     coll = COLLECT(

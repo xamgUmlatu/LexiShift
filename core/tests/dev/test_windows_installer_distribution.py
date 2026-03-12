@@ -19,10 +19,13 @@ class TestWindowsInstallerDistribution(unittest.TestCase):
             dist = Path(tmpdir) / "dist"
             main_exe = dist / "LexiShift" / "LexiShift.exe"
             helper_exe = dist / "LexiShiftHelper" / "LexiShiftHelper.exe"
+            host_exe = dist / "LexiShiftNativeHost" / "lexishift_native_host.exe"
             main_exe.parent.mkdir(parents=True, exist_ok=True)
             helper_exe.parent.mkdir(parents=True, exist_ok=True)
+            host_exe.parent.mkdir(parents=True, exist_ok=True)
             main_exe.write_bytes(b"main")
             helper_exe.write_bytes(b"helper")
+            host_exe.write_bytes(b"host")
 
             exe_path, content_dir = _find_windows_distribution(dist)
 

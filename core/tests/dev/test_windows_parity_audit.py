@@ -59,6 +59,18 @@ def install_helper():
         result = assess_windows_native_messaging_install(helper_installer_text)
         self.assertEqual(result.status, "FAIL")
 
+    def test_native_messaging_install_passes_with_registry_and_host_binary_support(self) -> None:
+        helper_installer_text = r"""
+WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS = {
+    "chrome": r"Software\Google\Chrome\NativeMessagingHosts\com.lexishift.helper",
+    "chromium": r"Software\Chromium\NativeMessagingHosts\com.lexishift.helper",
+    "brave": r"Software\BraveSoftware\Brave-Browser\NativeMessagingHosts\com.lexishift.helper",
+}
+NATIVE_HOST_WINDOWS_EXE_NAME = "lexishift_native_host.exe"
+"""
+        result = assess_windows_native_messaging_install(helper_installer_text)
+        self.assertEqual(result.status, "PASS")
+
     def test_tray_launch_fails_without_windows_specific_frozen_launch(self) -> None:
         helper_tray_text = """
 def _open_main_app() -> None:

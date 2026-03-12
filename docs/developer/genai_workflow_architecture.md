@@ -220,8 +220,8 @@ Current intent:
 - `build` is a local build smoke for maintained build surfaces.
 - `build:report` is the full build contract; hosted macOS CI should use it directly instead of a custom job-local command.
 - `build:ci` / `build:ci:report` are the explicit non-macOS hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
-- `check:windows:parity` is the advisory Windows GUI/helper/build parity inventory; use it when parity work is touched so known gaps stay explicit.
-- `check:style` is the advisory path for repo-wide Ruff debt.
+- `check` now includes the strict Windows parity audit; `check:windows:parity` remains the dedicated inventory/report command, `check:changed` runs it automatically when parity-related files change, and Windows CI uses the strict variant to fail regressions.
+- `check:style` is the advisory path for repo-wide Ruff debt; `check:style:report` and `check:style:summary` make that debt visible in artifacts and CI without turning it into the default green gate.
 - `check:report`, `check:changed:report`, and `build:report` are the machine-readable workflow surfaces for automation and agent hand-offs.
 - `check:state` audits the feature ledger so status claims stay backed by dated evidence paths, and compares against `HEAD` to catch status/default-behavior transitions without matching verification updates.
 - `check:summary` renders a stable Markdown handoff from the JSON workflow reports and is the preferred human-facing summary layer.

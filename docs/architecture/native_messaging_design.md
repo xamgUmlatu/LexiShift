@@ -205,16 +205,18 @@ Schema note:
 - App menu (LexiShift) → “Install/Reinstall LexiShift Helper…” as a repair tool.
 - Settings → SRS: “Helper status” + “Install/Reinstall Helper” as a repair tool.
 - Extension IDs are read from `apps/gui/resources/helper_extension_ids.json` (fixed IDs for prod, plus dev/unpacked entries).
-- If the helper host script is missing (dev), the GUI prompts for the script path.
+- If the helper host is missing (dev), the GUI prompts for the host path.
+- On Windows, GUI install expects a native host executable (`lexishift_native_host.exe`) and writes the per-browser manifest registry key.
 
 ## Bundling the Helper Host
 - The GUI app bundles `lexishift_native_host.py` plus `lexishift_core` into `resources/helper/`.
-- The helper manifest points to the bundled script path, so no extra download is required.
+- On Windows builds, packaging also emits `LexiShiftNativeHost/lexishift_native_host.exe` so the manifest can target a real native host executable.
+- The helper manifest points to the bundled script path on macOS/Linux and the bundled native host executable on Windows, so no extra download is required.
 - For onefile builds, the installer copies the helper into the LexiShift app data directory to keep the manifest path stable after the app exits.
 
 ## Current Status
 - Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
-- Native messaging host exists; install writes the host manifest for the provided extension ID.
+- Native messaging host exists; install writes the host manifest for the provided extension ID and now registers Windows per-browser native-messaging manifest keys for supported GUI environments.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
 - Helper exposes profile snapshot command (`profiles_get`).
 - Feedback writes to `srs/profiles/<profile_id>/srs_signal_queue.json` for future adaptive set updates.

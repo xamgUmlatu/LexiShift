@@ -31,9 +31,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = parse_args()
-    commands = [
+def build_commands() -> list[tuple[str, list[str]]]:
+    return [
         ("unit_tests", [sys.executable, "-m", "unittest", "discover", "-s", "core/tests"]),
         ("mypy", [sys.executable, "-m", "mypy", "core/lexishift_core"]),
         (
@@ -59,6 +58,7 @@ def main() -> None:
                 "scripts/dev/dev_workflow_changed_check.py",
                 "scripts/dev/dev_workflow_summary.py",
                 "scripts/dev/dev_workflow_style_check.py",
+                "scripts/dev/dev_workflow_style_summary.py",
                 "scripts/dev/windows_parity_audit.py",
                 "scripts/dev/windows_parity_summary.py",
             ],
@@ -67,8 +67,17 @@ def main() -> None:
             "feature_state_audit",
             [sys.executable, "scripts/dev/feature_state_audit.py", "--compare-ref", "HEAD"],
         ),
+        (
+            "windows_parity_audit",
+            [sys.executable, "scripts/dev/windows_parity_audit.py", "--strict"],
+        ),
         ("project_health_advisory", ["node", "scripts/dev/check_project_health.js", "--advisory"]),
     ]
+
+
+def main() -> None:
+    args = parse_args()
+    commands = build_commands()
     results: list[dict[str, object]] = []
     overall_exit_code = 0
     for label, command in commands:

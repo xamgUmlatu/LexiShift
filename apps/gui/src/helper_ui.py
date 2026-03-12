@@ -73,6 +73,12 @@ def _helper_program_args() -> list[str]:
     return [python_executable, str(entry)]
 
 
+def _host_file_dialog_filter() -> str:
+    if sys.platform.startswith("win"):
+        return "Helper Hosts (*.exe *.py);;All Files (*)"
+    return t("dialogs.helper_install.host_filter")
+
+
 def get_helper_environment(
     ui_settings: QSettings,
 ) -> tuple[Optional[ExtensionEnvironment], Optional[str]]:
@@ -158,7 +164,7 @@ def prompt_for_helper_environment(
                 parent,
                 t("dialogs.helper_install.host_title"),
                 str(Path.home()),
-                t("dialogs.helper_install.host_filter"),
+                _host_file_dialog_filter(),
             )
             if not filename:
                 log_helper_install("[Helper] Helper install canceled at host picker.")

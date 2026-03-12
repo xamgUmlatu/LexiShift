@@ -92,10 +92,20 @@ class TestDevWorkflowBuild(unittest.TestCase):
             helper_exe = (
                 project_root / "apps" / "gui" / "dist" / "LexiShiftHelper" / "LexiShiftHelper.exe"
             )
+            host_exe = (
+                project_root
+                / "apps"
+                / "gui"
+                / "dist"
+                / "LexiShiftNativeHost"
+                / "lexishift_native_host.exe"
+            )
             main_exe.parent.mkdir(parents=True, exist_ok=True)
             helper_exe.parent.mkdir(parents=True, exist_ok=True)
+            host_exe.parent.mkdir(parents=True, exist_ok=True)
             main_exe.write_bytes(b"main")
             helper_exe.write_bytes(b"helper")
+            host_exe.write_bytes(b"host")
 
             records = collect_artifact_records(
                 "gui_build_validate",
@@ -104,9 +114,17 @@ class TestDevWorkflowBuild(unittest.TestCase):
             )
 
         labels = {str(record["label"]): record for record in records}
-        self.assertEqual(set(labels), {"gui_main_windows_exe", "gui_helper_windows_exe"})
+        self.assertEqual(
+            set(labels),
+            {
+                "gui_main_windows_exe",
+                "gui_helper_windows_exe",
+                "gui_native_host_windows_exe",
+            },
+        )
         self.assertTrue(labels["gui_main_windows_exe"]["exists"])
         self.assertTrue(labels["gui_helper_windows_exe"]["exists"])
+        self.assertTrue(labels["gui_native_host_windows_exe"]["exists"])
 
 
 if __name__ == "__main__":

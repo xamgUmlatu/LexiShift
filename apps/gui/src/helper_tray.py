@@ -143,7 +143,7 @@ class HelperTrayController:
         _log_line(self.paths, "Helper tray starting.")
         _log_line(
             self.paths,
-            f"Frozen: {getattr(sys, 'frozen', False)}, OneFile: {hasattr(sys, '_MEIPASS')}",
+            f"Frozen: {getattr(SYS, 'frozen', False)}, OneFile: {hasattr(SYS, '_MEIPASS')}",
         )
         _log_line(self.paths, f"System tray available: {QSystemTrayIcon.isSystemTrayAvailable()}")
         self.status_action = QAction(t("helper_tray.status_starting"))

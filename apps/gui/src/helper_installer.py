@@ -12,6 +12,11 @@ import shutil
 import subprocess
 import plistlib
 
+from frozen_layout import (
+    NATIVE_HOST_WINDOWS_DIR_NAME,
+    NATIVE_HOST_WINDOWS_EXE_NAME,
+    resolve_windows_sibling_executable,
+)
 from utils_paths import resource_path
 from helper_logger import log_helper
 
@@ -35,6 +40,13 @@ class ExtensionEnvironment:
 _ID_PLACEHOLDERS = {"", "__FILL_ME__", "<FILL_ME>"}
 WINDOWS_RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 WINDOWS_RUN_VALUE_NAME = "LexiShiftHelper"
+NATIVE_HOST_NAME = "com.lexishift.helper"
+WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS = {
+    "chrome": rf"Software\Google\Chrome\NativeMessagingHosts\{NATIVE_HOST_NAME}",
+    "chromium": rf"Software\Chromium\NativeMessagingHosts\{NATIVE_HOST_NAME}",
+    # Brave is Chromium-based but keeps its own host registration tree.
+    "brave": rf"Software\BraveSoftware\Brave-Browser\NativeMessagingHosts\{NATIVE_HOST_NAME}",
+}
 
 
 def _helper_log_path() -> Path:
@@ -136,6 +148,19 @@ def default_host_script() -> Path:
     log_helper_install(
         f"[Helper] frozen={getattr(sys, 'frozen', False)}, _MEIPASS={getattr(sys, '_MEIPASS', None)}"
     )
+    if getattr(sys, "frozen", False) and sys.platform.startswith("win"):
+        current_exe = Path(sys.executable).resolve()
+        bundled_host = resolve_windows_sibling_executable(
+            current_exe,
+            preferred_dir_name=NATIVE_HOST_WINDOWS_DIR_NAME,
+            exe_name=NATIVE_HOST_WINDOWS_EXE_NAME,
+        )
+        log_helper_install(
+            f"[Helper] Bundled Windows host candidate: {bundled_host} "
+            f"exists={bundled_host.exists() if bundled_host else False}"
+        )
+        if bundled_host and bundled_host.exists():
+            return bundled_host
     bundled = Path(resource_path("helper", "lexishift_native_host.py"))
     log_helper_install(f"[Helper] Bundled host candidate: {bundled} exists={bundled.exists()}")
     if bundled.exists():
@@ -178,6 +203,24 @@ def _is_bundled_path(path: Path) -> bool:
 
 
 def _ensure_stable_helper(host_path: Path) -> Path:
+    if sys.platform.startswith("win") and host_path.suffix.lower() == ".exe":
+        target_dir = _helper_data_root() / "helper" / "native_host"
+        resolved_host = host_path.resolve()
+        if resolved_host.parent == target_dir.resolve():
+            log_helper_install(
+                f"[Helper] Windows native host already stable at {resolved_host}; skipping copy."
+            )
+            return host_path
+        try:
+            if target_dir.exists():
+                shutil.rmtree(target_dir)
+            shutil.copytree(host_path.parent, target_dir)
+            target_host = target_dir / host_path.name
+            log_helper_install(f"[Helper] Copied Windows native host directory to {target_dir}")
+            return target_host
+        except OSError as e:
+            log_helper_install(f"[Helper] Failed to copy Windows native host to {target_dir}: {e}")
+            return host_path
     if not _is_bundled_path(host_path):
         log_helper_install(f"[Helper] Host path {host_path} is not bundled; skipping stable copy.")
         return host_path
@@ -345,6 +388,86 @@ def install_helper_autostart(
     return False
 
 
+def _windows_native_messaging_registry_key(browser: str) -> str:
+    return WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS.get(
+        browser, WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS["chrome"]
+    )
+
+
+def _windows_registry_view_flags(winreg) -> list[int]:
+    flags = [0]
+    for name in ("KEY_WOW64_32KEY", "KEY_WOW64_64KEY"):
+        flag = int(getattr(winreg, name, 0) or 0)
+        if flag and flag not in flags:
+            flags.append(flag)
+    return flags
+
+
+def _write_windows_native_messaging_registry(browser: str, manifest: Path) -> bool:
+    if not sys.platform.startswith("win"):
+        return False
+    try:
+        import winreg
+    except ImportError:
+        log_helper_install("[Helper] winreg unavailable; cannot register Windows native messaging.")
+        return False
+    registry_key = _windows_native_messaging_registry_key(browser)
+    wrote_any = False
+    errors: list[str] = []
+    for view_flag in _windows_registry_view_flags(winreg):
+        try:
+            with winreg.CreateKeyEx(
+                winreg.HKEY_CURRENT_USER,
+                registry_key,
+                0,
+                winreg.KEY_SET_VALUE | view_flag,
+            ) as key:
+                winreg.SetValueEx(key, None, 0, winreg.REG_SZ, str(manifest))
+            wrote_any = True
+        except OSError as exc:
+            errors.append(str(exc))
+    if not wrote_any:
+        log_helper_install(
+            f"[Helper] Failed to register native messaging manifest for {browser}: {errors}"
+        )
+        return False
+    if errors:
+        log_helper_install(
+            f"[Helper] Native messaging manifest registered for {browser} with partial registry-view errors: {errors}"
+        )
+    else:
+        log_helper_install(
+            f"[Helper] Registered native messaging manifest for {browser}: {manifest}"
+        )
+    return True
+
+
+def _read_windows_native_messaging_manifest(browser: str) -> Optional[Path]:
+    if not sys.platform.startswith("win"):
+        return None
+    try:
+        import winreg
+    except ImportError:
+        return None
+    registry_key = _windows_native_messaging_registry_key(browser)
+    for view_flag in _windows_registry_view_flags(winreg):
+        try:
+            with winreg.OpenKey(
+                winreg.HKEY_CURRENT_USER,
+                registry_key,
+                0,
+                winreg.KEY_QUERY_VALUE | view_flag,
+            ) as key:
+                value, _ = winreg.QueryValueEx(key, None)
+            if value:
+                return Path(str(value))
+        except FileNotFoundError:
+            continue
+        except OSError:
+            continue
+    return None
+
+
 def load_extension_environments() -> tuple[list[ExtensionEnvironment], str]:
     path = resource_path("helper_extension_ids.json")
     if not os.path.exists(path):
@@ -425,15 +548,17 @@ def _chrome_host_dir(browser: str = "chrome") -> Optional[Path]:
 
 
 def manifest_path(browser: str = "chrome") -> Optional[Path]:
+    if sys.platform.startswith("win"):
+        return _helper_data_root() / "native_messaging" / browser / f"{NATIVE_HOST_NAME}.json"
     base = _chrome_host_dir(browser)
     if base is None:
         return None
-    return base / "com.lexishift.helper.json"
+    return base / f"{NATIVE_HOST_NAME}.json"
 
 
 def build_manifest(*, host_path: Path, extension_id: str) -> dict:
     return {
-        "name": "com.lexishift.helper",
+        "name": NATIVE_HOST_NAME,
         "description": "LexiShift local helper for rule generation and SRS syncing.",
         "path": str(host_path),
         "type": "stdio",
@@ -442,7 +567,11 @@ def build_manifest(*, host_path: Path, extension_id: str) -> dict:
 
 
 def is_helper_installed(extension_id: Optional[str] = None, *, browser: str = "chrome") -> bool:
-    manifest = manifest_path(browser)
+    manifest = (
+        _read_windows_native_messaging_manifest(browser)
+        if sys.platform.startswith("win")
+        else manifest_path(browser)
+    )
     if not manifest or not manifest.exists():
         log_helper_install(
             f"[Helper] is_helper_installed: manifest missing for {browser} at {manifest}"
@@ -497,6 +626,14 @@ def install_helper(
             f"[Helper] install_helper failed: stable host not found at {stable_path}"
         )
         return HelperInstallResult(False, f"Helper host not found: {stable_path}")
+    if sys.platform.startswith("win") and stable_path.suffix.lower() != ".exe":
+        log_helper_install(
+            f"[Helper] install_helper failed: Windows native host must be an .exe, got {stable_path}"
+        )
+        return HelperInstallResult(
+            False,
+            "Windows helper install requires a native host executable (.exe).",
+        )
     try:
         mode = stable_path.stat().st_mode
         stable_path.chmod(mode | stat.S_IEXEC)
@@ -505,6 +642,10 @@ def install_helper(
     manifest.parent.mkdir(parents=True, exist_ok=True)
     payload = build_manifest(host_path=stable_path, extension_id=extension_id.strip())
     manifest.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+    if sys.platform.startswith("win") and not _write_windows_native_messaging_registry(
+        browser, manifest
+    ):
+        return HelperInstallResult(False, "Failed to register Windows native messaging host.")
     log_helper(f"[Helper] install_helper wrote manifest: {manifest}")
     _log_helper_file(f"install_helper wrote manifest: {manifest}")
     _log_helper_file(f"manifest payload: {payload}")

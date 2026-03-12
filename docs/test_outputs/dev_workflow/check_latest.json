@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T00:52:14.693530+00:00",
+  "generated_at_utc": "2026-03-12T02:40:35.322716+00:00",
   "overall_exit_code": 0,
   "commands": [
     {
@@ -53,6 +53,7 @@
         "scripts/dev/dev_workflow_changed_check.py",
         "scripts/dev/dev_workflow_summary.py",
         "scripts/dev/dev_workflow_style_check.py",
+        "scripts/dev/dev_workflow_style_summary.py",
         "scripts/dev/windows_parity_audit.py",
         "scripts/dev/windows_parity_summary.py"
       ],
@@ -65,6 +66,15 @@
         "scripts/dev/feature_state_audit.py",
         "--compare-ref",
         "HEAD"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "windows_parity_audit",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "scripts/dev/windows_parity_audit.py",
+        "--strict"
       ],
       "exit_code": 0
     },

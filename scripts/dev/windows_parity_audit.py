@@ -185,20 +185,22 @@ def assess_windows_helper_autostart(helper_installer_text: str, checklist_text: 
 
 
 def assess_windows_native_messaging_install(helper_installer_text: str) -> ParityCheck:
-    unsupported_markers = (
-        'if sys.platform.startswith("win"):\n        return None',
-        "Helper install not supported on this OS yet.",
-    )
     registry_markers = (
         r"Software\Google\Chrome\NativeMessagingHosts",
         r"Software\Chromium\NativeMessagingHosts",
         r"Software\BraveSoftware\Brave-Browser\NativeMessagingHosts",
     )
+    host_binary_markers = (
+        "lexishift_native_host.exe",
+        "NATIVE_HOST_WINDOWS_EXE_NAME",
+    )
     has_windows_registry_support = any(
         marker in helper_installer_text for marker in registry_markers
     )
-    explicitly_unsupported = any(marker in helper_installer_text for marker in unsupported_markers)
-    if explicitly_unsupported or not has_windows_registry_support:
+    has_windows_host_binary_support = any(
+        marker in helper_installer_text for marker in host_binary_markers
+    )
+    if not has_windows_registry_support or not has_windows_host_binary_support:
         status = "FAIL"
         summary = (
             "Windows native-messaging install is still unsupported in the GUI helper flow; "

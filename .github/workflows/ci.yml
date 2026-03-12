@@ -72,6 +72,8 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Repo safety report
         run: npm --prefix scripts run check:report
+      - name: Repo style debt report
+        run: npm --prefix scripts run check:style:report
       - name: Write rulegen benchmark summary
         if: always()
         run: |
@@ -148,6 +150,12 @@ jobs:
         with:
           name: workflow-check-report
           path: docs/test_outputs/dev_workflow/check_latest.json
+      - name: Upload repo style debt report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-style-report
+          path: docs/test_outputs/dev_workflow/style_latest.json
       - name: Write repo safety summary
         if: always()
         run: |
@@ -156,12 +164,26 @@ jobs:
             --title "Repo Safety" \
             --markdown-out docs/test_outputs/dev_workflow/check_ci.md \
             --append-to "$GITHUB_STEP_SUMMARY"
+      - name: Write repo style debt summary
+        if: always()
+        run: |
+          python scripts/dev/dev_workflow_style_summary.py \
+            --style-json docs/test_outputs/dev_workflow/style_latest.json \
+            --title "Repo Style Debt" \
+            --markdown-out docs/test_outputs/dev_workflow/style_ci.md \
+            --append-to "$GITHUB_STEP_SUMMARY"
       - name: Upload repo safety summary
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: workflow-check-summary
           path: docs/test_outputs/dev_workflow/check_ci.md
+      - name: Upload repo style debt summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-style-summary
+          path: docs/test_outputs/dev_workflow/style_ci.md
 
   build-safety:
     runs-on: ubuntu-latest
@@ -283,7 +305,7 @@ jobs:
           name: workflow-build-summary-windows
           path: docs/test_outputs/dev_workflow/build_windows_ci.md
       - name: Windows parity audit
-        run: npm --prefix scripts run check:windows:parity
+        run: npm --prefix scripts run check:windows:parity:strict
       - name: Upload Windows parity audit
         if: always()
         uses: actions/upload-artifact@v4
