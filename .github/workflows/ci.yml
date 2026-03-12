@@ -343,10 +343,7 @@ jobs:
           path: docs/test_outputs/dev_workflow/windows_parity_ci.md
       - name: Enforce Windows build and parity status
         if: always()
-        run: |
-          python scripts/dev/ci_report_gate.py \
-            --build-json docs/test_outputs/dev_workflow/build_latest.json \
-            --windows-parity-json docs/test_outputs/dev_workflow/windows_parity_latest.json
+        run: python scripts/dev/ci_report_gate.py --build-json docs/test_outputs/dev_workflow/build_latest.json --windows-parity-json docs/test_outputs/dev_workflow/windows_parity_latest.json
 
   srs-quality:
     runs-on: ubuntu-latest
