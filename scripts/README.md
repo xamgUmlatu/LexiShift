@@ -73,6 +73,8 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `testing/rulegen_pair_audit_cycle.py` (also forwards reverse-check tuning values, accepts named reverse-check profiles such as `far-hit-experiment`, and can emit quality-gate JSON)
 - First-class `en-es` reverse-check lane:
   `npm --prefix scripts run quality:rulegen:reverse:en-es` plus `npm --prefix scripts run quality:rulegen:reverse:summary`
+- Durable `en-es` reverse-check run matrix:
+  `npm --prefix scripts run quality:rulegen:reverse:matrix`
 - Change-aware audit wrapper that infers touched pairs, writes dated artifacts, updates `*_latest` aliases, and stores a manifest:
   `testing/rulegen_auto_audit.py`
 - Apply exported HTML label overrides back into benchmark dataset cases:

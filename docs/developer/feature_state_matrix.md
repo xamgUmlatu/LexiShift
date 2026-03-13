@@ -244,12 +244,13 @@ Use this file when:
 ## Reverse-Check Scoring
 
 - Status: `implemented`, `verified`, `default-on` = `no`
-- Last documented checkpoint: `2026-03-13`
-- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, rank-aware far-hit experiment, and named reverse-check audit lane
+- Last documented checkpoint: `2026-03-13` named reverse-check run matrix + reverse-lane artifact refresh
+- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, rank-aware far-hit experiment, named reverse-check audit lane, and run-matrix refresh
 - Default behavior:
   - Configurable and pair-aware for `en-es` and `es-en`.
   - Not yet promoted to default production tuning.
   - Reverse-check-specific evaluation now has a named `en-es` lane via `npm --prefix scripts run quality:rulegen:reverse:en-es`.
+  - Parameter-set comparison is now tracked in `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`.
 - Evidence:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
   - `docs/rulegen/reverse_check_rollout_matrix.md`
@@ -269,6 +270,7 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`
   - `docs/test_outputs/rulegen_quality_gate_en_es_reverse_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.md`
+  - `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`

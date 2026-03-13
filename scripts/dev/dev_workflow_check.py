@@ -83,6 +83,7 @@ def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list
                 "scripts/testing/rulegen_pair_audit_cycle.py",
                 "scripts/testing/rulegen_auto_audit.py",
                 "scripts/testing/rulegen_reverse_profiles.py",
+                "scripts/testing/rulegen_reverse_run_matrix.py",
                 "scripts/testing/rulegen_benchmark_summary.py",
                 "scripts/testing/rulegen_benchmark_triage_summary.py",
                 "scripts/testing/rulegen_quality_gate_summary.py",
