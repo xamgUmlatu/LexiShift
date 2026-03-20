@@ -1,5 +1,10 @@
 # LexiShift Extension System Map
 
+Status: active architecture map
+Role: Canonical current
+Last updated: 2026-03-21
+Source-of-truth: as-is extension runtime/file map; verify implementation details in `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options.html`, and the linked source modules.
+
 Purpose:
 - Provide a single-page map of how the Chrome extension works.
 - Help new contributors find the right file quickly.

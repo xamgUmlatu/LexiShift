@@ -1,8 +1,22 @@
 # Documentation Structure
 
+Status: active docs routing
+Role: Canonical current
+Last updated: 2026-03-21
+Last verified: 2026-03-21 docs-routing review
+Purpose: route contributors to the current documentation surfaces before planning, archive, or generated evidence
+Source-of-truth: routing guide only; defer implementation truth to source code, `developer/feature_state_matrix.md`, and linked domain docs.
+
 This directory is organized by purpose to keep architecture, schema, and operations docs discoverable.
 
 ## Quick Start (5 Minutes)
+
+If you need current developer workflow truth first:
+
+1. `developer/README.md`
+2. `developer/local_setup.md`
+3. `developer/feature_state_matrix.md`
+4. `architecture/README.md`
 
 If you need to understand how the extension works end-to-end, read in this order:
 
@@ -18,6 +32,34 @@ If you need SRS/core behavior next:
 2. `srs/srs_schema.md`
 3. `srs/srs_set_planning_technical.md`
 
+## Current Routing And References
+
+Use these first when you need current behavior, current runbooks, or current source-of-truth routing:
+
+- Developer docs hub: `developer/README.md`
+- Developer handbook: `developer/developer_reference.md`
+- Local setup loop: `developer/local_setup.md`
+- Build/release workflows: `developer/build_and_release.md`
+- Documentation governance + archive policy: `developer/documentation_governance.md`
+- Feature state ledger: `developer/feature_state_matrix.md`
+- AI-assisted quality loop (rulegen/POS): `developer/ai_workflow.md`
+- GenAI workflow architecture: `developer/genai_workflow_architecture.md`
+- Project health gate structure: `developer/project_health_gate_structure.md`
+- Architecture status index: `architecture/README.md`
+- Script map: `../scripts/README.md`
+
+## Planning, Workstreams, And History
+
+Treat these as planning/history surfaces unless their own metadata says otherwise:
+
+- Documentation grooming handoff: `developer/documentation_grooming_workstream.md`
+- Project health remediation workstream: `developer/project_health_remediation_workstream.md`
+- Windows GUI parity workstream: `developer/windows_gui_parity_workstream.md`
+- GUI app fix workstream: `gui/gui_app_fix_workstream.md`
+- GUI UX decision log: `gui/gui_ux_decisions.md`
+- Diagram workplan (all six core diagrams): `architecture/design_diagram_workplan.md`
+- Consolidated TODO backlog: `TODOs.md`
+
 ## Folders
 
 - `architecture/`: system and extension architecture, integration design, and implementation plans.
@@ -29,30 +71,18 @@ If you need SRS/core behavior next:
 - `language_pairs/`: language-pair rollout checklists and LP resource requirements.
 - `reference/`: stable reference docs and schemas.
 - `runbooks/`: troubleshooting and packaging/operations notes.
-- `test_outputs/`: generated evaluation outputs and reports.
+- `test_outputs/`: generated evaluation outputs and reports; evidence, not primary planning authority.
 
-## Starting Points
+## Domain Starting Points
 
 - Handbook home (Pages): `handbook/index.md`
 - Handbook diagrams (rendered): `handbook/diagrams.md`
-- Developer docs hub: `developer/README.md`
-- Developer handbook (primary): `developer/developer_reference.md`
-- Repo safety commands: `npm --prefix scripts run check` and `npm --prefix scripts run build`
-- AI-assisted quality loop (rulegen/POS): `developer/ai_workflow.md`
-- GenAI workflow architecture: `developer/genai_workflow_architecture.md`
-- Feature state ledger: `developer/feature_state_matrix.md`
-- Local setup loop: `developer/local_setup.md`
-- Build/release workflows: `developer/build_and_release.md`
 - GitHub Pages setup + local preview runbook: `runbooks/github_pages_setup.md`
-- Architecture status index: `architecture/README.md`
 - Extension architecture: `architecture/chrome_extension_technical.md`
 - Extension system map: `architecture/extension_system_map.md`
 - Options architecture: `architecture/options_controllers_architecture.md`
 - Popup module architecture: `architecture/popup_modules_pattern.md`
-- Diagram workplan (all six core diagrams): `architecture/design_diagram_workplan.md`
 - Diagram status tracker + files: `architecture/diagrams/README.md`
-- GUI app fix workstream: `gui/gui_app_fix_workstream.md`
-- GUI UX decision log: `gui/gui_ux_decisions.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
@@ -61,25 +91,26 @@ If you need SRS/core behavior next:
 - Data source licensing + distribution register: `language_pairs/data_source_licensing_and_distribution.md`
 - POS source + pipeline reference (all languages): `language_pairs/pos_source_and_pipeline_reference.md`
 - LP resource recovery playbook (invalid/unlinked packs): `language_pairs/resource_recovery_playbook.md`
+- New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
 - Global app schema: `reference/schema.md`
 - Glossary: `reference/glossary.md`
-- New language/pair rollout playbook: `language_pairs/language_pair_setup_checklist.md`
-- GitHub Pages enablement runbook: `runbooks/github_pages_setup.md`
 - Chrome Web Store upload gate runbook: `runbooks/cws_upload_gate.md`
-- Consolidated TODO backlog: `TODOs.md`
 
 ## Resume After A Break
 
 Use this order when resuming work:
 
-1. `architecture/README.md` (what is solid vs WIP)
-2. `architecture/chrome_web_store_review_working_doc.md` (open product/policy decisions)
-3. `TODOs.md` (current backlog)
-4. `architecture/design_diagram_workplan.md` + `architecture/diagrams/README.md` (diagram update queue)
+1. `developer/README.md` (current routing)
+2. `developer/feature_state_matrix.md` (current status, evidence, contradictions)
+3. `architecture/README.md` (what is solid vs WIP)
+4. `developer/local_setup.md` (current operating commands)
+5. `architecture/chrome_web_store_review_working_doc.md` and `TODOs.md` (open decisions and backlog)
 
 ## Source Of Truth Rules
 
 - Runtime load order truth: `apps/chrome-extension/manifest.json` and script tags in `apps/chrome-extension/options.html`.
 - Controller composition truth: `apps/chrome-extension/options/core/bootstrap/controller_graph.js`.
 - Storage defaults truth: `apps/chrome-extension/shared/settings/settings_defaults.js`.
+- Use `developer/documentation_governance.md` before broad doc cleanup or archive work.
+- Treat `test_outputs/`, `docs/_site/`, and `docs/.jekyll-cache/` as generated evidence/build outputs, not default planning entrypoints.
 - This `docs/` folder should describe behavior, not replace source-level truth.

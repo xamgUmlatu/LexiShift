@@ -1,9 +1,14 @@
 # Developer Handbook
 
 Status: Active handbook
-Last updated: 2026-03-11
+Role: Canonical current
+Last updated: 2026-03-21
+Last verified: 2026-03-21 developer-doc routing review + script inventory check
+Purpose: developer-facing repository map and current source-of-truth routing for implementation work
+Source-of-truth: developer reference guide; command details defer to `local_setup.md` and `build_and_release.md`, and runtime claims verify in source code and `feature_state_matrix.md`.
 
 This document is the primary developer-facing reference for LexiShift implementation work.
+Use it as a map and routing handbook, not as the only authority for fast-moving command surfaces.
 
 ## 1. Purpose
 
@@ -81,7 +86,10 @@ For maintained data diagrams, use:
 - `../architecture/design_diagram_workplan.md`
 - `../architecture/diagrams/README.md`
 
-## 5. Local Setup
+## 5. Local Setup And Validation Entry Points
+
+Use `local_setup.md` as the current runbook for setup, repo safety, style, parity, and branch-scope loops.
+Keep this handbook focused on the minimum entrypoints needed to resume work quickly.
 
 Create environment:
 
@@ -92,129 +100,32 @@ pip install -r requirements-dev.txt
 npm --prefix scripts run hooks:install
 ```
 
-Primary validation loop:
+Default local safety loop:
 
 ```bash
 npm --prefix scripts run check
 ```
 
-Machine-readable report:
-
-```bash
-npm --prefix scripts run check:report
-```
-
-The JSON now includes stdout/stderr tails for failed commands so CI artifacts and summaries can expose the first actionable failure.
-
-Feature-state discipline audit:
-
-```bash
-npm --prefix scripts run check:state
-```
-
-This compares the current ledger against `HEAD` and fails when status/default-behavior transitions land without matching verification/evidence updates.
-
-Markdown summary from the latest workflow reports:
-
-```bash
-npm --prefix scripts run check:summary
-```
-
-Rulegen artifact summaries:
-
-```bash
-npm --prefix scripts run quality:rulegen:benchmark:summary
-npm --prefix scripts run quality:rulegen:gate:summary
-npm --prefix scripts run quality:rulegen:triage:summary
-```
-
-Build safety loop:
-
-```bash
-npm --prefix scripts run build
-```
-
-Machine-readable build report:
-
-```bash
-npm --prefix scripts run build:report
-```
-
-Hosted macOS CI uses the same full build-report entrypoint.
-
-The build JSON also carries missing-artifact details when validation fails.
-
-CI-safe build report:
-
-```bash
-npm --prefix scripts run build:ci:report
-```
-
-Use this when validating non-macOS hosted-runner behavior; it records explicit skips instead of pretending GUI validation ran.
-
-Synthetic SRS quality harness:
-
-```bash
-npm --prefix scripts run quality:srs:harness
-npm --prefix scripts run quality:srs:summary
-```
-
-Pre-commit hooks:
-- `.pre-commit-config.yaml`
-- use `npm --prefix scripts run hooks:install` after dependency setup
-- current local hooks cover formatting hygiene, BetterDiscord generated bundle freshness, changed-only project health gating, and a pre-push repo safety check
-- current split is intentional: `pre-commit` now covers hygiene plus Ruff lint/format, while `pre-push` runs the repo safety gate only
-- the repo safety gate now includes the strict Windows parity audit alongside tests, mypy, feature-state audit, and BetterDiscord freshness
-
-Style/debt advisory loop:
-
-```bash
-npm --prefix scripts run check:style
-npm --prefix scripts run check:style:report
-npm --prefix scripts run check:style:summary
-```
-
-`npm --prefix scripts run check` now runs the strict repo-wide Ruff gate directly. Use the standalone style commands for dedicated reporting or a style-only pass.
-
-Strict cleanup variant:
-
-```bash
-npm --prefix scripts run check:style:strict
-```
-
-Changed-scope branch loop:
-
-```bash
-npm --prefix scripts run check:changed
-```
-
-`check:changed` distinguishes total changed files from substantive changed files so Python AST-equivalent sweeps, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger heavier quality loops.
-
-Machine-readable branch report:
-
-```bash
-npm --prefix scripts run check:changed:report
-```
-
-Windows parity audit:
-
-```bash
-npm --prefix scripts run check:windows:parity
-npm --prefix scripts run check:windows:parity:summary
-```
-
-Use the standalone parity commands when you want dedicated JSON/Markdown parity artifacts; the default `check` command already enforces the strict audit.
-
-Use `check:changed:local` or `check:changed:staged` when a long-running branch makes the branch-scope view too noisy for local iteration.
-
-Local working-tree variant:
+Default branch-scope loop:
 
 ```bash
 npm --prefix scripts run check:changed:local
 ```
 
-See also:
+Build/package safety loop when those surfaces are touched:
+
+```bash
+npm --prefix scripts run build
+```
+
+Specialty runbooks, policies, and ledgers live in:
+
 - `local_setup.md`
+- `build_and_release.md`
+- `documentation_governance.md`
+- `feature_state_matrix.md`
+- `project_health_gate_structure.md`
+- `ai_workflow.md`
 
 ## 6. Runtime Development Loops
 
@@ -334,6 +245,9 @@ Use this classification first when reading architecture docs:
 - planning/WIP,
 - draft decision log.
 
+For broader documentation authority, archive, and salvage-forward rules, use:
+- `documentation_governance.md`
+
 Source:
 - `../architecture/README.md`
 
@@ -341,10 +255,10 @@ Source:
 
 When resuming after a break:
 
-1. Read `../architecture/README.md`.
-2. Read `../architecture/chrome_web_store_review_working_doc.md` for open policy/product decisions.
-3. Read `../TODOs.md` for active backlog.
-4. Read `../architecture/design_diagram_workplan.md` and `../architecture/diagrams/README.md`.
+1. Read `feature_state_matrix.md` for current status, evidence, and known contradictions.
+2. Read `local_setup.md` for the current operating loops before changing code.
+3. Read `../architecture/README.md`.
+4. Read `../architecture/chrome_web_store_review_working_doc.md` for open policy/product decisions and `../TODOs.md` for active backlog.
 5. Re-check source-level truth in:
    - `../../apps/chrome-extension/manifest.json`
    - `../../apps/chrome-extension/options/core/bootstrap/controller_graph.js`
@@ -352,15 +266,30 @@ When resuming after a break:
 
 ## 12. Canonical References
 
-- Architecture map: `../architecture/README.md`
-- Docs structure map: `../README.md`
+Current routing and runbooks:
+- Developer hub: `README.md`
+- Local setup and validation runbook: `local_setup.md`
+- Build/release runbook: `build_and_release.md`
 - AI workflow: `ai_workflow.md`
 - GenAI workflow architecture: `genai_workflow_architecture.md`
+
+Policy and state:
+- Documentation governance: `documentation_governance.md`
 - Feature state ledger: `feature_state_matrix.md`
+- Project health gate structure: `project_health_gate_structure.md`
+
+Planning and workstreams:
+- Documentation grooming handoff: `documentation_grooming_workstream.md`
+- Project health remediation workstream: `project_health_remediation_workstream.md`
+- Windows GUI parity workstream: `windows_gui_parity_workstream.md`
+
+Reference maps:
+- Architecture map: `../architecture/README.md`
+- Docs structure map: `../README.md`
+- Script map: `../../scripts/README.md`
 - Glossary: `../reference/glossary.md`
 - Global schema: `../reference/schema.md`
 - SRS roadmap: `../srs/srs_roadmap.md`
-- Script map: `../../scripts/README.md`
 - Backlog: `../TODOs.md`
 
 ## 13. Legacy Snapshot

@@ -1,8 +1,12 @@
 # Project Health Remediation Workstream
 
 Status: active
+Role: Planning / WIP
 Owner: engineering
-Last updated: 2026-02-28
+Last updated: 2026-03-21
+Last verified: 2026-03-21 `npm --prefix scripts run health:project:report`
+Purpose: maintain the live project-health watchlist while preserving the completed zero-warning milestone history
+Source-of-truth: remediation workstream + watchlist; current health evidence lives in `../test_outputs/project_health/project_health_latest.json`.
 
 ## Objective
 
@@ -12,18 +16,19 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Baseline Snapshot (2026-02-28, current)
+## Live Snapshot (2026-03-21)
 
 Source command:
 
 ```bash
-cd scripts
-npm run health:project
+npm --prefix scripts run health:project:report
 ```
 
-Current violation profile:
+Verification artifact: `../test_outputs/project_health/project_health_latest.json`
 
-1. Total violations: `0` files (out of `302` scanned)
+Live violation profile:
+
+1. Total violations: `0` files (out of `323` scanned)
 2. By area:
    - `apps/gui/src`: `0`
    - `core/lexishift_core`: `0`
@@ -34,9 +39,32 @@ Current violation profile:
    - `imports`: `0`
    - `domainBreadth`: `0`
 
-Near-limit watchlist (non-blocking): none (`0` warnings).
+Near-limit watchlist (non-blocking):
 
-## Progress Log
+1. `core/lexishift_core/helper/rulegen.py` (`imports 22/24`)
+2. `scripts/testing/rulegen_benchmark.py` (`imports 21/24`)
+3. `scripts/testing/srs_quality_harness.py` (`lines 819/900`)
+
+Operational note:
+
+1. project health remains clean on hard violations, but the warning count is no longer zero
+2. treat the three near-limit files above as the active watchlist for preventive refactor work
+3. the older zero-warning milestone remains useful history, not the current watch state
+
+## Live Operating Queue (2026-03-21)
+
+1. Keep `npm --prefix scripts run health:project:changed` in the PR loop.
+2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
+3. When touching a watchlist file, prefer reducing its pressure or explicitly record why it remains near-limit.
+4. Re-run `npm --prefix scripts run health:project:report` before release cuts, threshold changes, or large refactors.
+
+## Historical Milestone Snapshot (2026-02-28)
+
+The sections below preserve the zero-violation / zero-warning milestone context from `2026-02-28`.
+Treat them as historical record, not the live operating queue.
+Everything from the progress log through the historical definition of done should be read as milestone history unless a later heading explicitly says otherwise.
+
+## Historical Progress Log
 
 1. 2026-02-27: extracted feedback sync primitives from
    `apps/chrome-extension/shared/helper/helper_feedback_sync.js`
@@ -264,36 +292,35 @@ Near-limit watchlist (non-blocking): none (`0` warnings).
     - `core/lexishift_core/srs/admission_refresh.py`
     resulting in `mypy core/lexishift_core` passing with `0` errors.
 
-## Leaf-First Remediation Queue (Current)
+## Historical Queue Snapshot (2026-02-28 milestone)
 
-Active health violations are now cleared (`0`) and near-limit warnings are also cleared (`0`).
-Current queue is maintenance-only:
+At the zero-warning milestone, the queue was maintenance-only:
 
-1. Keep `npm run -s health:project:changed` in the PR loop and block new warnings/regressions.
-2. Re-run full `npm run -s health:project:report` before release cuts or large refactors.
+1. Keep `npm --prefix scripts run health:project:changed` in the PR loop and block new warnings/regressions.
+2. Re-run full `npm --prefix scripts run health:project:report` before release cuts or large refactors.
 
-## Post-Refactor Status Checkpoint (2026-02-28)
+## Historical Post-Refactor Status Checkpoint (2026-02-28)
 
 Verification snapshot after the large split/refactor set:
 
 1. Maintainability gate:
-   - `npm run -s health:project:report`: pass (`302` files, `0` violations, `0` warnings)
-   - `npm run -s health:project:changed`: pass (`legacy=0`, `new=0`, `regressions=0`)
+   - `npm --prefix scripts run health:project:report`: pass (`302` files, `0` violations, `0` warnings)
+   - `npm --prefix scripts run health:project:changed`: pass (`legacy=0`, `new=0`, `regressions=0`)
 2. Core runtime tests:
    - `python3 -m unittest discover -s core/tests`: pass (`197` tests)
 3. Targeted regression suites impacted by lazy-import compatibility changes:
    - `python3 -m unittest core.tests.helper.test_helper_rulegen core.tests.helper.test_helper_engine core.tests.srs.test_srs_feedback_simulation`: pass (`38` tests)
 4. CI enforcement:
    - PR workflow now includes `project-health-changed` gate in `.github/workflows/ci.yml`.
-5. Known non-health quality checks currently not green:
-   - `python3 scripts/testing/rulegen_quality_gate.py ...` currently fails en-es floor/delta checks against current baseline.
+5. Known non-health quality checks at that milestone were not green:
+   - `python3 scripts/testing/rulegen_quality_gate.py ...` failed en-es floor/delta checks against the then-current baseline.
 
 Interpretation:
 
 1. Refactor stability is good for architecture/maintainability and core unit runtime behavior.
 2. Rulegen quality remains an active workstream, independent from the health refactor itself.
 
-## Responsibility Map (Current)
+## Historical Responsibility Map (2026-02-28 milestone)
 
 High-value module boundaries after refactor:
 
@@ -323,9 +350,9 @@ Assessment:
 
 1. Responsibility boundaries are more coherent than before (orchestrators vs pure helpers are now mostly separated).
 2. Feature changes should generally be easier, because most edits now land in domain-specific helper modules instead of giant multi-domain files.
-3. Main risk introduced by the refactor is coordination overhead (more files + load-order coupling in extension script tags + lazy import wrappers). This is manageable with current docs and CI gate coverage.
+3. Main risk introduced by the refactor was coordination overhead (more files + load-order coupling in extension script tags + lazy import wrappers). This was manageable with the docs and CI gate coverage in place at that milestone.
 
-## Remediation Strategy
+## Historical Remediation Strategy (2026-02-28 plan)
 
 Use a two-level sequencing model:
 
@@ -338,7 +365,7 @@ Why this ordering:
 2. Hotspots are where delivery risk and merge pain are concentrated.
 3. Leaf extraction first inside hotspots lowers blast radius and test burden.
 
-## Work Phases
+## Historical Work Phases (2026-02-28 plan)
 
 ### Phase 0 - Governance + Gating Foundation
 
@@ -430,17 +457,17 @@ Exit criteria:
 1. Global strict gate passes on default branch.
 2. Overrides are minimal, reviewed, and time-bounded.
 
-## CI Policy Ladder
+## Historical CI Policy Ladder (2026-02-28 plan)
 
 1. Stage A (now):
    - Advisory global report.
-   - Strict changed-only baseline gate (`new` + `regressions`).
+   - Strict changed-only baseline gate for new/regressed violations and warning debt.
 2. Stage B:
    - Tighten warning thresholds and prune overrides.
 3. Stage C:
    - Global strict enforcement.
 
-## Backlog Tracking Model
+## Historical Backlog Tracking Model (2026-02-28 plan)
 
 For each violating file, track:
 
@@ -451,7 +478,7 @@ For each violating file, track:
 5. Target cap date
 6. Override expiry date (if temporary override is required)
 
-## Definition Of Done
+## Historical Definition Of Done (2026-02-28 plan)
 
 Project health remediation is complete when:
 
@@ -460,25 +487,22 @@ Project health remediation is complete when:
 3. No stale overrides remain in `project_health_rules.js`.
 4. Development velocity is unchanged (no widespread gate-induced PR blocks).
 
-## Operational Commands
+## Live Operational Commands
 
 Generate advisory report JSON:
 
 ```bash
-cd scripts
-npm run health:project:report
+npm --prefix scripts run health:project:report
 ```
 
 Write/update baseline snapshot:
 
 ```bash
-cd scripts
-npm run health:project:baseline
+npm --prefix scripts run health:project:baseline
 ```
 
 Run changed-file strict gate:
 
 ```bash
-cd scripts
-npm run health:project:changed
+npm --prefix scripts run health:project:changed
 ```

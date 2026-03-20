@@ -104,6 +104,10 @@ def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list
             [sys.executable, "scripts/dev/feature_state_audit.py", "--compare-ref", "HEAD"],
         ),
         (
+            "doc_references",
+            [sys.executable, "scripts/dev/check_doc_references.py"],
+        ),
+        (
             "repo_style_strict",
             [sys.executable, "scripts/dev/dev_workflow_style_check.py", "--strict"],
         ),

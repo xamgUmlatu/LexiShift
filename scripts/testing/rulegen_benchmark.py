@@ -40,11 +40,6 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
 
-try:
-    from .rulegen_benchmark_html import render_html_report
-except Exception:  # noqa: BLE001
-    from rulegen_benchmark_html import render_html_report  # type: ignore[no-redef]
-
 
 @dataclass(frozen=True)
 class SweepConfig:
@@ -155,6 +150,14 @@ class SweepRun:
         if include_case_results:
             payload["case_results"] = list(self.case_results)
         return payload
+
+
+def _load_html_report_renderer():
+    module_name = "rulegen_benchmark_html"
+    if __package__:
+        module_name = f"{__package__}.rulegen_benchmark_html"
+    module = __import__(module_name, fromlist=["render_html_report"])
+    return module.render_html_report
 
 
 def _parse_csv_strings(text: str) -> list[str]:
@@ -759,7 +762,7 @@ def main() -> None:
 
     top_runs = max(1, int(args.top_runs))
     markdown_report = _render_markdown_report(pair_runs=pair_runs, top_n=top_runs)
-    html_report = render_html_report(
+    html_report = _load_html_report_renderer()(
         report_payload=report_payload,
         pair_runs=pair_runs,
         cases_by_pair=cases_by_pair,

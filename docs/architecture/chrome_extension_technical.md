@@ -1,10 +1,27 @@
 # LexiShift Chrome Extension: Technical Notes
 
+Status: active mixed reference
+Role: Mixed
+Last updated: 2026-03-21
+Purpose: module-level technical reference for current extension behavior plus known gaps and ongoing areas
+Source-of-truth: mixed as-is + known-gaps reference; verify live runtime behavior in `extension_system_map.md`, `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options/core/bootstrap/controller_graph.js`, and the linked source modules.
+
+This doc mixes current runtime notes with known gaps and forward-looking sections.
+Use `extension_system_map.md` first when you need the shortest current-behavior path.
+
 Recommended read order
 - Start here for a single-page map: `docs/architecture/extension_system_map.md`.
 - Then use this file for module-level detail.
 - For options composition internals: `docs/architecture/options_controllers_architecture.md`.
 - For popup module architecture: `docs/architecture/popup_modules_pattern.md`.
+
+## How To Use This Doc
+
+- Treat the overview, module layout, manifest ordering, settings flow, runtime/storage sections, and SRS/helper flow notes as the current extension reference.
+- Treat Share Center rollout notes and the explicit known-issue section as mixed/gap-tracking content, not fully settled architecture.
+- Verify implementation-facing claims in source when a change depends on exact runtime behavior.
+
+## Current Runtime Reference
 
 Overview
 - The extension runs a content script on all frames and replaces visible text using a ruleset.
@@ -183,7 +200,7 @@ Options UI tools (extension)
   - “Run sampled rulegen (5)…” (non-mutating helper preview)
   - helper connection test + open helper data folder
 - Debug focus word: highlights whether a token was seen or replaced.
-- Share Center (rollout):
+- Share Center (mixed rollout surface):
   - grouped/hierarchical share target UI above legacy share controls.
   - export action writes a JSON share payload file (download), not an in-modal share code string.
   - compact selection summary shows selection path, include groups, and output format.
@@ -341,6 +358,8 @@ Settings added for replacement behavior
   - Caps the total number of replacements per page scan/session (`0` means unlimited).
 - `maxReplacementsPerLemmaPerPage` (default: 0)
   - Caps repeated replacements of the same lemma on a page (`0` means unlimited).
+
+## Known Gap To Preserve Explicitly
 
 Known issue (not fixed yet)
 - The act of replacing text nodes splits the original text into multiple nodes.

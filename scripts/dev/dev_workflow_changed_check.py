@@ -58,6 +58,20 @@ WINDOWS_PARITY_PATH_HINTS: tuple[str, ...] = (
     "scripts/dev/windows_parity_summary.py",
     "docs/developer/windows_gui_parity_workstream.md",
 )
+DOC_REFERENCE_TRIGGER_HINTS: tuple[str, ...] = (
+    "AGENTS.md",
+    "README.md",
+    "docs/",
+    "scripts/",
+    "apps/",
+    "core/",
+    ".github/",
+    "scripts/README.md",
+    "pyproject.toml",
+    "requirements-dev.txt",
+    "requirements-build.txt",
+    ".pre-commit-config.yaml",
+)
 FEATURE_STATE_MATRIX_PATH = "docs/developer/feature_state_matrix.md"
 
 
@@ -102,18 +116,18 @@ def _collect_changed_files(
         diff_prefix.append("-w")
     if scope == "branch" and base_ref:
         git_commands.append(
-            [*diff_prefix, "--name-only", "--diff-filter=ACMR", f"{base_ref}...HEAD"]
+            [*diff_prefix, "--name-only", "--diff-filter=ACMRD", f"{base_ref}...HEAD"]
         )
     if scope in {"branch", "local"}:
         git_commands.extend(
             [
-                [*diff_prefix, "--name-only", "--diff-filter=ACMR"],
-                [*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMR"],
+                [*diff_prefix, "--name-only", "--diff-filter=ACMRD"],
+                [*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMRD"],
                 ["git", "ls-files", "--others", "--exclude-standard"],
             ]
         )
     elif scope == "staged":
-        git_commands.append([*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMR"])
+        git_commands.append([*diff_prefix, "--name-only", "--cached", "--diff-filter=ACMRD"])
     for command in git_commands:
         result = subprocess.run(
             command,
@@ -295,6 +309,14 @@ def _needs_feature_state_audit(changed_files: list[str]) -> bool:
     return any(path.replace("\\", "/") == FEATURE_STATE_MATRIX_PATH for path in changed_files)
 
 
+def _needs_doc_reference_check(changed_files: list[str]) -> bool:
+    return any(
+        path.replace("\\", "/").startswith(DOC_REFERENCE_TRIGGER_HINTS)
+        or path.replace("\\", "/") in DOC_REFERENCE_TRIGGER_HINTS
+        for path in changed_files
+    )
+
+
 def _write_json_report(path: Path | None, payload: dict[str, object]) -> None:
     if path is None:
         return
@@ -411,6 +433,8 @@ def main() -> None:
         str(PROJECT_HEALTH_BASELINE),
         "--fail-on-new",
         "--fail-on-regressions",
+        "--fail-on-new-warnings",
+        "--fail-on-warning-regressions",
     ] + (
         ["--base-ref", str(args.base_ref)]
         if args.scope == "branch"
@@ -488,6 +512,29 @@ def main() -> None:
     else:
         print("feature_state_audit_required: no")
         payload["feature_state"] = {"required": False, "status": "not-needed"}
+
+    doc_reference_trigger_files = _matching_paths(
+        substantive_changed_files,
+        DOC_REFERENCE_TRIGGER_HINTS,
+    )
+    if _needs_doc_reference_check(substantive_changed_files):
+        doc_reference_command = [
+            sys.executable,
+            "scripts/dev/check_doc_references.py",
+        ]
+        doc_reference_exit_code = _run(doc_reference_command, strict=False)
+        payload["doc_references"] = {
+            "required": True,
+            "trigger_files": doc_reference_trigger_files[:10],
+            "command": doc_reference_command,
+            "exit_code": doc_reference_exit_code,
+        }
+        if doc_reference_exit_code != 0:
+            _write_json_report(args.json_out, payload)
+            raise SystemExit(doc_reference_exit_code)
+    else:
+        print("doc_reference_check_required: no")
+        payload["doc_references"] = {"required": False, "status": "not-needed"}
 
     betterdiscord_trigger_files = _matching_paths(changed_files, BETTERDISCORD_PATH_HINTS)
     if betterdiscord_trigger_files:

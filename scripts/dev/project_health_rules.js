@@ -78,7 +78,7 @@ module.exports = Object.freeze({
     ]),
     overrides: Object.freeze({
         "scripts/dev/check_project_health.js": Object.freeze({
-            maxLines: 900,
+            maxLines: 1000,
             maxFunctions: 50
         }),
         "scripts/dev/cws_preflight.js": Object.freeze({

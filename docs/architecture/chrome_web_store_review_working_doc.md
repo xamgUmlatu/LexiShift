@@ -1,6 +1,10 @@
 # Chrome Web Store Review Working Doc (Open Questions)
 
-Status: Draft  
+Status: active decision log
+Role: Draft decision log
+Last updated: 2026-03-21
+Purpose: track open product/policy decisions and engineering follow-up for Chrome Web Store submission concerns
+Source-of-truth: decision log for unresolved CWS review questions; do not treat open-question sections as settled product policy without explicit decision entries.
 Scope: Resolve five known review concerns for LexiShift Chrome extension submission.
 
 ## 2026-02-18 Discussion Notes (Current Decisions)
@@ -186,7 +190,7 @@ This document is the formal source of truth for:
 
 ## Cross-cutting privacy/trust questions (needs product stance)
 
-Current runtime stores page-derived data locally (for diagnostics/feedback history), including URL/source/excerpt fields.  
+Current runtime stores page-derived data locally (for diagnostics/feedback history), including URL/source/excerpt fields.
 We need explicit product policy on this.
 
 ### Product decisions needed from you
@@ -242,10 +246,10 @@ Practical launch options:
 
 ### B) "Do we have to exclude sites?" and AdBlock-style comparison
 
-Not strictly required by policy as a blanket rule.  
+Not strictly required by policy as a blanket rule.
 But minimization is required: permissions and data handling should be no broader than the stated user-facing purpose.
 
-Ad blockers can justify broad scope because their single purpose is global page/request filtering.  
+Ad blockers can justify broad scope because their single purpose is global page/request filtering.
 LexiShift can also justify broad scope, but should clearly document:
 - single purpose,
 - what data is read,

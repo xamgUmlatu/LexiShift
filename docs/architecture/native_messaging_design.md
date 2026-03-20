@@ -1,8 +1,23 @@
 # LexiShift Companion Helper + Native Messaging (Option A)
 
+Status: active mixed design
+Role: Mixed
+Last updated: 2026-03-21
+Purpose: native-helper and native-messaging architecture contract plus phased rollout plan
+Source-of-truth: mixed as-is + roadmap reference; verify live helper/native-host behavior in code and use `native_messaging_checklist.md` for execution status.
+
+This doc mixes current architecture/protocol details with phased future work.
+Treat phase/checklist status as planning unless it is separately verified in code or in the execution tracker.
+
 This document defines the design and implementation workstream for a local companion helper
 that performs SRS growth + rulegen and serves results to the browser extension (and later the plugin),
 without shipping large datasets inside the extension.
+
+## How To Read This Doc
+
+- Treat `Architecture Overview`, `Message Protocol`, `Snapshot Schema`, `Ruleset Schema`, `Storage + Paths`, `Security + Trust`, `Failure Modes + Fallbacks`, and `Live Current Status` as the current architecture/protocol contract.
+- Treat `Planning Roadmap: Workstream Breakdown` and `Planning Open Questions` as planning surfaces.
+- Treat `GUI Install UX` and `Bundling the Helper Host` as mixed operational areas that should be verified in build/install code before being used as release truth.
 
 ## Goals
 - Run rulegen locally as S grows, without requiring the user to open the GUI app.
@@ -35,7 +50,7 @@ Shared outputs written by helper:
 - `srs/profiles/<profile_id>/srs_status.json` (health + last_run metadata)
 - `srs/profiles/<profile_id>/srs_signal_queue.json` (signal stream; feedback authoritative for scheduling)
 
-## Workstream Breakdown (Phases)
+## Planning Roadmap: Workstream Breakdown (Phases)
 
 Tracking checklist: see `docs/architecture/native_messaging_checklist.md`.
 
@@ -195,12 +210,12 @@ Schema note:
   2) Options → “Show target rules…”
   3) Confirm snapshot matches ruleset.
 
-## Open Questions
+## Planning Open Questions
 - How frequently should rulegen run?
 - Should we allow manual override per profile/pair?
 - How should profile-driven planning and adaptive refresh be scheduled?
 
-## GUI Install UX
+## Mixed Surface: GUI Install UX
 - **Automatic** install on first launch if a fixed extension ID is available and the bundled helper host exists.
 - App menu (LexiShift) → “Install/Reinstall LexiShift Helper…” as a repair tool.
 - Settings → SRS: “Helper status” + “Install/Reinstall Helper” as a repair tool.
@@ -208,13 +223,13 @@ Schema note:
 - If the helper host is missing (dev), the GUI prompts for the host path.
 - On Windows, GUI install expects a native host executable (`lexishift_native_host.exe`) and writes the per-browser manifest registry key.
 
-## Bundling the Helper Host
+## Mixed Surface: Bundling The Helper Host
 - The GUI app bundles `lexishift_native_host.py` plus `lexishift_core` into `resources/helper/`.
 - On Windows builds, packaging also emits `LexiShiftNativeHost/lexishift_native_host.exe` so the manifest can target a real native host executable.
 - The helper manifest points to the bundled script path on macOS/Linux and the bundled native host executable on Windows, so no extra download is required.
 - For onefile builds, the installer copies the helper into the LexiShift app data directory to keep the manifest path stable after the app exits.
 
-## Current Status
+## Live Current Status
 - Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
 - Native messaging host exists; install writes the host manifest for the provided extension ID and now registers Windows per-browser native-messaging manifest keys for supported GUI environments.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).

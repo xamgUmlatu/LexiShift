@@ -1,5 +1,15 @@
 # Local Setup And Development Loops
 
+Status: active runbook
+Role: Runbook / operational
+Last updated: 2026-03-17
+Last verified: 2026-03-17 package-script inventory review + local repo-safety runs
+Purpose: current setup, validation, and day-to-day development entrypoints for contributors
+Source-of-truth: workflow runbook; operational behavior is defined by `scripts/package.json`, `AGENTS.md`, and the scripts under `scripts/dev/` and `scripts/testing/`.
+
+Use this page for current local setup and day-to-day validation loops.
+For cross-cutting workflow status or known contradictions, defer to `feature_state_matrix.md`.
+
 ## Prerequisites
 
 - Python 3.10+

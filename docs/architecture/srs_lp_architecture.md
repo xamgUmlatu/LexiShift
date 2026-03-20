@@ -1,5 +1,10 @@
 # SRS LP Architecture Contract
 
+Status: active architecture contract
+Role: Canonical current
+Last updated: 2026-03-21
+Source-of-truth: LP capability contract centered on `core/lexishift_core/helper/lp_capabilities.py` and the linked helper/SRS modules.
+
 Purpose:
 - Define how LP (Language Pair) support is structured across core, helper, GUI, and extension.
 - Make future LP additions predictable and backward-compatible.

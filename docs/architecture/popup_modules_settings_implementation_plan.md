@@ -1,11 +1,16 @@
 # Popup Modules Settings: Implementation Plan
 
-Status:
-- Planning only.
-- No runtime implementation in this document.
-- Current runtime/settings behavior is documented in:
-  - `docs/architecture/chrome_extension_technical.md`
-  - `docs/architecture/popup_modules_pattern.md`
+Status: active implementation plan
+Role: Planning / WIP
+Last updated: 2026-03-21
+Purpose: planned module-settings model and migration path for popup modules
+Source-of-truth: planning-only settings-flow design; current runtime/settings truth remains in `chrome_extension_technical.md` and `popup_modules_pattern.md`.
+
+Planning only.
+No runtime implementation in this document.
+Current runtime/settings behavior is documented in:
+- `docs/architecture/chrome_extension_technical.md`
+- `docs/architecture/popup_modules_pattern.md`
 
 Goal:
 - Replace target-language gear preferences with a generalized "Modules" settings flow.

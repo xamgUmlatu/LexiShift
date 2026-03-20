@@ -1,5 +1,12 @@
 # Scripts Structure
 
+Status: active script map
+Role: Runbook / operational
+Last updated: 2026-03-21
+Last verified: 2026-03-21 script-map routing review + package inventory check
+Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
+Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`.
+
 Scripts are grouped by workflow type so build/release and data tooling stay separated.
 
 ## Folders
@@ -10,7 +17,21 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - `helper/`: helper daemon/native-host entrypoints and native messaging assets.
 - `testing/`: language-pair analysis/testing scripts and report generators.
 
-## Common Entry Points
+## Start Here
+
+Use the package-script workflow surfaces first when they exist:
+
+- Repo safety: `npm --prefix scripts run check`
+- Branch-scope safety: `npm --prefix scripts run check:changed`
+- Canonical doc integrity: `npm --prefix scripts run check:docs`
+- Feature-state audit: `npm --prefix scripts run check:state`
+- Build safety: `npm --prefix scripts run build`
+- Project health: `npm --prefix scripts run health:project`
+- SRS quality harness: `npm --prefix scripts run quality:srs:harness`
+
+Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
+
+## Workflow Entry Points
 
 - Repo safety check (tests + mypy + workflow script compile + advisory project health):
   `dev/dev_workflow_check.py`
@@ -21,10 +42,17 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
   `dev/feature_state_audit.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:state`
   - `check:state` compares against `HEAD` so status/default-behavior transitions need matching verification and evidence updates
+- Canonical documentation reference integrity check:
+  `dev/check_doc_references.py`
+  - Optional JSON report via `--json-out` or `npm --prefix scripts run check:docs:report`
+  - Verifies the canonical routing/policy docs carry top metadata (`Status`, `Role`, `Last updated`) and point at real files so documentation authority stays operable
+  - Complements `feature_state_audit.py`, which remains the dedicated structural audit for `docs/developer/feature_state_matrix.md`
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
   - Tracks both total changed files and substantive changed files so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not automatically trigger heavy quality loops
+  - Runs the canonical documentation reference check when canonical docs change or when referenced source files under `apps/`, `core/`, `scripts/`, or `.github/` move/change materially
+  - Uses the changed-file health gate with baseline warning-delta checks, so new/regressed warning debt is blocked alongside new/regressed violations
   - Automatically runs the Windows parity audit when parity-related GUI/helper/build files change
 - Workflow Markdown summary renderer for JSON reports:
   `dev/dev_workflow_summary.py`
@@ -94,5 +122,8 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.
+
+## Specialty Tools
+
 - Audit licensing headers for `expected-not-verified` packs: `dev/licensing_header_audit.py`
 - Download and inspect source archive headers for licensing verification (dev-only): `dev/licensing_source_header_fetch.py`

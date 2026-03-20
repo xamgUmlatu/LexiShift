@@ -1,12 +1,18 @@
 # Developer Reference (Legacy README Snapshot)
 
+Status: archived snapshot
+Role: Archive / legacy
+Last updated: 2026-03-17
+Purpose: preserve the pre-split developer README content as historical reference only
+Source-of-truth: archive snapshot only; use `../../README.md`, `README.md`, and `developer_reference.md` for current guidance.
+
 This file preserves the previous detailed root `README.md` content after the user-facing/developer-facing split.
 
-Status:
-- Archival reference.
-- Not the primary onboarding entrypoint.
+Archive notice:
+- Historical reference only.
+- Do not treat the present-tense claims below as current workflow authority without re-verifying them against current docs/code.
 
-Primary entrypoints now:
+Current entrypoints:
 - Root README: `../../README.md` (user-facing overview + quick start)
 - Developer hub: `README.md`
 

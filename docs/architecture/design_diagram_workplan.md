@@ -1,7 +1,10 @@
 # Design Diagram Workplan
 
-Status: Active  
-Last updated: 2026-02-19
+Status: active diagram workplan
+Role: Planning / WIP
+Last updated: 2026-03-21
+Purpose: define the architecture-diagram queue and maintenance rules for resume-friendly architecture documentation
+Source-of-truth: diagram planning/maintenance guide; not a runtime behavior contract by itself.
 
 This document defines the six core diagrams to build and maintain so architecture state can be resumed quickly with minimal ambiguity.
 

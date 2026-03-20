@@ -241,6 +241,8 @@ function parseArgs(argv) {
         writeBaseline: "",
         failOnNew: false,
         failOnRegressions: false,
+        failOnNewWarnings: false,
+        failOnWarningRegressions: false,
         enforceAll: false,
         warningLimit: DEFAULT_WARNING_LIMIT
     };
@@ -284,6 +286,12 @@ function parseArgs(argv) {
             break;
         case "--fail-on-regressions":
             options.failOnRegressions = true;
+            break;
+        case "--fail-on-new-warnings":
+            options.failOnNewWarnings = true;
+            break;
+        case "--fail-on-warning-regressions":
+            options.failOnWarningRegressions = true;
             break;
         case "--enforce-all":
             options.enforceAll = true;
@@ -369,6 +377,9 @@ function compareWithBaseline(records, baselineFiles) {
     const newViolations = [];
     const regressions = [];
     const legacyViolations = [];
+    const newWarnings = [];
+    const warningRegressions = [];
+    const legacyWarnings = [];
 
     for (const record of records) {
         if (record.violationMetrics.length === 0) continue;
@@ -436,10 +447,91 @@ function compareWithBaseline(records, baselineFiles) {
         });
     }
 
+    for (const record of records) {
+        if (record.warningMetrics.length === 0) continue;
+        const baselineEntry = baselineFiles[record.metrics.file];
+        if (!baselineEntry) {
+            newWarnings.push({
+                file: record.metrics.file,
+                reason: "new_file_warning",
+                warning_metrics: record.warningMetrics,
+                metrics: record.metrics
+            });
+            continue;
+        }
+
+        const baseWarningSet = new Set(
+            Array.isArray(baselineEntry.warning_metrics)
+                ? baselineEntry.warning_metrics.map((entry) => String(entry))
+                : []
+        );
+        const baseViolationSet = new Set(
+            Array.isArray(baselineEntry.violation_metrics)
+                ? baselineEntry.violation_metrics.map((entry) => String(entry))
+                : []
+        );
+        const baseMetrics = baselineEntry.metrics && typeof baselineEntry.metrics === "object"
+            ? baselineEntry.metrics
+            : {};
+
+        let hasNewMetric = false;
+        let hasRegression = false;
+        const regressedMetrics = [];
+
+        for (const metric of record.warningMetrics) {
+            if (baseViolationSet.has(metric)) {
+                continue;
+            }
+            if (!baseWarningSet.has(metric)) {
+                hasNewMetric = true;
+                continue;
+            }
+            const baselineValue = Number(baseMetrics[metric] || 0);
+            const currentValue = Number(record.metrics[metric] || 0);
+            if (currentValue > baselineValue) {
+                hasRegression = true;
+                regressedMetrics.push({
+                    metric,
+                    baseline_value: baselineValue,
+                    current_value: currentValue
+                });
+            }
+        }
+
+        if (hasNewMetric) {
+            newWarnings.push({
+                file: record.metrics.file,
+                reason: "new_warning_metric",
+                warning_metrics: record.warningMetrics,
+                metrics: record.metrics
+            });
+            continue;
+        }
+
+        if (hasRegression) {
+            warningRegressions.push({
+                file: record.metrics.file,
+                regressed_metrics: regressedMetrics,
+                warning_metrics: record.warningMetrics,
+                metrics: record.metrics
+            });
+            continue;
+        }
+
+        legacyWarnings.push({
+            file: record.metrics.file,
+            warning_metrics: record.warningMetrics,
+            metrics: record.metrics
+        });
+    }
+
     return {
         newViolations,
         regressions,
-        legacyViolations
+        legacyViolations,
+        newWarnings,
+        warningRegressions,
+        legacyWarnings
     };
 }
 
@@ -557,7 +649,10 @@ function printBaselineDelta(delta, options) {
         `[check-project-health] Baseline delta: `
         + `legacy=${delta.legacyViolations.length} `
         + `new=${delta.newViolations.length} `
-        + `regressions=${delta.regressions.length}`
+        + `regressions=${delta.regressions.length} `
+        + `legacy_warnings=${delta.legacyWarnings.length} `
+        + `new_warnings=${delta.newWarnings.length} `
+        + `warning_regressions=${delta.warningRegressions.length}`
     );
 
     if (delta.newViolations.length > 0) {
@@ -579,6 +674,30 @@ function printBaselineDelta(delta, options) {
             .forEach((entry) => {
                 const metrics = entry.regressed_metrics
                     .map((metric) => `${metric.metric}:${metric.baseline_overage}->${metric.current_overage}`)
+                    .join(", ");
+                console.error(`  - ${entry.file} (${metrics})`);
+            });
+    }
+
+    if (delta.newWarnings.length > 0) {
+        console.error("[check-project-health] New warnings vs baseline:");
+        delta.newWarnings
+            .slice()
+            .sort((a, b) => a.file.localeCompare(b.file))
+            .forEach((entry) => {
+                const metrics = entry.warning_metrics.join(",");
+                console.error(`  - ${entry.file} (${entry.reason}; metrics=${metrics})`);
+            });
+    }
+
+    if (delta.warningRegressions.length > 0) {
+        console.error("[check-project-health] Warning regressions vs baseline:");
+        delta.warningRegressions
+            .slice()
+            .sort((a, b) => a.file.localeCompare(b.file))
+            .forEach((entry) => {
+                const metrics = entry.regressed_metrics
+                    .map((metric) => `${metric.metric}:${metric.baseline_value}->${metric.current_value}`)
                     .join(", ");
                 console.error(`  - ${entry.file} (${metrics})`);
             });
@@ -640,8 +759,17 @@ function main() {
     } else {
         const failOnNew = options.failOnNew && delta && delta.newViolations.length > 0;
         const failOnRegressions = options.failOnRegressions && delta && delta.regressions.length > 0;
+        const failOnNewWarnings = options.failOnNewWarnings && delta && delta.newWarnings.length > 0;
+        const failOnWarningRegressions =
+            options.failOnWarningRegressions && delta && delta.warningRegressions.length > 0;
         const failOnAll = options.enforceAll && violations.length > 0 && !options.advisory;
-        shouldFail = Boolean(failOnNew || failOnRegressions || failOnAll);
+        shouldFail = Boolean(
+            failOnNew
+            || failOnRegressions
+            || failOnNewWarnings
+            || failOnWarningRegressions
+            || failOnAll
+        );
     }
 
     if (!baseline || options.enforceAll || options.advisory) {
@@ -677,6 +805,9 @@ function main() {
         baseline_legacy_violations: delta ? delta.legacyViolations.length : null,
         baseline_new_violations: delta ? delta.newViolations.length : null,
         baseline_regressions: delta ? delta.regressions.length : null,
+        baseline_legacy_warnings: delta ? delta.legacyWarnings.length : null,
+        baseline_new_warnings: delta ? delta.newWarnings.length : null,
+        baseline_warning_regressions: delta ? delta.warningRegressions.length : null,
         advisory: Boolean(options.advisory)
     };
 
@@ -691,6 +822,8 @@ function main() {
             baseline_json: options.baselineJson || "",
             fail_on_new: Boolean(options.failOnNew),
             fail_on_regressions: Boolean(options.failOnRegressions),
+            fail_on_new_warnings: Boolean(options.failOnNewWarnings),
+            fail_on_warning_regressions: Boolean(options.failOnWarningRegressions),
             enforce_all: Boolean(options.enforceAll)
         },
         summary,
@@ -700,7 +833,10 @@ function main() {
             ? {
                 new_violations: delta.newViolations,
                 regressions: delta.regressions,
-                legacy_violations: delta.legacyViolations
+                legacy_violations: delta.legacyViolations,
+                new_warnings: delta.newWarnings,
+                warning_regressions: delta.warningRegressions,
+                legacy_warnings: delta.legacyWarnings
             }
             : null
     };

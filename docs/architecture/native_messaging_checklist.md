@@ -1,5 +1,11 @@
 # Native Messaging Helper Workstream Checklist
 
+Status: active execution tracker
+Role: Planning / WIP
+Last updated: 2026-03-21
+Purpose: track native-messaging helper rollout progress by phase
+Source-of-truth: execution-status tracker only; use `native_messaging_design.md` for architecture context and verify implemented behavior in code.
+
 Status key:
 - `[ ]` not started
 - `[~]` in progress

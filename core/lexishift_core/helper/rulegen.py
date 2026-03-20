@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
-from datetime import datetime
-import json
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.helper.rulegen_outputs import (
+    RulegenOutput,
+    build_snapshot,
+    write_rulegen_outputs,
+)
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
@@ -20,8 +23,23 @@ from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
-from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 from lexishift_core.scoring.weighting import GlossDecay
+
+__all__ = [
+    "RulegenConfig",
+    "RulegenOutput",
+    "SetInitializationConfig",
+    "SetInitializationReport",
+    "build_seed_candidates",
+    "build_snapshot",
+    "initialize_store_from_frequency_list",
+    "initialize_store_from_frequency_list_with_report",
+    "load_target_word_packages_from_store",
+    "load_targets_from_store",
+    "run_ja_en_rulegen",
+    "run_rulegen_for_pair",
+    "write_rulegen_outputs",
+]
 
 
 @dataclass(frozen=True)
@@ -62,17 +80,6 @@ class RulegenConfig:
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
-
-
-@dataclass(frozen=True)
-class RulegenOutput:
-    rules: Sequence[VocabRule]
-    snapshot: Mapping[str, object]
-    target_count: int
-
-
-def _now_iso() -> str:
-    return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
 
 def _load_seed_module():
@@ -204,42 +211,6 @@ def initialize_store_from_frequency_list_with_report(
     return updated, report
 
 
-def build_snapshot(
-    *,
-    rules: Sequence[VocabRule],
-    pair: str,
-    generated_at: str,
-    max_targets: int,
-    max_sources: int,
-) -> Mapping[str, object]:
-    mapping: dict[str, list[str]] = {}
-    for rule in rules:
-        lemma = str(rule.replacement or "").strip()
-        source = str(rule.source_phrase or "").strip()
-        if not lemma or not source:
-            continue
-        mapping.setdefault(lemma, [])
-        if source not in mapping[lemma]:
-            mapping[lemma].append(source)
-    targets = []
-    for lemma in sorted(mapping.keys())[:max_targets]:
-        sources = mapping[lemma][:max_sources]
-        targets.append({"lemma": lemma, "sources": sources})
-    source_total = sum(len(sources) for sources in mapping.values())
-    snapshot = {
-        "version": 1,
-        "generated_at": generated_at,
-        "pair": pair,
-        "targets": targets,
-        "stats": {
-            "target_count": len(mapping),
-            "rule_count": len(rules),
-            "source_count": source_total,
-        },
-    }
-    return snapshot
-
-
 def run_ja_en_rulegen(
     *,
     targets: Iterable[str],
@@ -305,22 +276,6 @@ def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
     }
 
 
-def write_rulegen_outputs(
-    *,
-    paths: HelperPaths,
-    pair: str,
-    profile_id: str = "default",
-    rules: Sequence[VocabRule],
-    snapshot: Mapping[str, object],
-) -> None:
-    dataset = VocabDataset(rules=tuple(rules))
-    save_vocab_dataset(dataset, paths.ruleset_path(pair, profile_id=profile_id))
-    Path(paths.snapshot_path(pair, profile_id=profile_id)).write_text(
-        json.dumps(snapshot, indent=2, sort_keys=True),
-        encoding="utf-8",
-    )
-
-
 def run_rulegen_for_pair(
     *,
     paths: HelperPaths,
@@ -379,11 +334,9 @@ def run_rulegen_for_pair(
             word_packages_by_target=target_word_packages or None,
         )
     )
-    generated_at = _now_iso()
     snapshot = build_snapshot(
         rules=rules,
         pair=pair,
-        generated_at=generated_at,
         max_targets=rulegen_config.max_snapshot_targets,
         max_sources=rulegen_config.max_snapshot_sources,
     )

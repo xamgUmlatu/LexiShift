@@ -1,7 +1,10 @@
 # Architecture Diagrams Tracker
 
-Status: Active  
-Last updated: 2026-02-19
+Status: active diagram tracker
+Role: Runbook / operational
+Last updated: 2026-03-21
+Purpose: track diagram status and render/update workflow for the maintained architecture diagrams
+Source-of-truth: diagram status tracker and rendering runbook; use `../design_diagram_workplan.md` for planning/priority decisions.
 
 This folder tracks the six high-priority architecture diagrams used to maintain continuity across work sessions.
 

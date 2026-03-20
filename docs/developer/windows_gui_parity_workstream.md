@@ -1,6 +1,16 @@
 # Windows GUI Parity Workstream
 
-Purpose:
+Status: active parity workstream
+Role: Planning / WIP
+Last updated: 2026-03-17
+Last verified: 2026-03-17 parity-command inventory review + feature-state check
+Purpose: track remaining Windows parity confidence gaps and rollout priorities without redefining the active parity gate
+Source-of-truth: current parity gate behavior lives in `feature_state_matrix.md`, `scripts/dev/windows_parity_audit.py`, and `scripts/package.json`.
+
+Use this doc as planning delta only.
+The current workflow contract already treats the Windows parity audit as required; this file tracks the remaining confidence-building work around that gate.
+
+Planning focus:
 - track Windows desktop parity as a workflow surface, not just a release-time surprise
 - keep build/runtime/helper gaps explicit until they are implemented and verified
 
@@ -35,5 +45,5 @@ Current known gaps:
 Recommended rollout order:
 1. keep the packaged GUI/helper/native-host parity checks green
 2. keep the hosted Windows full-build lane stable enough to become a trusted release signal
-3. expand the audit further only when new Windows-specific surfaces are added
-4. then decide whether to promote Windows GUI parity items from advisory to required workflow gates
+3. close remaining release-confidence gaps surfaced by installer/native-host/browser coverage
+4. expand the audit further only when new Windows-specific surfaces are added

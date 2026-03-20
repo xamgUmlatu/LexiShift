@@ -1,5 +1,12 @@
 # LexiShift
 
+Status: active repo entrypoint
+Role: Canonical current
+Last updated: 2026-03-21
+Last verified: 2026-03-21 repo-entry routing review
+Purpose: user/developer entry routing for the maintained product and documentation surfaces
+Source-of-truth: entry routing only; defer runtime behavior to source code and `docs/developer/feature_state_matrix.md`.
+
 LexiShift is a local-first language-learning toolkit for controlled text replacement and SRS-assisted practice.
 
 It combines:
@@ -29,23 +36,29 @@ Setup:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
+npm --prefix scripts run hooks:install
 ```
 
-Core checks:
+Default local safety loop:
 ```bash
-python -m unittest discover -s core/tests
-ruff format .
-mypy core/lexishift_core
+npm --prefix scripts run check
 ```
+
+Build/package safety when those surfaces are touched:
+```bash
+npm --prefix scripts run build
+```
+
+Current developer entrypoints:
+- `docs/developer/README.md`
+- `docs/developer/local_setup.md`
+- `docs/developer/build_and_release.md`
+- `docs/developer/feature_state_matrix.md`
 
 Run main surfaces:
-```bash
-python apps/gui/src/main.py
-```
-- Chrome extension: load `apps/chrome-extension/` as unpacked.
-- BetterDiscord plugin build: `node apps/betterdiscord-plugin/build_plugin.js`.
-
-For full developer workflows, read `docs/developer/README.md`.
+- Desktop GUI: `python apps/gui/src/main.py`
+- Chrome extension: load `apps/chrome-extension/` as unpacked
+- BetterDiscord plugin build: `node apps/betterdiscord-plugin/build_plugin.js`
 
 ## Repository Layout
 
@@ -58,13 +71,11 @@ For full developer workflows, read `docs/developer/README.md`.
 
 ## Documentation
 
-User-oriented:
+Current user/developer routing:
 - Getting started guide: `docs/getting-started/README.md`
 - Manual entrypoint: `docs/index.md`
 - Handbook entrypoint (Pages): `docs/handbook/index.md`
 - Rendered diagrams page: `docs/handbook/diagrams.md`
-
-Developer-oriented:
 - Developer docs hub: `docs/developer/README.md`
 - Developer handbook: `docs/developer/developer_reference.md`
 - Architecture map/status: `docs/architecture/README.md`

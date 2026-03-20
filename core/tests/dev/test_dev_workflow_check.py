@@ -12,6 +12,7 @@ if str(SCRIPT_DIR) not in sys.path:
 from dev_workflow_check import build_commands  # noqa: E402
 from dev_workflow_changed_check import (  # noqa: E402
     _json_change_is_substantive,
+    _needs_doc_reference_check,
     _python_change_is_substantive,
     _text_change_is_substantive,
 )
@@ -43,6 +44,16 @@ class TestDevWorkflowCheck(unittest.TestCase):
             [sys.executable, "scripts/dev/dev_workflow_style_check.py", "--strict"],
         )
 
+    def test_build_commands_include_doc_reference_audit(self) -> None:
+        commands = build_commands()
+        labels = [label for label, _command in commands]
+        self.assertIn("doc_references", labels)
+        doc_reference_command = dict(commands)["doc_references"]
+        self.assertEqual(
+            doc_reference_command,
+            [sys.executable, "scripts/dev/check_doc_references.py"],
+        )
+
     def test_python_change_is_not_substantive_for_format_only_diff(self) -> None:
         base = "value = {'name': 'lexishift'}\n"
         current = 'value = {"name": "lexishift"}\n'
@@ -72,6 +83,14 @@ class TestDevWorkflowCheck(unittest.TestCase):
         base = "Line one wraps here.\nLine two continues.\n"
         current = "Line one wraps here.\nLine two changed.\n"
         self.assertTrue(_text_change_is_substantive(base, current))
+
+    def test_doc_reference_check_is_required_for_referenced_source_paths(self) -> None:
+        self.assertTrue(_needs_doc_reference_check(["core/lexishift_core/helper/rulegen.py"]))
+        self.assertTrue(_needs_doc_reference_check(["apps/chrome-extension/options.html"]))
+        self.assertTrue(_needs_doc_reference_check(["scripts/README.md"]))
+
+    def test_doc_reference_check_is_not_required_for_unrelated_paths(self) -> None:
+        self.assertFalse(_needs_doc_reference_check(["data/sample.txt"]))
 
 
 if __name__ == "__main__":

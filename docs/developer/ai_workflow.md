@@ -1,7 +1,11 @@
 # AI-Assisted Rulegen Iteration Workflow
 
 Status: active workflow
-Last updated: 2026-03-12
+Role: Runbook / operational
+Last updated: 2026-03-21
+Last verified: 2026-03-21 AGENTS command review + package-script inventory check
+Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
+Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
 
 Purpose:
 - Keep rulegen tuning fast without sacrificing stability.
@@ -151,6 +155,14 @@ python3 scripts/testing/srs_quality_harness.py \
 ```
 
 Human-facing summary:
+
+```bash
+python3 scripts/testing/srs_quality_summary.py \
+  --quality-json docs/test_outputs/srs_quality_latest.json \
+  --markdown-out docs/test_outputs/srs_quality_summary_latest.md
+```
+
+Latest-artifact wrapper:
 
 ```bash
 npm --prefix scripts run quality:srs:summary

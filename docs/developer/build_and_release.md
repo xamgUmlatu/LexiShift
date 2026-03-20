@@ -1,5 +1,12 @@
 # Build And Release Workflows
 
+Status: active runbook
+Role: Runbook / operational
+Last updated: 2026-03-17
+Last verified: 2026-03-17 package-script inventory review + build-script path audit
+Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
+Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
+
 This page centralizes packaging/signing/release commands for developer/operator use.
 
 ## Developer Safety Entry Points

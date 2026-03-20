@@ -1,5 +1,13 @@
 # LexiShift Sync Design (App ↔ Extension ↔ Plugin)
 
+Status: planning blueprint
+Role: Planning / WIP
+Last updated: 2026-03-21
+Purpose: proposed sync blueprint across the app, extension, and plugin
+Source-of-truth: planning-only sync design; do not treat this file as implemented runtime behavior without separate code/evidence verification.
+
+This document captures a development blueprint and checklist, not a shipped sync contract.
+
 This document captures what should sync across the desktop app, Chrome extension, and BetterDiscord plugin, and how each client should consume the data. It is intended as a development blueprint and checklist.
 
 ## Goals

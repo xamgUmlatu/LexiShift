@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-02-28T23:35:39.129Z",
+  "generated_at_utc": "2026-03-20T19:12:29.969Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -9,74 +9,26 @@
     "baseline_json": "",
     "fail_on_new": false,
     "fail_on_regressions": false,
+    "fail_on_new_warnings": false,
+    "fail_on_warning_regressions": false,
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 302,
+    "files_checked": 325,
     "violations": 0,
-    "warnings": 2,
+    "warnings": 0,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
     "baseline_legacy_violations": null,
     "baseline_new_violations": null,
     "baseline_regressions": null,
+    "baseline_legacy_warnings": null,
+    "baseline_new_warnings": null,
+    "baseline_warning_regressions": null,
     "advisory": true
   },
   "violations": [],
-  "warnings": [
-    {
-      "file": "core/lexishift_core/helper/rulegen.py",
-      "language": "python",
-      "metrics": {
-        "lines": 397,
-        "imports": 22,
-        "domainBreadth": 1,
-        "functions": 14
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "imports"
-      ]
-    },
-    {
-      "file": "scripts/testing/rulegen_benchmark.py",
-      "language": "python",
-      "metrics": {
-        "lines": 777,
-        "imports": 21,
-        "domainBreadth": 2,
-        "functions": 21
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "imports"
-      ]
-    }
-  ],
+  "warnings": [],
   "baseline_delta": null
 }

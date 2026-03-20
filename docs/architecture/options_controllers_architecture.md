@@ -1,5 +1,11 @@
 # Options Controller Architecture
 
+Status: active architecture reference
+Role: Canonical current
+Last updated: 2026-03-21
+Purpose: as-is source-of-truth map for the options app structure and controller composition
+Source-of-truth: current options-controller composition; verify startup truth in `apps/chrome-extension/options.html`, `apps/chrome-extension/options.js`, and `apps/chrome-extension/options/core/bootstrap/controller_graph.js`.
+
 This document is the source-of-truth map for the options app structure and controller composition.
 
 ## Goals

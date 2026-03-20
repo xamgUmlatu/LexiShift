@@ -1,7 +1,9 @@
 # Feature State Matrix
 
 Status: active ledger
-Last updated: 2026-03-13
+Role: Canonical current
+Last updated: 2026-03-17
+Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
 - Keep feature state explicit for GenAI-driven development.
@@ -98,14 +100,17 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-12` CI report-gate orchestration + hosted repo-safety split + Windows build-validator triage
-- Last verified: `2026-03-12` repo-wide Ruff cleanup + pre-commit lint integration + workflow failure-detail reporting + CI report-gate orchestration review
+- Last documented checkpoint: `2026-03-17` canonical-doc metadata enforcement + changed-scope doc-reference expansion + health warning-delta gating
+- Last verified: `2026-03-17` local `check`, `check:state`, `check:docs:report`, and `health:project:report`
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
   - `npm --prefix scripts run check` now includes strict repo-wide Ruff lint/format checks because the repo-wide style baseline is clean.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
   - `npm --prefix scripts run check:changed` now records both total changed files and substantive changed files, and uses the substantive set when inferring heavier quality loops such as rulegen audit; Python uses AST comparison, JSON uses parsed equality, and Markdown/text uses whitespace-normalized comparison.
+  - `npm --prefix scripts run check:docs` now validates top metadata (`Status`, `Role`, `Last updated`) plus referenced repo paths for canonical routing/policy docs.
+  - `npm --prefix scripts run check:changed` now reruns the canonical doc integrity audit when canonical docs change or when referenced source files under `apps/`, `core/`, `scripts/`, `.github/`, or canonical root files change materially.
+  - `npm --prefix scripts run health:project:changed` now blocks new/regressed warning debt alongside new/regressed violation debt.
   - `npm --prefix scripts run build` is the local build smoke for maintained build surfaces.
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
   - Hosted macOS `build:report` keeps the full GUI bundle validation path; hosted Windows `build:report` now uses the full GUI build plus artifact verification, while the strict Windows parity audit remains the dedicated Windows-specific validation gate.
@@ -130,6 +135,9 @@ Use this file when:
   - `scripts/dev/dev_workflow_build.py`
   - `scripts/dev/dev_workflow_style_check.py`
   - `scripts/dev/dev_workflow_style_summary.py`
+  - `scripts/dev/check_doc_references.py`
+  - `scripts/dev/check_project_health.js`
+  - `scripts/dev/project_health_rules.js`
   - `scripts/dev/ci_report_gate.py`
   - `scripts/dev/run_python.js`
   - `apps/betterdiscord-plugin/build_plugin.js`
@@ -138,6 +146,7 @@ Use this file when:
   - `requirements-build.txt`
   - `scripts/package.json`
   - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
+  - `docs/test_outputs/dev_workflow/doc_references_latest.json`
   - `docs/test_outputs/dev_workflow/check_latest.json`
   - `docs/test_outputs/dev_workflow/check_changed_latest.json`
   - `docs/test_outputs/dev_workflow/build_latest.json`
@@ -145,11 +154,15 @@ Use this file when:
   - `docs/test_outputs/dev_workflow/summary_latest.md`
   - `docs/test_outputs/dev_workflow/style_latest.json`
   - `docs/test_outputs/dev_workflow/style_summary_latest.md`
+  - `docs/test_outputs/project_health/project_health_latest.json`
+  - `docs/developer/documentation_governance.md`
+  - `docs/developer/project_health_gate_structure.md`
   - `docs/developer/local_setup.md`
   - `docs/developer/build_and_release.md`
 - Known gaps:
   - GUI packaging makes `build` materially slower than `check`.
   - Hosted build coverage is now macOS full, Windows full-build plus artifact verification with a separate strict parity gate, and Ubuntu CI-safe partial; Ubuntu remains the explicit non-GUI proof lane rather than full desktop packaging.
+  - Canonical-doc metadata enforcement is currently limited to the canonical routing/policy layer, not every maintained doc in the repo.
   - Pre-commit and pre-push coverage are optional until contributors run `npm --prefix scripts run hooks:install`.
   - Branch-scope changed reports intentionally surface the whole branch delta, so long-running branches can report unrelated debt unless contributors use `check:changed:local` or `check:changed:staged`.
 
@@ -245,7 +258,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-03-13` named reverse-check run matrix + reverse-lane artifact refresh
-- Last verified: `2026-03-13` widened `en-es` slice, benchmark-harness reverse-path fix, rank-aware far-hit experiment, named reverse-check audit lane, and run-matrix refresh
+- Last verified: `2026-03-13` widened `en-es` slice to 38 cases, added aggressive expansion review, refreshed canonical + named reverse artifacts, and refreshed the run matrix
 - Default behavior:
   - Configurable and pair-aware for `en-es` and `es-en`.
   - Not yet promoted to default production tuning.
@@ -255,6 +268,7 @@ Use this file when:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
   - `docs/rulegen/reverse_check_rollout_matrix.md`
   - `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`
+  - `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
   - `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`
   - `core/lexishift_core/rulegen/ranking.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
@@ -278,8 +292,8 @@ Use this file when:
   - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
   - The canonical latest benchmark loop still defaults to `rev=off`; reverse-check-specific evaluation currently requires explicit benchmark overrides.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
-  - `en-es` hard-case coverage is better, but the canonical artifact still shows four red cases: `madre`, `planta`, `derecho`, `cuadro`.
-  - The current named `en-es` reverse lane reduces remaining triage to one item (`cuadro`) and lowers `forbidden_any_rate` to `4.17%`.
+  - `en-es` hard-case coverage is better, but the widened 38-case canonical artifact now shows eleven triage items; the default `rev=off` lane is intentionally much redder after the aggressive expansion.
+  - The current named `en-es` reverse lane reduces remaining triage to one item (`cuadro`) and lowers `forbidden_any_rate` to `2.63%`.
   - The best objective run in the reverse lane currently uses `max_rules_per_target=1`; a near-best `mr=none` run retains `top3=100.00%` with the same remaining failure set.
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone.
   - Current rollout is scoring-only, not strict candidate blocking.

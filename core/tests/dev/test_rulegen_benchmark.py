@@ -10,7 +10,10 @@ SCRIPT_DIR = REPO_ROOT / "scripts" / "testing"
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from rulegen_benchmark import _resolve_pair_resources_for_benchmark  # noqa: E402
+from rulegen_benchmark import (  # noqa: E402
+    _load_html_report_renderer,
+    _resolve_pair_resources_for_benchmark,
+)
 
 
 class _FakePaths:
@@ -20,6 +23,10 @@ class _FakePaths:
 
 
 class TestRulegenBenchmark(unittest.TestCase):
+    def test_load_html_report_renderer_returns_callable(self) -> None:
+        renderer = _load_html_report_renderer()
+        self.assertTrue(callable(renderer))
+
     def test_resolve_pair_resources_includes_reverse_freedict_for_en_es(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)

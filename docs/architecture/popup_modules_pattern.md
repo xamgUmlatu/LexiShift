@@ -1,5 +1,13 @@
 # Popup Modules Pattern (Architecture + Extension Plan)
 
+Status: active mixed pattern
+Role: Mixed
+Last updated: 2026-03-21
+Source-of-truth: mixed as-is + target API reference; verify live popup behavior in `apps/chrome-extension/content/ui/feedback_popup_controller.js`, `apps/chrome-extension/content/ui/ui.js`, and linked runtime modules.
+
+This doc mixes current popup behavior with future module API direction.
+Use current-runtime sections for shipped behavior and treat target/API sections as planning until separately verified.
+
 Purpose:
 - Define a stable popup-modules architecture for LexiShift replacement interactions.
 - Keep UX consistent while allowing feature growth.
@@ -11,6 +19,12 @@ Scope:
   - Japanese script module (shows non-primary scripts).
   - Word feedback module (Again/Hard/Good/Easy).
 - Future extensibility contract for third-party modules.
+
+## How To Read This Doc
+
+- Treat sections `2` through `7` as the current popup runtime/data/UX reference.
+- Treat sections `8`, `9`, `10`, and `14` as target/planning material rather than current shipped behavior.
+- Treat sections `1`, `3`, `11`, `12`, `13`, and `15` as cross-cutting design constraints that apply to both the current popup and future module evolution.
 
 ## 1) Why This Pattern Exists
 
@@ -261,7 +275,7 @@ Example settings shape:
 }
 ```
 
-## 10) Module Ideas Catalog (Learning-Word Focus)
+## 10) Planning Catalog: Candidate Module Ideas
 
 The following are candidate popup modules for a clicked target learning word. These are intended to be optional modules that can be enabled/disabled in settings over time.
 
@@ -377,7 +391,7 @@ Regression targets:
 - SRS color and rule-based color remain independent.
 - Popup module failures do not block feedback interactions.
 
-## 14) Implementation Roadmap
+## 14) Planning Roadmap
 
 Step 1:
 - Extract current module render into internal registry abstraction.

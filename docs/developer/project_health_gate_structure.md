@@ -1,5 +1,12 @@
 # Project Health Gate Structure
 
+Status: active gate spec
+Role: Runbook / operational
+Last updated: 2026-03-21
+Last verified: 2026-03-21 health-gate command review + CI workflow check
+Purpose: current design and command contract for the project-health maintainability gate
+Source-of-truth: health gate design + commands; operational behavior is enforced by `scripts/dev/check_project_health.js`.
+
 Purpose:
 
 1. Provide a reusable structure for enforcing codebase maintainability.
@@ -14,14 +21,19 @@ This implementation starts simple and now supports baseline/delta gating so it c
    - `scripts/dev/project_health_rules.js`
 2. Checker script:
    - `scripts/dev/check_project_health.js`
-3. Optional package script entry:
+3. Package script surfaces:
    - `scripts/package.json` -> `health:project`
+   - `scripts/package.json` -> `health:project:report`
+   - `scripts/package.json` -> `health:project:baseline`
+   - `scripts/package.json` -> `health:project:changed`
 4. Optional baseline artifact:
    - `docs/test_outputs/project_health/project_health_baseline.json`
 5. Remediation workstream:
    - `project_health_remediation_workstream.md`
-6. CI workflow gate:
-   - `.github/workflows/ci.yml` (`project-health-changed`)
+6. Changed-scope workflow integration:
+   - `scripts/dev/dev_workflow_changed_check.py`
+7. CI workflow integration:
+   - `.github/workflows/ci.yml` (`changed-workflow-check`)
 
 ## Rule Model
 
@@ -68,13 +80,14 @@ Checker flow:
 5. Apply limits (default + override).
 6. Emit:
    - hard violations (exit `1`)
-   - near-limit warnings (report only)
+   - near-limit warnings (report only unless warning-delta gating is configured)
    - pass summary
 7. Optional scope reduction:
    - changed-files-only scan (`--changed-only`, `--base-ref`, `--staged`)
 8. Optional baseline/delta comparison:
    - classify violations into `legacy`, `new`, `regressions`
-   - fail on only new/regression debt when configured
+   - classify warnings into `legacy`, `new`, `regressions`
+   - fail on only configured new/regression debt when configured
 
 ## Output Contract
 
@@ -99,25 +112,31 @@ Optional machine-readable output:
 2. Add explicit overrides only when necessary.
 3. Keep overrides small and reviewed.
 4. Enable changed-file baseline gating in CI:
-   - fail on `--fail-on-new` and `--fail-on-regressions`
+   - fail on `--fail-on-new`, `--fail-on-regressions`, `--fail-on-new-warnings`, and `--fail-on-warning-regressions`
 5. Keep global strict mode (`--enforce-all`) disabled until legacy debt is near zero.
 6. Ratchet limits/overrides as remediation proceeds.
 
 ## CI Integration (Current)
 
-1. CI enforcement is active for pull requests via `.github/workflows/ci.yml` job `project-health-changed`.
-2. Mode is changed-files baseline gating (`--changed-only`) against `docs/test_outputs/project_health/project_health_baseline.json`.
-3. Failures are limited to new/regressed debt (`--fail-on-new`, `--fail-on-regressions`).
-4. Base ref is derived from PR target branch (`origin/${{ github.base_ref }}`).
-5. Global strict mode remains disabled (`--enforce-all` is not used in CI).
+1. CI enforcement is active for pull requests through `.github/workflows/ci.yml` job `changed-workflow-check`.
+2. The health gate currently runs inside `scripts/dev/dev_workflow_changed_check.py`, not as a standalone health-only CI job.
+3. Mode is changed-files baseline gating (`--changed-only`) against `docs/test_outputs/project_health/project_health_baseline.json`.
+4. Failures are limited to new/regressed debt (`--fail-on-new`, `--fail-on-regressions`, `--fail-on-new-warnings`, `--fail-on-warning-regressions`).
+5. Base ref is derived from PR target branch (`origin/${{ github.base_ref }}`).
+6. Global strict mode remains disabled (`--enforce-all` is not used in CI).
 
-## Command
+## Commands
 
-From repository root:
+Preferred from repository root via package scripts:
 
 ```bash
-node scripts/dev/check_project_health.js
+npm --prefix scripts run health:project
+npm --prefix scripts run health:project:report
+npm --prefix scripts run health:project:baseline
+npm --prefix scripts run health:project:changed
 ```
+
+Equivalent direct checker commands:
 
 Advisory (non-blocking introduction mode):
 
@@ -141,7 +160,9 @@ node scripts/dev/check_project_health.js \
   --base-ref origin/main \
   --baseline-json docs/test_outputs/project_health/project_health_baseline.json \
   --fail-on-new \
-  --fail-on-regressions
+  --fail-on-regressions \
+  --fail-on-new-warnings \
+  --fail-on-warning-regressions
 ```
 
 JSON report output:
@@ -152,18 +173,10 @@ node scripts/dev/check_project_health.js \
   --json-output docs/test_outputs/project_health/project_health_latest.json
 ```
 
-From `scripts/` package scripts:
-
-```bash
-npm run health:project
-npm run health:project:report
-npm run health:project:baseline
-npm run health:project:changed
-```
-
 ## Notes
 
 1. This gate is not a replacement for tests/linting.
 2. It is an architectural pressure valve for long-term maintainability.
 3. Thresholds should evolve with the codebase, but changes should be explicit and documented.
 4. Baseline artifacts are policy snapshots; refresh only with explicit rationale.
+5. Documentation routing/integrity is governed separately by `documentation_governance.md` and `scripts/dev/check_doc_references.py`.
