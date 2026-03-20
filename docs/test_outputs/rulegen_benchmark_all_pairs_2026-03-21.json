@@ -1,0 +1,5401 @@
+{
+  "generated_at": "2026-03-20T19:56:37.232974+00:00",
+  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
+  "dataset_metadata": {
+    "version": 2,
+    "name": "LexiShift Rulegen Benchmark Cases",
+    "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
+    "breadth": "v2-expanded-aggressive"
+  },
+  "profile_id": "default",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "sweep": {
+    "pair_filter": [
+      "en-de",
+      "en-es",
+      "en-ja",
+      "es-en"
+    ],
+    "configuration_count": 16,
+    "objective_weights": {
+      "top1_accuracy": 100.0,
+      "top3_recall": 60.0,
+      "forbidden_top1_rate": 120.0,
+      "forbidden_any_rate": 80.0,
+      "avg_rules_per_target": 6.0,
+      "variant_top1_rate": 10.0
+    }
+  },
+  "resources": {
+    "en-de": {
+      "jmdict_path": null,
+      "freedict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/deu-eng.tei",
+      "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/deu-eng.tei"
+    },
+    "en-es": {
+      "jmdict_path": null,
+      "freedict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-spa-eng-0.3.1.src/spa-eng.tei",
+      "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-spa-2025.11.23.src/eng-spa.tei"
+    },
+    "en-ja": {
+      "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e",
+      "freedict_path": null,
+      "freedict_reverse_path": null
+    },
+    "es-en": {
+      "jmdict_path": null,
+      "freedict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-spa-2025.11.23.src/eng-spa.tei",
+      "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-spa-eng-0.3.1.src/spa-eng.tei"
+    }
+  },
+  "pairs": {
+    "en-de": {
+      "case_count": 16,
+      "run_count": 16,
+      "best_run": {
+        "pair": "en-de",
+        "run_index": 1,
+        "config": {
+          "max_definitions_per_target": 3,
+          "max_rules_per_target": null,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.6,
+          "score_weight_frequency_weight": 0.2,
+          "score_weight_pos_match": 0.0,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.2
+        },
+        "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+        "summary": {
+          "pair": "en-de",
+          "case_count": 16,
+          "top1_correct_count": 12,
+          "top3_contains_expected_count": 16,
+          "forbidden_top1_count": 0,
+          "forbidden_any_count": 0,
+          "avg_rules_per_target": 2.375,
+          "avg_top1_confidence": 0.6799999999999999,
+          "variant_rule_count": 0,
+          "total_rule_count": 38,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.75,
+          "top3_recall": 1.0,
+          "forbidden_top1_rate": 0.0,
+          "forbidden_any_rate": 0.0,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 120.75
+        },
+        "case_results": [
+          {
+            "case_id": "en-de:Haus",
+            "pair": "en-de",
+            "target": "Haus",
+            "rule_count": 3,
+            "top1_source": "establishment",
+            "top3_sources": [
+              "establishment",
+              "institution",
+              "house"
+            ],
+            "all_sources": [
+              "establishment",
+              "institution",
+              "house"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "house"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Wasser",
+            "pair": "en-de",
+            "target": "Wasser",
+            "rule_count": 3,
+            "top1_source": "water",
+            "top3_sources": [
+              "water",
+              "headsword",
+              "waterborne"
+            ],
+            "all_sources": [
+              "water",
+              "headsword",
+              "waterborne"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "water"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Buch",
+            "pair": "en-de",
+            "target": "Buch",
+            "rule_count": 2,
+            "top1_source": "book",
+            "top3_sources": [
+              "book",
+              "e-book"
+            ],
+            "all_sources": [
+              "book",
+              "e-book"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "book"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Welt",
+            "pair": "en-de",
+            "target": "Welt",
+            "rule_count": 2,
+            "top1_source": "world",
+            "top3_sources": [
+              "world",
+              "netherworld"
+            ],
+            "all_sources": [
+              "world",
+              "netherworld"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "world"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Leben",
+            "pair": "en-de",
+            "target": "Leben",
+            "rule_count": 3,
+            "top1_source": "life",
+            "top3_sources": [
+              "life",
+              "lifetime",
+              "once-in-a-lifetime"
+            ],
+            "all_sources": [
+              "life",
+              "lifetime",
+              "once-in-a-lifetime"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "life"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stadt",
+            "pair": "en-de",
+            "target": "Stadt",
+            "rule_count": 2,
+            "top1_source": "town",
+            "top3_sources": [
+              "town",
+              "city"
+            ],
+            "all_sources": [
+              "town",
+              "city"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "town",
+              "city"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Familie",
+            "pair": "en-de",
+            "target": "Familie",
+            "rule_count": 2,
+            "top1_source": "family",
+            "top3_sources": [
+              "family",
+              "house"
+            ],
+            "all_sources": [
+              "family",
+              "house"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "family"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Freund",
+            "pair": "en-de",
+            "target": "Freund",
+            "rule_count": 1,
+            "top1_source": "friend",
+            "top3_sources": [
+              "friend"
+            ],
+            "all_sources": [
+              "friend"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "friend"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Mutter",
+            "pair": "en-de",
+            "target": "Mutter",
+            "rule_count": 3,
+            "top1_source": "mother",
+            "top3_sources": [
+              "mother",
+              "screw-nut",
+              "nut"
+            ],
+            "all_sources": [
+              "mother",
+              "screw-nut",
+              "nut"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mother"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Vater",
+            "pair": "en-de",
+            "target": "Vater",
+            "rule_count": 3,
+            "top1_source": "father",
+            "top3_sources": [
+              "father",
+              "begetter",
+              "sire"
+            ],
+            "all_sources": [
+              "father",
+              "begetter",
+              "sire"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "father"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Liebe",
+            "pair": "en-de",
+            "target": "Liebe",
+            "rule_count": 1,
+            "top1_source": "love",
+            "top3_sources": [
+              "love"
+            ],
+            "all_sources": [
+              "love"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "love"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Geld",
+            "pair": "en-de",
+            "target": "Geld",
+            "rule_count": 1,
+            "top1_source": "money",
+            "top3_sources": [
+              "money"
+            ],
+            "all_sources": [
+              "money"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "money"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Schule",
+            "pair": "en-de",
+            "target": "Schule",
+            "rule_count": 3,
+            "top1_source": "pod",
+            "top3_sources": [
+              "pod",
+              "school",
+              "group"
+            ],
+            "all_sources": [
+              "pod",
+              "school",
+              "group"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "school"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Weg",
+            "pair": "en-de",
+            "target": "Weg",
+            "rule_count": 3,
+            "top1_source": "alley",
+            "top3_sources": [
+              "alley",
+              "way",
+              "walk"
+            ],
+            "all_sources": [
+              "alley",
+              "way",
+              "walk"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "way"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Arbeit",
+            "pair": "en-de",
+            "target": "Arbeit",
+            "rule_count": 3,
+            "top1_source": "work",
+            "top3_sources": [
+              "work",
+              "job",
+              "labour"
+            ],
+            "all_sources": [
+              "work",
+              "job",
+              "labour"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "work",
+              "job"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Zeit",
+            "pair": "en-de",
+            "target": "Zeit",
+            "rule_count": 3,
+            "top1_source": "spell",
+            "top3_sources": [
+              "spell",
+              "time",
+              "faff"
+            ],
+            "all_sources": [
+              "spell",
+              "time",
+              "faff"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "time"
+            ],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "en-de",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 2,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 3,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 4,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 5,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 6,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 7,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 8,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 16,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.375,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 120.75
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 9,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 10,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 11,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 12,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 13,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 14,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 15,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 16,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        }
+      ]
+    },
+    "en-es": {
+      "case_count": 38,
+      "run_count": 16,
+      "best_run": {
+        "pair": "en-es",
+        "run_index": 9,
+        "config": {
+          "max_definitions_per_target": 3,
+          "max_rules_per_target": 1,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.6,
+          "score_weight_frequency_weight": 0.2,
+          "score_weight_pos_match": 0.0,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.2
+        },
+        "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+        "summary": {
+          "pair": "en-es",
+          "case_count": 38,
+          "top1_correct_count": 30,
+          "top3_contains_expected_count": 30,
+          "forbidden_top1_count": 8,
+          "forbidden_any_count": 5,
+          "avg_rules_per_target": 1.0,
+          "avg_top1_confidence": 0.6799999999999999,
+          "variant_rule_count": 0,
+          "total_rule_count": 38,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.7894736842105263,
+          "top3_recall": 0.7894736842105263,
+          "forbidden_top1_rate": 0.21052631578947367,
+          "forbidden_any_rate": 0.13157894736842105,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 84.52631578947368
+        },
+        "case_results": [
+          {
+            "case_id": "en-es:hora",
+            "pair": "en-es",
+            "target": "hora",
+            "rule_count": 1,
+            "top1_source": "hour",
+            "top3_sources": [
+              "hour"
+            ],
+            "all_sources": [
+              "hour"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hour"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:trabajo",
+            "pair": "en-es",
+            "target": "trabajo",
+            "rule_count": 1,
+            "top1_source": "job",
+            "top3_sources": [
+              "job"
+            ],
+            "all_sources": [
+              "job"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "job"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:casa",
+            "pair": "en-es",
+            "target": "casa",
+            "rule_count": 1,
+            "top1_source": "house",
+            "top3_sources": [
+              "house"
+            ],
+            "all_sources": [
+              "house"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "house"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:agua",
+            "pair": "en-es",
+            "target": "agua",
+            "rule_count": 1,
+            "top1_source": "water",
+            "top3_sources": [
+              "water"
+            ],
+            "all_sources": [
+              "water"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "water"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:libro",
+            "pair": "en-es",
+            "target": "libro",
+            "rule_count": 1,
+            "top1_source": "book",
+            "top3_sources": [
+              "book"
+            ],
+            "all_sources": [
+              "book"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "book"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:mundo",
+            "pair": "en-es",
+            "target": "mundo",
+            "rule_count": 1,
+            "top1_source": "world",
+            "top3_sources": [
+              "world"
+            ],
+            "all_sources": [
+              "world"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "world"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:vida",
+            "pair": "en-es",
+            "target": "vida",
+            "rule_count": 1,
+            "top1_source": "life",
+            "top3_sources": [
+              "life"
+            ],
+            "all_sources": [
+              "life"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "life"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:ciudad",
+            "pair": "en-es",
+            "target": "ciudad",
+            "rule_count": 1,
+            "top1_source": "city",
+            "top3_sources": [
+              "city"
+            ],
+            "all_sources": [
+              "city"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "city"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:familia",
+            "pair": "en-es",
+            "target": "familia",
+            "rule_count": 1,
+            "top1_source": "family",
+            "top3_sources": [
+              "family"
+            ],
+            "all_sources": [
+              "family"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "family"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:amigo",
+            "pair": "en-es",
+            "target": "amigo",
+            "rule_count": 1,
+            "top1_source": "friend",
+            "top3_sources": [
+              "friend"
+            ],
+            "all_sources": [
+              "friend"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "friend"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:madre",
+            "pair": "en-es",
+            "target": "madre",
+            "rule_count": 1,
+            "top1_source": "bed",
+            "top3_sources": [
+              "bed"
+            ],
+            "all_sources": [
+              "bed"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "bed"
+            ]
+          },
+          {
+            "case_id": "en-es:padre",
+            "pair": "en-es",
+            "target": "padre",
+            "rule_count": 1,
+            "top1_source": "father",
+            "top3_sources": [
+              "father"
+            ],
+            "all_sources": [
+              "father"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "father"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:amor",
+            "pair": "en-es",
+            "target": "amor",
+            "rule_count": 1,
+            "top1_source": "affection",
+            "top3_sources": [
+              "affection"
+            ],
+            "all_sources": [
+              "affection"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "affection"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:dinero",
+            "pair": "en-es",
+            "target": "dinero",
+            "rule_count": 1,
+            "top1_source": "money",
+            "top3_sources": [
+              "money"
+            ],
+            "all_sources": [
+              "money"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "money"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:escuela",
+            "pair": "en-es",
+            "target": "escuela",
+            "rule_count": 1,
+            "top1_source": "school",
+            "top3_sources": [
+              "school"
+            ],
+            "all_sources": [
+              "school"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "school"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:camino",
+            "pair": "en-es",
+            "target": "camino",
+            "rule_count": 1,
+            "top1_source": "path",
+            "top3_sources": [
+              "path"
+            ],
+            "all_sources": [
+              "path"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "path"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:banco",
+            "pair": "en-es",
+            "target": "banco",
+            "rule_count": 1,
+            "top1_source": "bank",
+            "top3_sources": [
+              "bank"
+            ],
+            "all_sources": [
+              "bank"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "bank"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:capital",
+            "pair": "en-es",
+            "target": "capital",
+            "rule_count": 1,
+            "top1_source": "capital",
+            "top3_sources": [
+              "capital"
+            ],
+            "all_sources": [
+              "capital"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "capital"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:luz",
+            "pair": "en-es",
+            "target": "luz",
+            "rule_count": 1,
+            "top1_source": "light",
+            "top3_sources": [
+              "light"
+            ],
+            "all_sources": [
+              "light"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "light"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:fondo",
+            "pair": "en-es",
+            "target": "fondo",
+            "rule_count": 1,
+            "top1_source": "background",
+            "top3_sources": [
+              "background"
+            ],
+            "all_sources": [
+              "background"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "background"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:medio",
+            "pair": "en-es",
+            "target": "medio",
+            "rule_count": 1,
+            "top1_source": "half",
+            "top3_sources": [
+              "half"
+            ],
+            "all_sources": [
+              "half"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "half"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:planta",
+            "pair": "en-es",
+            "target": "planta",
+            "rule_count": 1,
+            "top1_source": "sole",
+            "top3_sources": [
+              "sole"
+            ],
+            "all_sources": [
+              "sole"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:derecho",
+            "pair": "en-es",
+            "target": "derecho",
+            "rule_count": 1,
+            "top1_source": "claim",
+            "top3_sources": [
+              "claim"
+            ],
+            "all_sources": [
+              "claim"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "claim"
+            ]
+          },
+          {
+            "case_id": "en-es:cuadro",
+            "pair": "en-es",
+            "target": "cuadro",
+            "rule_count": 1,
+            "top1_source": "bed",
+            "top3_sources": [
+              "bed"
+            ],
+            "all_sources": [
+              "bed"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "bed"
+            ]
+          },
+          {
+            "case_id": "en-es:orden",
+            "pair": "en-es",
+            "target": "orden",
+            "rule_count": 1,
+            "top1_source": "order",
+            "top3_sources": [
+              "order"
+            ],
+            "all_sources": [
+              "order"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "order"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:punto",
+            "pair": "en-es",
+            "target": "punto",
+            "rule_count": 1,
+            "top1_source": "dot",
+            "top3_sources": [
+              "dot"
+            ],
+            "all_sources": [
+              "dot"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "dot"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cuenta",
+            "pair": "en-es",
+            "target": "cuenta",
+            "rule_count": 1,
+            "top1_source": "account",
+            "top3_sources": [
+              "account"
+            ],
+            "all_sources": [
+              "account"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "account"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cargo",
+            "pair": "en-es",
+            "target": "cargo",
+            "rule_count": 1,
+            "top1_source": "accusal",
+            "top3_sources": [
+              "accusal"
+            ],
+            "all_sources": [
+              "accusal"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "accusal"
+            ]
+          },
+          {
+            "case_id": "en-es:firma",
+            "pair": "en-es",
+            "target": "firma",
+            "rule_count": 1,
+            "top1_source": "company",
+            "top3_sources": [
+              "company"
+            ],
+            "all_sources": [
+              "company"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "company"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:campo",
+            "pair": "en-es",
+            "target": "campo",
+            "rule_count": 1,
+            "top1_source": "country",
+            "top3_sources": [
+              "country"
+            ],
+            "all_sources": [
+              "country"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "country"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:plaza",
+            "pair": "en-es",
+            "target": "plaza",
+            "rule_count": 1,
+            "top1_source": "plaza",
+            "top3_sources": [
+              "plaza"
+            ],
+            "all_sources": [
+              "plaza"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "plaza"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:masa",
+            "pair": "en-es",
+            "target": "masa",
+            "rule_count": 1,
+            "top1_source": "lump",
+            "top3_sources": [
+              "lump"
+            ],
+            "all_sources": [
+              "lump"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "lump"
+            ]
+          },
+          {
+            "case_id": "en-es:red",
+            "pair": "en-es",
+            "target": "red",
+            "rule_count": 1,
+            "top1_source": "net",
+            "top3_sources": [
+              "net"
+            ],
+            "all_sources": [
+              "net"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "net"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:lengua",
+            "pair": "en-es",
+            "target": "lengua",
+            "rule_count": 1,
+            "top1_source": "tongue",
+            "top3_sources": [
+              "tongue"
+            ],
+            "all_sources": [
+              "tongue"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "tongue"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cura",
+            "pair": "en-es",
+            "target": "cura",
+            "rule_count": 1,
+            "top1_source": "treatment",
+            "top3_sources": [
+              "treatment"
+            ],
+            "all_sources": [
+              "treatment"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "treatment"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:caso",
+            "pair": "en-es",
+            "target": "caso",
+            "rule_count": 1,
+            "top1_source": "affair",
+            "top3_sources": [
+              "affair"
+            ],
+            "all_sources": [
+              "affair"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:parte",
+            "pair": "en-es",
+            "target": "parte",
+            "rule_count": 1,
+            "top1_source": "part",
+            "top3_sources": [
+              "part"
+            ],
+            "all_sources": [
+              "part"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "part"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:vista",
+            "pair": "en-es",
+            "target": "vista",
+            "rule_count": 1,
+            "top1_source": "appearance",
+            "top3_sources": [
+              "appearance"
+            ],
+            "all_sources": [
+              "appearance"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "en-es",
+          "run_index": 9,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 10,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 11,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 12,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 13,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 14,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 15,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 16,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 30,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 5,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 38,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.7894736842105263,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.13157894736842105,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 84.52631578947368
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 2,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 3,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 4,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 5,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 6,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 7,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        },
+        {
+          "pair": "en-es",
+          "run_index": 8,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-es",
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
+            "avg_top1_confidence": 0.6799999999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 80,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 81.05263157894736
+          }
+        }
+      ]
+    },
+    "en-ja": {
+      "case_count": 17,
+      "run_count": 16,
+      "best_run": {
+        "pair": "en-ja",
+        "run_index": 9,
+        "config": {
+          "max_definitions_per_target": 3,
+          "max_rules_per_target": 1,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.6,
+          "score_weight_frequency_weight": 0.2,
+          "score_weight_pos_match": 0.0,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.2
+        },
+        "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+        "summary": {
+          "pair": "en-ja",
+          "case_count": 17,
+          "top1_correct_count": 16,
+          "top3_contains_expected_count": 17,
+          "forbidden_top1_count": 0,
+          "forbidden_any_count": 0,
+          "avg_rules_per_target": 1.0,
+          "avg_top1_confidence": 0.48,
+          "variant_rule_count": 0,
+          "total_rule_count": 17,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.9411764705882353,
+          "top3_recall": 1.0,
+          "forbidden_top1_rate": 0.0,
+          "forbidden_any_rate": 0.0,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 148.11764705882354
+        },
+        "case_results": [
+          {
+            "case_id": "en-ja:様",
+            "pair": "en-ja",
+            "target": "様",
+            "rule_count": 1,
+            "top1_source": "form",
+            "top3_sources": [
+              "form"
+            ],
+            "all_sources": [
+              "form"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "form"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:時",
+            "pair": "en-ja",
+            "target": "時",
+            "rule_count": 1,
+            "top1_source": "time",
+            "top3_sources": [
+              "time"
+            ],
+            "all_sources": [
+              "time"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "time"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:仕事",
+            "pair": "en-ja",
+            "target": "仕事",
+            "rule_count": 1,
+            "top1_source": "work",
+            "top3_sources": [
+              "work"
+            ],
+            "all_sources": [
+              "work"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "work"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:家",
+            "pair": "en-ja",
+            "target": "家",
+            "rule_count": 1,
+            "top1_source": "house",
+            "top3_sources": [
+              "house"
+            ],
+            "all_sources": [
+              "house"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "house"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:友達",
+            "pair": "en-ja",
+            "target": "友達",
+            "rule_count": 1,
+            "top1_source": "friend",
+            "top3_sources": [
+              "friend"
+            ],
+            "all_sources": [
+              "friend"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "friend"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:学校",
+            "pair": "en-ja",
+            "target": "学校",
+            "rule_count": 1,
+            "top1_source": "school",
+            "top3_sources": [
+              "school"
+            ],
+            "all_sources": [
+              "school"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "school"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:先生",
+            "pair": "en-ja",
+            "target": "先生",
+            "rule_count": 1,
+            "top1_source": "teacher",
+            "top3_sources": [
+              "teacher"
+            ],
+            "all_sources": [
+              "teacher"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "teacher"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:学生",
+            "pair": "en-ja",
+            "target": "学生",
+            "rule_count": 1,
+            "top1_source": "student",
+            "top3_sources": [
+              "student"
+            ],
+            "all_sources": [
+              "student"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "student"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:水",
+            "pair": "en-ja",
+            "target": "水",
+            "rule_count": 1,
+            "top1_source": "water",
+            "top3_sources": [
+              "water"
+            ],
+            "all_sources": [
+              "water"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "water"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:山",
+            "pair": "en-ja",
+            "target": "山",
+            "rule_count": 1,
+            "top1_source": "mountain",
+            "top3_sources": [
+              "mountain"
+            ],
+            "all_sources": [
+              "mountain"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mountain"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:川",
+            "pair": "en-ja",
+            "target": "川",
+            "rule_count": 1,
+            "top1_source": "river",
+            "top3_sources": [
+              "river"
+            ],
+            "all_sources": [
+              "river"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "river"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:道",
+            "pair": "en-ja",
+            "target": "道",
+            "rule_count": 1,
+            "top1_source": "road",
+            "top3_sources": [
+              "road"
+            ],
+            "all_sources": [
+              "road"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "road"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:世界",
+            "pair": "en-ja",
+            "target": "世界",
+            "rule_count": 1,
+            "top1_source": "society",
+            "top3_sources": [
+              "society"
+            ],
+            "all_sources": [
+              "society"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "society"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:言葉",
+            "pair": "en-ja",
+            "target": "言葉",
+            "rule_count": 1,
+            "top1_source": "language",
+            "top3_sources": [
+              "language"
+            ],
+            "all_sources": [
+              "language"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "language"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:愛",
+            "pair": "en-ja",
+            "target": "愛",
+            "rule_count": 1,
+            "top1_source": "love",
+            "top3_sources": [
+              "love"
+            ],
+            "all_sources": [
+              "love"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "love"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:父",
+            "pair": "en-ja",
+            "target": "父",
+            "rule_count": 1,
+            "top1_source": "father",
+            "top3_sources": [
+              "father"
+            ],
+            "all_sources": [
+              "father"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "father"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:母",
+            "pair": "en-ja",
+            "target": "母",
+            "rule_count": 1,
+            "top1_source": "mother",
+            "top3_sources": [
+              "mother"
+            ],
+            "all_sources": [
+              "mother"
+            ],
+            "top1_confidence": 0.48,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mother"
+            ],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "en-ja",
+          "run_index": 9,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 10,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 11,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 12,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 13,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 14,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 15,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 16,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 17,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 148.11764705882354
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 2,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 3,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 4,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 5,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 6,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 7,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        },
+        {
+          "pair": "en-ja",
+          "run_index": 8,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 17,
+            "top1_correct_count": 16,
+            "top3_contains_expected_count": 17,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 3,
+            "avg_rules_per_target": 2.411764705882353,
+            "avg_top1_confidence": 0.48,
+            "variant_rule_count": 0,
+            "total_rule_count": 41,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9411764705882353,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.17647058823529413,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 125.52941176470588
+          }
+        }
+      ]
+    },
+    "es-en": {
+      "case_count": 16,
+      "run_count": 16,
+      "best_run": {
+        "pair": "es-en",
+        "run_index": 9,
+        "config": {
+          "max_definitions_per_target": 3,
+          "max_rules_per_target": 1,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.6,
+          "score_weight_frequency_weight": 0.2,
+          "score_weight_pos_match": 0.0,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.2
+        },
+        "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+        "summary": {
+          "pair": "es-en",
+          "case_count": 16,
+          "top1_correct_count": 12,
+          "top3_contains_expected_count": 12,
+          "forbidden_top1_count": 0,
+          "forbidden_any_count": 0,
+          "avg_rules_per_target": 1.0,
+          "avg_top1_confidence": 0.6762499999999999,
+          "variant_rule_count": 0,
+          "total_rule_count": 16,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.75,
+          "top3_recall": 0.75,
+          "forbidden_top1_rate": 0.0,
+          "forbidden_any_rate": 0.0,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 114.0
+        },
+        "case_results": [
+          {
+            "case_id": "es-en:house",
+            "pair": "es-en",
+            "target": "house",
+            "rule_count": 1,
+            "top1_source": "casalicio",
+            "top3_sources": [
+              "casalicio"
+            ],
+            "all_sources": [
+              "casalicio"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:water",
+            "pair": "es-en",
+            "target": "water",
+            "rule_count": 1,
+            "top1_source": "agua",
+            "top3_sources": [
+              "agua"
+            ],
+            "all_sources": [
+              "agua"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "agua"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:book",
+            "pair": "es-en",
+            "target": "book",
+            "rule_count": 1,
+            "top1_source": "libro",
+            "top3_sources": [
+              "libro"
+            ],
+            "all_sources": [
+              "libro"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "libro"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:world",
+            "pair": "es-en",
+            "target": "world",
+            "rule_count": 1,
+            "top1_source": "mundo",
+            "top3_sources": [
+              "mundo"
+            ],
+            "all_sources": [
+              "mundo"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mundo"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:life",
+            "pair": "es-en",
+            "target": "life",
+            "rule_count": 1,
+            "top1_source": "vida",
+            "top3_sources": [
+              "vida"
+            ],
+            "all_sources": [
+              "vida"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "vida"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:city",
+            "pair": "es-en",
+            "target": "city",
+            "rule_count": 1,
+            "top1_source": "ciudad",
+            "top3_sources": [
+              "ciudad"
+            ],
+            "all_sources": [
+              "ciudad"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "ciudad"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:family",
+            "pair": "es-en",
+            "target": "family",
+            "rule_count": 1,
+            "top1_source": "familia",
+            "top3_sources": [
+              "familia"
+            ],
+            "all_sources": [
+              "familia"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "familia"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:friend",
+            "pair": "es-en",
+            "target": "friend",
+            "rule_count": 1,
+            "top1_source": "amigo",
+            "top3_sources": [
+              "amigo"
+            ],
+            "all_sources": [
+              "amigo"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "amigo"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:mother",
+            "pair": "es-en",
+            "target": "mother",
+            "rule_count": 1,
+            "top1_source": "madre",
+            "top3_sources": [
+              "madre"
+            ],
+            "all_sources": [
+              "madre"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "madre"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:father",
+            "pair": "es-en",
+            "target": "father",
+            "rule_count": 1,
+            "top1_source": "padre",
+            "top3_sources": [
+              "padre"
+            ],
+            "all_sources": [
+              "padre"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "padre"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:love",
+            "pair": "es-en",
+            "target": "love",
+            "rule_count": 1,
+            "top1_source": "cero",
+            "top3_sources": [
+              "cero"
+            ],
+            "all_sources": [
+              "cero"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:money",
+            "pair": "es-en",
+            "target": "money",
+            "rule_count": 1,
+            "top1_source": "pasta",
+            "top3_sources": [
+              "pasta"
+            ],
+            "all_sources": [
+              "pasta"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:school",
+            "pair": "es-en",
+            "target": "school",
+            "rule_count": 1,
+            "top1_source": "escuela",
+            "top3_sources": [
+              "escuela"
+            ],
+            "all_sources": [
+              "escuela"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "escuela"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:road",
+            "pair": "es-en",
+            "target": "road",
+            "rule_count": 1,
+            "top1_source": "carretera",
+            "top3_sources": [
+              "carretera"
+            ],
+            "all_sources": [
+              "carretera"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "carretera"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:work",
+            "pair": "es-en",
+            "target": "work",
+            "rule_count": 1,
+            "top1_source": "trabajo",
+            "top3_sources": [
+              "trabajo"
+            ],
+            "all_sources": [
+              "trabajo"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "trabajo"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "es-en:time",
+            "pair": "es-en",
+            "target": "time",
+            "rule_count": 1,
+            "top1_source": "mes",
+            "top3_sources": [
+              "mes"
+            ],
+            "all_sources": [
+              "mes"
+            ],
+            "top1_confidence": 0.62,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "es-en",
+          "run_index": 9,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 10,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 11,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 12,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 13,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 14,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 15,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 16,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 12,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 16,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.75,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 114.0
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 2,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 3,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 4,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 5,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 6,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 7,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.000",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        },
+        {
+          "pair": "es-en",
+          "run_index": 8,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": null,
+            "confidence_threshold": 0.05,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": false,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2
+          },
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off w_pos=0.100",
+          "summary": {
+            "pair": "es-en",
+            "case_count": 16,
+            "top1_correct_count": 12,
+            "top3_contains_expected_count": 14,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 0,
+            "avg_rules_per_target": 2.625,
+            "avg_top1_confidence": 0.6762499999999999,
+            "variant_rule_count": 0,
+            "total_rule_count": 42,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.75,
+            "top3_recall": 0.875,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.0,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 111.75
+          }
+        }
+      ]
+    }
+  }
+}
