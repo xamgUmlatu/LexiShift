@@ -94,6 +94,7 @@ For each FAIL/REVIEW triage item:
 - For workflow/meta changes, keep `implemented`, `default-on`, and `verified` as separate states.
 - Update `docs/developer/feature_state_matrix.md` when default behavior, verification evidence, or known doc/code mismatches change.
 - Keep known contradictions explicit until code and docs converge; do not silently mark features as shipped based on docs alone.
+- Use `docs/developer/documentation_governance.md` for documentation authority, archive, and canonical-routing rules before broad doc cleanup.
 - Use `docs/developer/genai_workflow_architecture.md` for agent-role boundaries, model-instance split guidance, and harness policy.
 - Prefer `npm --prefix scripts run check` before concluding workflow/tooling changes; it now includes strict Windows parity and strict repo-wide Ruff style in the default repo-safety gate.
 - Use `npm --prefix scripts run check:state` when workflow changes update `docs/developer/feature_state_matrix.md` or when a status claim/evidence path changes materially; it compares against `HEAD` and should stay clean before commit.
@@ -112,6 +113,7 @@ Read before major changes:
 - `docs/rulegen/rule_generation_technical.md`
 - `docs/rulegen/rulegen_congruity_implementation_plan.md`
 - `docs/rulegen/pos_normalization_workstream.md`
+- `docs/developer/documentation_governance.md`
 - `docs/developer/ai_workflow.md`
 - `docs/developer/genai_workflow_architecture.md`
 - `docs/developer/feature_state_matrix.md`

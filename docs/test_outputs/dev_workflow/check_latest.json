@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T03:49:54.989193+00:00",
+  "generated_at_utc": "2026-03-20T21:57:50.825922+00:00",
   "overall_exit_code": 0,
   "commands": [
     {
@@ -15,9 +15,9 @@
       ],
       "exit_code": 0,
       "stderr_tail": [
-        "............................................................................................................................................................................................................",
+        "..................................................................................................................................................................................................................",
         "----------------------------------------------------------------------",
-        "Ran 204 tests in 0.406s",
+        "Ran 210 tests in 0.356s",
         "OK"
       ]
     },
@@ -31,7 +31,7 @@
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "Success: no issues found in 81 source files"
+        "Success: no issues found in 82 source files"
       ]
     },
     {
@@ -56,6 +56,8 @@
         "scripts/dev/ci_report_gate.py",
         "scripts/testing/rulegen_pair_audit_cycle.py",
         "scripts/testing/rulegen_auto_audit.py",
+        "scripts/testing/rulegen_reverse_profiles.py",
+        "scripts/testing/rulegen_reverse_run_matrix.py",
         "scripts/testing/rulegen_benchmark_summary.py",
         "scripts/testing/rulegen_benchmark_triage_summary.py",
         "scripts/testing/rulegen_quality_gate_summary.py",
@@ -82,8 +84,32 @@
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "sections_audited: 13",
+        "sections_audited: 14",
         "issues: 0"
+      ]
+    },
+    {
+      "label": "windows_parity_audit",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "scripts/dev/windows_parity_audit.py",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "stdout_tail": [
+        "status: PASS",
+        "counts: pass=9 warn=0 fail=0"
+      ]
+    },
+    {
+      "label": "doc_references",
+      "command": [
+        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+        "scripts/dev/check_doc_references.py"
+      ],
+      "exit_code": 0,
+      "stdout_tail": [
+        "[check-doc-references] PASS (13 docs, 362 references checked)"
       ]
     },
     {
@@ -97,7 +123,7 @@
       "stdout_tail": [
         "+ /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m ruff check . --statistics",
         "+ /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m ruff format . --check",
-        "280 files already formatted",
+        "290 files already formatted",
         "style_status: clean"
       ]
     },
@@ -110,11 +136,7 @@
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "[check-project-health] PASS (320 files checked)",
-        "[check-project-health] Near-limit files:",
-        "  - core/lexishift_core/helper/rulegen.py [imports] (L 397/900, I 22/24, D 1/8, F 14/50)",
-        "  - scripts/testing/rulegen_benchmark.py [imports] (L 772/900, I 21/24, D 2/8, F 21/50)",
-        "  - scripts/testing/srs_quality_harness.py [lines] (L 819/900, I 18/24, D 1/8, F 23/50)"
+        "[check-project-health] PASS (325 files checked)"
       ]
     }
   ]

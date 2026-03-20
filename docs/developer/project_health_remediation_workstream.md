@@ -5,7 +5,7 @@ Role: Planning / WIP
 Owner: engineering
 Last updated: 2026-03-21
 Last verified: 2026-03-21 `npm --prefix scripts run health:project:report`
-Purpose: maintain the live project-health watchlist while preserving the completed zero-warning milestone history
+Purpose: maintain the live project-health state while preserving the completed zero-warning milestone history
 Source-of-truth: remediation workstream + watchlist; current health evidence lives in `../test_outputs/project_health/project_health_latest.json`.
 
 ## Objective
@@ -28,7 +28,7 @@ Verification artifact: `../test_outputs/project_health/project_health_latest.jso
 
 Live violation profile:
 
-1. Total violations: `0` files (out of `323` scanned)
+1. Total violations: `0` files (out of `325` scanned)
 2. By area:
    - `apps/gui/src`: `0`
    - `core/lexishift_core`: `0`
@@ -41,21 +41,19 @@ Live violation profile:
 
 Near-limit watchlist (non-blocking):
 
-1. `core/lexishift_core/helper/rulegen.py` (`imports 22/24`)
-2. `scripts/testing/rulegen_benchmark.py` (`imports 21/24`)
-3. `scripts/testing/srs_quality_harness.py` (`lines 819/900`)
+1. none (`0` warning files)
 
 Operational note:
 
-1. project health remains clean on hard violations, but the warning count is no longer zero
-2. treat the three near-limit files above as the active watchlist for preventive refactor work
-3. the older zero-warning milestone remains useful history, not the current watch state
+1. project health is currently clean on both hard violations and near-limit warnings
+2. treat the zero-warning result as the live baseline; new warnings should be handled as preventive refactor work, not allowed to accumulate into a watchlist
+3. the older zero-warning milestone remains useful history, not the current operating evidence set
 
 ## Live Operating Queue (2026-03-21)
 
 1. Keep `npm --prefix scripts run health:project:changed` in the PR loop.
 2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
-3. When touching a watchlist file, prefer reducing its pressure or explicitly record why it remains near-limit.
+3. When touching a large or fast-growing file, prefer reducing pressure before it becomes near-limit debt.
 4. Re-run `npm --prefix scripts run health:project:report` before release cuts, threshold changes, or large refactors.
 
 ## Historical Milestone Snapshot (2026-02-28)
