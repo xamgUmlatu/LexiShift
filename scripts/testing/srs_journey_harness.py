@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -31,6 +31,7 @@ from srs_journey_harness_support import (  # noqa: E402
     CORE_SCENARIO_NAME,
     DEFAULT_PAIR,
     DEFAULT_PROFILE_ID,
+    REAL_SCENARIO_NAME,
     build_seed_candidates,
     create_en_ja_resources,
     get_scenario,
@@ -167,6 +168,7 @@ def _run_phase(
     phase_plans: Sequence[object],
     previous_snapshot: Mapping[str, object] | None,
     refresh_config: SrsRefreshJobConfig,
+    use_stub_rulegen: bool,
 ) -> dict[str, object]:
     feedback_events = _apply_feedback_events(
         paths,
@@ -184,17 +186,21 @@ def _run_phase(
     )
     refresh_payload: dict[str, object] | None = None
     if phase_plan.refresh_at is not None:
-        with (
-            patched_now(phase_plan.refresh_at),
-            patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                side_effect=build_seed_candidates,
-            ),
-            patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                side_effect=stub_run_rulegen_for_pair,
-            ),
-        ):
+        with ExitStack() as stack:
+            stack.enter_context(patched_now(phase_plan.refresh_at))
+            stack.enter_context(
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    side_effect=build_seed_candidates,
+                )
+            )
+            if use_stub_rulegen:
+                stack.enter_context(
+                    patch(
+                        "lexishift_core.helper.engine.run_rulegen_for_pair",
+                        side_effect=stub_run_rulegen_for_pair,
+                    )
+                )
             refresh_payload = refresh_srs_set(paths, config=refresh_config)
     with patched_now(phase_plan.observe_at):
         snapshot = phase_snapshot(
@@ -435,13 +441,21 @@ def build_report(
             ),
             paths.srs_settings_path,
         )
-        with (
-            patched_now(phase_plans[0].observe_at),
-            patch(
-                "lexishift_core.helper.engine.run_rulegen_for_pair",
-                side_effect=stub_run_rulegen_for_pair,
-            ),
-        ):
+        with ExitStack() as stack:
+            stack.enter_context(patched_now(phase_plans[0].observe_at))
+            stack.enter_context(
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    side_effect=build_seed_candidates,
+                )
+            )
+            if scenario_def.use_stub_rulegen:
+                stack.enter_context(
+                    patch(
+                        "lexishift_core.helper.engine.run_rulegen_for_pair",
+                        side_effect=stub_run_rulegen_for_pair,
+                    )
+                )
             initialize_payload = initialize_srs_set(
                 paths,
                 config=SetInitializationJobConfig(
@@ -501,6 +515,7 @@ def build_report(
                 phase_plans=phase_plans,
                 previous_snapshot=previous_snapshot,
                 refresh_config=refresh_config,
+                use_stub_rulegen=scenario_def.use_stub_rulegen,
             )
             previous_snapshot = phase_report
             phases.append(phase_report)
@@ -537,7 +552,7 @@ def build_report(
                 )
             )
 
-        if scenario == CORE_SCENARIO_NAME:
+        if scenario_def.expect_fade_checks:
             fade_phase = phases[-1]
             stable_due = [
                 item
@@ -586,6 +601,59 @@ def build_report(
                         code="SRS_JOURNEY_DIFFICULT_COHORT_STICKS",
                         message="Difficult cohort did not remain visible in the due set.",
                         phase="fade_check",
+                    )
+                )
+
+        if scenario == REAL_SCENARIO_NAME:
+            ruleset_sources_preview = first_phase["runtime"].get("ruleset_sources_preview", [])
+            if ruleset_sources_preview and all(
+                not str(source).startswith("journey_src_") for source in ruleset_sources_preview
+            ):
+                findings.append(
+                    _finding(
+                        level="PASS",
+                        code="SRS_JOURNEY_REAL_PUBLICATION_ACTIVE",
+                        message="Real rulegen/publication ran for the journey lane instead of the deterministic stub.",
+                        details="sources="
+                        + ", ".join(str(item) for item in ruleset_sources_preview),
+                        phase="bootstrap_publish",
+                    )
+                )
+            else:
+                findings.append(
+                    _finding(
+                        level="FAIL",
+                        code="SRS_JOURNEY_REAL_PUBLICATION_ACTIVE",
+                        message="Real publication lane did not produce non-stub ruleset sources.",
+                        details=json.dumps(ruleset_sources_preview, ensure_ascii=False),
+                        phase="bootstrap_publish",
+                    )
+                )
+
+            partial_publication_phase = next(
+                (phase for phase in phases if phase["relationships"].get("due_not_published")),
+                None,
+            )
+            if partial_publication_phase is None:
+                findings.append(
+                    _finding(
+                        level="PASS",
+                        code="SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE",
+                        message="Real publication covered the due subset in the observed journey phases.",
+                        phase="bootstrap_publish",
+                    )
+                )
+            else:
+                findings.append(
+                    _finding(
+                        level="WARN",
+                        code="SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE",
+                        message="Real publication left some due items unpublished in the observed journey phases.",
+                        details=(
+                            f"phase={partial_publication_phase['label']} "
+                            f"due_not_published={','.join(partial_publication_phase['relationships']['due_not_published'])}"
+                        ),
+                        phase=str(partial_publication_phase["label"]),
                     )
                 )
 

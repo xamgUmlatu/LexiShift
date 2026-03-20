@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `deterministic_edge_behaviors`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-20T22:53:12.990229+00:00`
+- Generated at: `2026-03-20T22:56:31.139921+00:00`
 
 ## Phases
 
@@ -18,6 +18,7 @@
 - Published delta: in=alpha, beta, gamma; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: none
+- Due not published: none
 
 ### duplicate_feedback_burst
 - Counts: admitted=3 due=2 published=3
@@ -27,6 +28,7 @@
 - Published delta: in=none; out=none
 - Events applied: feedback=2 exposure=0
 - Published not due: alpha
+- Due not published: none
 
 ### low_retention_seed
 - Counts: admitted=3 due=1 published=3
@@ -36,6 +38,7 @@
 - Published delta: in=none; out=none
 - Events applied: feedback=8 exposure=0
 - Published not due: alpha, gamma
+- Due not published: none
 
 ### exposure_only_pause_probe
 - Counts: admitted=3 due=1 published=3
@@ -45,6 +48,7 @@
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=6
 - Published not due: alpha, gamma
+- Due not published: none
 
 ### final_observe
 - Counts: admitted=3 due=2 published=3
@@ -54,6 +58,7 @@
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: alpha
+- Due not published: none
 
 ## Signal Log
 

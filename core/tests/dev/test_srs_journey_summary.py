@@ -56,7 +56,10 @@ class TestSrsJourneySummary(unittest.TestCase):
                             "published_in": ["delta", "epsilon"],
                             "published_out": [],
                         },
-                        "relationships": {"published_not_due": ["alpha", "beta"]},
+                        "relationships": {
+                            "published_not_due": ["alpha", "beta"],
+                            "due_not_published": ["delta", "epsilon"],
+                        },
                     },
                     {
                         "label": "fade_check",
@@ -72,7 +75,8 @@ class TestSrsJourneySummary(unittest.TestCase):
                             "published_out": [],
                         },
                         "relationships": {
-                            "published_not_due": ["alpha", "beta", "delta", "epsilon"]
+                            "published_not_due": ["alpha", "beta", "delta", "epsilon"],
+                            "due_not_published": ["gamma"],
                         },
                         "items": [
                             {"lemma": "alpha", "cohort": "stable", "in_due": False},
@@ -97,6 +101,7 @@ class TestSrsJourneySummary(unittest.TestCase):
         self.assertIn("### high_retention_growth", markdown)
         self.assertIn("- Counts: admitted=5 due=3 published=5", markdown)
         self.assertIn("- Events applied: feedback=8 exposure=0", markdown)
+        self.assertIn("- Due not published: delta, epsilon", markdown)
         self.assertIn("## Signal Log", markdown)
         self.assertIn("- Event types: feedback=10 exposure=6", markdown)
         self.assertIn("- Stable cohort due in final phase: none", markdown)

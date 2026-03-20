@@ -55,6 +55,8 @@ class JourneyScenario:
     name: str
     lane: str
     phase_plans: tuple[JourneyPhasePlan, ...]
+    use_stub_rulegen: bool = True
+    expect_fade_checks: bool = False
     set_top_n: int = 7
     bootstrap_top_n: int = 7
     initial_active_count: int = 3
@@ -64,6 +66,7 @@ class JourneyScenario:
 
 CORE_SCENARIO_NAME = "en-ja_core_journey_v1"
 EDGE_SCENARIO_NAME = "en-ja_edge_behaviors_v1"
+REAL_SCENARIO_NAME = "en-ja_real_publication_v1"
 
 
 CORE_PHASE_PLANS = (
@@ -163,11 +166,19 @@ SCENARIOS = {
         name=CORE_SCENARIO_NAME,
         lane="deterministic_core_journey",
         phase_plans=CORE_PHASE_PLANS,
+        expect_fade_checks=True,
     ),
     EDGE_SCENARIO_NAME: JourneyScenario(
         name=EDGE_SCENARIO_NAME,
         lane="deterministic_edge_behaviors",
         phase_plans=EDGE_PHASE_PLANS,
+    ),
+    REAL_SCENARIO_NAME: JourneyScenario(
+        name=REAL_SCENARIO_NAME,
+        lane="real_publication_journey",
+        phase_plans=CORE_PHASE_PLANS,
+        use_stub_rulegen=False,
+        expect_fade_checks=True,
     ),
 }
 
@@ -359,6 +370,19 @@ def published_targets_from_ruleset(path: Path) -> list[str]:
     return targets
 
 
+def published_sources_from_ruleset(path: Path) -> list[str]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rules = payload.get("rules", [])
+    sources = sorted(
+        {
+            str(rule.get("source_phrase") or "").strip()
+            for rule in rules
+            if isinstance(rule, Mapping) and str(rule.get("source_phrase") or "").strip()
+        }
+    )
+    return sources
+
+
 def snapshot_targets_from_snapshot(path: Path) -> list[str]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     targets = payload.get("targets", [])
@@ -434,6 +458,9 @@ def phase_snapshot(
     published_lemmas = (
         set(published_targets_from_ruleset(ruleset_path)) if ruleset_path.exists() else set()
     )
+    published_sources = (
+        published_sources_from_ruleset(ruleset_path) if ruleset_path.exists() else []
+    )
     snapshot_lemmas = (
         set(snapshot_targets_from_snapshot(snapshot_path)) if snapshot_path.exists() else set()
     )
@@ -445,6 +472,7 @@ def phase_snapshot(
             "diagnostics": diagnostics,
             "ruleset_path": str(ruleset_path),
             "snapshot_path": str(snapshot_path),
+            "ruleset_sources_preview": published_sources[:5],
             "snapshot_targets": sorted(snapshot_lemmas),
         },
         "sets": {

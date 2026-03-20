@@ -187,6 +187,8 @@ npm --prefix scripts run quality:srs:journey
 npm --prefix scripts run quality:srs:journey:summary
 npm --prefix scripts run quality:srs:journey:edge
 npm --prefix scripts run quality:srs:journey:edge:summary
+npm --prefix scripts run quality:srs:journey:real
+npm --prefix scripts run quality:srs:journey:real:summary
 ```
 
 This build safety currently runs:

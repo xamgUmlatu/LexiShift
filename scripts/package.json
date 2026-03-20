@@ -50,6 +50,8 @@
     "quality:srs:journey:summary": "node dev/run_python.js testing/srs_journey_summary.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_ja_latest.json --markdown-out ../docs/test_outputs/srs_journey/srs_journey_en_ja_latest.md",
     "quality:srs:journey:edge": "node dev/run_python.js testing/srs_journey_harness.py --scenario en-ja_edge_behaviors_v1 --json-out ../docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json",
     "quality:srs:journey:edge:summary": "node dev/run_python.js testing/srs_journey_summary.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json --markdown-out ../docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.md",
+    "quality:srs:journey:real": "node dev/run_python.js testing/srs_journey_harness.py --scenario en-ja_real_publication_v1 --json-out ../docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json",
+    "quality:srs:journey:real:summary": "node dev/run_python.js testing/srs_journey_summary.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json --markdown-out ../docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md",
     "build:bd": "node betterdiscord_plugin/build_plugin.js",
     "watch:bd": "node betterdiscord_plugin/watch_plugin.js",
     "sync:bd": "node betterdiscord_plugin/sync_plugin.js",

@@ -107,6 +107,10 @@ def render_summary(payload: dict[str, Any], *, title: str = "SRS Journey Harness
             "- Published not due: "
             f"{', '.join(relationships.get('published_not_due', [])) or 'none'}"
         )
+        lines.append(
+            "- Due not published: "
+            f"{', '.join(relationships.get('due_not_published', [])) or 'none'}"
+        )
         lines.append("")
 
     if signal_summary:

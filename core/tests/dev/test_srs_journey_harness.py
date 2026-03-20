@@ -91,6 +91,30 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertEqual(signal_summary["event_types"]["feedback"], 10)
         self.assertEqual(signal_summary["event_types"]["exposure"], 6)
 
+    def test_build_report_surfaces_real_publication_lane(self) -> None:
+        report = build_report(scenario="en-ja_real_publication_v1")
+        findings = report["findings"]
+        phases = report["phases"]
+
+        self.assertIn(report["summary"]["status"], {"PASS", "WARN"})
+        self.assertEqual(report["scenario"]["lane"], "real_publication_journey")
+        self.assertEqual(len(phases), 6)
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_REAL_PUBLICATION_ACTIVE" for item in findings)
+        )
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE"
+                for item in findings
+            )
+        )
+        first_phase_sources = phases[0]["runtime"]["ruleset_sources_preview"]
+        self.assertTrue(first_phase_sources)
+        self.assertTrue(
+            all(not str(source).startswith("journey_src_") for source in first_phase_sources)
+        )
+        self.assertEqual(phases[2]["relationships"]["due_not_published"], ["delta", "epsilon"])
+
 
 if __name__ == "__main__":
     unittest.main()

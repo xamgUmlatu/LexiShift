@@ -150,6 +150,13 @@ Characteristics:
 What it proves:
 - the actual system works end to end, not just the isolated scheduler logic
 
+Current implemented scenario:
+- `en-ja_real_publication_v1`
+  - deterministic seed candidates
+  - synthetic `en-ja` resources
+  - real helper/rulegen publication path
+  - explicit warning when due items are not all published
+
 ### Lane D: edge-behavior lane
 
 Purpose:
@@ -377,6 +384,8 @@ Planned initial artifacts:
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.md`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md`
 
 Generated evidence remains evidence, not architecture authority.
 
@@ -661,6 +670,11 @@ Current state:
 Deliverables:
 - same journey structure with real publication/rulegen behavior
 - paired comparison against deterministic lane where useful
+
+Current state:
+- `en-ja_real_publication_v1` implemented
+- current artifact explicitly shows partial publication coverage for some due items
+- later expansion still needed for `en-de` and less synthetic resources
 
 ### Phase 5: second pair and workflow integration
 
