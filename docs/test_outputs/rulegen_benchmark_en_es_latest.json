@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-03-12T23:37:27.510857+00:00",
+  "generated_at": "2026-03-13T01:32:02.057428+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
   "dataset_metadata": {
     "version": 2,
     "name": "LexiShift Rulegen Benchmark Cases",
     "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
-    "breadth": "v2-expanded"
+    "breadth": "v2-expanded-aggressive"
   },
   "profile_id": "default",
   "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
@@ -32,7 +32,7 @@
   },
   "pairs": {
     "en-es": {
-      "case_count": 24,
+      "case_count": 38,
       "run_count": 4,
       "best_run": {
         "pair": "en-es",
@@ -62,23 +62,23 @@
         "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
         "summary": {
           "pair": "en-es",
-          "case_count": 24,
-          "top1_correct_count": 20,
-          "top3_contains_expected_count": 23,
-          "forbidden_top1_count": 4,
-          "forbidden_any_count": 3,
-          "avg_rules_per_target": 1.6666666666666667,
+          "case_count": 38,
+          "top1_correct_count": 30,
+          "top3_contains_expected_count": 36,
+          "forbidden_top1_count": 8,
+          "forbidden_any_count": 8,
+          "avg_rules_per_target": 2.1052631578947367,
           "avg_top1_confidence": 0.6799999999999999,
           "variant_rule_count": 0,
-          "total_rule_count": 40,
+          "total_rule_count": 80,
           "variant_top1_count": 0,
-          "top1_accuracy": 0.8333333333333334,
-          "top3_recall": 0.9583333333333334,
-          "forbidden_top1_rate": 0.16666666666666666,
-          "forbidden_any_rate": 0.125,
+          "top1_accuracy": 0.7894736842105263,
+          "top3_recall": 0.9473684210526315,
+          "forbidden_top1_rate": 0.21052631578947367,
+          "forbidden_any_rate": 0.21052631578947367,
           "variant_rule_rate": 0.0,
           "variant_top1_rate": 0.0,
-          "objective_score": 100.83333333333334
+          "objective_score": 81.05263157894736
         },
         "case_results": [
           {
@@ -703,6 +703,417 @@
             "forbidden_matches": [
               "bed"
             ]
+          },
+          {
+            "case_id": "en-es:orden",
+            "pair": "en-es",
+            "target": "orden",
+            "rule_count": 3,
+            "top1_source": "order",
+            "top3_sources": [
+              "order",
+              "warrant",
+              "writ"
+            ],
+            "all_sources": [
+              "order",
+              "warrant",
+              "writ"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "order"
+            ],
+            "forbidden_matches": [
+              "writ"
+            ]
+          },
+          {
+            "case_id": "en-es:punto",
+            "pair": "en-es",
+            "target": "punto",
+            "rule_count": 3,
+            "top1_source": "dot",
+            "top3_sources": [
+              "dot",
+              "period",
+              "point"
+            ],
+            "all_sources": [
+              "dot",
+              "period",
+              "point"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "dot",
+              "period",
+              "point"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cuenta",
+            "pair": "en-es",
+            "target": "cuenta",
+            "rule_count": 3,
+            "top1_source": "account",
+            "top3_sources": [
+              "account",
+              "bill",
+              "invoice"
+            ],
+            "all_sources": [
+              "account",
+              "bill",
+              "invoice"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "account",
+              "bill",
+              "invoice"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cargo",
+            "pair": "en-es",
+            "target": "cargo",
+            "rule_count": 3,
+            "top1_source": "accusal",
+            "top3_sources": [
+              "accusal",
+              "accusation",
+              "function"
+            ],
+            "all_sources": [
+              "accusal",
+              "accusation",
+              "function"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "function"
+            ],
+            "forbidden_matches": [
+              "accusal",
+              "accusation"
+            ]
+          },
+          {
+            "case_id": "en-es:firma",
+            "pair": "en-es",
+            "target": "firma",
+            "rule_count": 3,
+            "top1_source": "company",
+            "top3_sources": [
+              "company",
+              "firm",
+              "signature"
+            ],
+            "all_sources": [
+              "company",
+              "firm",
+              "signature"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "company",
+              "firm",
+              "signature"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:campo",
+            "pair": "en-es",
+            "target": "campo",
+            "rule_count": 3,
+            "top1_source": "country",
+            "top3_sources": [
+              "country",
+              "countryside",
+              "field"
+            ],
+            "all_sources": [
+              "country",
+              "countryside",
+              "field"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "country",
+              "countryside",
+              "field"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:plaza",
+            "pair": "en-es",
+            "target": "plaza",
+            "rule_count": 3,
+            "top1_source": "plaza",
+            "top3_sources": [
+              "plaza",
+              "square",
+              "publicsquare"
+            ],
+            "all_sources": [
+              "plaza",
+              "square",
+              "publicsquare"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "plaza",
+              "square"
+            ],
+            "forbidden_matches": [
+              "publicsquare"
+            ]
+          },
+          {
+            "case_id": "en-es:masa",
+            "pair": "en-es",
+            "target": "masa",
+            "rule_count": 3,
+            "top1_source": "lump",
+            "top3_sources": [
+              "lump",
+              "mass",
+              "dough"
+            ],
+            "all_sources": [
+              "lump",
+              "mass",
+              "dough"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mass",
+              "dough"
+            ],
+            "forbidden_matches": [
+              "lump"
+            ]
+          },
+          {
+            "case_id": "en-es:red",
+            "pair": "en-es",
+            "target": "red",
+            "rule_count": 2,
+            "top1_source": "net",
+            "top3_sources": [
+              "net",
+              "network"
+            ],
+            "all_sources": [
+              "net",
+              "network"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "net",
+              "network"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:lengua",
+            "pair": "en-es",
+            "target": "lengua",
+            "rule_count": 2,
+            "top1_source": "tongue",
+            "top3_sources": [
+              "tongue",
+              "language"
+            ],
+            "all_sources": [
+              "tongue",
+              "language"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "tongue",
+              "language"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:cura",
+            "pair": "en-es",
+            "target": "cura",
+            "rule_count": 3,
+            "top1_source": "treatment",
+            "top3_sources": [
+              "treatment",
+              "pastor",
+              "vicar"
+            ],
+            "all_sources": [
+              "treatment",
+              "pastor",
+              "vicar"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "treatment"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:caso",
+            "pair": "en-es",
+            "target": "caso",
+            "rule_count": 3,
+            "top1_source": "affair",
+            "top3_sources": [
+              "affair",
+              "case",
+              "matter"
+            ],
+            "all_sources": [
+              "affair",
+              "case",
+              "matter"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": true,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "case",
+              "matter"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-es:parte",
+            "pair": "en-es",
+            "target": "parte",
+            "rule_count": 3,
+            "top1_source": "part",
+            "top3_sources": [
+              "part",
+              "parthian",
+              "share"
+            ],
+            "all_sources": [
+              "part",
+              "parthian",
+              "share"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "part",
+              "share"
+            ],
+            "forbidden_matches": [
+              "parthian"
+            ]
+          },
+          {
+            "case_id": "en-es:vista",
+            "pair": "en-es",
+            "target": "vista",
+            "rule_count": 3,
+            "top1_source": "appearance",
+            "top3_sources": [
+              "appearance",
+              "aspect",
+              "look"
+            ],
+            "all_sources": [
+              "appearance",
+              "aspect",
+              "look"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
           }
         ]
       },
@@ -735,23 +1146,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
-            "case_count": 24,
-            "top1_correct_count": 20,
-            "top3_contains_expected_count": 23,
-            "forbidden_top1_count": 4,
-            "forbidden_any_count": 3,
-            "avg_rules_per_target": 1.6666666666666667,
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
             "avg_top1_confidence": 0.6799999999999999,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 80,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.8333333333333334,
-            "top3_recall": 0.9583333333333334,
-            "forbidden_top1_rate": 0.16666666666666666,
-            "forbidden_any_rate": 0.125,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 100.83333333333334
+            "objective_score": 81.05263157894736
           }
         },
         {
@@ -782,23 +1193,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
-            "case_count": 24,
-            "top1_correct_count": 20,
-            "top3_contains_expected_count": 23,
-            "forbidden_top1_count": 4,
-            "forbidden_any_count": 3,
-            "avg_rules_per_target": 1.6666666666666667,
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 8,
+            "avg_rules_per_target": 2.1052631578947367,
             "avg_top1_confidence": 0.6799999999999999,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 80,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.8333333333333334,
-            "top3_recall": 0.9583333333333334,
-            "forbidden_top1_rate": 0.16666666666666666,
-            "forbidden_any_rate": 0.125,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.21052631578947367,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 100.83333333333334
+            "objective_score": 81.05263157894736
           }
         },
         {
@@ -829,23 +1240,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
-            "case_count": 24,
-            "top1_correct_count": 20,
-            "top3_contains_expected_count": 23,
-            "forbidden_top1_count": 4,
-            "forbidden_any_count": 4,
-            "avg_rules_per_target": 1.8333333333333333,
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 9,
+            "avg_rules_per_target": 2.210526315789474,
             "avg_top1_confidence": 0.6799999999999999,
             "variant_rule_count": 4,
-            "total_rule_count": 44,
+            "total_rule_count": 84,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.8333333333333334,
-            "top3_recall": 0.9583333333333334,
-            "forbidden_top1_rate": 0.16666666666666666,
-            "forbidden_any_rate": 0.16666666666666666,
-            "variant_rule_rate": 0.09090909090909091,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.23684210526315788,
+            "variant_rule_rate": 0.047619047619047616,
             "variant_top1_rate": 0.0,
-            "objective_score": 96.50000000000001
+            "objective_score": 78.31578947368419
           }
         },
         {
@@ -876,23 +1287,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off w_pos=0.100",
           "summary": {
             "pair": "en-es",
-            "case_count": 24,
-            "top1_correct_count": 20,
-            "top3_contains_expected_count": 23,
-            "forbidden_top1_count": 4,
-            "forbidden_any_count": 4,
-            "avg_rules_per_target": 1.8333333333333333,
+            "case_count": 38,
+            "top1_correct_count": 30,
+            "top3_contains_expected_count": 36,
+            "forbidden_top1_count": 8,
+            "forbidden_any_count": 9,
+            "avg_rules_per_target": 2.210526315789474,
             "avg_top1_confidence": 0.6799999999999999,
             "variant_rule_count": 4,
-            "total_rule_count": 44,
+            "total_rule_count": 84,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.8333333333333334,
-            "top3_recall": 0.9583333333333334,
-            "forbidden_top1_rate": 0.16666666666666666,
-            "forbidden_any_rate": 0.16666666666666666,
-            "variant_rule_rate": 0.09090909090909091,
+            "top1_accuracy": 0.7894736842105263,
+            "top3_recall": 0.9473684210526315,
+            "forbidden_top1_rate": 0.21052631578947367,
+            "forbidden_any_rate": 0.23684210526315788,
+            "variant_rule_rate": 0.047619047619047616,
             "variant_top1_rate": 0.0,
-            "objective_score": 96.50000000000001
+            "objective_score": 78.31578947368419
           }
         }
       ]

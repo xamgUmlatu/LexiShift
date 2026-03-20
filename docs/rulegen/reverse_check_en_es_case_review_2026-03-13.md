@@ -35,6 +35,12 @@ Artifacts:
 | Green | `capital` | `capital`, `metropolis` | `capital`, `metropolis` | stable anchor; keep city-related readings from regressing |
 | Green | `luz` | `light` | `light` | one-to-one anchor for collateral regression checks |
 
+## Second Expansion
+
+- A second, more aggressive `en-es` expansion pass added 14 more cases.
+- Review artifact: `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
+- The `en-es` benchmark slice now totals 38 cases before the next tuning pass.
+
 ## Notes
 
 1. The new benchmark cases were added to `docs/test_inputs/rulegen_benchmark_cases.json`.
@@ -48,13 +54,13 @@ Artifacts:
    - the reverse-specific experiment is therefore the relevant artifact for this workstream
 6. The named reverse lane now captures the current best practical state for this workstream:
    - best `en-es` run has `rev=on`
-   - top-1 improves to `95.83%`
-   - `forbidden_any_rate` improves to `4.17%`
+   - on the widened 38-case slice, top-1 improves to `97.37%`
+   - `forbidden_any_rate` improves to `2.63%`
    - the remaining triage set drops to one item: `cuadro`
 7. There are two relevant reverse-lane operating points:
-   - objective winner: `mr=1`, which collapses the candidate set to one rule per target and leaves only `cuadro`
+   - objective winner: `mr=1`, which yields `top1=97.37%`, `top3=97.37%`, and leaves only `cuadro`
    - near-winner: `mr=none`, which keeps `top3=100.00%` while still leaving only `cuadro`
 8. The practical reverse-check story for `en-es` is now much better:
-   - `madre`, `planta`, and `derecho` all move to acceptable top-1 outputs
-   - top-3 hygiene also cleans the forbidden-any tail for `madre` / `derecho`
+   - `madre`, `planta`, `derecho`, `cargo`, `masa`, `caso`, and `vista` all move to acceptable top-1 outputs in the reverse lane
+   - top-3 hygiene also cleans the forbidden-any tail for the newly added red cases
    - `cuadro` remains the only visible non-reverse failure class

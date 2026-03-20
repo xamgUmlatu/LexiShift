@@ -1,0 +1,3787 @@
+{
+  "config": {
+    "max_definitions": 3,
+    "max_rules_per_target": null,
+    "confidence_threshold": 0.0,
+    "include_variants": true,
+    "pos_scoring_enabled": true,
+    "pos_exact_match_bonus": 1.0,
+    "pos_compatible_match_bonus": 0.5,
+    "score_weight_pos_match": 0.1,
+    "reverse_check": {
+      "enabled": true,
+      "match_bonus": 0.6,
+      "near_bonus": 0.1,
+      "near_rank_max": 2,
+      "far_hit_penalty": 0.05,
+      "miss_penalty": 0.8
+    }
+  },
+  "paths": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "profile_id": "default",
+    "srs_store": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_store.json",
+    "freedict_es_en": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-spa-eng-0.3.1.src/spa-eng.tei",
+    "freedict_en_es_reverse": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-spa-2025.11.23.src/eng-spa.tei",
+    "jmdict": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e"
+  },
+  "notes": [
+    "Using reading override for '時' -> 'とき'.",
+    "Using reading override for '様' -> 'よう'."
+  ],
+  "warnings": [],
+  "pairs": {
+    "en-es": {
+      "banco": {
+        "uncapped": [
+          {
+            "target": "banco",
+            "source_phrase": "bench",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "bench"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "banco",
+            "source_phrase": "bank",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9934782608695653,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9934782608695653,
+              -0.6799999999999999,
+              "bank"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 3,
+            "reverse_check_total": 24
+          }
+        ],
+        "capped": [
+          {
+            "target": "banco",
+            "source_phrase": "bench",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "bench"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "banco",
+            "source_phrase": "bank",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9934782608695653,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9934782608695653,
+              -0.6799999999999999,
+              "bank"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 3,
+            "reverse_check_total": 24
+          }
+        ]
+      },
+      "capital": {
+        "uncapped": [
+          {
+            "target": "capital",
+            "source_phrase": "capital",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "capital"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "capital",
+            "source_phrase": "metropolis",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "metropolis"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3
+          }
+        ],
+        "capped": [
+          {
+            "target": "capital",
+            "source_phrase": "capital",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "capital"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "capital",
+            "source_phrase": "metropolis",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "metropolis"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3
+          }
+        ]
+      },
+      "luz": {
+        "uncapped": [
+          {
+            "target": "luz",
+            "source_phrase": "light",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9727272727272728,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9727272727272728,
+              -0.6799999999999999,
+              "light"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 12,
+            "reverse_check_total": 23
+          }
+        ],
+        "capped": [
+          {
+            "target": "luz",
+            "source_phrase": "light",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9727272727272728,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9727272727272728,
+              -0.6799999999999999,
+              "light"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 12,
+            "reverse_check_total": 23
+          }
+        ]
+      },
+      "fondo": {
+        "uncapped": [
+          {
+            "target": "fondo",
+            "source_phrase": "background",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.98,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.98,
+              -0.6799999999999999,
+              "background"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 11
+          }
+        ],
+        "capped": [
+          {
+            "target": "fondo",
+            "source_phrase": "background",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.98,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.98,
+              -0.6799999999999999,
+              "background"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 11
+          }
+        ]
+      },
+      "medio": {
+        "uncapped": [
+          {
+            "target": "medio",
+            "source_phrase": "half",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "half"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "medio",
+            "source_phrase": "average",
+            "confidence": 0.58,
+            "rank_score": 0.8,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.8,
+              -0.58,
+              "average"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "medio",
+            "source_phrase": "mean",
+            "confidence": 0.58,
+            "rank_score": 0.7666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.7666666666666666,
+              -0.58,
+              "mean"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 36
+          },
+          {
+            "target": "medio",
+            "source_phrase": "middle",
+            "confidence": 0.58,
+            "rank_score": 0.7428571428571429,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.7428571428571429,
+              -0.58,
+              "middle"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "medio",
+            "source_phrase": "agent",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "agent"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "medio",
+            "source_phrase": "remedy",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "remedy"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 5
+          },
+          {
+            "target": "medio",
+            "source_phrase": "resources",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:8",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "resources"
+            ],
+            "gloss_index": 8,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 0
+          },
+          {
+            "target": "medio",
+            "source_phrase": "tool",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "tool"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3
+          }
+        ],
+        "capped": [
+          {
+            "target": "medio",
+            "source_phrase": "half",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "half"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "medio",
+            "source_phrase": "average",
+            "confidence": 0.58,
+            "rank_score": 0.8,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.8,
+              -0.58,
+              "average"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "medio",
+            "source_phrase": "mean",
+            "confidence": 0.58,
+            "rank_score": 0.7666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.7666666666666666,
+              -0.58,
+              "mean"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 36
+          }
+        ]
+      },
+      "planta": {
+        "uncapped": [
+          {
+            "target": "planta",
+            "source_phrase": "plant",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "plant"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 10
+          },
+          {
+            "target": "planta",
+            "source_phrase": "sole",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9785714285714285,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9785714285714285,
+              -0.6799999999999999,
+              "sole"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 3,
+            "reverse_check_total": 8
+          }
+        ],
+        "capped": [
+          {
+            "target": "planta",
+            "source_phrase": "plant",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "plant"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 10
+          },
+          {
+            "target": "planta",
+            "source_phrase": "sole",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.9785714285714285,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.9785714285714285,
+              -0.6799999999999999,
+              "sole"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 3,
+            "reverse_check_total": 8
+          }
+        ]
+      },
+      "derecho": {
+        "uncapped": [
+          {
+            "target": "derecho",
+            "source_phrase": "right",
+            "confidence": 0.58,
+            "rank_score": 0.23863636363636365,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.23863636363636365,
+              -0.58,
+              "right"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 23
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "claim",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "claim"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 20
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "straight",
+            "confidence": 0.58,
+            "rank_score": 0.14583333333333331,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.14583333333333331,
+              -0.58,
+              "straight"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 13
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "presumption",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "presumption"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 0
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "direct",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "direct"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "pretence",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "pretence"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 0
+          }
+        ],
+        "capped": [
+          {
+            "target": "derecho",
+            "source_phrase": "right",
+            "confidence": 0.58,
+            "rank_score": 0.23863636363636365,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.23863636363636365,
+              -0.58,
+              "right"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 23
+          },
+          {
+            "target": "derecho",
+            "source_phrase": "straight",
+            "confidence": 0.58,
+            "rank_score": 0.14583333333333331,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.14583333333333331,
+              -0.58,
+              "straight"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 13
+          }
+        ]
+      },
+      "cuadro": {
+        "uncapped": [
+          {
+            "target": "cuadro",
+            "source_phrase": "bed",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "bed"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 13
+          },
+          {
+            "target": "cuadro",
+            "source_phrase": "picture",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "picture"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 4
+          }
+        ],
+        "capped": [
+          {
+            "target": "cuadro",
+            "source_phrase": "bed",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "bed"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 13
+          },
+          {
+            "target": "cuadro",
+            "source_phrase": "picture",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "picture"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 4
+          }
+        ]
+      },
+      "orden": {
+        "uncapped": [
+          {
+            "target": "orden",
+            "source_phrase": "order",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "order"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "orden",
+            "source_phrase": "warrant",
+            "confidence": 0.62,
+            "rank_score": 0.6,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.6,
+              -0.62,
+              "warrant"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "orden",
+            "source_phrase": "writ",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "writ"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 6
+          }
+        ],
+        "capped": [
+          {
+            "target": "orden",
+            "source_phrase": "order",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "order"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "orden",
+            "source_phrase": "warrant",
+            "confidence": 0.62,
+            "rank_score": 0.6,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.6,
+              -0.62,
+              "warrant"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 9
+          }
+        ]
+      },
+      "frente": {
+        "uncapped": [
+          {
+            "target": "frente",
+            "source_phrase": "forehead",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "forehead"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          }
+        ],
+        "capped": [
+          {
+            "target": "frente",
+            "source_phrase": "forehead",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "forehead"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          }
+        ]
+      },
+      "punto": {
+        "uncapped": [
+          {
+            "target": "punto",
+            "source_phrase": "dot",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "dot"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 1
+          },
+          {
+            "target": "punto",
+            "source_phrase": "point",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "point"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 22
+          },
+          {
+            "target": "punto",
+            "source_phrase": "period",
+            "confidence": 0.62,
+            "rank_score": 0.45999999999999996,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.45999999999999996,
+              -0.62,
+              "period"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 6
+          },
+          {
+            "target": "punto",
+            "source_phrase": "spot",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "spot"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 26
+          }
+        ],
+        "capped": [
+          {
+            "target": "punto",
+            "source_phrase": "dot",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "dot"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 1
+          },
+          {
+            "target": "punto",
+            "source_phrase": "point",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "point"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 22
+          }
+        ]
+      },
+      "cuenta": {
+        "uncapped": [
+          {
+            "target": "cuenta",
+            "source_phrase": "account",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "account"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 10
+          },
+          {
+            "target": "cuenta",
+            "source_phrase": "bill",
+            "confidence": 0.62,
+            "rank_score": 0.4666666666666667,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.4666666666666667,
+              -0.62,
+              "bill"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 8,
+            "reverse_check_total": 13
+          },
+          {
+            "target": "cuenta",
+            "source_phrase": "calculation",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "calculation"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "cuenta",
+            "source_phrase": "invoice",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "invoice"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 4
+          }
+        ],
+        "capped": [
+          {
+            "target": "cuenta",
+            "source_phrase": "account",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "account"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 10
+          },
+          {
+            "target": "cuenta",
+            "source_phrase": "bill",
+            "confidence": 0.62,
+            "rank_score": 0.4666666666666667,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.4666666666666667,
+              -0.62,
+              "bill"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 8,
+            "reverse_check_total": 13
+          }
+        ]
+      },
+      "cargo": {
+        "uncapped": [
+          {
+            "target": "cargo",
+            "source_phrase": "function",
+            "confidence": 0.58,
+            "rank_score": 0.43333333333333335,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.43333333333333335,
+              -0.58,
+              "function"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 6
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "charge",
+            "confidence": 0.58,
+            "rank_score": 0.23333333333333334,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.23333333333333334,
+              -0.58,
+              "charge"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 7,
+            "reverse_check_total": 22
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "accusal",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "accusal"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 0
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "accusation",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "accusation"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "complaint",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "complaint"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 7
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "indictment",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "indictment"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "job",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "job"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "office",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "office"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "post",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:8",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "post"
+            ],
+            "gloss_index": 8,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 14
+          }
+        ],
+        "capped": [
+          {
+            "target": "cargo",
+            "source_phrase": "function",
+            "confidence": 0.58,
+            "rank_score": 0.43333333333333335,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.43333333333333335,
+              -0.58,
+              "function"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 6
+          },
+          {
+            "target": "cargo",
+            "source_phrase": "charge",
+            "confidence": 0.58,
+            "rank_score": 0.23333333333333334,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.23333333333333334,
+              -0.58,
+              "charge"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 9,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 7,
+            "reverse_check_total": 22
+          }
+        ]
+      },
+      "marca": {
+        "uncapped": [],
+        "capped": []
+      },
+      "base": {
+        "uncapped": [],
+        "capped": []
+      },
+      "pie": {
+        "uncapped": [],
+        "capped": []
+      },
+      "obra": {
+        "uncapped": [
+          {
+            "target": "obra",
+            "source_phrase": "work",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.99,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.99,
+              -0.6799999999999999,
+              "work"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 6,
+            "reverse_check_total": 31
+          }
+        ],
+        "capped": [
+          {
+            "target": "obra",
+            "source_phrase": "work",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.99,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.99,
+              -0.6799999999999999,
+              "work"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 6,
+            "reverse_check_total": 31
+          }
+        ]
+      },
+      "corte": {
+        "uncapped": [],
+        "capped": []
+      },
+      "firma": {
+        "uncapped": [
+          {
+            "target": "firma",
+            "source_phrase": "company",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.96,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.96,
+              -0.6799999999999999,
+              "company"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 6
+          },
+          {
+            "target": "firma",
+            "source_phrase": "signature",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "signature"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "firma",
+            "source_phrase": "firm",
+            "confidence": 0.62,
+            "rank_score": 0.6,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.6,
+              -0.62,
+              "firm"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 9
+          }
+        ],
+        "capped": [
+          {
+            "target": "firma",
+            "source_phrase": "company",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.96,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.96,
+              -0.6799999999999999,
+              "company"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 6
+          },
+          {
+            "target": "firma",
+            "source_phrase": "signature",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "signature"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "firma",
+            "source_phrase": "firm",
+            "confidence": 0.62,
+            "rank_score": 0.6,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.6,
+              -0.62,
+              "firm"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 9
+          }
+        ]
+      },
+      "cara": {
+        "uncapped": [
+          {
+            "target": "cara",
+            "source_phrase": "face",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "face"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 28
+          }
+        ],
+        "capped": [
+          {
+            "target": "cara",
+            "source_phrase": "face",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "face"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 28
+          }
+        ]
+      },
+      "campo": {
+        "uncapped": [
+          {
+            "target": "campo",
+            "source_phrase": "countryside",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "countryside"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "campo",
+            "source_phrase": "country",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.975,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.975,
+              -0.6799999999999999,
+              "country"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 11
+          },
+          {
+            "target": "campo",
+            "source_phrase": "field",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "field"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 13
+          }
+        ],
+        "capped": [
+          {
+            "target": "campo",
+            "source_phrase": "countryside",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "countryside"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "campo",
+            "source_phrase": "country",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.975,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.975,
+              -0.6799999999999999,
+              "country"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 11
+          },
+          {
+            "target": "campo",
+            "source_phrase": "field",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "field"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 13
+          }
+        ]
+      },
+      "plaza": {
+        "uncapped": [
+          {
+            "target": "plaza",
+            "source_phrase": "plaza",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "plaza"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 3
+          },
+          {
+            "target": "plaza",
+            "source_phrase": "square",
+            "confidence": 0.62,
+            "rank_score": 0.48095238095238096,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.48095238095238096,
+              -0.62,
+              "square"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 8,
+            "reverse_check_total": 22
+          },
+          {
+            "target": "plaza",
+            "source_phrase": "publicsquare",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "publicsquare"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 0
+          }
+        ],
+        "capped": [
+          {
+            "target": "plaza",
+            "source_phrase": "plaza",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "plaza"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 3
+          },
+          {
+            "target": "plaza",
+            "source_phrase": "square",
+            "confidence": 0.62,
+            "rank_score": 0.48095238095238096,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.48095238095238096,
+              -0.62,
+              "square"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 8,
+            "reverse_check_total": 22
+          }
+        ]
+      },
+      "banda": {
+        "uncapped": [],
+        "capped": []
+      },
+      "masa": {
+        "uncapped": [
+          {
+            "target": "masa",
+            "source_phrase": "dough",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "dough"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 11
+          },
+          {
+            "target": "masa",
+            "source_phrase": "paste",
+            "confidence": 0.58,
+            "rank_score": 0.85,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.85,
+              -0.58,
+              "paste"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "masa",
+            "source_phrase": "mass",
+            "confidence": 0.62,
+            "rank_score": 0.46875,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.46875,
+              -0.62,
+              "mass"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "masa",
+            "source_phrase": "lump",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "lump"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 12
+          }
+        ],
+        "capped": [
+          {
+            "target": "masa",
+            "source_phrase": "dough",
+            "confidence": 0.58,
+            "rank_score": 0.9333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.9333333333333333,
+              -0.58,
+              "dough"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 11
+          },
+          {
+            "target": "masa",
+            "source_phrase": "paste",
+            "confidence": 0.58,
+            "rank_score": 0.85,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.85,
+              -0.58,
+              "paste"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "masa",
+            "source_phrase": "mass",
+            "confidence": 0.62,
+            "rank_score": 0.46875,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.46875,
+              -0.62,
+              "mass"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 9
+          }
+        ]
+      },
+      "serie": {
+        "uncapped": [
+          {
+            "target": "serie",
+            "source_phrase": "series",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "series"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 5
+          },
+          {
+            "target": "serie",
+            "source_phrase": "set",
+            "confidence": 0.62,
+            "rank_score": 0.4896551724137931,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.4896551724137931,
+              -0.62,
+              "set"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 6,
+            "reverse_check_total": 30
+          }
+        ],
+        "capped": [
+          {
+            "target": "serie",
+            "source_phrase": "series",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "series"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 5
+          },
+          {
+            "target": "serie",
+            "source_phrase": "set",
+            "confidence": 0.62,
+            "rank_score": 0.4896551724137931,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.4896551724137931,
+              -0.62,
+              "set"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 6,
+            "reverse_check_total": 30
+          }
+        ]
+      },
+      "red": {
+        "uncapped": [
+          {
+            "target": "red",
+            "source_phrase": "net",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "net"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "red",
+            "source_phrase": "network",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "network"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          }
+        ],
+        "capped": [
+          {
+            "target": "red",
+            "source_phrase": "net",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "net"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 2,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "red",
+            "source_phrase": "network",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "network"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          }
+        ]
+      },
+      "trato": {
+        "uncapped": [
+          {
+            "target": "trato",
+            "source_phrase": "treatment",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "treatment"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 2
+          }
+        ],
+        "capped": [
+          {
+            "target": "trato",
+            "source_phrase": "treatment",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "treatment"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 2
+          }
+        ]
+      },
+      "cadena": {
+        "uncapped": [
+          {
+            "target": "cadena",
+            "source_phrase": "chain",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "chain"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 2
+          }
+        ],
+        "capped": [
+          {
+            "target": "cadena",
+            "source_phrase": "chain",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "chain"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 2
+          }
+        ]
+      },
+      "clave": {
+        "uncapped": [],
+        "capped": []
+      },
+      "radio": {
+        "uncapped": [
+          {
+            "target": "radio",
+            "source_phrase": "radio",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "radio"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 3
+          },
+          {
+            "target": "radio",
+            "source_phrase": "wireless",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "wireless"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1
+          }
+        ],
+        "capped": [
+          {
+            "target": "radio",
+            "source_phrase": "radio",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "radio"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 3
+          },
+          {
+            "target": "radio",
+            "source_phrase": "wireless",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "wireless"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1
+          }
+        ]
+      },
+      "lengua": {
+        "uncapped": [
+          {
+            "target": "lengua",
+            "source_phrase": "tongue",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "tongue"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "lengua",
+            "source_phrase": "language",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "language"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          }
+        ],
+        "capped": [
+          {
+            "target": "lengua",
+            "source_phrase": "tongue",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "tongue"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "lengua",
+            "source_phrase": "language",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "language"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 4
+          }
+        ]
+      },
+      "boca": {
+        "uncapped": [
+          {
+            "target": "boca",
+            "source_phrase": "mouth",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "mouth"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          }
+        ],
+        "capped": [
+          {
+            "target": "boca",
+            "source_phrase": "mouth",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "mouth"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 1,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          }
+        ]
+      },
+      "cura": {
+        "uncapped": [
+          {
+            "target": "cura",
+            "source_phrase": "priest",
+            "confidence": 0.58,
+            "rank_score": 0.30000000000000004,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.30000000000000004,
+              -0.58,
+              "priest"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "cura",
+            "source_phrase": "treatment",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "treatment"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "cura",
+            "source_phrase": "pastor",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "pastor"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "cura",
+            "source_phrase": "clergyman",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "clergyman"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "cura",
+            "source_phrase": "vicar",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "vicar"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          }
+        ],
+        "capped": [
+          {
+            "target": "cura",
+            "source_phrase": "priest",
+            "confidence": 0.58,
+            "rank_score": 0.30000000000000004,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.30000000000000004,
+              -0.58,
+              "priest"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 4
+          },
+          {
+            "target": "cura",
+            "source_phrase": "treatment",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "treatment"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "cura",
+            "source_phrase": "pastor",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "pastor"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          }
+        ]
+      },
+      "parte": {
+        "uncapped": [
+          {
+            "target": "parte",
+            "source_phrase": "part",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "part"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 18
+          },
+          {
+            "target": "parte",
+            "source_phrase": "parthian",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "parthian"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "parte",
+            "source_phrase": "piece",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "piece"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "parte",
+            "source_phrase": "share",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "share"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 8
+          }
+        ],
+        "capped": [
+          {
+            "target": "parte",
+            "source_phrase": "part",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "part"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 18
+          }
+        ]
+      },
+      "caso": {
+        "uncapped": [
+          {
+            "target": "caso",
+            "source_phrase": "case",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "case"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 12
+          },
+          {
+            "target": "caso",
+            "source_phrase": "affair",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "affair"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 8
+          },
+          {
+            "target": "caso",
+            "source_phrase": "matter",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "matter"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 7
+          }
+        ],
+        "capped": [
+          {
+            "target": "caso",
+            "source_phrase": "case",
+            "confidence": 0.62,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -1.0,
+              -0.62,
+              "case"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 3,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 12
+          }
+        ]
+      },
+      "vista": {
+        "uncapped": [
+          {
+            "target": "vista",
+            "source_phrase": "sight",
+            "confidence": 0.58,
+            "rank_score": 0.85,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.85,
+              -0.58,
+              "sight"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "vista",
+            "source_phrase": "appearance",
+            "confidence": 0.6799999999999999,
+            "rank_score": 0.19999999999999996,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.19999999999999996,
+              -0.6799999999999999,
+              "appearance"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "vista",
+            "source_phrase": "view",
+            "confidence": 0.58,
+            "rank_score": 0.18461538461538463,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.18461538461538463,
+              -0.58,
+              "view"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 14
+          },
+          {
+            "target": "vista",
+            "source_phrase": "aspect",
+            "confidence": 0.62,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.0,
+              -0.62,
+              "aspect"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1
+          },
+          {
+            "target": "vista",
+            "source_phrase": "examination",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "examination"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2
+          },
+          {
+            "target": "vista",
+            "source_phrase": "exterior",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "exterior"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1
+          },
+          {
+            "target": "vista",
+            "source_phrase": "look",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "look"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 21
+          }
+        ],
+        "capped": [
+          {
+            "target": "vista",
+            "source_phrase": "sight",
+            "confidence": 0.58,
+            "rank_score": 0.85,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.85,
+              -0.58,
+              "sight"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 9
+          },
+          {
+            "target": "vista",
+            "source_phrase": "view",
+            "confidence": 0.58,
+            "rank_score": 0.18461538461538463,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.18461538461538463,
+              -0.58,
+              "view"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 4,
+            "reverse_check_total": 14
+          }
+        ]
+      },
+      "modelo": {
+        "uncapped": [],
+        "capped": []
+      }
+    },
+    "en-ja": {
+      "様": {
+        "uncapped": [
+          {
+            "target": "様",
+            "source_phrase": "form",
+            "confidence": 0.48,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.48,
+              "form"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "style",
+            "confidence": 0.48,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.48,
+              "style"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "design",
+            "confidence": 0.48,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.48,
+              "design"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "thing",
+            "confidence": 0.48,
+            "rank_score": 0.1,
+            "bucket_key": "gloss:9",
+            "sort_key": [
+              -0.1,
+              -0.48,
+              "thing"
+            ],
+            "gloss_index": 9,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "appearing",
+            "confidence": 0.48,
+            "rank_score": 0.09999999999999998,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.09999999999999998,
+              -0.48,
+              "appearing"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "looking",
+            "confidence": 0.48,
+            "rank_score": 0.04999999999999999,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.04999999999999999,
+              -0.48,
+              "looking"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "like",
+            "confidence": 0.48,
+            "rank_score": 0.012499999999999997,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.012499999999999997,
+              -0.48,
+              "like"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "様",
+            "source_phrase": "form",
+            "confidence": 0.48,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.48,
+              "form"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "style",
+            "confidence": 0.48,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.48,
+              "style"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "様",
+            "source_phrase": "design",
+            "confidence": 0.48,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.48,
+              "design"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 10,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          }
+        ]
+      },
+      "時": {
+        "uncapped": [
+          {
+            "target": "時",
+            "source_phrase": "time",
+            "confidence": 0.48,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.48,
+              "time"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "hour",
+            "confidence": 0.48,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.48,
+              "hour"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "moment",
+            "confidence": 0.48,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.48,
+              "moment"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "occasion",
+            "confidence": 0.48,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.48,
+              "occasion"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "case",
+            "confidence": 0.48,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.48,
+              "case"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "chance",
+            "confidence": 0.48,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.48,
+              "chance"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "opportunity",
+            "confidence": 0.48,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.48,
+              "opportunity"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "opportunities",
+            "confidence": 0.45999999999999996,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.45999999999999996,
+              "opportunities"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 12,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "season",
+            "confidence": 0.48,
+            "rank_score": 0.125,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.125,
+              -0.48,
+              "season"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "tense",
+            "confidence": 0.48,
+            "rank_score": 0.08333333333333333,
+            "bucket_key": "gloss:11",
+            "sort_key": [
+              -0.08333333333333333,
+              -0.48,
+              "tense"
+            ],
+            "gloss_index": 11,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "時",
+            "source_phrase": "time",
+            "confidence": 0.48,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.48,
+              "time"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "hour",
+            "confidence": 0.48,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.48,
+              "hour"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          },
+          {
+            "target": "時",
+            "source_phrase": "moment",
+            "confidence": 0.48,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.48,
+              "moment"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 12,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null
+          }
+        ]
+      }
+    }
+  }
+}

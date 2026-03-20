@@ -31,7 +31,7 @@
       "level": "FAIL",
       "code": "QUALITY_FLOOR_BREACH",
       "message": "Quality floor failed for pair 'en-es'.",
-      "details": "top1_accuracy=0.8333 below min_top1_accuracy=0.9500\nforbidden_top1_rate=0.1667 above max_forbidden_top1_rate=0.0500\nforbidden_any_rate=0.1250 above max_forbidden_any_rate=0.1000"
+      "details": "top1_accuracy=0.7895 below min_top1_accuracy=0.9500\ntop3_recall=0.9474 below min_top3_recall=0.9500\nforbidden_top1_rate=0.2105 above max_forbidden_top1_rate=0.0500\nforbidden_any_rate=0.2105 above max_forbidden_any_rate=0.1000"
     },
     {
       "level": "WARN",
@@ -55,7 +55,7 @@
       "level": "FAIL",
       "code": "DELTA_BUDGET_BREACH",
       "message": "Delta budgets failed for pair 'en-es'.",
-      "details": "top1_accuracy drop=0.1667 exceeds budget=0.0000\ntop3_recall drop=0.0417 exceeds budget=0.0000\nforbidden_top1_rate increase=0.1667 exceeds budget=0.0000\nforbidden_any_rate increase=0.1250 exceeds budget=0.0000\navg_rules_per_target increase=0.6667 exceeds budget=0.5000"
+      "details": "top1_accuracy drop=0.2105 exceeds budget=0.0000\ntop3_recall drop=0.0526 exceeds budget=0.0000\nforbidden_top1_rate increase=0.2105 exceeds budget=0.0000\nforbidden_any_rate increase=0.2105 exceeds budget=0.0000\navg_rules_per_target increase=1.1053 exceeds budget=0.5000"
     },
     {
       "level": "WARN",

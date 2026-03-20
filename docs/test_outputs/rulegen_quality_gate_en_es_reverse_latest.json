@@ -55,7 +55,7 @@
       "level": "FAIL",
       "code": "DELTA_BUDGET_BREACH",
       "message": "Delta budgets failed for pair 'en-es'.",
-      "details": "top1_accuracy drop=0.0417 exceeds budget=0.0000\ntop3_recall drop=0.0417 exceeds budget=0.0000\nforbidden_top1_rate increase=0.0417 exceeds budget=0.0000\nforbidden_any_rate increase=0.0417 exceeds budget=0.0000"
+      "details": "top1_accuracy drop=0.0263 exceeds budget=0.0000\ntop3_recall drop=0.0263 exceeds budget=0.0000\nforbidden_top1_rate increase=0.0263 exceeds budget=0.0000\nforbidden_any_rate increase=0.0263 exceeds budget=0.0000"
     },
     {
       "level": "PASS",

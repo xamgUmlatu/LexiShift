@@ -14,8 +14,8 @@
 3. [WARN] `QUALITY_FLOOR_PAIR_MISSING`: No benchmark summary for pair 'en-de'; skipping its quality floor checks.
 4. [WARN] `QUALITY_FLOOR_PAIR_MISSING`: No benchmark summary for pair 'es-en'; skipping its quality floor checks.
 5. [FAIL] `DELTA_BUDGET_BREACH`: Delta budgets failed for pair 'en-es'.
-   - top1_accuracy drop=0.0417 exceeds budget=0.0000
-   - top3_recall drop=0.0417 exceeds budget=0.0000
-   - forbidden_top1_rate increase=0.0417 exceeds budget=0.0000
-   - forbidden_any_rate increase=0.0417 exceeds budget=0.0000
+   - top1_accuracy drop=0.0263 exceeds budget=0.0000
+   - top3_recall drop=0.0263 exceeds budget=0.0000
+   - forbidden_top1_rate increase=0.0263 exceeds budget=0.0000
+   - forbidden_any_rate increase=0.0263 exceeds budget=0.0000
 6. [WARN] `SATURATION_UNIQUE_VECTOR_WARN`: Pair 'en-es' unique metric vectors=4 below expected minimum=5.

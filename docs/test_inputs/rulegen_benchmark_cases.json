@@ -2,7 +2,7 @@
   "version": 2,
   "name": "LexiShift Rulegen Benchmark Cases",
   "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
-  "breadth": "v2-expanded",
+  "breadth": "v2-expanded-aggressive",
   "cases": [
     {
       "case_id": "en-es:hora",
@@ -417,6 +417,300 @@
         "bed"
       ],
       "notes": "Reverse-check Red: picture/chart senses are acceptable; bed should not survive as a product-facing candidate."
+    },
+    {
+      "case_id": "en-es:orden",
+      "pair": "en-es",
+      "target": "orden",
+      "tier": "hard",
+      "expected_any": [
+        "order",
+        "command",
+        "arrangement"
+      ],
+      "expected_top1_any": [
+        "order",
+        "command"
+      ],
+      "forbidden_top1": [
+        "warrant",
+        "writ"
+      ],
+      "forbidden_any": [
+        "writ"
+      ],
+      "notes": "Common organizational noun; keep default order/command readings ahead of legal-document drift."
+    },
+    {
+      "case_id": "en-es:punto",
+      "pair": "en-es",
+      "target": "punto",
+      "tier": "hard",
+      "expected_any": [
+        "point",
+        "dot",
+        "period"
+      ],
+      "expected_top1_any": [
+        "point",
+        "dot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent punctuation/location polysemy anchor; preserve common point/dot readings."
+    },
+    {
+      "case_id": "en-es:cuenta",
+      "pair": "en-es",
+      "target": "cuenta",
+      "tier": "hard",
+      "expected_any": [
+        "account",
+        "bill",
+        "invoice"
+      ],
+      "expected_top1_any": [
+        "account",
+        "bill"
+      ],
+      "forbidden_top1": [
+        "calculation"
+      ],
+      "forbidden_any": [],
+      "notes": "Common finance/count polysemy; prefer account/bill as the default noun reading."
+    },
+    {
+      "case_id": "en-es:cargo",
+      "pair": "en-es",
+      "target": "cargo",
+      "tier": "hard",
+      "expected_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function",
+        "job"
+      ],
+      "expected_top1_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function"
+      ],
+      "forbidden_top1": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "forbidden_any": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "notes": "High-value red case: avoid rare accusation senses outranking role/charge senses."
+    },
+    {
+      "case_id": "en-es:firma",
+      "pair": "en-es",
+      "target": "firma",
+      "tier": "hard",
+      "expected_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "expected_top1_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Product-relevant business polysemy anchor covering company/signature."
+    },
+    {
+      "case_id": "en-es:campo",
+      "pair": "en-es",
+      "target": "campo",
+      "tier": "hard",
+      "expected_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "expected_top1_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common location/domain polysemy anchor for field vs countryside country readings."
+    },
+    {
+      "case_id": "en-es:plaza",
+      "pair": "en-es",
+      "target": "plaza",
+      "tier": "smoke",
+      "expected_any": [
+        "plaza",
+        "square"
+      ],
+      "expected_top1_any": [
+        "plaza",
+        "square"
+      ],
+      "forbidden_top1": [
+        "publicsquare"
+      ],
+      "forbidden_any": [
+        "publicsquare"
+      ],
+      "notes": "Green control with a frequent public-space reading and an obviously poor concatenated candidate."
+    },
+    {
+      "case_id": "en-es:masa",
+      "pair": "en-es",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough",
+        "paste"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "lump"
+      ],
+      "forbidden_any": [
+        "lump"
+      ],
+      "notes": "High-value red case: reverse-check should demote lump and surface mass/dough."
+    },
+    {
+      "case_id": "en-es:red",
+      "pair": "en-es",
+      "target": "red",
+      "tier": "smoke",
+      "expected_any": [
+        "net",
+        "network"
+      ],
+      "expected_top1_any": [
+        "net",
+        "network"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Stable two-sense control for network/net without overconstraining order."
+    },
+    {
+      "case_id": "en-es:lengua",
+      "pair": "en-es",
+      "target": "lengua",
+      "tier": "hard",
+      "expected_any": [
+        "tongue",
+        "language"
+      ],
+      "expected_top1_any": [
+        "tongue",
+        "language"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent body-part vs language polysemy anchor."
+    },
+    {
+      "case_id": "en-es:cura",
+      "pair": "en-es",
+      "target": "cura",
+      "tier": "hard",
+      "expected_any": [
+        "priest",
+        "treatment",
+        "cure",
+        "healing"
+      ],
+      "expected_top1_any": [
+        "priest",
+        "treatment",
+        "cure"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common clergy vs cure polysemy; useful for observing reverse-driven rescue without hard-forcing one sense."
+    },
+    {
+      "case_id": "en-es:caso",
+      "pair": "en-es",
+      "target": "caso",
+      "tier": "hard",
+      "expected_any": [
+        "case",
+        "matter",
+        "instance"
+      ],
+      "expected_top1_any": [
+        "case",
+        "matter"
+      ],
+      "forbidden_top1": [
+        "affair"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency default-noun case; affair is too broad as the bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:parte",
+      "pair": "en-es",
+      "target": "parte",
+      "tier": "hard",
+      "expected_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "expected_top1_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "forbidden_top1": [
+        "parthian"
+      ],
+      "forbidden_any": [
+        "parthian"
+      ],
+      "notes": "Control for absurd false-friend leakage; part-family readings should dominate."
+    },
+    {
+      "case_id": "en-es:vista",
+      "pair": "en-es",
+      "target": "vista",
+      "tier": "hard",
+      "expected_any": [
+        "sight",
+        "view"
+      ],
+      "expected_top1_any": [
+        "sight",
+        "view"
+      ],
+      "forbidden_top1": [
+        "appearance",
+        "aspect",
+        "look"
+      ],
+      "forbidden_any": [],
+      "notes": "High-value red case: reverse-check should move sight/view above abstract appearance glosses."
     },
     {
       "case_id": "es-en:house",

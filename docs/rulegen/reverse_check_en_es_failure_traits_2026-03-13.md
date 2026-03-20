@@ -18,6 +18,15 @@ Method:
   - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 
+Aggressive expansion note:
+- a second pass added 14 more `en-es` cases; see `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
+- the named reverse lane on the widened 38-case slice now reaches:
+  - top-1: `97.37%`
+  - top-3: `97.37%` (objective winner) / `100.00%` (`mr=none` comparison row)
+  - forbidden-any: `2.63%`
+  - remaining triage count: `1` (`cuadro`)
+- the tables below still focus on the original anchor red cases that shaped the reverse-check scoring changes
+
 Interpretation of Zipf:
 - `~6`: extremely common everyday word
 - `~5`: common core vocabulary
@@ -90,13 +99,17 @@ What still remains:
 
 2. The current reverse model now handles the reverse-solvable cases well enough.
    - Named reverse lane result:
-     - top-1: `95.83%`
-     - objective-best forbidden-any: `4.17%`
+     - top-1: `97.37%`
+     - objective-best forbidden-any: `2.63%`
      - remaining triage count: `1`
    - Reverse-solvable cases now clean up as expected:
      - `madre` -> `mother`
      - `planta` -> `plant`
      - `derecho` -> `right`
+     - `cargo` -> `function`
+     - `masa` -> `dough`
+     - `caso` -> `case`
+     - `vista` -> `sight`
 
 3. The remaining blocker is now concentrated.
    - `cuadro` is the only remaining hard failure in the named reverse lane.
