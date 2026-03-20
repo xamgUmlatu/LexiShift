@@ -228,6 +228,11 @@ Rulegen quality workflow references:
 - `ai_workflow.md`
 - `genai_workflow_architecture.md`
 - `feature_state_matrix.md`
+
+SRS workflow references:
+- `../../scripts/testing/srs_quality_harness.py`
+- `../../scripts/testing/srs_journey_harness.py`
+- `../srs/srs_journey_harness_workstream.md`
 - `../../scripts/testing/rulegen_pair_audit_cycle.py`
 - `../../scripts/testing/rulegen_auto_audit.py`
 - `../../scripts/dev/dev_workflow_check.py`

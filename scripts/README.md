@@ -28,6 +28,7 @@ Use the package-script workflow surfaces first when they exist:
 - Build safety: `npm --prefix scripts run build`
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
+- SRS journey harness: `npm --prefix scripts run quality:srs:journey`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
 
@@ -119,6 +120,10 @@ Use the raw script paths below when there is no package-script surface or when y
   `testing/srs_quality_harness.py` (also exposed via `npm --prefix scripts run quality:srs:harness`)
 - Render Markdown summaries from SRS quality JSON artifacts:
   `testing/srs_quality_summary.py` (also exposed via `npm --prefix scripts run quality:srs:summary`)
+- Item-level SRS journey harness for deterministic `en-ja` bootstrap -> feedback -> refresh -> publication phase analysis:
+  `testing/srs_journey_harness.py` (also exposed via `npm --prefix scripts run quality:srs:journey`)
+- Render Markdown summaries from SRS journey JSON artifacts:
+  `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.

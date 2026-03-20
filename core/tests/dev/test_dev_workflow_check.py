@@ -44,6 +44,13 @@ class TestDevWorkflowCheck(unittest.TestCase):
             [sys.executable, "scripts/dev/dev_workflow_style_check.py", "--strict"],
         )
 
+    def test_build_commands_compile_new_srs_journey_scripts(self) -> None:
+        commands = build_commands()
+        compile_command = dict(commands)["workflow_py_compile"]
+        self.assertIn("scripts/testing/srs_journey_harness.py", compile_command)
+        self.assertIn("scripts/testing/srs_journey_harness_support.py", compile_command)
+        self.assertIn("scripts/testing/srs_journey_summary.py", compile_command)
+
     def test_build_commands_include_doc_reference_audit(self) -> None:
         commands = build_commands()
         labels = [label for label, _command in commands]

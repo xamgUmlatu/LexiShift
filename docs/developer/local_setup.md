@@ -180,6 +180,13 @@ npm --prefix scripts run quality:srs:harness
 npm --prefix scripts run quality:srs:summary
 ```
 
+Item-level SRS journey harness:
+
+```bash
+npm --prefix scripts run quality:srs:journey
+npm --prefix scripts run quality:srs:journey:summary
+```
+
 This build safety currently runs:
 - BetterDiscord plugin bundle build
 - GUI PyInstaller build + bundle validation

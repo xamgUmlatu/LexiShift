@@ -97,6 +97,26 @@ Use this file when:
   - Current harness intentionally surfaces the due-aware publication mismatch as a warning, not a hard failure.
   - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
 
+## SRS Journey E2E Harness
+
+- Status: `implemented`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-03-21`
+- Last verified: `2026-03-21` deterministic `en-ja` journey harness run + summary artifact
+- Default behavior:
+  - The deterministic `en-ja` journey lane is available as an analysis-first SRS E2E harness, but it is not yet part of the required default SRS workflow loop in `AGENTS.md`.
+  - The lane captures item-level admitted `S`, due `D`, and published `P` sets across bootstrap, refresh, and fade/stick phases.
+  - Current contract mode defaults to observation: publication broader than the due subset is surfaced as a warning rather than a hard failure.
+- Evidence:
+  - `docs/srs/srs_journey_harness_workstream.md`
+  - `scripts/testing/srs_journey_harness.py`
+  - `scripts/testing/srs_journey_summary.py`
+  - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.md`
+- Known gaps:
+  - Current implemented lane is deterministic and `en-ja`-only; the real full-E2E lane and `en-de` extension are still pending.
+  - Exposure-only and duplicate-feedback edge lanes are planned but not yet part of the implemented journey report.
+  - The due-aware publication contract remains unresolved; the harness currently records the mismatch instead of enforcing it.
+
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
