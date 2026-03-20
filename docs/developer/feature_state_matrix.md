@@ -100,13 +100,13 @@ Use this file when:
 ## SRS Journey E2E Harness
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-21`
-- Last verified: `2026-03-21` deterministic `en-ja` core + edge journey harness runs, plus `en-ja` real-publication lane and summary artifacts
+- Last documented checkpoint: `2026-03-21` seed-builder stabilization for the `en-ja` real-publication lane
+- Last verified: `2026-03-21` deterministic `en-ja` core + edge journey harness runs, plus the stabilized `en-ja` real-publication lane and summary artifacts
 - Default behavior:
   - Deterministic `en-ja` core and edge journey lanes plus the `en-ja` real-publication lane are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.
   - The core lane captures item-level admitted `S`, due `D`, and published `P` sets across bootstrap, refresh, and fade/stick phases.
   - The edge lane captures duplicate-feedback and exposure-only behavior with the same item-level reporting contract.
-  - The real-publication lane keeps deterministic candidates and clock control, but uses the actual helper/rulegen publication path and records partial publication as an explicit warning.
+  - The real-publication lane keeps deterministic clocks/resources, uses the actual seed-builder plus helper/rulegen publication path, and now holds complete due publication for the current `en-ja` scenario.
   - Current contract mode defaults to observation: publication broader than the due subset is surfaced as a warning rather than a hard failure.
 - Evidence:
   - `docs/srs/srs_journey_harness_workstream.md`
@@ -120,7 +120,7 @@ Use this file when:
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md`
 - Known gaps:
   - Current implemented lanes are `en-ja`-only; `en-de` extension is still pending.
-  - The real-publication lane still uses synthetic resources and currently leaves some due items unpublished.
+  - The real-publication lane still uses synthetic resources; broader pair coverage is still pending.
   - The due-aware publication contract remains unresolved; the harness currently records the mismatch instead of enforcing it.
 
 ## Development Workflow Safeties

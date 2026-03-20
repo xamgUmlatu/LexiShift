@@ -105,6 +105,14 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertTrue(
             any(
                 item.get("code") == "SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE"
+                and item.get("level") == "PASS"
+                for item in findings
+            )
+        )
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_JOURNEY_REAL_WORD_PACKAGES_COMPLETE"
+                and item.get("level") == "PASS"
                 for item in findings
             )
         )
@@ -113,7 +121,11 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertTrue(
             all(not str(source).startswith("journey_src_") for source in first_phase_sources)
         )
-        self.assertEqual(phases[2]["relationships"]["due_not_published"], ["delta", "epsilon"])
+        self.assertEqual(phases[2]["relationships"]["due_not_published"], [])
+        self.assertEqual(
+            phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],
+            phases[2]["counts"]["admitted"],
+        )
 
 
 if __name__ == "__main__":

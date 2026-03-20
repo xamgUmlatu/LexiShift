@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-03-20T22:56:32.156823+00:00",
+  "generated_at": "2026-03-20T23:38:10.911588+00:00",
   "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
   "scenario": {
     "name": "en-ja_real_publication_v1",
@@ -113,7 +113,7 @@
     "replace_pair": true,
     "added_items": 3,
     "total_items_for_pair": 3,
-    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
     "stopwords_path": null,
     "bootstrap_diagnostics": {
       "selected_count": 7,
@@ -173,8 +173,8 @@
       "published": true,
       "targets": 3,
       "rules": 3,
-      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json"
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json"
     },
     "applied": true,
     "plan": {
@@ -257,29 +257,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 3,
           "ruleset_rules_with_word_package": 3,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -293,8 +293,8 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
@@ -442,29 +442,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 3,
           "ruleset_rules_with_word_package": 3,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -478,8 +478,8 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
@@ -665,7 +665,7 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-ja",
@@ -701,7 +701,7 @@
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
-              "unknown_pos_seen": 7,
+              "unknown_pos_seen": 0,
               "allowed_pos": [],
               "candidate_pool_effective": 7
             },
@@ -714,9 +714,9 @@
           "rulegen": {
             "published": true,
             "targets": 5,
-            "rules": 3,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json"
+            "rules": 5,
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json"
           },
           "applied": true,
           "persisted": true,
@@ -747,31 +747,31 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
-          "store_items_with_word_package_total": 3,
-          "store_items_with_word_package_for_pair": 3,
+          "store_items_with_word_package_total": 5,
+          "store_items_with_word_package_for_pair": 5,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
-          "ruleset_rules_count": 3,
-          "ruleset_rules_with_script_forms": 3,
-          "ruleset_rules_with_word_package": 3,
+          "ruleset_rules_count": 5,
+          "ruleset_rules_with_script_forms": 5,
+          "ruleset_rules_with_word_package": 5,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
-          "snapshot_target_count": 3,
+          "snapshot_target_count": 5,
           "snapshot_error": null,
           "status": {
             "version": 1,
@@ -779,20 +779,24 @@
             "last_run_at": "2026-03-22T09:00:00+00:00",
             "last_error": null,
             "last_pair": "en-ja",
-            "last_rule_count": 3,
+            "last_rule_count": 5,
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
+          "engdeltas",
+          "engepsilons",
           "enggammas"
         ],
         "snapshot_targets": [
           "alpha",
           "beta",
+          "delta",
+          "epsilon",
           "gamma"
         ]
       },
@@ -812,6 +816,8 @@
         "published": [
           "alpha",
           "beta",
+          "delta",
+          "epsilon",
           "gamma"
         ]
       },
@@ -821,15 +827,12 @@
           "beta"
         ],
         "published_not_admitted": [],
-        "due_not_published": [
-          "delta",
-          "epsilon"
-        ]
+        "due_not_published": []
       },
       "counts": {
         "admitted": 5,
         "due": 3,
-        "published": 3
+        "published": 5
       },
       "items": [
         {
@@ -909,7 +912,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "epsilon",
@@ -924,7 +927,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "gamma",
@@ -956,7 +959,10 @@
           "alpha",
           "beta"
         ],
-        "published_in": [],
+        "published_in": [
+          "delta",
+          "epsilon"
+        ],
         "published_out": []
       },
       "findings": [
@@ -1059,7 +1065,7 @@
           "max_new_items_per_day": 2,
           "added_items": 0,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-ja",
@@ -1092,7 +1098,7 @@
             "diagnostics": {
               "filtered_by_pos": 0,
               "admitted_by_pos_bucket": {},
-              "unknown_pos_seen": 7,
+              "unknown_pos_seen": 0,
               "allowed_pos": [],
               "candidate_pool_effective": 7
             },
@@ -1132,31 +1138,31 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
-          "store_items_with_word_package_total": 3,
-          "store_items_with_word_package_for_pair": 3,
+          "store_items_with_word_package_total": 5,
+          "store_items_with_word_package_for_pair": 5,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
-          "ruleset_rules_count": 3,
-          "ruleset_rules_with_script_forms": 3,
-          "ruleset_rules_with_word_package": 3,
+          "ruleset_rules_count": 5,
+          "ruleset_rules_with_script_forms": 5,
+          "ruleset_rules_with_word_package": 5,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
-          "snapshot_target_count": 3,
+          "snapshot_target_count": 5,
           "snapshot_error": null,
           "status": {
             "version": 1,
@@ -1164,20 +1170,24 @@
             "last_run_at": "2026-03-22T09:00:00+00:00",
             "last_error": null,
             "last_pair": "en-ja",
-            "last_rule_count": 3,
+            "last_rule_count": 5,
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
+          "engdeltas",
+          "engepsilons",
           "enggammas"
         ],
         "snapshot_targets": [
           "alpha",
           "beta",
+          "delta",
+          "epsilon",
           "gamma"
         ]
       },
@@ -1196,6 +1206,8 @@
         "published": [
           "alpha",
           "beta",
+          "delta",
+          "epsilon",
           "gamma"
         ]
       },
@@ -1206,15 +1218,12 @@
           "gamma"
         ],
         "published_not_admitted": [],
-        "due_not_published": [
-          "delta",
-          "epsilon"
-        ]
+        "due_not_published": []
       },
       "counts": {
         "admitted": 5,
         "due": 2,
-        "published": 3
+        "published": 5
       },
       "items": [
         {
@@ -1294,7 +1303,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "epsilon",
@@ -1309,7 +1318,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "gamma",
@@ -1454,7 +1463,7 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 7,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-ja",
@@ -1490,7 +1499,7 @@
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
-              "unknown_pos_seen": 7,
+              "unknown_pos_seen": 0,
               "allowed_pos": [],
               "candidate_pool_effective": 7
             },
@@ -1503,9 +1512,9 @@
           "rulegen": {
             "published": true,
             "targets": 7,
-            "rules": 3,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json"
+            "rules": 7,
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json"
           },
           "applied": true,
           "persisted": true,
@@ -1536,31 +1545,31 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
-          "store_items_with_word_package_total": 3,
-          "store_items_with_word_package_for_pair": 3,
+          "store_items_with_word_package_total": 7,
+          "store_items_with_word_package_for_pair": 7,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
-          "ruleset_rules_count": 3,
-          "ruleset_rules_with_script_forms": 3,
-          "ruleset_rules_with_word_package": 3,
+          "ruleset_rules_count": 7,
+          "ruleset_rules_with_script_forms": 7,
+          "ruleset_rules_with_word_package": 7,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
-          "snapshot_target_count": 3,
+          "snapshot_target_count": 7,
           "snapshot_error": null,
           "status": {
             "version": 1,
@@ -1568,21 +1577,27 @@
             "last_run_at": "2026-03-24T09:00:00+00:00",
             "last_error": null,
             "last_pair": "en-ja",
-            "last_rule_count": 3,
+            "last_rule_count": 7,
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
-          "enggammas"
+          "engdeltas",
+          "engepsilons",
+          "engetas"
         ],
         "snapshot_targets": [
           "alpha",
           "beta",
-          "gamma"
+          "delta",
+          "epsilon",
+          "eta",
+          "gamma",
+          "zeta"
         ]
       },
       "sets": {
@@ -1602,25 +1617,28 @@
         "published": [
           "alpha",
           "beta",
-          "gamma"
+          "delta",
+          "epsilon",
+          "eta",
+          "gamma",
+          "zeta"
         ]
       },
       "relationships": {
         "published_not_due": [
           "alpha",
           "beta",
+          "delta",
+          "epsilon",
           "gamma"
         ],
         "published_not_admitted": [],
-        "due_not_published": [
-          "eta",
-          "zeta"
-        ]
+        "due_not_published": []
       },
       "counts": {
         "admitted": 7,
         "due": 2,
-        "published": 3
+        "published": 7
       },
       "items": [
         {
@@ -1717,7 +1735,7 @@
           ],
           "in_admitted": true,
           "in_due": false,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "epsilon",
@@ -1749,7 +1767,7 @@
           ],
           "in_admitted": true,
           "in_due": false,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "eta",
@@ -1764,7 +1782,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "gamma",
@@ -1811,7 +1829,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         }
       ],
       "deltas": {
@@ -1828,7 +1846,10 @@
           "delta",
           "epsilon"
         ],
-        "published_in": [],
+        "published_in": [
+          "eta",
+          "zeta"
+        ],
         "published_out": []
       },
       "findings": [
@@ -1881,31 +1902,31 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/language_packs/JMdict_e",
           "jmdict_exists": true,
           "freedict_de_en_path": null,
           "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
-          "store_items_with_word_package_total": 3,
-          "store_items_with_word_package_for_pair": 3,
+          "store_items_with_word_package_total": 7,
+          "store_items_with_word_package_for_pair": 7,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
-          "ruleset_rules_count": 3,
-          "ruleset_rules_with_script_forms": 3,
-          "ruleset_rules_with_word_package": 3,
+          "ruleset_rules_count": 7,
+          "ruleset_rules_with_script_forms": 7,
+          "ruleset_rules_with_word_package": 7,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
-          "snapshot_target_count": 3,
+          "snapshot_target_count": 7,
           "snapshot_error": null,
           "status": {
             "version": 1,
@@ -1913,21 +1934,27 @@
             "last_run_at": "2026-03-24T09:00:00+00:00",
             "last_error": null,
             "last_pair": "en-ja",
-            "last_rule_count": 3,
+            "last_rule_count": 7,
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpg6ukmpym/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp4to3kbhk/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "ruleset_sources_preview": [
           "engalphas",
           "engbetas",
-          "enggammas"
+          "engdeltas",
+          "engepsilons",
+          "engetas"
         ],
         "snapshot_targets": [
           "alpha",
           "beta",
-          "gamma"
+          "delta",
+          "epsilon",
+          "eta",
+          "gamma",
+          "zeta"
         ]
       },
       "sets": {
@@ -1948,24 +1975,27 @@
         "published": [
           "alpha",
           "beta",
-          "gamma"
+          "delta",
+          "epsilon",
+          "eta",
+          "gamma",
+          "zeta"
         ]
       },
       "relationships": {
         "published_not_due": [
           "alpha",
-          "beta"
+          "beta",
+          "delta",
+          "epsilon"
         ],
         "published_not_admitted": [],
-        "due_not_published": [
-          "eta",
-          "zeta"
-        ]
+        "due_not_published": []
       },
       "counts": {
         "admitted": 7,
         "due": 3,
-        "published": 3
+        "published": 7
       },
       "items": [
         {
@@ -2062,7 +2092,7 @@
           ],
           "in_admitted": true,
           "in_due": false,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "epsilon",
@@ -2094,7 +2124,7 @@
           ],
           "in_admitted": true,
           "in_due": false,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "eta",
@@ -2109,7 +2139,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         },
         {
           "lemma": "gamma",
@@ -2156,7 +2186,7 @@
           "recent_history": [],
           "in_admitted": true,
           "in_due": true,
-          "in_published": false
+          "in_published": true
         }
       ],
       "deltas": {
@@ -2425,8 +2455,8 @@
   },
   "summary": {
     "status": "WARN",
-    "pass_count": 8,
-    "warn_count": 2,
+    "pass_count": 10,
+    "warn_count": 1,
     "fail_count": 0,
     "should_fail": false
   },
@@ -2488,18 +2518,25 @@
       "phase": "bootstrap_publish"
     },
     {
-      "level": "WARN",
+      "level": "PASS",
       "code": "SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE",
-      "message": "Real publication left some due items unpublished in the observed journey phases.",
-      "details": "phase=high_retention_growth due_not_published=delta,epsilon",
-      "phase": "high_retention_growth"
+      "message": "Real publication covered the due subset in the observed journey phases.",
+      "details": null,
+      "phase": "bootstrap_publish"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_REAL_WORD_PACKAGES_COMPLETE",
+      "message": "Real publication lane kept word-package coverage aligned with admitted items.",
+      "details": null,
+      "phase": "bootstrap_publish"
     },
     {
       "level": "WARN",
       "code": "SRS_JOURNEY_PUBLICATION_SCOPE_OBSERVED",
       "message": "Published set is broader than the due subset in the current journey run.",
-      "details": "phase=low_retention_pause admitted=5 due=2 published=3",
-      "phase": "low_retention_pause"
+      "details": "phase=high_retention_growth admitted=5 due=3 published=5",
+      "phase": "high_retention_growth"
     }
   ]
 }

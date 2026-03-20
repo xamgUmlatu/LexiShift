@@ -152,10 +152,11 @@ What it proves:
 
 Current implemented scenario:
 - `en-ja_real_publication_v1`
-  - deterministic seed candidates
+  - deterministic clock and synthetic resources
+  - actual seed builder
   - synthetic `en-ja` resources
   - real helper/rulegen publication path
-  - explicit warning when due items are not all published
+  - current `en-ja` artifact keeps due publication complete; the remaining warning is only the broader-than-due publication contract
 
 ### Lane D: edge-behavior lane
 
@@ -673,7 +674,7 @@ Deliverables:
 
 Current state:
 - `en-ja_real_publication_v1` implemented
-- current artifact explicitly shows partial publication coverage for some due items
+- current `en-ja` artifact shows complete word-package coverage and complete due publication
 - later expansion still needed for `en-de` and less synthetic resources
 
 ### Phase 5: second pair and workflow integration

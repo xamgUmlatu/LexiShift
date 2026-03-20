@@ -55,6 +55,7 @@ class JourneyScenario:
     name: str
     lane: str
     phase_plans: tuple[JourneyPhasePlan, ...]
+    use_stub_seed_candidates: bool = True
     use_stub_rulegen: bool = True
     expect_fade_checks: bool = False
     set_top_n: int = 7
@@ -177,6 +178,7 @@ SCENARIOS = {
         name=REAL_SCENARIO_NAME,
         lane="real_publication_journey",
         phase_plans=CORE_PHASE_PLANS,
+        use_stub_seed_candidates=False,
         use_stub_rulegen=False,
         expect_fade_checks=True,
     ),

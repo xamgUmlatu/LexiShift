@@ -168,6 +168,7 @@ def _run_phase(
     phase_plans: Sequence[object],
     previous_snapshot: Mapping[str, object] | None,
     refresh_config: SrsRefreshJobConfig,
+    use_stub_seed_candidates: bool,
     use_stub_rulegen: bool,
 ) -> dict[str, object]:
     feedback_events = _apply_feedback_events(
@@ -188,12 +189,13 @@ def _run_phase(
     if phase_plan.refresh_at is not None:
         with ExitStack() as stack:
             stack.enter_context(patched_now(phase_plan.refresh_at))
-            stack.enter_context(
-                patch(
-                    "lexishift_core.helper.engine.build_seed_candidates",
-                    side_effect=build_seed_candidates,
+            if use_stub_seed_candidates:
+                stack.enter_context(
+                    patch(
+                        "lexishift_core.helper.engine.build_seed_candidates",
+                        side_effect=build_seed_candidates,
+                    )
                 )
-            )
             if use_stub_rulegen:
                 stack.enter_context(
                     patch(
@@ -443,12 +445,13 @@ def build_report(
         )
         with ExitStack() as stack:
             stack.enter_context(patched_now(phase_plans[0].observe_at))
-            stack.enter_context(
-                patch(
-                    "lexishift_core.helper.engine.build_seed_candidates",
-                    side_effect=build_seed_candidates,
+            if scenario_def.use_stub_seed_candidates:
+                stack.enter_context(
+                    patch(
+                        "lexishift_core.helper.engine.build_seed_candidates",
+                        side_effect=build_seed_candidates,
+                    )
                 )
-            )
             if scenario_def.use_stub_rulegen:
                 stack.enter_context(
                     patch(
@@ -515,6 +518,7 @@ def build_report(
                 phase_plans=phase_plans,
                 previous_snapshot=previous_snapshot,
                 refresh_config=refresh_config,
+                use_stub_seed_candidates=scenario_def.use_stub_seed_candidates,
                 use_stub_rulegen=scenario_def.use_stub_rulegen,
             )
             previous_snapshot = phase_report
@@ -654,6 +658,39 @@ def build_report(
                             f"due_not_published={','.join(partial_publication_phase['relationships']['due_not_published'])}"
                         ),
                         phase=str(partial_publication_phase["label"]),
+                    )
+                )
+
+            word_package_coverage_phase = next(
+                (
+                    phase
+                    for phase in phases
+                    if phase["counts"]["admitted"]
+                    != phase["runtime"]["diagnostics"].get("store_items_with_word_package_for_pair")
+                ),
+                None,
+            )
+            if word_package_coverage_phase is None:
+                findings.append(
+                    _finding(
+                        level="PASS",
+                        code="SRS_JOURNEY_REAL_WORD_PACKAGES_COMPLETE",
+                        message="Real publication lane kept word-package coverage aligned with admitted items.",
+                        phase="bootstrap_publish",
+                    )
+                )
+            else:
+                findings.append(
+                    _finding(
+                        level="WARN",
+                        code="SRS_JOURNEY_REAL_WORD_PACKAGES_COMPLETE",
+                        message="Some admitted items in the real publication lane are missing word-package coverage.",
+                        details=(
+                            f"phase={word_package_coverage_phase['label']} admitted={word_package_coverage_phase['counts']['admitted']} "
+                            "with_word_package="
+                            f"{word_package_coverage_phase['runtime']['diagnostics'].get('store_items_with_word_package_for_pair')}"
+                        ),
+                        phase=str(word_package_coverage_phase["label"]),
                     )
                 )
 
