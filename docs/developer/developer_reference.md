@@ -232,6 +232,7 @@ Rulegen quality workflow references:
 SRS workflow references:
 - `../../scripts/testing/srs_quality_harness.py`
 - `../../scripts/testing/srs_journey_harness.py`
+- `../../scripts/testing/srs_journey_summary.py`
 - `../srs/srs_journey_harness_workstream.md`
 - `../../scripts/testing/rulegen_pair_audit_cycle.py`
 - `../../scripts/testing/rulegen_auto_audit.py`

@@ -20,6 +20,7 @@ def render_summary(payload: dict[str, Any], *, title: str = "SRS Journey Harness
     phases = payload.get("phases")
     findings = payload.get("findings")
     summary = payload.get("summary")
+    signal_summary = payload.get("signal_summary")
     if not isinstance(scenario, dict):
         raise SystemExit("SRS journey JSON does not contain a 'scenario' object.")
     if not isinstance(phases, list):
@@ -28,6 +29,8 @@ def render_summary(payload: dict[str, Any], *, title: str = "SRS Journey Harness
         raise SystemExit("SRS journey JSON does not contain a 'findings' list.")
     if not isinstance(summary, dict):
         raise SystemExit("SRS journey JSON does not contain a 'summary' object.")
+    if signal_summary is not None and not isinstance(signal_summary, dict):
+        raise SystemExit("SRS journey JSON does not contain a valid 'signal_summary' object.")
 
     lines = [
         f"# {title}",
@@ -86,6 +89,17 @@ def render_summary(payload: dict[str, Any], *, title: str = "SRS Journey Harness
             f"in={', '.join(deltas.get('published_in', [])) or 'none'}; "
             f"out={', '.join(deltas.get('published_out', [])) or 'none'}"
         )
+        events_applied = (
+            phase.get("events_applied") if isinstance(phase.get("events_applied"), dict) else {}
+        )
+        event_counts = (
+            events_applied.get("counts") if isinstance(events_applied.get("counts"), dict) else {}
+        )
+        lines.append(
+            "- Events applied: "
+            f"feedback={int(event_counts.get('feedback') or 0)} "
+            f"exposure={int(event_counts.get('exposure') or 0)}"
+        )
         relationships = (
             phase.get("relationships") if isinstance(phase.get("relationships"), dict) else {}
         )
@@ -94,6 +108,28 @@ def render_summary(payload: dict[str, Any], *, title: str = "SRS Journey Harness
             f"{', '.join(relationships.get('published_not_due', [])) or 'none'}"
         )
         lines.append("")
+
+    if signal_summary:
+        event_types = (
+            signal_summary.get("event_types")
+            if isinstance(signal_summary.get("event_types"), dict)
+            else {}
+        )
+        lines.extend(
+            [
+                "## Signal Log",
+                "",
+                f"- Event count: {int(signal_summary.get('event_count') or 0)}",
+                f"- Unique lemmas: {int(signal_summary.get('unique_lemmas') or 0)}",
+                (
+                    "- Event types: "
+                    f"feedback={int(event_types.get('feedback') or 0)} "
+                    f"exposure={int(event_types.get('exposure') or 0)}"
+                ),
+                f"- Last event at: `{str(signal_summary.get('last_event_at') or '')}`",
+                "",
+            ]
+        )
 
     final_phase = phases[-1] if phases else {}
     items = (

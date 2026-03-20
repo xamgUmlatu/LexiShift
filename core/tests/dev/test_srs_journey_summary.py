@@ -30,10 +30,17 @@ class TestSrsJourneySummary(unittest.TestCase):
                     "fail_count": 0,
                     "should_fail": False,
                 },
+                "signal_summary": {
+                    "event_count": 16,
+                    "unique_lemmas": 3,
+                    "event_types": {"feedback": 10, "exposure": 6},
+                    "last_event_at": "2026-03-22T00:00:00+00:00",
+                },
                 "phases": [
                     {
                         "label": "high_retention_growth",
                         "counts": {"admitted": 5, "due": 3, "published": 5},
+                        "events_applied": {"counts": {"feedback": 8, "exposure": 0}},
                         "refresh": {
                             "requested": True,
                             "payload": {
@@ -54,6 +61,7 @@ class TestSrsJourneySummary(unittest.TestCase):
                     {
                         "label": "fade_check",
                         "counts": {"admitted": 7, "due": 3, "published": 7},
+                        "events_applied": {"counts": {"feedback": 0, "exposure": 2}},
                         "refresh": {"requested": False, "payload": None},
                         "deltas": {
                             "admitted_in": [],
@@ -88,6 +96,9 @@ class TestSrsJourneySummary(unittest.TestCase):
         self.assertIn("- Lane: `deterministic_core_journey`", markdown)
         self.assertIn("### high_retention_growth", markdown)
         self.assertIn("- Counts: admitted=5 due=3 published=5", markdown)
+        self.assertIn("- Events applied: feedback=8 exposure=0", markdown)
+        self.assertIn("## Signal Log", markdown)
+        self.assertIn("- Event types: feedback=10 exposure=6", markdown)
         self.assertIn("- Stable cohort due in final phase: none", markdown)
         self.assertIn(
             "[WARN] [high_retention_growth] `SRS_JOURNEY_PUBLICATION_SCOPE_OBSERVED`", markdown

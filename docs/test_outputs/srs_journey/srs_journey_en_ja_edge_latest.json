@@ -1,0 +1,1642 @@
+{
+  "version": 1,
+  "generated_at": "2026-03-20T22:53:12.990229+00:00",
+  "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
+  "scenario": {
+    "name": "en-ja_edge_behaviors_v1",
+    "pair": "en-ja",
+    "lane": "deterministic_edge_behaviors",
+    "contract_mode": "observe_current_behavior",
+    "profile_id": "default",
+    "settings": {
+      "max_active_items": 8,
+      "max_new_items_per_day": 2
+    },
+    "bootstrap": {
+      "set_top_n": 7,
+      "bootstrap_top_n": 7,
+      "initial_active_count": 3,
+      "replace_pair": true
+    },
+    "candidate_universe": [
+      {
+        "lemma": "alpha",
+        "cohort": "stable",
+        "base_weight": 0.97,
+        "admission_weight": 0.97,
+        "core_rank": 1.0
+      },
+      {
+        "lemma": "beta",
+        "cohort": "stable",
+        "base_weight": 0.93,
+        "admission_weight": 0.93,
+        "core_rank": 2.0
+      },
+      {
+        "lemma": "gamma",
+        "cohort": "difficult",
+        "base_weight": 0.9,
+        "admission_weight": 0.9,
+        "core_rank": 3.0
+      },
+      {
+        "lemma": "delta",
+        "cohort": "frontier",
+        "base_weight": 0.86,
+        "admission_weight": 0.86,
+        "core_rank": 4.0
+      },
+      {
+        "lemma": "epsilon",
+        "cohort": "frontier",
+        "base_weight": 0.82,
+        "admission_weight": 0.82,
+        "core_rank": 5.0
+      },
+      {
+        "lemma": "zeta",
+        "cohort": "frontier",
+        "base_weight": 0.78,
+        "admission_weight": 0.78,
+        "core_rank": 6.0
+      },
+      {
+        "lemma": "eta",
+        "cohort": "frontier",
+        "base_weight": 0.74,
+        "admission_weight": 0.74,
+        "core_rank": 7.0
+      }
+    ],
+    "cohorts": {
+      "stable": [
+        "alpha",
+        "beta"
+      ],
+      "difficult": [
+        "gamma"
+      ],
+      "frontier": [
+        "delta",
+        "epsilon",
+        "zeta",
+        "eta"
+      ]
+    },
+    "clock": {
+      "bootstrap_publish": "2026-03-21T09:00:00+00:00",
+      "duplicate_feedback_burst": "2026-03-21T09:15:00+00:00",
+      "low_retention_seed": "2026-03-22T09:00:00+00:00",
+      "exposure_only_pause_probe": "2026-03-23T09:00:00+00:00",
+      "final_observe": "2026-03-24T09:00:00+00:00"
+    }
+  },
+  "initialize": {
+    "pair": "en-ja",
+    "profile_id": "default",
+    "set_top_n": 200,
+    "bootstrap_top_n": 200,
+    "initial_active_count": 3,
+    "max_active_items_hint": null,
+    "pair_policy": {
+      "pair": "en-ja",
+      "bootstrap_top_n_default": 800,
+      "refresh_top_n_default": 2000,
+      "feedback_window_size_default": 100,
+      "initial_active_count_default": 40,
+      "max_new_items_per_day_default": null,
+      "notes": []
+    },
+    "source_type": "initial_set",
+    "replace_pair": true,
+    "added_items": 3,
+    "total_items_for_pair": 3,
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+    "stopwords_path": null,
+    "bootstrap_diagnostics": {
+      "selected_count": 7,
+      "selected_unique_count": 7,
+      "admitted_count": 3,
+      "inserted_count": 3,
+      "updated_count": 0,
+      "selected_preview": [
+        "alpha",
+        "beta",
+        "gamma",
+        "delta",
+        "epsilon",
+        "zeta",
+        "eta"
+      ],
+      "initial_active_preview": [
+        "alpha",
+        "beta",
+        "gamma"
+      ],
+      "admission_weight_profile": {
+        "noun": 1.0,
+        "adjective": 0.85,
+        "verb": 0.7,
+        "adverb": 0.55,
+        "other": 0.4
+      },
+      "initial_active_weight_preview": [
+        {
+          "lemma": "alpha",
+          "pos": "名詞-普通名詞-一般",
+          "pos_bucket": "noun",
+          "base_weight": 1.0,
+          "pos_weight": 1.0,
+          "admission_weight": 1.0
+        },
+        {
+          "lemma": "beta",
+          "pos": "名詞-普通名詞-一般",
+          "pos_bucket": "noun",
+          "base_weight": 0.935785,
+          "pos_weight": 1.0,
+          "admission_weight": 0.935785
+        },
+        {
+          "lemma": "gamma",
+          "pos": "名詞-普通名詞-一般",
+          "pos_bucket": "noun",
+          "base_weight": 0.861654,
+          "pos_weight": 1.0,
+          "admission_weight": 0.861654
+        }
+      ]
+    },
+    "rulegen": {
+      "published": true,
+      "targets": 3,
+      "rules": 3,
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json"
+    },
+    "applied": true,
+    "plan": {
+      "pair": "en-ja",
+      "strategy_requested": "frequency_bootstrap",
+      "strategy_effective": "frequency_bootstrap",
+      "objective": "bootstrap",
+      "can_execute": true,
+      "execution_mode": "frequency_bootstrap",
+      "requires_profile_fields": [],
+      "notes": [
+        "Using frequency bootstrap strategy.",
+        "bootstrap_top_n clamped to 200 (allowed: 200..50000)."
+      ],
+      "diagnostics": {
+        "pair": "en-ja",
+        "set_top_n": 200,
+        "bootstrap_top_n": 200,
+        "initial_active_count": 3,
+        "max_active_items_hint": 0,
+        "replace_pair": true,
+        "trigger": "srs_journey_harness",
+        "existing_items_for_pair": 0,
+        "profile_keys": [],
+        "signal_summary_keys": [
+          "event_count",
+          "event_types",
+          "last_event_at",
+          "pair",
+          "unique_lemmas"
+        ]
+      }
+    },
+    "signal_summary": {
+      "pair": "en-ja",
+      "event_count": 0,
+      "event_types": {},
+      "unique_lemmas": 0,
+      "last_event_at": null
+    }
+  },
+  "phases": [
+    {
+      "label": "bootstrap_publish",
+      "step_index": 1,
+      "now": "2026-03-21T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [],
+        "counts": {
+          "feedback": 0,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-ja",
+            "rulegen_mode": "ja_en",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-ja-bccwj.sqlite",
+            "requires_jmdict_for_seed": true,
+            "requires_jmdict_for_rulegen": true,
+            "requires_freedict_de_en_for_rulegen": false
+          },
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/language_packs/JMdict_e",
+          "jmdict_exists": true,
+          "freedict_de_en_path": null,
+          "freedict_de_en_exists": false,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db_exists": true,
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_error": null,
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-ja",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_targets": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "published": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 3,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "alpha",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "beta",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "gamma",
+          "cohort": "difficult",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        }
+      ],
+      "deltas": {
+        "admitted_in": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "admitted_out": [],
+        "due_in": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due_out": [],
+        "published_in": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "published_out": []
+      },
+      "findings": []
+    },
+    {
+      "label": "duplicate_feedback_burst",
+      "step_index": 2,
+      "now": "2026-03-21T09:15:00+00:00",
+      "events_applied": {
+        "feedback": [
+          {
+            "index": 1,
+            "lemma": "alpha",
+            "rating": "good",
+            "ts": "2026-03-21T09:15:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 2,
+            "lemma": "alpha",
+            "rating": "easy",
+            "ts": "2026-03-21T09:16:00+00:00",
+            "cohort": "stable"
+          }
+        ],
+        "exposure": [],
+        "counts": {
+          "feedback": 2,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-ja",
+            "rulegen_mode": "ja_en",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-ja-bccwj.sqlite",
+            "requires_jmdict_for_seed": true,
+            "requires_jmdict_for_rulegen": true,
+            "requires_freedict_de_en_for_rulegen": false
+          },
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/language_packs/JMdict_e",
+          "jmdict_exists": true,
+          "freedict_de_en_path": null,
+          "freedict_de_en_exists": false,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db_exists": true,
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_error": null,
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-ja",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_targets": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due": [
+          "beta",
+          "gamma"
+        ],
+        "published": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "alpha"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 2,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "alpha",
+          "cohort": "stable",
+          "status": "review",
+          "next_due": "2026-03-30T09:16:00Z",
+          "stability": 2.7,
+          "difficulty": 0.35,
+          "last_seen": "2026-03-21T09:16:00Z",
+          "exposures": 2,
+          "history_count": 2,
+          "recent_history": [
+            {
+              "ts": "2026-03-21T09:15:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-21T09:16:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        },
+        {
+          "lemma": "beta",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "gamma",
+          "cohort": "difficult",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [
+          "alpha"
+        ],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
+          "message": "Duplicate feedback in one short session was recorded without deduplication.",
+          "details": "lemma=alpha history_delta=2 exposure_delta=2",
+          "phase": "duplicate_feedback_burst"
+        }
+      ]
+    },
+    {
+      "label": "low_retention_seed",
+      "step_index": 3,
+      "now": "2026-03-22T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [
+          {
+            "index": 1,
+            "lemma": "gamma",
+            "rating": "again",
+            "ts": "2026-03-22T09:00:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 2,
+            "lemma": "gamma",
+            "rating": "hard",
+            "ts": "2026-03-22T09:01:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 3,
+            "lemma": "gamma",
+            "rating": "again",
+            "ts": "2026-03-22T09:02:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 4,
+            "lemma": "gamma",
+            "rating": "hard",
+            "ts": "2026-03-22T09:03:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 5,
+            "lemma": "gamma",
+            "rating": "again",
+            "ts": "2026-03-22T09:04:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 6,
+            "lemma": "gamma",
+            "rating": "hard",
+            "ts": "2026-03-22T09:05:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 7,
+            "lemma": "gamma",
+            "rating": "again",
+            "ts": "2026-03-22T09:06:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 8,
+            "lemma": "gamma",
+            "rating": "hard",
+            "ts": "2026-03-22T09:07:00+00:00",
+            "cohort": "difficult"
+          }
+        ],
+        "exposure": [],
+        "counts": {
+          "feedback": 8,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": true,
+        "payload": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "set_top_n": 7,
+          "feedback_window_size": 8,
+          "allowed_pos": [],
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "max_active_items": 8,
+          "max_new_items_per_day": 2,
+          "added_items": 0,
+          "total_items_for_pair": 3,
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "stopwords_path": null,
+          "admission_refresh": {
+            "pair": "en-ja",
+            "max_active_items": 8,
+            "max_new_items_per_day": 2,
+            "due_count": 1,
+            "due_pressure": 0.125,
+            "capacity_budget": 7,
+            "base_admission_budget": 2,
+            "admission_budget": 0,
+            "reason_code": "retention_low",
+            "notes": [
+              "Retention is below low threshold; paused new admissions."
+            ],
+            "feedback_window": {
+              "pair": "en-ja",
+              "window_size_requested": 8,
+              "window_size_effective": 8,
+              "feedback_count": 8,
+              "count_again": 4,
+              "count_hard": 4,
+              "count_good": 0,
+              "count_easy": 0,
+              "retention_ratio": 0.0,
+              "strain_ratio": 1.0
+            },
+            "candidate_pool_size": 7,
+            "admitted_count": 0,
+            "selected_lemmas": [],
+            "diagnostics": {
+              "filtered_by_pos": 0,
+              "admitted_by_pos_bucket": {},
+              "unknown_pos_seen": 7,
+              "allowed_pos": [],
+              "candidate_pool_effective": 7
+            },
+            "applied": false,
+            "weight_terms": {
+              "admission_weight": "Entry/growth score for adding words into S.",
+              "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+            }
+          },
+          "rulegen": null,
+          "applied": false,
+          "persisted": true,
+          "trigger": "srs_journey_harness"
+        },
+        "ts": "2026-03-22T09:00:00+00:00"
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-ja",
+            "rulegen_mode": "ja_en",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-ja-bccwj.sqlite",
+            "requires_jmdict_for_seed": true,
+            "requires_jmdict_for_rulegen": true,
+            "requires_freedict_de_en_for_rulegen": false
+          },
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/language_packs/JMdict_e",
+          "jmdict_exists": true,
+          "freedict_de_en_path": null,
+          "freedict_de_en_exists": false,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db_exists": true,
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_error": null,
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-ja",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_targets": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due": [
+          "beta"
+        ],
+        "published": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "alpha",
+          "gamma"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 1,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "alpha",
+          "cohort": "stable",
+          "status": "review",
+          "next_due": "2026-03-30T09:16:00Z",
+          "stability": 2.7,
+          "difficulty": 0.35,
+          "last_seen": "2026-03-21T09:16:00Z",
+          "exposures": 2,
+          "history_count": 2,
+          "recent_history": [
+            {
+              "ts": "2026-03-21T09:15:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-21T09:16:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        },
+        {
+          "lemma": "beta",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "gamma",
+          "cohort": "difficult",
+          "status": "learning",
+          "next_due": "2026-03-23T09:07:00Z",
+          "stability": 0.6,
+          "difficulty": 1.0,
+          "last_seen": "2026-03-22T09:07:00Z",
+          "exposures": 8,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [
+          "gamma"
+        ],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": []
+    },
+    {
+      "label": "exposure_only_pause_probe",
+      "step_index": 4,
+      "now": "2026-03-23T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [
+          {
+            "index": 1,
+            "lemma": "alpha",
+            "ts": "2026-03-23T09:00:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 2,
+            "lemma": "alpha",
+            "ts": "2026-03-23T09:01:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 3,
+            "lemma": "beta",
+            "ts": "2026-03-23T09:02:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 4,
+            "lemma": "gamma",
+            "ts": "2026-03-23T09:03:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 5,
+            "lemma": "gamma",
+            "ts": "2026-03-23T09:04:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 6,
+            "lemma": "gamma",
+            "ts": "2026-03-23T09:05:00+00:00",
+            "cohort": "difficult"
+          }
+        ],
+        "counts": {
+          "feedback": 0,
+          "exposure": 6
+        }
+      },
+      "refresh": {
+        "requested": true,
+        "payload": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "set_top_n": 7,
+          "feedback_window_size": 8,
+          "allowed_pos": [],
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "max_active_items": 8,
+          "max_new_items_per_day": 2,
+          "added_items": 0,
+          "total_items_for_pair": 3,
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "stopwords_path": null,
+          "admission_refresh": {
+            "pair": "en-ja",
+            "max_active_items": 8,
+            "max_new_items_per_day": 2,
+            "due_count": 1,
+            "due_pressure": 0.125,
+            "capacity_budget": 7,
+            "base_admission_budget": 2,
+            "admission_budget": 0,
+            "reason_code": "retention_low",
+            "notes": [
+              "Retention is below low threshold; paused new admissions."
+            ],
+            "feedback_window": {
+              "pair": "en-ja",
+              "window_size_requested": 8,
+              "window_size_effective": 8,
+              "feedback_count": 8,
+              "count_again": 4,
+              "count_hard": 4,
+              "count_good": 0,
+              "count_easy": 0,
+              "retention_ratio": 0.0,
+              "strain_ratio": 1.0
+            },
+            "candidate_pool_size": 7,
+            "admitted_count": 0,
+            "selected_lemmas": [],
+            "diagnostics": {
+              "filtered_by_pos": 0,
+              "admitted_by_pos_bucket": {},
+              "unknown_pos_seen": 7,
+              "allowed_pos": [],
+              "candidate_pool_effective": 7
+            },
+            "applied": false,
+            "weight_terms": {
+              "admission_weight": "Entry/growth score for adding words into S.",
+              "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+            }
+          },
+          "rulegen": null,
+          "applied": false,
+          "persisted": true,
+          "trigger": "srs_journey_harness"
+        },
+        "ts": "2026-03-23T09:00:00+00:00"
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-ja",
+            "rulegen_mode": "ja_en",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-ja-bccwj.sqlite",
+            "requires_jmdict_for_seed": true,
+            "requires_jmdict_for_rulegen": true,
+            "requires_freedict_de_en_for_rulegen": false
+          },
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/language_packs/JMdict_e",
+          "jmdict_exists": true,
+          "freedict_de_en_path": null,
+          "freedict_de_en_exists": false,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db_exists": true,
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_error": null,
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-ja",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_targets": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due": [
+          "beta"
+        ],
+        "published": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "alpha",
+          "gamma"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 1,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "alpha",
+          "cohort": "stable",
+          "status": "review",
+          "next_due": "2026-03-30T09:16:00Z",
+          "stability": 2.7,
+          "difficulty": 0.35,
+          "last_seen": "2026-03-23T09:01:00Z",
+          "exposures": 4,
+          "history_count": 2,
+          "recent_history": [
+            {
+              "ts": "2026-03-21T09:15:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-21T09:16:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        },
+        {
+          "lemma": "beta",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": "2026-03-23T09:02:00Z",
+          "exposures": 1,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "gamma",
+          "cohort": "difficult",
+          "status": "learning",
+          "next_due": "2026-03-23T09:07:00Z",
+          "stability": 0.6,
+          "difficulty": 1.0,
+          "last_seen": "2026-03-23T09:05:00Z",
+          "exposures": 11,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
+          "message": "Exposure-only events stayed visible without changing retention-based admission behavior.",
+          "details": "alpha_exposure_delta=2 gamma_exposure_delta=3 alpha_history_delta=0 gamma_history_delta=0 reason_code=retention_low",
+          "phase": "exposure_only_pause_probe"
+        }
+      ]
+    },
+    {
+      "label": "final_observe",
+      "step_index": 5,
+      "now": "2026-03-24T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [],
+        "counts": {
+          "feedback": 0,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-ja",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-ja",
+            "rulegen_mode": "ja_en",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-ja-bccwj.sqlite",
+            "requires_jmdict_for_seed": true,
+            "requires_jmdict_for_rulegen": true,
+            "requires_freedict_de_en_for_rulegen": false
+          },
+          "pair_policy": {
+            "pair": "en-ja",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/language_packs/JMdict_e",
+          "jmdict_exists": true,
+          "freedict_de_en_path": null,
+          "freedict_de_en_exists": false,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/frequency_packs/freq-ja-bccwj.sqlite",
+          "set_source_db_exists": true,
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_error": null,
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-ja",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpfho9xf6w/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_targets": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "due": [
+          "beta",
+          "gamma"
+        ],
+        "published": [
+          "alpha",
+          "beta",
+          "gamma"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "alpha"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 2,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "alpha",
+          "cohort": "stable",
+          "status": "review",
+          "next_due": "2026-03-30T09:16:00Z",
+          "stability": 2.7,
+          "difficulty": 0.35,
+          "last_seen": "2026-03-23T09:01:00Z",
+          "exposures": 4,
+          "history_count": 2,
+          "recent_history": [
+            {
+              "ts": "2026-03-21T09:15:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-21T09:16:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true
+        },
+        {
+          "lemma": "beta",
+          "cohort": "stable",
+          "status": "new",
+          "next_due": null,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": "2026-03-23T09:02:00Z",
+          "exposures": 1,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        },
+        {
+          "lemma": "gamma",
+          "cohort": "difficult",
+          "status": "learning",
+          "next_due": "2026-03-23T09:07:00Z",
+          "stability": 0.6,
+          "difficulty": 1.0,
+          "last_seen": "2026-03-23T09:05:00Z",
+          "exposures": 11,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [
+          "gamma"
+        ],
+        "due_out": [],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": []
+    }
+  ],
+  "signal_log": [
+    {
+      "index": 1,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "alpha",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-21T09:15:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 2,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "alpha",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-21T09:16:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 3,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-22T09:00:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 4,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-22T09:01:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 5,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-22T09:02:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 6,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-22T09:03:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 7,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-22T09:04:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 8,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-22T09:05:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 9,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-22T09:06:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 10,
+      "event_type": "feedback",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-22T09:07:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 11,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "alpha",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:00:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 12,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "alpha",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:01:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 13,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "beta",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:02:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 14,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:03:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 15,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:04:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 16,
+      "event_type": "exposure",
+      "pair": "en-ja",
+      "lemma": "gamma",
+      "source_type": "extension",
+      "rating": null,
+      "ts": "2026-03-23T09:05:00+00:00",
+      "metadata": {}
+    }
+  ],
+  "signal_summary": {
+    "pair": "en-ja",
+    "event_count": 16,
+    "event_types": {
+      "feedback": 10,
+      "exposure": 6
+    },
+    "unique_lemmas": 3,
+    "last_event_at": "2026-03-23T09:05:00+00:00"
+  },
+  "summary": {
+    "status": "WARN",
+    "pass_count": 4,
+    "warn_count": 1,
+    "fail_count": 0,
+    "should_fail": false
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_BOOTSTRAP_APPLIED",
+      "message": "Bootstrap initialized the first active SRS inventory.",
+      "details": "admitted=3",
+      "phase": "bootstrap_publish"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
+      "message": "Duplicate feedback in one short session was recorded without deduplication.",
+      "details": "lemma=alpha history_delta=2 exposure_delta=2",
+      "phase": "duplicate_feedback_burst"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
+      "message": "Exposure-only events stayed visible without changing retention-based admission behavior.",
+      "details": "alpha_exposure_delta=2 gamma_exposure_delta=3 alpha_history_delta=0 gamma_history_delta=0 reason_code=retention_low",
+      "phase": "exposure_only_pause_probe"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_RUNTIME_ARTIFACTS_PRESENT",
+      "message": "Store, ruleset, and snapshot artifacts are present for the journey harness.",
+      "details": null,
+      "phase": "bootstrap_publish"
+    },
+    {
+      "level": "WARN",
+      "code": "SRS_JOURNEY_PUBLICATION_SCOPE_OBSERVED",
+      "message": "Published set is broader than the due subset in the current journey run.",
+      "details": "phase=duplicate_feedback_burst admitted=3 due=2 published=3",
+      "phase": "duplicate_feedback_burst"
+    }
+  ]
+}

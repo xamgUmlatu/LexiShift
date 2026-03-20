@@ -29,6 +29,7 @@ Use the package-script workflow surfaces first when they exist:
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
 - SRS journey harness: `npm --prefix scripts run quality:srs:journey`
+- SRS journey edge lane: `npm --prefix scripts run quality:srs:journey:edge`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
 
@@ -122,6 +123,8 @@ Use the raw script paths below when there is no package-script surface or when y
   `testing/srs_quality_summary.py` (also exposed via `npm --prefix scripts run quality:srs:summary`)
 - Item-level SRS journey harness for deterministic `en-ja` bootstrap -> feedback -> refresh -> publication phase analysis:
   `testing/srs_journey_harness.py` (also exposed via `npm --prefix scripts run quality:srs:journey`)
+- Edge-behavior SRS journey lane for duplicate feedback and exposure-only analysis:
+  `testing/srs_journey_harness.py --scenario en-ja_edge_behaviors_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:edge`)
 - Render Markdown summaries from SRS journey JSON artifacts:
   `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
 - Dev helper cycle: `dev/dev_cycle.sh`

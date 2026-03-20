@@ -155,11 +155,13 @@ What it proves:
 Purpose:
 - prove real-but-messy interaction patterns are coherent and inspectable
 
-Initial edge scenarios:
+Current implemented edge scenarios:
 - repeated feedback for the same word in one short session
 - exposure without feedback
+- exposure-only refresh after a low-retention gate is already active
+
+Later edge scenarios:
 - refresh under high due pressure
-- refresh under low retention
 - recovery after low retention
 
 ## Pair Rollout
@@ -373,6 +375,8 @@ Planned artifact root:
 Planned initial artifacts:
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.md`
 
 Generated evidence remains evidence, not architecture authority.
 
@@ -646,6 +650,11 @@ Deliverables:
 - duplicate-feedback scenario
 - exposure-only scenario
 - due-pressure scenario
+
+Current state:
+- duplicate-feedback scenario implemented in `en-ja_edge_behaviors_v1`
+- exposure-only scenario implemented in `en-ja_edge_behaviors_v1`
+- due-pressure-specific edge scenario still pending
 
 ### Phase 4: real full-E2E lane
 

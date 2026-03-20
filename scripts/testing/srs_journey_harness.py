@@ -17,20 +17,23 @@ sys.path.insert(0, str(PROJECT_ROOT / "core"))
 from lexishift_core.helper.engine import (  # noqa: E402
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
+    apply_exposure,
     apply_feedback,
     initialize_srs_set,
     refresh_srs_set,
 )
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs import SrsSettings, save_srs_settings  # noqa: E402
+from lexishift_core.srs.signal_queue import summarize_signal_events  # noqa: E402
 
 from srs_journey_harness_support import (  # noqa: E402
     COHORT_BY_LEMMA,
+    CORE_SCENARIO_NAME,
     DEFAULT_PAIR,
     DEFAULT_PROFILE_ID,
-    PHASE_PLANS,
     build_seed_candidates,
     create_en_ja_resources,
+    get_scenario,
     load_signal_log,
     patched_now,
     phase_deltas,
@@ -40,7 +43,7 @@ from srs_journey_harness_support import (  # noqa: E402
     stub_run_rulegen_for_pair,
 )
 
-DEFAULT_SCENARIO = "en-ja_core_journey_v1"
+DEFAULT_SCENARIO = CORE_SCENARIO_NAME
 DEFAULT_CONTRACT_MODE = "observe_current_behavior"
 
 
@@ -114,7 +117,45 @@ def _apply_feedback_events(
     return applied
 
 
+def _apply_exposure_events(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str,
+    phase_time: datetime,
+    events: Sequence[str],
+) -> list[dict[str, object]]:
+    applied: list[dict[str, object]] = []
+    for index, lemma in enumerate(events):
+        event_time = phase_time + timedelta(minutes=index)
+        with patched_now(event_time):
+            apply_exposure(paths, pair=pair, lemma=lemma, profile_id=profile_id)
+        applied.append(
+            {
+                "index": index + 1,
+                "lemma": lemma,
+                "ts": event_time.isoformat(),
+                "cohort": COHORT_BY_LEMMA.get(lemma, "frontier"),
+            }
+        )
+    return applied
+
+
 from datetime import timedelta  # noqa: E402  # keep near clock helpers
+
+
+def _snapshot_item(
+    snapshot: Mapping[str, object] | None, lemma: str
+) -> Mapping[str, object] | None:
+    if not isinstance(snapshot, Mapping):
+        return None
+    items = snapshot.get("items")
+    if not isinstance(items, list):
+        return None
+    for item in items:
+        if isinstance(item, Mapping) and str(item.get("lemma") or "") == lemma:
+            return item
+    return None
 
 
 def _run_phase(
@@ -123,6 +164,7 @@ def _run_phase(
     pair: str,
     profile_id: str,
     phase_plan,
+    phase_plans: Sequence[object],
     previous_snapshot: Mapping[str, object] | None,
     refresh_config: SrsRefreshJobConfig,
 ) -> dict[str, object]:
@@ -132,6 +174,13 @@ def _run_phase(
         profile_id=profile_id,
         phase_time=phase_plan.observe_at,
         events=phase_plan.feedback_events,
+    )
+    exposure_events = _apply_exposure_events(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        phase_time=phase_plan.observe_at,
+        events=phase_plan.exposure_events,
     )
     refresh_payload: dict[str, object] | None = None
     if phase_plan.refresh_at is not None:
@@ -231,13 +280,125 @@ def _run_phase(
                     phase=phase_plan.label,
                 )
             )
+    elif phase_plan.label == "duplicate_feedback_burst":
+        alpha_previous = _snapshot_item(previous_snapshot, "alpha")
+        alpha_current = _snapshot_item(snapshot, "alpha")
+        previous_history_count = (
+            int(alpha_previous.get("history_count") or 0) if alpha_previous else 0
+        )
+        current_history_count = int(alpha_current.get("history_count") or 0) if alpha_current else 0
+        previous_exposures = int(alpha_previous.get("exposures") or 0) if alpha_previous else 0
+        current_exposures = int(alpha_current.get("exposures") or 0) if alpha_current else 0
+        if (
+            len(feedback_events) == 2
+            and current_history_count - previous_history_count == 2
+            and current_exposures - previous_exposures == 2
+        ):
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
+                    message="Duplicate feedback in one short session was recorded without deduplication.",
+                    details=(
+                        f"lemma=alpha history_delta={current_history_count - previous_history_count} "
+                        f"exposure_delta={current_exposures - previous_exposures}"
+                    ),
+                    phase=phase_plan.label,
+                )
+            )
+        else:
+            findings.append(
+                _finding(
+                    level="FAIL",
+                    code="SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
+                    message="Duplicate feedback burst was not preserved as separate scheduler events.",
+                    details=json.dumps(snapshot, ensure_ascii=False),
+                    phase=phase_plan.label,
+                )
+            )
+    elif phase_plan.label == "exposure_only_pause_probe":
+        alpha_previous = _snapshot_item(previous_snapshot, "alpha")
+        alpha_current = _snapshot_item(snapshot, "alpha")
+        gamma_previous = _snapshot_item(previous_snapshot, "gamma")
+        gamma_current = _snapshot_item(snapshot, "gamma")
+        alpha_exposure_delta = (
+            int(alpha_current.get("exposures") or 0) - int(alpha_previous.get("exposures") or 0)
+            if alpha_current and alpha_previous
+            else 0
+        )
+        gamma_exposure_delta = (
+            int(gamma_current.get("exposures") or 0) - int(gamma_previous.get("exposures") or 0)
+            if gamma_current and gamma_previous
+            else 0
+        )
+        alpha_history_delta = (
+            int(alpha_current.get("history_count") or 0)
+            - int(alpha_previous.get("history_count") or 0)
+            if alpha_current and alpha_previous
+            else 0
+        )
+        gamma_history_delta = (
+            int(gamma_current.get("history_count") or 0)
+            - int(gamma_previous.get("history_count") or 0)
+            if gamma_current and gamma_previous
+            else 0
+        )
+        reason_code = str(
+            (refresh_payload or {}).get("admission_refresh", {}).get("reason_code") or ""
+        )
+        if (
+            len(exposure_events) == len(phase_plan.exposure_events)
+            and alpha_exposure_delta == 2
+            and gamma_exposure_delta == 3
+            and alpha_history_delta == 0
+            and gamma_history_delta == 0
+            and refresh_payload
+            and not bool(refresh_payload.get("applied"))
+            and reason_code == "retention_low"
+        ):
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
+                    message="Exposure-only events stayed visible without changing retention-based admission behavior.",
+                    details=(
+                        f"alpha_exposure_delta={alpha_exposure_delta} gamma_exposure_delta={gamma_exposure_delta} "
+                        f"alpha_history_delta={alpha_history_delta} gamma_history_delta={gamma_history_delta} "
+                        f"reason_code={reason_code}"
+                    ),
+                    phase=phase_plan.label,
+                )
+            )
+        else:
+            findings.append(
+                _finding(
+                    level="FAIL",
+                    code="SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
+                    message="Exposure-only events changed behavior unexpectedly or were not preserved clearly.",
+                    details=json.dumps(
+                        {
+                            "alpha_exposure_delta": alpha_exposure_delta,
+                            "gamma_exposure_delta": gamma_exposure_delta,
+                            "alpha_history_delta": alpha_history_delta,
+                            "gamma_history_delta": gamma_history_delta,
+                            "refresh_payload": refresh_payload,
+                        },
+                        ensure_ascii=False,
+                    ),
+                    phase=phase_plan.label,
+                )
+            )
     return {
         "label": phase_plan.label,
-        "step_index": [item.label for item in PHASE_PLANS].index(phase_plan.label) + 1,
+        "step_index": [item.label for item in phase_plans].index(phase_plan.label) + 1,
         "now": phase_plan.observe_at.isoformat(),
         "events_applied": {
             "feedback": feedback_events,
-            "exposure": [],
+            "exposure": exposure_events,
+            "counts": {
+                "feedback": len(feedback_events),
+                "exposure": len(exposure_events),
+            },
         },
         "refresh": {
             "requested": phase_plan.refresh_at is not None,
@@ -254,22 +415,28 @@ def build_report(
     scenario: str = DEFAULT_SCENARIO,
     contract_mode: str = DEFAULT_CONTRACT_MODE,
 ) -> dict[str, object]:
-    if scenario != DEFAULT_SCENARIO:
-        raise SystemExit(f"Unsupported SRS journey scenario: {scenario}")
     if contract_mode not in {"observe_current_behavior", "require_due_aware_publication"}:
         raise SystemExit(f"Unsupported contract mode: {contract_mode}")
+    try:
+        scenario_def = get_scenario(scenario)
+    except KeyError as exc:
+        raise SystemExit(str(exc)) from exc
 
     profile_id = DEFAULT_PROFILE_ID
     pair = DEFAULT_PAIR
+    phase_plans = scenario_def.phase_plans
 
     with _temp_paths() as paths:
         resources = create_en_ja_resources(paths)
         save_srs_settings(
-            SrsSettings(max_active_items=8, max_new_items_per_day=2),
+            SrsSettings(
+                max_active_items=scenario_def.max_active_items,
+                max_new_items_per_day=scenario_def.max_new_items_per_day,
+            ),
             paths.srs_settings_path,
         )
         with (
-            patched_now(PHASE_PLANS[0].observe_at),
+            patched_now(phase_plans[0].observe_at),
             patch(
                 "lexishift_core.helper.engine.run_rulegen_for_pair",
                 side_effect=stub_run_rulegen_for_pair,
@@ -282,9 +449,9 @@ def build_report(
                     profile_id=profile_id,
                     jmdict_path=resources["jmdict_path"],
                     set_source_db=resources["frequency_db"],
-                    set_top_n=7,
-                    bootstrap_top_n=7,
-                    initial_active_count=3,
+                    set_top_n=scenario_def.set_top_n,
+                    bootstrap_top_n=scenario_def.bootstrap_top_n,
+                    initial_active_count=scenario_def.initial_active_count,
                     replace_pair=True,
                     trigger="srs_journey_harness",
                 ),
@@ -317,7 +484,7 @@ def build_report(
             profile_id=profile_id,
             jmdict_path=resources["jmdict_path"],
             set_source_db=resources["frequency_db"],
-            set_top_n=7,
+            set_top_n=scenario_def.set_top_n,
             feedback_window_size=8,
             persist_store=True,
             trigger="srs_journey_harness",
@@ -325,12 +492,13 @@ def build_report(
 
         phases: list[dict[str, object]] = []
         previous_snapshot: Mapping[str, object] | None = None
-        for phase_plan in PHASE_PLANS:
+        for phase_plan in phase_plans:
             phase_report = _run_phase(
                 paths,
                 pair=pair,
                 profile_id=profile_id,
                 phase_plan=phase_plan,
+                phase_plans=phase_plans,
                 previous_snapshot=previous_snapshot,
                 refresh_config=refresh_config,
             )
@@ -369,56 +537,57 @@ def build_report(
                 )
             )
 
-        fade_phase = phases[-1]
-        stable_due = [
-            item
-            for item in fade_phase["items"]
-            if item.get("cohort") == "stable" and item.get("in_due")
-        ]
-        difficult_due = [
-            item
-            for item in fade_phase["items"]
-            if item.get("cohort") == "difficult" and item.get("in_due")
-        ]
-        if not stable_due:
-            findings.append(
-                _finding(
-                    level="PASS",
-                    code="SRS_JOURNEY_STABLE_COHORT_FADES",
-                    message="Stable cohort faded out of the near-term due set.",
-                    details="stable_due=0",
-                    phase="fade_check",
+        if scenario == CORE_SCENARIO_NAME:
+            fade_phase = phases[-1]
+            stable_due = [
+                item
+                for item in fade_phase["items"]
+                if item.get("cohort") == "stable" and item.get("in_due")
+            ]
+            difficult_due = [
+                item
+                for item in fade_phase["items"]
+                if item.get("cohort") == "difficult" and item.get("in_due")
+            ]
+            if not stable_due:
+                findings.append(
+                    _finding(
+                        level="PASS",
+                        code="SRS_JOURNEY_STABLE_COHORT_FADES",
+                        message="Stable cohort faded out of the near-term due set.",
+                        details="stable_due=0",
+                        phase="fade_check",
+                    )
                 )
-            )
-        else:
-            findings.append(
-                _finding(
-                    level="FAIL",
-                    code="SRS_JOURNEY_STABLE_COHORT_FADES",
-                    message="Stable cohort remained in the due set longer than expected.",
-                    details=",".join(item["lemma"] for item in stable_due),
-                    phase="fade_check",
+            else:
+                findings.append(
+                    _finding(
+                        level="FAIL",
+                        code="SRS_JOURNEY_STABLE_COHORT_FADES",
+                        message="Stable cohort remained in the due set longer than expected.",
+                        details=",".join(item["lemma"] for item in stable_due),
+                        phase="fade_check",
+                    )
                 )
-            )
-        if difficult_due:
-            findings.append(
-                _finding(
-                    level="PASS",
-                    code="SRS_JOURNEY_DIFFICULT_COHORT_STICKS",
-                    message="Difficult cohort remained in the due set as expected.",
-                    details=",".join(item["lemma"] for item in difficult_due),
-                    phase="fade_check",
+            if difficult_due:
+                findings.append(
+                    _finding(
+                        level="PASS",
+                        code="SRS_JOURNEY_DIFFICULT_COHORT_STICKS",
+                        message="Difficult cohort remained in the due set as expected.",
+                        details=",".join(item["lemma"] for item in difficult_due),
+                        phase="fade_check",
+                    )
                 )
-            )
-        else:
-            findings.append(
-                _finding(
-                    level="FAIL",
-                    code="SRS_JOURNEY_DIFFICULT_COHORT_STICKS",
-                    message="Difficult cohort did not remain visible in the due set.",
-                    phase="fade_check",
+            else:
+                findings.append(
+                    _finding(
+                        level="FAIL",
+                        code="SRS_JOURNEY_DIFFICULT_COHORT_STICKS",
+                        message="Difficult cohort did not remain visible in the due set.",
+                        phase="fade_check",
+                    )
                 )
-            )
 
         publication_scope_phase = next(
             (
@@ -454,6 +623,9 @@ def build_report(
 
         summary = _summarize_findings(findings)
         signal_log = load_signal_log(paths, profile_id=profile_id)
+        signal_summary = summarize_signal_events(
+            paths.srs_signal_queue_path_for(profile_id), pair=pair
+        )
         return {
             "version": 1,
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -461,16 +633,17 @@ def build_report(
             "scenario": {
                 "name": scenario,
                 "pair": pair,
-                "lane": "deterministic_core_journey",
+                "lane": scenario_def.lane,
                 "contract_mode": contract_mode,
                 "profile_id": profile_id,
                 "settings": {
-                    "max_active_items": 8,
-                    "max_new_items_per_day": 2,
+                    "max_active_items": scenario_def.max_active_items,
+                    "max_new_items_per_day": scenario_def.max_new_items_per_day,
                 },
                 "bootstrap": {
-                    "set_top_n": 7,
-                    "initial_active_count": 3,
+                    "set_top_n": scenario_def.set_top_n,
+                    "bootstrap_top_n": scenario_def.bootstrap_top_n,
+                    "initial_active_count": scenario_def.initial_active_count,
                     "replace_pair": True,
                 },
                 "candidate_universe": scenario_candidate_universe(),
@@ -479,11 +652,12 @@ def build_report(
                     "difficult": ["gamma"],
                     "frontier": ["delta", "epsilon", "zeta", "eta"],
                 },
-                "clock": scenario_clock(),
+                "clock": scenario_clock(phase_plans),
             },
             "initialize": initialize_payload,
             "phases": phases,
             "signal_log": signal_log,
+            "signal_summary": signal_summary,
             "summary": summary,
             "findings": findings,
         }

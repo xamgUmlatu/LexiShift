@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `deterministic_core_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-20T22:44:49.929758+00:00`
+- Generated at: `2026-03-20T22:53:12.080180+00:00`
 
 ## Phases
 
@@ -16,6 +16,7 @@
 - Admitted delta: in=alpha, beta, gamma; out=none
 - Due delta: in=alpha, beta, gamma; out=none
 - Published delta: in=alpha, beta, gamma; out=none
+- Events applied: feedback=0 exposure=0
 - Published not due: none
 
 ### baseline_observe
@@ -24,6 +25,7 @@
 - Admitted delta: in=none; out=none
 - Due delta: in=none; out=none
 - Published delta: in=none; out=none
+- Events applied: feedback=0 exposure=0
 - Published not due: none
 
 ### high_retention_growth
@@ -32,6 +34,7 @@
 - Admitted delta: in=delta, epsilon; out=none
 - Due delta: in=delta, epsilon; out=alpha, beta
 - Published delta: in=delta, epsilon; out=none
+- Events applied: feedback=8 exposure=0
 - Published not due: alpha, beta
 
 ### low_retention_pause
@@ -40,6 +43,7 @@
 - Admitted delta: in=none; out=none
 - Due delta: in=none; out=gamma
 - Published delta: in=none; out=none
+- Events applied: feedback=8 exposure=0
 - Published not due: alpha, beta, gamma
 
 ### recovery_resume
@@ -48,6 +52,7 @@
 - Admitted delta: in=eta, zeta; out=none
 - Due delta: in=eta, zeta; out=delta, epsilon
 - Published delta: in=eta, zeta; out=none
+- Events applied: feedback=8 exposure=0
 - Published not due: alpha, beta, delta, epsilon, gamma
 
 ### fade_check
@@ -56,7 +61,15 @@
 - Admitted delta: in=none; out=none
 - Due delta: in=gamma; out=none
 - Published delta: in=none; out=none
+- Events applied: feedback=0 exposure=0
 - Published not due: alpha, beta, delta, epsilon
+
+## Signal Log
+
+- Event count: 24
+- Unique lemmas: 5
+- Event types: feedback=24 exposure=0
+- Last event at: `2026-03-24T09:07:00+00:00`
 
 ## Cohort Check
 

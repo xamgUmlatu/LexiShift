@@ -53,6 +53,44 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertEqual(stable_due, [])
         self.assertEqual(difficult_due, ["gamma"])
 
+    def test_build_report_surfaces_edge_behavior_events_and_non_authoritative_exposure(
+        self,
+    ) -> None:
+        report = build_report(scenario="en-ja_edge_behaviors_v1")
+        summary = report["summary"]
+        findings = report["findings"]
+        phases = report["phases"]
+
+        self.assertIn(summary["status"], {"PASS", "WARN"})
+        self.assertEqual(report["scenario"]["lane"], "deterministic_edge_behaviors")
+        self.assertEqual(len(phases), 5)
+
+        duplicate_phase = phases[1]
+        self.assertEqual(duplicate_phase["label"], "duplicate_feedback_burst")
+        self.assertEqual(duplicate_phase["events_applied"]["counts"]["feedback"], 2)
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED" for item in findings)
+        )
+
+        exposure_phase = phases[3]
+        self.assertEqual(exposure_phase["label"], "exposure_only_pause_probe")
+        self.assertEqual(exposure_phase["events_applied"]["counts"]["exposure"], 6)
+        self.assertFalse(exposure_phase["refresh"]["payload"]["applied"])
+        self.assertEqual(
+            exposure_phase["refresh"]["payload"]["admission_refresh"]["reason_code"],
+            "retention_low",
+        )
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE"
+                for item in findings
+            )
+        )
+
+        signal_summary = report["signal_summary"]
+        self.assertEqual(signal_summary["event_types"]["feedback"], 10)
+        self.assertEqual(signal_summary["event_types"]["exposure"], 6)
+
 
 if __name__ == "__main__":
     unittest.main()

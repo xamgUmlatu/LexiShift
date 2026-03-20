@@ -50,7 +50,23 @@ class JourneyPhasePlan:
     refresh_at: datetime | None = None
 
 
-PHASE_PLANS = (
+@dataclass(frozen=True)
+class JourneyScenario:
+    name: str
+    lane: str
+    phase_plans: tuple[JourneyPhasePlan, ...]
+    set_top_n: int = 7
+    bootstrap_top_n: int = 7
+    initial_active_count: int = 3
+    max_active_items: int = 8
+    max_new_items_per_day: int = 2
+
+
+CORE_SCENARIO_NAME = "en-ja_core_journey_v1"
+EDGE_SCENARIO_NAME = "en-ja_edge_behaviors_v1"
+
+
+CORE_PHASE_PLANS = (
     JourneyPhasePlan(label="bootstrap_publish", observe_at=BASE_TIME),
     JourneyPhasePlan(label="baseline_observe", observe_at=BASE_TIME + timedelta(minutes=5)),
     JourneyPhasePlan(
@@ -100,6 +116,60 @@ PHASE_PLANS = (
     ),
     JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=10)),
 )
+
+EDGE_PHASE_PLANS = (
+    JourneyPhasePlan(label="bootstrap_publish", observe_at=BASE_TIME),
+    JourneyPhasePlan(
+        label="duplicate_feedback_burst",
+        observe_at=BASE_TIME + timedelta(minutes=15),
+        feedback_events=(
+            ("alpha", "good"),
+            ("alpha", "easy"),
+        ),
+    ),
+    JourneyPhasePlan(
+        label="low_retention_seed",
+        observe_at=BASE_TIME + timedelta(days=1),
+        feedback_events=(
+            ("gamma", "again"),
+            ("gamma", "hard"),
+            ("gamma", "again"),
+            ("gamma", "hard"),
+            ("gamma", "again"),
+            ("gamma", "hard"),
+            ("gamma", "again"),
+            ("gamma", "hard"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=1),
+    ),
+    JourneyPhasePlan(
+        label="exposure_only_pause_probe",
+        observe_at=BASE_TIME + timedelta(days=2),
+        exposure_events=(
+            "alpha",
+            "alpha",
+            "beta",
+            "gamma",
+            "gamma",
+            "gamma",
+        ),
+        refresh_at=BASE_TIME + timedelta(days=2),
+    ),
+    JourneyPhasePlan(label="final_observe", observe_at=BASE_TIME + timedelta(days=3)),
+)
+
+SCENARIOS = {
+    CORE_SCENARIO_NAME: JourneyScenario(
+        name=CORE_SCENARIO_NAME,
+        lane="deterministic_core_journey",
+        phase_plans=CORE_PHASE_PLANS,
+    ),
+    EDGE_SCENARIO_NAME: JourneyScenario(
+        name=EDGE_SCENARIO_NAME,
+        lane="deterministic_edge_behaviors",
+        phase_plans=EDGE_PHASE_PLANS,
+    ),
+}
 
 
 def create_en_ja_frequency_db(path: Path, *, lemmas: Sequence[str]) -> Path:
@@ -209,8 +279,15 @@ def patched_now(now: datetime) -> Iterator[None]:
         yield
 
 
-def scenario_clock() -> dict[str, str]:
-    return {phase.label: phase.observe_at.isoformat() for phase in PHASE_PLANS}
+def get_scenario(name: str) -> JourneyScenario:
+    try:
+        return SCENARIOS[name]
+    except KeyError as exc:
+        raise KeyError(f"Unsupported SRS journey scenario: {name}") from exc
+
+
+def scenario_clock(phase_plans: Sequence[JourneyPhasePlan]) -> dict[str, str]:
+    return {phase.label: phase.observe_at.isoformat() for phase in phase_plans}
 
 
 def scenario_candidate_universe() -> list[dict[str, object]]:
