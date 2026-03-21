@@ -100,14 +100,14 @@ Use this file when:
 ## SRS Journey E2E Harness
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-21` pedagogical review upgrade with bootstrap/refresh candidate audits and interactive HTML playback for the `en-ja` journey lanes
-- Last verified: `2026-03-21` deterministic `en-ja` core + edge journey harness runs, the stabilized `en-ja` real-publication lane, Markdown summaries, and interactive HTML review artifacts
+- Last documented checkpoint: `2026-03-21` `en-es` parity extension for the SRS journey harness, keeping the same JSON/Markdown/HTML pedagogical review surfaces across `en-ja` and `en-es`
+- Last verified: `2026-03-21` deterministic `en-ja` + `en-es` core and edge journey harness runs, stabilized `en-ja` + `en-es` real-publication lanes, Markdown summaries, and interactive HTML review artifacts
 - Default behavior:
-  - Deterministic `en-ja` core and edge journey lanes plus the `en-ja` real-publication lane are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.
+  - Deterministic `en-ja` and `en-es` core and edge journey lanes plus matching real-publication lanes are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.
   - The core lane captures item-level admitted `S`, due `D`, and published `P` sets across bootstrap, refresh, and fade/stick phases.
   - Journey JSON now includes bootstrap candidate audits, refresh candidate ranking audits, and richer per-item state fields such as confidence, due rank, and lexical previews for retroactive pedagogical review.
   - The edge lane captures duplicate-feedback and exposure-only behavior with the same item-level reporting contract.
-  - The real-publication lane keeps deterministic clocks/resources, uses the actual seed-builder plus helper/rulegen publication path, and now holds complete due publication for the current `en-ja` scenario.
+  - The real-publication lane keeps deterministic clocks/resources, uses the actual seed-builder plus helper/rulegen publication path, and now holds complete due publication for the current `en-ja` and `en-es` scenarios.
   - Interactive HTML playback artifacts now provide step-by-step review with phase controls, admission rationale tables, and a sticky profile-state panel.
   - Current contract mode defaults to observation: publication broader than the due subset is surfaced as a warning rather than a hard failure.
 - Evidence:
@@ -124,8 +124,17 @@ Use this file when:
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json`
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md`
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.html`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_latest.html`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.html`
 - Known gaps:
-  - Current implemented lanes are `en-ja`-only; `en-de` extension is still pending.
+  - `en-de` extension is still pending.
   - The real-publication lane still uses synthetic resources; broader pair coverage is still pending.
   - The due-aware publication contract remains unresolved; the harness currently records the mismatch instead of enforcing it.
 

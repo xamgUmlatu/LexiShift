@@ -2,20 +2,20 @@
 
 - Status: WARN
 - Findings: pass=4 warn=1 fail=0
-- Scenario: `en-ja_edge_behaviors_v1`
-- Pair: `en-ja`
+- Scenario: `en-es_edge_behaviors_v1`
+- Pair: `en-es`
 - Lane: `deterministic_edge_behaviors`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:02:35.156648+00:00`
+- Generated at: `2026-03-21T01:02:39.519395+00:00`
 
 ## Phases
 
 ### bootstrap_publish
 - Counts: admitted=3 due=3 published=3
 - Refresh: not requested
-- Admitted delta: in=alpha, beta, gamma; out=none
-- Due delta: in=alpha, beta, gamma; out=none
-- Published delta: in=alpha, beta, gamma; out=none
+- Admitted delta: in=casa, hora, libro; out=none
+- Due delta: in=casa, hora, libro; out=none
+- Published delta: in=casa, hora, libro; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: none
 - Due not published: none
@@ -24,20 +24,20 @@
 - Counts: admitted=3 due=2 published=3
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=none; out=alpha
+- Due delta: in=none; out=casa
 - Published delta: in=none; out=none
 - Events applied: feedback=2 exposure=0
-- Published not due: alpha
+- Published not due: casa
 - Due not published: none
 
 ### low_retention_seed
 - Counts: admitted=3 due=1 published=3
 - Refresh: applied=no reason=`retention_low`
 - Admitted delta: in=none; out=none
-- Due delta: in=none; out=gamma
+- Due delta: in=none; out=hora
 - Published delta: in=none; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: alpha, gamma
+- Published not due: casa, hora
 - Due not published: none
 
 ### exposure_only_pause_probe
@@ -47,17 +47,17 @@
 - Due delta: in=none; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=6
-- Published not due: alpha, gamma
+- Published not due: casa, hora
 - Due not published: none
 
 ### final_observe
 - Counts: admitted=3 due=2 published=3
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=gamma; out=none
+- Due delta: in=hora; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
-- Published not due: alpha
+- Published not due: casa
 - Due not published: none
 
 ## Signal Log
@@ -69,8 +69,8 @@
 
 ## Cohort Check
 
-- Stable cohort due in final phase: beta
-- Difficult cohort due in final phase: gamma
+- Stable cohort due in final phase: libro
+- Difficult cohort due in final phase: hora
 
 ## Actionable Findings
 

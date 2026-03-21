@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "generated_at": "2026-03-21T01:02:35.156648+00:00",
+  "generated_at": "2026-03-21T01:02:39.519395+00:00",
   "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
   "scenario": {
-    "id": "en-ja_edge_behaviors_v1",
-    "name": "en-ja_edge_behaviors_v1",
-    "pair": "en-ja",
+    "id": "en-es_edge_behaviors_v1",
+    "name": "en-es_edge_behaviors_v1",
+    "pair": "en-es",
     "lane": "deterministic_edge_behaviors",
     "contract_mode": "observe_current_behavior",
     "profile_id": "default",
@@ -21,75 +21,75 @@
     },
     "candidate_universe": [
       {
-        "lemma": "alpha",
+        "lemma": "casa",
         "cohort": "stable",
         "base_weight": 0.97,
         "admission_weight": 0.97,
         "core_rank": 1.0,
-        "source_gloss": "eng_alpha"
+        "source_gloss": "house"
       },
       {
-        "lemma": "beta",
+        "lemma": "libro",
         "cohort": "stable",
         "base_weight": 0.93,
         "admission_weight": 0.93,
         "core_rank": 2.0,
-        "source_gloss": "eng_beta"
+        "source_gloss": "book"
       },
       {
-        "lemma": "gamma",
+        "lemma": "hora",
         "cohort": "difficult",
         "base_weight": 0.9,
         "admission_weight": 0.9,
         "core_rank": 3.0,
-        "source_gloss": "eng_gamma"
+        "source_gloss": "hour"
       },
       {
-        "lemma": "delta",
+        "lemma": "madre",
         "cohort": "frontier",
         "base_weight": 0.86,
         "admission_weight": 0.86,
         "core_rank": 4.0,
-        "source_gloss": "eng_delta"
+        "source_gloss": "mother"
       },
       {
-        "lemma": "epsilon",
+        "lemma": "campo",
         "cohort": "frontier",
         "base_weight": 0.82,
         "admission_weight": 0.82,
         "core_rank": 5.0,
-        "source_gloss": "eng_epsilon"
+        "source_gloss": "field"
       },
       {
-        "lemma": "zeta",
+        "lemma": "ventana",
         "cohort": "frontier",
         "base_weight": 0.78,
         "admission_weight": 0.78,
         "core_rank": 6.0,
-        "source_gloss": "eng_zeta"
+        "source_gloss": "window"
       },
       {
-        "lemma": "eta",
+        "lemma": "mesa",
         "cohort": "frontier",
         "base_weight": 0.74,
         "admission_weight": 0.74,
         "core_rank": 7.0,
-        "source_gloss": "eng_eta"
+        "source_gloss": "table"
       }
     ],
     "cohorts": {
       "stable": [
-        "alpha",
-        "beta"
+        "casa",
+        "libro"
       ],
       "difficult": [
-        "gamma"
+        "hora"
       ],
       "frontier": [
-        "delta",
-        "epsilon",
-        "zeta",
-        "eta"
+        "madre",
+        "campo",
+        "ventana",
+        "mesa"
       ]
     },
     "clock": {
@@ -101,14 +101,14 @@
     }
   },
   "initialize": {
-    "pair": "en-ja",
+    "pair": "en-es",
     "profile_id": "default",
     "set_top_n": 200,
     "bootstrap_top_n": 200,
     "initial_active_count": 3,
     "max_active_items_hint": null,
     "pair_policy": {
-      "pair": "en-ja",
+      "pair": "en-es",
       "bootstrap_top_n_default": 800,
       "refresh_top_n_default": 2000,
       "feedback_window_size_default": 100,
@@ -120,7 +120,7 @@
     "replace_pair": true,
     "added_items": 3,
     "total_items_for_pair": 3,
-    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
     "stopwords_path": null,
     "bootstrap_diagnostics": {
       "selected_count": 7,
@@ -129,18 +129,18 @@
       "inserted_count": 3,
       "updated_count": 0,
       "selected_preview": [
-        "alpha",
-        "beta",
-        "gamma",
-        "delta",
-        "epsilon",
-        "zeta",
-        "eta"
+        "casa",
+        "libro",
+        "hora",
+        "madre",
+        "campo",
+        "ventana",
+        "mesa"
       ],
       "initial_active_preview": [
-        "alpha",
-        "beta",
-        "gamma"
+        "casa",
+        "libro",
+        "hora"
       ],
       "admission_weight_profile": {
         "noun": 1.0,
@@ -151,24 +151,24 @@
       },
       "initial_active_weight_preview": [
         {
-          "lemma": "alpha",
-          "pos": "名詞-普通名詞-一般",
+          "lemma": "casa",
+          "pos": "n",
           "pos_bucket": "noun",
           "base_weight": 1.0,
           "pos_weight": 1.0,
           "admission_weight": 1.0
         },
         {
-          "lemma": "beta",
-          "pos": "名詞-普通名詞-一般",
+          "lemma": "libro",
+          "pos": "n",
           "pos_bucket": "noun",
           "base_weight": 0.935785,
           "pos_weight": 1.0,
           "admission_weight": 0.935785
         },
         {
-          "lemma": "gamma",
-          "pos": "名詞-普通名詞-一般",
+          "lemma": "hora",
+          "pos": "n",
           "pos_bucket": "noun",
           "base_weight": 0.861654,
           "pos_weight": 1.0,
@@ -180,12 +180,12 @@
       "published": true,
       "targets": 3,
       "rules": 3,
-      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json"
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json"
     },
     "applied": true,
     "plan": {
-      "pair": "en-ja",
+      "pair": "en-es",
       "strategy_requested": "frequency_bootstrap",
       "strategy_effective": "frequency_bootstrap",
       "objective": "bootstrap",
@@ -197,7 +197,7 @@
         "bootstrap_top_n clamped to 200 (allowed: 200..50000)."
       ],
       "diagnostics": {
-        "pair": "en-ja",
+        "pair": "en-es",
         "set_top_n": 200,
         "bootstrap_top_n": 200,
         "initial_active_count": 3,
@@ -216,7 +216,7 @@
       }
     },
     "signal_summary": {
-      "pair": "en-ja",
+      "pair": "en-es",
       "event_count": 0,
       "event_types": {},
       "unique_lemmas": 0,
@@ -230,24 +230,24 @@
       "candidates": [
         {
           "seed_rank": 1,
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "core_rank": 1.0,
           "pmw": 7.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 1.0,
           "admission_weight": 1.0,
           "word_package_present": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           },
           "selected": true,
@@ -256,24 +256,24 @@
         },
         {
           "seed_rank": 2,
-          "lemma": "beta",
+          "lemma": "libro",
           "cohort": "stable",
           "core_rank": 2.0,
           "pmw": 6.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.935785,
           "admission_weight": 0.935785,
           "word_package_present": true,
           "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "beta"
+              "surface": "libro"
             }
           },
           "selected": true,
@@ -282,24 +282,24 @@
         },
         {
           "seed_rank": 3,
-          "lemma": "gamma",
+          "lemma": "hora",
           "cohort": "difficult",
           "core_rank": 3.0,
           "pmw": 5.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.861654,
           "admission_weight": 0.861654,
           "word_package_present": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "hora"
             }
           },
           "selected": true,
@@ -308,24 +308,24 @@
         },
         {
           "seed_rank": 4,
-          "lemma": "delta",
+          "lemma": "madre",
           "cohort": "frontier",
           "core_rank": 4.0,
           "pmw": 4.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.773976,
           "admission_weight": 0.773976,
           "word_package_present": true,
           "word_package": {
-            "surface": "delta",
-            "reading": "delta",
-            "language_tag": "ja",
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "delta"
+              "surface": "madre"
             }
           },
           "selected": false,
@@ -334,24 +334,24 @@
         },
         {
           "seed_rank": 5,
-          "lemma": "epsilon",
+          "lemma": "campo",
           "cohort": "frontier",
           "core_rank": 5.0,
           "pmw": 3.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.666667,
           "admission_weight": 0.666667,
           "word_package_present": true,
           "word_package": {
-            "surface": "epsilon",
-            "reading": "epsilon",
-            "language_tag": "ja",
+            "surface": "campo",
+            "reading": "campo",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "epsilon"
+              "surface": "campo"
             }
           },
           "selected": false,
@@ -360,24 +360,24 @@
         },
         {
           "seed_rank": 6,
-          "lemma": "zeta",
+          "lemma": "ventana",
           "cohort": "frontier",
           "core_rank": 6.0,
           "pmw": 2.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.528321,
           "admission_weight": 0.528321,
           "word_package_present": true,
           "word_package": {
-            "surface": "zeta",
-            "reading": "zeta",
-            "language_tag": "ja",
+            "surface": "ventana",
+            "reading": "ventana",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "zeta"
+              "surface": "ventana"
             }
           },
           "selected": false,
@@ -386,24 +386,24 @@
         },
         {
           "seed_rank": 7,
-          "lemma": "eta",
+          "lemma": "mesa",
           "cohort": "frontier",
           "core_rank": 7.0,
           "pmw": 1.0,
-          "pos": "名詞-普通名詞-一般",
+          "pos": "n",
           "pos_bucket": "noun",
           "pos_weight": 1.0,
           "base_weight": 0.333333,
           "admission_weight": 0.333333,
           "word_package_present": true,
           "word_package": {
-            "surface": "eta",
-            "reading": "eta",
-            "language_tag": "ja",
+            "surface": "mesa",
+            "reading": "mesa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "eta"
+              "surface": "mesa"
             }
           },
           "selected": false,
@@ -434,20 +434,20 @@
       },
       "runtime": {
         "diagnostics": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "requirements": {
-            "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
             "supports_rulegen": true,
             "srs_selectable": true,
-            "default_frequency_db": "freq-ja-bccwj.sqlite",
-            "requires_jmdict_for_seed": true,
-            "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_freedict_de_en_for_rulegen": true
           },
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -455,29 +455,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/language_packs/JMdict_e",
-          "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/frequency_packs/freq-ja-bccwj.sqlite",
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/language_packs/spa-eng.tei",
+          "freedict_de_en_exists": true,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -486,39 +486,39 @@
             "helper_version": "0.1.0",
             "last_run_at": "2026-03-21T09:00:00+00:00",
             "last_error": null,
-            "last_pair": "en-ja",
+            "last_pair": "en-es",
             "last_rule_count": 3,
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
         "ruleset_sources_preview": [
-          "journey_src_alpha",
-          "journey_src_beta",
-          "journey_src_gamma"
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro"
         ],
         "snapshot_targets": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "sets": {
         "admitted": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "published": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "relationships": {
@@ -533,7 +533,7 @@
       },
       "items": [
         {
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "status": "new",
           "source_type": "initial_set",
@@ -550,22 +550,22 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           }
         },
         {
-          "lemma": "beta",
-          "cohort": "stable",
+          "lemma": "hora",
+          "cohort": "difficult",
           "status": "new",
           "source_type": "initial_set",
-          "confidence": 0.9357849740192015,
+          "confidence": 0.8616541669070521,
           "next_due": null,
           "due_rank": 2,
           "stability": null,
@@ -578,22 +578,22 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "beta"
+              "surface": "hora"
             }
           }
         },
         {
-          "lemma": "gamma",
-          "cohort": "difficult",
+          "lemma": "libro",
+          "cohort": "stable",
           "status": "new",
           "source_type": "initial_set",
-          "confidence": 0.8616541669070521,
+          "confidence": 0.9357849740192015,
           "next_due": null,
           "due_rank": 3,
           "stability": null,
@@ -606,34 +606,34 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "libro"
             }
           }
         }
       ],
       "deltas": {
         "admitted_in": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "admitted_out": [],
         "due_in": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due_out": [],
         "published_in": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "published_out": []
       },
@@ -647,14 +647,14 @@
         "feedback": [
           {
             "index": 1,
-            "lemma": "alpha",
+            "lemma": "casa",
             "rating": "good",
             "ts": "2026-03-21T09:15:00+00:00",
             "cohort": "stable"
           },
           {
             "index": 2,
-            "lemma": "alpha",
+            "lemma": "casa",
             "rating": "easy",
             "ts": "2026-03-21T09:16:00+00:00",
             "cohort": "stable"
@@ -674,20 +674,20 @@
       },
       "runtime": {
         "diagnostics": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "requirements": {
-            "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
             "supports_rulegen": true,
             "srs_selectable": true,
-            "default_frequency_db": "freq-ja-bccwj.sqlite",
-            "requires_jmdict_for_seed": true,
-            "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_freedict_de_en_for_rulegen": true
           },
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -695,29 +695,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/language_packs/JMdict_e",
-          "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/frequency_packs/freq-ja-bccwj.sqlite",
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/language_packs/spa-eng.tei",
+          "freedict_de_en_exists": true,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -726,43 +726,43 @@
             "helper_version": "0.1.0",
             "last_run_at": "2026-03-21T09:00:00+00:00",
             "last_error": null,
-            "last_pair": "en-ja",
+            "last_pair": "en-es",
             "last_rule_count": 3,
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
         "ruleset_sources_preview": [
-          "journey_src_alpha",
-          "journey_src_beta",
-          "journey_src_gamma"
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro"
         ],
         "snapshot_targets": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "sets": {
         "admitted": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due": [
-          "beta",
-          "gamma"
+          "hora",
+          "libro"
         ],
         "published": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "relationships": {
         "published_not_due": [
-          "alpha"
+          "casa"
         ],
         "published_not_admitted": [],
         "due_not_published": []
@@ -774,7 +774,7 @@
       },
       "items": [
         {
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "status": "review",
           "source_type": "initial_set",
@@ -800,22 +800,22 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           }
         },
         {
-          "lemma": "beta",
-          "cohort": "stable",
+          "lemma": "hora",
+          "cohort": "difficult",
           "status": "new",
           "source_type": "initial_set",
-          "confidence": 0.9357849740192015,
+          "confidence": 0.8616541669070521,
           "next_due": null,
           "due_rank": 1,
           "stability": null,
@@ -828,22 +828,22 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "beta"
+              "surface": "hora"
             }
           }
         },
         {
-          "lemma": "gamma",
-          "cohort": "difficult",
+          "lemma": "libro",
+          "cohort": "stable",
           "status": "new",
           "source_type": "initial_set",
-          "confidence": 0.8616541669070521,
+          "confidence": 0.9357849740192015,
           "next_due": null,
           "due_rank": 2,
           "stability": null,
@@ -856,13 +856,13 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "libro"
             }
           }
         }
@@ -872,7 +872,7 @@
         "admitted_out": [],
         "due_in": [],
         "due_out": [
-          "alpha"
+          "casa"
         ],
         "published_in": [],
         "published_out": []
@@ -882,7 +882,7 @@
           "level": "PASS",
           "code": "SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
           "message": "Duplicate feedback in one short session was recorded without deduplication.",
-          "details": "lemma=alpha history_delta=2 exposure_delta=2",
+          "details": "lemma=casa history_delta=2 exposure_delta=2",
           "phase": "duplicate_feedback_burst"
         }
       ]
@@ -895,56 +895,56 @@
         "feedback": [
           {
             "index": 1,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "again",
             "ts": "2026-03-22T09:00:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 2,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "hard",
             "ts": "2026-03-22T09:01:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 3,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "again",
             "ts": "2026-03-22T09:02:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 4,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "hard",
             "ts": "2026-03-22T09:03:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 5,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "again",
             "ts": "2026-03-22T09:04:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 6,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "hard",
             "ts": "2026-03-22T09:05:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 7,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "again",
             "ts": "2026-03-22T09:06:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 8,
-            "lemma": "gamma",
+            "lemma": "hora",
             "rating": "hard",
             "ts": "2026-03-22T09:07:00+00:00",
             "cohort": "difficult"
@@ -959,13 +959,13 @@
       "refresh": {
         "requested": true,
         "payload": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "set_top_n": 7,
           "feedback_window_size": 8,
           "allowed_pos": [],
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -977,10 +977,10 @@
           "max_new_items_per_day": 2,
           "added_items": 0,
           "total_items_for_pair": 3,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
             "due_count": 1,
@@ -993,7 +993,7 @@
               "Retention is below low threshold; paused new admissions."
             ],
             "feedback_window": {
-              "pair": "en-ja",
+              "pair": "en-es",
               "window_size_requested": 8,
               "window_size_effective": 8,
               "feedback_count": 8,
@@ -1051,14 +1051,14 @@
           "allowed_pos": [],
           "stopwords_path": null,
           "existing_lemmas": [
-            "alpha",
-            "beta",
-            "gamma"
+            "casa",
+            "hora",
+            "libro"
           ],
           "candidates": [
             {
               "seed_rank": 1,
-              "lemma": "alpha",
+              "lemma": "casa",
               "cohort": "stable",
               "core_rank": 1.0,
               "pmw": 7.0,
@@ -1083,7 +1083,7 @@
             },
             {
               "seed_rank": 2,
-              "lemma": "beta",
+              "lemma": "libro",
               "cohort": "stable",
               "core_rank": 2.0,
               "pmw": 6.0,
@@ -1108,7 +1108,7 @@
             },
             {
               "seed_rank": 3,
-              "lemma": "gamma",
+              "lemma": "hora",
               "cohort": "difficult",
               "core_rank": 3.0,
               "pmw": 5.0,
@@ -1133,7 +1133,7 @@
             },
             {
               "seed_rank": 4,
-              "lemma": "delta",
+              "lemma": "madre",
               "cohort": "frontier",
               "core_rank": 4.0,
               "pmw": 4.0,
@@ -1164,7 +1164,7 @@
             },
             {
               "seed_rank": 5,
-              "lemma": "epsilon",
+              "lemma": "campo",
               "cohort": "frontier",
               "core_rank": 5.0,
               "pmw": 3.0,
@@ -1195,7 +1195,7 @@
             },
             {
               "seed_rank": 6,
-              "lemma": "zeta",
+              "lemma": "ventana",
               "cohort": "frontier",
               "core_rank": 6.0,
               "pmw": 2.0,
@@ -1226,7 +1226,7 @@
             },
             {
               "seed_rank": 7,
-              "lemma": "eta",
+              "lemma": "mesa",
               "cohort": "frontier",
               "core_rank": 7.0,
               "pmw": 1.0,
@@ -1263,20 +1263,20 @@
       },
       "runtime": {
         "diagnostics": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "requirements": {
-            "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
             "supports_rulegen": true,
             "srs_selectable": true,
-            "default_frequency_db": "freq-ja-bccwj.sqlite",
-            "requires_jmdict_for_seed": true,
-            "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_freedict_de_en_for_rulegen": true
           },
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -1284,29 +1284,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/language_packs/JMdict_e",
-          "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/frequency_packs/freq-ja-bccwj.sqlite",
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/language_packs/spa-eng.tei",
+          "freedict_de_en_exists": true,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -1315,43 +1315,43 @@
             "helper_version": "0.1.0",
             "last_run_at": "2026-03-21T09:00:00+00:00",
             "last_error": null,
-            "last_pair": "en-ja",
+            "last_pair": "en-es",
             "last_rule_count": 3,
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
         "ruleset_sources_preview": [
-          "journey_src_alpha",
-          "journey_src_beta",
-          "journey_src_gamma"
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro"
         ],
         "snapshot_targets": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "sets": {
         "admitted": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due": [
-          "beta"
+          "libro"
         ],
         "published": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "relationships": {
         "published_not_due": [
-          "alpha",
-          "gamma"
+          "casa",
+          "hora"
         ],
         "published_not_admitted": [],
         "due_not_published": []
@@ -1363,7 +1363,7 @@
       },
       "items": [
         {
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "status": "review",
           "source_type": "initial_set",
@@ -1389,46 +1389,18 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           }
         },
         {
-          "lemma": "beta",
-          "cohort": "stable",
-          "status": "new",
-          "source_type": "initial_set",
-          "confidence": 0.9357849740192015,
-          "next_due": null,
-          "due_rank": 1,
-          "stability": null,
-          "difficulty": null,
-          "last_seen": null,
-          "exposures": 0,
-          "history_count": 0,
-          "recent_history": [],
-          "in_admitted": true,
-          "in_due": true,
-          "in_published": true,
-          "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
-            "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
-            "script_forms": {
-              "surface": "beta"
-            }
-          }
-        },
-        {
-          "lemma": "gamma",
+          "lemma": "hora",
           "cohort": "difficult",
           "status": "learning",
           "source_type": "initial_set",
@@ -1462,13 +1434,41 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "hora"
+            }
+          }
+        },
+        {
+          "lemma": "libro",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
             }
           }
         }
@@ -1478,7 +1478,7 @@
         "admitted_out": [],
         "due_in": [],
         "due_out": [
-          "gamma"
+          "hora"
         ],
         "published_in": [],
         "published_out": []
@@ -1494,37 +1494,37 @@
         "exposure": [
           {
             "index": 1,
-            "lemma": "alpha",
+            "lemma": "casa",
             "ts": "2026-03-23T09:00:00+00:00",
             "cohort": "stable"
           },
           {
             "index": 2,
-            "lemma": "alpha",
+            "lemma": "casa",
             "ts": "2026-03-23T09:01:00+00:00",
             "cohort": "stable"
           },
           {
             "index": 3,
-            "lemma": "beta",
+            "lemma": "libro",
             "ts": "2026-03-23T09:02:00+00:00",
             "cohort": "stable"
           },
           {
             "index": 4,
-            "lemma": "gamma",
+            "lemma": "hora",
             "ts": "2026-03-23T09:03:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 5,
-            "lemma": "gamma",
+            "lemma": "hora",
             "ts": "2026-03-23T09:04:00+00:00",
             "cohort": "difficult"
           },
           {
             "index": 6,
-            "lemma": "gamma",
+            "lemma": "hora",
             "ts": "2026-03-23T09:05:00+00:00",
             "cohort": "difficult"
           }
@@ -1537,13 +1537,13 @@
       "refresh": {
         "requested": true,
         "payload": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "set_top_n": 7,
           "feedback_window_size": 8,
           "allowed_pos": [],
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -1555,10 +1555,10 @@
           "max_new_items_per_day": 2,
           "added_items": 0,
           "total_items_for_pair": 3,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
             "due_count": 1,
@@ -1571,7 +1571,7 @@
               "Retention is below low threshold; paused new admissions."
             ],
             "feedback_window": {
-              "pair": "en-ja",
+              "pair": "en-es",
               "window_size_requested": 8,
               "window_size_effective": 8,
               "feedback_count": 8,
@@ -1629,14 +1629,14 @@
           "allowed_pos": [],
           "stopwords_path": null,
           "existing_lemmas": [
-            "alpha",
-            "beta",
-            "gamma"
+            "casa",
+            "hora",
+            "libro"
           ],
           "candidates": [
             {
               "seed_rank": 1,
-              "lemma": "alpha",
+              "lemma": "casa",
               "cohort": "stable",
               "core_rank": 1.0,
               "pmw": 7.0,
@@ -1661,7 +1661,7 @@
             },
             {
               "seed_rank": 2,
-              "lemma": "beta",
+              "lemma": "libro",
               "cohort": "stable",
               "core_rank": 2.0,
               "pmw": 6.0,
@@ -1686,7 +1686,7 @@
             },
             {
               "seed_rank": 3,
-              "lemma": "gamma",
+              "lemma": "hora",
               "cohort": "difficult",
               "core_rank": 3.0,
               "pmw": 5.0,
@@ -1711,7 +1711,7 @@
             },
             {
               "seed_rank": 4,
-              "lemma": "delta",
+              "lemma": "madre",
               "cohort": "frontier",
               "core_rank": 4.0,
               "pmw": 4.0,
@@ -1742,7 +1742,7 @@
             },
             {
               "seed_rank": 5,
-              "lemma": "epsilon",
+              "lemma": "campo",
               "cohort": "frontier",
               "core_rank": 5.0,
               "pmw": 3.0,
@@ -1773,7 +1773,7 @@
             },
             {
               "seed_rank": 6,
-              "lemma": "zeta",
+              "lemma": "ventana",
               "cohort": "frontier",
               "core_rank": 6.0,
               "pmw": 2.0,
@@ -1804,7 +1804,7 @@
             },
             {
               "seed_rank": 7,
-              "lemma": "eta",
+              "lemma": "mesa",
               "cohort": "frontier",
               "core_rank": 7.0,
               "pmw": 1.0,
@@ -1841,20 +1841,20 @@
       },
       "runtime": {
         "diagnostics": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "requirements": {
-            "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
             "supports_rulegen": true,
             "srs_selectable": true,
-            "default_frequency_db": "freq-ja-bccwj.sqlite",
-            "requires_jmdict_for_seed": true,
-            "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_freedict_de_en_for_rulegen": true
           },
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -1862,29 +1862,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/language_packs/JMdict_e",
-          "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/frequency_packs/freq-ja-bccwj.sqlite",
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/language_packs/spa-eng.tei",
+          "freedict_de_en_exists": true,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -1893,43 +1893,43 @@
             "helper_version": "0.1.0",
             "last_run_at": "2026-03-21T09:00:00+00:00",
             "last_error": null,
-            "last_pair": "en-ja",
+            "last_pair": "en-es",
             "last_rule_count": 3,
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
         "ruleset_sources_preview": [
-          "journey_src_alpha",
-          "journey_src_beta",
-          "journey_src_gamma"
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro"
         ],
         "snapshot_targets": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "sets": {
         "admitted": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due": [
-          "beta"
+          "libro"
         ],
         "published": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "relationships": {
         "published_not_due": [
-          "alpha",
-          "gamma"
+          "casa",
+          "hora"
         ],
         "published_not_admitted": [],
         "due_not_published": []
@@ -1941,7 +1941,7 @@
       },
       "items": [
         {
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "status": "review",
           "source_type": "initial_set",
@@ -1967,46 +1967,18 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           }
         },
         {
-          "lemma": "beta",
-          "cohort": "stable",
-          "status": "new",
-          "source_type": "initial_set",
-          "confidence": 0.9357849740192015,
-          "next_due": null,
-          "due_rank": 1,
-          "stability": null,
-          "difficulty": null,
-          "last_seen": "2026-03-23T09:02:00Z",
-          "exposures": 1,
-          "history_count": 0,
-          "recent_history": [],
-          "in_admitted": true,
-          "in_due": true,
-          "in_published": true,
-          "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
-            "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
-            "script_forms": {
-              "surface": "beta"
-            }
-          }
-        },
-        {
-          "lemma": "gamma",
+          "lemma": "hora",
           "cohort": "difficult",
           "status": "learning",
           "source_type": "initial_set",
@@ -2040,13 +2012,41 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "hora"
+            }
+          }
+        },
+        {
+          "lemma": "libro",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": "2026-03-23T09:02:00Z",
+          "exposures": 1,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
             }
           }
         }
@@ -2064,7 +2064,7 @@
           "level": "PASS",
           "code": "SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
           "message": "Exposure-only events stayed visible without changing retention-based admission behavior.",
-          "details": "exposure_deltas={\"alpha\": 2, \"beta\": 1, \"gamma\": 3} history_deltas={\"alpha\": 0, \"beta\": 0, \"gamma\": 0} reason_code=retention_low",
+          "details": "exposure_deltas={\"casa\": 2, \"hora\": 3, \"libro\": 1} history_deltas={\"casa\": 0, \"hora\": 0, \"libro\": 0} reason_code=retention_low",
           "phase": "exposure_only_pause_probe"
         }
       ]
@@ -2089,20 +2089,20 @@
       },
       "runtime": {
         "diagnostics": {
-          "pair": "en-ja",
+          "pair": "en-es",
           "profile_id": "default",
           "requirements": {
-            "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
             "supports_rulegen": true,
             "srs_selectable": true,
-            "default_frequency_db": "freq-ja-bccwj.sqlite",
-            "requires_jmdict_for_seed": true,
-            "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_freedict_de_en_for_rulegen": true
           },
           "pair_policy": {
-            "pair": "en-ja",
+            "pair": "en-es",
             "bootstrap_top_n_default": 800,
             "refresh_top_n_default": 2000,
             "feedback_window_size_default": 100,
@@ -2110,29 +2110,29 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/language_packs/JMdict_e",
-          "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/frequency_packs/freq-ja-bccwj.sqlite",
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/language_packs/spa-eng.tei",
+          "freedict_de_en_exists": true,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
           "snapshot_error": null,
@@ -2141,43 +2141,43 @@
             "helper_version": "0.1.0",
             "last_run_at": "2026-03-21T09:00:00+00:00",
             "last_error": null,
-            "last_pair": "en-ja",
+            "last_pair": "en-es",
             "last_rule_count": 3,
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpx9d9tb4n/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp_wy5gaa1/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
         "ruleset_sources_preview": [
-          "journey_src_alpha",
-          "journey_src_beta",
-          "journey_src_gamma"
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro"
         ],
         "snapshot_targets": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "sets": {
         "admitted": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ],
         "due": [
-          "beta",
-          "gamma"
+          "hora",
+          "libro"
         ],
         "published": [
-          "alpha",
-          "beta",
-          "gamma"
+          "casa",
+          "hora",
+          "libro"
         ]
       },
       "relationships": {
         "published_not_due": [
-          "alpha"
+          "casa"
         ],
         "published_not_admitted": [],
         "due_not_published": []
@@ -2189,7 +2189,7 @@
       },
       "items": [
         {
-          "lemma": "alpha",
+          "lemma": "casa",
           "cohort": "stable",
           "status": "review",
           "source_type": "initial_set",
@@ -2215,46 +2215,18 @@
           "in_due": false,
           "in_published": true,
           "word_package": {
-            "surface": "alpha",
-            "reading": "alpha",
-            "language_tag": "ja",
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "alpha"
+              "surface": "casa"
             }
           }
         },
         {
-          "lemma": "beta",
-          "cohort": "stable",
-          "status": "new",
-          "source_type": "initial_set",
-          "confidence": 0.9357849740192015,
-          "next_due": null,
-          "due_rank": 1,
-          "stability": null,
-          "difficulty": null,
-          "last_seen": "2026-03-23T09:02:00Z",
-          "exposures": 1,
-          "history_count": 0,
-          "recent_history": [],
-          "in_admitted": true,
-          "in_due": true,
-          "in_published": true,
-          "word_package": {
-            "surface": "beta",
-            "reading": "beta",
-            "language_tag": "ja",
-            "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
-            "script_forms": {
-              "surface": "beta"
-            }
-          }
-        },
-        {
-          "lemma": "gamma",
+          "lemma": "hora",
           "cohort": "difficult",
           "status": "learning",
           "source_type": "initial_set",
@@ -2288,13 +2260,41 @@
           "in_due": true,
           "in_published": true,
           "word_package": {
-            "surface": "gamma",
-            "reading": "gamma",
-            "language_tag": "ja",
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
             "pos_canonical": "noun",
-            "provider": "freq-ja-bccwj",
+            "provider": "freq-es-cde",
             "script_forms": {
-              "surface": "gamma"
+              "surface": "hora"
+            }
+          }
+        },
+        {
+          "lemma": "libro",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "last_seen": "2026-03-23T09:02:00Z",
+          "exposures": 1,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
             }
           }
         }
@@ -2303,7 +2303,7 @@
         "admitted_in": [],
         "admitted_out": [],
         "due_in": [
-          "gamma"
+          "hora"
         ],
         "due_out": [],
         "published_in": [],
@@ -2316,8 +2316,8 @@
     {
       "index": 1,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "alpha",
+      "pair": "en-es",
+      "lemma": "casa",
       "source_type": "extension",
       "rating": "good",
       "ts": "2026-03-21T09:15:00+00:00",
@@ -2326,8 +2326,8 @@
     {
       "index": 2,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "alpha",
+      "pair": "en-es",
+      "lemma": "casa",
       "source_type": "extension",
       "rating": "easy",
       "ts": "2026-03-21T09:16:00+00:00",
@@ -2336,8 +2336,8 @@
     {
       "index": 3,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "again",
       "ts": "2026-03-22T09:00:00+00:00",
@@ -2346,8 +2346,8 @@
     {
       "index": 4,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "hard",
       "ts": "2026-03-22T09:01:00+00:00",
@@ -2356,8 +2356,8 @@
     {
       "index": 5,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "again",
       "ts": "2026-03-22T09:02:00+00:00",
@@ -2366,8 +2366,8 @@
     {
       "index": 6,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "hard",
       "ts": "2026-03-22T09:03:00+00:00",
@@ -2376,8 +2376,8 @@
     {
       "index": 7,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "again",
       "ts": "2026-03-22T09:04:00+00:00",
@@ -2386,8 +2386,8 @@
     {
       "index": 8,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "hard",
       "ts": "2026-03-22T09:05:00+00:00",
@@ -2396,8 +2396,8 @@
     {
       "index": 9,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "again",
       "ts": "2026-03-22T09:06:00+00:00",
@@ -2406,8 +2406,8 @@
     {
       "index": 10,
       "event_type": "feedback",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": "hard",
       "ts": "2026-03-22T09:07:00+00:00",
@@ -2416,8 +2416,8 @@
     {
       "index": 11,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "alpha",
+      "pair": "en-es",
+      "lemma": "casa",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:00:00+00:00",
@@ -2426,8 +2426,8 @@
     {
       "index": 12,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "alpha",
+      "pair": "en-es",
+      "lemma": "casa",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:01:00+00:00",
@@ -2436,8 +2436,8 @@
     {
       "index": 13,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "beta",
+      "pair": "en-es",
+      "lemma": "libro",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:02:00+00:00",
@@ -2446,8 +2446,8 @@
     {
       "index": 14,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:03:00+00:00",
@@ -2456,8 +2456,8 @@
     {
       "index": 15,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:04:00+00:00",
@@ -2466,8 +2466,8 @@
     {
       "index": 16,
       "event_type": "exposure",
-      "pair": "en-ja",
-      "lemma": "gamma",
+      "pair": "en-es",
+      "lemma": "hora",
       "source_type": "extension",
       "rating": null,
       "ts": "2026-03-23T09:05:00+00:00",
@@ -2475,7 +2475,7 @@
     }
   ],
   "signal_summary": {
-    "pair": "en-ja",
+    "pair": "en-es",
     "event_count": 16,
     "event_types": {
       "feedback": 10,
@@ -2503,14 +2503,14 @@
       "level": "PASS",
       "code": "SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
       "message": "Duplicate feedback in one short session was recorded without deduplication.",
-      "details": "lemma=alpha history_delta=2 exposure_delta=2",
+      "details": "lemma=casa history_delta=2 exposure_delta=2",
       "phase": "duplicate_feedback_burst"
     },
     {
       "level": "PASS",
       "code": "SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
       "message": "Exposure-only events stayed visible without changing retention-based admission behavior.",
-      "details": "exposure_deltas={\"alpha\": 2, \"beta\": 1, \"gamma\": 3} history_deltas={\"alpha\": 0, \"beta\": 0, \"gamma\": 0} reason_code=retention_low",
+      "details": "exposure_deltas={\"casa\": 2, \"hora\": 3, \"libro\": 1} history_deltas={\"casa\": 0, \"hora\": 0, \"libro\": 0} reason_code=retention_low",
       "phase": "exposure_only_pause_probe"
     },
     {

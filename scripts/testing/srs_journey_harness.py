@@ -28,13 +28,11 @@ from lexishift_core.srs import SrsSettings, load_srs_store, save_srs_settings  #
 from lexishift_core.srs.signal_queue import load_signal_events, summarize_signal_events  # noqa: E402
 
 from srs_journey_harness_support import (  # noqa: E402
-    COHORT_BY_LEMMA,
     CORE_SCENARIO_NAME,
-    DEFAULT_PAIR,
     DEFAULT_PROFILE_ID,
-    REAL_SCENARIO_NAME,
     build_seed_candidates,
-    create_en_ja_resources,
+    cohort_by_lemma_for_pair,
+    create_pair_resources,
     get_scenario,
     load_signal_log,
     patched_now,
@@ -42,6 +40,7 @@ from srs_journey_harness_support import (  # noqa: E402
     phase_snapshot,
     scenario_candidate_universe,
     scenario_clock,
+    scenario_cohorts,
     stub_run_rulegen_for_pair,
 )
 from srs_journey_review_support import (  # noqa: E402
@@ -106,6 +105,7 @@ def _apply_feedback_events(
     profile_id: str,
     phase_time: datetime,
     events: Sequence[tuple[str, str]],
+    cohort_by_lemma: Mapping[str, str],
 ) -> list[dict[str, object]]:
     applied: list[dict[str, object]] = []
     for index, (lemma, rating) in enumerate(events):
@@ -118,7 +118,7 @@ def _apply_feedback_events(
                 "lemma": lemma,
                 "rating": rating,
                 "ts": event_time.isoformat(),
-                "cohort": COHORT_BY_LEMMA.get(lemma, "frontier"),
+                "cohort": cohort_by_lemma.get(lemma, "frontier"),
             }
         )
     return applied
@@ -131,6 +131,7 @@ def _apply_exposure_events(
     profile_id: str,
     phase_time: datetime,
     events: Sequence[str],
+    cohort_by_lemma: Mapping[str, str],
 ) -> list[dict[str, object]]:
     applied: list[dict[str, object]] = []
     for index, lemma in enumerate(events):
@@ -142,7 +143,7 @@ def _apply_exposure_events(
                 "index": index + 1,
                 "lemma": lemma,
                 "ts": event_time.isoformat(),
-                "cohort": COHORT_BY_LEMMA.get(lemma, "frontier"),
+                "cohort": cohort_by_lemma.get(lemma, "frontier"),
             }
         )
     return applied
@@ -179,6 +180,7 @@ def _run_phase(
     seed_builder,
     use_stub_seed_candidates: bool,
     use_stub_rulegen: bool,
+    cohort_by_lemma: Mapping[str, str],
 ) -> dict[str, object]:
     feedback_events = _apply_feedback_events(
         paths,
@@ -186,6 +188,7 @@ def _run_phase(
         profile_id=profile_id,
         phase_time=phase_plan.observe_at,
         events=phase_plan.feedback_events,
+        cohort_by_lemma=cohort_by_lemma,
     )
     exposure_events = _apply_exposure_events(
         paths,
@@ -193,6 +196,7 @@ def _run_phase(
         profile_id=profile_id,
         phase_time=phase_plan.observe_at,
         events=phase_plan.exposure_events,
+        cohort_by_lemma=cohort_by_lemma,
     )
     refresh_payload: dict[str, object] | None = None
     refresh_audit: dict[str, object] | None = None
@@ -209,7 +213,7 @@ def _run_phase(
             allowed_pos=refresh_config.allowed_pos,
             store_before=store_before,
             events=refresh_events,
-            cohort_by_lemma=COHORT_BY_LEMMA,
+            cohort_by_lemma=cohort_by_lemma,
             seed_builder=seed_builder,
         )
         with ExitStack() as stack:
@@ -238,7 +242,11 @@ def _run_phase(
         )
     with patched_now(phase_plan.observe_at):
         snapshot = phase_snapshot(
-            paths, pair=pair, profile_id=profile_id, now=phase_plan.observe_at
+            paths,
+            pair=pair,
+            profile_id=profile_id,
+            now=phase_plan.observe_at,
+            cohort_by_lemma=cohort_by_lemma,
         )
     snapshot["deltas"] = phase_deltas(previous_snapshot, snapshot)
     findings: list[dict[str, object]] = []
@@ -321,18 +329,24 @@ def _run_phase(
                 )
             )
     elif phase_plan.label == "duplicate_feedback_burst":
-        alpha_previous = _snapshot_item(previous_snapshot, "alpha")
-        alpha_current = _snapshot_item(snapshot, "alpha")
+        target_lemma = str(phase_plan.feedback_events[0][0] if phase_plan.feedback_events else "")
+        target_previous = _snapshot_item(previous_snapshot, target_lemma)
+        target_current = _snapshot_item(snapshot, target_lemma)
         previous_history_count = (
-            int(alpha_previous.get("history_count") or 0) if alpha_previous else 0
+            int(target_previous.get("history_count") or 0) if target_previous else 0
         )
-        current_history_count = int(alpha_current.get("history_count") or 0) if alpha_current else 0
-        previous_exposures = int(alpha_previous.get("exposures") or 0) if alpha_previous else 0
-        current_exposures = int(alpha_current.get("exposures") or 0) if alpha_current else 0
+        current_history_count = (
+            int(target_current.get("history_count") or 0) if target_current else 0
+        )
+        previous_exposures = int(target_previous.get("exposures") or 0) if target_previous else 0
+        current_exposures = int(target_current.get("exposures") or 0) if target_current else 0
+        expected_count = len(phase_plan.feedback_events)
         if (
-            len(feedback_events) == 2
-            and current_history_count - previous_history_count == 2
-            and current_exposures - previous_exposures == 2
+            target_lemma
+            and expected_count > 0
+            and len(feedback_events) == expected_count
+            and current_history_count - previous_history_count == expected_count
+            and current_exposures - previous_exposures == expected_count
         ):
             findings.append(
                 _finding(
@@ -340,7 +354,7 @@ def _run_phase(
                     code="SRS_JOURNEY_DUPLICATE_FEEDBACK_RECORDED",
                     message="Duplicate feedback in one short session was recorded without deduplication.",
                     details=(
-                        f"lemma=alpha history_delta={current_history_count - previous_history_count} "
+                        f"lemma={target_lemma} history_delta={current_history_count - previous_history_count} "
                         f"exposure_delta={current_exposures - previous_exposures}"
                     ),
                     phase=phase_plan.label,
@@ -357,41 +371,32 @@ def _run_phase(
                 )
             )
     elif phase_plan.label == "exposure_only_pause_probe":
-        alpha_previous = _snapshot_item(previous_snapshot, "alpha")
-        alpha_current = _snapshot_item(snapshot, "alpha")
-        gamma_previous = _snapshot_item(previous_snapshot, "gamma")
-        gamma_current = _snapshot_item(snapshot, "gamma")
-        alpha_exposure_delta = (
-            int(alpha_current.get("exposures") or 0) - int(alpha_previous.get("exposures") or 0)
-            if alpha_current and alpha_previous
-            else 0
-        )
-        gamma_exposure_delta = (
-            int(gamma_current.get("exposures") or 0) - int(gamma_previous.get("exposures") or 0)
-            if gamma_current and gamma_previous
-            else 0
-        )
-        alpha_history_delta = (
-            int(alpha_current.get("history_count") or 0)
-            - int(alpha_previous.get("history_count") or 0)
-            if alpha_current and alpha_previous
-            else 0
-        )
-        gamma_history_delta = (
-            int(gamma_current.get("history_count") or 0)
-            - int(gamma_previous.get("history_count") or 0)
-            if gamma_current and gamma_previous
-            else 0
-        )
+        expected_exposure_counts: dict[str, int] = {}
+        for lemma in phase_plan.exposure_events:
+            expected_exposure_counts[str(lemma)] = expected_exposure_counts.get(str(lemma), 0) + 1
+        exposure_deltas: dict[str, int] = {}
+        history_deltas: dict[str, int] = {}
+        for lemma, expected_count in expected_exposure_counts.items():
+            previous_item = _snapshot_item(previous_snapshot, lemma)
+            current_item = _snapshot_item(snapshot, lemma)
+            previous_exposures = int(previous_item.get("exposures") or 0) if previous_item else 0
+            current_exposures = int(current_item.get("exposures") or 0) if current_item else 0
+            previous_history = int(previous_item.get("history_count") or 0) if previous_item else 0
+            current_history = int(current_item.get("history_count") or 0) if current_item else 0
+            exposure_deltas[lemma] = current_exposures - previous_exposures
+            history_deltas[lemma] = current_history - previous_history
         reason_code = str(
             (refresh_payload or {}).get("admission_refresh", {}).get("reason_code") or ""
         )
+        exposure_matches = all(
+            exposure_deltas.get(lemma) == expected_count
+            for lemma, expected_count in expected_exposure_counts.items()
+        )
+        history_stable = all(delta == 0 for delta in history_deltas.values())
         if (
             len(exposure_events) == len(phase_plan.exposure_events)
-            and alpha_exposure_delta == 2
-            and gamma_exposure_delta == 3
-            and alpha_history_delta == 0
-            and gamma_history_delta == 0
+            and exposure_matches
+            and history_stable
             and refresh_payload
             and not bool(refresh_payload.get("applied"))
             and reason_code == "retention_low"
@@ -402,8 +407,8 @@ def _run_phase(
                     code="SRS_JOURNEY_EXPOSURE_ONLY_NON_AUTHORITATIVE",
                     message="Exposure-only events stayed visible without changing retention-based admission behavior.",
                     details=(
-                        f"alpha_exposure_delta={alpha_exposure_delta} gamma_exposure_delta={gamma_exposure_delta} "
-                        f"alpha_history_delta={alpha_history_delta} gamma_history_delta={gamma_history_delta} "
+                        f"exposure_deltas={json.dumps(exposure_deltas, ensure_ascii=False, sort_keys=True)} "
+                        f"history_deltas={json.dumps(history_deltas, ensure_ascii=False, sort_keys=True)} "
                         f"reason_code={reason_code}"
                     ),
                     phase=phase_plan.label,
@@ -417,10 +422,9 @@ def _run_phase(
                     message="Exposure-only events changed behavior unexpectedly or were not preserved clearly.",
                     details=json.dumps(
                         {
-                            "alpha_exposure_delta": alpha_exposure_delta,
-                            "gamma_exposure_delta": gamma_exposure_delta,
-                            "alpha_history_delta": alpha_history_delta,
-                            "gamma_history_delta": gamma_history_delta,
+                            "expected_exposure_counts": expected_exposure_counts,
+                            "exposure_deltas": exposure_deltas,
+                            "history_deltas": history_deltas,
                             "refresh_payload": refresh_payload,
                         },
                         ensure_ascii=False,
@@ -464,11 +468,12 @@ def build_report(
         raise SystemExit(str(exc)) from exc
 
     profile_id = DEFAULT_PROFILE_ID
-    pair = DEFAULT_PAIR
+    pair = scenario_def.pair
     phase_plans = scenario_def.phase_plans
+    cohort_by_lemma = cohort_by_lemma_for_pair(pair)
 
     with _temp_paths() as paths:
-        resources = create_en_ja_resources(paths)
+        resources = create_pair_resources(paths, pair=pair)
         seed_builder = (
             build_seed_candidates
             if scenario_def.use_stub_seed_candidates
@@ -503,6 +508,7 @@ def build_report(
                     pair=pair,
                     profile_id=profile_id,
                     jmdict_path=resources["jmdict_path"],
+                    freedict_de_en_path=resources["freedict_path"],
                     set_source_db=resources["frequency_db"],
                     set_top_n=scenario_def.set_top_n,
                     bootstrap_top_n=scenario_def.bootstrap_top_n,
@@ -530,7 +536,7 @@ def build_report(
                 set_source_db=resources["frequency_db"],
                 set_top_n=int(initialize_payload.get("bootstrap_top_n") or 0),
                 initial_active_count=int(initialize_payload.get("initial_active_count") or 0),
-                cohort_by_lemma=COHORT_BY_LEMMA,
+                cohort_by_lemma=cohort_by_lemma,
             )
         else:
             findings.append(
@@ -547,6 +553,7 @@ def build_report(
             pair=pair,
             profile_id=profile_id,
             jmdict_path=resources["jmdict_path"],
+            freedict_de_en_path=resources["freedict_path"],
             set_source_db=resources["frequency_db"],
             set_top_n=scenario_def.set_top_n,
             feedback_window_size=8,
@@ -570,6 +577,7 @@ def build_report(
                 seed_builder=seed_builder,
                 use_stub_seed_candidates=scenario_def.use_stub_seed_candidates,
                 use_stub_rulegen=scenario_def.use_stub_rulegen,
+                cohort_by_lemma=cohort_by_lemma,
             )
             previous_snapshot = phase_report
             phases.append(phase_report)
@@ -658,7 +666,7 @@ def build_report(
                     )
                 )
 
-        if scenario == REAL_SCENARIO_NAME:
+        if not scenario_def.use_stub_rulegen:
             ruleset_sources_preview = first_phase["runtime"].get("ruleset_sources_preview", [])
             if ruleset_sources_preview and all(
                 not str(source).startswith("journey_src_") for source in ruleset_sources_preview
@@ -802,12 +810,8 @@ def build_report(
                     "initial_active_count": scenario_def.initial_active_count,
                     "replace_pair": True,
                 },
-                "candidate_universe": scenario_candidate_universe(),
-                "cohorts": {
-                    "stable": ["alpha", "beta"],
-                    "difficult": ["gamma"],
-                    "frontier": ["delta", "epsilon", "zeta", "eta"],
-                },
+                "candidate_universe": scenario_candidate_universe(pair=pair),
+                "cohorts": scenario_cohorts(pair),
                 "clock": scenario_clock(phase_plans),
             },
             "initialize": initialize_payload,

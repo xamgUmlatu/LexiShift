@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SRS Journey Pedagogical Review</title>
+  <style>
+    :root {
+      --paper: #f7f1e3;
+      --paper-2: #efe5cf;
+      --ink: #1e2328;
+      --muted: #59616b;
+      --line: #c7b99e;
+      --line-strong: #8f7d5b;
+      --card: rgba(255, 250, 238, 0.88);
+      --ok: #1d6b3b;
+      --warn: #9a5a00;
+      --fail: #a52a2a;
+      --accent: #004f67;
+      --accent-soft: #d7eef3;
+      --chip: #ece3cf;
+      --shadow: 0 14px 34px rgba(36, 28, 16, 0.12);
+      --mono: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: "Avenir Next", "Segoe UI", "Trebuchet MS", Verdana, sans-serif;
+      --serif: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(0, 79, 103, 0.08), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.52), rgba(255,255,255,0.18)),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 27px,
+          rgba(143, 125, 91, 0.08) 28px
+        ),
+        var(--paper);
+    }
+    .app {
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      display: grid;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(255, 248, 232, 0.95), rgba(232, 244, 247, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      font-family: var(--serif);
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.08;
+    }
+    h1 { font-size: clamp(2rem, 3vw, 3.2rem); }
+    h2 { font-size: 1.35rem; margin-bottom: 12px; }
+    h3 { font-size: 1rem; margin-bottom: 10px; }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .meta-card, .card {
+      background: var(--card);
+      border: 1px solid rgba(143, 125, 91, 0.24);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+    .meta-label {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 700;
+      word-break: break-word;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid currentColor;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.72);
+    }
+    .status-pass { color: var(--ok); }
+    .status-warn { color: var(--warn); }
+    .status-fail { color: var(--fail); }
+    .controls {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+      background: rgba(255, 252, 244, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .controls-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    button {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(180deg, #fff9ef, #eadfc7);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button[disabled] { opacity: 0.45; cursor: default; }
+    .phase-range { width: 100%; }
+    .phase-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .phase-tab {
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--chip);
+      border: 1px solid rgba(143, 125, 91, 0.2);
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+    .phase-tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .layout {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.9fr) minmax(320px, 0.95fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .stack { display: grid; gap: 18px; }
+    .sidebar { position: sticky; top: 18px; display: grid; gap: 18px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .count-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(242, 231, 210, 0.9));
+      border: 1px solid rgba(143, 125, 91, 0.18);
+    }
+    .count-card .meta-label { margin-bottom: 4px; }
+    .count-card .meta-value { font-size: 1.5rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: var(--chip);
+      border: 1px solid rgba(143, 125, 91, 0.18);
+      font-size: 0.86rem;
+      font-family: var(--mono);
+    }
+    .chip.ok { background: rgba(29, 107, 59, 0.12); color: var(--ok); }
+    .chip.warn { background: rgba(154, 90, 0, 0.12); color: var(--warn); }
+    .chip.fail { background: rgba(165, 42, 42, 0.12); color: var(--fail); }
+    .chip.active { background: rgba(0, 79, 103, 0.14); color: var(--accent); }
+    .muted { color: var(--muted); }
+    .mono { font-family: var(--mono); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid rgba(143, 125, 91, 0.18); }
+    th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .table-wrap { overflow-x: auto; }
+    .item-main { font-weight: 700; }
+    .item-sub { margin-top: 4px; color: var(--muted); font-size: 0.83rem; line-height: 1.35; }
+    details { border-top: 1px dashed rgba(143, 125, 91, 0.35); padding-top: 12px; }
+    summary { cursor: pointer; font-weight: 700; }
+    pre {
+      margin: 12px 0 0;
+      padding: 14px;
+      border-radius: 14px;
+      background: #1f2328;
+      color: #f1f5f8;
+      overflow: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .timeline-note { margin-top: 8px; font-size: 0.88rem; color: var(--muted); }
+    .finding-list { display: grid; gap: 10px; }
+    .finding {
+      border-left: 4px solid var(--line-strong);
+      padding: 10px 12px;
+      border-radius: 0 14px 14px 0;
+      background: rgba(255,255,255,0.58);
+    }
+    .finding.pass { border-color: var(--ok); }
+    .finding.warn { border-color: var(--warn); }
+    .finding.fail { border-color: var(--fail); }
+    .empty { color: var(--muted); font-style: italic; }
+    .sidebar .card { max-height: calc(100vh - 48px); overflow: auto; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; }
+    .phase-kicker { font-size: 0.95rem; color: var(--muted); }
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .sidebar .card { max-height: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Pedagogical Playback</p>
+          <h1>SRS Journey Pedagogical Review</h1>
+          <p class="phase-kicker">Scenario <span class="mono">en-es_core_journey_v1</span> · Pair <span class="mono">en-es</span> · Lane <span class="mono">deterministic_core_journey</span></p>
+        </div>
+        <div class="status-pill status-warn">WARN</div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-card"><div class="meta-label">Generated</div><div class="meta-value mono">2026-03-21T01:02:38.144673+00:00</div></div>
+        <div class="meta-card"><div class="meta-label">Phase Count</div><div class="meta-value">6</div></div>
+        <div class="meta-card"><div class="meta-label">Findings</div><div class="meta-value">pass=7 warn=1 fail=0</div></div>
+        <div class="meta-card"><div class="meta-label">Contract Mode</div><div class="meta-value mono">observe_current_behavior</div></div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="controls-top">
+        <button id="prev-phase" type="button">Previous</button>
+        <button id="playback-toggle" type="button">Play</button>
+        <button id="next-phase" type="button">Next</button>
+        <span class="muted" id="phase-position"></span>
+      </div>
+      <input id="phase-range" class="phase-range" type="range" min="0" max="0" value="0" step="1">
+      <div id="phase-tabs" class="phase-tabs"></div>
+    </section>
+
+    <main class="layout">
+      <section class="stack">
+        <article class="card">
+          <p class="eyebrow">Current Step</p>
+          <h2 id="phase-title">Phase</h2>
+          <p id="phase-subtitle" class="phase-kicker"></p>
+          <div id="phase-counts" class="card-grid"></div>
+        </article>
+
+        <article class="card">
+          <h2>Sets and Deltas</h2>
+          <div id="phase-sets"></div>
+        </article>
+
+        <article class="card">
+          <h2>Signals and Events</h2>
+          <div id="phase-events"></div>
+        </article>
+
+        <article class="card">
+          <h2>Admission Review</h2>
+          <div id="phase-admission"></div>
+        </article>
+
+        <article class="card">
+          <h2>Findings</h2>
+          <div id="phase-findings"></div>
+        </article>
+
+        <article class="card">
+          <h2>Raw Phase JSON</h2>
+          <details open>
+            <summary>Open current phase payload</summary>
+            <pre id="raw-phase"></pre>
+          </details>
+        </article>
+      </section>
+
+      <aside class="sidebar">
+        <article class="card">
+          <h2>Profile State</h2>
+          <p class="phase-kicker">Item-level scheduler state for the currently selected step.</p>
+          <div class="legend">
+            <span class="chip active">A = admitted</span>
+            <span class="chip ok">D = due</span>
+            <span class="chip warn">P = published</span>
+          </div>
+          <div id="profile-state"></div>
+        </article>
+
+        <article class="card">
+          <h2>Global Data</h2>
+          <div id="global-panels"></div>
+          <details>
+            <summary>Full report JSON</summary>
+            <pre id="raw-report"></pre>
+          </details>
+        </article>
+      </aside>
+    </main>
+  </div>
+
+  <script id="journey-data" type="application/json">{"version": 2, "generated_at": "2026-03-21T01:02:38.144673+00:00", "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md", "scenario": {"id": "en-es_core_journey_v1", "name": "en-es_core_journey_v1", "pair": "en-es", "lane": "deterministic_core_journey", "contract_mode": "observe_current_behavior", "profile_id": "default", "settings": {"max_active_items": 8, "max_new_items_per_day": 2}, "bootstrap": {"set_top_n": 7, "bootstrap_top_n": 7, "initial_active_count": 3, "replace_pair": true}, "candidate_universe": [{"lemma": "casa", "cohort": "stable", "base_weight": 0.97, "admission_weight": 0.97, "core_rank": 1.0, "source_gloss": "house"}, {"lemma": "libro", "cohort": "stable", "base_weight": 0.93, "admission_weight": 0.93, "core_rank": 2.0, "source_gloss": "book"}, {"lemma": "hora", "cohort": "difficult", "base_weight": 0.9, "admission_weight": 0.9, "core_rank": 3.0, "source_gloss": "hour"}, {"lemma": "madre", "cohort": "frontier", "base_weight": 0.86, "admission_weight": 0.86, "core_rank": 4.0, "source_gloss": "mother"}, {"lemma": "campo", "cohort": "frontier", "base_weight": 0.82, "admission_weight": 0.82, "core_rank": 5.0, "source_gloss": "field"}, {"lemma": "ventana", "cohort": "frontier", "base_weight": 0.78, "admission_weight": 0.78, "core_rank": 6.0, "source_gloss": "window"}, {"lemma": "mesa", "cohort": "frontier", "base_weight": 0.74, "admission_weight": 0.74, "core_rank": 7.0, "source_gloss": "table"}], "cohorts": {"stable": ["casa", "libro"], "difficult": ["hora"], "frontier": ["madre", "campo", "ventana", "mesa"]}, "clock": {"bootstrap_publish": "2026-03-21T09:00:00+00:00", "baseline_observe": "2026-03-21T09:05:00+00:00", "high_retention_growth": "2026-03-22T09:00:00+00:00", "low_retention_pause": "2026-03-23T09:00:00+00:00", "recovery_resume": "2026-03-24T09:00:00+00:00", "fade_check": "2026-03-31T09:00:00+00:00"}}, "initialize": {"pair": "en-es", "profile_id": "default", "set_top_n": 200, "bootstrap_top_n": 200, "initial_active_count": 3, "max_active_items_hint": null, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "source_type": "initial_set", "replace_pair": true, "added_items": 3, "total_items_for_pair": 3, "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "stopwords_path": null, "bootstrap_diagnostics": {"selected_count": 7, "selected_unique_count": 7, "admitted_count": 3, "inserted_count": 3, "updated_count": 0, "selected_preview": ["casa", "libro", "hora", "madre", "campo", "ventana", "mesa"], "initial_active_preview": ["casa", "libro", "hora"], "admission_weight_profile": {"noun": 1.0, "adjective": 0.85, "verb": 0.7, "adverb": 0.55, "other": 0.4}, "initial_active_weight_preview": [{"lemma": "casa", "pos": "n", "pos_bucket": "noun", "base_weight": 1.0, "pos_weight": 1.0, "admission_weight": 1.0}, {"lemma": "libro", "pos": "n", "pos_bucket": "noun", "base_weight": 0.935785, "pos_weight": 1.0, "admission_weight": 0.935785}, {"lemma": "hora", "pos": "n", "pos_bucket": "noun", "base_weight": 0.861654, "pos_weight": 1.0, "admission_weight": 0.861654}]}, "rulegen": {"published": true, "targets": 3, "rules": 3, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json"}, "applied": true, "plan": {"pair": "en-es", "strategy_requested": "frequency_bootstrap", "strategy_effective": "frequency_bootstrap", "objective": "bootstrap", "can_execute": true, "execution_mode": "frequency_bootstrap", "requires_profile_fields": [], "notes": ["Using frequency bootstrap strategy.", "bootstrap_top_n clamped to 200 (allowed: 200..50000)."], "diagnostics": {"pair": "en-es", "set_top_n": 200, "bootstrap_top_n": 200, "initial_active_count": 3, "max_active_items_hint": 0, "replace_pair": true, "trigger": "srs_journey_harness", "existing_items_for_pair": 0, "profile_keys": [], "signal_summary_keys": ["event_count", "event_types", "last_event_at", "pair", "unique_lemmas"]}}, "signal_summary": {"pair": "en-es", "event_count": 0, "event_types": {}, "unique_lemmas": 0, "last_event_at": null}, "bootstrap_audit": {"candidate_count": 7, "admitted_count": 3, "admission_weight_sum": 5.099736, "stopwords_path": null, "candidates": [{"seed_rank": 1, "lemma": "casa", "cohort": "stable", "core_rank": 1.0, "pmw": 7.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 1.0, "admission_weight": 1.0, "word_package_present": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}, "selected": true, "selected_order": 1, "admission_weight_share": 0.196089}, {"seed_rank": 2, "lemma": "libro", "cohort": "stable", "core_rank": 2.0, "pmw": 6.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.935785, "admission_weight": 0.935785, "word_package_present": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}, "selected": true, "selected_order": 2, "admission_weight_share": 0.183497}, {"seed_rank": 3, "lemma": "hora", "cohort": "difficult", "core_rank": 3.0, "pmw": 5.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.861654, "admission_weight": 0.861654, "word_package_present": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}, "selected": true, "selected_order": 3, "admission_weight_share": 0.168961}, {"seed_rank": 4, "lemma": "madre", "cohort": "frontier", "core_rank": 4.0, "pmw": 4.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.773976, "admission_weight": 0.773976, "word_package_present": true, "word_package": {"surface": "madre", "reading": "madre", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "madre"}}, "selected": false, "selected_order": null, "admission_weight_share": 0.151768}, {"seed_rank": 5, "lemma": "campo", "cohort": "frontier", "core_rank": 5.0, "pmw": 3.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.666667, "admission_weight": 0.666667, "word_package_present": true, "word_package": {"surface": "campo", "reading": "campo", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "campo"}}, "selected": false, "selected_order": null, "admission_weight_share": 0.130726}, {"seed_rank": 6, "lemma": "ventana", "cohort": "frontier", "core_rank": 6.0, "pmw": 2.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.528321, "admission_weight": 0.528321, "word_package_present": true, "word_package": {"surface": "ventana", "reading": "ventana", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "ventana"}}, "selected": false, "selected_order": null, "admission_weight_share": 0.103598}, {"seed_rank": 7, "lemma": "mesa", "cohort": "frontier", "core_rank": 7.0, "pmw": 1.0, "pos": "n", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.333333, "admission_weight": 0.333333, "word_package_present": true, "word_package": {"surface": "mesa", "reading": "mesa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "mesa"}}, "selected": false, "selected_order": null, "admission_weight_share": 0.065363}]}}, "phases": [{"label": "bootstrap_publish", "step_index": 1, "now": "2026-03-21T09:00:00+00:00", "events_applied": {"feedback": [], "exposure": [], "counts": {"feedback": 0, "exposure": 0}}, "refresh": {"requested": false, "payload": null, "audit": null, "ts": null}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 3, "store_items_for_pair": 3, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 3, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 3, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-21T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 3, "last_target_count": 3}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_casa", "journey_src_hora", "journey_src_libro"], "snapshot_targets": ["casa", "hora", "libro"]}, "sets": {"admitted": ["casa", "hora", "libro"], "due": ["casa", "hora", "libro"], "published": ["casa", "hora", "libro"]}, "relationships": {"published_not_due": [], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 3, "due": 3, "published": 3}, "items": [{"lemma": "casa", "cohort": "stable", "status": "new", "source_type": "initial_set", "confidence": 1.0, "next_due": null, "due_rank": 1, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "new", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": null, "due_rank": 2, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "new", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": null, "due_rank": 3, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}], "deltas": {"admitted_in": ["casa", "hora", "libro"], "admitted_out": [], "due_in": ["casa", "hora", "libro"], "due_out": [], "published_in": ["casa", "hora", "libro"], "published_out": []}, "findings": []}, {"label": "baseline_observe", "step_index": 2, "now": "2026-03-21T09:05:00+00:00", "events_applied": {"feedback": [], "exposure": [], "counts": {"feedback": 0, "exposure": 0}}, "refresh": {"requested": false, "payload": null, "audit": null, "ts": null}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 3, "store_items_for_pair": 3, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 3, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 3, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-21T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 3, "last_target_count": 3}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_casa", "journey_src_hora", "journey_src_libro"], "snapshot_targets": ["casa", "hora", "libro"]}, "sets": {"admitted": ["casa", "hora", "libro"], "due": ["casa", "hora", "libro"], "published": ["casa", "hora", "libro"]}, "relationships": {"published_not_due": [], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 3, "due": 3, "published": 3}, "items": [{"lemma": "casa", "cohort": "stable", "status": "new", "source_type": "initial_set", "confidence": 1.0, "next_due": null, "due_rank": 1, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "new", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": null, "due_rank": 2, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "new", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": null, "due_rank": 3, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}], "deltas": {"admitted_in": [], "admitted_out": [], "due_in": [], "due_out": [], "published_in": [], "published_out": []}, "findings": []}, {"label": "high_retention_growth", "step_index": 3, "now": "2026-03-22T09:00:00+00:00", "events_applied": {"feedback": [{"index": 1, "lemma": "casa", "rating": "good", "ts": "2026-03-22T09:00:00+00:00", "cohort": "stable"}, {"index": 2, "lemma": "libro", "rating": "easy", "ts": "2026-03-22T09:01:00+00:00", "cohort": "stable"}, {"index": 3, "lemma": "casa", "rating": "good", "ts": "2026-03-22T09:02:00+00:00", "cohort": "stable"}, {"index": 4, "lemma": "libro", "rating": "easy", "ts": "2026-03-22T09:03:00+00:00", "cohort": "stable"}, {"index": 5, "lemma": "casa", "rating": "easy", "ts": "2026-03-22T09:04:00+00:00", "cohort": "stable"}, {"index": 6, "lemma": "libro", "rating": "good", "ts": "2026-03-22T09:05:00+00:00", "cohort": "stable"}, {"index": 7, "lemma": "casa", "rating": "easy", "ts": "2026-03-22T09:06:00+00:00", "cohort": "stable"}, {"index": 8, "lemma": "libro", "rating": "good", "ts": "2026-03-22T09:07:00+00:00", "cohort": "stable"}], "exposure": [], "counts": {"feedback": 8, "exposure": 0}}, "refresh": {"requested": true, "payload": {"pair": "en-es", "profile_id": "default", "set_top_n": 7, "feedback_window_size": 8, "allowed_pos": [], "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "max_active_items": 8, "max_new_items_per_day": 2, "added_items": 2, "total_items_for_pair": 5, "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "stopwords_path": null, "admission_refresh": {"pair": "en-es", "max_active_items": 8, "max_new_items_per_day": 2, "due_count": 1, "due_pressure": 0.125, "capacity_budget": 7, "base_admission_budget": 2, "admission_budget": 2, "reason_code": "normal", "notes": [], "feedback_window": {"pair": "en-es", "window_size_requested": 8, "window_size_effective": 8, "feedback_count": 8, "count_again": 0, "count_hard": 0, "count_good": 4, "count_easy": 4, "retention_ratio": 1.0, "strain_ratio": 0.0}, "candidate_pool_size": 7, "admitted_count": 2, "selected_lemmas": ["madre", "campo"], "diagnostics": {"filtered_by_pos": 0, "admitted_by_pos_bucket": {"noun": 2}, "unknown_pos_seen": 7, "allowed_pos": [], "candidate_pool_effective": 7}, "applied": true, "weight_terms": {"admission_weight": "Entry/growth score for adding words into S.", "serving_priority": "Due/scheduler-derived priority for selecting words already in S."}}, "rulegen": {"published": true, "targets": 5, "rules": 5, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json"}, "applied": true, "persisted": true, "trigger": "srs_journey_harness"}, "audit": {"candidate_count": 7, "existing_count": 3, "eligible_count": 4, "score_sum": 3.2, "selector_config": {"weights": {"base_freq": 0.8, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.2, "difficulty_target": 0.0}, "penalties": {"recency_threshold": 0.25, "recency_multiplier": 0.3, "mastered_multiplier": 0.2, "oversubscribed_multiplier": 0.8}, "selection_policy": "top_n", "top_n": 200}, "feedback_event_count": 8, "allowed_pos": [], "stopwords_path": null, "existing_lemmas": ["casa", "hora", "libro"], "candidates": [{"seed_rank": 1, "lemma": "casa", "cohort": "stable", "core_rank": 1.0, "pmw": 7.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.97, "admission_weight": 0.97, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.161667, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 2, "lemma": "libro", "cohort": "stable", "core_rank": 2.0, "pmw": 6.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.93, "admission_weight": 0.93, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.155, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 3, "lemma": "hora", "cohort": "difficult", "core_rank": 3.0, "pmw": 5.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.9, "admission_weight": 0.9, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.15, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 4, "lemma": "madre", "cohort": "frontier", "core_rank": 4.0, "pmw": 4.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.86, "admission_weight": 0.86, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.143333, "selected": true, "selected_order": 1, "eligible_rank": 1, "selector_score": 0.86, "selector_score_share": 0.26875, "selector_components": {"base_freq": 0.688, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.172, "difficulty_target": 0.0}, "selector_penalties": []}, {"seed_rank": 5, "lemma": "campo", "cohort": "frontier", "core_rank": 5.0, "pmw": 3.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.82, "admission_weight": 0.82, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.136667, "selected": true, "selected_order": 2, "eligible_rank": 2, "selector_score": 0.82, "selector_score_share": 0.25625, "selector_components": {"base_freq": 0.656, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.164, "difficulty_target": 0.0}, "selector_penalties": []}, {"seed_rank": 6, "lemma": "ventana", "cohort": "frontier", "core_rank": 6.0, "pmw": 2.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.78, "admission_weight": 0.78, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.13, "selected": false, "selected_order": null, "eligible_rank": 3, "selector_score": 0.78, "selector_score_share": 0.24375, "selector_components": {"base_freq": 0.624, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.156, "difficulty_target": 0.0}, "selector_penalties": []}, {"seed_rank": 7, "lemma": "mesa", "cohort": "frontier", "core_rank": 7.0, "pmw": 1.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.74, "admission_weight": 0.74, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.123333, "selected": false, "selected_order": null, "eligible_rank": 4, "selector_score": 0.74, "selector_score_share": 0.23125, "selector_components": {"base_freq": 0.592, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.148, "difficulty_target": 0.0}, "selector_penalties": []}], "selected_lemmas": ["madre", "campo"], "selected_count": 2}, "ts": "2026-03-22T09:00:00+00:00"}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 5, "store_items_for_pair": 5, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 5, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 5, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-22T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 5, "last_target_count": 5}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_campo", "journey_src_casa", "journey_src_hora", "journey_src_libro", "journey_src_madre"], "snapshot_targets": ["campo", "casa", "hora", "libro", "madre"]}, "sets": {"admitted": ["campo", "casa", "hora", "libro", "madre"], "due": ["campo", "hora", "madre"], "published": ["campo", "casa", "hora", "libro", "madre"]}, "relationships": {"published_not_due": ["casa", "libro"], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 5, "due": 3, "published": 5}, "items": [{"lemma": "campo", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.82, "next_due": null, "due_rank": 1, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}, {"lemma": "casa", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 1.0, "next_due": "2026-04-15T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-22T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:00:00Z", "rating": "good"}, {"ts": "2026-03-22T09:02:00Z", "rating": "good"}, {"ts": "2026-03-22T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "new", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": null, "due_rank": 2, "stability": null, "difficulty": null, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": "2026-04-10T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-22T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:05:00Z", "rating": "good"}, {"ts": "2026-03-22T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}, {"lemma": "madre", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.86, "next_due": null, "due_rank": 3, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}], "deltas": {"admitted_in": ["campo", "madre"], "admitted_out": [], "due_in": ["campo", "madre"], "due_out": ["casa", "libro"], "published_in": ["campo", "madre"], "published_out": []}, "findings": [{"level": "PASS", "code": "SRS_JOURNEY_HIGH_RETENTION_ADMITS", "message": "High-retention phase admitted new frontier items.", "details": "admitted=5", "phase": "high_retention_growth"}]}, {"label": "low_retention_pause", "step_index": 4, "now": "2026-03-23T09:00:00+00:00", "events_applied": {"feedback": [{"index": 1, "lemma": "hora", "rating": "again", "ts": "2026-03-23T09:00:00+00:00", "cohort": "difficult"}, {"index": 2, "lemma": "hora", "rating": "hard", "ts": "2026-03-23T09:01:00+00:00", "cohort": "difficult"}, {"index": 3, "lemma": "hora", "rating": "again", "ts": "2026-03-23T09:02:00+00:00", "cohort": "difficult"}, {"index": 4, "lemma": "hora", "rating": "hard", "ts": "2026-03-23T09:03:00+00:00", "cohort": "difficult"}, {"index": 5, "lemma": "hora", "rating": "again", "ts": "2026-03-23T09:04:00+00:00", "cohort": "difficult"}, {"index": 6, "lemma": "hora", "rating": "hard", "ts": "2026-03-23T09:05:00+00:00", "cohort": "difficult"}, {"index": 7, "lemma": "hora", "rating": "again", "ts": "2026-03-23T09:06:00+00:00", "cohort": "difficult"}, {"index": 8, "lemma": "hora", "rating": "hard", "ts": "2026-03-23T09:07:00+00:00", "cohort": "difficult"}], "exposure": [], "counts": {"feedback": 8, "exposure": 0}}, "refresh": {"requested": true, "payload": {"pair": "en-es", "profile_id": "default", "set_top_n": 7, "feedback_window_size": 8, "allowed_pos": [], "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "max_active_items": 8, "max_new_items_per_day": 2, "added_items": 0, "total_items_for_pair": 5, "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "stopwords_path": null, "admission_refresh": {"pair": "en-es", "max_active_items": 8, "max_new_items_per_day": 2, "due_count": 2, "due_pressure": 0.25, "capacity_budget": 6, "base_admission_budget": 2, "admission_budget": 0, "reason_code": "retention_low", "notes": ["Retention is below low threshold; paused new admissions."], "feedback_window": {"pair": "en-es", "window_size_requested": 8, "window_size_effective": 8, "feedback_count": 8, "count_again": 4, "count_hard": 4, "count_good": 0, "count_easy": 0, "retention_ratio": 0.0, "strain_ratio": 1.0}, "candidate_pool_size": 7, "admitted_count": 0, "selected_lemmas": [], "diagnostics": {"filtered_by_pos": 0, "admitted_by_pos_bucket": {}, "unknown_pos_seen": 7, "allowed_pos": [], "candidate_pool_effective": 7}, "applied": false, "weight_terms": {"admission_weight": "Entry/growth score for adding words into S.", "serving_priority": "Due/scheduler-derived priority for selecting words already in S."}}, "rulegen": null, "applied": false, "persisted": true, "trigger": "srs_journey_harness"}, "audit": {"candidate_count": 7, "existing_count": 5, "eligible_count": 2, "score_sum": 1.52, "selector_config": {"weights": {"base_freq": 0.8, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.2, "difficulty_target": 0.0}, "penalties": {"recency_threshold": 0.25, "recency_multiplier": 0.3, "mastered_multiplier": 0.2, "oversubscribed_multiplier": 0.8}, "selection_policy": "top_n", "top_n": 200}, "feedback_event_count": 16, "allowed_pos": [], "stopwords_path": null, "existing_lemmas": ["campo", "casa", "hora", "libro", "madre"], "candidates": [{"seed_rank": 1, "lemma": "casa", "cohort": "stable", "core_rank": 1.0, "pmw": 7.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.97, "admission_weight": 0.97, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.161667, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 2, "lemma": "libro", "cohort": "stable", "core_rank": 2.0, "pmw": 6.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.93, "admission_weight": 0.93, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.155, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 3, "lemma": "hora", "cohort": "difficult", "core_rank": 3.0, "pmw": 5.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.9, "admission_weight": 0.9, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.15, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 4, "lemma": "madre", "cohort": "frontier", "core_rank": 4.0, "pmw": 4.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.86, "admission_weight": 0.86, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.143333, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 5, "lemma": "campo", "cohort": "frontier", "core_rank": 5.0, "pmw": 3.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.82, "admission_weight": 0.82, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.136667, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 6, "lemma": "ventana", "cohort": "frontier", "core_rank": 6.0, "pmw": 2.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.78, "admission_weight": 0.78, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.13, "selected": false, "selected_order": null, "eligible_rank": 1, "selector_score": 0.78, "selector_score_share": 0.513158, "selector_components": {"base_freq": 0.624, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.156, "difficulty_target": 0.0}, "selector_penalties": []}, {"seed_rank": 7, "lemma": "mesa", "cohort": "frontier", "core_rank": 7.0, "pmw": 1.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.74, "admission_weight": 0.74, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.123333, "selected": false, "selected_order": null, "eligible_rank": 2, "selector_score": 0.74, "selector_score_share": 0.486842, "selector_components": {"base_freq": 0.592, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.148, "difficulty_target": 0.0}, "selector_penalties": []}], "selected_lemmas": [], "selected_count": 0}, "ts": "2026-03-23T09:00:00+00:00"}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 5, "store_items_for_pair": 5, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 5, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 5, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-22T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 5, "last_target_count": 5}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_campo", "journey_src_casa", "journey_src_hora", "journey_src_libro", "journey_src_madre"], "snapshot_targets": ["campo", "casa", "hora", "libro", "madre"]}, "sets": {"admitted": ["campo", "casa", "hora", "libro", "madre"], "due": ["campo", "madre"], "published": ["campo", "casa", "hora", "libro", "madre"]}, "relationships": {"published_not_due": ["casa", "hora", "libro"], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 5, "due": 2, "published": 5}, "items": [{"lemma": "campo", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.82, "next_due": null, "due_rank": 1, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}, {"lemma": "casa", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 1.0, "next_due": "2026-04-15T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-22T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:00:00Z", "rating": "good"}, {"ts": "2026-03-22T09:02:00Z", "rating": "good"}, {"ts": "2026-03-22T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "learning", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": "2026-03-24T09:07:00Z", "due_rank": null, "stability": 0.6, "difficulty": 1.0, "last_seen": "2026-03-23T09:07:00Z", "exposures": 8, "history_count": 8, "recent_history": [{"ts": "2026-03-23T09:04:00Z", "rating": "again"}, {"ts": "2026-03-23T09:05:00Z", "rating": "hard"}, {"ts": "2026-03-23T09:06:00Z", "rating": "again"}, {"ts": "2026-03-23T09:07:00Z", "rating": "hard"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": "2026-04-10T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-22T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:05:00Z", "rating": "good"}, {"ts": "2026-03-22T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}, {"lemma": "madre", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.86, "next_due": null, "due_rank": 2, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}], "deltas": {"admitted_in": [], "admitted_out": [], "due_in": [], "due_out": ["hora"], "published_in": [], "published_out": []}, "findings": [{"level": "PASS", "code": "SRS_JOURNEY_LOW_RETENTION_PAUSES", "message": "Low-retention phase paused new admissions.", "details": "reason_code=retention_low", "phase": "low_retention_pause"}]}, {"label": "recovery_resume", "step_index": 5, "now": "2026-03-24T09:00:00+00:00", "events_applied": {"feedback": [{"index": 1, "lemma": "madre", "rating": "good", "ts": "2026-03-24T09:00:00+00:00", "cohort": "frontier"}, {"index": 2, "lemma": "campo", "rating": "easy", "ts": "2026-03-24T09:01:00+00:00", "cohort": "frontier"}, {"index": 3, "lemma": "madre", "rating": "good", "ts": "2026-03-24T09:02:00+00:00", "cohort": "frontier"}, {"index": 4, "lemma": "campo", "rating": "easy", "ts": "2026-03-24T09:03:00+00:00", "cohort": "frontier"}, {"index": 5, "lemma": "madre", "rating": "easy", "ts": "2026-03-24T09:04:00+00:00", "cohort": "frontier"}, {"index": 6, "lemma": "campo", "rating": "good", "ts": "2026-03-24T09:05:00+00:00", "cohort": "frontier"}, {"index": 7, "lemma": "madre", "rating": "easy", "ts": "2026-03-24T09:06:00+00:00", "cohort": "frontier"}, {"index": 8, "lemma": "campo", "rating": "good", "ts": "2026-03-24T09:07:00+00:00", "cohort": "frontier"}], "exposure": [], "counts": {"feedback": 8, "exposure": 0}}, "refresh": {"requested": true, "payload": {"pair": "en-es", "profile_id": "default", "set_top_n": 7, "feedback_window_size": 8, "allowed_pos": [], "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "max_active_items": 8, "max_new_items_per_day": 2, "added_items": 2, "total_items_for_pair": 7, "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "stopwords_path": null, "admission_refresh": {"pair": "en-es", "max_active_items": 8, "max_new_items_per_day": 2, "due_count": 0, "due_pressure": 0.0, "capacity_budget": 8, "base_admission_budget": 2, "admission_budget": 2, "reason_code": "normal", "notes": [], "feedback_window": {"pair": "en-es", "window_size_requested": 8, "window_size_effective": 8, "feedback_count": 8, "count_again": 0, "count_hard": 0, "count_good": 4, "count_easy": 4, "retention_ratio": 1.0, "strain_ratio": 0.0}, "candidate_pool_size": 7, "admitted_count": 2, "selected_lemmas": ["ventana", "mesa"], "diagnostics": {"filtered_by_pos": 0, "admitted_by_pos_bucket": {"noun": 2}, "unknown_pos_seen": 7, "allowed_pos": [], "candidate_pool_effective": 7}, "applied": true, "weight_terms": {"admission_weight": "Entry/growth score for adding words into S.", "serving_priority": "Due/scheduler-derived priority for selecting words already in S."}}, "rulegen": {"published": true, "targets": 7, "rules": 7, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json"}, "applied": true, "persisted": true, "trigger": "srs_journey_harness"}, "audit": {"candidate_count": 7, "existing_count": 5, "eligible_count": 2, "score_sum": 1.52, "selector_config": {"weights": {"base_freq": 0.8, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.2, "difficulty_target": 0.0}, "penalties": {"recency_threshold": 0.25, "recency_multiplier": 0.3, "mastered_multiplier": 0.2, "oversubscribed_multiplier": 0.8}, "selection_policy": "top_n", "top_n": 200}, "feedback_event_count": 24, "allowed_pos": [], "stopwords_path": null, "existing_lemmas": ["campo", "casa", "hora", "libro", "madre"], "candidates": [{"seed_rank": 1, "lemma": "casa", "cohort": "stable", "core_rank": 1.0, "pmw": 7.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.97, "admission_weight": 0.97, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.161667, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 2, "lemma": "libro", "cohort": "stable", "core_rank": 2.0, "pmw": 6.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.93, "admission_weight": 0.93, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.155, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 3, "lemma": "hora", "cohort": "difficult", "core_rank": 3.0, "pmw": 5.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.9, "admission_weight": 0.9, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.15, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 4, "lemma": "madre", "cohort": "frontier", "core_rank": 4.0, "pmw": 4.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.86, "admission_weight": 0.86, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.143333, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 5, "lemma": "campo", "cohort": "frontier", "core_rank": 5.0, "pmw": 3.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.82, "admission_weight": 0.82, "word_package_present": false, "word_package": null, "in_store_before": true, "eligible": false, "filtered_reason": "already_in_store", "admission_weight_share": 0.136667, "selected": false, "selected_order": null, "eligible_rank": null, "selector_score": null, "selector_score_share": null, "selector_components": {}, "selector_penalties": []}, {"seed_rank": 6, "lemma": "ventana", "cohort": "frontier", "core_rank": 6.0, "pmw": 2.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.78, "admission_weight": 0.78, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.13, "selected": true, "selected_order": 1, "eligible_rank": 1, "selector_score": 0.78, "selector_score_share": 0.513158, "selector_components": {"base_freq": 0.624, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.156, "difficulty_target": 0.0}, "selector_penalties": []}, {"seed_rank": 7, "lemma": "mesa", "cohort": "frontier", "core_rank": 7.0, "pmw": 1.0, "pos": "noun-tag", "pos_bucket": "noun", "pos_weight": 1.0, "base_weight": 0.74, "admission_weight": 0.74, "word_package_present": false, "word_package": null, "in_store_before": false, "eligible": true, "filtered_reason": null, "admission_weight_share": 0.123333, "selected": true, "selected_order": 2, "eligible_rank": 2, "selector_score": 0.74, "selector_score_share": 0.486842, "selector_components": {"base_freq": 0.592, "topic_bias": 0.0, "user_pref": 0.0, "confidence": 0.148, "difficulty_target": 0.0}, "selector_penalties": []}], "selected_lemmas": ["ventana", "mesa"], "selected_count": 2}, "ts": "2026-03-24T09:00:00+00:00"}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 7, "store_items_for_pair": 7, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 7, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 7, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-24T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 7, "last_target_count": 7}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_campo", "journey_src_casa", "journey_src_hora", "journey_src_libro", "journey_src_madre"], "snapshot_targets": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"]}, "sets": {"admitted": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"], "due": ["mesa", "ventana"], "published": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"]}, "relationships": {"published_not_due": ["campo", "casa", "hora", "libro", "madre"], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 7, "due": 2, "published": 7}, "items": [{"lemma": "campo", "cohort": "frontier", "status": "mature", "source_type": "frequency_list", "confidence": 0.82, "next_due": "2026-04-12T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-24T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-24T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:05:00Z", "rating": "good"}, {"ts": "2026-03-24T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": null}, {"lemma": "casa", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 1.0, "next_due": "2026-04-15T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-22T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:00:00Z", "rating": "good"}, {"ts": "2026-03-22T09:02:00Z", "rating": "good"}, {"ts": "2026-03-22T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "learning", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": "2026-03-24T09:07:00Z", "due_rank": null, "stability": 0.6, "difficulty": 1.0, "last_seen": "2026-03-23T09:07:00Z", "exposures": 8, "history_count": 8, "recent_history": [{"ts": "2026-03-23T09:04:00Z", "rating": "again"}, {"ts": "2026-03-23T09:05:00Z", "rating": "hard"}, {"ts": "2026-03-23T09:06:00Z", "rating": "again"}, {"ts": "2026-03-23T09:07:00Z", "rating": "hard"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": "2026-04-10T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-22T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:05:00Z", "rating": "good"}, {"ts": "2026-03-22T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}, {"lemma": "madre", "cohort": "frontier", "status": "mature", "source_type": "frequency_list", "confidence": 0.86, "next_due": "2026-04-17T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-24T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-24T09:00:00Z", "rating": "good"}, {"ts": "2026-03-24T09:02:00Z", "rating": "good"}, {"ts": "2026-03-24T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": null}, {"lemma": "mesa", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.74, "next_due": null, "due_rank": 1, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}, {"lemma": "ventana", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.78, "next_due": null, "due_rank": 2, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}], "deltas": {"admitted_in": ["mesa", "ventana"], "admitted_out": [], "due_in": ["mesa", "ventana"], "due_out": ["campo", "madre"], "published_in": ["mesa", "ventana"], "published_out": []}, "findings": [{"level": "PASS", "code": "SRS_JOURNEY_RECOVERY_RESUMES", "message": "Recovery phase resumed new admissions.", "details": "admitted=7", "phase": "recovery_resume"}]}, {"label": "fade_check", "step_index": 6, "now": "2026-03-31T09:00:00+00:00", "events_applied": {"feedback": [], "exposure": [], "counts": {"feedback": 0, "exposure": 0}}, "refresh": {"requested": false, "payload": null, "audit": null, "ts": null}, "runtime": {"diagnostics": {"pair": "en-es", "profile_id": "default", "requirements": {"pair": "en-es", "rulegen_mode": "en_es", "supports_rulegen": true, "srs_selectable": true, "default_frequency_db": "freq-es-cde.sqlite", "requires_jmdict_for_seed": false, "requires_jmdict_for_rulegen": false, "requires_freedict_de_en_for_rulegen": true}, "pair_policy": {"pair": "en-es", "bootstrap_top_n_default": 800, "refresh_top_n_default": 2000, "feedback_window_size_default": 100, "initial_active_count_default": 40, "max_new_items_per_day_default": null, "notes": []}, "jmdict_path": null, "jmdict_exists": false, "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/language_packs/spa-eng.tei", "freedict_de_en_exists": true, "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/frequency_packs/freq-es-cde.sqlite", "set_source_db_exists": true, "stopwords_path": null, "stopwords_exists": false, "missing_inputs": [], "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_store.json", "store_exists": true, "store_items_total": 7, "store_items_for_pair": 7, "store_items_with_word_package_total": 3, "store_items_with_word_package_for_pair": 3, "store_error": null, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "ruleset_exists": true, "ruleset_rules_count": 7, "ruleset_rules_with_script_forms": 0, "ruleset_rules_with_word_package": 0, "ruleset_error": null, "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "snapshot_exists": true, "snapshot_target_count": 7, "snapshot_error": null, "status": {"version": 1, "helper_version": "0.1.0", "last_run_at": "2026-03-24T09:00:00+00:00", "last_error": null, "last_pair": "en-es", "last_rule_count": 7, "last_target_count": 7}}, "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_ruleset_en-es.json", "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp91vitdfs/srs/profiles/default/srs_rulegen_snapshot_en-es.json", "ruleset_sources_preview": ["journey_src_campo", "journey_src_casa", "journey_src_hora", "journey_src_libro", "journey_src_madre"], "snapshot_targets": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"]}, "sets": {"admitted": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"], "due": ["hora", "mesa", "ventana"], "published": ["campo", "casa", "hora", "libro", "madre", "mesa", "ventana"]}, "relationships": {"published_not_due": ["campo", "casa", "libro", "madre"], "published_not_admitted": [], "due_not_published": []}, "counts": {"admitted": 7, "due": 3, "published": 7}, "items": [{"lemma": "campo", "cohort": "frontier", "status": "mature", "source_type": "frequency_list", "confidence": 0.82, "next_due": "2026-04-12T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-24T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-24T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:05:00Z", "rating": "good"}, {"ts": "2026-03-24T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": null}, {"lemma": "casa", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 1.0, "next_due": "2026-04-15T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-22T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:00:00Z", "rating": "good"}, {"ts": "2026-03-22T09:02:00Z", "rating": "good"}, {"ts": "2026-03-22T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "casa", "reading": "casa", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "casa"}}}, {"lemma": "hora", "cohort": "difficult", "status": "learning", "source_type": "initial_set", "confidence": 0.8616541669070521, "next_due": "2026-03-24T09:07:00Z", "due_rank": 3, "stability": 0.6, "difficulty": 1.0, "last_seen": "2026-03-23T09:07:00Z", "exposures": 8, "history_count": 8, "recent_history": [{"ts": "2026-03-23T09:04:00Z", "rating": "again"}, {"ts": "2026-03-23T09:05:00Z", "rating": "hard"}, {"ts": "2026-03-23T09:06:00Z", "rating": "again"}, {"ts": "2026-03-23T09:07:00Z", "rating": "hard"}], "in_admitted": true, "in_due": true, "in_published": true, "word_package": {"surface": "hora", "reading": "hora", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "hora"}}}, {"lemma": "libro", "cohort": "stable", "status": "mature", "source_type": "initial_set", "confidence": 0.9357849740192015, "next_due": "2026-04-10T09:07:00Z", "due_rank": null, "stability": 7.290000000000001, "difficulty": 0.20000000000000007, "last_seen": "2026-03-22T09:07:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-22T09:01:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:03:00Z", "rating": "easy"}, {"ts": "2026-03-22T09:05:00Z", "rating": "good"}, {"ts": "2026-03-22T09:07:00Z", "rating": "good"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": {"surface": "libro", "reading": "libro", "language_tag": "es", "pos_canonical": "noun", "provider": "freq-es-cde", "script_forms": {"surface": "libro"}}}, {"lemma": "madre", "cohort": "frontier", "status": "mature", "source_type": "frequency_list", "confidence": 0.86, "next_due": "2026-04-17T09:06:00Z", "due_rank": null, "stability": 7.29, "difficulty": 0.20000000000000004, "last_seen": "2026-03-24T09:06:00Z", "exposures": 4, "history_count": 4, "recent_history": [{"ts": "2026-03-24T09:00:00Z", "rating": "good"}, {"ts": "2026-03-24T09:02:00Z", "rating": "good"}, {"ts": "2026-03-24T09:04:00Z", "rating": "easy"}, {"ts": "2026-03-24T09:06:00Z", "rating": "easy"}], "in_admitted": true, "in_due": false, "in_published": true, "word_package": null}, {"lemma": "mesa", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.74, "next_due": null, "due_rank": 1, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}, {"lemma": "ventana", "cohort": "frontier", "status": "new", "source_type": "frequency_list", "confidence": 0.78, "next_due": null, "due_rank": 2, "stability": 1.0, "difficulty": 0.5, "last_seen": null, "exposures": 0, "history_count": 0, "recent_history": [], "in_admitted": true, "in_due": true, "in_published": true, "word_package": null}], "deltas": {"admitted_in": [], "admitted_out": [], "due_in": ["hora"], "due_out": [], "published_in": [], "published_out": []}, "findings": []}], "signal_log": [{"index": 1, "event_type": "feedback", "pair": "en-es", "lemma": "casa", "source_type": "extension", "rating": "good", "ts": "2026-03-22T09:00:00+00:00", "metadata": {}}, {"index": 2, "event_type": "feedback", "pair": "en-es", "lemma": "libro", "source_type": "extension", "rating": "easy", "ts": "2026-03-22T09:01:00+00:00", "metadata": {}}, {"index": 3, "event_type": "feedback", "pair": "en-es", "lemma": "casa", "source_type": "extension", "rating": "good", "ts": "2026-03-22T09:02:00+00:00", "metadata": {}}, {"index": 4, "event_type": "feedback", "pair": "en-es", "lemma": "libro", "source_type": "extension", "rating": "easy", "ts": "2026-03-22T09:03:00+00:00", "metadata": {}}, {"index": 5, "event_type": "feedback", "pair": "en-es", "lemma": "casa", "source_type": "extension", "rating": "easy", "ts": "2026-03-22T09:04:00+00:00", "metadata": {}}, {"index": 6, "event_type": "feedback", "pair": "en-es", "lemma": "libro", "source_type": "extension", "rating": "good", "ts": "2026-03-22T09:05:00+00:00", "metadata": {}}, {"index": 7, "event_type": "feedback", "pair": "en-es", "lemma": "casa", "source_type": "extension", "rating": "easy", "ts": "2026-03-22T09:06:00+00:00", "metadata": {}}, {"index": 8, "event_type": "feedback", "pair": "en-es", "lemma": "libro", "source_type": "extension", "rating": "good", "ts": "2026-03-22T09:07:00+00:00", "metadata": {}}, {"index": 9, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "again", "ts": "2026-03-23T09:00:00+00:00", "metadata": {}}, {"index": 10, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "hard", "ts": "2026-03-23T09:01:00+00:00", "metadata": {}}, {"index": 11, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "again", "ts": "2026-03-23T09:02:00+00:00", "metadata": {}}, {"index": 12, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "hard", "ts": "2026-03-23T09:03:00+00:00", "metadata": {}}, {"index": 13, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "again", "ts": "2026-03-23T09:04:00+00:00", "metadata": {}}, {"index": 14, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "hard", "ts": "2026-03-23T09:05:00+00:00", "metadata": {}}, {"index": 15, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "again", "ts": "2026-03-23T09:06:00+00:00", "metadata": {}}, {"index": 16, "event_type": "feedback", "pair": "en-es", "lemma": "hora", "source_type": "extension", "rating": "hard", "ts": "2026-03-23T09:07:00+00:00", "metadata": {}}, {"index": 17, "event_type": "feedback", "pair": "en-es", "lemma": "madre", "source_type": "extension", "rating": "good", "ts": "2026-03-24T09:00:00+00:00", "metadata": {}}, {"index": 18, "event_type": "feedback", "pair": "en-es", "lemma": "campo", "source_type": "extension", "rating": "easy", "ts": "2026-03-24T09:01:00+00:00", "metadata": {}}, {"index": 19, "event_type": "feedback", "pair": "en-es", "lemma": "madre", "source_type": "extension", "rating": "good", "ts": "2026-03-24T09:02:00+00:00", "metadata": {}}, {"index": 20, "event_type": "feedback", "pair": "en-es", "lemma": "campo", "source_type": "extension", "rating": "easy", "ts": "2026-03-24T09:03:00+00:00", "metadata": {}}, {"index": 21, "event_type": "feedback", "pair": "en-es", "lemma": "madre", "source_type": "extension", "rating": "easy", "ts": "2026-03-24T09:04:00+00:00", "metadata": {}}, {"index": 22, "event_type": "feedback", "pair": "en-es", "lemma": "campo", "source_type": "extension", "rating": "good", "ts": "2026-03-24T09:05:00+00:00", "metadata": {}}, {"index": 23, "event_type": "feedback", "pair": "en-es", "lemma": "madre", "source_type": "extension", "rating": "easy", "ts": "2026-03-24T09:06:00+00:00", "metadata": {}}, {"index": 24, "event_type": "feedback", "pair": "en-es", "lemma": "campo", "source_type": "extension", "rating": "good", "ts": "2026-03-24T09:07:00+00:00", "metadata": {}}], "signal_summary": {"pair": "en-es", "event_count": 24, "event_types": {"feedback": 24}, "unique_lemmas": 5, "last_event_at": "2026-03-24T09:07:00+00:00"}, "summary": {"status": "WARN", "pass_count": 7, "warn_count": 1, "fail_count": 0, "should_fail": false}, "findings": [{"level": "PASS", "code": "SRS_JOURNEY_BOOTSTRAP_APPLIED", "message": "Bootstrap initialized the first active SRS inventory.", "details": "admitted=3", "phase": "bootstrap_publish"}, {"level": "PASS", "code": "SRS_JOURNEY_HIGH_RETENTION_ADMITS", "message": "High-retention phase admitted new frontier items.", "details": "admitted=5", "phase": "high_retention_growth"}, {"level": "PASS", "code": "SRS_JOURNEY_LOW_RETENTION_PAUSES", "message": "Low-retention phase paused new admissions.", "details": "reason_code=retention_low", "phase": "low_retention_pause"}, {"level": "PASS", "code": "SRS_JOURNEY_RECOVERY_RESUMES", "message": "Recovery phase resumed new admissions.", "details": "admitted=7", "phase": "recovery_resume"}, {"level": "PASS", "code": "SRS_JOURNEY_RUNTIME_ARTIFACTS_PRESENT", "message": "Store, ruleset, and snapshot artifacts are present for the journey harness.", "details": null, "phase": "bootstrap_publish"}, {"level": "PASS", "code": "SRS_JOURNEY_STABLE_COHORT_FADES", "message": "Stable cohort faded out of the near-term due set.", "details": "stable_due=0", "phase": "fade_check"}, {"level": "PASS", "code": "SRS_JOURNEY_DIFFICULT_COHORT_STICKS", "message": "Difficult cohort remained in the due set as expected.", "details": "hora", "phase": "fade_check"}, {"level": "WARN", "code": "SRS_JOURNEY_PUBLICATION_SCOPE_OBSERVED", "message": "Published set is broader than the due subset in the current journey run.", "details": "phase=high_retention_growth admitted=5 due=3 published=5", "phase": "high_retention_growth"}]}</script>
+  <script>
+    const payload = JSON.parse(document.getElementById('journey-data').textContent);
+    const phases = Array.isArray(payload.phases) ? payload.phases : [];
+    let currentIndex = 0;
+    let timer = null;
+
+    const els = {
+      prev: document.getElementById('prev-phase'),
+      play: document.getElementById('playback-toggle'),
+      next: document.getElementById('next-phase'),
+      range: document.getElementById('phase-range'),
+      tabs: document.getElementById('phase-tabs'),
+      position: document.getElementById('phase-position'),
+      title: document.getElementById('phase-title'),
+      subtitle: document.getElementById('phase-subtitle'),
+      counts: document.getElementById('phase-counts'),
+      sets: document.getElementById('phase-sets'),
+      events: document.getElementById('phase-events'),
+      admission: document.getElementById('phase-admission'),
+      findings: document.getElementById('phase-findings'),
+      profileState: document.getElementById('profile-state'),
+      globalPanels: document.getElementById('global-panels'),
+      rawPhase: document.getElementById('raw-phase'),
+      rawReport: document.getElementById('raw-report'),
+    };
+
+    function fmt(value, digits = 3) {
+      if (value === null || value === undefined || value === '') return '—';
+      const number = Number(value);
+      if (Number.isNaN(number)) return String(value);
+      return number.toFixed(digits).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1');
+    }
+
+    function pct(value) {
+      if (value === null || value === undefined) return '—';
+      const number = Number(value);
+      if (Number.isNaN(number)) return '—';
+      return `${(number * 100).toFixed(1)}%`;
+    }
+
+    function escapeHtml(value) {
+      const span = document.createElement('span');
+      span.textContent = value === null || value === undefined ? '' : String(value);
+      return span.innerHTML;
+    }
+
+    function statusClass(level) {
+      const normalized = String(level || '').toUpperCase();
+      if (normalized === 'PASS') return 'pass';
+      if (normalized === 'WARN') return 'warn';
+      return 'fail';
+    }
+
+    function chipList(values, kind = '') {
+      const items = Array.isArray(values) ? values : [];
+      if (!items.length) return '<span class="empty">none</span>';
+      return `<div class="chips">${items.map((item) => `<span class="chip ${kind}">${escapeHtml(item)}</span>`).join('')}</div>`;
+    }
+
+    function renderPhaseTabs() {
+      els.range.max = String(Math.max(phases.length - 1, 0));
+      els.tabs.innerHTML = phases.map((phase, index) => {
+        const active = index === currentIndex ? ' active' : '';
+        return `<button type="button" class="phase-tab${active}" data-index="${index}">${index + 1}. ${escapeHtml(phase.label || 'phase')}</button>`;
+      }).join('');
+      Array.from(els.tabs.querySelectorAll('.phase-tab')).forEach((button) => {
+        button.addEventListener('click', () => renderPhase(Number(button.dataset.index || '0')));
+      });
+    }
+
+    function renderCounts(phase) {
+      const counts = phase && typeof phase.counts === 'object' ? phase.counts : {};
+      const refreshPayload = phase && phase.refresh && phase.refresh.payload && typeof phase.refresh.payload === 'object'
+        ? phase.refresh.payload
+        : null;
+      const feedbackWindow = refreshPayload && refreshPayload.admission_refresh && typeof refreshPayload.admission_refresh.feedback_window === 'object'
+        ? refreshPayload.admission_refresh.feedback_window
+        : null;
+      const cards = [
+        ['Admitted', counts.admitted],
+        ['Due', counts.due],
+        ['Published', counts.published],
+        ['Feedback In Step', phase.events_applied && phase.events_applied.counts ? phase.events_applied.counts.feedback : 0],
+        ['Exposure In Step', phase.events_applied && phase.events_applied.counts ? phase.events_applied.counts.exposure : 0],
+        ['Retention', feedbackWindow ? pct(feedbackWindow.retention_ratio) : '—'],
+      ];
+      els.counts.innerHTML = cards.map(([label, value]) => `
+        <div class="count-card">
+          <div class="meta-label">${escapeHtml(label)}</div>
+          <div class="meta-value">${escapeHtml(value)}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderSets(phase) {
+      const sets = phase && typeof phase.sets === 'object' ? phase.sets : {};
+      const deltas = phase && typeof phase.deltas === 'object' ? phase.deltas : {};
+      const relationships = phase && typeof phase.relationships === 'object' ? phase.relationships : {};
+      els.sets.innerHTML = `
+        <div class="card-grid">
+          <div class="meta-card"><div class="meta-label">Admitted</div>${chipList(sets.admitted)}</div>
+          <div class="meta-card"><div class="meta-label">Due</div>${chipList(sets.due, 'ok')}</div>
+          <div class="meta-card"><div class="meta-label">Published</div>${chipList(sets.published, 'warn')}</div>
+        </div>
+        <div class="card-grid" style="margin-top:12px;">
+          <div class="meta-card"><div class="meta-label">Admitted In / Out</div>${chipList(deltas.admitted_in, 'active')}<div style="height:8px"></div>${chipList(deltas.admitted_out)}</div>
+          <div class="meta-card"><div class="meta-label">Due In / Out</div>${chipList(deltas.due_in, 'ok')}<div style="height:8px"></div>${chipList(deltas.due_out)}</div>
+          <div class="meta-card"><div class="meta-label">Published In / Out</div>${chipList(deltas.published_in, 'warn')}<div style="height:8px"></div>${chipList(deltas.published_out)}</div>
+        </div>
+        <div class="card-grid" style="margin-top:12px;">
+          <div class="meta-card"><div class="meta-label">Published Not Due</div>${chipList(relationships.published_not_due, 'warn')}</div>
+          <div class="meta-card"><div class="meta-label">Due Not Published</div>${chipList(relationships.due_not_published, 'fail')}</div>
+          <div class="meta-card"><div class="meta-label">Published Not Admitted</div>${chipList(relationships.published_not_admitted, 'fail')}</div>
+        </div>
+      `;
+    }
+
+    function renderEventTable(events, kind) {
+      if (!Array.isArray(events) || !events.length) return '<p class="empty">none</p>';
+      const ratingHeader = kind === 'feedback' ? '<th>Rating</th>' : '';
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Lemma</th>${ratingHeader}<th>Cohort</th><th>Timestamp</th></tr>
+            </thead>
+            <tbody>
+              ${events.map((event) => `
+                <tr>
+                  <td class="mono">${escapeHtml(event.index)}</td>
+                  <td class="mono">${escapeHtml(event.lemma)}</td>
+                  ${kind === 'feedback' ? `<td class="mono">${escapeHtml(event.rating || '—')}</td>` : ''}
+                  <td>${escapeHtml(event.cohort || '—')}</td>
+                  <td class="mono">${escapeHtml(event.ts || '—')}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderEvents(phase) {
+      const events = phase && typeof phase.events_applied === 'object' ? phase.events_applied : {};
+      els.events.innerHTML = `
+        <div class="card-grid">
+          <div class="meta-card"><div class="meta-label">Feedback</div>${renderEventTable(events.feedback, 'feedback')}</div>
+          <div class="meta-card"><div class="meta-label">Exposure</div>${renderEventTable(events.exposure, 'exposure')}</div>
+        </div>
+      `;
+    }
+
+    function renderCandidateTable(candidates, selectorMode) {
+      if (!Array.isArray(candidates) || !candidates.length) return '<p class="empty">no candidate audit</p>';
+      const selectorHeaders = selectorMode
+        ? '<th>Eligible</th><th>Reason</th><th>Score</th><th>Score Share</th>'
+        : '';
+      const selectorCells = (candidate) => selectorMode
+        ? `<td>${candidate.eligible ? 'yes' : 'no'}</td><td class="mono">${escapeHtml(candidate.filtered_reason || '—')}</td><td class="mono">${escapeHtml(fmt(candidate.selector_score, 6))}</td><td class="mono">${escapeHtml(pct(candidate.selector_score_share))}</td>`
+        : '';
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Lemma</th>
+                <th>Cohort</th>
+                <th>Selected</th>
+                <th>Admit Wt</th>
+                <th>Wt Share</th>
+                ${selectorHeaders}
+                <th>Core Rank</th>
+                <th>POS</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${candidates.map((candidate) => `
+                <tr>
+                  <td class="mono">${escapeHtml(candidate.seed_rank)}</td>
+                  <td>
+                    <div class="item-main mono">${escapeHtml(candidate.lemma)}</div>
+                    <div class="item-sub">${escapeHtml(candidate.word_package && candidate.word_package.reading ? candidate.word_package.reading : '')}</div>
+                  </td>
+                  <td>${escapeHtml(candidate.cohort || '—')}</td>
+                  <td>${candidate.selected ? `<span class="chip active">#${candidate.selected_order}</span>` : '<span class="empty">no</span>'}</td>
+                  <td class="mono">${escapeHtml(fmt(candidate.admission_weight, 6))}</td>
+                  <td class="mono">${escapeHtml(pct(candidate.admission_weight_share))}</td>
+                  ${selectorCells(candidate)}
+                  <td class="mono">${escapeHtml(fmt(candidate.core_rank, 2))}</td>
+                  <td class="mono">${escapeHtml(candidate.pos_bucket || candidate.pos || '—')}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderAdmission(phase) {
+      const refresh = phase && typeof phase.refresh === 'object' ? phase.refresh : {};
+      const payload = refresh && typeof refresh.payload === 'object' ? refresh.payload : null;
+      const admission = payload && typeof payload.admission_refresh === 'object'
+        ? payload.admission_refresh
+        : null;
+      const audit = refresh && typeof refresh.audit === 'object' ? refresh.audit : null;
+      const bootstrapAudit = payload && payload.bootstrap_audit;
+      if (refresh.requested && payload) {
+        els.admission.innerHTML = `
+          <div class="card-grid">
+            <div class="meta-card"><div class="meta-label">Refresh Applied</div><div class="meta-value">${payload.applied ? 'yes' : 'no'}</div></div>
+            <div class="meta-card"><div class="meta-label">Reason</div><div class="meta-value mono">${escapeHtml(admission && admission.reason_code ? admission.reason_code : '—')}</div></div>
+            <div class="meta-card"><div class="meta-label">Admission Budget</div><div class="meta-value">${escapeHtml(admission ? admission.admission_budget : '—')}</div></div>
+            <div class="meta-card"><div class="meta-label">Selected Lemmas</div>${chipList(admission && admission.selected_lemmas, 'active')}</div>
+          </div>
+          <div class="card-grid" style="margin-top:12px;">
+            <div class="meta-card"><div class="meta-label">Due Pressure</div><div class="meta-value">${escapeHtml(pct(admission && admission.due_pressure))}</div></div>
+            <div class="meta-card"><div class="meta-label">Candidate Pool</div><div class="meta-value">${escapeHtml(admission ? admission.candidate_pool_size : '—')}</div></div>
+            <div class="meta-card"><div class="meta-label">Retention</div><div class="meta-value">${escapeHtml(pct(admission && admission.feedback_window ? admission.feedback_window.retention_ratio : null))}</div></div>
+            <div class="meta-card"><div class="meta-label">Strain</div><div class="meta-value">${escapeHtml(pct(admission && admission.feedback_window ? admission.feedback_window.strain_ratio : null))}</div></div>
+          </div>
+          <div style="margin-top:12px;">${renderCandidateTable(audit && audit.candidates, true)}</div>
+        `;
+        return;
+      }
+      const bootstrap = payload && typeof payload.bootstrap_audit === 'object' ? payload.bootstrap_audit : null;
+      if ((phase.label === 'bootstrap_publish' || phase.label === 'baseline_observe') && payload === null) {
+        const initAudit = payload && payload.bootstrap_audit;
+      }
+      const initBootstrap = payload && typeof payload.bootstrap_audit === 'object'
+        ? payload.bootstrap_audit
+        : null;
+      const bootstrapSource = (payload && payload.bootstrap_audit) || (window.__bootstrapAudit || null);
+      if ((phase.label === 'bootstrap_publish' || phase.label === 'baseline_observe') && bootstrapSource) {
+        els.admission.innerHTML = `
+          <div class="card-grid">
+            <div class="meta-card"><div class="meta-label">Bootstrap Candidates</div><div class="meta-value">${escapeHtml(bootstrapSource.candidate_count || '—')}</div></div>
+            <div class="meta-card"><div class="meta-label">Initial Active</div><div class="meta-value">${escapeHtml(bootstrapSource.admitted_count || '—')}</div></div>
+            <div class="meta-card"><div class="meta-label">Admission Weight Sum</div><div class="meta-value mono">${escapeHtml(fmt(bootstrapSource.admission_weight_sum, 6))}</div></div>
+            <div class="meta-card"><div class="meta-label">Stopwords</div><div class="meta-value mono">${escapeHtml(bootstrapSource.stopwords_path || 'none')}</div></div>
+          </div>
+          <div style="margin-top:12px;">${renderCandidateTable(bootstrapSource.candidates, false)}</div>
+        `;
+        return;
+      }
+      els.admission.innerHTML = '<p class="empty">No admission review for this phase.</p>';
+    }
+
+    function renderFindings(phase) {
+      const local = Array.isArray(phase.findings) ? phase.findings : [];
+      const globalWarnings = (Array.isArray(payload.findings) ? payload.findings : []).filter((item) => item && item.phase === phase.label);
+      const merged = [...local, ...globalWarnings.filter((item) => !local.includes(item))];
+      if (!merged.length) {
+        els.findings.innerHTML = '<p class="empty">No findings attached to this phase.</p>';
+        return;
+      }
+      els.findings.innerHTML = `<div class="finding-list">${merged.map((item) => `
+        <div class="finding ${statusClass(item.level)}">
+          <div class="meta-label">${escapeHtml(item.level || 'NOTE')} · <span class="mono">${escapeHtml(item.code || 'code')}</span></div>
+          <div><strong>${escapeHtml(item.message || '')}</strong></div>
+          <div class="timeline-note">${escapeHtml(item.details || '') || 'No extra details.'}</div>
+        </div>
+      `).join('')}</div>`;
+    }
+
+    function itemBadges(item) {
+      const badges = ['<span class="chip active">A</span>'];
+      if (item.in_due) badges.push('<span class="chip ok">D</span>');
+      if (item.in_published) badges.push('<span class="chip warn">P</span>');
+      return badges.join(' ');
+    }
+
+    function historyText(item) {
+      const history = Array.isArray(item.recent_history) ? item.recent_history : [];
+      if (!history.length) return 'no recent reviews';
+      return history.map((entry) => `${entry.rating || '?'} @ ${entry.ts || '—'}`).join(' · ');
+    }
+
+    function renderProfileState(phase) {
+      const items = Array.isArray(phase.items) ? phase.items : [];
+      if (!items.length) {
+        els.profileState.innerHTML = '<p class="empty">No item state available.</p>';
+        return;
+      }
+      els.profileState.innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lemma</th>
+                <th>State</th>
+                <th>Confidence</th>
+                <th>Stability</th>
+                <th>Difficulty</th>
+                <th>Exposure</th>
+                <th>Next Due</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${items.map((item) => `
+                <tr>
+                  <td>
+                    <div class="item-main mono">${escapeHtml(item.lemma)}</div>
+                    <div class="item-sub">${escapeHtml(item.word_package && item.word_package.reading ? item.word_package.reading : '')}</div>
+                    <div class="item-sub">${escapeHtml(item.word_package && item.word_package.pos_canonical ? item.word_package.pos_canonical : item.source_type || '')}</div>
+                  </td>
+                  <td>
+                    <div>${itemBadges(item)}</div>
+                    <div class="item-sub">${escapeHtml(item.cohort || '—')} · ${escapeHtml(item.status || '—')}</div>
+                    <div class="item-sub">due rank: ${escapeHtml(item.due_rank || '—')}</div>
+                    <div class="item-sub">${escapeHtml(historyText(item))}</div>
+                  </td>
+                  <td class="mono">${escapeHtml(fmt(item.confidence, 6))}</td>
+                  <td class="mono">${escapeHtml(fmt(item.stability, 3))}</td>
+                  <td class="mono">${escapeHtml(fmt(item.difficulty, 3))}</td>
+                  <td class="mono">${escapeHtml(item.exposures)}</td>
+                  <td class="mono">${escapeHtml(item.next_due || '—')}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderGlobalPanels() {
+      const signalSummary = payload.signal_summary && typeof payload.signal_summary === 'object'
+        ? payload.signal_summary
+        : null;
+      const bootstrapAudit = payload.initialize && typeof payload.initialize.bootstrap_audit === 'object'
+        ? payload.initialize.bootstrap_audit
+        : null;
+      window.__bootstrapAudit = bootstrapAudit;
+      els.globalPanels.innerHTML = `
+        <div class="meta-card">
+          <div class="meta-label">Signal Log</div>
+          <div class="meta-value">${escapeHtml(signalSummary ? signalSummary.event_count : '—')}</div>
+          <div class="timeline-note">feedback=${escapeHtml(signalSummary && signalSummary.event_types ? signalSummary.event_types.feedback : '0')} exposure=${escapeHtml(signalSummary && signalSummary.event_types ? signalSummary.event_types.exposure : '0')}</div>
+        </div>
+        <div class="meta-card" style="margin-top:12px;">
+          <div class="meta-label">Bootstrap Audit</div>
+          <div class="meta-value">${escapeHtml(bootstrapAudit ? bootstrapAudit.candidate_count : '—')} candidates</div>
+          <div class="timeline-note">Selected at bootstrap: ${bootstrapAudit && Array.isArray(bootstrapAudit.candidates) ? bootstrapAudit.candidates.filter((item) => item.selected).map((item) => item.lemma).join(', ') : '—'}</div>
+        </div>
+      `;
+      els.rawReport.textContent = JSON.stringify(payload, null, 2);
+    }
+
+    function stopPlayback() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+      els.play.textContent = 'Play';
+    }
+
+    function togglePlayback() {
+      if (timer) {
+        stopPlayback();
+        return;
+      }
+      els.play.textContent = 'Pause';
+      timer = window.setInterval(() => {
+        if (currentIndex >= phases.length - 1) {
+          stopPlayback();
+          return;
+        }
+        renderPhase(currentIndex + 1);
+      }, 1500);
+    }
+
+    function renderPhase(index) {
+      if (!phases.length) return;
+      currentIndex = Math.max(0, Math.min(index, phases.length - 1));
+      const phase = phases[currentIndex];
+      els.range.value = String(currentIndex);
+      els.position.textContent = `Step ${currentIndex + 1} of ${phases.length}`;
+      els.title.textContent = `${currentIndex + 1}. ${phase.label || 'phase'}`;
+      els.subtitle.textContent = `${phase.now || '—'}`;
+      renderPhaseTabs();
+      renderCounts(phase);
+      renderSets(phase);
+      renderEvents(phase);
+      renderAdmission(phase);
+      renderFindings(phase);
+      renderProfileState(phase);
+      els.rawPhase.textContent = JSON.stringify(phase, null, 2);
+      els.prev.disabled = currentIndex <= 0;
+      els.next.disabled = currentIndex >= phases.length - 1;
+    }
+
+    els.prev.addEventListener('click', () => renderPhase(currentIndex - 1));
+    els.next.addEventListener('click', () => renderPhase(currentIndex + 1));
+    els.play.addEventListener('click', togglePlayback);
+    els.range.addEventListener('input', (event) => renderPhase(Number(event.target.value || '0')));
+
+    renderGlobalPanels();
+    if (phases.length) {
+      renderPhase(0);
+    } else {
+      els.title.textContent = 'No phases in report';
+      els.subtitle.textContent = '';
+      els.rawReport.textContent = JSON.stringify(payload, null, 2);
+    }
+  </script>
+</body>
+</html>

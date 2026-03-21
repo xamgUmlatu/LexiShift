@@ -1,21 +1,21 @@
 # SRS Journey Harness
 
 - Status: WARN
-- Findings: pass=10 warn=1 fail=0
-- Scenario: `en-ja_real_publication_v1`
-- Pair: `en-ja`
-- Lane: `real_publication_journey`
+- Findings: pass=7 warn=1 fail=0
+- Scenario: `en-es_core_journey_v1`
+- Pair: `en-es`
+- Lane: `deterministic_core_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:02:36.692725+00:00`
+- Generated at: `2026-03-21T01:02:38.144673+00:00`
 
 ## Phases
 
 ### bootstrap_publish
 - Counts: admitted=3 due=3 published=3
 - Refresh: not requested
-- Admitted delta: in=alpha, beta, gamma; out=none
-- Due delta: in=alpha, beta, gamma; out=none
-- Published delta: in=alpha, beta, gamma; out=none
+- Admitted delta: in=casa, hora, libro; out=none
+- Due delta: in=casa, hora, libro; out=none
+- Published delta: in=casa, hora, libro; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: none
 - Due not published: none
@@ -33,41 +33,41 @@
 ### high_retention_growth
 - Counts: admitted=5 due=3 published=5
 - Refresh: applied=yes reason=`normal`
-- Admitted delta: in=delta, epsilon; out=none
-- Due delta: in=delta, epsilon; out=alpha, beta
-- Published delta: in=delta, epsilon; out=none
+- Admitted delta: in=campo, madre; out=none
+- Due delta: in=campo, madre; out=casa, libro
+- Published delta: in=campo, madre; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: alpha, beta
+- Published not due: casa, libro
 - Due not published: none
 
 ### low_retention_pause
 - Counts: admitted=5 due=2 published=5
 - Refresh: applied=no reason=`retention_low`
 - Admitted delta: in=none; out=none
-- Due delta: in=none; out=gamma
+- Due delta: in=none; out=hora
 - Published delta: in=none; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: alpha, beta, gamma
+- Published not due: casa, hora, libro
 - Due not published: none
 
 ### recovery_resume
 - Counts: admitted=7 due=2 published=7
 - Refresh: applied=yes reason=`normal`
-- Admitted delta: in=eta, zeta; out=none
-- Due delta: in=eta, zeta; out=delta, epsilon
-- Published delta: in=eta, zeta; out=none
+- Admitted delta: in=mesa, ventana; out=none
+- Due delta: in=mesa, ventana; out=campo, madre
+- Published delta: in=mesa, ventana; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: alpha, beta, delta, epsilon, gamma
+- Published not due: campo, casa, hora, libro, madre
 - Due not published: none
 
 ### fade_check
 - Counts: admitted=7 due=3 published=7
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=gamma; out=none
+- Due delta: in=hora; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
-- Published not due: alpha, beta, delta, epsilon
+- Published not due: campo, casa, libro, madre
 - Due not published: none
 
 ## Signal Log
@@ -80,7 +80,7 @@
 ## Cohort Check
 
 - Stable cohort due in final phase: none
-- Difficult cohort due in final phase: gamma
+- Difficult cohort due in final phase: hora
 
 ## Actionable Findings
 

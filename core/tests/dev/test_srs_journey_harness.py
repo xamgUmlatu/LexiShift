@@ -142,6 +142,53 @@ class TestSrsJourneyHarness(unittest.TestCase):
             ["delta", "epsilon"],
         )
 
+    def test_build_report_supports_en_es_core_lane(self) -> None:
+        report = build_report(scenario="en-es_core_journey_v1")
+        phases = report["phases"]
+
+        self.assertEqual(report["summary"]["status"], "WARN")
+        self.assertEqual(report["scenario"]["pair"], "en-es")
+        self.assertEqual(report["scenario"]["cohorts"]["stable"], ["casa", "libro"])
+        self.assertEqual(report["initialize"]["bootstrap_audit"]["candidates"][0]["lemma"], "casa")
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["madre", "campo"])
+        difficult_due = [
+            item["lemma"]
+            for item in phases[-1]["items"]
+            if item["cohort"] == "difficult" and item["in_due"]
+        ]
+        self.assertEqual(difficult_due, ["hora"])
+
+    def test_build_report_supports_en_es_real_publication_lane(self) -> None:
+        report = build_report(scenario="en-es_real_publication_v1")
+        findings = report["findings"]
+        phases = report["phases"]
+
+        self.assertIn(report["summary"]["status"], {"PASS", "WARN"})
+        self.assertEqual(report["scenario"]["pair"], "en-es")
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_REAL_PUBLICATION_ACTIVE" for item in findings)
+        )
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_JOURNEY_REAL_PUBLICATION_COMPLETE_FOR_DUE"
+                and item.get("level") == "PASS"
+                for item in findings
+            )
+        )
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_JOURNEY_REAL_WORD_PACKAGES_COMPLETE"
+                and item.get("level") == "PASS"
+                for item in findings
+            )
+        )
+        self.assertEqual(phases[2]["relationships"]["due_not_published"], [])
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["madre", "campo"])
+        self.assertEqual(
+            phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],
+            phases[2]["counts"]["admitted"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

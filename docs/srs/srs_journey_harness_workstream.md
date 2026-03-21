@@ -153,13 +153,18 @@ Characteristics:
 What it proves:
 - the actual system works end to end, not just the isolated scheduler logic
 
-Current implemented scenario:
+Current implemented scenarios:
 - `en-ja_real_publication_v1`
   - deterministic clock and synthetic resources
   - actual seed builder
   - synthetic `en-ja` resources
   - real helper/rulegen publication path
-  - current `en-ja` artifact keeps due publication complete; the remaining warning is only the broader-than-due publication contract
+- `en-es_real_publication_v1`
+  - deterministic clock and synthetic resources
+  - actual seed builder
+  - synthetic `en-es` FreeDict + frequency resources
+  - real helper/rulegen publication path
+- current `en-ja` and `en-es` artifacts keep due publication complete; the remaining warning is only the broader-than-due publication contract
 
 ### Lane D: edge-behavior lane
 
@@ -188,11 +193,20 @@ Reason:
 
 ### Second pair
 
-Extend to `en-de` after the first lane is stable.
+Extend to `en-es` after the first lane is stable.
+
+Reason:
+- it is materially more complete than `en-de`
+- it gives better parity with the current mature rulegen/product surface
+- it exercises FreeDict-based publication on the stronger non-`en-ja` path
+
+### Third pair
+
+Extend to `en-de` after `en-es` parity is stable.
 
 ### Later pairs
 
-Only expand further after the harness contract is stable and the first two pairs produce useful artifacts.
+Only expand further after the harness contract is stable and the first three pairs produce useful artifacts.
 
 ## Scenario Model
 
@@ -681,13 +695,15 @@ Deliverables:
 
 Current state:
 - `en-ja_real_publication_v1` implemented
-- current `en-ja` artifact shows complete word-package coverage and complete due publication
+- `en-es_core_journey_v1`, `en-es_edge_behaviors_v1`, and `en-es_real_publication_v1` implemented
+- current `en-ja` and `en-es` artifacts show complete word-package coverage and complete due publication
 - later expansion still needed for `en-de` and less synthetic resources
 
 ### Phase 5: second pair and workflow integration
 
 Deliverables:
-- `en-de` support
+- `en-es` support
+- follow-on `en-de` support
 - package-script wrappers if warranted
 - script routing docs updated
 - feature-state row updated from planning to implemented when true

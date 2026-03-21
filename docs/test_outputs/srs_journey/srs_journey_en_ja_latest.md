@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `deterministic_core_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T00:04:48.037168+00:00`
+- Generated at: `2026-03-21T01:02:33.769574+00:00`
 
 ## Phases
 
