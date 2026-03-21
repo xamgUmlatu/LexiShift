@@ -11,6 +11,7 @@ from lexishift_core.resources.dict_loaders import (
     load_freedict_gloss_records_ordered,
 )
 from lexishift_core.rulegen.generation import (
+    CandidateNormalizer,
     CandidateFilter,
     RuleCandidate,
     RuleGenerationConfig,
@@ -39,6 +40,7 @@ from lexishift_core.rulegen.semantic_demotion import (
 from lexishift_core.rulegen.utils import (
     BasicStringNormalizer,
     InflectionArtifactFilter,
+    LeadingEnglishInfinitiveNormalizer,
     PairedInflectionVariantExpander,
     LengthFilter,
     NonEmptyFilter,
@@ -142,7 +144,10 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         word_packages_by_target=config.word_packages_by_target,
         generic_gloss_demotions=config.generic_gloss_demotions,
     )
-    normalizers = [BasicStringNormalizer()]
+    normalizers: list[CandidateNormalizer] = [
+        BasicStringNormalizer(),
+        LeadingEnglishInfinitiveNormalizer(),
+    ]
     expanders = []
     if config.include_variants:
         expanders.append(

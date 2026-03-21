@@ -23,6 +23,7 @@ from lexishift_core.frequency import (
     load_frequency_lexicon,
 )
 from lexishift_core.rulegen.generation import (
+    CandidateNormalizer,
     CandidateFilter,
     RuleCandidate,
     RuleGenerationConfig,
@@ -47,6 +48,7 @@ from lexishift_core.rulegen.utils import (
     InflectionVariantExpander,
     InflectionArtifactFilter,
     LengthFilter,
+    LeadingEnglishInfinitiveNormalizer,
     NonEmptyFilter,
     PossessiveFilter,
     PunctuationFilter,
@@ -126,7 +128,10 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
         word_packages_by_target=word_packages_by_target,
         generic_gloss_demotions=config.generic_gloss_demotions,
     )
-    normalizers = [BasicStringNormalizer()]
+    normalizers: list[CandidateNormalizer] = [
+        BasicStringNormalizer(),
+        LeadingEnglishInfinitiveNormalizer(),
+    ]
     expanders = []
     if config.include_variants:
         expanders.append(

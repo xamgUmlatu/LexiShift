@@ -462,6 +462,38 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
         self.assertTrue(all(rule.replacement == "casa" for rule in rules))
 
+    def test_en_es_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>hacer</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">to admire</quote></cit>
+          <cit type="trans"><quote xml:lang="en">to carry out</quote></cit>
+          <cit type="trans"><quote xml:lang="en">to value</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("hacer",),
+                    language_pair="en-es",
+                    freedict_de_en_path=path,
+                    include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["admire", "value"])
+        self.assertTrue(all(rule.replacement == "hacer" for rule in rules))
+
     def test_en_ja_adapter_caps_to_top_three_by_dictionary_order(self) -> None:
         jmdict_payload = (
             "<JMdict>"
@@ -584,6 +616,45 @@ class TestRulegenAdapters(unittest.TestCase):
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["form", "style", "design"])
 
+    def test_en_ja_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:
+        jmdict_payload = (
+            "<JMdict>"
+            "<entry>"
+            "<k_ele><keb>為る</keb></k_ele>"
+            "<r_ele><reb>する</reb></r_ele>"
+            "<sense>"
+            "<gloss xml:lang='eng'>to admire</gloss>"
+            "<gloss xml:lang='eng'>to carry out</gloss>"
+            "<gloss xml:lang='eng'>to value</gloss>"
+            "</sense>"
+            "</entry>"
+            "</JMdict>"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            path.write_text(jmdict_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-ja",
+                    targets=("為る",),
+                    language_pair="en-ja",
+                    jmdict_path=path,
+                    include_variants=False,
+                    word_packages_by_target={
+                        "為る": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "為る",
+                            "reading": "する",
+                            "script_forms": {"kanji": "為る", "kana": "する", "romaji": "suru"},
+                            "source": {"provider": "freq-ja-bccwj"},
+                        }
+                    },
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["admire", "value"])
+        self.assertTrue(all(rule.replacement == "為る" for rule in rules))
+
     def test_en_de_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -617,6 +688,38 @@ class TestRulegenAdapters(unittest.TestCase):
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
         self.assertTrue(all(rule.replacement == "haus" for rule in rules))
+
+    def test_en_de_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>machen</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">to admire</quote></cit>
+          <cit type="trans"><quote xml:lang="en">to carry out</quote></cit>
+          <cit type="trans"><quote xml:lang="en">to value</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "deu-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("machen",),
+                    language_pair="en-de",
+                    freedict_de_en_path=path,
+                    include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["admire", "value"])
+        self.assertTrue(all(rule.replacement == "machen" for rule in rules))
 
     def test_es_en_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

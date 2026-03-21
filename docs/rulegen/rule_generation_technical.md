@@ -37,6 +37,7 @@ Pipeline overview
 
 2) **Normalization**
    - Normalize casing, punctuation, spacing.
+   - For English source-gloss pipelines, strip a leading infinitive marker (`to `) from dictionary glosses at candidate-normalization time so `to do` can become `do` without altering raw dictionary metadata.
    - De‑duplicate candidates.
    - Drop noise (very rare, invalid tokens, empty).
 

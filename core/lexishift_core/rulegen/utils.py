@@ -46,6 +46,25 @@ class BasicStringNormalizer:
         return replace(candidate, source_phrase=text)
 
 
+@dataclass(frozen=True)
+class LeadingEnglishInfinitiveNormalizer:
+    prefix: str = "to "
+
+    def normalize(self, candidate: RuleCandidate) -> RuleCandidate:
+        phrase = candidate.source_phrase.strip()
+        if not phrase:
+            return candidate
+        prefix = str(self.prefix or "")
+        if not prefix:
+            return candidate
+        if not phrase.lower().startswith(prefix):
+            return candidate
+        stripped = phrase[len(prefix) :].strip()
+        if not stripped:
+            return candidate
+        return replace(candidate, source_phrase=stripped)
+
+
 def sanitize_dictionary_gloss(value: object) -> str:
     """Normalize lightweight dictionary noise before candidate generation."""
     text = str(value or "").strip()
