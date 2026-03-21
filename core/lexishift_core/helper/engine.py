@@ -434,6 +434,7 @@ def apply_feedback(
         profile_id=profile_id,
         source_type=source_type,
         resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
         ensure_store_fn=_ensure_store,
     )
 

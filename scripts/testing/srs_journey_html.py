@@ -659,9 +659,11 @@ def render_html(payload: dict[str, Any], *, title: str = APP_TITLE) -> str:
                 <th>Lemma</th>
                 <th>State</th>
                 <th>Confidence</th>
+                <th>Retrievability</th>
                 <th>Stability</th>
                 <th>Difficulty</th>
                 <th>Exposure</th>
+                <th>Last Review</th>
                 <th>Next Due</th>
               </tr>
             </thead>
@@ -676,13 +678,16 @@ def render_html(payload: dict[str, Any], *, title: str = APP_TITLE) -> str:
                   <td>
                     <div>${{itemBadges(item)}}</div>
                     <div class=\"item-sub\">${{escapeHtml(item.cohort || '—')}} · ${{escapeHtml(item.status || '—')}}</div>
+                    <div class=\"item-sub\">scheduler: ${{escapeHtml(item.scheduler_state || '—')}} / step ${{escapeHtml(item.scheduler_step ?? '—')}}</div>
                     <div class=\"item-sub\">due rank: ${{escapeHtml(item.due_rank || '—')}}</div>
                     <div class=\"item-sub\">${{escapeHtml(historyText(item))}}</div>
                   </td>
                   <td class=\"mono\">${{escapeHtml(fmt(item.confidence, 6))}}</td>
+                  <td class=\"mono\">${{escapeHtml(fmt(item.retrievability, 6))}}</td>
                   <td class=\"mono\">${{escapeHtml(fmt(item.stability, 3))}}</td>
                   <td class=\"mono\">${{escapeHtml(fmt(item.difficulty, 3))}}</td>
                   <td class=\"mono\">${{escapeHtml(item.exposures)}}</td>
+                  <td class=\"mono\">${{escapeHtml(item.last_review || '—')}}</td>
                   <td class=\"mono\">${{escapeHtml(item.next_due || '—')}}</td>
                 </tr>
               `).join('')}}

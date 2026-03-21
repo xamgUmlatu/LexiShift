@@ -82,7 +82,7 @@ Status key:
 - `[x]` done
 
 ### Workstream A — Review scheduler and practice gate
-- `[x]` Core SRS item model + scheduler update function.
+- `[x]` Core SRS item model + FSRS scheduler update function.
 - `[x]` Runtime gate integration for active/due items.
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (`new/learning/review/mature/relearn/suspended`).

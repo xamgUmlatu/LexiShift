@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `deterministic_core_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:02:33.769574+00:00`
+- Generated at: `2026-03-21T02:48:05.818817+00:00`
 
 ## Phases
 
@@ -51,20 +51,20 @@
 - Due not published: none
 
 ### recovery_resume
-- Counts: admitted=7 due=2 published=7
+- Counts: admitted=7 due=3 published=7
 - Refresh: applied=yes reason=`normal`
 - Admitted delta: in=eta, zeta; out=none
-- Due delta: in=eta, zeta; out=delta, epsilon
+- Due delta: in=eta, gamma, zeta; out=delta, epsilon
 - Published delta: in=eta, zeta; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: alpha, beta, delta, epsilon, gamma
+- Published not due: alpha, beta, delta, epsilon
 - Due not published: none
 
 ### fade_check
 - Counts: admitted=7 due=3 published=7
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=gamma; out=none
+- Due delta: in=none; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: alpha, beta, delta, epsilon

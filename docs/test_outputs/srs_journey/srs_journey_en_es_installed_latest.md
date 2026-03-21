@@ -6,7 +6,7 @@
 - Pair: `en-es`
 - Lane: `installed_resource_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:57:28.106315+00:00`
+- Generated at: `2026-03-21T02:49:03.414596+00:00`
 
 ## Phases
 
@@ -51,20 +51,20 @@
 - Due not published: none
 
 ### recovery_resume
-- Counts: admitted=7 due=2 published=6
+- Counts: admitted=7 due=3 published=6
 - Refresh: applied=yes reason=`normal`
 - Admitted delta: in=luz, movimiento; out=none
-- Due delta: in=luz, movimiento; out=música, principio
+- Due delta: in=hora, luz, movimiento; out=música, principio
 - Published delta: in=luz; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: hora, millón, música, principio, siglo
+- Published not due: millón, música, principio, siglo
 - Due not published: movimiento
 
 ### fade_check
 - Counts: admitted=7 due=3 published=6
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=hora; out=none
+- Due delta: in=none; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: millón, música, principio, siglo

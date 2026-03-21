@@ -6,7 +6,7 @@
 - Pair: `en-es`
 - Lane: `real_publication_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:02:40.923526+00:00`
+- Generated at: `2026-03-21T02:48:08.727020+00:00`
 
 ## Phases
 
@@ -51,20 +51,20 @@
 - Due not published: none
 
 ### recovery_resume
-- Counts: admitted=7 due=2 published=7
+- Counts: admitted=7 due=3 published=7
 - Refresh: applied=yes reason=`normal`
 - Admitted delta: in=mesa, ventana; out=none
-- Due delta: in=mesa, ventana; out=campo, madre
+- Due delta: in=hora, mesa, ventana; out=campo, madre
 - Published delta: in=mesa, ventana; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: campo, casa, hora, libro, madre
+- Published not due: campo, casa, libro, madre
 - Due not published: none
 
 ### fade_check
 - Counts: admitted=7 due=3 published=7
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=hora; out=none
+- Due delta: in=none; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: campo, casa, libro, madre

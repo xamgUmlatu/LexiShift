@@ -12,7 +12,7 @@ Provide non-destructive SRS behavior above the ruleset engine:
 - scheduling is feedback-driven
 
 ## Current implementation status
-- Helper-owned SRS store and scheduler exist.
+- Helper-owned SRS store and FSRS-based scheduler exist.
 - Feedback updates (`again|hard|good|easy`) are wired end-to-end.
 - Options flow can initialize set `S` and run rulegen preview.
 - Set-planning/profile logic is scaffolded.
@@ -49,6 +49,7 @@ Set Planner (bootstrap/growth/refresh strategy)
   - 2 -> `hard`
   - 3 -> `good`
   - 4 -> `easy`
+- Use FSRS state (`stability`, `difficulty`, `last_review`, `scheduler_state`, `scheduler_step`) to determine the next interval.
 - Push mastered items to longer intervals and lapsed items to shorter intervals.
 
 ## 3) Practice Gate

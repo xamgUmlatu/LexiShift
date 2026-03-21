@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Callable
 
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.srs import SrsStore, save_srs_store
+from lexishift_core.srs import SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.signal_queue import (
     SIGNAL_EXPOSURE,
     SIGNAL_FEEDBACK,
@@ -23,9 +23,11 @@ def apply_feedback(
     profile_id: str = "default",
     source_type: str = SOURCE_EXTENSION,
     resolve_profile_id_fn: Callable[..., str],
+    ensure_settings_fn: Callable[..., SrsSettings],
     ensure_store_fn: Callable[..., SrsStore],
 ) -> None:
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
+    settings = ensure_settings_fn(paths)
     store = ensure_store_fn(paths, profile_id=normalized_profile_id)
     normalized_pair = str(pair or "").strip()
     normalized_lemma = str(lemma or "").strip()
@@ -37,6 +39,7 @@ def apply_feedback(
         rating=rating,
         create_if_missing=True,
         source_type=normalized_source_type,
+        settings=settings,
     )
     save_srs_store(store, paths.srs_store_path_for(normalized_profile_id))
     if normalized_pair and normalized_lemma:

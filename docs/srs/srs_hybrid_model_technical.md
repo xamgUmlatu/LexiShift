@@ -78,28 +78,32 @@ State transitions are driven by feedback ratings and scheduling thresholds.
    - `max_active_items`
    - `max_new_items_per_day`
 
-### 4.2 Feedback update semantics (MVP-compatible)
-Current helper logic already supports these effects:
-- `again`:
-  - decreases stability
-  - increases difficulty
-  - short next interval
-- `hard`:
-  - slight stability growth
-  - slight difficulty increase
-  - medium next interval
-- `good`:
-  - stronger stability growth
-  - slight difficulty decrease
-  - longer next interval
-- `easy`:
-  - strongest stability growth
-  - larger difficulty decrease
-  - longest next interval
+### 4.2 Feedback update semantics
+Current helper scheduling is FSRS-based.
+
+Practical meaning of the four ratings:
+- `again`
+  - moves the card into short-term relearning
+  - sharply lowers near-term retrievability and interval
+- `hard`
+  - keeps the card on a conservative path
+  - interval grows less than `good`
+- `good`
+  - follows the default expected review path
+- `easy`
+  - gives the strongest interval growth
+
+The exact interval math is delegated to the FSRS scheduler using:
+- desired retention
+- learning steps
+- relearning steps
+- stability
+- difficulty
+- current retrievability
 
 This naturally gives:
-- mastered words -> lower appearance frequency (long intervals)
-- forgotten words -> higher appearance frequency (short intervals)
+- mastered words -> lower appearance frequency (longer intervals)
+- forgotten words -> higher appearance frequency (shorter intervals)
 
 ### 4.3 Probability usage (where it still fits)
 Probability/weighted scoring is useful for:
@@ -119,7 +123,8 @@ Per-item fields that make the model extensible:
 - provenance:
   - `source_type` (`initial_set`, `frequency_list`, `user_stream`, `curated`, `extension`, ...)
 - scheduler:
-  - `next_due`, `last_seen`, `stability`, `difficulty`
+  - `next_due`, `last_seen`, `last_review`, `stability`, `difficulty`
+  - `scheduler_state`, `scheduler_step`
 - state:
   - `status` (target state machine above)
   - `lapses`, `review_count` (planned)
@@ -163,7 +168,7 @@ Recommended practical starter policy:
 2. cap by explicit sizing policy:
    - `bootstrap_top_n` default `800` (clamped)
    - `initial_active_count` default `40` (clamped, never above bootstrap size)
-3. start with neutral scheduler parameters
+3. start with default FSRS scheduler parameters and tune later only when real review history exists
 4. move quickly to feedback-driven adaptation
 
 Practical JP note:

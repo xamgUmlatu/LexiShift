@@ -29,9 +29,21 @@ class SrsSettings:
     max_active_items: int = 40
     max_new_items_per_day: int = 8
     feedback_scale: str = "again_hard_good_easy"
+    scheduler: "SrsSchedulerSettings" = field(default_factory=lambda: SrsSchedulerSettings())
     pair_rules: Mapping[str, SrsPairSettings] = field(default_factory=dict)
     sync: Optional[SrsSync] = None
-    version: int = 1
+    version: int = 2
+
+
+@dataclass(frozen=True)
+class SrsSchedulerSettings:
+    algorithm: str = "fsrs"
+    desired_retention: float = 0.9
+    learning_steps_minutes: Sequence[int] = field(default_factory=lambda: (1, 10))
+    relearning_steps_minutes: Sequence[int] = field(default_factory=lambda: (10,))
+    maximum_interval_days: int = 36500
+    enable_fuzzing: bool = False
+    parameters: Optional[Sequence[float]] = None
 
 
 @dataclass(frozen=True)
@@ -50,7 +62,10 @@ class SrsItem:
     stability: Optional[float] = None
     difficulty: Optional[float] = None
     last_seen: Optional[str] = None
+    last_review: Optional[str] = None
     next_due: Optional[str] = None
+    scheduler_state: Optional[str] = None
+    scheduler_step: Optional[int] = None
     exposures: int = 0
     history: Sequence[SrsHistoryEntry] = field(default_factory=tuple)
     word_package: Optional[Mapping[str, object]] = None
@@ -59,7 +74,7 @@ class SrsItem:
 @dataclass(frozen=True)
 class SrsStore:
     items: Sequence[SrsItem] = field(default_factory=tuple)
-    version: int = 1
+    version: int = 2
 
 
 @dataclass(frozen=True)
@@ -75,6 +90,22 @@ def srs_settings_from_dict(data: Mapping[str, Any]) -> SrsSettings:
         for key, value in dict(data.get("pair_rules", {})).items()
         if isinstance(value, Mapping)
     }
+    scheduler_data = data.get("scheduler") or {}
+    scheduler = SrsSchedulerSettings(
+        algorithm=str(scheduler_data.get("algorithm", "fsrs") or "fsrs"),
+        desired_retention=float(scheduler_data.get("desired_retention", 0.9)),
+        learning_steps_minutes=_coerce_int_sequence(
+            scheduler_data.get("learning_steps_minutes"),
+            default=(1, 10),
+        ),
+        relearning_steps_minutes=_coerce_int_sequence(
+            scheduler_data.get("relearning_steps_minutes"),
+            default=(10,),
+        ),
+        maximum_interval_days=int(scheduler_data.get("maximum_interval_days", 36500)),
+        enable_fuzzing=bool(scheduler_data.get("enable_fuzzing", False)),
+        parameters=_coerce_optional_float_sequence(scheduler_data.get("parameters")),
+    )
     sync_data = data.get("sync") or {}
     sync = None
     if sync_data:
@@ -88,9 +119,10 @@ def srs_settings_from_dict(data: Mapping[str, Any]) -> SrsSettings:
         max_active_items=int(data.get("max_active_items", 40)),
         max_new_items_per_day=int(data.get("max_new_items_per_day", 8)),
         feedback_scale=str(data.get("feedback_scale", "again_hard_good_easy")),
+        scheduler=scheduler,
         pair_rules=pair_rules,
         sync=sync,
-        version=int(data.get("version", 1)),
+        version=int(data.get("version", 2)),
     )
 
 
@@ -102,6 +134,23 @@ def srs_settings_to_dict(settings: SrsSettings) -> dict[str, Any]:
         "max_active_items": settings.max_active_items,
         "max_new_items_per_day": settings.max_new_items_per_day,
         "feedback_scale": settings.feedback_scale,
+        "scheduler": {
+            "algorithm": settings.scheduler.algorithm,
+            "desired_retention": settings.scheduler.desired_retention,
+            "learning_steps_minutes": [
+                int(value) for value in settings.scheduler.learning_steps_minutes
+            ],
+            "relearning_steps_minutes": [
+                int(value) for value in settings.scheduler.relearning_steps_minutes
+            ],
+            "maximum_interval_days": settings.scheduler.maximum_interval_days,
+            "enable_fuzzing": settings.scheduler.enable_fuzzing,
+            "parameters": (
+                [float(value) for value in settings.scheduler.parameters]
+                if settings.scheduler.parameters
+                else None
+            ),
+        },
         "pair_rules": {
             key: {"enabled": value.enabled}
             for key, value in dict(settings.pair_rules or {}).items()
@@ -145,7 +194,10 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
                 stability=item.get("stability"),
                 difficulty=item.get("difficulty"),
                 last_seen=item.get("last_seen"),
+                last_review=item.get("last_review"),
                 next_due=item.get("next_due"),
+                scheduler_state=item.get("scheduler_state"),
+                scheduler_step=item.get("scheduler_step"),
                 exposures=int(item.get("exposures", 0)),
                 history=history,
                 word_package=word_package,
@@ -172,7 +224,10 @@ def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
             "stability": item.stability,
             "difficulty": item.difficulty,
             "last_seen": item.last_seen,
+            "last_review": item.last_review,
             "next_due": item.next_due,
+            "scheduler_state": item.scheduler_state,
+            "scheduler_step": item.scheduler_step,
             "exposures": item.exposures,
             "srs_history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history],
             "word_package": word_package,
@@ -213,3 +268,29 @@ def srs_bundle_from_dict(data: Mapping[str, Any]) -> tuple[SrsSettings, SrsStore
     settings = srs_settings_from_dict(data.get("settings", {}))
     store = srs_store_from_dict(data.get("items", {}))
     return settings, store
+
+
+def _coerce_int_sequence(value: object, *, default: Sequence[int]) -> tuple[int, ...]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+        return tuple(int(item) for item in default)
+    result = []
+    for item in value:
+        try:
+            result.append(int(item))
+        except (TypeError, ValueError):
+            continue
+    return tuple(result) or tuple(int(item) for item in default)
+
+
+def _coerce_optional_float_sequence(value: object) -> Optional[tuple[float, ...]]:
+    if value is None:
+        return None
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+        return None
+    result = []
+    for item in value:
+        try:
+            result.append(float(item))
+        except (TypeError, ValueError):
+            continue
+    return tuple(result) or None

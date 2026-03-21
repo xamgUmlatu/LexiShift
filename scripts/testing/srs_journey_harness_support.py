@@ -14,8 +14,8 @@ from xml.sax.saxutils import escape
 from lexishift_core.helper.engine import get_srs_runtime_diagnostics
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.replacement.core import VocabRule
-from lexishift_core.srs import SrsItem, load_srs_settings, load_srs_store
-from lexishift_core.srs.scheduler import select_active_items
+from lexishift_core.srs import SrsItem, SrsSettings, load_srs_settings, load_srs_store
+from lexishift_core.srs.scheduler import get_item_retrievability, select_active_items
 from lexishift_core.srs.signal_queue import load_signal_events
 
 from srs_journey_installed_support import (
@@ -247,7 +247,7 @@ CORE_PHASE_PLANS = (
         ),
         refresh_at=BASE_TIME + timedelta(days=3),
     ),
-    JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=10)),
+    JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=7)),
 )
 
 ROLE_CORE_PHASE_PLANS = (
@@ -298,7 +298,7 @@ ROLE_CORE_PHASE_PLANS = (
         ),
         refresh_at=BASE_TIME + timedelta(days=3),
     ),
-    JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=10)),
+    JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=7)),
 )
 
 EDGE_PHASE_PLANS = (
@@ -711,6 +711,8 @@ def snapshot_targets_from_snapshot(path: Path) -> list[str]:
 def _item_payload(
     item: SrsItem,
     *,
+    settings: SrsSettings,
+    now: datetime,
     due_lemmas: set[str],
     due_rank_by_lemma: Mapping[str, int],
     published_lemmas: set[str],
@@ -726,7 +728,11 @@ def _item_payload(
         "due_rank": due_rank_by_lemma.get(item.lemma),
         "stability": item.stability,
         "difficulty": item.difficulty,
+        "retrievability": get_item_retrievability(item, settings=settings, now=now),
+        "scheduler_state": item.scheduler_state,
+        "scheduler_step": item.scheduler_step,
         "last_seen": item.last_seen,
+        "last_review": item.last_review,
         "exposures": int(item.exposures),
         "history_count": len(item.history),
         "recent_history": [
@@ -815,6 +821,8 @@ def phase_snapshot(
         "items": [
             _item_payload(
                 item,
+                settings=settings,
+                now=now,
                 due_lemmas=due_lemmas,
                 due_rank_by_lemma=due_rank_by_lemma,
                 published_lemmas=published_lemmas,

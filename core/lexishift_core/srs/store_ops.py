@@ -8,7 +8,7 @@ from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsStore
+from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore
 from lexishift_core.srs.source import SOURCE_UNKNOWN, normalize_source_type
 from lexishift_core.srs.scheduler import apply_feedback
 from lexishift_core.srs.time import format_ts, now_utc
@@ -87,6 +87,7 @@ def record_feedback(
     source_type: str = SOURCE_UNKNOWN,
     increment_exposures: bool = True,
     word_package: Optional[Mapping[str, object]] = None,
+    settings: Optional[SrsSettings] = None,
 ) -> SrsStore:
     now = now or now_utc()
     source_type = normalize_source_type(source_type)
@@ -110,7 +111,7 @@ def record_feedback(
         )
     elif item.word_package is None and resolved_word_package is not None:
         item = replace(item, word_package=resolved_word_package)
-    updated = apply_feedback(item, rating, now=now)
+    updated = apply_feedback(item, rating, now=now, settings=settings)
     if increment_exposures:
         updated = replace(updated, exposures=updated.exposures + 1)
     return upsert_item(store, updated)

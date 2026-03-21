@@ -143,8 +143,8 @@ def apply_growth_plan(
             language_pair=candidate.language_pair,
             source_type=source_type,
             confidence=confidence,
-            stability=config.initial_stability,
-            difficulty=config.initial_difficulty,
+            scheduler_state="learning",
+            scheduler_step=0,
             word_package=word_package,
         )
         updated = upsert_item(updated, item)

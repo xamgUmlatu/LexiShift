@@ -13,6 +13,7 @@ from lexishift_core.srs import SrsItem
 from lexishift_core.srs.scheduler import (
     RATING_GOOD,
     apply_feedback,
+    get_item_retrievability,
     select_active_items,
 )
 
@@ -60,7 +61,26 @@ class TestSrsScheduler(unittest.TestCase):
         updated = apply_feedback(item, RATING_GOOD, now=now)
         self.assertIsNotNone(updated.next_due)
         self.assertIsNotNone(updated.last_seen)
+        self.assertIsNotNone(updated.last_review)
+        self.assertEqual(updated.scheduler_state, "learning")
+        self.assertEqual(updated.scheduler_step, 1)
         self.assertEqual(len(updated.history), 1)
+
+    def test_get_item_retrievability_uses_fsrs_state(self) -> None:
+        now = datetime(2026, 2, 2, 12, 0, tzinfo=timezone.utc)
+        item = SrsItem(
+            item_id="en-en:gloaming",
+            lemma="gloaming",
+            language_pair="en-en",
+            source_type="frequency",
+        )
+        reviewed = apply_feedback(item, RATING_GOOD, now=now)
+
+        retrievability = get_item_retrievability(reviewed, now=now + timedelta(minutes=1))
+
+        self.assertIsNotNone(retrievability)
+        self.assertGreaterEqual(float(retrievability or 0.0), 0.0)
+        self.assertLessEqual(float(retrievability or 1.0), 1.0)
 
 
 if __name__ == "__main__":

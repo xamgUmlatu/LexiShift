@@ -79,10 +79,11 @@ Use this file when:
 ## SRS Quality Harness
 
 - Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication workflow
-- Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` synthetic harness run + summary artifact
+- Last documented checkpoint: `2026-03-21` FSRS scheduler migration and journey artifact refresh
+- Last verified: `2026-03-21` synthetic harness run + summary artifact
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
+  - Review scheduling is now FSRS-based.
   - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
   - Human-facing summary is available from the JSON artifact.
 - Evidence:
@@ -100,7 +101,7 @@ Use this file when:
 ## SRS Journey E2E Harness
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-21` installed-resource `en-ja` + `en-es` journey review lanes added alongside deterministic and synthetic-real publication lanes
+- Last documented checkpoint: `2026-03-21` FSRS-backed journey artifacts for deterministic, synthetic-real, and installed-resource `en-ja` + `en-es` lanes
 - Last verified: `2026-03-21` deterministic `en-ja` + `en-es` core and edge journey harness runs, synthetic-resource real-publication lanes, installed-resource `en-ja` + `en-es` runs, Markdown summaries, and interactive HTML review artifacts
 - Default behavior:
   - Deterministic `en-ja` and `en-es` core and edge journey lanes plus matching real-publication lanes are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.

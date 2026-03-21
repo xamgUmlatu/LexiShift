@@ -11,12 +11,20 @@ This schema document separates what is implemented now from planned extensibilit
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "enabled": true,
   "coverage_scalar": 0.35,
   "max_active_items": 40,
   "max_new_items_per_day": 8,
   "feedback_scale": "again_hard_good_easy",
+  "scheduler": {
+    "algorithm": "fsrs",
+    "desired_retention": 0.9,
+    "learning_steps_minutes": [1, 10],
+    "relearning_steps_minutes": [10],
+    "maximum_interval_days": 36500,
+    "enable_fuzzing": false
+  },
   "pair_rules": {
     "en-ja": {"enabled": true}
   },
@@ -33,6 +41,7 @@ Key semantics:
   - `2 -> hard`
   - `3 -> good`
   - `4 -> easy`
+- `scheduler` holds the active review policy. Current default is FSRS.
 - `max_active_items` caps study load.
 - `max_new_items_per_day` throttles growth into `S`.
 - Pair bootstrap sizing is currently configured via profile/options payload:
@@ -46,7 +55,7 @@ Key semantics:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "items": [
     {
       "item_id": "en-ja:猫",
@@ -55,9 +64,12 @@ Key semantics:
       "source_type": "initial_set",
       "confidence": 0.81,
       "stability": 1.5,
-      "difficulty": 0.45,
+      "difficulty": 2.45,
       "last_seen": "2026-02-06T11:12:13+00:00",
+      "last_review": "2026-02-06T11:12:13+00:00",
       "next_due": "2026-02-08T11:12:13+00:00",
+      "scheduler_state": "review",
+      "scheduler_step": null,
       "exposures": 3,
       "srs_history": [
         {"ts": "2026-02-04T10:00:00+00:00", "rating": "good"},
@@ -72,6 +84,8 @@ Notes:
 - This sparse store is the persisted study inventory `S`.
 - Items not in `S` are implicitly outside the active curriculum.
 - `next_due` drives due-based serving order.
+- New items may have `stability`, `difficulty`, and `last_review` unset until the first feedback review.
+- Current `difficulty` is the raw FSRS scheduler value, not a normalized `0..1` UI score.
 - `source_type: "initial_set"` identifies words admitted by bootstrap initialization.
 - Current store does not require a single explicit `probability` column; serving probability is derived from due/order policy at runtime.
 

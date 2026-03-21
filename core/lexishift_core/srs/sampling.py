@@ -6,6 +6,7 @@ import random
 from typing import Optional, Sequence
 
 from lexishift_core.srs import SrsItem, SrsStore
+from lexishift_core.srs.scheduler import normalize_scheduler_difficulty
 from lexishift_core.srs.time import now_utc, parse_ts
 
 
@@ -147,7 +148,8 @@ def _build_weights(
 
 
 def _priority_weight(item: SrsItem, *, now: datetime) -> float:
-    difficulty = _clamp_01(item.difficulty if item.difficulty is not None else 0.5)
+    difficulty = normalize_scheduler_difficulty(item.difficulty)
+    difficulty = _clamp_01(difficulty if difficulty is not None else 0.5)
     stability = max(0.25, float(item.stability)) if item.stability is not None else 1.0
     history_size = len(item.history or ())
     novelty_bonus = 0.35 if history_size == 0 else 0.0

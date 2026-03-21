@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `installed_resource_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T01:58:05.994418+00:00`
+- Generated at: `2026-03-21T02:48:57.052670+00:00`
 
 ## Phases
 
@@ -51,20 +51,20 @@
 - Due not published: none
 
 ### recovery_resume
-- Counts: admitted=7 due=2 published=6
+- Counts: admitted=7 due=3 published=6
 - Refresh: applied=yes reason=`normal`
 - Admitted delta: in=日本, 為る; out=none
-- Due delta: in=日本, 為る; out=人, 無い
+- Due delta: in=日本, 時, 為る; out=人, 無い
 - Published delta: in=日本; out=none
 - Events applied: feedback=8 exposure=0
-- Published not due: 事, 人, 時, 無い, 物
+- Published not due: 事, 人, 無い, 物
 - Due not published: 為る
 
 ### fade_check
 - Counts: admitted=7 due=3 published=6
 - Refresh: not requested
 - Admitted delta: in=none; out=none
-- Due delta: in=時; out=none
+- Due delta: in=none; out=none
 - Published delta: in=none; out=none
 - Events applied: feedback=0 exposure=0
 - Published not due: 事, 人, 無い, 物
