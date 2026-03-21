@@ -17,6 +17,8 @@ from lexishift_core.srs import SrsItem, load_srs_settings, load_srs_store
 from lexishift_core.srs.scheduler import select_active_items
 from lexishift_core.srs.signal_queue import load_signal_events
 
+from srs_journey_review_support import word_package_preview
+
 CLOCK_PATCH_TARGETS = (
     "lexishift_core.srs.time.now_utc",
     "lexishift_core.srs.scheduler.now_utc",
@@ -400,13 +402,20 @@ def snapshot_targets_from_snapshot(path: Path) -> list[str]:
 
 
 def _item_payload(
-    item: SrsItem, *, due_lemmas: set[str], published_lemmas: set[str]
+    item: SrsItem,
+    *,
+    due_lemmas: set[str],
+    due_rank_by_lemma: Mapping[str, int],
+    published_lemmas: set[str],
 ) -> dict[str, object]:
     return {
         "lemma": item.lemma,
         "cohort": COHORT_BY_LEMMA.get(item.lemma, "frontier"),
         "status": _infer_status(item),
+        "source_type": item.source_type,
+        "confidence": item.confidence,
         "next_due": item.next_due,
+        "due_rank": due_rank_by_lemma.get(item.lemma),
         "stability": item.stability,
         "difficulty": item.difficulty,
         "last_seen": item.last_seen,
@@ -418,6 +427,7 @@ def _item_payload(
         "in_admitted": True,
         "in_due": item.lemma in due_lemmas,
         "in_published": item.lemma in published_lemmas,
+        "word_package": word_package_preview(item.word_package),
     }
 
 
@@ -455,6 +465,7 @@ def phase_snapshot(
         allowed_pairs=[pair],
     )
     due_lemmas = {item.lemma for item in due_items}
+    due_rank_by_lemma = {item.lemma: index for index, item in enumerate(due_items, start=1)}
     ruleset_path = Path(str(diagnostics.get("ruleset_path") or ""))
     snapshot_path = Path(str(diagnostics.get("snapshot_path") or ""))
     published_lemmas = (
@@ -493,7 +504,12 @@ def phase_snapshot(
             "published": len(published),
         },
         "items": [
-            _item_payload(item, due_lemmas=due_lemmas, published_lemmas=published_lemmas)
+            _item_payload(
+                item,
+                due_lemmas=due_lemmas,
+                due_rank_by_lemma=due_rank_by_lemma,
+                published_lemmas=published_lemmas,
+            )
             for item in pair_items
         ],
     }

@@ -185,10 +185,13 @@ Item-level SRS journey harness:
 ```bash
 npm --prefix scripts run quality:srs:journey
 npm --prefix scripts run quality:srs:journey:summary
+npm --prefix scripts run quality:srs:journey:html
 npm --prefix scripts run quality:srs:journey:edge
 npm --prefix scripts run quality:srs:journey:edge:summary
+npm --prefix scripts run quality:srs:journey:edge:html
 npm --prefix scripts run quality:srs:journey:real
 npm --prefix scripts run quality:srs:journey:real:summary
+npm --prefix scripts run quality:srs:journey:real:html
 ```
 
 This build safety currently runs:

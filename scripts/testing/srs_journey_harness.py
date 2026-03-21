@@ -19,12 +19,13 @@ from lexishift_core.helper.engine import (  # noqa: E402
     SetInitializationJobConfig,
     apply_exposure,
     apply_feedback,
+    build_seed_candidates as build_engine_seed_candidates,
     initialize_srs_set,
     refresh_srs_set,
 )
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
-from lexishift_core.srs import SrsSettings, save_srs_settings  # noqa: E402
-from lexishift_core.srs.signal_queue import summarize_signal_events  # noqa: E402
+from lexishift_core.srs import SrsSettings, load_srs_store, save_srs_settings  # noqa: E402
+from lexishift_core.srs.signal_queue import load_signal_events, summarize_signal_events  # noqa: E402
 
 from srs_journey_harness_support import (  # noqa: E402
     COHORT_BY_LEMMA,
@@ -42,6 +43,11 @@ from srs_journey_harness_support import (  # noqa: E402
     scenario_candidate_universe,
     scenario_clock,
     stub_run_rulegen_for_pair,
+)
+from srs_journey_review_support import (  # noqa: E402
+    apply_selected_lemmas_to_refresh_audit,
+    build_bootstrap_candidate_audit,
+    build_refresh_candidate_audit,
 )
 
 DEFAULT_SCENARIO = CORE_SCENARIO_NAME
@@ -168,6 +174,9 @@ def _run_phase(
     phase_plans: Sequence[object],
     previous_snapshot: Mapping[str, object] | None,
     refresh_config: SrsRefreshJobConfig,
+    jmdict_path: Path,
+    set_source_db: Path,
+    seed_builder,
     use_stub_seed_candidates: bool,
     use_stub_rulegen: bool,
 ) -> dict[str, object]:
@@ -186,7 +195,23 @@ def _run_phase(
         events=phase_plan.exposure_events,
     )
     refresh_payload: dict[str, object] | None = None
+    refresh_audit: dict[str, object] | None = None
     if phase_plan.refresh_at is not None:
+        store_before = load_srs_store(paths.srs_store_path_for(profile_id))
+        refresh_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
+        refresh_audit = build_refresh_candidate_audit(
+            paths,
+            pair=pair,
+            set_source_db=set_source_db,
+            jmdict_path=jmdict_path,
+            set_top_n=int(refresh_config.set_top_n or 0),
+            feedback_window_size=int(refresh_config.feedback_window_size or 0),
+            allowed_pos=refresh_config.allowed_pos,
+            store_before=store_before,
+            events=refresh_events,
+            cohort_by_lemma=COHORT_BY_LEMMA,
+            seed_builder=seed_builder,
+        )
         with ExitStack() as stack:
             stack.enter_context(patched_now(phase_plan.refresh_at))
             if use_stub_seed_candidates:
@@ -204,6 +229,13 @@ def _run_phase(
                     )
                 )
             refresh_payload = refresh_srs_set(paths, config=refresh_config)
+        selected_lemmas = (
+            (refresh_payload or {}).get("admission_refresh", {}).get("selected_lemmas", [])
+        )
+        refresh_audit = apply_selected_lemmas_to_refresh_audit(
+            refresh_audit,
+            selected_lemmas=selected_lemmas if isinstance(selected_lemmas, Sequence) else [],
+        )
     with patched_now(phase_plan.observe_at):
         snapshot = phase_snapshot(
             paths, pair=pair, profile_id=profile_id, now=phase_plan.observe_at
@@ -411,6 +443,7 @@ def _run_phase(
         "refresh": {
             "requested": phase_plan.refresh_at is not None,
             "payload": refresh_payload,
+            "audit": refresh_audit,
             "ts": phase_plan.refresh_at.isoformat() if phase_plan.refresh_at else None,
         },
         **snapshot,
@@ -436,6 +469,11 @@ def build_report(
 
     with _temp_paths() as paths:
         resources = create_en_ja_resources(paths)
+        seed_builder = (
+            build_seed_candidates
+            if scenario_def.use_stub_seed_candidates
+            else build_engine_seed_candidates
+        )
         save_srs_settings(
             SrsSettings(
                 max_active_items=scenario_def.max_active_items,
@@ -485,6 +523,15 @@ def build_report(
                     phase="bootstrap_publish",
                 )
             )
+            initialize_payload["bootstrap_audit"] = build_bootstrap_candidate_audit(
+                paths,
+                pair=pair,
+                jmdict_path=resources["jmdict_path"],
+                set_source_db=resources["frequency_db"],
+                set_top_n=int(initialize_payload.get("bootstrap_top_n") or 0),
+                initial_active_count=int(initialize_payload.get("initial_active_count") or 0),
+                cohort_by_lemma=COHORT_BY_LEMMA,
+            )
         else:
             findings.append(
                 _finding(
@@ -518,6 +565,9 @@ def build_report(
                 phase_plans=phase_plans,
                 previous_snapshot=previous_snapshot,
                 refresh_config=refresh_config,
+                jmdict_path=resources["jmdict_path"],
+                set_source_db=resources["frequency_db"],
+                seed_builder=seed_builder,
                 use_stub_seed_candidates=scenario_def.use_stub_seed_candidates,
                 use_stub_rulegen=scenario_def.use_stub_rulegen,
             )
@@ -732,10 +782,11 @@ def build_report(
             paths.srs_signal_queue_path_for(profile_id), pair=pair
         )
         return {
-            "version": 1,
+            "version": 2,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "plan_doc": str(PROJECT_ROOT / "docs" / "srs" / "srs_journey_harness_workstream.md"),
             "scenario": {
+                "id": scenario,
                 "name": scenario,
                 "pair": pair,
                 "lane": scenario_def.lane,

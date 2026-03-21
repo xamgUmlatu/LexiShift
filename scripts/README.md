@@ -130,6 +130,8 @@ Use the raw script paths below when there is no package-script surface or when y
   `testing/srs_journey_harness.py --scenario en-ja_real_publication_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:real`)
 - Render Markdown summaries from SRS journey JSON artifacts:
   `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
+- Render interactive HTML pedagogical review surfaces from SRS journey JSON artifacts:
+  `testing/srs_journey_html.py` (also exposed via `npm --prefix scripts run quality:srs:journey:html`, `quality:srs:journey:edge:html`, and `quality:srs:journey:real:html`)
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.

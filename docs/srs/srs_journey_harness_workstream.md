@@ -1,9 +1,9 @@
 # SRS Journey Harness Workstream
 
-Status: Active planning
+Status: Active implementation
 Role: Planning / WIP
 Last updated: 2026-03-21
-Purpose: define a reusable end-to-end SRS journey harness that proves bootstrap, feedback, scheduling, admission refresh, publication, and runtime-facing set changes with enough detail for retroactive analysis.
+Purpose: define a reusable end-to-end SRS journey harness that proves bootstrap, feedback, scheduling, admission refresh, publication, and runtime-facing set changes with enough detail for retroactive analysis and pedagogical playback review.
 Source-of-truth: planning doc for harness scope and acceptance criteria; current implemented behavior remains defined by helper/SRS code and generated evidence.
 
 ## Why This Exists
@@ -99,9 +99,12 @@ This should be a new harness family, not a single monolithic script.
 Planned files:
 - `scripts/testing/srs_journey_harness.py`
 - `scripts/testing/srs_journey_summary.py`
+- `scripts/testing/srs_journey_html.py`
 - `scripts/testing/srs_journey_harness_support.py`
+- `scripts/testing/srs_journey_review_support.py`
 - `core/tests/dev/test_srs_journey_harness.py`
 - `core/tests/dev/test_srs_journey_summary.py`
+- `core/tests/dev/test_srs_journey_html.py`
 
 ## Harness Lanes
 
@@ -383,10 +386,13 @@ Planned artifact root:
 Planned initial artifacts:
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.html`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.html`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.html`
 
 Generated evidence remains evidence, not architecture authority.
 
@@ -417,7 +423,8 @@ Do not call this harness complete until all of the following are true.
    - admitted-vs-due-vs-published relationships are explicit and machine-readable
 
 7. Human review artifact
-   - Markdown summary is good enough for manual inspection without opening raw JSON only
+   - Markdown summary exists for concise handoff
+   - interactive HTML playback exists for full pedagogical inspection without opening raw JSON only
 
 8. Regression safety
    - targeted tests pass

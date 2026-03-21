@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `deterministic_edge_behaviors`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-20T23:38:09.885396+00:00`
+- Generated at: `2026-03-21T00:04:49.430539+00:00`
 
 ## Phases
 

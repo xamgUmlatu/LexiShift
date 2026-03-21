@@ -21,11 +21,17 @@ class TestSrsJourneyHarness(unittest.TestCase):
 
         self.assertEqual(summary["status"], "WARN")
         self.assertEqual(report["scenario"]["name"], "en-ja_core_journey_v1")
+        self.assertEqual(report["scenario"]["id"], "en-ja_core_journey_v1")
         self.assertEqual(len(phases), 6)
         self.assertEqual(phases[0]["counts"]["admitted"], 3)
         self.assertEqual(phases[2]["counts"]["admitted"], 5)
         self.assertEqual(phases[3]["counts"]["admitted"], 5)
         self.assertEqual(phases[4]["counts"]["admitted"], 7)
+        self.assertIn("bootstrap_audit", report["initialize"])
+        self.assertEqual(
+            report["initialize"]["bootstrap_audit"]["candidates"][0]["lemma"],
+            "alpha",
+        )
         self.assertTrue(
             any(item.get("code") == "SRS_JOURNEY_HIGH_RETENTION_ADMITS" for item in findings)
         )
@@ -52,6 +58,11 @@ class TestSrsJourneyHarness(unittest.TestCase):
         ]
         self.assertEqual(stable_due, [])
         self.assertEqual(difficult_due, ["gamma"])
+        refresh_audit = phases[2]["refresh"]["audit"]
+        self.assertEqual(refresh_audit["selected_lemmas"], ["delta", "epsilon"])
+        self.assertTrue(any(item["selected"] for item in refresh_audit["candidates"]))
+        self.assertIn("confidence", phases[2]["items"][0])
+        self.assertIn("word_package", phases[2]["items"][0])
 
     def test_build_report_surfaces_edge_behavior_events_and_non_authoritative_exposure(
         self,
@@ -125,6 +136,10 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertEqual(
             phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],
             phases[2]["counts"]["admitted"],
+        )
+        self.assertEqual(
+            phases[2]["refresh"]["audit"]["selected_lemmas"],
+            ["delta", "epsilon"],
         )
 
 
