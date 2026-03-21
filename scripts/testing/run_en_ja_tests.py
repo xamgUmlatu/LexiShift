@@ -17,9 +17,9 @@ from lexishift_core.frequency.providers import (  # noqa: E402
     build_sqlite_frequency_provider,
 )
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig  # noqa: E402
-from lexishift_core.rulegen.pairs.ja_en import (  # noqa: E402
-    JaEnRulegenConfig,
-    generate_ja_en_results,
+from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
+    EnJaRulegenConfig,
+    generate_en_ja_results,
 )
 from lexishift_core.srs.seed import (  # noqa: E402
     SeedSelectionConfig,
@@ -136,14 +136,14 @@ def build_rulegen_sweep(
         targets = [seed.lemma for seed in seeds]
         for threshold in thresholds:
             for decay in decays:
-                config = JaEnRulegenConfig(
+                config = EnJaRulegenConfig(
                     jmdict_path=jmdict,
                     gloss_mapping=gloss_mapping,
                     gloss_decay=GlossDecay(schedule=decay),
                     confidence_threshold=threshold,
                     frequency_provider=frequency_provider,
                 )
-                results = generate_ja_en_results(targets, config=config)
+                results = generate_en_ja_results(targets, config=config)
                 entry = {
                     "top_n": top_n,
                     "confidence_threshold": threshold,
@@ -168,7 +168,7 @@ def main() -> None:
     )
     parser.add_argument("--sample", type=int, default=10, help="Sample size for seed report")
     parser.add_argument(
-        "--out-dir", type=Path, default=Path("docs/test_outputs/ja_en"), help="Output base dir"
+        "--out-dir", type=Path, default=Path("docs/test_outputs/en_ja"), help="Output base dir"
     )
     args = parser.parse_args()
 

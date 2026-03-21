@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ruff: noqa: E402
 from __future__ import annotations
 
 import sys
@@ -15,11 +16,14 @@ from lexishift_core.resources.dict_loaders import load_jmdict_glosses_ordered  #
 from lexishift_core.frequency.providers import (
     SqliteFrequencyProviderConfig,
     build_sqlite_frequency_provider,
+)  # noqa: E402
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig  # noqa: E402
+from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
+    EnJaRulegenConfig,
+    generate_en_ja_results,
 )
-from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
-from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_results
-from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
-from lexishift_core.scoring.weighting import GlossDecay
+from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
+from lexishift_core.scoring.weighting import GlossDecay  # noqa: E402
 
 
 def parse_int_list(text: str) -> list[int]:
@@ -109,14 +113,14 @@ def main() -> None:
         targets = [seed.lemma for seed in seeds]
         for threshold in thresholds:
             for decay in decays:
-                config = JaEnRulegenConfig(
+                config = EnJaRulegenConfig(
                     jmdict_path=args.jmdict,
                     gloss_mapping=gloss_mapping,
                     gloss_decay=GlossDecay(schedule=decay),
                     confidence_threshold=threshold,
                     frequency_provider=frequency_provider,
                 )
-                results = generate_ja_en_results(targets, config=config)
+                results = generate_en_ja_results(targets, config=config)
                 entry = {
                     "top_n": top_n,
                     "confidence_threshold": threshold,

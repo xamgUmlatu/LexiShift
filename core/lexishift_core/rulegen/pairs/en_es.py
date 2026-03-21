@@ -26,7 +26,7 @@ from lexishift_core.rulegen.ranking import (
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
 )
-from lexishift_core.rulegen.pairs.ja_en import DEFAULT_STOPWORDS
+from lexishift_core.rulegen.pairs.en_ja import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.pairs.pos_utils import (
     build_candidate_pos_metadata,
     extract_target_pos_component,

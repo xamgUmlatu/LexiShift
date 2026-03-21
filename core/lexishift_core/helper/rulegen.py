@@ -36,7 +36,7 @@ __all__ = [
     "initialize_store_from_frequency_list_with_report",
     "load_target_word_packages_from_store",
     "load_targets_from_store",
-    "run_ja_en_rulegen",
+    "run_en_ja_rulegen",
     "run_rulegen_for_pair",
     "write_rulegen_outputs",
 ]
@@ -211,7 +211,7 @@ def initialize_store_from_frequency_list_with_report(
     return updated, report
 
 
-def run_ja_en_rulegen(
+def run_en_ja_rulegen(
     *,
     targets: Iterable[str],
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,

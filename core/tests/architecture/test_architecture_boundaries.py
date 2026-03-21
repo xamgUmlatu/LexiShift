@@ -64,9 +64,9 @@ class TestArchitectureBoundaries(unittest.TestCase):
 
     def test_rulegen_pair_specific_modules_live_under_pairs_namespace(self) -> None:
         rulegen_root = PACKAGE_ROOT / "rulegen"
-        self.assertFalse((rulegen_root / "ja_en.py").exists())
+        self.assertFalse((rulegen_root / "en_ja.py").exists())
         self.assertFalse((rulegen_root / "en_de.py").exists())
-        self.assertTrue((rulegen_root / "pairs" / "ja_en.py").exists())
+        self.assertTrue((rulegen_root / "pairs" / "en_ja.py").exists())
         self.assertTrue((rulegen_root / "pairs" / "en_de.py").exists())
 
 

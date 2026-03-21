@@ -261,7 +261,7 @@ Everything from the progress log through the historical definition of done shoul
     reducing `controller_graph.js` from `451` to `274` lines and removing it from near-limit warnings.
 48. 2026-02-28: converted additional high-fanout exports in
     `core/lexishift_core/__init__.py` to lazy export resolution
-    (`frequency providers/sqlite`, `ja_en rulegen`, `seed`, `weighting`),
+    (`frequency providers/sqlite`, `en_ja rulegen`, `seed`, `weighting`),
     reducing import pressure and removing `__init__.py` from near-limit warnings.
 49. 2026-02-28: reduced import pressure in `core/lexishift_core/helper/engine.py`
     by lazy-loading low-frequency use-case modules (`runtime_diagnostics`,

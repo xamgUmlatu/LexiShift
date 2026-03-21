@@ -225,11 +225,11 @@ We are locking in a **JMDict‑filtered core set** for initial S bootstrap:
 See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen flow.
 
 ### Testing harness (parameter sweeps)
-- Seed report: `scripts/testing/ja_en_seed_report.py`
-- Rulegen sweeps: `scripts/testing/ja_en_rulegen_sweep.py`
+- Seed report: `scripts/testing/en_ja_seed_report.py`
+- Rulegen sweeps: `scripts/testing/en_ja_rulegen_sweep.py`
   - Supports `--top-n`, `--thresholds`, `--decays`, and optional `--coca` weighting.
-- All-in-one runner (writes output files): `scripts/testing/run_ja_en_tests.py`
-- Human review sampler: `scripts/testing/ja_en_sample_review.py`
+- All-in-one runner (writes output files): `scripts/testing/run_en_ja_tests.py`
+- Human review sampler: `scripts/testing/en_ja_sample_review.py`
 - Pair-level benchmark sweep + leaderboard: `scripts/testing/rulegen_benchmark.py`
   - Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
   - Outputs ranked JSON/Markdown reports for iterative tuning across pairs.
@@ -245,7 +245,7 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 Implementation status
 - Core pipeline skeleton lives in `core/lexishift_core/rulegen/generation.py`.
 - `RuleMetadata` now supports `source_type`, `confidence`, and `morphology` fields and is serialized in datasets.
-- JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rulegen/pairs/ja_en.py`.
+- JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rulegen/pairs/en_ja.py`.
 - EN→DE, EN→ES, and ES→EN generators live in `core/lexishift_core/rulegen/pairs/en_de.py`, `core/lexishift_core/rulegen/pairs/en_es.py`, and `core/lexishift_core/rulegen/pairs/es_en.py`.
 - Paired inflection expansion utilities live in `core/lexishift_core/rulegen/utils.py` (`PairedInflectionVariantExpander`).
 - Frequency lexicon loader lives in `core/lexishift_core/frequency/core.py` (generic).
@@ -256,4 +256,4 @@ Implementation status
   - `core/lexishift_core/srs/set_planner.py`
   - `core/lexishift_core/helper/engine.py` (`srs_plan_set`, extended `srs_initialize`)
 - Normalization utilities live in `core/lexishift_core/scoring/weighting.py`.
-- End-to-end test script: `scripts/build/ja_en_srs_rules.py` (BCCWJ + JMDict + optional COCA).
+- End-to-end test script: `scripts/build/en_ja_srs_rules.py` (BCCWJ + JMDict + optional COCA).

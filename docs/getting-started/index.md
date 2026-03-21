@@ -244,7 +244,7 @@ title: LexiShift Getting Started
       <ul>
         <li>Open <code>Settings -> App</code> and install language packs.</li>
         <li>Supported wired sources include WordNet, Moby, OpenThesaurus, JP WordNet, JMDict, and CC-CEDICT.</li>
-        <li>Current language-pair pipelines include <code>ja_en</code>, <code>en_de</code>, <code>en_es</code>, and <code>es_en</code>.</li>
+        <li>Current language-pair pipelines include <code>en_ja</code>, <code>en_de</code>, <code>en_es</code>, and <code>es_en</code>.</li>
         <li>Optional embedding conversion can improve ranking workflows for large vector sets.</li>
       </ul>
       <p>

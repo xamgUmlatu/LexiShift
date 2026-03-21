@@ -39,7 +39,7 @@ Implemented features (current)
 - SRS + helper core
   - SRS store/scheduler/policy primitives and pair-level settings.
   - Set planning/bootstrap/refresh workflows in helper use-cases.
-  - Language-pair rule generation pipelines (`ja_en`, `en_de`, `en_es`, `es_en`) with confidence scoring.
+  - Language-pair rule generation pipelines (`en_ja`, `en_de`, `en_es`, `es_en`) with confidence scoring.
   - Paired morphology metadata for inflected source/target surfaces (currently wired for `en-es` noun plurals).
   - Feedback/exposure signal ingestion paths.
 - Desktop GUI (PySide6)
@@ -87,7 +87,7 @@ Project layout
 - `core/lexishift_core/frequency/`: generic frequency lexicon loading + provider interfaces.
 - `core/lexishift_core/frequency/de/`: DE-specific frequency pack build pipeline and POS-lexicon compilation.
 - `core/lexishift_core/rulegen/generation.py`: pair-agnostic rule generation pipeline/scoring.
-- `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`ja_en`, `en_de`, `en_es`, `es_en`).
+- `core/lexishift_core/rulegen/pairs/`: pair-specific generators (`en_ja`, `en_de`, `en_es`, `es_en`).
 - `core/lexishift_core/__init__.py`: public API exports.
 - `data/`: schema definitions and sample rulesets.
 - `scripts/dev/dev_utils.py`: convenience re-export of the same public API.

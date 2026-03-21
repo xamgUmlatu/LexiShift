@@ -24,7 +24,7 @@ PAIR_PATH_HINTS: dict[str, tuple[str, ...]] = {
         "rulegen_benchmark_en_es",
     ),
     "en-ja": (
-        "ja_en.py",
+        "en_ja.py",
         "en-ja",
         "rulegen_benchmark_en_ja",
         "jmdict",

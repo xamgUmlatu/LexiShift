@@ -287,7 +287,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-02-27`
-- Last verified: `2026-02-28` benchmark artifact review; `2026-03-11` code inspection
+- Last verified: `2026-02-28` benchmark artifact review; `2026-03-21` code inspection after `en_ja` adapter/module rename
 - Default behavior:
   - Active for current rulegen pairs through pair-specific demotion lists.
   - Tuned via `semantic_demotion_scale`.
@@ -298,7 +298,7 @@ Use this file when:
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
-  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
 - Known gaps:
   - Heuristic demotion is conservative and does not replace sense-level disambiguation.
   - Current `en-es:madre` failure shows generic demotion alone is not sufficient.

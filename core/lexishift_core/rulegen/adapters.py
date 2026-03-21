@@ -11,7 +11,7 @@ from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
 from lexishift_core.rulegen.pairs.en_es import EnEsRulegenConfig, generate_en_es_results
 from lexishift_core.rulegen.pairs.es_en import EsEnRulegenConfig, generate_es_en_results
-from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_results
+from lexishift_core.rulegen.pairs.en_ja import EnJaRulegenConfig, generate_en_ja_results
 from lexishift_core.scoring.weighting import GlossDecay
 
 
@@ -38,10 +38,10 @@ class RulegenAdapterRequest:
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
 
 
-def _run_ja_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     if request.jmdict_path is None:
         raise ValueError("Missing JMDict path for en-ja rule generation.")
-    config = JaEnRulegenConfig(
+    config = EnJaRulegenConfig(
         jmdict_path=request.jmdict_path,
         language_pair=request.language_pair,
         confidence_threshold=request.confidence_threshold,
@@ -54,7 +54,7 @@ def _run_ja_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
     )
-    results = generate_ja_en_results(request.targets, config=config)
+    results = generate_en_ja_results(request.targets, config=config)
     return [result.rule for result in results]
 
 
@@ -122,7 +122,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 _RULEGEN_ADAPTERS: dict[str, RulegenAdapter] = {
-    "ja_en": _run_ja_en_adapter,
+    "en_ja": _run_en_ja_adapter,
     "en_de": _run_en_de_adapter,
     "en_es": _run_en_es_adapter,
     "es_en": _run_es_en_adapter,

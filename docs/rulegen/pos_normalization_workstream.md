@@ -1,6 +1,6 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
-Status: Completed (Phases 0-6 implemented)  
+Status: Completed (Phases 0-6 implemented)
 Last updated: 2026-02-23
 
 ## Purpose
@@ -41,7 +41,7 @@ This causes quality drift across pairs and makes LP onboarding harder than it sh
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
-  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
 
 ### Existing but underused hooks
 
@@ -294,7 +294,7 @@ Tasks:
 1. Extend loaders to expose POS where available:
    - `core/lexishift_core/resources/dict_loaders.py`
    - add an ordered loader variant that includes translation + POS metadata
-2. In pair adapters (`en_es`, `es_en`, `en_de`, `ja_en`):
+2. In pair adapters (`en_es`, `es_en`, `en_de`, `en_ja`):
    - attach normalized source POS to `RuleCandidate.metadata`
    - attach target POS (from word_package/seed metadata) when present
 3. In `core/lexishift_core/rulegen/generation.py`:
@@ -320,7 +320,7 @@ Phase 3 progress snapshot (2026-02-22):
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
-  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
   - Shared pair helper added:
     - `core/lexishift_core/rulegen/pairs/pos_utils.py`
 - Adapter/runtime plumbing:
@@ -533,13 +533,13 @@ With those five inputs, normalization mapping can be added with low risk.
 
 ## Risks And Mitigations
 
-Risk: Over-aggressive mapping introduces wrong POS signals.  
+Risk: Over-aggressive mapping introduces wrong POS signals.
 Mitigation: keep unknown->neutral fallback; do not hard-filter by POS by default.
 
-Risk: Different sources disagree on POS granularity.  
+Risk: Different sources disagree on POS granularity.
 Mitigation: canonical layer decouples source tags from downstream logic.
 
-Risk: Missing POS in some LPs causes inconsistent behavior.  
+Risk: Missing POS in some LPs causes inconsistent behavior.
 Mitigation: scoring/filters remain optional; admission defaults still function.
 
 ## Definition Of Done

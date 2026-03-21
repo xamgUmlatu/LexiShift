@@ -27,9 +27,9 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsRulegenConfig,
     generate_en_es_results,
 )
-from lexishift_core.rulegen.pairs.ja_en import (  # noqa: E402
-    JaEnRulegenConfig,
-    generate_ja_en_results,
+from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
+    EnJaRulegenConfig,
+    generate_en_ja_results,
 )
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     CandidateRankingContext,
@@ -463,9 +463,9 @@ def main() -> None:
         )
     ja_uncapped: list[RuleGenerationResult] = []
     if resolved_japanese_targets:
-        ja_uncapped = generate_ja_en_results(
+        ja_uncapped = generate_en_ja_results(
             resolved_japanese_targets,
-            config=JaEnRulegenConfig(
+            config=EnJaRulegenConfig(
                 jmdict_path=_resolve_required_file("JMDict", resolved_jmdict),
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,
@@ -499,9 +499,9 @@ def main() -> None:
         )
     ja_capped: list[RuleGenerationResult] = []
     if resolved_japanese_targets:
-        ja_capped = generate_ja_en_results(
+        ja_capped = generate_en_ja_results(
             resolved_japanese_targets,
-            config=JaEnRulegenConfig(
+            config=EnJaRulegenConfig(
                 jmdict_path=_resolve_required_file("JMDict", resolved_jmdict),
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,

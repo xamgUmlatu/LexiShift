@@ -28,7 +28,7 @@ Goal: create a clean authoring baseline before you add any rules.
 
 The GUI is the authoring tool. Runtime replacement happens in the extension/plugin, so this setup step is mainly about making sure your profile/ruleset structure is correct.
 
-> Screenshot placeholder: `images/ch01-first-launch-workspace.png`  
+> Screenshot placeholder: `images/ch01-first-launch-workspace.png`
 > Capture: initial GUI view with profile/ruleset selectors visible.
 
 ## 2. Profile Management
@@ -41,7 +41,7 @@ Profiles are top-level containers. They define the active working context and ho
 
 Recommended structure: one profile per workflow, multiple rulesets per profile, and one active ruleset per session.
 
-> Screenshot placeholder: `images/ch02-manage-profiles-dialog.png`  
+> Screenshot placeholder: `images/ch02-manage-profiles-dialog.png`
 > Capture: profile list, create/delete controls, active-profile indicator.
 
 ## 3. Ruleset Management
@@ -55,7 +55,7 @@ Rulesets are where actual replacements live.
 
 Runtime surfaces use these rulesets directly (local rules + optional helper-generated rules). A wrong active ruleset is the most common source of "nothing replaced" behavior.
 
-> Screenshot placeholder: `images/ch03-ruleset-management.png`  
+> Screenshot placeholder: `images/ch03-ruleset-management.png`
 > Capture: create/link actions and active ruleset selected in top controls.
 
 ## 4. Manual Rule Authoring
@@ -69,7 +69,7 @@ LexiShift replacement is deterministic: left-to-right longest-match using a trie
 
 Start with high-confidence manual rules before widening coverage with generated synonyms.
 
-> Screenshot placeholder: `images/ch04-manual-rule-editing.png`  
+> Screenshot placeholder: `images/ch04-manual-rule-editing.png`
 > Capture: rules table with source/replacement columns and one metadata edit.
 
 ## 5. Synonym Bulk Generation and Language Packs
@@ -78,12 +78,12 @@ Bulk Add lets you scale rules quickly from installed dictionaries and language-p
 
 - Open `Settings -> App` and install language packs.
 - Supported wired sources include WordNet, Moby, OpenThesaurus, JP WordNet, JMDict, and CC-CEDICT.
-- Current language-pair pipelines include `ja_en`, `en_de`, `en_es`, and `es_en`.
+- Current language-pair pipelines include `en_ja`, `en_de`, `en_es`, and `es_en`.
 - Optional embedding conversion can improve ranking workflows for large vector sets.
 
 Use conservative confidence thresholds first, then loosen only after reviewing generated samples.
 
-> Screenshot placeholder: `images/ch05-language-packs-bulk-add.png`  
+> Screenshot placeholder: `images/ch05-language-packs-bulk-add.png`
 > Capture: Settings -> App language-pack manager plus synonym bulk-add dialog.
 
 ## 6. Import, Export, and Backup
@@ -97,7 +97,7 @@ LexiShift supports both ruleset-level and profile-level portability.
 
 Practical backup pattern: daily JSON export + milestone export before dictionary refreshes or mass rule changes.
 
-> Screenshot placeholder: `images/ch06-import-export-actions.png`  
+> Screenshot placeholder: `images/ch06-import-export-actions.png`
 > Capture: File menu import/export options for rulesets and profiles.
 
 ## 7. Chrome Extension Runtime Setup
@@ -138,10 +138,10 @@ This is also where SRS feedback is captured during real reading.
 - Unsaved rulesets in GUI produce stale runtime behavior.
 - Helper offline/bridge issues can shift runtime to cached helper rules.
 
-> Screenshot placeholder: `images/ch07-extension-options-overview.png`  
+> Screenshot placeholder: `images/ch07-extension-options-overview.png`
 > Capture: profile picker, pair selection, and key runtime/SRS toggles.
 
-> Screenshot placeholder: `images/ch07-extension-module-preferences.png`  
+> Screenshot placeholder: `images/ch07-extension-module-preferences.png`
 > Capture: per-profile module enable/disable, drag reorder, and color preview controls.
 
 ## 8. BetterDiscord Plugin Setup
@@ -154,7 +154,7 @@ BetterDiscord uses the same replacement core and is best for chat/message enviro
 
 Keep plugin and extension rulesets aligned when you want consistent vocabulary exposure across platforms.
 
-> Screenshot placeholder: `images/ch08-betterdiscord-plugin.png`  
+> Screenshot placeholder: `images/ch08-betterdiscord-plugin.png`
 > Capture: plugin settings panel and a message with replacement highlighting.
 
 ## 9. SRS Setup and Expectations
@@ -219,13 +219,13 @@ Current model is explicit/manual refresh. Automatic adaptive refresh policy is s
 
 Advanced-only tool: sampled rulegen preview is useful for non-mutating inspection of current helper-managed `S`, but it is not required for baseline setup.
 
-> Screenshot placeholder: `images/ch09-srs-profile-pair-setup.png`  
+> Screenshot placeholder: `images/ch09-srs-profile-pair-setup.png`
 > Capture: selected profile, pair controls, and initialize/refresh buttons in extension options.
 
-> Screenshot placeholder: `images/ch09-srs-feedback-popup.png`  
+> Screenshot placeholder: `images/ch09-srs-feedback-popup.png`
 > Capture: in-page popup with rating actions (1..4) and any module stack above feedback controls.
 
-> Screenshot placeholder: `images/ch09-srs-diagnostics.png`  
+> Screenshot placeholder: `images/ch09-srs-diagnostics.png`
 > Capture: runtime diagnostics output including helper/store/ruleset/cache count summary.
 
 ## 10. Troubleshooting and FAQ
@@ -252,5 +252,5 @@ Advanced-only tool: sampled rulegen preview is useful for non-mutating inspectio
 - Preferred guide URL: `https://xamgUmlatu.github.io/LexiShift/getting-started/`.
 - Fallback URL: repository `docs/getting-started/README.md`.
 
-> Screenshot placeholder: `images/ch10-diagnostics-logs.png`  
+> Screenshot placeholder: `images/ch10-diagnostics-logs.png`
 > Capture: debug menu actions and startup diagnostics dialog.

@@ -47,9 +47,9 @@ class TestRulegenAdapters(unittest.TestCase):
                 )
             )
 
-    def test_en_ja_dispatches_to_ja_en_generator(self) -> None:
+    def test_en_ja_dispatches_to_en_ja_generator(self) -> None:
         with patch(
-            "lexishift_core.rulegen.adapters.generate_ja_en_results",
+            "lexishift_core.rulegen.adapters.generate_en_ja_results",
             return_value=[SimpleNamespace(rule=VocabRule(source_phrase="word", replacement="語"))],
         ) as generate:
             rules = run_rules_with_adapter(

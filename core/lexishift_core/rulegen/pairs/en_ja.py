@@ -64,7 +64,7 @@ def _should_expand_english(candidate: RuleCandidate) -> bool:
 
 
 @dataclass(frozen=True)
-class JaEnRulegenConfig:
+class EnJaRulegenConfig:
     jmdict_path: Path
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     script_forms_by_target: Optional[Mapping[str, Mapping[str, str]]] = None
@@ -101,7 +101,7 @@ class JaEnRulegenConfig:
     embedding_provider: Optional[Callable[[RuleCandidate], Optional[float]]] = None
 
 
-def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
+def build_en_ja_pipeline(config: EnJaRulegenConfig) -> RuleGenerationPipeline:
     script_forms_by_target: Mapping[str, Mapping[str, str]] = config.script_forms_by_target or {}
     jmdict_entries_by_term: Mapping[str, Sequence[JmdictEntryRecord]] = (
         config.jmdict_entries_by_term or {}
@@ -179,12 +179,12 @@ def build_ja_en_pipeline(config: JaEnRulegenConfig) -> RuleGenerationPipeline:
     )
 
 
-def generate_ja_en_results(
+def generate_en_ja_results(
     targets: Iterable[str],
     *,
-    config: JaEnRulegenConfig,
+    config: EnJaRulegenConfig,
 ) -> list[RuleGenerationResult]:
-    pipeline = build_ja_en_pipeline(config)
+    pipeline = build_en_ja_pipeline(config)
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
@@ -196,12 +196,12 @@ def generate_ja_en_results(
     return pipeline.generate_results(targets, config=rule_config)
 
 
-def generate_ja_en_rules(
+def generate_en_ja_rules(
     targets: Iterable[str],
     *,
-    config: JaEnRulegenConfig,
+    config: EnJaRulegenConfig,
 ):
-    return [result.rule for result in generate_ja_en_results(targets, config=config)]
+    return [result.rule for result in generate_en_ja_results(targets, config=config)]
 
 
 class JmdictCandidateSource:
@@ -452,7 +452,7 @@ def _normalize_script_forms_map(value: object) -> Optional[dict[str, str]]:
 
 
 def _build_filters(
-    config: JaEnRulegenConfig,
+    config: EnJaRulegenConfig,
     mapping: Mapping[str, Sequence[str]],
 ) -> list[CandidateFilter]:
     filters: list[CandidateFilter] = [NonEmptyFilter()]

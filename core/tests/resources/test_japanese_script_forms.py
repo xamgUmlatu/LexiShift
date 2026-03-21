@@ -12,9 +12,9 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.resources.dict_loaders import load_jmdict_glosses_and_script_forms  # noqa: E402
 from lexishift_core.resources.japanese_script import kana_to_romaji  # noqa: E402
-from lexishift_core.rulegen.pairs.ja_en import (  # noqa: E402
-    JaEnRulegenConfig,
-    generate_ja_en_results,
+from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
+    EnJaRulegenConfig,
+    generate_en_ja_results,
 )
 
 
@@ -62,13 +62,13 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(forms["猫"]["romaji"], "neko")
         self.assertEqual(forms["ねこ"]["kanji"], "猫")
 
-    def test_ja_en_rulegen_metadata_includes_script_forms(self) -> None:
+    def test_en_ja_rulegen_metadata_includes_script_forms(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"
             _write_sample_jmdict(path)
-            results = generate_ja_en_results(
+            results = generate_en_ja_results(
                 ("猫",),
-                config=JaEnRulegenConfig(
+                config=EnJaRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
                     word_packages_by_target={
@@ -98,13 +98,13 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(metadata.script_forms["romaji"], "neko")
         self.assertEqual(metadata.word_package["script_forms"]["kana"], "ねこ")
 
-    def test_ja_en_rulegen_requires_word_package_for_japanese_targets(self) -> None:
+    def test_en_ja_rulegen_requires_word_package_for_japanese_targets(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"
             _write_sample_jmdict(path)
-            results = generate_ja_en_results(
+            results = generate_en_ja_results(
                 ("猫",),
-                config=JaEnRulegenConfig(
+                config=EnJaRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
                     word_packages_by_target={},
@@ -113,7 +113,7 @@ class TestJapaneseScriptForms(unittest.TestCase):
 
         self.assertEqual(results, [])
 
-    def test_ja_en_rulegen_filters_by_reading(self) -> None:
+    def test_en_ja_rulegen_filters_by_reading(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"
             payload = (
@@ -131,9 +131,9 @@ class TestJapaneseScriptForms(unittest.TestCase):
                 "</JMdict>"
             )
             path.write_text(payload, encoding="utf-8")
-            results = generate_ja_en_results(
+            results = generate_en_ja_results(
                 ("時",),
-                config=JaEnRulegenConfig(
+                config=EnJaRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
                     word_packages_by_target={
@@ -155,13 +155,13 @@ class TestJapaneseScriptForms(unittest.TestCase):
 
         self.assertEqual([result.rule.source_phrase for result in results], ["time"])
 
-    def test_ja_en_rulegen_prefers_word_package_script_forms(self) -> None:
+    def test_en_ja_rulegen_prefers_word_package_script_forms(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"
             _write_tokoro_jmdict(path)
-            results = generate_ja_en_results(
+            results = generate_en_ja_results(
                 ("所",),
-                config=JaEnRulegenConfig(
+                config=EnJaRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
                     word_packages_by_target={
@@ -189,13 +189,13 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertIsNotNone(metadata.word_package)
         self.assertEqual(metadata.word_package["reading"], "ところ")
 
-    def test_ja_en_rulegen_falls_back_to_jmdict_when_package_missing_fields(self) -> None:
+    def test_en_ja_rulegen_falls_back_to_jmdict_when_package_missing_fields(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"
             _write_tokoro_jmdict(path)
-            results = generate_ja_en_results(
+            results = generate_en_ja_results(
                 ("所",),
-                config=JaEnRulegenConfig(
+                config=EnJaRulegenConfig(
                     jmdict_path=path,
                     include_variants=False,
                     word_packages_by_target={

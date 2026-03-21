@@ -19,7 +19,7 @@ class PairCapability:
 _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     "en-ja": PairCapability(
         pair="en-ja",
-        rulegen_mode="ja_en",
+        rulegen_mode="en_ja",
         default_frequency_db="freq-ja-bccwj.sqlite",
         srs_selectable=True,
         requires_jmdict_for_seed=True,

@@ -16,7 +16,7 @@ from lexishift_core.frequency.providers import (  # noqa: E402
     build_sqlite_frequency_provider,
 )
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
-from lexishift_core.rulegen.pairs.ja_en import JaEnRulegenConfig, generate_ja_en_rules
+from lexishift_core.rulegen.pairs.en_ja import EnJaRulegenConfig, generate_en_ja_rules
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 
@@ -50,13 +50,13 @@ def main() -> None:
         frequency_provider = build_sqlite_frequency_provider(provider_config)
 
     decay = tuple(float(item.strip()) for item in args.gloss_decay.split(",") if item.strip())
-    rule_config = JaEnRulegenConfig(
+    rule_config = EnJaRulegenConfig(
         jmdict_path=args.jmdict,
         confidence_threshold=args.confidence_threshold,
         gloss_decay=rule_config_gloss_decay(decay),
         frequency_provider=frequency_provider,
     )
-    rules = generate_ja_en_rules(targets, config=rule_config)
+    rules = generate_en_ja_rules(targets, config=rule_config)
     dataset = VocabDataset(rules=tuple(rules))
     save_vocab_dataset(dataset, args.output)
 

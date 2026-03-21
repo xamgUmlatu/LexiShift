@@ -72,7 +72,7 @@ Why:
 ### D) Candidate Generation (Per Pair)
 
 Read and trace:
-- `core/lexishift_core/rulegen/pairs/ja_en.py`
+- `core/lexishift_core/rulegen/pairs/en_ja.py`
 - `core/lexishift_core/rulegen/pairs/en_de.py`
 - `core/lexishift_core/rulegen/pairs/en_es.py`
 - `core/lexishift_core/rulegen/pairs/es_en.py`
@@ -130,7 +130,7 @@ Scoring extensions:
 2) Current config and dispatch path
 - `RulegenConfig` lives in `core/lexishift_core/helper/rulegen.py`.
 - `run_rulegen_for_pair(...)` converts it into `RulegenAdapterRequest` and calls `run_rules_with_adapter(...)`.
-- Adapter selection happens in `core/lexishift_core/rulegen/adapters.py` based on pair capability mode (`ja_en`, `en_de`, `en_es`, `es_en`).
+- Adapter selection happens in `core/lexishift_core/rulegen/adapters.py` based on pair capability mode (`en_ja`, `en_de`, `en_es`, `es_en`).
 - Phase 1 update: `max_definitions_per_target` is now threaded across `RulegenConfig`, `RulegenAdapterRequest`, pair configs, and `RuleGenerationConfig`.
 
 3) Candidate ordering and glossary metadata
@@ -225,7 +225,7 @@ Current scoring strategy for definition selection:
 - Current extension: metadata-driven semantic demotion for known generic glosses across active LP adapters (`en-ja`, `en-es`, `en-de`, `es-en`).
 
 Current morphology strategy:
-- Generic context-free inflection paths are limited to plural-focused expansion (`FORM_PLURAL`) in `ja_en` and `en_de`.
+- Generic context-free inflection paths are limited to plural-focused expansion (`FORM_PLURAL`) in `en_ja` and `en_de`.
 - `en-es` continues to use paired noun plural morphology with canonical target identity + surface display metadata.
 
 ## Phase 2 Groundwork (Completed 2026-02-23)
@@ -250,7 +250,7 @@ Delivered:
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
-  - `core/lexishift_core/rulegen/pairs/ja_en.py`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
 - Rulegen job tuning inputs for CLI/native host experimentation:
   - `core/lexishift_core/helper/engine.py`
   - `core/lexishift_core/helper/use_cases/rulegen_job.py`
