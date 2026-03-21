@@ -1,6 +1,6 @@
 # LP Data Inventory Matrix (Phase 0 Baseline)
 
-Status: Drafted for POS normalization Phase 0  
+Status: Drafted for POS normalization Phase 0
 Last updated: 2026-02-22
 
 ## Purpose
@@ -25,6 +25,11 @@ recorded in-repo, it is marked as pending verification instead of guessed.
 - POS inventory audit script: `scripts/testing/pos_inventory_audit.py`
 - POS handling reference: `docs/language_pairs/pos_source_and_pipeline_reference.md`
 - Licensing/distribution register: `docs/language_pairs/data_source_licensing_and_distribution.md`
+
+Operational note:
+
+- This inventory distinguishes `data is available and wired` from `data is adequate for current production publication quality`.
+- A resource can be present in the app catalog and active in code while still being insufficient as the sole lexical source for SRS publication.
 
 ## Converter POS Mapping Matrix (Phase 5)
 
@@ -77,8 +82,8 @@ Phase 0 POS baseline artifact (pair-level POS distributions and examples):
 | `en-ja` (JA source -> EN gloss) | Translation dictionary | `jmdict-ja-en` | `https://www.edrdg.org/pub/Nihongo/JMdict_e.gz` | `$DATA_ROOT/language_packs/JMdict_e` | Not recorded in-repo; verify EDRDG terms | XML entries; used for seed/rulegen filtering and gloss extraction. | POS-like category data exists in JMDict entries, but not yet normalized as canonical POS in current runtime. | `synonyms.language_packs["jmdict-ja-en"]` | Hard requirement for `en-ja` seed + rulegen |
 | `en-de` target path | Translation dictionary | `freedict-de-en` | `https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz` | `$DATA_ROOT/language_packs/deu-eng.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; headword + translations parsed by converter/loader. | FreeDict TEI carries POS-like metadata in grammar fields, but default loaders currently prioritize gloss mapping; POS wiring remains partial. | `synonyms.language_packs["freedict-de-en"]` | Required for DE/ES FreeDict-backed rulegen paths depending on pair |
 | `de-en` target path | Translation dictionary | `freedict-en-de` | `https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz` | `$DATA_ROOT/language_packs/eng-deu.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; direction-specific loader usage by pair. | Same POS note as above. | `synonyms.language_packs["freedict-en-de"]` | Data available; dedicated `de-en` adapter remains pending |
-| `en-es` target path | Translation dictionary | `freedict-es-en` | `https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz` | `$DATA_ROOT/language_packs/spa-eng.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by ES rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-es-en"]` | Active for `en-es` rulegen |
-| `es-en` target path | Translation dictionary | `freedict-en-es` | `https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz` | `$DATA_ROOT/language_packs/eng-spa.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by EN-target ES-source rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-en-es"]` | Active for `es-en` rulegen |
+| `en-es` target path | Translation dictionary | `freedict-es-en` | `https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz` | `$DATA_ROOT/language_packs/spa-eng.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by ES rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-es-en"]` | Active for `en-es` rulegen, but not currently adequate as the sole production SRS publication source; installed-resource journey still leaves some admitted/due lemmas unpublished (for example `movimiento`). |
+| `es-en` target path | Translation dictionary | `freedict-en-es` | `https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz` | `$DATA_ROOT/language_packs/eng-spa.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by EN-target ES-source rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-en-es"]` | Active for `es-en` rulegen and `en-es` reverse-check support; production adequacy for ES publication should not be inferred from this row alone. |
 | `en-zh` target path | Translation dictionary | `cc-cedict-zh-en` | `https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip` | `$DATA_ROOT/language_packs/cedict_ts.u8` | Not recorded in-repo; verify CC-CEDICT terms | Plain text dictionary entries; parser support exists, LP path not fully active. | No canonical POS mapping currently wired for this source. | `synonyms.language_packs["cc-cedict-zh-en"]` | Data source registered; `en-zh` pipeline not active |
 
 ## 3) Monolingual Synonym Dictionary Inventory
@@ -122,3 +127,7 @@ Phase 0 POS baseline artifact (pair-level POS distributions and examples):
 - This inventory now centralizes data-resource metadata and integration ownership.
 - Remaining Phase 0 work is POS distribution artifact generation and representative
   behavior snapshots (see `docs/rulegen/pos_normalization_workstream.md`).
+- Current Spanish publication caveat:
+  - `freq-es-cde` is adequate for admission candidate selection.
+  - `freedict-es-en` is wired for `en-es` rulegen/publication, but current installed coverage is not sufficient to guarantee that admitted/due lemmas are publishable.
+  - This is a source-adequacy problem, not merely a morphology or fuzzy-lookup problem.
