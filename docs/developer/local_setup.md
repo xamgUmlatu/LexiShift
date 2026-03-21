@@ -192,6 +192,9 @@ npm --prefix scripts run quality:srs:journey:edge:html
 npm --prefix scripts run quality:srs:journey:real
 npm --prefix scripts run quality:srs:journey:real:summary
 npm --prefix scripts run quality:srs:journey:real:html
+npm --prefix scripts run quality:srs:journey:installed
+npm --prefix scripts run quality:srs:journey:installed:summary
+npm --prefix scripts run quality:srs:journey:installed:html
 npm --prefix scripts run quality:srs:journey:en-es
 npm --prefix scripts run quality:srs:journey:en-es:summary
 npm --prefix scripts run quality:srs:journey:en-es:html
@@ -201,6 +204,9 @@ npm --prefix scripts run quality:srs:journey:en-es:edge:html
 npm --prefix scripts run quality:srs:journey:en-es:real
 npm --prefix scripts run quality:srs:journey:en-es:real:summary
 npm --prefix scripts run quality:srs:journey:en-es:real:html
+npm --prefix scripts run quality:srs:journey:en-es:installed
+npm --prefix scripts run quality:srs:journey:en-es:installed:summary
+npm --prefix scripts run quality:srs:journey:en-es:installed:html
 ```
 
 This build safety currently runs:

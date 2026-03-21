@@ -49,7 +49,9 @@ class TestDevWorkflowCheck(unittest.TestCase):
         compile_command = dict(commands)["workflow_py_compile"]
         self.assertIn("scripts/testing/srs_journey_harness.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_harness_support.py", compile_command)
+        self.assertIn("scripts/testing/srs_journey_installed_support.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_review_support.py", compile_command)
+        self.assertIn("scripts/testing/srs_journey_runtime_support.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_summary.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_html.py", compile_command)
 

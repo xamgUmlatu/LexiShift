@@ -10,6 +10,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from srs_journey_harness import build_report  # noqa: E402
+from srs_journey_installed_support import installed_pair_resources_available  # noqa: E402
 
 
 class TestSrsJourneyHarness(unittest.TestCase):
@@ -188,6 +189,42 @@ class TestSrsJourneyHarness(unittest.TestCase):
             phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],
             phases[2]["counts"]["admitted"],
         )
+
+    @unittest.skipUnless(
+        installed_pair_resources_available("en-ja"),
+        "requires installed en-ja language/frequency packs",
+    )
+    def test_build_report_supports_en_ja_installed_resource_lane(self) -> None:
+        report = build_report(scenario="en-ja_installed_data_journey_v1")
+        phases = report["phases"]
+
+        self.assertEqual(report["scenario"]["resource_mode"], "installed")
+        self.assertEqual(report["scenario"]["pair"], "en-ja")
+        self.assertEqual(report["scenario"]["cohorts"]["stable"], ["事", "物"])
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["initial_active_preview"],
+            ["事", "物", "時"],
+        )
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["人", "無い"])
+        self.assertIn(report["summary"]["status"], {"PASS", "WARN"})
+
+    @unittest.skipUnless(
+        installed_pair_resources_available("en-es"),
+        "requires installed en-es language/frequency packs",
+    )
+    def test_build_report_supports_en_es_installed_resource_lane(self) -> None:
+        report = build_report(scenario="en-es_installed_data_journey_v1")
+        phases = report["phases"]
+
+        self.assertEqual(report["scenario"]["resource_mode"], "installed")
+        self.assertEqual(report["scenario"]["pair"], "en-es")
+        self.assertEqual(report["scenario"]["cohorts"]["stable"], ["siglo", "millón"])
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["initial_active_preview"],
+            ["siglo", "millón", "hora"],
+        )
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["música", "principio"])
+        self.assertIn(report["summary"]["status"], {"PASS", "WARN"})
 
 
 if __name__ == "__main__":

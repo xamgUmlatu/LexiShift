@@ -18,6 +18,14 @@ from lexishift_core.srs import SrsItem, load_srs_settings, load_srs_store
 from lexishift_core.srs.scheduler import select_active_items
 from lexishift_core.srs.signal_queue import load_signal_events
 
+from srs_journey_installed_support import (
+    ROLE_REF_DIFFICULT_1,
+    ROLE_REF_GROWTH_1,
+    ROLE_REF_GROWTH_2,
+    ROLE_REF_STABLE_1,
+    ROLE_REF_STABLE_2,
+    stage_installed_pair_resources,
+)
 from srs_journey_review_support import word_package_preview
 
 CLOCK_PATCH_TARGETS = (
@@ -70,6 +78,7 @@ class JourneyScenario:
     pair: str
     lane: str
     phase_plans: tuple[JourneyPhasePlan, ...]
+    resource_mode: str = "synthetic"
     use_stub_seed_candidates: bool = True
     use_stub_rulegen: bool = True
     expect_fade_checks: bool = False
@@ -169,9 +178,11 @@ COHORT_BY_LEMMA = {spec.lemma: spec.cohort for spec in EN_JA_CANDIDATE_SPECS}
 EN_JA_CORE_SCENARIO_NAME = "en-ja_core_journey_v1"
 EN_JA_EDGE_SCENARIO_NAME = "en-ja_edge_behaviors_v1"
 EN_JA_REAL_SCENARIO_NAME = "en-ja_real_publication_v1"
+EN_JA_INSTALLED_SCENARIO_NAME = "en-ja_installed_data_journey_v1"
 EN_ES_CORE_SCENARIO_NAME = "en-es_core_journey_v1"
 EN_ES_EDGE_SCENARIO_NAME = "en-es_edge_behaviors_v1"
 EN_ES_REAL_SCENARIO_NAME = "en-es_real_publication_v1"
+EN_ES_INSTALLED_SCENARIO_NAME = "en-es_installed_data_journey_v1"
 
 CORE_SCENARIO_NAME = EN_JA_CORE_SCENARIO_NAME
 EDGE_SCENARIO_NAME = EN_JA_EDGE_SCENARIO_NAME
@@ -233,6 +244,57 @@ CORE_PHASE_PLANS = (
             ("epsilon", "good"),
             ("delta", "easy"),
             ("epsilon", "good"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=3),
+    ),
+    JourneyPhasePlan(label="fade_check", observe_at=BASE_TIME + timedelta(days=10)),
+)
+
+ROLE_CORE_PHASE_PLANS = (
+    JourneyPhasePlan(label="bootstrap_publish", observe_at=BASE_TIME),
+    JourneyPhasePlan(label="baseline_observe", observe_at=BASE_TIME + timedelta(minutes=5)),
+    JourneyPhasePlan(
+        label="high_retention_growth",
+        observe_at=BASE_TIME + timedelta(days=1),
+        feedback_events=(
+            (ROLE_REF_STABLE_1, "good"),
+            (ROLE_REF_STABLE_2, "easy"),
+            (ROLE_REF_STABLE_1, "good"),
+            (ROLE_REF_STABLE_2, "easy"),
+            (ROLE_REF_STABLE_1, "easy"),
+            (ROLE_REF_STABLE_2, "good"),
+            (ROLE_REF_STABLE_1, "easy"),
+            (ROLE_REF_STABLE_2, "good"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=1),
+    ),
+    JourneyPhasePlan(
+        label="low_retention_pause",
+        observe_at=BASE_TIME + timedelta(days=2),
+        feedback_events=(
+            (ROLE_REF_DIFFICULT_1, "again"),
+            (ROLE_REF_DIFFICULT_1, "hard"),
+            (ROLE_REF_DIFFICULT_1, "again"),
+            (ROLE_REF_DIFFICULT_1, "hard"),
+            (ROLE_REF_DIFFICULT_1, "again"),
+            (ROLE_REF_DIFFICULT_1, "hard"),
+            (ROLE_REF_DIFFICULT_1, "again"),
+            (ROLE_REF_DIFFICULT_1, "hard"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=2),
+    ),
+    JourneyPhasePlan(
+        label="recovery_resume",
+        observe_at=BASE_TIME + timedelta(days=3),
+        feedback_events=(
+            (ROLE_REF_GROWTH_1, "good"),
+            (ROLE_REF_GROWTH_2, "easy"),
+            (ROLE_REF_GROWTH_1, "good"),
+            (ROLE_REF_GROWTH_2, "easy"),
+            (ROLE_REF_GROWTH_1, "easy"),
+            (ROLE_REF_GROWTH_2, "good"),
+            (ROLE_REF_GROWTH_1, "easy"),
+            (ROLE_REF_GROWTH_2, "good"),
         ),
         refresh_at=BASE_TIME + timedelta(days=3),
     ),
@@ -316,6 +378,18 @@ SCENARIOS = {
         use_stub_rulegen=False,
         expect_fade_checks=True,
     ),
+    EN_JA_INSTALLED_SCENARIO_NAME: JourneyScenario(
+        name=EN_JA_INSTALLED_SCENARIO_NAME,
+        pair="en-ja",
+        lane="installed_resource_journey",
+        phase_plans=ROLE_CORE_PHASE_PLANS,
+        resource_mode="installed",
+        use_stub_seed_candidates=False,
+        use_stub_rulegen=False,
+        expect_fade_checks=True,
+        set_top_n=200,
+        bootstrap_top_n=200,
+    ),
     EN_ES_CORE_SCENARIO_NAME: JourneyScenario(
         name=EN_ES_CORE_SCENARIO_NAME,
         pair="en-es",
@@ -337,6 +411,18 @@ SCENARIOS = {
         use_stub_seed_candidates=False,
         use_stub_rulegen=False,
         expect_fade_checks=True,
+    ),
+    EN_ES_INSTALLED_SCENARIO_NAME: JourneyScenario(
+        name=EN_ES_INSTALLED_SCENARIO_NAME,
+        pair="en-es",
+        lane="installed_resource_journey",
+        phase_plans=ROLE_CORE_PHASE_PLANS,
+        resource_mode="installed",
+        use_stub_seed_candidates=False,
+        use_stub_rulegen=False,
+        expect_fade_checks=True,
+        set_top_n=50,
+        bootstrap_top_n=50,
     ),
 }
 
@@ -429,7 +515,16 @@ def _write_freedict_tei(
     return path
 
 
-def create_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str, Path | None]:
+def create_pair_resources(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    resource_mode: str = "synthetic",
+) -> dict[str, Path | None]:
+    if resource_mode == "installed":
+        return stage_installed_pair_resources(paths, pair=pair)
+    if resource_mode != "synthetic":
+        raise ValueError(f"Unsupported SRS journey resource mode: {resource_mode}")
     fixture = get_pair_fixture(pair)
     specs = fixture.candidate_specs
     frequency_db = create_frequency_db(

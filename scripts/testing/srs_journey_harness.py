@@ -43,6 +43,21 @@ from srs_journey_harness_support import (  # noqa: E402
     scenario_cohorts,
     stub_run_rulegen_for_pair,
 )
+from srs_journey_installed_support import (  # noqa: E402
+    build_initial_role_assignments,
+    cohort_map_from_role_assignments,
+    installed_candidate_universe_from_bootstrap_audit,
+    installed_pair_resources_available,
+    scenario_cohorts_from_role_assignments,
+    update_role_assignments_from_refresh,
+)
+from srs_journey_runtime_support import (  # noqa: E402
+    finding as _finding,
+    resolve_exposure_plan_events,
+    resolve_feedback_plan_events,
+    snapshot_item as _snapshot_item,
+    summarize_findings as _summarize_findings,
+)
 from srs_journey_review_support import (  # noqa: E402
     apply_selected_lemmas_to_refresh_audit,
     build_bootstrap_candidate_audit,
@@ -59,66 +74,29 @@ def _temp_paths() -> Iterator[HelperPaths]:
         yield build_helper_paths(Path(tmp))
 
 
-def _finding(
-    *,
-    level: str,
-    code: str,
-    message: str,
-    details: str | None = None,
-    phase: str | None = None,
-) -> dict[str, object]:
-    return {
-        "level": level,
-        "code": code,
-        "message": message,
-        "details": details,
-        "phase": phase,
-    }
-
-
-def _summarize_findings(findings: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    pass_count = 0
-    warn_count = 0
-    fail_count = 0
-    for item in findings:
-        level = str(item.get("level") or "").upper()
-        if level == "PASS":
-            pass_count += 1
-        elif level == "WARN":
-            warn_count += 1
-        elif level == "FAIL":
-            fail_count += 1
-    status = "FAIL" if fail_count else "WARN" if warn_count else "PASS"
-    return {
-        "status": status,
-        "pass_count": pass_count,
-        "warn_count": warn_count,
-        "fail_count": fail_count,
-        "should_fail": fail_count > 0,
-    }
-
-
 def _apply_feedback_events(
     paths: HelperPaths,
     *,
     pair: str,
     profile_id: str,
     phase_time: datetime,
-    events: Sequence[tuple[str, str]],
-    cohort_by_lemma: Mapping[str, str],
+    events: Sequence[Mapping[str, str]],
 ) -> list[dict[str, object]]:
     applied: list[dict[str, object]] = []
-    for index, (lemma, rating) in enumerate(events):
+    for index, event in enumerate(events):
+        lemma = str(event.get("lemma") or "").strip()
+        rating = str(event.get("rating") or "").strip()
         event_time = phase_time + timedelta(minutes=index)
         with patched_now(event_time):
             apply_feedback(paths, pair=pair, lemma=lemma, rating=rating, profile_id=profile_id)
         applied.append(
             {
                 "index": index + 1,
+                "ref": str(event.get("ref") or lemma),
                 "lemma": lemma,
                 "rating": rating,
                 "ts": event_time.isoformat(),
-                "cohort": cohort_by_lemma.get(lemma, "frontier"),
+                "cohort": str(event.get("cohort") or "frontier"),
             }
         )
     return applied
@@ -130,40 +108,27 @@ def _apply_exposure_events(
     pair: str,
     profile_id: str,
     phase_time: datetime,
-    events: Sequence[str],
-    cohort_by_lemma: Mapping[str, str],
+    events: Sequence[Mapping[str, str]],
 ) -> list[dict[str, object]]:
     applied: list[dict[str, object]] = []
-    for index, lemma in enumerate(events):
+    for index, event in enumerate(events):
+        lemma = str(event.get("lemma") or "").strip()
         event_time = phase_time + timedelta(minutes=index)
         with patched_now(event_time):
             apply_exposure(paths, pair=pair, lemma=lemma, profile_id=profile_id)
         applied.append(
             {
                 "index": index + 1,
+                "ref": str(event.get("ref") or lemma),
                 "lemma": lemma,
                 "ts": event_time.isoformat(),
-                "cohort": cohort_by_lemma.get(lemma, "frontier"),
+                "cohort": str(event.get("cohort") or "frontier"),
             }
         )
     return applied
 
 
 from datetime import timedelta  # noqa: E402  # keep near clock helpers
-
-
-def _snapshot_item(
-    snapshot: Mapping[str, object] | None, lemma: str
-) -> Mapping[str, object] | None:
-    if not isinstance(snapshot, Mapping):
-        return None
-    items = snapshot.get("items")
-    if not isinstance(items, list):
-        return None
-    for item in items:
-        if isinstance(item, Mapping) and str(item.get("lemma") or "") == lemma:
-            return item
-    return None
 
 
 def _run_phase(
@@ -181,25 +146,35 @@ def _run_phase(
     use_stub_seed_candidates: bool,
     use_stub_rulegen: bool,
     cohort_by_lemma: Mapping[str, str],
-) -> dict[str, object]:
+    role_assignments: Mapping[str, str],
+) -> tuple[dict[str, object], dict[str, str]]:
+    resolved_feedback_events = resolve_feedback_plan_events(
+        phase_plan.feedback_events,
+        role_assignments=role_assignments,
+        cohort_by_lemma=cohort_by_lemma,
+    )
+    resolved_exposure_events = resolve_exposure_plan_events(
+        phase_plan.exposure_events,
+        role_assignments=role_assignments,
+        cohort_by_lemma=cohort_by_lemma,
+    )
     feedback_events = _apply_feedback_events(
         paths,
         pair=pair,
         profile_id=profile_id,
         phase_time=phase_plan.observe_at,
-        events=phase_plan.feedback_events,
-        cohort_by_lemma=cohort_by_lemma,
+        events=resolved_feedback_events,
     )
     exposure_events = _apply_exposure_events(
         paths,
         pair=pair,
         profile_id=profile_id,
         phase_time=phase_plan.observe_at,
-        events=phase_plan.exposure_events,
-        cohort_by_lemma=cohort_by_lemma,
+        events=resolved_exposure_events,
     )
     refresh_payload: dict[str, object] | None = None
     refresh_audit: dict[str, object] | None = None
+    updated_role_assignments = dict(role_assignments)
     if phase_plan.refresh_at is not None:
         store_before = load_srs_store(paths.srs_store_path_for(profile_id))
         refresh_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
@@ -239,6 +214,15 @@ def _run_phase(
         refresh_audit = apply_selected_lemmas_to_refresh_audit(
             refresh_audit,
             selected_lemmas=selected_lemmas if isinstance(selected_lemmas, Sequence) else [],
+        )
+        updated_role_assignments = update_role_assignments_from_refresh(
+            updated_role_assignments,
+            phase_label=phase_plan.label,
+            refresh_payload=refresh_payload,
+        )
+        cohort_by_lemma = cohort_map_from_role_assignments(
+            cohort_by_lemma,
+            updated_role_assignments,
         )
     with patched_now(phase_plan.observe_at):
         snapshot = phase_snapshot(
@@ -452,7 +436,7 @@ def _run_phase(
         },
         **snapshot,
         "findings": findings,
-    }
+    }, updated_role_assignments
 
 
 def build_report(
@@ -471,9 +455,15 @@ def build_report(
     pair = scenario_def.pair
     phase_plans = scenario_def.phase_plans
     cohort_by_lemma = cohort_by_lemma_for_pair(pair)
+    if scenario_def.resource_mode == "installed" and not installed_pair_resources_available(pair):
+        raise SystemExit(f"Installed SRS journey resources are unavailable for pair: {pair}")
 
     with _temp_paths() as paths:
-        resources = create_pair_resources(paths, pair=pair)
+        resources = create_pair_resources(
+            paths,
+            pair=pair,
+            resource_mode=scenario_def.resource_mode,
+        )
         seed_builder = (
             build_seed_candidates
             if scenario_def.use_stub_seed_candidates
@@ -549,6 +539,12 @@ def build_report(
                 )
             )
 
+        role_assignments = build_initial_role_assignments(initialize_payload)
+        cohort_by_lemma = cohort_map_from_role_assignments(
+            cohort_by_lemma,
+            role_assignments,
+        )
+
         refresh_config = SrsRefreshJobConfig(
             pair=pair,
             profile_id=profile_id,
@@ -564,7 +560,7 @@ def build_report(
         phases: list[dict[str, object]] = []
         previous_snapshot: Mapping[str, object] | None = None
         for phase_plan in phase_plans:
-            phase_report = _run_phase(
+            phase_report, role_assignments = _run_phase(
                 paths,
                 pair=pair,
                 profile_id=profile_id,
@@ -578,10 +574,15 @@ def build_report(
                 use_stub_seed_candidates=scenario_def.use_stub_seed_candidates,
                 use_stub_rulegen=scenario_def.use_stub_rulegen,
                 cohort_by_lemma=cohort_by_lemma,
+                role_assignments=role_assignments,
             )
             previous_snapshot = phase_report
             phases.append(phase_report)
             findings.extend(phase_report["findings"])
+            cohort_by_lemma = cohort_map_from_role_assignments(
+                cohort_by_lemma,
+                role_assignments,
+            )
 
         first_phase = phases[0]
         diagnostics = (
@@ -789,6 +790,14 @@ def build_report(
         signal_summary = summarize_signal_events(
             paths.srs_signal_queue_path_for(profile_id), pair=pair
         )
+        if scenario_def.resource_mode == "installed":
+            candidate_universe = installed_candidate_universe_from_bootstrap_audit(
+                initialize_payload
+            )
+            cohorts = scenario_cohorts_from_role_assignments(role_assignments)
+        else:
+            candidate_universe = scenario_candidate_universe(pair=pair)
+            cohorts = scenario_cohorts(pair)
         return {
             "version": 2,
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -798,6 +807,7 @@ def build_report(
                 "name": scenario,
                 "pair": pair,
                 "lane": scenario_def.lane,
+                "resource_mode": scenario_def.resource_mode,
                 "contract_mode": contract_mode,
                 "profile_id": profile_id,
                 "settings": {
@@ -810,8 +820,9 @@ def build_report(
                     "initial_active_count": scenario_def.initial_active_count,
                     "replace_pair": True,
                 },
-                "candidate_universe": scenario_candidate_universe(pair=pair),
-                "cohorts": scenario_cohorts(pair),
+                "candidate_universe": candidate_universe,
+                "cohorts": cohorts,
+                "role_assignments": role_assignments,
                 "clock": scenario_clock(phase_plans),
             },
             "initialize": initialize_payload,

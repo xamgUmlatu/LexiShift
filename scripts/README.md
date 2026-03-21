@@ -31,6 +31,7 @@ Use the package-script workflow surfaces first when they exist:
 - SRS journey harness: `npm --prefix scripts run quality:srs:journey`
 - SRS journey edge lane: `npm --prefix scripts run quality:srs:journey:edge`
 - SRS journey real-publication lane: `npm --prefix scripts run quality:srs:journey:real`
+- SRS journey installed-resource lane: `npm --prefix scripts run quality:srs:journey:installed`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
 
@@ -128,12 +129,16 @@ Use the raw script paths below when there is no package-script surface or when y
   `testing/srs_journey_harness.py --scenario en-ja_edge_behaviors_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:edge`)
 - Real-publication SRS journey lane for deterministic candidates plus real helper/rulegen publication:
   `testing/srs_journey_harness.py --scenario en-ja_real_publication_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:real`)
+- Installed-resource SRS journey lane for real local packs plus dynamic cohort assignment:
+  `testing/srs_journey_harness.py --scenario en-ja_installed_data_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:installed`)
 - `en-es` parity journey lanes mirror the same three surfaces with Spanish fixtures and real `en-es` publication:
   `testing/srs_journey_harness.py --scenario en-es_core_journey_v1`, `--scenario en-es_edge_behaviors_v1`, and `--scenario en-es_real_publication_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es`, `quality:srs:journey:en-es:edge`, and `quality:srs:journey:en-es:real`)
+- `en-es` installed-resource journey lane mirrors the same real-data review flow with local Spanish packs:
+  `testing/srs_journey_harness.py --scenario en-es_installed_data_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es:installed`)
 - Render Markdown summaries from SRS journey JSON artifacts:
   `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
 - Render interactive HTML pedagogical review surfaces from SRS journey JSON artifacts:
-  `testing/srs_journey_html.py` (also exposed via `npm --prefix scripts run quality:srs:journey:html`, `quality:srs:journey:edge:html`, `quality:srs:journey:real:html`, and the matching `quality:srs:journey:en-es:*:html` commands)
+  `testing/srs_journey_html.py` (also exposed via `npm --prefix scripts run quality:srs:journey:html`, `quality:srs:journey:edge:html`, `quality:srs:journey:real:html`, `quality:srs:journey:installed:html`, and the matching `quality:srs:journey:en-es:*:html` commands)
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.

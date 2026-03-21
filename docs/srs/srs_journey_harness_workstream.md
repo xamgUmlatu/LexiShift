@@ -164,6 +164,14 @@ Current implemented scenarios:
   - actual seed builder
   - synthetic `en-es` FreeDict + frequency resources
   - real helper/rulegen publication path
+- `en-ja_installed_data_journey_v1`
+  - deterministic clock with installed local BCCWJ + JMdict resources staged into an isolated temp helper root
+  - dynamic cohort assignment from actual admitted and newly selected lemmas
+  - real helper/rulegen publication path
+- `en-es_installed_data_journey_v1`
+  - deterministic clock with installed local Spanish frequency + FreeDict resources staged into an isolated temp helper root
+  - dynamic cohort assignment from actual admitted and newly selected lemmas
+  - real helper/rulegen publication path
 - current `en-ja` and `en-es` artifacts keep due publication complete; the remaining warning is only the broader-than-due publication contract
 
 ### Lane D: edge-behavior lane
