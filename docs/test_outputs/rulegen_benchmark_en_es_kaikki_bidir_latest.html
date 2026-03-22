@@ -1,0 +1,450 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LexiShift Rulegen Benchmark</title><style>:root{--bg:#f7f4ef;--panel:#ffffff;--text:#162022;--muted:#5d6a6d;--line:#d8dfdc;--accent:#0f766e;--accent-soft:#d1fae5;--warn:#b45309;--warn-soft:#fef3c7;--bad:#b91c1c;--bad-soft:#fee2e2;--ok:#166534;--ok-soft:#dcfce7;--radius:16px;--shadow:0 10px 25px rgba(15,23,42,0.08);}*{box-sizing:border-box}body{margin:0;font-family:'IBM Plex Sans','Avenir Next',sans-serif;color:var(--text);background:radial-gradient(circle at 15% 0%, #fff9ec 0%, var(--bg) 55%),linear-gradient(180deg,#f6f7f4 0%,#f3f1ec 100%);}main{max-width:1320px;margin:0 auto;padding:32px 20px 60px}header{background:linear-gradient(135deg,#fcfffe 0%,#ecfdf5 100%);border:1px solid var(--line);border-radius:calc(var(--radius) + 6px);box-shadow:var(--shadow);padding:26px 26px 20px;position:relative;overflow:hidden}header::after{content:'';position:absolute;right:-24px;top:-24px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,0.14) 0%,rgba(15,118,110,0) 70%)}h1{margin:0;font-family:'Fraunces','Iowan Old Style',serif;font-size:clamp(1.6rem,2.8vw,2.3rem);letter-spacing:0.01em}.meta{margin-top:10px;color:var(--muted);font-size:0.94rem;display:flex;gap:14px;flex-wrap:wrap}.meta code{background:#eef2f3;border:1px solid #d9e0e2;padding:2px 6px;border-radius:8px}.label-workbench{margin-top:14px;padding:12px;border:1px solid #c8d7d3;background:#f8fffd;border-radius:12px}.label-workbench p{margin:0 0 10px;color:#33484c;font-size:0.92rem}.label-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.pair-workflow{margin-top:12px;padding:12px;border:1px dashed #b8ccc9;border-radius:12px;background:#f5fbfa}.pair-workflow-head{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}.pair-workflow-state{font-size:0.9rem;color:#2c4044;font-weight:700}.pair-workflow-buttons{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pair-nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}.pair-chip{border:1px solid #bfd0ce;background:#fff;border-radius:999px;padding:4px 11px;font-size:0.78rem;font-weight:700;color:#1e3236;cursor:pointer}.pair-chip:hover{background:#eef8f6}.pair-chip.active{box-shadow:0 0 0 2px rgba(15,23,42,0.18) inset}.pair-chip.status-done{background:#e8fff2;border-color:#9ad8b6;color:#12502d}.pair-chip.status-skipped{background:#f5f7fa;border-color:#ccd7df;color:#34434f}.pair-chip.status-todo{background:#fffdf6;border-color:#e7dbb2;color:#5f4a0a}.show-all-wrap{display:inline-flex;align-items:center;gap:6px;color:#2f4649;font-size:0.83rem;font-weight:700}.btn{background:#0f766e;color:#fff;border:1px solid #0f766e;border-radius:10px;padding:7px 11px;font-weight:700;cursor:pointer}.btn.btn-secondary{background:#fff;color:#0f766e}.btn:hover{filter:brightness(0.96)}#label-count{font-weight:700;color:#30484b;font-size:0.88rem}.pair-section{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}.pair-head h2{margin:0;font-family:'Fraunces','Iowan Old Style',serif;font-size:1.45rem}.pair-head p{margin:8px 0 0;color:var(--muted)}.metric-grid{margin-top:16px;display:grid;grid-template-columns:repeat(6,minmax(140px,1fr));gap:10px}.metric-card{background:#f8faf9;border:1px solid var(--line);border-radius:12px;padding:10px 12px}.metric-card h3{margin:0;color:var(--muted);font-size:0.76rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}.metric-card p{margin:8px 0 0;font-size:1.25rem;font-weight:700;color:#0f172a}details{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#fcfdfd;overflow:hidden}summary{cursor:pointer;padding:12px 14px;font-weight:700;background:#f4f8f7}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:0.9rem}th,td{padding:10px 10px;text-align:left;border-bottom:1px solid #ebeff0;vertical-align:top}th{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:#415255;background:#f8fbfa;position:sticky;top:0;z-index:1}code{font-family:'Source Code Pro','Menlo',monospace;font-size:0.84rem}.status-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-weight:700;font-size:0.72rem;letter-spacing:0.04em}.status-ok{background:var(--ok-soft);color:var(--ok)}.status-warn{background:var(--warn-soft);color:var(--warn)}.status-bad{background:var(--bad-soft);color:var(--bad)}.source-cell{min-width:380px;max-width:560px}.source-chip{border:1px solid #cad4d6;background:#fff;border-radius:999px;padding:3px 10px;margin:2px 4px 2px 0;font-size:0.78rem;cursor:context-menu;line-height:1.4}.source-chip.chip-green{background:#e8fff2;border-color:#a7f3d0;color:#14532d}.source-chip.chip-black{background:#ffe8e8;border-color:#fecaca;color:#7f1d1d}.source-chip.chip-neutral{background:#f8fafb;border-color:#d3dde0;color:#1f2f33}.source-chip.chip-manual{box-shadow:0 0 0 2px rgba(15,23,42,0.18) inset}.label-hint{font-weight:700;color:#4a5f63;font-size:0.78rem}.text-muted{color:#7a8a8d;font-style:italic}.label-menu{position:absolute;z-index:5000;background:#fff;border:1px solid #bfd0ce;border-radius:10px;box-shadow:0 14px 30px rgba(15,23,42,0.2);padding:6px;width:170px}.label-menu[hidden]{display:none}.label-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:7px 9px;cursor:pointer;font-weight:600;color:#203235}.label-menu button:hover{background:#eef8f5}@media (max-width:1020px){.metric-grid{grid-template-columns:repeat(3,minmax(140px,1fr));}.source-cell{min-width:320px}}@media (max-width:640px){main{padding:20px 12px 36px}.metric-grid{grid-template-columns:repeat(2,minmax(120px,1fr));}.source-cell{min-width:250px}th,td{padding:8px 8px;font-size:0.82rem}}</style></head><body><main><header><h1>Rulegen Benchmark Dashboard</h1><div class="meta"><span>generated <code>2026-03-22T19:11:41.947695+00:00</code></span><span>pairs <code>1</code></span><span>configs per pair <code>4</code></span><span>profile <code>default</code></span><span>data root <code>/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift</code></span></div><section class="label-workbench"><p>Right-click any source chip to mark greenlist or blacklist. Export the decisions JSON to update benchmark cases.</p><div class="label-actions"><button id="download-labels" class="btn" type="button">Download labels JSON</button><button id="copy-labels" class="btn btn-secondary" type="button">Copy labels JSON</button><button id="clear-labels" class="btn btn-secondary" type="button">Clear local labels</button><span id="label-count">0 decisions across 0 cases</span><span>dataset <code>/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json</code></span></div><div class="pair-workflow"><div class="pair-workflow-head"><span id="pair-workflow-state" class="pair-workflow-state">LP workflow</span><div class="pair-workflow-buttons"><button id="prev-pair" class="btn btn-secondary" type="button">Prev LP</button><button id="next-pair" class="btn btn-secondary" type="button">Next LP</button><button id="mark-pair-done" class="btn" type="button">Mark Done + Next</button><button id="skip-pair" class="btn btn-secondary" type="button">Skip LP</button><button id="reset-pair-status" class="btn btn-secondary" type="button">Reset LP</button><label class="show-all-wrap"><input id="show-all-pairs" type="checkbox">Show all LPs</label></div></div><div id="pair-nav-list" class="pair-nav"></div></div></section></header><section class="pair-section" data-pair="en-es"><div class="pair-head"><h2>en-es</h2><p>best objective <strong>113.750</strong> | top1 75.0% | top3 85.4%</p></div><div class="metric-grid"><article class="metric-card"><h3>Top1</h3><p>75.0%</p></article><article class="metric-card"><h3>Top3</h3><p>85.4%</p></article><article class="metric-card"><h3>Forbidden Top1</h3><p>0.0%</p></article><article class="metric-card"><h3>Forbidden Any</h3><p>0.0%</p></article><article class="metric-card"><h3>Avg Rules</h3><p>2.08</p></article><article class="metric-card"><h3>Variant Top1</h3><p>0.0%</p></article></div><details open><summary>Leaderboard</summary><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Objective</th><th>Top1</th><th>Top3</th><th>Forbidden Top1</th><th>Forbidden Any</th><th>Avg Rules</th><th>Config</th></tr></thead><tbody><tr><td>1</td><td>113.750</td><td>75.0%</td><td>85.4%</td><td>0.0%</td><td>0.0%</td><td>2.08</td><td><code>md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off w_pos=0.100</code></td></tr><tr><td>2</td><td>113.750</td><td>75.0%</td><td>85.4%</td><td>0.0%</td><td>0.0%</td><td>2.08</td><td><code>md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off w_pos=0.100</code></td></tr><tr><td>3</td><td>110.708</td><td>75.0%</td><td>85.4%</td><td>0.0%</td><td>2.1%</td><td>2.31</td><td><code>md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off w_pos=0.100</code></td></tr><tr><td>4</td><td>110.708</td><td>75.0%</td><td>85.4%</td><td>0.0%</td><td>2.1%</td><td>2.31</td><td><code>md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off w_pos=0.100</code></td></tr></tbody></table></div></details><details><summary>Best Run Case Diagnostics + Labeling</summary><div class="table-wrap"><table><thead><tr><th>Status</th><th>Case</th><th>Target</th><th>Top1 Source</th><th>Top1 Conf</th><th>Top3 Sources</th><th>All Sources (right-click chips)</th><th>Known Labels</th><th>Top1 Correct</th><th>Top3 Hit</th><th>Top1 Forbidden</th><th>Forbidden Any</th><th>Rules</th><th>Variants</th></tr></thead><tbody><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:hora</code></td><td>hora</td><td>hour</td><td>0.7800</td><td>hour, time, appointment</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:hora" data-target="hora" data-phrase="hour" data-base-label="green" data-current-label="green" title="Right-click to label">hour</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:hora" data-target="hora" data-phrase="time" data-base-label="green" data-current-label="green" title="Right-click to label">time</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:hora" data-target="hora" data-phrase="appointment" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">appointment</button></td><td><span class="label-hint">G:2 / B:1</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:trabajo</code></td><td>trabajo</td><td>work</td><td>0.6200</td><td>work</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:trabajo" data-target="trabajo" data-phrase="work" data-base-label="green" data-current-label="green" title="Right-click to label">work</button></td><td><span class="label-hint">G:3 / B:1</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:casa</code></td><td>casa</td><td>house</td><td>0.6800</td><td>house</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:casa" data-target="casa" data-phrase="house" data-base-label="green" data-current-label="green" title="Right-click to label">house</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:agua</code></td><td>agua</td><td>water</td><td>0.6800</td><td>water, rain, urine</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:agua" data-target="agua" data-phrase="water" data-base-label="green" data-current-label="green" title="Right-click to label">water</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:agua" data-target="agua" data-phrase="rain" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">rain</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:agua" data-target="agua" data-phrase="urine" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">urine</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:libro</code></td><td>libro</td><td>book</td><td>0.6800</td><td>book</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:libro" data-target="libro" data-phrase="book" data-base-label="green" data-current-label="green" title="Right-click to label">book</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:mundo</code></td><td>mundo</td><td>world</td><td>0.5800</td><td>world, hopscotch</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:mundo" data-target="mundo" data-phrase="world" data-base-label="green" data-current-label="green" title="Right-click to label">world</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:mundo" data-target="mundo" data-phrase="hopscotch" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">hopscotch</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:vida</code></td><td>vida</td><td>life</td><td>0.6800</td><td>life, lifestyle, liveliness</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:vida" data-target="vida" data-phrase="life" data-base-label="green" data-current-label="green" title="Right-click to label">life</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:vida" data-target="vida" data-phrase="lifestyle" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">lifestyle</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:vida" data-target="vida" data-phrase="liveliness" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">liveliness</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:ciudad</code></td><td>ciudad</td><td>city</td><td>0.6800</td><td>city</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:ciudad" data-target="ciudad" data-phrase="city" data-base-label="green" data-current-label="green" title="Right-click to label">city</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:familia</code></td><td>familia</td><td>family</td><td>0.6800</td><td>family</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:familia" data-target="familia" data-phrase="family" data-base-label="green" data-current-label="green" title="Right-click to label">family</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:amigo</code></td><td>amigo</td><td>friend</td><td>0.6800</td><td>friend, penis</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:amigo" data-target="amigo" data-phrase="friend" data-base-label="green" data-current-label="green" title="Right-click to label">friend</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:amigo" data-target="amigo" data-phrase="penis" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">penis</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:madre</code></td><td>madre</td><td>mother</td><td>0.6800</td><td>mother, riverbed, dregs</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:madre" data-target="madre" data-phrase="mother" data-base-label="green" data-current-label="green" title="Right-click to label">mother</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:madre" data-target="madre" data-phrase="riverbed" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">riverbed</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:madre" data-target="madre" data-phrase="dregs" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">dregs</button></td><td><span class="label-hint">G:2 / B:2</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:padre</code></td><td>padre</td><td>father</td><td>0.6800</td><td>father</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:padre" data-target="padre" data-phrase="father" data-base-label="green" data-current-label="green" title="Right-click to label">father</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:amor</code></td><td>amor</td><td>love</td><td>0.6800</td><td>love</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:amor" data-target="amor" data-phrase="love" data-base-label="green" data-current-label="green" title="Right-click to label">love</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:dinero</code></td><td>dinero</td><td>money</td><td>0.6800</td><td>money, wealth</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:dinero" data-target="dinero" data-phrase="money" data-base-label="green" data-current-label="green" title="Right-click to label">money</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:dinero" data-target="dinero" data-phrase="wealth" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">wealth</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:escuela</code></td><td>escuela</td><td>school</td><td>0.6800</td><td>school, crag</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:escuela" data-target="escuela" data-phrase="school" data-base-label="green" data-current-label="green" title="Right-click to label">school</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:escuela" data-target="escuela" data-phrase="crag" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">crag</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:camino</code></td><td>camino</td><td>road</td><td>0.6200</td><td>road, path</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:camino" data-target="camino" data-phrase="road" data-base-label="green" data-current-label="green" title="Right-click to label">road</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:camino" data-target="camino" data-phrase="path" data-base-label="green" data-current-label="green" title="Right-click to label">path</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:banco</code></td><td>banco</td><td>bank</td><td>0.6800</td><td>bank, bench, pew</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:banco" data-target="banco" data-phrase="bank" data-base-label="green" data-current-label="green" title="Right-click to label">bank</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:banco" data-target="banco" data-phrase="bench" data-base-label="green" data-current-label="green" title="Right-click to label">bench</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:banco" data-target="banco" data-phrase="pew" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">pew</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:capital</code></td><td>capital</td><td>capital</td><td>0.6800</td><td>capital</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:capital" data-target="capital" data-phrase="capital" data-base-label="green" data-current-label="green" title="Right-click to label">capital</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:luz</code></td><td>luz</td><td>light</td><td>0.7800</td><td>light, lumen, span</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:luz" data-target="luz" data-phrase="light" data-base-label="green" data-current-label="green" title="Right-click to label">light</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:luz" data-target="luz" data-phrase="lumen" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">lumen</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:luz" data-target="luz" data-phrase="span" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">span</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:fondo</code></td><td>fondo</td><td>bottom</td><td>0.7800</td><td>bottom, back, ground</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:fondo" data-target="fondo" data-phrase="bottom" data-base-label="green" data-current-label="green" title="Right-click to label">bottom</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:fondo" data-target="fondo" data-phrase="back" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">back</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:fondo" data-target="fondo" data-phrase="ground" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">ground</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:medio</code></td><td>medio</td><td>half</td><td>0.6800</td><td>half, middle, average</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:medio" data-target="medio" data-phrase="half" data-base-label="green" data-current-label="green" title="Right-click to label">half</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:medio" data-target="medio" data-phrase="middle" data-base-label="green" data-current-label="green" title="Right-click to label">middle</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:medio" data-target="medio" data-phrase="average" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">average</button></td><td><span class="label-hint">G:4 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:planta</code></td><td>planta</td><td>plant</td><td>0.6800</td><td>plant, sole</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:planta" data-target="planta" data-phrase="plant" data-base-label="green" data-current-label="green" title="Right-click to label">plant</button><button type="button" class="source-chip chip-black" data-pair="en-es" data-case-id="en-es:planta" data-target="planta" data-phrase="sole" data-base-label="black" data-current-label="black" title="Right-click to label">sole</button></td><td><span class="label-hint">G:2 / B:1</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-warn">REVIEW</span></td><td><code>en-es:derecho</code></td><td>derecho</td><td>straight</td><td>0.6800</td><td>straight, right</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:derecho" data-target="derecho" data-phrase="straight" data-base-label="green" data-current-label="green" title="Right-click to label">straight</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:derecho" data-target="derecho" data-phrase="right" data-base-label="green" data-current-label="green" title="Right-click to label">right</button></td><td><span class="label-hint">G:3 / B:3</span></td><td>no</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:cuadro</code></td><td>cuadro</td><td>square</td><td>0.6800</td><td>square, rectangle, frame</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cuadro" data-target="cuadro" data-phrase="square" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">square</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cuadro" data-target="cuadro" data-phrase="rectangle" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">rectangle</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cuadro" data-target="cuadro" data-phrase="frame" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">frame</button></td><td><span class="label-hint">G:4 / B:1</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:orden</code></td><td>orden</td><td>order</td><td>0.6800</td><td>order, orderliness</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:orden" data-target="orden" data-phrase="order" data-base-label="green" data-current-label="green" title="Right-click to label">order</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:orden" data-target="orden" data-phrase="orderliness" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">orderliness</button></td><td><span class="label-hint">G:3 / B:2</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:punto</code></td><td>punto</td><td>point</td><td>0.6800</td><td>point, stitch, bombshell</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:punto" data-target="punto" data-phrase="point" data-base-label="green" data-current-label="green" title="Right-click to label">point</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:punto" data-target="punto" data-phrase="stitch" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">stitch</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:punto" data-target="punto" data-phrase="bombshell" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">bombshell</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-warn">REVIEW</span></td><td><code>en-es:cuenta</code></td><td>cuenta</td><td>operation</td><td>0.6200</td><td>operation, bill, tab</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cuenta" data-target="cuenta" data-phrase="operation" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">operation</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:cuenta" data-target="cuenta" data-phrase="bill" data-base-label="green" data-current-label="green" title="Right-click to label">bill</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cuenta" data-target="cuenta" data-phrase="tab" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">tab</button></td><td><span class="label-hint">G:3 / B:1</span></td><td>no</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-warn">REVIEW</span></td><td><code>en-es:cargo</code></td><td>cargo</td><td>debit</td><td>0.5800</td><td>debit, charge, higher-up</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cargo" data-target="cargo" data-phrase="debit" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">debit</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:cargo" data-target="cargo" data-phrase="charge" data-base-label="green" data-current-label="green" title="Right-click to label">charge</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cargo" data-target="cargo" data-phrase="higher-up" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">higher-up</button></td><td><span class="label-hint">G:6 / B:4</span></td><td>no</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:firma</code></td><td>firma</td><td>signature</td><td>0.6800</td><td>signature, seal, company</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:firma" data-target="firma" data-phrase="signature" data-base-label="green" data-current-label="green" title="Right-click to label">signature</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:firma" data-target="firma" data-phrase="seal" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">seal</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:firma" data-target="firma" data-phrase="company" data-base-label="green" data-current-label="green" title="Right-click to label">company</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:campo</code></td><td>campo</td><td>field</td><td>0.6200</td><td>field, course, camp</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:campo" data-target="campo" data-phrase="field" data-base-label="green" data-current-label="green" title="Right-click to label">field</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:campo" data-target="campo" data-phrase="course" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">course</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:campo" data-target="campo" data-phrase="camp" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">camp</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:plaza</code></td><td>plaza</td><td>position</td><td>0.5800</td><td>position, bullring</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:plaza" data-target="plaza" data-phrase="position" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">position</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:plaza" data-target="plaza" data-phrase="bullring" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">bullring</button></td><td><span class="label-hint">G:2 / B:1</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:masa</code></td><td>masa</td><td>dough</td><td>0.6800</td><td>dough, mass, drove</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:masa" data-target="masa" data-phrase="dough" data-base-label="green" data-current-label="green" title="Right-click to label">dough</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:masa" data-target="masa" data-phrase="mass" data-base-label="green" data-current-label="green" title="Right-click to label">mass</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:masa" data-target="masa" data-phrase="drove" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">drove</button></td><td><span class="label-hint">G:3 / B:1</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:red</code></td><td>red</td><td>net</td><td>0.6200</td><td>net, spiderweb, grid</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:red" data-target="red" data-phrase="net" data-base-label="green" data-current-label="green" title="Right-click to label">net</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:red" data-target="red" data-phrase="spiderweb" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">spiderweb</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:red" data-target="red" data-phrase="grid" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">grid</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:lengua</code></td><td>lengua</td><td>tongue</td><td>0.6800</td><td>tongue, spanish</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:lengua" data-target="lengua" data-phrase="tongue" data-base-label="green" data-current-label="green" title="Right-click to label">tongue</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:lengua" data-target="lengua" data-phrase="spanish" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">spanish</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:cura</code></td><td>cura</td><td>cure</td><td>0.6800</td><td>cure, drunkenness, avocado</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:cura" data-target="cura" data-phrase="cure" data-base-label="green" data-current-label="green" title="Right-click to label">cure</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cura" data-target="cura" data-phrase="drunkenness" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">drunkenness</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:cura" data-target="cura" data-phrase="avocado" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">avocado</button></td><td><span class="label-hint">G:4 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:caso</code></td><td>caso</td><td>case</td><td>0.6800</td><td>case, occasion</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:caso" data-target="caso" data-phrase="case" data-base-label="green" data-current-label="green" title="Right-click to label">case</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:caso" data-target="caso" data-phrase="occasion" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">occasion</button></td><td><span class="label-hint">G:3 / B:1</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:parte</code></td><td>parte</td><td>side</td><td>0.5800</td><td>side, party, behalf</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:parte" data-target="parte" data-phrase="side" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">side</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:parte" data-target="parte" data-phrase="party" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">party</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:parte" data-target="parte" data-phrase="behalf" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">behalf</button></td><td><span class="label-hint">G:3 / B:1</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:vista</code></td><td>vista</td><td>sight</td><td>0.6200</td><td>sight, view, foresight</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:vista" data-target="vista" data-phrase="sight" data-base-label="green" data-current-label="green" title="Right-click to label">sight</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:vista" data-target="vista" data-phrase="view" data-base-label="green" data-current-label="green" title="Right-click to label">view</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:vista" data-target="vista" data-phrase="foresight" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">foresight</button></td><td><span class="label-hint">G:2 / B:3</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:movimiento</code></td><td>movimiento</td><td>movement</td><td>0.7800</td><td>movement, transaction</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:movimiento" data-target="movimiento" data-phrase="movement" data-base-label="green" data-current-label="green" title="Right-click to label">movement</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:movimiento" data-target="movimiento" data-phrase="transaction" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">transaction</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:área</code></td><td>área</td><td>area</td><td>0.6800</td><td>area</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:área" data-target="área" data-phrase="area" data-base-label="green" data-current-label="green" title="Right-click to label">area</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:estilo</code></td><td>estilo</td><td>style</td><td>0.6800</td><td>style, stylus</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:estilo" data-target="estilo" data-phrase="style" data-base-label="green" data-current-label="green" title="Right-click to label">style</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:estilo" data-target="estilo" data-phrase="stylus" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">stylus</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:presentar</code></td><td>presentar</td><td>table</td><td>0.6800</td><td>table</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:presentar" data-target="presentar" data-phrase="table" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">table</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-ok">PASS</span></td><td><code>en-es:crear</code></td><td>crear</td><td>create</td><td>0.7800</td><td>create</td><td class="source-cell"><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:crear" data-target="crear" data-phrase="create" data-base-label="green" data-current-label="green" title="Right-click to label">create</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:ocurrir</code></td><td>ocurrir</td><td>-</td><td>-</td><td>-</td><td class="source-cell"><span class="text-muted">-</span></td><td><span class="label-hint">G:2 / B:0</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>0</td><td>0</td></tr><tr><td><span class="status-pill status-warn">REVIEW</span></td><td><code>en-es:sacar</code></td><td>sacar</td><td>take</td><td>0.6800</td><td>take, lift, draw</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:sacar" data-target="sacar" data-phrase="take" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">take</button><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:sacar" data-target="sacar" data-phrase="lift" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">lift</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:sacar" data-target="sacar" data-phrase="draw" data-base-label="green" data-current-label="green" title="Right-click to label">draw</button></td><td><span class="label-hint">G:3 / B:0</span></td><td>no</td><td>yes</td><td>no</td><td>no</td><td>3</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:ese</code></td><td>ese</td><td>hello</td><td>0.5800</td><td>hello</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:ese" data-target="ese" data-phrase="hello" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">hello</button></td><td><span class="label-hint">G:1 / B:0</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>1</td><td>0</td></tr><tr><td><span class="status-pill status-warn">REVIEW</span></td><td><code>en-es:hasta</code></td><td>hasta</td><td>even</td><td>0.6800</td><td>even, until</td><td class="source-cell"><button type="button" class="source-chip chip-neutral" data-pair="en-es" data-case-id="en-es:hasta" data-target="hasta" data-phrase="even" data-base-label="neutral" data-current-label="neutral" title="Right-click to label">even</button><button type="button" class="source-chip chip-green" data-pair="en-es" data-case-id="en-es:hasta" data-target="hasta" data-phrase="until" data-base-label="green" data-current-label="green" title="Right-click to label">until</button></td><td><span class="label-hint">G:2 / B:0</span></td><td>no</td><td>yes</td><td>no</td><td>no</td><td>2</td><td>0</td></tr><tr><td><span class="status-pill status-bad">FAIL</span></td><td><code>en-es:según</code></td><td>según</td><td>-</td><td>-</td><td>-</td><td class="source-cell"><span class="text-muted">-</span></td><td><span class="label-hint">G:1 / B:0</span></td><td>no</td><td>no</td><td>no</td><td>no</td><td>0</td><td>0</td></tr></tbody></table></div></details></section></main><div id="label-menu" class="label-menu" hidden><button type="button" data-action="green">Greenlist</button><button type="button" data-action="black">Blacklist</button><button type="button" data-action="neutral">Clear label</button></div>
+<script>
+const DATASET_PATH = "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json";
+const REPORT_GENERATED_AT = "2026-03-22T19:11:41.947695+00:00";
+const STORAGE_KEY = 'lexishift_rulegen_label_workbench_v1';
+const WORKFLOW_STORAGE_KEY = 'lexishift_rulegen_lp_workflow_v1';
+
+const chips = Array.from(document.querySelectorAll('.source-chip'));
+const pairSections = Array.from(document.querySelectorAll('.pair-section[data-pair]'));
+const pairOrder = pairSections
+  .map((section) => section.dataset.pair || '')
+  .filter((pair, index, arr) => pair && arr.indexOf(pair) === index);
+
+const menu = document.getElementById('label-menu');
+const labelCountEl = document.getElementById('label-count');
+const downloadBtn = document.getElementById('download-labels');
+const copyBtn = document.getElementById('copy-labels');
+const clearBtn = document.getElementById('clear-labels');
+
+const pairStateEl = document.getElementById('pair-workflow-state');
+const pairNavListEl = document.getElementById('pair-nav-list');
+const prevPairBtn = document.getElementById('prev-pair');
+const nextPairBtn = document.getElementById('next-pair');
+const markDoneBtn = document.getElementById('mark-pair-done');
+const skipPairBtn = document.getElementById('skip-pair');
+const resetPairStatusBtn = document.getElementById('reset-pair-status');
+const showAllPairsToggle = document.getElementById('show-all-pairs');
+
+let activeChip = null;
+
+function emptyState() {
+  return { cases: {} };
+}
+
+function normalizeLabel(value) {
+  if (value === 'green' || value === 'black' || value === 'neutral') {
+    return value;
+  }
+  return 'neutral';
+}
+
+function caseKey(pair, caseId, target) {
+  return [pair || '', caseId || '', target || ''].join('|||');
+}
+
+function loadState() {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return emptyState();
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || !parsed.cases || typeof parsed.cases !== 'object') {
+      return emptyState();
+    }
+    return parsed;
+  } catch (error) {
+    return emptyState();
+  }
+}
+
+function emptyWorkflowState() {
+  return {
+    current_pair: pairOrder[0] || '',
+    statuses: {},
+    show_all_pairs: false,
+  };
+}
+
+function normalizePairStatus(value) {
+  if (value === 'done' || value === 'skipped') return value;
+  return 'todo';
+}
+
+function loadWorkflowState() {
+  try {
+    const raw = window.localStorage.getItem(WORKFLOW_STORAGE_KEY);
+    if (!raw) return emptyWorkflowState();
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return emptyWorkflowState();
+    const statuses = parsed.statuses && typeof parsed.statuses === 'object' ? parsed.statuses : {};
+    return {
+      current_pair: typeof parsed.current_pair === 'string' ? parsed.current_pair : (pairOrder[0] || ''),
+      statuses,
+      show_all_pairs: Boolean(parsed.show_all_pairs),
+    };
+  } catch (error) {
+    return emptyWorkflowState();
+  }
+}
+
+let state = loadState();
+let workflowState = loadWorkflowState();
+if (!pairOrder.includes(workflowState.current_pair)) {
+  workflowState.current_pair = pairOrder[0] || '';
+}
+
+function saveState() {
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function saveWorkflowState() {
+  window.localStorage.setItem(WORKFLOW_STORAGE_KEY, JSON.stringify(workflowState));
+}
+
+function ensureCaseBucket(pair, caseId, target) {
+  const key = caseKey(pair, caseId, target);
+  if (!state.cases[key]) {
+    state.cases[key] = {
+      pair: pair || '',
+      case_id: caseId || '',
+      target: target || '',
+      decisions: {},
+    };
+  }
+  return state.cases[key];
+}
+
+function getDecision(pair, caseId, target, phrase) {
+  const key = caseKey(pair, caseId, target);
+  const bucket = state.cases[key];
+  if (!bucket || !bucket.decisions || typeof bucket.decisions !== 'object') return null;
+  if (!(phrase in bucket.decisions)) return null;
+  return normalizeLabel(bucket.decisions[phrase]);
+}
+
+function getPairStatus(pair) {
+  if (!pair || !workflowState.statuses || typeof workflowState.statuses !== 'object') {
+    return 'todo';
+  }
+  return normalizePairStatus(workflowState.statuses[pair]);
+}
+
+function setPairStatus(pair, status) {
+  if (!pair) return;
+  const normalized = normalizePairStatus(status);
+  if (!workflowState.statuses || typeof workflowState.statuses !== 'object') {
+    workflowState.statuses = {};
+  }
+  if (normalized === 'todo') {
+    delete workflowState.statuses[pair];
+  } else {
+    workflowState.statuses[pair] = normalized;
+  }
+  saveWorkflowState();
+}
+
+function setCurrentPair(pair, options = {}) {
+  if (!pairOrder.includes(pair)) return;
+  workflowState.current_pair = pair;
+  saveWorkflowState();
+  applyPairVisibility(options);
+  renderPairWorkflow();
+}
+
+function applyChipClasses(chip, label, isManual) {
+  chip.classList.remove('chip-green', 'chip-black', 'chip-neutral', 'chip-manual');
+  if (label === 'green') chip.classList.add('chip-green');
+  else if (label === 'black') chip.classList.add('chip-black');
+  else chip.classList.add('chip-neutral');
+  if (isManual) chip.classList.add('chip-manual');
+  chip.dataset.currentLabel = label;
+  chip.title = `Right-click to label (${label})`;
+}
+
+function applyChipLabel(chip) {
+  const pair = chip.dataset.pair || '';
+  const caseId = chip.dataset.caseId || '';
+  const target = chip.dataset.target || '';
+  const phrase = chip.dataset.phrase || '';
+  const baseLabel = normalizeLabel(chip.dataset.baseLabel || 'neutral');
+  const decision = getDecision(pair, caseId, target, phrase);
+  const resolved = decision || baseLabel;
+  applyChipClasses(chip, resolved, Boolean(decision && decision !== baseLabel));
+}
+
+function refreshDecisionCount() {
+  const buckets = Object.values(state.cases || {});
+  let decisionCount = 0;
+  let caseCount = 0;
+  for (const bucket of buckets) {
+    if (!bucket || !bucket.decisions || typeof bucket.decisions !== 'object') continue;
+    const size = Object.keys(bucket.decisions).length;
+    if (size > 0) caseCount += 1;
+    decisionCount += size;
+  }
+  if (labelCountEl) {
+    labelCountEl.textContent = `${decisionCount} decisions across ${caseCount} cases`;
+  }
+}
+
+function applyPairVisibility(options = {}) {
+  const showAll = Boolean(workflowState.show_all_pairs);
+  pairSections.forEach((section) => {
+    const pair = section.dataset.pair || '';
+    section.hidden = !showAll && pair !== workflowState.current_pair;
+  });
+  const shouldScroll = options.scroll !== false;
+  if (!showAll && shouldScroll) {
+    const active = pairSections.find((section) => (section.dataset.pair || '') === workflowState.current_pair);
+    if (active) {
+      active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+
+function renderPairWorkflow() {
+  if (!pairOrder.length) {
+    if (pairStateEl) pairStateEl.textContent = 'No LP sections in this report';
+    return;
+  }
+
+  if (!pairOrder.includes(workflowState.current_pair)) {
+    workflowState.current_pair = pairOrder[0];
+    saveWorkflowState();
+  }
+
+  const currentIndex = pairOrder.indexOf(workflowState.current_pair);
+  const doneCount = pairOrder.filter((pair) => getPairStatus(pair) === 'done').length;
+  const skippedCount = pairOrder.filter((pair) => getPairStatus(pair) === 'skipped').length;
+  const todoCount = pairOrder.length - doneCount - skippedCount;
+
+  if (pairStateEl) {
+    pairStateEl.textContent = `LP ${currentIndex + 1}/${pairOrder.length}: ${workflowState.current_pair} | todo ${todoCount} done ${doneCount} skipped ${skippedCount}`;
+  }
+
+  if (pairNavListEl) {
+    pairNavListEl.innerHTML = '';
+    pairOrder.forEach((pair) => {
+      const status = getPairStatus(pair);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `pair-chip status-${status}${pair === workflowState.current_pair ? ' active' : ''}`;
+      button.textContent = `${pair} (${status})`;
+      button.addEventListener('click', () => {
+        setCurrentPair(pair);
+      });
+      pairNavListEl.appendChild(button);
+    });
+  }
+
+  if (prevPairBtn) prevPairBtn.disabled = currentIndex <= 0;
+  if (nextPairBtn) nextPairBtn.disabled = currentIndex >= (pairOrder.length - 1);
+  if (markDoneBtn) markDoneBtn.disabled = !workflowState.current_pair;
+  if (skipPairBtn) skipPairBtn.disabled = !workflowState.current_pair;
+  if (resetPairStatusBtn) resetPairStatusBtn.disabled = !workflowState.current_pair;
+}
+
+function moveRelativePair(offset) {
+  if (!pairOrder.length) return;
+  const index = pairOrder.indexOf(workflowState.current_pair);
+  if (index < 0) return;
+  const targetIndex = index + offset;
+  if (targetIndex < 0 || targetIndex >= pairOrder.length) return;
+  setCurrentPair(pairOrder[targetIndex]);
+}
+
+function findNextTodoIndex(afterIndex) {
+  for (let i = afterIndex + 1; i < pairOrder.length; i += 1) {
+    if (getPairStatus(pairOrder[i]) === 'todo') return i;
+  }
+  for (let i = 0; i < pairOrder.length; i += 1) {
+    if (getPairStatus(pairOrder[i]) === 'todo') return i;
+  }
+  return -1;
+}
+
+function markCurrentPairAndAdvance(status) {
+  if (!workflowState.current_pair) return;
+  const currentIndex = pairOrder.indexOf(workflowState.current_pair);
+  setPairStatus(workflowState.current_pair, status);
+  const nextTodo = findNextTodoIndex(currentIndex);
+  if (nextTodo >= 0) {
+    setCurrentPair(pairOrder[nextTodo]);
+    return;
+  }
+  if (currentIndex >= 0 && currentIndex < pairOrder.length - 1) {
+    setCurrentPair(pairOrder[currentIndex + 1]);
+    return;
+  }
+  renderPairWorkflow();
+  applyPairVisibility({ scroll: false });
+}
+
+function setLabelForChip(chip, label) {
+  const pair = chip.dataset.pair || '';
+  const caseId = chip.dataset.caseId || '';
+  const target = chip.dataset.target || '';
+  const phrase = chip.dataset.phrase || '';
+  const baseLabel = normalizeLabel(chip.dataset.baseLabel || 'neutral');
+  const normalizedLabel = normalizeLabel(label);
+  const key = caseKey(pair, caseId, target);
+  const bucket = ensureCaseBucket(pair, caseId, target);
+  if (normalizedLabel === baseLabel) {
+    delete bucket.decisions[phrase];
+  } else {
+    bucket.decisions[phrase] = normalizedLabel;
+  }
+  if (Object.keys(bucket.decisions).length === 0) {
+    delete state.cases[key];
+  }
+  applyChipLabel(chip);
+  saveState();
+  refreshDecisionCount();
+}
+
+function hideMenu() {
+  if (!menu) return;
+  menu.hidden = true;
+  activeChip = null;
+}
+
+function openMenuForChip(event) {
+  if (!menu) return;
+  event.preventDefault();
+  activeChip = event.currentTarget;
+  menu.hidden = false;
+  const x = Math.min(event.pageX, window.scrollX + window.innerWidth - 190);
+  const y = Math.min(event.pageY, window.scrollY + window.innerHeight - 160);
+  menu.style.left = `${x}px`;
+  menu.style.top = `${y}px`;
+}
+
+function sortedDecisionCases() {
+  const entries = Object.values(state.cases || {}).filter((entry) => {
+    return entry && entry.decisions && Object.keys(entry.decisions).length > 0;
+  });
+  entries.sort((a, b) => {
+    const left = `${a.pair || ''}::${a.case_id || ''}::${a.target || ''}`;
+    const right = `${b.pair || ''}::${b.case_id || ''}::${b.target || ''}`;
+    return left.localeCompare(right);
+  });
+  return entries.map((entry) => {
+    const ordered = {};
+    Object.keys(entry.decisions || {}).sort().forEach((phrase) => {
+      ordered[phrase] = normalizeLabel(entry.decisions[phrase]);
+    });
+    return {
+      pair: entry.pair || '',
+      case_id: entry.case_id || '',
+      target: entry.target || '',
+      decisions: ordered,
+    };
+  });
+}
+
+function exportPayloadText() {
+  const payload = {
+    labels_version: 1,
+    generated_at: new Date().toISOString(),
+    source_report_generated_at: REPORT_GENERATED_AT,
+    dataset_path: DATASET_PATH,
+    cases: sortedDecisionCases(),
+  };
+  return JSON.stringify(payload, null, 2);
+}
+
+function downloadDecisions() {
+  const payloadText = exportPayloadText();
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const filename = `rulegen_label_overrides_${timestamp}.json`;
+  const blob = new Blob([payloadText], { type: 'application/json' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => window.URL.revokeObjectURL(url), 1500);
+}
+
+async function copyDecisions() {
+  if (!copyBtn) return;
+  const original = copyBtn.textContent;
+  try {
+    await navigator.clipboard.writeText(exportPayloadText());
+    copyBtn.textContent = 'Copied';
+  } catch (error) {
+    copyBtn.textContent = 'Copy failed';
+  }
+  window.setTimeout(() => {
+    copyBtn.textContent = original;
+  }, 1500);
+}
+
+function clearDecisions() {
+  if (!window.confirm('Clear all local label decisions for this report?')) return;
+  state = emptyState();
+  saveState();
+  chips.forEach((chip) => applyChipLabel(chip));
+  refreshDecisionCount();
+}
+
+if (menu) {
+  menu.querySelectorAll('button[data-action]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (activeChip) {
+        setLabelForChip(activeChip, button.dataset.action || 'neutral');
+      }
+      hideMenu();
+    });
+  });
+}
+
+chips.forEach((chip) => {
+  chip.addEventListener('contextmenu', openMenuForChip);
+  applyChipLabel(chip);
+});
+
+document.addEventListener('click', (event) => {
+  if (!menu || menu.hidden) return;
+  if (!menu.contains(event.target)) hideMenu();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') hideMenu();
+});
+
+if (showAllPairsToggle) {
+  showAllPairsToggle.checked = Boolean(workflowState.show_all_pairs);
+  showAllPairsToggle.addEventListener('change', () => {
+    workflowState.show_all_pairs = Boolean(showAllPairsToggle.checked);
+    saveWorkflowState();
+    applyPairVisibility({ scroll: false });
+    renderPairWorkflow();
+  });
+}
+
+if (prevPairBtn) prevPairBtn.addEventListener('click', () => moveRelativePair(-1));
+if (nextPairBtn) nextPairBtn.addEventListener('click', () => moveRelativePair(1));
+if (markDoneBtn) markDoneBtn.addEventListener('click', () => markCurrentPairAndAdvance('done'));
+if (skipPairBtn) skipPairBtn.addEventListener('click', () => markCurrentPairAndAdvance('skipped'));
+if (resetPairStatusBtn) {
+  resetPairStatusBtn.addEventListener('click', () => {
+    if (!workflowState.current_pair) return;
+    setPairStatus(workflowState.current_pair, 'todo');
+    renderPairWorkflow();
+    applyPairVisibility({ scroll: false });
+  });
+}
+
+window.addEventListener('scroll', hideMenu, true);
+if (downloadBtn) downloadBtn.addEventListener('click', downloadDecisions);
+if (copyBtn) copyBtn.addEventListener('click', copyDecisions);
+if (clearBtn) clearBtn.addEventListener('click', clearDecisions);
+
+refreshDecisionCount();
+renderPairWorkflow();
+applyPairVisibility({ scroll: false });
+</script>
+</body></html>

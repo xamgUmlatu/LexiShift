@@ -15,6 +15,7 @@ Related:
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/lp_data_inventory_matrix.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/data_source_licensing_and_distribution.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/pos_source_and_pipeline_reference.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/kaikki_en_es_integration_plan.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/resource_integrity_audit.py`
 - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/pos_inventory_audit.py`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/resource_recovery_playbook.md`
@@ -100,6 +101,10 @@ Both files are TEI dictionaries; they support opposite directional rulegen needs
   - `en-es` currently has a wired bilingual source (`freedict-es-en`), but that source is not coverage-adequate for production SRS publication on its own.
   - The current failure mode is not just ranking noise; some normal admitted lemmas have no usable ES->EN headword coverage in the installed FreeDict inventory.
   - Evidence: installed-resource SRS journey leaves `movimiento` due-but-unpublished in `docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md`.
+- Current replacement direction:
+  - The active replacement plan for `en-es` is a Kaikki/Wiktionary-backed compatibility SQLite generated from Spanish entries in the English-edition Kaikki dump.
+  - The active reverse-check replacement plan is a separate Kaikki/Wiktionary compatibility SQLite generated from English entries in the same English-edition dump.
+  - See `docs/language_pairs/kaikki_en_es_integration_plan.md`.
 
 ## 6) German Frequency DB Build (Current Recommendation)
 
@@ -213,5 +218,23 @@ Convert FreeDict EN->ES archive/tei to SQLite:
 python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_freedict_eng_spa_to_sqlite.py \
   /path/to/freedict-eng-spa-2025.11.23.src.tar.xz \
   "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-en-es.sqlite" \
+  --overwrite
+```
+
+Convert Kaikki English-edition raw dump to the `en-es` compatibility SQLite:
+
+```bash
+python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_kaikki_es_en_to_sqlite.py \
+  /path/to/raw-wiktextract-data.jsonl.gz \
+  "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite" \
+  --overwrite
+```
+
+Convert Kaikki English-edition raw dump to the `en-es` reverse-check compatibility SQLite:
+
+```bash
+python3 /Users/takeyayuki/Documents/projects/LexiShift/scripts/data/convert_kaikki_en_es_to_sqlite.py \
+  /path/to/raw-wiktextract-data.jsonl.gz \
+  "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite" \
   --overwrite
 ```

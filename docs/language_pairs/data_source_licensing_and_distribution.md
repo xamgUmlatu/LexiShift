@@ -1,6 +1,6 @@
 # Data Source Licensing And Distribution Register
 
-Status: working legal/distribution register for all LP data sources.  
+Status: working legal/distribution register for all LP data sources.
 Last updated: 2026-02-23
 
 ## Scope
@@ -69,6 +69,8 @@ If a source is `manual-supply`, user can:
 | `freedict-en-de` | translation | `$DATA_ROOT/language_packs/eng-deu.tei` (or converted SQLite) | expected-not-verified | Source archive URL used by app/runtime (`eng-deu.tei` inside). Local artifact verification still pending in this workspace. | `https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz` | 2026-02-22 | `manual-supply` | available |
 | `freedict-es-en` | translation | `$DATA_ROOT/language_packs/spa-eng.tei` (or converted SQLite) | confirmed-local | TEI header in local `spa-eng.tei`: GPL v2 or later. | `local file` | 2026-02-22 | `auto-download` | available |
 | `freedict-en-es` | translation | `$DATA_ROOT/language_packs/eng-spa.tei` (or converted SQLite) | confirmed-local | TEI header in local `eng-spa.tei`: CC BY-SA 3.0. | `local file` | 2026-02-22 | `auto-download` | available |
+| `wiktionary-es-en` | translation | `$DATA_ROOT/language_packs/wiktionary-es-en.sqlite` | review-required | First rollout converts the English-edition Kaikki raw dump into a pair-specific SQLite artifact. Final attribution/share-alike policy for the converted artifact is not yet captured as a settled repo distribution rule, so keep manual-supply posture until policy owner review. | `https://kaikki.org/dictionary/rawdata.html` | 2026-03-22 | `manual-supply` | available |
+| `wiktionary-en-es` | translation | `$DATA_ROOT/language_packs/wiktionary-en-es.sqlite` | review-required | Reverse-check slice converts the same English-edition Kaikki raw dump into an EN->ES compatibility SQLite artifact. Attribution/share-alike policy for converted artifacts is still pending policy-owner review, so keep manual-supply posture until settled. | `https://kaikki.org/dictionary/rawdata.html` | 2026-03-23 | `manual-supply` | available |
 | `jmdict-ja-en` | translation | `$DATA_ROOT/language_packs/JMdict_e` | expected-not-verified | EDRDG official licensing statement says dictionary files are CC BY-SA 4.0. Obligations: `OD-ATTR`, `OD-SA`. Local `JMdict_e` header does not embed license text in this workspace. | `https://www.edrdg.org/edrdg/licence.html` | 2026-02-23 | `auto-download` | available |
 | `cc-cedict-zh-en` | translation | `$DATA_ROOT/language_packs/cedict_ts.u8` | expected-not-verified | Source archive URL used by app/runtime (`cedict_ts.u8` inside). Latest downloaded header in dev audit reports CC BY-SA 4.0; policy remains `manual-supply` until owner confirms final handling of attribution/share-alike obligations. | `https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip` | 2026-02-23 | `manual-supply` | available |
 | `wordnet-en` | monolingual | `$DATA_ROOT/language_packs/english-wordnet-2025-json/` | expected-not-verified | Master repository `LICENSE.md` grants CC BY 4.0. Obligations: `OD-ATTR`. Local JSON snapshot in this workspace does not include a bundled license file. | `https://raw.githubusercontent.com/globalwordnet/english-wordnet/master/LICENSE.md` | 2026-02-23 | `auto-download` | available |

@@ -314,14 +314,18 @@ def main() -> None:
         help="Override LexiShift data root (default: platform data dir or LEXISHIFT_DATA_DIR).",
     )
     parser.add_argument(
+        "--translation-dict-en-es",
         "--freedict-es-en",
+        dest="translation_dict_en_es",
         type=Path,
-        help="Override FreeDict ES->EN path for en-es probe.",
+        help="Override translation-dictionary path for en-es probe.",
     )
     parser.add_argument(
+        "--translation-dict-es-en-reverse",
         "--freedict-en-es-reverse",
+        dest="translation_dict_es_en_reverse",
         type=Path,
-        help="Override FreeDict EN->ES path used for reverse-check metadata in en-es probe.",
+        help="Override reverse translation-dictionary path used for en-es reverse-check metadata.",
     )
     parser.add_argument(
         "--jmdict",
@@ -406,16 +410,16 @@ def main() -> None:
             paths,
             pair="en-es",
             jmdict_path=args.jmdict,
-            freedict_de_en_path=args.freedict_es_en,
+            freedict_de_en_path=args.translation_dict_en_es,
             set_source_db=None,
         )
         resolved_freedict_es_en = _resolve_required_file(
-            "FreeDict ES->EN",
+            "Translation dictionary ES->EN",
             _resolved_freedict_es_en,
         )
         resolved_freedict_en_es_reverse = _resolve_required_file(
-            "FreeDict EN->ES",
-            args.freedict_en_es_reverse
+            "Reverse translation dictionary EN->ES",
+            args.translation_dict_es_en_reverse
             or default_freedict_reverse_path("en-es", language_packs_dir=paths.language_packs_dir),
         )
 
@@ -425,7 +429,7 @@ def main() -> None:
             paths,
             pair="en-ja",
             jmdict_path=args.jmdict,
-            freedict_de_en_path=args.freedict_es_en,
+            freedict_de_en_path=args.translation_dict_en_es,
             set_source_db=None,
         )
         resolved_jmdict = _resolve_required_file("JMDict", _resolved_jmdict)
@@ -447,10 +451,10 @@ def main() -> None:
             spanish_targets,
             config=EnEsRulegenConfig(
                 freedict_es_en_path=_resolve_required_file(
-                    "FreeDict ES->EN", resolved_freedict_es_en
+                    "Translation dictionary ES->EN", resolved_freedict_es_en
                 ),
                 reverse_freedict_en_es_path=_resolve_required_file(
-                    "FreeDict EN->ES",
+                    "Reverse translation dictionary EN->ES",
                     resolved_freedict_en_es_reverse,
                 ),
                 reverse_check=reverse_check,
@@ -483,10 +487,10 @@ def main() -> None:
             spanish_targets,
             config=EnEsRulegenConfig(
                 freedict_es_en_path=_resolve_required_file(
-                    "FreeDict ES->EN", resolved_freedict_es_en
+                    "Translation dictionary ES->EN", resolved_freedict_es_en
                 ),
                 reverse_freedict_en_es_path=_resolve_required_file(
-                    "FreeDict EN->ES",
+                    "Reverse translation dictionary EN->ES",
                     resolved_freedict_en_es_reverse,
                 ),
                 reverse_check=reverse_check,
@@ -516,8 +520,8 @@ def main() -> None:
     print(f"  data_root: {paths.data_root}")
     print(f"  profile_id: {args.profile_id}")
     print(f"  srs_store: {store_path}")
-    print(f"  freedict_es_en: {resolved_freedict_es_en}")
-    print(f"  freedict_en_es_reverse: {resolved_freedict_en_es_reverse}")
+    print(f"  translation_dict_en_es: {resolved_freedict_es_en}")
+    print(f"  translation_dict_es_en_reverse: {resolved_freedict_en_es_reverse}")
     print(f"  jmdict: {resolved_jmdict}")
     print(
         f"  config: max_definitions={max_definitions}, "
@@ -564,6 +568,12 @@ def main() -> None:
             "data_root": str(paths.data_root),
             "profile_id": args.profile_id,
             "srs_store": str(store_path),
+            "translation_dict_en_es": (
+                str(resolved_freedict_es_en) if resolved_freedict_es_en else None
+            ),
+            "translation_dict_es_en_reverse": (
+                str(resolved_freedict_en_es_reverse) if resolved_freedict_en_es_reverse else None
+            ),
             "freedict_es_en": str(resolved_freedict_es_en) if resolved_freedict_es_en else None,
             "freedict_en_es_reverse": (
                 str(resolved_freedict_en_es_reverse) if resolved_freedict_en_es_reverse else None

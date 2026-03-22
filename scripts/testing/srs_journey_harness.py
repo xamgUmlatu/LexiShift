@@ -498,7 +498,8 @@ def build_report(
                     pair=pair,
                     profile_id=profile_id,
                     jmdict_path=resources["jmdict_path"],
-                    freedict_de_en_path=resources["freedict_path"],
+                    freedict_de_en_path=resources.get("translation_dict_path")
+                    or resources.get("freedict_path"),
                     set_source_db=resources["frequency_db"],
                     set_top_n=scenario_def.set_top_n,
                     bootstrap_top_n=scenario_def.bootstrap_top_n,
@@ -549,7 +550,9 @@ def build_report(
             pair=pair,
             profile_id=profile_id,
             jmdict_path=resources["jmdict_path"],
-            freedict_de_en_path=resources["freedict_path"],
+            freedict_de_en_path=(
+                resources.get("translation_dict_path") or resources.get("freedict_path")
+            ),
             set_source_db=resources["frequency_db"],
             set_top_n=scenario_def.set_top_n,
             feedback_window_size=8,

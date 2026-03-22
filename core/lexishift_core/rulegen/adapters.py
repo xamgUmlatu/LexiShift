@@ -38,6 +38,13 @@ class RulegenAdapterRequest:
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
 
 
+def _is_kaikki_dictionary(path: Path | None) -> bool:
+    if path is None:
+        return False
+    name = path.name.strip().lower()
+    return "wiktionary" in name or "kaikki" in name
+
+
 def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     if request.jmdict_path is None:
         raise ValueError("Missing JMDict path for en-ja rule generation.")
@@ -81,10 +88,20 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     if request.freedict_de_en_path is None:
         raise ValueError("Missing FreeDict ES->EN path for en-es rule generation.")
+    source_dict_id = "freedict_es_en"
+    dictionary_pos_source_profile = "freedict"
+    reverse_source_dict_id = "freedict_en_es"
+    if _is_kaikki_dictionary(request.freedict_de_en_path):
+        source_dict_id = "wiktionary_es_en"
+        dictionary_pos_source_profile = "wiktionary"
+    if _is_kaikki_dictionary(request.freedict_reverse_path):
+        reverse_source_dict_id = "wiktionary_en_es"
     config = EnEsRulegenConfig(
         freedict_es_en_path=request.freedict_de_en_path,
         reverse_freedict_en_es_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
+        source_dict_id=source_dict_id,
+        reverse_source_dict_id=reverse_source_dict_id,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
@@ -95,6 +112,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         reverse_check=request.reverse_check,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
+        dictionary_pos_source_profile=dictionary_pos_source_profile,
     )
     results = generate_en_es_results(request.targets, config=config)
     return [result.rule for result in results]

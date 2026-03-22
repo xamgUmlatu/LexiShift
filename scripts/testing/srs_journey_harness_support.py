@@ -59,8 +59,8 @@ class JourneyPairFixture:
     frequency_filename: str
     candidate_specs: tuple[CandidateSpec, ...]
     jmdict_filename: str | None = None
-    freedict_forward_filename: str | None = None
-    freedict_reverse_filename: str | None = None
+    translation_dict_forward_filename: str | None = None
+    translation_dict_reverse_filename: str | None = None
 
 
 @dataclass(frozen=True)
@@ -89,71 +89,48 @@ class JourneyScenario:
     max_new_items_per_day: int = 2
 
 
-EN_JA_CANDIDATE_SPECS = (
-    CandidateSpec(
-        lemma="alpha",
-        source_gloss="eng_alpha",
-        cohort="stable",
-        base_weight=0.97,
-        frequency_pos_raw="名詞-普通名詞-一般",
+def _candidate_specs(
+    rows: Sequence[tuple[str, str, str, float]],
+    *,
+    frequency_pos_raw: str = "n",
+) -> tuple[CandidateSpec, ...]:
+    return tuple(
+        CandidateSpec(
+            lemma=lemma,
+            source_gloss=source_gloss,
+            cohort=cohort,
+            base_weight=base_weight,
+            frequency_pos_raw=frequency_pos_raw,
+        )
+        for lemma, source_gloss, cohort, base_weight in rows
+    )
+
+
+JA_NOUN_FREQ_POS = "名詞-普通名詞-一般"
+
+EN_JA_CANDIDATE_SPECS = _candidate_specs(
+    (
+        ("alpha", "eng_alpha", "stable", 0.97),
+        ("beta", "eng_beta", "stable", 0.93),
+        ("gamma", "eng_gamma", "difficult", 0.90),
+        ("delta", "eng_delta", "frontier", 0.86),
+        ("epsilon", "eng_epsilon", "frontier", 0.82),
+        ("zeta", "eng_zeta", "frontier", 0.78),
+        ("eta", "eng_eta", "frontier", 0.74),
     ),
-    CandidateSpec(
-        lemma="beta",
-        source_gloss="eng_beta",
-        cohort="stable",
-        base_weight=0.93,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
-    CandidateSpec(
-        lemma="gamma",
-        source_gloss="eng_gamma",
-        cohort="difficult",
-        base_weight=0.90,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
-    CandidateSpec(
-        lemma="delta",
-        source_gloss="eng_delta",
-        cohort="frontier",
-        base_weight=0.86,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
-    CandidateSpec(
-        lemma="epsilon",
-        source_gloss="eng_epsilon",
-        cohort="frontier",
-        base_weight=0.82,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
-    CandidateSpec(
-        lemma="zeta",
-        source_gloss="eng_zeta",
-        cohort="frontier",
-        base_weight=0.78,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
-    CandidateSpec(
-        lemma="eta",
-        source_gloss="eng_eta",
-        cohort="frontier",
-        base_weight=0.74,
-        frequency_pos_raw="名詞-普通名詞-一般",
-    ),
+    frequency_pos_raw=JA_NOUN_FREQ_POS,
 )
 
-EN_ES_CANDIDATE_SPECS = (
-    CandidateSpec(lemma="casa", source_gloss="house", cohort="stable", base_weight=0.97),
-    CandidateSpec(lemma="libro", source_gloss="book", cohort="stable", base_weight=0.93),
-    CandidateSpec(lemma="hora", source_gloss="hour", cohort="difficult", base_weight=0.90),
-    CandidateSpec(lemma="madre", source_gloss="mother", cohort="frontier", base_weight=0.86),
-    CandidateSpec(lemma="campo", source_gloss="field", cohort="frontier", base_weight=0.82),
-    CandidateSpec(
-        lemma="ventana",
-        source_gloss="window",
-        cohort="frontier",
-        base_weight=0.78,
-    ),
-    CandidateSpec(lemma="mesa", source_gloss="table", cohort="frontier", base_weight=0.74),
+EN_ES_CANDIDATE_SPECS = _candidate_specs(
+    (
+        ("casa", "house", "stable", 0.97),
+        ("libro", "book", "stable", 0.93),
+        ("hora", "hour", "difficult", 0.90),
+        ("madre", "mother", "frontier", 0.86),
+        ("campo", "field", "frontier", 0.82),
+        ("ventana", "window", "frontier", 0.78),
+        ("mesa", "table", "frontier", 0.74),
+    )
 )
 
 PAIR_FIXTURES = {
@@ -167,13 +144,10 @@ PAIR_FIXTURES = {
         pair="en-es",
         frequency_filename="freq-es-cde.sqlite",
         candidate_specs=EN_ES_CANDIDATE_SPECS,
-        freedict_forward_filename="spa-eng.tei",
-        freedict_reverse_filename="eng-spa.tei",
+        translation_dict_forward_filename="wiktionary-es-en.sqlite",
+        translation_dict_reverse_filename="eng-spa.tei",
     ),
 }
-
-SCENARIO_LEMMAS = tuple(spec.lemma for spec in EN_JA_CANDIDATE_SPECS)
-COHORT_BY_LEMMA = {spec.lemma: spec.cohort for spec in EN_JA_CANDIDATE_SPECS}
 
 EN_JA_CORE_SCENARIO_NAME = "en-ja_core_journey_v1"
 EN_JA_EDGE_SCENARIO_NAME = "en-ja_edge_behaviors_v1"
@@ -188,15 +162,13 @@ CORE_SCENARIO_NAME = EN_JA_CORE_SCENARIO_NAME
 EDGE_SCENARIO_NAME = EN_JA_EDGE_SCENARIO_NAME
 REAL_SCENARIO_NAME = EN_JA_REAL_SCENARIO_NAME
 
-EN_ES_PHASE_LEMMA_MAP = {
-    "alpha": "casa",
-    "beta": "libro",
-    "gamma": "hora",
-    "delta": "madre",
-    "epsilon": "campo",
-    "zeta": "ventana",
-    "eta": "mesa",
-}
+EN_ES_PHASE_LEMMA_MAP = dict(
+    zip(
+        ("alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta"),
+        ("casa", "libro", "hora", "madre", "campo", "ventana", "mesa"),
+        strict=True,
+    )
+)
 
 
 CORE_PHASE_PLANS = (
@@ -515,6 +487,58 @@ def _write_freedict_tei(
     return path
 
 
+def _write_translation_dictionary_sqlite(
+    path: Path,
+    *,
+    entries: Sequence[tuple[str, str, str]],
+) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("DROP TABLE IF EXISTS meta;")
+        conn.execute("DROP TABLE IF EXISTS entries;")
+        conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);")
+        conn.execute(
+            "CREATE TABLE entries ("
+            "headword TEXT NOT NULL, "
+            "headword_lc TEXT NOT NULL, "
+            "translation TEXT NOT NULL, "
+            "translation_lc TEXT NOT NULL, "
+            "rank INTEGER NOT NULL, "
+            "pos TEXT, "
+            "entry_ord INTEGER NOT NULL, "
+            "gloss_ord INTEGER NOT NULL, "
+            "PRIMARY KEY (headword_lc, translation_lc)"
+            ");"
+        )
+        conn.executemany(
+            "INSERT INTO entries ("
+            "headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord"
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                (
+                    headword,
+                    headword.lower(),
+                    translation,
+                    translation.lower(),
+                    index + 1,
+                    pos_raw,
+                    index + 1,
+                    0,
+                )
+                for index, (headword, translation, pos_raw) in enumerate(entries)
+            ],
+        )
+        conn.execute(
+            "INSERT INTO meta (key, value) VALUES (?, ?)",
+            ("metadata", json.dumps({"source": "synthetic_srs_journey"}, ensure_ascii=False)),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    return path
+
+
 def create_pair_resources(
     paths: HelperPaths,
     *,
@@ -534,36 +558,38 @@ def create_pair_resources(
     resources: dict[str, Path | None] = {
         "frequency_db": frequency_db,
         "jmdict_path": None,
-        "freedict_path": None,
-        "freedict_reverse_path": None,
+        "translation_dict_path": None,
+        "reverse_translation_dict_path": None,
     }
     if fixture.jmdict_filename:
         resources["jmdict_path"] = _write_jmdict(
             paths.language_packs_dir / fixture.jmdict_filename,
             specs=specs,
         )
-    if fixture.freedict_forward_filename:
-        resources["freedict_path"] = _write_freedict_tei(
-            paths.language_packs_dir / fixture.freedict_forward_filename,
-            entries=[(spec.lemma, spec.source_gloss, spec.pos_bucket) for spec in specs],
-            target_lang="en",
-        )
-    if fixture.freedict_reverse_filename:
+    if fixture.translation_dict_forward_filename:
+        forward_path = paths.language_packs_dir / fixture.translation_dict_forward_filename
+        forward_entries = [(spec.lemma, spec.source_gloss, spec.pos_bucket) for spec in specs]
+        if forward_path.suffix == ".sqlite":
+            resources["translation_dict_path"] = _write_translation_dictionary_sqlite(
+                forward_path,
+                entries=forward_entries,
+            )
+        else:
+            resources["translation_dict_path"] = _write_freedict_tei(
+                forward_path,
+                entries=forward_entries,
+                target_lang="en",
+            )
+    if fixture.translation_dict_reverse_filename:
         target_lang = pair.split("-", 1)[1]
-        resources["freedict_reverse_path"] = _write_freedict_tei(
-            paths.language_packs_dir / fixture.freedict_reverse_filename,
+        resources["reverse_translation_dict_path"] = _write_freedict_tei(
+            paths.language_packs_dir / fixture.translation_dict_reverse_filename,
             entries=[(spec.source_gloss, spec.lemma, spec.pos_bucket) for spec in specs],
             target_lang=target_lang,
         )
+    resources["freedict_path"] = resources["translation_dict_path"]
+    resources["freedict_reverse_path"] = resources["reverse_translation_dict_path"]
     return resources
-
-
-def create_en_ja_resources(paths: HelperPaths) -> dict[str, Path | None]:
-    return create_pair_resources(paths, pair="en-ja")
-
-
-def create_en_es_resources(paths: HelperPaths) -> dict[str, Path | None]:
-    return create_pair_resources(paths, pair="en-es")
 
 
 def build_seed_candidates(*args, pair: str = "", **kwargs) -> list[SimpleNamespace]:

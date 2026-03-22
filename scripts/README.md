@@ -94,11 +94,13 @@ Use the raw script paths below when there is no package-script surface or when y
 - Convert FreeDict TEI to SQLite: `data/convert_freedict_tei_to_sqlite.py`
 - Convert FreeDict Spanish->English to SQLite: `data/convert_freedict_spa_eng_to_sqlite.py`
 - Convert FreeDict English->Spanish to SQLite: `data/convert_freedict_eng_spa_to_sqlite.py`
+- Convert Kaikki/Wiktionary glosses to compatibility SQLite: `data/convert_kaikki_glosses_to_sqlite.py`
+- Convert Kaikki Spanish->English glosses to compatibility SQLite: `data/convert_kaikki_es_en_to_sqlite.py`
 - Convert Spanish frequency sample to SQLite: `data/convert_cde_frequency_to_sqlite.py`
 - Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`) with tunable scoring/caps:
-  `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`, `--reverse-check-enabled`, `--reverse-check-far-hit-penalty`, `--freedict-en-es-reverse`; prints reverse-check hit/miss metadata in uncapped/capped views and can probe `en-es` without requiring JMDict when `--japanese-targets ''`)
+  `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`, `--reverse-check-enabled`, `--reverse-check-far-hit-penalty`, `--translation-dict-es-en-reverse`; prints reverse-check hit/miss metadata in uncapped/capped views and can probe `en-es` without requiring JMDict when `--japanese-targets ''`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
-  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
+  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, accepts pair-specific translation dictionary overrides such as `--translation-dict-en-es`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
 - Render Markdown summaries from benchmark JSON artifacts:
   `testing/rulegen_benchmark_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:benchmark:summary`)
 - Focused audit cycle for selected pairs (benchmark -> quality gate -> triage) with sensible defaults for `en-es,en-ja`:

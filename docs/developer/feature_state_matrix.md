@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-17
+Last updated: 2026-03-22
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -97,6 +97,50 @@ Use this file when:
   - Coverage is synthetic and pair-limited; it does not yet grade pedagogical quality or real user data.
   - Current harness intentionally surfaces the due-aware publication mismatch as a warning, not a hard failure.
   - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
+
+## Kaikki `en-es` Compatibility Dictionary Pipeline
+
+- Status: `implemented`, `verified`; `default-on` = `yes` for forward `wiktionary-es-en.sqlite` when present and for the `en-es` reverse-check path when `wiktionary-en-es.sqlite` is present
+- Last documented checkpoint: `2026-03-23` reverse-source evaluation + dedicated EN->ES converter/catalog path
+- Last verified: `2026-03-23` targeted converter/helper/adapter tests plus rebuilt Kaikki forward artifact benchmark and Kaikki/Kaikki reverse-enabled `en-es` comparison lane
+- Default behavior:
+  - App language-pack catalog now includes a pair-specific `wiktionary-es-en` pack sourced from the English-edition Kaikki raw dump.
+  - App language-pack catalog also includes a dedicated `wiktionary-en-es` Kaikki pack for EN->ES reverse-check evaluation.
+  - Download flow now supports `download + convert + auto-link` for this pack, producing a compatibility SQLite artifact rather than exposing raw JSONL to runtime.
+  - `en-es` pair resource resolution now prefers `wiktionary-es-en.sqlite` when present in the language-packs dir.
+  - The normalized runtime contract stays aligned with the existing dictionary loader surface: `entries(headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord)`.
+  - Converter preserves richer Kaikki metadata in auxiliary SQLite tables for later ranking/synonym work, and the reverse converter additionally preserves translation-box metadata in `translation_meta`.
+- Evidence:
+  - `docs/language_pairs/kaikki_en_es_integration_plan.md`
+  - `docs/language_pairs/language_pack_urls.txt`
+  - `docs/language_pairs/lp_resource_requirements.md`
+  - `docs/language_pairs/data_source_licensing_and_distribution.md`
+  - `apps/gui/src/language_packs_catalog.py`
+  - `apps/gui/src/language_packs.py`
+  - `apps/gui/src/settings_language_packs.py`
+  - `apps/gui/src/settings_language_packs_path_mixin.py`
+  - `core/lexishift_core/resources/kaikki_sqlite.py`
+  - `scripts/data/convert_kaikki_glosses_to_sqlite.py`
+  - `scripts/data/convert_kaikki_es_en_to_sqlite.py`
+  - `scripts/data/convert_kaikki_translations_to_sqlite.py`
+  - `scripts/data/convert_kaikki_en_es_to_sqlite.py`
+  - `core/lexishift_core/helper/lp_capabilities.py`
+  - `core/lexishift_core/pos/normalization.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/tests/resources/test_kaikki_sqlite_conversion.py`
+  - `core/tests/helper/test_lp_capabilities.py`
+  - `core/tests/pos/test_pos_normalization.py`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `docs/test_outputs/rulegen_benchmark_en_es_kaikki_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_es_kaikki_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_es_kaikki_bidir_reverse_latest.json`
+- Known gaps:
+  - `en-es` quality gate remains red in the current workspace even after the Kaikki forward ordering fix; further sense-policy and reverse-check work is still required.
+  - The reverse Kaikki source decision is documented, the EN->ES converter exists, and the first reverse-enabled Kaikki/Kaikki lane improved `en-es` top1 to `81.25%`, but the remaining failure classes still need review before promoting the same artifact to the general `es-en` forward path.
+  - Synonym extraction from Kaikki metadata is still deferred.
+  - Bulk-rules GUI selection is not yet wired to use the new Kaikki pack id.
 
 ## SRS Journey E2E Harness
 

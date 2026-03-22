@@ -176,14 +176,40 @@ pack_id: wiktionary-xlang
 name: Wiktionary Translations (Kaikki dump)
 type: translation
 languages: multi -> multi
-size: 2.3 GB
-url: https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
-wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/english/kaikki.org-dictionary-English.jsonl.gz
+size: 2.4 GB
+url: https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
 filename: wiktionary-eng.jsonl.gz
-unzipped_name: kaikki.org-dictionary-English.jsonl
+unzipped_name: raw-wiktextract-data.jsonl
 layout: JSONL
-parse_hint: Filter objects by the translations key; each object represents a lemma
-notes: backlog
+parse_hint: Filter records by `lang_code`; English-edition dump exposes English glosses in `senses[].glosses` and cross-language translation boxes in `translations[]`
+notes: generic backlog source; first app/runtime rollout should use a pair-specific compatibility SQLite pack built from Spanish entries in the English-edition dump
+
+pack_id: wiktionary-es-en
+name: Wiktionary (ES->EN, Kaikki-derived SQLite)
+type: translation
+languages: es -> en
+size: 2.4 GB download -> pair-specific SQLite artifact
+url: https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+filename: raw-wiktextract-data.jsonl.gz
+unzipped_name: wiktionary-es-en.sqlite
+layout: SQLite compatibility artifact generated from Kaikki JSONL
+parse_hint: Keep `lang_code == "es"` records from the English-edition dump and emit `word` -> `senses[].glosses` into the normalized `entries` table
+notes: first production candidate to replace `freedict-es-en` for `en-es` rulegen
+
+pack_id: wiktionary-en-es
+name: Wiktionary (EN->ES, Kaikki-derived SQLite)
+type: translation
+languages: en -> es
+size: 2.4 GB download -> pair-specific SQLite artifact
+url: https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+filename: raw-wiktextract-data-en-es.jsonl.gz
+unzipped_name: wiktionary-en-es.sqlite
+layout: SQLite compatibility artifact generated from Kaikki JSONL
+parse_hint: Keep `lang_code == "en"` records from the English-edition dump and emit `word` -> `translations[code=es].word` into the normalized `entries` table
+notes: dedicated reverse-check candidate for `en-es`; preserves translation-box sense/tag metadata in auxiliary tables
 
 -- Embeddings (Optional Add-on) --
 These are optional downloads to improve ranking; no embeddings are required for V1.

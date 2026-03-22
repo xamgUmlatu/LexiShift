@@ -38,8 +38,12 @@ def get_srs_runtime_diagnostics(
             missing_inputs.append({"type": "jmdict_path", "path": str(resolved_jmdict_path)})
     if capability.requires_freedict_de_en_for_rulegen:
         if not resolved_freedict_de_en_path:
+            missing_inputs.append({"type": "translation_dict_path", "path": None})
             missing_inputs.append({"type": "freedict_de_en_path", "path": None})
         elif not resolved_freedict_de_en_path.exists():
+            missing_inputs.append(
+                {"type": "translation_dict_path", "path": str(resolved_freedict_de_en_path)}
+            )
             missing_inputs.append(
                 {"type": "freedict_de_en_path", "path": str(resolved_freedict_de_en_path)}
             )
@@ -59,6 +63,12 @@ def get_srs_runtime_diagnostics(
         "pair_policy": pair_policy_to_dict(pair_policy),
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
+        "translation_dict_path": (
+            str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+        ),
+        "translation_dict_exists": bool(
+            resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+        ),
         "freedict_de_en_path": (
             str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
         ),

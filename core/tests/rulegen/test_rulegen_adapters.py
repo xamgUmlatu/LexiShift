@@ -175,6 +175,48 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(rules[0].replacement, "casa")
         generate.assert_called_once()
 
+    def test_en_es_dispatches_wiktionary_source_metadata_for_kaikki_sqlite(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                )
+            )
+        generate.assert_called_once()
+        args, kwargs = generate.call_args
+        _ = args
+        self.assertEqual(kwargs["config"].source_dict_id, "wiktionary_es_en")
+        self.assertEqual(kwargs["config"].dictionary_pos_source_profile, "wiktionary")
+
+    def test_en_es_dispatches_wiktionary_reverse_metadata_for_kaikki_sqlite(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                )
+            )
+        generate.assert_called_once()
+        args, kwargs = generate.call_args
+        _ = args
+        self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
+
     def test_en_es_dispatches_scoring_and_rule_caps(self) -> None:
         scoring = RuleScoringConfig(
             weights=RuleScoreWeights(pos_match=0.35),

@@ -44,6 +44,7 @@ PROFILE_FREQ_ES_CDE = "freq-es-cde"
 PROFILE_FREQ_DE_DEFAULT = "freq-de-default"
 PROFILE_COMPACT_LATIN = "compact-latin"
 PROFILE_FREEDICT = "freedict"
+PROFILE_WIKTIONARY = "wiktionary"
 PROFILE_GENERIC = "generic"
 
 KNOWN_SOURCE_PROFILES = (
@@ -52,6 +53,7 @@ KNOWN_SOURCE_PROFILES = (
     PROFILE_FREQ_DE_DEFAULT,
     PROFILE_COMPACT_LATIN,
     PROFILE_FREEDICT,
+    PROFILE_WIKTIONARY,
     PROFILE_GENERIC,
 )
 
@@ -186,6 +188,8 @@ def normalize_pos(
         canonical, rule, mapped = _normalize_de_frequency(raw_text)
     elif resolved_profile == PROFILE_FREEDICT:
         canonical, rule, mapped = _normalize_freedict(raw_text)
+    elif resolved_profile == PROFILE_WIKTIONARY:
+        canonical, rule, mapped = _normalize_wiktionary(raw_text)
     elif resolved_profile == PROFILE_COMPACT_LATIN:
         canonical, rule, mapped = _normalize_compact_latin(raw_text, rule_prefix="compact")
     else:
@@ -242,9 +246,13 @@ def resolve_pos_source_profile(
         return PROFILE_COMPACT_LATIN
     if "freedict" in provider:
         return PROFILE_FREEDICT
+    if "wiktionary" in provider or "kaikki" in provider:
+        return PROFILE_WIKTIONARY
 
     if "freedict" in kind:
         return PROFILE_FREEDICT
+    if "wiktionary" in kind:
+        return PROFILE_WIKTIONARY
     if "frequency" in kind:
         if target == "ja":
             return PROFILE_BCCWJ
@@ -378,6 +386,15 @@ def _normalize_compact_latin(raw: str, *, rule_prefix: str) -> tuple[str, str, b
 def _normalize_freedict(raw: str) -> tuple[str, str, bool]:
     hits = _collect_generic_hits(raw, rule_prefix="freedict")
     return _select_hit(hits, fallback_rule=f"freedict_unmapped:{raw}")
+
+
+def _normalize_wiktionary(raw: str) -> tuple[str, str, bool]:
+    compact_hits = _collect_compact_hits(raw, rule_prefix="wiktionary")
+    generic_hits = _collect_generic_hits(raw, rule_prefix="wiktionary")
+    return _select_hit(
+        [*compact_hits, *generic_hits],
+        fallback_rule=f"wiktionary_unmapped:{raw}",
+    )
 
 
 def _normalize_generic(raw: str) -> tuple[str, str, bool]:

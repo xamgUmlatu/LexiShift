@@ -327,11 +327,14 @@ def _resolve_pair_resources_for_benchmark(
             raise FileNotFoundError(f"JMDict path not found for pair {pair}: {jmdict_path}")
     if capability.requires_freedict_de_en_for_rulegen:
         if freedict_path is None or not freedict_path.exists():
-            raise FileNotFoundError(f"FreeDict path not found for pair {pair}: {freedict_path}")
+            raise FileNotFoundError(
+                f"Translation dictionary path not found for pair {pair}: {freedict_path}"
+            )
     if pair in {"en-es", "es-en"} and reverse_freedict_path is not None:
         if not reverse_freedict_path.exists():
             raise FileNotFoundError(
-                f"Reverse FreeDict path not found for pair {pair}: {reverse_freedict_path}"
+                f"Reverse translation dictionary path not found for pair {pair}: "
+                f"{reverse_freedict_path}"
             )
     return jmdict_path, freedict_path, reverse_freedict_path
 
@@ -555,19 +558,28 @@ def main() -> None:
     )
     parser.add_argument("--jmdict", type=Path, help="Optional JMdict override path.")
     parser.add_argument(
+        "--translation-dict-en-de",
         "--freedict-en-de",
+        dest="translation_dict_en_de",
         type=Path,
-        help="Optional FreeDict override for en-de pair (deu-eng.tei / sqlite).",
+        help="Optional translation-dictionary override for en-de pair (deu-eng.tei / sqlite).",
     )
     parser.add_argument(
+        "--translation-dict-en-es",
         "--freedict-en-es",
+        dest="translation_dict_en_es",
         type=Path,
-        help="Optional FreeDict override for en-es pair (spa-eng.tei / sqlite).",
+        help=(
+            "Optional translation-dictionary override for en-es pair "
+            "(wiktionary-es-en.sqlite / spa-eng.tei / sqlite)."
+        ),
     )
     parser.add_argument(
+        "--translation-dict-es-en",
         "--freedict-es-en",
+        dest="translation_dict_es_en",
         type=Path,
-        help="Optional FreeDict override for es-en pair (eng-spa.tei / sqlite).",
+        help="Optional translation-dictionary override for es-en pair (eng-spa.tei / sqlite).",
     )
     parser.add_argument("--max-definitions-values", default="3")
     parser.add_argument("--max-rules-values", default="none")
@@ -652,14 +664,14 @@ def main() -> None:
     paths = build_helper_paths(args.data_root)
     store = _load_store(paths, profile_id=args.profile_id)
 
-    freedict_overrides: dict[str, Optional[Path]] = {
-        "en-de": args.freedict_en_de,
-        "en-es": args.freedict_en_es,
-        "es-en": args.freedict_es_en,
+    translation_dict_overrides: dict[str, Optional[Path]] = {
+        "en-de": args.translation_dict_en_de,
+        "en-es": args.translation_dict_en_es,
+        "es-en": args.translation_dict_es_en,
     }
-    reverse_freedict_overrides: dict[str, Optional[Path]] = {
-        "en-es": args.freedict_es_en,
-        "es-en": args.freedict_en_es,
+    reverse_translation_dict_overrides: dict[str, Optional[Path]] = {
+        "en-es": args.translation_dict_es_en,
+        "es-en": args.translation_dict_en_es,
     }
 
     pair_runs: dict[str, list[SweepRun]] = {}
@@ -672,11 +684,15 @@ def main() -> None:
             paths=paths,
             pair=pair,
             jmdict_override=args.jmdict,
-            freedict_override=freedict_overrides.get(pair),
-            freedict_reverse_override=reverse_freedict_overrides.get(pair),
+            freedict_override=translation_dict_overrides.get(pair),
+            freedict_reverse_override=reverse_translation_dict_overrides.get(pair),
         )
         pair_resources[pair] = {
             "jmdict_path": str(jmdict_path) if jmdict_path else None,
+            "translation_dict_path": str(freedict_path) if freedict_path else None,
+            "reverse_translation_dict_path": (
+                str(reverse_freedict_path) if reverse_freedict_path else None
+            ),
             "freedict_path": str(freedict_path) if freedict_path else None,
             "freedict_reverse_path": str(reverse_freedict_path) if reverse_freedict_path else None,
         }

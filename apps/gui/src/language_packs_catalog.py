@@ -44,6 +44,12 @@ class LanguagePackInfo:
     filename: str
     local_kind: str
     required_files: tuple[str, ...] = ()
+    sqlite_filename: str | None = None
+    source_filename: str | None = None
+    build_mode: str = "download_only"
+    source_lang_code: str | None = None
+    target_lang_code: str | None = None
+    gloss_language: str | None = None
     name_key: str | None = None
     language_key: str | None = None
     source_key: str | None = None
@@ -242,6 +248,36 @@ LANGUAGE_PACKS = [
         local_kind="dir",
         required_files=("eng-spa.tei",),
         source_key="providers.freedict",
+    ),
+    LanguagePackInfo(
+        pack_id="wiktionary-es-en",
+        name="Wiktionary (ES→EN)",
+        language="Spanish → English",
+        source="Kaikki",
+        size="2.4 GB",
+        url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        filename="raw-wiktextract-data.jsonl.gz",
+        local_kind="file",
+        sqlite_filename="wiktionary-es-en.sqlite",
+        build_mode="kaikki_glosses_to_sqlite",
+        source_lang_code="es",
+        gloss_language="en",
+    ),
+    LanguagePackInfo(
+        pack_id="wiktionary-en-es",
+        name="Wiktionary (EN→ES)",
+        language="English → Spanish",
+        source="Kaikki",
+        size="2.4 GB",
+        url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        filename="raw-wiktextract-data-en-es.jsonl.gz",
+        local_kind="file",
+        sqlite_filename="wiktionary-en-es.sqlite",
+        build_mode="kaikki_translations_to_sqlite",
+        source_lang_code="en",
+        target_lang_code="es",
     ),
     LanguagePackInfo(
         pack_id="cc-cedict-zh-en",

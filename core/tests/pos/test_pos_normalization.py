@@ -34,6 +34,10 @@ class TestPosNormalization(unittest.TestCase):
             "freedict",
         )
         self.assertEqual(
+            resolve_pos_source_profile(source_provider="wiktionary-es-en"),
+            "wiktionary",
+        )
+        self.assertEqual(
             resolve_pos_source_profile(language_pair="en-en", source_kind="frequency"),
             "compact-latin",
         )
@@ -157,6 +161,28 @@ class TestPosNormalization(unittest.TestCase):
         self.assertEqual(pos.canonical, "noun")
         self.assertEqual(pos.bucket, "noun")
         self.assertTrue(pos.mapped)
+
+    def test_wiktionary_pos_uses_generic_and_compact_hits(self) -> None:
+        adjective = normalize_pos(
+            "adj",
+            language_pair="en-es",
+            source_provider="wiktionary-es-en",
+            source_kind="dictionary",
+        )
+        self.assertEqual(adjective.source_profile, "wiktionary")
+        self.assertEqual(adjective.canonical, "adjective")
+        self.assertEqual(adjective.bucket, "adjective")
+        self.assertTrue(adjective.mapped)
+
+        noun = normalize_pos(
+            "noun",
+            language_pair="en-es",
+            source_provider="wiktionary-es-en",
+            source_kind="dictionary",
+        )
+        self.assertEqual(noun.canonical, "noun")
+        self.assertEqual(noun.bucket, "noun")
+        self.assertTrue(noun.mapped)
 
     def test_empty_and_bucket_helper(self) -> None:
         empty = normalize_pos(

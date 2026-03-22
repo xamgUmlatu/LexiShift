@@ -20,7 +20,7 @@ ROLE_REF_GROWTH_2 = "@growth_2"
 
 def installed_pair_resources_available(pair: str) -> bool:
     installed_paths = build_helper_paths()
-    jmdict_path, freedict_path, frequency_db = resolve_helper_pair_resources(
+    jmdict_path, translation_dict_path, frequency_db = resolve_helper_pair_resources(
         installed_paths,
         pair=pair,
         jmdict_path=None,
@@ -30,8 +30,8 @@ def installed_pair_resources_available(pair: str) -> bool:
     required = [frequency_db]
     if jmdict_path is not None:
         required.append(jmdict_path)
-    if freedict_path is not None:
-        required.append(freedict_path)
+    if translation_dict_path is not None:
+        required.append(translation_dict_path)
         required.append(
             default_freedict_reverse_path(
                 pair,
@@ -151,7 +151,7 @@ def installed_candidate_universe_from_bootstrap_audit(
 
 def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str, Path | None]:
     installed_paths = build_helper_paths()
-    jmdict_path, freedict_path, frequency_db = resolve_helper_pair_resources(
+    jmdict_path, translation_dict_path, frequency_db = resolve_helper_pair_resources(
         installed_paths,
         pair=pair,
         jmdict_path=None,
@@ -166,9 +166,15 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
     resources: dict[str, Path | None] = {
         "frequency_db": _stage_optional_file(frequency_db, paths.frequency_packs_dir),
         "jmdict_path": _stage_optional_file(jmdict_path, paths.language_packs_dir),
-        "freedict_path": _stage_optional_file(freedict_path, paths.language_packs_dir),
-        "freedict_reverse_path": _stage_optional_file(reverse_path, paths.language_packs_dir),
+        "translation_dict_path": _stage_optional_file(
+            translation_dict_path, paths.language_packs_dir
+        ),
+        "reverse_translation_dict_path": _stage_optional_file(
+            reverse_path, paths.language_packs_dir
+        ),
     }
+    resources["freedict_path"] = resources["translation_dict_path"]
+    resources["freedict_reverse_path"] = resources["reverse_translation_dict_path"]
     if stopwords_path is not None:
         _stage_optional_file(stopwords_path, paths.srs_dir / "stopwords")
     return resources

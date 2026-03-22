@@ -13,6 +13,11 @@ class LanguagePackPanelPathMixin:
         base_dir = self._embedding_pack_dir if embeddings else self._language_pack_dir
         return os.path.join(base_dir, pack.filename)
 
+    def _language_pack_sqlite_path(self, pack: LanguagePackInfo) -> str | None:
+        if not pack.sqlite_filename:
+            return None
+        return os.path.join(self._language_pack_dir, pack.sqlite_filename)
+
     def _frequency_archive_path(self, pack: FrequencyPackInfo) -> str:
         return os.path.join(self._frequency_pack_dir, pack.filename)
 
@@ -30,6 +35,10 @@ class LanguagePackPanelPathMixin:
     ) -> Optional[str]:
         if not pack:
             return None
+        if not embeddings:
+            sqlite_path = self._language_pack_sqlite_path(pack)
+            if sqlite_path and self._is_sqlite_db(sqlite_path):
+                return sqlite_path
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
         if embeddings:
             optimized = self._embedding_sqlite_path(archive_path)

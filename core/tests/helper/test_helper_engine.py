@@ -652,12 +652,15 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair_policy"]["pair"], "en-de")
             self.assertTrue(payload["set_source_db"].endswith("freq-de-default.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
+            self.assertTrue(payload["translation_dict_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertFalse(payload["translation_dict_exists"])
             self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["freedict_de_en_exists"])
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
             self.assertTrue(payload["stopwords_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
+            self.assertIn("translation_dict_path", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
 
     def test_runtime_diagnostics_reports_missing_en_es_frequency_pack(self) -> None:
@@ -669,10 +672,17 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair_policy"]["pair"], "en-es")
             self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
-            self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/spa-eng.tei"))
+            self.assertTrue(
+                payload["translation_dict_path"].endswith("language_packs/wiktionary-es-en.sqlite")
+            )
+            self.assertFalse(payload["translation_dict_exists"])
+            self.assertTrue(
+                payload["freedict_de_en_path"].endswith("language_packs/wiktionary-es-en.sqlite")
+            )
             self.assertFalse(payload["freedict_de_en_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
+            self.assertIn("translation_dict_path", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
 
     def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:

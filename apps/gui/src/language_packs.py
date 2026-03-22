@@ -16,6 +16,8 @@ from PySide6.QtCore import QThread, Signal, QStandardPaths
 from lexishift_core.frequency.sqlite import (
     convert_frequency_to_sqlite,
 )
+from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
+from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
 from language_packs_catalog import (
     FrequencyPackInfo,
     LanguagePackInfo,
@@ -107,12 +109,22 @@ class LanguagePackDownloadThread(QThread):
                 self._cleanup_partial(self._dest_path)
                 self.failed.emit(self._pack_id, "cancelled")
                 return
-            final_path = self._postprocess_download(self._dest_path)
+            final_path = self._build_local_artifact(self._dest_path)
             _log_download(f"[{self._pack_id}] completed path={final_path}")
             self.completed.emit(self._pack_id, final_path)
         except Exception as exc:
             _log_download(f"[{self._pack_id}] failed error={exc}")
+            sqlite_path = self._pack.sqlite_filename
+            if sqlite_path:
+                self._cleanup_partial(str(Path(self._dest_path).with_name(sqlite_path)))
             self.failed.emit(self._pack_id, str(exc))
+
+    def _build_local_artifact(self, dest_path: str) -> str:
+        if self._pack.build_mode == "kaikki_glosses_to_sqlite":
+            return self._build_kaikki_glosses_sqlite(dest_path)
+        if self._pack.build_mode == "kaikki_translations_to_sqlite":
+            return self._build_kaikki_translations_sqlite(dest_path)
+        return self._postprocess_download(dest_path)
 
     def _postprocess_download(self, dest_path: str) -> str:
         if dest_path.endswith(".zip"):
@@ -188,6 +200,53 @@ class LanguagePackDownloadThread(QThread):
                 os.remove(path)
         except OSError:
             pass
+
+    def _build_kaikki_glosses_sqlite(self, archive_path: str) -> str:
+        sqlite_filename = self._pack.sqlite_filename or f"{Path(archive_path).stem}.sqlite"
+        output_path = str(Path(archive_path).with_name(sqlite_filename))
+        source_lang_code = str(self._pack.source_lang_code or "").strip().lower() or "es"
+        gloss_language = str(self._pack.gloss_language or "").strip().lower() or "en"
+        metadata = convert_kaikki_glosses_to_sqlite(
+            Path(archive_path),
+            Path(output_path),
+            source_lang_code=source_lang_code,
+            gloss_language=gloss_language,
+            source_provider=self._pack.pack_id,
+            source_dump="enwiktionary",
+            overwrite=True,
+        )
+        _log_download(
+            f"[{self._pack_id}] converted sqlite={output_path} "
+            f"selected_records={int(metadata.get('selected_records', 0))} "
+            f"inserted_sense_rows={int(metadata.get('inserted_sense_rows', 0))}"
+        )
+        self._cleanup_archive(archive_path)
+        return output_path
+
+    def _build_kaikki_translations_sqlite(self, archive_path: str) -> str:
+        sqlite_filename = self._pack.sqlite_filename or f"{Path(archive_path).stem}.sqlite"
+        output_path = str(Path(archive_path).with_name(sqlite_filename))
+        source_lang_code = str(self._pack.source_lang_code or "").strip().lower()
+        target_lang_code = str(self._pack.target_lang_code or "").strip().lower()
+        if not source_lang_code or not target_lang_code:
+            raise ValueError(f"Missing Kaikki translation build config for pack '{self._pack_id}'")
+        metadata = convert_kaikki_translations_to_sqlite(
+            Path(archive_path),
+            Path(output_path),
+            source_lang_code=source_lang_code,
+            target_lang_code=target_lang_code,
+            translation_language=str(self._pack.gloss_language or target_lang_code),
+            source_provider=self._pack.pack_id,
+            source_dump="enwiktionary",
+            overwrite=True,
+        )
+        _log_download(
+            f"[{self._pack_id}] converted sqlite={output_path} "
+            f"selected_records={int(metadata.get('selected_records', 0))} "
+            f"inserted_sense_rows={int(metadata.get('inserted_sense_rows', 0))}"
+        )
+        self._cleanup_archive(archive_path)
+        return output_path
 
 
 class FrequencyPackDownloadThread(QThread):

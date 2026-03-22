@@ -106,6 +106,9 @@ class EnEsRulegenConfig:
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-es"
+    source_dict_id: str = "freedict_es_en"
+    reverse_source_dict_id: str = "freedict_en_es"
+    dictionary_pos_source_profile: str = "freedict"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
@@ -137,12 +140,13 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
     mapping = _records_to_gloss_mapping(records_by_target)
     source = FreedictCandidateSource(
         records_by_target=records_by_target,
-        source_dict="freedict_es_en",
+        source_dict=config.source_dict_id,
         source_type="translation",
         reverse_records_by_source=reverse_records_by_source,
-        reverse_source_dict="freedict_en_es",
+        reverse_source_dict=config.reverse_source_dict_id,
         word_packages_by_target=config.word_packages_by_target,
         generic_gloss_demotions=config.generic_gloss_demotions,
+        dictionary_pos_source_profile=config.dictionary_pos_source_profile,
     )
     normalizers: list[CandidateNormalizer] = [
         BasicStringNormalizer(),
@@ -165,7 +169,7 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         return config.gloss_decay.multiplier(gloss_index if isinstance(gloss_index, int) else None)
 
     signal_provider = SimpleSignalProvider(
-        dict_priorities={"freedict_es_en": config.dict_priority},
+        dict_priorities={config.source_dict_id: config.dict_priority},
         frequency_provider=gloss_decay_weight,
         pos_match_provider=build_optional_pos_match_provider(config.scoring.pos_match),
         variant_penalty_provider=variant_penalty_provider,
@@ -193,7 +197,7 @@ def generate_en_es_results(
         max_definitions_per_target=config.max_definitions_per_target,
         max_rules_per_target=config.max_rules_per_target,
         semantic_demotion_scale=config.semantic_demotion_scale,
-        tags=("translation", "freedict_es_en"),
+        tags=("translation", config.source_dict_id),
     )
     return pipeline.generate_results(targets, config=rule_config)
 
@@ -217,6 +221,7 @@ class FreedictCandidateSource:
         reverse_source_dict: str = "",
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
         generic_gloss_demotions: Optional[Mapping[str, float]] = None,
+        dictionary_pos_source_profile: str = "freedict",
     ) -> None:
         self._records_by_target = records_by_target
         self._source_dict = source_dict
@@ -229,6 +234,9 @@ class FreedictCandidateSource:
         )
         self._word_packages_by_target = word_packages_by_target or {}
         self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
+        self._dictionary_pos_source_profile = str(dictionary_pos_source_profile or "").strip() or (
+            "freedict"
+        )
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
@@ -251,7 +259,7 @@ class FreedictCandidateSource:
                     language_pair=language_pair,
                     source_provider=self._source_dict,
                     source_kind="dictionary",
-                    source_profile="freedict",
+                    source_profile=self._dictionary_pos_source_profile,
                 )
                 metadata: dict[str, object] = {
                     "gloss_index": index,

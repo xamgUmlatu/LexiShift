@@ -2,13 +2,19 @@ from __future__ import annotations
 
 import os
 import sys
+import tempfile
 import unittest
+from pathlib import Path
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
+    default_freedict_de_en_path,
+    default_freedict_reverse_path,
+    default_reverse_translation_dictionary_path,
+    default_translation_dictionary_path,
     known_pairs,
     selectable_srs_pairs,
     supported_rulegen_pairs,
@@ -40,6 +46,70 @@ class TestLpCapabilities(unittest.TestCase):
         self.assertIn("en-es", pairs)
         self.assertIn("es-en", pairs)
         self.assertIn("es-es", pairs)
+
+    def test_en_es_default_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_freedict_de_en_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("wiktionary-es-en.sqlite"))
+
+    def test_en_es_default_dictionary_uses_existing_kaikki_sqlite_when_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            target = language_packs_dir / "wiktionary-es-en.sqlite"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(b"SQLite format 3\x00")
+            resolved = default_freedict_de_en_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, target)
+
+    def test_translation_dictionary_alias_matches_legacy_resolution(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            legacy = default_freedict_de_en_path("en-es", language_packs_dir=language_packs_dir)
+            alias = default_translation_dictionary_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(alias, legacy)
+
+    def test_en_es_reverse_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_freedict_reverse_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("wiktionary-en-es.sqlite"))
+
+    def test_en_es_reverse_dictionary_uses_existing_kaikki_sqlite_when_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            target = language_packs_dir / "wiktionary-en-es.sqlite"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(b"SQLite format 3\x00")
+            resolved = default_freedict_reverse_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, target)
+
+    def test_reverse_translation_dictionary_alias_matches_legacy_resolution(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            legacy = default_freedict_reverse_path("en-es", language_packs_dir=language_packs_dir)
+            alias = default_reverse_translation_dictionary_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(alias, legacy)
 
 
 if __name__ == "__main__":

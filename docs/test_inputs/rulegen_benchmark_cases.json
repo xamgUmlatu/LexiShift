@@ -713,6 +713,169 @@
       "notes": "High-value red case: reverse-check should move sight/view above abstract appearance glosses."
     },
     {
+      "case_id": "en-es:movimiento",
+      "pair": "en-es",
+      "target": "movimiento",
+      "tier": "smoke",
+      "expected_any": [
+        "movement",
+        "motion"
+      ],
+      "expected_top1_any": [
+        "movement",
+        "motion"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey; FreeDict misses this common lemma."
+    },
+    {
+      "case_id": "en-es:área",
+      "pair": "en-es",
+      "target": "área",
+      "tier": "smoke",
+      "expected_any": [
+        "area"
+      ],
+      "expected_top1_any": [
+        "area"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:estilo",
+      "pair": "en-es",
+      "target": "estilo",
+      "tier": "smoke",
+      "expected_any": [
+        "style"
+      ],
+      "expected_top1_any": [
+        "style"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:presentar",
+      "pair": "en-es",
+      "target": "presentar",
+      "tier": "smoke",
+      "expected_any": [
+        "present",
+        "introduce",
+        "submit"
+      ],
+      "expected_top1_any": [
+        "present",
+        "introduce"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common high-value verb missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:crear",
+      "pair": "en-es",
+      "target": "crear",
+      "tier": "smoke",
+      "expected_any": [
+        "create",
+        "make"
+      ],
+      "expected_top1_any": [
+        "create"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:ocurrir",
+      "pair": "en-es",
+      "target": "ocurrir",
+      "tier": "smoke",
+      "expected_any": [
+        "occur",
+        "happen"
+      ],
+      "expected_top1_any": [
+        "occur",
+        "happen"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:sacar",
+      "pair": "en-es",
+      "target": "sacar",
+      "tier": "smoke",
+      "expected_any": [
+        "take out",
+        "remove",
+        "draw"
+      ],
+      "expected_top1_any": [
+        "take out",
+        "remove"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common high-polysemy verb currently absent in FreeDict."
+    },
+    {
+      "case_id": "en-es:ese",
+      "pair": "en-es",
+      "target": "ese",
+      "tier": "smoke",
+      "expected_any": [
+        "that"
+      ],
+      "expected_top1_any": [
+        "that"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common determiner/pronoun missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:hasta",
+      "pair": "en-es",
+      "target": "hasta",
+      "tier": "smoke",
+      "expected_any": [
+        "until",
+        "up to"
+      ],
+      "expected_top1_any": [
+        "until",
+        "up to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:según",
+      "pair": "en-es",
+      "target": "según",
+      "tier": "smoke",
+      "expected_any": [
+        "according to"
+      ],
+      "expected_top1_any": [
+        "according to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
       "case_id": "es-en:house",
       "pair": "es-en",
       "target": "house",

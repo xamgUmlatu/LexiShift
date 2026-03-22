@@ -1,7 +1,7 @@
 # LP Data Inventory Matrix (Phase 0 Baseline)
 
 Status: Drafted for POS normalization Phase 0
-Last updated: 2026-02-22
+Last updated: 2026-03-22
 
 ## Purpose
 
@@ -31,6 +31,63 @@ Operational note:
 - This inventory distinguishes `data is available and wired` from `data is adequate for current production publication quality`.
 - A resource can be present in the app catalog and active in code while still being insufficient as the sole lexical source for SRS publication.
 
+## Resource Capability Contract (Current Runtime vs Source Potential)
+
+Use the tables below when the question is not just "what file do we have?" but:
+
+- what fields the source actually offers
+- what fields survive into the local runtime artifact
+- what fields current runtime reads today
+- what the resource can currently do in LexiShift
+- what the source could support later without changing upstream data
+
+Legend:
+
+- `Current runtime uses`: behavior implemented and wired today.
+- `Additional source / preserved fields`: source data that exists now but is not yet a first-class runtime input.
+- `Latent capabilities`: realistic future uses enabled by the preserved or upstream fields.
+
+### Translation Resources
+
+| Pack / source | Native source fields | Local runtime artifact | Current runtime-consumed fields | Additional source / preserved fields | Current runtime uses | Latent capabilities |
+| --- | --- | --- | --- | --- | --- | --- |
+| `jmdict-ja-en` | `k_ele/keb`, `r_ele/reb`, `sense/gloss`, `sense/pos` | XML `JMdict_e` | lemmas/readings, ordered English glosses, raw POS lists where loader path exposes them | richer per-sense metadata from JMDict XML | `en-ja` seed filtering and translation rulegen | better POS-aware ranking, richer morphology/script hints |
+| FreeDict TEI / FreeDict compatibility SQLite (`freedict-de-en`, `freedict-en-de`, `freedict-es-en`, `freedict-en-es`) | TEI `form/orth`, `cit type=trans / quote`, `gramGrp/pos` | TEI or normalized SQLite `entries` + `meta` | `headword`, `translation`, ordering, raw `pos` | limited converter metadata in `meta.metadata` | translation rulegen for wired FreeDict-backed pairs; reverse-check when opposite-direction pack exists | better sense filtering only if extra source metadata is introduced elsewhere |
+| Kaikki/Wiktionary compatibility SQLite (`wiktionary-es-en`, `wiktionary-en-es`) | forward path: `word`, `lang`, `lang_code`, `pos`, `pos_title`, `senses[].glosses`, `senses[].raw_glosses`, `senses[].tags/topics/categories`, `forms`, `sounds`, `synonyms`, `etymology_text`; reverse path: `word`, `lang`, `lang_code`, `pos`, `pos_title`, `translations[].word`, `translations[].sense`, `translations[].tags`, `translations[].lang_code`, `forms`, `sounds`, `synonyms`, `etymology_text` | normalized SQLite `entries`, `meta`, `entry_meta`, `sense_glosses`, optional `translation_meta` | `entries.headword`, `entries.translation`, ordering, `entries.pos` | `entry_meta.pos_title`, `forms_json`, `sounds_json`, `synonyms_json`, `tags_json`, `etymology_text`; `sense_glosses.raw_glosses_json`, `tags_json`, `topics_json`, `categories_json`, `form_of_json`, `alt_of_json`; reverse path may also preserve `translation_meta.sense_text`, `english_text`, `note_text`, `roman_text`, `tags_json` | `en-es` translation rulegen path once `wiktionary-es-en.sqlite` is present; `en-es` reverse-check path once `wiktionary-en-es.sqlite` is present | synonym extraction, pronunciation surfacing, morphology-aware filtering, sense-aware ranking, qualifier/topic demotions, reverse-check based on translation-box metadata |
+| `cc-cedict-zh-en` | CEDICT text rows with script forms, pinyin, gloss list | plain text dictionary file | parser-level headword + gloss extraction where used | script/pinyin data from source line format | source registered; no active `en-zh` runtime path yet | Chinese translation rulegen, script-aware lookup, pinyin-aware ranking |
+
+### Synonym Resources
+
+| Pack / source | Native source fields | Local runtime artifact | Current runtime-consumed fields | Additional source / preserved fields | Current runtime uses | Latent capabilities |
+| --- | --- | --- | --- | --- | --- | --- |
+| `wordnet-en` | synset members, lexical relations, POS partitioned JSON files | extracted JSON directory | pack presence/selection only; no active monolingual adapter yet | synset graph and relation types | none in production runtime today | `en-en` synonym rulegen, relation-aware ranking, POS-filtered monolingual generation |
+| `moby-en` | headword + comma-separated related terms | plain text file | pack presence/selection only | source is relation-poor and noisy | none in production runtime today | fallback `en-en` synonym expansion |
+| `odenet-de` | OMW-LMF lexical entries, synsets, relations | XML file | pack presence/selection only | lexical relation structure and possible POS metadata | none in production runtime today | `de-de` synonym rulegen, relation-aware German monolingual generation |
+| `openthesaurus-de` | semicolon-separated synonym groups | plain text file | pack presence/selection only | grouped synonym sets | none in production runtime today | lightweight `de-de` synonym generation |
+| `jp-wordnet-sqlite` / `jp-wordnet` | word/sense/synset structures or tab synset export | SQLite or tab file | pack presence/selection only | synset relations and some category/POS structure | none in production runtime today | `ja-ja` synonym rulegen and Japanese relation-aware monolingual generation |
+
+### Frequency Resources
+
+| Pack / source | Native source fields | Local runtime artifact | Current runtime-consumed fields | Additional source / preserved fields | Current runtime uses | Latent capabilities |
+| --- | --- | --- | --- | --- | --- | --- |
+| `freq-en-coca` | lemma/rank/frequency plus compact POS tags | SQLite `frequency` + `meta` | lemma, rank/frequency, `pos` when available | converter inventory metadata in `meta.metadata` | SRS initialize/refresh candidate pool, admission weighting, POS-aware seeding for EN-target pairs | richer corpus diagnostics and POS audits |
+| `freq-ja-bccwj` | lemma/rank/frequency plus BCCWJ POS and related columns | SQLite `frequency` + `meta` | lemma, rank/frequency, `pos` | `lform`, `wtype`, `sublemma`, POS inventories | SRS initialize/refresh for JA-target pairs, POS-aware admission | richer Japanese lexical/morphology-aware selection |
+| `freq-es-cde` | lemma/rank/frequency plus compact POS tags | SQLite `frequency` + `meta` | lemma, rank/frequency, `pos` | converter inventory metadata | SRS initialize/refresh for ES-target pairs, POS-aware admission | richer Spanish diagnostics and candidate shaping |
+| `freq-de-default` | frequency list plus compiled DE POS lexicon joins | SQLite `frequency` + `meta` | lemma, rank/frequency, `pos` | DE-specific POS inventory metadata | SRS initialize/refresh for DE-target pairs, POS-aware admission | richer German diagnostics and lexical filtering |
+
+### Embeddings
+
+| Pack / source | Native source fields | Local runtime artifact | Current runtime-consumed fields | Additional source / preserved fields | Current runtime uses | Latent capabilities |
+| --- | --- | --- | --- | --- | --- | --- |
+| `embed-en-cc`, `embed-de-cc`, `embed-es-cc`, `embed-ja-cc` | token + dense vector rows | raw `.vec(.gz)` plus optional SQLite | vector lookup when embedding path is activated | none beyond vector space itself | optional ranking/similarity support | better pair-specific semantic reranking |
+| `embed-xling-en/de/es/ja` | aligned multilingual token + vector rows | raw aligned vector file plus optional SQLite | vector lookup when activated for pair | none beyond aligned vector space | optional cross-lingual similarity support | cross-lingual ranking experiments and semantic candidate filtering |
+
+### Stopwords
+
+| Resource | Native source fields | Local runtime artifact | Current runtime-consumed fields | Additional source / preserved fields | Current runtime uses | Latent capabilities |
+| --- | --- | --- | --- | --- | --- | --- |
+| `stopwords-*.json` | JSON array of strings | JSON file | exact stopword string set | none | optional noise filtering during candidate selection / rulegen preprocessing | language-specific function-word policies and pair tuning |
+
 ## Converter POS Mapping Matrix (Phase 5)
 
 The table below defines the POS source contract per converter/build path so new LP onboarding can wire normalization in one place.
@@ -38,6 +95,27 @@ The table below defines the POS source contract per converter/build path so new 
 | Converter / build path | Output packs | Raw POS source field(s) | Expected raw tag family | Normalization provider/profile | Unknown-tag inventory output |
 | --- | --- | --- | --- | --- | --- |
 | `scripts/data/convert_freedict_tei_to_sqlite.py` | `freedict-en-es`, `freedict-es-en`, `freedict-en-de`, `freedict-de-en` (SQLite `entries`) | TEI `gramGrp/pos` | FreeDict free-text POS labels and abbreviations (`noun`, `verb`, etc.) | provider=`freedict`, profile=`freedict`, kind=`dictionary` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
+| `scripts/data/convert_kaikki_glosses_to_sqlite.py` | `wiktionary-es-en` (SQLite `entries` + auxiliary metadata tables) | record `pos`, optional `pos_title`; gloss extraction from `senses[].glosses` / `senses[].raw_glosses` | Wiktextract/Wiktionary POS tags (`noun`, `verb`, `adj`, `adjective`, etc.) | provider=`wiktionary-es-en`, profile=`wiktionary`, kind=`dictionary` | converter metadata currently written to `meta.metadata`; unknown-tag inventory is runtime-visible through the POS normalization profile rather than a dedicated committed audit artifact |
+| `scripts/data/convert_kaikki_translations_to_sqlite.py` | `wiktionary-en-es` (SQLite `entries` + auxiliary metadata tables) | record `pos`, optional `pos_title`; translation extraction from `translations[].word` filtered by target `lang_code` plus `translations[].sense/tags` | Wiktextract/Wiktionary POS tags (`noun`, `verb`, `intj`, `prep`, etc.) | provider=`wiktionary-en-es`, profile=`wiktionary`, kind=`dictionary` | converter metadata currently written to `meta.metadata`; reverse-specific translation metadata is preserved in `translation_meta` |
+
+## Translation Dictionary Field Contract (Normalized SQLite)
+
+The normalized SQLite contract below is the runtime-facing shape consumed by the current
+dictionary loader and FreeDict-backed rulegen paths. A source may have richer native metadata,
+but if it emits this contract it can be used by the current translation rulegen path without a
+new raw-data loader.
+
+| Artifact family | Primary runtime table(s) | Required fields | Optional / preserved fields | What current runtime can do with it | What is preserved for later use |
+| --- | --- | --- | --- | --- | --- |
+| FreeDict compatibility SQLite | `entries`, `meta` | `entries.headword`, `entries.headword_lc`, `entries.translation`, `entries.translation_lc`, `entries.rank`, `entries.pos`, `entries.entry_ord`, `entries.gloss_ord` | `meta.metadata` inventory and converter stats | ordered translation candidate lookup; raw POS passthrough into rulegen/POS normalization | converter inventory only; little extra lexical metadata survives today |
+| Kaikki compatibility SQLite (`wiktionary-es-en`, `wiktionary-en-es`) | `entries`, `meta`, `entry_meta`, `sense_glosses`, optional `translation_meta` | same `entries.*` contract as FreeDict compatibility SQLite | `entry_meta.lang`, `entry_meta.lang_code`, `entry_meta.pos`, `entry_meta.pos_title`, `entry_meta.categories_json`, `entry_meta.forms_json`, `entry_meta.sounds_json`, `entry_meta.synonyms_json`, `entry_meta.tags_json`, `entry_meta.etymology_text`; `sense_glosses.raw_glosses_json`, `sense_glosses.tags_json`, `sense_glosses.topics_json`, `sense_glosses.categories_json`, `sense_glosses.form_of_json`, `sense_glosses.alt_of_json`; reverse path may also preserve `translation_meta.sense_text`, `english_text`, `note_text`, `roman_text`, `tags_json`, `lang_code` | same ordered translation candidate lookup and raw POS passthrough as FreeDict; current `en-es` rulegen can treat `wiktionary-es-en` as a drop-in forward dictionary and `wiktionary-en-es` as a reverse-check dictionary | forms, sounds, synonyms, sense tags/topics/categories, raw glosses, etymology, and reverse translation-box metadata are preserved for future synonym extraction and sense-aware ranking |
+
+Operational note:
+
+- For current `en-es` rulegen, Kaikki is intentionally exposed through the normalized `entries`
+  contract first.
+- Auxiliary Kaikki tables are not yet consumed by production rulegen, but they make the source’s
+  additional capabilities explicit and durable.
 | `scripts/data/convert_bccwj_frequency_to_sqlite.py` | `freq-ja-bccwj` | `pos` column from BCCWJ SUW TSV (`wtype` preserved separately but not used for POS mapping) | BCCWJ tags (`名詞-*`, `動詞-*`, etc.) | provider=`freq-ja-bccwj`, profile=`bccwj`, kind=`frequency` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
 | `scripts/data/convert_cde_frequency_to_sqlite.py` | `freq-es-cde` | `pos` column from CDE sample list | compact one-letter/Penn-like tags (`n`, `j`, `v`, `r`, etc.) | provider=`freq-es-cde`, profile=`freq-es-cde`, kind=`frequency` | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` |
 | `scripts/data/convert_frequency_to_sqlite.py` + `apps/gui/src/language_packs.py` | generic frequency packs (for example `freq-en-coca`) | CLI-configurable via `--pos-column` (default `pos,wtype` when enabled); GUI path uses pack-id defaults | source-defined (compact, Penn-like, or custom) | CLI-configurable via `--pos-provider` and `--pos-profile`; GUI path maps known packs to provider/profile defaults | `meta.metadata` keys: `rows_with_pos`, `rows_without_pos`, `pos_inventory_top`, `unknown_pos_inventory_top` when POS inventory is enabled |
@@ -83,7 +161,9 @@ Phase 0 POS baseline artifact (pair-level POS distributions and examples):
 | `en-de` target path | Translation dictionary | `freedict-de-en` | `https://download.freedict.org/dictionaries/deu-eng/1.9-fd1/freedict-deu-eng-1.9-fd1.src.tar.xz` | `$DATA_ROOT/language_packs/deu-eng.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; headword + translations parsed by converter/loader. | FreeDict TEI carries POS-like metadata in grammar fields, but default loaders currently prioritize gloss mapping; POS wiring remains partial. | `synonyms.language_packs["freedict-de-en"]` | Required for DE/ES FreeDict-backed rulegen paths depending on pair |
 | `de-en` target path | Translation dictionary | `freedict-en-de` | `https://download.freedict.org/dictionaries/eng-deu/1.9-fd1/freedict-eng-deu-1.9-fd1.src.tar.xz` | `$DATA_ROOT/language_packs/eng-deu.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; direction-specific loader usage by pair. | Same POS note as above. | `synonyms.language_packs["freedict-en-de"]` | Data available; dedicated `de-en` adapter remains pending |
 | `en-es` target path | Translation dictionary | `freedict-es-en` | `https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz` | `$DATA_ROOT/language_packs/spa-eng.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by ES rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-es-en"]` | Active for `en-es` rulegen, but not currently adequate as the sole production SRS publication source; installed-resource journey still leaves some admitted/due lemmas unpublished (for example `movimiento`). |
-| `es-en` target path | Translation dictionary | `freedict-en-es` | `https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz` | `$DATA_ROOT/language_packs/eng-spa.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by EN-target ES-source rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-en-es"]` | Active for `es-en` rulegen and `en-es` reverse-check support; production adequacy for ES publication should not be inferred from this row alone. |
+| `es-en` target path | Translation dictionary | `freedict-en-es` | `https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz` | `$DATA_ROOT/language_packs/eng-spa.tei` (or converted SQLite) | Not recorded in-repo; verify FreeDict terms | TEI XML; used by EN-target ES-source rulegen adapter. | Same POS note as above. | `synonyms.language_packs["freedict-en-es"]` | Active for `es-en` rulegen and current `en-es` reverse-check fallback; production adequacy for ES publication should not be inferred from this row alone. |
+| `en-es` target path (preferred when present) | Translation dictionary | `wiktionary-es-en` | `https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz` | `$DATA_ROOT/language_packs/wiktionary-es-en.sqlite` | See licensing/distribution register; current policy posture remains review-required/manual-supply | Kaikki-derived compatibility SQLite. Runtime contract: `entries(headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord)`. Preserved auxiliary metadata: `entry_meta` and `sense_glosses` tables with forms, sounds, synonyms, sense tags/topics/categories, raw glosses, and etymology. | Raw POS from Kaikki record `pos` normalized under provider/profile `wiktionary` in current runtime. | `synonyms.language_packs["wiktionary-es-en"]` | Implemented app/runtime pipeline for `en-es`; intended to replace FreeDict fallback once a real converted artifact is generated and benchmarked in-workspace. |
+| `en-es` reverse-check path (preferred when present) | Translation dictionary | `wiktionary-en-es` | `https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz` | `$DATA_ROOT/language_packs/wiktionary-en-es.sqlite` | See licensing/distribution register; current policy posture remains review-required/manual-supply | Kaikki-derived compatibility SQLite from English-edition translation boxes. Runtime contract stays `entries(headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord)`. Preserved auxiliary metadata: `entry_meta`, `sense_glosses`, and reverse-specific `translation_meta`. | Raw POS from Kaikki record `pos` normalized under provider/profile `wiktionary` in current runtime. | `synonyms.language_packs["wiktionary-en-es"]` | Implemented converter/catalog path; preferred for `en-es` reverse-check when present, but not yet promoted to the default `es-en` forward dictionary path. |
 | `en-zh` target path | Translation dictionary | `cc-cedict-zh-en` | `https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip` | `$DATA_ROOT/language_packs/cedict_ts.u8` | Not recorded in-repo; verify CC-CEDICT terms | Plain text dictionary entries; parser support exists, LP path not fully active. | No canonical POS mapping currently wired for this source. | `synonyms.language_packs["cc-cedict-zh-en"]` | Data source registered; `en-zh` pipeline not active |
 
 ## 3) Monolingual Synonym Dictionary Inventory
@@ -131,3 +211,5 @@ Phase 0 POS baseline artifact (pair-level POS distributions and examples):
   - `freq-es-cde` is adequate for admission candidate selection.
   - `freedict-es-en` is wired for `en-es` rulegen/publication, but current installed coverage is not sufficient to guarantee that admitted/due lemmas are publishable.
   - This is a source-adequacy problem, not merely a morphology or fuzzy-lookup problem.
+- Current Kaikki capability note:
+  - `wiktionary-es-en` preserves fields that make future synonym and sense-aware ranking work possible, but the current production runtime only consumes its normalized `entries` contract.

@@ -1,0 +1,636 @@
+{
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_freedict_latest.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 21,
+  "items": [
+    {
+      "pair": "en-es",
+      "case_id": "en-es:madre",
+      "target": "madre",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "bed",
+      "top3_sources": [
+        "bed",
+        "watercourse",
+        "mother"
+      ],
+      "expected_matches": [
+        "mother"
+      ],
+      "forbidden_matches": [
+        "bed",
+        "watercourse"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: bed",
+          "Observed top3 sources: bed, watercourse, mother"
+        ],
+        "candidate_forbidden_top1": [
+          "bed"
+        ],
+        "candidate_expected_any": [
+          "bed",
+          "watercourse",
+          "mother"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:planta",
+      "target": "planta",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden"
+      ],
+      "top1_source": "sole",
+      "top3_sources": [
+        "sole",
+        "plant"
+      ],
+      "expected_matches": [
+        "plant"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: sole",
+          "Observed top3 sources: sole, plant"
+        ],
+        "candidate_forbidden_top1": [
+          "sole"
+        ],
+        "candidate_expected_any": [
+          "sole",
+          "plant"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:derecho",
+      "target": "derecho",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "claim",
+      "top3_sources": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: claim",
+          "Observed top3 sources: claim, presumption, pretence"
+        ],
+        "candidate_forbidden_top1": [
+          "claim"
+        ],
+        "candidate_expected_any": [
+          "claim",
+          "presumption",
+          "pretence"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuadro",
+      "target": "cuadro",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "bed",
+      "top3_sources": [
+        "bed",
+        "picture"
+      ],
+      "expected_matches": [
+        "picture"
+      ],
+      "forbidden_matches": [
+        "bed"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: bed",
+          "Observed top3 sources: bed, picture"
+        ],
+        "candidate_forbidden_top1": [
+          "bed"
+        ],
+        "candidate_expected_any": [
+          "bed",
+          "picture"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:orden",
+      "target": "orden",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "order",
+      "top3_sources": [
+        "order",
+        "warrant",
+        "writ"
+      ],
+      "expected_matches": [
+        "order"
+      ],
+      "forbidden_matches": [
+        "writ"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: order",
+          "Observed top3 sources: order, warrant, writ"
+        ],
+        "candidate_forbidden_top1": [
+          "order"
+        ],
+        "candidate_expected_any": [
+          "order",
+          "warrant",
+          "writ"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cargo",
+      "target": "cargo",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "accusal",
+      "top3_sources": [
+        "accusal",
+        "accusation",
+        "function"
+      ],
+      "expected_matches": [
+        "function"
+      ],
+      "forbidden_matches": [
+        "accusal",
+        "accusation"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: accusal",
+          "Observed top3 sources: accusal, accusation, function"
+        ],
+        "candidate_forbidden_top1": [
+          "accusal"
+        ],
+        "candidate_expected_any": [
+          "accusal",
+          "accusation",
+          "function"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:plaza",
+      "target": "plaza",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "plaza",
+      "top3_sources": [
+        "plaza",
+        "square",
+        "publicsquare"
+      ],
+      "expected_matches": [
+        "plaza",
+        "square"
+      ],
+      "forbidden_matches": [
+        "publicsquare"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: plaza",
+          "Observed top3 sources: plaza, square, publicsquare"
+        ],
+        "candidate_forbidden_top1": [
+          "plaza"
+        ],
+        "candidate_expected_any": [
+          "plaza",
+          "square",
+          "publicsquare"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:masa",
+      "target": "masa",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "lump",
+      "top3_sources": [
+        "lump",
+        "mass",
+        "dough"
+      ],
+      "expected_matches": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_matches": [
+        "lump"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: lump",
+          "Observed top3 sources: lump, mass, dough"
+        ],
+        "candidate_forbidden_top1": [
+          "lump"
+        ],
+        "candidate_expected_any": [
+          "lump",
+          "mass",
+          "dough"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:caso",
+      "target": "caso",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden"
+      ],
+      "top1_source": "affair",
+      "top3_sources": [
+        "affair",
+        "case",
+        "matter"
+      ],
+      "expected_matches": [
+        "case",
+        "matter"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: affair",
+          "Observed top3 sources: affair, case, matter"
+        ],
+        "candidate_forbidden_top1": [
+          "affair"
+        ],
+        "candidate_expected_any": [
+          "affair",
+          "case",
+          "matter"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:parte",
+      "target": "parte",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "part",
+      "top3_sources": [
+        "part",
+        "parthian",
+        "share"
+      ],
+      "expected_matches": [
+        "part",
+        "share"
+      ],
+      "forbidden_matches": [
+        "parthian"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: part",
+          "Observed top3 sources: part, parthian, share"
+        ],
+        "candidate_forbidden_top1": [
+          "part"
+        ],
+        "candidate_expected_any": [
+          "part",
+          "parthian",
+          "share"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:vista",
+      "target": "vista",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "appearance",
+      "top3_sources": [
+        "appearance",
+        "aspect",
+        "look"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: appearance",
+          "Observed top3 sources: appearance, aspect, look"
+        ],
+        "candidate_forbidden_top1": [
+          "appearance"
+        ],
+        "candidate_expected_any": [
+          "appearance",
+          "aspect",
+          "look"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:movimiento",
+      "target": "movimiento",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:área",
+      "target": "área",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:estilo",
+      "target": "estilo",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:presentar",
+      "target": "presentar",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:crear",
+      "target": "crear",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:ocurrir",
+      "target": "ocurrir",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:sacar",
+      "target": "sacar",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:ese",
+      "target": "ese",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:hasta",
+      "target": "hasta",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:según",
+      "target": "según",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    }
+  ]
+}

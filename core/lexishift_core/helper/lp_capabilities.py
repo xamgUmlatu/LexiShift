@@ -140,7 +140,7 @@ def default_freedict_de_en_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_freedict_de_en_for_rulegen:
         return None
-    filenames = _default_freedict_filenames_for_pair(capability.pair)
+    filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
     for filename in filenames:
         direct_candidate = language_packs_dir / filename
         if direct_candidate.exists():
@@ -150,6 +150,14 @@ def default_freedict_de_en_path(
         if discovered:
             return discovered[0]
     return language_packs_dir / filenames[0]
+
+
+def default_translation_dictionary_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    return default_freedict_de_en_path(pair, language_packs_dir=language_packs_dir)
 
 
 def default_freedict_reverse_path(
@@ -160,10 +168,7 @@ def default_freedict_reverse_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_freedict_de_en_for_rulegen:
         return None
-    reverse_pair = _reverse_pair_key(capability.pair)
-    if not reverse_pair:
-        return None
-    filenames = _default_freedict_filenames_for_pair(reverse_pair)
+    filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
     for filename in filenames:
         direct_candidate = language_packs_dir / filename
         if direct_candidate.exists():
@@ -175,6 +180,14 @@ def default_freedict_reverse_path(
     return language_packs_dir / filenames[0]
 
 
+def default_reverse_translation_dictionary_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    return default_freedict_reverse_path(pair, language_packs_dir=language_packs_dir)
+
+
 def _reverse_pair_key(pair: str) -> str:
     normalized = normalize_pair_key(pair)
     left, sep, right = normalized.partition("-")
@@ -183,12 +196,38 @@ def _reverse_pair_key(pair: str) -> str:
     return f"{right}-{left}"
 
 
-def _default_freedict_filenames_for_pair(pair: str) -> tuple[str, ...]:
+def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, ...]:
     if pair == "en-es":
-        return ("spa-eng.tei", "freedict-es-en.sqlite", "spa-eng.sqlite")
+        return (
+            "wiktionary-es-en.sqlite",
+            "spa-eng.tei",
+            "freedict-es-en.sqlite",
+            "spa-eng.sqlite",
+        )
     if pair == "es-en":
         return ("eng-spa.tei", "freedict-en-es.sqlite", "eng-spa.sqlite")
     return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
+
+
+def _default_reverse_translation_filenames_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "en-es":
+        return (
+            "wiktionary-en-es.sqlite",
+            "eng-spa.tei",
+            "freedict-en-es.sqlite",
+            "eng-spa.sqlite",
+        )
+    if pair == "es-en":
+        return (
+            "wiktionary-es-en.sqlite",
+            "spa-eng.tei",
+            "freedict-es-en.sqlite",
+            "spa-eng.sqlite",
+        )
+    reverse_pair = _reverse_pair_key(pair)
+    if not reverse_pair:
+        return ()
+    return _default_translation_dictionary_filenames_for_pair(reverse_pair)
 
 
 def pair_requirements(pair: str) -> dict[str, object]:
@@ -205,5 +244,8 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "default_frequency_db": fallback_frequency,
         "requires_jmdict_for_seed": capability.requires_jmdict_for_seed,
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,
+        "requires_translation_dictionary_for_rulegen": (
+            capability.requires_freedict_de_en_for_rulegen
+        ),
         "requires_freedict_de_en_for_rulegen": capability.requires_freedict_de_en_for_rulegen,
     }

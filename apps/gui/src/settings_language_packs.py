@@ -558,6 +558,8 @@ class LanguagePackPanel(
             return True, ""
         if not os.path.isfile(path):
             return False, t("language_packs.validation.expected_file", name=pack.display_name())
+        if pack.sqlite_filename and not self._is_sqlite_db(path):
+            return False, t("language_packs.validation.sqlite")
         if pack.pack_id == "jp-wordnet-sqlite":
             if not self._is_sqlite_db(path):
                 return False, t("language_packs.validation.sqlite")

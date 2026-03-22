@@ -1,7 +1,7 @@
 # POS Source And Pipeline Reference
 
-Status: active reference for POS behavior across SRS, rulegen, converters, and audits.  
-Last updated: 2026-02-23
+Status: active reference for POS behavior across SRS, rulegen, converters, and audits.
+Last updated: 2026-03-22
 
 ## Purpose
 
@@ -53,6 +53,7 @@ Implementation:
 | `freq-es-cde` | ES | `frequency.pos` | provider=`freq-es-cde`, profile=`freq-es-cde` | `scripts/data/convert_cde_frequency_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | `meta.metadata.unknown_pos_inventory_*` |
 | `freq-de-default` | DE | `frequency.pos` (from compiled POS lexicon join) | provider=`freq-de-default`, profile=`freq-de-default` | `core/lexishift_core/frequency/de/build.py` and `core/lexishift_core/frequency/de/pipeline.py` | `meta.metadata.pos_inventory.unknown_pos_inventory_*` |
 | FreeDict translation SQLite | EN/DE/ES pair pipelines | `entries.pos` (TEI `gramGrp/pos`) | provider includes `freedict`, profile=`freedict` | `scripts/data/convert_freedict_tei_to_sqlite.py` | `meta.metadata.unknown_pos_inventory_*` |
+| Kaikki/Wiktionary compatibility SQLite (`wiktionary-es-en`) | EN/ES pair pipelines | `entries.pos` (derived from Kaikki record `pos`; native `pos_title` preserved in auxiliary metadata) | provider includes `wiktionary` / `kaikki`, profile=`wiktionary` | `scripts/data/convert_kaikki_glosses_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | converter metadata in `meta.metadata`; runtime unknown-tag behavior visible through the `wiktionary` normalization profile |
 
 ## Runtime POS Data Flow
 
@@ -122,6 +123,14 @@ FreeDict converter:
 
 - same top-level inventory keys in `meta.metadata`
 
+Kaikki/Wiktionary converter:
+
+- current converter writes general converter statistics in `meta.metadata`
+- normalized POS for runtime comes from `entries.pos`
+- richer source POS context is preserved in auxiliary tables:
+  - `entry_meta.pos`
+  - `entry_meta.pos_title`
+
 ## DE Flow Asymmetry (Important)
 
 DE is intentionally more complex than EN/JA/ES frequency conversion.
@@ -171,6 +180,12 @@ Note:
 
 - converter metadata unknown counts are snapshot-at-conversion values.
 - runtime probe (`pos_normalization_probe.py`) reflects current normalization logic immediately.
+
+Current Wiktionary profile note:
+
+- `wiktionary` is now a first-class source profile in `core/lexishift_core/pos/normalization.py`.
+- It intentionally uses generic + compact token matching rather than reusing the `freedict` profile by name.
+- This keeps Kaikki/Wiktionary POS provenance explicit in candidate metadata and future audits.
 
 ## Audit Commands
 

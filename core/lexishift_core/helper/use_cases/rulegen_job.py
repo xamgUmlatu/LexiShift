@@ -194,6 +194,12 @@ def run_rulegen_job(
             },
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
+            "translation_dict_path": (
+                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+            ),
+            "translation_dict_exists": bool(
+                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+            ),
             "freedict_de_en_path": (
                 str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
             ),
