@@ -290,6 +290,63 @@ class TestRulegenRanking(unittest.TestCase):
         )
         self.assertAlmostEqual(mechanism.score(context), 0.7, places=6)
 
+    def test_reverse_check_exact_hit_specificity_bonus_rewards_low_fanout_hits(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                exact_hit_specificity_bonus=0.3,
+            )
+        )
+        narrow = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+                "reverse_check_total": 1,
+            },
+            confidence=0.4,
+        )
+        broad = CandidateRankingContext(
+            source_phrase="square",
+            replacement="cuadro",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+                "reverse_check_total": 15,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(narrow), 1.0, places=6)
+        self.assertAlmostEqual(mechanism.score(broad), 0.72, places=6)
+        self.assertGreater(mechanism.score(narrow), mechanism.score(broad))
+
+    def test_reverse_check_exact_hit_specificity_bonus_ignores_missing_totals(self) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                exact_hit_specificity_bonus=0.3,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.7, places=6)
+
     def test_reverse_check_ignored_when_unsupported_or_disabled(self) -> None:
         enabled = DictionaryEntryOrderRankingMechanism(
             reverse_check=ReverseCheckScoringConfig(enabled=True)

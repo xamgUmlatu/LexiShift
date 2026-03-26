@@ -29,6 +29,7 @@ class ReverseCheckScoringConfig:
     miss_penalty: float = 0.2
     exact_hit_ambiguity_threshold: int = 0
     exact_hit_ambiguity_penalty: float = 0.0
+    exact_hit_specificity_bonus: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -164,11 +165,15 @@ def resolve_reverse_check_delta(
         if rank is None:
             return match_bonus
         if rank == 0:
+            exact_hit_specificity_bonus = resolve_reverse_exact_hit_specificity_bonus(
+                total=total,
+                config=config,
+            )
             exact_hit_ambiguity_penalty = resolve_reverse_exact_hit_ambiguity_penalty(
                 total=total,
                 config=config,
             )
-            return match_bonus - exact_hit_ambiguity_penalty
+            return match_bonus + exact_hit_specificity_bonus - exact_hit_ambiguity_penalty
         if rank <= near_rank_max:
             return near_bonus
         far_hit_penalty = _normalize_non_negative_float(config.far_hit_penalty)
@@ -246,6 +251,18 @@ def resolve_reverse_exact_hit_ambiguity_penalty(
     span = max(1, threshold)
     scale = min(1.0, overflow / float(span))
     return penalty * scale
+
+
+def resolve_reverse_exact_hit_specificity_bonus(
+    *,
+    total: Optional[int],
+    config: ReverseCheckScoringConfig,
+) -> float:
+    bonus = _normalize_non_negative_float(config.exact_hit_specificity_bonus)
+    if bonus <= 0.0 or total is None:
+        return 0.0
+    normalized_total = max(1, int(total))
+    return bonus / float(normalized_total)
 
 
 def _extract_optional_bool(value: object) -> Optional[bool]:

@@ -353,14 +353,17 @@ Use this file when:
 ## Reverse-Check Scoring
 
 - Status: `implemented`, `verified`, `default-on` = `no`
-- Last documented checkpoint: `2026-03-26` exact-hit ambiguity signal + benchmark/probe harness exposure
-- Last verified: `2026-03-26` targeted ranking/tuning/helper/harness tests, canonical `en-es` benchmark/gate/triage rerun, and bounded reverse ambiguity experiment
+- Last documented checkpoint: `2026-03-26` exact-hit ambiguity + exact-hit specificity reverse signals with benchmark/probe harness exposure
+- Last verified: `2026-03-26` targeted ranking/tuning/helper/harness tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 48-config reverse sweep, reverse run-matrix refresh, and focused `cuadro` probe
 - Default behavior:
   - Configurable and pair-aware for `en-es` and `es-en`.
   - Not yet promoted to default production tuning.
   - Reverse-check-specific evaluation now has a named `en-es` lane via `npm --prefix scripts run quality:rulegen:reverse:en-es`.
   - Parameter-set comparison is now tracked in `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`.
-  - Reverse scoring now also supports an exact-hit ambiguity signal keyed off `reverse_check_total`, but that signal is still off in the current canonical best run.
+  - Reverse scoring now also supports:
+    - an exact-hit ambiguity penalty keyed off `reverse_check_total`
+    - an additive exact-hit specificity bonus keyed off `reverse_check_total`
+  - both signals are harness-exposed, but both are still off in the current canonical best run.
 - Evidence:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
   - `docs/rulegen/reverse_check_rollout_matrix.md`
@@ -387,12 +390,14 @@ Use this file when:
   - `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
+  - `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
 - Known gaps:
   - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
   - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the repaired verb reverse normalization restored the best `rev=on` lane.
   - The current `en-es` reverse-enabled best run lifts `top3` to `97.92%`, but `top1` is still capped at `89.58%`; remaining work is now more about lexical choice than reverse plumbing.
-  - The new exact-hit ambiguity signal is implemented and harness-exposed, but the first bounded sweep did not beat the existing best lane; current `cuadro` behavior is still more sensitive to miss/far-penalty tradeoffs than to ambiguity penalty alone.
+  - The new exact-hit ambiguity penalty and exact-hit specificity bonus are both implemented and harness-exposed, but neither beat the existing best lane yet; current `cuadro` behavior is still more sensitive to miss/far-penalty tradeoffs and score clamping than to these exact-hit refinements alone.
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
   - Current rollout is scoring-only, not strict candidate blocking.
 

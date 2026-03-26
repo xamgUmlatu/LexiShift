@@ -50,6 +50,7 @@ class RulegenTuningOverrides:
     reverse_check_miss_penalty: Optional[float] = None
     reverse_check_exact_hit_ambiguity_threshold: Optional[int] = None
     reverse_check_exact_hit_ambiguity_penalty: Optional[float] = None
+    reverse_check_exact_hit_specificity_bonus: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -234,6 +235,9 @@ def rulegen_tuning_overrides_to_dict(
         "reverse_check_exact_hit_ambiguity_penalty": (
             overrides.reverse_check_exact_hit_ambiguity_penalty
         ),
+        "reverse_check_exact_hit_specificity_bonus": (
+            overrides.reverse_check_exact_hit_specificity_bonus
+        ),
     }
     if include_none:
         return payload
@@ -347,6 +351,14 @@ def _resolve_reverse_check_scoring(
                 float(overrides.reverse_check_exact_hit_ambiguity_penalty),
             ),
         )
+    if overrides.reverse_check_exact_hit_specificity_bonus is not None:
+        resolved = replace(
+            resolved,
+            exact_hit_specificity_bonus=max(
+                0.0,
+                float(overrides.reverse_check_exact_hit_specificity_bonus),
+            ),
+        )
     return resolved
 
 
@@ -360,6 +372,7 @@ def _reverse_check_to_dict(reverse_check: ReverseCheckScoringConfig) -> dict[str
         "miss_penalty": float(reverse_check.miss_penalty),
         "exact_hit_ambiguity_threshold": int(reverse_check.exact_hit_ambiguity_threshold),
         "exact_hit_ambiguity_penalty": float(reverse_check.exact_hit_ambiguity_penalty),
+        "exact_hit_specificity_bonus": float(reverse_check.exact_hit_specificity_bonus),
     }
 
 

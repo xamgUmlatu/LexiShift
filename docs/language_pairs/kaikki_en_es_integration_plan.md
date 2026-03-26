@@ -598,6 +598,37 @@ Reverse exact-hit ambiguity signal:
   - it is not sufficient by itself to solve `cuadro`
   - the next meaningful quality gains are still likely to come from lexical-sense policy and/or short phrase policy, with reverse ambiguity acting as a supporting signal rather than a standalone fix
 
+Reverse exact-hit specificity bonus:
+
+- objective motivation:
+  - not all `rank=0` reverse hits are equally informative
+  - a candidate with `hit@0/1` should be able to receive more additive support than one with `hit@0/22`
+  - this is the positive mirror of the ambiguity penalty and is strictly additive, so it can be swept without changing extraction or filter behavior
+- implemented signal:
+  - reverse-check scoring now also supports:
+    - `exact_hit_specificity_bonus`
+  - the bonus is scaled smoothly by reverse fanout:
+    - effective bonus = `exact_hit_specificity_bonus / reverse_check_total`
+  - benchmark and probe harnesses now expose the same knob
+- validation outcome:
+  - canonical `en-es` benchmark now sweeps `xspec` values `0.0`, `0.1`, and `0.2`
+  - current best run still remains:
+    - `rev=on`
+    - `xamb=off`
+    - `xspec=off`
+  - summary metrics stayed unchanged at:
+    - `Top1 89.58%`
+    - `Top3 97.92%`
+    - `ForbidTop1 0.00%`
+- direct probe outcome for `cuadro`:
+  - `xspec=0.2` did not change the uncapped or capped ordering
+  - `square` stayed at rank `1.0000`
+  - this is expected under the current scorer because the leading exact-hit candidate is already score-clamped at `1.0`
+- current interpretation:
+  - the exact-hit specificity bonus is implemented, harness-exposed, and available for later sweeps
+  - under the current reverse match bonus and clamp behavior, it is mostly a neutral supporting signal rather than an immediate mover
+  - if later sweeps continue to show saturation, the next related design question is whether reverse specificity should act earlier in scoring or under lower reverse match bonuses, not whether the current plumbing is present
+
 ### Phase D. Admission-Side Grammar Filtering
 
 Priority:

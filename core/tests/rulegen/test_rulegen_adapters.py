@@ -228,6 +228,7 @@ class TestRulegenAdapters(unittest.TestCase):
             near_bonus=0.12,
             near_rank_max=1,
             miss_penalty=0.22,
+            exact_hit_specificity_bonus=0.14,
         )
         with patch(
             "lexishift_core.rulegen.adapters.generate_en_es_results",
@@ -261,6 +262,11 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertAlmostEqual(kwargs["config"].reverse_check.near_bonus, 0.12, places=6)
         self.assertEqual(kwargs["config"].reverse_check.near_rank_max, 1)
         self.assertAlmostEqual(kwargs["config"].reverse_check.miss_penalty, 0.22, places=6)
+        self.assertAlmostEqual(
+            kwargs["config"].reverse_check.exact_hit_specificity_bonus,
+            0.14,
+            places=6,
+        )
         self.assertTrue(kwargs["config"].kaikki_policy.enable_live_demotion)
         self.assertEqual(
             kwargs["config"].kaikki_policy.risk_families,

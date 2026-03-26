@@ -111,6 +111,7 @@ def run_rulegen_job(
             config.reverse_check_exact_hit_ambiguity_threshold
         ),
         reverse_check_exact_hit_ambiguity_penalty=config.reverse_check_exact_hit_ambiguity_penalty,
+        reverse_check_exact_hit_specificity_bonus=config.reverse_check_exact_hit_specificity_bonus,
     )
     effective_rulegen_tuning = resolve_rulegen_tuning(pair, overrides=rulegen_overrides)
     rulegen_config = RulegenConfig(
@@ -196,6 +197,9 @@ def run_rulegen_job(
                     ),
                     "exact_hit_ambiguity_penalty": float(
                         effective_rulegen_tuning.reverse_check.exact_hit_ambiguity_penalty
+                    ),
+                    "exact_hit_specificity_bonus": float(
+                        effective_rulegen_tuning.reverse_check.exact_hit_specificity_bonus
                     ),
                 },
                 "pair_defaults": rulegen_pair_tuning_to_dict(pair_tuning),

@@ -1,18 +1,18 @@
 # Rulegen Benchmark Sweep
 
-Generated: 2026-03-26T01:22:22.542016+00:00
+Generated: 2026-03-26T04:18:22.775141+00:00
 
 ## en-es
 
 | Rank | Objective | Top1 | Top3 | ForbidTop1 | ForbidAny | AvgRules | Config |
 |---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
-| 2 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
-| 3 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
-| 4 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
-| 5 | 128.292 | 89.58% | 97.92% | 0.00% | 2.08% | 3.06 | `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
-| 6 | 128.292 | 89.58% | 97.92% | 0.00% | 2.08% | 3.06 | `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
-| 7 | 128.292 | 89.58% | 97.92% | 0.00% | 2.08% | 3.06 | `md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
-| 8 | 128.292 | 89.58% | 97.92% | 0.00% | 2.08% | 3.06 | `md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=on xamb=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
-| 9 | 128.083 | 89.58% | 95.83% | 0.00% | 0.00% | 3.17 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
-| 10 | 128.083 | 89.58% | 95.83% | 0.00% | 0.00% | 3.17 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
+| 1 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 2 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 3 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 4 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
+| 5 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
+| 6 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |
+| 7 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 8 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 9 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef` |
+| 10 | 131.583 | 89.58% | 97.92% | 0.00% | 0.00% | 2.79 | `md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef` |

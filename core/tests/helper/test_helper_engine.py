@@ -491,6 +491,7 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                         reverse_check_miss_penalty=0.19,
                         reverse_check_exact_hit_ambiguity_threshold=12,
                         reverse_check_exact_hit_ambiguity_penalty=0.33,
+                        reverse_check_exact_hit_specificity_bonus=0.14,
                     ),
                 )
 
@@ -512,6 +513,11 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertAlmostEqual(
                 rulegen_config.reverse_check.exact_hit_ambiguity_penalty,
                 0.33,
+                places=6,
+            )
+            self.assertAlmostEqual(
+                rulegen_config.reverse_check.exact_hit_specificity_bonus,
+                0.14,
                 places=6,
             )
 

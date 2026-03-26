@@ -65,6 +65,7 @@ class TestRulegenTuning(unittest.TestCase):
                 reverse_check_miss_penalty=0.22,
                 reverse_check_exact_hit_ambiguity_threshold=12,
                 reverse_check_exact_hit_ambiguity_penalty=0.35,
+                reverse_check_exact_hit_specificity_bonus=0.18,
             ),
         )
 
@@ -87,6 +88,11 @@ class TestRulegenTuning(unittest.TestCase):
         self.assertAlmostEqual(resolved.reverse_check.miss_penalty, 0.22, places=6)
         self.assertEqual(resolved.reverse_check.exact_hit_ambiguity_threshold, 12)
         self.assertAlmostEqual(resolved.reverse_check.exact_hit_ambiguity_penalty, 0.35, places=6)
+        self.assertAlmostEqual(
+            resolved.reverse_check.exact_hit_specificity_bonus,
+            0.18,
+            places=6,
+        )
 
     def test_non_positive_caps_disable_limiters(self) -> None:
         resolved = resolve_rulegen_tuning(
@@ -109,6 +115,7 @@ class TestRulegenTuning(unittest.TestCase):
                 reverse_check_far_hit_penalty=0.05,
                 reverse_check_exact_hit_ambiguity_threshold=8,
                 reverse_check_exact_hit_ambiguity_penalty=0.3,
+                reverse_check_exact_hit_specificity_bonus=0.12,
             )
         )
         self.assertEqual(
@@ -121,6 +128,7 @@ class TestRulegenTuning(unittest.TestCase):
                 "reverse_check_far_hit_penalty": 0.05,
                 "reverse_check_exact_hit_ambiguity_threshold": 8,
                 "reverse_check_exact_hit_ambiguity_penalty": 0.3,
+                "reverse_check_exact_hit_specificity_bonus": 0.12,
             },
         )
 

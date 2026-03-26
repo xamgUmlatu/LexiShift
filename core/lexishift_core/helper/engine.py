@@ -111,6 +111,7 @@ class RulegenJobConfig:
     reverse_check_miss_penalty: Optional[float] = None
     reverse_check_exact_hit_ambiguity_threshold: Optional[int] = None
     reverse_check_exact_hit_ambiguity_penalty: Optional[float] = None
+    reverse_check_exact_hit_specificity_bonus: Optional[float] = None
     snapshot_targets: int = 50
     snapshot_sources: int = 6
     initialize_if_empty: bool = True

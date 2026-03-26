@@ -169,8 +169,8 @@ def render_markdown(
         "- Keep the important reverse-check parameter sets and their benchmark outcomes in one durable table.",
         "- Separate the canonical baseline lane from reverse-specific experiment lanes.",
         "",
-        "| Label | Lane | Selector | Rev | Match | Near | NearMax | FarPenalty | MissPenalty | MaxRules | Top1 | Top3 | ForbidTop1 | ForbidAny | AvgRules | Triage | Remaining Failures |",
-        "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+        "| Label | Lane | Selector | Rev | Match | Near | NearMax | FarPenalty | MissPenalty | XAmb | XSpec | MaxRules | Top1 | Top3 | ForbidTop1 | ForbidAny | AvgRules | Triage | Remaining Failures |",
+        "|---|---|---|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
     ]
     for row in rows:
         run = _extract_run(
@@ -192,6 +192,8 @@ def render_markdown(
             f"{int(config.get('reverse_check_near_rank_max') or 0)} | "
             f"{float(config.get('reverse_check_far_hit_penalty') or 0.0):.2f} | "
             f"{float(config.get('reverse_check_miss_penalty') or 0.0):.2f} | "
+            f"{_format_exact_hit_ambiguity(config)} | "
+            f"{float(config.get('reverse_check_exact_hit_specificity_bonus') or 0.0):.2f} | "
             f"{_format_optional_int(config.get('max_rules_per_target'))} | "
             f"{_format_percent(summary.get('top1_accuracy'))} | "
             f"{_format_percent(summary.get('top3_recall'))} | "
@@ -205,12 +207,20 @@ def render_markdown(
         [
             "",
             "Notes:",
-            "- `canonical latest` is the required default benchmark lane and currently still measures `rev=off` by default.",
+            "- `canonical latest` is the required default benchmark lane and may now land on either `rev=off` or `rev=on`, depending on the current best run.",
             "- `reverse latest` is the named reverse-check lane exposed via `npm --prefix scripts run quality:rulegen:reverse:en-es`.",
             "- `reverse latest (no cap)` keeps the reverse lane parameters but selects the best `max_rules_per_target=none` run for comparison.",
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def _format_exact_hit_ambiguity(config: Mapping[str, Any]) -> str:
+    threshold = int(config.get("reverse_check_exact_hit_ambiguity_threshold") or 0)
+    penalty = float(config.get("reverse_check_exact_hit_ambiguity_penalty") or 0.0)
+    if threshold <= 0 or penalty <= 0.0:
+        return "off"
+    return f"{threshold}:{penalty:.2f}"
 
 
 def parse_args() -> argparse.Namespace:

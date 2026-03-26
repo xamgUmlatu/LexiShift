@@ -80,6 +80,7 @@ class SweepConfig:
     reverse_check_exact_hit_ambiguity_penalty: float
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
+    reverse_check_exact_hit_specificity_bonus: float = 0.0
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -111,6 +112,9 @@ class SweepConfig:
             ),
             "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
             "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
+            "reverse_check_exact_hit_specificity_bonus": (
+                self.reverse_check_exact_hit_specificity_bonus
+            ),
         }
 
     def label(self) -> str:
@@ -126,6 +130,7 @@ class SweepConfig:
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "
             f"xamb={_format_exact_hit_ambiguity_label(self)} "
+            f"xspec={_format_exact_hit_specificity_label(self)} "
             f"w_pos={self.score_weight_pos_match:.3f} "
             f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
             f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)}"
@@ -161,6 +166,7 @@ class SweepConfig:
                 int(self.reverse_check_exact_hit_ambiguity_threshold),
             ),
             exact_hit_ambiguity_penalty=float(self.reverse_check_exact_hit_ambiguity_penalty),
+            exact_hit_specificity_bonus=float(self.reverse_check_exact_hit_specificity_bonus),
         )
 
 
@@ -319,6 +325,13 @@ def _format_exact_hit_ambiguity_label(config: SweepConfig) -> str:
     if threshold <= 0 or penalty <= 0.0:
         return "off"
     return f"{threshold}:{penalty:.2f}"
+
+
+def _format_exact_hit_specificity_label(config: SweepConfig) -> str:
+    bonus = max(0.0, float(config.reverse_check_exact_hit_specificity_bonus))
+    if bonus <= 0.0:
+        return "off"
+    return f"{bonus:.2f}"
 
 
 def _load_dataset_cases(
@@ -629,6 +642,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.reverse_check_exact_hit_ambiguity_penalty_values,
         name="reverse-check-exact-hit-ambiguity-penalty-values",
     )
+    reverse_check_exact_hit_specificity_bonus_values = _parse_csv_floats(
+        args.reverse_check_exact_hit_specificity_bonus_values,
+        name="reverse-check-exact-hit-specificity-bonus-values",
+    )
     kaikki_policy_live_demotion_values = _parse_csv_bools(
         args.kaikki_policy_live_demotion_values,
         name="kaikki-policy-live-demotion-values",
@@ -664,6 +681,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_exact_hit_ambiguity_penalty_values,
         kaikki_policy_live_demotion_values,
         kaikki_policy_risk_family_sets,
+        reverse_check_exact_hit_specificity_bonus_values,
     ):
         configs.append(
             SweepConfig(
@@ -691,6 +709,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_exact_hit_ambiguity_penalty=float(combo[21]),
                 kaikki_policy_live_demotion=bool(combo[22]),
                 kaikki_policy_risk_families=tuple(combo[23]),
+                reverse_check_exact_hit_specificity_bonus=float(combo[24]),
             )
         )
     return configs
@@ -841,6 +860,10 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
     parser.add_argument("--reverse-check-exact-hit-ambiguity-threshold-values", default="0")
     parser.add_argument("--reverse-check-exact-hit-ambiguity-penalty-values", default="0.0")
+    parser.add_argument(
+        "--reverse-check-exact-hit-specificity-bonus-values",
+        default="0.0,0.1,0.2",
+    )
     parser.add_argument("--kaikki-policy-live-demotion-values", default="false,true")
     parser.add_argument(
         "--kaikki-policy-risk-family-sets",

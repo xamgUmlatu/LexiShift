@@ -380,6 +380,12 @@ def main() -> None:
         help="Maximum score penalty applied to exact reverse hits with high ambiguity.",
     )
     parser.add_argument(
+        "--reverse-check-exact-hit-specificity-bonus",
+        type=float,
+        default=0.0,
+        help="Additional bonus applied to exact reverse hits, scaled down by reverse fanout.",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Optional path to save full probe output as JSON.",
@@ -416,6 +422,10 @@ def main() -> None:
         exact_hit_ambiguity_penalty=max(
             0.0,
             float(args.reverse_check_exact_hit_ambiguity_penalty),
+        ),
+        exact_hit_specificity_bonus=max(
+            0.0,
+            float(args.reverse_check_exact_hit_specificity_bonus),
         ),
     )
 
@@ -557,7 +567,8 @@ def main() -> None:
         f"reverse_far_hit_penalty={reverse_check.far_hit_penalty}, "
         f"reverse_miss_penalty={reverse_check.miss_penalty}, "
         f"reverse_exact_hit_ambiguity_threshold={reverse_check.exact_hit_ambiguity_threshold}, "
-        f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}"
+        f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
+        f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -586,6 +597,7 @@ def main() -> None:
                 "miss_penalty": reverse_check.miss_penalty,
                 "exact_hit_ambiguity_threshold": reverse_check.exact_hit_ambiguity_threshold,
                 "exact_hit_ambiguity_penalty": reverse_check.exact_hit_ambiguity_penalty,
+                "exact_hit_specificity_bonus": reverse_check.exact_hit_specificity_bonus,
             },
         },
         "paths": {
