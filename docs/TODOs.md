@@ -140,6 +140,8 @@ Acceptance criteria:
 - Check and improve the accuracy of generated romaji for Japanese words.
 
 ### Rule generation quality
+- Execution-order reference for the current rulegen workstream:
+  - `docs/developer/rulegen_workstream_execution_order.md`
 - Improve rulegen quality by making generation/scoring shallower and higher precision.
 - Improve SRS rulegen quality (helper-published rules) for better pedagogical precision and fewer broad/ambiguous outputs.
 - `en-ja` now uses strict JMdict reading match (`surface + reading` from `word_package`); targets with no reading-matched entry currently stay in S but emit no rules.

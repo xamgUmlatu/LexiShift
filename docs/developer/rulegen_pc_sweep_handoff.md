@@ -24,6 +24,10 @@ Current intended use:
 - run larger sweep methodologies against the frozen bundle inputs
 - compare results without depending on the live local SRS store
 
+For the broader ordering of the whole workstream, see:
+
+- `docs/developer/rulegen_workstream_execution_order.md`
+
 ## Current Known-Good State
 
 Canonical source commit before this handoff doc:
