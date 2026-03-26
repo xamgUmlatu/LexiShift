@@ -41,15 +41,15 @@ Canonical benchmark methodology:
 
 Current canonical `en-es` benchmark result:
 
-- `Top1`: `89.58%`
-- `Top3`: `97.92%`
+- `Top1`: `90.74%`
+- `Top3`: `98.15%`
 - `ForbidTop1`: `0.00%`
-- `AvgRules`: `2.79`
-- objective: `131.583`
+- `AvgRules`: `2.89`
+- objective: `132.296`
 
 Current best config label:
 
-- `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef`
+- `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10`
 
 Current triage targets:
 
@@ -154,9 +154,9 @@ python3 scripts/testing/rulegen_benchmark_bundle.py run \
 
 Expected replay result:
 
-- `Top1`: `89.58%`
-- `Top3`: `97.92%`
-- objective: `131.583`
+- `Top1`: `90.74%`
+- `Top3`: `98.15%`
+- objective: `132.296`
 
 If the replay does not match those numbers exactly, stop and inspect:
 
@@ -164,6 +164,10 @@ If the replay does not match those numbers exactly, stop and inspect:
 - stale or modified resources
 - different code path than expected
 - accidental rerun against live local resources instead of the bundle
+
+Important note:
+
+- because the benchmark dataset has now been expanded from `48` to `54` `en-es` cases, refresh/export the portable bundle again before the broad PC sweep so replay expectations match the current canonical suite
 
 ## Gate And Triage On The PC
 

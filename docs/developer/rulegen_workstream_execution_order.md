@@ -29,11 +29,12 @@ Current focus:
 
 Current canonical `en-es` benchmark:
 
-- `Top1`: `89.58%`
-- `Top3`: `97.92%`
+- `Top1`: `90.74%`
+- `Top3`: `98.15%`
 - `ForbidTop1`: `0.00%`
+- `AvgRules`: `2.89`
 - best config:
-  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef`
+  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10`
 
 Current remaining triage targets:
 
@@ -207,6 +208,13 @@ Why this phase is before the broad sweep:
 
 - current dataset is strong enough for directional experiments
 - current dataset is still too small/coarse for confident high-dimensional tuning
+- first focused expansion batch is now in:
+  - `marco`
+  - `tabla`
+  - `malla`
+  - `quitar`
+  - `meter`
+  - `salir`
 
 ## Phase 2.5: Low-Hanging Signal Exposure
 

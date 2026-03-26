@@ -396,7 +396,7 @@ Use this file when:
   - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
   - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the repaired verb reverse normalization restored the best `rev=on` lane.
-  - The current `en-es` reverse-enabled best run lifts `top3` to `97.92%`, but `top1` is still capped at `89.58%`; remaining work is now more about lexical choice than reverse plumbing.
+  - The current `en-es` reverse-enabled best run lifts `top3` to `98.15%`, but `top1` is still capped at `90.74%`; remaining work is now more about lexical choice than reverse plumbing.
   - The new exact-hit ambiguity penalty and exact-hit specificity bonus are both implemented and harness-exposed, but neither beat the existing best lane yet; current `cuadro` behavior is still more sensitive to miss/far-penalty tradeoffs and score clamping than to these exact-hit refinements alone.
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
   - Current rollout is scoring-only, not strict candidate blocking.
@@ -404,8 +404,8 @@ Use this file when:
 ## Kaikki Provenance / Competition Scoring
 
 - Status: `implemented`, `verified`, `default-on` = `no`
-- Last documented checkpoint: `2026-03-26` first provenance-based additive scoring signal with benchmark/probe exposure
-- Last verified: `2026-03-26` targeted `en-es` provenance/adapter/benchmark tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 144-config sweep, and probe-path verification
+- Last documented checkpoint: `2026-03-27` first provenance-based additive scoring signal with dataset-expanded canonical sweep
+- Last verified: `2026-03-27` targeted `en-es` provenance/adapter/benchmark tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 54-case / 144-config sweep, and probe-path verification
 - Default behavior:
   - `en-es` Kaikki candidates now support a sweepable additive provenance penalty:
     - `late_sense_clean_earlier_competition_penalty`

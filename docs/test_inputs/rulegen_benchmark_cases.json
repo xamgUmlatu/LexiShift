@@ -876,6 +876,126 @@
       "notes": "Coverage probe for a common function word missing from the FreeDict source."
     },
     {
+      "case_id": "en-es:marco",
+      "pair": "en-es",
+      "target": "marco",
+      "tier": "hard",
+      "expected_any": [
+        "frame",
+        "framework"
+      ],
+      "expected_top1_any": [
+        "frame"
+      ],
+      "forbidden_top1": [
+        "mark"
+      ],
+      "forbidden_any": [],
+      "notes": "Cuadro-family sibling around frame/framework competition; keep mark-like leakage out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:tabla",
+      "pair": "en-es",
+      "target": "tabla",
+      "tier": "hard",
+      "expected_any": [
+        "board",
+        "table",
+        "plank"
+      ],
+      "expected_top1_any": [
+        "board",
+        "table"
+      ],
+      "forbidden_top1": [
+        "slab"
+      ],
+      "forbidden_any": [],
+      "notes": "Cuadro-family sibling covering board/table/plank competition without forcing a single dominant noun sense."
+    },
+    {
+      "case_id": "en-es:malla",
+      "pair": "en-es",
+      "target": "malla",
+      "tier": "hard",
+      "expected_any": [
+        "mesh",
+        "net"
+      ],
+      "expected_top1_any": [
+        "mesh",
+        "net"
+      ],
+      "forbidden_top1": [
+        "leggings"
+      ],
+      "forbidden_any": [],
+      "notes": "Red-family physical-net sibling; protect mesh/net readings from clothing-noise drift."
+    },
+    {
+      "case_id": "en-es:quitar",
+      "pair": "en-es",
+      "target": "quitar",
+      "tier": "smoke",
+      "expected_any": [
+        "remove",
+        "take off",
+        "take away"
+      ],
+      "expected_top1_any": [
+        "remove",
+        "take off"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common removal verb; single-word remove is acceptable now, but false-friend quit should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:meter",
+      "pair": "en-es",
+      "target": "meter",
+      "tier": "smoke",
+      "expected_any": [
+        "insert",
+        "put in",
+        "stick in"
+      ],
+      "expected_top1_any": [
+        "insert",
+        "put in"
+      ],
+      "forbidden_top1": [
+        "stuff",
+        "cram"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb sibling to sacar; allow precise insert/put in while blocking low-value stuffing senses as defaults."
+    },
+    {
+      "case_id": "en-es:salir",
+      "pair": "en-es",
+      "target": "salir",
+      "tier": "smoke",
+      "expected_any": [
+        "leave",
+        "go out",
+        "come out",
+        "exit"
+      ],
+      "expected_top1_any": [
+        "leave",
+        "go out",
+        "come out"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency phrase-sensitive motion verb; keep leave/go out/come out ahead of quit-like false-friend drift."
+    },
+    {
       "case_id": "es-en:house",
       "pair": "es-en",
       "target": "house",

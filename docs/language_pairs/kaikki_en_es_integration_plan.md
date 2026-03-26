@@ -655,6 +655,7 @@ Provenance / competition penalty:
     so this signal can be inspected directly per candidate
 - canonical benchmark outcome:
   - expanded canonical `en-es` sweep now runs `kprov` values `0.0`, `0.1`, and `0.2`
+  - after the first focused benchmark-dataset expansion, the canonical suite now covers `54` `en-es` cases
   - current best run is now:
     - `rev=on`
     - `xamb=off`
@@ -662,16 +663,16 @@ Provenance / competition penalty:
     - `kdem=off`
     - `kprov=0.10`
   - summary metrics:
-    - `Top1 89.58%`
-    - `Top3 97.92%`
+    - `Top1 90.74%`
+    - `Top3 98.15%`
     - `ForbidTop1 0.00%`
-    - `AvgRules 2.77`
-    - objective `131.708`
+    - `AvgRules 2.89`
+    - objective `132.296`
 - current interpretation:
   - this is the first provenance-based scoring signal that is both implemented and actually selected by the
     canonical best run
   - the gain is modest but real:
-    - objective improved slightly via lower average rule volume
+    - objective improved while holding the triage set flat through the first focused dataset expansion
     - metric diversity in the canonical sweep increased from `4` unique vectors to `6`
   - this supports the broader roadmap direction that provenance / competition metadata is worth scoring
     before adding more speculative sources
