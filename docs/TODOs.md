@@ -150,6 +150,16 @@ Acceptance criteria:
   - score/penalize candidate rules by source->target consistency in reverse lookup.
   - implementation spec: `docs/rulegen/reverse_check_scoring_phase1.md`
   - follow-up: tune exact-hit ambiguity penalty against `reverse_check_total`; the first bounded `en-es` experiment did not beat existing miss/far penalty settings, but the signal is now implemented and harness-exposed.
+- Add the next low-hanging additive `en-es` rulegen signals before or around the broad sweep:
+  - provenance / competition signals from existing metadata:
+    - `target_provenance`
+    - `gloss_provenance`
+    - `sense_provenance`
+    - `kaikki_policy_shadow`
+  - per-family Kaikki demotion strengths rather than one coarse family block
+  - gloss-decay shape exposure rather than only gloss-decay weight
+  - narrow short-phrase admission for lexical verb phrases instead of global multiword admission
+  - execution-order reference: `docs/developer/rulegen_workstream_execution_order.md`
 - Add sense-risk penalties for ambiguous/specialized senses:
   - use lexical cues/metadata to demote risky polysemic or niche senses.
   - Kaikki/Wiktionary follow-up for `en-es`: use topics/categories/tags to demote domain-specific lexical senses after structural candidate recovery is fixed first (for example `presentar -> table`, `plaza -> bullring`).
@@ -162,6 +172,10 @@ Acceptance criteria:
   - structured runtime diagnostics for skipped replacements and reason codes.
 - Add multi-source agreement bonus:
   - increase confidence when a candidate mapping is supported by multiple independent resources.
+- Add true lexical-frequency signals for emitted source candidates:
+  - move `en-es` beyond gloss-order-as-frequency,
+  - evaluate source-side English lexical frequency,
+  - later evaluate source-target frequency-gap features carefully rather than assuming "common beats specific."
 - Add trait-conditioned rulegen profiles driven by runtime-computable features rather than human tags:
   - emit per-case trait vectors in benchmark artifacts,
   - define a small bank of named profiles,
@@ -177,6 +191,9 @@ Acceptance criteria:
 
 ### Embeddings scoring integration
 - Hook embeddings into rule-generation scoring (downloads and one-time conversion are wired; scoring integration is pending).
+- Keep embeddings as a secondary signal only:
+  - require a real active `embedding_provider`,
+  - validate pair-specific impact before exposing as a meaningful sweep dimension for `en-es`.
 
 ## Planned Milestones (Migrated From README)
 

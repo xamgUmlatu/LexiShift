@@ -109,6 +109,7 @@ First expected trait families:
 - surviving definition count
 - top-1 vs top-2 score gap
 - reverse-hit count / reverse ambiguity
+- reverse exact-hit specificity / fanout
 - multiword-candidate dependence
 - phrase-heavy candidate set
 - proportion of candidates that were variants
@@ -133,6 +134,7 @@ First expected trait families:
   - hunting/fishing/tools
   - abbreviation/ellipsis/form-of
 - multi-source agreement or disagreement
+- source-side lexical frequency and source-target frequency-gap signals when those are live
 - translation-box metadata richness
 
 ### 5. Runtime-context traits
@@ -172,6 +174,8 @@ Each profile can differ in:
 - phrase-admission policy
 - sense-risk demotion strength
 - reverse-check weighting
+- source-frequency / frequency-gap weighting
+- agreement weighting
 - future resource gating decisions
 
 The goal is a small profile bank with strong evidence, not unconstrained combinatorics at runtime.

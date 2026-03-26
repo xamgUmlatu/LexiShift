@@ -208,6 +208,173 @@ Why this phase is before the broad sweep:
 - current dataset is strong enough for directional experiments
 - current dataset is still too small/coarse for confident high-dimensional tuning
 
+## Phase 2.5: Low-Hanging Signal Exposure
+
+Status:
+
+- active design bucket
+- only additive, objective, runtime-computable signals belong here
+
+Goal:
+
+- expose the best already-existing metadata/signals before or around the first broad sweep
+- avoid spending sweep budget on knobs that are still speculative or inert
+
+Admission rule for this phase:
+
+- a signal should enter this phase only if all of the following are true:
+  - it is derived from data already present on every runtime candidate or on a shared runtime-available resource
+  - it is additive or threshold-like rather than a broad hard-coded policy rewrite
+  - it can be expressed as a clean config/tuning seam
+  - it can be benchmarked in the current harness
+  - it is not merely a proxy for missing data that we still do not have
+
+### Phase 2.5A. Best Existing-Metadata Signals
+
+Priority:
+
+- highest within the signal roadmap
+
+Current best candidates:
+
+1. provenance / competition signals
+   - source:
+     - `target_provenance`
+     - `gloss_provenance`
+     - `sense_provenance`
+     - `kaikki_policy_shadow`
+   - examples:
+     - later-sense survivor penalty
+     - clean earlier competition bonus/penalty
+     - structural-rescue suspicion signal
+   - rationale:
+     - these are already computed on every `en-es` Kaikki candidate
+     - they are more general than one-word heuristics
+
+2. per-family Kaikki demotion strengths
+   - source:
+     - normalized Kaikki family views in `kaikki_views.py`
+   - examples:
+     - separate strengths for:
+       - `math_geometry`
+       - `government_law`
+       - `register_region`
+       - `art_media`
+       - `communication_network`
+       - `computing`
+   - rationale:
+     - the family inventory already exists
+     - the current live demotion model is deliberately too coarse
+
+3. gloss-decay shape / schedule
+   - source:
+     - current `GlossDecay` path already wired through runtime
+   - rationale:
+     - `en-es` still uses gloss order as a major prior
+     - weight is exposed, but decay shape is not yet benchmark-visible
+
+4. narrow phrase-admission signals
+   - source:
+     - current phrase/multiword logic in `en-es`
+   - rationale:
+     - this is the cleanest path for `sacar`-class cases
+   - guardrail:
+     - do not expose this as broad global multiword admission
+     - keep it focused on short lexical phrase candidates first
+
+### Phase 2.5B. Existing-But-Partly-Usable Signals
+
+Priority:
+
+- second
+
+Signals in this bucket:
+
+1. exact-hit ambiguity / specificity reverse refinements
+   - already implemented and sweepable
+   - currently neutral in the best lane
+   - should remain in the sweep, but are not the main frontier
+
+2. filter toggles and thresholds
+   - examples:
+     - stopword filter
+     - length filter
+     - inflection filter
+     - min/max source length
+   - rationale:
+     - real and objective, but exposing all of them too early will explode the search space
+   - policy:
+     - expose only when a concrete failure family points to one of them
+
+3. `allow_multiword_glosses`
+   - real seam, not yet benchmark-exposed
+   - should not be exposed as a first broad global switch without a narrower phrase policy
+
+### Phase 2.5C. Explicitly Not Part Of The First Broad Sweep
+
+These should not be treated as mature sweep dimensions yet:
+
+- embeddings for `en-es`
+  - weight exists, but no real `embedding_provider` is active for this pair
+- true English-side lexical frequency
+  - current `frequency_weight` in `en-es` is mostly gloss-decay, not a real lexical-frequency feature
+- multi-source agreement
+  - strong idea, but no live scoring signal yet
+- translation-probability / entropy signals
+  - still planned research, not current scoring infrastructure
+- trait-conditioned profile routing
+  - planning-ready, implementation-not-ready
+
+## Phase 2.6: Must-Have Long-Term Signals
+
+Status:
+
+- soonish planning bucket
+- not blockers for the first broad sweep
+
+Goal:
+
+- keep the long-term signal roadmap explicit so the broad sweep does not become the end of the story
+
+### 1. Embeddings
+
+Why:
+
+- useful as a secondary semantic signal
+- useful for uncertainty margin and weak ranking adjustment
+
+Requirements before rollout:
+
+- real `embedding_provider` for active pairs
+- pair-specific evaluation showing it is not just noise
+- keep it secondary, not primary
+
+### 2. True lexical frequency and source-target frequency-gap signals
+
+Why:
+
+- broad pedagogical quality often depends on whether the English source cue is itself common and useful
+- frequency mismatch between source cue and target word may help demote odd technical or archaic source choices
+
+Requirements before rollout:
+
+- real English-side source frequency data for emitted candidates
+- clear policy for how source frequency and target frequency interact
+- avoid naive "common always beats specific" assumptions
+
+### 3. Multi-source agreement
+
+Why:
+
+- one of the most credible future precision signals
+- especially attractive for high-polysemy cases where dictionary order alone is weak
+
+Requirements before rollout:
+
+- at least two genuinely independent active sources/signals
+- provenance accounting in candidate metadata
+- additive agreement scoring, not hard blocking at first
+
 ## Phase 3: Run The Broad PC Sweep
 
 Status:
@@ -228,6 +395,7 @@ Current exposed dimensions worth sweeping:
 
 - reverse on/off and reverse weights
 - exact-hit ambiguity values
+- exact-hit specificity values
 - Kaikki live demotion on/off and family sets
 - POS scoring weights
 - semantic demotion scale
@@ -244,6 +412,7 @@ What this phase is for:
 What this phase is not for:
 
 - solving missing-signal problems like phrase admission by brute-force weight search
+- pretending inert signals like embeddings are already production-meaningful for `en-es`
 
 ## Phase 4: Expose The Next Hidden But Real Knobs
 
