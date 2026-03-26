@@ -90,6 +90,61 @@ class TestRulegenBenchmarkBundle(unittest.TestCase):
             self.assertTrue(
                 (root / "bundle" / pair_resources["reverse_translation_dict_path"]).exists()
             )
+            self.assertTrue((root / "bundle" / "README.md").exists())
+
+    def test_export_bundle_accepts_non_preset_benchmark_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            dataset = root / "rulegen_benchmark_cases.json"
+            dataset.write_text('{"cases":[]}', encoding="utf-8")
+            benchmark_json = root / "benchmark.json"
+            forward = root / "wiktionary-es-en.sqlite"
+            reverse = root / "wiktionary-en-es.sqlite"
+            forward.write_text("forward", encoding="utf-8")
+            reverse.write_text("reverse", encoding="utf-8")
+            benchmark_json.write_text(
+                json.dumps(
+                    {
+                        "dataset_path": str(dataset),
+                        "profile_id": "default",
+                        "sweep": {
+                            "preset": None,
+                            "pair_filter": ["en-es"],
+                            "configuration_count": 144,
+                        },
+                        "pairs": {
+                            "en-es": {
+                                "case_count": 2,
+                                "resources": {
+                                    "translation_dict_path": str(forward),
+                                    "reverse_translation_dict_path": str(reverse),
+                                    "checksums": {
+                                        "translation_dict_sha256": None,
+                                        "reverse_translation_dict_sha256": None,
+                                        "jmdict_sha256": None,
+                                    },
+                                },
+                                "word_package_snapshot": {"casa": None},
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            manifest_path = export_bundle(
+                benchmark_json=benchmark_json,
+                output_dir=root / "bundle",
+                pair_filter=None,
+                force=False,
+            )
+
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            self.assertEqual(manifest["preset"]["name"], "canonical_cli_defaults")
+            self.assertEqual(manifest["preset"]["args"], [])
+            readme_text = (root / "bundle" / "README.md").read_text(encoding="utf-8")
+            self.assertIn("canonical_cli_defaults", readme_text)
+            self.assertIn("wiktionary-es-en.sqlite", readme_text)
 
     def test_validate_bundle_accepts_exported_bundle(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -180,6 +235,43 @@ class TestRulegenBenchmarkBundle(unittest.TestCase):
             self.assertIn("--translation-dict-en-es", argv_text)
             self.assertIn("--translation-dict-es-en", argv_text)
             self.assertIn("--pairs en-es", argv_text)
+
+    def test_build_bundle_run_argv_accepts_empty_default_args(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle_dir = Path(tmp)
+            manifest = {
+                "dataset_path": "inputs/rulegen_benchmark_cases.json",
+                "word_package_snapshot_path": "inputs/word_package_snapshots.json",
+                "pair_names": ["en-es"],
+                "preset": {
+                    "name": "canonical_cli_defaults",
+                    "description": "default replay",
+                    "args": [],
+                    "mode": "cli_defaults",
+                },
+                "pairs": {
+                    "en-es": {
+                        "resources": {
+                            "translation_dict_path": "resources/en-es/wiktionary-es-en.sqlite",
+                            "reverse_translation_dict_path": "resources/en-es/wiktionary-en-es.sqlite",
+                            "checksums": {},
+                        }
+                    }
+                },
+            }
+
+            argv = build_bundle_run_argv(
+                bundle_dir=bundle_dir,
+                manifest=manifest,
+                selected_pairs=["en-es"],
+                json_output=bundle_dir / "out.json",
+                markdown_output=bundle_dir / "out.md",
+                html_output=bundle_dir / "out.html",
+            )
+
+            self.assertIn("--dataset", argv)
+            self.assertIn("--word-package-snapshot-json", argv)
+            self.assertIn("--pairs", argv)
 
 
 if __name__ == "__main__":

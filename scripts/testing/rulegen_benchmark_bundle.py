@@ -85,26 +85,151 @@ def _extract_preset_payload(report_payload: Mapping[str, object]) -> dict[str, o
         raise ValueError("Benchmark report is missing `sweep` metadata.")
     raw_preset = raw_sweep.get("preset")
     if not isinstance(raw_preset, Mapping):
-        raise ValueError(
-            "Portable bundle export currently requires a preset-backed benchmark artifact."
-        )
+        return {
+            "name": "canonical_cli_defaults",
+            "description": (
+                "Replay uses rulegen_benchmark.py CLI defaults plus the bundle dataset, "
+                "frozen word_package snapshot, selected pairs, and resource overrides."
+            ),
+            "args": [],
+            "mode": "cli_defaults",
+        }
     name = str(raw_preset.get("name") or "").strip()
     description = str(raw_preset.get("description") or "").strip()
     raw_args = raw_preset.get("args")
     if not name or not description or not isinstance(raw_args, Sequence):
         raise ValueError("Benchmark preset metadata is incomplete in the source artifact.")
     args = [str(item) for item in raw_args]
-    if not args:
-        raise ValueError("Benchmark preset metadata is missing argv tokens.")
     payload: dict[str, object] = {
         "name": name,
         "description": description,
         "args": args,
+        "mode": "preset",
     }
     preset_file = str(raw_preset.get("preset_file") or "").strip()
     if preset_file:
         payload["preset_file"] = preset_file
     return payload
+
+
+def _format_resource_lines(
+    *, manifest: Mapping[str, object], pair_names: Sequence[str]
+) -> list[str]:
+    lines: list[str] = []
+    raw_pairs = manifest.get("pairs")
+    if not isinstance(raw_pairs, Mapping):
+        return lines
+    for pair in pair_names:
+        raw_pair_manifest = raw_pairs.get(pair)
+        if not isinstance(raw_pair_manifest, Mapping):
+            continue
+        raw_resources = raw_pair_manifest.get("resources")
+        if not isinstance(raw_resources, Mapping):
+            continue
+        lines.append(f"## Pair `{pair}`")
+        for key, label in (
+            ("translation_dict_path", "translation dictionary"),
+            ("reverse_translation_dict_path", "reverse translation dictionary"),
+            ("jmdict_path", "JMDict"),
+        ):
+            relpath = str(raw_resources.get(key) or "").strip()
+            if not relpath:
+                continue
+            lines.append(f"- {label}: `{relpath}`")
+        checksums = raw_resources.get("checksums")
+        if isinstance(checksums, Mapping):
+            for checksum_key, label in (
+                ("translation_dict_sha256", "translation checksum"),
+                ("reverse_translation_dict_sha256", "reverse checksum"),
+                ("jmdict_sha256", "JMDict checksum"),
+            ):
+                checksum = str(checksums.get(checksum_key) or "").strip()
+                if checksum:
+                    lines.append(f"- {label}: `{checksum}`")
+        lines.append("")
+    return lines
+
+
+def _build_bundle_readme(
+    *,
+    manifest: Mapping[str, object],
+    pair_names: Sequence[str],
+) -> str:
+    preset = manifest.get("preset")
+    assert isinstance(preset, Mapping)
+    preset_name = str(preset.get("name") or "").strip()
+    preset_description = str(preset.get("description") or "").strip()
+    mode = str(preset.get("mode") or "").strip() or "preset"
+    lines = [
+        "# Rulegen Benchmark Bundle",
+        "",
+        f"- Bundle version: `{manifest.get('bundle_version')}`",
+        f"- Exported at: `{manifest.get('exported_at')}`",
+        f"- Source commit: `{manifest.get('source_commit') or 'unknown'}`",
+        f"- Pairs: `{', '.join(pair_names)}`",
+        f"- Replay mode: `{preset_name}`",
+        f"- Replay description: {preset_description}",
+        "",
+        "## Included Inputs",
+        f"- Dataset: `{manifest.get('dataset_path')}`",
+        f"- Frozen word_package snapshot: `{manifest.get('word_package_snapshot_path')}`",
+        f"- Source benchmark artifact: `{manifest.get('source_benchmark_json')}`",
+        "",
+    ]
+    lines.extend(_format_resource_lines(manifest=manifest, pair_names=pair_names))
+    lines.extend(
+        [
+            "## Replay",
+            "",
+            "Validate bundle files and checksums:",
+            "",
+            "```bash",
+            "python3 scripts/testing/rulegen_benchmark_bundle.py validate \\",
+            "  --bundle-dir /path/to/bundle",
+            "```",
+            "",
+            "Dry-run the replay command:",
+            "",
+            "```bash",
+            "python3 scripts/testing/rulegen_benchmark_bundle.py run \\",
+            "  --bundle-dir /path/to/bundle \\",
+            "  --json-output /path/to/out/replay.json \\",
+            "  --markdown-output /path/to/out/replay.md \\",
+            "  --html-output /path/to/out/replay.html \\",
+            "  --dry-run",
+            "```",
+            "",
+            "Run the replay:",
+            "",
+            "```bash",
+            "python3 scripts/testing/rulegen_benchmark_bundle.py run \\",
+            "  --bundle-dir /path/to/bundle \\",
+            "  --json-output /path/to/out/replay.json \\",
+            "  --markdown-output /path/to/out/replay.md \\",
+            "  --html-output /path/to/out/replay.html",
+            "```",
+            "",
+            "## Notes",
+            "- This bundle is self-contained for benchmark replay. It includes the exact translation dictionaries and the frozen word_package snapshot used by the source benchmark run.",
+            "- No live SRS store is required for replay when using this bundle.",
+        ]
+    )
+    if mode == "cli_defaults":
+        lines.append(
+            "- The source benchmark artifact was generated without a named preset. Replay uses the current `rulegen_benchmark.py` CLI defaults plus the bundle overrides."
+        )
+    else:
+        lines.append(
+            "- The source benchmark artifact was generated from a named preset, and the preset argv tokens are recorded in the manifest."
+        )
+    lines.extend(
+        [
+            "- For the current `en-es` benchmark lane, the equivalent GUI-installable packs are `wiktionary-es-en` and `wiktionary-en-es`, but the bundle already includes exact checked copies of those SQLite files for reproducibility.",
+            "- If you rerun the canonical benchmark locally without the bundle, make sure the active repo commit and benchmark dataset match the source commit listed above.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def _build_bundle_resource_manifest(
@@ -229,6 +354,11 @@ def export_bundle(
     manifest_path = output_dir / "bundle_manifest.json"
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    readme_path = output_dir / "README.md"
+    readme_path.write_text(
+        _build_bundle_readme(manifest=manifest, pair_names=pair_names),
         encoding="utf-8",
     )
     return manifest_path
