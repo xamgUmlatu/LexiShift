@@ -20,7 +20,12 @@ from rulegen_benchmark import (  # noqa: E402
     _format_kaikki_policy_family_label,
     _load_html_report_renderer,
     _parse_family_set_specs,
+    _resolve_cli_with_preset,
     _resolve_pair_resources_for_benchmark,
+)
+from rulegen_benchmark_presets import (  # noqa: E402
+    format_benchmark_presets_listing,
+    load_benchmark_presets,
 )
 from lexishift_core.rulegen.benchmarking import RulegenBenchmarkSummary  # noqa: E402
 
@@ -242,6 +247,44 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertIsInstance(snapshot["casa"], dict)
         self.assertEqual(snapshot["casa"]["surface"], "casa")
         self.assertIsNone(snapshot["madre"])
+
+    def test_load_benchmark_presets_includes_canonical_en_es_matrix(self) -> None:
+        presets = load_benchmark_presets(
+            REPO_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_presets.json"
+        )
+
+        self.assertIn("en_es_canonical_matrix", presets)
+        listing = format_benchmark_presets_listing(presets)
+        self.assertIn("en_es_canonical_matrix", listing)
+
+    def test_resolve_cli_with_preset_allows_explicit_cli_override(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            preset_file = Path(tmp) / "presets.json"
+            preset_file.write_text(
+                (
+                    "{"
+                    '"presets":{"tiny":{"description":"tiny preset","args":["--pairs","en-es","--max-configurations","8"]}}'
+                    "}"
+                ),
+                encoding="utf-8",
+            )
+
+            args, preset = _resolve_cli_with_preset(
+                argv=(
+                    "--preset-file",
+                    str(preset_file),
+                    "--preset",
+                    "tiny",
+                    "--pairs",
+                    "es-en",
+                )
+            )
+
+            self.assertEqual(args.pairs, "es-en")
+            self.assertEqual(args.max_configurations, 8)
+            self.assertIsNotNone(preset)
+            assert preset is not None
+            self.assertEqual(preset.name, "tiny")
 
 
 if __name__ == "__main__":

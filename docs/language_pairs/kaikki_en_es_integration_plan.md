@@ -679,8 +679,11 @@ Required portability work before the large PC-side sweep:
 - avoid silently depending on whatever happens to be in the receiving machine's live SRS store
 
 3. sweep preset portability
-- move important sweep definitions out of long shell commands and into named JSON/TOML presets
-- use the same preset files on both development machines
+- named sweep presets now live in `docs/test_inputs/rulegen_benchmark_presets.json`
+- current named methodologies include:
+  - `en_es_canonical_matrix`
+  - `en_es_policy_hypothesis_matrix`
+- use the same preset names/files on both development machines so experiment intent stays stable
 
 4. artifact ergonomics
 - mirror `resources` under `pairs[pair]`
@@ -696,9 +699,10 @@ Implemented low-friction cleanup:
 - benchmark JSON now mirrors pair-local `resources` under `pairs[pair]`
 - benchmark JSON now also records SHA-256 checksums for the resolved dictionary resources
 - benchmark JSON now records a per-pair `word_package_snapshot`, including explicit `null` entries for targets that had no package input
+- benchmark CLI now supports `--preset`, `--preset-file`, and `--list-presets`, and records the selected preset in the `sweep` block when used
 - this does not change scoring behavior
 - it improves artifact readability immediately
-- it is the first small step toward richer per-pair resource snapshots later
+- it helps formalize benchmark methodology before the larger cross-machine sweep
 
 ## Deferred Work
 

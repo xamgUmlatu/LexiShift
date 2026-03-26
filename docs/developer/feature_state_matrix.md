@@ -57,7 +57,7 @@ Use this file when:
   - Recommended pairs (`en-ja`, `en-de`, `es-en`) are still advisory rather than hard-gated.
   - Current quality-gate output also shows saturation warnings for `en-es`.
   - Artifact history and pair inference still depend on wrapper usage rather than a mandatory repo-wide gate.
-  - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, and they now record the effective per-target `word_package` snapshot used by the run; the remaining cross-machine gap is packaging/importing those inputs cleanly on another machine.
+  - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, they now record the effective per-target `word_package` snapshot used by the run, and the benchmark CLI now supports named preset methodologies from `docs/test_inputs/rulegen_benchmark_presets.json`; the remaining cross-machine gap is packaging/importing those inputs cleanly on another machine.
 
 ## Rulegen Auto Audit Wrapper
 

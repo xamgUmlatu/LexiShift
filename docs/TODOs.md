@@ -161,7 +161,6 @@ Acceptance criteria:
 - Add multi-source agreement bonus:
   - increase confidence when a candidate mapping is supported by multiple independent resources.
 - Improve benchmark portability before the large broad sweep:
-  - define named sweep presets in JSON/TOML so the same experiment can be run unchanged on another machine,
   - add a portable experiment bundle export/import flow for cross-machine benchmark runs.
 
 ### Pair-specific morphology expansion

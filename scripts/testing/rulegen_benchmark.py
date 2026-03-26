@@ -44,6 +44,15 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
 
+from rulegen_benchmark_presets import (  # noqa: E402
+    BenchmarkPreset,
+    format_benchmark_presets_listing,
+    load_benchmark_presets,
+)
+
+
+DEFAULT_PRESET_PATH = PROJECT_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_presets.json"
+
 
 @dataclass(frozen=True)
 class SweepConfig:
@@ -695,11 +704,26 @@ def _render_markdown_report(
     return "\n".join(lines)
 
 
-def main() -> None:
+def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Sweep rulegen parameters over labeled benchmark cases and rank settings by objective score."
         )
+    )
+    parser.add_argument(
+        "--preset-file",
+        type=Path,
+        default=DEFAULT_PRESET_PATH,
+        help="Path to benchmark preset registry JSON.",
+    )
+    parser.add_argument(
+        "--preset",
+        help="Optional named benchmark preset from the preset registry.",
+    )
+    parser.add_argument(
+        "--list-presets",
+        action="store_true",
+        help="List available benchmark presets and exit.",
     )
     parser.add_argument(
         "--dataset",
@@ -810,7 +834,46 @@ def main() -> None:
         default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_latest.html",
         help="Path to write styled HTML dashboard.",
     )
-    args = parser.parse_args()
+    return parser
+
+
+def _resolve_cli_with_preset(
+    *,
+    argv: Sequence[str],
+) -> tuple[argparse.Namespace, Optional[BenchmarkPreset]]:
+    parser = _build_parser()
+    pre_parser = argparse.ArgumentParser(add_help=False)
+    pre_parser.add_argument("--preset-file", type=Path, default=DEFAULT_PRESET_PATH)
+    pre_parser.add_argument("--preset")
+    pre_parser.add_argument("--list-presets", action="store_true")
+    pre_args, remaining_argv = pre_parser.parse_known_args(list(argv))
+    preset_file = Path(pre_args.preset_file)
+    presets = load_benchmark_presets(preset_file)
+    if pre_args.list_presets:
+        print(format_benchmark_presets_listing(presets))
+        raise SystemExit(0)
+    selected_preset: Optional[BenchmarkPreset] = None
+    effective_argv = list(remaining_argv)
+    preset_name = str(pre_args.preset or "").strip()
+    if preset_name:
+        selected_preset = presets.get(preset_name)
+        if selected_preset is None:
+            available = ", ".join(sorted(presets))
+            raise ValueError(
+                f"Unknown preset `{preset_name}` in {preset_file}. Available: {available}"
+            )
+        effective_argv = list(selected_preset.args) + effective_argv
+    args = parser.parse_args(effective_argv)
+    args.preset_file = preset_file
+    args.preset = selected_preset.name if selected_preset is not None else None
+    args.list_presets = False
+    return args, selected_preset
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    args, selected_preset = _resolve_cli_with_preset(
+        argv=tuple(argv) if argv is not None else tuple(sys.argv[1:])
+    )
 
     pair_filter = (
         {item.strip().lower() for item in _parse_csv_strings(args.pairs)} if args.pairs else None
@@ -932,6 +995,16 @@ def main() -> None:
         "sweep": {
             "pair_filter": sorted(pair_filter) if pair_filter else None,
             "configuration_count": len(sweep_configs),
+            "preset": (
+                {
+                    "name": selected_preset.name,
+                    "description": selected_preset.description,
+                    "preset_file": str(args.preset_file),
+                    "args": list(selected_preset.args),
+                }
+                if selected_preset is not None
+                else None
+            ),
             "objective_weights": {
                 "top1_accuracy": objective_weights.top1_accuracy,
                 "top3_recall": objective_weights.top3_recall,
