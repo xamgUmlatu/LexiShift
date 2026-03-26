@@ -15,6 +15,7 @@ from rulegen_benchmark import (  # noqa: E402
     SweepRun,
     _build_pair_resources_payload,
     _build_pair_report_payload,
+    _build_word_package_snapshot,
     _format_exact_hit_ambiguity_label,
     _format_kaikki_policy_family_label,
     _load_html_report_renderer,
@@ -186,6 +187,7 @@ class TestRulegenBenchmark(unittest.TestCase):
                 "translation_dict_path": "/tmp/wiktionary-es-en.sqlite",
                 "reverse_translation_dict_path": "/tmp/wiktionary-en-es.sqlite",
             },
+            word_package_snapshot={"casa": None},
             include_case_results=False,
         )
 
@@ -199,6 +201,7 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
         self.assertIn("best_run", payload)
         self.assertEqual(payload["run_count"], 1)
+        self.assertEqual(payload["word_package_snapshot"]["casa"], None)
 
     def test_build_pair_resources_payload_includes_sha256_checksums(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -220,6 +223,25 @@ class TestRulegenBenchmark(unittest.TestCase):
             self.assertTrue(str(checksums["translation_dict_sha256"]).startswith("sha256:"))
             self.assertTrue(str(checksums["reverse_translation_dict_sha256"]).startswith("sha256:"))
             self.assertIsNone(checksums["jmdict_sha256"])
+
+    def test_build_word_package_snapshot_preserves_missing_targets_as_null(self) -> None:
+        snapshot = _build_word_package_snapshot(
+            targets=["casa", "madre"],
+            word_packages_by_target={
+                "casa": {
+                    "version": 1,
+                    "language_tag": "es",
+                    "surface": "casa",
+                    "reading": "casa",
+                    "script_forms": {"default": "casa"},
+                    "source": {"provider": "test"},
+                }
+            },
+        )
+
+        self.assertIsInstance(snapshot["casa"], dict)
+        self.assertEqual(snapshot["casa"]["surface"], "casa")
+        self.assertIsNone(snapshot["madre"])
 
 
 if __name__ == "__main__":

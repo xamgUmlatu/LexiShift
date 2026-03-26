@@ -20,7 +20,10 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
 )
 from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
-from lexishift_core.lexicon.word_package import build_word_package  # noqa: E402
+from lexishift_core.lexicon.word_package import (  # noqa: E402
+    build_word_package,
+    normalize_word_package,
+)
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
@@ -177,13 +180,15 @@ def _build_pair_report_payload(
     *,
     case_count: int,
     runs: Sequence[SweepRun],
-    resources: Mapping[str, Optional[str]],
+    resources: Mapping[str, object],
+    word_package_snapshot: Mapping[str, object],
     include_case_results: bool,
 ) -> dict[str, object]:
     return {
         "case_count": int(case_count),
         "run_count": len(runs),
         "resources": dict(resources),
+        "word_package_snapshot": dict(word_package_snapshot),
         "best_run": runs[0].to_dict(include_case_results=True) if runs else None,
         "runs": [run.to_dict(include_case_results=include_case_results) for run in runs],
     }
@@ -356,6 +361,21 @@ def _build_store_word_packages(
             continue
         package_map[lemma] = item.word_package
     return package_map
+
+
+def _build_word_package_snapshot(
+    *,
+    targets: Sequence[str],
+    word_packages_by_target: Mapping[str, Mapping[str, object]],
+) -> dict[str, object]:
+    snapshot: dict[str, object] = {}
+    normalized_targets = sorted(
+        {str(target or "").strip() for target in targets if str(target or "").strip()}
+    )
+    for target in normalized_targets:
+        normalized_package = normalize_word_package(word_packages_by_target.get(target))
+        snapshot[target] = dict(normalized_package) if normalized_package is not None else None
+    return snapshot
 
 
 def _apply_case_word_package_overrides(
@@ -828,7 +848,8 @@ def main() -> None:
     }
 
     pair_runs: dict[str, list[SweepRun]] = {}
-    pair_resources: dict[str, dict[str, Optional[str]]] = {}
+    pair_resources: dict[str, dict[str, object]] = {}
+    pair_word_package_snapshots: dict[str, dict[str, object]] = {}
     for pair, cases in sorted(cases_by_pair.items()):
         capability = resolve_pair_capability(pair)
         if capability.rulegen_mode is None:
@@ -850,6 +871,11 @@ def main() -> None:
         targets = sorted(target_set)
         word_packages = _build_store_word_packages(store=store, pair=pair, targets=target_set)
         _apply_case_word_package_overrides(package_map=word_packages, pair=pair, cases=cases)
+        word_package_snapshot = _build_word_package_snapshot(
+            targets=targets,
+            word_packages_by_target=word_packages,
+        )
+        pair_word_package_snapshots[pair] = word_package_snapshot
 
         pair_run_list: list[SweepRun] = []
         for index, config in enumerate(sweep_configs, start=1):
@@ -924,6 +950,7 @@ def main() -> None:
             case_count=len(cases_by_pair.get(pair, ())),
             runs=runs,
             resources=pair_resources.get(pair, {}),
+            word_package_snapshot=pair_word_package_snapshots.get(pair, {}),
             include_case_results=args.include_case_results,
         )
 

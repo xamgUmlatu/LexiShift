@@ -675,7 +675,7 @@ Required portability work before the large PC-side sweep:
 
 2. benchmark input freezing
 - resource checksums are now recorded in benchmark artifacts alongside resolved paths
-- export the exact per-target `word_package` snapshot used by the run
+- the exact per-target `word_package` snapshot used by the run is now recorded under each pair in the benchmark artifact
 - avoid silently depending on whatever happens to be in the receiving machine's live SRS store
 
 3. sweep preset portability
@@ -695,6 +695,7 @@ Implemented low-friction cleanup:
 
 - benchmark JSON now mirrors pair-local `resources` under `pairs[pair]`
 - benchmark JSON now also records SHA-256 checksums for the resolved dictionary resources
+- benchmark JSON now records a per-pair `word_package_snapshot`, including explicit `null` entries for targets that had no package input
 - this does not change scoring behavior
 - it improves artifact readability immediately
 - it is the first small step toward richer per-pair resource snapshots later

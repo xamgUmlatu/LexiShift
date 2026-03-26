@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T00:57:34.037098+00:00",
+  "generated_at": "2026-03-26T01:03:30.710145+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
   "dataset_metadata": {
     "version": 2,
@@ -52,6 +52,287 @@
           "translation_dict_sha256": "sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464",
           "reverse_translation_dict_sha256": "sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7"
         }
+      },
+      "word_package_snapshot": {
+        "agua": null,
+        "amigo": null,
+        "amor": null,
+        "banco": null,
+        "camino": null,
+        "campo": null,
+        "capital": null,
+        "cargo": null,
+        "casa": null,
+        "caso": null,
+        "ciudad": null,
+        "crear": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "crear",
+          "reading": "crear",
+          "script_forms": {
+            "surface": "crear"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "v",
+          "pos_raw": "v",
+          "core_rank": 251.0,
+          "pmw": 6364.0,
+          "row_rank": 251.0,
+          "row_index": 26
+        },
+        "cuadro": null,
+        "cuenta": null,
+        "cura": null,
+        "derecho": null,
+        "dinero": null,
+        "escuela": null,
+        "ese": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "ese",
+          "reading": "ese",
+          "script_forms": {
+            "surface": "ese"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "d",
+          "pos_raw": "d",
+          "core_rank": 31.0,
+          "pmw": 51685.0,
+          "row_rank": 31.0,
+          "row_index": 4
+        },
+        "estilo": null,
+        "familia": null,
+        "firma": null,
+        "fondo": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "fondo",
+          "reading": "fondo",
+          "script_forms": {
+            "surface": "fondo"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "n",
+          "pos_raw": "n",
+          "core_rank": 361.0,
+          "pmw": 4614.0,
+          "row_rank": 361.0,
+          "row_index": 37
+        },
+        "hasta": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "hasta",
+          "reading": "hasta",
+          "script_forms": {
+            "surface": "hasta"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "e",
+          "pos_raw": "e",
+          "core_rank": 51.0,
+          "pmw": 26319.0,
+          "row_rank": 51.0,
+          "row_index": 6
+        },
+        "hora": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "hora",
+          "reading": "hora",
+          "script_forms": {
+            "surface": "hora"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "n",
+          "pos_raw": "n",
+          "core_rank": 171.0,
+          "pmw": 8983.0,
+          "row_rank": 171.0,
+          "row_index": 18
+        },
+        "lengua": null,
+        "libro": null,
+        "luz": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "luz",
+          "reading": "luz",
+          "script_forms": {
+            "surface": "luz"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "n",
+          "pos_raw": "n",
+          "core_rank": 311.0,
+          "pmw": 5365.0,
+          "row_rank": 311.0,
+          "row_index": 32
+        },
+        "madre": null,
+        "masa": null,
+        "medio": null,
+        "movimiento": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "movimiento",
+          "reading": "movimiento",
+          "script_forms": {
+            "surface": "movimiento"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "n",
+          "pos_raw": "n",
+          "core_rank": 301.0,
+          "pmw": 5515.0,
+          "row_rank": 301.0,
+          "row_index": 31
+        },
+        "mundo": null,
+        "ocurrir": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "ocurrir",
+          "reading": "ocurrir",
+          "script_forms": {
+            "surface": "ocurrir"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "v",
+          "pos_raw": "v",
+          "core_rank": 331.0,
+          "pmw": 4981.0,
+          "row_rank": 331.0,
+          "row_index": 34
+        },
+        "orden": null,
+        "padre": null,
+        "parte": null,
+        "planta": null,
+        "plaza": null,
+        "presentar": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "presentar",
+          "reading": "presentar",
+          "script_forms": {
+            "surface": "presentar"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "v",
+          "pos_raw": "v",
+          "core_rank": 211.0,
+          "pmw": 7483.0,
+          "row_rank": 211.0,
+          "row_index": 22
+        },
+        "punto": null,
+        "red": null,
+        "sacar": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "sacar",
+          "reading": "sacar",
+          "script_forms": {
+            "surface": "sacar"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "v",
+          "pos_raw": "v",
+          "core_rank": 341.0,
+          "pmw": 4836.0,
+          "row_rank": 341.0,
+          "row_index": 35
+        },
+        "según": {
+          "version": 1,
+          "language_tag": "es",
+          "surface": "según",
+          "reading": "según",
+          "script_forms": {
+            "surface": "según"
+          },
+          "source": {
+            "provider": "freq-es-cde",
+            "lemma_column": "lemma",
+            "pmw_column": "freq",
+            "pos_column": "pos",
+            "rank_column": "id"
+          },
+          "pos": "e",
+          "pos_raw": "e",
+          "core_rank": 201.0,
+          "pmw": 7810.0,
+          "row_rank": 201.0,
+          "row_index": 21
+        },
+        "trabajo": null,
+        "vida": null,
+        "vista": null,
+        "área": null
       },
       "best_run": {
         "pair": "en-es",

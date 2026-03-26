@@ -1,7 +1,7 @@
 # LexiShift TODOs
 
 Status: Active backlog
-Last updated: 2026-02-19
+Last updated: 2026-03-26
 
 This file is the consolidated TODO source of truth. It replaces the large TODO and plan sections that previously lived in the root `README.md`.
 
@@ -161,7 +161,6 @@ Acceptance criteria:
 - Add multi-source agreement bonus:
   - increase confidence when a candidate mapping is supported by multiple independent resources.
 - Improve benchmark portability before the large broad sweep:
-  - freeze/export the per-target `word_package` snapshot used by a run instead of depending on the live local SRS store,
   - define named sweep presets in JSON/TOML so the same experiment can be run unchanged on another machine,
   - add a portable experiment bundle export/import flow for cross-machine benchmark runs.
 
