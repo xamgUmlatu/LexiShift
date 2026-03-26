@@ -41,15 +41,16 @@ Canonical benchmark methodology:
 
 Current canonical `en-es` benchmark result:
 
-- `Top1`: `90.74%`
-- `Top3`: `98.15%`
+- `Top1`: `91.23%`
+- `Top3`: `98.25%`
 - `ForbidTop1`: `0.00%`
-- `AvgRules`: `2.89`
-- objective: `132.296`
+- `ForbidAny`: `3.51%`
+- `AvgRules`: `2.98`
+- objective: `129.474`
 
 Current best config label:
 
-- `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10`
+- `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
 
 Current triage targets:
 
@@ -154,9 +155,9 @@ python3 scripts/testing/rulegen_benchmark_bundle.py run \
 
 Expected replay result:
 
-- `Top1`: `90.74%`
-- `Top3`: `98.15%`
-- objective: `132.296`
+- `Top1`: `91.23%`
+- `Top3`: `98.25%`
+- objective: `129.474`
 
 If the replay does not match those numbers exactly, stop and inspect:
 
@@ -167,7 +168,7 @@ If the replay does not match those numbers exactly, stop and inspect:
 
 Important note:
 
-- because the benchmark dataset has now been expanded from `48` to `54` `en-es` cases, refresh/export the portable bundle again before the broad PC sweep so replay expectations match the current canonical suite
+- because the benchmark dataset has now been expanded from `48` to `57` `en-es` cases, refresh/export the portable bundle again before the broad PC sweep so replay expectations match the current canonical suite
 
 ## Gate And Triage On The PC
 

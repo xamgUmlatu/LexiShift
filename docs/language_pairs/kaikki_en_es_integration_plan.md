@@ -655,28 +655,32 @@ Provenance / competition penalty:
     so this signal can be inspected directly per candidate
 - canonical benchmark outcome:
   - expanded canonical `en-es` sweep now runs `kprov` values `0.0`, `0.1`, and `0.2`
-  - after the first focused benchmark-dataset expansion, the canonical suite now covers `54` `en-es` cases
+  - after the second focused benchmark-dataset expansion, the canonical suite now covers `57` `en-es` cases
   - current best run is now:
     - `rev=on`
     - `xamb=off`
     - `xspec=off`
-    - `kdem=off`
+    - `kdem=on`
     - `kprov=0.10`
   - summary metrics:
-    - `Top1 90.74%`
-    - `Top3 98.15%`
+    - `Top1 91.23%`
+    - `Top3 98.25%`
     - `ForbidTop1 0.00%`
-    - `AvgRules 2.89`
-    - objective `132.296`
+    - `ForbidAny 3.51%`
+    - `AvgRules 2.98`
+    - objective `129.474`
 - current interpretation:
   - this is the first provenance-based scoring signal that is both implemented and actually selected by the
     canonical best run
-  - the gain is modest but real:
-    - objective improved while holding the triage set flat through the first focused dataset expansion
-    - metric diversity in the canonical sweep increased from `4` unique vectors to `6`
+  - after the second focused dataset expansion, the benchmark now surfaces stronger red cases and the best run also
+    turns on live Kaikki demotion
+  - metric diversity in the canonical sweep increased from `6` unique vectors to `10`
   - this supports the broader roadmap direction that provenance / competition metadata is worth scoring
     before adding more speculative sources
-  - the remaining open questions are about richer provenance-based signals, not whether the current seam exists
+  - the remaining open questions are now more specific:
+    - suppress forbidden slang-side candidates such as `acabar -> cum` and `coger -> fuck`
+    - fix `cuadro`
+    - improve phrase-policy on `sacar`
 
 ### Phase D. Admission-Side Grammar Filtering
 

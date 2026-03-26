@@ -29,12 +29,13 @@ Current focus:
 
 Current canonical `en-es` benchmark:
 
-- `Top1`: `90.74%`
-- `Top3`: `98.15%`
+- `Top1`: `91.23%`
+- `Top3`: `98.25%`
 - `ForbidTop1`: `0.00%`
-- `AvgRules`: `2.89`
+- `ForbidAny`: `3.51%`
+- `AvgRules`: `2.98`
 - best config:
-  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10`
+  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
 
 Current remaining triage targets:
 
@@ -43,6 +44,8 @@ Current remaining triage targets:
 - `cuenta`
 - `red`
 - `sacar`
+- `acabar`
+- `coger`
 
 Current infrastructure already in place:
 
@@ -215,6 +218,10 @@ Why this phase is before the broad sweep:
   - `quitar`
   - `meter`
   - `salir`
+- second focused red-case batch is now in:
+  - `subir`
+  - `acabar`
+  - `coger`
 
 ## Phase 2.5: Low-Hanging Signal Exposure
 

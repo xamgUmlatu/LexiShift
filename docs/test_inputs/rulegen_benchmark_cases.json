@@ -996,6 +996,75 @@
       "notes": "High-frequency phrase-sensitive motion verb; keep leave/go out/come out ahead of quit-like false-friend drift."
     },
     {
+      "case_id": "en-es:subir",
+      "pair": "en-es",
+      "target": "subir",
+      "tier": "smoke",
+      "expected_any": [
+        "climb",
+        "go up",
+        "rise",
+        "increase"
+      ],
+      "expected_top1_any": [
+        "climb",
+        "go up",
+        "rise"
+      ],
+      "forbidden_top1": [
+        "upload"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with clear technical drift risk; upload is a real sense but should not dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:acabar",
+      "pair": "en-es",
+      "target": "acabar",
+      "tier": "hard",
+      "expected_any": [
+        "finish",
+        "end"
+      ],
+      "expected_top1_any": [
+        "finish",
+        "end"
+      ],
+      "forbidden_top1": [
+        "cum",
+        "orgasm"
+      ],
+      "forbidden_any": [
+        "cum",
+        "orgasm"
+      ],
+      "notes": "High-frequency verb with an undesirable sexual-slang side sense; keep finish/end and suppress the slang candidate family."
+    },
+    {
+      "case_id": "en-es:coger",
+      "pair": "en-es",
+      "target": "coger",
+      "tier": "hard",
+      "expected_any": [
+        "take",
+        "catch",
+        "grab"
+      ],
+      "expected_top1_any": [
+        "take",
+        "catch"
+      ],
+      "forbidden_top1": [
+        "fuck",
+        "bang"
+      ],
+      "forbidden_any": [
+        "fuck",
+        "bang"
+      ],
+      "notes": "Common verb with strong regional/slang leakage; take/catch should survive while sexual slang senses stay out of the candidate set."
+    },
+    {
       "case_id": "es-en:house",
       "pair": "es-en",
       "target": "house",
