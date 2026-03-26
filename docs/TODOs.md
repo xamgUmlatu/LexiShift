@@ -149,6 +149,10 @@ Acceptance criteria:
   - implementation spec: `docs/rulegen/reverse_check_scoring_phase1.md`
 - Add sense-risk penalties for ambiguous/specialized senses:
   - use lexical cues/metadata to demote risky polysemic or niche senses.
+  - Kaikki/Wiktionary follow-up for `en-es`: use topics/categories/tags to demote domain-specific lexical senses after structural candidate recovery is fixed first (for example `presentar -> table`, `plaza -> bullring`).
+- Add a formal Kaikki/Wiktionary gloss-format investigation and robust normalization/splitting pass for `en-es`:
+  - classify real raw gloss structures before adding more pair-specific heuristics,
+  - preserve sense order and metadata while recovering broad early lexical candidates such as `to happen, to occur` and `part; section; portion; share`.
 - Add runtime apply-time polysemy safeguards (pair-aware):
   - abstain from replacement for high-risk ambiguous matches when confidence/sense margin is weak,
   - optional local-context heuristics around the matched source token,

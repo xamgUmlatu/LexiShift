@@ -184,6 +184,16 @@ class TestPosNormalization(unittest.TestCase):
         self.assertEqual(noun.bucket, "noun")
         self.assertTrue(noun.mapped)
 
+        adverb = normalize_pos(
+            "adv",
+            language_pair="en-es",
+            source_provider="wiktionary-es-en",
+            source_kind="dictionary",
+        )
+        self.assertEqual(adverb.canonical, "adverb")
+        self.assertEqual(adverb.bucket, "adverb")
+        self.assertTrue(adverb.mapped)
+
     def test_empty_and_bucket_helper(self) -> None:
         empty = normalize_pos(
             "",

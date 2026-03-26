@@ -1,7 +1,7 @@
 {
-  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_reverse_latest.json",
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_kaikki_noreverse_current_latest.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 10,
+  "failing_or_review_count": 12,
   "items": [
     {
       "pair": "en-es",
@@ -48,7 +48,9 @@
       ],
       "top1_source": "square",
       "top3_sources": [
-        "square"
+        "square",
+        "rectangle",
+        "frame"
       ],
       "expected_matches": [],
       "forbidden_matches": [],
@@ -58,13 +60,87 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: square",
-          "Observed top3 sources: square"
+          "Observed top3 sources: square, rectangle, frame"
         ],
         "candidate_forbidden_top1": [
           "square"
         ],
         "candidate_expected_any": [
-          "square"
+          "square",
+          "rectangle",
+          "frame"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuenta",
+      "target": "cuenta",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "operation",
+      "top3_sources": [
+        "operation",
+        "bill",
+        "tab"
+      ],
+      "expected_matches": [
+        "bill"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: operation",
+          "Observed top3 sources: operation, bill, tab"
+        ],
+        "candidate_forbidden_top1": [
+          "operation"
+        ],
+        "candidate_expected_any": [
+          "operation",
+          "bill",
+          "tab"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cargo",
+      "target": "cargo",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "debit",
+      "top3_sources": [
+        "debit",
+        "charge",
+        "higher-up"
+      ],
+      "expected_matches": [
+        "charge"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: debit",
+          "Observed top3 sources: debit, charge, higher-up"
+        ],
+        "candidate_forbidden_top1": [
+          "debit"
+        ],
+        "candidate_expected_any": [
+          "debit",
+          "charge",
+          "higher-up"
         ]
       }
     },
@@ -193,11 +269,11 @@
       "reasons": [
         "top1_not_in_expected_set"
       ],
-      "top1_source": "draw",
+      "top1_source": "take",
       "top3_sources": [
-        "draw",
+        "take",
         "lift",
-        "make"
+        "draw"
       ],
       "expected_matches": [
         "draw"
@@ -208,16 +284,16 @@
         "priority": "medium",
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
-          "Observed top1 source: draw",
-          "Observed top3 sources: draw, lift, make"
+          "Observed top1 source: take",
+          "Observed top3 sources: take, lift, draw"
         ],
         "candidate_forbidden_top1": [
-          "draw"
+          "take"
         ],
         "candidate_expected_any": [
-          "draw",
+          "take",
           "lift",
-          "make"
+          "draw"
         ]
       }
     },

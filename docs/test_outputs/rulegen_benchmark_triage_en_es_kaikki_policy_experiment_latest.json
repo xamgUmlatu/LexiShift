@@ -1,5 +1,5 @@
 {
-  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json",
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_kaikki_policy_experiment_latest.json",
   "pairs_processed": 1,
   "failing_or_review_count": 5,
   "items": [
@@ -14,8 +14,8 @@
       "top1_source": "straight",
       "top3_sources": [
         "straight",
-        "right",
-        "upright"
+        "upright",
+        "right"
       ],
       "expected_matches": [
         "straight",
@@ -28,15 +28,15 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: straight",
-          "Observed top3 sources: straight, right, upright"
+          "Observed top3 sources: straight, upright, right"
         ],
         "candidate_forbidden_top1": [
           "straight"
         ],
         "candidate_expected_any": [
           "straight",
-          "right",
-          "upright"
+          "upright",
+          "right"
         ]
       }
     },
@@ -85,11 +85,11 @@
       "top1_source": "count",
       "top3_sources": [
         "count",
-        "account",
-        "bead"
+        "tally",
+        "bill"
       ],
       "expected_matches": [
-        "account"
+        "bill"
       ],
       "forbidden_matches": [],
       "suggested_case_patch": {
@@ -98,15 +98,15 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: count",
-          "Observed top3 sources: count, account, bead"
+          "Observed top3 sources: count, tally, bill"
         ],
         "candidate_forbidden_top1": [
           "count"
         ],
         "candidate_expected_any": [
           "count",
-          "account",
-          "bead"
+          "tally",
+          "bill"
         ]
       }
     },
@@ -121,12 +121,11 @@
       "top1_source": "web",
       "top3_sources": [
         "web",
-        "net",
-        "network"
+        "mesh",
+        "net"
       ],
       "expected_matches": [
-        "net",
-        "network"
+        "net"
       ],
       "forbidden_matches": [],
       "suggested_case_patch": {
@@ -135,15 +134,15 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: web",
-          "Observed top3 sources: web, net, network"
+          "Observed top3 sources: web, mesh, net"
         ],
         "candidate_forbidden_top1": [
           "web"
         ],
         "candidate_expected_any": [
           "web",
-          "net",
-          "network"
+          "mesh",
+          "net"
         ]
       }
     },
@@ -151,35 +150,33 @@
       "pair": "en-es",
       "case_id": "en-es:sacar",
       "target": "sacar",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "expected_candidate_missing_from_top3"
       ],
-      "top1_source": "withdraw",
+      "top1_source": "take",
       "top3_sources": [
+        "take",
         "withdraw",
-        "draw",
-        "unsheathe"
+        "expel"
       ],
-      "expected_matches": [
-        "draw"
-      ],
+      "expected_matches": [],
       "forbidden_matches": [],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
-          "Observed top1 source: withdraw",
-          "Observed top3 sources: withdraw, draw, unsheathe"
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: take",
+          "Observed top3 sources: take, withdraw, expel"
         ],
         "candidate_forbidden_top1": [
-          "withdraw"
+          "take"
         ],
         "candidate_expected_any": [
+          "take",
           "withdraw",
-          "draw",
-          "unsheathe"
+          "expel"
         ]
       }
     }

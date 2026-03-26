@@ -112,6 +112,7 @@ class RuleGenerationConfig:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
+    interleave_definition_groups: bool = False
     semantic_demotion_scale: float = 1.0
     base_priority: int = 0
     case_policy: str = "match"
@@ -146,6 +147,7 @@ DEFAULT_POS_COMPATIBILITY_CLASSES: Mapping[str, str] = {
 REVERSE_HYGIENE_MIN_GROUP_COUNT = 3
 REVERSE_HYGIENE_STRONG_TOP_STRENGTH = 0.75
 REVERSE_HYGIENE_WEAK_GROUP_STRENGTH = 0.20
+REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL = 12
 
 
 class RuleGenerationPipeline:
@@ -209,6 +211,7 @@ class RuleGenerationPipeline:
                 limited_results = self._limit_results_per_target(
                     limited_results,
                     max_definitions_per_target=max_definitions,
+                    interleave_definition_groups=bool(config.interleave_definition_groups),
                     semantic_demotion_scale=semantic_demotion_scale,
                 )
         max_rules = config.max_rules_per_target
@@ -301,6 +304,7 @@ class RuleGenerationPipeline:
         results: Sequence[RuleGenerationResult],
         *,
         max_definitions_per_target: int,
+        interleave_definition_groups: bool,
         semantic_demotion_scale: float,
     ) -> list[RuleGenerationResult]:
         grouped: OrderedDict[str, OrderedDict[str, list[RuleGenerationResult]]] = OrderedDict()
@@ -327,17 +331,45 @@ class RuleGenerationPipeline:
                 ranked_definitions,
                 semantic_demotion_scale=semantic_demotion_scale,
             )
-            for definition_group in ranked_definitions[:max_definitions_per_target]:
-                limited.extend(
-                    sorted(
-                        definition_group,
-                        key=lambda result: self._ranking_sort_key(
-                            result,
-                            semantic_demotion_scale=semantic_demotion_scale,
-                        ),
-                    )
+            selected_groups = [
+                sorted(
+                    definition_group,
+                    key=lambda result: self._ranking_sort_key(
+                        result,
+                        semantic_demotion_scale=semantic_demotion_scale,
+                    ),
                 )
+                for definition_group in ranked_definitions[:max_definitions_per_target]
+            ]
+            limited.extend(
+                self._flatten_definition_groups(
+                    selected_groups,
+                    interleave_groups=interleave_definition_groups,
+                )
+            )
         return limited
+
+    def _flatten_definition_groups(
+        self,
+        definition_groups: Sequence[Sequence[RuleGenerationResult]],
+        *,
+        interleave_groups: bool,
+    ) -> list[RuleGenerationResult]:
+        if not interleave_groups:
+            ordered_results: list[RuleGenerationResult] = []
+            for group in definition_groups:
+                ordered_results.extend(group)
+            return ordered_results
+        if not definition_groups:
+            return []
+        max_group_size = max(len(group) for group in definition_groups)
+        interleaved_results: list[RuleGenerationResult] = []
+        for item_index in range(max_group_size):
+            for group in definition_groups:
+                if item_index >= len(group):
+                    continue
+                interleaved_results.append(group[item_index])
+        return interleaved_results
 
     def _apply_reverse_definition_hygiene(
         self,
@@ -355,6 +387,8 @@ class RuleGenerationPipeline:
             semantic_demotion_scale=semantic_demotion_scale,
         )
         if top_strength is None or top_strength < REVERSE_HYGIENE_STRONG_TOP_STRENGTH:
+            return list(ranked_groups)
+        if not self._definition_group_allows_reverse_hygiene_anchor(ranked_groups[0]):
             return list(ranked_groups)
         filtered: list[Sequence[RuleGenerationResult]] = [ranked_groups[0]]
         for group in ranked_groups[1:]:
@@ -412,6 +446,25 @@ class RuleGenerationPipeline:
             context.metadata,
             config=reverse_config,
         )
+
+    def _definition_group_allows_reverse_hygiene_anchor(
+        self,
+        results: Sequence[RuleGenerationResult],
+    ) -> bool:
+        if not results:
+            return False
+        metadata = results[0].candidate.metadata
+        if not isinstance(metadata, Mapping):
+            return True
+        if metadata.get("reverse_check_hit") is not True:
+            return True
+        rank = _extract_optional_non_negative_int(metadata.get("reverse_check_rank"))
+        if rank != 0:
+            return True
+        total = _extract_optional_non_negative_int(metadata.get("reverse_check_total"))
+        if total is None:
+            return True
+        return total <= REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL
 
     def _ranking_sort_key(
         self,
@@ -746,6 +799,23 @@ def _normalize_semantic_demotion_scale(value: object) -> float:
         except ValueError:
             return 1.0
     return 1.0
+
+
+def _extract_optional_non_negative_int(value: object) -> Optional[int]:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value if value >= 0 else None
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return None
+        try:
+            parsed = int(text)
+        except ValueError:
+            return None
+        return parsed if parsed >= 0 else None
+    return None
 
 
 def _clamp(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

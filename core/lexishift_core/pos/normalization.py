@@ -119,6 +119,7 @@ _GENERIC_SUBSTRING_RULES = (
     ("adj", CANONICAL_POS_ADJECTIVE, "generic_substring:adj"),
     ("verb", CANONICAL_POS_VERB, "generic_substring:verb"),
     ("adverb", CANONICAL_POS_ADVERB, "generic_substring:adverb"),
+    ("adv", CANONICAL_POS_ADVERB, "generic_substring:adv"),
     ("pronoun", CANONICAL_POS_PRONOUN, "generic_substring:pronoun"),
     ("pronomen", CANONICAL_POS_PRONOUN, "generic_substring:pronomen"),
     ("pron", CANONICAL_POS_PRONOUN, "generic_substring:pron"),

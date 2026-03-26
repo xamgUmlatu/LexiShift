@@ -91,6 +91,9 @@ def extract_dictionary_order_index(metadata: Mapping[str, object]) -> Optional[i
 
 
 def resolve_dictionary_order_bucket_key(candidate: CandidateRankingContext) -> str:
+    bucket_override = str(candidate.metadata.get("definition_bucket_key") or "").strip().lower()
+    if bucket_override:
+        return bucket_override
     gloss_index = extract_dictionary_order_index(candidate.metadata)
     if gloss_index is not None:
         return f"gloss:{gloss_index}"

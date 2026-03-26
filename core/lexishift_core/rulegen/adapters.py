@@ -9,7 +9,11 @@ from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
-from lexishift_core.rulegen.pairs.en_es import EnEsRulegenConfig, generate_en_es_results
+from lexishift_core.rulegen.pairs.en_es import (
+    EnEsKaikkiPolicyConfig,
+    EnEsRulegenConfig,
+    generate_en_es_results,
+)
 from lexishift_core.rulegen.pairs.es_en import EsEnRulegenConfig, generate_es_en_results
 from lexishift_core.rulegen.pairs.en_ja import EnJaRulegenConfig, generate_en_ja_results
 from lexishift_core.scoring.weighting import GlossDecay
@@ -33,6 +37,8 @@ class RulegenAdapterRequest:
     freedict_de_en_path: Optional[Path] = None
     freedict_reverse_path: Optional[Path] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
+    kaikki_policy_live_demotion: bool = False
+    kaikki_policy_risk_families: Optional[Sequence[str]] = None
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -91,6 +97,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     source_dict_id = "freedict_es_en"
     dictionary_pos_source_profile = "freedict"
     reverse_source_dict_id = "freedict_en_es"
+    default_kaikki_policy = EnEsKaikkiPolicyConfig()
     if _is_kaikki_dictionary(request.freedict_de_en_path):
         source_dict_id = "wiktionary_es_en"
         dictionary_pos_source_profile = "wiktionary"
@@ -113,6 +120,13 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
         dictionary_pos_source_profile=dictionary_pos_source_profile,
+        kaikki_policy=EnEsKaikkiPolicyConfig(
+            enable_shadow_metadata=True,
+            enable_live_demotion=bool(request.kaikki_policy_live_demotion),
+            risk_families=tuple(
+                request.kaikki_policy_risk_families or default_kaikki_policy.risk_families
+            ),
+        ),
     )
     results = generate_en_es_results(request.targets, config=config)
     return [result.rule for result in results]

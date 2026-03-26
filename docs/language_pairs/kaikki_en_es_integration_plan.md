@@ -2,7 +2,7 @@
 
 Status: draft implementation contract
 Role: working design note
-Last updated: 2026-03-22
+Last updated: 2026-03-26
 Source-of-truth: current implementation still lives in code; this note records the intended contract for the first Kaikki-backed `en-es` rollout.
 
 ## Scope
@@ -150,8 +150,469 @@ Implementation consequence:
   - POS normalization
   - `en-es` regression coverage for known gaps such as `movimiento`
 
+## Current Measured Status
+
+- Current comparable `en-es` benchmark lanes on the Kaikki artifacts are:
+  - forward Kaikki, no reverse-check: `Top1 75.00%`, `Top3 85.42%`, `ForbidTop1 0.00%`
+  - forward Kaikki + FreeDict reverse-check: `Top1 79.17%`, `Top3 85.42%`, `ForbidTop1 0.00%`
+  - forward Kaikki + Kaikki reverse-check: `Top1 79.17%`, `Top3 85.42%`, `ForbidTop1 0.00%`
+- Current conclusion:
+  - reverse-check is helping
+  - the current reverse signal is not the main remaining blocker
+  - the dominant remaining blocker is forward-side sense policy for Kaikki-backed `en-es`
+
+Observed reverse-check wins:
+
+- `cargo`: reverse-check moves top1 from `debit` to `charge`
+- `cuenta`: reverse-check moves top1 from `operation` to `account`
+- `sacar`: reverse-check moves top1 from `take` to `draw`, but the case still needs review
+
+Observed remaining failure classes:
+
+- function-word / grammar-heavy targets:
+  - `ese -> hello`
+  - `hasta -> even`
+  - `según -> no_rules_emitted`
+- noisy sense selection:
+  - `presentar -> table`
+  - `plaza -> position` or `bullring`
+  - `parte -> side` / `behalf`
+
+## Diagnosed Failure Mechanism
+
+The current `ese` failure is not a Kaikki conversion-order bug.
+
+Verified Kaikki forward ordering for `ese`:
+
+1. noun: `The name of the Latin script letter S/s.`
+2. determiner: `that`
+3. interjection: `hello`
+
+Current runtime behavior:
+
+- the noun gloss is dropped by the single-word filter because it is multiword
+- the determiner gloss `that` is dropped by the generic English stopword filter
+- the interjection gloss `hello` survives, so it becomes top1
+
+Implication:
+
+- current `en-es` filtering is too generic for function-word / grammar-adjacent targets
+- current rulegen is not yet making use of Kaikki’s richer sense metadata even though the converter preserves it
+
+## Metadata Availability Decision
+
+Kaikki already preserves the metadata needed for the next rulegen slice.
+
+Forward artifact (`wiktionary-es-en.sqlite`) already preserves:
+
+- `entry_meta.pos`
+- `entry_meta.pos_title`
+- `entry_meta.tags_json`
+- `entry_meta.categories_json`
+- `sense_glosses.tags_json`
+- `sense_glosses.topics_json`
+- `sense_glosses.categories_json`
+- `sense_glosses.form_of_json`
+- `sense_glosses.alt_of_json`
+
+Reverse artifact (`wiktionary-en-es.sqlite`) already preserves:
+
+- normalized `entries`
+- `translation_meta.sense_text`
+- `translation_meta.english_text`
+- `translation_meta.tags_json`
+
+Current gap:
+
+- runtime loader / candidate source still treats the Kaikki artifact mostly like FreeDict-compatible `translation + pos`
+- richer Kaikki qualifiers such as `Mexico`, `informal`, `demonstrative`, and translation-box sense text are not yet consumed by production `en-es` rulegen
+
+## SRS Scope Decision
+
+- LexiShift SRS should remain vocabulary-first, not grammar-first.
+- Very grammar-heavy targets may be filtered, deprioritized, or excluded from the admission/publication path.
+- This should not be used as an excuse to leave rulegen in a broken state for such targets while they are still present in data, tests, or existing sets.
+
+Practical interpretation:
+
+- fix `en-es` rulegen first so absurd outputs like `ese -> hello` do not win
+- then evaluate an admission-side policy for grammar-heavy targets such as:
+  - determiners
+  - conjunctions
+  - prepositions
+  - particles
+  - pronouns used primarily as grammar carriers rather than lexical vocabulary
+
+## Completed Slice: Function-Word Repair
+
+The function-word / grammar-adjacent repair slice is now implemented.
+
+Implemented changes:
+
+- POS-aware stopword bypass for grammatical senses in `en-es`
+- POS-aware short multiword support for grammatical senses
+- interjection-shadow suppression for cases like `ese`
+- first-pass Kaikki register/region demotion support
+- Kaikki auxiliary metadata plumbing into runtime candidates
+
+Observed benchmark outcomes after this slice:
+
+- `ese -> that`
+- `hasta -> until`
+- `según -> according to`
+- these cases no longer appear in the current triage set
+
+This slice should be treated as complete and stable unless later tuning regresses it.
+
+## Remaining Failure Analysis
+
+The remaining `en-es` problems are now mostly lexical candidate-shaping and lexical polysemy, not function-word handling.
+
+Direct raw Kaikki examples from the English-edition dump:
+
+- `ocurrir`
+  - first sense: `to happen, to occur`
+  - second sense: `to come up with`
+  - implication: this is not a source-coverage failure; current rulegen is losing the first sense structurally
+- `presentar`
+  - early broad senses: `to present, to submit`, `to introduce`, `to show`
+  - later niche/domain senses: `to file` (law), `to table` (government)
+  - implication: broad earlier senses are being lost while the later narrow sense `table` survives
+- `plaza`
+  - early broad sense: `plaza, town square`
+  - later senses: `position`, `bullring`, `mall`
+  - implication: unsplit broad lexical glosses are being lost; later single-token survivors win
+- `parte`
+  - early broad sense: `part; section; portion; share; piece; bit; cut; proportion`
+  - later senses: `side`, `party`, `behalf`
+  - implication: semicolon-delimited broad lexical senses are being lost while narrower late senses survive
+- `cuadro`
+  - early senses: `square`, `rectangle`, `picture`, `frame`
+  - later senses: `chart`, `graph`, organizational senses, ellipsis senses
+  - implication: this is partly candidate-shaping and partly lexical ranking / benchmark-label review
+
+## Next Phased Plan
+
+The next work should be sequenced deliberately. Do not bundle all remaining ideas into one large tuning pass.
+
+### Phase A. Dictionary Entry Format Investigation And Robust Normalization
+
+Priority:
+
+- highest
+
+Goal:
+
+- build a formally robust solution for the variety of Kaikki/Wiktionary gloss-list formats instead of adding ad hoc word-specific fixes
+
+Why this is first:
+
+- `ocurrir`, `presentar`, `plaza`, and `parte` all show that broad early senses exist in Kaikki
+- those senses are currently being lost because the current gloss sanitization and split logic is too narrow
+- no amount of scoring or reverse-check tuning can fix candidates that never survive extraction
+
+Scope of investigation:
+
+- inventory the real gloss formats currently seen in Kaikki `en-es` for high-value Spanish entries
+- classify the structural patterns, especially:
+  - repeated infinitive lists such as `to happen, to occur`
+  - comma-separated lexical alias lists such as `plaza, town square`
+  - semicolon-delimited lexical lists such as `part; section; portion; share`
+  - mixed parenthetical glosses such as `to introduce (someone), to acquaint`
+  - domain-marked glosses that should stay grouped instead of being split too aggressively
+- document which patterns should:
+  - stay intact
+  - split into multiple candidates
+  - split only under specific POS or punctuation conditions
+
+Design constraints:
+
+- preserve raw Kaikki sense order
+- preserve a stable sub-order within a split gloss
+- preserve sense metadata on every emitted fragment
+- avoid exploding candidate count through naive splitting
+- avoid breaking the already-repaired function-word behavior
+
+Expected implementation direction:
+
+- replace the current narrow split heuristic in `_expand_en_es_gloss_variants()` with a more formal normalizer/splitter
+- keep fragment generation deterministic and testable
+- add focused fixtures for each known gloss-structure class before broad benchmark reruns
+
+Expected case impact:
+
+- `ocurrir` should emit `happen` and/or `occur`
+- `presentar` should retain broad candidates such as `present`, `submit`, `introduce`
+- `plaza` should retain `plaza` and/or `town square`
+- `parte` should retain `part`, `section`, `portion`, `share`, `piece`
+
+Acceptance criteria for Phase A:
+
+- no-rule failure for `ocurrir` is eliminated
+- broad early lexical candidates appear in probe output for `presentar`, `plaza`, and `parte`
+- function-word fixes for `ese`, `hasta`, and `según` remain intact
+
+Phase A implementation status:
+
+- implemented
+
+Observed raw-format findings from the bounded Kaikki investigation:
+
+- sampled first `25,000` Spanish records from the English-edition raw dump
+- observed counts in that bounded sample:
+  - comma-bearing glosses: `6,372`
+  - parenthetical + comma glosses: `2,042`
+  - verb comma lists beginning with `to `: `1,785`
+  - semicolon-bearing glosses: `1,321`
+- representative observed patterns:
+  - verb lists: `to happen, to occur`, `to generate, to create, to produce, to cause`
+  - lexical alias lists: `plaza, town square`, `foot, base`, `free, without charge`
+  - semicolon lexical lists: `part; section; portion; share`
+  - mixed parenthetical lists: `to introduce (someone), to acquaint`
+
+Implemented Phase A behavior:
+
+- top-level delimiter splitting now respects parentheses/brackets/braces
+- semicolon-delimited gloss lists are recovered as ordered fragment candidates
+- comma-delimited verb gloss lists are recovered when they behave like real infinitive lists
+- short lexical alias lists are recovered without enabling uncontrolled comma splitting
+- inline parenthetical gloss annotations are stripped before shape filtering
+- fragment-level metadata is preserved on emitted candidate records for later diagnostics/ranking work
+
+Observed benchmark outcomes after Phase A:
+
+- canonical `en-es` benchmark improved to:
+  - `Top1 89.58%`
+  - `Top3 93.75%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+- triage count dropped from `9` to `5`
+
+Observed case outcomes after Phase A:
+
+- fixed:
+  - `ocurrir -> happen / occur`
+  - `presentar -> present / submit / introduce`
+  - `plaza -> plaza`
+  - `parte -> part / section / portion`
+- preserved from previous slice:
+  - `ese -> that`
+  - `hasta -> until`
+  - `según -> according to`
+- still remaining:
+  - `cuadro -> square / rectangle / frame`
+  - `cuenta -> count / tally / operation`
+  - `sacar -> take / withdraw / expel`
+  - review-class cases such as `derecho` and `red`
+
+Conclusion after Phase A:
+
+- structural candidate recovery is now materially improved and should be treated as implemented
+- the next blocker is no longer “Kaikki lacks the word” or “the gloss format prevented emission”
+- the next blocker is ranking among surviving lexical candidates, which is the start of Phase B / Phase C territory
+
+### Phase B. Earlier-Sense-Skipped Suspicion Signal
+
+Priority:
+
+- medium, after Phase A
+
+Goal:
+
+- demote late survivors when earlier broader senses existed but were structurally lost or suppressed
+
+Motivation:
+
+- this captures the general failure shape behind `ese`
+- it is also relevant for lexical cases where a later narrow sense wins only because earlier broad senses were not preserved cleanly
+
+Expected direction:
+
+- record whether earlier senses were skipped for structural reasons
+- treat a surviving late sense as suspicious when:
+  - all earlier senses were skipped or collapsed away
+  - the surviving sense is materially later in sense order
+  - the surviving sense is tagged as informal, region-limited, interjectional, or otherwise specialized
+
+This should remain a second-pass ranking signal, not a substitute for Phase A candidate recovery.
+
+Phase B architecture status:
+
+- objective provenance plumbing is now implemented
+- ranking/demotion behavior for this phase is still intentionally deferred
+
+Implemented objective data-flow:
+
+- every generated `en-es` candidate now carries:
+  - raw dictionary metadata under `dictionary_record`
+  - normalized Kaikki helper views under `dictionary_record_views.kaikki`
+  - fragment-level gloss provenance under `gloss_provenance`
+  - sense-level provenance under `sense_provenance`
+  - target-level inventory/provenance under `target_provenance`
+- gloss provenance now preserves:
+  - raw gloss text
+  - exact split-fragment source text
+  - emitted fragment text before later candidate normalizers
+  - fragment index/count/strategy/separator
+  - normalization operations such as inline-annotation stripping
+- target provenance now preserves objective inventory facts such as:
+  - current sense ordinal/position
+  - current sense candidate count
+  - earlier sense count
+  - surviving sense ordinals
+  - surviving normalized dictionary POS canonicals
+
+Important boundary:
+
+- this slice does not yet assign suspicion penalties
+- it only makes the necessary evidence available so a later ranking slice can do so explicitly and testably
+
+Observed validation after landing this architecture:
+
+- canonical `en-es` benchmark remained at:
+  - `Top1 89.58%`
+  - `Top3 93.75%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+- triage count remained `5`
+- interpretation:
+  - Phase B architecture is compatible with current behavior
+  - any later movement in ranking can be attributed to the future policy layer rather than hidden data-flow changes
+
+### Phase C. Kaikki Metadata-Aware Lexical Sense-Risk Demotion
+
+Priority:
+
+- medium/high, but explicitly deferred until after Phase A
+
+Goal:
+
+- use Kaikki topics/categories/tags to demote specialized domain senses when a broader everyday sense exists
+
+Examples:
+
+- `presentar -> table` should be demoted because it is government-specific
+- `plaza -> bullring` should be demoted because it is entertainment/lifestyle-specific
+- legal or technical side senses should not outrank broad everyday senses without strong support
+
+Important decision:
+
+- this is a real improvement path, but it is more difficult than the structural candidate-recovery work
+- it should therefore remain a deliberate later slice, not be mixed into the Phase A investigation
+
+Phase C architecture status:
+
+- metadata normalization plumbing is now implemented
+- shadow policy scaffolding is now implemented
+- actual metadata-driven lexical demotion is still intentionally deferred
+
+Implemented objective data-flow:
+
+- Kaikki candidate metadata now exposes a normalized helper view with:
+  - `marker_fields`
+  - `prefixed_marker_fields`
+  - `combined_markers`
+  - `combined_prefixed_markers`
+  - `text_fields`
+  - `relation_fields`
+  - `combined_relations`
+  - `family_fields`
+  - `combined_families`
+- this keeps raw source metadata available while also exposing normalized views for later rulegen needs
+- the view is designed so later ranking code can choose between:
+  - raw strings
+  - canonical normalized markers
+  - coarse prefixed marker families
+  - relation/text views
+- every generated `en-es` candidate now also carries `kaikki_policy_shadow`, which records:
+  - configured risky families for the current run
+  - matched family hits for the candidate
+  - whether competition was evaluated against same-canonical or all-target candidates
+  - whether a cleaner competing candidate exists
+  - whether the current candidate would be demoted if live policy were enabled
+  - the exact reason trail for that shadow decision
+
+Important boundary:
+
+- Phase C scoring has not started yet
+- current rulegen still does not demote lexical senses based on topics/categories/tags beyond the earlier targeted function-word/register fixes
+- the purpose of this slice is to prevent future Phase C logic from needing another loader/candidate-schema refactor first
+- the shadow object is the intended switch-point for later experiments:
+  - enable or disable family groups
+  - enable or disable live demotion
+  - compare families/weights in benchmark sweeps without changing candidate extraction again
+
+Observed validation after landing this shadow-policy scaffolding:
+
+- canonical `en-es` benchmark remained at:
+  - `Top1 89.58%`
+  - `Top3 93.75%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+- triage count remained `5`
+- interpretation:
+  - family normalization and competition tracing are available for inspection now
+  - any later metric movement can be attributed to explicit live-policy choices rather than hidden metadata-plumbing changes
+
+First bounded harness experiment after wiring live-policy controls:
+
+- benchmark harness now supports:
+  - `--kaikki-policy-live-demotion-values`
+  - `--kaikki-policy-risk-family-sets`
+- bounded `en-es` matrix:
+  - live demotion: `off/on`
+  - family sets:
+    - `math_geometry + government_law + hunting_fishing_tools + register_region + abbreviation_ellipsis_formof`
+    - `math_geometry + government_law + hunting_fishing_tools`
+- best observed run:
+  - `Top1 89.58%`
+  - `Top3 95.83%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+- interpretation:
+  - the first live policy path is already moving recall in the right direction
+  - the smaller lexical family set performed identically to the broader set in this bounded run
+  - the next useful question is not whether the harness can move the metric, but which case-level effects are worth keeping
+
+### Phase D. Admission-Side Grammar Filtering
+
+Priority:
+
+- later, after rulegen correctness
+
+Goal:
+
+- decide whether grammar-heavy targets should remain in the main vocabulary-first SRS lane
+
+Current decision:
+
+- do not use admission filtering as a substitute for fixing rulegen
+- revisit after the rulegen path is behaviorally sound
+
+## Acceptance Criteria For The Current Planning Sequence
+
+Phase-by-phase expectations:
+
+- Phase A must focus completely on robust dictionary-entry-format handling
+- Phase B must only follow once candidate recovery is verified
+- Phase C is documented and deferred, not mixed into Phase A
+- Phase D remains an admission-policy follow-up, not an immediate rulegen shortcut
+
+Shared regression expectations:
+
+- keep reverse-check improvements for `cargo` and `cuenta`
+- keep the function-word repairs for `ese`, `hasta`, and `según`
+- do not reintroduce the old FreeDict-style coverage hole for common words such as `movimiento`, `área`, `presentar`, `crear`
+- do not increase forbidden-top1 rate from the current `0.00%`
+
+Validation loop after each implemented phase:
+
+- rerun the canonical `en-es` benchmark
+- rerun the quality gate
+- rerun benchmark triage
+- run targeted tests for the touched rulegen/filter/loader modules
+
 ## Deferred Work
 
 - synonym extraction/runtime wiring
-- richer sense-risk ranking using Kaikki qualifiers/topics/register metadata
 - generic multi-pair Kaikki pack generation and cataloging

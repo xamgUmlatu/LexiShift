@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import json
 from pathlib import Path
 import sqlite3
-from typing import Iterable
+from typing import Iterable, Mapping
 from xml.etree import ElementTree
 
 from lexishift_core.resources.japanese_script import (
@@ -29,6 +30,7 @@ class JmdictEntryRecord:
 class FreedictGlossRecord:
     translation: str
     pos_raw: str = ""
+    metadata: Mapping[str, object] = field(default_factory=dict)
 
 
 def load_jmdict_glosses(
@@ -334,6 +336,8 @@ def load_freedict_sqlite_gloss_records_ordered(path: Path) -> dict[str, list[Fre
         return mapping
     try:
         with sqlite3.connect(path) as conn:
+            if _sqlite_has_table(conn, "sense_glosses"):
+                return _load_auxiliary_sqlite_gloss_records_ordered(conn)
             has_entries = conn.execute(
                 "SELECT 1 FROM sqlite_master WHERE type='table' AND name='entries' LIMIT 1"
             ).fetchone()
@@ -369,6 +373,210 @@ def load_freedict_sqlite_gloss_records_ordered(path: Path) -> dict[str, list[Fre
     except sqlite3.Error:
         return {}
     return mapping
+
+
+def _sqlite_has_table(conn: sqlite3.Connection, table_name: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=? LIMIT 1",
+        (table_name,),
+    ).fetchone()
+    return bool(row)
+
+
+def _load_auxiliary_sqlite_gloss_records_ordered(
+    conn: sqlite3.Connection,
+) -> dict[str, list[FreedictGlossRecord]]:
+    mapping: dict[str, list[FreedictGlossRecord]] = {}
+    translation_index_by_headword: dict[str, dict[str, int]] = {}
+    has_entry_meta = _sqlite_has_table(conn, "entry_meta")
+    has_translation_meta = _sqlite_has_table(conn, "translation_meta")
+    entry_meta_join = (
+        "LEFT JOIN entry_meta em ON em.entry_ord = sg.entry_ord" if has_entry_meta else ""
+    )
+    translation_meta_join = (
+        "LEFT JOIN translation_meta tm "
+        "ON tm.entry_ord = sg.entry_ord AND tm.sense_ord = sg.sense_ord AND tm.gloss_ord = sg.gloss_ord"
+        if has_translation_meta
+        else ""
+    )
+    cursor = conn.execute(
+        f"""
+        SELECT
+            sg.headword,
+            sg.translation,
+            sg.pos,
+            sg.entry_ord,
+            sg.sense_ord,
+            sg.gloss_ord,
+            sg.raw_glosses_json,
+            sg.tags_json,
+            sg.topics_json,
+            sg.categories_json,
+            sg.form_of_json,
+            sg.alt_of_json,
+            {"em.pos_title" if has_entry_meta else "NULL"} AS entry_pos_title,
+            {"em.tags_json" if has_entry_meta else "NULL"} AS entry_tags_json,
+            {"em.categories_json" if has_entry_meta else "NULL"} AS entry_categories_json,
+            {"tm.sense_text" if has_translation_meta else "NULL"} AS translation_sense_text,
+            {"tm.english_text" if has_translation_meta else "NULL"} AS translation_english_text,
+            {"tm.note_text" if has_translation_meta else "NULL"} AS translation_note_text,
+            {"tm.roman_text" if has_translation_meta else "NULL"} AS translation_roman_text,
+            {"tm.tags_json" if has_translation_meta else "NULL"} AS translation_tags_json
+        FROM sense_glosses sg
+        {entry_meta_join}
+        {translation_meta_join}
+        ORDER BY sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.translation, sg.headword
+        """
+    )
+    for row in cursor:
+        (
+            headword,
+            translation,
+            pos_raw,
+            entry_ord,
+            sense_ord,
+            gloss_ord,
+            raw_glosses_json,
+            sense_tags_json,
+            sense_topics_json,
+            sense_categories_json,
+            form_of_json,
+            alt_of_json,
+            entry_pos_title,
+            entry_tags_json,
+            entry_categories_json,
+            translation_sense_text,
+            translation_english_text,
+            translation_note_text,
+            translation_roman_text,
+            translation_tags_json,
+        ) = row
+        headword_text = str(headword or "").strip()
+        translation_text = str(translation or "").strip()
+        if not headword_text or not translation_text:
+            continue
+        metadata = _build_auxiliary_gloss_metadata(
+            entry_ord=entry_ord,
+            sense_ord=sense_ord,
+            gloss_ord=gloss_ord,
+            raw_glosses_json=raw_glosses_json,
+            sense_tags_json=sense_tags_json,
+            sense_topics_json=sense_topics_json,
+            sense_categories_json=sense_categories_json,
+            form_of_json=form_of_json,
+            alt_of_json=alt_of_json,
+            entry_pos_title=entry_pos_title,
+            entry_tags_json=entry_tags_json,
+            entry_categories_json=entry_categories_json,
+            translation_sense_text=translation_sense_text,
+            translation_english_text=translation_english_text,
+            translation_note_text=translation_note_text,
+            translation_roman_text=translation_roman_text,
+            translation_tags_json=translation_tags_json,
+        )
+        bucket = mapping.setdefault(headword_text, [])
+        index_by_translation = translation_index_by_headword.setdefault(headword_text, {})
+        existing_index = index_by_translation.get(translation_text)
+        normalized_pos_raw = str(pos_raw or "").strip()
+        if existing_index is None:
+            bucket.append(
+                FreedictGlossRecord(
+                    translation=translation_text,
+                    pos_raw=normalized_pos_raw,
+                    metadata=metadata,
+                )
+            )
+            index_by_translation[translation_text] = len(bucket) - 1
+            continue
+        existing = bucket[existing_index]
+        if existing.pos_raw or not normalized_pos_raw:
+            continue
+        bucket[existing_index] = FreedictGlossRecord(
+            translation=translation_text,
+            pos_raw=normalized_pos_raw,
+            metadata=existing.metadata or metadata,
+        )
+    return mapping
+
+
+def _build_auxiliary_gloss_metadata(
+    *,
+    entry_ord: object,
+    sense_ord: object,
+    gloss_ord: object,
+    raw_glosses_json: object,
+    sense_tags_json: object,
+    sense_topics_json: object,
+    sense_categories_json: object,
+    form_of_json: object,
+    alt_of_json: object,
+    entry_pos_title: object,
+    entry_tags_json: object,
+    entry_categories_json: object,
+    translation_sense_text: object,
+    translation_english_text: object,
+    translation_note_text: object,
+    translation_roman_text: object,
+    translation_tags_json: object,
+) -> dict[str, object]:
+    metadata: dict[str, object] = {}
+    _set_int_metadata(metadata, "entry_ord", entry_ord)
+    _set_int_metadata(metadata, "sense_ord", sense_ord)
+    _set_int_metadata(metadata, "gloss_ord", gloss_ord)
+    _set_text_metadata(metadata, "entry_pos_title", entry_pos_title)
+    _set_text_metadata(metadata, "translation_sense_text", translation_sense_text)
+    _set_text_metadata(metadata, "translation_english_text", translation_english_text)
+    _set_text_metadata(metadata, "translation_note_text", translation_note_text)
+    _set_text_metadata(metadata, "translation_roman_text", translation_roman_text)
+    _set_json_metadata(metadata, "entry_tags", entry_tags_json)
+    _set_json_metadata(metadata, "entry_categories", entry_categories_json)
+    _set_json_metadata(metadata, "sense_raw_glosses", raw_glosses_json)
+    _set_json_metadata(metadata, "sense_tags", sense_tags_json)
+    _set_json_metadata(metadata, "sense_topics", sense_topics_json)
+    _set_json_metadata(metadata, "sense_categories", sense_categories_json)
+    _set_json_metadata(metadata, "sense_form_of", form_of_json)
+    _set_json_metadata(metadata, "sense_alt_of", alt_of_json)
+    _set_json_metadata(metadata, "translation_tags", translation_tags_json)
+    return metadata
+
+
+def _set_text_metadata(metadata: dict[str, object], key: str, value: object) -> None:
+    text = str(value or "").strip()
+    if text:
+        metadata[key] = text
+
+
+def _set_int_metadata(metadata: dict[str, object], key: str, value: object) -> None:
+    if isinstance(value, bool):
+        return
+    if isinstance(value, int):
+        metadata[key] = value
+        return
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return
+        try:
+            metadata[key] = int(text)
+        except ValueError:
+            return
+
+
+def _set_json_metadata(metadata: dict[str, object], key: str, value: object) -> None:
+    parsed = _parse_json_column(value)
+    if parsed in (None, "", [], {}):
+        return
+    metadata[key] = parsed
+
+
+def _parse_json_column(value: object) -> object:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return text
 
 
 def load_freedict_glosses_ordered(

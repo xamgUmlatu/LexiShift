@@ -1,16 +1,16 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
+- benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_kaikki_policy_scale_experiment_latest.json`
 - pairs_processed: 1
 - failing_or_review_count: 5
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
-| en-es | `en-es:derecho` | derecho | REVIEW | top1_not_in_expected_set | straight | straight, right, upright |
+| en-es | `en-es:derecho` | derecho | REVIEW | top1_not_in_expected_set | straight | straight, upright, right |
 | en-es | `en-es:cuadro` | cuadro | FAIL | expected_candidate_missing_from_top3 | square | square, rectangle, frame |
-| en-es | `en-es:cuenta` | cuenta | REVIEW | top1_not_in_expected_set | count | count, account, bead |
-| en-es | `en-es:red` | red | REVIEW | top1_not_in_expected_set | web | web, net, network |
-| en-es | `en-es:sacar` | sacar | REVIEW | top1_not_in_expected_set | withdraw | withdraw, draw, unsheathe |
+| en-es | `en-es:cuenta` | cuenta | REVIEW | top1_not_in_expected_set | count | count, tally, bill |
+| en-es | `en-es:red` | red | REVIEW | top1_not_in_expected_set | web | web, mesh, net |
+| en-es | `en-es:sacar` | sacar | FAIL | expected_candidate_missing_from_top3 | take | take, withdraw, expel |
 
 ## Suggested Case Patches
 
@@ -22,15 +22,15 @@
   "notes": [
     "Review expected_top1_any labels or scoring weights for this case.",
     "Observed top1 source: straight",
-    "Observed top3 sources: straight, right, upright"
+    "Observed top3 sources: straight, upright, right"
   ],
   "candidate_forbidden_top1": [
     "straight"
   ],
   "candidate_expected_any": [
     "straight",
-    "right",
-    "upright"
+    "upright",
+    "right"
   ]
 }
 ```
@@ -64,15 +64,15 @@
   "notes": [
     "Review expected_top1_any labels or scoring weights for this case.",
     "Observed top1 source: count",
-    "Observed top3 sources: count, account, bead"
+    "Observed top3 sources: count, tally, bill"
   ],
   "candidate_forbidden_top1": [
     "count"
   ],
   "candidate_expected_any": [
     "count",
-    "account",
-    "bead"
+    "tally",
+    "bill"
   ]
 }
 ```
@@ -85,15 +85,15 @@
   "notes": [
     "Review expected_top1_any labels or scoring weights for this case.",
     "Observed top1 source: web",
-    "Observed top3 sources: web, net, network"
+    "Observed top3 sources: web, mesh, net"
   ],
   "candidate_forbidden_top1": [
     "web"
   ],
   "candidate_expected_any": [
     "web",
-    "net",
-    "network"
+    "mesh",
+    "net"
   ]
 }
 ```
@@ -102,19 +102,19 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
-    "Observed top1 source: withdraw",
-    "Observed top3 sources: withdraw, draw, unsheathe"
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Observed top1 source: take",
+    "Observed top3 sources: take, withdraw, expel"
   ],
   "candidate_forbidden_top1": [
-    "withdraw"
+    "take"
   ],
   "candidate_expected_any": [
+    "take",
     "withdraw",
-    "draw",
-    "unsheathe"
+    "expel"
   ]
 }
 ```

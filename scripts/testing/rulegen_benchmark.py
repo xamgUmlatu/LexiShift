@@ -63,6 +63,8 @@ class SweepConfig:
     reverse_check_near_rank_max: int
     reverse_check_far_hit_penalty: float
     reverse_check_miss_penalty: float
+    kaikki_policy_live_demotion: bool
+    kaikki_policy_risk_families: tuple[str, ...]
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -86,6 +88,8 @@ class SweepConfig:
             "reverse_check_near_rank_max": self.reverse_check_near_rank_max,
             "reverse_check_far_hit_penalty": self.reverse_check_far_hit_penalty,
             "reverse_check_miss_penalty": self.reverse_check_miss_penalty,
+            "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
+            "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
         }
 
     def label(self) -> str:
@@ -100,7 +104,9 @@ class SweepConfig:
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "
-            f"w_pos={self.score_weight_pos_match:.3f}"
+            f"w_pos={self.score_weight_pos_match:.3f} "
+            f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
+            f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)}"
         )
 
     def scoring(self) -> RuleScoringConfig:
@@ -225,6 +231,41 @@ def _parse_csv_bools(text: str, *, name: str) -> list[bool]:
             continue
         raise ValueError(f"{name}: unsupported boolean token '{item}'.")
     return parsed
+
+
+def _parse_family_set_specs(text: str, *, name: str) -> list[tuple[str, ...]]:
+    raw_specs = [item.strip() for item in str(text or "").split(";") if item.strip()]
+    if not raw_specs:
+        raise ValueError(f"{name}: expected at least one family set.")
+    parsed: list[tuple[str, ...]] = []
+    for spec in raw_specs:
+        lowered = spec.lower()
+        if lowered in {"none", "off", "null"}:
+            parsed.append(())
+            continue
+        families = [item.strip() for item in spec.replace(",", "+").split("+") if item.strip()]
+        if not families:
+            raise ValueError(f"{name}: invalid family set '{spec}'.")
+        parsed.append(tuple(dict.fromkeys(families)))
+    return parsed
+
+
+def _format_kaikki_policy_family_label(families: Sequence[str]) -> str:
+    if not families:
+        return "none"
+    abbreviations = {
+        "math_geometry": "mg",
+        "government_law": "gl",
+        "hunting_fishing_tools": "hft",
+        "register_region": "rr",
+        "abbreviation_ellipsis_formof": "aef",
+    }
+    tokens = [
+        abbreviations.get(str(family).strip(), str(family).strip())
+        for family in families
+        if str(family).strip()
+    ]
+    return "+".join(tokens) if tokens else "none"
 
 
 def _load_dataset_cases(
@@ -430,6 +471,14 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.reverse_check_miss_penalty_values,
         name="reverse-check-miss-penalty-values",
     )
+    kaikki_policy_live_demotion_values = _parse_csv_bools(
+        args.kaikki_policy_live_demotion_values,
+        name="kaikki-policy-live-demotion-values",
+    )
+    kaikki_policy_risk_family_sets = _parse_family_set_specs(
+        args.kaikki_policy_risk_family_sets,
+        name="kaikki-policy-risk-family-sets",
+    )
 
     configs: list[SweepConfig] = []
     for combo in itertools.product(
@@ -453,6 +502,8 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_near_rank_max_values,
         reverse_check_far_hit_penalty_values,
         reverse_check_miss_penalty_values,
+        kaikki_policy_live_demotion_values,
+        kaikki_policy_risk_family_sets,
     ):
         configs.append(
             SweepConfig(
@@ -476,6 +527,8 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_near_rank_max=max(0, int(combo[17])),
                 reverse_check_far_hit_penalty=float(combo[18]),
                 reverse_check_miss_penalty=float(combo[19]),
+                kaikki_policy_live_demotion=bool(combo[20]),
+                kaikki_policy_risk_families=tuple(combo[21]),
             )
         )
     return configs
@@ -595,12 +648,20 @@ def main() -> None:
     parser.add_argument("--score-weight-variant-values", default="0.1")
     parser.add_argument("--score-weight-phrase-values", default="0.1")
     parser.add_argument("--score-weight-embedding-values", default="0.2")
-    parser.add_argument("--reverse-check-enabled-values", default="false")
+    parser.add_argument("--reverse-check-enabled-values", default="false,true")
     parser.add_argument("--reverse-check-match-bonus-values", default="0.2")
     parser.add_argument("--reverse-check-near-bonus-values", default="0.1")
     parser.add_argument("--reverse-check-near-rank-max-values", default="2")
     parser.add_argument("--reverse-check-far-hit-penalty-values", default="0.0")
     parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
+    parser.add_argument("--kaikki-policy-live-demotion-values", default="false,true")
+    parser.add_argument(
+        "--kaikki-policy-risk-family-sets",
+        default=(
+            "math_geometry+government_law+hunting_fishing_tools+"
+            "register_region+abbreviation_ellipsis_formof"
+        ),
+    )
     parser.add_argument("--objective-top1-weight", type=float, default=100.0)
     parser.add_argument("--objective-top3-weight", type=float, default=60.0)
     parser.add_argument("--objective-forbidden-top1-weight", type=float, default=120.0)
@@ -720,6 +781,8 @@ def main() -> None:
                     freedict_de_en_path=freedict_path,
                     freedict_reverse_path=reverse_freedict_path,
                     word_packages_by_target=word_packages,
+                    kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
+                    kaikki_policy_risk_families=config.kaikki_policy_risk_families,
                 )
             )
             rules_by_target = _group_rules_by_target(rules)

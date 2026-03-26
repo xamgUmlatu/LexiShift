@@ -35,6 +35,56 @@ class _StaticSource(CandidateSource):
 
 
 class TestRulegenGeneration(unittest.TestCase):
+    def test_interleave_definition_groups_round_robins_selected_buckets(self) -> None:
+        pipeline = RuleGenerationPipeline(
+            sources=[
+                _StaticSource(
+                    [
+                        RuleCandidate(
+                            source_phrase="square",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={"gloss_index": 0, "definition_bucket_key": "sense:0"},
+                        ),
+                        RuleCandidate(
+                            source_phrase="rectangle",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={"gloss_index": 1, "definition_bucket_key": "sense:0"},
+                        ),
+                        RuleCandidate(
+                            source_phrase="frame",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={"gloss_index": 3, "definition_bucket_key": "sense:1"},
+                        ),
+                        RuleCandidate(
+                            source_phrase="table",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={"gloss_index": 4, "definition_bucket_key": "sense:2"},
+                        ),
+                    ]
+                )
+            ]
+        )
+        results = pipeline.generate_results(
+            ["cuadro"],
+            config=RuleGenerationConfig(
+                language_pair="en-es",
+                max_definitions_per_target=3,
+                interleave_definition_groups=True,
+            ),
+        )
+        self.assertEqual(
+            [result.candidate.source_phrase for result in results],
+            ["square", "frame", "table", "rectangle"],
+        )
+
     def test_reverse_hygiene_suppresses_weak_groups_after_strong_hit(self) -> None:
         pipeline = RuleGenerationPipeline(
             sources=[
@@ -170,6 +220,78 @@ class TestRulegenGeneration(unittest.TestCase):
         self.assertEqual(
             [result.candidate.source_phrase for result in results],
             ["bench", "bank"],
+        )
+
+    def test_reverse_hygiene_keeps_alternatives_when_exact_hit_is_highly_ambiguous(self) -> None:
+        pipeline = RuleGenerationPipeline(
+            sources=[
+                _StaticSource(
+                    [
+                        RuleCandidate(
+                            source_phrase="square",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={
+                                "gloss_index": 0,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": True,
+                                "reverse_check_rank": 0,
+                                "reverse_check_total": 22,
+                                "definition_bucket_key": "sense:0",
+                            },
+                        ),
+                        RuleCandidate(
+                            source_phrase="frame",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={
+                                "gloss_index": 1,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": True,
+                                "reverse_check_rank": 18,
+                                "reverse_check_total": 20,
+                                "definition_bucket_key": "sense:1",
+                            },
+                        ),
+                        RuleCandidate(
+                            source_phrase="table",
+                            replacement="cuadro",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={
+                                "gloss_index": 2,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": False,
+                                "reverse_check_total": 9,
+                                "definition_bucket_key": "sense:2",
+                            },
+                        ),
+                    ]
+                )
+            ],
+            ranking_mechanism=DictionaryEntryOrderRankingMechanism(
+                reverse_check=ReverseCheckScoringConfig(
+                    enabled=True,
+                    match_bonus=0.2,
+                    near_bonus=0.1,
+                    near_rank_max=2,
+                    far_hit_penalty=0.0,
+                    miss_penalty=0.2,
+                )
+            ),
+        )
+        results = pipeline.generate_results(
+            ["cuadro"],
+            config=RuleGenerationConfig(
+                language_pair="en-es",
+                max_definitions_per_target=3,
+            ),
+        )
+        self.assertEqual(
+            [result.candidate.source_phrase for result in results],
+            ["square", "frame", "table"],
         )
 
     def test_reverse_hygiene_requires_enabled_reverse_check(self) -> None:

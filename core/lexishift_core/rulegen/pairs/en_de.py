@@ -310,12 +310,19 @@ def _collect_sanitized_gloss_records(
         normalized_pos = str(record.pos_raw or "").strip()
         existing_index = seen.get(sanitized)
         if existing_index is None:
-            cleaned.append(FreedictGlossRecord(translation=sanitized, pos_raw=normalized_pos))
+            cleaned.append(
+                FreedictGlossRecord(
+                    translation=sanitized,
+                    pos_raw=normalized_pos,
+                    metadata=dict(record.metadata),
+                )
+            )
             seen[sanitized] = len(cleaned) - 1
             continue
         if not cleaned[existing_index].pos_raw and normalized_pos:
             cleaned[existing_index] = FreedictGlossRecord(
                 translation=sanitized,
                 pos_raw=normalized_pos,
+                metadata=cleaned[existing_index].metadata,
             )
     return cleaned

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T00:24:37.203806+00:00",
+  "generated_at": "2026-03-25T23:53:24.019370+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
   "dataset_metadata": {
     "version": 2,
@@ -77,10 +77,10 @@
           "top3_contains_expected_count": 47,
           "forbidden_top1_count": 0,
           "forbidden_any_count": 0,
-          "avg_rules_per_target": 2.7916666666666665,
+          "avg_rules_per_target": 2.5208333333333335,
           "avg_top1_confidence": 0.6962499999999999,
           "variant_rule_count": 0,
-          "total_rule_count": 134,
+          "total_rule_count": 121,
           "variant_top1_count": 0,
           "top1_accuracy": 0.8958333333333334,
           "top3_recall": 0.9791666666666666,
@@ -88,7 +88,7 @@
           "forbidden_any_rate": 0.0,
           "variant_rule_rate": 0.0,
           "variant_top1_rate": 0.0,
-          "objective_score": 131.58333333333334
+          "objective_score": 133.20833333333334
         },
         "case_results": [
           {
@@ -175,18 +175,13 @@
             "case_id": "en-es:agua",
             "pair": "en-es",
             "target": "agua",
-            "rule_count": 4,
+            "rule_count": 1,
             "top1_source": "water",
             "top3_sources": [
-              "water",
-              "rain",
-              "river"
+              "water"
             ],
             "all_sources": [
-              "water",
-              "rain",
-              "river",
-              "stream"
+              "water"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": true,
@@ -567,18 +562,15 @@
             "case_id": "en-es:luz",
             "pair": "en-es",
             "target": "luz",
-            "rule_count": 4,
+            "rule_count": 2,
             "top1_source": "light",
             "top3_sources": [
               "light",
-              "lumen",
-              "brightness"
+              "span"
             ],
             "all_sources": [
               "light",
-              "lumen",
-              "brightness",
-              "intelligence"
+              "span"
             ],
             "top1_confidence": 0.7799999999999999,
             "top1_correct": true,
@@ -711,17 +703,13 @@
             "case_id": "en-es:cuadro",
             "pair": "en-es",
             "target": "cuadro",
-            "rule_count": 3,
+            "rule_count": 1,
             "top1_source": "square",
             "top3_sources": [
-              "square",
-              "rectangle",
-              "frame"
+              "square"
             ],
             "all_sources": [
-              "square",
-              "rectangle",
-              "frame"
+              "square"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
@@ -935,17 +923,13 @@
             "case_id": "en-es:masa",
             "pair": "en-es",
             "target": "masa",
-            "rule_count": 3,
+            "rule_count": 1,
             "top1_source": "dough",
             "top3_sources": [
-              "dough",
-              "mass",
-              "drove"
+              "dough"
             ],
             "all_sources": [
-              "dough",
-              "mass",
-              "drove"
+              "dough"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": true,
@@ -955,8 +939,7 @@
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
-              "dough",
-              "mass"
+              "dough"
             ],
             "forbidden_matches": []
           },
@@ -1076,21 +1059,17 @@
             "case_id": "en-es:parte",
             "pair": "en-es",
             "target": "parte",
-            "rule_count": 12,
+            "rule_count": 8,
             "top1_source": "part",
             "top3_sources": [
               "part",
-              "behalf",
-              "dispatch"
+              "section",
+              "portion"
             ],
             "all_sources": [
               "part",
-              "behalf",
-              "dispatch",
               "section",
-              "message",
               "portion",
-              "report",
               "share",
               "bit",
               "cut",
@@ -1454,10 +1433,10 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.7916666666666665,
+            "avg_rules_per_target": 2.5208333333333335,
             "avg_top1_confidence": 0.6962499999999999,
             "variant_rule_count": 0,
-            "total_rule_count": 134,
+            "total_rule_count": 121,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
@@ -1465,7 +1444,7 @@
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 131.58333333333334
+            "objective_score": 133.20833333333334
           }
         },
         {
@@ -1509,10 +1488,10 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.7916666666666665,
+            "avg_rules_per_target": 2.5208333333333335,
             "avg_top1_confidence": 0.6962499999999999,
             "variant_rule_count": 0,
-            "total_rule_count": 134,
+            "total_rule_count": 121,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
@@ -1520,7 +1499,7 @@
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 131.58333333333334
+            "objective_score": 133.20833333333334
           }
         },
         {
@@ -1564,10 +1543,10 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.7916666666666665,
+            "avg_rules_per_target": 2.5208333333333335,
             "avg_top1_confidence": 0.6733333333333332,
             "variant_rule_count": 0,
-            "total_rule_count": 134,
+            "total_rule_count": 121,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
@@ -1575,7 +1554,7 @@
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 131.58333333333334
+            "objective_score": 133.20833333333334
           }
         },
         {
@@ -1619,10 +1598,10 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.7916666666666665,
+            "avg_rules_per_target": 2.5208333333333335,
             "avg_top1_confidence": 0.6733333333333332,
             "variant_rule_count": 0,
-            "total_rule_count": 134,
+            "total_rule_count": 121,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
@@ -1630,7 +1609,7 @@
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 131.58333333333334
+            "objective_score": 133.20833333333334
           }
         },
         {
@@ -1674,18 +1653,18 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 1,
-            "avg_rules_per_target": 3.0625,
+            "avg_rules_per_target": 2.75,
             "avg_top1_confidence": 0.6962499999999999,
-            "variant_rule_count": 13,
-            "total_rule_count": 147,
+            "variant_rule_count": 11,
+            "total_rule_count": 132,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.020833333333333332,
-            "variant_rule_rate": 0.08843537414965986,
+            "variant_rule_rate": 0.08333333333333333,
             "variant_top1_rate": 0.0,
-            "objective_score": 128.29166666666669
+            "objective_score": 130.16666666666669
           }
         },
         {
@@ -1729,18 +1708,18 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 1,
-            "avg_rules_per_target": 3.0625,
+            "avg_rules_per_target": 2.75,
             "avg_top1_confidence": 0.6962499999999999,
-            "variant_rule_count": 13,
-            "total_rule_count": 147,
+            "variant_rule_count": 11,
+            "total_rule_count": 132,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.020833333333333332,
-            "variant_rule_rate": 0.08843537414965986,
+            "variant_rule_rate": 0.08333333333333333,
             "variant_top1_rate": 0.0,
-            "objective_score": 128.29166666666669
+            "objective_score": 130.16666666666669
           }
         },
         {
@@ -1784,18 +1763,18 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 1,
-            "avg_rules_per_target": 3.0625,
+            "avg_rules_per_target": 2.75,
             "avg_top1_confidence": 0.6733333333333332,
-            "variant_rule_count": 13,
-            "total_rule_count": 147,
+            "variant_rule_count": 11,
+            "total_rule_count": 132,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.020833333333333332,
-            "variant_rule_rate": 0.08843537414965986,
+            "variant_rule_rate": 0.08333333333333333,
             "variant_top1_rate": 0.0,
-            "objective_score": 128.29166666666669
+            "objective_score": 130.16666666666669
           }
         },
         {
@@ -1839,18 +1818,18 @@
             "top3_contains_expected_count": 47,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 1,
-            "avg_rules_per_target": 3.0625,
+            "avg_rules_per_target": 2.75,
             "avg_top1_confidence": 0.6733333333333332,
-            "variant_rule_count": 13,
-            "total_rule_count": 147,
+            "variant_rule_count": 11,
+            "total_rule_count": 132,
             "variant_top1_count": 0,
             "top1_accuracy": 0.8958333333333334,
             "top3_recall": 0.9791666666666666,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.020833333333333332,
-            "variant_rule_rate": 0.08843537414965986,
+            "variant_rule_rate": 0.08333333333333333,
             "variant_top1_rate": 0.0,
-            "objective_score": 128.29166666666669
+            "objective_score": 130.16666666666669
           }
         },
         {

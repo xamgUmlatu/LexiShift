@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-22
+Last updated: 2026-03-26
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -383,12 +383,10 @@ Use this file when:
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 - Known gaps:
   - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
-  - The canonical latest benchmark loop still defaults to `rev=off`; reverse-check-specific evaluation currently requires explicit benchmark overrides.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
-  - `en-es` hard-case coverage is better, but the widened 38-case canonical artifact now shows eleven triage items; the default `rev=off` lane is intentionally much redder after the aggressive expansion.
-  - The current named `en-es` reverse lane reduces remaining triage to one item (`cuadro`) and lowers `forbidden_any_rate` to `2.63%`.
-  - The best objective run in the reverse lane currently uses `max_rules_per_target=1`; a near-best `mr=none` run retains `top3=100.00%` with the same remaining failure set.
-  - `cuadro` still exposes a non-separable failure class for reverse evidence alone.
+  - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the repaired verb reverse normalization restored the best `rev=on` lane.
+  - The current `en-es` reverse-enabled best run lifts `top3` to `97.92%`, but `top1` is still capped at `89.58%`; remaining work is now more about lexical choice than reverse plumbing.
+  - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
   - Current rollout is scoring-only, not strict candidate blocking.
 
 ## POS Normalization

@@ -245,6 +245,8 @@ class TestRulegenAdapters(unittest.TestCase):
                     semantic_demotion_scale=0.4,
                     scoring=scoring,
                     reverse_check=reverse_check,
+                    kaikki_policy_live_demotion=True,
+                    kaikki_policy_risk_families=("math_geometry", "government_law"),
                 )
             )
         generate.assert_called_once()
@@ -259,6 +261,11 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertAlmostEqual(kwargs["config"].reverse_check.near_bonus, 0.12, places=6)
         self.assertEqual(kwargs["config"].reverse_check.near_rank_max, 1)
         self.assertAlmostEqual(kwargs["config"].reverse_check.miss_penalty, 0.22, places=6)
+        self.assertTrue(kwargs["config"].kaikki_policy.enable_live_demotion)
+        self.assertEqual(
+            kwargs["config"].kaikki_policy.risk_families,
+            ("math_geometry", "government_law"),
+        )
 
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

@@ -146,6 +146,51 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
                 ["water", "body of water", "infusion"],
             )
 
+    def test_loader_hydrates_kaikki_auxiliary_metadata_for_runtime_consumers(self) -> None:
+        records = [
+            {
+                "word": "ese",
+                "lang": "Spanish",
+                "lang_code": "es",
+                "pos": "det",
+                "pos_title": "determiner",
+                "tags": ["demonstrative"],
+                "categories": ["Spanish determiners"],
+                "senses": [
+                    {
+                        "glosses": ["that"],
+                        "tags": ["masculine", "singular"],
+                        "topics": ["grammar"],
+                        "categories": ["Spanish demonstratives"],
+                    }
+                ],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            input_path = Path(tmp) / "raw-wiktextract-data.jsonl.gz"
+            output_path = Path(tmp) / "wiktionary-es-en.sqlite"
+            with gzip.open(input_path, "wt", encoding="utf-8") as handle:
+                for record in records:
+                    handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+            convert_kaikki_glosses_to_sqlite(
+                input_path,
+                output_path,
+                source_lang_code="es",
+                gloss_language="en",
+                source_provider="wiktionary-es-en",
+                source_dump="enwiktionary",
+                overwrite=True,
+            )
+            records_by_headword = load_freedict_sqlite_gloss_records_ordered(output_path)
+            self.assertEqual([entry.translation for entry in records_by_headword["ese"]], ["that"])
+            metadata = records_by_headword["ese"][0].metadata
+            self.assertEqual(metadata["entry_pos_title"], "determiner")
+            self.assertEqual(metadata["entry_tags"], ["demonstrative"])
+            self.assertEqual(metadata["entry_categories"], ["Spanish determiners"])
+            self.assertEqual(metadata["sense_tags"], ["masculine", "singular"])
+            self.assertEqual(metadata["sense_topics"], ["grammar"])
+            self.assertEqual(metadata["sense_categories"], ["Spanish demonstratives"])
+
     def test_translation_converter_emits_reverse_compatibility_entries_and_metadata(self) -> None:
         records = [
             {

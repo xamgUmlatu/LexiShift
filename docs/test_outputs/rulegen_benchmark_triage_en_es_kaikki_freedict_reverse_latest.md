@@ -1,15 +1,15 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_reverse_latest.json`
+- benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_kaikki_freedict_reverse_latest.json`
 - pairs_processed: 1
 - failing_or_review_count: 10
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
 | en-es | `en-es:derecho` | derecho | REVIEW | top1_not_in_expected_set | straight | straight, right |
-| en-es | `en-es:cuadro` | cuadro | FAIL | expected_candidate_missing_from_top3 | square | square |
+| en-es | `en-es:cuadro` | cuadro | FAIL | expected_candidate_missing_from_top3 | square | square, rectangle, frame |
 | en-es | `en-es:plaza` | plaza | FAIL | expected_candidate_missing_from_top3 | position | position, bullring |
-| en-es | `en-es:parte` | parte | FAIL | expected_candidate_missing_from_top3 | side | side, party, behalf |
+| en-es | `en-es:parte` | parte | FAIL | expected_candidate_missing_from_top3 | side | side, party |
 | en-es | `en-es:presentar` | presentar | FAIL | expected_candidate_missing_from_top3 | table | table |
 | en-es | `en-es:ocurrir` | ocurrir | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:sacar` | sacar | REVIEW | top1_not_in_expected_set | draw | draw, lift, make |
@@ -47,13 +47,15 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: square",
-    "Observed top3 sources: square"
+    "Observed top3 sources: square, rectangle, frame"
   ],
   "candidate_forbidden_top1": [
     "square"
   ],
   "candidate_expected_any": [
-    "square"
+    "square",
+    "rectangle",
+    "frame"
   ]
 }
 ```
@@ -86,15 +88,14 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: side",
-    "Observed top3 sources: side, party, behalf"
+    "Observed top3 sources: side, party"
   ],
   "candidate_forbidden_top1": [
     "side"
   ],
   "candidate_expected_any": [
     "side",
-    "party",
-    "behalf"
+    "party"
   ]
 }
 ```

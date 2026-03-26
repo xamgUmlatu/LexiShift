@@ -11,7 +11,9 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from rulegen_benchmark import (  # noqa: E402
+    _format_kaikki_policy_family_label,
     _load_html_report_renderer,
+    _parse_family_set_specs,
     _resolve_pair_resources_for_benchmark,
 )
 
@@ -46,6 +48,28 @@ class TestRulegenBenchmark(unittest.TestCase):
             self.assertIsNone(jmdict_path)
             self.assertEqual(freedict_path, forward)
             self.assertEqual(reverse_path, reverse)
+
+    def test_parse_family_set_specs_supports_multiple_sets(self) -> None:
+        parsed = _parse_family_set_specs(
+            "math_geometry+government_law;none;register_region,hunting_fishing_tools",
+            name="kaikki-policy-risk-family-sets",
+        )
+
+        self.assertEqual(
+            parsed,
+            [
+                ("math_geometry", "government_law"),
+                (),
+                ("register_region", "hunting_fishing_tools"),
+            ],
+        )
+
+    def test_format_kaikki_policy_family_label_uses_short_codes(self) -> None:
+        label = _format_kaikki_policy_family_label(
+            ("math_geometry", "government_law", "register_region")
+        )
+
+        self.assertEqual(label, "mg+gl+rr")
 
 
 if __name__ == "__main__":
