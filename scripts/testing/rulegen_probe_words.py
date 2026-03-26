@@ -368,6 +368,18 @@ def main() -> None:
         help="Score penalty when reverse-check is supported but misses.",
     )
     parser.add_argument(
+        "--reverse-check-exact-hit-ambiguity-threshold",
+        type=int,
+        default=0,
+        help="Reverse candidate-count threshold above which exact hits start getting ambiguity penalty.",
+    )
+    parser.add_argument(
+        "--reverse-check-exact-hit-ambiguity-penalty",
+        type=float,
+        default=0.0,
+        help="Maximum score penalty applied to exact reverse hits with high ambiguity.",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Optional path to save full probe output as JSON.",
@@ -397,6 +409,14 @@ def main() -> None:
         near_rank_max=max(0, int(args.reverse_check_near_rank_max)),
         far_hit_penalty=max(0.0, float(args.reverse_check_far_hit_penalty)),
         miss_penalty=max(0.0, float(args.reverse_check_miss_penalty)),
+        exact_hit_ambiguity_threshold=max(
+            0,
+            int(args.reverse_check_exact_hit_ambiguity_threshold),
+        ),
+        exact_hit_ambiguity_penalty=max(
+            0.0,
+            float(args.reverse_check_exact_hit_ambiguity_penalty),
+        ),
     )
 
     paths = build_helper_paths(args.data_root)
@@ -535,7 +555,9 @@ def main() -> None:
         f"reverse_near={reverse_check.near_bonus}, "
         f"reverse_near_rank_max={reverse_check.near_rank_max}, "
         f"reverse_far_hit_penalty={reverse_check.far_hit_penalty}, "
-        f"reverse_miss_penalty={reverse_check.miss_penalty}"
+        f"reverse_miss_penalty={reverse_check.miss_penalty}, "
+        f"reverse_exact_hit_ambiguity_threshold={reverse_check.exact_hit_ambiguity_threshold}, "
+        f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -562,6 +584,8 @@ def main() -> None:
                 "near_rank_max": reverse_check.near_rank_max,
                 "far_hit_penalty": reverse_check.far_hit_penalty,
                 "miss_penalty": reverse_check.miss_penalty,
+                "exact_hit_ambiguity_threshold": reverse_check.exact_hit_ambiguity_threshold,
+                "exact_hit_ambiguity_penalty": reverse_check.exact_hit_ambiguity_penalty,
             },
         },
         "paths": {

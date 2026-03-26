@@ -107,6 +107,10 @@ def run_rulegen_job(
         reverse_check_near_rank_max=config.reverse_check_near_rank_max,
         reverse_check_far_hit_penalty=config.reverse_check_far_hit_penalty,
         reverse_check_miss_penalty=config.reverse_check_miss_penalty,
+        reverse_check_exact_hit_ambiguity_threshold=(
+            config.reverse_check_exact_hit_ambiguity_threshold
+        ),
+        reverse_check_exact_hit_ambiguity_penalty=config.reverse_check_exact_hit_ambiguity_penalty,
     )
     effective_rulegen_tuning = resolve_rulegen_tuning(pair, overrides=rulegen_overrides)
     rulegen_config = RulegenConfig(
@@ -187,6 +191,12 @@ def run_rulegen_job(
                         effective_rulegen_tuning.reverse_check.far_hit_penalty
                     ),
                     "miss_penalty": float(effective_rulegen_tuning.reverse_check.miss_penalty),
+                    "exact_hit_ambiguity_threshold": int(
+                        effective_rulegen_tuning.reverse_check.exact_hit_ambiguity_threshold
+                    ),
+                    "exact_hit_ambiguity_penalty": float(
+                        effective_rulegen_tuning.reverse_check.exact_hit_ambiguity_penalty
+                    ),
                 },
                 "pair_defaults": rulegen_pair_tuning_to_dict(pair_tuning),
                 "overrides": rulegen_tuning_overrides_to_dict(rulegen_overrides),

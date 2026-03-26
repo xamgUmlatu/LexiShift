@@ -574,6 +574,30 @@ First bounded harness experiment after wiring live-policy controls:
   - the smaller lexical family set performed identically to the broader set in this bounded run
   - the next useful question is not whether the harness can move the metric, but which case-level effects are worth keeping
 
+Reverse exact-hit ambiguity signal:
+
+- objective motivation:
+  - `cuadro -> square` still showed `reverse=hit@0/22`, which means the exact reverse hit is real but highly ambiguous
+  - the previous reverse scorer could see `reverse_check_total`, but only reverse-definition hygiene used it directly; ranking itself did not
+- implemented signal:
+  - reverse-check scoring now supports:
+    - `exact_hit_ambiguity_threshold`
+    - `exact_hit_ambiguity_penalty`
+  - benchmark and probe harnesses now expose the same knobs
+- validation outcome:
+  - canonical `en-es` benchmark stayed unchanged with the default `xamb=off` lane:
+    - `Top1 89.58%`
+    - `Top3 97.92%`
+  - first bounded reverse ambiguity experiment also kept the best run at `xamb=off`
+- direct probe outcome for `cuadro`:
+  - with `reverse_far_hit_penalty=0.2` and `reverse_miss_penalty=0.0`, turning on `xamb=12:0.80` reduced `square` from rank `1.0000` to `0.5333`
+  - this confirmed the signal is wired correctly
+  - but it did not change the capped top-5, because `rectangle` and the art/data senses are currently driven more by miss/far penalty settings than by exact-hit ambiguity alone
+- current interpretation:
+  - the exact-hit ambiguity signal is now available for later tuning and combination tests
+  - it is not sufficient by itself to solve `cuadro`
+  - the next meaningful quality gains are still likely to come from lexical-sense policy and/or short phrase policy, with reverse ambiguity acting as a supporting signal rather than a standalone fix
+
 ### Phase D. Admission-Side Grammar Filtering
 
 Priority:

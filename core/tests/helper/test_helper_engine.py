@@ -489,6 +489,8 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                         reverse_check_near_bonus=0.09,
                         reverse_check_near_rank_max=1,
                         reverse_check_miss_penalty=0.19,
+                        reverse_check_exact_hit_ambiguity_threshold=12,
+                        reverse_check_exact_hit_ambiguity_penalty=0.33,
                     ),
                 )
 
@@ -506,6 +508,12 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertAlmostEqual(rulegen_config.reverse_check.near_bonus, 0.09, places=6)
             self.assertEqual(rulegen_config.reverse_check.near_rank_max, 1)
             self.assertAlmostEqual(rulegen_config.reverse_check.miss_penalty, 0.19, places=6)
+            self.assertEqual(rulegen_config.reverse_check.exact_hit_ambiguity_threshold, 12)
+            self.assertAlmostEqual(
+                rulegen_config.reverse_check.exact_hit_ambiguity_penalty,
+                0.33,
+                places=6,
+            )
 
 
 class TestHelperEnginePairGeneralization(unittest.TestCase):

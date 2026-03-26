@@ -63,6 +63,8 @@ class SweepConfig:
     reverse_check_near_rank_max: int
     reverse_check_far_hit_penalty: float
     reverse_check_miss_penalty: float
+    reverse_check_exact_hit_ambiguity_threshold: int
+    reverse_check_exact_hit_ambiguity_penalty: float
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
 
@@ -88,6 +90,12 @@ class SweepConfig:
             "reverse_check_near_rank_max": self.reverse_check_near_rank_max,
             "reverse_check_far_hit_penalty": self.reverse_check_far_hit_penalty,
             "reverse_check_miss_penalty": self.reverse_check_miss_penalty,
+            "reverse_check_exact_hit_ambiguity_threshold": (
+                self.reverse_check_exact_hit_ambiguity_threshold
+            ),
+            "reverse_check_exact_hit_ambiguity_penalty": (
+                self.reverse_check_exact_hit_ambiguity_penalty
+            ),
             "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
             "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
         }
@@ -104,6 +112,7 @@ class SweepConfig:
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "
+            f"xamb={_format_exact_hit_ambiguity_label(self)} "
             f"w_pos={self.score_weight_pos_match:.3f} "
             f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
             f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)}"
@@ -134,6 +143,11 @@ class SweepConfig:
             near_rank_max=max(0, int(self.reverse_check_near_rank_max)),
             far_hit_penalty=float(self.reverse_check_far_hit_penalty),
             miss_penalty=float(self.reverse_check_miss_penalty),
+            exact_hit_ambiguity_threshold=max(
+                0,
+                int(self.reverse_check_exact_hit_ambiguity_threshold),
+            ),
+            exact_hit_ambiguity_penalty=float(self.reverse_check_exact_hit_ambiguity_penalty),
         )
 
 
@@ -266,6 +280,14 @@ def _format_kaikki_policy_family_label(families: Sequence[str]) -> str:
         if str(family).strip()
     ]
     return "+".join(tokens) if tokens else "none"
+
+
+def _format_exact_hit_ambiguity_label(config: SweepConfig) -> str:
+    threshold = max(0, int(config.reverse_check_exact_hit_ambiguity_threshold))
+    penalty = max(0.0, float(config.reverse_check_exact_hit_ambiguity_penalty))
+    if threshold <= 0 or penalty <= 0.0:
+        return "off"
+    return f"{threshold}:{penalty:.2f}"
 
 
 def _load_dataset_cases(
@@ -471,6 +493,15 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.reverse_check_miss_penalty_values,
         name="reverse-check-miss-penalty-values",
     )
+    reverse_check_exact_hit_ambiguity_threshold_values = _parse_csv_ints(
+        args.reverse_check_exact_hit_ambiguity_threshold_values,
+        name="reverse-check-exact-hit-ambiguity-threshold-values",
+        min_value=0,
+    )
+    reverse_check_exact_hit_ambiguity_penalty_values = _parse_csv_floats(
+        args.reverse_check_exact_hit_ambiguity_penalty_values,
+        name="reverse-check-exact-hit-ambiguity-penalty-values",
+    )
     kaikki_policy_live_demotion_values = _parse_csv_bools(
         args.kaikki_policy_live_demotion_values,
         name="kaikki-policy-live-demotion-values",
@@ -502,6 +533,8 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_near_rank_max_values,
         reverse_check_far_hit_penalty_values,
         reverse_check_miss_penalty_values,
+        reverse_check_exact_hit_ambiguity_threshold_values,
+        reverse_check_exact_hit_ambiguity_penalty_values,
         kaikki_policy_live_demotion_values,
         kaikki_policy_risk_family_sets,
     ):
@@ -527,8 +560,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_near_rank_max=max(0, int(combo[17])),
                 reverse_check_far_hit_penalty=float(combo[18]),
                 reverse_check_miss_penalty=float(combo[19]),
-                kaikki_policy_live_demotion=bool(combo[20]),
-                kaikki_policy_risk_families=tuple(combo[21]),
+                reverse_check_exact_hit_ambiguity_threshold=max(0, int(combo[20])),
+                reverse_check_exact_hit_ambiguity_penalty=float(combo[21]),
+                kaikki_policy_live_demotion=bool(combo[22]),
+                kaikki_policy_risk_families=tuple(combo[23]),
             )
         )
     return configs
@@ -654,6 +689,8 @@ def main() -> None:
     parser.add_argument("--reverse-check-near-rank-max-values", default="2")
     parser.add_argument("--reverse-check-far-hit-penalty-values", default="0.0")
     parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
+    parser.add_argument("--reverse-check-exact-hit-ambiguity-threshold-values", default="0")
+    parser.add_argument("--reverse-check-exact-hit-ambiguity-penalty-values", default="0.0")
     parser.add_argument("--kaikki-policy-live-demotion-values", default="false,true")
     parser.add_argument(
         "--kaikki-policy-risk-family-sets",

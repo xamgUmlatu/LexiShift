@@ -147,6 +147,7 @@ Acceptance criteria:
 - Add reverse-check scoring when reverse dictionaries are available:
   - score/penalize candidate rules by source->target consistency in reverse lookup.
   - implementation spec: `docs/rulegen/reverse_check_scoring_phase1.md`
+  - follow-up: tune exact-hit ambiguity penalty against `reverse_check_total`; the first bounded `en-es` experiment did not beat existing miss/far penalty settings, but the signal is now implemented and harness-exposed.
 - Add sense-risk penalties for ambiguous/specialized senses:
   - use lexical cues/metadata to demote risky polysemic or niche senses.
   - Kaikki/Wiktionary follow-up for `en-es`: use topics/categories/tags to demote domain-specific lexical senses after structural candidate recovery is fixed first (for example `presentar -> table`, `plaza -> bullring`).

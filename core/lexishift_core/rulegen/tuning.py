@@ -48,6 +48,8 @@ class RulegenTuningOverrides:
     reverse_check_near_rank_max: Optional[int] = None
     reverse_check_far_hit_penalty: Optional[float] = None
     reverse_check_miss_penalty: Optional[float] = None
+    reverse_check_exact_hit_ambiguity_threshold: Optional[int] = None
+    reverse_check_exact_hit_ambiguity_penalty: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -226,6 +228,12 @@ def rulegen_tuning_overrides_to_dict(
         "reverse_check_near_rank_max": overrides.reverse_check_near_rank_max,
         "reverse_check_far_hit_penalty": overrides.reverse_check_far_hit_penalty,
         "reverse_check_miss_penalty": overrides.reverse_check_miss_penalty,
+        "reverse_check_exact_hit_ambiguity_threshold": (
+            overrides.reverse_check_exact_hit_ambiguity_threshold
+        ),
+        "reverse_check_exact_hit_ambiguity_penalty": (
+            overrides.reverse_check_exact_hit_ambiguity_penalty
+        ),
     }
     if include_none:
         return payload
@@ -323,6 +331,22 @@ def _resolve_reverse_check_scoring(
             resolved,
             miss_penalty=max(0.0, float(overrides.reverse_check_miss_penalty)),
         )
+    if overrides.reverse_check_exact_hit_ambiguity_threshold is not None:
+        resolved = replace(
+            resolved,
+            exact_hit_ambiguity_threshold=max(
+                0,
+                int(overrides.reverse_check_exact_hit_ambiguity_threshold),
+            ),
+        )
+    if overrides.reverse_check_exact_hit_ambiguity_penalty is not None:
+        resolved = replace(
+            resolved,
+            exact_hit_ambiguity_penalty=max(
+                0.0,
+                float(overrides.reverse_check_exact_hit_ambiguity_penalty),
+            ),
+        )
     return resolved
 
 
@@ -334,6 +358,8 @@ def _reverse_check_to_dict(reverse_check: ReverseCheckScoringConfig) -> dict[str
         "near_rank_max": int(reverse_check.near_rank_max),
         "far_hit_penalty": float(reverse_check.far_hit_penalty),
         "miss_penalty": float(reverse_check.miss_penalty),
+        "exact_hit_ambiguity_threshold": int(reverse_check.exact_hit_ambiguity_threshold),
+        "exact_hit_ambiguity_penalty": float(reverse_check.exact_hit_ambiguity_penalty),
     }
 
 

@@ -234,6 +234,62 @@ class TestRulegenRanking(unittest.TestCase):
         )
         self.assertAlmostEqual(mechanism.score(context), 0.85, places=6)
 
+    def test_reverse_check_exact_hit_ambiguity_penalty_applies_for_high_fanout_exact_hits(
+        self,
+    ) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                miss_penalty=0.2,
+                exact_hit_ambiguity_threshold=10,
+                exact_hit_ambiguity_penalty=0.6,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="square",
+            replacement="cuadro",
+            metadata={
+                "gloss_index": 0,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+                "reverse_check_total": 20,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.6, places=6)
+
+    def test_reverse_check_exact_hit_ambiguity_penalty_ignores_exact_hits_under_threshold(
+        self,
+    ) -> None:
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.2,
+                near_bonus=0.1,
+                near_rank_max=2,
+                miss_penalty=0.2,
+                exact_hit_ambiguity_threshold=10,
+                exact_hit_ambiguity_penalty=0.6,
+            )
+        )
+        context = CandidateRankingContext(
+            source_phrase="square",
+            replacement="cuadro",
+            metadata={
+                "gloss_index": 1,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+                "reverse_check_total": 10,
+            },
+            confidence=0.4,
+        )
+        self.assertAlmostEqual(mechanism.score(context), 0.7, places=6)
+
     def test_reverse_check_ignored_when_unsupported_or_disabled(self) -> None:
         enabled = DictionaryEntryOrderRankingMechanism(
             reverse_check=ReverseCheckScoringConfig(enabled=True)
