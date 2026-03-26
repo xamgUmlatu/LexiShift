@@ -636,6 +636,68 @@ Validation loop after each implemented phase:
 - rerun benchmark triage
 - run targeted tests for the touched rulegen/filter/loader modules
 
+## Benchmark Artifact Ergonomics And Portability
+
+Current benchmark artifact shape:
+
+- resolved resource paths already exist in the top-level benchmark JSON under:
+  - `resources[pair].translation_dict_path`
+  - `resources[pair].reverse_translation_dict_path`
+- `best_run` does not currently repeat that resource block
+- this is intentional in the current implementation because all runs for a given pair share the same resource set during one benchmark invocation
+
+Current limitation:
+
+- the current shape is compact, but slightly awkward for downstream analysis because a consumer inspecting only `pairs[pair].best_run` does not see the resolved resources immediately
+- the current artifact also records local absolute paths and the active `data_root`, which is useful for traceability but not yet sufficient for machine-to-machine reproducibility
+
+Updated benchmark artifact decision:
+
+- keep the canonical top-level `resources` block
+- pair-local `resources` is now also mirrored under `pairs[pair]` as an ergonomics improvement
+- do not duplicate the same resource payload into every individual run
+
+Current reproducibility gap:
+
+- benchmark runs currently depend on:
+  - the resolved translation dictionary resources
+  - the local `data_root`
+  - the current SRS store for target `word_package` hints
+- that means a copied git checkout is not yet a fully portable experiment environment by itself
+
+Required portability work before the large PC-side sweep:
+
+1. portable experiment bundle
+- export the exact SQLite/TEI resources used by the benchmark
+- export the minimal benchmark input state needed from the local helper data root
+- include commit hash, invoked command, and environment metadata
+- make import on another machine a single obvious step
+
+2. benchmark input freezing
+- record resource checksums, not only absolute paths
+- export the exact per-target `word_package` snapshot used by the run
+- avoid silently depending on whatever happens to be in the receiving machine's live SRS store
+
+3. sweep preset portability
+- move important sweep definitions out of long shell commands and into named JSON/TOML presets
+- use the same preset files on both development machines
+
+4. artifact ergonomics
+- mirror `resources` under `pairs[pair]`
+- make it easier to compare best-run results without separately looking up the top-level resource table
+
+Current recommendation:
+
+- do not start the large broad sweep until the benchmark input state is portable enough that the run can be reproduced on the PC without hidden local coupling
+- the current repo is good enough for continued local algorithm work, but not yet ideal as a cross-machine experiment package
+
+Implemented low-friction cleanup:
+
+- benchmark JSON now mirrors pair-local `resources` under `pairs[pair]`
+- this does not change scoring behavior
+- it improves artifact readability immediately
+- it is the first small step toward richer per-pair resource snapshots later
+
 ## Deferred Work
 
 - synonym extraction/runtime wiring

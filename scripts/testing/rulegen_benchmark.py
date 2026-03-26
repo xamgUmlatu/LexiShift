@@ -172,6 +172,22 @@ class SweepRun:
         return payload
 
 
+def _build_pair_report_payload(
+    *,
+    case_count: int,
+    runs: Sequence[SweepRun],
+    resources: Mapping[str, Optional[str]],
+    include_case_results: bool,
+) -> dict[str, object]:
+    return {
+        "case_count": int(case_count),
+        "run_count": len(runs),
+        "resources": dict(resources),
+        "best_run": runs[0].to_dict(include_case_results=True) if runs else None,
+        "runs": [run.to_dict(include_case_results=include_case_results) for run in runs],
+    }
+
+
 def _load_html_report_renderer():
     module_name = "rulegen_benchmark_html"
     if __package__:
@@ -869,12 +885,12 @@ def main() -> None:
     }
 
     for pair, runs in sorted(pair_runs.items()):
-        report_payload["pairs"][pair] = {
-            "case_count": len(cases_by_pair.get(pair, ())),
-            "run_count": len(runs),
-            "best_run": runs[0].to_dict(include_case_results=True) if runs else None,
-            "runs": [run.to_dict(include_case_results=args.include_case_results) for run in runs],
-        }
+        report_payload["pairs"][pair] = _build_pair_report_payload(
+            case_count=len(cases_by_pair.get(pair, ())),
+            runs=runs,
+            resources=pair_resources.get(pair, {}),
+            include_case_results=args.include_case_results,
+        )
 
     top_runs = max(1, int(args.top_runs))
     markdown_report = _render_markdown_report(pair_runs=pair_runs, top_n=top_runs)
