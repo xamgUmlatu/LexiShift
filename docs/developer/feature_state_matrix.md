@@ -396,6 +396,32 @@ Use this file when:
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
   - Current rollout is scoring-only, not strict candidate blocking.
 
+## Trait-Conditioned Rulegen Profiles
+
+- Status: `planned`; runtime routing not implemented or verified
+- Last documented checkpoint: `2026-03-26`
+- Last verified: `2026-03-26` planning review against current benchmark and Kaikki architecture
+- Default behavior:
+  - No runtime profile routing exists yet.
+  - Current rulegen still uses one selected configuration per run rather than choosing profiles from runtime-computable target traits.
+  - The intended future direction is to route among a small bank of named profiles using a shared feature extractor and benchmark-backed trait analysis.
+- Evidence:
+  - `docs/rulegen/trait_conditioned_rulegen_profiles.md`
+  - `docs/rulegen/rule_generation_technical.md`
+  - `docs/language_pairs/kaikki_en_es_integration_plan.md`
+  - `scripts/testing/rulegen_benchmark.py`
+  - `scripts/testing/rulegen_benchmark_presets.py`
+  - `scripts/testing/rulegen_benchmark_bundle.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/lexishift_core/rulegen/kaikki_views.py`
+  - `core/lexishift_core/rulegen/ranking.py`
+- Known gaps:
+  - There is no shared runtime trait extractor yet.
+  - Benchmark artifacts do not yet emit per-case feature vectors.
+  - No profile bank or interpretable router is implemented.
+  - Current dataset size is still better suited to coarse directional experiments than fine-grained routed-policy learning.
+  - Learner-stage-aware routing is only conceptual at this point and must stay separate from lexical trait inference.
+
 ## POS Normalization
 
 - Status: `implemented`, `default-on`, `verified`

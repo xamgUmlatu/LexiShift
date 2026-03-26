@@ -160,6 +160,12 @@ Acceptance criteria:
   - structured runtime diagnostics for skipped replacements and reason codes.
 - Add multi-source agreement bonus:
   - increase confidence when a candidate mapping is supported by multiple independent resources.
+- Add trait-conditioned rulegen profiles driven by runtime-computable features rather than human tags:
+  - emit per-case trait vectors in benchmark artifacts,
+  - define a small bank of named profiles,
+  - analyze which profiles win by feature region,
+  - later route runtime rulegen through an interpretable profile selector,
+  - planning spec: `docs/rulegen/trait_conditioned_rulegen_profiles.md`.
 - Improve benchmark portability before the large broad sweep:
   - optionally add single-file archive/import ergonomics on top of the existing portable bundle export/replay flow if directory transfer becomes annoying.
 

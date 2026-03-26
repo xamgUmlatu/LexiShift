@@ -715,4 +715,6 @@ Implemented low-friction cleanup:
 
 - synonym extraction/runtime wiring
 - generic multi-pair Kaikki pack generation and cataloging
+- trait-conditioned rulegen profile routing driven by runtime-computable target/candidate features rather than manual tags:
+  - planning spec: `docs/rulegen/trait_conditioned_rulegen_profiles.md`
 - optional bundle archive/import ergonomics if we later want single-file transfer instead of directory transfer
