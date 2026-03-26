@@ -668,10 +668,15 @@ Current reproducibility gap:
 Required portability work before the large PC-side sweep:
 
 1. portable experiment bundle
-- export the exact SQLite/TEI resources used by the benchmark
-- export the minimal benchmark input state needed from the local helper data root
-- include commit hash, invoked command, and environment metadata
-- make import on another machine a single obvious step
+- portable bundle export/replay is now implemented in `scripts/testing/rulegen_benchmark_bundle.py`
+- the bundle now exports:
+  - the exact SQLite/TEI resources used by the benchmark
+  - the copied benchmark dataset
+  - the copied source benchmark JSON
+  - the frozen per-pair `word_package` snapshots
+  - preset metadata and commit metadata
+- the bundle can be validated and replayed on another machine without reading the live local SRS store
+- the benchmark runner now supports `--word-package-snapshot-json` so bundle replay uses frozen input state instead of live helper state
 
 2. benchmark input freezing
 - resource checksums are now recorded in benchmark artifacts alongside resolved paths
@@ -691,8 +696,9 @@ Required portability work before the large PC-side sweep:
 
 Current recommendation:
 
-- do not start the large broad sweep until the benchmark input state is portable enough that the run can be reproduced on the PC without hidden local coupling
-- the current repo is good enough for continued local algorithm work, but not yet ideal as a cross-machine experiment package
+- the repo plus exported bundle is now good enough for the large PC-side broad sweep
+- use the bundle `validate` and `run` flow on the receiving machine so the sweep stays tied to the frozen resource and `word_package` state
+- keep the benchmark preset name in the source artifact so the methodology remains explicit
 
 Implemented low-friction cleanup:
 
@@ -700,6 +706,7 @@ Implemented low-friction cleanup:
 - benchmark JSON now also records SHA-256 checksums for the resolved dictionary resources
 - benchmark JSON now records a per-pair `word_package_snapshot`, including explicit `null` entries for targets that had no package input
 - benchmark CLI now supports `--preset`, `--preset-file`, and `--list-presets`, and records the selected preset in the `sweep` block when used
+- benchmark bundle export/replay now exists in `scripts/testing/rulegen_benchmark_bundle.py`, and replayed the current canonical `en-es` lane successfully from frozen bundle inputs
 - this does not change scoring behavior
 - it improves artifact readability immediately
 - it helps formalize benchmark methodology before the larger cross-machine sweep
@@ -708,3 +715,4 @@ Implemented low-friction cleanup:
 
 - synonym extraction/runtime wiring
 - generic multi-pair Kaikki pack generation and cataloging
+- optional bundle archive/import ergonomics if we later want single-file transfer instead of directory transfer

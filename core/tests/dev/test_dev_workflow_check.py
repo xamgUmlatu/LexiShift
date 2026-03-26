@@ -47,6 +47,8 @@ class TestDevWorkflowCheck(unittest.TestCase):
     def test_build_commands_compile_new_srs_journey_scripts(self) -> None:
         commands = build_commands()
         compile_command = dict(commands)["workflow_py_compile"]
+        self.assertIn("scripts/testing/rulegen_benchmark_bundle.py", compile_command)
+        self.assertIn("scripts/testing/rulegen_benchmark_presets.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_harness.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_harness_support.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_installed_support.py", compile_command)

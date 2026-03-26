@@ -161,7 +161,7 @@ Acceptance criteria:
 - Add multi-source agreement bonus:
   - increase confidence when a candidate mapping is supported by multiple independent resources.
 - Improve benchmark portability before the large broad sweep:
-  - add a portable experiment bundle export/import flow for cross-machine benchmark runs.
+  - optionally add single-file archive/import ergonomics on top of the existing portable bundle export/replay flow if directory transfer becomes annoying.
 
 ### Pair-specific morphology expansion
 - Current paired morphology expansion is intentionally narrow (`en-es` noun plural source -> target surface mapping).

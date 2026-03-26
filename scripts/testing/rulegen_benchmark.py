@@ -387,6 +387,49 @@ def _build_word_package_snapshot(
     return snapshot
 
 
+def _load_frozen_word_package_snapshots(path: Path) -> dict[str, dict[str, object]]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    raw_pairs = payload
+    if isinstance(payload, Mapping) and isinstance(payload.get("pairs"), Mapping):
+        raw_pairs = payload.get("pairs")
+        if isinstance(raw_pairs, Mapping):
+            sample_value = next(iter(raw_pairs.values()), None)
+            if isinstance(sample_value, Mapping) and "word_package_snapshot" in sample_value:
+                raw_pairs = {
+                    pair: value.get("word_package_snapshot")
+                    for pair, value in raw_pairs.items()
+                    if isinstance(value, Mapping)
+                }
+    if not isinstance(raw_pairs, Mapping):
+        raise ValueError(f"Frozen word-package snapshot payload must be an object: {path}")
+    frozen: dict[str, dict[str, object]] = {}
+    for raw_pair, raw_snapshot in raw_pairs.items():
+        pair = str(raw_pair or "").strip()
+        if not pair:
+            continue
+        if not isinstance(raw_snapshot, Mapping):
+            continue
+        pair_snapshot: dict[str, object] = {}
+        for raw_target, raw_package in raw_snapshot.items():
+            target = str(raw_target or "").strip()
+            if not target:
+                continue
+            if raw_package is None:
+                pair_snapshot[target] = None
+                continue
+            if not isinstance(raw_package, Mapping):
+                raise ValueError(
+                    f"Frozen word-package snapshot for pair `{pair}` target `{target}` "
+                    f"must be an object or null: {path}"
+                )
+            normalized_package = normalize_word_package(raw_package)
+            pair_snapshot[target] = (
+                dict(normalized_package) if normalized_package is not None else None
+            )
+        frozen[pair] = pair_snapshot
+    return frozen
+
+
 def _apply_case_word_package_overrides(
     *,
     package_map: dict[str, Mapping[str, object]],
@@ -743,6 +786,14 @@ def _build_parser() -> argparse.ArgumentParser:
         type=Path,
         help="Override LexiShift data root (default: platform data dir or LEXISHIFT_DATA_DIR).",
     )
+    parser.add_argument(
+        "--word-package-snapshot-json",
+        type=Path,
+        help=(
+            "Optional frozen per-pair word_package snapshot JSON. When provided for a pair, "
+            "the benchmark uses it instead of the live SRS store for that pair."
+        ),
+    )
     parser.add_argument("--jmdict", type=Path, help="Optional JMdict override path.")
     parser.add_argument(
         "--translation-dict-en-de",
@@ -899,6 +950,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     paths = build_helper_paths(args.data_root)
     store = _load_store(paths, profile_id=args.profile_id)
+    frozen_word_package_snapshots = (
+        _load_frozen_word_package_snapshots(args.word_package_snapshot_json)
+        if args.word_package_snapshot_json is not None
+        else {}
+    )
 
     translation_dict_overrides: dict[str, Optional[Path]] = {
         "en-de": args.translation_dict_en_de,
@@ -932,12 +988,21 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
         target_set = {case.target for case in cases}
         targets = sorted(target_set)
-        word_packages = _build_store_word_packages(store=store, pair=pair, targets=target_set)
-        _apply_case_word_package_overrides(package_map=word_packages, pair=pair, cases=cases)
-        word_package_snapshot = _build_word_package_snapshot(
-            targets=targets,
-            word_packages_by_target=word_packages,
-        )
+        frozen_snapshot = frozen_word_package_snapshots.get(pair)
+        if isinstance(frozen_snapshot, Mapping):
+            word_package_snapshot = {target: frozen_snapshot.get(target) for target in targets}
+            word_packages = {
+                target: package
+                for target, package in word_package_snapshot.items()
+                if isinstance(package, Mapping)
+            }
+        else:
+            word_packages = _build_store_word_packages(store=store, pair=pair, targets=target_set)
+            _apply_case_word_package_overrides(package_map=word_packages, pair=pair, cases=cases)
+            word_package_snapshot = _build_word_package_snapshot(
+                targets=targets,
+                word_packages_by_target=word_packages,
+            )
         pair_word_package_snapshots[pair] = word_package_snapshot
 
         pair_run_list: list[SweepRun] = []
@@ -995,6 +1060,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         "sweep": {
             "pair_filter": sorted(pair_filter) if pair_filter else None,
             "configuration_count": len(sweep_configs),
+            "word_package_snapshot_json": (
+                str(args.word_package_snapshot_json)
+                if args.word_package_snapshot_json is not None
+                else None
+            ),
             "preset": (
                 {
                     "name": selected_preset.name,

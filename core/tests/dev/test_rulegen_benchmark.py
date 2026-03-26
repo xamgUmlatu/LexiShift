@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -18,6 +19,7 @@ from rulegen_benchmark import (  # noqa: E402
     _build_word_package_snapshot,
     _format_exact_hit_ambiguity_label,
     _format_kaikki_policy_family_label,
+    _load_frozen_word_package_snapshots,
     _load_html_report_renderer,
     _parse_family_set_specs,
     _resolve_cli_with_preset,
@@ -285,6 +287,65 @@ class TestRulegenBenchmark(unittest.TestCase):
             self.assertIsNotNone(preset)
             assert preset is not None
             self.assertEqual(preset.name, "tiny")
+
+    def test_load_frozen_word_package_snapshots_supports_bundle_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            payload_path = Path(tmp) / "snapshot.json"
+            payload_path.write_text(
+                json.dumps(
+                    {
+                        "pairs": {
+                            "en-es": {
+                                "casa": {
+                                    "version": 1,
+                                    "language_tag": "es",
+                                    "surface": "casa",
+                                    "reading": "casa",
+                                    "script_forms": {"default": "casa"},
+                                    "source": {"provider": "bundle"},
+                                },
+                                "agua": None,
+                            }
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            snapshots = _load_frozen_word_package_snapshots(payload_path)
+
+            self.assertIn("en-es", snapshots)
+            self.assertEqual(snapshots["en-es"]["casa"]["surface"], "casa")
+            self.assertIsNone(snapshots["en-es"]["agua"])
+
+    def test_load_frozen_word_package_snapshots_supports_benchmark_report_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            payload_path = Path(tmp) / "report.json"
+            payload_path.write_text(
+                json.dumps(
+                    {
+                        "pairs": {
+                            "en-es": {
+                                "word_package_snapshot": {
+                                    "madre": {
+                                        "version": 1,
+                                        "language_tag": "es",
+                                        "surface": "madre",
+                                        "reading": "madre",
+                                        "script_forms": {"default": "madre"},
+                                        "source": {"provider": "report"},
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            snapshots = _load_frozen_word_package_snapshots(payload_path)
+
+            self.assertEqual(snapshots["en-es"]["madre"]["surface"], "madre")
 
 
 if __name__ == "__main__":
