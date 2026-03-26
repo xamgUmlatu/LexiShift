@@ -344,6 +344,64 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
             ("kaikki_policy:math_geometry",),
         )
 
+    def test_provenance_penalty_demotes_late_sense_with_clean_earlier_competition(self) -> None:
+        results = generate_en_es_results(
+            ["presentar"],
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=Path("/tmp/unused"),
+                gloss_records_by_target={
+                    "presentar": [
+                        FreedictGlossRecord(
+                            translation="to present, to submit",
+                            pos_raw="verb",
+                            metadata={
+                                "entry_ord": 50,
+                                "sense_ord": 0,
+                                "gloss_ord": 0,
+                            },
+                        ),
+                        FreedictGlossRecord(
+                            translation="to table (a proposal)",
+                            pos_raw="verb",
+                            metadata={
+                                "entry_ord": 50,
+                                "sense_ord": 1,
+                                "gloss_ord": 0,
+                                "sense_topics": ["government"],
+                            },
+                        ),
+                    ]
+                },
+                include_variants=False,
+                max_definitions_per_target=None,
+                source_dict_id="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+                kaikki_policy=EnEsKaikkiPolicyConfig(
+                    enable_shadow_metadata=True,
+                    enable_live_demotion=False,
+                    late_sense_clean_earlier_competition_penalty=0.18,
+                    risk_families=("government_law",),
+                ),
+            ),
+        )
+
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        table_metadata = by_source["table"]
+        self.assertAlmostEqual(table_metadata["semantic_demotion"], 0.18, places=6)
+        self.assertEqual(
+            table_metadata["semantic_demotion_reason"],
+            "kaikki_provenance:late_sense_clean_earlier_competition",
+        )
+        shadow = table_metadata["kaikki_policy_shadow"]
+        self.assertTrue(bool(shadow["provenance_demotion_applied"]))
+        self.assertAlmostEqual(shadow["provenance_demotion_value"], 0.18, places=6)
+        self.assertEqual(
+            shadow["provenance_demotion_reasons"],
+            ("kaikki_provenance:late_sense_clean_earlier_competition",),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

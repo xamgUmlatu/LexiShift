@@ -81,6 +81,7 @@ class SweepConfig:
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
     reverse_check_exact_hit_specificity_bonus: float = 0.0
+    kaikki_policy_late_sense_penalty: float = 0.0
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -115,6 +116,7 @@ class SweepConfig:
             "reverse_check_exact_hit_specificity_bonus": (
                 self.reverse_check_exact_hit_specificity_bonus
             ),
+            "kaikki_policy_late_sense_penalty": self.kaikki_policy_late_sense_penalty,
         }
 
     def label(self) -> str:
@@ -133,7 +135,8 @@ class SweepConfig:
             f"xspec={_format_exact_hit_specificity_label(self)} "
             f"w_pos={self.score_weight_pos_match:.3f} "
             f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
-            f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)}"
+            f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)} "
+            f"kprov={_format_kaikki_provenance_label(self)}"
         )
 
     def scoring(self) -> RuleScoringConfig:
@@ -332,6 +335,13 @@ def _format_exact_hit_specificity_label(config: SweepConfig) -> str:
     if bonus <= 0.0:
         return "off"
     return f"{bonus:.2f}"
+
+
+def _format_kaikki_provenance_label(config: SweepConfig) -> str:
+    penalty = max(0.0, float(config.kaikki_policy_late_sense_penalty))
+    if penalty <= 0.0:
+        return "off"
+    return f"{penalty:.2f}"
 
 
 def _load_dataset_cases(
@@ -654,6 +664,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.kaikki_policy_risk_family_sets,
         name="kaikki-policy-risk-family-sets",
     )
+    kaikki_policy_late_sense_penalty_values = _parse_csv_floats(
+        args.kaikki_policy_late_sense_penalty_values,
+        name="kaikki-policy-late-sense-penalty-values",
+    )
 
     configs: list[SweepConfig] = []
     for combo in itertools.product(
@@ -682,6 +696,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         kaikki_policy_live_demotion_values,
         kaikki_policy_risk_family_sets,
         reverse_check_exact_hit_specificity_bonus_values,
+        kaikki_policy_late_sense_penalty_values,
     ):
         configs.append(
             SweepConfig(
@@ -710,6 +725,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 kaikki_policy_live_demotion=bool(combo[22]),
                 kaikki_policy_risk_families=tuple(combo[23]),
                 reverse_check_exact_hit_specificity_bonus=float(combo[24]),
+                kaikki_policy_late_sense_penalty=float(combo[25]),
             )
         )
     return configs
@@ -871,6 +887,10 @@ def _build_parser() -> argparse.ArgumentParser:
             "math_geometry+government_law+hunting_fishing_tools+"
             "register_region+abbreviation_ellipsis_formof"
         ),
+    )
+    parser.add_argument(
+        "--kaikki-policy-late-sense-penalty-values",
+        default="0.0,0.1,0.2",
     )
     parser.add_argument("--objective-top1-weight", type=float, default=100.0)
     parser.add_argument("--objective-top3-weight", type=float, default=60.0)
@@ -1048,6 +1068,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                     word_packages_by_target=word_packages,
                     kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
                     kaikki_policy_risk_families=config.kaikki_policy_risk_families,
+                    kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,
                 )
             )
             rules_by_target = _group_rules_by_target(rules)

@@ -243,6 +243,10 @@ Current best candidates:
      - `gloss_provenance`
      - `sense_provenance`
      - `kaikki_policy_shadow`
+   - current status:
+     - first additive signal is now implemented and winning in the canonical `en-es` sweep:
+       - `late_sense_clean_earlier_competition_penalty`
+       - current best config selects `kprov=0.10`
    - examples:
      - later-sense survivor penalty
      - clean earlier competition bonus/penalty

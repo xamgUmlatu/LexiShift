@@ -377,6 +377,34 @@ def resolve_kaikki_policy_live_demotion(
     return demotion, reasons
 
 
+def resolve_kaikki_provenance_competition_demotion(
+    *,
+    target_provenance: Mapping[str, object] | None,
+    gloss_provenance: Mapping[str, object] | None,
+    shadow: Mapping[str, object] | None,
+    late_sense_clean_earlier_competition_penalty: float,
+) -> tuple[float, tuple[str, ...]]:
+    try:
+        penalty = max(0.0, float(late_sense_clean_earlier_competition_penalty))
+    except (TypeError, ValueError):
+        penalty = 0.0
+    if penalty <= 0.0:
+        return 0.0, ()
+    if not isinstance(target_provenance, Mapping) or not isinstance(shadow, Mapping):
+        return 0.0, ()
+    current_sense_position = metadata_int_value(target_provenance, "current_sense_position") or 0
+    if current_sense_position <= 0:
+        return 0.0, ()
+    if not bool(shadow.get("clean_earlier_competition_present")):
+        return 0.0, ()
+    reasons = ["kaikki_provenance:late_sense_clean_earlier_competition"]
+    if isinstance(gloss_provenance, Mapping):
+        fragment_strategy = str(gloss_provenance.get("fragment_strategy") or "").strip()
+        if fragment_strategy and fragment_strategy.lower() != "identity":
+            reasons.append(f"kaikki_provenance:fragment_strategy:{fragment_strategy}")
+    return penalty, tuple(reasons)
+
+
 def collect_sanitized_gloss_records(
     records: Iterable[FreedictGlossRecord],
 ) -> list[FreedictGlossRecord]:

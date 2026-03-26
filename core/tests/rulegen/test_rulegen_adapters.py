@@ -248,6 +248,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     reverse_check=reverse_check,
                     kaikki_policy_live_demotion=True,
                     kaikki_policy_risk_families=("math_geometry", "government_law"),
+                    kaikki_policy_late_sense_penalty=0.16,
                 )
             )
         generate.assert_called_once()
@@ -271,6 +272,11 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(
             kwargs["config"].kaikki_policy.risk_families,
             ("math_geometry", "government_law"),
+        )
+        self.assertAlmostEqual(
+            kwargs["config"].kaikki_policy.late_sense_clean_earlier_competition_penalty,
+            0.16,
+            places=6,
         )
 
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:

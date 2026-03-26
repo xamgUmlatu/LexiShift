@@ -47,6 +47,7 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     normalize_reverse_token as _normalize_reverse_token,
     normalize_reverse_token_with_pos as _normalize_reverse_token_with_pos,
     resolve_kaikki_policy_live_demotion as _resolve_kaikki_policy_live_demotion,
+    resolve_kaikki_provenance_competition_demotion as _resolve_kaikki_provenance_competition_demotion,
     resolve_kaikki_register_demotion as _resolve_kaikki_register_demotion,
     should_demote_shadowed_adverb as _should_demote_shadowed_adverb,
     should_shadow_interjection as _should_shadow_interjection,
@@ -183,6 +184,7 @@ class ShadowedInterjectionFilter:
 class EnEsKaikkiPolicyConfig:
     enable_shadow_metadata: bool = True
     enable_live_demotion: bool = False
+    late_sense_clean_earlier_competition_penalty: float = 0.0
     risk_families: tuple[str, ...] = (
         "math_geometry",
         "government_law",
@@ -418,8 +420,11 @@ class FreedictCandidateSource:
                 sense_provenance = _build_sense_provenance(entry, dictionary_pos=dictionary_pos)
                 if sense_provenance:
                     metadata["sense_provenance"] = sense_provenance
+                target_provenance = None
                 if index < len(target_provenance_by_index):
-                    metadata["target_provenance"] = target_provenance_by_index[index]
+                    target_provenance = target_provenance_by_index[index]
+                    metadata["target_provenance"] = target_provenance
+                kaikkei_policy_shadow: dict[str, object] = {}
                 if index < len(kaikkei_policy_shadow_by_index):
                     kaikkei_policy_shadow = dict(kaikkei_policy_shadow_by_index[index])
                     if self._kaikki_policy.enable_live_demotion:
@@ -436,6 +441,30 @@ class FreedictCandidateSource:
                             kaikkei_policy_shadow["live_demotion_value"] = demotion
                             if reasons:
                                 kaikkei_policy_shadow["live_demotion_reasons"] = reasons
+                    provenance_demotion, provenance_reasons = (
+                        _resolve_kaikki_provenance_competition_demotion(
+                            target_provenance=target_provenance,
+                            gloss_provenance=gloss_provenance,
+                            shadow=kaikkei_policy_shadow,
+                            late_sense_clean_earlier_competition_penalty=(
+                                self._kaikki_policy.late_sense_clean_earlier_competition_penalty
+                            ),
+                        )
+                    )
+                    if provenance_demotion > 0.0:
+                        _apply_semantic_demotion(
+                            metadata,
+                            demotion=provenance_demotion,
+                            reason=";".join(provenance_reasons)
+                            if provenance_reasons
+                            else "kaikki_provenance",
+                        )
+                        kaikkei_policy_shadow["provenance_demotion_applied"] = True
+                        kaikkei_policy_shadow["provenance_demotion_value"] = provenance_demotion
+                        if provenance_reasons:
+                            kaikkei_policy_shadow["provenance_demotion_reasons"] = (
+                                provenance_reasons
+                            )
                     if kaikkei_policy_shadow:
                         metadata["kaikki_policy_shadow"] = kaikkei_policy_shadow
                 source_reverse_norm = _normalize_reverse_token_with_pos(

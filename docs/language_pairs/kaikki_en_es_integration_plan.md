@@ -629,6 +629,54 @@ Reverse exact-hit specificity bonus:
   - under the current reverse match bonus and clamp behavior, it is mostly a neutral supporting signal rather than an immediate mover
   - if later sweeps continue to show saturation, the next related design question is whether reverse specificity should act earlier in scoring or under lower reverse match bonuses, not whether the current plumbing is present
 
+Provenance / competition penalty:
+
+- objective motivation:
+  - we already preserve target-level, sense-level, gloss-level, and shadow-competition provenance on
+    each Kaikki-backed `en-es` candidate
+  - until now, those structures were useful for inspection but almost entirely absent from live scoring
+  - the smallest additive first use is to demote a later sense when:
+    - it survives after an earlier clean competitor exists
+    - the run explicitly enables that penalty
+- implemented signal:
+  - `EnEsKaikkiPolicyConfig` now supports:
+    - `late_sense_clean_earlier_competition_penalty`
+  - the signal uses only existing candidate metadata:
+    - `target_provenance.current_sense_position`
+    - `kaikki_policy_shadow.clean_earlier_competition_present`
+    - optional `gloss_provenance.fragment_strategy` for reason tracing
+  - adapter, benchmark, and probe seams now expose the same knob:
+    - benchmark label: `kprov`
+    - probe flag: `--kaikki-policy-late-sense-penalty`
+- first verified behavior:
+  - focused provenance test now shows the late `presentar -> table` government sense receiving an additive
+    semantic demotion when an earlier clean sense exists
+  - probe output now exposes `semantic_demotion`, `semantic_demotion_reason`, and `kaikki_policy_shadow`
+    so this signal can be inspected directly per candidate
+- canonical benchmark outcome:
+  - expanded canonical `en-es` sweep now runs `kprov` values `0.0`, `0.1`, and `0.2`
+  - current best run is now:
+    - `rev=on`
+    - `xamb=off`
+    - `xspec=off`
+    - `kdem=off`
+    - `kprov=0.10`
+  - summary metrics:
+    - `Top1 89.58%`
+    - `Top3 97.92%`
+    - `ForbidTop1 0.00%`
+    - `AvgRules 2.77`
+    - objective `131.708`
+- current interpretation:
+  - this is the first provenance-based scoring signal that is both implemented and actually selected by the
+    canonical best run
+  - the gain is modest but real:
+    - objective improved slightly via lower average rule volume
+    - metric diversity in the canonical sweep increased from `4` unique vectors to `6`
+  - this supports the broader roadmap direction that provenance / competition metadata is worth scoring
+    before adding more speculative sources
+  - the remaining open questions are about richer provenance-based signals, not whether the current seam exists
+
 ### Phase D. Admission-Side Grammar Filtering
 
 Priority:

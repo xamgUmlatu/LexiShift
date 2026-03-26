@@ -401,6 +401,44 @@ Use this file when:
   - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
   - Current rollout is scoring-only, not strict candidate blocking.
 
+## Kaikki Provenance / Competition Scoring
+
+- Status: `implemented`, `verified`, `default-on` = `no`
+- Last documented checkpoint: `2026-03-26` first provenance-based additive scoring signal with benchmark/probe exposure
+- Last verified: `2026-03-26` targeted `en-es` provenance/adapter/benchmark tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 144-config sweep, and probe-path verification
+- Default behavior:
+  - `en-es` Kaikki candidates now support a sweepable additive provenance penalty:
+    - `late_sense_clean_earlier_competition_penalty`
+  - the signal is off unless the selected config sets a nonzero penalty
+  - the current canonical best run now selects:
+    - `kprov=0.10`
+  - the signal is powered only by existing metadata already carried on candidates:
+    - `target_provenance`
+    - `gloss_provenance`
+    - `sense_provenance`
+    - `kaikki_policy_shadow`
+  - benchmark and probe seams both expose it:
+    - benchmark label: `kprov`
+    - probe flag: `--kaikki-policy-late-sense-penalty`
+- Evidence:
+  - `docs/language_pairs/kaikki_en_es_integration_plan.md`
+  - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_es_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_triage_latest.json`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/lexishift_core/rulegen/pairs/en_es_support.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `scripts/testing/rulegen_benchmark.py`
+  - `scripts/testing/rulegen_probe_words.py`
+  - `core/tests/rulegen/test_rulegen_en_es_kaikki_provenance.py`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `core/tests/dev/test_rulegen_benchmark.py`
+- Known gaps:
+  - only the smallest provenance signal is live so far; richer provenance/competition features are still pending
+  - the current signal reduces rule volume modestly but does not yet improve `top1` or solve `cuadro`
+  - `en-de`, `en-ja`, and `es-en` do not yet have analogous provenance-scoring work
+  - per-family Kaikki demotion strengths, gloss-decay shape exposure, and lexical short-phrase policy are still the next nearby sweep candidates
+
 ## Trait-Conditioned Rulegen Profiles
 
 - Status: `planned`; runtime routing not implemented or verified

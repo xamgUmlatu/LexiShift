@@ -39,6 +39,7 @@ class RulegenAdapterRequest:
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     kaikki_policy_live_demotion: bool = False
     kaikki_policy_risk_families: Optional[Sequence[str]] = None
+    kaikki_policy_late_sense_penalty: float = 0.0
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -123,6 +124,10 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         kaikki_policy=EnEsKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),
+            late_sense_clean_earlier_competition_penalty=max(
+                0.0,
+                float(request.kaikki_policy_late_sense_penalty),
+            ),
             risk_families=tuple(
                 request.kaikki_policy_risk_families or default_kaikki_policy.risk_families
             ),

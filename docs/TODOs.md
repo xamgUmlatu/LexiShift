@@ -151,11 +151,11 @@ Acceptance criteria:
   - implementation spec: `docs/rulegen/reverse_check_scoring_phase1.md`
   - follow-up: tune exact-hit ambiguity penalty against `reverse_check_total`; the first bounded `en-es` experiment did not beat existing miss/far penalty settings, but the signal is now implemented and harness-exposed.
 - Add the next low-hanging additive `en-es` rulegen signals before or around the broad sweep:
-  - provenance / competition signals from existing metadata:
-    - `target_provenance`
-    - `gloss_provenance`
-    - `sense_provenance`
-    - `kaikki_policy_shadow`
+  - next provenance / competition signals beyond the first implemented `late_sense_clean_earlier_competition_penalty`:
+    - richer uses of `target_provenance`
+    - richer uses of `gloss_provenance`
+    - richer uses of `sense_provenance`
+    - richer uses of `kaikki_policy_shadow`
   - per-family Kaikki demotion strengths rather than one coarse family block
   - gloss-decay shape exposure rather than only gloss-decay weight
   - narrow short-phrase admission for lexical verb phrases instead of global multiword admission

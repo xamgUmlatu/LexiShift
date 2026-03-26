@@ -24,6 +24,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsKaikkiPolicyConfig,
     EnEsRulegenConfig,
     generate_en_es_results,
 )
@@ -152,6 +153,9 @@ def _serialize_result(
         "reverse_check_hit": result.candidate.metadata.get("reverse_check_hit"),
         "reverse_check_rank": result.candidate.metadata.get("reverse_check_rank"),
         "reverse_check_total": result.candidate.metadata.get("reverse_check_total"),
+        "semantic_demotion": result.candidate.metadata.get("semantic_demotion"),
+        "semantic_demotion_reason": result.candidate.metadata.get("semantic_demotion_reason"),
+        "kaikki_policy_shadow": result.candidate.metadata.get("kaikki_policy_shadow"),
     }
 
 
@@ -207,12 +211,16 @@ def _print_target_block(
                 reverse_note = f" reverse=hit@{reverse_rank}/{reverse_total}"
             else:
                 reverse_note = f" reverse=miss/{reverse_total}"
+        semantic_demotion = row.get("semantic_demotion")
+        semantic_note = ""
+        if semantic_demotion not in (None, 0, 0.0):
+            semantic_note = f" semdem={float(semantic_demotion):.4f}"
         print(
             f"    {index:02d}. [{marker}] src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
             f"bucket={bucket} gloss_index={gloss_index} "
             f"variant={variant} source_form={source_form} target_surface={target_surface}"
-            f"{reverse_note}"
+            f"{reverse_note}{semantic_note}"
         )
 
     print("  capped:")
@@ -229,10 +237,14 @@ def _print_target_block(
                 reverse_note = f" reverse=hit@{reverse_rank}/{reverse_total}"
             else:
                 reverse_note = f" reverse=miss/{reverse_total}"
+        semantic_demotion = row.get("semantic_demotion")
+        semantic_note = ""
+        if semantic_demotion not in (None, 0, 0.0):
+            semantic_note = f" semdem={float(semantic_demotion):.4f}"
         print(
             f"    {index:02d}. src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
-            f"bucket={bucket} gloss_index={gloss_index}{reverse_note}"
+            f"bucket={bucket} gloss_index={gloss_index}{reverse_note}{semantic_note}"
         )
 
 
@@ -386,6 +398,12 @@ def main() -> None:
         help="Additional bonus applied to exact reverse hits, scaled down by reverse fanout.",
     )
     parser.add_argument(
+        "--kaikki-policy-late-sense-penalty",
+        type=float,
+        default=0.0,
+        help="Additive semantic demotion for late Kaikki senses when clean earlier competition exists.",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Optional path to save full probe output as JSON.",
@@ -493,6 +511,12 @@ def main() -> None:
                 max_definitions_per_target=None,
                 max_rules_per_target=None,
                 scoring=scoring,
+                kaikki_policy=EnEsKaikkiPolicyConfig(
+                    late_sense_clean_earlier_competition_penalty=max(
+                        0.0,
+                        float(args.kaikki_policy_late_sense_penalty),
+                    )
+                ),
             ),
         )
     ja_uncapped: list[RuleGenerationResult] = []
@@ -529,6 +553,12 @@ def main() -> None:
                 max_definitions_per_target=max_definitions,
                 max_rules_per_target=max_rules_per_target,
                 scoring=scoring,
+                kaikki_policy=EnEsKaikkiPolicyConfig(
+                    late_sense_clean_earlier_competition_penalty=max(
+                        0.0,
+                        float(args.kaikki_policy_late_sense_penalty),
+                    )
+                ),
             ),
         )
     ja_capped: list[RuleGenerationResult] = []
@@ -568,7 +598,8 @@ def main() -> None:
         f"reverse_miss_penalty={reverse_check.miss_penalty}, "
         f"reverse_exact_hit_ambiguity_threshold={reverse_check.exact_hit_ambiguity_threshold}, "
         f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
-        f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}"
+        f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}, "
+        f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -599,6 +630,10 @@ def main() -> None:
                 "exact_hit_ambiguity_penalty": reverse_check.exact_hit_ambiguity_penalty,
                 "exact_hit_specificity_bonus": reverse_check.exact_hit_specificity_bonus,
             },
+            "kaikki_policy_late_sense_penalty": max(
+                0.0,
+                float(args.kaikki_policy_late_sense_penalty),
+            ),
         },
         "paths": {
             "data_root": str(paths.data_root),
