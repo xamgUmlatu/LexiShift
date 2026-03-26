@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T00:34:55.845590+00:00",
+  "generated_at": "2026-03-26T00:57:34.037098+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
   "dataset_metadata": {
     "version": 2,
@@ -29,13 +29,30 @@
       "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
       "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
       "freedict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
-      "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite"
+      "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+      "checksums": {
+        "jmdict_sha256": null,
+        "translation_dict_sha256": "sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464",
+        "reverse_translation_dict_sha256": "sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7"
+      }
     }
   },
   "pairs": {
     "en-es": {
       "case_count": 48,
       "run_count": 16,
+      "resources": {
+        "jmdict_path": null,
+        "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+        "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+        "freedict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+        "freedict_reverse_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+        "checksums": {
+          "jmdict_sha256": null,
+          "translation_dict_sha256": "sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464",
+          "reverse_translation_dict_sha256": "sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7"
+        }
+      },
       "best_run": {
         "pair": "en-es",
         "run_index": 11,

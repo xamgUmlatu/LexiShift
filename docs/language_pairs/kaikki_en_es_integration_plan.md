@@ -674,7 +674,7 @@ Required portability work before the large PC-side sweep:
 - make import on another machine a single obvious step
 
 2. benchmark input freezing
-- record resource checksums, not only absolute paths
+- resource checksums are now recorded in benchmark artifacts alongside resolved paths
 - export the exact per-target `word_package` snapshot used by the run
 - avoid silently depending on whatever happens to be in the receiving machine's live SRS store
 
@@ -694,6 +694,7 @@ Current recommendation:
 Implemented low-friction cleanup:
 
 - benchmark JSON now mirrors pair-local `resources` under `pairs[pair]`
+- benchmark JSON now also records SHA-256 checksums for the resolved dictionary resources
 - this does not change scoring behavior
 - it improves artifact readability immediately
 - it is the first small step toward richer per-pair resource snapshots later

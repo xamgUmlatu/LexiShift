@@ -13,6 +13,7 @@ if str(SCRIPT_DIR) not in sys.path:
 from rulegen_benchmark import (  # noqa: E402
     SweepConfig,
     SweepRun,
+    _build_pair_resources_payload,
     _build_pair_report_payload,
     _format_exact_hit_ambiguity_label,
     _format_kaikki_policy_family_label,
@@ -198,6 +199,27 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
         self.assertIn("best_run", payload)
         self.assertEqual(payload["run_count"], 1)
+
+    def test_build_pair_resources_payload_includes_sha256_checksums(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            forward = root / "forward.sqlite"
+            reverse = root / "reverse.sqlite"
+            forward.write_text("forward", encoding="utf-8")
+            reverse.write_text("reverse", encoding="utf-8")
+
+            payload = _build_pair_resources_payload(
+                jmdict_path=None,
+                translation_dict_path=forward,
+                reverse_translation_dict_path=reverse,
+            )
+
+            self.assertEqual(payload["translation_dict_path"], str(forward))
+            self.assertEqual(payload["reverse_translation_dict_path"], str(reverse))
+            checksums = payload["checksums"]
+            self.assertTrue(str(checksums["translation_dict_sha256"]).startswith("sha256:"))
+            self.assertTrue(str(checksums["reverse_translation_dict_sha256"]).startswith("sha256:"))
+            self.assertIsNone(checksums["jmdict_sha256"])
 
 
 if __name__ == "__main__":

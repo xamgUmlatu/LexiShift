@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import hashlib
 import itertools
 import json
 from pathlib import Path
@@ -418,6 +419,44 @@ def _resolve_pair_resources_for_benchmark(
     return jmdict_path, freedict_path, reverse_freedict_path
 
 
+def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
+    if path is None or not path.exists() or not path.is_file():
+        return None
+    hasher = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            if not chunk:
+                break
+            hasher.update(chunk)
+    return f"sha256:{hasher.hexdigest()}"
+
+
+def _build_pair_resources_payload(
+    *,
+    jmdict_path: Optional[Path],
+    translation_dict_path: Optional[Path],
+    reverse_translation_dict_path: Optional[Path],
+) -> dict[str, object]:
+    jmdict_path_text = str(jmdict_path) if jmdict_path else None
+    translation_dict_path_text = str(translation_dict_path) if translation_dict_path else None
+    reverse_translation_dict_path_text = (
+        str(reverse_translation_dict_path) if reverse_translation_dict_path else None
+    )
+    checksums = {
+        "jmdict_sha256": _compute_file_sha256(jmdict_path),
+        "translation_dict_sha256": _compute_file_sha256(translation_dict_path),
+        "reverse_translation_dict_sha256": _compute_file_sha256(reverse_translation_dict_path),
+    }
+    return {
+        "jmdict_path": jmdict_path_text,
+        "translation_dict_path": translation_dict_path_text,
+        "reverse_translation_dict_path": reverse_translation_dict_path_text,
+        "freedict_path": translation_dict_path_text,
+        "freedict_reverse_path": reverse_translation_dict_path_text,
+        "checksums": checksums,
+    }
+
+
 def _group_rules_by_target(rules: Sequence[VocabRule]) -> dict[str, list[VocabRule]]:
     by_target: dict[str, list[VocabRule]] = {}
     for rule in rules:
@@ -801,15 +840,11 @@ def main() -> None:
             freedict_override=translation_dict_overrides.get(pair),
             freedict_reverse_override=reverse_translation_dict_overrides.get(pair),
         )
-        pair_resources[pair] = {
-            "jmdict_path": str(jmdict_path) if jmdict_path else None,
-            "translation_dict_path": str(freedict_path) if freedict_path else None,
-            "reverse_translation_dict_path": (
-                str(reverse_freedict_path) if reverse_freedict_path else None
-            ),
-            "freedict_path": str(freedict_path) if freedict_path else None,
-            "freedict_reverse_path": str(reverse_freedict_path) if reverse_freedict_path else None,
-        }
+        pair_resources[pair] = _build_pair_resources_payload(
+            jmdict_path=jmdict_path,
+            translation_dict_path=freedict_path,
+            reverse_translation_dict_path=reverse_freedict_path,
+        )
 
         target_set = {case.target for case in cases}
         targets = sorted(target_set)
