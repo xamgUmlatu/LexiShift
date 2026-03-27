@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
+import os
 from pathlib import Path
 import re
 from typing import Iterable, Mapping, Optional, Sequence
 
 import numpy as np
+
+try:
+    import torch
+except Exception:  # pragma: no cover - optional dependency
+    torch = None
 
 from lexishift_core.pos.normalization import (
     CANONICAL_POS_ADPOSITION,
@@ -575,6 +581,29 @@ class _EnEsCompiledScoreConfigMatrix:
     score_weight_variant_penalty: np.ndarray
     score_weight_phrase_penalty: np.ndarray
     overlay_rows: np.ndarray
+
+
+def _resolve_compiled_score_backend(*, config_count: int, row_count: int) -> str:
+    requested = str(os.environ.get("LEXISHIFT_RULEGEN_SCORE_BACKEND") or "numpy").strip().lower()
+    if requested in {"", "numpy", "cpu"}:
+        return "numpy"
+    if requested == "auto":
+        if (
+            torch is None
+            or not bool(getattr(torch, "cuda", None))
+            or not bool(torch.cuda.is_available())
+        ):
+            return "numpy"
+        return "torch-cuda" if (config_count * row_count) >= 32768 else "numpy"
+    if requested in {"torch", "cuda", "torch-cuda"}:
+        if (
+            torch is None
+            or not bool(getattr(torch, "cuda", None))
+            or not bool(torch.cuda.is_available())
+        ):
+            return "numpy"
+        return "torch-cuda"
+    return "numpy"
 
 
 @dataclass(frozen=True)
@@ -1374,6 +1403,124 @@ def _vectorized_reverse_check_strength_matrix(
     return resolved
 
 
+def _compute_confidence_and_ranking_matrices_torch(
+    *,
+    base_gloss_score_values: np.ndarray,
+    config_matrix: _EnEsCompiledScoreConfigMatrix,
+    dict_priority_matrix: np.ndarray,
+    effective_semantic_demotion_matrix: np.ndarray,
+    frequency_weight_matrix: np.ndarray,
+    phrase_penalty_values_by_row: np.ndarray,
+    pos_match_matrix: np.ndarray,
+    reverse_check_delta_matrix: np.ndarray,
+    variant_penalty_matrix: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    if (
+        torch is None
+        or not bool(getattr(torch, "cuda", None))
+        or not bool(torch.cuda.is_available())
+    ):
+        raise RuntimeError("Torch CUDA backend requested but CUDA is unavailable.")
+    device = torch.device("cuda")
+    dict_priority_tensor = torch.as_tensor(
+        dict_priority_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    frequency_weight_tensor = torch.as_tensor(
+        frequency_weight_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    pos_match_tensor = torch.as_tensor(
+        pos_match_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    variant_penalty_tensor = torch.as_tensor(
+        variant_penalty_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    phrase_penalty_tensor = torch.as_tensor(
+        phrase_penalty_values_by_row,
+        dtype=torch.float64,
+        device=device,
+    )
+    effective_semantic_demotion_tensor = torch.as_tensor(
+        effective_semantic_demotion_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    reverse_check_delta_tensor = torch.as_tensor(
+        reverse_check_delta_matrix,
+        dtype=torch.float64,
+        device=device,
+    )
+    dict_priority_weight_tensor = torch.as_tensor(
+        config_matrix.score_weight_dict_priority,
+        dtype=torch.float64,
+        device=device,
+    )[:, None]
+    frequency_weight_weight_tensor = torch.as_tensor(
+        config_matrix.score_weight_frequency_weight,
+        dtype=torch.float64,
+        device=device,
+    )[:, None]
+    pos_match_weight_tensor = torch.as_tensor(
+        config_matrix.score_weight_pos_match,
+        dtype=torch.float64,
+        device=device,
+    )[:, None]
+    variant_penalty_weight_tensor = torch.as_tensor(
+        config_matrix.score_weight_variant_penalty,
+        dtype=torch.float64,
+        device=device,
+    )[:, None]
+    phrase_penalty_weight_tensor = torch.as_tensor(
+        config_matrix.score_weight_phrase_penalty,
+        dtype=torch.float64,
+        device=device,
+    )[:, None]
+    base_gloss_score_tensor = torch.as_tensor(
+        base_gloss_score_values,
+        dtype=torch.float64,
+        device=device,
+    )
+    confidence_scores_tensor = torch.clamp(
+        (dict_priority_tensor * dict_priority_weight_tensor)
+        + (frequency_weight_tensor * frequency_weight_weight_tensor)
+        + (pos_match_tensor * pos_match_weight_tensor)
+        - (variant_penalty_tensor * variant_penalty_weight_tensor)
+        - (phrase_penalty_tensor.unsqueeze(0) * phrase_penalty_weight_tensor),
+        0.0,
+        1.0,
+    )
+    ranking_scores_tensor = (
+        base_gloss_score_tensor.unsqueeze(0).expand_as(confidence_scores_tensor).clone()
+    )
+    demoted_mask = effective_semantic_demotion_tensor > 0.0
+    ranking_scores_tensor = torch.where(
+        demoted_mask,
+        torch.clamp(
+            ranking_scores_tensor * (1.0 - effective_semantic_demotion_tensor),
+            min=0.0,
+        ),
+        ranking_scores_tensor,
+    )
+    ranking_scores_tensor = torch.clamp(
+        ranking_scores_tensor + reverse_check_delta_tensor,
+        0.0,
+        1.0,
+    )
+    if bool(getattr(torch, "cuda", None)):
+        torch.cuda.synchronize()
+    return (
+        confidence_scores_tensor.cpu().numpy(),
+        ranking_scores_tensor.cpu().numpy(),
+    )
+
+
 def _vectorized_reverse_check_delta_values(
     *,
     supported_flags: np.ndarray,
@@ -1491,6 +1638,7 @@ def _materialize_compiled_candidate_score_table_batch(
     if not pending:
         return
     config_matrix = _build_compiled_score_config_matrix(pending)
+    config_count = len(pending)
     candidate_ids = tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids)
     target_ids = tuple(int(target_id) for target_id in candidate_table.target_ids)
     definition_bucket_ids = tuple(
@@ -1612,33 +1760,49 @@ def _materialize_compiled_candidate_score_table_batch(
         total_values=reverse_check_total_values,
         config_matrix=config_matrix,
     )
-    confidence_scores_matrix = np.clip(
-        (dict_priority_matrix * config_matrix.score_weight_dict_priority[:, None])
-        + (frequency_weight_matrix * config_matrix.score_weight_frequency_weight[:, None])
-        + (pos_match_matrix * config_matrix.score_weight_pos_match[:, None])
-        - (variant_penalty_matrix * config_matrix.score_weight_variant_penalty[:, None])
-        - (
-            phrase_penalty_values_by_row[None, :]
-            * config_matrix.score_weight_phrase_penalty[:, None]
-        ),
-        0.0,
-        1.0,
-    )
-    ranking_scores_matrix = np.broadcast_to(
-        base_gloss_score_values, confidence_scores_matrix.shape
-    ).copy()
-    demoted_mask = effective_semantic_demotion_matrix > 0.0
-    if np.any(demoted_mask):
-        ranking_scores_matrix[demoted_mask] = np.maximum(
-            0.0,
-            ranking_scores_matrix[demoted_mask]
-            * (1.0 - effective_semantic_demotion_matrix[demoted_mask]),
+    backend = _resolve_compiled_score_backend(config_count=config_count, row_count=row_count)
+    if backend == "torch-cuda":
+        confidence_scores_matrix, ranking_scores_matrix = (
+            _compute_confidence_and_ranking_matrices_torch(
+                base_gloss_score_values=base_gloss_score_values,
+                config_matrix=config_matrix,
+                dict_priority_matrix=dict_priority_matrix,
+                effective_semantic_demotion_matrix=effective_semantic_demotion_matrix,
+                frequency_weight_matrix=frequency_weight_matrix,
+                phrase_penalty_values_by_row=phrase_penalty_values_by_row,
+                pos_match_matrix=pos_match_matrix,
+                reverse_check_delta_matrix=reverse_check_delta_matrix,
+                variant_penalty_matrix=variant_penalty_matrix,
+            )
         )
-    ranking_scores_matrix = np.clip(
-        ranking_scores_matrix + reverse_check_delta_matrix,
-        0.0,
-        1.0,
-    )
+    else:
+        confidence_scores_matrix = np.clip(
+            (dict_priority_matrix * config_matrix.score_weight_dict_priority[:, None])
+            + (frequency_weight_matrix * config_matrix.score_weight_frequency_weight[:, None])
+            + (pos_match_matrix * config_matrix.score_weight_pos_match[:, None])
+            - (variant_penalty_matrix * config_matrix.score_weight_variant_penalty[:, None])
+            - (
+                phrase_penalty_values_by_row[None, :]
+                * config_matrix.score_weight_phrase_penalty[:, None]
+            ),
+            0.0,
+            1.0,
+        )
+        ranking_scores_matrix = np.broadcast_to(
+            base_gloss_score_values, confidence_scores_matrix.shape
+        ).copy()
+        demoted_mask = effective_semantic_demotion_matrix > 0.0
+        if np.any(demoted_mask):
+            ranking_scores_matrix[demoted_mask] = np.maximum(
+                0.0,
+                ranking_scores_matrix[demoted_mask]
+                * (1.0 - effective_semantic_demotion_matrix[demoted_mask]),
+            )
+        ranking_scores_matrix = np.clip(
+            ranking_scores_matrix + reverse_check_delta_matrix,
+            0.0,
+            1.0,
+        )
     for projection_index, projection in enumerate(pending):
         dict_priority_values = dict_priority_matrix[projection_index]
         frequency_weight_values = frequency_weight_matrix[projection_index]

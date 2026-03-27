@@ -92,16 +92,25 @@ Current implementation shape:
 - current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
 - current numeric-backend state:
   - `numpy` is now an active development dependency and the compiled `en-es` score-table batch path now projects score/ranking inputs numerically instead of only through scalar Python helper calls
-  - `torch` is currently optional and local-only; it is reserved for a later optional GPU backend once the compiled sweep has become a genuinely tensor-shaped workload
+  - a first guarded `torch` CUDA score-projection backend now exists behind `LEXISHIFT_RULEGEN_SCORE_BACKEND=torch|auto`, but it is still optional and local-machine-specific rather than part of the repo-wide default contract
+  - current local GPU evidence says that guarded `torch` path is semantically correct but slower than the default `numpy` path on the real current canonical `en-es` sweep shape, so GPU remains an opt-in backend rather than the default execution mode
 
 Latest measured canonical `en-es` smoke on this PC with warm path caches:
 
 - benchmark result still exact at objective `129.474`
-- wall clock: about `0.53s`
+- wall clock: about `0.50s`
 - `build_resource_payload`: about `0.001s`
-- `preload_translation_gloss_records`: about `0.23s`
-- `prepare_compiled_sweep_inputs`: about `0.196s`
+- `preload_translation_gloss_records`: about `0.223s`
+- `prepare_compiled_sweep_inputs`: about `0.174s`
 - `run_config`: about `0.012s` total across `144` configs, or about `0.00009s` average per config
+
+Latest guarded local `torch` smoke on this PC:
+
+- benchmark result still exact at objective `129.474`
+- wall clock: about `0.71s`
+- `prepare_compiled_sweep_inputs`: about `0.328s`
+- current conclusion:
+  - the first guarded GPU slice is correct but not yet profitable on the real current `en-es` workload, so `numpy` remains the default backend
 
 Longer-term selection goal:
 
@@ -641,7 +650,11 @@ Acceptance criteria:
 
 Status:
 
-- planned later
+- early guarded slice implemented, still default-off
+- current landed scope:
+  - the compiled `en-es` score-projection layer can now use a local `torch` CUDA path when explicitly requested via `LEXISHIFT_RULEGEN_SCORE_BACKEND=torch|auto`
+  - current measured result on this PC is benchmark-equivalent but slower than the default `numpy` path for the real canonical sweep
+  - GPU therefore remains optional and not default-on at the current workload size and architecture shape
 
 Goal:
 

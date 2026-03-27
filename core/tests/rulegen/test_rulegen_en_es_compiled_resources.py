@@ -11,6 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+import lexishift_core.rulegen.pairs.en_es as en_es_module  # noqa: E402
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleConfidenceSignals,
@@ -762,6 +763,95 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             )
 
         self.assertEqual(reverse_anchor_helper.call_count, len(score_table.candidate_ids))
+
+    @unittest.skipUnless(
+        getattr(en_es_module, "torch", None) is not None
+        and bool(en_es_module.torch.cuda.is_available()),
+        "Torch CUDA backend unavailable",
+    )
+    def test_compiled_candidate_score_table_torch_backend_matches_numpy(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        try:
+            en_es_module._COMPILED_SCORE_TABLE_CACHE.clear()
+            with patch.dict(os.environ, {"LEXISHIFT_RULEGEN_SCORE_BACKEND": "numpy"}):
+                numpy_table = build_en_es_compiled_candidate_score_table(
+                    compiled_resources=compiled_resources,
+                    config=config,
+                )
+            en_es_module._COMPILED_SCORE_TABLE_CACHE.clear()
+            with patch.dict(os.environ, {"LEXISHIFT_RULEGEN_SCORE_BACKEND": "torch"}):
+                torch_table = build_en_es_compiled_candidate_score_table(
+                    compiled_resources=compiled_resources,
+                    config=config,
+                )
+        finally:
+            en_es_module._COMPILED_SCORE_TABLE_CACHE.clear()
+
+        self.assertEqual(numpy_table.candidate_ids, torch_table.candidate_ids)
+        self.assertEqual(
+            numpy_table.ranked_candidate_row_ids_by_target_id,
+            torch_table.ranked_candidate_row_ids_by_target_id,
+        )
+        self.assertEqual(numpy_table.row_sort_keys, torch_table.row_sort_keys)
+        for actual, expected in zip(
+            torch_table.confidence_scores,
+            numpy_table.confidence_scores,
+            strict=False,
+        ):
+            self.assertAlmostEqual(actual, expected, places=12)
+        for actual, expected in zip(
+            torch_table.ranking_scores,
+            numpy_table.ranking_scores,
+            strict=False,
+        ):
+            self.assertAlmostEqual(actual, expected, places=12)
 
     def test_compiled_candidate_filter_table_matches_live_normalization_and_filters(self) -> None:
         records = {
