@@ -1360,11 +1360,6 @@ def _build_compiled_score_selected_row_signature(
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> tuple[object, ...]:
     return (
-        tuple(float(value) for value in score_table.confidence_scores),
-        tuple(
-            (float(first), float(second), int(third))
-            for first, second, third in score_table.row_sort_keys
-        ),
         tuple(
             (int(target_id), tuple(int(row_id) for row_id in row_ids))
             for target_id, row_ids in sorted(
@@ -2583,8 +2578,11 @@ def _build_compiled_selected_row_table_cache_key(
             tuple(str(target) for target in ordered_targets),
             filter_table.selected_row_signature,
             score_table.selected_row_signature,
+            tuple(
+                float(confidence) >= float(config.confidence_threshold)
+                for confidence in score_table.confidence_scores
+            ),
             bool(include_normalized_source_phrase_rows),
-            float(config.confidence_threshold),
             (
                 None
                 if config.max_definitions_per_target is None
