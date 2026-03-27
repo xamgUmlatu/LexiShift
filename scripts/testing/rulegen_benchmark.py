@@ -351,6 +351,7 @@ class BenchmarkTimingCollector:
 
 _WORKER_CONTEXT: Optional[PairBenchmarkContext] = None
 _WORKER_OBJECTIVE_WEIGHTS: Optional[RulegenBenchmarkObjectiveWeights] = None
+_WORKER_MATERIALIZE_CASE_RESULTS = True
 
 
 def _build_pair_report_payload(
@@ -1554,7 +1555,10 @@ def _evaluate_benchmark_case_compiled_payload_row(
     case_row_id: int,
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_rule_table: CompiledBenchmarkRuleTable,
-) -> tuple[dict[str, object], tuple[int, Optional[float], bool, bool, bool, bool, int, bool]]:
+    include_payload: bool = True,
+) -> tuple[
+    Optional[dict[str, object]], tuple[int, Optional[float], bool, bool, bool, bool, int, bool]
+]:
     rule_row_id = compiled_rule_table.row_id_by_target.get(str(case.target), -1)
     if rule_row_id >= 0:
         all_sources = compiled_rule_table.all_source_rows[rule_row_id]
@@ -1569,7 +1573,6 @@ def _evaluate_benchmark_case_compiled_payload_row(
         variant_rule_count = 0
         top1_is_variant = False
 
-    top3_sources = tuple(all_sources[:3])
     top1_source = all_sources[0] if all_sources else None
     top3_phrase_ids = tuple(source_phrase_ids[:3])
     top1_phrase_id = source_phrase_ids[0] if source_phrase_ids else -1
@@ -1577,17 +1580,6 @@ def _evaluate_benchmark_case_compiled_payload_row(
     expected_top1_ids = frozenset(compiled_case_table.expected_top1_phrase_id_rows[case_row_id])
     forbidden_top1_ids = frozenset(compiled_case_table.forbidden_top1_phrase_id_rows[case_row_id])
     forbidden_any_ids = frozenset(compiled_case_table.forbidden_any_phrase_id_rows[case_row_id])
-
-    expected_matches = tuple(
-        source
-        for source, phrase_id in zip(all_sources, source_phrase_ids)
-        if phrase_id >= 0 and phrase_id in expected_any_ids
-    )
-    forbidden_matches = tuple(
-        source
-        for source, phrase_id in zip(all_sources, source_phrase_ids)
-        if phrase_id >= 0 and phrase_id in forbidden_any_ids
-    )
     top1_correct = bool(top1_source and expected_top1_ids and top1_phrase_id in expected_top1_ids)
     top3_contains_expected = bool(
         expected_any_ids and any(phrase_id in expected_any_ids for phrase_id in top3_phrase_ids)
@@ -1595,10 +1587,24 @@ def _evaluate_benchmark_case_compiled_payload_row(
     top1_forbidden = bool(
         top1_source and forbidden_top1_ids and top1_phrase_id in forbidden_top1_ids
     )
-    forbidden_any_present = bool(forbidden_matches)
+    forbidden_any_present = bool(
+        any(phrase_id >= 0 and phrase_id in forbidden_any_ids for phrase_id in source_phrase_ids)
+    )
 
-    return (
-        {
+    payload: Optional[dict[str, object]]
+    if include_payload:
+        top3_sources = tuple(all_sources[:3])
+        expected_matches = tuple(
+            source
+            for source, phrase_id in zip(all_sources, source_phrase_ids)
+            if phrase_id >= 0 and phrase_id in expected_any_ids
+        )
+        forbidden_matches = tuple(
+            source
+            for source, phrase_id in zip(all_sources, source_phrase_ids)
+            if phrase_id >= 0 and phrase_id in forbidden_any_ids
+        )
+        payload = {
             "case_id": case.case_id,
             "pair": case.pair,
             "target": case.target,
@@ -1615,7 +1621,12 @@ def _evaluate_benchmark_case_compiled_payload_row(
             "top1_is_variant": bool(top1_is_variant),
             "expected_matches": list(expected_matches),
             "forbidden_matches": list(forbidden_matches),
-        },
+        }
+    else:
+        payload = None
+
+    return (
+        payload,
         (
             len(all_sources),
             top1_confidence,
@@ -1644,6 +1655,7 @@ def _evaluate_benchmark_case_compiled_row(
         compiled_case_table=compiled_case_table,
         compiled_rule_table=compiled_rule_table,
     )
+    assert payload is not None
 
     result = RulegenBenchmarkCaseResult(
         case_id=str(payload["case_id"]),
@@ -1765,6 +1777,7 @@ def _evaluate_case_payloads_with_table(
     context: PairBenchmarkContext,
     rules_by_target: Optional[Mapping[str, Sequence[VocabRule]]] = None,
     rules: Optional[Sequence[VocabRule]] = None,
+    include_payloads: bool = True,
 ) -> tuple[tuple[dict[str, object], ...], Optional[CompiledBenchmarkCaseResultTable]]:
     compiled_case_table = context.compiled_case_table
     if compiled_case_table is None:
@@ -1774,7 +1787,7 @@ def _evaluate_case_payloads_with_table(
             rules=rules,
         )
         return (
-            tuple(result.to_dict() for result in case_results),
+            tuple(result.to_dict() for result in case_results) if include_payloads else (),
             case_result_table,
         )
     if rules is not None:
@@ -1797,8 +1810,10 @@ def _evaluate_case_payloads_with_table(
             case_row_id=index,
             compiled_case_table=compiled_case_table,
             compiled_rule_table=compiled_rule_table,
+            include_payload=include_payloads,
         )
-        case_payloads.append(case_payload)
+        if case_payload is not None:
+            case_payloads.append(case_payload)
         case_rows.append(case_row)
     return (
         tuple(case_payloads),
@@ -2117,6 +2132,7 @@ def _evaluate_sweep_run(
     run_index: int,
     objective_weights: RulegenBenchmarkObjectiveWeights,
     timing: Optional[BenchmarkTimingCollector] = None,
+    materialize_case_results: bool = True,
 ) -> SweepRunEvaluation:
     phase_timings: dict[str, float] = {}
     case_results: tuple[RulegenBenchmarkCaseResult, ...] = ()
@@ -2154,6 +2170,7 @@ def _evaluate_sweep_run(
         case_result_payloads, compiled_case_result_table = _evaluate_case_payloads_with_table(
             context=context,
             rules=rules,
+            include_payloads=materialize_case_results,
         )
     else:
         grouped_started = perf_counter()
@@ -2163,7 +2180,9 @@ def _evaluate_sweep_run(
             context=context,
             rules_by_target=rules_by_target,
         )
-        case_result_payloads = tuple(result.to_dict() for result in case_results)
+        case_result_payloads = (
+            tuple(result.to_dict() for result in case_results) if materialize_case_results else ()
+        )
     phase_timings["evaluate_cases"] = perf_counter() - started
 
     started = perf_counter()
@@ -2197,10 +2216,12 @@ def _evaluate_sweep_run(
 def _init_sweep_worker(
     context: PairBenchmarkContext,
     objective_weights: RulegenBenchmarkObjectiveWeights,
+    materialize_case_results: bool,
 ) -> None:
-    global _WORKER_CONTEXT, _WORKER_OBJECTIVE_WEIGHTS
+    global _WORKER_CONTEXT, _WORKER_OBJECTIVE_WEIGHTS, _WORKER_MATERIALIZE_CASE_RESULTS
     _WORKER_CONTEXT = context
     _WORKER_OBJECTIVE_WEIGHTS = objective_weights
+    _WORKER_MATERIALIZE_CASE_RESULTS = bool(materialize_case_results)
 
 
 def _evaluate_sweep_run_from_worker_state(
@@ -2214,6 +2235,7 @@ def _evaluate_sweep_run_from_worker_state(
         config=config,
         run_index=run_index,
         objective_weights=_WORKER_OBJECTIVE_WEIGHTS,
+        materialize_case_results=bool(_WORKER_MATERIALIZE_CASE_RESULTS),
     )
 
 
@@ -2231,9 +2253,11 @@ def _run_pair_sweep(
     objective_weights: RulegenBenchmarkObjectiveWeights,
     jobs: int,
     timing: Optional[BenchmarkTimingCollector] = None,
+    materialize_case_results: bool = True,
 ) -> list[SweepRun]:
     evaluations: list[SweepRunEvaluation] = []
     max_workers = _resolve_job_count(jobs, config_count=len(sweep_configs))
+    materialize_case_results_during_sweep = materialize_case_results or len(sweep_configs) <= 1
     if max_workers <= 1 or len(sweep_configs) <= 1:
         for run_index, config in enumerate(sweep_configs, start=1):
             evaluations.append(
@@ -2243,6 +2267,7 @@ def _run_pair_sweep(
                     run_index=run_index,
                     objective_weights=objective_weights,
                     timing=timing,
+                    materialize_case_results=materialize_case_results_during_sweep,
                 )
             )
     else:
@@ -2250,7 +2275,7 @@ def _run_pair_sweep(
             max_workers=max_workers,
             mp_context=multiprocessing.get_context("spawn"),
             initializer=_init_sweep_worker,
-            initargs=(context, objective_weights),
+            initargs=(context, objective_weights, materialize_case_results_during_sweep),
         ) as executor:
             future_by_run_index = {
                 executor.submit(_evaluate_sweep_run_from_worker_state, run_index, config): run_index
@@ -2268,6 +2293,26 @@ def _run_pair_sweep(
     pair_run_list.sort(key=_run_sort_key)
     if timing is not None:
         timing.add("sort_pair_runs", perf_counter() - started, pair=context.pair)
+    if (
+        not materialize_case_results
+        and len(sweep_configs) > 1
+        and pair_run_list
+        and not pair_run_list[0].case_results
+    ):
+        started = perf_counter()
+        pair_run_list[0] = _evaluate_sweep_run(
+            context=context,
+            config=pair_run_list[0].config,
+            run_index=pair_run_list[0].run_index,
+            objective_weights=objective_weights,
+            materialize_case_results=True,
+        ).run
+        if timing is not None:
+            timing.add(
+                "rehydrate_best_run_case_results",
+                perf_counter() - started,
+                pair=context.pair,
+            )
     return pair_run_list
 
 
@@ -2700,6 +2745,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             objective_weights=objective_weights,
             jobs=args.jobs,
             timing=timing,
+            materialize_case_results=args.include_case_results,
         )
         pair_runs[pair] = pair_run_list
 

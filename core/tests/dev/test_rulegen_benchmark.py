@@ -1221,6 +1221,65 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(case_payloads, tuple(result.to_dict() for result in case_results))
         self.assertEqual(payload_table, result_table)
 
+    def test_evaluate_case_payloads_with_table_can_skip_payload_materialization(self) -> None:
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+            forbidden_any=("shack",),
+        )
+        case_ref = CompiledBenchmarkCaseRef(
+            case_row_id=0,
+            case_id=case.case_id,
+            target=case.target,
+            target_id=0,
+            candidate_row_ids=(0, 1),
+        )
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=None,
+            reverse_translation_dict_path=None,
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target={},
+            compiled_case_refs=(case_ref,),
+            compiled_case_table=_build_compiled_case_table(
+                cases=(case,),
+                compiled_case_refs=(case_ref,),
+            ),
+        )
+        rules = (
+            VocabRule(
+                source_phrase="house",
+                replacement="casa",
+                metadata=RuleMetadata(confidence=0.5),
+            ),
+            VocabRule(
+                source_phrase="shack",
+                replacement="casa",
+                metadata=RuleMetadata(
+                    confidence=0.2,
+                    morphology={"source_form": "shacks"},
+                ),
+            ),
+        )
+
+        case_payloads, payload_table = _evaluate_case_payloads_with_table(
+            context=context,
+            rules=rules,
+            include_payloads=False,
+        )
+
+        self.assertEqual(case_payloads, ())
+        self.assertIsInstance(payload_table, CompiledBenchmarkCaseResultTable)
+        assert payload_table is not None
+        self.assertEqual(payload_table.rule_counts, (2,))
+        self.assertEqual(payload_table.top1_correct_flags, (True,))
+
     def test_evaluate_sweep_run_compiled_path_skips_case_result_to_dict(self) -> None:
         case = RulegenBenchmarkCase(
             case_id="en-es:casa:0",
@@ -1308,6 +1367,97 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(len(evaluation.run.case_results), 1)
         self.assertEqual(evaluation.run.case_results[0]["top1_source"], "house")
         self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
+
+    def test_run_pair_sweep_rehydrates_only_best_case_results_when_disabled(self) -> None:
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+            forbidden_any=("shack",),
+        )
+        case_ref = CompiledBenchmarkCaseRef(
+            case_row_id=0,
+            case_id=case.case_id,
+            target=case.target,
+            target_id=0,
+            candidate_row_ids=(0, 1),
+        )
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=None,
+            reverse_translation_dict_path=None,
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target={},
+            compiled_case_refs=(case_ref,),
+            compiled_case_table=_build_compiled_case_table(
+                cases=(case,),
+                compiled_case_refs=(case_ref,),
+            ),
+        )
+        config = SweepConfig(
+            max_definitions_per_target=3,
+            max_rules_per_target=None,
+            confidence_threshold=0.0,
+            semantic_demotion_scale=1.0,
+            include_variants=False,
+            pos_scoring_enabled=True,
+            pos_exact_match_bonus=1.0,
+            pos_compatible_match_bonus=0.5,
+            score_weight_dict_priority=0.6,
+            score_weight_frequency_weight=0.2,
+            score_weight_pos_match=0.1,
+            score_weight_variant_penalty=0.1,
+            score_weight_phrase_penalty=0.1,
+            score_weight_embedding=0.2,
+            reverse_check_enabled=True,
+            reverse_check_match_bonus=0.2,
+            reverse_check_near_bonus=0.1,
+            reverse_check_near_rank_max=2,
+            reverse_check_far_hit_penalty=0.0,
+            reverse_check_miss_penalty=0.2,
+            reverse_check_exact_hit_ambiguity_threshold=0,
+            reverse_check_exact_hit_ambiguity_penalty=0.0,
+            kaikki_policy_live_demotion=False,
+            kaikki_policy_risk_families=(),
+        )
+        rules = (
+            VocabRule(
+                source_phrase="house",
+                replacement="casa",
+                metadata=RuleMetadata(confidence=0.5),
+            ),
+            VocabRule(
+                source_phrase="shack",
+                replacement="casa",
+                metadata=RuleMetadata(confidence=0.2),
+            ),
+        )
+
+        with (
+            patch("rulegen_benchmark.run_rules_with_adapter", return_value=rules) as run_rules,
+            patch(
+                "rulegen_benchmark.RulegenBenchmarkCaseResult.to_dict",
+                side_effect=AssertionError("compiled sweep path should not serialize case results"),
+            ),
+        ):
+            runs = _run_pair_sweep(
+                context=context,
+                sweep_configs=(config, config),
+                objective_weights=RulegenBenchmarkObjectiveWeights(),
+                jobs=1,
+                materialize_case_results=False,
+            )
+
+        self.assertEqual(run_rules.call_count, 3)
+        self.assertEqual([run.run_index for run in runs], [1, 2])
+        self.assertEqual(len(runs[0].case_results), 1)
+        self.assertEqual(runs[0].case_results[0]["top1_source"], "house")
+        self.assertEqual(runs[1].case_results, ())
 
     def test_summarize_compiled_case_results_matches_legacy_summary(self) -> None:
         case_results = (

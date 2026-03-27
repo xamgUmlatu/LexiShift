@@ -475,6 +475,10 @@ Status:
   - when a compiled case table is available, benchmark evaluation builds case-result payload dicts directly from compiled case and rule rows instead of allocating `RulegenBenchmarkCaseResult` objects only to call `to_dict()`
   - the legacy object-returning evaluation path is still preserved for parity tests and non-compiled callers
   - dedicated dev coverage now asserts payload parity against `RulegenBenchmarkCaseResult.to_dict()` and verifies the compiled `_evaluate_sweep_run(...)` path no longer depends on `RulegenBenchmarkCaseResult.to_dict()`
+- default sweeps can now defer case-payload materialization until after ranking:
+  - when `include_case_results` is off and there is more than one config in the sweep, the benchmark now skips per-case payload dict materialization during the main sweep pass
+  - after sorting, only the winning run is re-evaluated with case-payload materialization so the report payload still preserves `best_run.case_results`
+  - one-config smokes still materialize case payloads during the main pass so the optimization does not add an unnecessary second run to the canonical smoke workflow
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
