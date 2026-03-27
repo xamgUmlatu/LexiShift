@@ -717,6 +717,30 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 normalized_by_row_id[row_id] for row_id in range(len(filter_table.candidate_ids))
             ),
         )
+        expected_definition_group_ids: list[int] = []
+        expected_definition_group_ids_by_key: dict[tuple[str, object], int] = {}
+        for row_id in range(len(filter_table.candidate_ids)):
+            definition_bucket_id = int(
+                compiled_resources.candidate_table.definition_bucket_ids[row_id]
+            )
+            definition_group_key: tuple[str, object]
+            if definition_bucket_id >= 0:
+                definition_group_key = ("definition_bucket_id", definition_bucket_id)
+            else:
+                definition_group_key = (
+                    "source_phrase",
+                    str(filter_table.normalized_source_phrases[row_id] or "").strip().lower(),
+                )
+            expected_definition_group_ids.append(
+                expected_definition_group_ids_by_key.setdefault(
+                    definition_group_key,
+                    len(expected_definition_group_ids_by_key),
+                )
+            )
+        self.assertEqual(
+            filter_table.definition_group_ids,
+            tuple(expected_definition_group_ids),
+        )
         self.assertEqual(
             filter_table.accepted_flags,
             tuple(
@@ -793,6 +817,10 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             source_dict="wiktionary_es_en",
             dictionary_pos_source_profile="wiktionary",
         )
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
         score_table = build_en_es_compiled_candidate_score_table(
             compiled_resources=compiled_resources,
             config=config,
@@ -806,6 +834,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         self.assertEqual(group.row_ids, (1, 0))
         self.assertEqual(group.sorted_row_ids, (0, 1))
         self.assertEqual(group.best_row_id, 0)
+        self.assertEqual(filter_table.definition_group_ids[0], filter_table.definition_group_ids[1])
         self.assertEqual(
             group.sort_key,
             (

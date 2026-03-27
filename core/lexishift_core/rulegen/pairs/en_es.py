@@ -412,6 +412,7 @@ class EnEsCompiledCandidateFilterTable:
     candidate_ids: tuple[int, ...] = ()
     target_ids: tuple[int, ...] = ()
     normalized_source_phrases: tuple[str, ...] = ()
+    definition_group_ids: tuple[int, ...] = ()
     non_empty_flags: tuple[bool, ...] = ()
     gloss_shape_flags: tuple[bool, ...] = ()
     length_flags: tuple[bool, ...] = ()
@@ -837,6 +838,7 @@ def build_en_es_compiled_candidate_filter_table(
     stopwords = set(config.stopwords or DEFAULT_STOPWORDS)
     gloss_base_forms = set(compiled_resources.gloss_base_forms)
     normalized_source_phrases: list[str] = []
+    definition_group_ids: list[int] = []
     non_empty_flags: list[bool] = []
     gloss_shape_flags: list[bool] = []
     length_flags: list[bool] = []
@@ -848,11 +850,29 @@ def build_en_es_compiled_candidate_filter_table(
     accepted_candidate_row_ids_by_target_id: dict[int, list[int]] = {}
     accepted_candidate_row_id_groups_by_target_id: dict[int, dict[str, list[int]]] = {}
     accepted_candidate_row_group_order_by_target_id: dict[int, list[str]] = {}
+    definition_group_id_by_key: dict[tuple[str, object], int] = {}
     for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_phrase = _normalize_compiled_source_phrase(
             candidate_table.source_phrases[row_id]
         )
         normalized_source_phrases.append(normalized_phrase)
+        definition_bucket_id = int(candidate_table.definition_bucket_ids[row_id])
+        definition_group_key: tuple[str, object]
+        if definition_bucket_id >= 0:
+            definition_group_key = ("definition_bucket_id", definition_bucket_id)
+        else:
+            definition_group_key = (
+                "source_phrase",
+                str(normalized_phrase or "").strip().lower(),
+            )
+        definition_group_ids.append(
+            int(
+                definition_group_id_by_key.setdefault(
+                    definition_group_key,
+                    len(definition_group_id_by_key),
+                )
+            )
+        )
         allows_function_word_phrase = (
             candidate_table.dictionary_pos_canonicals[row_id] in _FUNCTION_WORD_CANONICALS
         )
@@ -931,6 +951,7 @@ def build_en_es_compiled_candidate_filter_table(
         candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
         target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
         normalized_source_phrases=tuple(normalized_source_phrases),
+        definition_group_ids=tuple(definition_group_ids),
         non_empty_flags=tuple(non_empty_flags),
         gloss_shape_flags=tuple(gloss_shape_flags),
         length_flags=tuple(length_flags),
@@ -1931,7 +1952,6 @@ def _generate_en_es_results_from_compiled_rows(
                 accepted_row_ids.append(selected_row_id)
         selected_row_ids = _limit_compiled_result_row_ids(
             accepted_row_ids,
-            candidate_table=candidate_table,
             filter_table=filter_table,
             score_table=score_table,
             reverse_check=config.reverse_check,
@@ -1980,7 +2000,6 @@ def _generate_en_es_results_from_compiled_rows(
 def _limit_compiled_result_row_ids(
     row_ids: Sequence[int],
     *,
-    candidate_table: EnEsCompiledCandidateTable,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
     reverse_check: ReverseCheckScoringConfig,
@@ -1994,7 +2013,6 @@ def _limit_compiled_result_row_ids(
         if max_definitions > 0:
             limited_row_ids = _limit_compiled_definition_row_ids(
                 limited_row_ids,
-                candidate_table=candidate_table,
                 filter_table=filter_table,
                 score_table=score_table,
                 reverse_check=reverse_check,
@@ -2016,21 +2034,16 @@ def _limit_compiled_result_row_ids(
 def _limit_compiled_definition_row_ids(
     row_ids: Sequence[int],
     *,
-    candidate_table: EnEsCompiledCandidateTable,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
     reverse_check: ReverseCheckScoringConfig,
     max_definitions_per_target: int,
     interleave_definition_groups: bool,
 ) -> tuple[int, ...]:
-    grouped: dict[object, list[int]] = {}
-    group_order: list[object] = []
+    grouped: dict[int, list[int]] = {}
+    group_order: list[int] = []
     for row_id in row_ids:
-        definition_key = _compiled_definition_group_key(
-            row_id,
-            candidate_table=candidate_table,
-            filter_table=filter_table,
-        )
+        definition_key = int(filter_table.definition_group_ids[row_id])
         if definition_key not in grouped:
             grouped[definition_key] = []
             group_order.append(definition_key)
@@ -2054,21 +2067,6 @@ def _limit_compiled_definition_row_ids(
     return _flatten_compiled_definition_groups(
         selected_groups,
         interleave_groups=interleave_definition_groups,
-    )
-
-
-def _compiled_definition_group_key(
-    row_id: int,
-    *,
-    candidate_table: EnEsCompiledCandidateTable,
-    filter_table: EnEsCompiledCandidateFilterTable,
-) -> object:
-    definition_bucket_id = int(candidate_table.definition_bucket_ids[row_id])
-    if definition_bucket_id >= 0:
-        return ("definition_bucket_id", definition_bucket_id)
-    return (
-        "source_phrase",
-        str(filter_table.normalized_source_phrases[row_id] or "").strip().lower(),
     )
 
 
