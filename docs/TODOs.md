@@ -182,6 +182,13 @@ Acceptance criteria:
   - analyze which profiles win by feature region,
   - later route runtime rulegen through an interpretable profile selector,
   - planning spec: `docs/rulegen/trait_conditioned_rulegen_profiles.md`.
+- Generalize the benchmark/resource contract beyond the current `en-es` reference lane:
+  - clean up generic resource naming so non-FreeDict providers do not leak through generic fields,
+  - define a normalized translation-pack contract for benchmark/helper/adapter code,
+  - generalize the compiled pair-context boundary,
+  - use `de-en` as the first additional translation LP once the contract is clean enough,
+  - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
+  - planning spec: `docs/developer/language_pair_generalization_roadmap.md`.
 - Improve benchmark portability before the large broad sweep:
   - optionally add single-file archive/import ergonomics on top of the existing portable bundle export/replay flow if directory transfer becomes annoying.
 
