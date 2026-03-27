@@ -1548,15 +1548,13 @@ def _evaluate_benchmark_case_compiled(
     return result
 
 
-def _evaluate_benchmark_case_compiled_row(
+def _evaluate_benchmark_case_compiled_payload_row(
     *,
     case: RulegenBenchmarkCase,
     case_row_id: int,
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_rule_table: CompiledBenchmarkRuleTable,
-) -> tuple[
-    RulegenBenchmarkCaseResult, tuple[int, Optional[float], bool, bool, bool, bool, int, bool]
-]:
+) -> tuple[dict[str, object], tuple[int, Optional[float], bool, bool, bool, bool, int, bool]]:
     rule_row_id = compiled_rule_table.row_id_by_target.get(str(case.target), -1)
     if rule_row_id >= 0:
         all_sources = compiled_rule_table.all_source_rows[rule_row_id]
@@ -1599,26 +1597,25 @@ def _evaluate_benchmark_case_compiled_row(
     )
     forbidden_any_present = bool(forbidden_matches)
 
-    result = RulegenBenchmarkCaseResult(
-        case_id=case.case_id,
-        pair=case.pair,
-        target=case.target,
-        rule_count=len(all_sources),
-        top1_source=top1_source,
-        top3_sources=top3_sources,
-        all_sources=all_sources,
-        top1_confidence=top1_confidence,
-        top1_correct=top1_correct,
-        top3_contains_expected=top3_contains_expected,
-        top1_forbidden=top1_forbidden,
-        forbidden_any_present=forbidden_any_present,
-        variant_rule_count=variant_rule_count,
-        top1_is_variant=top1_is_variant,
-        expected_matches=expected_matches,
-        forbidden_matches=forbidden_matches,
-    )
     return (
-        result,
+        {
+            "case_id": case.case_id,
+            "pair": case.pair,
+            "target": case.target,
+            "rule_count": len(all_sources),
+            "top1_source": top1_source,
+            "top3_sources": list(top3_sources),
+            "all_sources": list(all_sources),
+            "top1_confidence": top1_confidence,
+            "top1_correct": bool(top1_correct),
+            "top3_contains_expected": bool(top3_contains_expected),
+            "top1_forbidden": bool(top1_forbidden),
+            "forbidden_any_present": bool(forbidden_any_present),
+            "variant_rule_count": int(variant_rule_count),
+            "top1_is_variant": bool(top1_is_variant),
+            "expected_matches": list(expected_matches),
+            "forbidden_matches": list(forbidden_matches),
+        },
         (
             len(all_sources),
             top1_confidence,
@@ -1630,6 +1627,47 @@ def _evaluate_benchmark_case_compiled_row(
             top1_is_variant,
         ),
     )
+
+
+def _evaluate_benchmark_case_compiled_row(
+    *,
+    case: RulegenBenchmarkCase,
+    case_row_id: int,
+    compiled_case_table: CompiledBenchmarkCaseTable,
+    compiled_rule_table: CompiledBenchmarkRuleTable,
+) -> tuple[
+    RulegenBenchmarkCaseResult, tuple[int, Optional[float], bool, bool, bool, bool, int, bool]
+]:
+    payload, case_row = _evaluate_benchmark_case_compiled_payload_row(
+        case=case,
+        case_row_id=case_row_id,
+        compiled_case_table=compiled_case_table,
+        compiled_rule_table=compiled_rule_table,
+    )
+
+    result = RulegenBenchmarkCaseResult(
+        case_id=str(payload["case_id"]),
+        pair=str(payload["pair"]),
+        target=str(payload["target"]),
+        rule_count=int(payload["rule_count"]),
+        top1_source=payload["top1_source"]
+        if payload["top1_source"] is None
+        else str(payload["top1_source"]),
+        top3_sources=tuple(str(source) for source in payload["top3_sources"]),
+        all_sources=tuple(str(source) for source in payload["all_sources"]),
+        top1_confidence=(
+            float(payload["top1_confidence"]) if payload["top1_confidence"] is not None else None
+        ),
+        top1_correct=bool(payload["top1_correct"]),
+        top3_contains_expected=bool(payload["top3_contains_expected"]),
+        top1_forbidden=bool(payload["top1_forbidden"]),
+        forbidden_any_present=bool(payload["forbidden_any_present"]),
+        variant_rule_count=int(payload["variant_rule_count"]),
+        top1_is_variant=bool(payload["top1_is_variant"]),
+        expected_matches=tuple(str(source) for source in payload["expected_matches"]),
+        forbidden_matches=tuple(str(source) for source in payload["forbidden_matches"]),
+    )
+    return (result, case_row)
 
 
 def _build_compiled_case_result_table(
@@ -1718,6 +1756,52 @@ def _evaluate_case_results_with_table(
         case_rows.append(case_row)
     return (
         tuple(case_results),
+        _build_compiled_case_result_table(case_rows=case_rows),
+    )
+
+
+def _evaluate_case_payloads_with_table(
+    *,
+    context: PairBenchmarkContext,
+    rules_by_target: Optional[Mapping[str, Sequence[VocabRule]]] = None,
+    rules: Optional[Sequence[VocabRule]] = None,
+) -> tuple[tuple[dict[str, object], ...], Optional[CompiledBenchmarkCaseResultTable]]:
+    compiled_case_table = context.compiled_case_table
+    if compiled_case_table is None:
+        case_results, case_result_table = _evaluate_case_results_with_table(
+            context=context,
+            rules_by_target=rules_by_target,
+            rules=rules,
+        )
+        return (
+            tuple(result.to_dict() for result in case_results),
+            case_result_table,
+        )
+    if rules is not None:
+        compiled_rule_table = _build_compiled_rule_table_from_rules(
+            rules=rules,
+            compiled_case_table=compiled_case_table,
+            compiled_pair_context=context.compiled_pair_context,
+        )
+    else:
+        compiled_rule_table = _build_compiled_rule_table(
+            rules_by_target=rules_by_target or {},
+            compiled_case_table=compiled_case_table,
+            compiled_pair_context=context.compiled_pair_context,
+        )
+    case_payloads: list[dict[str, object]] = []
+    case_rows: list[tuple[int, Optional[float], bool, bool, bool, bool, int, bool]] = []
+    for index, case in enumerate(context.cases):
+        case_payload, case_row = _evaluate_benchmark_case_compiled_payload_row(
+            case=case,
+            case_row_id=index,
+            compiled_case_table=compiled_case_table,
+            compiled_rule_table=compiled_rule_table,
+        )
+        case_payloads.append(case_payload)
+        case_rows.append(case_row)
+    return (
+        tuple(case_payloads),
         _build_compiled_case_result_table(case_rows=case_rows),
     )
 
@@ -2035,6 +2119,7 @@ def _evaluate_sweep_run(
     timing: Optional[BenchmarkTimingCollector] = None,
 ) -> SweepRunEvaluation:
     phase_timings: dict[str, float] = {}
+    case_results: tuple[RulegenBenchmarkCaseResult, ...] = ()
 
     started = perf_counter()
     rules = run_rules_with_adapter(
@@ -2066,7 +2151,7 @@ def _evaluate_sweep_run(
     started = perf_counter()
     if context.compiled_case_table is not None:
         phase_timings["group_rules"] = 0.0
-        case_results, compiled_case_result_table = _evaluate_case_results_with_table(
+        case_result_payloads, compiled_case_result_table = _evaluate_case_payloads_with_table(
             context=context,
             rules=rules,
         )
@@ -2078,6 +2163,7 @@ def _evaluate_sweep_run(
             context=context,
             rules_by_target=rules_by_target,
         )
+        case_result_payloads = tuple(result.to_dict() for result in case_results)
     phase_timings["evaluate_cases"] = perf_counter() - started
 
     started = perf_counter()
@@ -2100,7 +2186,7 @@ def _evaluate_sweep_run(
         run_index=run_index,
         config=config,
         summary=summary,
-        case_results=tuple(result.to_dict() for result in case_results),
+        case_results=case_result_payloads,
     )
     if timing is not None:
         for phase, duration in phase_timings.items():

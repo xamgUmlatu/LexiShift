@@ -471,6 +471,10 @@ Status:
   - when a compiled case table is available, benchmark evaluation builds the compiled rule table directly from the adapter’s flat `VocabRule` sequence instead of first constructing `rules_by_target` and then rebuilding compiled rows from that mapping
   - the compiled sweep path now records `group_rules` at `0.0s` in the canonical `en-es` smoke run because the regrouping pass is skipped entirely
   - dedicated benchmark dev coverage now asserts parity between the mapping-based and flat-rule compiled rule-table builders, and parity between compiled case evaluation from grouped rules vs flat rules
+- the compiled benchmark path now also materializes `SweepRun.case_results` directly from compiled row tables:
+  - when a compiled case table is available, benchmark evaluation builds case-result payload dicts directly from compiled case and rule rows instead of allocating `RulegenBenchmarkCaseResult` objects only to call `to_dict()`
+  - the legacy object-returning evaluation path is still preserved for parity tests and non-compiled callers
+  - dedicated dev coverage now asserts payload parity against `RulegenBenchmarkCaseResult.to_dict()` and verifies the compiled `_evaluate_sweep_run(...)` path no longer depends on `RulegenBenchmarkCaseResult.to_dict()`
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
