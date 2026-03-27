@@ -453,11 +453,23 @@ Status:
   - reverse preload also runs a lightweight raw-headword scan over the reverse dictionary so normalized demand such as `remove` can still pull raw reverse entries whose stored headword spelling differs from the candidate-normalized form
   - the canonical `en-es` smoke benchmark is back at objective `129.474` after this reverse-scoping slice, so the scoped reverse preload is now parity-safe instead of a speculative optimization
 - the shared generation pipeline now preserves reverse-hygiene behavior when the ranking mechanism is a wrapper around `DictionaryEntryOrderRankingMechanism`
+- the shared generation layer now also exposes reusable rule materialization and ranking-aware limiting helpers:
+  - `VocabRule` materialization from a `RuleCandidate`
+  - `RuleGenerationResult` materialization from a `RuleCandidate`
+  - ranking-aware definition limiting, interleaving, reverse-definition hygiene, and max-rules-per-target limiting
+  - these helpers are now used by both the legacy pipeline path and the compiled `en-es` fast path instead of duplicating result-shaping logic
 - generated rules now preserve compiled rulegen ids in rule metadata, so selected rules can be joined back to compiled candidate rows without relying only on normalized phrase text
+- non-variant compiled `en-es` generation now has a direct compiled-row result path:
+  - `generate_en_es_results(...)` can bypass `build_en_es_pipeline(...)` when compiled resources and the non-variant candidate table are available
+  - the fast path materializes candidates directly from compiled accepted row ids, reuses the shared generation helpers for rule materialization and result limiting, and preserves the canonical smoke result
+  - dedicated parity coverage now asserts both output equivalence and pipeline bypass for this path
+- compiled candidate facts and score rows now align more tightly with live rulegen semantics:
+  - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
+  - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
 - current measured timing shape on Windows after this slice:
   - `preload_translation_gloss_records`: about `1.32s`
   - `compile_pair_context`: about `0.08s`
-  - `run_config`: about `0.022s` per config in serial smoke runs
+  - `run_config`: about `0.021s` per config in serial smoke runs
   - end-to-end canonical 1-config smoke wall clock: about `1.81s`
 
 Goal:

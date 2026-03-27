@@ -686,6 +686,75 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             [result.rule.metadata.confidence for result in expected],
         )
 
+    def test_non_variant_compiled_result_fast_path_bypasses_pipeline(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation=" To Run! ",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+                FreedictGlossRecord(
+                    translation="in order to",
+                    pos_raw="preposition",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 5},
+                ),
+            ]
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        expected = generate_en_es_results(["casa"], config=base_config)
+        compiled_config = replace(
+            base_config,
+            compiled_resources=build_en_es_compiled_resources(
+                targets=("casa",),
+                records_by_target=records,
+                reverse_records_by_source=None,
+                word_packages_by_target=word_packages,
+                language_pair="en-es",
+                source_dict="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+
+        with patch(
+            "lexishift_core.rulegen.pairs.en_es.build_en_es_pipeline",
+            side_effect=AssertionError("non-variant compiled generation should bypass pipeline"),
+        ):
+            compiled = generate_en_es_results(["casa"], config=compiled_config)
+
+        self.assertEqual(
+            [result.candidate.source_phrase for result in compiled],
+            [result.candidate.source_phrase for result in expected],
+        )
+        self.assertEqual(
+            [result.rule.metadata.confidence for result in compiled],
+            [result.rule.metadata.confidence for result in expected],
+        )
+
     def test_compiled_pipeline_uses_precomputed_ranking_scores(self) -> None:
         records = {
             "casa": [

@@ -30,6 +30,9 @@ from lexishift_core.rulegen.generation import (
     RuleScoringConfig,
     SimpleSignalProvider,
     build_optional_pos_match_provider,
+    extract_candidate_pos_canonical,
+    limit_rule_generation_results,
+    materialize_rule_generation_result,
     score_candidate_pos_match,
     score_canonical_pos_pair,
 )
@@ -683,6 +686,9 @@ def build_en_es_compiled_candidate_score_table(
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
     for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
+        normalized_source_phrase = _normalize_compiled_source_phrase(
+            candidate_table.source_phrases[row_id]
+        )
         dict_priority = float(
             dict_priority_by_source_dict_id.get(candidate_table.source_dict_ids[row_id], 0.0)
         )
@@ -705,7 +711,7 @@ def build_en_es_compiled_candidate_score_table(
         variant_penalty = (
             float(config.variant_penalty) if candidate_table.variant_flags[row_id] else 0.0
         )
-        phrase_penalty = 1.0 if candidate_table.phrase_flags[row_id] else 0.0
+        phrase_penalty = 1.0 if " " in normalized_source_phrase else 0.0
         confidence = float(
             scorer.score(
                 RuleConfidenceSignals(
@@ -733,7 +739,7 @@ def build_en_es_compiled_candidate_score_table(
         ranking_score = float(
             ranking_mechanism.score(
                 CandidateRankingContext(
-                    source_phrase=candidate_table.source_phrases[row_id],
+                    source_phrase=normalized_source_phrase,
                     replacement=str(targets_by_id.get(candidate_table.target_ids[row_id], "")),
                     metadata=ranking_metadata,
                     confidence=confidence,
@@ -1352,15 +1358,21 @@ def _build_compiled_candidate_fact(
         source_phrase_is_ascii=bool(phrase) and all(ord(ch) < 128 for ch in phrase),
         source_phrase_is_phrase=" " in phrase,
         is_variant=_normalize_optional_bool(metadata.get("variant")),
-        source_pos_canonical=str(candidate.metadata.get("source_pos_canonical") or "")
-        .strip()
-        .lower(),
-        target_pos_canonical=str(candidate.metadata.get("target_pos_canonical") or "")
-        .strip()
-        .lower(),
-        dictionary_pos_canonical=str(candidate.metadata.get("dictionary_pos_canonical") or "")
-        .strip()
-        .lower(),
+        source_pos_canonical=extract_candidate_pos_canonical(
+            metadata,
+            nested_key="source",
+            flat_key="source_pos_canonical",
+        ),
+        target_pos_canonical=extract_candidate_pos_canonical(
+            metadata,
+            nested_key="target",
+            flat_key="target_pos_canonical",
+        ),
+        dictionary_pos_canonical=extract_candidate_pos_canonical(
+            metadata,
+            nested_key="dictionary",
+            flat_key="dictionary_pos_canonical",
+        ),
         semantic_demotion_base=max(
             0.0, _normalize_optional_float(metadata.get("semantic_demotion"))
         ),
@@ -1728,6 +1740,8 @@ def generate_en_es_results(
     *,
     config: EnEsRulegenConfig,
 ) -> list[RuleGenerationResult]:
+    if _can_generate_en_es_results_from_compiled_rows(config):
+        return _generate_en_es_results_from_compiled_rows(targets, config=config)
     pipeline = build_en_es_pipeline(config)
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
@@ -1747,6 +1761,140 @@ def generate_en_es_rules(
     config: EnEsRulegenConfig,
 ):
     return [result.rule for result in generate_en_es_results(targets, config=config)]
+
+
+def _can_generate_en_es_results_from_compiled_rows(config: EnEsRulegenConfig) -> bool:
+    compiled_resources = config.compiled_resources
+    if compiled_resources is None or config.include_variants:
+        return False
+    return compiled_resources.candidate_table is not None
+
+
+def _generate_en_es_results_from_compiled_rows(
+    targets: Iterable[str],
+    *,
+    config: EnEsRulegenConfig,
+) -> list[RuleGenerationResult]:
+    compiled_resources = config.compiled_resources
+    if compiled_resources is None or compiled_resources.candidate_table is None:
+        return []
+    candidate_table = compiled_resources.candidate_table
+    filter_table = build_en_es_compiled_candidate_filter_table(
+        compiled_resources=compiled_resources,
+        config=config,
+    )
+    score_table = build_en_es_compiled_candidate_score_table(
+        compiled_resources=compiled_resources,
+        config=config,
+    )
+    ranking_mechanism = EnEsCompiledRankingMechanism(
+        fallback=DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check),
+        candidate_row_id_by_candidate_id=dict(candidate_table.candidate_row_id_by_candidate_id),
+        score_table=score_table,
+    )
+    rule_config = RuleGenerationConfig(
+        language_pair=config.language_pair,
+        confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
+        max_rules_per_target=config.max_rules_per_target,
+        interleave_definition_groups=config.interleave_definition_groups,
+        semantic_demotion_scale=config.semantic_demotion_scale,
+        tags=("translation", config.source_dict_id),
+    )
+    ordered_targets = tuple(
+        dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
+    )
+    requested_target_ids = {
+        compiled_resources.target_ids_by_target[target]
+        for target in ordered_targets
+        if target in compiled_resources.target_ids_by_target
+    }
+    base_candidates_by_id = {
+        int(candidate.metadata["compiled_candidate_id"]): candidate
+        for context in compiled_resources.compiled_targets_by_target.values()
+        if context.target_id in requested_target_ids
+        for candidate in context.base_candidates
+        if isinstance(candidate.metadata, Mapping)
+        and _normalize_non_negative_optional_int(candidate.metadata.get("compiled_candidate_id"))
+        is not None
+    }
+    shadows_by_target = {
+        target: (
+            _build_kaikki_policy_shadow_by_index(
+                dictionary_record_views_by_index=context.dictionary_record_views_by_index,
+                canonical_inventory=context.canonical_inventory,
+                risk_families=config.kaikki_policy.risk_families,
+            )
+            if config.kaikki_policy.enable_shadow_metadata
+            else [{} for _ in context.base_candidates]
+        )
+        for target, context in compiled_resources.compiled_targets_by_target.items()
+        if context.target_id in requested_target_ids
+    }
+    seen: set[tuple[str, str, str]] = set()
+    results: list[RuleGenerationResult] = []
+    for target in ordered_targets:
+        context = compiled_resources.compiled_targets_by_target.get(target)
+        if context is None:
+            continue
+        accepted_row_ids = filter_table.accepted_candidate_row_ids_by_target_id.get(
+            context.target_id,
+            (),
+        )
+        shadows = shadows_by_target.get(target, ())
+        for row_id in accepted_row_ids:
+            candidate_id = int(candidate_table.candidate_ids[row_id])
+            base_candidate = base_candidates_by_id.get(candidate_id)
+            if base_candidate is None:
+                continue
+            source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
+            if not source_phrase:
+                continue
+            dedupe_key = (
+                source_phrase.lower(),
+                str(base_candidate.replacement or "").strip().lower(),
+                str(base_candidate.language_pair or "").strip(),
+            )
+            if dedupe_key in seen:
+                continue
+            confidence = float(score_table.confidence_scores[row_id])
+            if confidence < rule_config.confidence_threshold:
+                continue
+            seen.add(dedupe_key)
+            metadata = dict(base_candidate.metadata)
+            metadata["reverse_check_source_dict"] = config.reverse_source_dict_id or None
+            local_index = int(
+                _normalize_non_negative_optional_int(metadata.get("compiled_candidate_index")) or 0
+            )
+            if local_index < len(shadows):
+                _apply_kaikki_policy_overlay(
+                    metadata=metadata,
+                    shadow=shadows[local_index],
+                    kaikki_policy=config.kaikki_policy,
+                )
+            candidate = replace(
+                base_candidate,
+                source_phrase=source_phrase,
+                language_pair=config.language_pair,
+                source_dict=config.source_dict_id,
+                source_type="translation",
+                metadata=metadata,
+            )
+            results.append(
+                materialize_rule_generation_result(
+                    candidate,
+                    confidence=confidence,
+                    config=rule_config,
+                )
+            )
+    return limit_rule_generation_results(
+        results,
+        ranking_mechanism=ranking_mechanism,
+        max_definitions_per_target=rule_config.max_definitions_per_target,
+        interleave_definition_groups=rule_config.interleave_definition_groups,
+        max_rules_per_target=rule_config.max_rules_per_target,
+        semantic_demotion_scale=rule_config.semantic_demotion_scale,
+    )
 
 
 class FreedictCandidateSource:
