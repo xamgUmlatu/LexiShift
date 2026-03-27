@@ -174,9 +174,19 @@ Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche):
 - the local machine now also has:
   - a real FreeDict reverse `eng-spa.tei`
   - a local `freq-es-cde.sqlite`
-- that makes the next non-optimization verification tranche straightforward:
-  - rerun the full Stage B resource-family comparison with a real FreeDict reverse override
-  - run installed-resource `en-es` helper diagnostics now that the Spanish frequency DB exists
+- the full Stage B resource-family comparison has now been rerun with explicit local resource overrides:
+  - Kaikki forward + Kaikki reverse: objective `139.333`
+  - Kaikki forward + FreeDict reverse: objective `137.684`
+  - Kaikki forward + reverse disabled: objective `132.351`
+  - FreeDict forward + Kaikki reverse: objective `65.228`
+  - FreeDict forward + FreeDict reverse: objective `65.579`
+  - FreeDict forward + reverse disabled: objective `59.860`
+- current interpretation:
+  - Kaikki forward remains decisively dominant for `en-es`
+  - FreeDict reverse is slightly worse than Kaikki reverse inside the strong Kaikki-forward lane
+  - FreeDict forward remains non-competitive regardless of reverse lane
+- installed-resource `en-es` helper diagnostics now report no missing inputs, and a no-persist helper `run_rulegen` smoke succeeds locally with `117` rules over `40` targets
+- the older helper `status.last_error` is now best interpreted as stale historical state, not a current `en-es` resource blocker
 
 ## Hard Requirements
 

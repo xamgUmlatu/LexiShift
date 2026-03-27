@@ -5,6 +5,11 @@ Machine: current Windows PC
 Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
 Resource baseline: Kaikki forward + Kaikki reverse
 
+Note:
+
+- the Stage B section in this note is the initial lane pass only
+- the explicit full resource-family rerun now lives in `docs/test_outputs/experiments/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md`
+
 ## Stage A Follow-up Frontier
 
 | Sweep | Runs | Objective | Top1 | Top3 | ForbidAny | AvgRules | Exact Ties | Triage |

@@ -258,17 +258,21 @@ Later follow-up interpretation:
 - a second combined re-check around the true `md=2` / `mr=2` frontier matched the admission-led objective but did not beat it
 - the remaining plateau suggests reverse fine-tuning is mostly neutral once the tighter admission surface is in place
 
-Current Stage B provisional resource-lane conclusion on this PC:
+Current Stage B verified resource-lane conclusion on this PC:
 
-- Kaikki forward + reverse enabled remains the best lane
-- Kaikki forward + reverse disabled is clearly worse
-- FreeDict forward collapses quality in both initial reverse-enabled and reverse-disabled lanes
-- the initial FreeDict reverse-enabled lane should still be treated as provisional until the full Stage B rerun is completed with an explicit local `eng-spa.tei` override
+- the full Stage B resource-family rerun has now been completed with an explicit local FreeDict `eng-spa.tei` override
+- Kaikki forward + Kaikki reverse remains the best lane at objective `139.333`
+- Kaikki forward + FreeDict reverse is slightly worse at objective `137.684`
+  - it loses one top1 case (`hasta`: `until` -> `even`)
+  - it still keeps `ForbidAny 0.00%`
+- Kaikki forward + reverse disabled is clearly worse at objective `132.351`
+- FreeDict forward remains non-competitive in every tested reverse lane
+  - FreeDict + FreeDict reverse is slightly better than FreeDict + Kaikki reverse, but both remain far below the Kaikki-forward lane
 
 Current local resource state:
 
 - this PC now has a local FreeDict `eng-spa.tei` reverse pack
 - this PC now also has a local `freq-es-cde.sqlite`
-- that means the next local verification tranche should:
-  - rerun the Stage B resource comparison with an actual FreeDict reverse override
-  - run installed-resource `en-es` helper diagnostics now that the Spanish frequency DB exists
+- installed-resource `en-es` helper diagnostics now report no missing inputs
+- a no-persist helper `run_rulegen` smoke now succeeds locally for `en-es`
+- there is no longer a resource-availability blocker for the current `en-es` benchmark/resource matrix on this PC

@@ -1,0 +1,145 @@
+{
+  "total_recorded_seconds": 2.6402657000035106,
+  "phases": {
+    "build_resource_payload": {
+      "total_seconds": 0.026082699998369208,
+      "count": 1,
+      "avg_seconds": 0.026082699998369208
+    },
+    "build_sweep_configs": {
+      "total_seconds": 3.1200001103570685e-05,
+      "count": 1,
+      "avg_seconds": 3.1200001103570685e-05
+    },
+    "build_word_packages": {
+      "total_seconds": 4.029999763588421e-05,
+      "count": 1,
+      "avg_seconds": 4.029999763588421e-05
+    },
+    "compile_pair_context": {
+      "total_seconds": 0.0712905000000319,
+      "count": 1,
+      "avg_seconds": 0.0712905000000319
+    },
+    "evaluate_cases": {
+      "total_seconds": 0.00018360000103712082,
+      "count": 1,
+      "avg_seconds": 0.00018360000103712082
+    },
+    "group_rules": {
+      "total_seconds": 0.0,
+      "count": 1,
+      "avg_seconds": 0.0
+    },
+    "load_dataset": {
+      "total_seconds": 0.0007913000008556992,
+      "count": 1,
+      "avg_seconds": 0.0007913000008556992
+    },
+    "load_store": {
+      "total_seconds": 0.0004920000028505456,
+      "count": 1,
+      "avg_seconds": 0.0004920000028505456
+    },
+    "preload_translation_gloss_records": {
+      "total_seconds": 2.5160963000016636,
+      "count": 1,
+      "avg_seconds": 2.5160963000016636
+    },
+    "prepare_compiled_sweep_inputs": {
+      "total_seconds": 0.02318860000013956,
+      "count": 1,
+      "avg_seconds": 0.02318860000013956
+    },
+    "render_html": {
+      "total_seconds": 0.001906800000142539,
+      "count": 1,
+      "avg_seconds": 0.001906800000142539
+    },
+    "render_markdown": {
+      "total_seconds": 1.9600000086938962e-05,
+      "count": 1,
+      "avg_seconds": 1.9600000086938962e-05
+    },
+    "resolve_resources": {
+      "total_seconds": 3.65999985660892e-05,
+      "count": 1,
+      "avg_seconds": 3.65999985660892e-05
+    },
+    "run_config": {
+      "total_seconds": 8.789999992586672e-05,
+      "count": 1,
+      "avg_seconds": 8.789999992586672e-05
+    },
+    "sort_pair_runs": {
+      "total_seconds": 1.5000005078036338e-06,
+      "count": 1,
+      "avg_seconds": 1.5000005078036338e-06
+    },
+    "summarize_run": {
+      "total_seconds": 1.680000059423037e-05,
+      "count": 1,
+      "avg_seconds": 1.680000059423037e-05
+    }
+  },
+  "pairs": {
+    "en-es": {
+      "build_resource_payload": {
+        "total_seconds": 0.026082699998369208,
+        "count": 1,
+        "avg_seconds": 0.026082699998369208
+      },
+      "build_word_packages": {
+        "total_seconds": 4.029999763588421e-05,
+        "count": 1,
+        "avg_seconds": 4.029999763588421e-05
+      },
+      "compile_pair_context": {
+        "total_seconds": 0.0712905000000319,
+        "count": 1,
+        "avg_seconds": 0.0712905000000319
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.00018360000103712082,
+        "count": 1,
+        "avg_seconds": 0.00018360000103712082
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 1,
+        "avg_seconds": 0.0
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 2.5160963000016636,
+        "count": 1,
+        "avg_seconds": 2.5160963000016636
+      },
+      "prepare_compiled_sweep_inputs": {
+        "total_seconds": 0.02318860000013956,
+        "count": 1,
+        "avg_seconds": 0.02318860000013956
+      },
+      "resolve_resources": {
+        "total_seconds": 3.65999985660892e-05,
+        "count": 1,
+        "avg_seconds": 3.65999985660892e-05
+      },
+      "run_config": {
+        "total_seconds": 8.789999992586672e-05,
+        "count": 1,
+        "avg_seconds": 8.789999992586672e-05
+      },
+      "sort_pair_runs": {
+        "total_seconds": 1.5000005078036338e-06,
+        "count": 1,
+        "avg_seconds": 1.5000005078036338e-06
+      },
+      "summarize_run": {
+        "total_seconds": 1.680000059423037e-05,
+        "count": 1,
+        "avg_seconds": 1.680000059423037e-05
+      }
+    }
+  },
+  "wall_clock_seconds": 2.642795700001443
+}

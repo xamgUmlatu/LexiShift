@@ -1,0 +1,325 @@
+{
+  "outputs_persisted": false,
+  "pair": "en-es",
+  "profile_id": "default",
+  "rules": 117,
+  "ruleset_path": null,
+  "snapshot": {
+    "generated_at": "2026-03-27T23:28:02Z",
+    "pair": "en-es",
+    "stats": {
+      "rule_count": 117,
+      "source_count": 117,
+      "target_count": 38
+    },
+    "targets": [
+      {
+        "lemma": "autor",
+        "sources": [
+          "author"
+        ]
+      },
+      {
+        "lemma": "capital",
+        "sources": [
+          "capital"
+        ]
+      },
+      {
+        "lemma": "corazón",
+        "sources": [
+          "heart",
+          "kindness",
+          "core",
+          "spirit"
+        ]
+      },
+      {
+        "lemma": "crisis",
+        "sources": [
+          "crisis",
+          "attack",
+          "fit"
+        ]
+      },
+      {
+        "lemma": "cuestión",
+        "sources": [
+          "matter",
+          "thing",
+          "question",
+          "issue"
+        ]
+      },
+      {
+        "lemma": "enfermedad",
+        "sources": [
+          "illness",
+          "disease"
+        ]
+      },
+      {
+        "lemma": "esfuerzo",
+        "sources": [
+          "effort",
+          "endeavor"
+        ]
+      },
+      {
+        "lemma": "espacio",
+        "sources": [
+          "space",
+          "course",
+          "period"
+        ]
+      },
+      {
+        "lemma": "estilo",
+        "sources": [
+          "style",
+          "stylus"
+        ]
+      },
+      {
+        "lemma": "falta",
+        "sources": [
+          "lack",
+          "absence",
+          "fault",
+          "shortage"
+        ]
+      },
+      {
+        "lemma": "fondo",
+        "sources": [
+          "bottom",
+          "back",
+          "fund",
+          "funding"
+        ]
+      },
+      {
+        "lemma": "hermano",
+        "sources": [
+          "brother",
+          "sibling",
+          "bro",
+          "dude"
+        ]
+      },
+      {
+        "lemma": "hora",
+        "sources": [
+          "hour",
+          "time",
+          "period"
+        ]
+      },
+      {
+        "lemma": "influencia",
+        "sources": [
+          "influence",
+          "leverage",
+          "clout"
+        ]
+      },
+      {
+        "lemma": "jefe",
+        "sources": [
+          "chief",
+          "boss",
+          "colonel",
+          "president",
+          "supervisor",
+          "major"
+        ]
+      },
+      {
+        "lemma": "luz",
+        "sources": [
+          "light",
+          "lumen",
+          "brightness",
+          "intelligence"
+        ]
+      },
+      {
+        "lemma": "mayor",
+        "sources": [
+          "adult",
+          "major",
+          "head",
+          "grown-up",
+          "main",
+          "boss"
+        ]
+      },
+      {
+        "lemma": "mayoría",
+        "sources": [
+          "majority"
+        ]
+      },
+      {
+        "lemma": "millón",
+        "sources": [
+          "million"
+        ]
+      },
+      {
+        "lemma": "movimiento",
+        "sources": [
+          "movement",
+          "transaction"
+        ]
+      },
+      {
+        "lemma": "música",
+        "sources": [
+          "music"
+        ]
+      },
+      {
+        "lemma": "nacional",
+        "sources": [
+          "national",
+          "nationwide"
+        ]
+      },
+      {
+        "lemma": "necesidad",
+        "sources": [
+          "need",
+          "necessity",
+          "neediness"
+        ]
+      },
+      {
+        "lemma": "objetivo",
+        "sources": [
+          "objective",
+          "aim",
+          "goal",
+          "target"
+        ]
+      },
+      {
+        "lemma": "organismo",
+        "sources": [
+          "organism",
+          "organization",
+          "creature",
+          "committee",
+          "body"
+        ]
+      },
+      {
+        "lemma": "político",
+        "sources": [
+          "political",
+          "in-law",
+          "politician"
+        ]
+      },
+      {
+        "lemma": "presencia",
+        "sources": [
+          "presence",
+          "appearance",
+          "look"
+        ]
+      },
+      {
+        "lemma": "principio",
+        "sources": [
+          "principle",
+          "cause",
+          "beginning",
+          "origin",
+          "start",
+          "outset"
+        ]
+      },
+      {
+        "lemma": "producción",
+        "sources": [
+          "production",
+          "output"
+        ]
+      },
+      {
+        "lemma": "resto",
+        "sources": [
+          "rest",
+          "remainder"
+        ]
+      },
+      {
+        "lemma": "reunión",
+        "sources": [
+          "meeting",
+          "powwow",
+          "collection",
+          "session",
+          "gathering",
+          "appointment"
+        ]
+      },
+      {
+        "lemma": "rostro",
+        "sources": [
+          "face"
+        ]
+      },
+      {
+        "lemma": "salud",
+        "sources": [
+          "health"
+        ]
+      },
+      {
+        "lemma": "siglo",
+        "sources": [
+          "century",
+          "age",
+          "eon"
+        ]
+      },
+      {
+        "lemma": "silencio",
+        "sources": [
+          "silence",
+          "rest"
+        ]
+      },
+      {
+        "lemma": "sol",
+        "sources": [
+          "sun",
+          "sunlight",
+          "daylight"
+        ]
+      },
+      {
+        "lemma": "teatro",
+        "sources": [
+          "theater",
+          "drama",
+          "theatrics",
+          "melodrama"
+        ]
+      },
+      {
+        "lemma": "área",
+        "sources": [
+          "area",
+          "field"
+        ]
+      }
+    ],
+    "version": 1
+  },
+  "snapshot_path": null,
+  "store_persisted": false,
+  "targets": 40
+}
