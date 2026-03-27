@@ -13,8 +13,8 @@ from lexishift_core.pos.normalization import (
     CANONICAL_POS_PRONOUN,
 )
 from lexishift_core.resources.dict_loaders import (
-    FreedictGlossRecord,
-    load_freedict_gloss_records_ordered,
+    TranslationGlossRecord,
+    load_translation_gloss_records_ordered,
 )
 from lexishift_core.rulegen.kaikki_views import build_kaikki_record_views
 from lexishift_core.rulegen.generation import (
@@ -112,6 +112,13 @@ _COMPILED_SCORE_TABLE_CACHE: dict[
     tuple[int, tuple[object, ...]],
     "EnEsCompiledCandidateScoreTable",
 ] = {}
+_COMPILED_RESOURCE_CACHE_TOKEN = 0
+
+
+def _next_compiled_resource_cache_token() -> int:
+    global _COMPILED_RESOURCE_CACHE_TOKEN
+    _COMPILED_RESOURCE_CACHE_TOKEN += 1
+    return int(_COMPILED_RESOURCE_CACHE_TOKEN)
 
 
 def _resolve_spanish_target_surface(candidate: RuleCandidate, form: str) -> Optional[str]:
@@ -489,7 +496,7 @@ class EnEsCompiledTargetContext:
     target_reverse_norm: str
     target_word_package: Optional[Mapping[str, object]]
     target_pos: Mapping[str, object]
-    entries: tuple[FreedictGlossRecord, ...]
+    entries: tuple[TranslationGlossRecord, ...]
     dictionary_poses: tuple[Mapping[str, object], ...]
     canonical_inventory: tuple[str, ...]
     dictionary_record_views_by_index: tuple[Mapping[str, object], ...]
@@ -501,8 +508,8 @@ class EnEsCompiledTargetContext:
 
 @dataclass(frozen=True)
 class EnEsCompiledResources:
-    records_by_target: Mapping[str, Sequence[FreedictGlossRecord]]
-    reverse_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    records_by_target: Mapping[str, Sequence[TranslationGlossRecord]]
+    reverse_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_targets_by_target: Mapping[str, EnEsCompiledTargetContext] = field(
         default_factory=dict
     )
@@ -516,6 +523,7 @@ class EnEsCompiledResources:
     gloss_base_forms: frozenset[str] = frozenset()
     reverse_lookup: Optional[Mapping[str, tuple[str, ...]]] = None
     compile_version: int = 3
+    cache_token: int = -1
 
 
 @dataclass(frozen=True)
@@ -524,8 +532,8 @@ class EnEsRulegenConfig:
     reverse_freedict_en_es_path: Optional[Path] = None
     reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
-    gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
-    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-es"
     source_dict_id: str = "freedict_es_en"
@@ -562,8 +570,8 @@ class EnEsRulegenConfig:
 def build_en_es_compiled_resources(
     *,
     targets: Iterable[str],
-    records_by_target: Mapping[str, Sequence[FreedictGlossRecord]],
-    reverse_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None,
+    records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
+    reverse_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None,
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
     language_pair: str = "en-es",
     source_dict: str = "freedict_es_en",
@@ -697,6 +705,7 @@ def build_en_es_compiled_resources(
             else _build_gloss_base_forms(_records_to_gloss_mapping(records_by_target))
         ),
         reverse_lookup=reverse_lookup,
+        cache_token=_next_compiled_resource_cache_token(),
     )
 
 
@@ -871,7 +880,7 @@ def _build_compiled_score_table_cache_key(
 ) -> tuple[int, tuple[object, ...]]:
     compatibility_classes = config.scoring.pos_match.compatibility_classes
     return (
-        id(compiled_resources),
+        int(compiled_resources.cache_token),
         (
             str(config.source_dict_id),
             float(config.dict_priority),
@@ -1074,7 +1083,7 @@ def _build_compiled_filter_table_cache_key(
     config: EnEsRulegenConfig,
 ) -> tuple[int, tuple[object, ...]]:
     return (
-        id(compiled_resources),
+        int(compiled_resources.cache_token),
         (
             bool(config.allow_hyphen),
             bool(config.allow_multiword_glosses),
@@ -1284,7 +1293,7 @@ def _build_static_candidate_inventory(
     target_reverse_norm: str,
     target_word_package: Optional[Mapping[str, object]],
     target_pos: Mapping[str, object],
-    entries: Sequence[FreedictGlossRecord],
+    entries: Sequence[TranslationGlossRecord],
     dictionary_poses: Sequence[Mapping[str, object]],
     canonical_inventory: Sequence[str],
     dictionary_record_views_by_index: Sequence[Mapping[str, object]],
@@ -1338,7 +1347,7 @@ def _build_static_candidate_inventory(
 
 def _build_static_candidate_metadata(
     *,
-    entry: FreedictGlossRecord,
+    entry: TranslationGlossRecord,
     index: int,
     total: int,
     target: str,
@@ -2414,10 +2423,10 @@ class FreedictCandidateSource:
     def __init__(
         self,
         *,
-        records_by_target: Mapping[str, Sequence[FreedictGlossRecord]],
+        records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
         source_dict: str,
         source_type: str,
-        reverse_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None,
+        reverse_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None,
         reverse_source_dict: str = "",
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
         generic_gloss_demotions: Optional[Mapping[str, float]] = None,
@@ -2666,12 +2675,14 @@ def _build_gloss_base_forms(mapping: Mapping[str, Sequence[str]]) -> set[str]:
     return base_forms
 
 
-def _resolve_gloss_records(config: EnEsRulegenConfig) -> dict[str, list[FreedictGlossRecord]]:
+def _resolve_gloss_records(
+    config: EnEsRulegenConfig,
+) -> dict[str, list[TranslationGlossRecord]]:
     if config.gloss_records_by_target is not None:
         return _coerce_gloss_records(config.gloss_records_by_target)
     if config.gloss_mapping is not None:
         return _coerce_gloss_records(config.gloss_mapping)
-    return load_freedict_gloss_records_ordered(
+    return load_translation_gloss_records_ordered(
         config.freedict_es_en_path,
         target_lang="en",
     )
@@ -2679,36 +2690,36 @@ def _resolve_gloss_records(config: EnEsRulegenConfig) -> dict[str, list[Freedict
 
 def _coerce_gloss_records(
     mapping: Mapping[str, Sequence[object]],
-) -> dict[str, list[FreedictGlossRecord]]:
-    records_by_target: dict[str, list[FreedictGlossRecord]] = {}
+) -> dict[str, list[TranslationGlossRecord]]:
+    records_by_target: dict[str, list[TranslationGlossRecord]] = {}
     for target, entries in mapping.items():
-        bucket: list[FreedictGlossRecord] = []
+        bucket: list[TranslationGlossRecord] = []
         for entry in entries:
-            if isinstance(entry, FreedictGlossRecord):
+            if isinstance(entry, TranslationGlossRecord):
                 bucket.append(entry)
                 continue
-            bucket.append(FreedictGlossRecord(translation=str(entry), pos_raw=""))
+            bucket.append(TranslationGlossRecord(translation=str(entry), pos_raw=""))
         records_by_target[str(target)] = bucket
     return records_by_target
 
 
 def _resolve_reverse_gloss_records(
     config: EnEsRulegenConfig,
-) -> Optional[dict[str, list[FreedictGlossRecord]]]:
+) -> Optional[dict[str, list[TranslationGlossRecord]]]:
     if config.reverse_gloss_records_by_source is not None:
         return _coerce_gloss_records(config.reverse_gloss_records_by_source)
     if config.reverse_freedict_en_es_path is None:
         return None
     if not config.reverse_freedict_en_es_path.exists():
         return None
-    return load_freedict_gloss_records_ordered(
+    return load_translation_gloss_records_ordered(
         config.reverse_freedict_en_es_path,
         target_lang="es",
     )
 
 
 def _records_to_gloss_mapping(
-    records_by_target: Mapping[str, Sequence[FreedictGlossRecord]],
+    records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
 ) -> dict[str, list[str]]:
     return {
         target: [entry.translation for entry in entries]

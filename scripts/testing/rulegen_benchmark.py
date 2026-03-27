@@ -28,10 +28,10 @@ from lexishift_core.lexicon.word_package import (  # noqa: E402
     normalize_word_package,
 )
 from lexishift_core.resources.dict_loaders import (  # noqa: E402
-    FreedictGlossRecord,
-    load_freedict_gloss_base_forms,
-    load_freedict_headwords,
-    load_freedict_gloss_records_ordered,
+    TranslationGlossRecord,
+    load_translation_gloss_base_forms,
+    load_translation_gloss_records_ordered,
+    load_translation_headwords,
 )
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
@@ -290,8 +290,8 @@ class PairBenchmarkContext:
     resources: Mapping[str, object]
     word_package_snapshot: Mapping[str, object]
     word_packages_by_target: Mapping[str, Mapping[str, object]]
-    gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
-    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_pair_context: Optional[object] = None
     compiled_case_refs: Sequence[CompiledBenchmarkCaseRef] = field(default_factory=tuple)
     compiled_case_table: Optional[CompiledBenchmarkCaseTable] = None
@@ -877,12 +877,12 @@ def _load_translation_gloss_records(
     *,
     target_lang: Optional[str],
     headwords: Optional[Sequence[str]] = None,
-) -> Optional[dict[str, list[FreedictGlossRecord]]]:
+) -> Optional[dict[str, list[TranslationGlossRecord]]]:
     if path is None or target_lang is None:
         return None
     if not path.exists():
         return None
-    return load_freedict_gloss_records_ordered(
+    return load_translation_gloss_records_ordered(
         path,
         target_lang=target_lang,
         headwords=headwords,
@@ -896,8 +896,8 @@ def _preload_pair_gloss_records(
     reverse_translation_dict_path: Optional[Path],
     targets: Sequence[str] = (),
 ) -> tuple[
-    Optional[dict[str, list[FreedictGlossRecord]]],
-    Optional[dict[str, list[FreedictGlossRecord]]],
+    Optional[dict[str, list[TranslationGlossRecord]]],
+    Optional[dict[str, list[TranslationGlossRecord]]],
 ]:
     forward_records = _load_translation_gloss_records(
         translation_dict_path,
@@ -926,7 +926,7 @@ def _preload_pair_gloss_records(
 def _build_reverse_preload_headwords(
     *,
     pair: str,
-    forward_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]],
+    forward_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
 ) -> Optional[tuple[str, ...]]:
     normalized_pair = str(pair or "").strip().lower()
     if normalized_pair != "en-es" or not forward_records_by_target:
@@ -988,7 +988,7 @@ def _expand_reverse_preload_headwords(
     if not wanted:
         return ()
     expanded = set(wanted)
-    for raw_headword in load_freedict_headwords(reverse_translation_dict_path):
+    for raw_headword in load_translation_headwords(reverse_translation_dict_path):
         raw_text = str(raw_headword or "").strip()
         if not raw_text:
             continue
@@ -1057,8 +1057,8 @@ def _build_pair_compiled_rulegen_context(
     targets: Sequence[str],
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
-    gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]],
-    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]],
+    gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
     word_packages_by_target: Mapping[str, Mapping[str, object]],
     gloss_base_forms: Optional[Sequence[str]] = None,
 ) -> Optional[object]:
@@ -1150,7 +1150,7 @@ def _build_pair_benchmark_context(
     gloss_base_forms = (
         tuple(
             sorted(
-                load_freedict_gloss_base_forms(
+                load_translation_gloss_base_forms(
                     translation_dict_path,
                     target_lang=_translation_target_lang_for_pair(pair) or "",
                 )

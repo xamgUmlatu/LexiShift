@@ -6,7 +6,7 @@ from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
-from lexishift_core.resources.dict_loaders import FreedictGlossRecord
+from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
@@ -38,8 +38,8 @@ class RulegenAdapterRequest:
     jmdict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     freedict_reverse_path: Optional[Path] = None
-    gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
-    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_pair_context: Optional[object] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     kaikki_policy_live_demotion: bool = False

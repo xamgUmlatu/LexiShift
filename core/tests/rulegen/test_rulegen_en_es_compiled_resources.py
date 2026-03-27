@@ -24,6 +24,8 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
     EnEsCompiledSignalProvider,
     EnEsRulegenConfig,
+    _build_compiled_filter_table_cache_key,
+    _build_compiled_score_table_cache_key,
     _build_compiled_definition_row_group,
     build_en_es_compiled_candidate_filter_table,
     build_en_es_compiled_candidate_score_table,
@@ -1008,6 +1010,57 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         self.assertIs(base_table, unrelated_table)
         self.assertIsNot(base_table, filter_changed_table)
+
+    def test_compiled_cache_keys_use_stable_resource_tokens(self) -> None:
+        records = {
+            "casa": [FreedictGlossRecord(translation="house", pos_raw="noun")],
+        }
+        compiled_a = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=None,
+            word_packages_by_target={},
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        compiled_b = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=None,
+            word_packages_by_target={},
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+
+        self.assertNotEqual(
+            _build_compiled_filter_table_cache_key(
+                compiled_resources=compiled_a,
+                config=config,
+            ),
+            _build_compiled_filter_table_cache_key(
+                compiled_resources=compiled_b,
+                config=config,
+            ),
+        )
+        self.assertNotEqual(
+            _build_compiled_score_table_cache_key(
+                compiled_resources=compiled_a,
+                config=config,
+            ),
+            _build_compiled_score_table_cache_key(
+                compiled_resources=compiled_b,
+                config=config,
+            ),
+        )
 
     def test_compiled_score_table_cache_reuses_variant_dimension_only(self) -> None:
         records = {

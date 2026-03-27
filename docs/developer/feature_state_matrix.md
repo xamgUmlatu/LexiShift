@@ -63,30 +63,29 @@ Use this file when:
 
 ## Rulegen Benchmark Optimization Architecture
 
-- Status: `planned`
-- Last documented checkpoint: `2026-03-27`
-- Last verified: `2026-03-27` code-path inspection of current benchmark runner and `en-es` rulegen hot path
+- Status: `implemented`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-03-28`
+- Last verified: `2026-03-28` benchmark code-path inspection plus latest canonical `en-es` sweep smoke
 - Default behavior:
-  - Not yet implemented.
-  - Planned direction is a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
-  - Early execution slices are expected to be:
-    - timing/profiling instrumentation
-    - pair-context caching
-    - multiprocess config execution
-  - Later slices are expected to be:
-    - compiled benchmark IR
+  - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
+  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, and a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s.
+  - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
+  - Later slices are still expected to be:
+    - fuller compiled benchmark IR generalization across pairs/packs
     - vectorized CPU backend
     - optional GPU backend only after the sweep has been converted into a genuinely numeric feature-table problem
 - Evidence:
   - `docs/developer/rulegen_benchmark_optimization_plan.md`
   - `scripts/testing/rulegen_benchmark.py`
   - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/resources/dict_loaders.py`
   - `core/lexishift_core/rulegen/generation.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/tests/rulegen/test_rulegen_en_es_compiled_resources.py`
 - Known gaps:
-  - Current benchmark execution is still serial over configs.
-  - Current `en-es` path still reloads dictionary resources through pair config resolution unless pre-supplied.
-  - Current active `en-es` benchmark path does not have a real GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by branchy Python and SQLite-backed preprocessing.
+  - Current full canonical sweep still evaluates one config at a time; the next major performance frontier is batched config evaluation over compiled candidate rows.
+  - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
+  - Current active `en-es` benchmark path still does not have a real GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by branchy Python and storage/preprocessing work.
 
 ## Rulegen Auto Audit Wrapper
 

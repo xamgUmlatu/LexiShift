@@ -28,10 +28,13 @@ class JmdictEntryRecord:
 
 
 @dataclass(frozen=True)
-class FreedictGlossRecord:
+class TranslationGlossRecord:
     translation: str
     pos_raw: str = ""
     metadata: Mapping[str, object] = field(default_factory=dict)
+
+
+FreedictGlossRecord = TranslationGlossRecord
 
 
 def load_jmdict_glosses(
@@ -833,6 +836,31 @@ def load_freedict_headwords(path: Path) -> tuple[str, ...]:
     if _is_sqlite_file(path):
         return load_freedict_sqlite_headwords(path)
     return load_freedict_tei_headwords(path)
+
+
+def load_translation_gloss_base_forms(
+    path: Path,
+    *,
+    target_lang: str,
+) -> set[str]:
+    return load_freedict_gloss_base_forms(path, target_lang=target_lang)
+
+
+def load_translation_gloss_records_ordered(
+    path: Path,
+    *,
+    target_lang: str,
+    headwords: Optional[Iterable[str]] = None,
+) -> dict[str, list[TranslationGlossRecord]]:
+    return load_freedict_gloss_records_ordered(
+        path,
+        target_lang=target_lang,
+        headwords=headwords,
+    )
+
+
+def load_translation_headwords(path: Path) -> tuple[str, ...]:
+    return load_freedict_headwords(path)
 
 
 def _is_sqlite_file(path: Path) -> bool:

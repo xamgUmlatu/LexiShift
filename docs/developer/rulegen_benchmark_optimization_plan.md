@@ -3,8 +3,8 @@
 Status: active implementation plan
 Role: planning / architecture
 Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution.
-Last updated: 2026-03-27
-Last verified: 2026-03-27
+Last updated: 2026-03-28
+Last verified: 2026-03-28
 Source-of-truth: planning doc only; executable truth still lives in code, tests, presets, and dated benchmark artifacts.
 
 ## Scope
@@ -76,6 +76,7 @@ Current implementation shape:
   - reverse-check scoring
   - Kaikki provenance and family metadata
   - ranking and reduction
+- current benchmark workstream now uses backend-neutral translation-pack record/loader names at the benchmark, adapter, and `en-es` compile boundary, while the underlying compatibility-loader implementation is still shared with the existing FreeDict/Kaikki resource layer
 - current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
 
 ## Hard Requirements
@@ -88,6 +89,7 @@ These are non-negotiable:
 4. reproducibility must improve, not degrade
 5. early optimization phases must not be throwaway work
 6. the architecture must converge toward a better final engine, not just a faster script
+7. database-specific code must stay behind pack/provider adapters; the benchmark IR and sweep backends must consume normalized pair resources rather than assuming one database technology, one schema family, or one pack per language
 
 ## Equivalence Contract
 
@@ -166,9 +168,21 @@ The IR should contain:
   - preset id
   - compile version
 
+Resource-model rule:
+
+- pair-specific and pack-specific loaders may know how to read TEI, compatibility SQLite, native SQLite, JSONL-derived packs, embedding packs, or future backends
+- that backend-specific work must terminate at a normalized pair-resource contract before the benchmark IR is built
+- the compile/sweep/materialization layers must not hard-code assumptions such as:
+  - SQLite-only access
+  - FreeDict-only row semantics
+  - one dictionary pack per language direction
+  - one reverse-check source per pair
+- multiple packs for the same language or pair must remain composable through the same resource abstraction, with benchmark methodology deciding which combinations are active rather than storage format leaking into the sweep engine
+
 Design rule:
 
 - all CPU-heavy parsing and structural normalization that does not depend on sweep weights belongs here
+- database technology is an implementation detail of the resource-loading layer, not of the IR or sweep backend
 
 ### 2. Sweep Stage
 
