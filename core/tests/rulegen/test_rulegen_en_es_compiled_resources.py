@@ -17,6 +17,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleGenerationConfig,
     RuleScorer,
     materialize_rule_generation_result,
+    score_rule_confidence_signals,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
@@ -31,6 +32,9 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
+    resolve_effective_semantic_demotion_value,
+    resolve_reverse_check_delta_from_values,
+    score_dictionary_entry_order_values,
 )
 
 
@@ -469,6 +473,105 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             score_table.ranking_scores,
             tuple(expected_ranking_scores),
         )
+        self.assertEqual(
+            score_table.effective_semantic_demotion_values,
+            tuple(
+                resolve_effective_semantic_demotion_value(
+                    semantic_demotion=float(candidate.metadata.get("semantic_demotion") or 0.0),
+                    scale=config.semantic_demotion_scale,
+                )
+                for candidate in target_context.base_candidates
+            ),
+        )
+        self.assertEqual(
+            score_table.reverse_check_delta_values,
+            tuple(
+                resolve_reverse_check_delta_from_values(
+                    supported=candidate.metadata.get("reverse_check_supported"),
+                    hit=candidate.metadata.get("reverse_check_hit"),
+                    rank=candidate.metadata.get("reverse_check_rank"),
+                    total=candidate.metadata.get("reverse_check_total"),
+                    config=config.reverse_check,
+                )
+                for candidate in target_context.base_candidates
+            ),
+        )
+
+    def test_compiled_candidate_score_table_uses_direct_scalar_helpers(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+
+        with (
+            patch(
+                "lexishift_core.rulegen.pairs.en_es.score_rule_confidence_signals",
+                wraps=score_rule_confidence_signals,
+            ) as score_helper,
+            patch(
+                "lexishift_core.rulegen.pairs.en_es.score_dictionary_entry_order_values",
+                wraps=score_dictionary_entry_order_values,
+            ) as ranking_helper,
+            patch(
+                "lexishift_core.rulegen.pairs.en_es.RuleScorer.score",
+                side_effect=AssertionError("compiled score table should use direct score helper"),
+            ),
+            patch(
+                "lexishift_core.rulegen.pairs.en_es.DictionaryEntryOrderRankingMechanism.score",
+                side_effect=AssertionError("compiled score table should use direct ranking helper"),
+            ),
+        ):
+            score_table = build_en_es_compiled_candidate_score_table(
+                compiled_resources=compiled_resources,
+                config=config,
+            )
+
+        self.assertEqual(score_helper.call_count, len(score_table.candidate_ids))
+        self.assertEqual(ranking_helper.call_count, len(score_table.candidate_ids))
 
     def test_compiled_candidate_filter_table_matches_live_normalization_and_filters(self) -> None:
         records = {

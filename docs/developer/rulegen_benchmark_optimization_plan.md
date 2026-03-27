@@ -479,6 +479,13 @@ Status:
   - when `include_case_results` is off and there is more than one config in the sweep, the benchmark now skips per-case payload dict materialization during the main sweep pass
   - after sorting, only the winning run is re-evaluated with case-payload materialization so the report payload still preserves `best_run.case_results`
   - one-config smokes still materialize case payloads during the main pass so the optimization does not add an unnecessary second run to the canonical smoke workflow
+- compiled `en-es` scoring now uses direct scalar helpers instead of generic scorer/ranking object calls inside the score-table builder:
+  - confidence scores are now produced through a shared scalar helper that mirrors `RuleScorer.score(...)`
+  - ranking scores are now produced through shared scalar helpers that mirror `DictionaryEntryOrderRankingMechanism.score(...)`
+  - the compiled candidate score table now stores additional explicit active-ranking columns for:
+    - effective semantic demotion after scale application
+    - resolved reverse-check delta
+  - this keeps compiled scoring benchmark-equivalent while making more of the hot path explicit row math instead of metadata-to-object reconstruction
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`

@@ -32,6 +32,7 @@ from lexishift_core.rulegen.generation import (
     build_optional_pos_match_provider,
     extract_candidate_pos_canonical,
     materialize_rule_generation_result,
+    score_rule_confidence_signals,
     score_candidate_pos_match,
     score_canonical_pos_pair,
 )
@@ -39,7 +40,10 @@ from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
+    resolve_effective_semantic_demotion_value,
+    resolve_reverse_check_delta_from_values,
     resolve_reverse_check_strength,
+    score_dictionary_entry_order_values,
 )
 from lexishift_core.rulegen.pairs.en_ja import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.pairs.en_es_support import (
@@ -393,6 +397,8 @@ class EnEsCompiledCandidateScoreTable:
     pos_match_values: tuple[float, ...] = ()
     variant_penalty_values: tuple[float, ...] = ()
     phrase_penalty_values: tuple[float, ...] = ()
+    effective_semantic_demotion_values: tuple[float, ...] = ()
+    reverse_check_delta_values: tuple[float, ...] = ()
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
 
@@ -666,26 +672,21 @@ def build_en_es_compiled_candidate_score_table(
         for name, source_dict_id in compiled_resources.source_dict_ids_by_name.items()
         if name == config.source_dict_id
     }
-    scorer = RuleScorer(weights=config.scoring.weights)
-    ranking_mechanism = DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check)
     effective_semantic_demotion_rows = _build_compiled_overlay_demotion_rows(
         compiled_resources=compiled_resources,
         candidate_table=candidate_table,
         config=config,
     )
-    targets_by_id = {
-        context.target_id: context.target
-        for context in compiled_resources.compiled_targets_by_target.values()
-        if context.target_id >= 0
-    }
     dict_priority_values: list[float] = []
     frequency_weight_values: list[float] = []
     pos_match_values: list[float] = []
     variant_penalty_values: list[float] = []
     phrase_penalty_values: list[float] = []
+    effective_semantic_demotion_values: list[float] = []
+    reverse_check_delta_values: list[float] = []
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
-    for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
+    for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_source_phrase = _normalize_compiled_source_phrase(
             candidate_table.source_phrases[row_id]
         )
@@ -712,8 +713,20 @@ def build_en_es_compiled_candidate_score_table(
             float(config.variant_penalty) if candidate_table.variant_flags[row_id] else 0.0
         )
         phrase_penalty = 1.0 if " " in normalized_source_phrase else 0.0
+        effective_semantic_demotion = resolve_effective_semantic_demotion_value(
+            semantic_demotion=effective_semantic_demotion_rows[row_id],
+            scale=config.semantic_demotion_scale,
+        )
+        reverse_check_rank = candidate_table.reverse_check_rank_values[row_id]
+        reverse_check_delta = resolve_reverse_check_delta_from_values(
+            supported=candidate_table.reverse_check_supported_flags[row_id],
+            hit=candidate_table.reverse_check_hit_flags[row_id],
+            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
+            total=candidate_table.reverse_check_total_values[row_id],
+            config=config.reverse_check,
+        )
         confidence = float(
-            scorer.score(
+            score_rule_confidence_signals(
                 RuleConfidenceSignals(
                     dict_priority=dict_priority,
                     frequency_weight=frequency_weight,
@@ -721,30 +734,24 @@ def build_en_es_compiled_candidate_score_table(
                     variant_penalty=variant_penalty,
                     phrase_penalty=phrase_penalty,
                     embedding_score=None,
-                )
+                ),
+                weights=config.scoring.weights,
             )
         )
-        ranking_metadata = {
-            "gloss_index": candidate_table.gloss_indices[row_id],
-            "semantic_demotion": effective_semantic_demotion_rows[row_id],
-            "reverse_check_supported": candidate_table.reverse_check_supported_flags[row_id],
-            "reverse_check_hit": candidate_table.reverse_check_hit_flags[row_id],
-            "reverse_check_rank": (
-                candidate_table.reverse_check_rank_values[row_id]
-                if candidate_table.reverse_check_rank_values[row_id] >= 0
-                else None
-            ),
-            "reverse_check_total": candidate_table.reverse_check_total_values[row_id],
-        }
         ranking_score = float(
-            ranking_mechanism.score(
-                CandidateRankingContext(
-                    source_phrase=normalized_source_phrase,
-                    replacement=str(targets_by_id.get(candidate_table.target_ids[row_id], "")),
-                    metadata=ranking_metadata,
-                    confidence=confidence,
-                    semantic_demotion_scale=config.semantic_demotion_scale,
-                )
+            score_dictionary_entry_order_values(
+                gloss_index=(
+                    candidate_table.gloss_indices[row_id]
+                    if candidate_table.gloss_indices[row_id] >= 0
+                    else None
+                ),
+                semantic_demotion=effective_semantic_demotion_rows[row_id],
+                semantic_demotion_scale=config.semantic_demotion_scale,
+                reverse_check_supported=candidate_table.reverse_check_supported_flags[row_id],
+                reverse_check_hit=candidate_table.reverse_check_hit_flags[row_id],
+                reverse_check_rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
+                reverse_check_total=candidate_table.reverse_check_total_values[row_id],
+                reverse_check=config.reverse_check,
             )
         )
         dict_priority_values.append(dict_priority)
@@ -752,6 +759,8 @@ def build_en_es_compiled_candidate_score_table(
         pos_match_values.append(float(pos_match))
         variant_penalty_values.append(variant_penalty)
         phrase_penalty_values.append(phrase_penalty)
+        effective_semantic_demotion_values.append(effective_semantic_demotion)
+        reverse_check_delta_values.append(float(reverse_check_delta))
         confidence_scores.append(confidence)
         ranking_scores.append(ranking_score)
     return EnEsCompiledCandidateScoreTable(
@@ -766,6 +775,8 @@ def build_en_es_compiled_candidate_score_table(
         pos_match_values=tuple(pos_match_values),
         variant_penalty_values=tuple(variant_penalty_values),
         phrase_penalty_values=tuple(phrase_penalty_values),
+        effective_semantic_demotion_values=tuple(effective_semantic_demotion_values),
+        reverse_check_delta_values=tuple(reverse_check_delta_values),
         confidence_scores=tuple(confidence_scores),
         ranking_scores=tuple(ranking_scores),
     )

@@ -72,17 +72,25 @@ class RuleScorer:
         self._weights = weights or RuleScoreWeights()
 
     def score(self, signals: RuleConfidenceSignals) -> float:
-        weights = self._weights
-        score = (
-            (signals.dict_priority * weights.dict_priority)
-            + (signals.frequency_weight * weights.frequency_weight)
-            + (signals.pos_match * weights.pos_match)
-            - (signals.variant_penalty * weights.variant_penalty)
-            - (signals.phrase_penalty * weights.phrase_penalty)
-        )
-        if signals.embedding_score is not None:
-            score += (signals.embedding_score - 0.5) * weights.embedding_weight
-        return _clamp(score)
+        return score_rule_confidence_signals(signals, weights=self._weights)
+
+
+def score_rule_confidence_signals(
+    signals: RuleConfidenceSignals,
+    *,
+    weights: Optional[RuleScoreWeights] = None,
+) -> float:
+    resolved_weights = weights or RuleScoreWeights()
+    score = (
+        (signals.dict_priority * resolved_weights.dict_priority)
+        + (signals.frequency_weight * resolved_weights.frequency_weight)
+        + (signals.pos_match * resolved_weights.pos_match)
+        - (signals.variant_penalty * resolved_weights.variant_penalty)
+        - (signals.phrase_penalty * resolved_weights.phrase_penalty)
+    )
+    if signals.embedding_score is not None:
+        score += (signals.embedding_score - 0.5) * resolved_weights.embedding_weight
+    return _clamp(score)
 
 
 class CandidateSource(Protocol):
