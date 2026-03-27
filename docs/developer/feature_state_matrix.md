@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-26
+Last updated: 2026-03-28
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -64,12 +64,13 @@ Use this file when:
 ## Rulegen Benchmark Optimization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-28`
-- Last verified: `2026-03-28` benchmark code-path inspection plus latest canonical `en-es` sweep smoke
+- Last documented checkpoint: `2026-03-28` compiled benchmark-only `var=on` sweep path landed for canonical `en-es`
+- Last verified: `2026-03-28` focused unit coverage plus latest canonical `en-es` sweep smoke
 - Default behavior:
   - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
-  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, and a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s.
+  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, and a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop.
   - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
+  - Latest canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` while reducing total wall clock to about `2.35s`; the dominant remaining hotspot is preload rather than per-config evaluation.
   - Later slices are still expected to be:
     - fuller compiled benchmark IR generalization across pairs/packs
     - vectorized CPU backend

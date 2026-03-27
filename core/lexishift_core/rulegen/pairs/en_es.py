@@ -112,6 +112,10 @@ _COMPILED_SCORE_TABLE_CACHE: dict[
     tuple[int, tuple[object, ...]],
     "EnEsCompiledCandidateScoreTable",
 ] = {}
+_COMPILED_BENCHMARK_VARIANT_CANDIDATE_TABLE_CACHE: dict[
+    int,
+    "EnEsCompiledCandidateTable",
+] = {}
 _COMPILED_RESOURCE_CACHE_TOKEN = 0
 
 
@@ -453,6 +457,7 @@ class EnEsCompiledCandidateFilterTable:
 class EnEsCompiledSelectedRowTable:
     targets: tuple[str, ...] = ()
     candidate_row_id_rows: tuple[tuple[int, ...], ...] = ()
+    normalized_source_phrase_rows: tuple[tuple[str, ...], ...] = ()
     top1_confidences: tuple[Optional[float], ...] = ()
     variant_rule_counts: tuple[int, ...] = ()
     top1_variant_flags: tuple[bool, ...] = ()
@@ -715,10 +720,26 @@ def build_en_es_compiled_candidate_score_table(
     config: EnEsRulegenConfig,
 ) -> EnEsCompiledCandidateScoreTable:
     candidate_table = compiled_resources.candidate_table
+    return _build_compiled_candidate_score_table_for_table(
+        compiled_resources=compiled_resources,
+        candidate_table=candidate_table,
+        candidate_table_cache_token=("base", int(compiled_resources.cache_token)),
+        config=config,
+    )
+
+
+def _build_compiled_candidate_score_table_for_table(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table: Optional[EnEsCompiledCandidateTable],
+    candidate_table_cache_token: object,
+    config: EnEsRulegenConfig,
+) -> EnEsCompiledCandidateScoreTable:
     if candidate_table is None:
         return EnEsCompiledCandidateScoreTable()
     cache_key = _build_compiled_score_table_cache_key(
         compiled_resources=compiled_resources,
+        candidate_table_cache_token=candidate_table_cache_token,
         config=config,
     )
     cached = _COMPILED_SCORE_TABLE_CACHE.get(cache_key)
@@ -876,12 +897,18 @@ def build_en_es_compiled_candidate_score_table(
 def _build_compiled_score_table_cache_key(
     *,
     compiled_resources: EnEsCompiledResources,
+    candidate_table_cache_token: object | None = None,
     config: EnEsRulegenConfig,
 ) -> tuple[int, tuple[object, ...]]:
     compatibility_classes = config.scoring.pos_match.compatibility_classes
     return (
         int(compiled_resources.cache_token),
         (
+            (
+                candidate_table_cache_token
+                if candidate_table_cache_token is not None
+                else ("base", int(compiled_resources.cache_token))
+            ),
             str(config.source_dict_id),
             float(config.dict_priority),
             tuple(float(value) for value in config.gloss_decay.schedule),
@@ -929,10 +956,26 @@ def build_en_es_compiled_candidate_filter_table(
     config: EnEsRulegenConfig,
 ) -> EnEsCompiledCandidateFilterTable:
     candidate_table = compiled_resources.candidate_table
+    return _build_compiled_candidate_filter_table_for_table(
+        compiled_resources=compiled_resources,
+        candidate_table=candidate_table,
+        candidate_table_cache_token=("base", int(compiled_resources.cache_token)),
+        config=config,
+    )
+
+
+def _build_compiled_candidate_filter_table_for_table(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table: Optional[EnEsCompiledCandidateTable],
+    candidate_table_cache_token: object,
+    config: EnEsRulegenConfig,
+) -> EnEsCompiledCandidateFilterTable:
     if candidate_table is None:
         return EnEsCompiledCandidateFilterTable()
     cache_key = _build_compiled_filter_table_cache_key(
         compiled_resources=compiled_resources,
+        candidate_table_cache_token=candidate_table_cache_token,
         config=config,
     )
     cached = _COMPILED_FILTER_TABLE_CACHE.get(cache_key)
@@ -1080,11 +1123,17 @@ def build_en_es_compiled_candidate_filter_table(
 def _build_compiled_filter_table_cache_key(
     *,
     compiled_resources: EnEsCompiledResources,
+    candidate_table_cache_token: object | None = None,
     config: EnEsRulegenConfig,
 ) -> tuple[int, tuple[object, ...]]:
     return (
         int(compiled_resources.cache_token),
         (
+            (
+                candidate_table_cache_token
+                if candidate_table_cache_token is not None
+                else ("base", int(compiled_resources.cache_token))
+            ),
             bool(config.allow_hyphen),
             bool(config.allow_multiword_glosses),
             bool(config.enable_length_filter),
@@ -1205,6 +1254,70 @@ def _normalize_compiled_source_phrase(source_phrase: object) -> str:
     )
     normalized = LeadingEnglishInfinitiveNormalizer().normalize(normalized)
     return str(normalized.source_phrase or "").strip()
+
+
+def _build_compiled_benchmark_variant_candidate_table(
+    compiled_resources: EnEsCompiledResources,
+) -> EnEsCompiledCandidateTable:
+    cached = _COMPILED_BENCHMARK_VARIANT_CANDIDATE_TABLE_CACHE.get(
+        int(compiled_resources.cache_token)
+    )
+    if cached is not None:
+        return cached
+    base_candidate_table = compiled_resources.candidate_table
+    if base_candidate_table is None:
+        return EnEsCompiledCandidateTable()
+    variant_expander = PairedInflectionVariantExpander(
+        should_expand=_should_expand_english,
+        target_surface_resolver=_resolve_spanish_target_surface,
+    )
+    candidate_facts: list[EnEsCompiledCandidateFact] = []
+    next_candidate_id = (
+        max((int(fact.candidate_id) for fact in compiled_resources.candidate_facts), default=-1) + 1
+    )
+    for target_context in compiled_resources.compiled_targets_by_target.values():
+        for base_candidate, base_fact in zip(
+            target_context.base_candidates,
+            target_context.candidate_facts,
+            strict=False,
+        ):
+            candidate_facts.append(base_fact)
+            normalized_base_candidate = replace(
+                base_candidate,
+                source_phrase=_normalize_compiled_source_phrase(base_candidate.source_phrase),
+            )
+            expanded_candidates = tuple(variant_expander.expand(normalized_base_candidate))
+            for expanded_candidate in expanded_candidates[1:]:
+                candidate_facts.append(
+                    _build_compiled_candidate_fact(
+                        candidate=expanded_candidate,
+                        candidate_id=next_candidate_id,
+                        target_id=target_context.target_id,
+                        definition_bucket_ids_by_key=compiled_resources.definition_bucket_ids_by_key,
+                        family_marker_ids_by_name=compiled_resources.family_marker_ids_by_name,
+                        source_dict_ids_by_name=compiled_resources.source_dict_ids_by_name,
+                        source_type_ids_by_name=compiled_resources.source_type_ids_by_name,
+                    )
+                )
+                next_candidate_id += 1
+    candidate_table = _build_compiled_candidate_table(candidate_facts)
+    _COMPILED_BENCHMARK_VARIANT_CANDIDATE_TABLE_CACHE[int(compiled_resources.cache_token)] = (
+        candidate_table
+    )
+    return candidate_table
+
+
+def _resolve_compiled_benchmark_candidate_table(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    include_variants: bool,
+) -> tuple[Optional[EnEsCompiledCandidateTable], object]:
+    if not include_variants:
+        return compiled_resources.candidate_table, ("base", int(compiled_resources.cache_token))
+    return _build_compiled_benchmark_variant_candidate_table(compiled_resources), (
+        "benchmark-variants",
+        int(compiled_resources.cache_token),
+    )
 
 
 def _compiled_non_empty_accepts(source_phrase: str) -> bool:
@@ -2006,22 +2119,31 @@ def build_en_es_compiled_selected_row_table(
     score_table: Optional[EnEsCompiledCandidateScoreTable] = None,
 ) -> EnEsCompiledSelectedRowTable:
     compiled_resources = config.compiled_resources
-    if compiled_resources is None or compiled_resources.candidate_table is None:
+    if compiled_resources is None:
         return EnEsCompiledSelectedRowTable()
-    candidate_table = compiled_resources.candidate_table
+    candidate_table, candidate_table_cache_token = _resolve_compiled_benchmark_candidate_table(
+        compiled_resources=compiled_resources,
+        include_variants=bool(config.include_variants),
+    )
+    if candidate_table is None:
+        return EnEsCompiledSelectedRowTable()
     resolved_filter_table = (
         filter_table
         if filter_table is not None
-        else build_en_es_compiled_candidate_filter_table(
+        else _build_compiled_candidate_filter_table_for_table(
             compiled_resources=compiled_resources,
+            candidate_table=candidate_table,
+            candidate_table_cache_token=candidate_table_cache_token,
             config=config,
         )
     )
     resolved_score_table = (
         score_table
         if score_table is not None
-        else build_en_es_compiled_candidate_score_table(
+        else _build_compiled_candidate_score_table_for_table(
             compiled_resources=compiled_resources,
+            candidate_table=candidate_table,
+            candidate_table_cache_token=candidate_table_cache_token,
             config=config,
         )
     )
@@ -2030,6 +2152,7 @@ def build_en_es_compiled_selected_row_table(
     )
     selected_targets: list[str] = []
     candidate_row_id_rows: list[tuple[int, ...]] = []
+    normalized_source_phrase_rows: list[tuple[str, ...]] = []
     top1_confidences: list[Optional[float]] = []
     variant_rule_counts: list[int] = []
     top1_variant_flags: list[bool] = []
@@ -2078,6 +2201,12 @@ def build_en_es_compiled_selected_row_table(
         row_id_by_target[target] = len(selected_targets)
         selected_targets.append(target)
         candidate_row_id_rows.append(tuple(int(row_id) for row_id in selected_row_ids))
+        normalized_source_phrase_rows.append(
+            tuple(
+                str(resolved_filter_table.normalized_source_phrases[int(row_id)] or "").strip()
+                for row_id in selected_row_ids
+            )
+        )
         top_row_id = int(selected_row_ids[0])
         top1_confidences.append(float(resolved_score_table.confidence_scores[top_row_id]))
         variant_rule_counts.append(
@@ -2087,6 +2216,7 @@ def build_en_es_compiled_selected_row_table(
     return EnEsCompiledSelectedRowTable(
         targets=tuple(selected_targets),
         candidate_row_id_rows=tuple(candidate_row_id_rows),
+        normalized_source_phrase_rows=tuple(normalized_source_phrase_rows),
         top1_confidences=tuple(top1_confidences),
         variant_rule_counts=tuple(variant_rule_counts),
         top1_variant_flags=tuple(top1_variant_flags),

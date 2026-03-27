@@ -1543,11 +1543,6 @@ def _build_compiled_rule_table_from_en_es_selected_rows(
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_pair_context: Optional[object] = None,
 ) -> CompiledBenchmarkRuleTable:
-    if not isinstance(compiled_pair_context, EnEsCompiledResources):
-        return CompiledBenchmarkRuleTable()
-    candidate_table = compiled_pair_context.candidate_table
-    if candidate_table is None:
-        return CompiledBenchmarkRuleTable()
     phrase_ids_by_phrase = compiled_case_table.phrase_table.phrase_ids_by_phrase
     all_source_rows: list[tuple[str, ...]] = []
     source_phrase_id_rows: list[tuple[int, ...]] = []
@@ -1562,20 +1557,15 @@ def _build_compiled_rule_table_from_en_es_selected_rows(
             int(candidate_row_id)
             for candidate_row_id in selected_row_table.candidate_row_id_rows[row_id]
         )
-        normalized_sources: list[str] = []
-        source_phrase_ids: list[int] = []
-        for candidate_row_id in selected_row_ids:
-            if candidate_row_id < 0 or candidate_row_id >= len(
-                candidate_table.normalized_source_phrases
-            ):
-                continue
-            normalized_source = str(
-                candidate_table.normalized_source_phrases[candidate_row_id] or ""
-            ).strip()
-            if not normalized_source:
-                continue
-            normalized_sources.append(normalized_source)
-            source_phrase_ids.append(int(phrase_ids_by_phrase.get(normalized_source, -1)))
+        normalized_sources = tuple(
+            str(source or "").strip()
+            for source in selected_row_table.normalized_source_phrase_rows[row_id]
+            if str(source or "").strip()
+        )
+        source_phrase_ids = tuple(
+            int(phrase_ids_by_phrase.get(normalized_source, -1))
+            for normalized_source in normalized_sources
+        )
         all_source_rows.append(tuple(normalized_sources))
         source_phrase_id_rows.append(tuple(source_phrase_ids))
         candidate_row_id_rows.append(selected_row_ids)
@@ -2225,7 +2215,7 @@ def _can_evaluate_sweep_run_from_en_es_compiled_rows(
     context: PairBenchmarkContext,
     config: SweepConfig,
 ) -> bool:
-    if context.pair != "en-es" or config.include_variants:
+    if context.pair != "en-es":
         return False
     if context.compiled_case_table is None or context.translation_dict_path is None:
         return False

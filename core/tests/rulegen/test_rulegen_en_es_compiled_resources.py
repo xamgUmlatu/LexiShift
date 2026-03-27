@@ -175,6 +175,77 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             float(compiled_results[0].rule.metadata.confidence or 0.0),
             places=6,
         )
+        self.assertEqual(
+            selected_rows.normalized_source_phrase_rows,
+            (tuple(result.candidate.source_phrase for result in compiled_results),),
+        )
+
+    def test_compiled_selected_row_table_matches_variant_results(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                )
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=True,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        selected_rows = build_en_es_compiled_selected_row_table(["casa"], config=config)
+        compiled_results = generate_en_es_results(["casa"], config=config)
+
+        self.assertEqual(selected_rows.targets, ("casa",))
+        self.assertEqual(
+            selected_rows.normalized_source_phrase_rows,
+            (tuple(result.candidate.source_phrase for result in compiled_results),),
+        )
+        self.assertEqual(
+            selected_rows.variant_rule_counts,
+            (sum(1 for result in compiled_results if result.candidate.metadata.get("variant")),),
+        )
+        self.assertEqual(
+            selected_rows.top1_variant_flags,
+            (bool(compiled_results[0].candidate.metadata.get("variant")),),
+        )
+        self.assertAlmostEqual(
+            float(selected_rows.top1_confidences[0] or 0.0),
+            float(compiled_results[0].rule.metadata.confidence or 0.0),
+            places=6,
+        )
 
     def test_compiled_resources_preserve_variant_rulegen_outputs(self) -> None:
         records = {

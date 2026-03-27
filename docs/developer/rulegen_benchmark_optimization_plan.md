@@ -69,6 +69,7 @@ Current implementation shape:
 - benchmark runner supports serial or CPU-multiprocess config execution
 - pair contexts now preload reusable resources before config evaluation
 - `en-es` config evaluation now reuses compiled pair resources when available
+- canonical `en-es` benchmark sweeps can now evaluate both `var=off` and `var=on` configs from compiled row tables, so the benchmark no longer has to fall back to the live adapter path for the variant half of the canonical matrix
 - current active `en-es` path is CPU-oriented:
   - SQLite-backed dictionaries
   - string normalization and filtering
@@ -78,6 +79,13 @@ Current implementation shape:
   - ranking and reduction
 - current benchmark workstream now uses backend-neutral translation-pack record/loader names at the benchmark, adapter, and `en-es` compile boundary, while the underlying compatibility-loader implementation is still shared with the existing FreeDict/Kaikki resource layer
 - current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
+
+Latest measured canonical `en-es` smoke on this PC:
+
+- benchmark result still exact at objective `129.474`
+- wall clock: about `2.35s`
+- `preload_translation_gloss_records`: about `1.22s`
+- `run_config`: about `0.665s` total across `144` configs, or about `0.0046s` average per config
 
 ## Hard Requirements
 

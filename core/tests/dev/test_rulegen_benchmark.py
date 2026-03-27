@@ -1559,6 +1559,107 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
         self.assertAlmostEqual(evaluation.run.summary.top1_accuracy, 1.0, places=6)
 
+    def test_evaluate_sweep_run_can_bypass_en_es_adapter_with_compiled_variant_rows(
+        self,
+    ) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(translation="house", pos_raw="noun"),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house", "houses"),
+        )
+        case_refs = _build_compiled_case_refs(
+            cases=(case,), compiled_pair_context=compiled_resources
+        )
+        case_table = _build_compiled_case_table(cases=(case,), compiled_case_refs=case_refs)
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target=word_packages,
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            compiled_pair_context=compiled_resources,
+            compiled_case_refs=case_refs,
+            compiled_case_table=case_table,
+        )
+        config = SweepConfig(
+            max_definitions_per_target=3,
+            max_rules_per_target=None,
+            confidence_threshold=0.0,
+            semantic_demotion_scale=1.0,
+            include_variants=True,
+            pos_scoring_enabled=True,
+            pos_exact_match_bonus=1.0,
+            pos_compatible_match_bonus=0.5,
+            score_weight_dict_priority=0.6,
+            score_weight_frequency_weight=0.2,
+            score_weight_pos_match=0.1,
+            score_weight_variant_penalty=0.1,
+            score_weight_phrase_penalty=0.1,
+            score_weight_embedding=0.2,
+            reverse_check_enabled=True,
+            reverse_check_match_bonus=0.2,
+            reverse_check_near_bonus=0.1,
+            reverse_check_near_rank_max=2,
+            reverse_check_far_hit_penalty=0.0,
+            reverse_check_miss_penalty=0.2,
+            reverse_check_exact_hit_ambiguity_threshold=0,
+            reverse_check_exact_hit_ambiguity_penalty=0.0,
+            kaikki_policy_live_demotion=False,
+            kaikki_policy_risk_families=(),
+        )
+
+        with patch(
+            "rulegen_benchmark.run_rules_with_adapter",
+            side_effect=AssertionError(
+                "compiled en-es variant benchmark path should bypass adapter"
+            ),
+        ):
+            evaluation = _evaluate_sweep_run(
+                context=context,
+                config=config,
+                run_index=0,
+                objective_weights=RulegenBenchmarkObjectiveWeights(),
+            )
+
+        self.assertEqual(evaluation.run.case_results[0]["top1_source"], "house")
+        self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
+        self.assertGreaterEqual(evaluation.run.summary.avg_rules_per_target, 1.0)
+
     def test_run_pair_sweep_rehydrates_only_best_case_results_when_disabled(self) -> None:
         case = RulegenBenchmarkCase(
             case_id="en-es:casa:0",
