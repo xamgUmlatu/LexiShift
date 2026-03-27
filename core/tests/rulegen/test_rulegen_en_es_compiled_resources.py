@@ -1459,6 +1459,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 config=base_config,
                 filter_table=prepared_tables[0].filter_table,
                 score_table=prepared_tables[0].score_table,
+                include_normalized_source_phrase_rows=False,
             ),
         )
         self.assertEqual(
@@ -1468,6 +1469,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 config=variant_config,
                 filter_table=prepared_tables[1].filter_table,
                 score_table=prepared_tables[1].score_table,
+                include_normalized_source_phrase_rows=False,
             ),
         )
         self.assertEqual(
@@ -1477,8 +1479,10 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 config=reverse_changed_config,
                 filter_table=prepared_tables[2].filter_table,
                 score_table=prepared_tables[2].score_table,
+                include_normalized_source_phrase_rows=False,
             ),
         )
+        self.assertEqual(prepared_tables[0].selected_row_table.normalized_source_phrase_rows, ((),))
 
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,

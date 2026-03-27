@@ -1617,6 +1617,7 @@ def prepare_en_es_compiled_benchmark_sweep_tables(
                     filter_table=prepared_evaluation.filter_table,
                     score_table=prepared_evaluation.score_table,
                     config=config,
+                    include_normalized_source_phrase_rows=False,
                 ),
             )
         )
@@ -2439,6 +2440,7 @@ def build_en_es_compiled_selected_row_table(
     config: EnEsRulegenConfig,
     filter_table: Optional[EnEsCompiledCandidateFilterTable] = None,
     score_table: Optional[EnEsCompiledCandidateScoreTable] = None,
+    include_normalized_source_phrase_rows: bool = True,
 ) -> EnEsCompiledSelectedRowTable:
     compiled_resources = config.compiled_resources
     if compiled_resources is None:
@@ -2480,6 +2482,7 @@ def build_en_es_compiled_selected_row_table(
         filter_table=resolved_filter_table,
         score_table=resolved_score_table,
         config=config,
+        include_normalized_source_phrase_rows=include_normalized_source_phrase_rows,
     )
 
 
@@ -2490,6 +2493,7 @@ def _build_en_es_compiled_selected_row_table_from_target_context_rows(
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
     config: EnEsRulegenConfig,
+    include_normalized_source_phrase_rows: bool = True,
 ) -> EnEsCompiledSelectedRowTable:
     if candidate_table is None:
         return EnEsCompiledSelectedRowTable()
@@ -2537,12 +2541,15 @@ def _build_en_es_compiled_selected_row_table_from_target_context_rows(
         row_id_by_target[target] = len(selected_targets)
         selected_targets.append(target)
         candidate_row_id_rows.append(tuple(int(row_id) for row_id in selected_row_ids))
-        normalized_source_phrase_rows.append(
-            tuple(
-                str(filter_table.normalized_source_phrases[int(row_id)] or "").strip()
-                for row_id in selected_row_ids
+        if include_normalized_source_phrase_rows:
+            normalized_source_phrase_rows.append(
+                tuple(
+                    str(filter_table.normalized_source_phrases[int(row_id)] or "").strip()
+                    for row_id in selected_row_ids
+                )
             )
-        )
+        else:
+            normalized_source_phrase_rows.append(())
         top_row_id = int(selected_row_ids[0])
         top1_confidences.append(float(score_table.confidence_scores[top_row_id]))
         variant_rule_counts.append(

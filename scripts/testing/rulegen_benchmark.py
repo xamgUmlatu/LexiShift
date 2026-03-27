@@ -1582,6 +1582,7 @@ def _build_compiled_rule_table_from_en_es_selected_rows(
     *,
     selected_row_table: EnEsCompiledSelectedRowTable,
     compiled_case_table: CompiledBenchmarkCaseTable,
+    filter_table: Optional[EnEsCompiledBenchmarkEvaluationTables] = None,
     compiled_pair_context: Optional[object] = None,
 ) -> CompiledBenchmarkRuleTable:
     phrase_ids_by_phrase = compiled_case_table.phrase_table.phrase_ids_by_phrase
@@ -1598,11 +1599,27 @@ def _build_compiled_rule_table_from_en_es_selected_rows(
             int(candidate_row_id)
             for candidate_row_id in selected_row_table.candidate_row_id_rows[row_id]
         )
-        normalized_sources = tuple(
-            str(source or "").strip()
-            for source in selected_row_table.normalized_source_phrase_rows[row_id]
-            if str(source or "").strip()
-        )
+        if (
+            row_id < len(selected_row_table.normalized_source_phrase_rows)
+            and selected_row_table.normalized_source_phrase_rows[row_id]
+        ):
+            normalized_sources = tuple(
+                str(source or "").strip()
+                for source in selected_row_table.normalized_source_phrase_rows[row_id]
+                if str(source or "").strip()
+            )
+        elif filter_table is not None:
+            normalized_sources = tuple(
+                str(
+                    filter_table.filter_table.normalized_source_phrases[candidate_row_id] or ""
+                ).strip()
+                for candidate_row_id in selected_row_ids
+                if str(
+                    filter_table.filter_table.normalized_source_phrases[candidate_row_id] or ""
+                ).strip()
+            )
+        else:
+            normalized_sources = ()
         source_phrase_ids = tuple(
             int(phrase_ids_by_phrase.get(normalized_source, -1))
             for normalized_source in normalized_sources
@@ -2365,6 +2382,7 @@ def _evaluate_sweep_run(
         compiled_rule_table = _build_compiled_rule_table_from_en_es_selected_rows(
             selected_row_table=selected_row_table,
             compiled_case_table=compiled_case_table,
+            filter_table=prepared_inputs.en_es_tables if prepared_inputs is not None else None,
             compiled_pair_context=context.compiled_pair_context,
         )
     else:

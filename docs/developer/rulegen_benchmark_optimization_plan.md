@@ -591,7 +591,7 @@ Status:
   - serial benchmark execution now prebuilds compiled `en-es` requests/configs/filter tables/score tables once per sweep
   - compiled score-table projection can now batch many configs against the same compiled candidate table before the per-run evaluation loop
   - per-run compiled evaluation now reuses prepared filter/score tables instead of rebuilding them in the hot loop
-  - serial sweep preparation now also prebuilds compiled selected-row tables, moving row selection out of the per-config `run_config` path and onto the sweep-preparation boundary
+  - serial sweep preparation now also prebuilds compact compiled selected-row tables, moving row selection out of the per-config `run_config` path and avoiding full normalized-source tuple materialization for every config
 
 Goal:
 

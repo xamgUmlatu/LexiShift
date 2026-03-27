@@ -62,7 +62,9 @@ from rulegen_benchmark_presets import (  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsCompiledBenchmarkEvaluationTables,
     EnEsRulegenConfig,
+    build_en_es_compiled_candidate_filter_table,
     build_en_es_compiled_resources,
     build_en_es_compiled_selected_row_table,
     generate_en_es_results,
@@ -1054,6 +1056,93 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(direct.variant_rule_counts, from_rules.variant_rule_counts)
         self.assertEqual(direct.top1_variant_flags, from_rules.top1_variant_flags)
         self.assertEqual(direct.row_id_by_target, from_rules.row_id_by_target)
+
+    def test_build_compiled_rule_table_from_compact_en_es_selected_rows(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(translation="house", pos_raw="noun"),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_freedict_en_es_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+        )
+        case_refs = _build_compiled_case_refs(
+            cases=(case,), compiled_pair_context=compiled_resources
+        )
+        case_table = _build_compiled_case_table(cases=(case,), compiled_case_refs=case_refs)
+        compact_selected_rows = build_en_es_compiled_selected_row_table(
+            ["casa"],
+            config=config,
+            include_normalized_source_phrase_rows=False,
+        )
+        direct = _build_compiled_rule_table_from_en_es_selected_rows(
+            selected_row_table=compact_selected_rows,
+            compiled_case_table=case_table,
+            filter_table=EnEsCompiledBenchmarkEvaluationTables(
+                filter_table=build_en_es_compiled_candidate_filter_table(
+                    compiled_resources=compiled_resources,
+                    config=config,
+                )
+            ),
+            compiled_pair_context=compiled_resources,
+        )
+        rules = tuple(result.rule for result in generate_en_es_results(["casa"], config=config))
+        from_rules = _build_compiled_rule_table_from_rules(
+            rules=rules,
+            compiled_case_table=case_table,
+            compiled_pair_context=compiled_resources,
+        )
+
+        self.assertEqual(compact_selected_rows.normalized_source_phrase_rows, ((),))
+        self.assertEqual(direct.targets, from_rules.targets)
+        self.assertEqual(direct.all_source_rows, from_rules.all_source_rows)
+        self.assertEqual(direct.source_phrase_id_rows, from_rules.source_phrase_id_rows)
+        self.assertEqual(direct.candidate_row_id_rows, from_rules.candidate_row_id_rows)
+        self.assertEqual(direct.top1_confidences, from_rules.top1_confidences)
 
     def test_compiled_case_evaluator_matches_legacy_evaluator(self) -> None:
         case = RulegenBenchmarkCase(
