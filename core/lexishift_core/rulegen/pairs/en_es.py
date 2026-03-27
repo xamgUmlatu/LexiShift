@@ -112,6 +112,10 @@ _COMPILED_SCORE_TABLE_CACHE: dict[
     tuple[int, tuple[object, ...]],
     "EnEsCompiledCandidateScoreTable",
 ] = {}
+_COMPILED_OVERLAY_DEMOTION_ROWS_CACHE: dict[
+    tuple[int, tuple[object, ...]],
+    tuple[float, ...],
+] = {}
 _COMPILED_BENCHMARK_VARIANT_CANDIDATE_TABLE_CACHE: dict[
     int,
     "EnEsCompiledCandidateTable",
@@ -750,9 +754,10 @@ def _build_compiled_candidate_score_table_for_table(
         for name, source_dict_id in compiled_resources.source_dict_ids_by_name.items()
         if name == config.source_dict_id
     }
-    effective_semantic_demotion_rows = _build_compiled_overlay_demotion_rows(
+    effective_semantic_demotion_rows = _resolve_compiled_overlay_demotion_rows(
         compiled_resources=compiled_resources,
         candidate_table=candidate_table,
+        candidate_table_cache_token=candidate_table_cache_token,
         config=config,
     )
     dict_priority_values: list[float] = []
@@ -1240,6 +1245,38 @@ def _build_compiled_overlay_demotion_rows(
         effective_demotion = max(effective_demotion, float(provenance_demotion))
         effective_demotions.append(effective_demotion)
     return tuple(effective_demotions)
+
+
+def _resolve_compiled_overlay_demotion_rows(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table: EnEsCompiledCandidateTable,
+    candidate_table_cache_token: object,
+    config: EnEsRulegenConfig,
+) -> tuple[float, ...]:
+    cache_key = (
+        int(compiled_resources.cache_token),
+        (
+            candidate_table_cache_token,
+            bool(config.kaikki_policy.enable_live_demotion),
+            float(config.kaikki_policy.late_sense_clean_earlier_competition_penalty),
+            tuple(
+                str(name).strip()
+                for name in config.kaikki_policy.risk_families
+                if str(name).strip()
+            ),
+        ),
+    )
+    cached = _COMPILED_OVERLAY_DEMOTION_ROWS_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+    resolved = _build_compiled_overlay_demotion_rows(
+        compiled_resources=compiled_resources,
+        candidate_table=candidate_table,
+        config=config,
+    )
+    _COMPILED_OVERLAY_DEMOTION_ROWS_CACHE[cache_key] = resolved
+    return resolved
 
 
 def _normalize_compiled_source_phrase(source_phrase: object) -> str:

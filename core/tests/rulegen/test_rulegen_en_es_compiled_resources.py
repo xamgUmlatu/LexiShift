@@ -24,6 +24,7 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
     EnEsCompiledSignalProvider,
     EnEsRulegenConfig,
+    _build_compiled_overlay_demotion_rows,
     _build_compiled_filter_table_cache_key,
     _build_compiled_score_table_cache_key,
     _build_compiled_definition_row_group,
@@ -1208,6 +1209,81 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         self.assertIs(base_table, variant_only_table)
         self.assertIsNot(base_table, reverse_changed_table)
+
+    def test_compiled_overlay_demotion_rows_cache_reuses_policy_only_inputs(self) -> None:
+        records = {
+            "marca": [
+                FreedictGlossRecord(
+                    translation="abbr",
+                    pos_raw="noun",
+                    metadata={
+                        "entry_ord": 0,
+                        "sense_ord": 0,
+                        "gloss_ord": 0,
+                        "sense_form_of": ("abbreviation",),
+                    },
+                ),
+                FreedictGlossRecord(
+                    translation="term",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        word_packages = {
+            "marca": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "marca",
+                "reading": "marca",
+                "script_forms": {"default": "marca"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("marca",),
+            records_by_target=records,
+            reverse_records_by_source=None,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+            kaikki_policy=EnEsKaikkiPolicyConfig(enable_live_demotion=True),
+        )
+        score_only_changed_config = replace(
+            base_config,
+            dict_priority=0.2,
+            scoring=replace(
+                base_config.scoring,
+                weights=replace(base_config.scoring.weights, dict_priority=0.3),
+            ),
+        )
+
+        with patch(
+            "lexishift_core.rulegen.pairs.en_es._build_compiled_overlay_demotion_rows",
+            wraps=_build_compiled_overlay_demotion_rows,
+        ) as build_overlay:
+            build_en_es_compiled_candidate_score_table(
+                compiled_resources=compiled_resources,
+                config=base_config,
+            )
+            build_en_es_compiled_candidate_score_table(
+                compiled_resources=compiled_resources,
+                config=score_only_changed_config,
+            )
+
+        self.assertEqual(build_overlay.call_count, 1)
 
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,

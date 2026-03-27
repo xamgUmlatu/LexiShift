@@ -70,6 +70,7 @@ Current implementation shape:
 - pair contexts now preload reusable resources before config evaluation
 - `en-es` config evaluation now reuses compiled pair resources when available
 - canonical `en-es` benchmark sweeps can now evaluate both `var=off` and `var=on` configs from compiled row tables, so the benchmark no longer has to fall back to the live adapter path for the variant half of the canonical matrix
+- compiled `en-es` score-table construction now caches overlay demotion rows on the narrower Kaikki-policy surface instead of recomputing them for every score-weight change
 - current active `en-es` path is CPU-oriented:
   - SQLite-backed dictionaries
   - string normalization and filtering
@@ -83,9 +84,9 @@ Current implementation shape:
 Latest measured canonical `en-es` smoke on this PC:
 
 - benchmark result still exact at objective `129.474`
-- wall clock: about `2.35s`
+- wall clock: about `2.16s`
 - `preload_translation_gloss_records`: about `1.22s`
-- `run_config`: about `0.665s` total across `144` configs, or about `0.0046s` average per config
+- `run_config`: about `0.467s` total across `144` configs, or about `0.0032s` average per config
 
 ## Hard Requirements
 
