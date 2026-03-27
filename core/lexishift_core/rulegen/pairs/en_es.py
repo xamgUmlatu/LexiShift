@@ -42,7 +42,7 @@ from lexishift_core.rulegen.ranking import (
     ReverseCheckScoringConfig,
     resolve_effective_semantic_demotion_value,
     resolve_reverse_check_delta_from_values,
-    resolve_reverse_check_strength,
+    resolve_reverse_check_strength_from_values,
     score_dictionary_entry_order_values,
 )
 from lexishift_core.rulegen.pairs.en_ja import DEFAULT_STOPWORDS
@@ -399,6 +399,7 @@ class EnEsCompiledCandidateScoreTable:
     phrase_penalty_values: tuple[float, ...] = ()
     effective_semantic_demotion_values: tuple[float, ...] = ()
     reverse_check_delta_values: tuple[float, ...] = ()
+    reverse_check_strength_values: tuple[Optional[float], ...] = ()
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
 
@@ -684,6 +685,7 @@ def build_en_es_compiled_candidate_score_table(
     phrase_penalty_values: list[float] = []
     effective_semantic_demotion_values: list[float] = []
     reverse_check_delta_values: list[float] = []
+    reverse_check_strength_values: list[Optional[float]] = []
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
     for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
@@ -719,6 +721,13 @@ def build_en_es_compiled_candidate_score_table(
         )
         reverse_check_rank = candidate_table.reverse_check_rank_values[row_id]
         reverse_check_delta = resolve_reverse_check_delta_from_values(
+            supported=candidate_table.reverse_check_supported_flags[row_id],
+            hit=candidate_table.reverse_check_hit_flags[row_id],
+            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
+            total=candidate_table.reverse_check_total_values[row_id],
+            config=config.reverse_check,
+        )
+        reverse_check_strength = resolve_reverse_check_strength_from_values(
             supported=candidate_table.reverse_check_supported_flags[row_id],
             hit=candidate_table.reverse_check_hit_flags[row_id],
             rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
@@ -761,6 +770,7 @@ def build_en_es_compiled_candidate_score_table(
         phrase_penalty_values.append(phrase_penalty)
         effective_semantic_demotion_values.append(effective_semantic_demotion)
         reverse_check_delta_values.append(float(reverse_check_delta))
+        reverse_check_strength_values.append(reverse_check_strength)
         confidence_scores.append(confidence)
         ranking_scores.append(ranking_score)
     return EnEsCompiledCandidateScoreTable(
@@ -777,6 +787,7 @@ def build_en_es_compiled_candidate_score_table(
         phrase_penalty_values=tuple(phrase_penalty_values),
         effective_semantic_demotion_values=tuple(effective_semantic_demotion_values),
         reverse_check_delta_values=tuple(reverse_check_delta_values),
+        reverse_check_strength_values=tuple(reverse_check_strength_values),
         confidence_scores=tuple(confidence_scores),
         ranking_scores=tuple(ranking_scores),
     )
@@ -2071,8 +2082,6 @@ def _apply_compiled_reverse_definition_hygiene(
         return [tuple(group) for group in ranked_groups]
     top_strength = _compiled_definition_group_reverse_strength(
         ranked_groups[0],
-        candidate_table=candidate_table,
-        reverse_check=reverse_check,
         filter_table=filter_table,
         score_table=score_table,
     )
@@ -2089,8 +2098,6 @@ def _apply_compiled_reverse_definition_hygiene(
     for group in ranked_groups[1:]:
         strength = _compiled_definition_group_reverse_strength(
             group,
-            candidate_table=candidate_table,
-            reverse_check=reverse_check,
             filter_table=filter_table,
             score_table=score_table,
         )
@@ -2106,8 +2113,6 @@ def _apply_compiled_reverse_definition_hygiene(
 def _compiled_definition_group_reverse_strength(
     row_ids: Sequence[int],
     *,
-    candidate_table: EnEsCompiledCandidateTable,
-    reverse_check: ReverseCheckScoringConfig,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> Optional[float]:
@@ -2121,13 +2126,7 @@ def _compiled_definition_group_reverse_strength(
             score_table=score_table,
         ),
     )
-    return resolve_reverse_check_strength(
-        _compiled_reverse_check_metadata(
-            best_row_id,
-            candidate_table=candidate_table,
-        ),
-        config=reverse_check,
-    )
+    return score_table.reverse_check_strength_values[best_row_id]
 
 
 def _compiled_definition_group_allows_reverse_hygiene_anchor(
@@ -2153,20 +2152,6 @@ def _compiled_definition_group_allows_reverse_hygiene_anchor(
         return True
     reverse_total = int(candidate_table.reverse_check_total_values[best_row_id])
     return reverse_total <= 12
-
-
-def _compiled_reverse_check_metadata(
-    row_id: int,
-    *,
-    candidate_table: EnEsCompiledCandidateTable,
-) -> dict[str, object]:
-    reverse_rank = int(candidate_table.reverse_check_rank_values[row_id])
-    return {
-        "reverse_check_supported": bool(candidate_table.reverse_check_supported_flags[row_id]),
-        "reverse_check_hit": bool(candidate_table.reverse_check_hit_flags[row_id]),
-        "reverse_check_rank": reverse_rank if reverse_rank >= 0 else None,
-        "reverse_check_total": int(candidate_table.reverse_check_total_values[row_id]),
-    }
 
 
 def _flatten_compiled_definition_groups(

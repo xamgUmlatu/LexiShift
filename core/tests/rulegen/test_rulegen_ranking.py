@@ -16,6 +16,7 @@ from lexishift_core.rulegen.ranking import (  # noqa: E402
     resolve_dictionary_order_base_score,
     resolve_effective_semantic_demotion_value,
     resolve_reverse_check_delta_from_values,
+    resolve_reverse_check_strength_from_values,
     score_dictionary_entry_order_values,
 )
 
@@ -446,6 +447,17 @@ class TestRulegenRanking(unittest.TestCase):
                 config=config,
             ),
             0.2 + (0.1 / 18.0) - 0.2,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            resolve_reverse_check_strength_from_values(
+                supported=True,
+                hit=True,
+                rank=0,
+                total=18,
+                config=config,
+            ),
+            1.0,
             places=6,
         )
 

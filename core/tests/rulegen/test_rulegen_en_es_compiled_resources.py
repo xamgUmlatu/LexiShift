@@ -34,6 +34,7 @@ from lexishift_core.rulegen.ranking import (  # noqa: E402
     DictionaryEntryOrderRankingMechanism,
     resolve_effective_semantic_demotion_value,
     resolve_reverse_check_delta_from_values,
+    resolve_reverse_check_strength_from_values,
     score_dictionary_entry_order_values,
 )
 
@@ -496,6 +497,19 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 for candidate in target_context.base_candidates
             ),
         )
+        self.assertEqual(
+            score_table.reverse_check_strength_values,
+            tuple(
+                resolve_reverse_check_strength_from_values(
+                    supported=candidate.metadata.get("reverse_check_supported"),
+                    hit=candidate.metadata.get("reverse_check_hit"),
+                    rank=candidate.metadata.get("reverse_check_rank"),
+                    total=candidate.metadata.get("reverse_check_total"),
+                    config=config.reverse_check,
+                )
+                for candidate in target_context.base_candidates
+            ),
+        )
 
     def test_compiled_candidate_score_table_uses_direct_scalar_helpers(self) -> None:
         records = {
@@ -557,6 +571,10 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 wraps=score_dictionary_entry_order_values,
             ) as ranking_helper,
             patch(
+                "lexishift_core.rulegen.pairs.en_es.resolve_reverse_check_strength_from_values",
+                wraps=resolve_reverse_check_strength_from_values,
+            ) as reverse_strength_helper,
+            patch(
                 "lexishift_core.rulegen.pairs.en_es.RuleScorer.score",
                 side_effect=AssertionError("compiled score table should use direct score helper"),
             ),
@@ -572,6 +590,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         self.assertEqual(score_helper.call_count, len(score_table.candidate_ids))
         self.assertEqual(ranking_helper.call_count, len(score_table.candidate_ids))
+        self.assertEqual(reverse_strength_helper.call_count, len(score_table.candidate_ids))
 
     def test_compiled_candidate_filter_table_matches_live_normalization_and_filters(self) -> None:
         records = {

@@ -311,15 +311,32 @@ def resolve_reverse_check_strength(
     config: ReverseCheckScoringConfig,
 ) -> Optional[float]:
     supported = _extract_optional_bool(metadata.get("reverse_check_supported"))
+    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
+    rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
+    total = _extract_non_negative_int(metadata.get("reverse_check_total"))
+    return resolve_reverse_check_strength_from_values(
+        supported=supported,
+        hit=hit,
+        rank=rank,
+        total=total,
+        config=config,
+    )
+
+
+def resolve_reverse_check_strength_from_values(
+    *,
+    supported: Optional[bool],
+    hit: Optional[bool],
+    rank: Optional[int],
+    total: Optional[int],
+    config: ReverseCheckScoringConfig,
+) -> Optional[float]:
     if supported is not True:
         return None
-    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
     if hit is not True:
         return 0.0
-    rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
     if rank is None or rank == 0:
         return 1.0
-    total = _extract_non_negative_int(metadata.get("reverse_check_total"))
     if total is not None and total > 1:
         max_rank = max(0, int(total) - 1)
         if max_rank <= 0:
