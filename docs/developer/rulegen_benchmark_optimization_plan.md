@@ -447,12 +447,18 @@ Status:
   - row-level acceptance flags for non-empty, gloss-shape, length, possessive, interjection-shadow, stopword, and inflection-artifact checks
   - accepted candidate-row groupings by target id
   - non-variant compiled `en-es` runs now consume those precomputed normalized/filter rows directly instead of rebuilding the live normalizer/filter pipeline in the hot path
+- benchmark preload now scopes both translation directions without changing canonical `en-es` results:
+  - forward preload still loads only benchmark-target forward records while restoring benchmark-equivalent global `gloss_base_forms` through a lightweight full-dictionary translation scan
+  - reverse preload now derives its requested headwords from the same sanitized forward gloss fragments that feed candidate generation, instead of from the unsplit raw Kaikki gloss strings
+  - reverse preload also runs a lightweight raw-headword scan over the reverse dictionary so normalized demand such as `remove` can still pull raw reverse entries whose stored headword spelling differs from the candidate-normalized form
+  - the canonical `en-es` smoke benchmark is back at objective `129.474` after this reverse-scoping slice, so the scoped reverse preload is now parity-safe instead of a speculative optimization
 - the shared generation pipeline now preserves reverse-hygiene behavior when the ranking mechanism is a wrapper around `DictionaryEntryOrderRankingMechanism`
 - generated rules now preserve compiled rulegen ids in rule metadata, so selected rules can be joined back to compiled candidate rows without relying only on normalized phrase text
 - current measured timing shape on Windows after this slice:
-  - `preload_translation_gloss_records`: about `5.93s`
-  - `compile_pair_context`: about `0.95s`
-  - `run_config`: about `0.024s` per config in serial smoke runs
+  - `preload_translation_gloss_records`: about `1.32s`
+  - `compile_pair_context`: about `0.08s`
+  - `run_config`: about `0.022s` per config in serial smoke runs
+  - end-to-end canonical 1-config smoke wall clock: about `1.81s`
 
 Goal:
 

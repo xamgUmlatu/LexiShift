@@ -13,6 +13,7 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.resources.dict_loaders import (  # noqa: E402
     load_freedict_gloss_base_forms,
+    load_freedict_headwords,
     load_freedict_sqlite_gloss_records_ordered,
     load_freedict_tei_gloss_records_ordered,
 )
@@ -99,6 +100,33 @@ class TestFreedictPosLoaders(unittest.TestCase):
             path.write_text(payload, encoding="utf-8")
             base_forms = load_freedict_gloss_base_forms(path, target_lang="en")
         self.assertEqual(base_forms, {"house", "home"})
+
+    def test_tei_headword_loader_preserves_raw_infinitive_spellings(self) -> None:
+        payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>To Remove</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">quitar</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>House</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">casa</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-spa.tei"
+            path.write_text(payload, encoding="utf-8")
+            headwords = load_freedict_headwords(path)
+        self.assertEqual(headwords, ("To Remove", "House"))
 
     def test_sqlite_loader_backfills_missing_pos_for_duplicate_translation(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -193,6 +221,36 @@ class TestFreedictPosLoaders(unittest.TestCase):
                 conn.close()
             base_forms = load_freedict_gloss_base_forms(path, target_lang="en")
         self.assertEqual(base_forms, {"house", "homes"})
+
+    def test_sqlite_headword_loader_preserves_raw_infinitive_spellings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-spa.sqlite"
+            conn = sqlite3.connect(path)
+            try:
+                conn.execute(
+                    "CREATE TABLE entries ("
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "translation TEXT, "
+                    "rank INTEGER, "
+                    "pos TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "INSERT INTO entries (headword, headword_lc, translation, rank, pos) "
+                    "VALUES (?, ?, ?, ?, ?)",
+                    ("To Remove", "to remove", "quitar", 1, "verb"),
+                )
+                conn.execute(
+                    "INSERT INTO entries (headword, headword_lc, translation, rank, pos) "
+                    "VALUES (?, ?, ?, ?, ?)",
+                    ("House", "house", "casa", 2, "noun"),
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            headwords = load_freedict_headwords(path)
+        self.assertEqual(headwords, ("House", "To Remove"))
 
 
 if __name__ == "__main__":

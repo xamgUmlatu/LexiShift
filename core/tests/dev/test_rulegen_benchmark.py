@@ -33,6 +33,8 @@ from rulegen_benchmark import (  # noqa: E402
     _summarize_compiled_case_results,
     _build_word_package_snapshot,
     _build_pair_compiled_rulegen_context,
+    _build_reverse_preload_headwords,
+    _expand_reverse_preload_headwords,
     _format_exact_hit_ambiguity_label,
     _format_exact_hit_specificity_label,
     _format_kaikki_provenance_label,
@@ -428,6 +430,217 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(records_by_target["casa"][0].translation, "house")
         self.assertIn("house", reverse_records_by_source)
         self.assertEqual(reverse_records_by_source["house"][0].translation, "casa")
+
+    def test_build_reverse_preload_headwords_for_en_es_covers_normalized_and_variant_forms(
+        self,
+    ) -> None:
+        headwords = _build_reverse_preload_headwords(
+            pair="en-es",
+            forward_records_by_target={
+                "casa": [FreedictGlossRecord(translation="house", pos_raw="noun")],
+                "correr": [FreedictGlossRecord(translation="To Run!", pos_raw="verb")],
+                "quitar": [
+                    FreedictGlossRecord(
+                        translation="to remove, to disrobe",
+                        pos_raw="verb",
+                    )
+                ],
+            },
+        )
+
+        assert headwords is not None
+        self.assertIn("house", headwords)
+        self.assertIn("houses", headwords)
+        self.assertIn("run", headwords)
+        self.assertIn("remove", headwords)
+        self.assertIn("disrobe", headwords)
+        self.assertNotIn("to run!", headwords)
+
+    def test_preload_pair_gloss_records_scopes_en_es_reverse_load_to_candidate_headwords(
+        self,
+    ) -> None:
+        forward_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>casa</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>correr</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">To Run!</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        reverse_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>house</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">casa</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>houses</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">casas</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>run</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">correr</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>tree</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">árbol</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            forward = root / "spa-eng.tei"
+            reverse = root / "eng-spa.tei"
+            forward.write_text(forward_tei, encoding="utf-8")
+            reverse.write_text(reverse_tei, encoding="utf-8")
+
+            records_by_target, reverse_records_by_source = _preload_pair_gloss_records(
+                pair="en-es",
+                translation_dict_path=forward,
+                reverse_translation_dict_path=reverse,
+                targets=("casa", "correr"),
+            )
+
+        assert records_by_target is not None
+        assert reverse_records_by_source is not None
+        self.assertIn("house", reverse_records_by_source)
+        self.assertIn("houses", reverse_records_by_source)
+        self.assertIn("run", reverse_records_by_source)
+        self.assertNotIn("tree", reverse_records_by_source)
+
+    def test_expand_reverse_preload_headwords_adds_raw_infinitive_aliases(self) -> None:
+        reverse_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>to remove</orth></form>
+        <gramGrp><pos>verb</pos></gramGrp>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">quitar</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>house</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">casa</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            reverse = Path(tmp) / "eng-spa.tei"
+            reverse.write_text(reverse_tei, encoding="utf-8")
+            expanded = _expand_reverse_preload_headwords(
+                pair="en-es",
+                reverse_translation_dict_path=reverse,
+                reverse_headwords=("remove", "house"),
+            )
+
+        assert expanded is not None
+        self.assertIn("remove", expanded)
+        self.assertIn("house", expanded)
+        self.assertIn("to remove", expanded)
+
+    def test_preload_pair_gloss_records_keeps_reverse_infinitive_hits_for_en_es(
+        self,
+    ) -> None:
+        forward_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>quitar</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">remove</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        reverse_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>to remove</orth></form>
+        <gramGrp><pos>verb</pos></gramGrp>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">quitar</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>tree</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">arbol</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            forward = root / "spa-eng.tei"
+            reverse = root / "eng-spa.tei"
+            forward.write_text(forward_tei, encoding="utf-8")
+            reverse.write_text(reverse_tei, encoding="utf-8")
+
+            records_by_target, reverse_records_by_source = _preload_pair_gloss_records(
+                pair="en-es",
+                translation_dict_path=forward,
+                reverse_translation_dict_path=reverse,
+                targets=("quitar",),
+            )
+
+        assert records_by_target is not None
+        assert reverse_records_by_source is not None
+        self.assertIn("to remove", reverse_records_by_source)
+        self.assertNotIn("tree", reverse_records_by_source)
+
+        compiled = _build_pair_compiled_rulegen_context(
+            pair="en-es",
+            targets=("quitar",),
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            gloss_records_by_target=records_by_target,
+            reverse_gloss_records_by_source=reverse_records_by_source,
+            word_packages_by_target={},
+            gloss_base_forms=("remove",),
+        )
+
+        assert compiled is not None
+        candidate = compiled.compiled_targets_by_target["quitar"].base_candidates[0]
+        self.assertTrue(candidate.metadata["reverse_check_supported"])
+        self.assertTrue(candidate.metadata["reverse_check_hit"])
+        self.assertEqual(candidate.metadata["reverse_check_rank"], 0)
 
     def test_build_pair_compiled_rulegen_context_builds_en_es_compiled_resources(self) -> None:
         gloss_records_by_target = {

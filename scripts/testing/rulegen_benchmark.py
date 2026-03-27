@@ -30,6 +30,7 @@ from lexishift_core.lexicon.word_package import (  # noqa: E402
 from lexishift_core.resources.dict_loaders import (  # noqa: E402
     FreedictGlossRecord,
     load_freedict_gloss_base_forms,
+    load_freedict_headwords,
     load_freedict_gloss_records_ordered,
 )
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
@@ -50,13 +51,24 @@ from lexishift_core.rulegen.benchmarking import (  # noqa: E402
 )
 from lexishift_core.rulegen.generation import (  # noqa: E402
     PosMatchScoringConfig,
+    RuleCandidate,
     RuleScoreWeights,
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     build_en_es_compiled_resources,
 )
+from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
+    collect_sanitized_gloss_records,
+    normalize_reverse_token_with_pos,
+)
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
+from lexishift_core.rulegen.utils import (  # noqa: E402
+    BasicStringNormalizer,
+    LeadingEnglishInfinitiveNormalizer,
+    PairedInflectionVariantExpander,
+    sanitize_dictionary_gloss,
+)
 from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
 
 from rulegen_benchmark_presets import (  # noqa: E402
@@ -882,17 +894,149 @@ def _preload_pair_gloss_records(
     Optional[dict[str, list[FreedictGlossRecord]]],
     Optional[dict[str, list[FreedictGlossRecord]]],
 ]:
+    forward_records = _load_translation_gloss_records(
+        translation_dict_path,
+        target_lang=_translation_target_lang_for_pair(pair),
+        headwords=targets,
+    )
+    reverse_headwords = _build_reverse_preload_headwords(
+        pair=pair,
+        forward_records_by_target=forward_records,
+    )
+    reverse_headwords = _expand_reverse_preload_headwords(
+        pair=pair,
+        reverse_translation_dict_path=reverse_translation_dict_path,
+        reverse_headwords=reverse_headwords,
+    )
     return (
-        _load_translation_gloss_records(
-            translation_dict_path,
-            target_lang=_translation_target_lang_for_pair(pair),
-            headwords=targets,
-        ),
+        forward_records,
         _load_translation_gloss_records(
             reverse_translation_dict_path,
             target_lang=_reverse_translation_target_lang_for_pair(pair),
+            headwords=reverse_headwords,
         ),
     )
+
+
+def _build_reverse_preload_headwords(
+    *,
+    pair: str,
+    forward_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]],
+) -> Optional[tuple[str, ...]]:
+    normalized_pair = str(pair or "").strip().lower()
+    if normalized_pair != "en-es" or not forward_records_by_target:
+        return None
+    normalizers = (BasicStringNormalizer(), LeadingEnglishInfinitiveNormalizer())
+    expander = PairedInflectionVariantExpander(target_surface_resolver=None)
+    headwords: set[str] = set()
+    for raw_records in forward_records_by_target.values():
+        for record in collect_sanitized_gloss_records(raw_records):
+            raw_translation = str(record.translation or "").strip()
+            if not raw_translation:
+                continue
+            sanitized = sanitize_dictionary_gloss(raw_translation).lower()
+            if sanitized:
+                headwords.add(sanitized)
+            normalized_reverse = normalize_reverse_token_with_pos(
+                raw_translation,
+                pos_raw=record.pos_raw,
+            )
+            if normalized_reverse:
+                headwords.add(normalized_reverse)
+            candidate = RuleCandidate(
+                source_phrase=raw_translation,
+                replacement="",
+                language_pair="en-es",
+                source_dict="benchmark-preload",
+                metadata={},
+            )
+            normalized_candidate = candidate
+            for normalizer in normalizers:
+                normalized_candidate = normalizer.normalize(normalized_candidate)
+            normalized_phrase = str(normalized_candidate.source_phrase or "").strip().lower()
+            if normalized_phrase:
+                headwords.add(normalized_phrase)
+                if all(ord(ch) < 128 for ch in normalized_phrase):
+                    for expanded in expander.expand(normalized_candidate):
+                        expanded_phrase = str(expanded.source_phrase or "").strip().lower()
+                        if expanded_phrase:
+                            headwords.add(expanded_phrase)
+    return tuple(sorted(headwords))
+
+
+def _expand_reverse_preload_headwords(
+    *,
+    pair: str,
+    reverse_translation_dict_path: Optional[Path],
+    reverse_headwords: Optional[Sequence[str]],
+) -> Optional[tuple[str, ...]]:
+    normalized_pair = str(pair or "").strip().lower()
+    if normalized_pair != "en-es" or reverse_headwords is None:
+        return tuple(reverse_headwords) if reverse_headwords is not None else None
+    if reverse_translation_dict_path is None or not reverse_translation_dict_path.exists():
+        return tuple(reverse_headwords)
+    wanted = {
+        str(headword or "").strip().lower()
+        for headword in reverse_headwords
+        if str(headword or "").strip()
+    }
+    if not wanted:
+        return ()
+    expanded = set(wanted)
+    for raw_headword in load_freedict_headwords(reverse_translation_dict_path):
+        raw_text = str(raw_headword or "").strip()
+        if not raw_text:
+            continue
+        raw_lower = raw_text.lower()
+        if raw_lower in wanted:
+            expanded.add(raw_lower)
+            continue
+        if _reverse_headword_matches_en_es_norm(
+            raw_headword=raw_text,
+            desired_headwords=wanted,
+        ):
+            expanded.add(raw_lower)
+    return tuple(sorted(expanded))
+
+
+def _reverse_headword_matches_en_es_norm(
+    *,
+    raw_headword: str,
+    desired_headwords: set[str],
+) -> bool:
+    for normalized in _collect_en_es_reverse_headword_forms(raw_headword):
+        if normalized in desired_headwords:
+            return True
+    return False
+
+
+def _collect_en_es_reverse_headword_forms(raw_headword: str) -> tuple[str, ...]:
+    normalizers = (BasicStringNormalizer(), LeadingEnglishInfinitiveNormalizer())
+    normalized_forms: list[str] = []
+    seen: set[str] = set()
+
+    def add(text: object) -> None:
+        normalized = str(text or "").strip().lower()
+        if not normalized or normalized in seen:
+            return
+        seen.add(normalized)
+        normalized_forms.append(normalized)
+
+    add(raw_headword)
+    add(sanitize_dictionary_gloss(raw_headword))
+    add(normalize_reverse_token_with_pos(raw_headword))
+    candidate = RuleCandidate(
+        source_phrase=raw_headword,
+        replacement="",
+        language_pair="en-es",
+        source_dict="benchmark-preload",
+        metadata={},
+    )
+    normalized_candidate = candidate
+    for normalizer in normalizers:
+        normalized_candidate = normalizer.normalize(normalized_candidate)
+    add(normalized_candidate.source_phrase)
+    return tuple(normalized_forms)
 
 
 def _path_looks_kaikki(path: Optional[Path]) -> bool:
