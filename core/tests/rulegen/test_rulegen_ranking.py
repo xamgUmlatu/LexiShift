@@ -13,6 +13,11 @@ from lexishift_core.rulegen.ranking import (  # noqa: E402
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
     build_ranking_sort_key,
+    resolve_dictionary_order_base_score,
+    resolve_effective_semantic_demotion_value,
+    resolve_reverse_check_delta_from_values,
+    resolve_reverse_check_strength_from_values,
+    score_dictionary_entry_order_values,
 )
 
 
@@ -378,6 +383,83 @@ class TestRulegenRanking(unittest.TestCase):
         )
         self.assertAlmostEqual(enabled.score(unsupported), 0.5, places=6)
         self.assertAlmostEqual(disabled.score(supported), 0.5, places=6)
+
+    def test_direct_scalar_ranking_helper_matches_mechanism(self) -> None:
+        config = ReverseCheckScoringConfig(
+            enabled=True,
+            match_bonus=0.2,
+            near_bonus=0.1,
+            near_rank_max=2,
+            far_hit_penalty=0.15,
+            miss_penalty=0.2,
+            exact_hit_ambiguity_threshold=12,
+            exact_hit_ambiguity_penalty=0.4,
+            exact_hit_specificity_bonus=0.1,
+        )
+        mechanism = DictionaryEntryOrderRankingMechanism(
+            missing_index_score=0.12,
+            reverse_check=config,
+        )
+        context = CandidateRankingContext(
+            source_phrase="house",
+            replacement="casa",
+            metadata={
+                "gloss_index": 3,
+                "semantic_demotion": 0.4,
+                "reverse_check_supported": True,
+                "reverse_check_hit": True,
+                "reverse_check_rank": 0,
+                "reverse_check_total": 18,
+            },
+            confidence=0.5,
+            semantic_demotion_scale=0.5,
+        )
+
+        helper_score = score_dictionary_entry_order_values(
+            gloss_index=3,
+            semantic_demotion=0.4,
+            semantic_demotion_scale=0.5,
+            reverse_check_supported=True,
+            reverse_check_hit=True,
+            reverse_check_rank=0,
+            reverse_check_total=18,
+            missing_index_score=0.12,
+            reverse_check=config,
+        )
+
+        self.assertAlmostEqual(helper_score, mechanism.score(context), places=6)
+        self.assertAlmostEqual(
+            resolve_dictionary_order_base_score(gloss_index=3, missing_index_score=0.12),
+            0.25,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            resolve_effective_semantic_demotion_value(semantic_demotion=0.4, scale=0.5),
+            0.2,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            resolve_reverse_check_delta_from_values(
+                supported=True,
+                hit=True,
+                rank=0,
+                total=18,
+                config=config,
+            ),
+            0.2 + (0.1 / 18.0) - 0.2,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            resolve_reverse_check_strength_from_values(
+                supported=True,
+                hit=True,
+                rank=0,
+                total=18,
+                config=config,
+            ),
+            1.0,
+            places=6,
+        )
 
 
 if __name__ == "__main__":

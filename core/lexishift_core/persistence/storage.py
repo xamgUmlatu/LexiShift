@@ -125,6 +125,14 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         }
         if normalized_morphology:
             morphology = normalized_morphology
+    raw_rulegen = data.get("rulegen")
+    rulegen = None
+    if isinstance(raw_rulegen, Mapping):
+        normalized_rulegen = {
+            str(key): value for key, value in dict(raw_rulegen).items() if str(key).strip()
+        }
+        if normalized_rulegen:
+            rulegen = normalized_rulegen
     pos = _normalize_pos_metadata(data.get("pos"))
     return RuleMetadata(
         label=data.get("label"),
@@ -139,6 +147,7 @@ def _metadata_from_dict(data: Optional[Mapping[str, Any]]) -> Optional[RuleMetad
         word_package=word_package,
         morphology=morphology,
         pos=pos,
+        rulegen=rulegen,
     )
 
 
@@ -174,6 +183,15 @@ def _metadata_to_dict(metadata: Optional[RuleMetadata]) -> Optional[dict[str, An
             else None
         ),
         "pos": _normalize_pos_metadata(metadata.pos),
+        "rulegen": (
+            {
+                str(key): value
+                for key, value in dict(metadata.rulegen or {}).items()
+                if str(key).strip()
+            }
+            if metadata.rulegen
+            else None
+        ),
         "word_package": word_package,
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [])}

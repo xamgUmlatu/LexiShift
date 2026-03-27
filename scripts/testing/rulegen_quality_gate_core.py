@@ -108,9 +108,26 @@ def dataset_from_payload(
     if not dataset_path:
         return None
     path = Path(dataset_path)
-    if not path.is_absolute():
-        path = (project_root / path).resolve()
-    return path
+    candidates: list[Path] = []
+    if path.is_absolute() or dataset_path.startswith(("/", "\\")):
+        candidates.append(path)
+        parts = list(path.parts)
+        if "docs" in parts:
+            docs_index = parts.index("docs")
+            candidates.append((project_root / Path(*parts[docs_index:])).resolve())
+        candidates.append((project_root / "docs" / "test_inputs" / path.name).resolve())
+    else:
+        candidates.append((project_root / path).resolve())
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        if resolved.exists():
+            return resolved
+    return candidates[0] if candidates else None
 
 
 def record(

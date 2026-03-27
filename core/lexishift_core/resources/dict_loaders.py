@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 import json
 from pathlib import Path
 import sqlite3
-from typing import Iterable, Mapping
+from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
 from lexishift_core.resources.japanese_script import (
@@ -12,6 +12,8 @@ from lexishift_core.resources.japanese_script import (
     contains_kanji,
     kana_to_romaji,
 )
+from lexishift_core.resources.path_cache import load_or_compute_path_json_value
+from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 
 XML_LANG_KEY = "{http://www.w3.org/XML/1998/namespace}lang"
@@ -27,10 +29,13 @@ class JmdictEntryRecord:
 
 
 @dataclass(frozen=True)
-class FreedictGlossRecord:
+class TranslationGlossRecord:
     translation: str
     pos_raw: str = ""
     metadata: Mapping[str, object] = field(default_factory=dict)
+
+
+FreedictGlossRecord = TranslationGlossRecord
 
 
 def load_jmdict_glosses(
@@ -270,12 +275,16 @@ def load_freedict_tei_gloss_records_ordered(
     path: Path,
     *,
     target_lang: str,
+    headwords: Optional[Iterable[str]] = None,
 ) -> dict[str, list[FreedictGlossRecord]]:
     if not path.exists():
         return {}
     try:
         context = ElementTree.iterparse(path, events=("end",))
     except (ElementTree.ParseError, OSError):
+        return {}
+    headword_filter = _normalize_headword_filter(headwords)
+    if headword_filter is not None and not headword_filter:
         return {}
     records: dict[str, list[FreedictGlossRecord]] = {}
     translation_index_by_headword: dict[str, dict[str, int]] = {}
@@ -288,6 +297,11 @@ def load_freedict_tei_gloss_records_ordered(
             if text and text not in headwords:
                 headwords.append(text)
         if not headwords:
+            elem.clear()
+            continue
+        if headword_filter is not None and not any(
+            headword.lower() in headword_filter for headword in headwords
+        ):
             elem.clear()
             continue
         translations: list[str] = []
@@ -329,47 +343,121 @@ def load_freedict_sqlite_glosses_ordered(path: Path) -> dict[str, list[str]]:
     }
 
 
-def load_freedict_sqlite_gloss_records_ordered(path: Path) -> dict[str, list[FreedictGlossRecord]]:
+def load_freedict_sqlite_headwords(path: Path) -> tuple[str, ...]:
+    if not path.exists() or not path.is_file():
+        return ()
+    conn: Optional[sqlite3.Connection] = None
+    try:
+        conn = sqlite3.connect(path)
+        try:
+            if _sqlite_has_table(conn, "sense_glosses"):
+                return _load_auxiliary_sqlite_headwords(conn)
+            has_entries = conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='entries' LIMIT 1"
+            ).fetchone()
+            if not has_entries:
+                return ()
+            cursor = conn.execute("SELECT headword FROM entries ORDER BY headword_lc, headword")
+            try:
+                return _collect_sqlite_headwords(cursor)
+            finally:
+                cursor.close()
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return ()
+
+
+def load_freedict_sqlite_gloss_base_forms(path: Path) -> set[str]:
+    if not path.exists() or not path.is_file():
+        return set()
+    conn: Optional[sqlite3.Connection] = None
+    try:
+        conn = sqlite3.connect(path)
+        try:
+            if _sqlite_has_table(conn, "sense_glosses"):
+                return _load_auxiliary_sqlite_gloss_base_forms(conn)
+            has_entries = conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='entries' LIMIT 1"
+            ).fetchone()
+            if not has_entries:
+                return set()
+            cursor = conn.execute("SELECT translation FROM entries")
+            try:
+                return _collect_sqlite_gloss_base_forms(cursor)
+            finally:
+                cursor.close()
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return set()
+
+
+def load_freedict_sqlite_gloss_records_ordered(
+    path: Path,
+    *,
+    headwords: Optional[Iterable[str]] = None,
+) -> dict[str, list[FreedictGlossRecord]]:
     mapping: dict[str, list[FreedictGlossRecord]] = {}
     translation_index_by_headword: dict[str, dict[str, int]] = {}
     if not path.exists() or not path.is_file():
         return mapping
+    headword_filter = _normalize_headword_filter(headwords)
+    if headword_filter is not None and not headword_filter:
+        return mapping
+    conn: Optional[sqlite3.Connection] = None
     try:
-        with sqlite3.connect(path) as conn:
+        conn = sqlite3.connect(path)
+        try:
             if _sqlite_has_table(conn, "sense_glosses"):
-                return _load_auxiliary_sqlite_gloss_records_ordered(conn)
+                return _load_auxiliary_sqlite_gloss_records_ordered(
+                    conn,
+                    headwords=headword_filter,
+                )
             has_entries = conn.execute(
                 "SELECT 1 FROM sqlite_master WHERE type='table' AND name='entries' LIMIT 1"
             ).fetchone()
             if not has_entries:
                 return mapping
-            cursor = conn.execute(
-                "SELECT headword, translation, pos FROM entries "
-                "ORDER BY headword_lc, rank, headword"
-            )
-            for headword, translation, pos_raw in cursor:
-                headword_text = str(headword or "").strip()
-                translation_text = str(translation or "").strip()
-                if not headword_text or not translation_text:
-                    continue
-                bucket = mapping.setdefault(headword_text, [])
-                index_by_translation = translation_index_by_headword.setdefault(headword_text, {})
-                existing_index = index_by_translation.get(translation_text)
-                normalized_pos_raw = str(pos_raw or "").strip()
-                if existing_index is None:
-                    bucket.append(
-                        FreedictGlossRecord(
+            query = "SELECT headword, translation, pos FROM entries"
+            parameters: tuple[object, ...] = ()
+            if headword_filter is not None:
+                placeholders = ", ".join("?" for _ in headword_filter)
+                query += f" WHERE headword_lc IN ({placeholders})"
+                parameters = tuple(headword_filter)
+            query += " ORDER BY headword_lc, rank, headword"
+            cursor = conn.execute(query, parameters)
+            try:
+                for headword, translation, pos_raw in cursor:
+                    headword_text = str(headword or "").strip()
+                    translation_text = str(translation or "").strip()
+                    if not headword_text or not translation_text:
+                        continue
+                    bucket = mapping.setdefault(headword_text, [])
+                    index_by_translation = translation_index_by_headword.setdefault(
+                        headword_text,
+                        {},
+                    )
+                    existing_index = index_by_translation.get(translation_text)
+                    normalized_pos_raw = str(pos_raw or "").strip()
+                    if existing_index is None:
+                        bucket.append(
+                            FreedictGlossRecord(
+                                translation=translation_text,
+                                pos_raw=normalized_pos_raw,
+                            )
+                        )
+                        index_by_translation[translation_text] = len(bucket) - 1
+                        continue
+                    if not bucket[existing_index].pos_raw and normalized_pos_raw:
+                        bucket[existing_index] = FreedictGlossRecord(
                             translation=translation_text,
                             pos_raw=normalized_pos_raw,
                         )
-                    )
-                    index_by_translation[translation_text] = len(bucket) - 1
-                    continue
-                if not bucket[existing_index].pos_raw and normalized_pos_raw:
-                    bucket[existing_index] = FreedictGlossRecord(
-                        translation=translation_text,
-                        pos_raw=normalized_pos_raw,
-                    )
+            finally:
+                cursor.close()
+        finally:
+            conn.close()
     except sqlite3.Error:
         return {}
     return mapping
@@ -385,6 +473,8 @@ def _sqlite_has_table(conn: sqlite3.Connection, table_name: str) -> bool:
 
 def _load_auxiliary_sqlite_gloss_records_ordered(
     conn: sqlite3.Connection,
+    *,
+    headwords: Optional[Sequence[str]] = None,
 ) -> dict[str, list[FreedictGlossRecord]]:
     mapping: dict[str, list[FreedictGlossRecord]] = {}
     translation_index_by_headword: dict[str, dict[str, int]] = {}
@@ -399,6 +489,14 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
         if has_translation_meta
         else ""
     )
+    where_clause = ""
+    parameters: tuple[object, ...] = ()
+    if headwords is not None:
+        if not headwords:
+            return mapping
+        placeholders = ", ".join("?" for _ in headwords)
+        where_clause = f"WHERE sg.headword_lc IN ({placeholders})"
+        parameters = tuple(headwords)
     cursor = conn.execute(
         f"""
         SELECT
@@ -425,78 +523,126 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
         FROM sense_glosses sg
         {entry_meta_join}
         {translation_meta_join}
+        {where_clause}
         ORDER BY sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.translation, sg.headword
-        """
+        """,
+        parameters,
     )
-    for row in cursor:
-        (
-            headword,
-            translation,
-            pos_raw,
-            entry_ord,
-            sense_ord,
-            gloss_ord,
-            raw_glosses_json,
-            sense_tags_json,
-            sense_topics_json,
-            sense_categories_json,
-            form_of_json,
-            alt_of_json,
-            entry_pos_title,
-            entry_tags_json,
-            entry_categories_json,
-            translation_sense_text,
-            translation_english_text,
-            translation_note_text,
-            translation_roman_text,
-            translation_tags_json,
-        ) = row
-        headword_text = str(headword or "").strip()
-        translation_text = str(translation or "").strip()
-        if not headword_text or not translation_text:
-            continue
-        metadata = _build_auxiliary_gloss_metadata(
-            entry_ord=entry_ord,
-            sense_ord=sense_ord,
-            gloss_ord=gloss_ord,
-            raw_glosses_json=raw_glosses_json,
-            sense_tags_json=sense_tags_json,
-            sense_topics_json=sense_topics_json,
-            sense_categories_json=sense_categories_json,
-            form_of_json=form_of_json,
-            alt_of_json=alt_of_json,
-            entry_pos_title=entry_pos_title,
-            entry_tags_json=entry_tags_json,
-            entry_categories_json=entry_categories_json,
-            translation_sense_text=translation_sense_text,
-            translation_english_text=translation_english_text,
-            translation_note_text=translation_note_text,
-            translation_roman_text=translation_roman_text,
-            translation_tags_json=translation_tags_json,
-        )
-        bucket = mapping.setdefault(headword_text, [])
-        index_by_translation = translation_index_by_headword.setdefault(headword_text, {})
-        existing_index = index_by_translation.get(translation_text)
-        normalized_pos_raw = str(pos_raw or "").strip()
-        if existing_index is None:
-            bucket.append(
-                FreedictGlossRecord(
-                    translation=translation_text,
-                    pos_raw=normalized_pos_raw,
-                    metadata=metadata,
-                )
+    try:
+        for row in cursor:
+            (
+                headword,
+                translation,
+                pos_raw,
+                entry_ord,
+                sense_ord,
+                gloss_ord,
+                raw_glosses_json,
+                sense_tags_json,
+                sense_topics_json,
+                sense_categories_json,
+                form_of_json,
+                alt_of_json,
+                entry_pos_title,
+                entry_tags_json,
+                entry_categories_json,
+                translation_sense_text,
+                translation_english_text,
+                translation_note_text,
+                translation_roman_text,
+                translation_tags_json,
+            ) = row
+            headword_text = str(headword or "").strip()
+            translation_text = str(translation or "").strip()
+            if not headword_text or not translation_text:
+                continue
+            metadata = _build_auxiliary_gloss_metadata(
+                entry_ord=entry_ord,
+                sense_ord=sense_ord,
+                gloss_ord=gloss_ord,
+                raw_glosses_json=raw_glosses_json,
+                sense_tags_json=sense_tags_json,
+                sense_topics_json=sense_topics_json,
+                sense_categories_json=sense_categories_json,
+                form_of_json=form_of_json,
+                alt_of_json=alt_of_json,
+                entry_pos_title=entry_pos_title,
+                entry_tags_json=entry_tags_json,
+                entry_categories_json=entry_categories_json,
+                translation_sense_text=translation_sense_text,
+                translation_english_text=translation_english_text,
+                translation_note_text=translation_note_text,
+                translation_roman_text=translation_roman_text,
+                translation_tags_json=translation_tags_json,
             )
-            index_by_translation[translation_text] = len(bucket) - 1
-            continue
-        existing = bucket[existing_index]
-        if existing.pos_raw or not normalized_pos_raw:
-            continue
-        bucket[existing_index] = FreedictGlossRecord(
-            translation=translation_text,
-            pos_raw=normalized_pos_raw,
-            metadata=existing.metadata or metadata,
-        )
+            bucket = mapping.setdefault(headword_text, [])
+            index_by_translation = translation_index_by_headword.setdefault(
+                headword_text,
+                {},
+            )
+            existing_index = index_by_translation.get(translation_text)
+            normalized_pos_raw = str(pos_raw or "").strip()
+            if existing_index is None:
+                bucket.append(
+                    FreedictGlossRecord(
+                        translation=translation_text,
+                        pos_raw=normalized_pos_raw,
+                        metadata=metadata,
+                    )
+                )
+                index_by_translation[translation_text] = len(bucket) - 1
+                continue
+            existing = bucket[existing_index]
+            if existing.pos_raw or not normalized_pos_raw:
+                continue
+            bucket[existing_index] = FreedictGlossRecord(
+                translation=translation_text,
+                pos_raw=normalized_pos_raw,
+                metadata=existing.metadata or metadata,
+            )
+    finally:
+        cursor.close()
     return mapping
+
+
+def _load_auxiliary_sqlite_headwords(conn: sqlite3.Connection) -> tuple[str, ...]:
+    cursor = conn.execute("SELECT headword FROM sense_glosses ORDER BY headword_lc, headword")
+    try:
+        return _collect_sqlite_headwords(cursor)
+    finally:
+        cursor.close()
+
+
+def _load_auxiliary_sqlite_gloss_base_forms(conn: sqlite3.Connection) -> set[str]:
+    cursor = conn.execute("SELECT translation FROM sense_glosses")
+    try:
+        return _collect_sqlite_gloss_base_forms(cursor)
+    finally:
+        cursor.close()
+
+
+def _collect_sqlite_headwords(cursor: sqlite3.Cursor) -> tuple[str, ...]:
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for (headword,) in cursor:
+        text = str(headword or "").strip()
+        if not text:
+            continue
+        normalized = text.lower()
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        ordered.append(text)
+    return tuple(ordered)
+
+
+def _collect_sqlite_gloss_base_forms(cursor: sqlite3.Cursor) -> set[str]:
+    base_forms: set[str] = set()
+    for (translation,) in cursor:
+        normalized = sanitize_dictionary_gloss(translation).lower()
+        if normalized:
+            base_forms.add(normalized)
+    return base_forms
 
 
 def _build_auxiliary_gloss_metadata(
@@ -591,14 +737,157 @@ def load_freedict_glosses_ordered(
     }
 
 
+def load_freedict_gloss_base_forms(
+    path: Path,
+    *,
+    target_lang: str,
+) -> set[str]:
+    if _is_sqlite_file(path):
+        return load_freedict_sqlite_gloss_base_forms(path)
+    return load_freedict_tei_gloss_base_forms(path, target_lang=target_lang)
+
+
+def load_freedict_tei_gloss_base_forms(
+    path: Path,
+    *,
+    target_lang: str,
+) -> set[str]:
+    if not path.exists():
+        return set()
+    try:
+        context = ElementTree.iterparse(path, events=("end",))
+    except (ElementTree.ParseError, OSError):
+        return set()
+    base_forms: set[str] = set()
+    for _event, elem in context:
+        if elem.tag != f"{{{TEI_NS['tei']}}}entry":
+            continue
+        for quote in elem.findall(".//tei:cit[@type='trans']/tei:quote", TEI_NS):
+            text = (quote.text or "").strip()
+            if not text:
+                continue
+            lang = (quote.get(XML_LANG_KEY) or "").strip().lower()
+            if lang and lang != target_lang.lower():
+                continue
+            normalized = sanitize_dictionary_gloss(text).lower()
+            if normalized:
+                base_forms.add(normalized)
+        elem.clear()
+    return base_forms
+
+
+def load_freedict_tei_headwords(path: Path) -> tuple[str, ...]:
+    if not path.exists():
+        return ()
+    try:
+        context = ElementTree.iterparse(path, events=("end",))
+    except (ElementTree.ParseError, OSError):
+        return ()
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for _event, elem in context:
+        if elem.tag != f"{{{TEI_NS['tei']}}}entry":
+            continue
+        for orth in elem.findall("tei:form/tei:orth", TEI_NS):
+            text = (orth.text or "").strip()
+            if not text:
+                continue
+            normalized = text.lower()
+            if normalized in seen:
+                continue
+            seen.add(normalized)
+            ordered.append(text)
+        elem.clear()
+    return tuple(ordered)
+
+
 def load_freedict_gloss_records_ordered(
     path: Path,
     *,
     target_lang: str,
+    headwords: Optional[Iterable[str]] = None,
 ) -> dict[str, list[FreedictGlossRecord]]:
     if _is_sqlite_file(path):
-        return load_freedict_sqlite_gloss_records_ordered(path)
-    return load_freedict_tei_gloss_records_ordered(path, target_lang=target_lang)
+        return load_freedict_sqlite_gloss_records_ordered(path, headwords=headwords)
+    return load_freedict_tei_gloss_records_ordered(
+        path,
+        target_lang=target_lang,
+        headwords=headwords,
+    )
+
+
+def _normalize_headword_filter(
+    headwords: Optional[Iterable[str]],
+) -> Optional[tuple[str, ...]]:
+    if headwords is None:
+        return None
+    normalized = tuple(
+        sorted(
+            {
+                str(headword or "").strip().lower()
+                for headword in headwords
+                if str(headword or "").strip()
+            }
+        )
+    )
+    return normalized
+
+
+def load_freedict_headwords(path: Path) -> tuple[str, ...]:
+    if _is_sqlite_file(path):
+        return load_freedict_sqlite_headwords(path)
+    return load_freedict_tei_headwords(path)
+
+
+def load_translation_gloss_base_forms(
+    path: Path,
+    *,
+    target_lang: str,
+) -> set[str]:
+    normalized_target_lang = str(target_lang or "").strip().lower()
+    return load_or_compute_path_json_value(
+        path,
+        namespace="translation_pack_metadata",
+        key={
+            "kind": "gloss_base_forms",
+            "target_lang": normalized_target_lang,
+        },
+        compute=lambda: load_freedict_gloss_base_forms(path, target_lang=normalized_target_lang),
+        serialize=lambda values: sorted(
+            {str(value or "").strip().lower() for value in values if str(value or "").strip()}
+        ),
+        deserialize=lambda payload: {
+            str(value or "").strip().lower() for value in payload if str(value or "").strip()
+        },
+    )
+
+
+def load_translation_gloss_records_ordered(
+    path: Path,
+    *,
+    target_lang: str,
+    headwords: Optional[Iterable[str]] = None,
+) -> dict[str, list[TranslationGlossRecord]]:
+    return load_freedict_gloss_records_ordered(
+        path,
+        target_lang=target_lang,
+        headwords=headwords,
+    )
+
+
+def load_translation_headwords(path: Path) -> tuple[str, ...]:
+    return load_or_compute_path_json_value(
+        path,
+        namespace="translation_pack_metadata",
+        key={"kind": "headwords"},
+        compute=lambda: load_freedict_headwords(path),
+        serialize=lambda values: [
+            str(value or "").strip() for value in values if str(value or "").strip()
+        ],
+        deserialize=lambda payload: tuple(
+            str(value or "").strip() for value in payload if str(value or "").strip()
+        ),
+    )
 
 
 def _is_sqlite_file(path: Path) -> bool:

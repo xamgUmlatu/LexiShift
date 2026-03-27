@@ -3,8 +3,8 @@
 Status: Active handoff
 Role: Runbook / operational
 Purpose: Make the current `en-es` Kaikki rulegen benchmark state portable and replayable on a higher-end PC for broader experiment sweeps.
-Last updated: 2026-03-26
-Last verified: 2026-03-26
+Last updated: 2026-03-27
+Last verified: 2026-03-27
 Verification:
 - `scripts/testing/rulegen_benchmark.py`
 - `scripts/testing/rulegen_benchmark_bundle.py`
@@ -54,6 +54,8 @@ Current best config label:
 
 Current triage targets:
 
+- `acabar`
+- `coger`
 - `derecho`
 - `cuadro`
 - `cuenta`
@@ -62,11 +64,12 @@ Current triage targets:
 
 Important interpretation:
 
-- `cuadro` is still the only clear hard algorithmic miss in the canonical lane.
+- `cuadro` is still the clearest hard structural/ranking miss in the canonical lane.
+- `acabar` and `coger` are the current hard forbidden-side failures.
 - `derecho`, `cuenta`, `red`, and `sacar` are closer to review / preference / phrase-policy questions.
 - reverse-check is part of the current best config.
 - exact-hit ambiguity penalty is implemented but still off in the current best config.
-- Kaikki live demotion is implemented but still off in the current best config.
+- Kaikki live demotion is implemented and on in the current best config.
 
 ## What Is Frozen Now
 

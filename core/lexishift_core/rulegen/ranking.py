@@ -41,23 +41,26 @@ class DictionaryEntryOrderRankingMechanism:
 
     def score(self, candidate: CandidateRankingContext) -> float:
         gloss_index = extract_dictionary_order_index(candidate.metadata)
-        base_score = self.missing_index_score
-        if gloss_index is not None:
-            # 0 -> 1.0, 1 -> 0.5, 2 -> 0.333..., etc.
-            base_score = 1.0 / (1.0 + float(gloss_index))
-        demotion = resolve_effective_semantic_demotion(
-            candidate.metadata,
-            scale=candidate.semantic_demotion_scale,
+        semantic_demotion = extract_semantic_demotion(candidate.metadata)
+        reverse_check_supported = _extract_optional_bool(
+            candidate.metadata.get("reverse_check_supported")
         )
-        if demotion > 0.0:
-            base_score = max(0.0, base_score * (1.0 - demotion))
-        reverse_delta = resolve_reverse_check_delta(
-            candidate.metadata,
-            config=self.reverse_check,
+        reverse_check_hit = _extract_optional_bool(candidate.metadata.get("reverse_check_hit"))
+        reverse_check_rank = _extract_non_negative_int(candidate.metadata.get("reverse_check_rank"))
+        reverse_check_total = _extract_non_negative_int(
+            candidate.metadata.get("reverse_check_total")
         )
-        if reverse_delta != 0.0:
-            base_score = _clamp_float(base_score + reverse_delta)
-        return _clamp_float(base_score)
+        return score_dictionary_entry_order_values(
+            gloss_index=gloss_index,
+            semantic_demotion=semantic_demotion,
+            semantic_demotion_scale=candidate.semantic_demotion_scale,
+            reverse_check_supported=reverse_check_supported,
+            reverse_check_hit=reverse_check_hit,
+            reverse_check_rank=reverse_check_rank,
+            reverse_check_total=reverse_check_total,
+            missing_index_score=self.missing_index_score,
+            reverse_check=self.reverse_check,
+        )
 
     def bucket_key(self, candidate: CandidateRankingContext) -> str:
         return resolve_dictionary_order_bucket_key(candidate)
@@ -73,6 +76,16 @@ def build_ranking_sort_key(
         -float(candidate.confidence),
         str(candidate.source_phrase or "").lower(),
     )
+
+
+def resolve_dictionary_order_base_score(
+    *,
+    gloss_index: Optional[int],
+    missing_index_score: float = 0.0,
+) -> float:
+    if gloss_index is None:
+        return _clamp_float(missing_index_score)
+    return _clamp_float(1.0 / (1.0 + float(gloss_index)))
 
 
 def extract_dictionary_order_index(metadata: Mapping[str, object]) -> Optional[int]:
@@ -145,6 +158,26 @@ def resolve_effective_semantic_demotion(
     return _clamp_float(base * parsed_scale)
 
 
+def resolve_effective_semantic_demotion_value(
+    *,
+    semantic_demotion: float,
+    scale: float,
+) -> float:
+    try:
+        base = _clamp_float(float(semantic_demotion))
+    except (TypeError, ValueError):
+        base = 0.0
+    if base <= 0.0:
+        return 0.0
+    try:
+        parsed_scale = float(scale)
+    except (TypeError, ValueError):
+        parsed_scale = 1.0
+    if parsed_scale <= 0.0:
+        return 0.0
+    return _clamp_float(base * parsed_scale)
+
+
 def resolve_reverse_check_delta(
     metadata: Mapping[str, object],
     *,
@@ -192,21 +225,118 @@ def resolve_reverse_check_delta(
     return 0.0
 
 
+def resolve_reverse_check_delta_from_values(
+    *,
+    supported: Optional[bool],
+    hit: Optional[bool],
+    rank: Optional[int],
+    total: Optional[int],
+    config: ReverseCheckScoringConfig,
+) -> float:
+    if not bool(config.enabled):
+        return 0.0
+    if supported is not True:
+        return 0.0
+    if hit is True:
+        match_bonus = _normalize_non_negative_float(config.match_bonus)
+        near_bonus = _normalize_non_negative_float(config.near_bonus)
+        near_rank_max = _normalize_non_negative_int(config.near_rank_max, default=2)
+        if rank is None:
+            return match_bonus
+        if rank == 0:
+            exact_hit_specificity_bonus = resolve_reverse_exact_hit_specificity_bonus(
+                total=total,
+                config=config,
+            )
+            exact_hit_ambiguity_penalty = resolve_reverse_exact_hit_ambiguity_penalty(
+                total=total,
+                config=config,
+            )
+            return match_bonus + exact_hit_specificity_bonus - exact_hit_ambiguity_penalty
+        if rank <= near_rank_max:
+            return near_bonus
+        far_hit_penalty = _normalize_non_negative_float(config.far_hit_penalty)
+        if far_hit_penalty <= 0.0:
+            return 0.0
+        return -resolve_reverse_far_hit_penalty(
+            rank=rank,
+            total=total,
+            penalty=far_hit_penalty,
+        )
+    if hit is False:
+        miss_penalty = _normalize_non_negative_float(config.miss_penalty)
+        if miss_penalty <= 0.0:
+            return 0.0
+        return -miss_penalty
+    return 0.0
+
+
+def score_dictionary_entry_order_values(
+    *,
+    gloss_index: Optional[int],
+    semantic_demotion: float,
+    semantic_demotion_scale: float,
+    reverse_check_supported: Optional[bool],
+    reverse_check_hit: Optional[bool],
+    reverse_check_rank: Optional[int],
+    reverse_check_total: Optional[int],
+    missing_index_score: float = 0.0,
+    reverse_check: Optional[ReverseCheckScoringConfig] = None,
+) -> float:
+    base_score = resolve_dictionary_order_base_score(
+        gloss_index=gloss_index,
+        missing_index_score=missing_index_score,
+    )
+    effective_demotion = resolve_effective_semantic_demotion_value(
+        semantic_demotion=semantic_demotion,
+        scale=semantic_demotion_scale,
+    )
+    if effective_demotion > 0.0:
+        base_score = max(0.0, base_score * (1.0 - effective_demotion))
+    reverse_delta = resolve_reverse_check_delta_from_values(
+        supported=reverse_check_supported,
+        hit=reverse_check_hit,
+        rank=reverse_check_rank,
+        total=reverse_check_total,
+        config=reverse_check or ReverseCheckScoringConfig(),
+    )
+    if reverse_delta != 0.0:
+        base_score = _clamp_float(base_score + reverse_delta)
+    return _clamp_float(base_score)
+
+
 def resolve_reverse_check_strength(
     metadata: Mapping[str, object],
     *,
     config: ReverseCheckScoringConfig,
 ) -> Optional[float]:
     supported = _extract_optional_bool(metadata.get("reverse_check_supported"))
+    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
+    rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
+    total = _extract_non_negative_int(metadata.get("reverse_check_total"))
+    return resolve_reverse_check_strength_from_values(
+        supported=supported,
+        hit=hit,
+        rank=rank,
+        total=total,
+        config=config,
+    )
+
+
+def resolve_reverse_check_strength_from_values(
+    *,
+    supported: Optional[bool],
+    hit: Optional[bool],
+    rank: Optional[int],
+    total: Optional[int],
+    config: ReverseCheckScoringConfig,
+) -> Optional[float]:
     if supported is not True:
         return None
-    hit = _extract_optional_bool(metadata.get("reverse_check_hit"))
     if hit is not True:
         return 0.0
-    rank = _extract_non_negative_int(metadata.get("reverse_check_rank"))
     if rank is None or rank == 0:
         return 1.0
-    total = _extract_non_negative_int(metadata.get("reverse_check_total"))
     if total is not None and total > 1:
         max_rank = max(0, int(total) - 1)
         if max_rank <= 0:

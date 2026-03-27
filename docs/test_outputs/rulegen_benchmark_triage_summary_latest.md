@@ -1,45 +1,35 @@
 # Rulegen Benchmark Triage
 
-- Benchmark JSON: `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
+- Benchmark JSON: `docs\test_outputs\rulegen_benchmark_en_es_latest.json`
 - Pairs processed: 1
-- Actionable items: 11
-- FAIL items: 11
-- REVIEW items: 0
+- Actionable items: 7
+- FAIL items: 3
+- REVIEW items: 4
 
 ## Items By Pair
 
-- `en-es`: 11
+- `en-es`: 7
 
 ## Actionable Cases
 
-1. [FAIL] `en-es` `en-es:madre` target=`madre`
-   - Reasons: top1_is_forbidden, forbidden_candidate_present
-   - Observed top1: `bed`
-2. [FAIL] `en-es` `en-es:planta` target=`planta`
-   - Reasons: top1_is_forbidden
-   - Observed top1: `sole`
-3. [FAIL] `en-es` `en-es:derecho` target=`derecho`
-   - Reasons: top1_is_forbidden, forbidden_candidate_present, expected_candidate_missing_from_top3
-   - Observed top1: `claim`
-4. [FAIL] `en-es` `en-es:cuadro` target=`cuadro`
-   - Reasons: top1_is_forbidden, forbidden_candidate_present
-   - Observed top1: `bed`
-5. [FAIL] `en-es` `en-es:orden` target=`orden`
+1. [REVIEW] `en-es` `en-es:derecho` target=`derecho`
+   - Reasons: top1_not_in_expected_set
+   - Observed top1: `straight`
+2. [FAIL] `en-es` `en-es:cuadro` target=`cuadro`
+   - Reasons: expected_candidate_missing_from_top3
+   - Observed top1: `square`
+3. [REVIEW] `en-es` `en-es:cuenta` target=`cuenta`
+   - Reasons: top1_not_in_expected_set
+   - Observed top1: `count`
+4. [REVIEW] `en-es` `en-es:red` target=`red`
+   - Reasons: top1_not_in_expected_set
+   - Observed top1: `web`
+5. [REVIEW] `en-es` `en-es:sacar` target=`sacar`
+   - Reasons: top1_not_in_expected_set
+   - Observed top1: `withdraw`
+6. [FAIL] `en-es` `en-es:acabar` target=`acabar`
    - Reasons: forbidden_candidate_present
-   - Observed top1: `order`
-6. [FAIL] `en-es` `en-es:cargo` target=`cargo`
-   - Reasons: top1_is_forbidden, forbidden_candidate_present
-   - Observed top1: `accusal`
-7. [FAIL] `en-es` `en-es:plaza` target=`plaza`
+   - Observed top1: `finish`
+7. [FAIL] `en-es` `en-es:coger` target=`coger`
    - Reasons: forbidden_candidate_present
-   - Observed top1: `plaza`
-8. [FAIL] `en-es` `en-es:masa` target=`masa`
-   - Reasons: top1_is_forbidden, forbidden_candidate_present
-   - Observed top1: `lump`
-9. [FAIL] `en-es` `en-es:caso` target=`caso`
-   - Reasons: top1_is_forbidden
-   - Observed top1: `affair`
-10. [FAIL] `en-es` `en-es:parte` target=`parte`
-   - Reasons: forbidden_candidate_present
-   - Observed top1: `part`
-11. Additional items omitted: 1
+   - Observed top1: `take`

@@ -19,10 +19,25 @@ from lexishift_core.frequency.sqlite import (
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
 from language_packs_catalog import (
+    CROSS_EMBEDDING_PACKS,
+    EMBEDDING_PACKS,
+    FREQUENCY_PACKS,
     FrequencyPackInfo,
+    LANGUAGE_PACKS,
     LanguagePackInfo,
     _frequency_pos_inventory_config,
 )
+
+__all__ = [
+    "CROSS_EMBEDDING_PACKS",
+    "EMBEDDING_PACKS",
+    "FREQUENCY_PACKS",
+    "LANGUAGE_PACKS",
+    "FrequencyPackDownloadThread",
+    "FrequencyPackInfo",
+    "LanguagePackDownloadThread",
+    "LanguagePackInfo",
+]
 
 
 def _app_data_root() -> str:

@@ -63,6 +63,7 @@ class RuleMetadata:
     word_package: Optional[Mapping[str, object]] = None
     morphology: Optional[Mapping[str, object]] = None
     pos: Optional[Mapping[str, object]] = None
+    rulegen: Optional[Mapping[str, object]] = None
 
 
 @dataclass(frozen=True)

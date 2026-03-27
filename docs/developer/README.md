@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-03-21
-Last verified: 2026-03-21 developer-doc routing review
+Last updated: 2026-03-27
+Last verified: 2026-03-27 developer-doc routing review
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -42,6 +42,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 
 - Documentation grooming queue: `documentation_grooming_workstream.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
+- Rulegen benchmark optimization plan: `rulegen_benchmark_optimization_plan.md`
 - Windows GUI parity workstream: `windows_gui_parity_workstream.md`
 
 ## Core Code Areas

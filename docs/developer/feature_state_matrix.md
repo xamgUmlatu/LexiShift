@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-26
+Last updated: 2026-03-28
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -33,7 +33,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-02-24`
-- Last verified: `2026-03-26` local benchmark/gate/triage refresh + portable bundle replay
+- Last verified: `2026-03-28` local benchmark/gate/triage refresh + pipeline contract doc sync
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
@@ -41,6 +41,7 @@ Use this file when:
 - Evidence:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
+  - `docs/developer/rulegen_test_pipeline.md`
   - `scripts/testing/rulegen_benchmark.py`
   - `scripts/testing/rulegen_benchmark_bundle.py`
   - `scripts/testing/rulegen_benchmark_presets.py`
@@ -57,9 +58,40 @@ Use this file when:
 - Known gaps:
   - Current `docs/test_outputs/rulegen_quality_gate_latest.json` has FAIL findings for `en-es` quality floor and delta budget.
   - Recommended pairs (`en-ja`, `en-de`, `es-en`) are still advisory rather than hard-gated.
-  - Current quality-gate output also shows saturation warnings for `en-es`.
+  - Cross-machine benchmark artifacts can preserve source-machine absolute dataset paths; the gate now falls back to the repo-local dataset copy when the original path is unavailable.
   - Artifact history and pair inference still depend on wrapper usage rather than a mandatory repo-wide gate.
   - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, they now record the effective per-target `word_package` snapshot used by the run, the benchmark CLI now supports named preset methodologies from `docs/test_inputs/rulegen_benchmark_presets.json`, and portable bundle export/replay now packages the exact dataset/resources/snapshots for cross-machine reruns; the remaining ergonomic gap is optional single-file archive/import support.
+
+## Rulegen Benchmark Optimization Architecture
+
+- Status: `implemented`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-03-28` the compiled `en-es` sweep path now includes `numpy` config-matrix score projection, a guarded optional `torch` CUDA score backend, compact selected-row preparation, backend-neutral preload caches, and a separate black-box pipeline contract doc for the full benchmark/render/gate/triage loop
+- Last verified: `2026-03-28` focused unit coverage, latest warm-cache canonical `en-es` sweep smoke, guarded `torch`/CUDA equivalence smoke, and pipeline/state sync
+- Default behavior:
+  - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture, a backend-neutral pair-resource contract, and later trait-aware profile analysis on top of the same benchmark substrate.
+  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change, a backend-neutral persistent path-cache layer for translation-pack metadata plus benchmark resource checksums, and the Phase 5 serial-sweep preparation path that now prebuilds compiled `en-es` requests/configs/filter tables/score tables/compact selected-row tables before the remaining per-run case evaluation loop. The compiled score path now also uses `numpy` arrays plus an explicit config-matrix projection for batch score/ranking computation, offers a guarded local `torch` CUDA score backend behind `LEXISHIFT_RULEGEN_SCORE_BACKEND`, replaces string source-phrase tie-breakers with stable numeric phrase-order ids, and reuses equivalent selected-row tables across distinct configs by compiled row-selection signatures: accepted row groups, target-ranked row order, reverse-hygiene signals, and threshold pass/fail rows, rather than intermediate score-table object identity or raw confidence payloads.
+  - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
+  - Latest warm-cache canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` with total wall clock about `0.50s`; `preload_translation_gloss_records` is about `0.223s`, compiled sweep-input preparation is about `0.174s`, and the remaining per-config `run_config` loop is about `0.012s` total across the 144-config serial sweep.
+  - A guarded local `torch`/CUDA score-backend smoke is also benchmark-equivalent on this PC, but it is slower on the real current sweep shape at about `0.71s` wall clock with `prepare_compiled_sweep_inputs` about `0.328s`, so GPU remains an explicit opt-in rather than default-on.
+  - The latest artifact-resolved best run is now a `var=on` tied winner, but the canonical best objective still has `12` equivalent tied winners including the earlier `var=off` lane; this is currently a stable tie-order detail, not a quality change.
+  - Later slices are still expected to be:
+    - fuller compiled benchmark IR generalization across pairs/packs
+    - vectorized CPU backend
+    - optional GPU backend only after the sweep has been converted into a genuinely numeric feature-table problem
+- Evidence:
+  - `docs/developer/rulegen_test_pipeline.md`
+  - `docs/developer/rulegen_benchmark_optimization_plan.md`
+  - `core/lexishift_core/resources/path_cache.py`
+  - `scripts/testing/rulegen_benchmark.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/resources/dict_loaders.py`
+  - `core/lexishift_core/rulegen/generation.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+  - `core/tests/rulegen/test_rulegen_en_es_compiled_resources.py`
+- Known gaps:
+  - Current full canonical sweep now batch-prepares compiled score inputs and selected-row tables, but case-summary reduction still executes one config at a time; the next major performance frontier is denser config-matrix evaluation over compiled candidate rows and later batch case-summary reduction.
+  - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
+  - Current active `en-es` benchmark path still does not have a broadly profitable GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by preprocessing, selection, and resource work even though the score projection path now has both numeric `numpy` and guarded optional `torch` implementations.
 
 ## Rulegen Auto Audit Wrapper
 
