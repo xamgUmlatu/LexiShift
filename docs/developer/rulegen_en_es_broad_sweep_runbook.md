@@ -100,6 +100,39 @@ Preset:
 
 - `en_es_stage_a_family_followup_v1`
 
+### Stage A7: Admission Frontier Deepening
+
+Goal:
+
+- deepen the `md=2` admission winner neighborhood around the later `mr=2` result
+- test whether tighter admission settings or finer threshold spacing improve the Stage A2 win
+
+Preset:
+
+- `en_es_stage_a_admission_frontier_v2`
+
+### Stage A8: Reverse Frontier Deepening
+
+Goal:
+
+- deepen the reverse-weight winner neighborhood around match bonus, near bonus, near-rank max, miss penalty, and specificity
+- determine whether the reverse gain is a broad plateau or a narrower stable region
+
+Preset:
+
+- `en_es_stage_a_reverse_frontier_v2`
+
+### Stage A9: Combined Winner Neighborhood
+
+Goal:
+
+- combine the strongest Stage A2 and Stage A4 neighborhoods
+- test whether the admission and reverse improvements stack cleanly or compete with each other
+
+Preset:
+
+- `en_es_stage_a_combined_frontier_v1`
+
 ### Stage B: Resource Matrix
 
 Goal:
@@ -185,3 +218,57 @@ Do not expand the first broad sweep to include:
 - broad lexical multiword-admission policy changes
 
 Those remain later questions.
+
+## Current 2026-03-28 Frontier Findings
+
+Stage A already established:
+
+- the broad toggle/policy space is mostly a plateau
+- the main actionable gains came from admission settings and reverse weights
+- the next high-value work is not another giant broad sweep
+
+Current follow-up order:
+
+1. `en_es_stage_a_admission_frontier_v2`
+2. `en_es_stage_a_reverse_frontier_v2`
+3. `en_es_stage_a_combined_frontier_v1`
+
+The combined stage is important because the Stage A2 and Stage A4 wins improved different parts of the objective surface:
+
+- admission improved `AvgRules` and reduced `ForbidAny`
+- reverse weights removed the remaining forbidden-any cases entirely
+
+So the next question is whether those benefits stack in one frontier or whether they trade off.
+
+Latest verified follow-up result on this PC:
+
+- the current strongest `en-es` config is still admission-led
+- `md=2`, `mr=2`, `thr=0.000`, `sd=0.50`, `var=on`, `pos=on`, `rev=on`, `kdem=on`, `kprov=0.10`
+- objective `139.333`
+- `Top1 91.23%`
+- `Top3 98.25%`
+- `ForbidAny 0.00%`
+- `AvgRules 1.81`
+- triage count `5`
+
+Later follow-up interpretation:
+
+- the reverse-frontier deepening pass did not beat the earlier reverse sweep
+- the first combined winner-neighborhood pass underperformed because it was centered on the older `mr=3` admission winner
+- a second combined re-check around the true `md=2` / `mr=2` frontier matched the admission-led objective but did not beat it
+- the remaining plateau suggests reverse fine-tuning is mostly neutral once the tighter admission surface is in place
+
+Current Stage B provisional resource-lane conclusion on this PC:
+
+- Kaikki forward + reverse enabled remains the best lane
+- Kaikki forward + reverse disabled is clearly worse
+- FreeDict forward collapses quality in both initial reverse-enabled and reverse-disabled lanes
+- the initial FreeDict reverse-enabled lane should still be treated as provisional until the full Stage B rerun is completed with an explicit local `eng-spa.tei` override
+
+Current local resource state:
+
+- this PC now has a local FreeDict `eng-spa.tei` reverse pack
+- this PC now also has a local `freq-es-cde.sqlite`
+- that means the next local verification tranche should:
+  - rerun the Stage B resource comparison with an actual FreeDict reverse override
+  - run installed-resource `en-es` helper diagnostics now that the Spanish frequency DB exists

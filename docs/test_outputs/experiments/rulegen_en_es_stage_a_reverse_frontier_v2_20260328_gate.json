@@ -1,0 +1,28 @@
+[PASS] BENCHMARK_REQUIRED_PAIRS_PRESENT: Required benchmark pairs are present in benchmark artifact.
+[WARN] BENCHMARK_RECOMMENDED_PAIRS_MISSING: Recommended benchmark pairs are missing (not yet gated).
+  en-de, en-ja, es-en
+[FAIL] QUALITY_FLOOR_BREACH: Quality floor failed for pair 'en-es'.
+  top1_accuracy=0.9123 below min_top1_accuracy=0.9500
+[WARN] QUALITY_FLOOR_PAIR_MISSING: No benchmark summary for pair 'en-ja'; skipping its quality floor checks.
+[WARN] QUALITY_FLOOR_PAIR_MISSING: No benchmark summary for pair 'en-de'; skipping its quality floor checks.
+[WARN] QUALITY_FLOOR_PAIR_MISSING: No benchmark summary for pair 'es-en'; skipping its quality floor checks.
+[FAIL] DELTA_BUDGET_BREACH: Delta budgets failed for pair 'en-es'.
+  top1_accuracy drop=0.0877 exceeds budget=0.0000
+  top3_recall drop=0.0175 exceeds budget=0.0000
+  forbidden_any_rate increase=0.0175 exceeds budget=0.0000
+  avg_rules_per_target increase=1.9825 exceeds budget=0.5000
+[PASS] SATURATION_TOP_VECTOR_OK: Pair 'en-es' top metric vector share=0.333 is below warning threshold.
+  run_count=144 unique_vectors=6 top_count=48
+[PASS] DATASET_REQUIRED_FIELDS: Dataset required-case fields are present.
+[PASS] DATASET_TIER_VALUES: Dataset case tiers use allowed values.
+[PASS] DATASET_MIN_CASES: Dataset pair case counts meet policy minimums.
+[PASS] DATASET_MIN_HARD_CASES: Dataset hard-case counts meet policy minimums.
+[PASS] POS_MISMATCH_RATE_OK: Pair 'en-ja' bucket_mismatch_rate=0.0000 within threshold=0.0100.
+[PASS] POS_MISMATCH_RATE_OK: Pair 'en-es' bucket_mismatch_rate=0.0000 within threshold=0.0100.
+[PASS] POS_MISMATCH_RATE_OK: Pair 'es-en' bucket_mismatch_rate=0.0000 within threshold=0.0100.
+[PASS] POS_MISMATCH_RATE_OK: Pair 'en-de' bucket_mismatch_rate=0.0000 within threshold=0.0100.
+[PASS] POS_UNKNOWN_GROWTH_OK: Pack 'freq-de-default.sqlite' unknown_pos_inventory_size=34 within allowed_max=34 (baseline=34, budget=0).
+[PASS] POS_UNKNOWN_GROWTH_OK: Pack 'freq-en-coca.sqlite' unknown_pos_inventory_size=1 within allowed_max=1 (baseline=1, budget=0).
+[PASS] POS_UNKNOWN_GROWTH_OK: Pack 'freq-es-cde.sqlite' unknown_pos_inventory_size=0 within allowed_max=0 (baseline=0, budget=0).
+[PASS] POS_UNKNOWN_GROWTH_OK: Pack 'freq-ja-bccwj.sqlite' unknown_pos_inventory_size=7 within allowed_max=7 (baseline=7, budget=0).
+summary: pass=14 warn=4 fail=2

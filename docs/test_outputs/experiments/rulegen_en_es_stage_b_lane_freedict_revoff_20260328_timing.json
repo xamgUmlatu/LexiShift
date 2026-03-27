@@ -1,0 +1,135 @@
+{
+  "total_recorded_seconds": 0.20423390001087682,
+  "phases": {
+    "build_resource_payload": {
+      "total_seconds": 0.0007125000011001248,
+      "count": 1,
+      "avg_seconds": 0.0007125000011001248
+    },
+    "build_sweep_configs": {
+      "total_seconds": 3.900000228895806e-05,
+      "count": 1,
+      "avg_seconds": 3.900000228895806e-05
+    },
+    "build_word_packages": {
+      "total_seconds": 6.740000026184134e-05,
+      "count": 1,
+      "avg_seconds": 6.740000026184134e-05
+    },
+    "compile_pair_context": {
+      "total_seconds": 0.04185289999804809,
+      "count": 1,
+      "avg_seconds": 0.04185289999804809
+    },
+    "evaluate_cases": {
+      "total_seconds": 0.00017940000179805793,
+      "count": 1,
+      "avg_seconds": 0.00017940000179805793
+    },
+    "group_rules": {
+      "total_seconds": 0.0,
+      "count": 1,
+      "avg_seconds": 0.0
+    },
+    "load_dataset": {
+      "total_seconds": 0.0008961000021372456,
+      "count": 1,
+      "avg_seconds": 0.0008961000021372456
+    },
+    "load_store": {
+      "total_seconds": 0.00046859999929438345,
+      "count": 1,
+      "avg_seconds": 0.00046859999929438345
+    },
+    "preload_translation_gloss_records": {
+      "total_seconds": 0.15441640000062762,
+      "count": 1,
+      "avg_seconds": 0.15441640000062762
+    },
+    "prepare_compiled_sweep_inputs": {
+      "total_seconds": 0.005467499999213032,
+      "count": 1,
+      "avg_seconds": 0.005467499999213032
+    },
+    "resolve_resources": {
+      "total_seconds": 4.70000013592653e-05,
+      "count": 1,
+      "avg_seconds": 4.70000013592653e-05
+    },
+    "run_config": {
+      "total_seconds": 7.120000009308569e-05,
+      "count": 1,
+      "avg_seconds": 7.120000009308569e-05
+    },
+    "sort_pair_runs": {
+      "total_seconds": 1.7000020307023078e-06,
+      "count": 1,
+      "avg_seconds": 1.7000020307023078e-06
+    },
+    "summarize_run": {
+      "total_seconds": 1.4200002624420449e-05,
+      "count": 1,
+      "avg_seconds": 1.4200002624420449e-05
+    }
+  },
+  "pairs": {
+    "en-es": {
+      "build_resource_payload": {
+        "total_seconds": 0.0007125000011001248,
+        "count": 1,
+        "avg_seconds": 0.0007125000011001248
+      },
+      "build_word_packages": {
+        "total_seconds": 6.740000026184134e-05,
+        "count": 1,
+        "avg_seconds": 6.740000026184134e-05
+      },
+      "compile_pair_context": {
+        "total_seconds": 0.04185289999804809,
+        "count": 1,
+        "avg_seconds": 0.04185289999804809
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.00017940000179805793,
+        "count": 1,
+        "avg_seconds": 0.00017940000179805793
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 1,
+        "avg_seconds": 0.0
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 0.15441640000062762,
+        "count": 1,
+        "avg_seconds": 0.15441640000062762
+      },
+      "prepare_compiled_sweep_inputs": {
+        "total_seconds": 0.005467499999213032,
+        "count": 1,
+        "avg_seconds": 0.005467499999213032
+      },
+      "resolve_resources": {
+        "total_seconds": 4.70000013592653e-05,
+        "count": 1,
+        "avg_seconds": 4.70000013592653e-05
+      },
+      "run_config": {
+        "total_seconds": 7.120000009308569e-05,
+        "count": 1,
+        "avg_seconds": 7.120000009308569e-05
+      },
+      "sort_pair_runs": {
+        "total_seconds": 1.7000020307023078e-06,
+        "count": 1,
+        "avg_seconds": 1.7000020307023078e-06
+      },
+      "summarize_run": {
+        "total_seconds": 1.4200002624420449e-05,
+        "count": 1,
+        "avg_seconds": 1.4200002624420449e-05
+      }
+    }
+  },
+  "wall_clock_seconds": 0.20609630000035395
+}

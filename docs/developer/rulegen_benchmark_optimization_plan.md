@@ -160,6 +160,24 @@ Latest exploratory `en-es` Stage A checkpoint on this PC (`2026-03-28`):
   - exact-hit ambiguity/specificity and coarse family-set changes do not yet look like the highest-leverage next search frontier
   - the next broad-sweep iteration should focus on case deltas and quality interpretation for the admission and reverse-weight winners before widening unrelated dimensions again
 
+Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche):
+
+- the admission-frontier deepening run now produces the strongest known `en-es` result on this machine:
+  - best config: `md=2 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+  - objective `139.333`
+  - `Top1 91.23%`
+  - `Top3 98.25%`
+  - `ForbidAny 0.00%`
+  - `AvgRulesPerTarget 1.81`
+  - experiment triage count `5`
+- a second combined winner-neighborhood sweep matched that result but did not beat it, which suggests the remaining reverse refinements are mostly neutral once the tighter admission surface is in place
+- the local machine now also has:
+  - a real FreeDict reverse `eng-spa.tei`
+  - a local `freq-es-cde.sqlite`
+- that makes the next non-optimization verification tranche straightforward:
+  - rerun the full Stage B resource-family comparison with a real FreeDict reverse override
+  - run installed-resource `en-es` helper diagnostics now that the Spanish frequency DB exists
+
 ## Hard Requirements
 
 These are non-negotiable:

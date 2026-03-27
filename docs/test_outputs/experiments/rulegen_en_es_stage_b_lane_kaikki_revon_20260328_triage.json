@@ -1,0 +1,176 @@
+{
+  "benchmark_json": "docs\\test_outputs\\experiments\\rulegen_en_es_stage_b_lane_kaikki_revon_20260328.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 5,
+  "items": [
+    {
+      "pair": "en-es",
+      "case_id": "en-es:derecho",
+      "target": "derecho",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "straight",
+      "top3_sources": [
+        "straight",
+        "right"
+      ],
+      "expected_matches": [
+        "straight",
+        "right"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: straight",
+          "Observed top3 sources: straight, right"
+        ],
+        "candidate_forbidden_top1": [
+          "straight"
+        ],
+        "candidate_expected_any": [
+          "straight",
+          "right"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuadro",
+      "target": "cuadro",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "square",
+      "top3_sources": [
+        "square",
+        "frame"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: square",
+          "Observed top3 sources: square, frame"
+        ],
+        "candidate_forbidden_top1": [
+          "square"
+        ],
+        "candidate_expected_any": [
+          "square",
+          "frame"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuenta",
+      "target": "cuenta",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "count",
+      "top3_sources": [
+        "count",
+        "account"
+      ],
+      "expected_matches": [
+        "account"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: count",
+          "Observed top3 sources: count, account"
+        ],
+        "candidate_forbidden_top1": [
+          "count"
+        ],
+        "candidate_expected_any": [
+          "count",
+          "account"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:red",
+      "target": "red",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "web",
+      "top3_sources": [
+        "web",
+        "net"
+      ],
+      "expected_matches": [
+        "net"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: web",
+          "Observed top3 sources: web, net"
+        ],
+        "candidate_forbidden_top1": [
+          "web"
+        ],
+        "candidate_expected_any": [
+          "web",
+          "net"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:sacar",
+      "target": "sacar",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "withdraw",
+      "top3_sources": [
+        "withdraw",
+        "draw"
+      ],
+      "expected_matches": [
+        "draw"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: withdraw",
+          "Observed top3 sources: withdraw, draw"
+        ],
+        "candidate_forbidden_top1": [
+          "withdraw"
+        ],
+        "candidate_expected_any": [
+          "withdraw",
+          "draw"
+        ]
+      }
+    }
+  ]
+}
