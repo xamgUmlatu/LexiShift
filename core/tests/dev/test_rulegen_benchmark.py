@@ -31,6 +31,7 @@ from rulegen_benchmark import (  # noqa: E402
     _evaluate_case_results_with_table,
     _build_compiled_case_table,
     _build_compiled_case_refs,
+    _compute_file_sha256,
     _build_pair_resources_payload,
     _build_pair_report_payload,
     _summarize_compiled_case_results,
@@ -110,6 +111,21 @@ class _FakeProcessPoolExecutor:
 
 
 class TestRulegenBenchmark(unittest.TestCase):
+    def test_compute_file_sha256_uses_persistent_path_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "resource.bin"
+            path.write_bytes(b"abc123")
+            first = _compute_file_sha256(path)
+            with patch(
+                "rulegen_benchmark._compute_file_sha256_uncached",
+                side_effect=AssertionError("sha256 cache should be warm"),
+            ):
+                second = _compute_file_sha256(path)
+        self.assertEqual(
+            first, "sha256:6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090"
+        )
+        self.assertEqual(second, first)
+
     def test_load_html_report_renderer_returns_callable(self) -> None:
         renderer = _load_html_report_renderer()
         self.assertTrue(callable(renderer))
@@ -577,6 +593,42 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertIn("remove", expanded)
         self.assertIn("house", expanded)
         self.assertIn("to remove", expanded)
+
+    def test_expand_reverse_preload_headwords_uses_cached_norm_index(self) -> None:
+        reverse_tei = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>To Remove</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="es">quitar</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            reverse = Path(tmp) / "eng-spa.tei"
+            reverse.write_text(reverse_tei, encoding="utf-8")
+            first = _expand_reverse_preload_headwords(
+                pair="en-es",
+                reverse_translation_dict_path=reverse,
+                reverse_headwords=("remove",),
+            )
+            with patch(
+                "rulegen_benchmark._build_en_es_reverse_headword_norm_index",
+                side_effect=AssertionError("reverse norm index cache should be warm"),
+            ):
+                second = _expand_reverse_preload_headwords(
+                    pair="en-es",
+                    reverse_translation_dict_path=reverse,
+                    reverse_headwords=("remove",),
+                )
+
+        self.assertEqual(first, ("remove", "to remove"))
+        self.assertEqual(second, ("remove", "to remove"))
 
     def test_preload_pair_gloss_records_keeps_reverse_infinitive_hits_for_en_es(
         self,

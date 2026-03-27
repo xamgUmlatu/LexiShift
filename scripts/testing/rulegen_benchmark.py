@@ -33,6 +33,7 @@ from lexishift_core.resources.dict_loaders import (  # noqa: E402
     load_translation_gloss_records_ordered,
     load_translation_headwords,
 )
+from lexishift_core.resources.path_cache import load_or_compute_path_json_value  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
@@ -988,31 +989,10 @@ def _expand_reverse_preload_headwords(
     if not wanted:
         return ()
     expanded = set(wanted)
-    for raw_headword in load_translation_headwords(reverse_translation_dict_path):
-        raw_text = str(raw_headword or "").strip()
-        if not raw_text:
-            continue
-        raw_lower = raw_text.lower()
-        if raw_lower in wanted:
-            expanded.add(raw_lower)
-            continue
-        if _reverse_headword_matches_en_es_norm(
-            raw_headword=raw_text,
-            desired_headwords=wanted,
-        ):
-            expanded.add(raw_lower)
+    normalized_index = _load_en_es_reverse_headword_norm_index(reverse_translation_dict_path)
+    for desired_headword in wanted:
+        expanded.update(normalized_index.get(desired_headword, ()))
     return tuple(sorted(expanded))
-
-
-def _reverse_headword_matches_en_es_norm(
-    *,
-    raw_headword: str,
-    desired_headwords: set[str],
-) -> bool:
-    for normalized in _collect_en_es_reverse_headword_forms(raw_headword):
-        if normalized in desired_headwords:
-            return True
-    return False
 
 
 def _collect_en_es_reverse_headword_forms(raw_headword: str) -> tuple[str, ...]:
@@ -1042,6 +1022,57 @@ def _collect_en_es_reverse_headword_forms(raw_headword: str) -> tuple[str, ...]:
         normalized_candidate = normalizer.normalize(normalized_candidate)
     add(normalized_candidate.source_phrase)
     return tuple(normalized_forms)
+
+
+def _load_en_es_reverse_headword_norm_index(
+    reverse_translation_dict_path: Path,
+) -> dict[str, tuple[str, ...]]:
+    return load_or_compute_path_json_value(
+        reverse_translation_dict_path,
+        namespace="translation_pack_metadata",
+        key={
+            "kind": "reverse_headword_norm_index",
+            "pair": "en-es",
+        },
+        compute=lambda: _build_en_es_reverse_headword_norm_index(reverse_translation_dict_path),
+        serialize=lambda mapping: {
+            str(normalized or "").strip().lower(): [
+                str(raw_headword or "").strip().lower()
+                for raw_headword in raw_headwords
+                if str(raw_headword or "").strip()
+            ]
+            for normalized, raw_headwords in mapping.items()
+            if str(normalized or "").strip()
+        },
+        deserialize=lambda payload: {
+            str(normalized or "").strip().lower(): tuple(
+                str(raw_headword or "").strip().lower()
+                for raw_headword in raw_headwords
+                if str(raw_headword or "").strip()
+            )
+            for normalized, raw_headwords in payload.items()
+            if str(normalized or "").strip()
+        },
+    )
+
+
+def _build_en_es_reverse_headword_norm_index(
+    reverse_translation_dict_path: Path,
+) -> dict[str, tuple[str, ...]]:
+    raw_headwords_by_normalized: dict[str, list[str]] = {}
+    for raw_headword in load_translation_headwords(reverse_translation_dict_path):
+        raw_text = str(raw_headword or "").strip()
+        if not raw_text:
+            continue
+        raw_lower = raw_text.lower()
+        for normalized in _collect_en_es_reverse_headword_forms(raw_text):
+            bucket = raw_headwords_by_normalized.setdefault(normalized, [])
+            if raw_lower not in bucket:
+                bucket.append(raw_lower)
+    return {
+        normalized: tuple(raw_headwords)
+        for normalized, raw_headwords in sorted(raw_headwords_by_normalized.items())
+    }
 
 
 def _path_looks_kaikki(path: Optional[Path]) -> bool:
@@ -1952,9 +1983,7 @@ def _summarize_compiled_case_results(
     )
 
 
-def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
-    if path is None or not path.exists() or not path.is_file():
-        return None
+def _compute_file_sha256_uncached(path: Path) -> str:
     hasher = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -1962,6 +1991,19 @@ def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
                 break
             hasher.update(chunk)
     return f"sha256:{hasher.hexdigest()}"
+
+
+def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
+    if path is None or not path.exists() or not path.is_file():
+        return None
+    return load_or_compute_path_json_value(
+        path,
+        namespace="benchmark_resource_checksums",
+        key={"kind": "sha256"},
+        compute=lambda: _compute_file_sha256_uncached(path),
+        serialize=lambda value: str(value or ""),
+        deserialize=lambda payload: str(payload or ""),
+    )
 
 
 def _build_pair_resources_payload(

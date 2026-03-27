@@ -12,6 +12,7 @@ from lexishift_core.resources.japanese_script import (
     contains_kanji,
     kana_to_romaji,
 )
+from lexishift_core.resources.path_cache import load_or_compute_path_json_value
 from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 
@@ -843,7 +844,22 @@ def load_translation_gloss_base_forms(
     *,
     target_lang: str,
 ) -> set[str]:
-    return load_freedict_gloss_base_forms(path, target_lang=target_lang)
+    normalized_target_lang = str(target_lang or "").strip().lower()
+    return load_or_compute_path_json_value(
+        path,
+        namespace="translation_pack_metadata",
+        key={
+            "kind": "gloss_base_forms",
+            "target_lang": normalized_target_lang,
+        },
+        compute=lambda: load_freedict_gloss_base_forms(path, target_lang=normalized_target_lang),
+        serialize=lambda values: sorted(
+            {str(value or "").strip().lower() for value in values if str(value or "").strip()}
+        ),
+        deserialize=lambda payload: {
+            str(value or "").strip().lower() for value in payload if str(value or "").strip()
+        },
+    )
 
 
 def load_translation_gloss_records_ordered(
@@ -860,7 +876,18 @@ def load_translation_gloss_records_ordered(
 
 
 def load_translation_headwords(path: Path) -> tuple[str, ...]:
-    return load_freedict_headwords(path)
+    return load_or_compute_path_json_value(
+        path,
+        namespace="translation_pack_metadata",
+        key={"kind": "headwords"},
+        compute=lambda: load_freedict_headwords(path),
+        serialize=lambda values: [
+            str(value or "").strip() for value in values if str(value or "").strip()
+        ],
+        deserialize=lambda payload: tuple(
+            str(value or "").strip() for value in payload if str(value or "").strip()
+        ),
+    )
 
 
 def _is_sqlite_file(path: Path) -> bool:

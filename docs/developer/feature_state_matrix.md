@@ -64,19 +64,20 @@ Use this file when:
 ## Rulegen Benchmark Optimization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-28` compiled benchmark-only `var=on` sweep path plus narrower overlay-demotion caching landed for canonical `en-es`
-- Last verified: `2026-03-28` focused unit coverage plus latest canonical `en-es` sweep smoke
+- Last documented checkpoint: `2026-03-28` persistent translation-pack/checksum path caching plus cached `en-es` reverse-headword alias indexing landed for canonical `en-es`
+- Last verified: `2026-03-28` focused unit coverage plus latest warm-cache canonical `en-es` sweep smoke
 - Default behavior:
   - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
-  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, and narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change.
+  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change, and a backend-neutral persistent path-cache layer for translation-pack metadata plus benchmark resource checksums.
   - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
-  - Latest canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` while reducing total wall clock to about `2.16s`; the dominant remaining hotspot is preload rather than per-config evaluation.
+  - Latest warm-cache canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` while reducing total wall clock to about `0.79s`; `build_resource_payload` is now effectively negligible and preload has dropped to about `0.21s`, so the dominant remaining hotspot is still the compiled per-config sweep rather than pack/resource scanning.
   - Later slices are still expected to be:
     - fuller compiled benchmark IR generalization across pairs/packs
     - vectorized CPU backend
     - optional GPU backend only after the sweep has been converted into a genuinely numeric feature-table problem
 - Evidence:
   - `docs/developer/rulegen_benchmark_optimization_plan.md`
+  - `core/lexishift_core/resources/path_cache.py`
   - `scripts/testing/rulegen_benchmark.py`
   - `core/lexishift_core/rulegen/adapters.py`
   - `core/lexishift_core/resources/dict_loaders.py`

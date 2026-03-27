@@ -71,6 +71,11 @@ Current implementation shape:
 - `en-es` config evaluation now reuses compiled pair resources when available
 - canonical `en-es` benchmark sweeps can now evaluate both `var=off` and `var=on` configs from compiled row tables, so the benchmark no longer has to fall back to the live adapter path for the variant half of the canonical matrix
 - compiled `en-es` score-table construction now caches overlay demotion rows on the narrower Kaikki-policy surface instead of recomputing them for every score-weight change
+- translation-pack preprocessing now has a backend-neutral persistent path-cache layer:
+  - translation headwords can be reused across runs without reparsing the source pack
+  - translation gloss base-form inventories can be reused across runs without rescanning the source pack
+  - `en-es` reverse-headword expansion can now reuse a cached normalized alias index instead of rebuilding it from every reverse-pack headword on each benchmark run
+- benchmark resource checksums now also reuse the same path-cache architecture, so unchanged pack files no longer need to be rehashed across repeated local benchmark runs
 - current active `en-es` path is CPU-oriented:
   - SQLite-backed dictionaries
   - string normalization and filtering
@@ -81,12 +86,13 @@ Current implementation shape:
 - current benchmark workstream now uses backend-neutral translation-pack record/loader names at the benchmark, adapter, and `en-es` compile boundary, while the underlying compatibility-loader implementation is still shared with the existing FreeDict/Kaikki resource layer
 - current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
 
-Latest measured canonical `en-es` smoke on this PC:
+Latest measured canonical `en-es` smoke on this PC with warm path caches:
 
 - benchmark result still exact at objective `129.474`
-- wall clock: about `2.16s`
-- `preload_translation_gloss_records`: about `1.22s`
-- `run_config`: about `0.467s` total across `144` configs, or about `0.0032s` average per config
+- wall clock: about `0.79s`
+- `build_resource_payload`: about `0.001s`
+- `preload_translation_gloss_records`: about `0.21s`
+- `run_config`: about `0.462s` total across `144` configs, or about `0.0032s` average per config
 
 ## Hard Requirements
 
@@ -529,12 +535,17 @@ Status:
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
-- current measured timing shape on Windows after this slice:
-  - `preload_translation_gloss_records`: about `1.25s`
+- translation-pack preprocessing and benchmark-resource hashing now also have a persistent path-cache layer:
+  - `core/lexishift_core/resources/path_cache.py` provides a backend-neutral cache keyed by source-pack path, size, mtime, and logical metadata kind
+  - translation gloss base forms, translation headwords, and benchmark resource SHA-256 checksums now reuse that cache instead of rescanning or rehashing unchanged files across repeated runs
+  - `en-es` reverse-headword expansion now persists a normalized raw-alias index for the reverse pack, so warm runs no longer rebuild the alias table from every reverse headword on each benchmark invocation
+- current measured timing shape on Windows after this slice with warm path caches:
+  - `build_resource_payload`: about `0.001s`
+  - `preload_translation_gloss_records`: about `0.21s`
   - `compile_pair_context`: about `0.08s`
-  - `run_config`: about `2.19s` total / `0.0152s` average across the canonical 144-config serial sweep
+  - `run_config`: about `0.462s` total / `0.0032s` average across the canonical 144-config serial sweep
   - compiled-path `group_rules`: about `0.00s`
-  - end-to-end canonical 144-config serial sweep wall clock: about `3.97s`
+  - end-to-end canonical 144-config serial sweep wall clock: about `0.79s`
 
 Goal:
 
