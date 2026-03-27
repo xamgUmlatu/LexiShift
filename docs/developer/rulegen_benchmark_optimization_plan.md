@@ -443,6 +443,7 @@ Status:
   - canonical `kdem=on` / `kprov>0` configs now reuse compiled ranking rows without changing the benchmark result
   - reverse-check delta and reverse-check strength are now both projected once per candidate row from shared scalar helpers and reused directly by the compiled limiter
   - reverse-hygiene anchor eligibility is now also a shared scalar helper in the live generation layer and a projected compiled row flag, so compiled reverse-definition hygiene no longer reads raw reverse-check fields directly from the candidate table
+  - compiled definition limiting now reduces grouped candidate rows through a definition-group summary object that carries sorted row ids, best-row identity, reverse strength, and anchor eligibility forward, instead of recomputing per-group minima and sorts at each reduction step
   - variant-expanded candidates now preserve runtime variant penalties correctly instead of inheriting only the base compiled fact flag
 - compiled-resource `en-es` runs now also compile normalization/filter acceptance rows for base candidates:
   - normalized source phrases after the current live normalizer chain

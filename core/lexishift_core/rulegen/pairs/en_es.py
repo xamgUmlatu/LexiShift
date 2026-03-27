@@ -425,6 +425,16 @@ class EnEsCompiledCandidateFilterTable:
 
 
 @dataclass(frozen=True)
+class EnEsCompiledDefinitionRowGroup:
+    row_ids: tuple[int, ...] = ()
+    sorted_row_ids: tuple[int, ...] = ()
+    best_row_id: int = -1
+    sort_key: tuple[float, float, str] = (0.0, 0.0, "")
+    reverse_strength: Optional[float] = None
+    allows_reverse_hygiene_anchor: bool = False
+
+
+@dataclass(frozen=True)
 class EnEsCompiledRankingMechanism:
     fallback: DictionaryEntryOrderRankingMechanism = field(
         default_factory=DictionaryEntryOrderRankingMechanism
@@ -1998,32 +2008,21 @@ def _limit_compiled_definition_row_ids(
         grouped[definition_key].append(int(row_id))
 
     ranked_groups = sorted(
-        (tuple(grouped[key]) for key in group_order),
-        key=lambda group: _compiled_definition_group_sort_key(
-            group,
-            filter_table=filter_table,
-            score_table=score_table,
+        (
+            _build_compiled_definition_row_group(
+                grouped[key],
+                filter_table=filter_table,
+                score_table=score_table,
+            )
+            for key in group_order
         ),
+        key=lambda group: group.sort_key,
     )
     ranked_groups = _apply_compiled_reverse_definition_hygiene(
         ranked_groups,
         reverse_check=reverse_check,
-        filter_table=filter_table,
-        score_table=score_table,
     )
-    selected_groups = [
-        tuple(
-            sorted(
-                definition_group,
-                key=lambda row_id: _compiled_row_sort_key(
-                    row_id,
-                    filter_table=filter_table,
-                    score_table=score_table,
-                ),
-            )
-        )
-        for definition_group in ranked_groups[:max_definitions_per_target]
-    ]
+    selected_groups = [group.sorted_row_ids for group in ranked_groups[:max_definitions_per_target]]
     return _flatten_compiled_definition_groups(
         selected_groups,
         interleave_groups=interleave_definition_groups,
@@ -2045,24 +2044,39 @@ def _compiled_definition_group_key(
     )
 
 
-def _compiled_definition_group_sort_key(
+def _build_compiled_definition_row_group(
     row_ids: Sequence[int],
     *,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
-) -> tuple[float, float, str]:
-    best_row_id = min(
-        row_ids,
-        key=lambda row_id: _compiled_row_sort_key(
-            row_id,
+) -> EnEsCompiledDefinitionRowGroup:
+    materialized_row_ids = tuple(int(row_id) for row_id in row_ids)
+    if not materialized_row_ids:
+        return EnEsCompiledDefinitionRowGroup()
+    sorted_row_ids = tuple(
+        sorted(
+            materialized_row_ids,
+            key=lambda row_id: _compiled_row_sort_key(
+                row_id,
+                filter_table=filter_table,
+                score_table=score_table,
+            ),
+        )
+    )
+    best_row_id = int(sorted_row_ids[0])
+    return EnEsCompiledDefinitionRowGroup(
+        row_ids=materialized_row_ids,
+        sorted_row_ids=sorted_row_ids,
+        best_row_id=best_row_id,
+        sort_key=_compiled_row_sort_key(
+            best_row_id,
             filter_table=filter_table,
             score_table=score_table,
         ),
-    )
-    return _compiled_row_sort_key(
-        best_row_id,
-        filter_table=filter_table,
-        score_table=score_table,
+        reverse_strength=score_table.reverse_check_strength_values[best_row_id],
+        allows_reverse_hygiene_anchor=bool(
+            score_table.reverse_hygiene_anchor_allowed_flags[best_row_id]
+        ),
     )
 
 
@@ -2080,79 +2094,27 @@ def _compiled_row_sort_key(
 
 
 def _apply_compiled_reverse_definition_hygiene(
-    ranked_groups: Sequence[Sequence[int]],
+    ranked_groups: Sequence[EnEsCompiledDefinitionRowGroup],
     *,
     reverse_check: ReverseCheckScoringConfig,
-    filter_table: EnEsCompiledCandidateFilterTable,
-    score_table: EnEsCompiledCandidateScoreTable,
-) -> list[tuple[int, ...]]:
+) -> list[EnEsCompiledDefinitionRowGroup]:
     if len(ranked_groups) < 3 or not bool(reverse_check.enabled):
-        return [tuple(group) for group in ranked_groups]
-    top_strength = _compiled_definition_group_reverse_strength(
-        ranked_groups[0],
-        filter_table=filter_table,
-        score_table=score_table,
-    )
+        return list(ranked_groups)
+    top_strength = ranked_groups[0].reverse_strength
     if top_strength is None or top_strength < 0.75:
-        return [tuple(group) for group in ranked_groups]
-    if not _compiled_definition_group_allows_reverse_hygiene_anchor(
-        ranked_groups[0],
-        filter_table=filter_table,
-        score_table=score_table,
-    ):
-        return [tuple(group) for group in ranked_groups]
-    filtered: list[tuple[int, ...]] = [tuple(ranked_groups[0])]
+        return list(ranked_groups)
+    if not ranked_groups[0].allows_reverse_hygiene_anchor:
+        return list(ranked_groups)
+    filtered: list[EnEsCompiledDefinitionRowGroup] = [ranked_groups[0]]
     for group in ranked_groups[1:]:
-        strength = _compiled_definition_group_reverse_strength(
-            group,
-            filter_table=filter_table,
-            score_table=score_table,
-        )
+        strength = group.reverse_strength
         if strength is None:
-            filtered.append(tuple(group))
+            filtered.append(group)
             continue
         if strength <= 0.20:
             continue
-        filtered.append(tuple(group))
+        filtered.append(group)
     return filtered
-
-
-def _compiled_definition_group_reverse_strength(
-    row_ids: Sequence[int],
-    *,
-    filter_table: EnEsCompiledCandidateFilterTable,
-    score_table: EnEsCompiledCandidateScoreTable,
-) -> Optional[float]:
-    if not row_ids:
-        return None
-    best_row_id = min(
-        row_ids,
-        key=lambda row_id: _compiled_row_sort_key(
-            row_id,
-            filter_table=filter_table,
-            score_table=score_table,
-        ),
-    )
-    return score_table.reverse_check_strength_values[best_row_id]
-
-
-def _compiled_definition_group_allows_reverse_hygiene_anchor(
-    row_ids: Sequence[int],
-    *,
-    filter_table: EnEsCompiledCandidateFilterTable,
-    score_table: EnEsCompiledCandidateScoreTable,
-) -> bool:
-    if not row_ids:
-        return False
-    best_row_id = min(
-        row_ids,
-        key=lambda row_id: _compiled_row_sort_key(
-            row_id,
-            filter_table=filter_table,
-            score_table=score_table,
-        ),
-    )
-    return bool(score_table.reverse_hygiene_anchor_allowed_flags[best_row_id])
 
 
 def _flatten_compiled_definition_groups(

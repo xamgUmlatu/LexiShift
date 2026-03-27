@@ -24,6 +24,7 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
     EnEsCompiledSignalProvider,
     EnEsRulegenConfig,
+    _build_compiled_definition_row_group,
     build_en_es_compiled_candidate_filter_table,
     build_en_es_compiled_candidate_score_table,
     build_en_es_pipeline,
@@ -723,6 +724,84 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             filter_table.accepted_candidate_row_ids_by_target_id,
             {compiled_resources.target_ids_by_target["casa"]: (0, 1, 5)},
         )
+
+    def test_compiled_definition_row_group_sorts_once_and_carries_best_row_summary(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+        score_table = build_en_es_compiled_candidate_score_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+
+        group = _build_compiled_definition_row_group(
+            (1, 0),
+            filter_table=filter_table,
+            score_table=score_table,
+        )
+
+        self.assertEqual(group.row_ids, (1, 0))
+        self.assertEqual(group.sorted_row_ids, (0, 1))
+        self.assertEqual(group.best_row_id, 0)
+        self.assertEqual(
+            group.sort_key,
+            (
+                -float(score_table.ranking_scores[0]),
+                -float(score_table.confidence_scores[0]),
+                "house",
+            ),
+        )
+        self.assertEqual(group.reverse_strength, 1.0)
+        self.assertTrue(group.allows_reverse_hygiene_anchor)
 
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,
