@@ -98,7 +98,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     return [result.rule for result in results]
 
 
-def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenConfig:
     if request.freedict_de_en_path is None:
         raise ValueError("Missing FreeDict ES->EN path for en-es rule generation.")
     source_dict_id = "freedict_es_en"
@@ -115,7 +115,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         if isinstance(request.compiled_pair_context, EnEsCompiledResources)
         else None
     )
-    config = EnEsRulegenConfig(
+    return EnEsRulegenConfig(
         freedict_es_en_path=request.freedict_de_en_path,
         reverse_freedict_en_es_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
@@ -147,6 +147,10 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         ),
         compiled_resources=compiled_resources,
     )
+
+
+def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    config = build_en_es_rulegen_config(request)
     results = generate_en_es_results(request.targets, config=config)
     return [result.rule for result in results]
 

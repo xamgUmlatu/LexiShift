@@ -36,6 +36,7 @@ from lexishift_core.resources.dict_loaders import (  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
+    build_en_es_rulegen_config,
     run_rules_with_adapter,
 )
 from lexishift_core.rulegen.benchmarking import (  # noqa: E402
@@ -56,6 +57,9 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsCompiledResources,
+    EnEsCompiledSelectedRowTable,
+    build_en_es_compiled_selected_row_table,
     build_en_es_compiled_resources,
 )
 from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
@@ -1533,6 +1537,65 @@ def _build_compiled_rule_table_from_rules(
     )
 
 
+def _build_compiled_rule_table_from_en_es_selected_rows(
+    *,
+    selected_row_table: EnEsCompiledSelectedRowTable,
+    compiled_case_table: CompiledBenchmarkCaseTable,
+    compiled_pair_context: Optional[object] = None,
+) -> CompiledBenchmarkRuleTable:
+    if not isinstance(compiled_pair_context, EnEsCompiledResources):
+        return CompiledBenchmarkRuleTable()
+    candidate_table = compiled_pair_context.candidate_table
+    if candidate_table is None:
+        return CompiledBenchmarkRuleTable()
+    phrase_ids_by_phrase = compiled_case_table.phrase_table.phrase_ids_by_phrase
+    all_source_rows: list[tuple[str, ...]] = []
+    source_phrase_id_rows: list[tuple[int, ...]] = []
+    candidate_row_id_rows: list[tuple[int, ...]] = []
+    top1_confidences: list[Optional[float]] = []
+    variant_rule_counts: list[int] = []
+    top1_variant_flags: list[bool] = []
+    row_id_by_target: dict[str, int] = {}
+
+    for row_id, target in enumerate(selected_row_table.targets):
+        selected_row_ids = tuple(
+            int(candidate_row_id)
+            for candidate_row_id in selected_row_table.candidate_row_id_rows[row_id]
+        )
+        normalized_sources: list[str] = []
+        source_phrase_ids: list[int] = []
+        for candidate_row_id in selected_row_ids:
+            if candidate_row_id < 0 or candidate_row_id >= len(
+                candidate_table.normalized_source_phrases
+            ):
+                continue
+            normalized_source = str(
+                candidate_table.normalized_source_phrases[candidate_row_id] or ""
+            ).strip()
+            if not normalized_source:
+                continue
+            normalized_sources.append(normalized_source)
+            source_phrase_ids.append(int(phrase_ids_by_phrase.get(normalized_source, -1)))
+        all_source_rows.append(tuple(normalized_sources))
+        source_phrase_id_rows.append(tuple(source_phrase_ids))
+        candidate_row_id_rows.append(selected_row_ids)
+        top1_confidences.append(selected_row_table.top1_confidences[row_id])
+        variant_rule_counts.append(int(selected_row_table.variant_rule_counts[row_id]))
+        top1_variant_flags.append(bool(selected_row_table.top1_variant_flags[row_id]))
+        row_id_by_target[str(target)] = row_id
+
+    return CompiledBenchmarkRuleTable(
+        targets=tuple(str(target) for target in selected_row_table.targets),
+        all_source_rows=tuple(all_source_rows),
+        source_phrase_id_rows=tuple(source_phrase_id_rows),
+        candidate_row_id_rows=tuple(candidate_row_id_rows),
+        top1_confidences=tuple(top1_confidences),
+        variant_rule_counts=tuple(variant_rule_counts),
+        top1_variant_flags=tuple(top1_variant_flags),
+        row_id_by_target=dict(row_id_by_target),
+    )
+
+
 def _evaluate_benchmark_case_compiled(
     *,
     case: RulegenBenchmarkCase,
@@ -1730,6 +1793,7 @@ def _evaluate_case_results_with_table(
     context: PairBenchmarkContext,
     rules_by_target: Optional[Mapping[str, Sequence[VocabRule]]] = None,
     rules: Optional[Sequence[VocabRule]] = None,
+    compiled_rule_table: Optional[CompiledBenchmarkRuleTable] = None,
 ) -> tuple[tuple[RulegenBenchmarkCaseResult, ...], Optional[CompiledBenchmarkCaseResultTable]]:
     compiled_case_table = context.compiled_case_table
     if compiled_case_table is None:
@@ -1743,13 +1807,13 @@ def _evaluate_case_results_with_table(
             ),
             None,
         )
-    if rules is not None:
+    if compiled_rule_table is None and rules is not None:
         compiled_rule_table = _build_compiled_rule_table_from_rules(
             rules=rules,
             compiled_case_table=compiled_case_table,
             compiled_pair_context=context.compiled_pair_context,
         )
-    else:
+    elif compiled_rule_table is None:
         compiled_rule_table = _build_compiled_rule_table(
             rules_by_target=rules_by_target or {},
             compiled_case_table=compiled_case_table,
@@ -1777,6 +1841,7 @@ def _evaluate_case_payloads_with_table(
     context: PairBenchmarkContext,
     rules_by_target: Optional[Mapping[str, Sequence[VocabRule]]] = None,
     rules: Optional[Sequence[VocabRule]] = None,
+    compiled_rule_table: Optional[CompiledBenchmarkRuleTable] = None,
     include_payloads: bool = True,
 ) -> tuple[tuple[dict[str, object], ...], Optional[CompiledBenchmarkCaseResultTable]]:
     compiled_case_table = context.compiled_case_table
@@ -1785,18 +1850,19 @@ def _evaluate_case_payloads_with_table(
             context=context,
             rules_by_target=rules_by_target,
             rules=rules,
+            compiled_rule_table=compiled_rule_table,
         )
         return (
             tuple(result.to_dict() for result in case_results) if include_payloads else (),
             case_result_table,
         )
-    if rules is not None:
+    if compiled_rule_table is None and rules is not None:
         compiled_rule_table = _build_compiled_rule_table_from_rules(
             rules=rules,
             compiled_case_table=compiled_case_table,
             compiled_pair_context=context.compiled_pair_context,
         )
-    else:
+    elif compiled_rule_table is None:
         compiled_rule_table = _build_compiled_rule_table(
             rules_by_target=rules_by_target or {},
             compiled_case_table=compiled_case_table,
@@ -2125,6 +2191,50 @@ def _run_sort_key(run: SweepRun) -> tuple[float, float, float, float, float, flo
     )
 
 
+def _build_rulegen_adapter_request(
+    *,
+    context: PairBenchmarkContext,
+    config: SweepConfig,
+) -> RulegenAdapterRequest:
+    return RulegenAdapterRequest(
+        pair=context.pair,
+        targets=context.targets,
+        language_pair=context.pair,
+        confidence_threshold=config.confidence_threshold,
+        max_definitions_per_target=config.max_definitions_per_target,
+        max_rules_per_target=config.max_rules_per_target,
+        semantic_demotion_scale=config.semantic_demotion_scale,
+        include_variants=config.include_variants,
+        scoring=config.scoring(),
+        reverse_check=config.reverse_check(),
+        jmdict_path=context.jmdict_path,
+        freedict_de_en_path=context.translation_dict_path,
+        freedict_reverse_path=context.reverse_translation_dict_path,
+        gloss_records_by_target=context.gloss_records_by_target,
+        reverse_gloss_records_by_source=context.reverse_gloss_records_by_source,
+        compiled_pair_context=context.compiled_pair_context,
+        word_packages_by_target=context.word_packages_by_target,
+        kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
+        kaikki_policy_risk_families=config.kaikki_policy_risk_families,
+        kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,
+    )
+
+
+def _can_evaluate_sweep_run_from_en_es_compiled_rows(
+    *,
+    context: PairBenchmarkContext,
+    config: SweepConfig,
+) -> bool:
+    if context.pair != "en-es" or config.include_variants:
+        return False
+    if context.compiled_case_table is None or context.translation_dict_path is None:
+        return False
+    compiled_pair_context = context.compiled_pair_context
+    if not isinstance(compiled_pair_context, EnEsCompiledResources):
+        return False
+    return compiled_pair_context.candidate_table is not None
+
+
 def _evaluate_sweep_run(
     *,
     context: PairBenchmarkContext,
@@ -2136,32 +2246,26 @@ def _evaluate_sweep_run(
 ) -> SweepRunEvaluation:
     phase_timings: dict[str, float] = {}
     case_results: tuple[RulegenBenchmarkCaseResult, ...] = ()
+    rules: Sequence[VocabRule] = ()
+    compiled_rule_table: Optional[CompiledBenchmarkRuleTable] = None
+    request = _build_rulegen_adapter_request(context=context, config=config)
 
     started = perf_counter()
-    rules = run_rules_with_adapter(
-        RulegenAdapterRequest(
-            pair=context.pair,
-            targets=context.targets,
-            language_pair=context.pair,
-            confidence_threshold=config.confidence_threshold,
-            max_definitions_per_target=config.max_definitions_per_target,
-            max_rules_per_target=config.max_rules_per_target,
-            semantic_demotion_scale=config.semantic_demotion_scale,
-            include_variants=config.include_variants,
-            scoring=config.scoring(),
-            reverse_check=config.reverse_check(),
-            jmdict_path=context.jmdict_path,
-            freedict_de_en_path=context.translation_dict_path,
-            freedict_reverse_path=context.reverse_translation_dict_path,
-            gloss_records_by_target=context.gloss_records_by_target,
-            reverse_gloss_records_by_source=context.reverse_gloss_records_by_source,
-            compiled_pair_context=context.compiled_pair_context,
-            word_packages_by_target=context.word_packages_by_target,
-            kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
-            kaikki_policy_risk_families=config.kaikki_policy_risk_families,
-            kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,
+    if _can_evaluate_sweep_run_from_en_es_compiled_rows(context=context, config=config):
+        compiled_case_table = context.compiled_case_table
+        assert compiled_case_table is not None
+        en_es_config = build_en_es_rulegen_config(request)
+        selected_row_table = build_en_es_compiled_selected_row_table(
+            context.targets,
+            config=en_es_config,
         )
-    )
+        compiled_rule_table = _build_compiled_rule_table_from_en_es_selected_rows(
+            selected_row_table=selected_row_table,
+            compiled_case_table=compiled_case_table,
+            compiled_pair_context=context.compiled_pair_context,
+        )
+    else:
+        rules = run_rules_with_adapter(request)
     phase_timings["run_config"] = perf_counter() - started
 
     started = perf_counter()
@@ -2170,6 +2274,7 @@ def _evaluate_sweep_run(
         case_result_payloads, compiled_case_result_table = _evaluate_case_payloads_with_table(
             context=context,
             rules=rules,
+            compiled_rule_table=compiled_rule_table,
             include_payloads=materialize_case_results,
         )
     else:

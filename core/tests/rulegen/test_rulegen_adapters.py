@@ -23,6 +23,7 @@ from lexishift_core.rulegen.pairs.en_es import EnEsCompiledResources  # noqa: E4
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
+    build_en_es_rulegen_config,
     run_rules_with_adapter,
 )
 
@@ -332,6 +333,36 @@ class TestRulegenAdapters(unittest.TestCase):
         generate.assert_called_once()
         _, kwargs = generate.call_args
         self.assertIs(kwargs["config"].compiled_resources, compiled_resources)
+
+    def test_build_en_es_rulegen_config_preserves_request_metadata(self) -> None:
+        compiled_resources = EnEsCompiledResources(
+            records_by_target={"casa": [FreedictGlossRecord(translation="house", pos_raw="noun")]},
+        )
+        request = RulegenAdapterRequest(
+            pair="en-es",
+            targets=("casa",),
+            language_pair="en-es",
+            freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            compiled_pair_context=compiled_resources,
+            kaikki_policy_live_demotion=True,
+            kaikki_policy_risk_families=("math_geometry",),
+            kaikki_policy_late_sense_penalty=0.12,
+        )
+
+        config = build_en_es_rulegen_config(request)
+
+        self.assertEqual(config.source_dict_id, "wiktionary_es_en")
+        self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_es")
+        self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
+        self.assertIs(config.compiled_resources, compiled_resources)
+        self.assertTrue(config.kaikki_policy.enable_live_demotion)
+        self.assertEqual(config.kaikki_policy.risk_families, ("math_geometry",))
+        self.assertAlmostEqual(
+            config.kaikki_policy.late_sense_clean_earlier_competition_penalty,
+            0.12,
+            places=6,
+        )
 
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

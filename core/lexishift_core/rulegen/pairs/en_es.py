@@ -443,6 +443,16 @@ class EnEsCompiledCandidateFilterTable:
 
 
 @dataclass(frozen=True)
+class EnEsCompiledSelectedRowTable:
+    targets: tuple[str, ...] = ()
+    candidate_row_id_rows: tuple[tuple[int, ...], ...] = ()
+    top1_confidences: tuple[Optional[float], ...] = ()
+    variant_rule_counts: tuple[int, ...] = ()
+    top1_variant_flags: tuple[bool, ...] = ()
+    row_id_by_target: Mapping[str, int] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
 class EnEsCompiledDefinitionRowGroup:
     row_ids: tuple[int, ...] = ()
     sorted_row_ids: tuple[int, ...] = ()
@@ -1979,6 +1989,102 @@ def _can_generate_en_es_results_from_compiled_rows(config: EnEsRulegenConfig) ->
     return compiled_resources.candidate_table is not None
 
 
+def build_en_es_compiled_selected_row_table(
+    targets: Iterable[str],
+    *,
+    config: EnEsRulegenConfig,
+    filter_table: Optional[EnEsCompiledCandidateFilterTable] = None,
+    score_table: Optional[EnEsCompiledCandidateScoreTable] = None,
+) -> EnEsCompiledSelectedRowTable:
+    compiled_resources = config.compiled_resources
+    if compiled_resources is None or compiled_resources.candidate_table is None:
+        return EnEsCompiledSelectedRowTable()
+    candidate_table = compiled_resources.candidate_table
+    resolved_filter_table = (
+        filter_table
+        if filter_table is not None
+        else build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+    )
+    resolved_score_table = (
+        score_table
+        if score_table is not None
+        else build_en_es_compiled_candidate_score_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+    )
+    ordered_targets = tuple(
+        dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
+    )
+    selected_targets: list[str] = []
+    candidate_row_id_rows: list[tuple[int, ...]] = []
+    top1_confidences: list[Optional[float]] = []
+    variant_rule_counts: list[int] = []
+    top1_variant_flags: list[bool] = []
+    row_id_by_target: dict[str, int] = {}
+    for target in ordered_targets:
+        context = compiled_resources.compiled_targets_by_target.get(target)
+        if context is None:
+            continue
+        base_candidates = context.base_candidates
+        candidate_row_id_groups = (
+            resolved_filter_table.accepted_candidate_row_id_groups_by_target_id.get(
+                context.target_id,
+                (),
+            )
+        )
+        accepted_row_ids: list[int] = []
+        for row_group in candidate_row_id_groups:
+            selected_row_id: Optional[int] = None
+            for row_id in row_group:
+                local_index = int(candidate_table.local_candidate_indices[row_id])
+                if local_index < 0 or local_index >= len(base_candidates):
+                    continue
+                source_phrase = str(
+                    resolved_filter_table.normalized_source_phrases[row_id] or ""
+                ).strip()
+                if not source_phrase:
+                    continue
+                confidence = float(resolved_score_table.confidence_scores[row_id])
+                if confidence < config.confidence_threshold:
+                    continue
+                selected_row_id = int(row_id)
+                break
+            if selected_row_id is not None:
+                accepted_row_ids.append(selected_row_id)
+        selected_row_ids = _limit_compiled_result_row_ids(
+            accepted_row_ids,
+            filter_table=resolved_filter_table,
+            score_table=resolved_score_table,
+            reverse_check=config.reverse_check,
+            max_definitions_per_target=config.max_definitions_per_target,
+            interleave_definition_groups=config.interleave_definition_groups,
+            max_rules_per_target=config.max_rules_per_target,
+        )
+        if not selected_row_ids:
+            continue
+        row_id_by_target[target] = len(selected_targets)
+        selected_targets.append(target)
+        candidate_row_id_rows.append(tuple(int(row_id) for row_id in selected_row_ids))
+        top_row_id = int(selected_row_ids[0])
+        top1_confidences.append(float(resolved_score_table.confidence_scores[top_row_id]))
+        variant_rule_counts.append(
+            sum(1 for row_id in selected_row_ids if candidate_table.variant_flags[int(row_id)])
+        )
+        top1_variant_flags.append(bool(candidate_table.variant_flags[top_row_id]))
+    return EnEsCompiledSelectedRowTable(
+        targets=tuple(selected_targets),
+        candidate_row_id_rows=tuple(candidate_row_id_rows),
+        top1_confidences=tuple(top1_confidences),
+        variant_rule_counts=tuple(variant_rule_counts),
+        top1_variant_flags=tuple(top1_variant_flags),
+        row_id_by_target=dict(row_id_by_target),
+    )
+
+
 def _generate_en_es_results_from_compiled_rows(
     targets: Iterable[str],
     *,
@@ -1996,6 +2102,12 @@ def _generate_en_es_results_from_compiled_rows(
         compiled_resources=compiled_resources,
         config=config,
     )
+    selected_row_table = build_en_es_compiled_selected_row_table(
+        targets,
+        config=config,
+        filter_table=filter_table,
+        score_table=score_table,
+    )
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
@@ -2005,19 +2117,12 @@ def _generate_en_es_results_from_compiled_rows(
         semantic_demotion_scale=config.semantic_demotion_scale,
         tags=("translation", config.source_dict_id),
     )
-    ordered_targets = tuple(
-        dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
-    )
     results: list[RuleGenerationResult] = []
-    for target in ordered_targets:
+    for target in selected_row_table.targets:
         context = compiled_resources.compiled_targets_by_target.get(target)
         if context is None:
             continue
         base_candidates = context.base_candidates
-        candidate_row_id_groups = filter_table.accepted_candidate_row_id_groups_by_target_id.get(
-            context.target_id,
-            (),
-        )
         shadows = (
             _build_kaikki_policy_shadow_by_index(
                 dictionary_record_views_by_index=context.dictionary_record_views_by_index,
@@ -2027,32 +2132,10 @@ def _generate_en_es_results_from_compiled_rows(
             if config.kaikki_policy.enable_shadow_metadata
             else tuple({} for _ in base_candidates)
         )
-        accepted_row_ids: list[int] = []
-        for row_group in candidate_row_id_groups:
-            selected_row_id: Optional[int] = None
-            for row_id in row_group:
-                local_index = int(candidate_table.local_candidate_indices[row_id])
-                if local_index < 0 or local_index >= len(base_candidates):
-                    continue
-                source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
-                if not source_phrase:
-                    continue
-                confidence = float(score_table.confidence_scores[row_id])
-                if confidence < rule_config.confidence_threshold:
-                    continue
-                selected_row_id = int(row_id)
-                break
-            if selected_row_id is not None:
-                accepted_row_ids.append(selected_row_id)
-        selected_row_ids = _limit_compiled_result_row_ids(
-            accepted_row_ids,
-            filter_table=filter_table,
-            score_table=score_table,
-            reverse_check=config.reverse_check,
-            max_definitions_per_target=rule_config.max_definitions_per_target,
-            interleave_definition_groups=rule_config.interleave_definition_groups,
-            max_rules_per_target=rule_config.max_rules_per_target,
-        )
+        target_row_id = selected_row_table.row_id_by_target.get(target)
+        if target_row_id is None:
+            continue
+        selected_row_ids = selected_row_table.candidate_row_id_rows[int(target_row_id)]
         for row_id in selected_row_ids:
             local_index = int(candidate_table.local_candidate_indices[row_id])
             if local_index < 0 or local_index >= len(base_candidates):

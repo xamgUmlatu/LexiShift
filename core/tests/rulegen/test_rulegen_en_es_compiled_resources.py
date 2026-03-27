@@ -27,6 +27,7 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     _build_compiled_definition_row_group,
     build_en_es_compiled_candidate_filter_table,
     build_en_es_compiled_candidate_score_table,
+    build_en_es_compiled_selected_row_table,
     build_en_es_pipeline,
     build_en_es_compiled_resources,
     generate_en_es_results,
@@ -105,6 +106,72 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         self.assertEqual(
             compiled[0].candidate.metadata.get("reverse_check_source_norm"),
             expected[0].candidate.metadata.get("reverse_check_source_norm"),
+        )
+
+    def test_compiled_selected_row_table_matches_non_variant_results(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(translation="house", pos_raw="noun"),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        selected_rows = build_en_es_compiled_selected_row_table(["casa"], config=config)
+        compiled_results = generate_en_es_results(["casa"], config=config)
+
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
+        self.assertEqual(selected_rows.targets, ("casa",))
+        self.assertEqual(
+            tuple(
+                candidate_table.normalized_source_phrases[row_id]
+                for row_id in selected_rows.candidate_row_id_rows[0]
+            ),
+            tuple(result.candidate.source_phrase for result in compiled_results),
+        )
+        self.assertAlmostEqual(
+            float(selected_rows.top1_confidences[0] or 0.0),
+            float(compiled_results[0].rule.metadata.confidence or 0.0),
+            places=6,
         )
 
     def test_compiled_resources_preserve_variant_rulegen_outputs(self) -> None:

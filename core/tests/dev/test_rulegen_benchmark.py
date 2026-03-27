@@ -22,6 +22,7 @@ from rulegen_benchmark import (  # noqa: E402
     SweepConfig,
     SweepRun,
     _build_compiled_rule_table,
+    _build_compiled_rule_table_from_en_es_selected_rows,
     _build_compiled_rule_table_from_rules,
     _build_compiled_case_result_table,
     _evaluate_benchmark_case_compiled,
@@ -59,6 +60,12 @@ from rulegen_benchmark_presets import (  # noqa: E402
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
+from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsRulegenConfig,
+    build_en_es_compiled_resources,
+    build_en_es_compiled_selected_row_table,
+    generate_en_es_results,
+)
 from lexishift_core.rulegen.benchmarking import (  # noqa: E402
     RulegenBenchmarkCase,
     RulegenBenchmarkObjectiveWeights,
@@ -915,6 +922,87 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(from_rules.top1_variant_flags, from_mapping.top1_variant_flags)
         self.assertEqual(from_rules.row_id_by_target, from_mapping.row_id_by_target)
 
+    def test_build_compiled_rule_table_from_en_es_selected_rows_matches_rule_builder(
+        self,
+    ) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(translation="house", pos_raw="noun"),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_freedict_en_es_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+        )
+        case_refs = _build_compiled_case_refs(
+            cases=(case,), compiled_pair_context=compiled_resources
+        )
+        case_table = _build_compiled_case_table(cases=(case,), compiled_case_refs=case_refs)
+        selected_rows = build_en_es_compiled_selected_row_table(["casa"], config=config)
+        direct = _build_compiled_rule_table_from_en_es_selected_rows(
+            selected_row_table=selected_rows,
+            compiled_case_table=case_table,
+            compiled_pair_context=compiled_resources,
+        )
+        rules = tuple(result.rule for result in generate_en_es_results(["casa"], config=config))
+        from_rules = _build_compiled_rule_table_from_rules(
+            rules=rules,
+            compiled_case_table=case_table,
+            compiled_pair_context=compiled_resources,
+        )
+
+        self.assertEqual(direct.targets, from_rules.targets)
+        self.assertEqual(direct.all_source_rows, from_rules.all_source_rows)
+        self.assertEqual(direct.source_phrase_id_rows, from_rules.source_phrase_id_rows)
+        self.assertEqual(direct.candidate_row_id_rows, from_rules.candidate_row_id_rows)
+        self.assertEqual(direct.top1_confidences, from_rules.top1_confidences)
+        self.assertEqual(direct.variant_rule_counts, from_rules.variant_rule_counts)
+        self.assertEqual(direct.top1_variant_flags, from_rules.top1_variant_flags)
+        self.assertEqual(direct.row_id_by_target, from_rules.row_id_by_target)
+
     def test_compiled_case_evaluator_matches_legacy_evaluator(self) -> None:
         case = RulegenBenchmarkCase(
             case_id="en-es:casa:0",
@@ -1367,6 +1455,109 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(len(evaluation.run.case_results), 1)
         self.assertEqual(evaluation.run.case_results[0]["top1_source"], "house")
         self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
+
+    def test_evaluate_sweep_run_can_bypass_en_es_adapter_with_compiled_rows(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(translation="house", pos_raw="noun"),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+        )
+        case_refs = _build_compiled_case_refs(
+            cases=(case,), compiled_pair_context=compiled_resources
+        )
+        case_table = _build_compiled_case_table(cases=(case,), compiled_case_refs=case_refs)
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target=word_packages,
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            compiled_pair_context=compiled_resources,
+            compiled_case_refs=case_refs,
+            compiled_case_table=case_table,
+        )
+        config = SweepConfig(
+            max_definitions_per_target=3,
+            max_rules_per_target=None,
+            confidence_threshold=0.0,
+            semantic_demotion_scale=1.0,
+            include_variants=False,
+            pos_scoring_enabled=True,
+            pos_exact_match_bonus=1.0,
+            pos_compatible_match_bonus=0.5,
+            score_weight_dict_priority=0.6,
+            score_weight_frequency_weight=0.2,
+            score_weight_pos_match=0.1,
+            score_weight_variant_penalty=0.1,
+            score_weight_phrase_penalty=0.1,
+            score_weight_embedding=0.2,
+            reverse_check_enabled=True,
+            reverse_check_match_bonus=0.2,
+            reverse_check_near_bonus=0.1,
+            reverse_check_near_rank_max=2,
+            reverse_check_far_hit_penalty=0.0,
+            reverse_check_miss_penalty=0.2,
+            reverse_check_exact_hit_ambiguity_threshold=0,
+            reverse_check_exact_hit_ambiguity_penalty=0.0,
+            kaikki_policy_live_demotion=False,
+            kaikki_policy_risk_families=(),
+        )
+
+        with patch(
+            "rulegen_benchmark.run_rules_with_adapter",
+            side_effect=AssertionError("compiled en-es sweep path should bypass adapter"),
+        ):
+            evaluation = _evaluate_sweep_run(
+                context=context,
+                config=config,
+                run_index=0,
+                objective_weights=RulegenBenchmarkObjectiveWeights(),
+            )
+
+        self.assertEqual(evaluation.run.case_results[0]["top1_source"], "house")
+        self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
+        self.assertAlmostEqual(evaluation.run.summary.top1_accuracy, 1.0, places=6)
 
     def test_run_pair_sweep_rehydrates_only_best_case_results_when_disabled(self) -> None:
         case = RulegenBenchmarkCase(

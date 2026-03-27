@@ -491,6 +491,11 @@ Status:
   - when `include_case_results` is off and there is more than one config in the sweep, the benchmark now skips per-case payload dict materialization during the main sweep pass
   - after sorting, only the winning run is re-evaluated with case-payload materialization so the report payload still preserves `best_run.case_results`
   - one-config smokes still materialize case payloads during the main pass so the optimization does not add an unnecessary second run to the canonical smoke workflow
+- the benchmark can now evaluate the compiled non-variant `en-es` path without going through adapter-generated `VocabRule`s:
+  - the shared `en-es` adapter config builder is now reusable outside the adapter dispatch path, so benchmark evaluation and adapter execution translate `RulegenAdapterRequest` into `EnEsRulegenConfig` identically
+  - compiled `en-es` resources now expose a selected-row table for non-variant runs, carrying per-target surviving candidate row ids, top1 confidence, and variant flags directly from the compiled row selector
+  - when a compiled `en-es` case table is available and `include_variants=off`, `_evaluate_sweep_run(...)` now builds a compiled benchmark rule table directly from that selected-row table and skips `run_rules_with_adapter(...)` entirely
+  - dedicated parity coverage now asserts both compiled-rule-table equivalence against the rule-materializing path and that the benchmark can bypass the adapter on this direct compiled path without changing case outcomes
 - compiled `en-es` scoring now uses direct scalar helpers instead of generic scorer/ranking object calls inside the score-table builder:
   - confidence scores are now produced through a shared scalar helper that mirrors `RuleScorer.score(...)`
   - ranking scores are now produced through shared scalar helpers that mirror `DictionaryEntryOrderRankingMechanism.score(...)`
@@ -502,11 +507,11 @@ Status:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
 - current measured timing shape on Windows after this slice:
-  - `preload_translation_gloss_records`: about `1.32s`
+  - `preload_translation_gloss_records`: about `1.25s`
   - `compile_pair_context`: about `0.08s`
-  - `run_config`: about `0.018s` per config in serial smoke runs
+  - `run_config`: about `2.19s` total / `0.0152s` average across the canonical 144-config serial sweep
   - compiled-path `group_rules`: about `0.00s`
-  - end-to-end canonical 1-config smoke wall clock: about `1.80s`
+  - end-to-end canonical 144-config serial sweep wall clock: about `3.97s`
 
 Goal:
 
