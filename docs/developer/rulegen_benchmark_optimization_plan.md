@@ -457,6 +457,7 @@ Status:
   - accepted candidate-row groupings by target id
   - non-variant compiled `en-es` runs now consume those precomputed normalized/filter rows directly instead of rebuilding the live normalizer/filter pipeline in the hot path
 - compiled `en-es` filter-table construction now also caches by filter-affecting config signature, so unrelated score or reverse-check sweeps reuse the same compiled filter rows instead of rebuilding identical acceptance tables across the canonical non-variant lanes
+- compiled `en-es` score-table construction now also caches by score-affecting config signature, so canonical `var=off` and `var=on` lanes with identical ranking inputs reuse the same compiled row scores instead of recomputing them from scratch
 - compiled non-variant `en-es` generation now also resolves base candidates directly from the compiled target-local row index instead of rebuilding a `compiled_candidate_id -> candidate` map on every config run
 - benchmark preload now scopes both translation directions without changing canonical `en-es` results:
   - forward preload still loads only benchmark-target forward records while restoring benchmark-equivalent global `gloss_base_forms` through a lightweight full-dictionary translation scan

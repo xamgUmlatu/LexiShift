@@ -108,6 +108,10 @@ _COMPILED_FILTER_TABLE_CACHE: dict[
     tuple[int, tuple[object, ...]],
     "EnEsCompiledCandidateFilterTable",
 ] = {}
+_COMPILED_SCORE_TABLE_CACHE: dict[
+    tuple[int, tuple[object, ...]],
+    "EnEsCompiledCandidateScoreTable",
+] = {}
 
 
 def _resolve_spanish_target_surface(candidate: RuleCandidate, form: str) -> Optional[str]:
@@ -694,6 +698,13 @@ def build_en_es_compiled_candidate_score_table(
     candidate_table = compiled_resources.candidate_table
     if candidate_table is None:
         return EnEsCompiledCandidateScoreTable()
+    cache_key = _build_compiled_score_table_cache_key(
+        compiled_resources=compiled_resources,
+        config=config,
+    )
+    cached = _COMPILED_SCORE_TABLE_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     dict_priority_by_source_dict_id = {
         int(source_dict_id): float(config.dict_priority)
         for name, source_dict_id in compiled_resources.source_dict_ids_by_name.items()
@@ -815,7 +826,7 @@ def build_en_es_compiled_candidate_score_table(
                 str(normalized_source_phrase or "").lower(),
             )
         )
-    return EnEsCompiledCandidateScoreTable(
+    score_table = EnEsCompiledCandidateScoreTable(
         candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
         target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
         definition_bucket_ids=tuple(
@@ -838,6 +849,58 @@ def build_en_es_compiled_candidate_score_table(
             target_id: tuple(sorted(row_ids, key=lambda row_id: row_sort_keys[row_id]))
             for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
         },
+    )
+    _COMPILED_SCORE_TABLE_CACHE[cache_key] = score_table
+    return score_table
+
+
+def _build_compiled_score_table_cache_key(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    config: EnEsRulegenConfig,
+) -> tuple[int, tuple[object, ...]]:
+    compatibility_classes = config.scoring.pos_match.compatibility_classes
+    return (
+        id(compiled_resources),
+        (
+            str(config.source_dict_id),
+            float(config.dict_priority),
+            tuple(float(value) for value in config.gloss_decay.schedule),
+            bool(config.scoring.pos_match.enabled),
+            float(config.scoring.pos_match.exact_match_bonus),
+            float(config.scoring.pos_match.compatible_match_bonus),
+            (
+                tuple(
+                    sorted((str(key), str(value)) for key, value in compatibility_classes.items())
+                )
+                if compatibility_classes is not None
+                else None
+            ),
+            float(config.variant_penalty),
+            float(config.semantic_demotion_scale),
+            bool(config.reverse_check.enabled),
+            float(config.reverse_check.match_bonus),
+            float(config.reverse_check.near_bonus),
+            int(config.reverse_check.near_rank_max),
+            float(config.reverse_check.far_hit_penalty),
+            float(config.reverse_check.miss_penalty),
+            int(config.reverse_check.exact_hit_ambiguity_threshold),
+            float(config.reverse_check.exact_hit_ambiguity_penalty),
+            float(config.reverse_check.exact_hit_specificity_bonus),
+            float(config.scoring.weights.dict_priority),
+            float(config.scoring.weights.frequency_weight),
+            float(config.scoring.weights.pos_match),
+            float(config.scoring.weights.variant_penalty),
+            float(config.scoring.weights.phrase_penalty),
+            float(config.scoring.weights.embedding_weight),
+            bool(config.kaikki_policy.enable_live_demotion),
+            float(config.kaikki_policy.late_sense_clean_earlier_competition_penalty),
+            tuple(
+                str(name).strip()
+                for name in config.kaikki_policy.risk_families
+                if str(name).strip()
+            ),
+        ),
     )
 
 
