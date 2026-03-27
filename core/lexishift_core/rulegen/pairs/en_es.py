@@ -360,6 +360,7 @@ class EnEsCompiledCandidateTable:
     definition_bucket_ids: tuple[int, ...] = ()
     source_phrases: tuple[str, ...] = ()
     source_phrase_lowers: tuple[str, ...] = ()
+    normalized_source_phrases: tuple[str, ...] = ()
     source_dict_ids: tuple[int, ...] = ()
     source_type_ids: tuple[int, ...] = ()
     local_candidate_indices: tuple[int, ...] = ()
@@ -712,9 +713,7 @@ def build_en_es_compiled_candidate_score_table(
     row_sort_keys: list[tuple[float, float, str]] = []
     candidate_row_ids_by_target_id: dict[int, list[int]] = {}
     for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
-        normalized_source_phrase = _normalize_compiled_source_phrase(
-            candidate_table.source_phrases[row_id]
-        )
+        normalized_source_phrase = candidate_table.normalized_source_phrases[row_id]
         target_id = int(candidate_table.target_ids[row_id])
         candidate_row_ids_by_target_id.setdefault(target_id, []).append(int(row_id))
         dict_priority = float(
@@ -862,9 +861,7 @@ def build_en_es_compiled_candidate_filter_table(
     accepted_candidate_row_group_order_by_target_id: dict[int, list[str]] = {}
     definition_group_id_by_key: dict[tuple[str, object], int] = {}
     for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
-        normalized_phrase = _normalize_compiled_source_phrase(
-            candidate_table.source_phrases[row_id]
-        )
+        normalized_phrase = candidate_table.normalized_source_phrases[row_id]
         normalized_source_phrases.append(normalized_phrase)
         definition_bucket_id = int(candidate_table.definition_bucket_ids[row_id])
         definition_group_key: tuple[str, object]
@@ -1515,6 +1512,7 @@ def _build_compiled_candidate_table(
     definition_bucket_ids: list[int] = []
     source_phrases: list[str] = []
     source_phrase_lowers: list[str] = []
+    normalized_source_phrases: list[str] = []
     source_dict_ids: list[int] = []
     source_type_ids: list[int] = []
     local_candidate_indices: list[int] = []
@@ -1544,6 +1542,7 @@ def _build_compiled_candidate_table(
         definition_bucket_ids.append(int(fact.definition_bucket_id))
         source_phrases.append(str(fact.source_phrase))
         source_phrase_lowers.append(str(fact.source_phrase).lower())
+        normalized_source_phrases.append(_normalize_compiled_source_phrase(fact.source_phrase))
         source_dict_ids.append(int(fact.source_dict_id))
         source_type_ids.append(int(fact.source_type_id))
         local_candidate_indices.append(int(fact.local_candidate_index))
@@ -1584,6 +1583,7 @@ def _build_compiled_candidate_table(
         definition_bucket_ids=tuple(definition_bucket_ids),
         source_phrases=tuple(source_phrases),
         source_phrase_lowers=tuple(source_phrase_lowers),
+        normalized_source_phrases=tuple(normalized_source_phrases),
         source_dict_ids=tuple(source_dict_ids),
         source_type_ids=tuple(source_type_ids),
         local_candidate_indices=tuple(local_candidate_indices),
@@ -2049,19 +2049,27 @@ def _limit_compiled_definition_row_ids(
     max_definitions_per_target: int,
     interleave_definition_groups: bool,
 ) -> tuple[int, ...]:
+    materialized_row_ids = tuple(int(row_id) for row_id in row_ids)
+    if not materialized_row_ids:
+        return ()
     grouped: dict[int, list[int]] = {}
     group_order: list[int] = []
-    for row_id in row_ids:
+    for row_id in materialized_row_ids:
         definition_key = int(filter_table.definition_group_ids[row_id])
         if definition_key not in grouped:
             grouped[definition_key] = []
             group_order.append(definition_key)
         grouped[definition_key].append(int(row_id))
+    sorted_row_ids_by_group_id = _build_compiled_definition_sorted_row_ids_by_group(
+        grouped,
+        score_table=score_table,
+    )
 
     ranked_groups = sorted(
         (
             _build_compiled_definition_row_group(
                 grouped[key],
+                sorted_row_ids=sorted_row_ids_by_group_id.get(key),
                 score_table=score_table,
             )
             for key in group_order
@@ -2079,24 +2087,69 @@ def _limit_compiled_definition_row_ids(
     )
 
 
+def _build_compiled_definition_sorted_row_ids_by_group(
+    grouped_row_ids: Mapping[int, Sequence[int]],
+    *,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> Mapping[int, tuple[int, ...]]:
+    if not grouped_row_ids:
+        return {}
+    target_ids = {
+        int(score_table.target_ids[row_id])
+        for row_ids in grouped_row_ids.values()
+        for row_id in row_ids
+        if 0 <= int(row_id) < len(score_table.target_ids)
+    }
+    if len(target_ids) != 1:
+        return {}
+    target_id = next(iter(target_ids))
+    ranked_target_row_ids = score_table.ranked_candidate_row_ids_by_target_id.get(target_id)
+    if ranked_target_row_ids is None:
+        return {}
+    row_id_to_group_id = {
+        int(row_id): int(group_id)
+        for group_id, row_ids in grouped_row_ids.items()
+        for row_id in row_ids
+    }
+    sorted_row_ids_by_group_id: dict[int, list[int]] = {
+        int(group_id): [] for group_id in grouped_row_ids
+    }
+    for row_id in ranked_target_row_ids:
+        group_id = row_id_to_group_id.get(int(row_id))
+        if group_id is not None:
+            sorted_row_ids_by_group_id[group_id].append(int(row_id))
+    return {
+        int(group_id): tuple(row_ids)
+        for group_id, row_ids in sorted_row_ids_by_group_id.items()
+        if row_ids
+    }
+
+
 def _build_compiled_definition_row_group(
     row_ids: Sequence[int],
     *,
+    sorted_row_ids: Optional[Sequence[int]] = None,
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> EnEsCompiledDefinitionRowGroup:
     materialized_row_ids = tuple(int(row_id) for row_id in row_ids)
     if not materialized_row_ids:
         return EnEsCompiledDefinitionRowGroup()
-    sorted_row_ids = tuple(
-        sorted(
-            materialized_row_ids,
-            key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
+    materialized_sorted_row_ids = (
+        tuple(int(row_id) for row_id in sorted_row_ids)
+        if sorted_row_ids is not None
+        else tuple(
+            sorted(
+                materialized_row_ids,
+                key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
+            )
         )
     )
-    best_row_id = int(sorted_row_ids[0])
+    if not materialized_sorted_row_ids:
+        materialized_sorted_row_ids = materialized_row_ids
+    best_row_id = int(materialized_sorted_row_ids[0])
     return EnEsCompiledDefinitionRowGroup(
         row_ids=materialized_row_ids,
-        sorted_row_ids=sorted_row_ids,
+        sorted_row_ids=materialized_sorted_row_ids,
         best_row_id=best_row_id,
         sort_key=_compiled_row_sort_key(best_row_id, score_table=score_table),
         reverse_strength=score_table.reverse_check_strength_values[best_row_id],

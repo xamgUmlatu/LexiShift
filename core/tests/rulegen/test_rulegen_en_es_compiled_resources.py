@@ -715,6 +715,8 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             compiled_resources=compiled_resources,
             config=base_config,
         )
+        candidate_table = compiled_resources.candidate_table
+        self.assertIsNotNone(candidate_table)
         live_pipeline = build_en_es_pipeline(base_config)
         normalized_by_row_id: dict[int, str] = {}
         accepted_by_row_id: dict[int, bool] = {}
@@ -729,12 +731,14 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 normalized_by_row_id[row_id] for row_id in range(len(filter_table.candidate_ids))
             ),
         )
+        self.assertEqual(
+            candidate_table.normalized_source_phrases,
+            filter_table.normalized_source_phrases,
+        )
         expected_definition_group_ids: list[int] = []
         expected_definition_group_ids_by_key: dict[tuple[str, object], int] = {}
         for row_id in range(len(filter_table.candidate_ids)):
-            definition_bucket_id = int(
-                compiled_resources.candidate_table.definition_bucket_ids[row_id]
-            )
+            definition_bucket_id = int(candidate_table.definition_bucket_ids[row_id])
             definition_group_key: tuple[str, object]
             if definition_bucket_id >= 0:
                 definition_group_key = ("definition_bucket_id", definition_bucket_id)
@@ -857,6 +861,15 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         )
         self.assertEqual(group.reverse_strength, 1.0)
         self.assertTrue(group.allows_reverse_hygiene_anchor)
+        projected_group = _build_compiled_definition_row_group(
+            (1, 0),
+            sorted_row_ids=score_table.ranked_candidate_row_ids_by_target_id[
+                compiled_resources.target_ids_by_target["casa"]
+            ],
+            score_table=score_table,
+        )
+        self.assertEqual(projected_group.sorted_row_ids, (0, 1))
+        self.assertEqual(projected_group.best_row_id, 0)
 
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,

@@ -448,8 +448,10 @@ Status:
   - compiled candidate score rows now also project the direct row sort key used by the compiled selector, so definition-group summaries and max-rules trimming reuse an explicit per-row ordering column instead of rebuilding sort tuples from score and filter tables
   - compiled filter rows now also project explicit definition-group ids, so definition limiting groups rows by stable integer row columns instead of reconstructing mixed tuple/string keys from candidate and filter tables at runtime
   - compiled candidate score rows now also project the full per-target ranked row order, so max-rules trimming can filter a pre-ranked target row table instead of re-sorting selected subsets in place
+  - compiled definition-group summaries now also reuse that pre-ranked target row order, so grouped row ordering no longer needs to sort each definition group in place before applying reverse-definition hygiene and group flattening
   - variant-expanded candidates now preserve runtime variant penalties correctly instead of inheriting only the base compiled fact flag
 - compiled-resource `en-es` runs now also compile normalization/filter acceptance rows for base candidates:
+  - the compiled candidate table now carries normalized source phrases as a reusable row column, so per-config filter and score builders no longer rerun phrase normalization for every candidate row
   - normalized source phrases after the current live normalizer chain
   - row-level acceptance flags for non-empty, gloss-shape, length, possessive, interjection-shadow, stopword, and inflection-artifact checks
   - accepted candidate-row groupings by target id
