@@ -456,6 +456,7 @@ Status:
   - row-level acceptance flags for non-empty, gloss-shape, length, possessive, interjection-shadow, stopword, and inflection-artifact checks
   - accepted candidate-row groupings by target id
   - non-variant compiled `en-es` runs now consume those precomputed normalized/filter rows directly instead of rebuilding the live normalizer/filter pipeline in the hot path
+- compiled non-variant `en-es` generation now also resolves base candidates directly from the compiled target-local row index instead of rebuilding a `compiled_candidate_id -> candidate` map on every config run
 - benchmark preload now scopes both translation directions without changing canonical `en-es` results:
   - forward preload still loads only benchmark-target forward records while restoring benchmark-equivalent global `gloss_base_forms` through a lightweight full-dictionary translation scan
   - reverse preload now derives its requested headwords from the same sanitized forward gloss fragments that feed candidate generation, instead of from the unsplit raw Kaikki gloss strings

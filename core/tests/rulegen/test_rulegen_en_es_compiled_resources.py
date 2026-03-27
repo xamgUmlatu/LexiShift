@@ -1049,6 +1049,92 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             [result.rule.metadata.confidence for result in expected],
         )
 
+    def test_compiled_pipeline_resolves_base_candidates_from_row_local_index(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        expected = generate_en_es_results(["casa"], config=base_config)
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        stripped_targets = {
+            target: replace(
+                context,
+                base_candidates=tuple(
+                    replace(
+                        candidate,
+                        metadata={
+                            key: value
+                            for key, value in candidate.metadata.items()
+                            if key != "compiled_candidate_id"
+                        },
+                    )
+                    for candidate in context.base_candidates
+                ),
+            )
+            for target, context in compiled_resources.compiled_targets_by_target.items()
+        }
+        compiled_config = replace(
+            base_config,
+            compiled_resources=replace(
+                compiled_resources,
+                compiled_targets_by_target=stripped_targets,
+            ),
+        )
+
+        compiled = generate_en_es_results(["casa"], config=compiled_config)
+
+        self.assertEqual(
+            [result.candidate.source_phrase for result in compiled],
+            [result.candidate.source_phrase for result in expected],
+        )
+        self.assertEqual(
+            [result.rule.metadata.confidence for result in compiled],
+            [result.rule.metadata.confidence for result in expected],
+        )
+
     def test_non_variant_compiled_result_fast_path_bypasses_pipeline(self) -> None:
         records = {
             "casa": [

@@ -1905,50 +1905,31 @@ def _generate_en_es_results_from_compiled_rows(
     ordered_targets = tuple(
         dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
     )
-    requested_target_ids = {
-        compiled_resources.target_ids_by_target[target]
-        for target in ordered_targets
-        if target in compiled_resources.target_ids_by_target
-    }
-    base_candidates_by_id = {
-        int(candidate.metadata["compiled_candidate_id"]): candidate
-        for context in compiled_resources.compiled_targets_by_target.values()
-        if context.target_id in requested_target_ids
-        for candidate in context.base_candidates
-        if isinstance(candidate.metadata, Mapping)
-        and _normalize_non_negative_optional_int(candidate.metadata.get("compiled_candidate_id"))
-        is not None
-    }
-    shadows_by_target = {
-        target: (
+    results: list[RuleGenerationResult] = []
+    for target in ordered_targets:
+        context = compiled_resources.compiled_targets_by_target.get(target)
+        if context is None:
+            continue
+        base_candidates = context.base_candidates
+        candidate_row_id_groups = filter_table.accepted_candidate_row_id_groups_by_target_id.get(
+            context.target_id,
+            (),
+        )
+        shadows = (
             _build_kaikki_policy_shadow_by_index(
                 dictionary_record_views_by_index=context.dictionary_record_views_by_index,
                 canonical_inventory=context.canonical_inventory,
                 risk_families=config.kaikki_policy.risk_families,
             )
             if config.kaikki_policy.enable_shadow_metadata
-            else [{} for _ in context.base_candidates]
+            else tuple({} for _ in base_candidates)
         )
-        for target, context in compiled_resources.compiled_targets_by_target.items()
-        if context.target_id in requested_target_ids
-    }
-    results: list[RuleGenerationResult] = []
-    for target in ordered_targets:
-        context = compiled_resources.compiled_targets_by_target.get(target)
-        if context is None:
-            continue
-        candidate_row_id_groups = filter_table.accepted_candidate_row_id_groups_by_target_id.get(
-            context.target_id,
-            (),
-        )
-        shadows = shadows_by_target.get(target, ())
         accepted_row_ids: list[int] = []
         for row_group in candidate_row_id_groups:
             selected_row_id: Optional[int] = None
             for row_id in row_group:
-                candidate_id = int(candidate_table.candidate_ids[row_id])
-                base_candidate = base_candidates_by_id.get(candidate_id)
-                if base_candidate is None:
+                local_index = int(candidate_table.local_candidate_indices[row_id])
+                if local_index < 0 or local_index >= len(base_candidates):
                     continue
                 source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
                 if not source_phrase:
@@ -1970,16 +1951,13 @@ def _generate_en_es_results_from_compiled_rows(
             max_rules_per_target=rule_config.max_rules_per_target,
         )
         for row_id in selected_row_ids:
-            candidate_id = int(candidate_table.candidate_ids[row_id])
-            base_candidate = base_candidates_by_id.get(candidate_id)
-            if base_candidate is None:
+            local_index = int(candidate_table.local_candidate_indices[row_id])
+            if local_index < 0 or local_index >= len(base_candidates):
                 continue
+            base_candidate = base_candidates[local_index]
             confidence = float(score_table.confidence_scores[row_id])
             metadata = dict(base_candidate.metadata)
             metadata["reverse_check_source_dict"] = config.reverse_source_dict_id or None
-            local_index = int(
-                _normalize_non_negative_optional_int(metadata.get("compiled_candidate_index")) or 0
-            )
             if local_index < len(shadows):
                 _apply_kaikki_policy_overlay(
                     metadata=metadata,
