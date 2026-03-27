@@ -469,6 +469,16 @@ class EnEsCompiledSelectedRowTable:
 
 
 @dataclass(frozen=True)
+class EnEsCompiledBenchmarkEvaluationTables:
+    filter_table: EnEsCompiledCandidateFilterTable = field(
+        default_factory=EnEsCompiledCandidateFilterTable
+    )
+    score_table: EnEsCompiledCandidateScoreTable = field(
+        default_factory=EnEsCompiledCandidateScoreTable
+    )
+
+
+@dataclass(frozen=True)
 class EnEsCompiledDefinitionRowGroup:
     row_ids: tuple[int, ...] = ()
     sorted_row_ids: tuple[int, ...] = ()
@@ -497,6 +507,28 @@ class EnEsCompiledRankingMechanism:
 
     def bucket_key(self, candidate: CandidateRankingContext) -> str:
         return self.fallback.bucket_key(candidate)
+
+
+@dataclass
+class _EnEsCompiledScoreBatchProjection:
+    cache_key: tuple[int, tuple[object, ...]]
+    config: EnEsRulegenConfig
+    source_dict_id: Optional[int]
+    overlay_rows: tuple[float, ...]
+    dict_priority_values: list[float] = field(default_factory=list)
+    frequency_weight_values: list[float] = field(default_factory=list)
+    pos_match_values: list[float] = field(default_factory=list)
+    variant_penalty_values: list[float] = field(default_factory=list)
+    phrase_penalty_values: list[float] = field(default_factory=list)
+    effective_semantic_demotion_values: list[float] = field(default_factory=list)
+    reverse_check_delta_values: list[float] = field(default_factory=list)
+    reverse_check_strength_values: list[Optional[float]] = field(default_factory=list)
+    reverse_hygiene_anchor_allowed_flags: list[bool] = field(default_factory=list)
+    confidence_scores: list[float] = field(default_factory=list)
+    ranking_scores: list[float] = field(default_factory=list)
+    row_sort_keys: list[tuple[float, float, str]] = field(default_factory=list)
+    gloss_weight_cache: dict[Optional[int], float] = field(default_factory=dict)
+    pos_match_cache: dict[tuple[str, str], float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -739,164 +771,277 @@ def _build_compiled_candidate_score_table_for_table(
     candidate_table_cache_token: object,
     config: EnEsRulegenConfig,
 ) -> EnEsCompiledCandidateScoreTable:
-    if candidate_table is None:
-        return EnEsCompiledCandidateScoreTable()
-    cache_key = _build_compiled_score_table_cache_key(
-        compiled_resources=compiled_resources,
-        candidate_table_cache_token=candidate_table_cache_token,
-        config=config,
-    )
-    cached = _COMPILED_SCORE_TABLE_CACHE.get(cache_key)
-    if cached is not None:
-        return cached
-    dict_priority_by_source_dict_id = {
-        int(source_dict_id): float(config.dict_priority)
-        for name, source_dict_id in compiled_resources.source_dict_ids_by_name.items()
-        if name == config.source_dict_id
-    }
-    effective_semantic_demotion_rows = _resolve_compiled_overlay_demotion_rows(
+    return _build_compiled_candidate_score_tables_for_table(
         compiled_resources=compiled_resources,
         candidate_table=candidate_table,
         candidate_table_cache_token=candidate_table_cache_token,
-        config=config,
-    )
-    dict_priority_values: list[float] = []
-    frequency_weight_values: list[float] = []
-    pos_match_values: list[float] = []
-    variant_penalty_values: list[float] = []
-    phrase_penalty_values: list[float] = []
-    effective_semantic_demotion_values: list[float] = []
-    reverse_check_delta_values: list[float] = []
-    reverse_check_strength_values: list[Optional[float]] = []
-    reverse_hygiene_anchor_allowed_flags: list[bool] = []
-    confidence_scores: list[float] = []
-    ranking_scores: list[float] = []
-    row_sort_keys: list[tuple[float, float, str]] = []
-    candidate_row_ids_by_target_id: dict[int, list[int]] = {}
-    for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
-        normalized_source_phrase = candidate_table.normalized_source_phrases[row_id]
-        target_id = int(candidate_table.target_ids[row_id])
-        candidate_row_ids_by_target_id.setdefault(target_id, []).append(int(row_id))
-        dict_priority = float(
-            dict_priority_by_source_dict_id.get(candidate_table.source_dict_ids[row_id], 0.0)
+        configs=(config,),
+    )[0]
+
+
+def _build_compiled_candidate_score_tables_for_table(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table: Optional[EnEsCompiledCandidateTable],
+    candidate_table_cache_token: object,
+    configs: Sequence[EnEsRulegenConfig],
+) -> tuple[EnEsCompiledCandidateScoreTable, ...]:
+    if candidate_table is None:
+        return tuple(EnEsCompiledCandidateScoreTable() for _ in configs)
+    if not configs:
+        return ()
+    resolved_tables: list[Optional[EnEsCompiledCandidateScoreTable]] = [None] * len(configs)
+    pending: list[_EnEsCompiledScoreBatchProjection] = []
+    for index, config in enumerate(configs):
+        cache_key = _build_compiled_score_table_cache_key(
+            compiled_resources=compiled_resources,
+            candidate_table_cache_token=candidate_table_cache_token,
+            config=config,
         )
-        gloss_index = candidate_table.gloss_indices[row_id]
-        frequency_weight = float(
-            config.gloss_decay.multiplier(gloss_index if gloss_index >= 0 else None)
-        )
-        source_pos = candidate_table.source_pos_canonicals[row_id]
-        dictionary_pos = candidate_table.dictionary_pos_canonicals[row_id]
-        target_pos = candidate_table.target_pos_canonicals[row_id]
-        pos_match = 0.0
-        if bool(config.scoring.pos_match.enabled):
-            pos_match = score_canonical_pos_pair(
-                source_pos or dictionary_pos,
-                target_pos,
-                exact_match_bonus=config.scoring.pos_match.exact_match_bonus,
-                compatible_match_bonus=config.scoring.pos_match.compatible_match_bonus,
-                compatibility_classes=config.scoring.pos_match.compatibility_classes,
-            )
-        variant_penalty = (
-            float(config.variant_penalty) if candidate_table.variant_flags[row_id] else 0.0
-        )
-        phrase_penalty = 1.0 if " " in normalized_source_phrase else 0.0
-        effective_semantic_demotion = resolve_effective_semantic_demotion_value(
-            semantic_demotion=effective_semantic_demotion_rows[row_id],
-            scale=config.semantic_demotion_scale,
-        )
-        reverse_check_rank = candidate_table.reverse_check_rank_values[row_id]
-        reverse_check_delta = resolve_reverse_check_delta_from_values(
-            supported=candidate_table.reverse_check_supported_flags[row_id],
-            hit=candidate_table.reverse_check_hit_flags[row_id],
-            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
-            total=candidate_table.reverse_check_total_values[row_id],
-            config=config.reverse_check,
-        )
-        reverse_check_strength = resolve_reverse_check_strength_from_values(
-            supported=candidate_table.reverse_check_supported_flags[row_id],
-            hit=candidate_table.reverse_check_hit_flags[row_id],
-            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
-            total=candidate_table.reverse_check_total_values[row_id],
-            config=config.reverse_check,
-        )
-        reverse_hygiene_anchor_allowed = resolve_reverse_hygiene_anchor_allowed_from_values(
-            hit=candidate_table.reverse_check_hit_flags[row_id],
-            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
-            total=candidate_table.reverse_check_total_values[row_id],
-        )
-        confidence = float(
-            score_rule_confidence_signals(
-                RuleConfidenceSignals(
-                    dict_priority=dict_priority,
-                    frequency_weight=frequency_weight,
-                    pos_match=pos_match,
-                    variant_penalty=variant_penalty,
-                    phrase_penalty=phrase_penalty,
-                    embedding_score=None,
-                ),
-                weights=config.scoring.weights,
-            )
-        )
-        ranking_score = float(
-            score_dictionary_entry_order_values(
-                gloss_index=(
-                    candidate_table.gloss_indices[row_id]
-                    if candidate_table.gloss_indices[row_id] >= 0
-                    else None
-                ),
-                semantic_demotion=effective_semantic_demotion_rows[row_id],
-                semantic_demotion_scale=config.semantic_demotion_scale,
-                reverse_check_supported=candidate_table.reverse_check_supported_flags[row_id],
-                reverse_check_hit=candidate_table.reverse_check_hit_flags[row_id],
-                reverse_check_rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
-                reverse_check_total=candidate_table.reverse_check_total_values[row_id],
-                reverse_check=config.reverse_check,
-            )
-        )
-        dict_priority_values.append(dict_priority)
-        frequency_weight_values.append(frequency_weight)
-        pos_match_values.append(float(pos_match))
-        variant_penalty_values.append(variant_penalty)
-        phrase_penalty_values.append(phrase_penalty)
-        effective_semantic_demotion_values.append(effective_semantic_demotion)
-        reverse_check_delta_values.append(float(reverse_check_delta))
-        reverse_check_strength_values.append(reverse_check_strength)
-        reverse_hygiene_anchor_allowed_flags.append(reverse_hygiene_anchor_allowed)
-        confidence_scores.append(confidence)
-        ranking_scores.append(ranking_score)
-        row_sort_keys.append(
+        cached = _COMPILED_SCORE_TABLE_CACHE.get(cache_key)
+        if cached is not None:
+            resolved_tables[index] = cached
+            continue
+        source_dict_id = next(
             (
-                -float(ranking_score),
-                -float(confidence),
-                str(normalized_source_phrase or "").lower(),
+                int(candidate_source_dict_id)
+                for name, candidate_source_dict_id in compiled_resources.source_dict_ids_by_name.items()
+                if name == config.source_dict_id
+            ),
+            None,
+        )
+        pending.append(
+            _EnEsCompiledScoreBatchProjection(
+                cache_key=cache_key,
+                config=config,
+                source_dict_id=source_dict_id,
+                overlay_rows=_resolve_compiled_overlay_demotion_rows(
+                    compiled_resources=compiled_resources,
+                    candidate_table=candidate_table,
+                    candidate_table_cache_token=candidate_table_cache_token,
+                    config=config,
+                ),
             )
         )
-    score_table = EnEsCompiledCandidateScoreTable(
-        candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
-        target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
-        definition_bucket_ids=tuple(
-            int(definition_bucket_id)
-            for definition_bucket_id in candidate_table.definition_bucket_ids
-        ),
-        dict_priority_values=tuple(dict_priority_values),
-        frequency_weight_values=tuple(frequency_weight_values),
-        pos_match_values=tuple(pos_match_values),
-        variant_penalty_values=tuple(variant_penalty_values),
-        phrase_penalty_values=tuple(phrase_penalty_values),
-        effective_semantic_demotion_values=tuple(effective_semantic_demotion_values),
-        reverse_check_delta_values=tuple(reverse_check_delta_values),
-        reverse_check_strength_values=tuple(reverse_check_strength_values),
-        reverse_hygiene_anchor_allowed_flags=tuple(reverse_hygiene_anchor_allowed_flags),
-        confidence_scores=tuple(confidence_scores),
-        ranking_scores=tuple(ranking_scores),
-        row_sort_keys=tuple(row_sort_keys),
-        ranked_candidate_row_ids_by_target_id={
-            target_id: tuple(sorted(row_ids, key=lambda row_id: row_sort_keys[row_id]))
-            for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
-        },
+    if pending:
+        _materialize_compiled_candidate_score_table_batch(
+            compiled_resources=compiled_resources,
+            candidate_table=candidate_table,
+            pending=pending,
+        )
+        cache_lookup = {
+            projection.cache_key: _COMPILED_SCORE_TABLE_CACHE[projection.cache_key]
+            for projection in pending
+        }
+        for index, config in enumerate(configs):
+            if resolved_tables[index] is not None:
+                continue
+            cache_key = _build_compiled_score_table_cache_key(
+                compiled_resources=compiled_resources,
+                candidate_table_cache_token=candidate_table_cache_token,
+                config=config,
+            )
+            resolved_tables[index] = cache_lookup[cache_key]
+    return tuple(
+        table if table is not None else EnEsCompiledCandidateScoreTable()
+        for table in resolved_tables
     )
-    _COMPILED_SCORE_TABLE_CACHE[cache_key] = score_table
-    return score_table
+
+
+def _materialize_compiled_candidate_score_table_batch(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table: EnEsCompiledCandidateTable,
+    pending: Sequence[_EnEsCompiledScoreBatchProjection],
+) -> None:
+    if not pending:
+        return
+    candidate_ids = tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids)
+    target_ids = tuple(int(target_id) for target_id in candidate_table.target_ids)
+    definition_bucket_ids = tuple(
+        int(definition_bucket_id) for definition_bucket_id in candidate_table.definition_bucket_ids
+    )
+    candidate_row_ids_by_target_id = {
+        int(target_id): tuple(int(row_id) for row_id in row_ids)
+        for target_id, row_ids in candidate_table.candidate_row_ids_by_target_id.items()
+    }
+    normalized_source_phrases = candidate_table.normalized_source_phrases
+    normalized_source_phrase_lowers = tuple(
+        str(normalized_source_phrase or "").lower()
+        for normalized_source_phrase in normalized_source_phrases
+    )
+    source_dict_ids = tuple(
+        int(source_dict_id) for source_dict_id in candidate_table.source_dict_ids
+    )
+    gloss_indices = tuple(int(gloss_index) for gloss_index in candidate_table.gloss_indices)
+    source_pos_canonicals = tuple(
+        str(source_pos or "") for source_pos in candidate_table.source_pos_canonicals
+    )
+    dictionary_pos_canonicals = tuple(
+        str(dictionary_pos or "") for dictionary_pos in candidate_table.dictionary_pos_canonicals
+    )
+    target_pos_canonicals = tuple(
+        str(target_pos or "") for target_pos in candidate_table.target_pos_canonicals
+    )
+    variant_flags = tuple(bool(flag) for flag in candidate_table.variant_flags)
+    phrase_penalty_values_by_row = tuple(
+        1.0 if " " in str(normalized_source_phrase or "") else 0.0
+        for normalized_source_phrase in normalized_source_phrases
+    )
+    reverse_check_supported_flags = tuple(
+        bool(flag) for flag in candidate_table.reverse_check_supported_flags
+    )
+    reverse_check_hit_flags = tuple(bool(flag) for flag in candidate_table.reverse_check_hit_flags)
+    reverse_check_rank_values = tuple(
+        int(reverse_check_rank) for reverse_check_rank in candidate_table.reverse_check_rank_values
+    )
+    reverse_check_total_values = tuple(
+        int(reverse_check_total)
+        for reverse_check_total in candidate_table.reverse_check_total_values
+    )
+    reverse_hygiene_anchor_allowed_flags_by_row = tuple(
+        resolve_reverse_hygiene_anchor_allowed_from_values(
+            hit=reverse_check_hit_flags[row_id],
+            rank=(
+                reverse_check_rank_values[row_id]
+                if reverse_check_rank_values[row_id] >= 0
+                else None
+            ),
+            total=reverse_check_total_values[row_id],
+        )
+        for row_id in range(len(candidate_ids))
+    )
+    for row_id in range(len(candidate_ids)):
+        source_dict_id = source_dict_ids[row_id]
+        gloss_index = gloss_indices[row_id]
+        gloss_index_or_none = gloss_index if gloss_index >= 0 else None
+        source_pos = source_pos_canonicals[row_id]
+        dictionary_pos = dictionary_pos_canonicals[row_id]
+        source_pos_for_match = source_pos or dictionary_pos
+        target_pos = target_pos_canonicals[row_id]
+        variant_flag = variant_flags[row_id]
+        phrase_penalty = phrase_penalty_values_by_row[row_id]
+        reverse_check_supported = reverse_check_supported_flags[row_id]
+        reverse_check_hit = reverse_check_hit_flags[row_id]
+        reverse_check_rank_raw = reverse_check_rank_values[row_id]
+        reverse_check_rank = reverse_check_rank_raw if reverse_check_rank_raw >= 0 else None
+        reverse_check_total = reverse_check_total_values[row_id]
+        reverse_hygiene_anchor_allowed = reverse_hygiene_anchor_allowed_flags_by_row[row_id]
+        normalized_source_phrase_lower = normalized_source_phrase_lowers[row_id]
+        for projection in pending:
+            config = projection.config
+            dict_priority = (
+                float(config.dict_priority)
+                if projection.source_dict_id is not None
+                and source_dict_id == projection.source_dict_id
+                else 0.0
+            )
+            projection.dict_priority_values.append(dict_priority)
+            if gloss_index_or_none not in projection.gloss_weight_cache:
+                projection.gloss_weight_cache[gloss_index_or_none] = float(
+                    config.gloss_decay.multiplier(gloss_index_or_none)
+                )
+            frequency_weight = projection.gloss_weight_cache[gloss_index_or_none]
+            projection.frequency_weight_values.append(frequency_weight)
+            pos_match = 0.0
+            if bool(config.scoring.pos_match.enabled):
+                pos_match_key = (source_pos_for_match, target_pos)
+                if pos_match_key not in projection.pos_match_cache:
+                    projection.pos_match_cache[pos_match_key] = score_canonical_pos_pair(
+                        source_pos_for_match,
+                        target_pos,
+                        exact_match_bonus=config.scoring.pos_match.exact_match_bonus,
+                        compatible_match_bonus=config.scoring.pos_match.compatible_match_bonus,
+                        compatibility_classes=config.scoring.pos_match.compatibility_classes,
+                    )
+                pos_match = projection.pos_match_cache[pos_match_key]
+            projection.pos_match_values.append(float(pos_match))
+            variant_penalty = float(config.variant_penalty) if variant_flag else 0.0
+            projection.variant_penalty_values.append(variant_penalty)
+            projection.phrase_penalty_values.append(phrase_penalty)
+            effective_semantic_demotion = resolve_effective_semantic_demotion_value(
+                semantic_demotion=projection.overlay_rows[row_id],
+                scale=config.semantic_demotion_scale,
+            )
+            projection.effective_semantic_demotion_values.append(effective_semantic_demotion)
+            reverse_check_delta = resolve_reverse_check_delta_from_values(
+                supported=reverse_check_supported,
+                hit=reverse_check_hit,
+                rank=reverse_check_rank,
+                total=reverse_check_total,
+                config=config.reverse_check,
+            )
+            projection.reverse_check_delta_values.append(float(reverse_check_delta))
+            reverse_check_strength = resolve_reverse_check_strength_from_values(
+                supported=reverse_check_supported,
+                hit=reverse_check_hit,
+                rank=reverse_check_rank,
+                total=reverse_check_total,
+                config=config.reverse_check,
+            )
+            projection.reverse_check_strength_values.append(reverse_check_strength)
+            projection.reverse_hygiene_anchor_allowed_flags.append(reverse_hygiene_anchor_allowed)
+            confidence = float(
+                score_rule_confidence_signals(
+                    RuleConfidenceSignals(
+                        dict_priority=dict_priority,
+                        frequency_weight=frequency_weight,
+                        pos_match=pos_match,
+                        variant_penalty=variant_penalty,
+                        phrase_penalty=phrase_penalty,
+                        embedding_score=None,
+                    ),
+                    weights=config.scoring.weights,
+                )
+            )
+            projection.confidence_scores.append(confidence)
+            ranking_score = float(
+                score_dictionary_entry_order_values(
+                    gloss_index=gloss_index_or_none,
+                    semantic_demotion=projection.overlay_rows[row_id],
+                    semantic_demotion_scale=config.semantic_demotion_scale,
+                    reverse_check_supported=reverse_check_supported,
+                    reverse_check_hit=reverse_check_hit,
+                    reverse_check_rank=reverse_check_rank,
+                    reverse_check_total=reverse_check_total,
+                    reverse_check=config.reverse_check,
+                )
+            )
+            projection.ranking_scores.append(ranking_score)
+            projection.row_sort_keys.append(
+                (
+                    -float(ranking_score),
+                    -float(confidence),
+                    normalized_source_phrase_lower,
+                )
+            )
+    for projection in pending:
+        row_sort_keys = tuple(projection.row_sort_keys)
+        ranked_candidate_row_ids_by_target_id = {
+            target_id: tuple(sorted(row_ids, key=row_sort_keys.__getitem__))
+            for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
+        }
+        score_table = EnEsCompiledCandidateScoreTable(
+            candidate_ids=candidate_ids,
+            target_ids=target_ids,
+            definition_bucket_ids=definition_bucket_ids,
+            dict_priority_values=tuple(projection.dict_priority_values),
+            frequency_weight_values=tuple(projection.frequency_weight_values),
+            pos_match_values=tuple(projection.pos_match_values),
+            variant_penalty_values=tuple(projection.variant_penalty_values),
+            phrase_penalty_values=tuple(projection.phrase_penalty_values),
+            effective_semantic_demotion_values=tuple(projection.effective_semantic_demotion_values),
+            reverse_check_delta_values=tuple(projection.reverse_check_delta_values),
+            reverse_check_strength_values=tuple(projection.reverse_check_strength_values),
+            reverse_hygiene_anchor_allowed_flags=tuple(
+                projection.reverse_hygiene_anchor_allowed_flags
+            ),
+            confidence_scores=tuple(projection.confidence_scores),
+            ranking_scores=tuple(projection.ranking_scores),
+            row_sort_keys=row_sort_keys,
+            ranked_candidate_row_ids_by_target_id=ranked_candidate_row_ids_by_target_id,
+        )
+        _COMPILED_SCORE_TABLE_CACHE[projection.cache_key] = score_table
 
 
 def _build_compiled_score_table_cache_key(
@@ -1354,6 +1499,63 @@ def _resolve_compiled_benchmark_candidate_table(
     return _build_compiled_benchmark_variant_candidate_table(compiled_resources), (
         "benchmark-variants",
         int(compiled_resources.cache_token),
+    )
+
+
+def prepare_en_es_compiled_benchmark_evaluation_tables(
+    *,
+    configs: Sequence[EnEsRulegenConfig],
+) -> tuple[EnEsCompiledBenchmarkEvaluationTables, ...]:
+    if not configs:
+        return ()
+    grouped_indices_by_token: dict[object, list[int]] = {}
+    candidate_table_by_token: dict[object, Optional[EnEsCompiledCandidateTable]] = {}
+    compiled_resources_by_token: dict[object, EnEsCompiledResources] = {}
+    filter_tables: list[Optional[EnEsCompiledCandidateFilterTable]] = [None] * len(configs)
+    score_tables: list[Optional[EnEsCompiledCandidateScoreTable]] = [None] * len(configs)
+    for index, config in enumerate(configs):
+        compiled_resources = config.compiled_resources
+        if compiled_resources is None:
+            continue
+        candidate_table, candidate_table_cache_token = _resolve_compiled_benchmark_candidate_table(
+            compiled_resources=compiled_resources,
+            include_variants=bool(config.include_variants),
+        )
+        candidate_table_by_token[candidate_table_cache_token] = candidate_table
+        compiled_resources_by_token[candidate_table_cache_token] = compiled_resources
+        grouped_indices_by_token.setdefault(candidate_table_cache_token, []).append(index)
+        filter_tables[index] = _build_compiled_candidate_filter_table_for_table(
+            compiled_resources=compiled_resources,
+            candidate_table=candidate_table,
+            candidate_table_cache_token=candidate_table_cache_token,
+            config=config,
+        )
+    for candidate_table_cache_token, indices in grouped_indices_by_token.items():
+        candidate_table = candidate_table_by_token.get(candidate_table_cache_token)
+        compiled_resources = compiled_resources_by_token[candidate_table_cache_token]
+        grouped_configs = tuple(configs[index] for index in indices)
+        grouped_score_tables = _build_compiled_candidate_score_tables_for_table(
+            compiled_resources=compiled_resources,
+            candidate_table=candidate_table,
+            candidate_table_cache_token=candidate_table_cache_token,
+            configs=grouped_configs,
+        )
+        for index, score_table in zip(indices, grouped_score_tables):
+            score_tables[index] = score_table
+    return tuple(
+        EnEsCompiledBenchmarkEvaluationTables(
+            filter_table=(
+                filter_tables[index]
+                if filter_tables[index] is not None
+                else EnEsCompiledCandidateFilterTable()
+            ),
+            score_table=(
+                score_tables[index]
+                if score_tables[index] is not None
+                else EnEsCompiledCandidateScoreTable()
+            ),
+        )
+        for index in range(len(configs))
     )
 
 

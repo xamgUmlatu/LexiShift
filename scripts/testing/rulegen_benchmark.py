@@ -58,10 +58,12 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsCompiledBenchmarkEvaluationTables,
     EnEsCompiledResources,
     EnEsCompiledSelectedRowTable,
     build_en_es_compiled_selected_row_table,
     build_en_es_compiled_resources,
+    prepare_en_es_compiled_benchmark_evaluation_tables,
 )
 from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
     collect_sanitized_gloss_records,
@@ -302,6 +304,13 @@ class PairBenchmarkContext:
 class SweepRunEvaluation:
     run: SweepRun
     phase_timings: Mapping[str, float]
+
+
+@dataclass(frozen=True)
+class PreparedSweepRunInputs:
+    request: RulegenAdapterRequest
+    compiled_pair_config: Optional[object] = None
+    en_es_tables: Optional[EnEsCompiledBenchmarkEvaluationTables] = None
 
 
 @dataclass
@@ -2267,6 +2276,37 @@ def _can_evaluate_sweep_run_from_en_es_compiled_rows(
     return compiled_pair_context.candidate_table is not None
 
 
+def _prepare_compiled_en_es_sweep_inputs(
+    *,
+    context: PairBenchmarkContext,
+    sweep_configs: Sequence[SweepConfig],
+) -> tuple[Optional[PreparedSweepRunInputs], ...]:
+    if context.pair != "en-es":
+        return tuple(None for _ in sweep_configs)
+    if context.compiled_case_table is None or context.translation_dict_path is None:
+        return tuple(None for _ in sweep_configs)
+    compiled_pair_context = context.compiled_pair_context
+    if not isinstance(compiled_pair_context, EnEsCompiledResources):
+        return tuple(None for _ in sweep_configs)
+    requests = tuple(
+        _build_rulegen_adapter_request(context=context, config=config) for config in sweep_configs
+    )
+    en_es_configs = tuple(build_en_es_rulegen_config(request) for request in requests)
+    prepared_tables = prepare_en_es_compiled_benchmark_evaluation_tables(configs=en_es_configs)
+    return tuple(
+        PreparedSweepRunInputs(
+            request=request,
+            compiled_pair_config=en_es_config,
+            en_es_tables=prepared_table,
+        )
+        for request, en_es_config, prepared_table in zip(
+            requests,
+            en_es_configs,
+            prepared_tables,
+        )
+    )
+
+
 def _evaluate_sweep_run(
     *,
     context: PairBenchmarkContext,
@@ -2275,21 +2315,40 @@ def _evaluate_sweep_run(
     objective_weights: RulegenBenchmarkObjectiveWeights,
     timing: Optional[BenchmarkTimingCollector] = None,
     materialize_case_results: bool = True,
+    prepared_inputs: Optional[PreparedSweepRunInputs] = None,
 ) -> SweepRunEvaluation:
     phase_timings: dict[str, float] = {}
     case_results: tuple[RulegenBenchmarkCaseResult, ...] = ()
     rules: Sequence[VocabRule] = ()
     compiled_rule_table: Optional[CompiledBenchmarkRuleTable] = None
-    request = _build_rulegen_adapter_request(context=context, config=config)
+    request = (
+        prepared_inputs.request
+        if prepared_inputs is not None
+        else _build_rulegen_adapter_request(context=context, config=config)
+    )
 
     started = perf_counter()
     if _can_evaluate_sweep_run_from_en_es_compiled_rows(context=context, config=config):
         compiled_case_table = context.compiled_case_table
         assert compiled_case_table is not None
-        en_es_config = build_en_es_rulegen_config(request)
+        en_es_config = (
+            prepared_inputs.compiled_pair_config
+            if prepared_inputs is not None and prepared_inputs.compiled_pair_config is not None
+            else build_en_es_rulegen_config(request)
+        )
         selected_row_table = build_en_es_compiled_selected_row_table(
             context.targets,
             config=en_es_config,
+            filter_table=(
+                prepared_inputs.en_es_tables.filter_table
+                if prepared_inputs is not None and prepared_inputs.en_es_tables is not None
+                else None
+            ),
+            score_table=(
+                prepared_inputs.en_es_tables.score_table
+                if prepared_inputs is not None and prepared_inputs.en_es_tables is not None
+                else None
+            ),
         )
         compiled_rule_table = _build_compiled_rule_table_from_en_es_selected_rows(
             selected_row_table=selected_row_table,
@@ -2396,6 +2455,21 @@ def _run_pair_sweep(
     max_workers = _resolve_job_count(jobs, config_count=len(sweep_configs))
     materialize_case_results_during_sweep = materialize_case_results or len(sweep_configs) <= 1
     if max_workers <= 1 or len(sweep_configs) <= 1:
+        prepared_inputs_by_run_index: tuple[Optional[PreparedSweepRunInputs], ...] = tuple(
+            None for _ in sweep_configs
+        )
+        if sweep_configs and context.pair == "en-es":
+            started = perf_counter()
+            prepared_inputs_by_run_index = _prepare_compiled_en_es_sweep_inputs(
+                context=context,
+                sweep_configs=sweep_configs,
+            )
+            if timing is not None:
+                timing.add(
+                    "prepare_compiled_sweep_inputs",
+                    perf_counter() - started,
+                    pair=context.pair,
+                )
         for run_index, config in enumerate(sweep_configs, start=1):
             evaluations.append(
                 _evaluate_sweep_run(
@@ -2405,6 +2479,7 @@ def _run_pair_sweep(
                     objective_weights=objective_weights,
                     timing=timing,
                     materialize_case_results=materialize_case_results_during_sweep,
+                    prepared_inputs=prepared_inputs_by_run_index[run_index - 1],
                 )
             )
     else:

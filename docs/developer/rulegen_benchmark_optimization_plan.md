@@ -586,7 +586,11 @@ Acceptance criteria:
 
 Status:
 
-- not started
+- in progress
+- first batch-oriented slice is landed for canonical serial `en-es` sweeps:
+  - serial benchmark execution now prebuilds compiled `en-es` requests/configs/evaluation tables once per sweep
+  - compiled score-table projection can now batch many configs against the same compiled candidate table before the per-run evaluation loop
+  - per-run compiled evaluation now reuses prepared filter/score tables instead of rebuilding them in the hot loop
 
 Goal:
 
@@ -818,13 +822,13 @@ The benchmark optimization program is complete when all of the following are tru
 
 The next implementation slice should be:
 
-1. add benchmark timing/profiling
-2. introduce a cached pair benchmark context for `en-es`
-3. add multiprocess config execution with deterministic merge behavior
+1. move batched score projection one layer deeper into denser config/feature matrices rather than per-config Python objects
+2. batch selected-row reduction and case-summary reduction over the compiled row tables
+3. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
+4. only after the compiled CPU path is table-driven end to end, decide whether adding a tensor dependency for GPU is justified
 
-Why this is the right first slice:
+Why this is the right next slice:
 
-- it attacks the known hot path immediately
-- it does not change benchmark methodology
-- it is not throwaway work
-- it moves the codebase toward the final compile/sweep/materialize architecture
+- the current warm-cache serial sweep is already exact and fast, so the remaining worthwhile work is architectural rather than cache churn
+- the landed batch-preparation slice already proved the next gains come from moving config evaluation into sweep-level preparation, not from persistent per-config artifacts
+- it keeps CPU and future GPU work on the same compiled benchmark IR instead of creating a separate optimization path

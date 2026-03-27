@@ -22,6 +22,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
+    EnEsCompiledBenchmarkEvaluationTables,
     EnEsCompiledSignalProvider,
     EnEsRulegenConfig,
     _build_compiled_overlay_demotion_rows,
@@ -34,6 +35,7 @@ from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     build_en_es_pipeline,
     build_en_es_compiled_resources,
     generate_en_es_results,
+    prepare_en_es_compiled_benchmark_evaluation_tables,
 )
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     CandidateRankingContext,
@@ -1284,6 +1286,101 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             )
 
         self.assertEqual(build_overlay.call_count, 1)
+
+    def test_prepare_compiled_benchmark_evaluation_tables_preserves_selected_rows(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+        variant_config = replace(base_config, include_variants=True)
+        reverse_changed_config = replace(
+            base_config,
+            reverse_check=replace(base_config.reverse_check, enabled=True, match_bonus=0.3),
+        )
+
+        prepared_tables = prepare_en_es_compiled_benchmark_evaluation_tables(
+            configs=(base_config, variant_config, reverse_changed_config)
+        )
+
+        self.assertEqual(len(prepared_tables), 3)
+        self.assertTrue(
+            all(
+                isinstance(prepared_table, EnEsCompiledBenchmarkEvaluationTables)
+                for prepared_table in prepared_tables
+            )
+        )
+        self.assertEqual(
+            build_en_es_compiled_selected_row_table(
+                ["casa"],
+                config=base_config,
+                filter_table=prepared_tables[0].filter_table,
+                score_table=prepared_tables[0].score_table,
+            ),
+            build_en_es_compiled_selected_row_table(["casa"], config=base_config),
+        )
+        self.assertEqual(
+            build_en_es_compiled_selected_row_table(
+                ["casa"],
+                config=variant_config,
+                filter_table=prepared_tables[1].filter_table,
+                score_table=prepared_tables[1].score_table,
+            ),
+            build_en_es_compiled_selected_row_table(["casa"], config=variant_config),
+        )
+        self.assertEqual(
+            build_en_es_compiled_selected_row_table(
+                ["casa"],
+                config=reverse_changed_config,
+                filter_table=prepared_tables[2].filter_table,
+                score_table=prepared_tables[2].score_table,
+            ),
+            build_en_es_compiled_selected_row_table(["casa"], config=reverse_changed_config),
+        )
 
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,
