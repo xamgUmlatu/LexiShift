@@ -31,7 +31,6 @@ from lexishift_core.rulegen.generation import (
     SimpleSignalProvider,
     build_optional_pos_match_provider,
     extract_candidate_pos_canonical,
-    limit_rule_generation_results,
     materialize_rule_generation_result,
     score_candidate_pos_match,
     score_canonical_pos_pair,
@@ -40,6 +39,7 @@ from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
+    resolve_reverse_check_strength,
 )
 from lexishift_core.rulegen.pairs.en_ja import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.pairs.en_es_support import (
@@ -1787,11 +1787,6 @@ def _generate_en_es_results_from_compiled_rows(
         compiled_resources=compiled_resources,
         config=config,
     )
-    ranking_mechanism = EnEsCompiledRankingMechanism(
-        fallback=DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check),
-        candidate_row_id_by_candidate_id=dict(candidate_table.candidate_row_id_by_candidate_id),
-        score_table=score_table,
-    )
     rule_config = RuleGenerationConfig(
         language_pair=config.language_pair,
         confidence_threshold=config.confidence_threshold,
@@ -1837,12 +1832,13 @@ def _generate_en_es_results_from_compiled_rows(
         context = compiled_resources.compiled_targets_by_target.get(target)
         if context is None:
             continue
-        accepted_row_ids = filter_table.accepted_candidate_row_ids_by_target_id.get(
+        candidate_row_ids = filter_table.accepted_candidate_row_ids_by_target_id.get(
             context.target_id,
             (),
         )
         shadows = shadows_by_target.get(target, ())
-        for row_id in accepted_row_ids:
+        accepted_row_ids: list[int] = []
+        for row_id in candidate_row_ids:
             candidate_id = int(candidate_table.candidate_ids[row_id])
             base_candidate = base_candidates_by_id.get(candidate_id)
             if base_candidate is None:
@@ -1861,6 +1857,23 @@ def _generate_en_es_results_from_compiled_rows(
             if confidence < rule_config.confidence_threshold:
                 continue
             seen.add(dedupe_key)
+            accepted_row_ids.append(int(row_id))
+        selected_row_ids = _limit_compiled_result_row_ids(
+            accepted_row_ids,
+            candidate_table=candidate_table,
+            filter_table=filter_table,
+            score_table=score_table,
+            reverse_check=config.reverse_check,
+            max_definitions_per_target=rule_config.max_definitions_per_target,
+            interleave_definition_groups=rule_config.interleave_definition_groups,
+            max_rules_per_target=rule_config.max_rules_per_target,
+        )
+        for row_id in selected_row_ids:
+            candidate_id = int(candidate_table.candidate_ids[row_id])
+            base_candidate = base_candidates_by_id.get(candidate_id)
+            if base_candidate is None:
+                continue
+            confidence = float(score_table.confidence_scores[row_id])
             metadata = dict(base_candidate.metadata)
             metadata["reverse_check_source_dict"] = config.reverse_source_dict_id or None
             local_index = int(
@@ -1872,6 +1885,9 @@ def _generate_en_es_results_from_compiled_rows(
                     shadow=shadows[local_index],
                     kaikki_policy=config.kaikki_policy,
                 )
+            source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
+            if not source_phrase:
+                continue
             candidate = replace(
                 base_candidate,
                 source_phrase=source_phrase,
@@ -1887,14 +1903,296 @@ def _generate_en_es_results_from_compiled_rows(
                     config=rule_config,
                 )
             )
-    return limit_rule_generation_results(
-        results,
-        ranking_mechanism=ranking_mechanism,
-        max_definitions_per_target=rule_config.max_definitions_per_target,
-        interleave_definition_groups=rule_config.interleave_definition_groups,
-        max_rules_per_target=rule_config.max_rules_per_target,
-        semantic_demotion_scale=rule_config.semantic_demotion_scale,
+    return results
+
+
+def _limit_compiled_result_row_ids(
+    row_ids: Sequence[int],
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    reverse_check: ReverseCheckScoringConfig,
+    max_definitions_per_target: Optional[int],
+    interleave_definition_groups: bool,
+    max_rules_per_target: Optional[int],
+) -> tuple[int, ...]:
+    limited_row_ids = tuple(int(row_id) for row_id in row_ids)
+    if max_definitions_per_target is not None:
+        max_definitions = int(max_definitions_per_target)
+        if max_definitions > 0:
+            limited_row_ids = _limit_compiled_definition_row_ids(
+                limited_row_ids,
+                candidate_table=candidate_table,
+                filter_table=filter_table,
+                score_table=score_table,
+                reverse_check=reverse_check,
+                max_definitions_per_target=max_definitions,
+                interleave_definition_groups=interleave_definition_groups,
+            )
+    if max_rules_per_target is not None:
+        max_rules = int(max_rules_per_target)
+        if max_rules > 0:
+            limited_row_ids = _limit_compiled_rule_count_row_ids(
+                limited_row_ids,
+                filter_table=filter_table,
+                score_table=score_table,
+                max_rules_per_target=max_rules,
+            )
+    return limited_row_ids
+
+
+def _limit_compiled_definition_row_ids(
+    row_ids: Sequence[int],
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    reverse_check: ReverseCheckScoringConfig,
+    max_definitions_per_target: int,
+    interleave_definition_groups: bool,
+) -> tuple[int, ...]:
+    grouped: dict[object, list[int]] = {}
+    group_order: list[object] = []
+    for row_id in row_ids:
+        definition_key = _compiled_definition_group_key(
+            row_id,
+            candidate_table=candidate_table,
+            filter_table=filter_table,
+        )
+        if definition_key not in grouped:
+            grouped[definition_key] = []
+            group_order.append(definition_key)
+        grouped[definition_key].append(int(row_id))
+
+    ranked_groups = sorted(
+        (tuple(grouped[key]) for key in group_order),
+        key=lambda group: _compiled_definition_group_sort_key(
+            group,
+            filter_table=filter_table,
+            score_table=score_table,
+        ),
     )
+    ranked_groups = _apply_compiled_reverse_definition_hygiene(
+        ranked_groups,
+        candidate_table=candidate_table,
+        reverse_check=reverse_check,
+        filter_table=filter_table,
+        score_table=score_table,
+    )
+    selected_groups = [
+        tuple(
+            sorted(
+                definition_group,
+                key=lambda row_id: _compiled_row_sort_key(
+                    row_id,
+                    filter_table=filter_table,
+                    score_table=score_table,
+                ),
+            )
+        )
+        for definition_group in ranked_groups[:max_definitions_per_target]
+    ]
+    return _flatten_compiled_definition_groups(
+        selected_groups,
+        interleave_groups=interleave_definition_groups,
+    )
+
+
+def _compiled_definition_group_key(
+    row_id: int,
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    filter_table: EnEsCompiledCandidateFilterTable,
+) -> object:
+    definition_bucket_id = int(candidate_table.definition_bucket_ids[row_id])
+    if definition_bucket_id >= 0:
+        return ("definition_bucket_id", definition_bucket_id)
+    return (
+        "source_phrase",
+        str(filter_table.normalized_source_phrases[row_id] or "").strip().lower(),
+    )
+
+
+def _compiled_definition_group_sort_key(
+    row_ids: Sequence[int],
+    *,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> tuple[float, float, str]:
+    best_row_id = min(
+        row_ids,
+        key=lambda row_id: _compiled_row_sort_key(
+            row_id,
+            filter_table=filter_table,
+            score_table=score_table,
+        ),
+    )
+    return _compiled_row_sort_key(
+        best_row_id,
+        filter_table=filter_table,
+        score_table=score_table,
+    )
+
+
+def _compiled_row_sort_key(
+    row_id: int,
+    *,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> tuple[float, float, str]:
+    return (
+        -float(score_table.ranking_scores[row_id]),
+        -float(score_table.confidence_scores[row_id]),
+        str(filter_table.normalized_source_phrases[row_id] or "").lower(),
+    )
+
+
+def _apply_compiled_reverse_definition_hygiene(
+    ranked_groups: Sequence[Sequence[int]],
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    reverse_check: ReverseCheckScoringConfig,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> list[tuple[int, ...]]:
+    if len(ranked_groups) < 3 or not bool(reverse_check.enabled):
+        return [tuple(group) for group in ranked_groups]
+    top_strength = _compiled_definition_group_reverse_strength(
+        ranked_groups[0],
+        candidate_table=candidate_table,
+        reverse_check=reverse_check,
+        filter_table=filter_table,
+        score_table=score_table,
+    )
+    if top_strength is None or top_strength < 0.75:
+        return [tuple(group) for group in ranked_groups]
+    if not _compiled_definition_group_allows_reverse_hygiene_anchor(
+        ranked_groups[0],
+        candidate_table=candidate_table,
+        filter_table=filter_table,
+        score_table=score_table,
+    ):
+        return [tuple(group) for group in ranked_groups]
+    filtered: list[tuple[int, ...]] = [tuple(ranked_groups[0])]
+    for group in ranked_groups[1:]:
+        strength = _compiled_definition_group_reverse_strength(
+            group,
+            candidate_table=candidate_table,
+            reverse_check=reverse_check,
+            filter_table=filter_table,
+            score_table=score_table,
+        )
+        if strength is None:
+            filtered.append(tuple(group))
+            continue
+        if strength <= 0.20:
+            continue
+        filtered.append(tuple(group))
+    return filtered
+
+
+def _compiled_definition_group_reverse_strength(
+    row_ids: Sequence[int],
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    reverse_check: ReverseCheckScoringConfig,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> Optional[float]:
+    if not row_ids:
+        return None
+    best_row_id = min(
+        row_ids,
+        key=lambda row_id: _compiled_row_sort_key(
+            row_id,
+            filter_table=filter_table,
+            score_table=score_table,
+        ),
+    )
+    return resolve_reverse_check_strength(
+        _compiled_reverse_check_metadata(
+            best_row_id,
+            candidate_table=candidate_table,
+        ),
+        config=reverse_check,
+    )
+
+
+def _compiled_definition_group_allows_reverse_hygiene_anchor(
+    row_ids: Sequence[int],
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> bool:
+    if not row_ids:
+        return False
+    best_row_id = min(
+        row_ids,
+        key=lambda row_id: _compiled_row_sort_key(
+            row_id,
+            filter_table=filter_table,
+            score_table=score_table,
+        ),
+    )
+    if not bool(candidate_table.reverse_check_hit_flags[best_row_id]):
+        return True
+    if int(candidate_table.reverse_check_rank_values[best_row_id]) != 0:
+        return True
+    reverse_total = int(candidate_table.reverse_check_total_values[best_row_id])
+    return reverse_total <= 12
+
+
+def _compiled_reverse_check_metadata(
+    row_id: int,
+    *,
+    candidate_table: EnEsCompiledCandidateTable,
+) -> dict[str, object]:
+    reverse_rank = int(candidate_table.reverse_check_rank_values[row_id])
+    return {
+        "reverse_check_supported": bool(candidate_table.reverse_check_supported_flags[row_id]),
+        "reverse_check_hit": bool(candidate_table.reverse_check_hit_flags[row_id]),
+        "reverse_check_rank": reverse_rank if reverse_rank >= 0 else None,
+        "reverse_check_total": int(candidate_table.reverse_check_total_values[row_id]),
+    }
+
+
+def _flatten_compiled_definition_groups(
+    definition_groups: Sequence[Sequence[int]],
+    *,
+    interleave_groups: bool,
+) -> tuple[int, ...]:
+    if not interleave_groups:
+        return tuple(int(row_id) for group in definition_groups for row_id in group)
+    if not definition_groups:
+        return ()
+    max_group_size = max(len(group) for group in definition_groups)
+    flattened: list[int] = []
+    for item_index in range(max_group_size):
+        for group in definition_groups:
+            if item_index >= len(group):
+                continue
+            flattened.append(int(group[item_index]))
+    return tuple(flattened)
+
+
+def _limit_compiled_rule_count_row_ids(
+    row_ids: Sequence[int],
+    *,
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    max_rules_per_target: int,
+) -> tuple[int, ...]:
+    ranked_row_ids = sorted(
+        row_ids,
+        key=lambda row_id: _compiled_row_sort_key(
+            row_id,
+            filter_table=filter_table,
+            score_table=score_table,
+        ),
+    )
+    return tuple(int(row_id) for row_id in ranked_row_ids[:max_rules_per_target])
 
 
 class FreedictCandidateSource:

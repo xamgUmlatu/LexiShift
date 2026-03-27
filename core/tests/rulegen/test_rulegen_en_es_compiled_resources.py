@@ -16,6 +16,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleConfidenceSignals,
     RuleGenerationConfig,
     RuleScorer,
+    materialize_rule_generation_result,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
@@ -754,6 +755,74 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             [result.rule.metadata.confidence for result in compiled],
             [result.rule.metadata.confidence for result in expected],
         )
+
+    def test_non_variant_compiled_fast_path_limits_rows_before_materialization(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="roof",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 2, "gloss_ord": 0},
+                ),
+            ]
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            max_definitions_per_target=1,
+        )
+        expected = generate_en_es_results(["casa"], config=base_config)
+        compiled_config = replace(
+            base_config,
+            compiled_resources=build_en_es_compiled_resources(
+                targets=("casa",),
+                records_by_target=records,
+                reverse_records_by_source=None,
+                word_packages_by_target=word_packages,
+                language_pair="en-es",
+                source_dict="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+
+        with patch(
+            "lexishift_core.rulegen.pairs.en_es.materialize_rule_generation_result",
+            wraps=materialize_rule_generation_result,
+        ) as materialize:
+            compiled = generate_en_es_results(["casa"], config=compiled_config)
+
+        self.assertEqual(
+            [result.candidate.source_phrase for result in compiled],
+            [result.candidate.source_phrase for result in expected],
+        )
+        self.assertEqual(materialize.call_count, len(compiled))
+        self.assertLess(materialize.call_count, 3)
 
     def test_compiled_pipeline_uses_precomputed_ranking_scores(self) -> None:
         records = {

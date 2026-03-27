@@ -463,13 +463,17 @@ Status:
   - `generate_en_es_results(...)` can bypass `build_en_es_pipeline(...)` when compiled resources and the non-variant candidate table are available
   - the fast path materializes candidates directly from compiled accepted row ids, reuses the shared generation helpers for rule materialization and result limiting, and preserves the canonical smoke result
   - dedicated parity coverage now asserts both output equivalence and pipeline bypass for this path
+- the non-variant compiled `en-es` fast path now also limits compiled row ids before materialization:
+  - accepted compiled rows are grouped, ranked, reverse-hygiene filtered, interleaved, and max-rule-limited directly from the compiled row tables
+  - only the surviving compiled row ids are materialized into `RuleGenerationResult` objects
+  - dedicated parity coverage now also asserts that compiled fast-path materialization count drops below accepted-row count when definition limiting prunes candidates
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
 - current measured timing shape on Windows after this slice:
   - `preload_translation_gloss_records`: about `1.32s`
   - `compile_pair_context`: about `0.08s`
-  - `run_config`: about `0.021s` per config in serial smoke runs
+  - `run_config`: about `0.018s` per config in serial smoke runs
   - end-to-end canonical 1-config smoke wall clock: about `1.81s`
 
 Goal:
