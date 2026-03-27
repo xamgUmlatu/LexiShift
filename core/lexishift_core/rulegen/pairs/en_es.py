@@ -479,6 +479,19 @@ class EnEsCompiledBenchmarkEvaluationTables:
 
 
 @dataclass(frozen=True)
+class EnEsCompiledBenchmarkSweepTables:
+    filter_table: EnEsCompiledCandidateFilterTable = field(
+        default_factory=EnEsCompiledCandidateFilterTable
+    )
+    score_table: EnEsCompiledCandidateScoreTable = field(
+        default_factory=EnEsCompiledCandidateScoreTable
+    )
+    selected_row_table: EnEsCompiledSelectedRowTable = field(
+        default_factory=EnEsCompiledSelectedRowTable
+    )
+
+
+@dataclass(frozen=True)
 class EnEsCompiledDefinitionRowGroup:
     row_ids: tuple[int, ...] = ()
     sorted_row_ids: tuple[int, ...] = ()
@@ -1559,6 +1572,76 @@ def prepare_en_es_compiled_benchmark_evaluation_tables(
     )
 
 
+def prepare_en_es_compiled_benchmark_sweep_tables(
+    *,
+    targets: Iterable[str],
+    configs: Sequence[EnEsRulegenConfig],
+) -> tuple[EnEsCompiledBenchmarkSweepTables, ...]:
+    if not configs:
+        return ()
+    prepared_evaluation_tables = prepare_en_es_compiled_benchmark_evaluation_tables(configs=configs)
+    ordered_targets = _materialize_ordered_targets(targets)
+    target_context_rows_by_token: dict[
+        object, tuple[tuple[str, EnEsCompiledTargetContext], ...]
+    ] = {}
+    prepared_sweep_tables: list[EnEsCompiledBenchmarkSweepTables] = []
+    for index, config in enumerate(configs):
+        compiled_resources = config.compiled_resources
+        prepared_evaluation = prepared_evaluation_tables[index]
+        if compiled_resources is None:
+            prepared_sweep_tables.append(
+                EnEsCompiledBenchmarkSweepTables(
+                    filter_table=prepared_evaluation.filter_table,
+                    score_table=prepared_evaluation.score_table,
+                )
+            )
+            continue
+        candidate_table, candidate_table_cache_token = _resolve_compiled_benchmark_candidate_table(
+            compiled_resources=compiled_resources,
+            include_variants=bool(config.include_variants),
+        )
+        if candidate_table_cache_token not in target_context_rows_by_token:
+            target_context_rows_by_token[candidate_table_cache_token] = (
+                _resolve_compiled_selected_row_target_context_rows(
+                    ordered_targets=ordered_targets,
+                    compiled_resources=compiled_resources,
+                )
+            )
+        prepared_sweep_tables.append(
+            EnEsCompiledBenchmarkSweepTables(
+                filter_table=prepared_evaluation.filter_table,
+                score_table=prepared_evaluation.score_table,
+                selected_row_table=_build_en_es_compiled_selected_row_table_from_target_context_rows(
+                    target_context_rows=target_context_rows_by_token[candidate_table_cache_token],
+                    candidate_table=candidate_table,
+                    filter_table=prepared_evaluation.filter_table,
+                    score_table=prepared_evaluation.score_table,
+                    config=config,
+                ),
+            )
+        )
+    return tuple(prepared_sweep_tables)
+
+
+def _materialize_ordered_targets(targets: Iterable[str]) -> tuple[str, ...]:
+    return tuple(
+        dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
+    )
+
+
+def _resolve_compiled_selected_row_target_context_rows(
+    *,
+    ordered_targets: Sequence[str],
+    compiled_resources: EnEsCompiledResources,
+) -> tuple[tuple[str, EnEsCompiledTargetContext], ...]:
+    target_context_rows: list[tuple[str, EnEsCompiledTargetContext]] = []
+    for target in ordered_targets:
+        context = compiled_resources.compiled_targets_by_target.get(target)
+        if context is not None:
+            target_context_rows.append((target, context))
+    return tuple(target_context_rows)
+
+
 def _compiled_non_empty_accepts(source_phrase: str) -> bool:
     text = str(source_phrase or "").strip()
     if len(text) < 1:
@@ -2386,9 +2469,30 @@ def build_en_es_compiled_selected_row_table(
             config=config,
         )
     )
-    ordered_targets = tuple(
-        dict.fromkeys(str(target or "").strip() for target in targets if str(target or "").strip())
+    ordered_targets = _materialize_ordered_targets(targets)
+    target_context_rows = _resolve_compiled_selected_row_target_context_rows(
+        ordered_targets=ordered_targets,
+        compiled_resources=compiled_resources,
     )
+    return _build_en_es_compiled_selected_row_table_from_target_context_rows(
+        target_context_rows=target_context_rows,
+        candidate_table=candidate_table,
+        filter_table=resolved_filter_table,
+        score_table=resolved_score_table,
+        config=config,
+    )
+
+
+def _build_en_es_compiled_selected_row_table_from_target_context_rows(
+    *,
+    target_context_rows: Sequence[tuple[str, EnEsCompiledTargetContext]],
+    candidate_table: Optional[EnEsCompiledCandidateTable],
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    config: EnEsRulegenConfig,
+) -> EnEsCompiledSelectedRowTable:
+    if candidate_table is None:
+        return EnEsCompiledSelectedRowTable()
     selected_targets: list[str] = []
     candidate_row_id_rows: list[tuple[int, ...]] = []
     normalized_source_phrase_rows: list[tuple[str, ...]] = []
@@ -2396,16 +2500,11 @@ def build_en_es_compiled_selected_row_table(
     variant_rule_counts: list[int] = []
     top1_variant_flags: list[bool] = []
     row_id_by_target: dict[str, int] = {}
-    for target in ordered_targets:
-        context = compiled_resources.compiled_targets_by_target.get(target)
-        if context is None:
-            continue
+    for target, context in target_context_rows:
         base_candidates = context.base_candidates
-        candidate_row_id_groups = (
-            resolved_filter_table.accepted_candidate_row_id_groups_by_target_id.get(
-                context.target_id,
-                (),
-            )
+        candidate_row_id_groups = filter_table.accepted_candidate_row_id_groups_by_target_id.get(
+            context.target_id,
+            (),
         )
         accepted_row_ids: list[int] = []
         for row_group in candidate_row_id_groups:
@@ -2414,12 +2513,10 @@ def build_en_es_compiled_selected_row_table(
                 local_index = int(candidate_table.local_candidate_indices[row_id])
                 if local_index < 0 or local_index >= len(base_candidates):
                     continue
-                source_phrase = str(
-                    resolved_filter_table.normalized_source_phrases[row_id] or ""
-                ).strip()
+                source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
                 if not source_phrase:
                     continue
-                confidence = float(resolved_score_table.confidence_scores[row_id])
+                confidence = float(score_table.confidence_scores[row_id])
                 if confidence < config.confidence_threshold:
                     continue
                 selected_row_id = int(row_id)
@@ -2428,8 +2525,8 @@ def build_en_es_compiled_selected_row_table(
                 accepted_row_ids.append(selected_row_id)
         selected_row_ids = _limit_compiled_result_row_ids(
             accepted_row_ids,
-            filter_table=resolved_filter_table,
-            score_table=resolved_score_table,
+            filter_table=filter_table,
+            score_table=score_table,
             reverse_check=config.reverse_check,
             max_definitions_per_target=config.max_definitions_per_target,
             interleave_definition_groups=config.interleave_definition_groups,
@@ -2442,12 +2539,12 @@ def build_en_es_compiled_selected_row_table(
         candidate_row_id_rows.append(tuple(int(row_id) for row_id in selected_row_ids))
         normalized_source_phrase_rows.append(
             tuple(
-                str(resolved_filter_table.normalized_source_phrases[int(row_id)] or "").strip()
+                str(filter_table.normalized_source_phrases[int(row_id)] or "").strip()
                 for row_id in selected_row_ids
             )
         )
         top_row_id = int(selected_row_ids[0])
-        top1_confidences.append(float(resolved_score_table.confidence_scores[top_row_id]))
+        top1_confidences.append(float(score_table.confidence_scores[top_row_id]))
         variant_rule_counts.append(
             sum(1 for row_id in selected_row_ids if candidate_table.variant_flags[int(row_id)])
         )

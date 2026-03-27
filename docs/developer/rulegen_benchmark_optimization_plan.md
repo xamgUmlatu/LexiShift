@@ -588,9 +588,10 @@ Status:
 
 - in progress
 - first batch-oriented slice is landed for canonical serial `en-es` sweeps:
-  - serial benchmark execution now prebuilds compiled `en-es` requests/configs/evaluation tables once per sweep
+  - serial benchmark execution now prebuilds compiled `en-es` requests/configs/filter tables/score tables once per sweep
   - compiled score-table projection can now batch many configs against the same compiled candidate table before the per-run evaluation loop
   - per-run compiled evaluation now reuses prepared filter/score tables instead of rebuilding them in the hot loop
+  - serial sweep preparation now also prebuilds compiled selected-row tables, moving row selection out of the per-config `run_config` path and onto the sweep-preparation boundary
 
 Goal:
 
@@ -823,12 +824,12 @@ The benchmark optimization program is complete when all of the following are tru
 The next implementation slice should be:
 
 1. move batched score projection one layer deeper into denser config/feature matrices rather than per-config Python objects
-2. batch selected-row reduction and case-summary reduction over the compiled row tables
+2. batch case-summary reduction over the compiled row tables, now that selected-row tables can already be prepared sweep-wide
 3. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
 4. only after the compiled CPU path is table-driven end to end, decide whether adding a tensor dependency for GPU is justified
 
 Why this is the right next slice:
 
 - the current warm-cache serial sweep is already exact and fast, so the remaining worthwhile work is architectural rather than cache churn
-- the landed batch-preparation slice already proved the next gains come from moving config evaluation into sweep-level preparation, not from persistent per-config artifacts
+- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
 - it keeps CPU and future GPU work on the same compiled benchmark IR instead of creating a separate optimization path

@@ -64,13 +64,13 @@ Use this file when:
 ## Rulegen Benchmark Optimization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-28` batched compiled `en-es` sweep-input preparation plus batch score-table projection for canonical serial sweeps
+- Last documented checkpoint: `2026-03-28` batched compiled `en-es` sweep-input preparation now covers filter tables, score tables, and selected-row tables for canonical serial sweeps
 - Last verified: `2026-03-28` focused unit coverage plus latest warm-cache canonical `en-es` sweep smoke
 - Default behavior:
   - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
-  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change, a backend-neutral persistent path-cache layer for translation-pack metadata plus benchmark resource checksums, and the first batch-oriented Phase 5 slice that prebuilds compiled `en-es` requests/configs/evaluation tables once per serial sweep and projects score tables across the config set before the per-run loop.
+  - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change, a backend-neutral persistent path-cache layer for translation-pack metadata plus benchmark resource checksums, and the Phase 5 serial-sweep preparation path that now prebuilds compiled `en-es` requests/configs, filter tables, score tables, and selected-row tables before the remaining per-run case evaluation loop.
   - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
-  - Latest warm-cache canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` while reducing total wall clock to about `0.73s`; `preload_translation_gloss_records` is about `0.22s`, compiled sweep-input preparation is about `0.27s`, and the remaining per-config `run_config` loop is about `0.14s` total across the 144-config serial sweep.
+  - Latest warm-cache canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` with total wall clock still about `0.73s`; `preload_translation_gloss_records` is about `0.23s`, compiled sweep-input preparation is about `0.39s`, and the remaining per-config `run_config` loop is down to about `0.01s` total across the 144-config serial sweep.
   - Later slices are still expected to be:
     - fuller compiled benchmark IR generalization across pairs/packs
     - vectorized CPU backend
@@ -85,7 +85,7 @@ Use this file when:
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/tests/rulegen/test_rulegen_en_es_compiled_resources.py`
 - Known gaps:
-  - Current full canonical sweep now batch-prepares compiled score inputs, but selected-row reduction and case-summary reduction still execute one config at a time; the next major performance frontier is denser config-matrix evaluation over compiled candidate rows.
+  - Current full canonical sweep now batch-prepares compiled score inputs and selected-row tables, but case-summary reduction still executes one config at a time; the next major performance frontier is denser config-matrix evaluation over compiled candidate rows.
   - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
   - Current active `en-es` benchmark path still does not have a real GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by branchy Python and storage/preprocessing work.
 
