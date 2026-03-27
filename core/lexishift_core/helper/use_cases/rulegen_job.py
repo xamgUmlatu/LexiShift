@@ -23,6 +23,17 @@ from lexishift_core.srs.sampling import (
 )
 
 
+def _translation_dict_provider(path: Path | None) -> str | None:
+    if path is None:
+        return None
+    name = path.name.strip().lower()
+    if "wiktionary" in name or "kaikki" in name:
+        return "wiktionary"
+    if "freedict" in name or name.endswith(".tei"):
+        return "freedict"
+    return "unknown"
+
+
 def run_rulegen_job(
     paths: HelperPaths,
     *,
@@ -214,6 +225,13 @@ def run_rulegen_job(
             "translation_dict_exists": bool(
                 resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
             ),
+            "translation_pack_path": (
+                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+            ),
+            "translation_pack_exists": bool(
+                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+            ),
+            "translation_dict_provider": _translation_dict_provider(resolved_freedict_de_en_path),
             "freedict_de_en_path": (
                 str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
             ),

@@ -308,12 +308,12 @@ def _ensure_pair_requirements(
             raise ValueError(f"Missing JMDict path for pair '{pair}'.")
         if not jmdict_path.exists():
             raise FileNotFoundError(jmdict_path)
-    requires_freedict_de_en = (
-        check_rulegen_resources and capability.requires_freedict_de_en_for_rulegen
+    requires_translation_dictionary = (
+        check_rulegen_resources and capability.requires_translation_dictionary_for_rulegen
     )
-    if requires_freedict_de_en:
+    if requires_translation_dictionary:
         if freedict_de_en_path is None:
-            raise ValueError(f"Missing FreeDict DE->EN path for pair '{pair}'.")
+            raise ValueError(f"Missing translation dictionary path for pair '{pair}'.")
         if not freedict_de_en_path.exists():
             raise FileNotFoundError(freedict_de_en_path)
     if require_frequency_db:
