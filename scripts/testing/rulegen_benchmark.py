@@ -1439,6 +1439,99 @@ def _build_compiled_rule_table(
     )
 
 
+def _build_compiled_rule_table_from_rules(
+    *,
+    rules: Sequence[VocabRule],
+    compiled_case_table: CompiledBenchmarkCaseTable,
+    compiled_pair_context: Optional[object] = None,
+) -> CompiledBenchmarkRuleTable:
+    phrase_ids_by_phrase = compiled_case_table.phrase_table.phrase_ids_by_phrase
+    candidate_table = getattr(compiled_pair_context, "candidate_table", None)
+    candidate_row_id_by_candidate_id = getattr(
+        candidate_table,
+        "candidate_row_id_by_candidate_id",
+        {},
+    )
+    if not isinstance(candidate_row_id_by_candidate_id, Mapping):
+        candidate_row_id_by_candidate_id = {}
+
+    target_rows: dict[str, dict[str, object]] = {}
+    for rule in rules:
+        target = str(rule.replacement or "").strip()
+        if not target:
+            continue
+        row = target_rows.setdefault(
+            target,
+            {
+                "all_sources": [],
+                "source_phrase_ids": [],
+                "candidate_row_ids": [],
+                "top1_confidence": None,
+                "variant_rule_count": 0,
+                "top1_variant_flag": False,
+            },
+        )
+        normalized_source = normalize_benchmark_phrase(rule.source_phrase)
+        if normalized_source:
+            cast_sources = row["all_sources"]
+            cast_phrase_ids = row["source_phrase_ids"]
+            assert isinstance(cast_sources, list)
+            assert isinstance(cast_phrase_ids, list)
+            cast_sources.append(normalized_source)
+            cast_phrase_ids.append(int(phrase_ids_by_phrase.get(normalized_source, -1)))
+        cast_candidate_row_ids = row["candidate_row_ids"]
+        assert isinstance(cast_candidate_row_ids, list)
+        cast_candidate_row_ids.append(
+            _resolve_rule_candidate_row_id(
+                rule,
+                candidate_row_id_by_candidate_id=candidate_row_id_by_candidate_id,
+            )
+        )
+        is_variant = _is_variant_rule(rule)
+        row["variant_rule_count"] = int(row["variant_rule_count"]) + (1 if is_variant else 0)
+        if row["top1_confidence"] is None:
+            row["top1_confidence"] = _extract_rule_confidence(rule)
+            row["top1_variant_flag"] = bool(is_variant)
+
+    ordered_targets = tuple(sorted(target_rows))
+    all_source_rows: list[tuple[str, ...]] = []
+    source_phrase_id_rows: list[tuple[int, ...]] = []
+    candidate_row_id_rows: list[tuple[int, ...]] = []
+    top1_confidences: list[Optional[float]] = []
+    variant_rule_counts: list[int] = []
+    top1_variant_flags: list[bool] = []
+    row_id_by_target: dict[str, int] = {}
+
+    for row_id, target in enumerate(ordered_targets):
+        row = target_rows[target]
+        row_id_by_target[target] = row_id
+        all_sources = row["all_sources"]
+        source_phrase_ids = row["source_phrase_ids"]
+        candidate_row_ids = row["candidate_row_ids"]
+        assert isinstance(all_sources, list)
+        assert isinstance(source_phrase_ids, list)
+        assert isinstance(candidate_row_ids, list)
+        all_source_rows.append(tuple(str(source) for source in all_sources))
+        source_phrase_id_rows.append(tuple(int(value) for value in source_phrase_ids))
+        candidate_row_id_rows.append(tuple(int(value) for value in candidate_row_ids))
+        top1_confidences.append(
+            float(row["top1_confidence"]) if row["top1_confidence"] is not None else None
+        )
+        variant_rule_counts.append(int(row["variant_rule_count"]))
+        top1_variant_flags.append(bool(row["top1_variant_flag"]))
+
+    return CompiledBenchmarkRuleTable(
+        targets=ordered_targets,
+        all_source_rows=tuple(all_source_rows),
+        source_phrase_id_rows=tuple(source_phrase_id_rows),
+        candidate_row_id_rows=tuple(candidate_row_id_rows),
+        top1_confidences=tuple(top1_confidences),
+        variant_rule_counts=tuple(variant_rule_counts),
+        top1_variant_flags=tuple(top1_variant_flags),
+        row_id_by_target=dict(row_id_by_target),
+    )
+
+
 def _evaluate_benchmark_case_compiled(
     *,
     case: RulegenBenchmarkCase,
@@ -1585,22 +1678,33 @@ def _build_compiled_case_result_table(
 def _evaluate_case_results_with_table(
     *,
     context: PairBenchmarkContext,
-    rules_by_target: Mapping[str, Sequence[VocabRule]],
+    rules_by_target: Optional[Mapping[str, Sequence[VocabRule]]] = None,
+    rules: Optional[Sequence[VocabRule]] = None,
 ) -> tuple[tuple[RulegenBenchmarkCaseResult, ...], Optional[CompiledBenchmarkCaseResultTable]]:
     compiled_case_table = context.compiled_case_table
     if compiled_case_table is None:
+        resolved_rules_by_target = (
+            rules_by_target if rules_by_target is not None else _group_rules_by_target(rules or ())
+        )
         return (
             tuple(
-                evaluate_benchmark_case(case, tuple(rules_by_target.get(case.target, ())))
+                evaluate_benchmark_case(case, tuple(resolved_rules_by_target.get(case.target, ())))
                 for case in context.cases
             ),
             None,
         )
-    compiled_rule_table = _build_compiled_rule_table(
-        rules_by_target=rules_by_target,
-        compiled_case_table=compiled_case_table,
-        compiled_pair_context=context.compiled_pair_context,
-    )
+    if rules is not None:
+        compiled_rule_table = _build_compiled_rule_table_from_rules(
+            rules=rules,
+            compiled_case_table=compiled_case_table,
+            compiled_pair_context=context.compiled_pair_context,
+        )
+    else:
+        compiled_rule_table = _build_compiled_rule_table(
+            rules_by_target=rules_by_target or {},
+            compiled_case_table=compiled_case_table,
+            compiled_pair_context=context.compiled_pair_context,
+        )
     case_results: list[RulegenBenchmarkCaseResult] = []
     case_rows: list[tuple[int, Optional[float], bool, bool, bool, bool, int, bool]] = []
     for index, case in enumerate(context.cases):
@@ -1960,14 +2064,20 @@ def _evaluate_sweep_run(
     phase_timings["run_config"] = perf_counter() - started
 
     started = perf_counter()
-    rules_by_target = _group_rules_by_target(rules)
-    phase_timings["group_rules"] = perf_counter() - started
-
-    started = perf_counter()
-    case_results, compiled_case_result_table = _evaluate_case_results_with_table(
-        context=context,
-        rules_by_target=rules_by_target,
-    )
+    if context.compiled_case_table is not None:
+        phase_timings["group_rules"] = 0.0
+        case_results, compiled_case_result_table = _evaluate_case_results_with_table(
+            context=context,
+            rules=rules,
+        )
+    else:
+        grouped_started = perf_counter()
+        rules_by_target = _group_rules_by_target(rules)
+        phase_timings["group_rules"] = perf_counter() - grouped_started
+        case_results, compiled_case_result_table = _evaluate_case_results_with_table(
+            context=context,
+            rules_by_target=rules_by_target,
+        )
     phase_timings["evaluate_cases"] = perf_counter() - started
 
     started = perf_counter()

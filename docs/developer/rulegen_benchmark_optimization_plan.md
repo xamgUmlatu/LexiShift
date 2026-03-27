@@ -467,6 +467,10 @@ Status:
   - accepted compiled rows are grouped, ranked, reverse-hygiene filtered, interleaved, and max-rule-limited directly from the compiled row tables
   - only the surviving compiled row ids are materialized into `RuleGenerationResult` objects
   - dedicated parity coverage now also asserts that compiled fast-path materialization count drops below accepted-row count when definition limiting prunes candidates
+- the compiled benchmark path now also consumes flat rule sequences more directly:
+  - when a compiled case table is available, benchmark evaluation builds the compiled rule table directly from the adapter’s flat `VocabRule` sequence instead of first constructing `rules_by_target` and then rebuilding compiled rows from that mapping
+  - the compiled sweep path now records `group_rules` at `0.0s` in the canonical `en-es` smoke run because the regrouping pass is skipped entirely
+  - dedicated benchmark dev coverage now asserts parity between the mapping-based and flat-rule compiled rule-table builders, and parity between compiled case evaluation from grouped rules vs flat rules
 - compiled candidate facts and score rows now align more tightly with live rulegen semantics:
   - compiled POS canonicals now resolve from the same nested-or-flat metadata surface as live candidates
   - compiled phrase penalties and ranking source phrases now use the normalized source surface rather than the raw unsanitized gloss fragment text, preventing drift such as `\"To Run\"` being scored as a phrase after live normalization would already reduce it to `run`
@@ -474,7 +478,8 @@ Status:
   - `preload_translation_gloss_records`: about `1.32s`
   - `compile_pair_context`: about `0.08s`
   - `run_config`: about `0.018s` per config in serial smoke runs
-  - end-to-end canonical 1-config smoke wall clock: about `1.81s`
+  - compiled-path `group_rules`: about `0.00s`
+  - end-to-end canonical 1-config smoke wall clock: about `1.80s`
 
 Goal:
 

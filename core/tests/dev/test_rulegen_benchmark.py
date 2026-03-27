@@ -22,6 +22,7 @@ from rulegen_benchmark import (  # noqa: E402
     SweepConfig,
     SweepRun,
     _build_compiled_rule_table,
+    _build_compiled_rule_table_from_rules,
     _build_compiled_case_result_table,
     _evaluate_benchmark_case_compiled,
     _evaluate_case_results,
@@ -843,6 +844,75 @@ class TestRulegenBenchmark(unittest.TestCase):
 
         self.assertEqual(rule_table.candidate_row_id_rows, ((3, 5),))
 
+    def test_build_compiled_rule_table_from_rules_matches_mapping_builder(self) -> None:
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+        )
+        case_table = _build_compiled_case_table(
+            cases=(case,),
+            compiled_case_refs=(
+                CompiledBenchmarkCaseRef(
+                    case_row_id=0,
+                    case_id=case.case_id,
+                    target=case.target,
+                    target_id=0,
+                    candidate_row_ids=(0, 1),
+                ),
+            ),
+        )
+        compiled_pair_context = type(
+            "CompiledPairContext",
+            (),
+            {
+                "candidate_table": type(
+                    "CandidateTable",
+                    (),
+                    {"candidate_row_id_by_candidate_id": {12: 3, 19: 5}},
+                )(),
+            },
+        )()
+        rules = (
+            VocabRule(
+                source_phrase="house",
+                replacement="casa",
+                metadata=RuleMetadata(
+                    confidence=0.7,
+                    rulegen={"compiled_candidate_id": 12},
+                ),
+            ),
+            VocabRule(
+                source_phrase="home",
+                replacement="casa",
+                metadata=RuleMetadata(
+                    confidence=0.6,
+                    rulegen={"compiled_candidate_id": 19},
+                ),
+            ),
+        )
+
+        from_mapping = _build_compiled_rule_table(
+            rules_by_target={"casa": rules},
+            compiled_case_table=case_table,
+            compiled_pair_context=compiled_pair_context,
+        )
+        from_rules = _build_compiled_rule_table_from_rules(
+            rules=rules,
+            compiled_case_table=case_table,
+            compiled_pair_context=compiled_pair_context,
+        )
+
+        self.assertEqual(from_rules.targets, from_mapping.targets)
+        self.assertEqual(from_rules.all_source_rows, from_mapping.all_source_rows)
+        self.assertEqual(from_rules.source_phrase_id_rows, from_mapping.source_phrase_id_rows)
+        self.assertEqual(from_rules.candidate_row_id_rows, from_mapping.candidate_row_id_rows)
+        self.assertEqual(from_rules.top1_confidences, from_mapping.top1_confidences)
+        self.assertEqual(from_rules.variant_rule_counts, from_mapping.variant_rule_counts)
+        self.assertEqual(from_rules.top1_variant_flags, from_mapping.top1_variant_flags)
+        self.assertEqual(from_rules.row_id_by_target, from_mapping.row_id_by_target)
+
     def test_compiled_case_evaluator_matches_legacy_evaluator(self) -> None:
         case = RulegenBenchmarkCase(
             case_id="en-es:casa:0",
@@ -1027,6 +1097,68 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertEqual(case_result_table.forbidden_any_present_flags, (True,))
         self.assertEqual(case_result_table.variant_rule_counts, (1,))
         self.assertEqual(case_result_table.top1_variant_flags, (False,))
+
+    def test_evaluate_case_results_with_table_accepts_flat_rules_for_compiled_context(self) -> None:
+        case = RulegenBenchmarkCase(
+            case_id="en-es:casa:0",
+            pair="en-es",
+            target="casa",
+            expected_any=("house",),
+            forbidden_any=("shack",),
+        )
+        case_ref = CompiledBenchmarkCaseRef(
+            case_row_id=0,
+            case_id=case.case_id,
+            target=case.target,
+            target_id=0,
+            candidate_row_ids=(0, 1),
+        )
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=None,
+            reverse_translation_dict_path=None,
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target={},
+            compiled_case_refs=(case_ref,),
+            compiled_case_table=_build_compiled_case_table(
+                cases=(case,),
+                compiled_case_refs=(case_ref,),
+            ),
+        )
+        rules = (
+            VocabRule(
+                source_phrase="house",
+                replacement="casa",
+                metadata=RuleMetadata(confidence=0.5),
+            ),
+            VocabRule(
+                source_phrase="shack",
+                replacement="casa",
+                metadata=RuleMetadata(
+                    confidence=0.2,
+                    morphology={"source_form": "shacks"},
+                ),
+            ),
+        )
+
+        from_mapping, mapping_table = _evaluate_case_results_with_table(
+            context=context,
+            rules_by_target={"casa": rules},
+        )
+        from_rules, flat_table = _evaluate_case_results_with_table(
+            context=context,
+            rules=rules,
+        )
+
+        self.assertEqual(
+            [result.to_dict() for result in from_rules],
+            [result.to_dict() for result in from_mapping],
+        )
+        self.assertEqual(flat_table, mapping_table)
 
     def test_summarize_compiled_case_results_matches_legacy_summary(self) -> None:
         case_results = (
