@@ -538,6 +538,18 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 for row_id in range(len(score_table.candidate_ids))
             ),
         )
+        target_id = compiled_resources.target_ids_by_target["casa"]
+        self.assertEqual(
+            score_table.ranked_candidate_row_ids_by_target_id,
+            {
+                target_id: tuple(
+                    sorted(
+                        range(len(score_table.candidate_ids)),
+                        key=lambda row_id: score_table.row_sort_keys[row_id],
+                    )
+                )
+            },
+        )
 
     def test_compiled_candidate_score_table_uses_direct_scalar_helpers(self) -> None:
         records = {

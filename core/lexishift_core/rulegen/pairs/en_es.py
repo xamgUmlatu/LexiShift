@@ -405,6 +405,9 @@ class EnEsCompiledCandidateScoreTable:
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
     row_sort_keys: tuple[tuple[float, float, str], ...] = ()
+    ranked_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
+        default_factory=dict
+    )
 
 
 @dataclass(frozen=True)
@@ -707,10 +710,13 @@ def build_en_es_compiled_candidate_score_table(
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
     row_sort_keys: list[tuple[float, float, str]] = []
+    candidate_row_ids_by_target_id: dict[int, list[int]] = {}
     for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_source_phrase = _normalize_compiled_source_phrase(
             candidate_table.source_phrases[row_id]
         )
+        target_id = int(candidate_table.target_ids[row_id])
+        candidate_row_ids_by_target_id.setdefault(target_id, []).append(int(row_id))
         dict_priority = float(
             dict_priority_by_source_dict_id.get(candidate_table.source_dict_ids[row_id], 0.0)
         )
@@ -824,6 +830,10 @@ def build_en_es_compiled_candidate_score_table(
         confidence_scores=tuple(confidence_scores),
         ranking_scores=tuple(ranking_scores),
         row_sort_keys=tuple(row_sort_keys),
+        ranked_candidate_row_ids_by_target_id={
+            target_id: tuple(sorted(row_ids, key=lambda row_id: row_sort_keys[row_id]))
+            for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
+        },
     )
 
 
@@ -2024,7 +2034,6 @@ def _limit_compiled_result_row_ids(
         if max_rules > 0:
             limited_row_ids = _limit_compiled_rule_count_row_ids(
                 limited_row_ids,
-                filter_table=filter_table,
                 score_table=score_table,
                 max_rules_per_target=max_rules,
             )
@@ -2151,14 +2160,36 @@ def _flatten_compiled_definition_groups(
 def _limit_compiled_rule_count_row_ids(
     row_ids: Sequence[int],
     *,
-    filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
     max_rules_per_target: int,
 ) -> tuple[int, ...]:
-    ranked_row_ids = sorted(
-        row_ids,
-        key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
-    )
+    materialized_row_ids = tuple(int(row_id) for row_id in row_ids)
+    if not materialized_row_ids:
+        return ()
+    target_ids = {
+        int(score_table.target_ids[row_id])
+        for row_id in materialized_row_ids
+        if 0 <= int(row_id) < len(score_table.target_ids)
+    }
+    ranked_row_ids: Sequence[int]
+    if len(target_ids) == 1:
+        target_id = next(iter(target_ids))
+        ranked_target_row_ids = score_table.ranked_candidate_row_ids_by_target_id.get(target_id)
+        if ranked_target_row_ids is not None:
+            row_id_set = set(materialized_row_ids)
+            ranked_row_ids = tuple(
+                int(row_id) for row_id in ranked_target_row_ids if row_id in row_id_set
+            )
+        else:
+            ranked_row_ids = sorted(
+                materialized_row_ids,
+                key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
+            )
+    else:
+        ranked_row_ids = sorted(
+            materialized_row_ids,
+            key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
+        )
     return tuple(int(row_id) for row_id in ranked_row_ids[:max_rules_per_target])
 
 
