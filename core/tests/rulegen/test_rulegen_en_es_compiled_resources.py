@@ -1484,6 +1484,71 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         )
         self.assertEqual(prepared_tables[0].selected_row_table.normalized_source_phrase_rows, ((),))
 
+    def test_prepare_compiled_benchmark_sweep_tables_reuses_equivalent_selected_rows(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+            "home": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+        reverse_bonus_changed_config = replace(
+            base_config,
+            reverse_check=replace(base_config.reverse_check, enabled=False, match_bonus=0.9),
+        )
+
+        prepared_tables = prepare_en_es_compiled_benchmark_sweep_tables(
+            targets=("casa",),
+            configs=(base_config, reverse_bonus_changed_config),
+        )
+
+        self.assertIs(
+            prepared_tables[0].selected_row_table,
+            prepared_tables[1].selected_row_table,
+        )
+
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,
     ) -> None:

@@ -112,6 +112,10 @@ _COMPILED_SCORE_TABLE_CACHE: dict[
     tuple[int, tuple[object, ...]],
     "EnEsCompiledCandidateScoreTable",
 ] = {}
+_COMPILED_SELECTED_ROW_TABLE_CACHE: dict[
+    tuple[int, tuple[object, ...]],
+    "EnEsCompiledSelectedRowTable",
+] = {}
 _COMPILED_OVERLAY_DEMOTION_ROWS_CACHE: dict[
     tuple[int, tuple[object, ...]],
     tuple[float, ...],
@@ -431,6 +435,7 @@ class EnEsCompiledCandidateScoreTable:
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
     row_sort_keys: tuple[tuple[float, float, int], ...] = ()
+    selected_row_signature: tuple[object, ...] = ()
     ranked_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
         default_factory=dict
     )
@@ -450,6 +455,7 @@ class EnEsCompiledCandidateFilterTable:
     stopword_flags: tuple[bool, ...] = ()
     inflection_artifact_flags: tuple[bool, ...] = ()
     accepted_flags: tuple[bool, ...] = ()
+    selected_row_signature: tuple[object, ...] = ()
     accepted_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
         default_factory=dict
     )
@@ -1052,6 +1058,15 @@ def _materialize_compiled_candidate_score_table_batch(
             confidence_scores=tuple(projection.confidence_scores),
             ranking_scores=tuple(projection.ranking_scores),
             row_sort_keys=row_sort_keys,
+        )
+        score_table = replace(
+            score_table,
+            selected_row_signature=_build_compiled_score_selected_row_signature(
+                score_table=replace(
+                    score_table,
+                    ranked_candidate_row_ids_by_target_id=ranked_candidate_row_ids_by_target_id,
+                )
+            ),
             ranked_candidate_row_ids_by_target_id=ranked_candidate_row_ids_by_target_id,
         )
         _COMPILED_SCORE_TABLE_CACHE[projection.cache_key] = score_table
@@ -1279,6 +1294,12 @@ def _build_compiled_candidate_filter_table_for_table(
             for key, groups_by_key in sorted(accepted_candidate_row_id_groups_by_target_id.items())
         },
     )
+    filter_table = replace(
+        filter_table,
+        selected_row_signature=_build_compiled_filter_selected_row_signature(
+            filter_table=filter_table
+        ),
+    )
     _COMPILED_FILTER_TABLE_CACHE[cache_key] = filter_table
     return filter_table
 
@@ -1312,6 +1333,49 @@ def _build_compiled_filter_table_cache_key(
             bool(config.enable_inflection_filter),
             tuple(str(suffix) for suffix in config.inflection_suffixes),
         ),
+    )
+
+
+def _build_compiled_filter_selected_row_signature(
+    *,
+    filter_table: EnEsCompiledCandidateFilterTable,
+) -> tuple[object, ...]:
+    return (
+        tuple(
+            (
+                int(target_id),
+                tuple(tuple(int(row_id) for row_id in row_group) for row_group in groups),
+            )
+            for target_id, groups in sorted(
+                filter_table.accepted_candidate_row_id_groups_by_target_id.items()
+            )
+        ),
+        tuple(int(group_id) for group_id in filter_table.definition_group_ids),
+        tuple(str(source_phrase) for source_phrase in filter_table.normalized_source_phrases),
+    )
+
+
+def _build_compiled_score_selected_row_signature(
+    *,
+    score_table: EnEsCompiledCandidateScoreTable,
+) -> tuple[object, ...]:
+    return (
+        tuple(float(value) for value in score_table.confidence_scores),
+        tuple(
+            (float(first), float(second), int(third))
+            for first, second, third in score_table.row_sort_keys
+        ),
+        tuple(
+            (int(target_id), tuple(int(row_id) for row_id in row_ids))
+            for target_id, row_ids in sorted(
+                score_table.ranked_candidate_row_ids_by_target_id.items()
+            )
+        ),
+        tuple(
+            None if value is None else float(value)
+            for value in score_table.reverse_check_strength_values
+        ),
+        tuple(bool(flag) for flag in score_table.reverse_hygiene_anchor_allowed_flags),
     )
 
 
@@ -1611,8 +1675,11 @@ def prepare_en_es_compiled_benchmark_sweep_tables(
             EnEsCompiledBenchmarkSweepTables(
                 filter_table=prepared_evaluation.filter_table,
                 score_table=prepared_evaluation.score_table,
-                selected_row_table=_build_en_es_compiled_selected_row_table_from_target_context_rows(
+                selected_row_table=_build_or_resolve_compiled_selected_row_table(
+                    ordered_targets=ordered_targets,
                     target_context_rows=target_context_rows_by_token[candidate_table_cache_token],
+                    compiled_resources=compiled_resources,
+                    candidate_table_cache_token=candidate_table_cache_token,
                     candidate_table=candidate_table,
                     filter_table=prepared_evaluation.filter_table,
                     score_table=prepared_evaluation.score_table,
@@ -2486,14 +2553,84 @@ def build_en_es_compiled_selected_row_table(
         ordered_targets=ordered_targets,
         compiled_resources=compiled_resources,
     )
-    return _build_en_es_compiled_selected_row_table_from_target_context_rows(
+    return _build_or_resolve_compiled_selected_row_table(
+        ordered_targets=ordered_targets,
         target_context_rows=target_context_rows,
+        compiled_resources=compiled_resources,
+        candidate_table_cache_token=candidate_table_cache_token,
         candidate_table=candidate_table,
         filter_table=resolved_filter_table,
         score_table=resolved_score_table,
         config=config,
         include_normalized_source_phrase_rows=include_normalized_source_phrase_rows,
     )
+
+
+def _build_compiled_selected_row_table_cache_key(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    candidate_table_cache_token: object,
+    ordered_targets: Sequence[str],
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    config: EnEsRulegenConfig,
+    include_normalized_source_phrase_rows: bool,
+) -> tuple[int, tuple[object, ...]]:
+    return (
+        int(compiled_resources.cache_token),
+        (
+            candidate_table_cache_token,
+            tuple(str(target) for target in ordered_targets),
+            filter_table.selected_row_signature,
+            score_table.selected_row_signature,
+            bool(include_normalized_source_phrase_rows),
+            float(config.confidence_threshold),
+            (
+                None
+                if config.max_definitions_per_target is None
+                else int(config.max_definitions_per_target)
+            ),
+            bool(config.interleave_definition_groups),
+            None if config.max_rules_per_target is None else int(config.max_rules_per_target),
+            bool(config.reverse_check.enabled),
+        ),
+    )
+
+
+def _build_or_resolve_compiled_selected_row_table(
+    *,
+    ordered_targets: Sequence[str],
+    target_context_rows: Sequence[tuple[str, EnEsCompiledTargetContext]],
+    compiled_resources: EnEsCompiledResources,
+    candidate_table_cache_token: object,
+    candidate_table: Optional[EnEsCompiledCandidateTable],
+    filter_table: EnEsCompiledCandidateFilterTable,
+    score_table: EnEsCompiledCandidateScoreTable,
+    config: EnEsRulegenConfig,
+    include_normalized_source_phrase_rows: bool,
+) -> EnEsCompiledSelectedRowTable:
+    cache_key = _build_compiled_selected_row_table_cache_key(
+        compiled_resources=compiled_resources,
+        candidate_table_cache_token=candidate_table_cache_token,
+        ordered_targets=ordered_targets,
+        filter_table=filter_table,
+        score_table=score_table,
+        config=config,
+        include_normalized_source_phrase_rows=include_normalized_source_phrase_rows,
+    )
+    cached = _COMPILED_SELECTED_ROW_TABLE_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+    selected_row_table = _build_en_es_compiled_selected_row_table_from_target_context_rows(
+        target_context_rows=target_context_rows,
+        candidate_table=candidate_table,
+        filter_table=filter_table,
+        score_table=score_table,
+        config=config,
+        include_normalized_source_phrase_rows=include_normalized_source_phrase_rows,
+    )
+    _COMPILED_SELECTED_ROW_TABLE_CACHE[cache_key] = selected_row_table
+    return selected_row_table
 
 
 def _build_en_es_compiled_selected_row_table_from_target_context_rows(
