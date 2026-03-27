@@ -426,6 +426,10 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             compiled_resources=compiled_resources,
             config=config,
         )
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
 
         provider = EnEsCompiledSignalProvider(
             dict_priorities={config.source_dict_id: config.dict_priority},
@@ -521,6 +525,17 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                     total=candidate.metadata.get("reverse_check_total"),
                 )
                 for candidate in target_context.base_candidates
+            ),
+        )
+        self.assertEqual(
+            score_table.row_sort_keys,
+            tuple(
+                (
+                    -float(expected_ranking_scores[row_id]),
+                    -float(expected_confidences[row_id]),
+                    str(filter_table.normalized_source_phrases[row_id] or "").lower(),
+                )
+                for row_id in range(len(score_table.candidate_ids))
             ),
         )
 
@@ -778,10 +793,6 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             source_dict="wiktionary_es_en",
             dictionary_pos_source_profile="wiktionary",
         )
-        filter_table = build_en_es_compiled_candidate_filter_table(
-            compiled_resources=compiled_resources,
-            config=config,
-        )
         score_table = build_en_es_compiled_candidate_score_table(
             compiled_resources=compiled_resources,
             config=config,
@@ -789,7 +800,6 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         group = _build_compiled_definition_row_group(
             (1, 0),
-            filter_table=filter_table,
             score_table=score_table,
         )
 

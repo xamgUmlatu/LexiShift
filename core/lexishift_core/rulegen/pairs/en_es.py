@@ -404,6 +404,7 @@ class EnEsCompiledCandidateScoreTable:
     reverse_hygiene_anchor_allowed_flags: tuple[bool, ...] = ()
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
+    row_sort_keys: tuple[tuple[float, float, str], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -704,6 +705,7 @@ def build_en_es_compiled_candidate_score_table(
     reverse_hygiene_anchor_allowed_flags: list[bool] = []
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
+    row_sort_keys: list[tuple[float, float, str]] = []
     for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_source_phrase = _normalize_compiled_source_phrase(
             candidate_table.source_phrases[row_id]
@@ -795,6 +797,13 @@ def build_en_es_compiled_candidate_score_table(
         reverse_hygiene_anchor_allowed_flags.append(reverse_hygiene_anchor_allowed)
         confidence_scores.append(confidence)
         ranking_scores.append(ranking_score)
+        row_sort_keys.append(
+            (
+                -float(ranking_score),
+                -float(confidence),
+                str(normalized_source_phrase or "").lower(),
+            )
+        )
     return EnEsCompiledCandidateScoreTable(
         candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
         target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
@@ -813,6 +822,7 @@ def build_en_es_compiled_candidate_score_table(
         reverse_hygiene_anchor_allowed_flags=tuple(reverse_hygiene_anchor_allowed_flags),
         confidence_scores=tuple(confidence_scores),
         ranking_scores=tuple(ranking_scores),
+        row_sort_keys=tuple(row_sort_keys),
     )
 
 
@@ -2030,7 +2040,6 @@ def _limit_compiled_definition_row_ids(
         (
             _build_compiled_definition_row_group(
                 grouped[key],
-                filter_table=filter_table,
                 score_table=score_table,
             )
             for key in group_order
@@ -2066,7 +2075,6 @@ def _compiled_definition_group_key(
 def _build_compiled_definition_row_group(
     row_ids: Sequence[int],
     *,
-    filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> EnEsCompiledDefinitionRowGroup:
     materialized_row_ids = tuple(int(row_id) for row_id in row_ids)
@@ -2075,11 +2083,7 @@ def _build_compiled_definition_row_group(
     sorted_row_ids = tuple(
         sorted(
             materialized_row_ids,
-            key=lambda row_id: _compiled_row_sort_key(
-                row_id,
-                filter_table=filter_table,
-                score_table=score_table,
-            ),
+            key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
         )
     )
     best_row_id = int(sorted_row_ids[0])
@@ -2087,11 +2091,7 @@ def _build_compiled_definition_row_group(
         row_ids=materialized_row_ids,
         sorted_row_ids=sorted_row_ids,
         best_row_id=best_row_id,
-        sort_key=_compiled_row_sort_key(
-            best_row_id,
-            filter_table=filter_table,
-            score_table=score_table,
-        ),
+        sort_key=_compiled_row_sort_key(best_row_id, score_table=score_table),
         reverse_strength=score_table.reverse_check_strength_values[best_row_id],
         allows_reverse_hygiene_anchor=bool(
             score_table.reverse_hygiene_anchor_allowed_flags[best_row_id]
@@ -2102,14 +2102,9 @@ def _build_compiled_definition_row_group(
 def _compiled_row_sort_key(
     row_id: int,
     *,
-    filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> tuple[float, float, str]:
-    return (
-        -float(score_table.ranking_scores[row_id]),
-        -float(score_table.confidence_scores[row_id]),
-        str(filter_table.normalized_source_phrases[row_id] or "").lower(),
-    )
+    return score_table.row_sort_keys[row_id]
 
 
 def _apply_compiled_reverse_definition_hygiene(
@@ -2164,11 +2159,7 @@ def _limit_compiled_rule_count_row_ids(
 ) -> tuple[int, ...]:
     ranked_row_ids = sorted(
         row_ids,
-        key=lambda row_id: _compiled_row_sort_key(
-            row_id,
-            filter_table=filter_table,
-            score_table=score_table,
-        ),
+        key=lambda row_id: _compiled_row_sort_key(row_id, score_table=score_table),
     )
     return tuple(int(row_id) for row_id in ranked_row_ids[:max_rules_per_target])
 
