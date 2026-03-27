@@ -385,6 +385,7 @@ class EnEsCompiledCandidateTable:
     source_phrases: tuple[str, ...] = ()
     source_phrase_lowers: tuple[str, ...] = ()
     normalized_source_phrases: tuple[str, ...] = ()
+    normalized_source_phrase_order_ids: tuple[int, ...] = ()
     source_dict_ids: tuple[int, ...] = ()
     source_type_ids: tuple[int, ...] = ()
     local_candidate_indices: tuple[int, ...] = ()
@@ -429,7 +430,7 @@ class EnEsCompiledCandidateScoreTable:
     reverse_hygiene_anchor_allowed_flags: tuple[bool, ...] = ()
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
-    row_sort_keys: tuple[tuple[float, float, str], ...] = ()
+    row_sort_keys: tuple[tuple[float, float, int], ...] = ()
     ranked_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
         default_factory=dict
     )
@@ -496,7 +497,7 @@ class EnEsCompiledDefinitionRowGroup:
     row_ids: tuple[int, ...] = ()
     sorted_row_ids: tuple[int, ...] = ()
     best_row_id: int = -1
-    sort_key: tuple[float, float, str] = (0.0, 0.0, "")
+    sort_key: tuple[float, float, int] = (0.0, 0.0, 0)
     reverse_strength: Optional[float] = None
     allows_reverse_hygiene_anchor: bool = False
 
@@ -539,7 +540,7 @@ class _EnEsCompiledScoreBatchProjection:
     reverse_hygiene_anchor_allowed_flags: list[bool] = field(default_factory=list)
     confidence_scores: list[float] = field(default_factory=list)
     ranking_scores: list[float] = field(default_factory=list)
-    row_sort_keys: list[tuple[float, float, str]] = field(default_factory=list)
+    row_sort_keys: list[tuple[float, float, int]] = field(default_factory=list)
     gloss_weight_cache: dict[Optional[int], float] = field(default_factory=dict)
     pos_match_cache: dict[tuple[str, str], float] = field(default_factory=dict)
 
@@ -879,9 +880,8 @@ def _materialize_compiled_candidate_score_table_batch(
         for target_id, row_ids in candidate_table.candidate_row_ids_by_target_id.items()
     }
     normalized_source_phrases = candidate_table.normalized_source_phrases
-    normalized_source_phrase_lowers = tuple(
-        str(normalized_source_phrase or "").lower()
-        for normalized_source_phrase in normalized_source_phrases
+    normalized_source_phrase_order_ids = tuple(
+        int(order_id) for order_id in candidate_table.normalized_source_phrase_order_ids
     )
     source_dict_ids = tuple(
         int(source_dict_id) for source_dict_id in candidate_table.source_dict_ids
@@ -940,7 +940,7 @@ def _materialize_compiled_candidate_score_table_batch(
         reverse_check_rank = reverse_check_rank_raw if reverse_check_rank_raw >= 0 else None
         reverse_check_total = reverse_check_total_values[row_id]
         reverse_hygiene_anchor_allowed = reverse_hygiene_anchor_allowed_flags_by_row[row_id]
-        normalized_source_phrase_lower = normalized_source_phrase_lowers[row_id]
+        normalized_source_phrase_order_id = normalized_source_phrase_order_ids[row_id]
         for projection in pending:
             config = projection.config
             dict_priority = (
@@ -1025,7 +1025,7 @@ def _materialize_compiled_candidate_score_table_batch(
                 (
                     -float(ranking_score),
                     -float(confidence),
-                    normalized_source_phrase_lower,
+                    int(normalized_source_phrase_order_id),
                 )
             )
     for projection in pending:
@@ -2071,6 +2071,7 @@ def _build_compiled_candidate_table(
     source_phrases: list[str] = []
     source_phrase_lowers: list[str] = []
     normalized_source_phrases: list[str] = []
+    normalized_source_phrase_order_ids: list[int] = []
     source_dict_ids: list[int] = []
     source_type_ids: list[int] = []
     local_candidate_indices: list[int] = []
@@ -2135,6 +2136,14 @@ def _build_compiled_candidate_table(
                     row_id
                 )
 
+    normalized_source_phrase_order_id_by_phrase = {
+        phrase: order_id for order_id, phrase in enumerate(sorted(set(normalized_source_phrases)))
+    }
+    normalized_source_phrase_order_ids = [
+        int(normalized_source_phrase_order_id_by_phrase[phrase])
+        for phrase in normalized_source_phrases
+    ]
+
     return EnEsCompiledCandidateTable(
         candidate_ids=tuple(candidate_ids),
         target_ids=tuple(target_ids),
@@ -2142,6 +2151,7 @@ def _build_compiled_candidate_table(
         source_phrases=tuple(source_phrases),
         source_phrase_lowers=tuple(source_phrase_lowers),
         normalized_source_phrases=tuple(normalized_source_phrases),
+        normalized_source_phrase_order_ids=tuple(normalized_source_phrase_order_ids),
         source_dict_ids=tuple(source_dict_ids),
         source_type_ids=tuple(source_type_ids),
         local_candidate_indices=tuple(local_candidate_indices),
@@ -2809,7 +2819,7 @@ def _compiled_row_sort_key(
     row_id: int,
     *,
     score_table: EnEsCompiledCandidateScoreTable,
-) -> tuple[float, float, str]:
+) -> tuple[float, float, int]:
     return score_table.row_sort_keys[row_id]
 
 

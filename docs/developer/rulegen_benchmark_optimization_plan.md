@@ -478,6 +478,7 @@ Status:
   - compiled filter rows now also project explicit definition-group ids, so definition limiting groups rows by stable integer row columns instead of reconstructing mixed tuple/string keys from candidate and filter tables at runtime
   - compiled candidate score rows now also project the full per-target ranked row order, so max-rules trimming can filter a pre-ranked target row table instead of re-sorting selected subsets in place
   - compiled definition-group summaries now also reuse that pre-ranked target row order, so grouped row ordering no longer needs to sort each definition group in place before applying reverse-definition hygiene and group flattening
+  - compiled candidate score rows now also use stable numeric phrase-order ids as the final deterministic tie-breaker in row sort keys, so sweep-prep tables no longer need to carry normalized source strings purely for ordering
   - variant-expanded candidates now preserve runtime variant penalties correctly instead of inheriting only the base compiled fact flag
 - compiled-resource `en-es` runs now also compile normalization/filter acceptance rows for base candidates:
   - the compiled candidate table now carries normalized source phrases as a reusable row column, so per-config filter and score builders no longer rerun phrase normalization for every candidate row
@@ -831,5 +832,5 @@ The next implementation slice should be:
 Why this is the right next slice:
 
 - the current warm-cache serial sweep is already exact and fast, so the remaining worthwhile work is architectural rather than cache churn
-- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
+- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, and they now use compact selected-row payloads plus numeric phrase-order tie-breakers instead of carrying string sort payloads, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
 - it keeps CPU and future GPU work on the same compiled benchmark IR instead of creating a separate optimization path

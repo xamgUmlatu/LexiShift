@@ -571,10 +571,8 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             compiled_resources=compiled_resources,
             config=config,
         )
-        filter_table = build_en_es_compiled_candidate_filter_table(
-            compiled_resources=compiled_resources,
-            config=config,
-        )
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
 
         provider = EnEsCompiledSignalProvider(
             dict_priorities={config.source_dict_id: config.dict_priority},
@@ -678,7 +676,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 (
                     -float(expected_ranking_scores[row_id]),
                     -float(expected_confidences[row_id]),
-                    str(filter_table.normalized_source_phrases[row_id] or "").lower(),
+                    int(candidate_table.normalized_source_phrase_order_ids[row_id]),
                 )
                 for row_id in range(len(score_table.candidate_ids))
             ),
@@ -978,6 +976,8 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             source_dict="wiktionary_es_en",
             dictionary_pos_source_profile="wiktionary",
         )
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
         filter_table = build_en_es_compiled_candidate_filter_table(
             compiled_resources=compiled_resources,
             config=config,
@@ -1001,7 +1001,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             (
                 -float(score_table.ranking_scores[0]),
                 -float(score_table.confidence_scores[0]),
-                "house",
+                int(candidate_table.normalized_source_phrase_order_ids[0]),
             ),
         )
         self.assertEqual(group.reverse_strength, 1.0)
