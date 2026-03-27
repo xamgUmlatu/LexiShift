@@ -118,6 +118,48 @@ Longer-term selection goal:
 - later extend the same benchmark substrate so it can answer which named profiles or parameter families work best for runtime-computable trait regions rather than assuming one global winner must fit every target
 - do not skip the global baseline; later trait-conditioned routing remains downstream of the same compiled benchmark IR and is documented separately in `docs/rulegen/trait_conditioned_rulegen_profiles.md`
 
+Current broad-sweep planning guidance:
+
+- the next large `en-es` experiment should treat the current Kaikki-forward plus Kaikki-reverse lane as the fixed Stage A resource family
+- the first broad Stage A sweep should widen the exposed parameter/toggle space within that resource family before running a resource-combination matrix
+- broad-sweep experiment outputs should be written to experiment-specific artifact paths rather than overwriting canonical `*_latest` artifacts
+- broad-sweep analysis must retain a frontier, not just a single winner:
+  - keep top-K and near-tied configs
+  - record exact-tie and near-tie groups explicitly
+  - do not overinterpret artifact-resolved best-run ordering when the objective plateau is flat
+- first broad-sweep analysis should also report config-outcome equivalence structure:
+  - number of distinct selected-row outcomes
+  - number of distinct case-metric vectors
+  - which knobs materially change results versus only reshuffle equivalent configs
+- first broad-sweep planning should keep coarse family-set experiments separate from the first scalar-heavy sweep:
+  - do not mix a large `kaikki_policy_risk_families` cartesian expansion into the first giant scalar/toggle run
+  - test family-set variants around the best Stage A frontier afterward
+- first broad-sweep non-goals remain:
+  - embedding-led scoring
+  - multi-source agreement scoring
+  - trait-conditioned runtime routing
+  - broad lexical multiword-admission policy changes
+- even before runtime routing exists, broad-sweep artifacts should preserve enough per-case/per-target structure to support later trait analysis:
+  - retain top frontier configs
+  - retain case deltas for top configs
+  - retain runtime-computable trait summaries or a compatible extraction seam wherever practical
+
+Latest exploratory `en-es` Stage A checkpoint on this PC (`2026-03-28`):
+
+- the new staged preset family is now implemented in `docs/test_inputs/rulegen_benchmark_presets.json`
+- the fixed-resource Stage A sweeps now have a practical runbook in `docs/developer/rulegen_en_es_broad_sweep_runbook.md`
+- first Stage A broad-sweep results already separate the useful families:
+  - `en_es_stage_a_toggle_frontier_v1` ran `1728` configs and kept the same best objective `129.474`, but with a very wide `408`-config exact tie plateau
+  - `en_es_stage_a_scoring_weight_matrix_v1` likewise stayed on the same objective plateau, with `243` exact ties and no measured quality gain over canonical
+  - `en_es_stage_a_exact_hit_matrix_v1` stayed fully flat at `27` exact ties, so the currently exposed `xamb`/`xspec` surface does not look like a first-order differentiator yet
+  - `en_es_stage_a_family_followup_v1` also stayed on the same objective plateau at this first follow-up size, so risk-family-set differences are not yet a strong first-order separator on their own
+  - `en_es_stage_a_admission_matrix_v1` improved objective to `135.719` with the same `Top1` / `Top3`, lower `forbidden_any_rate` (`1.75%`), lower `avg_rules_per_target` (`2.18`), and experiment triage count `6`
+  - `en_es_stage_a_reverse_weight_matrix_v1` improved objective to `132.596` with the same `Top1` / `Top3`, `forbidden_any_rate` reduced to `0.00%`, and experiment triage count `5`
+- first interpretation:
+  - admission/cap settings and reverse-base weights are currently more promising than the larger toggle plateau
+  - exact-hit ambiguity/specificity and coarse family-set changes do not yet look like the highest-leverage next search frontier
+  - the next broad-sweep iteration should focus on case deltas and quality interpretation for the admission and reverse-weight winners before widening unrelated dimensions again
+
 ## Hard Requirements
 
 These are non-negotiable:

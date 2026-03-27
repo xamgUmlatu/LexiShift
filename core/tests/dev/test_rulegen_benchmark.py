@@ -2122,14 +2122,21 @@ class TestRulegenBenchmark(unittest.TestCase):
             places=6,
         )
 
-    def test_load_benchmark_presets_includes_canonical_en_es_matrix(self) -> None:
+    def test_load_benchmark_presets_includes_expected_en_es_presets(self) -> None:
         presets = load_benchmark_presets(
             REPO_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_presets.json"
         )
 
         self.assertIn("en_es_canonical_matrix", presets)
+        self.assertIn("en_es_stage_a_toggle_frontier_v1", presets)
+        self.assertIn("en_es_stage_a_admission_matrix_v1", presets)
+        self.assertIn("en_es_stage_a_scoring_weight_matrix_v1", presets)
+        self.assertIn("en_es_stage_a_reverse_weight_matrix_v1", presets)
+        self.assertIn("en_es_stage_a_exact_hit_matrix_v1", presets)
+        self.assertIn("en_es_stage_a_family_followup_v1", presets)
         listing = format_benchmark_presets_listing(presets)
         self.assertIn("en_es_canonical_matrix", listing)
+        self.assertIn("en_es_stage_a_toggle_frontier_v1", listing)
 
     def test_resolve_cli_with_preset_allows_explicit_cli_override(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
