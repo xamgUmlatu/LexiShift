@@ -2,7 +2,7 @@
 
 Status: active implementation plan
 Role: planning / architecture
-Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution.
+Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution, broad pack/pair-global maxima search, and later trait-conditioned runtime profile selection.
 Last updated: 2026-03-28
 Last verified: 2026-03-28
 Source-of-truth: planning doc only; executable truth still lives in code, tests, presets, and dated benchmark artifacts.
@@ -28,6 +28,8 @@ Secondary targets:
 - improve repeatability and observability of benchmark performance
 - split compute from artifact materialization
 - create an architecture that can later support vectorized CPU execution and optional GPU execution
+- keep the benchmark/search substrate reusable for future pair expansion and multi-pack evaluation within the same language pair
+- preserve enough per-case and per-candidate structure to support later trait-conditioned profile analysis instead of only one global winning config
 
 Current methodology constraint:
 
@@ -41,8 +43,11 @@ Current canonical `en-es` benchmark state:
 - current reported case count: `57`
 - current reported run count: `144`
 - current best objective: `129.474`
-- current best config:
-  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+- current artifact-resolved best config:
+  - `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+- current tied-winner note:
+  - the latest artifact has `12` exact objective ties at `129.474`
+  - equivalent tied winners still include the older `var=off` / `pos=on` / `rev=on` / `kdem=on` / `kprov=0.10` lane, so this is currently a stable tie-resolution detail rather than a quality regression
 
 Current canonical preset dimensions:
 
@@ -85,14 +90,24 @@ Current implementation shape:
   - ranking and reduction
 - current benchmark workstream now uses backend-neutral translation-pack record/loader names at the benchmark, adapter, and `en-es` compile boundary, while the underlying compatibility-loader implementation is still shared with the existing FreeDict/Kaikki resource layer
 - current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
+- current numeric-backend state:
+  - `numpy` is now an active development dependency and the compiled `en-es` score-table batch path now projects score/ranking inputs numerically instead of only through scalar Python helper calls
+  - `torch` is currently optional and local-only; it is reserved for a later optional GPU backend once the compiled sweep has become a genuinely tensor-shaped workload
 
 Latest measured canonical `en-es` smoke on this PC with warm path caches:
 
 - benchmark result still exact at objective `129.474`
-- wall clock: about `0.79s`
+- wall clock: about `0.53s`
 - `build_resource_payload`: about `0.001s`
-- `preload_translation_gloss_records`: about `0.21s`
-- `run_config`: about `0.462s` total across `144` configs, or about `0.0032s` average per config
+- `preload_translation_gloss_records`: about `0.23s`
+- `prepare_compiled_sweep_inputs`: about `0.196s`
+- `run_config`: about `0.012s` total across `144` configs, or about `0.00009s` average per config
+
+Longer-term selection goal:
+
+- first use the benchmark harness to find strong global maxima across the active preset surface for a pair/resource methodology
+- later extend the same benchmark substrate so it can answer which named profiles or parameter families work best for runtime-computable trait regions rather than assuming one global winner must fit every target
+- do not skip the global baseline; later trait-conditioned routing remains downstream of the same compiled benchmark IR and is documented separately in `docs/rulegen/trait_conditioned_rulegen_profiles.md`
 
 ## Hard Requirements
 
@@ -591,6 +606,7 @@ Status:
 - in progress
 - first batch-oriented slice is landed for canonical serial `en-es` sweeps:
   - serial benchmark execution now prebuilds compiled `en-es` requests/configs/filter tables/score tables once per sweep
+  - compiled score-table projection now uses `numpy` arrays and an explicit config-matrix batch projection for the current `en-es` score/ranking path while preserving benchmark-equivalent outputs
   - compiled score-table projection can now batch many configs against the same compiled candidate table before the per-run evaluation loop
   - per-run compiled evaluation now reuses prepared filter/score tables instead of rebuilding them in the hot loop
   - serial sweep preparation now also prebuilds compact compiled selected-row tables, moving row selection out of the per-config `run_config` path and avoiding full normalized-source tuple materialization for every config
@@ -613,6 +629,7 @@ Required work:
 Important boundary:
 
 - this phase should use vectorized CPU first
+- prove the dense-array model with `numpy` before making `torch` or any GPU dependency part of the active backend contract
 - do not jump to GPU before the feature-table model is proven correct
 
 Acceptance criteria:
@@ -632,6 +649,7 @@ Goal:
 
 Required work:
 
+- make the Phase 5 array model backend-neutral enough that the same config/candidate/case tables can feed either a `numpy` CPU backend or a `torch` tensor backend
 - implement a backend over the compiled benchmark IR using batched tensor execution
 - keep CPU and GPU backends behind the same sweep interface
 - restrict GPU work to parts that are truly numeric:
@@ -648,6 +666,7 @@ Acceptance criteria:
 
 - GPU backend matches compiled-reference semantics
 - GPU mode is optional and never required for correctness
+- GPU dependency remains optional until it has a real throughput win on the current compiled sweep shape
 
 ## Data Model For The Benchmark IR
 
@@ -827,11 +846,12 @@ The next implementation slice should be:
 
 1. move batched score projection one layer deeper into denser config/feature matrices rather than per-config Python objects
 2. batch case-summary reduction over the compiled row tables, now that selected-row tables can already be prepared sweep-wide
-3. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
-4. only after the compiled CPU path is table-driven end to end, decide whether adding a tensor dependency for GPU is justified
+3. emit or preserve the compact per-case/per-candidate signals needed for later trait-region winner analysis, so the same compiled benchmark substrate can later answer more than just one global-best config
+4. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
+5. only after the compiled CPU path is table-driven end to end, decide whether turning the local `torch` install into an active tensor backend is justified
 
 Why this is the right next slice:
 
 - the current warm-cache serial sweep is already exact and fast, so the remaining worthwhile work is architectural rather than cache churn
-- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, and they now use compact selected-row payloads, numeric phrase-order tie-breakers, and selected-row reuse keyed by compiled row-selection signatures instead of string sort payloads, raw confidence payloads, or score-table object identity, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
+- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, and they now use compact selected-row payloads, numeric phrase-order tie-breakers, `numpy` score projection, and selected-row reuse keyed by compiled row-selection signatures instead of string sort payloads, raw confidence payloads, or score-table object identity, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
 - it keeps CPU and future GPU work on the same compiled benchmark IR instead of creating a separate optimization path

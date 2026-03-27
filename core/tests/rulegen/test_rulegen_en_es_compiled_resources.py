@@ -18,7 +18,6 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScorer,
     materialize_rule_generation_result,
     resolve_reverse_hygiene_anchor_allowed_from_values,
-    score_rule_confidence_signals,
 )
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
@@ -45,7 +44,6 @@ from lexishift_core.rulegen.ranking import (  # noqa: E402
     resolve_effective_semantic_demotion_value,
     resolve_reverse_check_delta_from_values,
     resolve_reverse_check_strength_from_values,
-    score_dictionary_entry_order_values,
 )
 
 
@@ -694,7 +692,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             },
         )
 
-    def test_compiled_candidate_score_table_uses_direct_scalar_helpers(self) -> None:
+    def test_compiled_candidate_score_table_uses_numeric_batch_projection(self) -> None:
         records = {
             "casa": [
                 FreedictGlossRecord(
@@ -746,18 +744,6 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         with (
             patch(
-                "lexishift_core.rulegen.pairs.en_es.score_rule_confidence_signals",
-                wraps=score_rule_confidence_signals,
-            ) as score_helper,
-            patch(
-                "lexishift_core.rulegen.pairs.en_es.score_dictionary_entry_order_values",
-                wraps=score_dictionary_entry_order_values,
-            ) as ranking_helper,
-            patch(
-                "lexishift_core.rulegen.pairs.en_es.resolve_reverse_check_strength_from_values",
-                wraps=resolve_reverse_check_strength_from_values,
-            ) as reverse_strength_helper,
-            patch(
                 "lexishift_core.rulegen.pairs.en_es.resolve_reverse_hygiene_anchor_allowed_from_values",
                 wraps=resolve_reverse_hygiene_anchor_allowed_from_values,
             ) as reverse_anchor_helper,
@@ -775,9 +761,6 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
                 config=config,
             )
 
-        self.assertEqual(score_helper.call_count, len(score_table.candidate_ids))
-        self.assertEqual(ranking_helper.call_count, len(score_table.candidate_ids))
-        self.assertEqual(reverse_strength_helper.call_count, len(score_table.candidate_ids))
         self.assertEqual(reverse_anchor_helper.call_count, len(score_table.candidate_ids))
 
     def test_compiled_candidate_filter_table_matches_live_normalization_and_filters(self) -> None:

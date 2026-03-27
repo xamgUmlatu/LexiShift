@@ -5,6 +5,8 @@ from pathlib import Path
 import re
 from typing import Iterable, Mapping, Optional, Sequence
 
+import numpy as np
+
 from lexishift_core.pos.normalization import (
     CANONICAL_POS_ADPOSITION,
     CANONICAL_POS_CONJUNCTION,
@@ -20,6 +22,7 @@ from lexishift_core.rulegen.kaikki_views import build_kaikki_record_views
 from lexishift_core.rulegen.generation import (
     CandidateNormalizer,
     CandidateFilter,
+    DEFAULT_POS_COMPATIBILITY_CLASSES,
     PosMatchScoringConfig,
     RuleCandidate,
     RuleConfidenceSignals,
@@ -33,7 +36,6 @@ from lexishift_core.rulegen.generation import (
     extract_candidate_pos_canonical,
     materialize_rule_generation_result,
     resolve_reverse_hygiene_anchor_allowed_from_values,
-    score_rule_confidence_signals,
     score_candidate_pos_match,
     score_canonical_pos_pair,
 )
@@ -41,10 +43,6 @@ from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
-    resolve_effective_semantic_demotion_value,
-    resolve_reverse_check_delta_from_values,
-    resolve_reverse_check_strength_from_values,
-    score_dictionary_entry_order_values,
 )
 from lexishift_core.rulegen.pairs.en_ja import DEFAULT_STOPWORDS
 from lexishift_core.rulegen.pairs.en_es_support import (
@@ -552,6 +550,34 @@ class _EnEsCompiledScoreBatchProjection:
 
 
 @dataclass(frozen=True)
+class _EnEsCompiledScoreConfigMatrix:
+    source_dict_ids: np.ndarray
+    dict_priority: np.ndarray
+    gloss_schedule_keys: tuple[tuple[float, ...], ...]
+    pos_match_enabled: np.ndarray
+    pos_match_exact_bonus: np.ndarray
+    pos_match_compatible_bonus: np.ndarray
+    compatibility_keys: tuple[Optional[tuple[tuple[str, str], ...]], ...]
+    variant_penalty: np.ndarray
+    semantic_demotion_scale: np.ndarray
+    reverse_enabled: np.ndarray
+    reverse_match_bonus: np.ndarray
+    reverse_near_bonus: np.ndarray
+    reverse_near_rank_max: np.ndarray
+    reverse_far_hit_penalty: np.ndarray
+    reverse_miss_penalty: np.ndarray
+    reverse_exact_hit_ambiguity_threshold: np.ndarray
+    reverse_exact_hit_ambiguity_penalty: np.ndarray
+    reverse_exact_hit_specificity_bonus: np.ndarray
+    score_weight_dict_priority: np.ndarray
+    score_weight_frequency_weight: np.ndarray
+    score_weight_pos_match: np.ndarray
+    score_weight_variant_penalty: np.ndarray
+    score_weight_phrase_penalty: np.ndarray
+    overlay_rows: np.ndarray
+
+
+@dataclass(frozen=True)
 class EnEsCompiledTargetContext:
     target: str
     target_reverse_norm: str
@@ -868,6 +894,594 @@ def _build_compiled_candidate_score_tables_for_table(
     )
 
 
+def _compatibility_classes_cache_key(
+    compatibility_classes: Optional[Mapping[str, str]],
+) -> Optional[tuple[tuple[str, str], ...]]:
+    if compatibility_classes is None:
+        return None
+    return tuple(sorted((str(key), str(value)) for key, value in compatibility_classes.items()))
+
+
+def _vectorized_gloss_decay_values(
+    *,
+    gloss_indices: np.ndarray,
+    schedule: Sequence[float],
+) -> np.ndarray:
+    if not schedule:
+        return np.ones(gloss_indices.shape, dtype=np.float64)
+    schedule_array = np.asarray(tuple(float(value) for value in schedule), dtype=np.float64)
+    resolved = np.ones(gloss_indices.shape, dtype=np.float64)
+    non_negative_mask = gloss_indices >= 0
+    if np.any(non_negative_mask):
+        clamped_indices = np.clip(
+            gloss_indices[non_negative_mask],
+            0,
+            max(0, int(schedule_array.shape[0]) - 1),
+        )
+        resolved[non_negative_mask] = schedule_array[clamped_indices]
+    return resolved
+
+
+def _resolve_vectorized_pos_match_masks(
+    *,
+    source_pos_for_match: Sequence[str],
+    target_pos_canonicals: Sequence[str],
+    compatibility_classes: Optional[Mapping[str, str]],
+) -> tuple[np.ndarray, np.ndarray]:
+    source_array = np.asarray(tuple(str(pos or "") for pos in source_pos_for_match), dtype=object)
+    target_array = np.asarray(tuple(str(pos or "") for pos in target_pos_canonicals), dtype=object)
+    exact_mask = source_array == target_array
+    classes = compatibility_classes or DEFAULT_POS_COMPATIBILITY_CLASSES
+    source_class_array = np.asarray(
+        tuple(str(classes.get(str(pos), "")).strip() for pos in source_array),
+        dtype=object,
+    )
+    target_class_array = np.asarray(
+        tuple(str(classes.get(str(pos), "")).strip() for pos in target_array),
+        dtype=object,
+    )
+    compatible_mask = (source_class_array != "") & (source_class_array == target_class_array)
+    compatible_mask &= ~exact_mask
+    return exact_mask, compatible_mask
+
+
+def _vectorized_effective_semantic_demotion_values(
+    *,
+    semantic_demotion_values: np.ndarray,
+    scale: float,
+) -> np.ndarray:
+    if scale <= 0.0:
+        return np.zeros(semantic_demotion_values.shape, dtype=np.float64)
+    clipped_base = np.clip(semantic_demotion_values.astype(np.float64, copy=False), 0.0, 1.0)
+    return np.clip(clipped_base * float(scale), 0.0, 1.0)
+
+
+def _vectorized_reverse_far_hit_penalty(
+    *,
+    rank_values: np.ndarray,
+    total_values: np.ndarray,
+    penalty: float,
+) -> np.ndarray:
+    normalized_penalty = max(0.0, float(penalty))
+    if normalized_penalty <= 0.0:
+        return np.zeros(rank_values.shape, dtype=np.float64)
+    normalized_rank_values = np.maximum(rank_values.astype(np.int64, copy=False), 0)
+    resolved = np.full(rank_values.shape, normalized_penalty, dtype=np.float64)
+    scalable_mask = total_values > 1
+    if np.any(scalable_mask):
+        max_rank_values = np.maximum(
+            total_values[scalable_mask].astype(np.int64, copy=False) - 1,
+            0,
+        )
+        effective_rank_values = np.minimum(normalized_rank_values[scalable_mask], max_rank_values)
+        scalable_penalties = np.full(
+            effective_rank_values.shape, normalized_penalty, dtype=np.float64
+        )
+        valid_mask = max_rank_values > 0
+        if np.any(valid_mask):
+            scalable_penalties[valid_mask] = normalized_penalty * (
+                effective_rank_values[valid_mask] / max_rank_values[valid_mask].astype(np.float64)
+            )
+        resolved[scalable_mask] = scalable_penalties
+    return resolved
+
+
+def _vectorized_reverse_exact_hit_ambiguity_penalty(
+    *,
+    total_values: np.ndarray,
+    config: ReverseCheckScoringConfig,
+) -> np.ndarray:
+    threshold = max(0, int(config.exact_hit_ambiguity_threshold))
+    penalty = max(0.0, float(config.exact_hit_ambiguity_penalty))
+    if penalty <= 0.0 or threshold <= 0:
+        return np.zeros(total_values.shape, dtype=np.float64)
+    resolved = np.zeros(total_values.shape, dtype=np.float64)
+    overflow_mask = total_values > threshold
+    if np.any(overflow_mask):
+        overflow_values = np.maximum(
+            total_values[overflow_mask].astype(np.int64, copy=False) - threshold,
+            0,
+        )
+        scale_values = np.minimum(
+            1.0, overflow_values.astype(np.float64) / float(max(1, threshold))
+        )
+        resolved[overflow_mask] = penalty * scale_values
+    return resolved
+
+
+def _vectorized_reverse_exact_hit_specificity_bonus(
+    *,
+    total_values: np.ndarray,
+    config: ReverseCheckScoringConfig,
+) -> np.ndarray:
+    bonus = max(0.0, float(config.exact_hit_specificity_bonus))
+    if bonus <= 0.0:
+        return np.zeros(total_values.shape, dtype=np.float64)
+    normalized_totals = np.maximum(total_values.astype(np.int64, copy=False), 1)
+    return bonus / normalized_totals.astype(np.float64)
+
+
+def _build_compiled_score_config_matrix(
+    pending: Sequence[_EnEsCompiledScoreBatchProjection],
+) -> _EnEsCompiledScoreConfigMatrix:
+    return _EnEsCompiledScoreConfigMatrix(
+        source_dict_ids=np.asarray(
+            tuple(
+                int(projection.source_dict_id) if projection.source_dict_id is not None else -1
+                for projection in pending
+            ),
+            dtype=np.int64,
+        ),
+        dict_priority=np.asarray(
+            tuple(float(projection.config.dict_priority) for projection in pending),
+            dtype=np.float64,
+        ),
+        gloss_schedule_keys=tuple(
+            tuple(float(value) for value in projection.config.gloss_decay.schedule)
+            for projection in pending
+        ),
+        pos_match_enabled=np.asarray(
+            tuple(bool(projection.config.scoring.pos_match.enabled) for projection in pending),
+            dtype=np.bool_,
+        ),
+        pos_match_exact_bonus=np.asarray(
+            tuple(
+                np.clip(
+                    float(projection.config.scoring.pos_match.exact_match_bonus),
+                    0.0,
+                    1.0,
+                )
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        pos_match_compatible_bonus=np.asarray(
+            tuple(
+                np.clip(
+                    float(projection.config.scoring.pos_match.compatible_match_bonus),
+                    0.0,
+                    1.0,
+                )
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        compatibility_keys=tuple(
+            _compatibility_classes_cache_key(
+                projection.config.scoring.pos_match.compatibility_classes
+            )
+            for projection in pending
+        ),
+        variant_penalty=np.asarray(
+            tuple(float(projection.config.variant_penalty) for projection in pending),
+            dtype=np.float64,
+        ),
+        semantic_demotion_scale=np.asarray(
+            tuple(float(projection.config.semantic_demotion_scale) for projection in pending),
+            dtype=np.float64,
+        ),
+        reverse_enabled=np.asarray(
+            tuple(bool(projection.config.reverse_check.enabled) for projection in pending),
+            dtype=np.bool_,
+        ),
+        reverse_match_bonus=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.match_bonus))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        reverse_near_bonus=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.near_bonus))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        reverse_near_rank_max=np.asarray(
+            tuple(
+                max(0, int(projection.config.reverse_check.near_rank_max)) for projection in pending
+            ),
+            dtype=np.int64,
+        ),
+        reverse_far_hit_penalty=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.far_hit_penalty))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        reverse_miss_penalty=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.miss_penalty))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        reverse_exact_hit_ambiguity_threshold=np.asarray(
+            tuple(
+                max(0, int(projection.config.reverse_check.exact_hit_ambiguity_threshold))
+                for projection in pending
+            ),
+            dtype=np.int64,
+        ),
+        reverse_exact_hit_ambiguity_penalty=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.exact_hit_ambiguity_penalty))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        reverse_exact_hit_specificity_bonus=np.asarray(
+            tuple(
+                max(0.0, float(projection.config.reverse_check.exact_hit_specificity_bonus))
+                for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        score_weight_dict_priority=np.asarray(
+            tuple(float(projection.config.scoring.weights.dict_priority) for projection in pending),
+            dtype=np.float64,
+        ),
+        score_weight_frequency_weight=np.asarray(
+            tuple(
+                float(projection.config.scoring.weights.frequency_weight) for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        score_weight_pos_match=np.asarray(
+            tuple(float(projection.config.scoring.weights.pos_match) for projection in pending),
+            dtype=np.float64,
+        ),
+        score_weight_variant_penalty=np.asarray(
+            tuple(
+                float(projection.config.scoring.weights.variant_penalty) for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        score_weight_phrase_penalty=np.asarray(
+            tuple(
+                float(projection.config.scoring.weights.phrase_penalty) for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+        overlay_rows=np.asarray(
+            tuple(
+                tuple(float(value) for value in projection.overlay_rows) for projection in pending
+            ),
+            dtype=np.float64,
+        ),
+    )
+
+
+def _resolve_vectorized_frequency_weight_matrix(
+    *,
+    gloss_indices: np.ndarray,
+    gloss_schedule_keys: Sequence[tuple[float, ...]],
+) -> np.ndarray:
+    if not gloss_schedule_keys:
+        return np.zeros((0, gloss_indices.shape[0]), dtype=np.float64)
+    resolved = np.zeros((len(gloss_schedule_keys), gloss_indices.shape[0]), dtype=np.float64)
+    grouped_indices_by_schedule: dict[tuple[float, ...], list[int]] = {}
+    for index, schedule_key in enumerate(gloss_schedule_keys):
+        grouped_indices_by_schedule.setdefault(schedule_key, []).append(index)
+    for schedule_key, indices in grouped_indices_by_schedule.items():
+        resolved[np.asarray(indices, dtype=np.int64)] = _vectorized_gloss_decay_values(
+            gloss_indices=gloss_indices,
+            schedule=schedule_key,
+        )
+    return resolved
+
+
+def _resolve_vectorized_pos_match_matrix(
+    *,
+    source_pos_for_match: Sequence[str],
+    target_pos_canonicals: Sequence[str],
+    config_matrix: _EnEsCompiledScoreConfigMatrix,
+) -> np.ndarray:
+    config_count = int(config_matrix.pos_match_enabled.shape[0])
+    row_count = len(target_pos_canonicals)
+    resolved = np.zeros((config_count, row_count), dtype=np.float64)
+    enabled_indices = np.flatnonzero(config_matrix.pos_match_enabled)
+    if enabled_indices.size == 0:
+        return resolved
+    grouped_indices_by_compatibility: dict[
+        Optional[tuple[tuple[str, str], ...]],
+        list[int],
+    ] = {}
+    for index in enabled_indices.tolist():
+        grouped_indices_by_compatibility.setdefault(
+            config_matrix.compatibility_keys[index],
+            [],
+        ).append(int(index))
+    for compatibility_key, grouped_indices in grouped_indices_by_compatibility.items():
+        compatibility_classes = dict(compatibility_key) if compatibility_key is not None else None
+        exact_mask, compatible_mask = _resolve_vectorized_pos_match_masks(
+            source_pos_for_match=source_pos_for_match,
+            target_pos_canonicals=target_pos_canonicals,
+            compatibility_classes=compatibility_classes,
+        )
+        grouped_indices_array = np.asarray(grouped_indices, dtype=np.int64)
+        resolved[grouped_indices_array] = (
+            exact_mask.astype(np.float64)[None, :]
+            * config_matrix.pos_match_exact_bonus[grouped_indices_array][:, None]
+        ) + (
+            compatible_mask.astype(np.float64)[None, :]
+            * config_matrix.pos_match_compatible_bonus[grouped_indices_array][:, None]
+        )
+    return resolved
+
+
+def _vectorized_reverse_check_delta_matrix(
+    *,
+    supported_flags: np.ndarray,
+    hit_flags: np.ndarray,
+    rank_values: np.ndarray,
+    total_values: np.ndarray,
+    config_matrix: _EnEsCompiledScoreConfigMatrix,
+) -> np.ndarray:
+    config_count = int(config_matrix.reverse_enabled.shape[0])
+    row_count = int(rank_values.shape[0])
+    resolved = np.zeros((config_count, row_count), dtype=np.float64)
+    if config_count == 0 or row_count == 0:
+        return resolved
+    supported_mask = config_matrix.reverse_enabled[:, None] & supported_flags[None, :]
+    if not np.any(supported_mask):
+        return resolved
+    hit_mask = np.broadcast_to(hit_flags[None, :], (config_count, row_count))
+    rank_matrix = np.broadcast_to(rank_values[None, :], (config_count, row_count))
+    total_matrix = np.broadcast_to(total_values[None, :], (config_count, row_count))
+    supported_hit_mask = supported_mask & hit_mask
+    missing_rank_mask = supported_hit_mask & (rank_matrix < 0)
+    if np.any(missing_rank_mask):
+        resolved = np.where(
+            missing_rank_mask,
+            config_matrix.reverse_match_bonus[:, None],
+            resolved,
+        )
+    exact_hit_mask = supported_hit_mask & (rank_matrix == 0)
+    if np.any(exact_hit_mask):
+        exact_totals = np.maximum(total_matrix.astype(np.int64, copy=False), 1)
+        specificity_bonus = config_matrix.reverse_exact_hit_specificity_bonus[
+            :, None
+        ] / exact_totals.astype(np.float64)
+        ambiguity_penalty = np.where(
+            total_matrix > config_matrix.reverse_exact_hit_ambiguity_threshold[:, None],
+            config_matrix.reverse_exact_hit_ambiguity_penalty[:, None],
+            0.0,
+        )
+        resolved = np.where(
+            exact_hit_mask,
+            config_matrix.reverse_match_bonus[:, None] + specificity_bonus - ambiguity_penalty,
+            resolved,
+        )
+    near_hit_mask = supported_hit_mask & (rank_matrix > 0)
+    near_hit_mask &= rank_matrix <= config_matrix.reverse_near_rank_max[:, None]
+    if np.any(near_hit_mask):
+        resolved = np.where(
+            near_hit_mask,
+            config_matrix.reverse_near_bonus[:, None],
+            resolved,
+        )
+    far_hit_mask = supported_hit_mask & (rank_matrix > config_matrix.reverse_near_rank_max[:, None])
+    if np.any(far_hit_mask):
+        max_rank_values = np.maximum(total_matrix.astype(np.int64, copy=False) - 1, 0)
+        effective_rank_values = np.minimum(
+            rank_matrix.astype(np.int64, copy=False),
+            max_rank_values,
+        )
+        strength_values = np.ones(resolved.shape, dtype=np.float64)
+        valid_mask = far_hit_mask & (max_rank_values > 0)
+        if np.any(valid_mask):
+            strength_values[valid_mask] = np.clip(
+                1.0
+                - (
+                    effective_rank_values[valid_mask]
+                    / max_rank_values[valid_mask].astype(np.float64)
+                ),
+                0.0,
+                1.0,
+            )
+        far_hit_penalties = config_matrix.reverse_far_hit_penalty[:, None] * strength_values
+        resolved = np.where(far_hit_mask, -far_hit_penalties, resolved)
+    miss_mask = supported_mask & (~hit_mask)
+    if np.any(miss_mask):
+        resolved = np.where(
+            miss_mask,
+            -config_matrix.reverse_miss_penalty[:, None],
+            resolved,
+        )
+    return resolved
+
+
+def _vectorized_reverse_check_strength_matrix(
+    *,
+    supported_flags: np.ndarray,
+    hit_flags: np.ndarray,
+    rank_values: np.ndarray,
+    total_values: np.ndarray,
+    config_matrix: _EnEsCompiledScoreConfigMatrix,
+) -> np.ndarray:
+    config_count = int(config_matrix.reverse_enabled.shape[0])
+    row_count = int(rank_values.shape[0])
+    resolved = np.full((config_count, row_count), np.nan, dtype=np.float64)
+    if config_count == 0 or row_count == 0:
+        return resolved
+    supported_mask = np.broadcast_to(
+        supported_flags[None, :],
+        (config_count, row_count),
+    )
+    if not np.any(supported_mask):
+        return resolved
+    hit_mask = np.broadcast_to(hit_flags[None, :], (config_count, row_count))
+    rank_matrix = np.broadcast_to(rank_values[None, :], (config_count, row_count))
+    total_matrix = np.broadcast_to(total_values[None, :], (config_count, row_count))
+    resolved[supported_mask & (~hit_mask)] = 0.0
+    exact_hit_mask = supported_mask & hit_mask & ((rank_matrix < 0) | (rank_matrix == 0))
+    if np.any(exact_hit_mask):
+        resolved[exact_hit_mask] = 1.0
+    ranked_hit_mask = supported_mask & hit_mask & (rank_matrix > 0)
+    if not np.any(ranked_hit_mask):
+        return resolved
+    multi_total_mask = ranked_hit_mask & (total_matrix > 1)
+    if np.any(multi_total_mask):
+        max_rank_values = np.maximum(total_matrix.astype(np.int64, copy=False) - 1, 0)
+        effective_rank_values = np.minimum(
+            rank_matrix.astype(np.int64, copy=False),
+            max_rank_values,
+        )
+        strength_values = np.ones(resolved.shape, dtype=np.float64)
+        valid_mask = multi_total_mask & (max_rank_values > 0)
+        if np.any(valid_mask):
+            strength_values[valid_mask] = np.clip(
+                1.0
+                - (
+                    effective_rank_values[valid_mask]
+                    / max_rank_values[valid_mask].astype(np.float64)
+                ),
+                0.0,
+                1.0,
+            )
+        resolved[multi_total_mask] = strength_values[multi_total_mask]
+    fallback_mask = ranked_hit_mask & (~multi_total_mask)
+    if np.any(fallback_mask):
+        fallback_strengths = np.where(
+            rank_matrix <= config_matrix.reverse_near_rank_max[:, None],
+            0.75,
+            0.25,
+        )
+        resolved[fallback_mask] = fallback_strengths[fallback_mask]
+    return resolved
+
+
+def _vectorized_reverse_check_delta_values(
+    *,
+    supported_flags: np.ndarray,
+    hit_flags: np.ndarray,
+    rank_values: np.ndarray,
+    total_values: np.ndarray,
+    config: ReverseCheckScoringConfig,
+) -> np.ndarray:
+    resolved = np.zeros(rank_values.shape, dtype=np.float64)
+    if not bool(config.enabled):
+        return resolved
+    supported_mask = supported_flags.astype(bool, copy=False)
+    if not np.any(supported_mask):
+        return resolved
+    hit_mask = hit_flags.astype(bool, copy=False)
+    supported_hit_mask = supported_mask & hit_mask
+    match_bonus = max(0.0, float(config.match_bonus))
+    near_bonus = max(0.0, float(config.near_bonus))
+    near_rank_max = max(0, int(config.near_rank_max))
+    missing_rank_mask = supported_hit_mask & (rank_values < 0)
+    if np.any(missing_rank_mask) and match_bonus > 0.0:
+        resolved[missing_rank_mask] = match_bonus
+    exact_hit_mask = supported_hit_mask & (rank_values == 0)
+    if np.any(exact_hit_mask):
+        exact_totals = total_values[exact_hit_mask]
+        resolved[exact_hit_mask] = (
+            match_bonus
+            + _vectorized_reverse_exact_hit_specificity_bonus(
+                total_values=exact_totals,
+                config=config,
+            )
+            - _vectorized_reverse_exact_hit_ambiguity_penalty(
+                total_values=exact_totals,
+                config=config,
+            )
+        )
+    near_hit_mask = supported_hit_mask & (rank_values > 0) & (rank_values <= near_rank_max)
+    if np.any(near_hit_mask) and near_bonus > 0.0:
+        resolved[near_hit_mask] = near_bonus
+    far_hit_penalty = max(0.0, float(config.far_hit_penalty))
+    far_hit_mask = supported_hit_mask & (rank_values > near_rank_max)
+    if np.any(far_hit_mask) and far_hit_penalty > 0.0:
+        resolved[far_hit_mask] = -_vectorized_reverse_far_hit_penalty(
+            rank_values=rank_values[far_hit_mask],
+            total_values=total_values[far_hit_mask],
+            penalty=far_hit_penalty,
+        )
+    miss_penalty = max(0.0, float(config.miss_penalty))
+    miss_mask = supported_mask & (~hit_mask)
+    if np.any(miss_mask) and miss_penalty > 0.0:
+        resolved[miss_mask] = -miss_penalty
+    return resolved
+
+
+def _vectorized_reverse_check_strength_values(
+    *,
+    supported_flags: np.ndarray,
+    hit_flags: np.ndarray,
+    rank_values: np.ndarray,
+    total_values: np.ndarray,
+    config: ReverseCheckScoringConfig,
+) -> np.ndarray:
+    resolved = np.full(rank_values.shape, np.nan, dtype=np.float64)
+    supported_mask = supported_flags.astype(bool, copy=False)
+    if not np.any(supported_mask):
+        return resolved
+    hit_mask = hit_flags.astype(bool, copy=False)
+    resolved[supported_mask & (~hit_mask)] = 0.0
+    exact_hit_mask = supported_mask & hit_mask & ((rank_values < 0) | (rank_values == 0))
+    if np.any(exact_hit_mask):
+        resolved[exact_hit_mask] = 1.0
+    ranked_hit_mask = supported_mask & hit_mask & (rank_values > 0)
+    if not np.any(ranked_hit_mask):
+        return resolved
+    multi_total_mask = ranked_hit_mask & (total_values > 1)
+    if np.any(multi_total_mask):
+        max_rank_values = np.maximum(
+            total_values[multi_total_mask].astype(np.int64, copy=False) - 1,
+            0,
+        )
+        effective_rank_values = np.minimum(
+            rank_values[multi_total_mask].astype(np.int64, copy=False),
+            max_rank_values,
+        )
+        strength_values = np.ones(effective_rank_values.shape, dtype=np.float64)
+        valid_mask = max_rank_values > 0
+        if np.any(valid_mask):
+            strength_values[valid_mask] = np.clip(
+                1.0
+                - (
+                    effective_rank_values[valid_mask]
+                    / max_rank_values[valid_mask].astype(np.float64)
+                ),
+                0.0,
+                1.0,
+            )
+        resolved[multi_total_mask] = strength_values
+    fallback_mask = ranked_hit_mask & (~multi_total_mask)
+    if np.any(fallback_mask):
+        near_rank_max = max(0, int(config.near_rank_max))
+        resolved[fallback_mask] = np.where(
+            rank_values[fallback_mask] <= near_rank_max,
+            0.75,
+            0.25,
+        )
+    return resolved
+
+
 def _materialize_compiled_candidate_score_table_batch(
     *,
     compiled_resources: EnEsCompiledResources,
@@ -876,6 +1490,7 @@ def _materialize_compiled_candidate_score_table_batch(
 ) -> None:
     if not pending:
         return
+    config_matrix = _build_compiled_score_config_matrix(pending)
     candidate_ids = tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids)
     target_ids = tuple(int(target_id) for target_id in candidate_table.target_ids)
     definition_bucket_ids = tuple(
@@ -889,10 +1504,6 @@ def _materialize_compiled_candidate_score_table_batch(
     normalized_source_phrase_order_ids = tuple(
         int(order_id) for order_id in candidate_table.normalized_source_phrase_order_ids
     )
-    source_dict_ids = tuple(
-        int(source_dict_id) for source_dict_id in candidate_table.source_dict_ids
-    )
-    gloss_indices = tuple(int(gloss_index) for gloss_index in candidate_table.gloss_indices)
     source_pos_canonicals = tuple(
         str(source_pos or "") for source_pos in candidate_table.source_pos_canonicals
     )
@@ -902,161 +1513,194 @@ def _materialize_compiled_candidate_score_table_batch(
     target_pos_canonicals = tuple(
         str(target_pos or "") for target_pos in candidate_table.target_pos_canonicals
     )
-    variant_flags = tuple(bool(flag) for flag in candidate_table.variant_flags)
-    phrase_penalty_values_by_row = tuple(
-        1.0 if " " in str(normalized_source_phrase or "") else 0.0
-        for normalized_source_phrase in normalized_source_phrases
+    row_count = len(candidate_ids)
+    source_dict_ids_array = np.asarray(candidate_table.source_dict_ids, dtype=np.int64)
+    gloss_indices_array = np.asarray(candidate_table.gloss_indices, dtype=np.int64)
+    variant_flags_array = np.asarray(candidate_table.variant_flags, dtype=np.bool_)
+    phrase_penalty_values_by_row = np.asarray(
+        tuple(
+            1.0 if " " in str(normalized_source_phrase or "") else 0.0
+            for normalized_source_phrase in normalized_source_phrases
+        ),
+        dtype=np.float64,
     )
-    reverse_check_supported_flags = tuple(
-        bool(flag) for flag in candidate_table.reverse_check_supported_flags
+    reverse_check_supported_flags = np.asarray(
+        candidate_table.reverse_check_supported_flags,
+        dtype=np.bool_,
     )
-    reverse_check_hit_flags = tuple(bool(flag) for flag in candidate_table.reverse_check_hit_flags)
-    reverse_check_rank_values = tuple(
-        int(reverse_check_rank) for reverse_check_rank in candidate_table.reverse_check_rank_values
+    reverse_check_hit_flags = np.asarray(candidate_table.reverse_check_hit_flags, dtype=np.bool_)
+    reverse_check_rank_values = np.asarray(
+        candidate_table.reverse_check_rank_values, dtype=np.int64
     )
-    reverse_check_total_values = tuple(
-        int(reverse_check_total)
-        for reverse_check_total in candidate_table.reverse_check_total_values
+    reverse_check_total_values = np.asarray(
+        candidate_table.reverse_check_total_values,
+        dtype=np.int64,
     )
-    reverse_hygiene_anchor_allowed_flags_by_row = tuple(
-        resolve_reverse_hygiene_anchor_allowed_from_values(
-            hit=reverse_check_hit_flags[row_id],
-            rank=(
-                reverse_check_rank_values[row_id]
-                if reverse_check_rank_values[row_id] >= 0
-                else None
-            ),
-            total=reverse_check_total_values[row_id],
+    reverse_hygiene_anchor_allowed_flags_by_row = np.asarray(
+        tuple(
+            resolve_reverse_hygiene_anchor_allowed_from_values(
+                hit=bool(reverse_check_hit_flags[row_id]),
+                rank=(
+                    int(reverse_check_rank_values[row_id])
+                    if int(reverse_check_rank_values[row_id]) >= 0
+                    else None
+                ),
+                total=int(reverse_check_total_values[row_id]),
+            )
+            for row_id in range(row_count)
+        ),
+        dtype=np.bool_,
+    )
+    normalized_source_phrase_order_ids_array = np.asarray(
+        normalized_source_phrase_order_ids,
+        dtype=np.int64,
+    )
+    phrase_penalty_values_tuple = tuple(
+        float(value) for value in phrase_penalty_values_by_row.tolist()
+    )
+    reverse_hygiene_anchor_allowed_flags_tuple = tuple(
+        bool(value) for value in reverse_hygiene_anchor_allowed_flags_by_row.tolist()
+    )
+    base_gloss_score_values = np.zeros(row_count, dtype=np.float64)
+    non_negative_gloss_mask = gloss_indices_array >= 0
+    if np.any(non_negative_gloss_mask):
+        base_gloss_score_values[non_negative_gloss_mask] = 1.0 / (
+            1.0 + gloss_indices_array[non_negative_gloss_mask].astype(np.float64)
         )
-        for row_id in range(len(candidate_ids))
+    source_pos_for_match = tuple(
+        source_pos or dictionary_pos
+        for source_pos, dictionary_pos in zip(
+            source_pos_canonicals,
+            dictionary_pos_canonicals,
+        )
     )
-    for row_id in range(len(candidate_ids)):
-        source_dict_id = source_dict_ids[row_id]
-        gloss_index = gloss_indices[row_id]
-        gloss_index_or_none = gloss_index if gloss_index >= 0 else None
-        source_pos = source_pos_canonicals[row_id]
-        dictionary_pos = dictionary_pos_canonicals[row_id]
-        source_pos_for_match = source_pos or dictionary_pos
-        target_pos = target_pos_canonicals[row_id]
-        variant_flag = variant_flags[row_id]
-        phrase_penalty = phrase_penalty_values_by_row[row_id]
-        reverse_check_supported = reverse_check_supported_flags[row_id]
-        reverse_check_hit = reverse_check_hit_flags[row_id]
-        reverse_check_rank_raw = reverse_check_rank_values[row_id]
-        reverse_check_rank = reverse_check_rank_raw if reverse_check_rank_raw >= 0 else None
-        reverse_check_total = reverse_check_total_values[row_id]
-        reverse_hygiene_anchor_allowed = reverse_hygiene_anchor_allowed_flags_by_row[row_id]
-        normalized_source_phrase_order_id = normalized_source_phrase_order_ids[row_id]
-        for projection in pending:
-            config = projection.config
-            dict_priority = (
-                float(config.dict_priority)
-                if projection.source_dict_id is not None
-                and source_dict_id == projection.source_dict_id
-                else 0.0
+    dict_priority_matrix = np.where(
+        source_dict_ids_array[None, :] == config_matrix.source_dict_ids[:, None],
+        config_matrix.dict_priority[:, None],
+        0.0,
+    )
+    dict_priority_matrix[config_matrix.source_dict_ids < 0] = 0.0
+    frequency_weight_matrix = _resolve_vectorized_frequency_weight_matrix(
+        gloss_indices=gloss_indices_array,
+        gloss_schedule_keys=config_matrix.gloss_schedule_keys,
+    )
+    pos_match_matrix = _resolve_vectorized_pos_match_matrix(
+        source_pos_for_match=source_pos_for_match,
+        target_pos_canonicals=target_pos_canonicals,
+        config_matrix=config_matrix,
+    )
+    variant_penalty_matrix = (
+        variant_flags_array.astype(np.float64)[None, :] * (config_matrix.variant_penalty[:, None])
+    )
+    effective_semantic_demotion_matrix = np.clip(
+        np.clip(config_matrix.overlay_rows, 0.0, 1.0)
+        * np.clip(config_matrix.semantic_demotion_scale[:, None], 0.0, 1.0),
+        0.0,
+        1.0,
+    )
+    reverse_check_delta_matrix = _vectorized_reverse_check_delta_matrix(
+        supported_flags=reverse_check_supported_flags,
+        hit_flags=reverse_check_hit_flags,
+        rank_values=reverse_check_rank_values,
+        total_values=reverse_check_total_values,
+        config_matrix=config_matrix,
+    )
+    reverse_check_strength_matrix = _vectorized_reverse_check_strength_matrix(
+        supported_flags=reverse_check_supported_flags,
+        hit_flags=reverse_check_hit_flags,
+        rank_values=reverse_check_rank_values,
+        total_values=reverse_check_total_values,
+        config_matrix=config_matrix,
+    )
+    confidence_scores_matrix = np.clip(
+        (dict_priority_matrix * config_matrix.score_weight_dict_priority[:, None])
+        + (frequency_weight_matrix * config_matrix.score_weight_frequency_weight[:, None])
+        + (pos_match_matrix * config_matrix.score_weight_pos_match[:, None])
+        - (variant_penalty_matrix * config_matrix.score_weight_variant_penalty[:, None])
+        - (
+            phrase_penalty_values_by_row[None, :]
+            * config_matrix.score_weight_phrase_penalty[:, None]
+        ),
+        0.0,
+        1.0,
+    )
+    ranking_scores_matrix = np.broadcast_to(
+        base_gloss_score_values, confidence_scores_matrix.shape
+    ).copy()
+    demoted_mask = effective_semantic_demotion_matrix > 0.0
+    if np.any(demoted_mask):
+        ranking_scores_matrix[demoted_mask] = np.maximum(
+            0.0,
+            ranking_scores_matrix[demoted_mask]
+            * (1.0 - effective_semantic_demotion_matrix[demoted_mask]),
+        )
+    ranking_scores_matrix = np.clip(
+        ranking_scores_matrix + reverse_check_delta_matrix,
+        0.0,
+        1.0,
+    )
+    for projection_index, projection in enumerate(pending):
+        dict_priority_values = dict_priority_matrix[projection_index]
+        frequency_weight_values = frequency_weight_matrix[projection_index]
+        pos_match_values = pos_match_matrix[projection_index]
+        variant_penalty_values = variant_penalty_matrix[projection_index]
+        effective_semantic_demotion_values = effective_semantic_demotion_matrix[projection_index]
+        reverse_check_delta_values = reverse_check_delta_matrix[projection_index]
+        reverse_check_strength_values = reverse_check_strength_matrix[projection_index]
+        confidence_scores = confidence_scores_matrix[projection_index]
+        ranking_scores = ranking_scores_matrix[projection_index]
+        row_sort_keys = tuple(
+            zip(
+                (-ranking_scores).tolist(),
+                (-confidence_scores).tolist(),
+                normalized_source_phrase_order_ids_array.tolist(),
             )
-            projection.dict_priority_values.append(dict_priority)
-            if gloss_index_or_none not in projection.gloss_weight_cache:
-                projection.gloss_weight_cache[gloss_index_or_none] = float(
-                    config.gloss_decay.multiplier(gloss_index_or_none)
-                )
-            frequency_weight = projection.gloss_weight_cache[gloss_index_or_none]
-            projection.frequency_weight_values.append(frequency_weight)
-            pos_match = 0.0
-            if bool(config.scoring.pos_match.enabled):
-                pos_match_key = (source_pos_for_match, target_pos)
-                if pos_match_key not in projection.pos_match_cache:
-                    projection.pos_match_cache[pos_match_key] = score_canonical_pos_pair(
-                        source_pos_for_match,
-                        target_pos,
-                        exact_match_bonus=config.scoring.pos_match.exact_match_bonus,
-                        compatible_match_bonus=config.scoring.pos_match.compatible_match_bonus,
-                        compatibility_classes=config.scoring.pos_match.compatibility_classes,
-                    )
-                pos_match = projection.pos_match_cache[pos_match_key]
-            projection.pos_match_values.append(float(pos_match))
-            variant_penalty = float(config.variant_penalty) if variant_flag else 0.0
-            projection.variant_penalty_values.append(variant_penalty)
-            projection.phrase_penalty_values.append(phrase_penalty)
-            effective_semantic_demotion = resolve_effective_semantic_demotion_value(
-                semantic_demotion=projection.overlay_rows[row_id],
-                scale=config.semantic_demotion_scale,
-            )
-            projection.effective_semantic_demotion_values.append(effective_semantic_demotion)
-            reverse_check_delta = resolve_reverse_check_delta_from_values(
-                supported=reverse_check_supported,
-                hit=reverse_check_hit,
-                rank=reverse_check_rank,
-                total=reverse_check_total,
-                config=config.reverse_check,
-            )
-            projection.reverse_check_delta_values.append(float(reverse_check_delta))
-            reverse_check_strength = resolve_reverse_check_strength_from_values(
-                supported=reverse_check_supported,
-                hit=reverse_check_hit,
-                rank=reverse_check_rank,
-                total=reverse_check_total,
-                config=config.reverse_check,
-            )
-            projection.reverse_check_strength_values.append(reverse_check_strength)
-            projection.reverse_hygiene_anchor_allowed_flags.append(reverse_hygiene_anchor_allowed)
-            confidence = float(
-                score_rule_confidence_signals(
-                    RuleConfidenceSignals(
-                        dict_priority=dict_priority,
-                        frequency_weight=frequency_weight,
-                        pos_match=pos_match,
-                        variant_penalty=variant_penalty,
-                        phrase_penalty=phrase_penalty,
-                        embedding_score=None,
-                    ),
-                    weights=config.scoring.weights,
-                )
-            )
-            projection.confidence_scores.append(confidence)
-            ranking_score = float(
-                score_dictionary_entry_order_values(
-                    gloss_index=gloss_index_or_none,
-                    semantic_demotion=projection.overlay_rows[row_id],
-                    semantic_demotion_scale=config.semantic_demotion_scale,
-                    reverse_check_supported=reverse_check_supported,
-                    reverse_check_hit=reverse_check_hit,
-                    reverse_check_rank=reverse_check_rank,
-                    reverse_check_total=reverse_check_total,
-                    reverse_check=config.reverse_check,
-                )
-            )
-            projection.ranking_scores.append(ranking_score)
-            projection.row_sort_keys.append(
-                (
-                    -float(ranking_score),
-                    -float(confidence),
-                    int(normalized_source_phrase_order_id),
-                )
-            )
-    for projection in pending:
-        row_sort_keys = tuple(projection.row_sort_keys)
+        )
         ranked_candidate_row_ids_by_target_id = {
-            target_id: tuple(sorted(row_ids, key=row_sort_keys.__getitem__))
-            for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
+            int(target_id): tuple(
+                int(row_id)
+                for row_id in row_ids_array[
+                    np.lexsort(
+                        (
+                            normalized_source_phrase_order_ids_array[row_ids_array],
+                            -confidence_scores[row_ids_array],
+                            -ranking_scores[row_ids_array],
+                        )
+                    )
+                ].tolist()
+            )
+            for target_id, row_ids_array in (
+                (
+                    target_id,
+                    np.asarray(row_ids, dtype=np.int64),
+                )
+                for target_id, row_ids in sorted(candidate_row_ids_by_target_id.items())
+            )
         }
         score_table = EnEsCompiledCandidateScoreTable(
             candidate_ids=candidate_ids,
             target_ids=target_ids,
             definition_bucket_ids=definition_bucket_ids,
-            dict_priority_values=tuple(projection.dict_priority_values),
-            frequency_weight_values=tuple(projection.frequency_weight_values),
-            pos_match_values=tuple(projection.pos_match_values),
-            variant_penalty_values=tuple(projection.variant_penalty_values),
-            phrase_penalty_values=tuple(projection.phrase_penalty_values),
-            effective_semantic_demotion_values=tuple(projection.effective_semantic_demotion_values),
-            reverse_check_delta_values=tuple(projection.reverse_check_delta_values),
-            reverse_check_strength_values=tuple(projection.reverse_check_strength_values),
-            reverse_hygiene_anchor_allowed_flags=tuple(
-                projection.reverse_hygiene_anchor_allowed_flags
+            dict_priority_values=tuple(float(value) for value in dict_priority_values.tolist()),
+            frequency_weight_values=tuple(
+                float(value) for value in frequency_weight_values.tolist()
             ),
-            confidence_scores=tuple(projection.confidence_scores),
-            ranking_scores=tuple(projection.ranking_scores),
+            pos_match_values=tuple(float(value) for value in pos_match_values.tolist()),
+            variant_penalty_values=tuple(float(value) for value in variant_penalty_values.tolist()),
+            phrase_penalty_values=phrase_penalty_values_tuple,
+            effective_semantic_demotion_values=tuple(
+                float(value) for value in effective_semantic_demotion_values.tolist()
+            ),
+            reverse_check_delta_values=tuple(
+                float(value) for value in reverse_check_delta_values.tolist()
+            ),
+            reverse_check_strength_values=tuple(
+                None if np.isnan(value) else float(value)
+                for value in reverse_check_strength_values.tolist()
+            ),
+            reverse_hygiene_anchor_allowed_flags=reverse_hygiene_anchor_allowed_flags_tuple,
+            confidence_scores=tuple(float(value) for value in confidence_scores.tolist()),
+            ranking_scores=tuple(float(value) for value in ranking_scores.tolist()),
             row_sort_keys=row_sort_keys,
         )
         score_table = replace(
@@ -1093,13 +1737,7 @@ def _build_compiled_score_table_cache_key(
             bool(config.scoring.pos_match.enabled),
             float(config.scoring.pos_match.exact_match_bonus),
             float(config.scoring.pos_match.compatible_match_bonus),
-            (
-                tuple(
-                    sorted((str(key), str(value)) for key, value in compatibility_classes.items())
-                )
-                if compatibility_classes is not None
-                else None
-            ),
+            _compatibility_classes_cache_key(compatibility_classes),
             float(config.variant_penalty),
             float(config.semantic_demotion_scale),
             bool(config.reverse_check.enabled),
