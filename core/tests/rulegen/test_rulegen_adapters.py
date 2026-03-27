@@ -115,6 +115,26 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(rules[0].replacement, "Haus")
         generate.assert_called_once()
 
+    def test_en_de_dispatches_with_generic_translation_dict_path(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
+            ],
+        ) as generate:
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/deu-eng.tei"),
+                )
+            )
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "house")
+        self.assertEqual(rules[0].replacement, "Haus")
+        generate.assert_called_once()
+
     def test_en_de_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -218,6 +238,27 @@ class TestRulegenAdapters(unittest.TestCase):
         generate.assert_called_once()
         args, kwargs = generate.call_args
         _ = args
+        self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
+
+    def test_en_es_dispatches_with_generic_translation_paths(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        self.assertEqual(kwargs["config"].source_dict_id, "wiktionary_es_en")
         self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
 
     def test_en_es_dispatches_scoring_and_rule_caps(self) -> None:

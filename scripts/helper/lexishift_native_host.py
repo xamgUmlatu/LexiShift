@@ -239,6 +239,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         config = RulegenJobConfig(
             pair=pair,
             jmdict_path=jmdict_path,
+            translation_dict_path=freedict_de_en_path,
             freedict_de_en_path=freedict_de_en_path,
             profile_id=profile_id or "default",
             set_source_db=set_source_db,
@@ -291,6 +292,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             config=SetInitializationJobConfig(
                 pair=pair,
                 jmdict_path=jmdict_path,
+                translation_dict_path=freedict_de_en_path,
                 freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
@@ -343,6 +345,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             config=SrsRefreshJobConfig(
                 pair=pair,
                 jmdict_path=jmdict_path,
+                translation_dict_path=freedict_de_en_path,
                 freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",

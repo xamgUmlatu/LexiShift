@@ -60,6 +60,7 @@ def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfi
     return RulegenJobConfig(
         pair=pair,
         jmdict_path=jmdict_path,
+        translation_dict_path=translation_dict_path,
         freedict_de_en_path=translation_dict_path,
         set_source_db=set_source_db,
         set_top_n=config.set_top_n,

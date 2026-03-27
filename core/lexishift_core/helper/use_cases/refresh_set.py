@@ -50,11 +50,12 @@ def refresh_srs_set(
         pair=pair,
         requested_size=config.feedback_window_size,
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+    resolved_jmdict_path, resolved_translation_dict_path, resolved_set_source_db = (
         resolve_pair_resources_fn(
             paths,
             pair=pair,
             jmdict_path=config.jmdict_path,
+            translation_dict_path=getattr(config, "translation_dict_path", None),
             freedict_de_en_path=config.freedict_de_en_path,
             set_source_db=config.set_source_db,
         )
@@ -62,7 +63,7 @@ def refresh_srs_set(
     ensure_pair_requirements_fn(
         pair=pair,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_freedict_de_en_path,
+        freedict_de_en_path=resolved_translation_dict_path,
         require_frequency_db=True,
         set_source_db=resolved_set_source_db,
         check_seed_resources=True,
@@ -124,7 +125,8 @@ def refresh_srs_set(
             store=updated_store,
             settings=settings,
             jmdict_path=resolved_jmdict_path,
-            freedict_de_en_path=resolved_freedict_de_en_path,
+            translation_dict_path=resolved_translation_dict_path,
+            freedict_de_en_path=resolved_translation_dict_path,
             rulegen_config=RulegenConfig(
                 language_pair=pair,
                 confidence_threshold=effective_rulegen_tuning.confidence_threshold,

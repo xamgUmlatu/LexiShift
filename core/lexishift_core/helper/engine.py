@@ -84,6 +84,7 @@ def _reset_srs_data_use_case(*args, **kwargs):
 class RulegenJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
@@ -129,6 +130,7 @@ class RulegenJobConfig:
 class SetInitializationJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
@@ -162,6 +164,7 @@ class SetPlanningJobConfig:
 class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"

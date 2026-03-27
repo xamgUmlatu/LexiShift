@@ -36,7 +36,9 @@ class RulegenAdapterRequest:
     reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
+    reverse_translation_dict_path: Optional[Path] = None
     freedict_reverse_path: Optional[Path] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
@@ -55,6 +57,14 @@ def _is_kaikki_dictionary(path: Path | None) -> bool:
         return False
     name = path.name.strip().lower()
     return "wiktionary" in name or "kaikki" in name
+
+
+def _resolved_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
+    return request.translation_dict_path or request.freedict_de_en_path
+
+
+def _resolved_reverse_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
+    return request.reverse_translation_dict_path or request.freedict_reverse_path
 
 
 def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
@@ -78,10 +88,11 @@ def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
-    if request.freedict_de_en_path is None:
-        raise ValueError("Missing FreeDict DE->EN path for en-de rule generation.")
+    translation_dict_path = _resolved_translation_dict_path(request)
+    if translation_dict_path is None:
+        raise ValueError("Missing translation dictionary path for en-de rule generation.")
     config = EnDeRulegenConfig(
-        freedict_de_en_path=request.freedict_de_en_path,
+        freedict_de_en_path=translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         confidence_threshold=request.confidence_threshold,
@@ -99,16 +110,18 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenConfig:
-    if request.freedict_de_en_path is None:
-        raise ValueError("Missing FreeDict ES->EN path for en-es rule generation.")
+    translation_dict_path = _resolved_translation_dict_path(request)
+    reverse_translation_dict_path = _resolved_reverse_translation_dict_path(request)
+    if translation_dict_path is None:
+        raise ValueError("Missing translation dictionary path for en-es rule generation.")
     source_dict_id = "freedict_es_en"
     dictionary_pos_source_profile = "freedict"
     reverse_source_dict_id = "freedict_en_es"
     default_kaikki_policy = EnEsKaikkiPolicyConfig()
-    if _is_kaikki_dictionary(request.freedict_de_en_path):
+    if _is_kaikki_dictionary(translation_dict_path):
         source_dict_id = "wiktionary_es_en"
         dictionary_pos_source_profile = "wiktionary"
-    if _is_kaikki_dictionary(request.freedict_reverse_path):
+    if _is_kaikki_dictionary(reverse_translation_dict_path):
         reverse_source_dict_id = "wiktionary_en_es"
     compiled_resources = (
         request.compiled_pair_context
@@ -116,8 +129,8 @@ def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenCon
         else None
     )
     return EnEsRulegenConfig(
-        freedict_es_en_path=request.freedict_de_en_path,
-        reverse_freedict_en_es_path=request.freedict_reverse_path,
+        freedict_es_en_path=translation_dict_path,
+        reverse_freedict_en_es_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
@@ -156,11 +169,13 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
-    if request.freedict_de_en_path is None:
-        raise ValueError("Missing FreeDict EN->ES path for es-en rule generation.")
+    translation_dict_path = _resolved_translation_dict_path(request)
+    reverse_translation_dict_path = _resolved_reverse_translation_dict_path(request)
+    if translation_dict_path is None:
+        raise ValueError("Missing translation dictionary path for es-en rule generation.")
     config = EsEnRulegenConfig(
-        freedict_en_es_path=request.freedict_de_en_path,
-        reverse_freedict_es_en_path=request.freedict_reverse_path,
+        freedict_en_es_path=translation_dict_path,
+        reverse_freedict_es_en_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,

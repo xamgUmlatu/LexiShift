@@ -127,7 +127,7 @@ Definition of done:
 
 Status:
 
-- should follow directly after naming cleanup
+- started
 
 Goal:
 
@@ -164,6 +164,12 @@ Definition of done:
 - benchmark input resolution uses normalized translation-pack objects
 - pair adapters accept normalized translation-pack resources
 - storage/provider specifics are below the loader/resource boundary
+
+Current verified progress:
+
+- helper/runtime resolution already prefers generic `translation_dict_path`
+- adapter requests and helper job configs now accept generic `translation_dict_path`
+- legacy `freedict_*` fields remain as compatibility aliases while pair-local configs are still being normalized
 
 ## Phase 3: Generalize The Compiled Pair Boundary
 

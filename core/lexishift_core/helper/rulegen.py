@@ -334,7 +334,9 @@ def run_rulegen_for_pair(
             reverse_check=rulegen_config.reverse_check,
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
+            translation_dict_path=resolved_translation_dict_path,
             freedict_de_en_path=resolved_translation_dict_path,
+            reverse_translation_dict_path=resolved_reverse_translation_dict_path,
             freedict_reverse_path=resolved_reverse_translation_dict_path,
             word_packages_by_target=target_word_packages or None,
         )

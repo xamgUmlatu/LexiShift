@@ -563,6 +563,41 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
             self.assertEqual(run_rulegen.call_args.kwargs.get("freedict_de_en_path"), freedict_path)
 
+    def test_run_rulegen_accepts_generic_translation_dictionary_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            translation_dict_path = root / "deu-eng.tei"
+            translation_dict_path.write_text("<TEI></TEI>", encoding="utf-8")
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output("en-de")),
+            ) as run_rulegen:
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-de",
+                        jmdict_path=None,
+                        translation_dict_path=translation_dict_path,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                    ),
+                )
+
+            self.assertEqual(result["pair"], "en-de")
+            self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
+            self.assertEqual(
+                run_rulegen.call_args.kwargs.get("translation_dict_path"),
+                translation_dict_path,
+            )
+            self.assertEqual(
+                run_rulegen.call_args.kwargs.get("freedict_de_en_path"),
+                translation_dict_path,
+            )
+
     def test_initialize_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
