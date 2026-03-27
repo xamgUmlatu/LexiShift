@@ -34,7 +34,66 @@ class _StaticSource(CandidateSource):
             yield candidate
 
 
+class _WrappedRankingMechanism:
+    def __init__(self, fallback: DictionaryEntryOrderRankingMechanism) -> None:
+        self.fallback = fallback
+
+    def score(self, candidate):
+        return self.fallback.score(candidate)
+
+    def bucket_key(self, candidate):
+        return self.fallback.bucket_key(candidate)
+
+
 class TestRulegenGeneration(unittest.TestCase):
+    def test_generated_rules_preserve_compiled_rulegen_metadata(self) -> None:
+        pipeline = RuleGenerationPipeline(
+            sources=[
+                _StaticSource(
+                    [
+                        RuleCandidate(
+                            source_phrase="house",
+                            replacement="casa",
+                            language_pair="en-es",
+                            source_dict="wiktionary_es_en",
+                            metadata={
+                                "compiled_target_id": 4,
+                                "compiled_candidate_id": 12,
+                                "compiled_definition_bucket_id": 3,
+                                "compiled_source_dict_id": 0,
+                                "compiled_source_type_id": 0,
+                                "compiled_family_marker_ids": (7, 8),
+                            },
+                        )
+                    ]
+                )
+            ]
+        )
+
+        results = pipeline.generate_results(
+            ["casa"],
+            config=RuleGenerationConfig(
+                language_pair="en-es",
+                max_definitions_per_target=3,
+            ),
+        )
+
+        self.assertEqual(len(results), 1)
+        metadata = results[0].rule.metadata
+        self.assertIsNotNone(metadata)
+        assert metadata is not None
+        self.assertEqual(
+            metadata.rulegen,
+            {
+                "compiled_target_id": 4,
+                "compiled_candidate_id": 12,
+                "compiled_definition_bucket_id": 3,
+                "compiled_source_dict_id": 0,
+                "compiled_source_type_id": 0,
+                "compiled_family_marker_ids": (7, 8),
+            },
+        )
+
     def test_interleave_definition_groups_round_robins_selected_buckets(self) -> None:
         pipeline = RuleGenerationPipeline(
             sources=[
@@ -209,6 +268,76 @@ class TestRulegenGeneration(unittest.TestCase):
                     miss_penalty=0.8,
                 )
             ),
+        )
+        results = pipeline.generate_results(
+            ["banco"],
+            config=RuleGenerationConfig(
+                language_pair="en-es",
+                max_definitions_per_target=3,
+            ),
+        )
+        self.assertEqual(
+            [result.candidate.source_phrase for result in results],
+            ["bench", "bank"],
+        )
+
+    def test_reverse_hygiene_works_through_ranking_wrapper(self) -> None:
+        fallback = DictionaryEntryOrderRankingMechanism(
+            reverse_check=ReverseCheckScoringConfig(
+                enabled=True,
+                match_bonus=0.6,
+                near_bonus=0.1,
+                near_rank_max=2,
+                far_hit_penalty=0.05,
+                miss_penalty=0.8,
+            )
+        )
+        pipeline = RuleGenerationPipeline(
+            sources=[
+                _StaticSource(
+                    [
+                        RuleCandidate(
+                            source_phrase="bank",
+                            replacement="banco",
+                            language_pair="en-es",
+                            source_dict="freedict_es_en",
+                            metadata={
+                                "gloss_index": 0,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": True,
+                                "reverse_check_rank": 3,
+                                "reverse_check_total": 24,
+                            },
+                        ),
+                        RuleCandidate(
+                            source_phrase="bench",
+                            replacement="banco",
+                            language_pair="en-es",
+                            source_dict="freedict_es_en",
+                            metadata={
+                                "gloss_index": 1,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": True,
+                                "reverse_check_rank": 0,
+                                "reverse_check_total": 8,
+                            },
+                        ),
+                        RuleCandidate(
+                            source_phrase="seat",
+                            replacement="banco",
+                            language_pair="en-es",
+                            source_dict="freedict_es_en",
+                            metadata={
+                                "gloss_index": 2,
+                                "reverse_check_supported": True,
+                                "reverse_check_hit": False,
+                                "reverse_check_total": 1,
+                            },
+                        ),
+                    ]
+                )
+            ],
+            ranking_mechanism=_WrappedRankingMechanism(fallback),
         )
         results = pipeline.generate_results(
             ["banco"],

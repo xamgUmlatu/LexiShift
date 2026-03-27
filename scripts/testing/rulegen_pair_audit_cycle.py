@@ -85,6 +85,115 @@ def _summarize_triage(path: Path) -> None:
         print(f"  {index}. [{pair}] {case_id} status={status} top1={top1}")
 
 
+def _build_cycle_commands(
+    *,
+    pairs: list[str],
+    max_definitions_values: str,
+    max_rules_values: str,
+    confidence_threshold_values: str,
+    semantic_demotion_scale_values: str,
+    include_variants_values: str,
+    pos_scoring_values: str,
+    score_weight_pos_values: str,
+    reverse_enabled_values: str,
+    reverse_match_bonus_values: str,
+    reverse_near_bonus_values: str,
+    reverse_near_rank_max_values: str,
+    reverse_far_hit_penalty_values: str,
+    reverse_miss_penalty_values: str,
+    top_runs: int,
+    max_configurations: int,
+    benchmark_json: Path,
+    benchmark_markdown: Path,
+    benchmark_html: Path,
+    quality_gate_json: Path,
+    triage_json: Path,
+    triage_markdown: Path,
+    policy_json: Path,
+    baseline_json: Path,
+    pos_probe_json: Path,
+    pos_inventory_json: Path,
+) -> tuple[list[str], list[str], list[str], list[str]]:
+    benchmark_cmd = [
+        sys.executable,
+        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
+        "--pairs",
+        ",".join(pairs),
+        "--max-definitions-values",
+        str(max_definitions_values),
+        "--max-rules-values",
+        str(max_rules_values),
+        "--confidence-threshold-values",
+        str(confidence_threshold_values),
+        "--semantic-demotion-scale-values",
+        str(semantic_demotion_scale_values),
+        "--include-variants-values",
+        str(include_variants_values),
+        "--pos-scoring-values",
+        str(pos_scoring_values),
+        "--score-weight-pos-values",
+        str(score_weight_pos_values),
+        "--reverse-check-enabled-values",
+        str(reverse_enabled_values),
+        "--reverse-check-match-bonus-values",
+        str(reverse_match_bonus_values),
+        "--reverse-check-near-bonus-values",
+        str(reverse_near_bonus_values),
+        "--reverse-check-near-rank-max-values",
+        str(reverse_near_rank_max_values),
+        "--reverse-check-far-hit-penalty-values",
+        str(reverse_far_hit_penalty_values),
+        "--reverse-check-miss-penalty-values",
+        str(reverse_miss_penalty_values),
+        "--max-configurations",
+        str(int(max_configurations)),
+        "--top-runs",
+        str(int(top_runs)),
+        "--compute-only",
+        "--json-output",
+        str(benchmark_json),
+    ]
+    render_cmd = [
+        sys.executable,
+        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
+        "--render-from-json",
+        str(benchmark_json),
+        "--top-runs",
+        str(int(top_runs)),
+        "--markdown-output",
+        str(benchmark_markdown),
+        "--html-output",
+        str(benchmark_html),
+    ]
+    gate_cmd = [
+        sys.executable,
+        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_quality_gate.py"),
+        "--benchmark-json",
+        str(benchmark_json),
+        "--policy-json",
+        str(policy_json),
+        "--baseline-json",
+        str(baseline_json),
+        "--pos-probe-json",
+        str(pos_probe_json),
+        "--pos-inventory-json",
+        str(pos_inventory_json),
+        "--json-out",
+        str(quality_gate_json),
+    ]
+    triage_cmd = [
+        sys.executable,
+        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark_triage.py"),
+        "--benchmark-json",
+        str(benchmark_json),
+        "--json-out",
+        str(triage_json),
+        "--markdown-out",
+        str(triage_markdown),
+    ]
+    return benchmark_cmd, render_cmd, gate_cmd, triage_cmd
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -293,80 +402,42 @@ def main() -> None:
     if not pairs:
         raise ValueError("No pairs provided.")
 
-    benchmark_cmd = [
-        sys.executable,
-        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
-        "--pairs",
-        ",".join(pairs),
-        "--max-definitions-values",
-        str(args.max_definitions_values),
-        "--max-rules-values",
-        str(args.max_rules_values),
-        "--confidence-threshold-values",
-        str(args.confidence_threshold_values),
-        "--semantic-demotion-scale-values",
-        str(args.semantic_demotion_scale_values),
-        "--include-variants-values",
-        str(args.include_variants_values),
-        "--pos-scoring-values",
-        str(args.pos_scoring_values),
-        "--score-weight-pos-values",
-        str(args.score_weight_pos_values),
-        "--reverse-check-enabled-values",
-        reverse_enabled_values,
-        "--reverse-check-match-bonus-values",
-        reverse_match_bonus_values,
-        "--reverse-check-near-bonus-values",
-        reverse_near_bonus_values,
-        "--reverse-check-near-rank-max-values",
-        reverse_near_rank_max_values,
-        "--reverse-check-far-hit-penalty-values",
-        reverse_far_hit_penalty_values,
-        "--reverse-check-miss-penalty-values",
-        reverse_miss_penalty_values,
-        "--max-configurations",
-        str(int(args.max_configurations)),
-        "--top-runs",
-        str(int(args.top_runs)),
-        "--json-output",
-        str(args.benchmark_json),
-        "--markdown-output",
-        str(args.benchmark_markdown),
-        "--html-output",
-        str(args.benchmark_html),
-    ]
-
-    gate_cmd = [
-        sys.executable,
-        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_quality_gate.py"),
-        "--benchmark-json",
-        str(args.benchmark_json),
-        "--policy-json",
-        str(args.policy_json),
-        "--baseline-json",
-        str(args.baseline_json),
-        "--pos-probe-json",
-        str(args.pos_probe_json),
-        "--pos-inventory-json",
-        str(args.pos_inventory_json),
-        "--json-out",
-        str(args.quality_gate_json),
-    ]
-
-    triage_cmd = [
-        sys.executable,
-        str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark_triage.py"),
-        "--benchmark-json",
-        str(args.benchmark_json),
-        "--json-out",
-        str(args.triage_json),
-        "--markdown-out",
-        str(args.triage_markdown),
-    ]
+    benchmark_cmd, render_cmd, gate_cmd, triage_cmd = _build_cycle_commands(
+        pairs=pairs,
+        max_definitions_values=str(args.max_definitions_values),
+        max_rules_values=str(args.max_rules_values),
+        confidence_threshold_values=str(args.confidence_threshold_values),
+        semantic_demotion_scale_values=str(args.semantic_demotion_scale_values),
+        include_variants_values=str(args.include_variants_values),
+        pos_scoring_values=str(args.pos_scoring_values),
+        score_weight_pos_values=str(args.score_weight_pos_values),
+        reverse_enabled_values=reverse_enabled_values,
+        reverse_match_bonus_values=reverse_match_bonus_values,
+        reverse_near_bonus_values=reverse_near_bonus_values,
+        reverse_near_rank_max_values=reverse_near_rank_max_values,
+        reverse_far_hit_penalty_values=reverse_far_hit_penalty_values,
+        reverse_miss_penalty_values=reverse_miss_penalty_values,
+        top_runs=int(args.top_runs),
+        max_configurations=int(args.max_configurations),
+        benchmark_json=args.benchmark_json,
+        benchmark_markdown=args.benchmark_markdown,
+        benchmark_html=args.benchmark_html,
+        quality_gate_json=args.quality_gate_json,
+        triage_json=args.triage_json,
+        triage_markdown=args.triage_markdown,
+        policy_json=args.policy_json,
+        baseline_json=args.baseline_json,
+        pos_probe_json=args.pos_probe_json,
+        pos_inventory_json=args.pos_inventory_json,
+    )
 
     benchmark_rc = _run_command(benchmark_cmd)
     if benchmark_rc != 0:
         raise SystemExit(benchmark_rc)
+
+    render_rc = _run_command(render_cmd)
+    if render_rc != 0:
+        raise SystemExit(render_rc)
 
     gate_rc = _run_command(gate_cmd)
     triage_rc = _run_command(triage_cmd)

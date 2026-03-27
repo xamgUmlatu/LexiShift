@@ -13,6 +13,8 @@ from pathlib import Path
 
 MAIN_APP_BUNDLE = "LexiShift.app"
 HELPER_APP_BUNDLE = "LexiShift Helper.app"
+WINDOWS_MAIN_DIR = "LexiShift"
+WINDOWS_MAIN_EXE = "LexiShift.exe"
 
 
 def _resolve_repo_root() -> Path:
@@ -94,9 +96,16 @@ def _build_dmg(*, app_paths: list[Path], output_dir: Path, volume_name: str, dmg
 
 
 def _find_windows_distribution(dist_dir: Path) -> tuple[Path, Path]:
+    preferred_main = dist_dir / WINDOWS_MAIN_DIR / WINDOWS_MAIN_EXE
+    if preferred_main.exists():
+        return preferred_main, dist_dir
     candidates = sorted(dist_dir.glob("*.exe"))
     if candidates:
-        return candidates[0], dist_dir
+        preferred = next(
+            (candidate for candidate in candidates if candidate.name == WINDOWS_MAIN_EXE),
+            candidates[0],
+        )
+        return preferred, dist_dir
     sub_candidates: list[tuple[Path, Path]] = []
     for child in dist_dir.iterdir():
         if not child.is_dir():
@@ -160,12 +169,31 @@ def _notarize_macos(dmg_path: Path, apple_id: str, team_id: str, password: str) 
 
 def _ensure_iscc() -> str:
     exe = shutil.which("iscc")
-    if not exe:
-        raise SystemExit(
-            "Inno Setup compiler (iscc) not found in PATH.\n"
-            "Install Inno Setup and ensure iscc.exe is available on PATH."
-        )
-    return exe
+    if exe:
+        return exe
+    candidates = [
+        Path.home() / "AppData" / "Local" / "Programs" / "Inno Setup 6" / "ISCC.exe",
+        Path.home() / "AppData" / "Local" / "Programs" / "Inno Setup 7" / "ISCC.exe",
+        Path(os.environ.get("ProgramFiles(x86)", "")) / "Inno Setup 6" / "ISCC.exe",
+        Path(os.environ.get("ProgramFiles(x86)", "")) / "Inno Setup 7" / "ISCC.exe",
+        Path(os.environ.get("ProgramFiles", "")) / "Inno Setup 6" / "ISCC.exe",
+        Path(os.environ.get("ProgramFiles", "")) / "Inno Setup 7" / "ISCC.exe",
+    ]
+    for candidate in candidates:
+        if str(candidate).strip() and candidate.exists():
+            return str(candidate)
+    raise SystemExit(
+        "Inno Setup compiler (iscc) not found.\n"
+        "Install Inno Setup or add ISCC.exe to PATH."
+    )
+
+
+def _path_is_within(path: Path, root: Path) -> bool:
+    try:
+        path.resolve().relative_to(root.resolve())
+        return True
+    except ValueError:
+        return False
 
 
 def _build_windows_installer(
@@ -177,6 +205,11 @@ def _build_windows_installer(
     app_version: str,
 ) -> Path:
     exe_path, content_dir = _find_windows_distribution(dist_dir)
+    if _path_is_within(output_dir, content_dir):
+        raise SystemExit(
+            f"Installer output directory must be outside the dist directory: {output_dir}"
+        )
+    relative_exe_path = exe_path.relative_to(content_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     iscc = _ensure_iscc()
     iss_path = repo_root / "apps" / "gui" / "packaging" / "installer_windows.iss"
@@ -184,7 +217,7 @@ def _build_windows_installer(
         iscc,
         f"/DAppName={app_name}",
         f"/DAppVersion={app_version}",
-        f"/DAppExeName={exe_path.name}",
+        f"/DAppExePath={str(relative_exe_path)}",
         f"/DDistDir={str(content_dir)}",
         f"/DOutputDir={str(output_dir)}",
         str(iss_path),
@@ -235,7 +268,7 @@ def main() -> int:
     default_spec = repo_root / "apps" / "gui" / "packaging" / "pyinstaller.spec"
     default_dist = repo_root / "apps" / "gui" / "dist"
     default_build = repo_root / "apps" / "gui" / "build"
-    default_output = repo_root / "apps" / "gui" / "dist" / "installers"
+    default_output = repo_root / "apps" / "gui" / "installers"
 
     parser = argparse.ArgumentParser(description="Build platform installers for LexiShift.")
     parser.add_argument("--spec", default=str(default_spec), help="Path to the PyInstaller spec file.")

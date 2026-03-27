@@ -33,7 +33,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-02-24`
-- Last verified: `2026-03-26` local benchmark/gate/triage refresh + portable bundle replay
+- Last verified: `2026-03-27` local benchmark/gate/triage refresh + portable bundle replay
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
@@ -57,9 +57,36 @@ Use this file when:
 - Known gaps:
   - Current `docs/test_outputs/rulegen_quality_gate_latest.json` has FAIL findings for `en-es` quality floor and delta budget.
   - Recommended pairs (`en-ja`, `en-de`, `es-en`) are still advisory rather than hard-gated.
-  - Current quality-gate output also shows saturation warnings for `en-es`.
+  - Cross-machine benchmark artifacts can preserve source-machine absolute dataset paths; the gate now falls back to the repo-local dataset copy when the original path is unavailable.
   - Artifact history and pair inference still depend on wrapper usage rather than a mandatory repo-wide gate.
   - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, they now record the effective per-target `word_package` snapshot used by the run, the benchmark CLI now supports named preset methodologies from `docs/test_inputs/rulegen_benchmark_presets.json`, and portable bundle export/replay now packages the exact dataset/resources/snapshots for cross-machine reruns; the remaining ergonomic gap is optional single-file archive/import support.
+
+## Rulegen Benchmark Optimization Architecture
+
+- Status: `planned`
+- Last documented checkpoint: `2026-03-27`
+- Last verified: `2026-03-27` code-path inspection of current benchmark runner and `en-es` rulegen hot path
+- Default behavior:
+  - Not yet implemented.
+  - Planned direction is a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture.
+  - Early execution slices are expected to be:
+    - timing/profiling instrumentation
+    - pair-context caching
+    - multiprocess config execution
+  - Later slices are expected to be:
+    - compiled benchmark IR
+    - vectorized CPU backend
+    - optional GPU backend only after the sweep has been converted into a genuinely numeric feature-table problem
+- Evidence:
+  - `docs/developer/rulegen_benchmark_optimization_plan.md`
+  - `scripts/testing/rulegen_benchmark.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/rulegen/generation.py`
+  - `core/lexishift_core/rulegen/pairs/en_es.py`
+- Known gaps:
+  - Current benchmark execution is still serial over configs.
+  - Current `en-es` path still reloads dictionary resources through pair config resolution unless pre-supplied.
+  - Current active `en-es` benchmark path does not have a real GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by branchy Python and SQLite-backed preprocessing.
 
 ## Rulegen Auto Audit Wrapper
 

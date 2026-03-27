@@ -1,0 +1,737 @@
+# Rulegen Benchmark Optimization Plan
+
+Status: active implementation plan
+Role: planning / architecture
+Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution.
+Last updated: 2026-03-27
+Last verified: 2026-03-27
+Source-of-truth: planning doc only; executable truth still lives in code, tests, presets, and dated benchmark artifacts.
+
+## Scope
+
+This document covers the benchmark/test stack rooted in:
+
+- `scripts/testing/rulegen_benchmark.py`
+- `scripts/testing/rulegen_benchmark_bundle.py`
+- `scripts/testing/rulegen_quality_gate.py`
+- `scripts/testing/rulegen_benchmark_triage.py`
+- `core/lexishift_core/rulegen/adapters.py`
+- `core/lexishift_core/rulegen/generation.py`
+- `core/lexishift_core/rulegen/pairs/en_es.py`
+
+Primary target:
+
+- accelerate the canonical `en-es` benchmark loop without changing benchmark semantics
+
+Secondary targets:
+
+- improve repeatability and observability of benchmark performance
+- split compute from artifact materialization
+- create an architecture that can later support vectorized CPU execution and optional GPU execution
+
+Current methodology constraint:
+
+- keep the current named preset methodology as the default benchmark surface
+- do not broaden dictionary-combination search beyond the current preset unless a later planning doc explicitly changes benchmark methodology
+
+## Current Starting Point
+
+Current canonical `en-es` benchmark state:
+
+- current reported case count: `57`
+- current reported run count: `144`
+- current best objective: `129.474`
+- current best config:
+  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+
+Current canonical preset dimensions:
+
+- `var`: `true,false`
+- `pos`: `true,false`
+- `rev`: `false,true`
+- `xspec`: `0.0,0.1,0.2`
+- `kdem`: `false,true`
+- `kprov`: `0.0,0.1,0.2`
+
+Everything else in the canonical preset is intentionally fixed.
+
+Current benchmark objective:
+
+- `+100 * Top1`
+- `+60 * Top3`
+- `-120 * ForbidTop1`
+- `-80 * ForbidAny`
+- `-6 * AvgRulesPerTarget`
+- `-10 * VariantTop1`
+
+Current implementation shape:
+
+- benchmark runner supports serial or CPU-multiprocess config execution
+- pair contexts now preload reusable resources before config evaluation
+- `en-es` config evaluation now reuses compiled pair resources when available
+- current active `en-es` path is CPU-oriented:
+  - SQLite-backed dictionaries
+  - string normalization and filtering
+  - POS compatibility scoring
+  - reverse-check scoring
+  - Kaikki provenance and family metadata
+  - ranking and reduction
+- current active `en-es` path does **not** have a real GPU-heavy embedding or neural-reranker dependency
+
+## Hard Requirements
+
+These are non-negotiable:
+
+1. no optimization may silently change benchmark semantics
+2. no optimization may change the canonical preset search space unless benchmark methodology is deliberately revised
+3. optimized mode must produce benchmark-equivalent outputs to the current serial engine
+4. reproducibility must improve, not degrade
+5. early optimization phases must not be throwaway work
+6. the architecture must converge toward a better final engine, not just a faster script
+
+## Equivalence Contract
+
+For this plan, "equivalent" means:
+
+- same dataset interpretation
+- same resolved resources
+- same per-target `word_package` inputs
+- same config labels
+- same case-level rule ordering, unless a documented tie-normalization rule says otherwise
+- same per-run summary metrics
+- same benchmark objective score
+- same best-run selection under stable sort rules
+- same downstream quality-gate and triage conclusions for the same benchmark payload
+
+If exact byte-for-byte artifact identity becomes impossible after refactor, the replacement must still satisfy:
+
+- same semantic content
+- stable deterministic serialization
+- explicit migration note
+- golden tests covering the new canonical artifact shape
+
+## Optimization Principles
+
+The optimization program follows these rules:
+
+1. optimize repeated work before optimizing arithmetic
+2. separate one-time compilation work from repeated sweep work
+3. optimize for determinism before raw throughput
+4. preserve architecture seams that enable later vectorization
+5. treat CPU multiprocessing as the first acceleration tier
+6. treat GPU execution as a later backend, not as a special-case rewrite
+
+## End-State Architecture
+
+The target architecture is a three-stage benchmark engine:
+
+1. compile stage
+2. sweep stage
+3. materialization stage
+
+### 1. Compile Stage
+
+Purpose:
+
+- convert dataset + resources + pair state into a frozen benchmark intermediate representation
+
+Inputs:
+
+- benchmark dataset
+- resolved dictionary resources
+- reverse dictionary resources
+- pair-local `word_package` snapshot
+- pair capability metadata
+- canonical preset metadata
+
+Outputs:
+
+- benchmark IR for each pair
+
+The IR should contain:
+
+- target table
+- case table
+- candidate table
+- static candidate metadata
+- feature matrix or equivalent feature tables
+- definition-bucket identifiers
+- reverse-check raw facts
+- Kaikki family and provenance facts
+- label masks for expected and forbidden outcomes
+- reproducibility metadata:
+  - dataset hash
+  - resource paths
+  - resource checksums
+  - preset id
+  - compile version
+
+Design rule:
+
+- all CPU-heavy parsing and structural normalization that does not depend on sweep weights belongs here
+
+### 2. Sweep Stage
+
+Purpose:
+
+- evaluate many configs against the compiled IR
+
+Inputs:
+
+- benchmark IR
+- config matrix
+- benchmark objective weights
+
+Outputs:
+
+- run summaries
+- optional retained case-level details
+- optional retained candidate-level diagnostics for selected runs
+
+Backend policy:
+
+- initial backend: cached CPU serial / multiprocess
+- second backend: vectorized CPU
+- later backend: optional GPU
+
+Design rule:
+
+- a config should be expressible as data wherever possible
+
+### 3. Materialization Stage
+
+Purpose:
+
+- render benchmark JSON / markdown / HTML and downstream gate / triage surfaces from raw computed runs
+
+Inputs:
+
+- run summaries
+- selected case-level details
+- benchmark IR metadata
+
+Outputs:
+
+- benchmark JSON
+- benchmark markdown
+- benchmark HTML
+- quality gate artifacts
+- triage artifacts
+
+Design rule:
+
+- report generation must not force recomputation of benchmark runs
+
+## Why The Early Work Is Not Throwaway
+
+The first implementation slices must directly support the final architecture:
+
+- resource caching becomes the compile stage's first concrete form
+- config multiprocessing becomes the first sweep executor
+- timing instrumentation remains useful after every future refactor
+- separation of compute from reporting is required by the final architecture
+- precomputed candidate inventories become the basis of the benchmark IR
+
+Nothing in the first three phases should be discarded later. At worst, it should be moved behind cleaner interfaces.
+
+## Phase Plan
+
+### Phase 0: Benchmark Equivalence And Profiling
+
+Status:
+
+- in progress
+- benchmark timing instrumentation is implemented in `scripts/testing/rulegen_benchmark.py`
+- optional `--timing-json-output` is implemented
+- targeted dev coverage exists for timing aggregation and render-timing propagation
+
+Goal:
+
+- make current performance measurable
+- freeze correctness expectations before acceleration
+
+Required work:
+
+- add timing instrumentation to benchmark execution:
+  - resource resolution
+  - dictionary loading
+  - candidate generation
+  - scoring/ranking
+  - case evaluation
+  - summary generation
+  - HTML/markdown rendering
+- add an optional timing JSON artifact
+- add golden tests for:
+  - best config label
+  - objective score
+  - per-case summary behavior
+  - triage and gate equivalence on the same benchmark payload
+
+Acceptance criteria:
+
+- optimized and baseline modes can be compared by timing and correctness
+- there is a stable benchmark-equivalence test surface
+
+### Phase 1: Pair-Context Caching
+
+Status:
+
+- in progress
+- reusable `PairBenchmarkContext` is implemented
+- forward/reverse translation gloss records are preloaded once per pair and threaded through the adapter seam
+- per-pair `word_package` snapshots are built once and reused across configs
+- benchmark preload now target-scopes the forward translation-record load for canonical pair contexts instead of loading the whole forward dictionary into grouped record objects
+- benchmark preload now restores benchmark-equivalent global `gloss_base_forms` through a lightweight full-dictionary translation scan, so `en-es` inflection-artifact behavior stays identical while the heavy record load shrinks
+
+Goal:
+
+- eliminate repeated one-time setup work during the sweep
+
+Required work:
+
+- build a reusable pair benchmark context object
+- preload and cache once per pair:
+  - forward gloss records
+  - reverse gloss records
+  - reverse lookup structures
+  - normalized gloss mappings
+  - base-form inventories for inflection filtering
+  - frozen `word_package` snapshot
+- plumb preloaded structures into `en-es` rulegen instead of reloading from disk per config
+
+Important boundary:
+
+- this phase must not yet change scoring semantics
+- this phase is a refactor around data lifetime, not policy
+
+Acceptance criteria:
+
+- canonical benchmark outputs remain equivalent
+- repeated resource loading disappears from the per-config hot path
+- the pair benchmark context can later become the seed of the benchmark IR
+
+### Phase 2: Multiprocess Config Execution
+
+Status:
+
+- in progress
+- `--jobs` is implemented with Windows `spawn` worker execution
+- pair sweeps can evaluate configs in worker processes while preserving deterministic run ordering
+- targeted dev coverage exists for parallel timing aggregation
+
+Goal:
+
+- exploit CPU parallelism on the canonical sweep
+
+Required work:
+
+- add a benchmark executor abstraction
+- add `--jobs`
+- evaluate configs in worker processes
+- keep sorting and output deterministic
+- ensure pair benchmark context is cheaply available to workers:
+  - process-local rebuild if necessary
+  - or serialized once and restored cheaply
+
+Platform target:
+
+- optimize for the current Windows workstation first:
+  - Intel Core i9-14900K
+  - 96 GB RAM
+  - fast NVMe storage
+
+Acceptance criteria:
+
+- same outputs as serial mode
+- materially lower wall-clock time on the canonical preset
+- no nondeterministic artifact ordering
+
+### Phase 3: Compute / Materialization Split
+
+Status:
+
+- in progress
+- compute-only mode is implemented via `--compute-only`
+- markdown/HTML materialization from an existing benchmark JSON is implemented via `--render-from-json`
+- HTML timing payload now snapshots post-markdown timings before render
+- `rulegen_pair_audit_cycle.py` now exercises the split explicitly by running benchmark compute first and then rendering from the saved benchmark JSON
+
+Goal:
+
+- make benchmark compute reusable and incremental
+
+Required work:
+
+- add a compute-only benchmark artifact
+- make markdown/HTML generation consume raw benchmark results without rerunning rulegen
+- make gate and triage consume benchmark payloads without hidden recomputation
+- add cache keys based on:
+  - dataset hash
+  - resource checksums
+  - preset id
+  - compile version
+  - config set
+
+Acceptance criteria:
+
+- HTML/markdown/gate/triage runs do not require rerunning benchmark compute
+- repeated analysis work is incremental and deterministic
+
+### Phase 4: Candidate Inventory Compilation
+
+Status:
+
+- in progress
+- initial `en-es` compiled target layer is implemented in `core/lexishift_core/rulegen/pairs/en_es.py`
+- the benchmark pair context now builds reusable `en-es` compiled resources once per pair and reuses them across configs
+- current compiled layer covers static target-side dictionary facts:
+  - sanitized gloss entries
+  - target word-package / target POS resolution
+  - dictionary POS normalization
+  - canonical inventories
+  - dictionary record views
+  - target provenance
+  - reverse lookup
+  - inflection-filter base forms
+- current compiled layer also prebuilds a reusable base candidate inventory for `en-es`:
+  - stable per-target candidate ordering
+  - static candidate metadata
+  - definition-bucket identifiers
+  - reverse-check raw facts
+  - POS metadata
+  - static semantic demotion metadata
+- current compiled layer now assigns stable pair-global ids for:
+  - target
+  - candidate
+  - definition bucket
+  - Kaikki family markers
+- current compiled layer now also emits a row-aligned candidate table with grouped row indexes for:
+  - target id
+  - definition bucket id
+  - Kaikki family marker id
+  - candidate id to candidate row id
+- `en-es` now also has a config-driven compiled candidate score table that projects current confidence and ranking scores directly from candidate rows with parity coverage against the current scorer and ranking mechanism
+- benchmark pair context now also emits a row-aligned compiled case table with:
+  - stable case-row ids
+  - compiled target ids
+  - compiled candidate-row groups per case target
+  - normalized expected / expected-top1 / forbidden phrase ids
+  - a shared normalized phrase-id table for benchmark labels
+- sweep evaluation now also compiles per-target rule rows and evaluates benchmark cases against the compiled case table:
+  - normalized rule source rows
+  - phrase-id rows aligned to the benchmark phrase table
+  - selected-rule candidate-row ids recovered from preserved compiled rulegen metadata
+  - compiled top1 confidence and variant flags
+  - table-driven case evaluation with parity coverage against the legacy evaluator
+- run summary reduction now also consumes a compiled case-result table instead of reducing Python case-result objects in the compiled path:
+  - rule counts
+  - top1 confidence rows
+  - top1/top3/forbidden/variant boolean rows
+  - objective summary parity coverage against the legacy summarizer
+- compiled-resource `en-es` runs now use a compiled-fact signal provider for score inputs where available:
+  - gloss index / gloss decay
+  - POS canonical matching
+  - variant penalty
+  - phrase penalty
+- compiled-resource `en-es` runs now also project config-driven candidate score rows into the runtime path:
+  - compiled candidate score rows feed runtime scoring inputs through row lookups keyed by stable candidate ids
+  - compiled runtime ranking scores now also cover the live Kaikki overlay path by rebuilding effective semantic demotion per candidate row from:
+    - family-marker rows
+    - per-target competitor-row groups
+    - same-canonical competition sets
+    - compiled current-sense-position rows
+  - canonical `kdem=on` / `kprov>0` configs now reuse compiled ranking rows without changing the benchmark result
+  - variant-expanded candidates now preserve runtime variant penalties correctly instead of inheriting only the base compiled fact flag
+- compiled-resource `en-es` runs now also compile normalization/filter acceptance rows for base candidates:
+  - normalized source phrases after the current live normalizer chain
+  - row-level acceptance flags for non-empty, gloss-shape, length, possessive, interjection-shadow, stopword, and inflection-artifact checks
+  - accepted candidate-row groupings by target id
+  - non-variant compiled `en-es` runs now consume those precomputed normalized/filter rows directly instead of rebuilding the live normalizer/filter pipeline in the hot path
+- the shared generation pipeline now preserves reverse-hygiene behavior when the ranking mechanism is a wrapper around `DictionaryEntryOrderRankingMechanism`
+- generated rules now preserve compiled rulegen ids in rule metadata, so selected rules can be joined back to compiled candidate rows without relying only on normalized phrase text
+- current measured timing shape on Windows after this slice:
+  - `preload_translation_gloss_records`: about `5.93s`
+  - `compile_pair_context`: about `0.95s`
+  - `run_config`: about `0.024s` per config in serial smoke runs
+
+Goal:
+
+- convert per-config Python rulegen into compiled reusable candidate data
+
+Required work:
+
+- precompute the candidate universe once per pair / dataset
+- assign stable ids for:
+  - target
+  - case
+  - candidate
+  - definition bucket
+  - family markers
+- store static candidate features such as:
+  - source dict priority source id
+  - gloss index / gloss order
+  - phrase flag
+  - variant flag
+  - source/target/dictionary POS canonicals
+  - reverse-check raw facts
+  - Kaikki family hits
+  - provenance flags
+  - semantic demotion metadata
+- preserve enough raw metadata for selected-run diagnostics
+
+Important boundary:
+
+- compile stage may move work out of the per-config loop
+- compile stage must not collapse away any signal needed by current scoring and ranking semantics
+
+Acceptance criteria:
+
+- benchmark runs can be evaluated from compiled candidate data
+- outputs remain benchmark-equivalent to the previous engine
+
+### Phase 5: Vectorized CPU Sweep Backend
+
+Status:
+
+- not started
+
+Goal:
+
+- turn config evaluation into batch numeric work on the compiled candidate IR
+
+Required work:
+
+- express config knobs as dense arrays or structured numeric parameters
+- score many configs against many candidates without Python-per-candidate loops where possible
+- implement batched reductions for:
+  - per-target ranking
+  - top1 / top3 extraction
+  - forbidden-hit tracking
+  - avg-rules counts
+  - objective scoring
+
+Important boundary:
+
+- this phase should use vectorized CPU first
+- do not jump to GPU before the feature-table model is proven correct
+
+Acceptance criteria:
+
+- vectorized CPU backend remains equivalent to the compiled-reference backend
+- benchmark throughput improves again beyond pure multiprocessing
+
+### Phase 6: Optional GPU Sweep Backend
+
+Status:
+
+- planned later
+
+Goal:
+
+- exploit GPU only after the sweep has been converted into a genuinely GPU-shaped problem
+
+Required work:
+
+- implement a backend over the compiled benchmark IR using batched tensor execution
+- keep CPU and GPU backends behind the same sweep interface
+- restrict GPU work to parts that are truly numeric:
+  - feature weighting
+  - family-mask weighting
+  - reverse-score refinements
+  - batched reductions
+
+Non-goal:
+
+- do not move SQLite parsing, string cleanup, or general Python control flow onto the GPU
+
+Acceptance criteria:
+
+- GPU backend matches compiled-reference semantics
+- GPU mode is optional and never required for correctness
+
+## Data Model For The Benchmark IR
+
+The benchmark IR should be explicit and versioned.
+
+Minimum tables or equivalent structures:
+
+- `pairs`
+- `targets`
+- `cases`
+- `candidates`
+- `definition_buckets`
+- `candidate_features`
+- `candidate_labels`
+- `resource_manifest`
+- `compile_manifest`
+
+### Candidate Feature Groups
+
+The IR must retain enough information to reconstruct current scoring:
+
+- dictionary-priority group
+- gloss-order / decay group
+- POS group
+- variant group
+- phrase group
+- reverse-check group:
+  - exact hit
+  - reverse rank
+  - reverse total
+  - near hit eligibility
+  - miss / far-hit eligibility
+- Kaikki family group
+- provenance / competition group
+- semantic demotion base group
+
+### Label Groups
+
+The IR must retain enough information to compute benchmark metrics:
+
+- case expected-any mask
+- case expected-top1 mask
+- case forbidden-top1 mask
+- case forbidden-any mask
+- target-to-case mapping
+- candidate-to-target mapping
+
+## Config Representation
+
+Long-term, each config should be representable as structured data:
+
+- scalar weights
+- scalar penalties
+- thresholds
+- booleans or masks
+- family-set vectors
+
+For the current canonical preset, the config representation must preserve these sweep dimensions:
+
+- `include_variants`
+- `pos_scoring_enabled`
+- `reverse_check_enabled`
+- `reverse_check_exact_hit_specificity_bonus`
+- `kaikki_policy_live_demotion`
+- `kaikki_policy_late_sense_penalty`
+
+And must preserve these fixed values:
+
+- core score weights
+- reverse base weights
+- `xamb=off`
+- current fixed family set
+- current definition/rule caps
+
+## Validation Strategy
+
+Every phase must be validated against a reference engine.
+
+Reference policy:
+
+- keep a slow but trusted path available until the compiled/vectorized backends are proven
+
+Validation surfaces:
+
+- unit tests for compile-stage feature extraction
+- unit tests for config-to-weight translation
+- golden tests for selected benchmark runs
+- pair-level equivalence tests for canonical `en-es`
+- gate/triage equivalence tests from the same benchmark payload
+
+Validation metrics:
+
+- identical best config
+- identical objective score
+- identical case-level `top1`/`top3`/forbidden outcomes
+- deterministic run ordering
+
+## Rollout Strategy
+
+Rollout should be staged:
+
+1. land profiling and equivalence coverage
+2. land pair-context caching
+3. land multiprocess execution behind a flag
+4. make multiprocess the default once stable
+5. land compute/materialization split
+6. land compiled candidate IR behind a flag
+7. make compiled IR the default reference engine once equivalent
+8. land vectorized CPU backend
+9. optionally land GPU backend
+
+At no point should the only available engine be an unverified optimized engine.
+
+## Risks And Mitigations
+
+Risk:
+
+- semantic drift during refactor
+
+Mitigation:
+
+- keep golden reference tests
+- keep a slow reference path
+
+Risk:
+
+- multiprocessing introduces nondeterministic ordering
+
+Mitigation:
+
+- stable config ids
+- stable post-merge sorting
+
+Risk:
+
+- compile stage drops metadata needed for later diagnostics
+
+Mitigation:
+
+- retain raw metadata for selected candidates and runs
+- version the IR
+
+Risk:
+
+- GPU work is attempted too early and stalls the real optimization program
+
+Mitigation:
+
+- require compiled IR and vectorized CPU backend first
+
+Risk:
+
+- memory blowup from candidate materialization
+
+Mitigation:
+
+- explicit profiling
+- compact categorical encoding
+- optional retained-detail levels
+
+## Definition Of Done
+
+The benchmark optimization program is complete when all of the following are true:
+
+- canonical preset semantics are preserved
+- benchmark compute is clearly separated from artifact materialization
+- pair-local resource loading is no longer repeated per config
+- config evaluation scales across CPU workers
+- compiled benchmark IR exists and is versioned
+- vectorized CPU backend is available and benchmark-equivalent
+- optional GPU backend is either implemented behind the same IR or explicitly documented as unnecessary at current scale
+- developer docs and feature-state docs reflect the new architecture
+
+## Immediate Next Slice
+
+The next implementation slice should be:
+
+1. add benchmark timing/profiling
+2. introduce a cached pair benchmark context for `en-es`
+3. add multiprocess config execution with deterministic merge behavior
+
+Why this is the right first slice:
+
+- it attacks the known hot path immediately
+- it does not change benchmark methodology
+- it is not throwaway work
+- it moves the codebase toward the final compile/sweep/materialize architecture

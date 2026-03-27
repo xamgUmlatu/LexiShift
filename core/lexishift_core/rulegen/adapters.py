@@ -6,10 +6,12 @@ from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.resources.dict_loaders import FreedictGlossRecord
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
 from lexishift_core.rulegen.pairs.en_es import (
+    EnEsCompiledResources,
     EnEsKaikkiPolicyConfig,
     EnEsRulegenConfig,
     generate_en_es_results,
@@ -36,6 +38,9 @@ class RulegenAdapterRequest:
     jmdict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     freedict_reverse_path: Optional[Path] = None
+    gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    compiled_pair_context: Optional[object] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     kaikki_policy_live_demotion: bool = False
     kaikki_policy_risk_families: Optional[Sequence[str]] = None
@@ -78,6 +83,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     config = EnDeRulegenConfig(
         freedict_de_en_path=request.freedict_de_en_path,
         language_pair=request.language_pair,
+        gloss_records_by_target=request.gloss_records_by_target,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
@@ -104,10 +110,17 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         dictionary_pos_source_profile = "wiktionary"
     if _is_kaikki_dictionary(request.freedict_reverse_path):
         reverse_source_dict_id = "wiktionary_en_es"
+    compiled_resources = (
+        request.compiled_pair_context
+        if isinstance(request.compiled_pair_context, EnEsCompiledResources)
+        else None
+    )
     config = EnEsRulegenConfig(
         freedict_es_en_path=request.freedict_de_en_path,
         reverse_freedict_en_es_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
+        gloss_records_by_target=request.gloss_records_by_target,
+        reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
         source_dict_id=source_dict_id,
         reverse_source_dict_id=reverse_source_dict_id,
         confidence_threshold=request.confidence_threshold,
@@ -132,6 +145,7 @@ def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
                 request.kaikki_policy_risk_families or default_kaikki_policy.risk_families
             ),
         ),
+        compiled_resources=compiled_resources,
     )
     results = generate_en_es_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -144,6 +158,8 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         freedict_en_es_path=request.freedict_de_en_path,
         reverse_freedict_es_en_path=request.freedict_reverse_path,
         language_pair=request.language_pair,
+        gloss_records_by_target=request.gloss_records_by_target,
+        reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,

@@ -17,6 +17,7 @@ from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
     CandidateRankingMechanism,
     DictionaryEntryOrderRankingMechanism,
+    ReverseCheckScoringConfig,
     build_ranking_sort_key,
     resolve_reverse_check_strength,
 )
@@ -276,6 +277,7 @@ class RuleGenerationPipeline:
             pos = _build_pos_metadata_from_flat(candidate.metadata)
         if script_forms is None and word_package is not None:
             script_forms = _normalize_script_forms(word_package.get("script_forms"))
+        rulegen = _normalize_rulegen_metadata(candidate.metadata)
         metadata = RuleMetadata(
             source=candidate.source_dict,
             source_type=candidate.source_type,
@@ -285,6 +287,7 @@ class RuleGenerationPipeline:
             word_package=word_package,
             morphology=morphology,
             pos=pos,
+            rulegen=rulegen,
         )
         tags = list(config.tags)
         if candidate.source_type and candidate.source_type not in tags:
@@ -497,6 +500,12 @@ class RuleGenerationPipeline:
         mechanism = self._ranking_mechanism
         if isinstance(mechanism, DictionaryEntryOrderRankingMechanism):
             return mechanism.reverse_check
+        reverse_check = getattr(mechanism, "reverse_check", None)
+        if isinstance(reverse_check, ReverseCheckScoringConfig):
+            return reverse_check
+        fallback = getattr(mechanism, "fallback", None)
+        if isinstance(fallback, DictionaryEntryOrderRankingMechanism):
+            return fallback.reverse_check
         return None
 
     def _limit_rule_count_per_target(
@@ -600,7 +609,7 @@ def score_candidate_pos_match(
         flat_key="target_pos_canonical",
     )
     if source and target:
-        return _score_canonical_pos_pair(
+        return score_canonical_pos_pair(
             source,
             target,
             exact_match_bonus=exact_match_bonus,
@@ -619,7 +628,7 @@ def score_candidate_pos_match(
             flat_key="dict_entry_pos_canonical",
         )
     if dictionary and target:
-        return _score_canonical_pos_pair(
+        return score_canonical_pos_pair(
             dictionary,
             target,
             exact_match_bonus=exact_match_bonus,
@@ -627,6 +636,23 @@ def score_candidate_pos_match(
             compatibility_classes=compatibility_classes,
         )
     return 0.0
+
+
+def score_canonical_pos_pair(
+    left: str,
+    right: str,
+    *,
+    exact_match_bonus: float = DEFAULT_POS_EXACT_MATCH_BONUS,
+    compatible_match_bonus: float = DEFAULT_POS_COMPATIBLE_MATCH_BONUS,
+    compatibility_classes: Optional[Mapping[str, str]] = None,
+) -> float:
+    return _score_canonical_pos_pair(
+        left,
+        right,
+        exact_match_bonus=exact_match_bonus,
+        compatible_match_bonus=compatible_match_bonus,
+        compatibility_classes=compatibility_classes,
+    )
 
 
 @dataclass(frozen=True)
@@ -680,6 +706,55 @@ def _normalize_pos_metadata(value: object) -> Optional[dict[str, object]]:
         component = _normalize_pos_component(value.get(key))
         if component:
             normalized[key] = component
+    return normalized or None
+
+
+def _normalize_rulegen_metadata(value: object) -> Optional[dict[str, object]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, object] = {}
+    for key in (
+        "compiled_target_id",
+        "compiled_candidate_id",
+        "compiled_definition_bucket_id",
+        "compiled_source_dict_id",
+        "compiled_source_type_id",
+    ):
+        raw = value.get(key)
+        if isinstance(raw, bool):
+            continue
+        if isinstance(raw, int):
+            normalized[key] = int(raw)
+            continue
+        if isinstance(raw, str):
+            text = raw.strip()
+            if not text:
+                continue
+            try:
+                normalized[key] = int(text)
+            except ValueError:
+                continue
+    raw_family_marker_ids = value.get("compiled_family_marker_ids")
+    if isinstance(raw_family_marker_ids, Sequence) and not isinstance(
+        raw_family_marker_ids, (str, bytes)
+    ):
+        family_marker_ids: list[int] = []
+        for item in raw_family_marker_ids:
+            if isinstance(item, bool):
+                continue
+            if isinstance(item, int):
+                family_marker_ids.append(int(item))
+                continue
+            if isinstance(item, str):
+                text = item.strip()
+                if not text:
+                    continue
+                try:
+                    family_marker_ids.append(int(text))
+                except ValueError:
+                    continue
+        if family_marker_ids:
+            normalized["compiled_family_marker_ids"] = tuple(family_marker_ids)
     return normalized or None
 
 

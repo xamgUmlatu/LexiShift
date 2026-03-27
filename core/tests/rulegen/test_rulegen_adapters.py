@@ -12,12 +12,14 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.generation import (  # noqa: E402
     PosMatchScoringConfig,
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.pairs.en_es import EnEsCompiledResources  # noqa: E402
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
     RulegenAdapterRequest,
@@ -278,6 +280,58 @@ class TestRulegenAdapters(unittest.TestCase):
             0.16,
             places=6,
         )
+
+    def test_en_es_dispatches_preloaded_gloss_records(self) -> None:
+        forward_records = {"casa": [FreedictGlossRecord(translation="house", pos_raw="noun")]}
+        reverse_records = {"house": [FreedictGlossRecord(translation="casa", pos_raw="noun")]}
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                    gloss_records_by_target=forward_records,
+                    reverse_gloss_records_by_source=reverse_records,
+                )
+            )
+        generate.assert_called_once()
+        args, kwargs = generate.call_args
+        _ = args
+        self.assertIs(kwargs["config"].gloss_records_by_target, forward_records)
+        self.assertIs(kwargs["config"].reverse_gloss_records_by_source, reverse_records)
+
+    def test_en_es_dispatches_compiled_resources(self) -> None:
+        compiled_resources = EnEsCompiledResources(
+            records_by_target={"casa": [FreedictGlossRecord(translation="house", pos_raw="noun")]},
+            reverse_records_by_source={
+                "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")]
+            },
+        )
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    compiled_pair_context=compiled_resources,
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        self.assertIs(kwargs["config"].compiled_resources, compiled_resources)
 
     def test_en_es_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

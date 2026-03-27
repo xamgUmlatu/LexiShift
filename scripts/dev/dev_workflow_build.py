@@ -17,6 +17,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_TAIL_LINE_LIMIT = 20
 BETTERDISCORD_BUILD_SCRIPT = PROJECT_ROOT / "apps" / "betterdiscord-plugin" / "build_plugin.js"
 GUI_BUILD_SCRIPT = PROJECT_ROOT / "scripts" / "build" / "gui_app.py"
+WINDOWS_MAIN_DIR = "LexiShift"
+WINDOWS_MAIN_EXE = "LexiShift.exe"
+WINDOWS_HELPER_DIR = "LexiShiftHelper"
+WINDOWS_HELPER_EXE = "LexiShiftHelper.exe"
+WINDOWS_HOST_DIR = "LexiShiftNativeHost"
+WINDOWS_HOST_EXE = "lexishift_native_host.exe"
 
 
 @dataclass(frozen=True)
@@ -68,7 +74,7 @@ def gui_build_command(
     executable = python_executable or sys.executable
     resolved_platform = platform_name or platform.system()
     command = [executable, str(GUI_BUILD_SCRIPT), "--no-clean"]
-    if resolved_platform == "Darwin":
+    if resolved_platform in {"Darwin", "Windows"}:
         command.append("--validate")
     return command
 
@@ -79,26 +85,28 @@ def _supports_gui_build_validate() -> bool:
 
 def _find_windows_artifact_paths(project_root: Path) -> list[ExpectedArtifact]:
     dist_root = project_root / "apps" / "gui" / "dist"
-    main_direct = dist_root / "LexiShift.exe"
-    helper_direct = dist_root / "LexiShiftHelper.exe"
-    host_direct = dist_root / "lexishift_native_host.exe"
-    if main_direct.exists() and helper_direct.exists() and host_direct.exists():
-        return [
-            ExpectedArtifact("gui_main_windows_exe", main_direct, "file"),
-            ExpectedArtifact("gui_helper_windows_exe", helper_direct, "file"),
-            ExpectedArtifact("gui_native_host_windows_exe", host_direct, "file"),
-        ]
-
-    nested_specs: list[ExpectedArtifact] = []
-    nested_candidates = {
-        "gui_main_windows_exe": sorted(dist_root.glob("*/LexiShift.exe")),
-        "gui_helper_windows_exe": sorted(dist_root.glob("*/LexiShiftHelper.exe")),
-        "gui_native_host_windows_exe": sorted(dist_root.glob("*/lexishift_native_host.exe")),
-    }
-    for label, matches in nested_candidates.items():
-        if matches:
-            nested_specs.append(ExpectedArtifact(label, matches[0], "file"))
-    return nested_specs
+    candidates = (
+        (
+            "gui_main_windows_exe",
+            dist_root / WINDOWS_MAIN_DIR / WINDOWS_MAIN_EXE,
+            dist_root / WINDOWS_MAIN_EXE,
+        ),
+        (
+            "gui_helper_windows_exe",
+            dist_root / WINDOWS_HELPER_DIR / WINDOWS_HELPER_EXE,
+            dist_root / WINDOWS_HELPER_EXE,
+        ),
+        (
+            "gui_native_host_windows_exe",
+            dist_root / WINDOWS_HOST_DIR / WINDOWS_HOST_EXE,
+            dist_root / WINDOWS_HOST_EXE,
+        ),
+    )
+    records: list[ExpectedArtifact] = []
+    for label, preferred, fallback in candidates:
+        target = preferred if preferred.exists() else fallback
+        records.append(ExpectedArtifact(label, target, "file"))
+    return records
 
 
 def _artifact_specs(
