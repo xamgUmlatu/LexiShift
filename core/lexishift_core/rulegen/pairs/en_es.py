@@ -32,6 +32,7 @@ from lexishift_core.rulegen.generation import (
     build_optional_pos_match_provider,
     extract_candidate_pos_canonical,
     materialize_rule_generation_result,
+    resolve_reverse_hygiene_anchor_allowed_from_values,
     score_rule_confidence_signals,
     score_candidate_pos_match,
     score_canonical_pos_pair,
@@ -400,6 +401,7 @@ class EnEsCompiledCandidateScoreTable:
     effective_semantic_demotion_values: tuple[float, ...] = ()
     reverse_check_delta_values: tuple[float, ...] = ()
     reverse_check_strength_values: tuple[Optional[float], ...] = ()
+    reverse_hygiene_anchor_allowed_flags: tuple[bool, ...] = ()
     confidence_scores: tuple[float, ...] = ()
     ranking_scores: tuple[float, ...] = ()
 
@@ -686,6 +688,7 @@ def build_en_es_compiled_candidate_score_table(
     effective_semantic_demotion_values: list[float] = []
     reverse_check_delta_values: list[float] = []
     reverse_check_strength_values: list[Optional[float]] = []
+    reverse_hygiene_anchor_allowed_flags: list[bool] = []
     confidence_scores: list[float] = []
     ranking_scores: list[float] = []
     for row_id, _candidate_id in enumerate(candidate_table.candidate_ids):
@@ -734,6 +737,11 @@ def build_en_es_compiled_candidate_score_table(
             total=candidate_table.reverse_check_total_values[row_id],
             config=config.reverse_check,
         )
+        reverse_hygiene_anchor_allowed = resolve_reverse_hygiene_anchor_allowed_from_values(
+            hit=candidate_table.reverse_check_hit_flags[row_id],
+            rank=(reverse_check_rank if reverse_check_rank >= 0 else None),
+            total=candidate_table.reverse_check_total_values[row_id],
+        )
         confidence = float(
             score_rule_confidence_signals(
                 RuleConfidenceSignals(
@@ -771,6 +779,7 @@ def build_en_es_compiled_candidate_score_table(
         effective_semantic_demotion_values.append(effective_semantic_demotion)
         reverse_check_delta_values.append(float(reverse_check_delta))
         reverse_check_strength_values.append(reverse_check_strength)
+        reverse_hygiene_anchor_allowed_flags.append(reverse_hygiene_anchor_allowed)
         confidence_scores.append(confidence)
         ranking_scores.append(ranking_score)
     return EnEsCompiledCandidateScoreTable(
@@ -788,6 +797,7 @@ def build_en_es_compiled_candidate_score_table(
         effective_semantic_demotion_values=tuple(effective_semantic_demotion_values),
         reverse_check_delta_values=tuple(reverse_check_delta_values),
         reverse_check_strength_values=tuple(reverse_check_strength_values),
+        reverse_hygiene_anchor_allowed_flags=tuple(reverse_hygiene_anchor_allowed_flags),
         confidence_scores=tuple(confidence_scores),
         ranking_scores=tuple(ranking_scores),
     )
@@ -1997,7 +2007,6 @@ def _limit_compiled_definition_row_ids(
     )
     ranked_groups = _apply_compiled_reverse_definition_hygiene(
         ranked_groups,
-        candidate_table=candidate_table,
         reverse_check=reverse_check,
         filter_table=filter_table,
         score_table=score_table,
@@ -2073,7 +2082,6 @@ def _compiled_row_sort_key(
 def _apply_compiled_reverse_definition_hygiene(
     ranked_groups: Sequence[Sequence[int]],
     *,
-    candidate_table: EnEsCompiledCandidateTable,
     reverse_check: ReverseCheckScoringConfig,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
@@ -2089,7 +2097,6 @@ def _apply_compiled_reverse_definition_hygiene(
         return [tuple(group) for group in ranked_groups]
     if not _compiled_definition_group_allows_reverse_hygiene_anchor(
         ranked_groups[0],
-        candidate_table=candidate_table,
         filter_table=filter_table,
         score_table=score_table,
     ):
@@ -2132,7 +2139,6 @@ def _compiled_definition_group_reverse_strength(
 def _compiled_definition_group_allows_reverse_hygiene_anchor(
     row_ids: Sequence[int],
     *,
-    candidate_table: EnEsCompiledCandidateTable,
     filter_table: EnEsCompiledCandidateFilterTable,
     score_table: EnEsCompiledCandidateScoreTable,
 ) -> bool:
@@ -2146,12 +2152,7 @@ def _compiled_definition_group_allows_reverse_hygiene_anchor(
             score_table=score_table,
         ),
     )
-    if not bool(candidate_table.reverse_check_hit_flags[best_row_id]):
-        return True
-    if int(candidate_table.reverse_check_rank_values[best_row_id]) != 0:
-        return True
-    reverse_total = int(candidate_table.reverse_check_total_values[best_row_id])
-    return reverse_total <= 12
+    return bool(score_table.reverse_hygiene_anchor_allowed_flags[best_row_id])
 
 
 def _flatten_compiled_definition_groups(

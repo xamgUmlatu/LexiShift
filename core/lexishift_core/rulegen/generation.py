@@ -642,12 +642,23 @@ def _definition_group_allows_reverse_hygiene_anchor(
     metadata = results[0].candidate.metadata
     if not isinstance(metadata, Mapping):
         return True
-    if metadata.get("reverse_check_hit") is not True:
+    return resolve_reverse_hygiene_anchor_allowed_from_values(
+        hit=metadata.get("reverse_check_hit"),
+        rank=_extract_optional_non_negative_int(metadata.get("reverse_check_rank")),
+        total=_extract_optional_non_negative_int(metadata.get("reverse_check_total")),
+    )
+
+
+def resolve_reverse_hygiene_anchor_allowed_from_values(
+    *,
+    hit: object,
+    rank: Optional[int],
+    total: Optional[int],
+) -> bool:
+    if hit is not True:
         return True
-    rank = _extract_optional_non_negative_int(metadata.get("reverse_check_rank"))
     if rank != 0:
         return True
-    total = _extract_optional_non_negative_int(metadata.get("reverse_check_total"))
     if total is None:
         return True
     return total <= REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL

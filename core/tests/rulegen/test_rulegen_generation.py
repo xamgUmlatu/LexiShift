@@ -13,6 +13,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
+    resolve_reverse_hygiene_anchor_allowed_from_values,
 )
 from lexishift_core.rulegen.ranking import (  # noqa: E402
     DictionaryEntryOrderRankingMechanism,
@@ -46,6 +47,36 @@ class _WrappedRankingMechanism:
 
 
 class TestRulegenGeneration(unittest.TestCase):
+    def test_reverse_hygiene_anchor_scalar_helper_matches_policy(self) -> None:
+        self.assertTrue(
+            resolve_reverse_hygiene_anchor_allowed_from_values(
+                hit=False,
+                rank=None,
+                total=18,
+            )
+        )
+        self.assertTrue(
+            resolve_reverse_hygiene_anchor_allowed_from_values(
+                hit=True,
+                rank=1,
+                total=18,
+            )
+        )
+        self.assertTrue(
+            resolve_reverse_hygiene_anchor_allowed_from_values(
+                hit=True,
+                rank=0,
+                total=12,
+            )
+        )
+        self.assertFalse(
+            resolve_reverse_hygiene_anchor_allowed_from_values(
+                hit=True,
+                rank=0,
+                total=13,
+            )
+        )
+
     def test_generated_rules_preserve_compiled_rulegen_metadata(self) -> None:
         pipeline = RuleGenerationPipeline(
             sources=[
