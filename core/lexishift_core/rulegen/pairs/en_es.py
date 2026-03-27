@@ -103,6 +103,11 @@ _FUNCTION_WORD_CANONICALS = frozenset(
         CANONICAL_POS_CONJUNCTION,
     }
 )
+_DEFAULT_STOPWORDS_FROZEN = frozenset(DEFAULT_STOPWORDS)
+_COMPILED_FILTER_TABLE_CACHE: dict[
+    tuple[int, tuple[object, ...]],
+    "EnEsCompiledCandidateFilterTable",
+] = {}
 
 
 def _resolve_spanish_target_surface(candidate: RuleCandidate, form: str) -> Optional[str]:
@@ -844,6 +849,13 @@ def build_en_es_compiled_candidate_filter_table(
     candidate_table = compiled_resources.candidate_table
     if candidate_table is None:
         return EnEsCompiledCandidateFilterTable()
+    cache_key = _build_compiled_filter_table_cache_key(
+        compiled_resources=compiled_resources,
+        config=config,
+    )
+    cached = _COMPILED_FILTER_TABLE_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     stopwords = set(config.stopwords or DEFAULT_STOPWORDS)
     gloss_base_forms = set(compiled_resources.gloss_base_forms)
     normalized_source_phrases: list[str] = []
@@ -954,7 +966,7 @@ def build_en_es_compiled_candidate_filter_table(
                 )
                 groups_by_key[group_key] = []
             groups_by_key[group_key].append(row_id)
-    return EnEsCompiledCandidateFilterTable(
+    filter_table = EnEsCompiledCandidateFilterTable(
         candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
         target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
         normalized_source_phrases=tuple(normalized_source_phrases),
@@ -978,6 +990,34 @@ def build_en_es_compiled_candidate_filter_table(
             )
             for key, groups_by_key in sorted(accepted_candidate_row_id_groups_by_target_id.items())
         },
+    )
+    _COMPILED_FILTER_TABLE_CACHE[cache_key] = filter_table
+    return filter_table
+
+
+def _build_compiled_filter_table_cache_key(
+    *,
+    compiled_resources: EnEsCompiledResources,
+    config: EnEsRulegenConfig,
+) -> tuple[int, tuple[object, ...]]:
+    return (
+        id(compiled_resources),
+        (
+            bool(config.allow_hyphen),
+            bool(config.allow_multiword_glosses),
+            bool(config.enable_length_filter),
+            int(config.min_source_length),
+            (None if config.max_source_length is None else int(config.max_source_length)),
+            bool(config.enable_possessive_filter),
+            bool(config.enable_stopword_filter),
+            (
+                frozenset(str(stopword).strip().lower() for stopword in config.stopwords)
+                if config.stopwords is not None
+                else _DEFAULT_STOPWORDS_FROZEN
+            ),
+            bool(config.enable_inflection_filter),
+            tuple(str(suffix) for suffix in config.inflection_suffixes),
+        ),
     )
 
 

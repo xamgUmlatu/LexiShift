@@ -871,6 +871,77 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         self.assertEqual(projected_group.sorted_row_ids, (0, 1))
         self.assertEqual(projected_group.best_row_id, 0)
 
+    def test_compiled_filter_table_cache_reuses_unrelated_config_variants(self) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="the",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+            ]
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("casa",),
+            records_by_target=records,
+            reverse_records_by_source=None,
+            word_packages_by_target=word_packages,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        base_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=base_config,
+        )
+        unrelated_config = replace(
+            base_config,
+            dict_priority=0.1,
+            confidence_threshold=0.5,
+        )
+        unrelated_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=unrelated_config,
+        )
+        filter_changed_config = replace(
+            base_config,
+            enable_stopword_filter=False,
+        )
+        filter_changed_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=filter_changed_config,
+        )
+
+        self.assertIs(base_table, unrelated_table)
+        self.assertIsNot(base_table, filter_changed_table)
+
     def test_compiled_pipeline_uses_precomputed_candidate_filter_rows_for_non_variant_configs(
         self,
     ) -> None:
