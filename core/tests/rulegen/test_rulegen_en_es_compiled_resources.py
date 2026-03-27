@@ -724,6 +724,10 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             filter_table.accepted_candidate_row_ids_by_target_id,
             {compiled_resources.target_ids_by_target["casa"]: (0, 1, 5)},
         )
+        self.assertEqual(
+            filter_table.accepted_candidate_row_id_groups_by_target_id,
+            {compiled_resources.target_ids_by_target["casa"]: ((0,), (1,), (5,))},
+        )
 
     def test_compiled_definition_row_group_sorts_once_and_carries_best_row_summary(self) -> None:
         records = {
@@ -896,6 +900,82 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
         )
 
         compiled = generate_en_es_results(["casa"], config=compiled_config)
+        self.assertEqual(
+            [result.candidate.source_phrase for result in compiled],
+            [result.candidate.source_phrase for result in expected],
+        )
+        self.assertEqual(
+            [result.rule.metadata.confidence for result in compiled],
+            [result.rule.metadata.confidence for result in expected],
+        )
+
+    def test_compiled_pipeline_dedupe_groups_preserve_threshold_fallback_to_later_duplicate(
+        self,
+    ) -> None:
+        records = {
+            "casa": [
+                FreedictGlossRecord(
+                    translation="to house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 1},
+                ),
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "house": [FreedictGlossRecord(translation="casa", pos_raw="noun")],
+        }
+        word_packages = {
+            "casa": {
+                "version": 1,
+                "language_tag": "es",
+                "surface": "casa",
+                "reading": "casa",
+                "script_forms": {"default": "casa"},
+                "source": {"provider": "freq-es-cde"},
+                "pos": {"canonical": "noun"},
+            }
+        }
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            word_packages_by_target=word_packages,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            confidence_threshold=0.85,
+        )
+        expected = generate_en_es_results(["casa"], config=base_config)
+        compiled_config = replace(
+            base_config,
+            compiled_resources=build_en_es_compiled_resources(
+                targets=("casa",),
+                records_by_target=records,
+                reverse_records_by_source=reverse_records,
+                word_packages_by_target=word_packages,
+                language_pair="en-es",
+                source_dict="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_config.compiled_resources,
+            config=compiled_config,
+        )
+        target_id = compiled_config.compiled_resources.target_ids_by_target["casa"]
+        self.assertEqual(
+            filter_table.accepted_candidate_row_id_groups_by_target_id[target_id],
+            ((0, 1),),
+        )
+
+        compiled = generate_en_es_results(["casa"], config=compiled_config)
+
         self.assertEqual(
             [result.candidate.source_phrase for result in compiled],
             [result.candidate.source_phrase for result in expected],

@@ -422,6 +422,9 @@ class EnEsCompiledCandidateFilterTable:
     accepted_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
         default_factory=dict
     )
+    accepted_candidate_row_id_groups_by_target_id: Mapping[int, tuple[tuple[int, ...], ...]] = (
+        field(default_factory=dict)
+    )
 
 
 @dataclass(frozen=True)
@@ -833,6 +836,8 @@ def build_en_es_compiled_candidate_filter_table(
     inflection_artifact_flags: list[bool] = []
     accepted_flags: list[bool] = []
     accepted_candidate_row_ids_by_target_id: dict[int, list[int]] = {}
+    accepted_candidate_row_id_groups_by_target_id: dict[int, dict[str, list[int]]] = {}
+    accepted_candidate_row_group_order_by_target_id: dict[int, list[str]] = {}
     for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_phrase = _normalize_compiled_source_phrase(
             candidate_table.source_phrases[row_id]
@@ -901,6 +906,17 @@ def build_en_es_compiled_candidate_filter_table(
         if accepted:
             target_id = int(candidate_table.target_ids[row_id])
             accepted_candidate_row_ids_by_target_id.setdefault(target_id, []).append(row_id)
+            group_key = str(normalized_phrase or "").strip().lower()
+            groups_by_key = accepted_candidate_row_id_groups_by_target_id.setdefault(
+                target_id,
+                {},
+            )
+            if group_key not in groups_by_key:
+                accepted_candidate_row_group_order_by_target_id.setdefault(target_id, []).append(
+                    group_key
+                )
+                groups_by_key[group_key] = []
+            groups_by_key[group_key].append(row_id)
     return EnEsCompiledCandidateFilterTable(
         candidate_ids=tuple(int(candidate_id) for candidate_id in candidate_table.candidate_ids),
         target_ids=tuple(int(target_id) for target_id in candidate_table.target_ids),
@@ -916,6 +932,13 @@ def build_en_es_compiled_candidate_filter_table(
         accepted_candidate_row_ids_by_target_id={
             key: tuple(value)
             for key, value in sorted(accepted_candidate_row_ids_by_target_id.items())
+        },
+        accepted_candidate_row_id_groups_by_target_id={
+            key: tuple(
+                tuple(groups_by_key[group_key])
+                for group_key in accepted_candidate_row_group_order_by_target_id.get(key, [])
+            )
+            for key, groups_by_key in sorted(accepted_candidate_row_id_groups_by_target_id.items())
         },
     )
 
@@ -1868,38 +1891,34 @@ def _generate_en_es_results_from_compiled_rows(
         for target, context in compiled_resources.compiled_targets_by_target.items()
         if context.target_id in requested_target_ids
     }
-    seen: set[tuple[str, str, str]] = set()
     results: list[RuleGenerationResult] = []
     for target in ordered_targets:
         context = compiled_resources.compiled_targets_by_target.get(target)
         if context is None:
             continue
-        candidate_row_ids = filter_table.accepted_candidate_row_ids_by_target_id.get(
+        candidate_row_id_groups = filter_table.accepted_candidate_row_id_groups_by_target_id.get(
             context.target_id,
             (),
         )
         shadows = shadows_by_target.get(target, ())
         accepted_row_ids: list[int] = []
-        for row_id in candidate_row_ids:
-            candidate_id = int(candidate_table.candidate_ids[row_id])
-            base_candidate = base_candidates_by_id.get(candidate_id)
-            if base_candidate is None:
-                continue
-            source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
-            if not source_phrase:
-                continue
-            dedupe_key = (
-                source_phrase.lower(),
-                str(base_candidate.replacement or "").strip().lower(),
-                str(base_candidate.language_pair or "").strip(),
-            )
-            if dedupe_key in seen:
-                continue
-            confidence = float(score_table.confidence_scores[row_id])
-            if confidence < rule_config.confidence_threshold:
-                continue
-            seen.add(dedupe_key)
-            accepted_row_ids.append(int(row_id))
+        for row_group in candidate_row_id_groups:
+            selected_row_id: Optional[int] = None
+            for row_id in row_group:
+                candidate_id = int(candidate_table.candidate_ids[row_id])
+                base_candidate = base_candidates_by_id.get(candidate_id)
+                if base_candidate is None:
+                    continue
+                source_phrase = str(filter_table.normalized_source_phrases[row_id] or "").strip()
+                if not source_phrase:
+                    continue
+                confidence = float(score_table.confidence_scores[row_id])
+                if confidence < rule_config.confidence_threshold:
+                    continue
+                selected_row_id = int(row_id)
+                break
+            if selected_row_id is not None:
+                accepted_row_ids.append(selected_row_id)
         selected_row_ids = _limit_compiled_result_row_ids(
             accepted_row_ids,
             candidate_table=candidate_table,
