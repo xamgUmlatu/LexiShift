@@ -125,6 +125,16 @@ class TestLpCapabilities(unittest.TestCase):
         self.assertTrue(requirements["requires_translation_dictionary_for_rulegen"])
         self.assertTrue(requirements["requires_freedict_de_en_for_rulegen"])
 
+    def test_en_de_default_reverse_dictionary_uses_english_headword_direction(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_reverse_translation_dictionary_path(
+                "en-de",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("eng-deu.tei"))
+
 
 if __name__ == "__main__":
     unittest.main()

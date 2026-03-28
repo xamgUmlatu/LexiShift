@@ -170,6 +170,7 @@ Current verified progress:
 - helper/runtime resolution already prefers generic `translation_dict_path`
 - adapter requests and helper job configs now accept generic `translation_dict_path`
 - helper-to-adapter rulegen calls can now carry normalized `TranslationPackRef` objects
+- helper resource resolution and runtime diagnostics now resolve/report normalized translation-pack identity
 - legacy `freedict_*` fields remain as compatibility aliases while pair-local configs are still being normalized
 
 ## Phase 3: Generalize The Compiled Pair Boundary

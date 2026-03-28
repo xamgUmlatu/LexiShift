@@ -3,22 +3,15 @@ from __future__ import annotations
 import json
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
-from lexishift_core.helper.pair_resources import resolve_pair_resources, resolve_stopwords_path
+from lexishift_core.helper.pair_resources import (
+    resolve_pair_resources,
+    resolve_pair_translation_packs,
+    resolve_stopwords_path,
+)
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import load_status
 from lexishift_core.srs import load_srs_store
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
-
-
-def _translation_dict_provider(path_text: str | None) -> str | None:
-    normalized = str(path_text or "").strip().lower()
-    if not normalized:
-        return None
-    if "wiktionary" in normalized or "kaikki" in normalized:
-        return "wiktionary"
-    if "freedict" in normalized or normalized.endswith(".tei"):
-        return "freedict"
-    return "unknown"
 
 
 def get_srs_runtime_diagnostics(
@@ -40,6 +33,12 @@ def get_srs_runtime_diagnostics(
             freedict_de_en_path=None,
             set_source_db=None,
         )
+    )
+    resolved_translation_pack, resolved_reverse_translation_pack = resolve_pair_translation_packs(
+        paths,
+        pair=normalized_pair,
+        translation_dict_path=resolved_translation_dict_path,
+        reverse_translation_dict_path=None,
     )
     resolved_stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     missing_inputs: list[dict[str, object]] = []
@@ -75,6 +74,9 @@ def get_srs_runtime_diagnostics(
     translation_dict_path_text = (
         str(resolved_translation_dict_path) if resolved_translation_dict_path else None
     )
+    reverse_translation_dict_path_text = (
+        str(resolved_reverse_translation_pack.path) if resolved_reverse_translation_pack else None
+    )
     diagnostics = {
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
@@ -90,7 +92,36 @@ def get_srs_runtime_diagnostics(
         "translation_pack_exists": bool(
             resolved_translation_dict_path and resolved_translation_dict_path.exists()
         ),
-        "translation_dict_provider": _translation_dict_provider(translation_dict_path_text),
+        "translation_dict_provider": (
+            resolved_translation_pack.provider if resolved_translation_pack else None
+        ),
+        "translation_pack_id": resolved_translation_pack.pack_id
+        if resolved_translation_pack
+        else None,
+        "translation_pos_source_profile": (
+            resolved_translation_pack.pos_source_profile if resolved_translation_pack else None
+        ),
+        "reverse_translation_dict_path": reverse_translation_dict_path_text,
+        "reverse_translation_dict_exists": bool(
+            resolved_reverse_translation_pack and resolved_reverse_translation_pack.path.exists()
+        ),
+        "reverse_translation_pack_path": reverse_translation_dict_path_text,
+        "reverse_translation_pack_exists": bool(
+            resolved_reverse_translation_pack and resolved_reverse_translation_pack.path.exists()
+        ),
+        "reverse_translation_dict_provider": (
+            resolved_reverse_translation_pack.provider
+            if resolved_reverse_translation_pack
+            else None
+        ),
+        "reverse_translation_pack_id": (
+            resolved_reverse_translation_pack.pack_id if resolved_reverse_translation_pack else None
+        ),
+        "reverse_translation_pos_source_profile": (
+            resolved_reverse_translation_pack.pos_source_profile
+            if resolved_reverse_translation_pack
+            else None
+        ),
         "freedict_de_en_path": translation_dict_path_text,
         "freedict_de_en_exists": bool(
             resolved_translation_dict_path and resolved_translation_dict_path.exists()

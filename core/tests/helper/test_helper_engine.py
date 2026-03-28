@@ -704,8 +704,15 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertTrue(payload["translation_dict_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["translation_dict_exists"])
             self.assertEqual(payload["translation_dict_provider"], "freedict")
+            self.assertEqual(payload["translation_pack_id"], "freedict_de_en")
+            self.assertEqual(payload["translation_pos_source_profile"], "freedict")
             self.assertTrue(payload["translation_pack_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["translation_pack_exists"])
+            self.assertTrue(
+                payload["reverse_translation_pack_path"].endswith("language_packs/eng-deu.tei")
+            )
+            self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
+            self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
             self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["freedict_de_en_exists"])
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
@@ -731,10 +738,19 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             )
             self.assertFalse(payload["translation_dict_exists"])
             self.assertEqual(payload["translation_dict_provider"], "wiktionary")
+            self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
+            self.assertEqual(payload["translation_pos_source_profile"], "wiktionary")
             self.assertTrue(
                 payload["translation_pack_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )
             self.assertFalse(payload["translation_pack_exists"])
+            self.assertTrue(
+                payload["reverse_translation_pack_path"].endswith(
+                    "language_packs/wiktionary-en-es.sqlite"
+                )
+            )
+            self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
+            self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
             self.assertTrue(
                 payload["freedict_de_en_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )

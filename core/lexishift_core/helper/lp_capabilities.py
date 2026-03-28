@@ -201,6 +201,10 @@ def _reverse_pair_key(pair: str) -> str:
 
 
 def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "de-en":
+        return ("eng-deu.tei", "freedict-en-de.sqlite", "eng-deu.sqlite")
+    if pair == "en-de":
+        return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
     if pair == "en-es":
         return (
             "wiktionary-es-en.sqlite",
