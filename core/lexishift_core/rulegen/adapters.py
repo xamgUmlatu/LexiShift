@@ -6,6 +6,12 @@ from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.translation_packs import (
+    FORWARD_PACK_DIRECTION,
+    REVERSE_PACK_DIRECTION,
+    TranslationPackRef,
+    build_translation_pack_ref,
+)
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
@@ -36,8 +42,10 @@ class RulegenAdapterRequest:
     reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_decay: GlossDecay = field(default_factory=GlossDecay)
     jmdict_path: Optional[Path] = None
+    translation_pack: Optional[TranslationPackRef] = None
     translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
+    reverse_translation_pack: Optional[TranslationPackRef] = None
     reverse_translation_dict_path: Optional[Path] = None
     freedict_reverse_path: Optional[Path] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
@@ -52,19 +60,36 @@ class RulegenAdapterRequest:
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
 
 
-def _is_kaikki_dictionary(path: Path | None) -> bool:
-    if path is None:
-        return False
-    name = path.name.strip().lower()
-    return "wiktionary" in name or "kaikki" in name
-
-
 def _resolved_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
+    if request.translation_pack is not None:
+        return request.translation_pack.path
     return request.translation_dict_path or request.freedict_de_en_path
 
 
 def _resolved_reverse_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
+    if request.reverse_translation_pack is not None:
+        return request.reverse_translation_pack.path
     return request.reverse_translation_dict_path or request.freedict_reverse_path
+
+
+def _resolved_translation_pack(request: RulegenAdapterRequest) -> TranslationPackRef | None:
+    if request.translation_pack is not None:
+        return request.translation_pack
+    return build_translation_pack_ref(
+        request.pair,
+        _resolved_translation_dict_path(request),
+        direction=FORWARD_PACK_DIRECTION,
+    )
+
+
+def _resolved_reverse_translation_pack(request: RulegenAdapterRequest) -> TranslationPackRef | None:
+    if request.reverse_translation_pack is not None:
+        return request.reverse_translation_pack
+    return build_translation_pack_ref(
+        request.pair,
+        _resolved_reverse_translation_dict_path(request),
+        direction=REVERSE_PACK_DIRECTION,
+    )
 
 
 def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
@@ -110,19 +135,22 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenConfig:
-    translation_dict_path = _resolved_translation_dict_path(request)
-    reverse_translation_dict_path = _resolved_reverse_translation_dict_path(request)
-    if translation_dict_path is None:
+    translation_pack = _resolved_translation_pack(request)
+    reverse_translation_pack = _resolved_reverse_translation_pack(request)
+    if translation_pack is None:
         raise ValueError("Missing translation dictionary path for en-es rule generation.")
-    source_dict_id = "freedict_es_en"
-    dictionary_pos_source_profile = "freedict"
-    reverse_source_dict_id = "freedict_en_es"
+    translation_dict_path = translation_pack.path
+    reverse_translation_dict_path = (
+        reverse_translation_pack.path if reverse_translation_pack is not None else None
+    )
+    source_dict_id = translation_pack.pack_id
+    dictionary_pos_source_profile = translation_pack.pos_source_profile
+    reverse_source_dict_id = (
+        reverse_translation_pack.pack_id
+        if reverse_translation_pack is not None
+        else "freedict_en_es"
+    )
     default_kaikki_policy = EnEsKaikkiPolicyConfig()
-    if _is_kaikki_dictionary(translation_dict_path):
-        source_dict_id = "wiktionary_es_en"
-        dictionary_pos_source_profile = "wiktionary"
-    if _is_kaikki_dictionary(reverse_translation_dict_path):
-        reverse_source_dict_id = "wiktionary_en_es"
     compiled_resources = (
         request.compiled_pair_context
         if isinstance(request.compiled_pair_context, EnEsCompiledResources)

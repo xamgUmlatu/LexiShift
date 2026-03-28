@@ -26,6 +26,7 @@ from lexishift_core.rulegen.adapters import (  # noqa: E402
     build_en_es_rulegen_config,
     run_rules_with_adapter,
 )
+from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: E402
 
 
 class TestRulegenAdapters(unittest.TestCase):
@@ -260,6 +261,36 @@ class TestRulegenAdapters(unittest.TestCase):
         _, kwargs = generate.call_args
         self.assertEqual(kwargs["config"].source_dict_id, "wiktionary_es_en")
         self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
+
+    def test_en_es_config_prefers_explicit_translation_pack_metadata(self) -> None:
+        config = build_en_es_rulegen_config(
+            RulegenAdapterRequest(
+                pair="en-es",
+                targets=("casa",),
+                language_pair="en-es",
+                translation_pack=TranslationPackRef(
+                    pair="en-es",
+                    direction="forward",
+                    path=Path("/tmp/custom-es-en.sqlite"),
+                    provider="wiktionary",
+                    pack_id="wiktionary_es_en",
+                    pos_source_profile="wiktionary",
+                ),
+                reverse_translation_pack=TranslationPackRef(
+                    pair="en-es",
+                    direction="reverse",
+                    path=Path("/tmp/custom-en-es.sqlite"),
+                    provider="wiktionary",
+                    pack_id="wiktionary_en_es",
+                    pos_source_profile="wiktionary",
+                ),
+            )
+        )
+        self.assertEqual(config.freedict_es_en_path, Path("/tmp/custom-es-en.sqlite"))
+        self.assertEqual(config.reverse_freedict_en_es_path, Path("/tmp/custom-en-es.sqlite"))
+        self.assertEqual(config.source_dict_id, "wiktionary_es_en")
+        self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_es")
+        self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
 
     def test_en_es_dispatches_scoring_and_rule_caps(self) -> None:
         scoring = RuleScoringConfig(
