@@ -1,7 +1,7 @@
 {
-  "benchmark_json": "docs\\test_outputs\\rulegen_benchmark_en_es_latest.json",
+  "benchmark_json": "docs\\test_outputs\\experiments\\rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 8,
+  "failing_or_review_count": 6,
   "items": [
     {
       "pair": "en-es",
@@ -13,13 +13,10 @@
       ],
       "top1_source": "straight",
       "top3_sources": [
-        "straight",
-        "right",
-        "upright"
+        "straight"
       ],
       "expected_matches": [
-        "straight",
-        "right"
+        "straight"
       ],
       "forbidden_matches": [],
       "suggested_case_patch": {
@@ -28,15 +25,13 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: straight",
-          "Observed top3 sources: straight, right, upright"
+          "Observed top3 sources: straight"
         ],
         "candidate_forbidden_top1": [
           "straight"
         ],
         "candidate_expected_any": [
-          "straight",
-          "right",
-          "upright"
+          "straight"
         ]
       }
     },
@@ -50,9 +45,7 @@
       ],
       "top1_source": "square",
       "top3_sources": [
-        "square",
-        "frame",
-        "rectangle"
+        "square"
       ],
       "expected_matches": [],
       "forbidden_matches": [],
@@ -62,15 +55,13 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: square",
-          "Observed top3 sources: square, frame, rectangle"
+          "Observed top3 sources: square"
         ],
         "candidate_forbidden_top1": [
           "square"
         ],
         "candidate_expected_any": [
-          "square",
-          "frame",
-          "rectangle"
+          "square"
         ]
       }
     },
@@ -78,35 +69,31 @@
       "pair": "en-es",
       "case_id": "en-es:cuenta",
       "target": "cuenta",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "expected_candidate_missing_from_top3"
       ],
       "top1_source": "count",
       "top3_sources": [
         "count",
-        "account",
-        "bead"
+        "tally"
       ],
-      "expected_matches": [
-        "account"
-      ],
+      "expected_matches": [],
       "forbidden_matches": [],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: count",
-          "Observed top3 sources: count, account, bead"
+          "Observed top3 sources: count, tally"
         ],
         "candidate_forbidden_top1": [
           "count"
         ],
         "candidate_expected_any": [
           "count",
-          "account",
-          "bead"
+          "tally"
         ]
       }
     },
@@ -114,36 +101,31 @@
       "pair": "en-es",
       "case_id": "en-es:red",
       "target": "red",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "expected_candidate_missing_from_top3"
       ],
       "top1_source": "web",
       "top3_sources": [
         "web",
-        "net",
-        "network"
+        "mesh"
       ],
-      "expected_matches": [
-        "net",
-        "network"
-      ],
+      "expected_matches": [],
       "forbidden_matches": [],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: web",
-          "Observed top3 sources: web, net, network"
+          "Observed top3 sources: web, mesh"
         ],
         "candidate_forbidden_top1": [
           "web"
         ],
         "candidate_expected_any": [
           "web",
-          "net",
-          "network"
+          "mesh"
         ]
       }
     },
@@ -151,115 +133,29 @@
       "pair": "en-es",
       "case_id": "en-es:sacar",
       "target": "sacar",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "expected_candidate_missing_from_top3"
       ],
       "top1_source": "withdraw",
       "top3_sources": [
-        "withdraw",
-        "draw",
-        "unsheathe"
+        "withdraw"
       ],
-      "expected_matches": [
-        "draw"
-      ],
+      "expected_matches": [],
       "forbidden_matches": [],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: withdraw",
-          "Observed top3 sources: withdraw, draw, unsheathe"
+          "Observed top3 sources: withdraw"
         ],
         "candidate_forbidden_top1": [
           "withdraw"
         ],
         "candidate_expected_any": [
-          "withdraw",
-          "draw",
-          "unsheathe"
-        ]
-      }
-    },
-    {
-      "pair": "en-es",
-      "case_id": "en-es:acabar",
-      "target": "acabar",
-      "status": "FAIL",
-      "reasons": [
-        "forbidden_candidate_present"
-      ],
-      "top1_source": "finish",
-      "top3_sources": [
-        "finish",
-        "cum",
-        "exhaust"
-      ],
-      "expected_matches": [
-        "finish",
-        "end"
-      ],
-      "forbidden_matches": [
-        "cum",
-        "orgasm"
-      ],
-      "suggested_case_patch": {
-        "action": "review_labels",
-        "priority": "high",
-        "notes": [
-          "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: finish",
-          "Observed top3 sources: finish, cum, exhaust"
-        ],
-        "candidate_forbidden_top1": [
-          "finish"
-        ],
-        "candidate_expected_any": [
-          "finish",
-          "cum",
-          "exhaust"
-        ]
-      }
-    },
-    {
-      "pair": "en-es",
-      "case_id": "en-es:coger",
-      "target": "coger",
-      "status": "FAIL",
-      "reasons": [
-        "forbidden_candidate_present"
-      ],
-      "top1_source": "take",
-      "top3_sources": [
-        "take",
-        "fuck",
-        "catch"
-      ],
-      "expected_matches": [
-        "take",
-        "catch"
-      ],
-      "forbidden_matches": [
-        "fuck",
-        "bang"
-      ],
-      "suggested_case_patch": {
-        "action": "review_labels",
-        "priority": "high",
-        "notes": [
-          "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: take",
-          "Observed top3 sources: take, fuck, catch"
-        ],
-        "candidate_forbidden_top1": [
-          "take"
-        ],
-        "candidate_expected_any": [
-          "take",
-          "fuck",
-          "catch"
+          "withdraw"
         ]
       }
     },
@@ -274,8 +170,7 @@
       ],
       "top1_source": "drummer",
       "top3_sources": [
-        "drummer",
-        "set"
+        "drummer"
       ],
       "expected_matches": [],
       "forbidden_matches": [],
@@ -285,14 +180,13 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: drummer",
-          "Observed top3 sources: drummer, set"
+          "Observed top3 sources: drummer"
         ],
         "candidate_forbidden_top1": [
           "drummer"
         ],
         "candidate_expected_any": [
-          "drummer",
-          "set"
+          "drummer"
         ]
       }
     }

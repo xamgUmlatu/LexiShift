@@ -1,7 +1,7 @@
 {
-  "benchmark_json": "docs\\test_outputs\\rulegen_benchmark_en_es_latest.json",
+  "benchmark_json": "docs\\test_outputs\\experiments\\rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 8,
+  "failing_or_review_count": 6,
   "items": [
     {
       "pair": "en-es",
@@ -15,7 +15,7 @@
       "top3_sources": [
         "straight",
         "right",
-        "upright"
+        "right-hand"
       ],
       "expected_matches": [
         "straight",
@@ -28,7 +28,7 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: straight",
-          "Observed top3 sources: straight, right, upright"
+          "Observed top3 sources: straight, right, right-hand"
         ],
         "candidate_forbidden_top1": [
           "straight"
@@ -36,7 +36,7 @@
         "candidate_expected_any": [
           "straight",
           "right",
-          "upright"
+          "right-hand"
         ]
       }
     },
@@ -51,7 +51,6 @@
       "top1_source": "square",
       "top3_sources": [
         "square",
-        "frame",
         "rectangle"
       ],
       "expected_matches": [],
@@ -62,14 +61,13 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: square",
-          "Observed top3 sources: square, frame, rectangle"
+          "Observed top3 sources: square, rectangle"
         ],
         "candidate_forbidden_top1": [
           "square"
         ],
         "candidate_expected_any": [
           "square",
-          "frame",
           "rectangle"
         ]
       }
@@ -85,8 +83,8 @@
       "top1_source": "count",
       "top3_sources": [
         "count",
-        "account",
-        "bead"
+        "tally",
+        "account"
       ],
       "expected_matches": [
         "account"
@@ -98,15 +96,15 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: count",
-          "Observed top3 sources: count, account, bead"
+          "Observed top3 sources: count, tally, account"
         ],
         "candidate_forbidden_top1": [
           "count"
         ],
         "candidate_expected_any": [
           "count",
-          "account",
-          "bead"
+          "tally",
+          "account"
         ]
       }
     },
@@ -122,11 +120,10 @@
       "top3_sources": [
         "web",
         "net",
-        "network"
+        "mesh"
       ],
       "expected_matches": [
-        "net",
-        "network"
+        "net"
       ],
       "forbidden_matches": [],
       "suggested_case_patch": {
@@ -135,7 +132,7 @@
         "notes": [
           "Review expected_top1_any labels or scoring weights for this case.",
           "Observed top1 source: web",
-          "Observed top3 sources: web, net, network"
+          "Observed top3 sources: web, net, mesh"
         ],
         "candidate_forbidden_top1": [
           "web"
@@ -143,7 +140,7 @@
         "candidate_expected_any": [
           "web",
           "net",
-          "network"
+          "mesh"
         ]
       }
     },
@@ -180,86 +177,6 @@
           "withdraw",
           "draw",
           "unsheathe"
-        ]
-      }
-    },
-    {
-      "pair": "en-es",
-      "case_id": "en-es:acabar",
-      "target": "acabar",
-      "status": "FAIL",
-      "reasons": [
-        "forbidden_candidate_present"
-      ],
-      "top1_source": "finish",
-      "top3_sources": [
-        "finish",
-        "cum",
-        "exhaust"
-      ],
-      "expected_matches": [
-        "finish",
-        "end"
-      ],
-      "forbidden_matches": [
-        "cum",
-        "orgasm"
-      ],
-      "suggested_case_patch": {
-        "action": "review_labels",
-        "priority": "high",
-        "notes": [
-          "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: finish",
-          "Observed top3 sources: finish, cum, exhaust"
-        ],
-        "candidate_forbidden_top1": [
-          "finish"
-        ],
-        "candidate_expected_any": [
-          "finish",
-          "cum",
-          "exhaust"
-        ]
-      }
-    },
-    {
-      "pair": "en-es",
-      "case_id": "en-es:coger",
-      "target": "coger",
-      "status": "FAIL",
-      "reasons": [
-        "forbidden_candidate_present"
-      ],
-      "top1_source": "take",
-      "top3_sources": [
-        "take",
-        "fuck",
-        "catch"
-      ],
-      "expected_matches": [
-        "take",
-        "catch"
-      ],
-      "forbidden_matches": [
-        "fuck",
-        "bang"
-      ],
-      "suggested_case_patch": {
-        "action": "review_labels",
-        "priority": "high",
-        "notes": [
-          "Review case labels and pair tuning; this case violates hard quality expectations.",
-          "Observed top1 source: take",
-          "Observed top3 sources: take, fuck, catch"
-        ],
-        "candidate_forbidden_top1": [
-          "take"
-        ],
-        "candidate_expected_any": [
-          "take",
-          "fuck",
-          "catch"
         ]
       }
     },

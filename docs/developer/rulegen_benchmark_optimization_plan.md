@@ -40,14 +40,14 @@ Current methodology constraint:
 
 Current canonical `en-es` benchmark state:
 
-- current reported case count: `57`
+- current reported case count: `64`
 - current reported run count: `144`
-- current best objective: `129.474`
+- current best objective: `126.188`
 - current artifact-resolved best config:
   - `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
 - current tied-winner note:
-  - the latest artifact has `12` exact objective ties at `129.474`
-  - equivalent tied winners still include the older `var=off` / `pos=on` / `rev=on` / `kdem=on` / `kprov=0.10` lane, so this is currently a stable tie-resolution detail rather than a quality regression
+  - the latest artifact has `12` exact objective ties at `126.188`
+  - the default canonical surface still has a meaningful plateau, even after the benchmark dataset expansion
 
 Current canonical preset dimensions:
 
@@ -97,7 +97,7 @@ Current implementation shape:
 
 Latest measured canonical `en-es` smoke on this PC with warm path caches:
 
-- benchmark result still exact at objective `129.474`
+- benchmark result still exact at objective `126.188` on the current expanded `64`-case dataset
 - wall clock: about `0.50s`
 - `build_resource_payload`: about `0.001s`
 - `preload_translation_gloss_records`: about `0.223s`
@@ -160,7 +160,7 @@ Latest exploratory `en-es` Stage A checkpoint on this PC (`2026-03-28`):
   - exact-hit ambiguity/specificity and coarse family-set changes do not yet look like the highest-leverage next search frontier
   - the next broad-sweep iteration should focus on case deltas and quality interpretation for the admission and reverse-weight winners before widening unrelated dimensions again
 
-Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche):
+Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche on the older `57`-case dataset):
 
 - the admission-frontier deepening run now produces the strongest known `en-es` result on this machine:
   - best config: `md=2 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
@@ -187,6 +187,54 @@ Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche):
   - FreeDict forward remains non-competitive regardless of reverse lane
 - installed-resource `en-es` helper diagnostics now report no missing inputs, and a no-persist helper `run_rulegen` smoke succeeds locally with `117` rules over `40` targets
 - the older helper `status.last_error` is now best interpreted as stale historical state, not a current `en-es` resource blocker
+
+Latest dataset-expansion checkpoint on this PC (`2026-03-28`, current `64`-case dataset):
+
+- the benchmark dataset has now been expanded from `57` to `64` `en-es` cases with:
+  - `canal`
+  - `clave`
+  - `gato`
+  - `masa`
+  - `señal`
+  - `batería`
+  - `llevar`
+- new canonical latest state:
+  - objective `126.188`
+  - `Top1 90.62%`
+  - `Top3 96.88%`
+  - `ForbidTop1 1.56%`
+  - `ForbidAny 3.12%`
+  - `AvgRulesPerTarget 3.03`
+  - exact-tie count `12`
+- interpretation:
+  - `6` of the `7` new cases pass under the canonical latest config
+  - `batería` is the only new hard fail in the added batch
+  - the existing `acabar` and `coger` forbidden-side failures remain on the canonical surface
+- focused reruns on the expanded dataset now show a different frontier than the older `57`-case sweep:
+  - `en_es_stage_a_admission_frontier_v2`
+    - objective `136.281`
+    - exact-tie count `14`
+    - best config `md=1 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+    - `Top1 90.62%`
+    - `Top3 92.19%`
+    - `ForbidAny 0.00%`
+    - `AvgRulesPerTarget 1.30`
+    - experiment triage count `6`
+  - `en_es_stage_a_combined_frontier_v1`
+    - objective `133.844`
+    - exact-tie count `12`
+    - best config `md=2 mr=3 thr=0.000 sd=0.75 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+    - `Top1 90.62%`
+    - `Top3 96.88%`
+    - `ForbidAny 0.00%`
+    - `AvgRulesPerTarget 2.17`
+    - experiment triage count `6`
+  - `en_es_stage_a_reverse_frontier_v2` is no longer competitive on the expanded set
+  - the currently exposed family-set follow-up remains effectively flat on the expanded set
+- important direct-source finding:
+  - the Kaikki forward source does contain a battery-side translation for `batería` (`large and rechargeable battery`)
+  - the new `batería` benchmark failure is therefore not a raw data-source absence
+  - the immediate miss is that the rulegen path is not surfacing a usable bare `battery` candidate from the longer source phrase, so category demotion alone will not solve it
 
 ## Hard Requirements
 

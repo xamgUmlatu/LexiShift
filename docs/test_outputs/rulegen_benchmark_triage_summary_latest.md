@@ -2,13 +2,13 @@
 
 - Benchmark JSON: `docs\test_outputs\rulegen_benchmark_en_es_latest.json`
 - Pairs processed: 1
-- Actionable items: 7
-- FAIL items: 3
+- Actionable items: 8
+- FAIL items: 4
 - REVIEW items: 4
 
 ## Items By Pair
 
-- `en-es`: 7
+- `en-es`: 8
 
 ## Actionable Cases
 
@@ -33,3 +33,6 @@
 7. [FAIL] `en-es` `en-es:coger` target=`coger`
    - Reasons: forbidden_candidate_present
    - Observed top1: `take`
+8. [FAIL] `en-es` `en-es:batería` target=`batería`
+   - Reasons: top1_is_forbidden, expected_candidate_missing_from_top3
+   - Observed top1: `drummer`

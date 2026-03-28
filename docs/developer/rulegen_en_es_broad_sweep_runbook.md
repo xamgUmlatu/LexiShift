@@ -15,6 +15,7 @@ It assumes:
 - current benchmark dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
 - current canonical resource family: Kaikki forward + Kaikki reverse
 - current benchmark engine: compiled `en-es` sweep path with warm-path caching and numeric `numpy` score projection
+- current expanded benchmark case count: `64`
 
 It does **not** redefine the canonical latest benchmark contract.
 It defines experiment-stage runs that should write to experiment-specific artifact paths.
@@ -29,11 +30,11 @@ Goal:
 
 Expected current canonical metrics:
 
-- objective `129.474`
-- `Top1 91.23%`
-- `Top3 98.25%`
-- `ForbidTop1 0.00%`
-- `ForbidAny 3.51%`
+- objective `126.188`
+- `Top1 90.62%`
+- `Top3 96.88%`
+- `ForbidTop1 1.56%`
+- `ForbidAny 3.12%`
 
 Preset:
 
@@ -221,42 +222,85 @@ Those remain later questions.
 
 ## Current 2026-03-28 Frontier Findings
 
-Stage A already established:
+The benchmark dataset is now expanded from `57` to `64` `en-es` cases.
+The added 2026-03-28 batch is:
 
-- the broad toggle/policy space is mostly a plateau
-- the main actionable gains came from admission settings and reverse weights
-- the next high-value work is not another giant broad sweep
+- `canal`
+- `clave`
+- `gato`
+- `masa`
+- `señal`
+- `batería`
+- `llevar`
+
+On the current canonical latest run:
+
+- `6` of those `7` new cases pass
+- the new hard fail is `batería`
+- the older `acabar` and `coger` forbidden-side failures remain on the default canonical surface
+
+Current canonical `64`-case baseline:
+
+- objective `126.188`
+- `Top1 90.62%`
+- `Top3 96.88%`
+- `ForbidTop1 1.56%`
+- `ForbidAny 3.12%`
+- exact-tie count `12`
+- config `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+
+Focused reruns on the expanded `64`-case set now show a stricter tradeoff than the earlier `57`-case frontier:
+
+- `en_es_stage_a_admission_frontier_v2`
+  - best objective `136.281`
+  - exact-tie count `14`
+  - best config `md=1 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+  - `Top1 90.62%`
+  - `Top3 92.19%`
+  - `ForbidTop1 1.56%`
+  - `ForbidAny 0.00%`
+  - `AvgRules 1.30`
+  - experiment triage count `6`
+  - interpretation:
+    - fixes the lingering `acabar` / `coger` forbidden-side leakage
+    - but trims recall too hard for `cuadro`, `cuenta`, `red`, and `sacar`
+
+- `en_es_stage_a_combined_frontier_v1`
+  - best objective `133.844`
+  - exact-tie count `12`
+  - best config `md=2 mr=3 thr=0.000 sd=0.75 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+  - `Top1 90.62%`
+  - `Top3 96.88%`
+  - `ForbidTop1 1.56%`
+  - `ForbidAny 0.00%`
+  - `AvgRules 2.17`
+  - experiment triage count `6`
+  - interpretation:
+    - preserves the broader top-3 surface
+    - still removes `forbidden_any`
+    - but does not beat the stricter admission objective
+
+- `en_es_stage_a_reverse_frontier_v2`
+  - best objective `127.438`
+  - no longer competitive with the current admission-led frontier on the expanded dataset
+
+- `en_es_stage_a_family_followup_v1`
+  - best objective `126.188`
+  - existing exposed family-set variants remain effectively flat on the expanded dataset
+
+Important direct-source finding for `batería`:
+
+- the Kaikki forward pack does contain a battery sense
+- current stored translations include `large and rechargeable battery`, `drum kit, drum set`, `set (collection of things)`, and `drummer`
+- current benchmark failure is therefore not a raw-source absence
+- the immediate issue is that the current rulegen path is not surfacing a useful bare `battery` candidate from the longer source phrase
 
 Current follow-up order:
 
-1. `en_es_stage_a_admission_frontier_v2`
-2. `en_es_stage_a_reverse_frontier_v2`
-3. `en_es_stage_a_combined_frontier_v1`
-
-The combined stage is important because the Stage A2 and Stage A4 wins improved different parts of the objective surface:
-
-- admission improved `AvgRules` and reduced `ForbidAny`
-- reverse weights removed the remaining forbidden-any cases entirely
-
-So the next question is whether those benefits stack in one frontier or whether they trade off.
-
-Latest verified follow-up result on this PC:
-
-- the current strongest `en-es` config is still admission-led
-- `md=2`, `mr=2`, `thr=0.000`, `sd=0.50`, `var=on`, `pos=on`, `rev=on`, `kdem=on`, `kprov=0.10`
-- objective `139.333`
-- `Top1 91.23%`
-- `Top3 98.25%`
-- `ForbidAny 0.00%`
-- `AvgRules 1.81`
-- triage count `5`
-
-Later follow-up interpretation:
-
-- the reverse-frontier deepening pass did not beat the earlier reverse sweep
-- the first combined winner-neighborhood pass underperformed because it was centered on the older `mr=3` admission winner
-- a second combined re-check around the true `md=2` / `mr=2` frontier matched the admission-led objective but did not beat it
-- the remaining plateau suggests reverse fine-tuning is mostly neutral once the tighter admission surface is in place
+1. keep the `64`-case expanded benchmark as the new baseline
+2. expose a few more normalized family/category controls beyond the current `mg+gl+hft+rr+aef` set
+3. rerun focused family/category and winner-neighborhood sweeps on the expanded set
+4. if the plateau holds, move into targeted rulegen work for `batería`, `cuadro`, and `sacar`
 
 Current Stage B verified resource-lane conclusion on this PC:
 

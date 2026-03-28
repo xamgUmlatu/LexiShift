@@ -1065,6 +1065,142 @@
       "notes": "Common verb with strong regional/slang leakage; take/catch should survive while sexual slang senses stay out of the candidate set."
     },
     {
+      "case_id": "en-es:canal",
+      "pair": "en-es",
+      "target": "canal",
+      "tier": "hard",
+      "expected_any": [
+        "canal",
+        "channel"
+      ],
+      "expected_top1_any": [
+        "canal",
+        "channel"
+      ],
+      "forbidden_top1": [
+        "cleavage"
+      ],
+      "forbidden_any": [],
+      "notes": "Technical/domain competition case around waterway/channel senses; keep anatomical cleavage noise from dominating the bare lemma."
+    },
+    {
+      "case_id": "en-es:clave",
+      "pair": "en-es",
+      "target": "clave",
+      "tier": "hard",
+      "expected_any": [
+        "key",
+        "code",
+        "password"
+      ],
+      "expected_top1_any": [
+        "key"
+      ],
+      "forbidden_top1": [
+        "clef"
+      ],
+      "forbidden_any": [],
+      "notes": "Cross-domain competition case spanning everyday, computing, and music-adjacent readings; key/code should outrank clef-like drift for the bare lemma."
+    },
+    {
+      "case_id": "en-es:gato",
+      "pair": "en-es",
+      "target": "gato",
+      "tier": "hard",
+      "expected_any": [
+        "cat",
+        "jack"
+      ],
+      "expected_top1_any": [
+        "cat"
+      ],
+      "forbidden_top1": [
+        "tic-tac-toe",
+        "c-clamp"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-vs-tool/game competition case; cat should lead while game/tool side senses stay out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:masa",
+      "pair": "en-es",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "drove"
+      ],
+      "forbidden_any": [],
+      "notes": "Broad-vs-domain competition case spanning physics and food readings; allow mass/dough while blocking drove-like noise from top-1."
+    },
+    {
+      "case_id": "en-es:señal",
+      "pair": "en-es",
+      "target": "señal",
+      "tier": "smoke",
+      "expected_any": [
+        "signal",
+        "sign"
+      ],
+      "expected_top1_any": [
+        "signal",
+        "sign"
+      ],
+      "forbidden_top1": [
+        "landmark",
+        "reminder"
+      ],
+      "forbidden_any": [],
+      "notes": "Review-boundary noun balancing signal/sign against weaker reminder/landmark drift."
+    },
+    {
+      "case_id": "en-es:batería",
+      "pair": "en-es",
+      "target": "batería",
+      "tier": "hard",
+      "expected_any": [
+        "battery",
+        "drum kit"
+      ],
+      "expected_top1_any": [
+        "battery"
+      ],
+      "forbidden_top1": [
+        "drummer",
+        "set"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday electrical noun with music-side competition; battery should dominate the bare lemma while drummer/set stay out of top-1."
+    },
+    {
+      "case_id": "en-es:llevar",
+      "pair": "en-es",
+      "target": "llevar",
+      "tier": "smoke",
+      "expected_any": [
+        "take",
+        "carry",
+        "bring",
+        "wear"
+      ],
+      "expected_top1_any": [
+        "take",
+        "carry"
+      ],
+      "forbidden_top1": [
+        "bear"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead while bear-like drift stays out of top-1."
+    },
+    {
       "case_id": "es-en:house",
       "pair": "es-en",
       "target": "house",

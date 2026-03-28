@@ -8,8 +8,8 @@
   "strict_saturation": false,
   "fail_on_warn": false,
   "summary": {
-    "pass_count": 14,
-    "warn_count": 4,
+    "pass_count": 13,
+    "warn_count": 5,
     "fail_count": 2,
     "status": "FAIL",
     "should_fail": true
@@ -31,7 +31,7 @@
       "level": "FAIL",
       "code": "QUALITY_FLOOR_BREACH",
       "message": "Quality floor failed for pair 'en-es'.",
-      "details": "top1_accuracy=0.9123 below min_top1_accuracy=0.9500"
+      "details": "top1_accuracy=0.9062 below min_top1_accuracy=0.9500\navg_rules_per_target=3.0312 above max_avg_rules_per_target=3.0000"
     },
     {
       "level": "WARN",
@@ -55,13 +55,13 @@
       "level": "FAIL",
       "code": "DELTA_BUDGET_BREACH",
       "message": "Delta budgets failed for pair 'en-es'.",
-      "details": "top1_accuracy drop=0.0877 exceeds budget=0.0000\ntop3_recall drop=0.0175 exceeds budget=0.0000\nforbidden_any_rate increase=0.0351 exceeds budget=0.0000\navg_rules_per_target increase=1.9825 exceeds budget=0.5000"
+      "details": "top1_accuracy drop=0.0938 exceeds budget=0.0000\ntop3_recall drop=0.0312 exceeds budget=0.0000\nforbidden_top1_rate increase=0.0156 exceeds budget=0.0000\nforbidden_any_rate increase=0.0312 exceeds budget=0.0000\navg_rules_per_target increase=2.0312 exceeds budget=0.5000"
     },
     {
-      "level": "PASS",
-      "code": "SATURATION_TOP_VECTOR_OK",
-      "message": "Pair 'en-es' top metric vector share=0.250 is below warning threshold.",
-      "details": "run_count=144 unique_vectors=10 top_count=36"
+      "level": "WARN",
+      "code": "SATURATION_TOP_VECTOR_WARN",
+      "message": "Pair 'en-es' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
+      "details": "run_count=144 unique_vectors=5 top_count=72"
     },
     {
       "level": "PASS",
