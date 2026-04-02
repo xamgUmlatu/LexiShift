@@ -41,8 +41,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     ),
     "de-en": PairCapability(
         pair="de-en",
+        rulegen_mode="de_en",
         default_frequency_db="freq-en-coca.sqlite",
         srs_selectable=True,
+        requires_translation_dictionary_for_rulegen=True,
     ),
     "en-de": PairCapability(
         pair="en-de",

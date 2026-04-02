@@ -30,15 +30,95 @@ from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: 
 
 
 class TestRulegenAdapters(unittest.TestCase):
-    def test_returns_empty_rules_for_pair_without_rulegen_mode(self) -> None:
-        rules = run_rules_with_adapter(
-            RulegenAdapterRequest(
-                pair="de-en",
-                targets=("house",),
-                language_pair="de-en",
+    def test_de_en_requires_translation_dictionary_path(self) -> None:
+        with self.assertRaises(ValueError):
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="de-en",
+                    targets=("house",),
+                    language_pair="de-en",
+                )
             )
-        )
-        self.assertEqual(rules, [])
+
+    def test_de_en_dispatches_to_freedict_generator(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_de_en_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="Haus", replacement="house"))
+            ],
+        ) as generate:
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="de-en",
+                    targets=("house",),
+                    language_pair="de-en",
+                    translation_dict_path=Path("/tmp/eng-deu.tei"),
+                )
+            )
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "Haus")
+        self.assertEqual(rules[0].replacement, "house")
+        generate.assert_called_once()
+
+    def test_de_en_adapter_generates_rules_from_freedict_tei(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>house</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="de">Haus</quote></cit>
+          <cit type="trans"><quote xml:lang="de">Heim</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-deu.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="de-en",
+                    targets=("house",),
+                    language_pair="de-en",
+                    translation_dict_path=path,
+                )
+            )
+        sources = sorted({rule.source_phrase for rule in rules})
+        self.assertIn("haus", sources)
+        self.assertIn("heim", sources)
+        self.assertTrue(all(rule.replacement == "house" for rule in rules))
+
+    def test_de_en_adapter_allows_umlaut_source_candidates(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>girl</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="de">Mädchen</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-deu.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="de-en",
+                    targets=("girl",),
+                    language_pair="de-en",
+                    translation_dict_path=path,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["mädchen"])
 
     def test_en_ja_requires_jmdict_path(self) -> None:
         with self.assertRaises(ValueError):

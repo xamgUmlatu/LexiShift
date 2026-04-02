@@ -18,8 +18,9 @@ from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 
 
 class TestHelperDaemon(unittest.TestCase):
-    def test_supported_pairs_include_en_de_and_en_es(self) -> None:
+    def test_supported_pairs_include_de_en_en_de_and_en_es(self) -> None:
         pairs = _supported_pairs()
+        self.assertIn("de-en", pairs)
         self.assertIn("en-ja", pairs)
         self.assertIn("en-de", pairs)
         self.assertIn("en-es", pairs)
@@ -71,11 +72,22 @@ class TestHelperDaemon(unittest.TestCase):
             self.assertEqual(job.freedict_de_en_path, freedict_path)
             self.assertIsNone(job.jmdict_path)
 
-    def test_build_job_config_skips_pairs_without_rulegen_support(self) -> None:
+    def test_build_job_config_requires_freedict_for_de_en(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
             config = DaemonConfig()
             self.assertIsNone(_build_job_config("de-en", paths, config))
+
+            freedict_path = paths.language_packs_dir / "eng-deu.tei"
+            freedict_path.parent.mkdir(parents=True, exist_ok=True)
+            freedict_path.write_text("<TEI/>", encoding="utf-8")
+
+            job = _build_job_config("de-en", paths, config)
+            self.assertIsNotNone(job)
+            self.assertEqual(job.pair, "de-en")
+            self.assertEqual(job.translation_dict_path, freedict_path)
+            self.assertEqual(job.freedict_de_en_path, freedict_path)
+            self.assertIsNone(job.jmdict_path)
 
 
 if __name__ == "__main__":

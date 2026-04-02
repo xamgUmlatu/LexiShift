@@ -41,3 +41,17 @@ class TestPairResources(unittest.TestCase):
         self.assertTrue(str(forward.path).endswith("deu-eng.tei"))
         self.assertEqual(reverse.provider, "freedict")
         self.assertEqual(reverse.pack_id, "freedict_en_de")
+        self.assertTrue(str(reverse.path).endswith("eng-deu.tei"))
+
+    def test_resolve_pair_translation_packs_uses_de_en_freedict_defaults(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            forward, reverse = resolve_pair_translation_packs(paths, pair="de-en")
+        assert forward is not None
+        assert reverse is not None
+        self.assertEqual(forward.provider, "freedict")
+        self.assertEqual(forward.pack_id, "freedict_en_de")
+        self.assertTrue(str(forward.path).endswith("eng-deu.tei"))
+        self.assertEqual(reverse.provider, "freedict")
+        self.assertEqual(reverse.pack_id, "freedict_de_en")
+        self.assertTrue(str(reverse.path).endswith("deu-eng.tei"))

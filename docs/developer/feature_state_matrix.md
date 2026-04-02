@@ -93,6 +93,31 @@ Use this file when:
   - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
   - Current active `en-es` benchmark path still does not have a broadly profitable GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by preprocessing, selection, and resource work even though the score projection path now has both numeric `numpy` and guarded optional `torch` implementations.
 
+## `de-en` Baseline Rulegen Enablement
+
+- Status: `implemented`, `verified`; `default-on` = `yes` for helper/rulegen capability when `freedict-en-de` is present
+- Last documented checkpoint: `2026-04-03` first `de-en` proof-LP slice on the generalized translation-pack seam
+- Last verified: `2026-04-03` targeted helper/capability/adapter tests and doc sync
+- Default behavior:
+  - `de-en` now has a real rulegen mode (`de_en`) and participates in the generalized translation-dictionary helper seam.
+  - Default `de-en` forward resolution points at `eng-deu.tei`, with normalized translation-pack identity available in helper/resource resolution.
+  - The first `de-en` pair implementation is intentionally simple: FreeDict forward candidate extraction, generic scoring, German source-side stopword filtering, and no reverse-check path yet.
+- Evidence:
+  - `core/lexishift_core/helper/lp_capabilities.py`
+  - `core/lexishift_core/rulegen/pairs/de_en.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/tests/helper/test_lp_capabilities.py`
+  - `core/tests/helper/test_pair_resources.py`
+  - `core/tests/helper/test_translation_packs.py`
+  - `core/tests/helper/test_helper_engine.py`
+  - `core/tests/helper/test_helper_daemon.py`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `docs/language_pairs/de_en_workstream_roadmap.md`
+- Known gaps:
+  - `de-en` still has no benchmark dataset or quality frontier; this slice is enablement, not tuning.
+  - `de-en` still has no reverse-check implementation.
+  - Helper CLI override naming still reflects legacy FreeDict terminology even though the generalized translation-dictionary seam is active underneath.
+
 ## Rulegen Auto Audit Wrapper
 
 - Status: `implemented`, `verified`, `default-on` = `no`

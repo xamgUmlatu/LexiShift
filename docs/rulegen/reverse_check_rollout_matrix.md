@@ -24,7 +24,7 @@ Purpose:
 | `en-ja` | yes (via `en_ja` mode) | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/en_ja.py`; `core/lexishift_core/helper/lp_capabilities.py` | Current JMdict-backed path has no reverse-check phase-1 design or plumbing. |
 | `ja-ja` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `en-en` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
-| `de-en` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
+| `de-en` | yes | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/de_en.py`; `core/lexishift_core/helper/lp_capabilities.py` | Baseline rulegen mode exists now, but the pair has no reverse-path config or reverse metadata emission yet. |
 | `es-es` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `de-de` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `en-zh` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |

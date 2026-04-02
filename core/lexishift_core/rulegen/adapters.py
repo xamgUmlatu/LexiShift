@@ -15,6 +15,7 @@ from lexishift_core.helper.translation_packs import (
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
+from lexishift_core.rulegen.pairs.de_en import DeEnRulegenConfig, generate_de_en_results
 from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
 from lexishift_core.rulegen.pairs.en_es import (
     EnEsCompiledResources,
@@ -134,6 +135,28 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     return [result.rule for result in results]
 
 
+def _run_de_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    translation_dict_path = _resolved_translation_dict_path(request)
+    if translation_dict_path is None:
+        raise ValueError("Missing translation dictionary path for de-en rule generation.")
+    config = DeEnRulegenConfig(
+        freedict_en_de_path=translation_dict_path,
+        language_pair=request.language_pair,
+        gloss_records_by_target=request.gloss_records_by_target,
+        confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
+        max_rules_per_target=request.max_rules_per_target,
+        semantic_demotion_scale=request.semantic_demotion_scale,
+        include_variants=request.include_variants,
+        allow_multiword_glosses=request.allow_multiword_glosses,
+        scoring=request.scoring,
+        gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
+    )
+    results = generate_de_en_results(request.targets, config=config)
+    return [result.rule for result in results]
+
+
 def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenConfig:
     translation_pack = _resolved_translation_pack(request)
     reverse_translation_pack = _resolved_reverse_translation_pack(request)
@@ -222,6 +245,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 _RULEGEN_ADAPTERS: dict[str, RulegenAdapter] = {
+    "de_en": _run_de_en_adapter,
     "en_ja": _run_en_ja_adapter,
     "en_de": _run_en_de_adapter,
     "en_es": _run_en_es_adapter,

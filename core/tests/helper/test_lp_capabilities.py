@@ -26,7 +26,7 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
 class TestLpCapabilities(unittest.TestCase):
     def test_supported_rulegen_pairs_use_capability_registry(self) -> None:
         pairs = supported_rulegen_pairs()
-        self.assertEqual(pairs, ("en-ja", "en-de", "en-es", "es-en"))
+        self.assertEqual(pairs, ("en-ja", "de-en", "en-de", "en-es", "es-en"))
 
     def test_srs_selectable_pairs_include_current_gui_pairs(self) -> None:
         pairs = selectable_srs_pairs()
@@ -134,6 +134,26 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertIsNotNone(resolved)
         self.assertTrue(str(resolved).endswith("eng-deu.tei"))
+
+    def test_de_en_default_dictionary_uses_english_headword_direction(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("eng-deu.tei"))
+
+    def test_de_en_default_reverse_dictionary_uses_german_headword_direction(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_reverse_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("deu-eng.tei"))
 
 
 if __name__ == "__main__":

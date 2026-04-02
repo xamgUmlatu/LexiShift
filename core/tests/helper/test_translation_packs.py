@@ -38,3 +38,14 @@ class TestTranslationPacks(unittest.TestCase):
         self.assertEqual(ref.provider, "freedict")
         self.assertEqual(ref.pack_id, "freedict_en_de")
         self.assertEqual(ref.pos_source_profile, "freedict")
+
+    def test_builds_forward_freedict_pack_ref_for_de_en(self) -> None:
+        ref = build_translation_pack_ref(
+            "de-en",
+            Path("/tmp/eng-deu.tei"),
+            direction=FORWARD_PACK_DIRECTION,
+        )
+        assert ref is not None
+        self.assertEqual(ref.provider, "freedict")
+        self.assertEqual(ref.pack_id, "freedict_en_de")
+        self.assertEqual(ref.pos_source_profile, "freedict")
