@@ -7,6 +7,29 @@ Last updated: 2026-04-03
 Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, and the first embedding pack-id activation/runtime-resolution slice
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
+## Compatibility Policy
+
+For the rest of this workstream, compatibility is intentionally narrow.
+
+What can change aggressively now:
+
+- app-managed GUI surfaces
+- helper/native-host payloads used only by this unreleased app stack
+- internal helper/runtime naming
+- benchmark/probe/help-text surfaces that are only developer tooling
+
+What may still keep compatibility shims for a while:
+
+- manual external imports
+- explicit developer/debug paths
+- tests that intentionally exercise raw-format coverage
+- provider-specific converter/build tooling
+
+Practical rule:
+
+- if a surface is part of the unreleased app/runtime/tooling contract, prefer rename/remove over preserving old `freedict_*` or TEI-first behavior
+- if a surface is explicitly about manual imports, raw-format tests, or provider-specific conversion, compatibility is still reasonable
+
 ## End State
 
 We are done when all of these are true:
@@ -48,48 +71,92 @@ Still intentionally transitional:
 
 ## Execution Order
 
-## Phase 1: Translation Consumer Cleanup
+## Phase 1: App-Managed Translation Surface Cleanup
 
 Goal:
-- make managed translation packs behave like SQLite-first resources everywhere that matters at runtime
+- remove FreeDict-era naming and TEI-first assumptions from unreleased app/helper/tooling surfaces
 
 Why this is first:
-- translation packs are the noisiest remaining source of TEI-specific assumptions
+- this is now mostly naming and contract cleanup, not risky storage work
+- the app is not released, so we should remove obsolete names instead of preserving them
 - `de-en` and related LP work should not keep building on TEI-first seams
 
 Concrete work:
 
-1. GUI compatibility cleanup
+1. GUI/helper breaking cleanup
    - remove or narrow remaining TEI/directory compatibility logic in:
      - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_bulk_rules_mixin.py`
-   - keep directory fallback only where manual legacy packs are intentionally still supported
+     - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/helper_daemon.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/dialogs_code.py`
+   - rename app-facing labels/settings so generic surfaces say `translation dictionary` / `translation pack`, not `freedict`
+   - do not preserve app-only legacy naming just for compatibility
 
-2. Synthetic harness/resource fixture cleanup
+2. Helper/native-host/CLI breaking cleanup
+   - update:
+     - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/helper/lexishift_helper.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/helper/lexishift_native_host.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/engine.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/rulegen.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/pair_resources.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/initialize_set.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/refresh_set.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+   - make generic request/response fields primary and remove old `freedict_*` names where the caller is only our own app/tooling
+   - keep manual-path compatibility only where a raw provider file is still an explicit supported import path
+
+3. Synthetic harness/resource fixture cleanup
    - move the remaining synthetic translation fixtures toward SQLite-first defaults in:
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_quality_harness_support.py`
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_journey_harness_support.py`
    - keep TEI fixture helpers only when a test explicitly needs raw-format coverage
    - current checkpoint: both the quality harness and the journey harness are now SQLite-first by default, and the journey resource-writing logic has been split into a dedicated helper so the scenario-support file stays below the project-health ceiling
 
-3. Generic helper/diagnostic naming cleanup
-   - remove generic logic that infers provider semantics from `.tei` or `freedict` filename patterns where a manifest-backed pack id is available
-   - main hotspot:
-     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/rulegen_job.py`
-   - current checkpoint: shared translation-pack refs now honor managed manifests, helper rulegen debug payloads now report translation pack id/provider/source-profile fields, and installed journey resource staging now preserves manifest-backed translation pack roots instead of flattening them
-
-4. Benchmark/help-text compatibility cleanup
-   - update user-facing help text and comments so SQLite is presented as the normal managed artifact
-   - keep TEI mentioned only as compatibility input
+4. Benchmark/probe/help-text cleanup
+   - update developer tooling so SQLite is presented as the normal managed artifact
+   - keep TEI mentioned only as an explicit manual/debug input
    - main hotspot:
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_benchmark.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_probe_words.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/apps/chrome-extension/options/controllers/srs/actions/formatters.js`
 
 Definition of done:
 
+- unreleased app/helper/tooling surfaces no longer present `freedict_*` as the primary generic contract
 - managed translation packs are no longer treated as extracted TEI directories in normal runtime flows
-- TEI survives only as a compatibility/manual-import path
+- TEI survives only as a manual-import/debug/provider-specific path
 - test fixtures default to SQLite unless they are explicitly TEI-coverage tests
 
-## Phase 2: Frequency Finalization
+## Phase 2: Translation Internal Convergence
+
+Goal:
+- finish the generic/internal translation seam so generic layers stop carrying provider-shaped assumptions
+
+Concrete work:
+
+1. Normalize generic helper/core names
+   - retire transitional aliases like `requires_freedict_de_en_for_rulegen` where they are only internal
+   - keep provider-specific naming only in provider-specific modules
+
+2. Narrow translation-pack heuristics
+   - reduce filename-guessing in:
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/lp_capabilities.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/translation_packs.py`
+   - manifest-first should be the real path; filename guessing becomes fallback for manual/import cases only
+
+3. Decide whether pair-local config names stay provider-specific
+   - likely yes for now in:
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/rulegen/pairs/en_de.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/rulegen/pairs/de_en.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/rulegen/pairs/es_en.py`
+     - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/rulegen/pairs/en_es.py`
+   - generic layers should be normalized first; pair-local provider names are lower priority unless they start causing confusion
+
+Definition of done:
+
+- generic layers are provider-neutral
+- provider-specific naming remains only where it is actually describing a provider-specific implementation
+
+## Phase 3: Frequency Finalization
 
 Goal:
 - make frequency packs match the same final contract as translation packs, not just “SQLite somewhere on disk”
@@ -119,7 +186,7 @@ Definition of done:
 - managed frequency runtime does not depend on pack-specific legacy filenames
 - the migration no longer needs special-case schema fallbacks for current managed packs
 
-## Phase 3: Embedding Finalization
+## Phase 4: Embedding Finalization
 
 Goal:
 - finish the storage-to-runtime migration for embeddings so SQLite is not only the install artifact, but also the normal runtime contract
@@ -152,7 +219,7 @@ Definition of done:
 - settings/diagnostics identify managed embeddings by pack id + manifest-backed artifact
 - raw vector support is clearly a compatibility/import path, not the normal app-managed contract
 
-## Phase 4: Unified Pack Refs Across Families
+## Phase 5: Unified Pack Refs Across Families
 
 Goal:
 - stop passing loose paths around as the primary generic resource contract
@@ -178,7 +245,7 @@ Definition of done:
 - generic layers work with pack refs and manifests first
 - raw path guessing only exists as compatibility fallback
 
-## Phase 5: Legacy Cleanup And Convergence
+## Phase 6: Final Cleanup And Convergence
 
 Goal:
 - remove transitional assumptions once the pack-ref and consumer migrations are complete
@@ -187,7 +254,7 @@ Concrete work:
 
 1. Remove obsolete filename/path heuristics where safe
 2. Reduce TEI/raw-vector compatibility to explicit manual-import/debug code paths
-3. Optionally converge compiled artifact names to `main.sqlite`
+3. Converge compiled artifact names to `main.sqlite` once all managed consumers are manifest-driven
 4. Make benchmark/resource artifacts prefer pack ids/manifests/checksums as the primary identity surface
 
 Definition of done:
@@ -200,18 +267,27 @@ Definition of done:
 
 If continuing now, the highest-value order is:
 
-1. Phase 2 frequency/runtime cleanup
+1. Phase 1 app-managed translation surface cleanup
+   - `apps/gui/src/main_bulk_rules_mixin.py`
+   - `apps/gui/src/helper_daemon.py`
+   - `scripts/helper/lexishift_helper.py`
+   - `scripts/helper/lexishift_native_host.py`
+   - `scripts/testing/rulegen_benchmark.py`
+   - `scripts/testing/rulegen_probe_words.py`
+
+2. Phase 2 translation internal convergence
+   - `core/lexishift_core/helper/engine.py`
+   - `core/lexishift_core/helper/rulegen.py`
+   - `core/lexishift_core/helper/lp_capabilities.py`
+   - `core/lexishift_core/helper/pair_resources.py`
+
+3. Phase 3 frequency/runtime cleanup
    - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_srs_mixin.py`
    - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
-   - continue replacing path-first frequency resolution/reporting with manifest-backed pack refs
+   - continue replacing path-first frequency resolution/reporting and artifact-specific assumptions with manifest-backed pack refs
 
-2. Phase 3 embedding seam migration
+4. Phase 4 embedding seam migration
    - move the remaining managed embedding settings/maps from path-first persistence to pack-id-first persistence
-
-3. Phase 1 residual translation cleanup
-   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_benchmark.py`
-   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_probe_words.py`
-   - remove the remaining TEI-compatible language in benchmark/probe/help-text seams now that helper and journey-installed staging already use the shared translation-pack contract
 
 I would not jump to `main.sqlite` renaming across families before the remaining runtime consumers and harnesses stop assuming specific legacy filenames.
 

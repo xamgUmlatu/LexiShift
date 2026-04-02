@@ -187,6 +187,7 @@ Acceptance criteria:
   - define a normalized translation-pack contract for benchmark/helper/adapter code,
   - move installed translation packs to a manifest-backed compiled-artifact model with SQLite as the preferred canonical runtime format,
   - treat provider-native raw downloads/extraction trees as build inputs rather than runtime contracts, and delete them after successful build by default,
+  - treat app-managed GUI/helper/native-host/tooling surfaces as free to rename/remove now rather than preserving legacy `freedict_*` or TEI-first naming for compatibility,
   - apply the same manifest-backed compiled-artifact model to existing frequency and embedding pack flows, not only translation packs,
   - require any new data-source onboarding to use pack-id roots + manifest + canonical compiled artifact + raw cleanup by default,
   - generalize the compiled pair-context boundary,

@@ -33,6 +33,30 @@ In short:
 - compile to a canonical runtime artifact
 - stop exposing raw provider layout to helper/rulegen/benchmark code
 
+## Compatibility Boundary
+
+For this repo, compatibility should now be treated as a scoped engineering choice, not a default obligation.
+
+Because the app/runtime stack is not released, we do not need to preserve old app-managed naming or old app-managed TEI-first behavior just to avoid churn.
+
+That means:
+
+- GUI/helper/native-host/developer-tooling surfaces owned by this repo can be renamed or cleaned up directly
+- `freedict_*` fields should stop being the primary generic contract on app-managed surfaces
+- app-managed flows should stop advertising TEI as a normal runtime artifact
+
+Compatibility is still reasonable only for:
+
+- manual external imports
+- explicit developer/debug paths
+- provider-specific converter/build tooling
+- tests that intentionally verify raw-format coverage
+
+So the final architecture is not just “support both forever.” It is:
+
+- aggressive cleanup for app-managed surfaces
+- explicit compatibility islands for manual/debug/provider-specific workflows
+
 ## Onboarding Rule
 
 This is not only a cleanup plan for current packs.
