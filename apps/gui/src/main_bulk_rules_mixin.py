@@ -8,6 +8,7 @@ from PySide6.QtWidgets import QDialog, QMessageBox
 
 from dialogs_code import BulkRulesDialog
 from i18n import t
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
 from lexishift_core import (
     RuleMetadata,
     SynonymGenerator,
@@ -16,6 +17,27 @@ from lexishift_core import (
     SynonymSources,
     VocabRule,
 )
+
+
+def _resolve_translation_pack_path(
+    raw_path: str | None,
+    *,
+    legacy_artifact_names: tuple[str, ...],
+) -> str | None:
+    path_text = str(raw_path or "").strip()
+    if not path_text:
+        return None
+    path = Path(path_text)
+    if not path.is_dir():
+        return path_text
+    resolved_artifact = resolve_installed_pack_artifact(path.parent, path.name)
+    if resolved_artifact is not None:
+        return str(resolved_artifact)
+    for artifact_name in legacy_artifact_names:
+        candidate = path / artifact_name
+        if candidate.exists():
+            return str(candidate)
+    return path_text
 
 
 class MainWindowBulkRulesMixin:
@@ -104,18 +126,26 @@ class MainWindowBulkRulesMixin:
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
         jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
-        freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
-        freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
+        freedict_de_en_path = _resolve_translation_pack_path(
+            language_packs.get("freedict-de-en") if language_packs else None,
+            legacy_artifact_names=(
+                "freedict-de-en.sqlite",
+                "deu-eng.sqlite",
+                "deu-eng.tei",
+            ),
+        )
+        freedict_en_de_path = _resolve_translation_pack_path(
+            language_packs.get("freedict-en-de") if language_packs else None,
+            legacy_artifact_names=(
+                "freedict-en-de.sqlite",
+                "eng-deu.sqlite",
+                "eng-deu.tei",
+            ),
+        )
         cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
         if cc_cedict_path and Path(cc_cedict_path).is_dir():
             candidate = Path(cc_cedict_path) / "cedict_ts.u8"
             cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
-        if freedict_de_en_path and Path(freedict_de_en_path).is_dir():
-            candidate = Path(freedict_de_en_path) / "deu-eng.tei"
-            freedict_de_en_path = str(candidate) if candidate.exists() else freedict_de_en_path
-        if freedict_en_de_path and Path(freedict_en_de_path).is_dir():
-            candidate = Path(freedict_en_de_path) / "eng-deu.tei"
-            freedict_en_de_path = str(candidate) if candidate.exists() else freedict_en_de_path
         rules: list[VocabRule] = []
         seen_sources: set[str] = set()
         duplicate_count = 0
@@ -369,8 +399,22 @@ class MainWindowBulkRulesMixin:
             "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
             "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
             "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
-            "freedict-de-en": language_packs.get("freedict-de-en"),
-            "freedict-en-de": language_packs.get("freedict-en-de"),
+            "freedict-de-en": _resolve_translation_pack_path(
+                language_packs.get("freedict-de-en"),
+                legacy_artifact_names=(
+                    "freedict-de-en.sqlite",
+                    "deu-eng.sqlite",
+                    "deu-eng.tei",
+                ),
+            ),
+            "freedict-en-de": _resolve_translation_pack_path(
+                language_packs.get("freedict-en-de"),
+                legacy_artifact_names=(
+                    "freedict-en-de.sqlite",
+                    "eng-deu.sqlite",
+                    "eng-deu.tei",
+                ),
+            ),
         }
         label_map = {
             "wordnet-en": t("packs.wordnet"),

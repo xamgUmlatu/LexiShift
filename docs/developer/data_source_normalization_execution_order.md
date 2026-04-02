@@ -30,10 +30,12 @@ Already landed:
 - helper default translation resolution now prefers FreeDict SQLite artifact names
 - German frequency whitelist/build now prefers normalized FreeDict artifacts
 - synonym generation now reads FreeDict through the shared translation-pack loader
+- bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
+- synthetic SRS quality harness fixtures now default to SQLite translation resources instead of raw TEI
 
 Still intentionally transitional:
 
-- some GUI/runtime/harness paths still mention or generate TEI-first resources
+- some GUI/runtime/harness paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still persist direct artifact paths rather than pack refs in some settings/runtime flows
 - generic helper/resource reporting still contains filename/provider heuristics
@@ -52,15 +54,16 @@ Why this is first:
 Concrete work:
 
 1. GUI compatibility cleanup
-   - remove or narrow directory-to-TEI special casing in:
+   - remove or narrow remaining TEI/directory compatibility logic in:
      - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_bulk_rules_mixin.py`
    - keep directory fallback only where manual legacy packs are intentionally still supported
 
 2. Synthetic harness/resource fixture cleanup
-   - move synthetic translation fixtures toward SQLite-first defaults in:
+   - move the remaining synthetic translation fixtures toward SQLite-first defaults in:
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_quality_harness_support.py`
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_journey_harness_support.py`
    - keep TEI fixture helpers only when a test explicitly needs raw-format coverage
+   - current checkpoint: the quality harness is SQLite-first; the journey harness still remains to be migrated without expanding its already oversized support file
 
 3. Generic helper/diagnostic naming cleanup
    - remove generic logic that infers provider semantics from `.tei` or `freedict` filename patterns where a manifest-backed pack id is available

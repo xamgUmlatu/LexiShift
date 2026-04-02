@@ -96,8 +96,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite and the German frequency whitelist path now prefers the normalized translation artifact
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, frequency manifests, and app-managed embedding conversion/manifests
+- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, the bulk-rules GUI resolves managed SQLite artifacts first, and the synthetic SRS quality harness defaults to SQLite translation resources
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality-harness resources, frequency manifests, and app-managed embedding conversion/manifests
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -111,6 +111,8 @@ Use this file when:
     - app-managed FreeDict language-pack installs now compile provider TEI sources to canonical SQLite artifacts before completion
     - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts and FreeDict SQLite filenames before falling back to TEI/path guessing
     - the German frequency whitelist/build path now resolves FreeDict through the same normalized translation-pack artifact contract and shared translation headword loader
+    - the GUI bulk-rules FreeDict path now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
+    - the synthetic SRS quality harness helper now emits SQLite translation resources by default
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
@@ -139,21 +141,25 @@ Use this file when:
   - `core/lexishift_core/resources/synonyms.py`
   - `core/lexishift_core/frequency/de/build_support.py`
   - `core/lexishift_core/frequency/de/pipeline.py`
+  - `apps/gui/src/main_bulk_rules_mixin.py`
+  - `scripts/testing/srs_quality_harness_support.py`
+  - `scripts/testing/srs_journey_harness_support.py`
   - `scripts/data/convert_embeddings.py`
   - `scripts/data/convert_freedict_tei_to_sqlite.py`
   - `core/tests/helper/test_installed_packs.py`
   - `core/tests/helper/test_lp_capabilities.py`
   - `core/tests/helper/test_pair_resources.py`
+  - `core/tests/dev/test_srs_harness_resource_normalization.py`
   - `core/tests/frequency/test_de_build_support.py`
   - `core/tests/resources/test_dict_loaders_freedict_pos.py`
   - `core/tests/resources/test_synonyms_translation_packs.py`
 - Known gaps:
   - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, but broader pack consumers still include legacy path assumptions.
-  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair and tooling flows even though app-managed installs now build to SQLite.
+  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair and tooling flows even though app-managed installs now build to SQLite and the main GUI/quality-harness consumers now prefer SQLite-first paths.
   - Helper/runtime resource resolution is not yet manifest-driven for embeddings; current embedding activation still persists direct artifact paths in settings.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
   - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names inside the pack root during migration.
-  - Translation consumers and helper diagnostics still include TEI-compatible assumptions in some paths, but the shared loader-backed consumers now include rulegen pairs, the German frequency whitelist, and synonym generation.
+  - Translation consumers and helper diagnostics still include TEI-compatible assumptions in some paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality harness; the journey harness remains pending because its support module still needs a size-safe refactor.
 
 ## `de-en` Baseline Rulegen Enablement
 

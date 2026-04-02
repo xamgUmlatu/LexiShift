@@ -79,6 +79,57 @@ def _write_freedict_de_en(path: Path, *, targets: list[str], sources: list[str])
     path.write_text(payload, encoding="utf-8")
 
 
+def _write_translation_dictionary_sqlite(
+    path: Path,
+    *,
+    entries: list[tuple[str, str, str]],
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("DROP TABLE IF EXISTS meta;")
+        conn.execute("DROP TABLE IF EXISTS entries;")
+        conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);")
+        conn.execute(
+            "CREATE TABLE entries ("
+            "headword TEXT NOT NULL, "
+            "headword_lc TEXT NOT NULL, "
+            "translation TEXT NOT NULL, "
+            "translation_lc TEXT NOT NULL, "
+            "rank INTEGER NOT NULL, "
+            "pos TEXT, "
+            "entry_ord INTEGER NOT NULL, "
+            "gloss_ord INTEGER NOT NULL, "
+            "PRIMARY KEY (headword_lc, translation_lc)"
+            ");"
+        )
+        conn.executemany(
+            "INSERT INTO entries ("
+            "headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord"
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                (
+                    headword,
+                    headword.lower(),
+                    translation,
+                    translation.lower(),
+                    index + 1,
+                    pos_raw,
+                    index + 1,
+                    0,
+                )
+                for index, (headword, translation, pos_raw) in enumerate(entries)
+            ],
+        )
+        conn.execute(
+            "INSERT INTO meta (key, value) VALUES (?, ?)",
+            ("metadata", json.dumps({"source": "synthetic_srs_quality"}, ensure_ascii=False)),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
 def _load_ruleset_payload(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -195,10 +246,11 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             lemmas=targets,
             pos="SUB:NOM:SIN:NEU",
         )
-        _write_freedict_de_en(
-            paths.language_packs_dir / "deu-eng.tei",
-            targets=targets,
-            sources=sources,
+        _write_translation_dictionary_sqlite(
+            paths.language_packs_dir / "freedict-de-en.sqlite",
+            entries=[
+                (target, source, "noun") for target, source in zip(targets, sources, strict=True)
+            ],
         )
         return
     raise ValueError(f"Unsupported synthetic SRS pair: {pair}")
