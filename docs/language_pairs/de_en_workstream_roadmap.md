@@ -50,6 +50,7 @@ What already exists:
 - default frequency for `de-en` is already `freq-en-coca.sqlite`
 - generic translation-dictionary naming and normalized pack refs are now implemented at the helper/adapter seam
 - `de-en` directional filename defaults now correctly resolve `eng-deu.tei`
+- translation language packs now have a first manifest-backed install layout, so `de-en` no longer has to rely only on flat filename discovery when the pack is app-installed
 
 What does not exist yet:
 

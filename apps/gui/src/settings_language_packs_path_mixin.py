@@ -2,8 +2,14 @@ from __future__ import annotations
 
 import os
 import shutil
+from pathlib import Path
 from typing import Optional
 
+from lexishift_core.helper.installed_packs import (
+    installed_pack_root,
+    load_installed_pack_manifest,
+    resolve_installed_pack_artifact,
+)
 from language_packs import FrequencyPackInfo, LanguagePackInfo
 from settings_language_packs_support import is_sqlite_db_file
 
@@ -11,12 +17,17 @@ from settings_language_packs_support import is_sqlite_db_file
 class LanguagePackPanelPathMixin:
     def _download_archive_path(self, pack: LanguagePackInfo, *, embeddings: bool = False) -> str:
         base_dir = self._embedding_pack_dir if embeddings else self._language_pack_dir
-        return os.path.join(base_dir, pack.filename)
+        if embeddings:
+            return os.path.join(base_dir, pack.filename)
+        return str(self._language_pack_storage_dir(pack) / pack.filename)
 
     def _language_pack_sqlite_path(self, pack: LanguagePackInfo) -> str | None:
         if not pack.sqlite_filename:
             return None
-        return os.path.join(self._language_pack_dir, pack.sqlite_filename)
+        return str(self._language_pack_storage_dir(pack) / pack.sqlite_filename)
+
+    def _language_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
+        return installed_pack_root(Path(self._language_pack_dir), pack.pack_id)
 
     def _frequency_archive_path(self, pack: FrequencyPackInfo) -> str:
         return os.path.join(self._frequency_pack_dir, pack.filename)
@@ -36,6 +47,17 @@ class LanguagePackPanelPathMixin:
         if not pack:
             return None
         if not embeddings:
+            manifest = load_installed_pack_manifest(Path(self._language_pack_dir), pack.pack_id)
+            if manifest is not None:
+                storage_dir = self._language_pack_storage_dir(pack)
+                if pack.local_kind == "dir" and storage_dir.exists():
+                    return str(storage_dir)
+                resolved_artifact = resolve_installed_pack_artifact(
+                    Path(self._language_pack_dir),
+                    pack.pack_id,
+                )
+                if resolved_artifact is not None:
+                    return str(resolved_artifact)
             sqlite_path = self._language_pack_sqlite_path(pack)
             if sqlite_path and self._is_sqlite_db(sqlite_path):
                 return sqlite_path

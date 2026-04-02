@@ -95,29 +95,41 @@ Use this file when:
 
 ## Data Source Normalization Architecture
 
-- Status: `planned`
-- Last documented checkpoint: `2026-04-03` explicit normalization architecture decision recorded
-- Last verified: `2026-04-03` planning review against current pack catalog, helper pack refs, and `de-en` proof-LP runtime behavior
+- Status: `scaffolded`, `verified`; `default-on` = `partial` for manifest-backed translation-pack installs and helper translation-pack discovery
+- Last documented checkpoint: `2026-04-03` explicit normalization architecture decision recorded and first manifest-backed translation-pack slice landed
+- Last verified: `2026-04-03` targeted helper tests plus GUI/core compile verification
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
     - canonical runtime artifacts should prefer compiled SQLite
     - provider-native raw archives/extraction trees should be treated as build inputs rather than runtime contracts
     - raw download/extraction artifacts should be deleted after successful build unless a developer-only retention mode is explicitly enabled
-  - This is currently a planning/architecture target, not the live default implementation.
+  - First executable slice is now live for translation packs:
+    - GUI language-pack downloads install into stable per-pack roots under `language_packs/<pack_id>/`
+    - translation language-pack installs now write `manifest.json`
+    - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts before falling back to filename/path guessing
+  - Current runtime contract is still transitional rather than final:
+    - FreeDict translation packs still expose TEI as the runtime artifact
+    - Kaikki translation packs already expose compiled SQLite
 - Evidence:
   - `docs/developer/data_source_normalization_architecture.md`
   - `docs/developer/language_pair_generalization_roadmap.md`
   - `docs/language_pairs/de_en_workstream_roadmap.md`
   - `apps/gui/src/language_packs_catalog.py`
   - `apps/gui/src/language_packs.py`
+  - `apps/gui/src/settings_language_packs_path_mixin.py`
   - `core/lexishift_core/helper/translation_packs.py`
   - `core/lexishift_core/helper/pair_resources.py`
+  - `core/lexishift_core/helper/installed_packs.py`
+  - `core/lexishift_core/helper/lp_capabilities.py`
+  - `core/tests/helper/test_installed_packs.py`
+  - `core/tests/helper/test_lp_capabilities.py`
 - Known gaps:
+  - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link for translation packs use it, but broader pack consumers still include legacy path assumptions.
   - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair flows, including the current baseline `de-en` path.
-  - Installed-pack resolution is not yet manifest-driven.
   - FreeDict does not yet build to a canonical compiled runtime SQLite artifact during normal app installation.
-  - Dirty extracted provider directories can still remain on disk after successful install/build.
+  - Frequency packs and other pack families have not yet been migrated to the same manifest-backed install layout.
+  - Dirty extracted provider directories are now reduced for translation packs by flattening required runtime files into the pack root, but canonical compiled SQLite plus full raw-artifact deletion is still not complete for FreeDict.
 
 ## `de-en` Baseline Rulegen Enablement
 

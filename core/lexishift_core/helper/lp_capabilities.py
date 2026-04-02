@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+
 
 @dataclass(frozen=True)
 class PairCapability:
@@ -146,6 +148,10 @@ def default_translation_dictionary_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_translation_dictionary_for_rulegen:
         return None
+    for pack_id in _default_translation_pack_ids_for_pair(capability.pair):
+        resolved_pack_artifact = resolve_installed_pack_artifact(language_packs_dir, pack_id)
+        if resolved_pack_artifact is not None:
+            return resolved_pack_artifact
     filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
     for filename in filenames:
         direct_candidate = language_packs_dir / filename
@@ -174,6 +180,10 @@ def default_reverse_translation_dictionary_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_translation_dictionary_for_rulegen:
         return None
+    for pack_id in _default_reverse_translation_pack_ids_for_pair(capability.pair):
+        resolved_pack_artifact = resolve_installed_pack_artifact(language_packs_dir, pack_id)
+        if resolved_pack_artifact is not None:
+            return resolved_pack_artifact
     filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
     for filename in filenames:
         direct_candidate = language_packs_dir / filename
@@ -219,6 +229,18 @@ def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, 
     return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
 
 
+def _default_translation_pack_ids_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "de-en":
+        return ("freedict-en-de",)
+    if pair == "en-de":
+        return ("freedict-de-en",)
+    if pair == "en-es":
+        return ("wiktionary-es-en", "freedict-es-en")
+    if pair == "es-en":
+        return ("freedict-en-es",)
+    return ("freedict-de-en",)
+
+
 def _default_reverse_translation_filenames_for_pair(pair: str) -> tuple[str, ...]:
     if pair == "en-es":
         return (
@@ -238,6 +260,18 @@ def _default_reverse_translation_filenames_for_pair(pair: str) -> tuple[str, ...
     if not reverse_pair:
         return ()
     return _default_translation_dictionary_filenames_for_pair(reverse_pair)
+
+
+def _default_reverse_translation_pack_ids_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "de-en":
+        return ("freedict-de-en",)
+    if pair == "en-de":
+        return ("freedict-en-de",)
+    if pair == "en-es":
+        return ("wiktionary-en-es", "freedict-en-es")
+    if pair == "es-en":
+        return ("wiktionary-es-en", "freedict-es-en")
+    return ("freedict-en-de",)
 
 
 def pair_requirements(pair: str) -> dict[str, object]:

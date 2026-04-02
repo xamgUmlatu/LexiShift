@@ -21,6 +21,7 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     selectable_srs_pairs,
     supported_rulegen_pairs,
 )
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 
 
 class TestLpCapabilities(unittest.TestCase):
@@ -145,6 +146,30 @@ class TestLpCapabilities(unittest.TestCase):
         self.assertIsNotNone(resolved)
         self.assertTrue(str(resolved).endswith("eng-deu.tei"))
 
+    def test_de_en_default_dictionary_prefers_manifest_backed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            pack_root = language_packs_dir / "freedict-en-de"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "eng-deu.tei"
+            artifact.write_text("<tei/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="freedict-en-de",
+                pack_kind="language",
+                provider="freedict",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="freedict-eng-deu-1.9-fd1.src.tar.xz",
+                required_files=("eng-deu.tei",),
+            )
+            resolved = default_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, artifact)
+
     def test_de_en_default_reverse_dictionary_uses_german_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
@@ -154,6 +179,30 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertIsNotNone(resolved)
         self.assertTrue(str(resolved).endswith("deu-eng.tei"))
+
+    def test_de_en_default_reverse_dictionary_prefers_manifest_backed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            pack_root = language_packs_dir / "freedict-de-en"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "deu-eng.tei"
+            artifact.write_text("<tei/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="freedict-de-en",
+                pack_kind="language",
+                provider="freedict",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
+                required_files=("deu-eng.tei",),
+            )
+            resolved = default_reverse_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, artifact)
 
 
 if __name__ == "__main__":

@@ -332,9 +332,12 @@ class LanguagePackPanel(
         if not pack or not row:
             return
         local_path = self._language_pack_paths.get(pack_id)
+        storage_dir = str(self._language_pack_storage_dir(pack))
         archive_path = self._download_archive_path(pack)
         resolved_path = self._resolve_downloaded_path(pack)
         delete_paths = []
+        if os.path.isdir(storage_dir) and self._is_app_data_path(storage_dir):
+            delete_paths.append(storage_dir)
         if local_path and self._is_app_data_path(local_path):
             delete_paths.append(local_path)
         if archive_path and os.path.exists(archive_path) and self._is_app_data_path(archive_path):

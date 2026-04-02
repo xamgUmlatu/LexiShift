@@ -189,6 +189,7 @@ Current verified progress:
 - helper-to-adapter rulegen calls can now carry normalized `TranslationPackRef` objects
 - helper resource resolution and runtime diagnostics now resolve/report normalized translation-pack identity
 - legacy `freedict_*` fields remain as compatibility aliases while pair-local configs are still being normalized
+- translation language packs now also install under stable per-pack roots with `manifest.json`, and helper translation-dictionary resolution can read those manifests before falling back to filename guessing
 
 ## Phase 3: Generalize The Compiled Pair Boundary
 

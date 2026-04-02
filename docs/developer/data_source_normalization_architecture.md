@@ -1,10 +1,10 @@
 # Data Source Normalization Architecture
 
-Status: active planning doc
+Status: active planning doc with first executable slice
 Role: architecture target / implementation plan
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
 Last updated: 2026-04-03
-Last verified: 2026-04-03
+Last verified: 2026-04-03 helper/gui path and manifest slice
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
 ## Why This Workstream Exists
@@ -253,6 +253,15 @@ Definition of done:
 
 - runtime can resolve installed translation packs by pack id
 - manifest exists even if the pack still references legacy raw artifacts during migration
+
+Current verified progress:
+
+- translation language packs now install under stable per-pack roots rather than flat shared filenames
+- language-pack downloads now write manifest files that record the canonical runtime artifact path
+- helper translation-dictionary resolution now checks manifest-backed installed packs before falling back to filename/path guessing
+- current runtime artifacts are still mixed:
+  - FreeDict translation packs still expose TEI as the canonical runtime artifact
+  - Kaikki translation packs still expose compatibility SQLite as the canonical runtime artifact
 
 ## Phase B: FreeDict Build Normalization
 

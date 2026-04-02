@@ -16,6 +16,9 @@ from PySide6.QtCore import QThread, Signal, QStandardPaths
 from lexishift_core.frequency.sqlite import (
     convert_frequency_to_sqlite,
 )
+from lexishift_core.helper.installed_packs import (
+    write_installed_pack_manifest,
+)
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
 from language_packs_catalog import (
@@ -125,6 +128,7 @@ class LanguagePackDownloadThread(QThread):
                 self.failed.emit(self._pack_id, "cancelled")
                 return
             final_path = self._build_local_artifact(self._dest_path)
+            self._write_manifest(final_path)
             _log_download(f"[{self._pack_id}] completed path={final_path}")
             self.completed.emit(self._pack_id, final_path)
         except Exception as exc:
@@ -169,12 +173,14 @@ class LanguagePackDownloadThread(QThread):
         if not self._pack.required_files:
             self._cleanup_archive(archive_path)
             return extracted_path
-        target_dir = (
-            extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
-        )
+        target_dir = os.path.dirname(archive_path)
+        os.makedirs(target_dir, exist_ok=True)
         required = list(self._pack.required_files)
         found = {}
-        for root, _dirs, files in os.walk(target_dir):
+        search_root = (
+            extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
+        )
+        for root, _dirs, files in os.walk(search_root):
             for name in files:
                 if name in required and name not in found:
                     found[name] = os.path.join(root, name)
@@ -186,6 +192,8 @@ class LanguagePackDownloadThread(QThread):
                 continue
             dest = os.path.join(target_dir, name)
             if os.path.abspath(src) != os.path.abspath(dest):
+                if os.path.exists(dest):
+                    os.remove(dest)
                 os.makedirs(os.path.dirname(dest), exist_ok=True)
                 shutil.move(src, dest)
         for entry in os.listdir(target_dir):
@@ -201,6 +209,29 @@ class LanguagePackDownloadThread(QThread):
                 pass
         self._cleanup_archive(archive_path)
         return target_dir
+
+    def _write_manifest(self, final_path: str) -> None:
+        pack_root = Path(self._dest_path).parent
+        write_installed_pack_manifest(
+            pack_root.parent,
+            pack_id=self._pack_id,
+            pack_kind="language",
+            provider=str(self._pack.source or "").strip().lower(),
+            local_kind=self._pack.local_kind,
+            build_mode=self._pack.build_mode,
+            artifact_path=self._manifest_artifact_path(Path(final_path)),
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            required_files=self._pack.required_files,
+            raw_retained=False,
+        )
+
+    def _manifest_artifact_path(self, final_path: Path) -> Path:
+        if self._pack.local_kind == "dir" and len(self._pack.required_files) == 1:
+            candidate = final_path / self._pack.required_files[0]
+            if candidate.exists():
+                return candidate
+        return final_path
 
     def _cleanup_archive(self, archive_path: str) -> None:
         try:
