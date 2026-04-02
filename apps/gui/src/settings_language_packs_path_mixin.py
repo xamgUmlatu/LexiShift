@@ -16,9 +16,8 @@ from settings_language_packs_support import is_sqlite_db_file
 
 class LanguagePackPanelPathMixin:
     def _download_archive_path(self, pack: LanguagePackInfo, *, embeddings: bool = False) -> str:
-        base_dir = self._embedding_pack_dir if embeddings else self._language_pack_dir
         if embeddings:
-            return os.path.join(base_dir, pack.filename)
+            return str(self._embedding_pack_storage_dir(pack) / pack.filename)
         return str(self._language_pack_storage_dir(pack) / pack.filename)
 
     def _language_pack_sqlite_path(self, pack: LanguagePackInfo) -> str | None:
@@ -37,6 +36,12 @@ class LanguagePackPanelPathMixin:
 
     def _frequency_sqlite_path(self, pack: FrequencyPackInfo) -> str:
         return str(self._frequency_pack_storage_dir(pack) / pack.sqlite_filename)
+
+    def _embedding_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
+        return installed_pack_root(Path(self._embedding_pack_dir), pack.pack_id)
+
+    def _embedding_pack_sqlite_path(self, pack: LanguagePackInfo) -> str:
+        return str(self._embedding_pack_storage_dir(pack) / "main.sqlite")
 
     def _embedding_sqlite_path(self, source_path: str) -> str:
         lowered = source_path.lower()
@@ -66,6 +71,17 @@ class LanguagePackPanelPathMixin:
                 return sqlite_path
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
         if embeddings:
+            manifest = load_installed_pack_manifest(Path(self._embedding_pack_dir), pack.pack_id)
+            if manifest is not None:
+                resolved_artifact = resolve_installed_pack_artifact(
+                    Path(self._embedding_pack_dir),
+                    pack.pack_id,
+                )
+                if resolved_artifact is not None:
+                    return str(resolved_artifact)
+            managed_sqlite = self._embedding_pack_sqlite_path(pack)
+            if self._is_sqlite_db(managed_sqlite):
+                return managed_sqlite
             optimized = self._embedding_sqlite_path(archive_path)
             if self._is_sqlite_db(optimized):
                 return optimized

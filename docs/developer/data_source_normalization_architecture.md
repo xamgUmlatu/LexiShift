@@ -280,8 +280,8 @@ Current verified progress:
 
 Current non-coverage:
 
-- embedding pack installs/conversions do not yet use the same manifest-backed pack layout
 - helper/rulegen resource resolution is still only partially manifest-aware outside translation and frequency defaults
+- embedding runtime and settings still preserve raw-file compatibility for manually supplied external files during migration
 - frequency packs still keep pack-specific SQLite filenames during migration rather than a fully unified `main.sqlite` contract
 
 ## Normalized Runtime Format By Pack Family

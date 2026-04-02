@@ -89,12 +89,22 @@ class LanguagePackDownloadThread(QThread):
     completed = Signal(str, str)
     failed = Signal(str, str)
 
-    def __init__(self, pack: LanguagePackInfo, dest_path: str, parent=None) -> None:
+    def __init__(
+        self,
+        pack: LanguagePackInfo,
+        dest_path: str,
+        parent=None,
+        *,
+        pack_kind: str = "language",
+        write_manifest_on_complete: bool = True,
+    ) -> None:
         super().__init__(parent)
         self._pack = pack
         self._pack_id = pack.pack_id
         self._url = pack.url
         self._dest_path = dest_path
+        self._pack_kind = str(pack_kind or "language")
+        self._write_manifest_on_complete = bool(write_manifest_on_complete)
 
     def run(self) -> None:
         try:
@@ -128,7 +138,8 @@ class LanguagePackDownloadThread(QThread):
                 self.failed.emit(self._pack_id, "cancelled")
                 return
             final_path = self._build_local_artifact(self._dest_path)
-            self._write_manifest(final_path)
+            if self._write_manifest_on_complete:
+                self._write_manifest(final_path)
             _log_download(f"[{self._pack_id}] completed path={final_path}")
             self.completed.emit(self._pack_id, final_path)
         except Exception as exc:
@@ -215,7 +226,7 @@ class LanguagePackDownloadThread(QThread):
         write_installed_pack_manifest(
             pack_root.parent,
             pack_id=self._pack_id,
-            pack_kind="language",
+            pack_kind=self._pack_kind,
             provider=str(self._pack.source or "").strip().lower(),
             local_kind=self._pack.local_kind,
             build_mode=self._pack.build_mode,

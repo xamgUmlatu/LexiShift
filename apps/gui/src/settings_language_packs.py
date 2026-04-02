@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from PySide6.QtWidgets import (
     QAbstractItemView,
@@ -43,6 +44,7 @@ from settings_language_packs_support import (
     language_pack_dir as _language_pack_dir,
 )
 from theme_manager import resolve_current_theme
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 
 
 class LanguagePackPanel(
@@ -231,7 +233,13 @@ class LanguagePackPanel(
         self._set_status_message(
             t("language_packs.downloading", name=pack.display_name()), tone="info"
         )
-        thread = LanguagePackDownloadThread(pack, dest_path, self)
+        thread = LanguagePackDownloadThread(
+            pack,
+            dest_path,
+            self,
+            pack_kind="embedding",
+            write_manifest_on_complete=False,
+        )
         thread.progress.connect(self._on_embedding_pack_progress)
         thread.completed.connect(self._on_embedding_pack_completed)
         thread.failed.connect(self._on_embedding_pack_failed)
@@ -440,6 +448,7 @@ class LanguagePackPanel(
         if not pack or not row:
             return
         local_path = self._embedding_pack_paths.get(pack_id)
+        storage_dir = str(self._embedding_pack_storage_dir(pack))
         local_optimized_path = self._embedding_sqlite_path(local_path) if local_path else None
         archive_path = self._download_archive_path(pack, embeddings=True)
         archive_optimized_path = self._embedding_sqlite_path(archive_path)
@@ -448,6 +457,8 @@ class LanguagePackPanel(
             self._embedding_sqlite_path(resolved_path) if resolved_path else None
         )
         delete_paths = []
+        if os.path.exists(storage_dir) and self._is_app_data_path(storage_dir, embeddings=True):
+            delete_paths.append(storage_dir)
         if local_path and self._is_app_data_path(local_path, embeddings=True):
             delete_paths.append(local_path)
         if local_optimized_path and local_optimized_path != local_path:
@@ -676,7 +687,7 @@ class LanguagePackPanel(
         if self._is_sqlite_db(dest_path):
             self._finalize_embedding_pack(pack_id=pack_id, resolved_path=dest_path)
             return
-        optimized_path = self._embedding_sqlite_path(dest_path)
+        optimized_path = self._embedding_pack_sqlite_path(pack)
         if self._is_sqlite_db(optimized_path):
             self._finalize_embedding_pack(pack_id=pack_id, resolved_path=optimized_path)
             return
@@ -710,19 +721,7 @@ class LanguagePackPanel(
         row = self._embedding_row_for(pack_id)
         if not pack or not row:
             return
-        fallback_path = self._embedding_pack_paths.get(pack_id)
-        if fallback_path and os.path.exists(fallback_path):
-            self._finalize_embedding_pack(pack_id=pack_id, resolved_path=fallback_path)
-            self._set_status_message(
-                t(
-                    "language_packs.downloaded_but_conversion_failed",
-                    name=pack.display_name(),
-                    message=message,
-                ),
-                tone="warning",
-                tooltip=message,
-            )
-            return
+        self._embedding_pack_paths.pop(pack_id, None)
         row.status_item.setText(t("language_packs.status.failed"))
         self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
@@ -745,7 +744,30 @@ class LanguagePackPanel(
         row = self._embedding_row_for(pack_id)
         if not pack or not row:
             return
+        prior_path = self._embedding_pack_paths.get(pack_id)
         self._embedding_pack_paths[pack_id] = resolved_path
+        if self._is_sqlite_db(resolved_path) and self._is_app_data_path(
+            resolved_path, embeddings=True
+        ):
+            write_installed_pack_manifest(
+                Path(self._embedding_pack_dir),
+                pack_id=pack_id,
+                pack_kind="embedding",
+                provider=str(pack.source or "").strip().lower(),
+                local_kind="file",
+                build_mode="convert_to_sqlite",
+                artifact_path=Path(resolved_path),
+                source_filename=pack.filename,
+                sqlite_filename=os.path.basename(resolved_path),
+                raw_retained=False,
+            )
+            if (
+                prior_path
+                and prior_path != resolved_path
+                and os.path.exists(prior_path)
+                and self._is_app_data_path(prior_path, embeddings=True)
+            ):
+                self._remove_path(prior_path)
         row.status_item.setText(t("language_packs.status.local_ok"))
         self._set_status_item_tone(row.status_item, "success")
         row.status_item.setToolTip(resolved_path)

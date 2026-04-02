@@ -73,6 +73,34 @@ class TestInstalledPacks(unittest.TestCase):
             self.assertEqual(manifest.artifact_relpath, "english-wordnet")
             self.assertEqual(resolve_installed_pack_artifact(base_dir, "wordnet-en"), artifact_path)
 
+    def test_write_and_resolve_embedding_sqlite_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base_dir = Path(tmp)
+            pack_root = installed_pack_root(base_dir, "embed-en-cc")
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact_path = pack_root / "main.sqlite"
+            artifact_path.write_bytes(b"SQLite format 3\x00")
+
+            write_installed_pack_manifest(
+                base_dir,
+                pack_id="embed-en-cc",
+                pack_kind="embedding",
+                provider="fasttext",
+                local_kind="file",
+                build_mode="convert_to_sqlite",
+                artifact_path=artifact_path,
+                source_filename="cc.en.300.vec.gz",
+                sqlite_filename="main.sqlite",
+            )
+
+            manifest = load_installed_pack_manifest(base_dir, "embed-en-cc")
+            assert manifest is not None
+            self.assertEqual(manifest.pack_kind, "embedding")
+            self.assertEqual(manifest.artifact_relpath, "main.sqlite")
+            self.assertEqual(
+                resolve_installed_pack_artifact(base_dir, "embed-en-cc"), artifact_path
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
