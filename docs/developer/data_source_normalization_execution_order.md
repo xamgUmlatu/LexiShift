@@ -53,7 +53,7 @@ Already landed:
 - helper default translation resolution now prefers FreeDict SQLite artifact names
 - German frequency whitelist/build now prefers normalized FreeDict artifacts
 - synonym generation now reads FreeDict through the shared translation-pack loader
-- bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
+- bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts or legacy SQLite files, and no longer treats extracted TEI directories as a normal managed path
 - synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
 - translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
 - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam

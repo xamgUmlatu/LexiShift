@@ -22,7 +22,7 @@ from lexishift_core import (
 def _resolve_translation_pack_path(
     raw_path: str | None,
     *,
-    legacy_artifact_names: tuple[str, ...],
+    sqlite_artifact_names: tuple[str, ...],
 ) -> str | None:
     path_text = str(raw_path or "").strip()
     if not path_text:
@@ -33,11 +33,11 @@ def _resolve_translation_pack_path(
     resolved_artifact = resolve_installed_pack_artifact(path.parent, path.name)
     if resolved_artifact is not None:
         return str(resolved_artifact)
-    for artifact_name in legacy_artifact_names:
+    for artifact_name in sqlite_artifact_names:
         candidate = path / artifact_name
-        if candidate.exists():
+        if candidate.exists() and candidate.is_file():
             return str(candidate)
-    return path_text
+    return None
 
 
 class MainWindowBulkRulesMixin:
@@ -128,18 +128,16 @@ class MainWindowBulkRulesMixin:
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
         freedict_de_en_path = _resolve_translation_pack_path(
             language_packs.get("freedict-de-en") if language_packs else None,
-            legacy_artifact_names=(
+            sqlite_artifact_names=(
                 "freedict-de-en.sqlite",
                 "deu-eng.sqlite",
-                "deu-eng.tei",
             ),
         )
         freedict_en_de_path = _resolve_translation_pack_path(
             language_packs.get("freedict-en-de") if language_packs else None,
-            legacy_artifact_names=(
+            sqlite_artifact_names=(
                 "freedict-en-de.sqlite",
                 "eng-deu.sqlite",
-                "eng-deu.tei",
             ),
         )
         cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
@@ -196,16 +194,12 @@ class MainWindowBulkRulesMixin:
                 missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
             if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
                 missing_sources.append(t("sources.jmdict_file"))
-            if (
-                use_freedict_de_en
-                and freedict_de_en_path
-                and not Path(freedict_de_en_path).exists()
+            if use_freedict_de_en and (
+                not freedict_de_en_path or not Path(freedict_de_en_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_de_en_file"))
-            if (
-                use_freedict_en_de
-                and freedict_en_de_path
-                and not Path(freedict_en_de_path).exists()
+            if use_freedict_en_de and (
+                not freedict_en_de_path or not Path(freedict_en_de_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_en_de_file"))
             if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
@@ -401,18 +395,16 @@ class MainWindowBulkRulesMixin:
             "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
             "freedict-de-en": _resolve_translation_pack_path(
                 language_packs.get("freedict-de-en"),
-                legacy_artifact_names=(
+                sqlite_artifact_names=(
                     "freedict-de-en.sqlite",
                     "deu-eng.sqlite",
-                    "deu-eng.tei",
                 ),
             ),
             "freedict-en-de": _resolve_translation_pack_path(
                 language_packs.get("freedict-en-de"),
-                legacy_artifact_names=(
+                sqlite_artifact_names=(
                     "freedict-en-de.sqlite",
                     "eng-deu.sqlite",
-                    "eng-deu.tei",
                 ),
             ),
         }

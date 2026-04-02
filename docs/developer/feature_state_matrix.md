@@ -111,7 +111,7 @@ Use this file when:
     - app-managed FreeDict language-pack installs now compile provider TEI sources to canonical SQLite artifacts before completion
     - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts and FreeDict SQLite filenames before falling back to TEI/path guessing
     - the German frequency whitelist/build path now resolves FreeDict through the same normalized translation-pack artifact contract and shared translation headword loader
-    - the GUI bulk-rules FreeDict path now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
+    - the GUI bulk-rules FreeDict path now resolves managed SQLite artifacts first, falls back to legacy SQLite files when needed, and no longer treats extracted TEI directories as a normal managed input
     - the synthetic SRS quality/journey harness helpers now emit SQLite translation resources by default
     - the journey harness resource-writing logic now lives in a dedicated helper module so fixture-format changes no longer grow the main scenario-support file
     - shared translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
