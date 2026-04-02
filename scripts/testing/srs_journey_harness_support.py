@@ -508,8 +508,6 @@ def create_pair_resources(
                 entries=reverse_entries,
                 target_lang=target_lang,
             )
-    resources["freedict_path"] = resources["translation_dict_path"]
-    resources["freedict_reverse_path"] = resources["reverse_translation_dict_path"]
     return resources
 
 

@@ -192,8 +192,6 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
             paths.language_packs_dir,
         ),
     }
-    resources["freedict_path"] = resources["translation_dict_path"]
-    resources["freedict_reverse_path"] = resources["reverse_translation_dict_path"]
     if stopwords_path is not None:
         _stage_optional_file(stopwords_path, paths.srs_dir / "stopwords")
     return resources
