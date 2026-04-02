@@ -44,6 +44,7 @@ class SynonymSourceSettings:
     frequency_packs: Mapping[str, str] = field(default_factory=dict)
     last_selected_pack_ids: Sequence[str] = field(default_factory=tuple)
     embedding_packs: Mapping[str, str] = field(default_factory=dict)
+    embedding_pair_pack_ids: Mapping[str, Sequence[str]] = field(default_factory=dict)
     embedding_pair_paths: Mapping[str, Sequence[str]] = field(default_factory=dict)
     embedding_pair_enabled: Mapping[str, bool] = field(default_factory=dict)
 
@@ -182,6 +183,11 @@ def _synonym_sources_from_dict(
         frequency_packs=dict(data.get("frequency_packs", {})),
         last_selected_pack_ids=tuple(data.get("last_selected_pack_ids", [])),
         embedding_packs=dict(data.get("embedding_packs", {})),
+        embedding_pair_pack_ids={
+            key: list(value)
+            for key, value in dict(data.get("embedding_pair_pack_ids", {})).items()
+            if isinstance(value, (list, tuple))
+        },
         embedding_pair_paths={
             key: list(value)
             for key, value in dict(data.get("embedding_pair_paths", {})).items()
@@ -208,6 +214,9 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
         "frequency_packs": dict(settings.frequency_packs or {}),
         "last_selected_pack_ids": list(settings.last_selected_pack_ids or []),
         "embedding_packs": dict(settings.embedding_packs or {}),
+        "embedding_pair_pack_ids": {
+            key: list(value) for key, value in dict(settings.embedding_pair_pack_ids or {}).items()
+        },
         "embedding_pair_paths": {
             key: list(value) for key, value in dict(settings.embedding_pair_paths or {}).items()
         },

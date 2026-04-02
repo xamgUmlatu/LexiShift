@@ -576,6 +576,7 @@ class MainWindow(
         language_pack_paths = dict(panel.paths() or {})
         frequency_pack_paths = dict(panel.frequency_paths() or {})
         embedding_pack_paths = dict(panel.embedding_paths() or {})
+        embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
         embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
         embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
         current_settings = self.state.settings
@@ -589,6 +590,7 @@ class MainWindow(
             language_packs=language_pack_paths,
             frequency_packs=frequency_pack_paths,
             embedding_packs=embedding_pack_paths,
+            embedding_pair_pack_ids=embedding_pair_pack_ids,
             embedding_pair_paths=embedding_pair_paths,
             embedding_pair_enabled=embedding_pair_enabled,
         )

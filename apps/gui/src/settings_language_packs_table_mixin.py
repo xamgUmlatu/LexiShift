@@ -111,9 +111,12 @@ class LanguagePackPanelTableMixin:
             is_active = False
             if pair_key:
                 enabled = self._embedding_pair_enabled.get(pair_key, True)
+                active_pack_ids = set(self._embedding_pair_pack_ids.get(pair_key, []))
                 active_paths = {
                     os.path.abspath(path) for path in self._embedding_pair_paths.get(pair_key, [])
                 }
+                if enabled and pack_id in active_pack_ids:
+                    is_active = True
                 if enabled and local_path and os.path.abspath(local_path) in active_paths:
                     is_active = True
                 if enabled and resolved_path and os.path.abspath(resolved_path) in active_paths:

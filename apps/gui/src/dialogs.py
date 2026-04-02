@@ -203,6 +203,7 @@ class SettingsDialog(QDialog):
         language_pack_paths = self.language_pack_panel.paths()
         frequency_pack_paths = self.language_pack_panel.frequency_paths()
         embedding_pack_paths = self.language_pack_panel.embedding_paths()
+        embedding_pair_pack_ids = self.language_pack_panel.embedding_pair_pack_ids()
         embedding_pair_paths = self.language_pack_panel.embedding_pair_paths()
         embedding_pair_enabled = self.language_pack_panel.embedding_pair_enabled()
         wordnet_dir = language_pack_paths.get("wordnet-en")
@@ -220,6 +221,7 @@ class SettingsDialog(QDialog):
             language_packs=language_pack_paths,
             frequency_packs=frequency_pack_paths,
             embedding_packs=embedding_pack_paths,
+            embedding_pair_pack_ids=embedding_pair_pack_ids,
             embedding_pair_paths=embedding_pair_paths,
             embedding_pair_enabled=embedding_pair_enabled,
         )

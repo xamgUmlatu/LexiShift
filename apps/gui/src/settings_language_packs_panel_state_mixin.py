@@ -35,6 +35,9 @@ class LanguagePackPanelStateMixin:
     def embedding_pair_paths(self) -> dict[str, list[str]]:
         return {key: list(value) for key, value in self._embedding_pair_paths.items()}
 
+    def embedding_pair_pack_ids(self) -> dict[str, list[str]]:
+        return {key: list(value) for key, value in self._embedding_pair_pack_ids.items()}
+
     def embedding_pair_enabled(self) -> dict[str, bool]:
         return dict(self._embedding_pair_enabled)
 
@@ -129,6 +132,13 @@ class LanguagePackPanelStateMixin:
 
     def _seed_embedding_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._embedding_pack_paths = dict(getattr(synonym_settings, "embedding_packs", {}) or {})
+        self._embedding_pair_pack_ids = {
+            key: list(value)
+            for key, value in dict(
+                getattr(synonym_settings, "embedding_pair_pack_ids", {}) or {}
+            ).items()
+            if isinstance(value, (list, tuple))
+        }
         self._embedding_pair_paths = {
             key: list(value)
             for key, value in dict(

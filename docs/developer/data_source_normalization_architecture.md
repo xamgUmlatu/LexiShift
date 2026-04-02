@@ -4,7 +4,7 @@ Status: active planning doc with first executable slice
 Role: architecture target / implementation plan
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 helper/gui path and manifest slice plus the first frequency pack-ref/runtime-diagnostics seam
+Last verified: 2026-04-03 helper/gui path and manifest slice plus the first frequency pack-ref/runtime-diagnostics seam and the first embedding pack-id activation/runtime-resolution seam
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
 Execution-order companion:
@@ -283,7 +283,7 @@ Current verified progress:
 
 Current non-coverage:
 
-- helper/rulegen resource resolution is still only partially manifest-aware outside translation defaults and the first frequency pack-ref/runtime-diagnostics seam
+- helper/rulegen resource resolution is still only partially manifest-aware outside translation defaults, the first frequency pack-ref/runtime-diagnostics seam, and the first embedding pack-id activation/runtime-resolution seam
 - embedding runtime and settings still preserve raw-file compatibility for manually supplied external files during migration
 - frequency packs still keep pack-specific SQLite filenames during migration rather than a fully unified `main.sqlite` contract
 
@@ -420,6 +420,10 @@ Detailed execution plan:
    - make app-managed installs run conversion automatically so the completed state is always SQLite
    - retain raw downloads only in explicit debug/import modes
    - migrate runtime/settings resolution to manifest-backed pack refs and make raw `.vec/.bin` loading a compatibility path rather than the default app-managed contract
+   - current verified progress:
+     - app-managed embedding installs already complete as manifest-backed SQLite artifacts
+     - per-pair managed embedding activation can now be persisted by pack id instead of only by raw artifact path
+     - replacement-filter runtime can now resolve managed embedding pack ids back through manifest-backed SQLite artifacts while still honoring legacy/manual path entries
 
 3. Shared seam cleanup
    - add installed-pack helpers for frequency and embedding families, not only translation

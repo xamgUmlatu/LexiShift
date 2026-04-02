@@ -76,6 +76,7 @@ class LanguagePackPanel(
         self._language_pack_paths: dict[str, str] = {}
         self._frequency_pack_paths: dict[str, str] = {}
         self._embedding_pack_paths: dict[str, str] = {}
+        self._embedding_pair_pack_ids: dict[str, list[str]] = {}
         self._embedding_pair_paths: dict[str, list[str]] = {}
         self._embedding_pair_enabled: dict[str, bool] = {}
         self._closing = False
@@ -514,15 +515,24 @@ class LanguagePackPanel(
         if reply != QMessageBox.Yes:
             return
         self._embedding_pack_paths.pop(pack_id, None)
-        if pack.pair_key and local_path:
+        if pack.pair_key:
             pair_key = pack.pair_key
-            paths = [
-                path for path in self._embedding_pair_paths.get(pair_key, []) if path != local_path
-            ]
-            if paths:
-                self._embedding_pair_paths[pair_key] = paths
+            pack_ids = [value for value in self._embedding_pair_pack_ids.get(pair_key, []) if value]
+            pack_ids = [value for value in pack_ids if value != pack_id]
+            if pack_ids:
+                self._embedding_pair_pack_ids[pair_key] = pack_ids
             else:
-                self._embedding_pair_paths.pop(pair_key, None)
+                self._embedding_pair_pack_ids.pop(pair_key, None)
+            if local_path:
+                paths = [
+                    path
+                    for path in self._embedding_pair_paths.get(pair_key, [])
+                    if path != local_path
+                ]
+                if paths:
+                    self._embedding_pair_paths[pair_key] = paths
+                else:
+                    self._embedding_pair_paths.pop(pair_key, None)
         for path in delete_paths:
             self._remove_path(path)
         self._set_status_message(t("language_packs.removed", name=pack.display_name()))
@@ -545,12 +555,13 @@ class LanguagePackPanel(
             self._embedding_pack_paths[pack_id] = local_path
         if pack and pack.pair_key:
             pair_key = pack.pair_key
-            paths = list(self._embedding_pair_paths.get(pair_key, []))
-            if local_path not in paths:
-                paths.append(local_path)
-            self._embedding_pair_paths[pair_key] = paths
+            pack_ids = list(self._embedding_pair_pack_ids.get(pair_key, []))
+            if pack_id not in pack_ids:
+                pack_ids.append(pack_id)
+            self._embedding_pair_pack_ids[pair_key] = pack_ids
             self._embedding_pair_enabled[pair_key] = True
-        # per-pair activation is tracked in _embedding_pair_paths/_embedding_pair_enabled
+        # Per-pair activation now prefers pack ids for managed packs while keeping
+        # path-based compatibility for older settings/manual imports.
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
 

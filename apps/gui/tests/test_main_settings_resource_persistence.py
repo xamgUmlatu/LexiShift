@@ -24,6 +24,7 @@ def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace
         },
         frequency_paths=lambda: dict(frequency_paths),
         embedding_paths=lambda: {"embed-es-cc": "/tmp/cc.es.300.vec"},
+        embedding_pair_pack_ids=lambda: {"en-es": ["embed-es-cc"]},
         embedding_pair_paths=lambda: {"en-es": ["/tmp/cc.es.300.vec"]},
         embedding_pair_enabled=lambda: {"en-es": True},
     )
@@ -56,6 +57,7 @@ def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     assert synonyms.moby_path == "/tmp/moby"
     assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
     assert synonyms.language_packs["freedict-en-es"] == "/tmp/freedict-eng-spa.tei"
+    assert synonyms.embedding_pair_pack_ids["en-es"] == ["embed-es-cc"]
 
 
 def test_open_settings_persists_resource_links_on_cancel() -> None:

@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, and the first frequency pack-ref/runtime-diagnostics seam slice
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, the first frequency pack-ref/runtime-diagnostics seam slice, and the first embedding pack-id activation/runtime-resolution slice
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## End State
@@ -33,12 +33,13 @@ Already landed:
 - bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
 - synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
 - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
+- managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 
 Still intentionally transitional:
 
 - some GUI/runtime/harness paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
-- embeddings still persist direct artifact paths rather than pack refs in some settings/runtime flows
+- embeddings still preserve direct artifact-path maps for compatibility and manual imports even though managed pair activation can now use pack ids
 - generic helper/resource reporting still contains filename/provider heuristics
 
 ## Execution Order
@@ -122,7 +123,11 @@ Concrete work:
 
 1. Move settings/runtime from artifact paths to pack identity
    - current managed installs already end in SQLite
-   - remaining work is resolving those installs by manifest-backed pack identity instead of persisting raw file paths
+   - current verified progress:
+     - managed embedding installs already end in manifest-backed SQLite
+     - per-pair managed activation can now be persisted by pack id
+     - replacement-filter runtime now resolves those pack ids back to manifest-backed SQLite artifacts
+   - remaining work is replacing the remaining direct artifact-path settings/maps for managed embeddings while keeping manual raw-file import compatibility
 
 2. Separate managed installs from manual imports
    - app-managed embeddings:
@@ -196,7 +201,7 @@ If continuing now, the highest-value order is:
    - continue replacing path-first frequency resolution/reporting with manifest-backed pack refs
 
 2. Phase 3 embedding seam migration
-   - settings/runtime pack-ref adoption is now the biggest remaining normalized-runtime gap
+   - move the remaining managed embedding settings/maps from path-first persistence to pack-id-first persistence
 
 3. Phase 1 residual translation cleanup
    - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/rulegen_job.py`
