@@ -55,10 +55,7 @@ def refresh_srs_set(
             paths,
             pair=pair,
             jmdict_path=config.jmdict_path,
-            translation_dict_path=(
-                getattr(config, "translation_dict_path", None)
-                or getattr(config, "freedict_de_en_path", None)
-            ),
+            translation_dict_path=getattr(config, "translation_dict_path", None),
             set_source_db=config.set_source_db,
         )
     )

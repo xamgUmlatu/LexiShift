@@ -47,7 +47,6 @@ def resolve_pair_resources(
     pair: str,
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path] = None,
-    freedict_de_en_path: Optional[Path] = None,
     set_source_db: Optional[Path] = None,
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     capability = resolve_pair_capability(pair)
@@ -59,8 +58,6 @@ def resolve_pair_resources(
     resolved_translation_dict = (
         Path(translation_dict_path)
         if translation_dict_path is not None
-        else Path(freedict_de_en_path)
-        if freedict_de_en_path is not None
         else default_translation_dictionary_path(
             capability.pair,
             language_packs_dir=paths.language_packs_dir,

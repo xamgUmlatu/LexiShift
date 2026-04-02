@@ -17,10 +17,6 @@ class PairCapability:
     requires_jmdict_for_rulegen: bool = False
     requires_translation_dictionary_for_rulegen: bool = False
 
-    @property
-    def requires_freedict_de_en_for_rulegen(self) -> bool:
-        return self.requires_translation_dictionary_for_rulegen
-
 
 _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     "en-ja": PairCapability(
@@ -175,14 +171,6 @@ def default_translation_dictionary_path(
     return language_packs_dir / filenames[0]
 
 
-def default_freedict_de_en_path(
-    pair: str,
-    *,
-    language_packs_dir: Path,
-) -> Optional[Path]:
-    return default_translation_dictionary_path(pair, language_packs_dir=language_packs_dir)
-
-
 def default_reverse_translation_dictionary_path(
     pair: str,
     *,
@@ -205,14 +193,6 @@ def default_reverse_translation_dictionary_path(
         if discovered:
             return discovered[0]
     return language_packs_dir / filenames[0]
-
-
-def default_freedict_reverse_path(
-    pair: str,
-    *,
-    language_packs_dir: Path,
-) -> Optional[Path]:
-    return default_reverse_translation_dictionary_path(pair, language_packs_dir=language_packs_dir)
 
 
 def _reverse_pair_key(pair: str) -> str:
@@ -300,9 +280,6 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "requires_jmdict_for_seed": capability.requires_jmdict_for_seed,
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,
         "requires_translation_dictionary_for_rulegen": (
-            capability.requires_translation_dictionary_for_rulegen
-        ),
-        "requires_freedict_de_en_for_rulegen": (
             capability.requires_translation_dictionary_for_rulegen
         ),
     }

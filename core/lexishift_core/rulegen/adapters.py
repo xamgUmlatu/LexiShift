@@ -45,10 +45,8 @@ class RulegenAdapterRequest:
     jmdict_path: Optional[Path] = None
     translation_pack: Optional[TranslationPackRef] = None
     translation_dict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
     reverse_translation_pack: Optional[TranslationPackRef] = None
     reverse_translation_dict_path: Optional[Path] = None
-    freedict_reverse_path: Optional[Path] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_pair_context: Optional[object] = None
@@ -64,13 +62,13 @@ RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
 def _resolved_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
     if request.translation_pack is not None:
         return request.translation_pack.path
-    return request.translation_dict_path or request.freedict_de_en_path
+    return request.translation_dict_path
 
 
 def _resolved_reverse_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
     if request.reverse_translation_pack is not None:
         return request.reverse_translation_pack.path
-    return request.reverse_translation_dict_path or request.freedict_reverse_path
+    return request.reverse_translation_dict_path
 
 
 def _resolved_translation_pack(request: RulegenAdapterRequest) -> TranslationPackRef | None:

@@ -12,8 +12,6 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_frequency_db_path,
-    default_freedict_de_en_path,
-    default_freedict_reverse_path,
     default_reverse_translation_dictionary_path,
     default_translation_dictionary_path,
     known_pairs,
@@ -54,7 +52,7 @@ class TestLpCapabilities(unittest.TestCase):
     def test_en_es_default_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
-            resolved = default_freedict_de_en_path(
+            resolved = default_translation_dictionary_path(
                 "en-es",
                 language_packs_dir=language_packs_dir,
             )
@@ -67,26 +65,16 @@ class TestLpCapabilities(unittest.TestCase):
             target = language_packs_dir / "wiktionary-es-en.sqlite"
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(b"SQLite format 3\x00")
-            resolved = default_freedict_de_en_path(
+            resolved = default_translation_dictionary_path(
                 "en-es",
                 language_packs_dir=language_packs_dir,
             )
         self.assertEqual(resolved, target)
 
-    def test_translation_dictionary_alias_matches_legacy_resolution(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            language_packs_dir = Path(tmp)
-            legacy = default_freedict_de_en_path("en-es", language_packs_dir=language_packs_dir)
-            alias = default_translation_dictionary_path(
-                "en-es",
-                language_packs_dir=language_packs_dir,
-            )
-        self.assertEqual(alias, legacy)
-
     def test_en_es_reverse_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
-            resolved = default_freedict_reverse_path(
+            resolved = default_reverse_translation_dictionary_path(
                 "en-es",
                 language_packs_dir=language_packs_dir,
             )
@@ -99,33 +87,21 @@ class TestLpCapabilities(unittest.TestCase):
             target = language_packs_dir / "wiktionary-en-es.sqlite"
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(b"SQLite format 3\x00")
-            resolved = default_freedict_reverse_path(
+            resolved = default_reverse_translation_dictionary_path(
                 "en-es",
                 language_packs_dir=language_packs_dir,
             )
         self.assertEqual(resolved, target)
 
-    def test_reverse_translation_dictionary_alias_matches_legacy_resolution(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            language_packs_dir = Path(tmp)
-            legacy = default_freedict_reverse_path("en-es", language_packs_dir=language_packs_dir)
-            alias = default_reverse_translation_dictionary_path(
-                "en-es",
-                language_packs_dir=language_packs_dir,
-            )
-        self.assertEqual(alias, legacy)
-
     def test_translation_dictionary_requirement_uses_generic_capability_flag(self) -> None:
         capability = resolve_pair_capability("en-es")
 
         self.assertTrue(capability.requires_translation_dictionary_for_rulegen)
-        self.assertTrue(capability.requires_freedict_de_en_for_rulegen)
 
-    def test_pair_requirements_preserve_generic_and_legacy_translation_flags(self) -> None:
+    def test_pair_requirements_expose_generic_translation_flag(self) -> None:
         requirements = pair_requirements("en-es")
 
         self.assertTrue(requirements["requires_translation_dictionary_for_rulegen"])
-        self.assertTrue(requirements["requires_freedict_de_en_for_rulegen"])
 
     def test_en_de_default_reverse_dictionary_uses_english_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

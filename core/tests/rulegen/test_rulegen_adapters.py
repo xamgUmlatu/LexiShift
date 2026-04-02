@@ -165,14 +165,14 @@ class TestRulegenAdapters(unittest.TestCase):
             "ご",
         )
 
-    def test_en_de_requires_freedict_de_en_path(self) -> None:
+    def test_en_de_requires_translation_dict_path(self) -> None:
         with self.assertRaises(ValueError):
             run_rules_with_adapter(
                 RulegenAdapterRequest(
                     pair="en-de",
                     targets=("Haus",),
                     language_pair="en-de",
-                    freedict_de_en_path=None,
+                    translation_dict_path=None,
                 )
             )
 
@@ -188,7 +188,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-de",
                     targets=("Haus",),
                     language_pair="en-de",
-                    freedict_de_en_path=Path("/tmp/deu-eng.tei"),
+                    translation_dict_path=Path("/tmp/deu-eng.tei"),
                 )
             )
         self.assertEqual(len(rules), 1)
@@ -240,7 +240,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-de",
                     targets=("Haus",),
                     language_pair="en-de",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                 )
             )
         sources = sorted({rule.source_phrase for rule in rules})
@@ -255,7 +255,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=None,
+                    translation_dict_path=None,
                 )
             )
 
@@ -271,7 +271,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/spa-eng.tei"),
+                    translation_dict_path=Path("/tmp/spa-eng.tei"),
                 )
             )
         self.assertEqual(len(rules), 1)
@@ -291,7 +291,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
                 )
             )
         generate.assert_called_once()
@@ -312,8 +312,8 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
-                    freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
                 )
             )
         generate.assert_called_once()
@@ -396,7 +396,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/spa-eng.tei"),
+                    translation_dict_path=Path("/tmp/spa-eng.tei"),
                     max_rules_per_target=5,
                     semantic_demotion_scale=0.4,
                     scoring=scoring,
@@ -448,8 +448,8 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
-                    freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
                     gloss_records_by_target=forward_records,
                     reverse_gloss_records_by_source=reverse_records,
                 )
@@ -478,7 +478,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
                     compiled_pair_context=compiled_resources,
                 )
             )
@@ -494,8 +494,8 @@ class TestRulegenAdapters(unittest.TestCase):
             pair="en-es",
             targets=("casa",),
             language_pair="en-es",
-            freedict_de_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
-            freedict_reverse_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
             compiled_pair_context=compiled_resources,
             kaikki_policy_live_demotion=True,
             kaikki_policy_risk_families=("math_geometry",),
@@ -540,7 +540,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                 )
             )
         sources = sorted({rule.source_phrase for rule in rules})
@@ -571,7 +571,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("hora",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     word_packages_by_target={
                         "hora": {
                             "version": 1,
@@ -616,7 +616,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("mostrar",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=True,
                     word_packages_by_target={
                         "mostrar": {
@@ -654,7 +654,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("hora",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=True,
                     max_rules_per_target=1,
                 )
@@ -686,7 +686,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("hora",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -719,7 +719,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -753,7 +753,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("casa",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -785,7 +785,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-es",
                     targets=("hacer",),
                     language_pair="en-es",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -980,7 +980,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-de",
                     targets=("haus",),
                     language_pair="en-de",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -1012,7 +1012,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="en-de",
                     targets=("machen",),
                     language_pair="en-de",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                     include_variants=False,
                 )
             )
@@ -1043,7 +1043,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="es-en",
                     targets=("house",),
                     language_pair="es-en",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                 )
             )
         sources = sorted({rule.source_phrase for rule in rules})
@@ -1070,7 +1070,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="es-en",
                     targets=("house",),
                     language_pair="es-en",
-                    freedict_de_en_path=Path("/tmp/eng-spa.tei"),
+                    translation_dict_path=Path("/tmp/eng-spa.tei"),
                     reverse_check=reverse_check,
                 )
             )
@@ -1110,7 +1110,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     pair="es-en",
                     targets=("house",),
                     language_pair="es-en",
-                    freedict_de_en_path=path,
+                    translation_dict_path=path,
                 )
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["casa", "hogar", "vivienda"])
