@@ -56,7 +56,7 @@ def _resolve_pair_resource_paths(
     *,
     pair: str,
     jmdict_arg: Optional[str],
-    freedict_de_en_arg: Optional[str],
+    translation_dict_arg: Optional[str],
     set_source_db_arg: Optional[str],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     jmdict_path = (
@@ -68,8 +68,8 @@ def _resolve_pair_resource_paths(
         )
     )
     translation_dict_path = (
-        Path(freedict_de_en_arg)
-        if freedict_de_en_arg
+        Path(translation_dict_arg)
+        if translation_dict_arg
         else default_translation_dictionary_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
@@ -125,11 +125,11 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
 
 def cmd_run_rulegen(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
     if args.enable_pos_scoring:
@@ -163,8 +163,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                translation_dict_path=freedict_de_en_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 profile_id=args.profile_id or "default",
                 set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
@@ -209,11 +208,11 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
 
 def cmd_init_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
 
@@ -224,8 +223,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
             config=SetInitializationJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                translation_dict_path=freedict_de_en_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -275,11 +273,11 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
 
 def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
     try:
@@ -288,8 +286,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
             config=SrsRefreshJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                translation_dict_path=freedict_de_en_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -379,8 +376,11 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--profile-id", help="Profile id (default: default)")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
     run.add_argument(
-        "--freedict-de-en",
-        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
+        "--translation-dict",
+        help=(
+            "Path to translation dictionary artifact "
+            "(SQLite preferred; TEI accepted for manual compatibility)."
+        ),
     )
     run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
     run.add_argument(
@@ -558,8 +558,11 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--profile-id", help="Profile id (default: default)")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     init_s.add_argument(
-        "--freedict-de-en",
-        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
+        "--translation-dict",
+        help=(
+            "Path to translation dictionary artifact "
+            "(SQLite preferred; TEI accepted for manual compatibility)."
+        ),
     )
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
     init_s.add_argument(
@@ -622,8 +625,11 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     refresh_s.add_argument(
-        "--freedict-de-en",
-        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
+        "--translation-dict",
+        help=(
+            "Path to translation dictionary artifact "
+            "(SQLite preferred; TEI accepted for manual compatibility)."
+        ),
     )
     refresh_s.add_argument(
         "--set-source-db", help="Path to frequency SQLite used for candidate pool"
