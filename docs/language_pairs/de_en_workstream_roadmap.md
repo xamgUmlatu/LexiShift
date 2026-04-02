@@ -33,9 +33,13 @@ Primary non-goals:
 
 Current relevant resources:
 
-- forward translation pack: `freedict-en-de` (`eng-deu.tei` or converted compatibility SQLite)
-- reverse translation pack: `freedict-de-en` (`deu-eng.tei` or converted compatibility SQLite)
+- forward translation pack: `freedict-en-de` (temporary TEI compatibility today; canonical target is compiled SQLite)
+- reverse translation pack: `freedict-de-en` (temporary TEI compatibility today; canonical target is compiled SQLite)
 - default frequency DB: `freq-en-coca.sqlite`
+
+Related normalization target:
+
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_architecture.md`
 
 ## Current Starting Point
 
@@ -99,6 +103,7 @@ Implication for `de-en`:
 - first inspect real FreeDict `eng-deu` entry formats
 - do not assume the generic current filters are already correct for German source candidates
 - prioritize source-candidate extraction and normalization quality before fancy ranking
+- migrate the pair off direct TEI runtime dependency once the normalized compiled-pack layer is ready
 
 ### 4. The benchmark must reflect failure families, not just common words
 

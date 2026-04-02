@@ -3,8 +3,8 @@
 Status: active planning doc
 Role: roadmap / sequencing
 Purpose: Define the recommended order for generalizing the current `en-es`-optimized rulegen and benchmark stack so it can support additional language pairs and additional data-source families without duplicating pair-specific infrastructure.
-Last updated: 2026-03-28
-Last verified: 2026-03-28
+Last updated: 2026-04-03
+Last verified: 2026-04-03
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and the current pair/resource capability docs.
 
 ## Scope
@@ -21,6 +21,7 @@ It is the sequencing plan for reaching that point without creating throwaway pai
 
 Related:
 
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_architecture.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/rulegen_benchmark_optimization_plan.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/rulegen_test_pipeline.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/de_en_workstream_roadmap.md`
@@ -163,6 +164,17 @@ This is the key architectural seam that lets future sources such as:
 - later CEDICT or other dictionary families
 
 feed the same benchmark and rulegen substrate.
+
+The explicit final-storage direction is now documented separately:
+
+- normalize installed packs around manifest-backed canonical compiled artifacts
+- prefer SQLite for the canonical runtime artifact
+- treat raw provider downloads/extractions as build inputs, not runtime contracts
+- delete dirty raw download/extraction artifacts after a successful build unless a developer-only retention mode is enabled
+
+See:
+
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_architecture.md`
 
 Definition of done:
 

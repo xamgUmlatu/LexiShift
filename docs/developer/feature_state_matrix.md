@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-28
+Last updated: 2026-04-03
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -92,6 +92,32 @@ Use this file when:
   - Current full canonical sweep now batch-prepares compiled score inputs and selected-row tables, but case-summary reduction still executes one config at a time; the next major performance frontier is denser config-matrix evaluation over compiled candidate rows and later batch case-summary reduction.
   - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
   - Current active `en-es` benchmark path still does not have a broadly profitable GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by preprocessing, selection, and resource work even though the score projection path now has both numeric `numpy` and guarded optional `torch` implementations.
+
+## Data Source Normalization Architecture
+
+- Status: `planned`
+- Last documented checkpoint: `2026-04-03` explicit normalization architecture decision recorded
+- Last verified: `2026-04-03` planning review against current pack catalog, helper pack refs, and `de-en` proof-LP runtime behavior
+- Default behavior:
+  - Target architecture is now explicit:
+    - installed packs should resolve by manifest-backed pack identity rather than flat filenames
+    - canonical runtime artifacts should prefer compiled SQLite
+    - provider-native raw archives/extraction trees should be treated as build inputs rather than runtime contracts
+    - raw download/extraction artifacts should be deleted after successful build unless a developer-only retention mode is explicitly enabled
+  - This is currently a planning/architecture target, not the live default implementation.
+- Evidence:
+  - `docs/developer/data_source_normalization_architecture.md`
+  - `docs/developer/language_pair_generalization_roadmap.md`
+  - `docs/language_pairs/de_en_workstream_roadmap.md`
+  - `apps/gui/src/language_packs_catalog.py`
+  - `apps/gui/src/language_packs.py`
+  - `core/lexishift_core/helper/translation_packs.py`
+  - `core/lexishift_core/helper/pair_resources.py`
+- Known gaps:
+  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair flows, including the current baseline `de-en` path.
+  - Installed-pack resolution is not yet manifest-driven.
+  - FreeDict does not yet build to a canonical compiled runtime SQLite artifact during normal app installation.
+  - Dirty extracted provider directories can still remain on disk after successful install/build.
 
 ## `de-en` Baseline Rulegen Enablement
 

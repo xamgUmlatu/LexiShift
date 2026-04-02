@@ -185,10 +185,13 @@ Acceptance criteria:
 - Generalize the benchmark/resource contract beyond the current `en-es` reference lane:
   - clean up generic resource naming so non-FreeDict providers do not leak through generic fields,
   - define a normalized translation-pack contract for benchmark/helper/adapter code,
+  - move installed translation packs to a manifest-backed compiled-artifact model with SQLite as the preferred canonical runtime format,
+  - treat provider-native raw downloads/extraction trees as build inputs rather than runtime contracts, and delete them after successful build by default,
   - generalize the compiled pair-context boundary,
   - use `de-en` as the first additional translation LP once the contract is clean enough,
   - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
   - planning specs:
+    - `docs/developer/data_source_normalization_architecture.md`
     - `docs/developer/language_pair_generalization_roadmap.md`
     - `docs/language_pairs/de_en_workstream_roadmap.md`
 - Improve benchmark portability before the large broad sweep:

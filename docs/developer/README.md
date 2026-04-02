@@ -41,6 +41,7 @@ Use these first when you need current behavior or current operating commands:
 Treat these as planning/history surfaces unless their own metadata says otherwise:
 
 - Documentation grooming queue: `documentation_grooming_workstream.md`
+- Data-source normalization architecture: `data_source_normalization_architecture.md`
 - Language-pair/data-source generalization roadmap: `language_pair_generalization_roadmap.md`
 - `de-en` proof-LP roadmap: `../language_pairs/de_en_workstream_roadmap.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
