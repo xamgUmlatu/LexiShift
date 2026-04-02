@@ -188,7 +188,9 @@ Acceptance criteria:
   - generalize the compiled pair-context boundary,
   - use `de-en` as the first additional translation LP once the contract is clean enough,
   - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
-  - planning spec: `docs/developer/language_pair_generalization_roadmap.md`.
+  - planning specs:
+    - `docs/developer/language_pair_generalization_roadmap.md`
+    - `docs/language_pairs/de_en_workstream_roadmap.md`
 - Improve benchmark portability before the large broad sweep:
   - optionally add single-file archive/import ergonomics on top of the existing portable bundle export/replay flow if directory transfer becomes annoying.
 

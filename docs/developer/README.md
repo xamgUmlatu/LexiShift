@@ -42,6 +42,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 
 - Documentation grooming queue: `documentation_grooming_workstream.md`
 - Language-pair/data-source generalization roadmap: `language_pair_generalization_roadmap.md`
+- `de-en` proof-LP roadmap: `../language_pairs/de_en_workstream_roadmap.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
 - Rulegen benchmark optimization plan: `rulegen_benchmark_optimization_plan.md`
 - Windows GUI parity workstream: `windows_gui_parity_workstream.md`

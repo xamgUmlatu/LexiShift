@@ -23,6 +23,7 @@ Related:
 
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/rulegen_benchmark_optimization_plan.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/rulegen_test_pipeline.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/de_en_workstream_roadmap.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/extension_lp_generalization_checklist.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/lp_resource_requirements.md`
 - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/lp_capabilities.py`
@@ -85,6 +86,10 @@ If that is done well, adding a new LP should become mostly:
 - run the benchmark and SRS quality loops
 
 instead of requiring a new end-to-end architecture slice every time.
+
+The first concrete proof-LP execution plan now lives in:
+
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/language_pairs/de_en_workstream_roadmap.md`
 
 ## Ordering Principles
 
