@@ -290,7 +290,6 @@ def run_rulegen_for_pair(
     settings: Optional[SrsSettings],
     jmdict_path: Optional[Path] = None,
     translation_dict_path: Optional[Path] = None,
-    freedict_de_en_path: Optional[Path] = None,
     set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
     targets_override: Optional[Sequence[str]] = None,
@@ -314,7 +313,6 @@ def run_rulegen_for_pair(
         pair=pair,
         targets=targets,
     )
-    resolved_translation_dict_path = translation_dict_path or freedict_de_en_path
     resolved_reverse_translation_dict_path = default_reverse_translation_dictionary_path(
         pair,
         language_packs_dir=paths.language_packs_dir,
@@ -341,18 +339,16 @@ def run_rulegen_for_pair(
             jmdict_path=jmdict_path,
             translation_pack=build_translation_pack_ref(
                 pair,
-                resolved_translation_dict_path,
+                translation_dict_path,
                 direction=FORWARD_PACK_DIRECTION,
             ),
-            translation_dict_path=resolved_translation_dict_path,
-            freedict_de_en_path=resolved_translation_dict_path,
+            translation_dict_path=translation_dict_path,
             reverse_translation_pack=build_translation_pack_ref(
                 pair,
                 resolved_reverse_translation_dict_path,
                 direction=REVERSE_PACK_DIRECTION,
             ),
             reverse_translation_dict_path=resolved_reverse_translation_dict_path,
-            freedict_reverse_path=resolved_reverse_translation_dict_path,
             word_packages_by_target=target_word_packages or None,
         )
     )
