@@ -380,6 +380,7 @@ Current verified progress:
 - app-managed translation installs now auto-link manifest-backed SQLite artifacts instead of extracted TEI directories
 - helper default translation-dictionary discovery now prefers FreeDict SQLite artifact names before TEI compatibility filenames
 - the German frequency whitelist/build path now prefers manifest-backed FreeDict SQLite artifacts and shared translation-pack headword loaders instead of TEI-only parsing
+- the synonym generator now reads FreeDict packs through the shared translation-pack loader, so app-managed SQLite artifacts work there without a separate TEI parser
 
 ## Phase B2: Apply The Same Model To Other Pack Families
 

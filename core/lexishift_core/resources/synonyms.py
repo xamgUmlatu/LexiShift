@@ -8,7 +8,10 @@ from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
 from lexishift_core.resources.db_handlers import load_synonyms_from_db
-from lexishift_core.resources.dict_loaders import load_jmdict_glosses
+from lexishift_core.resources.dict_loaders import (
+    load_jmdict_glosses,
+    load_translation_gloss_records_ordered,
+)
 from lexishift_core.resources.synonyms_embeddings import EmbeddingIndex
 
 
@@ -179,11 +182,17 @@ class SynonymGenerator:
             self._stats["cc_cedict"] = len(source_mapping)
             mappings.append(source_mapping)
         if self._sources.freedict_de_en_path:
-            source_mapping = _load_freedict_tei(self._sources.freedict_de_en_path, target_lang="en")
+            source_mapping = _load_translation_pack(
+                self._sources.freedict_de_en_path,
+                target_lang="en",
+            )
             self._stats["freedict_de_en"] = len(source_mapping)
             mappings.append(source_mapping)
         if self._sources.freedict_en_de_path:
-            source_mapping = _load_freedict_tei(self._sources.freedict_en_de_path, target_lang="de")
+            source_mapping = _load_translation_pack(
+                self._sources.freedict_en_de_path,
+                target_lang="de",
+            )
             self._stats["freedict_en_de"] = len(source_mapping)
             mappings.append(source_mapping)
         if not mappings:
@@ -342,38 +351,25 @@ def _load_jp_wordnet(path: Path) -> dict[str, set[str]]:
     return mapping
 
 
-def _load_freedict_tei(path: Path, *, target_lang: str) -> dict[str, set[str]]:
+def _load_translation_pack(path: Path, *, target_lang: str) -> dict[str, set[str]]:
     mapping: dict[str, set[str]] = {}
     if not path.exists():
         return mapping
-    ns = {"tei": "http://www.tei-c.org/ns/1.0"}
-    xml_lang_key = "{http://www.w3.org/XML/1998/namespace}lang"
     try:
-        for _event, elem in ElementTree.iterparse(path, events=("end",)):
-            if elem.tag != f"{{{ns['tei']}}}entry":
+        for headword, records in load_translation_gloss_records_ordered(
+            path,
+            target_lang=target_lang,
+        ).items():
+            translations = {
+                record.translation.strip()
+                for record in records
+                if record.translation and record.translation.strip()
+            }
+            if not translations:
                 continue
-            headwords = [
-                orth.text.strip()
-                for orth in elem.findall("tei:form/tei:orth", ns)
-                if orth.text and orth.text.strip()
-            ]
-            if not headwords:
-                elem.clear()
-                continue
-            translations = set()
-            for quote in elem.findall(".//tei:cit[@type='trans']/tei:quote", ns):
-                if not quote.text or not quote.text.strip():
-                    continue
-                lang = quote.get(xml_lang_key)
-                if lang and lang != target_lang:
-                    continue
-                translations.add(quote.text.strip())
-            if translations:
-                for headword in headwords:
-                    bucket = mapping.setdefault(headword, set())
-                    bucket.update(translations)
-            elem.clear()
-    except (ElementTree.ParseError, OSError):
+            bucket = mapping.setdefault(headword, set())
+            bucket.update(translations)
+    except (ElementTree.ParseError, OSError, ValueError):
         return {}
     return mapping
 
