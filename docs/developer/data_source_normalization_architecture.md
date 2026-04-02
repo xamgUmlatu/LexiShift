@@ -30,6 +30,21 @@ In short:
 - compile to a canonical runtime artifact
 - stop exposing raw provider layout to helper/rulegen/benchmark code
 
+## Onboarding Rule
+
+This is not only a cleanup plan for current packs.
+It is the required architecture for all future data-source onboarding.
+
+Any new language/data pack added to the app or helper should:
+
+1. install under a stable pack-id root
+2. write a manifest that declares the canonical runtime artifact
+3. produce or adopt one canonical compiled runtime artifact, preferably SQLite
+4. treat provider-native raw downloads/extractions as build inputs, not runtime contracts
+5. delete dirty raw downloads/extractions after successful build by default
+
+New onboarding should not introduce fresh flat-file runtime contracts or provider-specific path guessing into helper, rulegen, benchmark, or diagnostics layers.
+
 ## Core Architectural Decision
 
 The final architecture should standardize on a universal logical API and a preferred compiled storage format.
@@ -256,12 +271,18 @@ Definition of done:
 
 Current verified progress:
 
-- translation language packs now install under stable per-pack roots rather than flat shared filenames
-- language-pack downloads now write manifest files that record the canonical runtime artifact path
+- app-managed language-pack downloads now install under stable per-pack roots rather than flat shared filenames
+- app-managed language-pack downloads now write manifest files that record the canonical runtime artifact path
 - helper translation-dictionary resolution now checks manifest-backed installed packs before falling back to filename/path guessing
 - current runtime artifacts are still mixed:
   - FreeDict translation packs still expose TEI as the canonical runtime artifact
   - Kaikki translation packs still expose compatibility SQLite as the canonical runtime artifact
+
+Current non-coverage:
+
+- frequency pack installs do not yet use the same manifest-backed pack layout
+- embedding pack installs/conversions do not yet use the same manifest-backed pack layout
+- helper/rulegen resource resolution is only manifest-aware for translation-pack discovery so far
 
 ## Phase B: FreeDict Build Normalization
 
@@ -274,6 +295,19 @@ Definition of done:
 
 - `freedict-en-de`, `freedict-de-en`, `freedict-en-es`, and `freedict-es-en` install to compiled SQLite artifacts plus manifests
 - temporary extracted source directories can be deleted after successful builds
+
+## Phase B2: Apply The Same Model To Other Pack Families
+
+Goals:
+
+- migrate frequency packs to the same manifest-backed compiled-artifact model
+- migrate embedding packs/converters to the same manifest-backed compiled-artifact model
+- make new monolingual/synonym source onboarding follow this contract immediately instead of creating new one-off install shapes
+
+Definition of done:
+
+- pack install behavior is structurally consistent across translation, frequency, and embedding families
+- new data-source onboarding has one explicit checklist instead of source-family-specific storage improvisation
 
 ## Phase C: Unified Pack Ref And Resolver
 

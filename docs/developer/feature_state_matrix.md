@@ -104,9 +104,10 @@ Use this file when:
     - canonical runtime artifacts should prefer compiled SQLite
     - provider-native raw archives/extraction trees should be treated as build inputs rather than runtime contracts
     - raw download/extraction artifacts should be deleted after successful build unless a developer-only retention mode is explicitly enabled
+    - any new data-source onboarding should follow that model by default rather than inventing a new install/runtime shape
   - First executable slice is now live for translation packs:
     - GUI language-pack downloads install into stable per-pack roots under `language_packs/<pack_id>/`
-    - translation language-pack installs now write `manifest.json`
+    - app-managed language-pack installs now write `manifest.json`
     - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts before falling back to filename/path guessing
   - Current runtime contract is still transitional rather than final:
     - FreeDict translation packs still expose TEI as the runtime artifact
@@ -128,7 +129,7 @@ Use this file when:
   - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link for translation packs use it, but broader pack consumers still include legacy path assumptions.
   - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair flows, including the current baseline `de-en` path.
   - FreeDict does not yet build to a canonical compiled runtime SQLite artifact during normal app installation.
-  - Frequency packs and other pack families have not yet been migrated to the same manifest-backed install layout.
+  - Frequency packs, embedding packs, and other pack families have not yet been migrated to the same manifest-backed install layout.
   - Dirty extracted provider directories are now reduced for translation packs by flattening required runtime files into the pack root, but canonical compiled SQLite plus full raw-artifact deletion is still not complete for FreeDict.
 
 ## `de-en` Baseline Rulegen Enablement

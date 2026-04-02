@@ -16,6 +16,11 @@ This roadmap is about the next architectural workstream after the current `en-es
 - preserve the current `en-es` compiled benchmark path as the reference implementation
 - identify the first concrete LP that should land once the abstraction boundary is clean enough
 
+This roadmap now assumes a broader normalization rule:
+
+- the same manifest-backed installed-pack model should be applied to existing pack families over time
+- any new data-source onboarding should follow that model from the start rather than introducing fresh flat-file runtime contracts
+
 This doc is not a promise to make every LP production-ready immediately.
 It is the sequencing plan for reaching that point without creating throwaway pair-specific code.
 

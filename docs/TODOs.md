@@ -187,6 +187,8 @@ Acceptance criteria:
   - define a normalized translation-pack contract for benchmark/helper/adapter code,
   - move installed translation packs to a manifest-backed compiled-artifact model with SQLite as the preferred canonical runtime format,
   - treat provider-native raw downloads/extraction trees as build inputs rather than runtime contracts, and delete them after successful build by default,
+  - apply the same manifest-backed compiled-artifact model to existing frequency and embedding pack flows, not only translation packs,
+  - require any new data-source onboarding to use pack-id roots + manifest + canonical compiled artifact + raw cleanup by default,
   - generalize the compiled pair-context boundary,
   - use `de-en` as the first additional translation LP once the contract is clean enough,
   - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
