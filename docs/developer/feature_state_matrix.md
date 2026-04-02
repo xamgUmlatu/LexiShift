@@ -95,9 +95,9 @@ Use this file when:
 
 ## Data Source Normalization Architecture
 
-- Status: `scaffolded`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` explicit normalization architecture decision recorded and first manifest-backed translation/frequency slices plus the first app-managed embedding normalization slice landed
-- Last verified: `2026-04-03` targeted helper tests plus GUI/core compile verification for manifest-backed translation/frequency installs and app-managed embedding conversion/manifests
+- Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
+- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite while retaining TEI compatibility paths for manual/legacy installs
+- Last verified: `2026-04-03` targeted helper/resource tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, frequency manifests, and app-managed embedding conversion/manifests
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -108,7 +108,8 @@ Use this file when:
   - First executable slices are now live for translation, frequency, and app-managed embedding packs:
     - GUI language-pack downloads install into stable per-pack roots under `language_packs/<pack_id>/`
     - app-managed language-pack installs now write `manifest.json`
-    - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts before falling back to filename/path guessing
+    - app-managed FreeDict language-pack installs now compile provider TEI sources to canonical SQLite artifacts before completion
+    - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts and FreeDict SQLite filenames before falling back to TEI/path guessing
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
@@ -116,7 +117,7 @@ Use this file when:
     - app-managed embedding-pack downloads now normalize to SQLite and write `manifest.json` only after successful conversion
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
   - Current runtime contract is still transitional rather than final:
-    - FreeDict translation packs still expose TEI as the runtime artifact
+    - FreeDict translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files and older extracted directories remain compatibility inputs during migration
     - Kaikki translation packs already expose compiled SQLite
     - frequency packs already expose SQLite, but still use pack-specific artifact filenames during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
@@ -133,27 +134,29 @@ Use this file when:
   - `core/lexishift_core/helper/pair_resources.py`
   - `core/lexishift_core/helper/installed_packs.py`
   - `core/lexishift_core/helper/lp_capabilities.py`
+  - `core/lexishift_core/resources/freedict_sqlite.py`
   - `scripts/data/convert_embeddings.py`
+  - `scripts/data/convert_freedict_tei_to_sqlite.py`
   - `core/tests/helper/test_installed_packs.py`
   - `core/tests/helper/test_lp_capabilities.py`
   - `core/tests/helper/test_pair_resources.py`
+  - `core/tests/resources/test_dict_loaders_freedict_pos.py`
 - Known gaps:
   - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, but broader pack consumers still include legacy path assumptions.
-  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair flows, including the current baseline `de-en` path.
-  - FreeDict does not yet build to a canonical compiled runtime SQLite artifact during normal app installation.
+  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair and tooling flows even though app-managed installs now build to SQLite.
   - Helper/runtime resource resolution is not yet manifest-driven for embeddings; current embedding activation still persists direct artifact paths in settings.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
   - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names inside the pack root during migration.
-  - Dirty extracted provider directories are now reduced for translation packs by flattening required runtime files into the pack root, but canonical compiled SQLite plus full raw-artifact deletion is still not complete for FreeDict.
+  - Translation consumers and helper diagnostics still include TEI-compatible assumptions in some paths; those need migration before raw FreeDict inputs can be treated as debug/import-only.
 
 ## `de-en` Baseline Rulegen Enablement
 
 - Status: `implemented`, `verified`; `default-on` = `yes` for helper/rulegen capability when `freedict-en-de` is present
-- Last documented checkpoint: `2026-04-03` first `de-en` proof-LP slice on the generalized translation-pack seam
+- Last documented checkpoint: `2026-04-03` `de-en` helper defaults now prefer the normalized FreeDict SQLite artifact while keeping TEI compatibility fallback
 - Last verified: `2026-04-03` targeted helper/capability/adapter tests and doc sync
 - Default behavior:
   - `de-en` now has a real rulegen mode (`de_en`) and participates in the generalized translation-dictionary helper seam.
-  - Default `de-en` forward resolution points at `eng-deu.tei`, with normalized translation-pack identity available in helper/resource resolution.
+  - Default `de-en` forward resolution now prefers `freedict-en-de.sqlite` and falls back to TEI compatibility inputs when needed, with normalized translation-pack identity available in helper/resource resolution.
   - The first `de-en` pair implementation is intentionally simple: FreeDict forward candidate extraction, generic scoring, German source-side stopword filtering, and no reverse-check path yet.
 - Evidence:
   - `core/lexishift_core/helper/lp_capabilities.py`

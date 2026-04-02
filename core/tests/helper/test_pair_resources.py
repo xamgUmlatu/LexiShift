@@ -40,10 +40,10 @@ class TestPairResources(unittest.TestCase):
         assert reverse is not None
         self.assertEqual(forward.provider, "freedict")
         self.assertEqual(forward.pack_id, "freedict_de_en")
-        self.assertTrue(str(forward.path).endswith("deu-eng.tei"))
+        self.assertTrue(str(forward.path).endswith("freedict-de-en.sqlite"))
         self.assertEqual(reverse.provider, "freedict")
         self.assertEqual(reverse.pack_id, "freedict_en_de")
-        self.assertTrue(str(reverse.path).endswith("eng-deu.tei"))
+        self.assertTrue(str(reverse.path).endswith("freedict-en-de.sqlite"))
 
     def test_resolve_pair_translation_packs_uses_de_en_freedict_defaults(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -53,10 +53,10 @@ class TestPairResources(unittest.TestCase):
         assert reverse is not None
         self.assertEqual(forward.provider, "freedict")
         self.assertEqual(forward.pack_id, "freedict_en_de")
-        self.assertTrue(str(forward.path).endswith("eng-deu.tei"))
+        self.assertTrue(str(forward.path).endswith("freedict-en-de.sqlite"))
         self.assertEqual(reverse.provider, "freedict")
         self.assertEqual(reverse.pack_id, "freedict_de_en")
-        self.assertTrue(str(reverse.path).endswith("deu-eng.tei"))
+        self.assertTrue(str(reverse.path).endswith("freedict-de-en.sqlite"))
 
     def test_resolve_pair_resources_prefers_manifest_backed_frequency_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

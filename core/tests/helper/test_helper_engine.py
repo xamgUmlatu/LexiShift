@@ -736,19 +736,27 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair_policy"]["pair"], "en-de")
             self.assertTrue(payload["set_source_db"].endswith("freq-de-default.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
-            self.assertTrue(payload["translation_dict_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertTrue(
+                payload["translation_dict_path"].endswith("language_packs/freedict-de-en.sqlite")
+            )
             self.assertFalse(payload["translation_dict_exists"])
             self.assertEqual(payload["translation_dict_provider"], "freedict")
             self.assertEqual(payload["translation_pack_id"], "freedict_de_en")
             self.assertEqual(payload["translation_pos_source_profile"], "freedict")
-            self.assertTrue(payload["translation_pack_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertTrue(
+                payload["translation_pack_path"].endswith("language_packs/freedict-de-en.sqlite")
+            )
             self.assertFalse(payload["translation_pack_exists"])
             self.assertTrue(
-                payload["reverse_translation_pack_path"].endswith("language_packs/eng-deu.tei")
+                payload["reverse_translation_pack_path"].endswith(
+                    "language_packs/freedict-en-de.sqlite"
+                )
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
             self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
-            self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertTrue(
+                payload["freedict_de_en_path"].endswith("language_packs/freedict-de-en.sqlite")
+            )
             self.assertFalse(payload["freedict_de_en_exists"])
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
             self.assertTrue(payload["stopwords_exists"])

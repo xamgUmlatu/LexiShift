@@ -555,6 +555,29 @@ class LanguagePackPanel(
         self._refresh_cross_embedding_pack_table()
 
     def _validate_language_pack_path(self, pack: LanguagePackInfo, path: str) -> tuple[bool, str]:
+        if pack.build_mode == "freedict_tei_to_sqlite":
+            if os.path.isdir(path):
+                missing = [
+                    name
+                    for name in pack.required_files
+                    if not os.path.exists(os.path.join(path, name))
+                ]
+                if missing:
+                    missing_str = ", ".join(missing)
+                    return False, t(
+                        "language_packs.validation.missing_files",
+                        name=pack.display_name(),
+                        files=missing_str,
+                    )
+                return True, ""
+            if not os.path.isfile(path):
+                return False, t("language_packs.validation.expected_file", name=pack.display_name())
+            lowered = path.lower()
+            if self._is_sqlite_db(path):
+                return True, ""
+            if lowered.endswith((".tei", ".xml")):
+                return True, ""
+            return False, t("language_packs.validation.sqlite")
         if pack.local_kind == "dir":
             if not os.path.isdir(path):
                 return False, t("language_packs.validation.expected_dir", name=pack.display_name())

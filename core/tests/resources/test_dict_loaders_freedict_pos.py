@@ -20,6 +20,9 @@ from lexishift_core.resources.dict_loaders import (  # noqa: E402
     load_translation_gloss_base_forms,
     load_translation_headwords,
 )
+from lexishift_core.resources.freedict_sqlite import (  # noqa: E402
+    convert_freedict_tei_to_sqlite,
+)
 
 
 class TestFreedictPosLoaders(unittest.TestCase):
@@ -130,6 +133,48 @@ class TestFreedictPosLoaders(unittest.TestCase):
             path.write_text(payload, encoding="utf-8")
             headwords = load_freedict_headwords(path)
         self.assertEqual(headwords, ("To Remove", "House"))
+
+    def test_convert_freedict_tei_to_sqlite_preserves_order_and_pos(self) -> None:
+        payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>Haus</orth></form>
+        <gramGrp><pos>noun</pos></gramGrp>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+          <cit type="trans"><quote xml:lang="en">home</quote></cit>
+        </sense>
+      </entry>
+      <entry>
+        <form><orth>laufen</orth></form>
+        <gramGrp><pos>verb</pos></gramGrp>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">run</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            tei_path = Path(tmp) / "deu-eng.tei"
+            sqlite_path = Path(tmp) / "freedict-de-en.sqlite"
+            tei_path.write_text(payload, encoding="utf-8")
+            metadata = convert_freedict_tei_to_sqlite(
+                tei_path,
+                sqlite_path,
+                target_lang="en",
+                overwrite=True,
+            )
+            records = load_freedict_sqlite_gloss_records_ordered(sqlite_path)
+        self.assertEqual(metadata["pair_count"], 3)
+        self.assertIn("Haus", records)
+        self.assertEqual([entry.translation for entry in records["Haus"]], ["house", "home"])
+        self.assertEqual(records["Haus"][0].pos_raw, "noun")
+        self.assertEqual(records["laufen"][0].translation, "run")
+        self.assertEqual(records["laufen"][0].pos_raw, "verb")
 
     def test_sqlite_loader_backfills_missing_pos_for_duplicate_translation(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

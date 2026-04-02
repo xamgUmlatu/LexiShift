@@ -275,7 +275,7 @@ Current verified progress:
 - app-managed language-pack downloads now write manifest files that record the canonical runtime artifact path
 - helper translation-dictionary resolution now checks manifest-backed installed packs before falling back to filename/path guessing
 - current runtime artifacts are still mixed:
-  - FreeDict translation packs still expose TEI as the canonical runtime artifact
+  - app-managed FreeDict translation packs now build to canonical SQLite artifacts while manual TEI files and older extracted directories remain compatibility inputs
   - Kaikki translation packs still expose compatibility SQLite as the canonical runtime artifact
 
 Current non-coverage:
@@ -304,7 +304,7 @@ Rationale:
 Migration note:
 
 - Kaikki is already close because it builds to SQLite today
-- FreeDict still needs a TEI-to-SQLite normalization step
+- FreeDict app-managed installs now have a TEI-to-SQLite normalization step; remaining work is consumer migration away from TEI-first assumptions
 
 ### Frequency Packs
 
@@ -373,6 +373,12 @@ Definition of done:
 
 - `freedict-en-de`, `freedict-de-en`, `freedict-en-es`, and `freedict-es-en` install to compiled SQLite artifacts plus manifests
 - temporary extracted source directories can be deleted after successful builds
+
+Current verified progress:
+
+- the FreeDict app catalog now declares managed TEI-to-SQLite builds for `freedict-de-en`, `freedict-en-de`, `freedict-es-en`, and `freedict-en-es`
+- app-managed translation installs now auto-link manifest-backed SQLite artifacts instead of extracted TEI directories
+- helper default translation-dictionary discovery now prefers FreeDict SQLite artifact names before TEI compatibility filenames
 
 ## Phase B2: Apply The Same Model To Other Pack Families
 

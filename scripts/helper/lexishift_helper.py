@@ -378,7 +378,10 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--pair", default="en-ja")
     run.add_argument("--profile-id", help="Profile id (default: default)")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
-    run.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
+    run.add_argument(
+        "--freedict-de-en",
+        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
+    )
     run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
     run.add_argument(
         "--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted)."
@@ -554,7 +557,10 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--pair", default="en-ja")
     init_s.add_argument("--profile-id", help="Profile id (default: default)")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
-    init_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
+    init_s.add_argument(
+        "--freedict-de-en",
+        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
+    )
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
     init_s.add_argument(
         "--set-top-n",
@@ -616,7 +622,8 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     refresh_s.add_argument(
-        "--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)"
+        "--freedict-de-en",
+        help="Path to translation dictionary artifact for DE->EN (freedict-de-en.sqlite / deu-eng.tei)",
     )
     refresh_s.add_argument(
         "--set-source-db", help="Path to frequency SQLite used for candidate pool"

@@ -19,6 +19,7 @@ from lexishift_core.frequency.sqlite import (
 from lexishift_core.helper.installed_packs import (
     write_installed_pack_manifest,
 )
+from lexishift_core.resources.freedict_sqlite import convert_freedict_tei_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
 from language_packs_catalog import (
@@ -150,6 +151,8 @@ class LanguagePackDownloadThread(QThread):
             self.failed.emit(self._pack_id, str(exc))
 
     def _build_local_artifact(self, dest_path: str) -> str:
+        if self._pack.build_mode == "freedict_tei_to_sqlite":
+            return self._build_freedict_sqlite(dest_path)
         if self._pack.build_mode == "kaikki_glosses_to_sqlite":
             return self._build_kaikki_glosses_sqlite(dest_path)
         if self._pack.build_mode == "kaikki_translations_to_sqlite":
@@ -301,6 +304,26 @@ class LanguagePackDownloadThread(QThread):
             f"[{self._pack_id}] converted sqlite={output_path} "
             f"selected_records={int(metadata.get('selected_records', 0))} "
             f"inserted_sense_rows={int(metadata.get('inserted_sense_rows', 0))}"
+        )
+        self._cleanup_archive(archive_path)
+        return output_path
+
+    def _build_freedict_sqlite(self, archive_path: str) -> str:
+        sqlite_filename = self._pack.sqlite_filename or f"{Path(archive_path).stem}.sqlite"
+        output_path = str(Path(archive_path).with_name(sqlite_filename))
+        target_lang_code = str(self._pack.target_lang_code or "").strip().lower()
+        tei_filename = self._pack.required_files[0] if self._pack.required_files else ""
+        metadata = convert_freedict_tei_to_sqlite(
+            Path(archive_path),
+            Path(output_path),
+            target_lang=target_lang_code,
+            tei_filename=tei_filename,
+            overwrite=True,
+        )
+        _log_download(
+            f"[{self._pack_id}] converted sqlite={output_path} "
+            f"pair_count={int(metadata.get('pair_count', 0))} "
+            f"headword_count={int(metadata.get('headword_count', 0))}"
         )
         self._cleanup_archive(archive_path)
         return output_path

@@ -225,19 +225,19 @@ def _reverse_pair_key(pair: str) -> str:
 
 def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, ...]:
     if pair == "de-en":
-        return ("eng-deu.tei", "freedict-en-de.sqlite", "eng-deu.sqlite")
+        return ("freedict-en-de.sqlite", "eng-deu.sqlite", "eng-deu.tei")
     if pair == "en-de":
-        return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
+        return ("freedict-de-en.sqlite", "deu-eng.sqlite", "deu-eng.tei")
     if pair == "en-es":
         return (
             "wiktionary-es-en.sqlite",
-            "spa-eng.tei",
             "freedict-es-en.sqlite",
             "spa-eng.sqlite",
+            "spa-eng.tei",
         )
     if pair == "es-en":
-        return ("eng-spa.tei", "freedict-en-es.sqlite", "eng-spa.sqlite")
-    return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
+        return ("freedict-en-es.sqlite", "eng-spa.sqlite", "eng-spa.tei")
+    return ("freedict-de-en.sqlite", "deu-eng.sqlite", "deu-eng.tei")
 
 
 def _default_translation_pack_ids_for_pair(pair: str) -> tuple[str, ...]:
@@ -256,16 +256,16 @@ def _default_reverse_translation_filenames_for_pair(pair: str) -> tuple[str, ...
     if pair == "en-es":
         return (
             "wiktionary-en-es.sqlite",
-            "eng-spa.tei",
             "freedict-en-es.sqlite",
             "eng-spa.sqlite",
+            "eng-spa.tei",
         )
     if pair == "es-en":
         return (
             "wiktionary-es-en.sqlite",
-            "spa-eng.tei",
             "freedict-es-en.sqlite",
             "spa-eng.sqlite",
+            "spa-eng.tei",
         )
     reverse_pair = _reverse_pair_key(pair)
     if not reverse_pair:

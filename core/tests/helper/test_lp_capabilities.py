@@ -135,7 +135,7 @@ class TestLpCapabilities(unittest.TestCase):
                 language_packs_dir=language_packs_dir,
             )
         self.assertIsNotNone(resolved)
-        self.assertTrue(str(resolved).endswith("eng-deu.tei"))
+        self.assertTrue(str(resolved).endswith("freedict-en-de.sqlite"))
 
     def test_de_en_default_dictionary_uses_english_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -145,24 +145,25 @@ class TestLpCapabilities(unittest.TestCase):
                 language_packs_dir=language_packs_dir,
             )
         self.assertIsNotNone(resolved)
-        self.assertTrue(str(resolved).endswith("eng-deu.tei"))
+        self.assertTrue(str(resolved).endswith("freedict-en-de.sqlite"))
 
     def test_de_en_default_dictionary_prefers_manifest_backed_pack_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
             pack_root = language_packs_dir / "freedict-en-de"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "eng-deu.tei"
-            artifact.write_text("<tei/>", encoding="utf-8")
+            artifact = pack_root / "freedict-en-de.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
                 pack_id="freedict-en-de",
                 pack_kind="language",
                 provider="freedict",
                 local_kind="dir",
-                build_mode="download_only",
+                build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-eng-deu-1.9-fd1.src.tar.xz",
+                sqlite_filename="freedict-en-de.sqlite",
                 required_files=("eng-deu.tei",),
             )
             resolved = default_translation_dictionary_path(
@@ -179,24 +180,25 @@ class TestLpCapabilities(unittest.TestCase):
                 language_packs_dir=language_packs_dir,
             )
         self.assertIsNotNone(resolved)
-        self.assertTrue(str(resolved).endswith("deu-eng.tei"))
+        self.assertTrue(str(resolved).endswith("freedict-de-en.sqlite"))
 
     def test_de_en_default_reverse_dictionary_prefers_manifest_backed_pack_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
             pack_root = language_packs_dir / "freedict-de-en"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "deu-eng.tei"
-            artifact.write_text("<tei/>", encoding="utf-8")
+            artifact = pack_root / "freedict-de-en.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
                 pack_id="freedict-de-en",
                 pack_kind="language",
                 provider="freedict",
                 local_kind="dir",
-                build_mode="download_only",
+                build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
+                sqlite_filename="freedict-de-en.sqlite",
                 required_files=("deu-eng.tei",),
             )
             resolved = default_reverse_translation_dictionary_path(

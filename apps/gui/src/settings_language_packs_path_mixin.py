@@ -57,9 +57,6 @@ class LanguagePackPanelPathMixin:
         if not embeddings:
             manifest = load_installed_pack_manifest(Path(self._language_pack_dir), pack.pack_id)
             if manifest is not None:
-                storage_dir = self._language_pack_storage_dir(pack)
-                if pack.local_kind == "dir" and storage_dir.exists():
-                    return str(storage_dir)
                 resolved_artifact = resolve_installed_pack_artifact(
                     Path(self._language_pack_dir),
                     pack.pack_id,
