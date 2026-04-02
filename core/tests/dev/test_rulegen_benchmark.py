@@ -119,7 +119,7 @@ class TestRulegenBenchmark(unittest.TestCase):
             path.write_bytes(b"abc123")
             first = _compute_file_sha256(path)
             with patch(
-                "rulegen_benchmark._compute_file_sha256_uncached",
+                "rulegen_benchmark_resources._compute_file_sha256_uncached",
                 side_effect=AssertionError("sha256 cache should be warm"),
             ):
                 second = _compute_file_sha256(path)
@@ -140,16 +140,18 @@ class TestRulegenBenchmark(unittest.TestCase):
             forward.write_text("forward", encoding="utf-8")
             reverse.write_text("reverse", encoding="utf-8")
 
-            jmdict_path, freedict_path, reverse_path = _resolve_pair_resources_for_benchmark(
-                paths=_FakePaths(language_packs_dir),
-                pair="en-es",
-                jmdict_override=None,
-                freedict_override=forward,
-                freedict_reverse_override=None,
+            jmdict_path, translation_dict_path, reverse_path = (
+                _resolve_pair_resources_for_benchmark(
+                    paths=_FakePaths(language_packs_dir),
+                    pair="en-es",
+                    jmdict_override=None,
+                    translation_dict_override=forward,
+                    reverse_translation_dict_override=None,
+                )
             )
 
             self.assertIsNone(jmdict_path)
-            self.assertEqual(freedict_path, forward)
+            self.assertEqual(translation_dict_path, forward)
             self.assertEqual(reverse_path, reverse)
 
     def test_parse_family_set_specs_supports_multiple_sets(self) -> None:
@@ -620,7 +622,7 @@ class TestRulegenBenchmark(unittest.TestCase):
                 reverse_headwords=("remove",),
             )
             with patch(
-                "rulegen_benchmark._build_en_es_reverse_headword_norm_index",
+                "rulegen_benchmark_resources._build_en_es_reverse_headword_norm_index",
                 side_effect=AssertionError("reverse norm index cache should be warm"),
             ):
                 second = _expand_reverse_preload_headwords(
@@ -1580,9 +1582,9 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
 
         with (
-            patch("rulegen_benchmark.run_rules_with_adapter", return_value=rules),
+            patch("rulegen_benchmark_sweep.run_rules_with_adapter", return_value=rules),
             patch(
-                "rulegen_benchmark.RulegenBenchmarkCaseResult.to_dict",
+                "rulegen_benchmark_compiled.RulegenBenchmarkCaseResult.to_dict",
                 side_effect=AssertionError("compiled sweep path should not serialize case results"),
             ),
         ):
@@ -1686,7 +1688,7 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
 
         with patch(
-            "rulegen_benchmark.run_rules_with_adapter",
+            "rulegen_benchmark_sweep.run_rules_with_adapter",
             side_effect=AssertionError("compiled en-es sweep path should bypass adapter"),
         ):
             evaluation = _evaluate_sweep_run(
@@ -1785,7 +1787,7 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
 
         with patch(
-            "rulegen_benchmark.run_rules_with_adapter",
+            "rulegen_benchmark_sweep.run_rules_with_adapter",
             side_effect=AssertionError(
                 "compiled en-es variant benchmark path should bypass adapter"
             ),
@@ -1872,9 +1874,11 @@ class TestRulegenBenchmark(unittest.TestCase):
         )
 
         with (
-            patch("rulegen_benchmark.run_rules_with_adapter", return_value=rules) as run_rules,
             patch(
-                "rulegen_benchmark.RulegenBenchmarkCaseResult.to_dict",
+                "rulegen_benchmark_sweep.run_rules_with_adapter", return_value=rules
+            ) as run_rules,
+            patch(
+                "rulegen_benchmark_compiled.RulegenBenchmarkCaseResult.to_dict",
                 side_effect=AssertionError("compiled sweep path should not serialize case results"),
             ),
         ):
@@ -2095,13 +2099,13 @@ class TestRulegenBenchmark(unittest.TestCase):
             )
 
         with (
-            patch("rulegen_benchmark.ProcessPoolExecutor", _FakeProcessPoolExecutor),
+            patch("rulegen_benchmark_sweep.ProcessPoolExecutor", _FakeProcessPoolExecutor),
             patch(
-                "rulegen_benchmark.as_completed",
+                "rulegen_benchmark_sweep.as_completed",
                 side_effect=lambda futures: list(reversed(list(futures))),
             ),
             patch(
-                "rulegen_benchmark._evaluate_sweep_run_from_worker_state",
+                "rulegen_benchmark_sweep._evaluate_sweep_run_from_worker_state",
                 side_effect=_fake_eval,
             ),
         ):
@@ -2574,7 +2578,10 @@ class TestRulegenBenchmark(unittest.TestCase):
                 captured_timings.append(dict(raw_timing))
             return "<html>ok</html>"
 
-        with patch("rulegen_benchmark._load_html_report_renderer", return_value=_fake_renderer):
+        with patch(
+            "rulegen_benchmark_reporting._load_html_report_renderer",
+            return_value=_fake_renderer,
+        ):
             _, _, timing_payload = _render_report_artifacts(
                 report_payload=report_payload,
                 pair_runs={"en-es": [run]},
