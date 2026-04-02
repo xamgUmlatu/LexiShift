@@ -103,8 +103,9 @@ class MainWindowSrsMixin:
         *,
         frequency_packs: dict[str, str],
     ) -> Optional[Path]:
+        frequency_dir = _app_data_dir() / "frequency_packs"
         default_db_name = None
-        default_db_path = default_frequency_db_path(pair, frequency_packs_dir=Path("."))
+        default_db_path = default_frequency_db_path(pair, frequency_packs_dir=frequency_dir)
         if default_db_path:
             default_db_name = default_db_path.name
         lookup_keys: list[str] = []
@@ -123,10 +124,8 @@ class MainWindowSrsMixin:
                 nested = candidate / default_db_name
                 if nested.is_file():
                     return nested
-        if default_db_name:
-            fallback = _app_data_dir() / "frequency_packs" / default_db_name
-            if fallback.is_file():
-                return fallback
+        if default_db_path and default_db_path.is_file():
+            return default_db_path
         return None
 
     def _resolve_jmdict_for_pair(

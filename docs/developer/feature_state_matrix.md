@@ -96,8 +96,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, the bulk-rules GUI resolves managed SQLite artifacts first, and the synthetic SRS quality/journey harnesses default to SQLite translation resources
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, and app-managed embedding conversion/manifests
+- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, the bulk-rules GUI resolves managed SQLite artifacts first, the synthetic SRS quality/journey harnesses default to SQLite translation resources, and helper/runtime now expose a first frequency pack-ref seam
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, and app-managed embedding conversion/manifests
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -117,6 +117,7 @@ Use this file when:
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
+    - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution and runtime diagnostics can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
     - GUI embedding-pack downloads now install into stable per-pack roots under `embedding_packs/<pack_id>/`
     - app-managed embedding-pack downloads now normalize to SQLite and write `manifest.json` only after successful conversion
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
@@ -135,9 +136,12 @@ Use this file when:
   - `apps/gui/src/settings_language_packs.py`
   - `apps/gui/src/settings_language_packs_support.py`
   - `core/lexishift_core/helper/translation_packs.py`
+  - `core/lexishift_core/helper/frequency_packs.py`
   - `core/lexishift_core/helper/pair_resources.py`
   - `core/lexishift_core/helper/installed_packs.py`
   - `core/lexishift_core/helper/lp_capabilities.py`
+  - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `apps/gui/src/main_srs_mixin.py`
   - `core/lexishift_core/resources/freedict_sqlite.py`
   - `core/lexishift_core/resources/synonyms.py`
   - `core/lexishift_core/frequency/de/build_support.py`
@@ -150,7 +154,10 @@ Use this file when:
   - `scripts/data/convert_freedict_tei_to_sqlite.py`
   - `core/tests/helper/test_installed_packs.py`
   - `core/tests/helper/test_lp_capabilities.py`
+  - `core/tests/helper/test_frequency_packs.py`
   - `core/tests/helper/test_pair_resources.py`
+  - `core/tests/helper/test_helper_engine.py`
+  - `apps/gui/tests/test_main_settings_resource_persistence.py`
   - `core/tests/dev/test_srs_harness_resource_normalization.py`
   - `core/tests/frequency/test_de_build_support.py`
   - `core/tests/resources/test_dict_loaders_freedict_pos.py`

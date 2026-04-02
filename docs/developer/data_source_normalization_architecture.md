@@ -4,7 +4,7 @@ Status: active planning doc with first executable slice
 Role: architecture target / implementation plan
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 helper/gui path and manifest slice
+Last verified: 2026-04-03 helper/gui path and manifest slice plus the first frequency pack-ref/runtime-diagnostics seam
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
 Execution-order companion:
@@ -283,7 +283,7 @@ Current verified progress:
 
 Current non-coverage:
 
-- helper/rulegen resource resolution is still only partially manifest-aware outside translation and frequency defaults
+- helper/rulegen resource resolution is still only partially manifest-aware outside translation defaults and the first frequency pack-ref/runtime-diagnostics seam
 - embedding runtime and settings still preserve raw-file compatibility for manually supplied external files during migration
 - frequency packs still keep pack-specific SQLite filenames during migration rather than a fully unified `main.sqlite` contract
 
@@ -409,6 +409,10 @@ Detailed execution plan:
    - keep the current SQLite writer and current pack-specific SQLite filenames during the first migration slice
    - begin tightening toward canonical columns like `lemma_lc`, `rank`, and `pmw`
    - migrate runtime/settings resolution to manifest-backed pack refs before removing filename assumptions or renaming artifacts to `main.sqlite`
+   - current verified progress:
+     - managed frequency installs now use stable pack roots plus manifests
+     - helper default frequency discovery now prefers manifest-backed artifacts
+     - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack id, provider, and POS source profile
 
 2. Embedding normalization
    - install under `embedding_packs/<pack_id>/`

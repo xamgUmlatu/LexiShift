@@ -4,6 +4,7 @@ import json
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.pair_resources import (
+    resolve_pair_frequency_pack,
     resolve_pair_resources,
     resolve_pair_translation_packs,
     resolve_stopwords_path,
@@ -39,6 +40,11 @@ def get_srs_runtime_diagnostics(
         pair=normalized_pair,
         translation_dict_path=resolved_translation_dict_path,
         reverse_translation_dict_path=None,
+    )
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=normalized_pair,
+        set_source_db=resolved_set_source_db,
     )
     resolved_stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     missing_inputs: list[dict[str, object]] = []
@@ -128,6 +134,19 @@ def get_srs_runtime_diagnostics(
         ),
         "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
         "set_source_db_exists": bool(resolved_set_source_db and resolved_set_source_db.exists()),
+        "frequency_pack_path": str(resolved_frequency_pack.path)
+        if resolved_frequency_pack
+        else None,
+        "frequency_pack_exists": bool(
+            resolved_frequency_pack and resolved_frequency_pack.path.exists()
+        ),
+        "frequency_pack_id": resolved_frequency_pack.pack_id if resolved_frequency_pack else None,
+        "frequency_pack_provider": (
+            resolved_frequency_pack.provider if resolved_frequency_pack else None
+        ),
+        "frequency_pos_source_profile": (
+            resolved_frequency_pack.pos_source_profile if resolved_frequency_pack else None
+        ),
         "stopwords_path": str(resolved_stopwords_path) if resolved_stopwords_path else None,
         "stopwords_exists": bool(resolved_stopwords_path and resolved_stopwords_path.exists()),
         "missing_inputs": missing_inputs,

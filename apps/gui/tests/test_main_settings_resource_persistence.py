@@ -11,6 +11,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PySide6.QtWidgets import QDialog
 
 from lexishift_core import AppSettings, SynonymSourceSettings
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from main import MainWindow
 
 
@@ -95,15 +96,26 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
 
 
-def test_resolve_frequency_db_for_pair_falls_back_to_default_app_data_pack() -> None:
+def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
-        fallback = root / "frequency_packs" / "freq-en-coca.sqlite"
+        pack_root = root / "frequency_packs" / "freq-en-coca"
+        fallback = pack_root / "main.sqlite"
         fallback.parent.mkdir(parents=True, exist_ok=True)
         fallback.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "frequency_packs",
+            pack_id="freq-en-coca",
+            pack_kind="frequency",
+            provider="wordfrequency",
+            local_kind="file",
+            build_mode="convert_archive",
+            artifact_path=fallback,
+            sqlite_filename="freq-en-coca.sqlite",
+        )
         dummy = SimpleNamespace()
 
-        with patch("main._app_data_dir", return_value=root):
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
             resolved = MainWindow._resolve_frequency_db_for_pair(
                 dummy,
                 "es-en",

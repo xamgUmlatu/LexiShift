@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.pair_resources import (  # noqa: E402
+    resolve_pair_frequency_pack,
     resolve_pair_resources,
     resolve_pair_translation_packs,
 )
@@ -84,3 +85,27 @@ class TestPairResources(unittest.TestCase):
                 set_source_db=None,
             )
         self.assertEqual(resolved_frequency, artifact)
+
+    def test_resolve_pair_frequency_pack_uses_manifest_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            pack_root = paths.frequency_packs_dir / "freq-en-coca"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-en-coca",
+                pack_kind="frequency",
+                provider="wordfrequency",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=artifact,
+                sqlite_filename="freq-en-coca.sqlite",
+            )
+            resolved = resolve_pair_frequency_pack(paths, pair="en-en")
+        assert resolved is not None
+        self.assertEqual(resolved.path, artifact)
+        self.assertEqual(resolved.pack_id, "freq-en-coca")
+        self.assertEqual(resolved.provider, "wordfrequency")
+        self.assertEqual(resolved.pos_source_profile, "compact-latin")

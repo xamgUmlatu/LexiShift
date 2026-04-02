@@ -73,6 +73,30 @@ def resolve_installed_pack_artifact(
     return None
 
 
+def load_installed_pack_manifest_for_artifact(path: Path) -> Optional[InstalledPackManifest]:
+    candidate = Path(path)
+    pack_root = candidate if candidate.is_dir() else candidate.parent
+    manifest_path = pack_root / MANIFEST_FILENAME
+    if not manifest_path.exists() or not manifest_path.is_file():
+        return None
+    data = json.loads(manifest_path.read_text(encoding="utf-8"))
+    required_files = tuple(str(name) for name in data.get("required_files", ()))
+    return InstalledPackManifest(
+        pack_id=str(data.get("pack_id", pack_root.name)),
+        pack_kind=str(data.get("pack_kind", "language")),
+        provider=str(data.get("provider", "")),
+        local_kind=str(data.get("local_kind", "file")),
+        build_mode=str(data.get("build_mode", "download_only")),
+        artifact_relpath=str(data.get("artifact_relpath", ".")),
+        artifact_kind=str(data.get("artifact_kind", "file")),
+        installed_at_utc=str(data.get("installed_at_utc", "")),
+        source_filename=_optional_text(data.get("source_filename")),
+        sqlite_filename=_optional_text(data.get("sqlite_filename")),
+        required_files=required_files,
+        raw_retained=bool(data.get("raw_retained", False)),
+    )
+
+
 def write_installed_pack_manifest(
     base_dir: Path,
     *,

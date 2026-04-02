@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 from lexishift_core.lexicon.word_package import resolve_language_tag_from_pair
+from lexishift_core.helper.frequency_packs import FrequencyPackRef, build_frequency_pack_ref
 from lexishift_core.helper.lp_capabilities import (
     default_frequency_db_path,
     default_jmdict_path,
@@ -117,3 +118,21 @@ def resolve_pair_translation_packs(
             direction=REVERSE_PACK_DIRECTION,
         ),
     )
+
+
+def resolve_pair_frequency_pack(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    set_source_db: Optional[Path] = None,
+) -> Optional[FrequencyPackRef]:
+    capability = resolve_pair_capability(pair)
+    resolved_frequency_db = (
+        Path(set_source_db)
+        if set_source_db is not None
+        else default_frequency_db_path(
+            capability.pair,
+            frequency_packs_dir=paths.frequency_packs_dir,
+        )
+    )
+    return build_frequency_pack_ref(capability.pair, resolved_frequency_db)

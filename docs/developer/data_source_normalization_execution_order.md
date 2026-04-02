@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, and synonym-loader migration
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, and the first frequency pack-ref/runtime-diagnostics seam slice
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## End State
@@ -32,6 +32,7 @@ Already landed:
 - synonym generation now reads FreeDict through the shared translation-pack loader
 - bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
 - synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
+- helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
 
 Still intentionally transitional:
 
@@ -189,16 +190,18 @@ Definition of done:
 
 If continuing now, the highest-value order is:
 
-1. Phase 1 GUI/runtime cleanup
-   - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_bulk_rules_mixin.py`
+1. Phase 2 frequency/runtime cleanup
+   - `/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/src/main_srs_mixin.py`
+   - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+   - continue replacing path-first frequency resolution/reporting with manifest-backed pack refs
+
+2. Phase 3 embedding seam migration
+   - settings/runtime pack-ref adoption is now the biggest remaining normalized-runtime gap
+
+3. Phase 1 residual translation cleanup
    - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/rulegen_job.py`
-
-2. Phase 1 harness fixture cleanup
-   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_quality_harness_support.py`
-   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_journey_harness_support.py`
-
-3. Phase 3 embedding seam migration
-   - settings/runtime pack-ref adoption is now likely a bigger remaining risk than translation storage itself
+   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_benchmark.py`
+   - remove the remaining TEI-compatible language in generic helper/benchmark seams once pack-ref reporting is stable
 
 I would not jump to `main.sqlite` renaming across families before the remaining runtime consumers and harnesses stop assuming specific legacy filenames.
 

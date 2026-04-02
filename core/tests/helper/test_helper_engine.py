@@ -736,6 +736,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair_policy"]["pair"], "en-de")
             self.assertTrue(payload["set_source_db"].endswith("freq-de-default.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
+            self.assertTrue(payload["frequency_pack_path"].endswith("freq-de-default.sqlite"))
+            self.assertFalse(payload["frequency_pack_exists"])
+            self.assertEqual(payload["frequency_pack_id"], "freq-de-default")
+            self.assertEqual(payload["frequency_pack_provider"], "freq-de-default")
+            self.assertEqual(payload["frequency_pos_source_profile"], "freq-de-default")
             self.assertTrue(
                 payload["translation_dict_path"].endswith("language_packs/freedict-de-en.sqlite")
             )
@@ -776,6 +781,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair_policy"]["pair"], "en-es")
             self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
+            self.assertTrue(payload["frequency_pack_path"].endswith("freq-es-cde.sqlite"))
+            self.assertFalse(payload["frequency_pack_exists"])
+            self.assertEqual(payload["frequency_pack_id"], "freq-es-cde")
+            self.assertEqual(payload["frequency_pack_provider"], "freq-es-cde")
+            self.assertEqual(payload["frequency_pos_source_profile"], "freq-es-cde")
             self.assertTrue(
                 payload["translation_dict_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )
