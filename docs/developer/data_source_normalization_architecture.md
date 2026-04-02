@@ -379,6 +379,7 @@ Current verified progress:
 - the FreeDict app catalog now declares managed TEI-to-SQLite builds for `freedict-de-en`, `freedict-en-de`, `freedict-es-en`, and `freedict-en-es`
 - app-managed translation installs now auto-link manifest-backed SQLite artifacts instead of extracted TEI directories
 - helper default translation-dictionary discovery now prefers FreeDict SQLite artifact names before TEI compatibility filenames
+- the German frequency whitelist/build path now prefers manifest-backed FreeDict SQLite artifacts and shared translation-pack headword loaders instead of TEI-only parsing
 
 ## Phase B2: Apply The Same Model To Other Pack Families
 

@@ -96,8 +96,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite while retaining TEI compatibility paths for manual/legacy installs
-- Last verified: `2026-04-03` targeted helper/resource tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, frequency manifests, and app-managed embedding conversion/manifests
+- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite and the German frequency whitelist path now prefers the normalized translation artifact
+- Last verified: `2026-04-03` targeted helper/resource/frequency tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, frequency manifests, and app-managed embedding conversion/manifests
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -110,6 +110,7 @@ Use this file when:
     - app-managed language-pack installs now write `manifest.json`
     - app-managed FreeDict language-pack installs now compile provider TEI sources to canonical SQLite artifacts before completion
     - helper translation-dictionary resolution now prefers manifest-backed installed pack artifacts and FreeDict SQLite filenames before falling back to TEI/path guessing
+    - the German frequency whitelist/build path now resolves FreeDict through the same normalized translation-pack artifact contract and shared translation headword loader
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
@@ -135,11 +136,14 @@ Use this file when:
   - `core/lexishift_core/helper/installed_packs.py`
   - `core/lexishift_core/helper/lp_capabilities.py`
   - `core/lexishift_core/resources/freedict_sqlite.py`
+  - `core/lexishift_core/frequency/de/build_support.py`
+  - `core/lexishift_core/frequency/de/pipeline.py`
   - `scripts/data/convert_embeddings.py`
   - `scripts/data/convert_freedict_tei_to_sqlite.py`
   - `core/tests/helper/test_installed_packs.py`
   - `core/tests/helper/test_lp_capabilities.py`
   - `core/tests/helper/test_pair_resources.py`
+  - `core/tests/frequency/test_de_build_support.py`
   - `core/tests/resources/test_dict_loaders_freedict_pos.py`
 - Known gaps:
   - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, but broader pack consumers still include legacy path assumptions.

@@ -13,6 +13,12 @@ from typing import Any, Callable, Optional
 import urllib.request
 
 from lexishift_core.frequency.de.build import BuildResult, build_de_frequency_sqlite
+from lexishift_core.helper.installed_packs import (
+    installed_pack_root,
+    resolve_installed_pack_artifact,
+    write_installed_pack_manifest,
+)
+from lexishift_core.resources.freedict_sqlite import convert_freedict_tei_to_sqlite
 from lexishift_core.frequency.de.pos_compile import write_compact_pos_lexicon
 
 LEIPZIG_CORPUS_URL = "https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz"
@@ -271,16 +277,41 @@ def _ensure_freedict_de_en(
     workspace_dir: Path,
     cancel_cb: Optional[CancelCallback] = None,
 ) -> Path:
-    target_path = language_packs_dir / "deu-eng.tei"
-    if target_path.exists() and target_path.is_file():
-        return target_path
+    manifest_artifact = resolve_installed_pack_artifact(language_packs_dir, "freedict-de-en")
+    if manifest_artifact is not None:
+        return manifest_artifact
+    legacy_candidates = (
+        language_packs_dir / "freedict-de-en.sqlite",
+        language_packs_dir / "deu-eng.sqlite",
+        language_packs_dir / "deu-eng.tei",
+    )
+    for candidate in legacy_candidates:
+        if candidate.exists() and candidate.is_file():
+            return candidate
 
     archive_path = workspace_dir / "freedict-deu-eng-1.9-fd1.src.tar.xz"
+    pack_root = installed_pack_root(language_packs_dir, "freedict-de-en")
+    target_path = pack_root / "freedict-de-en.sqlite"
     _download_file(url=FREEDICT_DE_EN_URL, dest=archive_path, cancel_cb=cancel_cb)
-    _extract_member_from_tar(
-        archive_path=archive_path,
-        member_suffix="/deu-eng.tei",
-        output_path=target_path,
+    convert_freedict_tei_to_sqlite(
+        archive_path,
+        target_path,
+        target_lang="en",
+        tei_filename="deu-eng.tei",
+        overwrite=True,
+    )
+    write_installed_pack_manifest(
+        language_packs_dir,
+        pack_id="freedict-de-en",
+        pack_kind="language",
+        provider="freedict",
+        local_kind="dir",
+        build_mode="freedict_tei_to_sqlite",
+        artifact_path=target_path,
+        source_filename=archive_path.name,
+        sqlite_filename="freedict-de-en.sqlite",
+        required_files=("deu-eng.tei",),
+        raw_retained=False,
     )
     return target_path
 
