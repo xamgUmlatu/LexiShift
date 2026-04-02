@@ -34,12 +34,13 @@ Already landed:
 - synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
 - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
+- the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
 
 Still intentionally transitional:
 
 - some GUI/runtime/harness paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
-- embeddings still preserve direct artifact-path maps for compatibility and manual imports even though managed pair activation can now use pack ids
+- embeddings still preserve direct artifact-path maps for compatibility and manual imports, but managed app-owned artifact paths no longer need to be re-persisted alongside pack-id activation
 - generic helper/resource reporting still contains filename/provider heuristics
 
 ## Execution Order

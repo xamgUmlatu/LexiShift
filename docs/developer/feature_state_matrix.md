@@ -97,7 +97,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
 - Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, the bulk-rules GUI resolves managed SQLite artifacts first, the synthetic SRS quality/journey harnesses default to SQLite translation resources, helper/runtime expose a first frequency pack-ref seam, and managed embedding activation now has a first pack-id-based runtime seam
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, and embedding pack-id activation/runtime resolution
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, and managed-embedding settings persistence cleanup
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -122,12 +122,13 @@ Use this file when:
     - app-managed embedding-pack downloads now normalize to SQLite and write `manifest.json` only after successful conversion
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
     - managed embedding activation can now be persisted by pack id per pair, and the replacement-filter runtime resolves those pack ids back through manifest-backed SQLite artifacts
+    - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
   - Current runtime contract is still transitional rather than final:
     - FreeDict translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files and older extracted directories remain compatibility inputs during migration
     - Kaikki translation packs already expose compiled SQLite
     - frequency packs already expose SQLite, but still use pack-specific artifact filenames during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
-    - managed embedding settings still keep direct artifact-path maps for compatibility even though pair activation no longer has to depend on those paths alone
+    - managed embedding settings still keep direct artifact-path maps for compatibility/manual imports, but app-managed artifact paths no longer need to be re-persisted once pack-id activation is available
 - Evidence:
   - `docs/developer/data_source_normalization_architecture.md`
   - `docs/developer/language_pair_generalization_roadmap.md`
@@ -165,6 +166,7 @@ Use this file when:
   - `core/tests/helper/test_helper_engine.py`
   - `apps/gui/tests/test_main_settings_resource_persistence.py`
   - `apps/gui/tests/test_main_embedding_pack_resolution.py`
+  - `apps/gui/tests/test_language_pack_panel_state_mixin.py`
   - `core/tests/helper/test_embedding_packs.py`
   - `core/tests/dev/test_srs_harness_resource_normalization.py`
   - `core/tests/frequency/test_de_build_support.py`

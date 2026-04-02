@@ -424,6 +424,7 @@ Detailed execution plan:
      - app-managed embedding installs already complete as manifest-backed SQLite artifacts
      - per-pair managed embedding activation can now be persisted by pack id instead of only by raw artifact path
      - replacement-filter runtime can now resolve managed embedding pack ids back through manifest-backed SQLite artifacts while still honoring legacy/manual path entries
+     - settings persistence now omits redundant managed embedding artifact paths when those installs are already represented by pack id + manifest-backed resolution
 
 3. Shared seam cleanup
    - add installed-pack helpers for frequency and embedding families, not only translation

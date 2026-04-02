@@ -30,10 +30,33 @@ class LanguagePackPanelStateMixin:
         return dict(self._frequency_pack_paths)
 
     def embedding_paths(self) -> dict[str, str]:
-        return dict(self._embedding_pack_paths)
+        paths: dict[str, str] = {}
+        for pack_id, path in self._embedding_pack_paths.items():
+            pack = self._embedding_pack_info.get(pack_id)
+            resolved = self._resolve_downloaded_path(pack, embeddings=True) if pack else None
+            if (
+                path
+                and resolved
+                and path == resolved
+                and self._is_app_data_path(path, embeddings=True)
+            ):
+                continue
+            paths[pack_id] = path
+        return paths
 
     def embedding_pair_paths(self) -> dict[str, list[str]]:
-        return {key: list(value) for key, value in self._embedding_pair_paths.items()}
+        resolved: dict[str, list[str]] = {}
+        for pair_key, values in self._embedding_pair_paths.items():
+            managed_paths: set[str] = set()
+            for pack_id in self._embedding_pair_pack_ids.get(pair_key, []):
+                pack = self._embedding_pack_info.get(pack_id)
+                candidate = self._resolve_downloaded_path(pack, embeddings=True) if pack else None
+                if candidate:
+                    managed_paths.add(candidate)
+            filtered = [value for value in values if value and value not in managed_paths]
+            if filtered:
+                resolved[pair_key] = list(filtered)
+        return resolved
 
     def embedding_pair_pack_ids(self) -> dict[str, list[str]]:
         return {key: list(value) for key, value in self._embedding_pair_pack_ids.items()}
