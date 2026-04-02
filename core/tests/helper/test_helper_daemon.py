@@ -53,7 +53,8 @@ class TestHelperDaemon(unittest.TestCase):
             job = _build_job_config("en-de", paths, config)
             self.assertIsNotNone(job)
             self.assertEqual(job.pair, "en-de")
-            self.assertEqual(job.freedict_de_en_path, freedict_path)
+            self.assertEqual(job.translation_dict_path, freedict_path)
+            self.assertIsNone(job.freedict_de_en_path)
             self.assertIsNone(job.jmdict_path)
 
     def test_build_job_config_requires_freedict_for_en_es(self) -> None:
@@ -69,7 +70,8 @@ class TestHelperDaemon(unittest.TestCase):
             job = _build_job_config("en-es", paths, config)
             self.assertIsNotNone(job)
             self.assertEqual(job.pair, "en-es")
-            self.assertEqual(job.freedict_de_en_path, freedict_path)
+            self.assertEqual(job.translation_dict_path, freedict_path)
+            self.assertIsNone(job.freedict_de_en_path)
             self.assertIsNone(job.jmdict_path)
 
     def test_build_job_config_requires_freedict_for_de_en(self) -> None:
@@ -86,7 +88,7 @@ class TestHelperDaemon(unittest.TestCase):
             self.assertIsNotNone(job)
             self.assertEqual(job.pair, "de-en")
             self.assertEqual(job.translation_dict_path, freedict_path)
-            self.assertEqual(job.freedict_de_en_path, freedict_path)
+            self.assertIsNone(job.freedict_de_en_path)
             self.assertIsNone(job.jmdict_path)
 
 
