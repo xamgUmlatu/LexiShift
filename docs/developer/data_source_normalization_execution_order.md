@@ -31,7 +31,7 @@ Already landed:
 - German frequency whitelist/build now prefers normalized FreeDict artifacts
 - synonym generation now reads FreeDict through the shared translation-pack loader
 - bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
-- synthetic SRS quality harness fixtures now default to SQLite translation resources instead of raw TEI
+- synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
 
 Still intentionally transitional:
 
@@ -63,7 +63,7 @@ Concrete work:
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_quality_harness_support.py`
      - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/srs_journey_harness_support.py`
    - keep TEI fixture helpers only when a test explicitly needs raw-format coverage
-   - current checkpoint: the quality harness is SQLite-first; the journey harness still remains to be migrated without expanding its already oversized support file
+   - current checkpoint: both the quality harness and the journey harness are now SQLite-first by default, and the journey resource-writing logic has been split into a dedicated helper so the scenario-support file stays below the project-health ceiling
 
 3. Generic helper/diagnostic naming cleanup
    - remove generic logic that infers provider semantics from `.tei` or `freedict` filename patterns where a manifest-backed pack id is available

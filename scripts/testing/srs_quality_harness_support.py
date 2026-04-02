@@ -5,10 +5,13 @@ from pathlib import Path
 import sqlite3
 from types import SimpleNamespace
 from typing import Any, Mapping
-from xml.sax.saxutils import escape
 
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.replacement.core import VocabRule
+from synthetic_translation_fixture_support import (
+    write_jmdict_fixture,
+    write_translation_dictionary_sqlite_fixture,
+)
 
 
 def _alpha_suffix(index: int) -> str:
@@ -37,93 +40,6 @@ def _write_frequency_db(*, path: Path, lemmas: list[str], pos: str) -> None:
         conn.executemany(
             "INSERT INTO frequency (lemma, core_rank, pmw, pos) VALUES (?, ?, ?, ?);",
             rows,
-        )
-        conn.commit()
-    finally:
-        conn.close()
-
-
-def _write_jmdict(path: Path, *, targets: list[str], sources: list[str]) -> None:
-    entries: list[str] = []
-    for target, source in zip(targets, sources):
-        entries.append(
-            "<entry>"
-            f"<k_ele><keb>{escape(target)}</keb></k_ele>"
-            f"<r_ele><reb>{escape(target)}</reb></r_ele>"
-            f"<sense><gloss>{escape(source)}</gloss></sense>"
-            "</entry>"
-        )
-    payload = "<JMdict>" + "".join(entries) + "</JMdict>"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(payload, encoding="utf-8")
-
-
-def _write_freedict_de_en(path: Path, *, targets: list[str], sources: list[str]) -> None:
-    entries: list[str] = []
-    for target, source in zip(targets, sources):
-        entries.append(
-            "<entry>"
-            f"<form><orth>{escape(target)}</orth></form>"
-            "<sense>"
-            f"<cit type='trans'><quote xml:lang='en'>{escape(source)}</quote></cit>"
-            "</sense>"
-            "</entry>"
-        )
-    payload = (
-        "<?xml version='1.0' encoding='UTF-8'?>"
-        "<TEI xmlns='http://www.tei-c.org/ns/1.0'>"
-        "<text><body>" + "".join(entries) + "</body></text>"
-        "</TEI>"
-    )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(payload, encoding="utf-8")
-
-
-def _write_translation_dictionary_sqlite(
-    path: Path,
-    *,
-    entries: list[tuple[str, str, str]],
-) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
-    try:
-        conn.execute("DROP TABLE IF EXISTS meta;")
-        conn.execute("DROP TABLE IF EXISTS entries;")
-        conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);")
-        conn.execute(
-            "CREATE TABLE entries ("
-            "headword TEXT NOT NULL, "
-            "headword_lc TEXT NOT NULL, "
-            "translation TEXT NOT NULL, "
-            "translation_lc TEXT NOT NULL, "
-            "rank INTEGER NOT NULL, "
-            "pos TEXT, "
-            "entry_ord INTEGER NOT NULL, "
-            "gloss_ord INTEGER NOT NULL, "
-            "PRIMARY KEY (headword_lc, translation_lc)"
-            ");"
-        )
-        conn.executemany(
-            "INSERT INTO entries ("
-            "headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord"
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            [
-                (
-                    headword,
-                    headword.lower(),
-                    translation,
-                    translation.lower(),
-                    index + 1,
-                    pos_raw,
-                    index + 1,
-                    0,
-                )
-                for index, (headword, translation, pos_raw) in enumerate(entries)
-            ],
-        )
-        conn.execute(
-            "INSERT INTO meta (key, value) VALUES (?, ?)",
-            ("metadata", json.dumps({"source": "synthetic_srs_quality"}, ensure_ascii=False)),
         )
         conn.commit()
     finally:
@@ -236,7 +152,10 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             lemmas=targets,
             pos="名詞-普通名詞-一般",
         )
-        _write_jmdict(paths.language_packs_dir / "JMdict_e", targets=targets, sources=sources)
+        write_jmdict_fixture(
+            paths.language_packs_dir / "JMdict_e",
+            entries=list(zip(targets, sources, strict=True)),
+        )
         return
     if pair == "en-de":
         targets = _build_tokens("de", 70)
@@ -246,11 +165,12 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             lemmas=targets,
             pos="SUB:NOM:SIN:NEU",
         )
-        _write_translation_dictionary_sqlite(
+        write_translation_dictionary_sqlite_fixture(
             paths.language_packs_dir / "freedict-de-en.sqlite",
             entries=[
                 (target, source, "noun") for target, source in zip(targets, sources, strict=True)
             ],
+            metadata_source="synthetic_srs_quality",
         )
         return
     raise ValueError(f"Unsupported synthetic SRS pair: {pair}")

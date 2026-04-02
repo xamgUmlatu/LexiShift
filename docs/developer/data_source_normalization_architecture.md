@@ -385,7 +385,8 @@ Current verified progress:
 - the German frequency whitelist/build path now prefers manifest-backed FreeDict SQLite artifacts and shared translation-pack headword loaders instead of TEI-only parsing
 - the synonym generator now reads FreeDict packs through the shared translation-pack loader, so app-managed SQLite artifacts work there without a separate TEI parser
 - the GUI bulk-rules FreeDict path now resolves managed SQLite artifacts first and only falls back to TEI-compatible directory contents for legacy/manual inputs
-- the synthetic SRS quality harness fixtures now emit SQLite translation resources by default instead of raw TEI; the journey harness still remains on the Phase 1 cleanup list
+- the synthetic SRS quality and journey harness fixtures now emit SQLite translation resources by default instead of raw TEI
+- the journey harness resource-writing layer now lives in a dedicated helper module so storage-format normalization no longer expands the already-large scenario-support file
 
 ## Phase B2: Apply The Same Model To Other Pack Families
 

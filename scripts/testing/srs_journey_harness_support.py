@@ -9,7 +9,6 @@ import sqlite3
 from types import SimpleNamespace
 from typing import Iterator, Mapping, Sequence
 from unittest.mock import patch
-from xml.sax.saxutils import escape
 
 from lexishift_core.helper.engine import get_srs_runtime_diagnostics
 from lexishift_core.helper.paths import HelperPaths
@@ -27,6 +26,11 @@ from srs_journey_installed_support import (
     stage_installed_pair_resources,
 )
 from srs_journey_review_support import word_package_preview
+from synthetic_translation_fixture_support import (
+    write_freedict_tei_fixture,
+    write_jmdict_fixture,
+    write_translation_dictionary_sqlite_fixture,
+)
 
 CLOCK_PATCH_TARGETS = (
     "lexishift_core.srs.time.now_utc",
@@ -145,7 +149,7 @@ PAIR_FIXTURES = {
         frequency_filename="freq-es-cde.sqlite",
         candidate_specs=EN_ES_CANDIDATE_SPECS,
         translation_dict_forward_filename="wiktionary-es-en.sqlite",
-        translation_dict_reverse_filename="eng-spa.tei",
+        translation_dict_reverse_filename="wiktionary-en-es.sqlite",
     ),
 }
 
@@ -444,101 +448,6 @@ def create_frequency_db(path: Path, *, specs: Sequence[CandidateSpec]) -> Path:
     return path
 
 
-def _write_jmdict(path: Path, *, specs: Sequence[CandidateSpec]) -> Path:
-    entries: list[str] = []
-    for spec in specs:
-        entries.append(
-            "<entry>"
-            f"<k_ele><keb>{escape(spec.lemma)}</keb></k_ele>"
-            f"<r_ele><reb>{escape(spec.lemma)}</reb></r_ele>"
-            f"<sense><gloss>{escape(spec.source_gloss)}</gloss></sense>"
-            "</entry>"
-        )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("<JMdict>" + "".join(entries) + "</JMdict>", encoding="utf-8")
-    return path
-
-
-def _write_freedict_tei(
-    path: Path,
-    *,
-    entries: Sequence[tuple[str, str, str]],
-    target_lang: str,
-) -> Path:
-    payload_entries: list[str] = []
-    for headword, translation, pos_raw in entries:
-        pos_xml = f"<gramGrp><pos>{escape(pos_raw)}</pos></gramGrp>" if pos_raw else ""
-        payload_entries.append(
-            "<entry>"
-            f"<form><orth>{escape(headword)}</orth></form>"
-            f"{pos_xml}"
-            "<sense>"
-            f"<cit type='trans'><quote xml:lang='{escape(target_lang)}'>{escape(translation)}</quote></cit>"
-            "</sense>"
-            "</entry>"
-        )
-    payload = (
-        "<?xml version='1.0' encoding='UTF-8'?>"
-        "<TEI xmlns='http://www.tei-c.org/ns/1.0'>"
-        "<text><body>" + "".join(payload_entries) + "</body></text></TEI>"
-    )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(payload, encoding="utf-8")
-    return path
-
-
-def _write_translation_dictionary_sqlite(
-    path: Path,
-    *,
-    entries: Sequence[tuple[str, str, str]],
-) -> Path:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
-    try:
-        conn.execute("DROP TABLE IF EXISTS meta;")
-        conn.execute("DROP TABLE IF EXISTS entries;")
-        conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);")
-        conn.execute(
-            "CREATE TABLE entries ("
-            "headword TEXT NOT NULL, "
-            "headword_lc TEXT NOT NULL, "
-            "translation TEXT NOT NULL, "
-            "translation_lc TEXT NOT NULL, "
-            "rank INTEGER NOT NULL, "
-            "pos TEXT, "
-            "entry_ord INTEGER NOT NULL, "
-            "gloss_ord INTEGER NOT NULL, "
-            "PRIMARY KEY (headword_lc, translation_lc)"
-            ");"
-        )
-        conn.executemany(
-            "INSERT INTO entries ("
-            "headword, headword_lc, translation, translation_lc, rank, pos, entry_ord, gloss_ord"
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            [
-                (
-                    headword,
-                    headword.lower(),
-                    translation,
-                    translation.lower(),
-                    index + 1,
-                    pos_raw,
-                    index + 1,
-                    0,
-                )
-                for index, (headword, translation, pos_raw) in enumerate(entries)
-            ],
-        )
-        conn.execute(
-            "INSERT INTO meta (key, value) VALUES (?, ?)",
-            ("metadata", json.dumps({"source": "synthetic_srs_journey"}, ensure_ascii=False)),
-        )
-        conn.commit()
-    finally:
-        conn.close()
-    return path
-
-
 def create_pair_resources(
     paths: HelperPaths,
     *,
@@ -562,31 +471,43 @@ def create_pair_resources(
         "reverse_translation_dict_path": None,
     }
     if fixture.jmdict_filename:
-        resources["jmdict_path"] = _write_jmdict(
+        resources["jmdict_path"] = write_jmdict_fixture(
             paths.language_packs_dir / fixture.jmdict_filename,
-            specs=specs,
+            entries=[(spec.lemma, spec.source_gloss) for spec in specs],
         )
     if fixture.translation_dict_forward_filename:
         forward_path = paths.language_packs_dir / fixture.translation_dict_forward_filename
         forward_entries = [(spec.lemma, spec.source_gloss, spec.pos_bucket) for spec in specs]
         if forward_path.suffix == ".sqlite":
-            resources["translation_dict_path"] = _write_translation_dictionary_sqlite(
+            resources["translation_dict_path"] = write_translation_dictionary_sqlite_fixture(
                 forward_path,
                 entries=forward_entries,
+                metadata_source="synthetic_srs_journey",
             )
         else:
-            resources["translation_dict_path"] = _write_freedict_tei(
+            resources["translation_dict_path"] = write_freedict_tei_fixture(
                 forward_path,
                 entries=forward_entries,
                 target_lang="en",
             )
     if fixture.translation_dict_reverse_filename:
-        target_lang = pair.split("-", 1)[1]
-        resources["reverse_translation_dict_path"] = _write_freedict_tei(
-            paths.language_packs_dir / fixture.translation_dict_reverse_filename,
-            entries=[(spec.source_gloss, spec.lemma, spec.pos_bucket) for spec in specs],
-            target_lang=target_lang,
-        )
+        reverse_path = paths.language_packs_dir / fixture.translation_dict_reverse_filename
+        reverse_entries = [(spec.source_gloss, spec.lemma, spec.pos_bucket) for spec in specs]
+        if reverse_path.suffix == ".sqlite":
+            resources["reverse_translation_dict_path"] = (
+                write_translation_dictionary_sqlite_fixture(
+                    reverse_path,
+                    entries=reverse_entries,
+                    metadata_source="synthetic_srs_journey_reverse",
+                )
+            )
+        else:
+            target_lang = pair.split("-", 1)[1]
+            resources["reverse_translation_dict_path"] = write_freedict_tei_fixture(
+                reverse_path,
+                entries=reverse_entries,
+                target_lang=target_lang,
+            )
     resources["freedict_path"] = resources["translation_dict_path"]
     resources["freedict_reverse_path"] = resources["reverse_translation_dict_path"]
     return resources
