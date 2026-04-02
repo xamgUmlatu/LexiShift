@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, and the internal helper translation-dictionary seam cleanup
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, the internal helper translation-dictionary seam cleanup, benchmark split cleanup, generic helper alias removal, and the synonym translation-pack seam cleanup
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## Compatibility Policy
@@ -42,6 +42,78 @@ We are done when all of these are true:
 6. Runtime consumers use shared normalized loaders/views instead of provider-native TEI/XML/raw-vector parsing.
 7. Raw TEI and raw embedding/vector files remain only as explicit manual import or debug compatibility paths.
 
+## Permanent Family Matrix
+
+This matrix is the canonical remaining-work board for the normalization program.
+
+| Family | Representative packs | Normalized managed form | Primary UX/runtime endpoints | Current state | Remaining target |
+|---|---|---|---|---|---|
+| Translation dictionaries | `freedict-de-en`, `freedict-en-de`, `freedict-es-en`, `freedict-en-es`, `wiktionary-es-en`, `wiktionary-en-es` | Pack root + `manifest.json` + compiled SQLite + translation-pack ref | settings pack manager, helper rulegen, runtime diagnostics, benchmark, bulk-rule translation expansion, SRS harness fixtures | Mostly normalized | converge artifact naming to `main.sqlite`, remove remaining provider-shaped generic names, make manifest-first resolution dominant everywhere |
+| Frequency packs | `freq-en-coca`, `freq-ja-bccwj`, `freq-de-default`, `freq-es-cde` | Pack root + `manifest.json` + SQLite + frequency-pack ref | settings pack manager, SRS growth/admission, helper/runtime diagnostics | Mostly normalized | converge artifact naming to `main.sqlite`, tighten canonical schema, finish pack-id/manifests as the primary contract |
+| Embedding packs | `embed-en-cc`, `embed-de-cc`, `embed-ja-cc`, `embed-es-cc`, `embed-xling-*` | Pack root + `manifest.json` + SQLite + embedding-pack ref | settings pack manager, replacement filter, embedding-backed synonym behavior | Mostly normalized for app-managed installs | make pack-id-first the only normal managed contract, keep raw `.vec/.bin` only as manual import/debug, converge artifact naming to `main.sqlite` |
+| Secondary lexical packs | `wordnet-en`, `moby-en`, `openthesaurus-de`, `odenet-de`, `jp-wordnet`, `jp-wordnet-sqlite`, `jmdict-ja-en`, `cc-cedict-zh-en` | Mixed/raw today | settings pack manager, bulk add rules, some SRS/rulegen support for `jmdict` | Not normalized as a family | decision pending; either normalize into the same managed-pack model or explicitly demote to manual/legacy import status |
+
+## UX Endpoint Matrix
+
+| Endpoint | Source families used | Current contract | Desired end state |
+|---|---|---|---|
+| Settings pack manager | translation, frequency, embeddings, secondary lexical packs | managed installs already build/manifest for translation/frequency/embeddings; secondary packs still mixed | every app-managed pack downloads, fully converts, writes manifest, and removes obsolete raw data by default |
+| Helper rulegen / native host / runtime diagnostics | translation, frequency, `jmdict` where needed | translation/frequency mostly pack-ref aware; some provider-specific internals remain below the seam | pack-id/manifests are primary identity everywhere generic |
+| SRS growth / admission | frequency, `jmdict` where required | frequency mostly normalized, `jmdict` still special/raw | same pack-root + manifest + canonical artifact model for all product-critical managed sources |
+| Replacement filter | embeddings | managed embeddings already resolve by pack id first | pack-id-first only for managed paths; raw vector files only through explicit import/debug paths |
+| Bulk add rules / synonym expansion | secondary lexical packs + translation packs | mixed; translation side cleaner, secondary packs still mixed/raw | either normalize all retained packs or explicitly classify them as manual/legacy |
+| Benchmark / developer tooling | translation primarily | mostly normalized; generic naming cleanup largely done | pack ids/manifests/checksums as the default identity surface |
+
+## Decision Policy For Secondary Lexical Families
+
+We are intentionally not forcing a yes/no product decision yet for secondary lexical packs.
+
+Current policy:
+
+- keep them available while the testing architecture improves
+- include them in future evaluation/sweep work where useful
+- use slice-based evidence to decide whether they deserve first-class normalization
+
+Decision gate:
+
+1. Add or expose evaluation slices that can reveal semantic/word-group wins.
+2. Test whether a secondary source improves accuracy or pedagogical quality on those slices.
+3. If it shows real value, normalize it into the same managed-pack model.
+4. If it does not, keep it only as a manual/debug/legacy import path, not as a core managed runtime contract.
+
+So for now:
+
+- `translation`, `frequency`, and `embeddings` are mandatory normalization targets
+- `secondary lexical packs` are experimental candidates for promotion
+
+## Permanent Implementation Board
+
+Status markers:
+
+- `[x]` done enough for the current architecture
+- `[~]` partially complete / transitional
+- `[ ]` remaining
+
+| Board item | Status | Notes |
+|---|---|---|
+| Managed translation installs build to SQLite and write manifests | `[x]` | FreeDict and Kaikki app-managed translation packs now land as manifest-backed SQLite artifacts |
+| Managed frequency installs build to SQLite and write manifests | `[x]` | install/resolution path is normalized enough to use as the default |
+| Managed embedding installs build to SQLite and write manifests | `[x]` | app-managed embeddings now convert as part of install |
+| Raw download/extraction cleanup for managed installs | `[x]` | default direction is now delete-after-success for the main managed families |
+| Generic helper translation naming cleanup | `[x]` | app-managed helper/native-host/runtime seam now prefers `translation_dict_*` |
+| Generic benchmark/probe naming cleanup | `[x]` | benchmark split landed; generic translation naming is now the normal tooling contract |
+| Adapter request contract uses generic translation-path fields | `[x]` | generic request seam no longer carries `freedict_*` aliases |
+| Synonym translation-pack seam uses generic directional fields | `[x]` | runtime seam no longer uses FreeDict-shaped field names there |
+| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | main managed path is cleaner, but language-pack persistence is still more path-shaped than frequency/embeddings |
+| Managed frequency settings/runtime fully pack-id-first | `[~]` | runtime/diagnostics are pack-ref aware; naming/schema/artifact convergence still remains |
+| Managed embedding settings/runtime fully pack-id-first | `[~]` | pair activation is pack-id-first, but compatibility/manual path storage still exists |
+| Converge managed translation artifact naming to `main.sqlite` | `[ ]` | do this once manifest-first resolution is dominant everywhere |
+| Converge managed frequency artifact naming to `main.sqlite` | `[ ]` | same sequencing as translation |
+| Converge managed embedding artifact naming to `main.sqlite` | `[ ]` | do after managed-path persistence is fully settled |
+| Remove remaining app-managed obsolete field names | `[~]` | most generic seams are done; remaining hits are increasingly provider-specific or settings-local |
+| Reclassify raw TEI/raw vector paths as import/debug only | `[~]` | true for many managed flows, but not yet uniformly enforced everywhere |
+| Secondary lexical family promotion decision | `[ ]` | depends on future slice-based evaluation results |
+
 ## Current Achieved State
 
 Already landed:
@@ -69,6 +141,15 @@ Still intentionally transitional:
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still preserve direct artifact-path maps for compatibility and manual imports, but managed app-owned artifact paths no longer need to be re-persisted alongside pack-id activation
 - benchmark/help-text surfaces still contain some legacy filename/provider heuristics, especially the oversized `rulegen_benchmark.py` hotspot
+
+## Board-Driven Execution Rule
+
+When choosing the next task, prefer this order:
+
+1. close `[~]` items for mandatory families (`translation`, `frequency`, `embeddings`)
+2. finish settings/runtime pack-id-first cleanup before doing cosmetic naming convergence
+3. converge active managed artifact names to `main.sqlite` only after manifest-first resolution is stable
+4. treat `secondary lexical packs` as evidence-driven candidates, not automatic promotion targets
 
 ## Execution Order
 
