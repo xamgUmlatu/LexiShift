@@ -85,7 +85,6 @@ class RulegenJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
     translation_dict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
     set_top_n: Optional[int] = None
@@ -131,7 +130,6 @@ class SetInitializationJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
     translation_dict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
     set_top_n: Optional[int] = None
@@ -165,7 +163,6 @@ class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
     translation_dict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
     set_top_n: Optional[int] = None

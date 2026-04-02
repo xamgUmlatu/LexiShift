@@ -459,7 +459,6 @@ def main() -> None:
             pair="en-es",
             jmdict_path=args.jmdict,
             translation_dict_path=args.translation_dict_en_es,
-            freedict_de_en_path=None,
             set_source_db=None,
         )
         resolved_translation_dict_en_es = _resolve_required_file(
@@ -482,7 +481,6 @@ def main() -> None:
             pair="en-ja",
             jmdict_path=args.jmdict,
             translation_dict_path=args.translation_dict_en_es,
-            freedict_de_en_path=None,
             set_source_db=None,
         )
         resolved_jmdict = _resolve_required_file("JMDict", _resolved_jmdict)

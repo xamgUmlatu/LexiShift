@@ -26,7 +26,6 @@ def installed_pair_resources_available(pair: str) -> bool:
         installed_paths,
         pair=pair,
         jmdict_path=None,
-        freedict_de_en_path=None,
         set_source_db=None,
     )
     translation_pack, reverse_translation_pack = resolve_pair_translation_packs(
@@ -164,7 +163,6 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
         installed_paths,
         pair=pair,
         jmdict_path=None,
-        freedict_de_en_path=None,
         set_source_db=None,
     )
     translation_pack, reverse_translation_pack = resolve_pair_translation_packs(
