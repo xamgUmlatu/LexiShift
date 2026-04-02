@@ -194,6 +194,7 @@ Acceptance criteria:
   - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
   - planning specs:
     - `docs/developer/data_source_normalization_architecture.md`
+    - `docs/developer/data_source_normalization_execution_order.md`
     - `docs/developer/language_pair_generalization_roadmap.md`
     - `docs/language_pairs/de_en_workstream_roadmap.md`
 - Improve benchmark portability before the large broad sweep:

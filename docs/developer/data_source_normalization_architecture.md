@@ -7,6 +7,9 @@ Last updated: 2026-04-03
 Last verified: 2026-04-03 helper/gui path and manifest slice
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
+Execution-order companion:
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_execution_order.md`
+
 ## Why This Workstream Exists
 
 Current pack handling is inconsistent across providers:
