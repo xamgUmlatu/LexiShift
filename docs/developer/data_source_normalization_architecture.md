@@ -280,9 +280,9 @@ Current verified progress:
 
 Current non-coverage:
 
-- frequency pack installs do not yet use the same manifest-backed pack layout
 - embedding pack installs/conversions do not yet use the same manifest-backed pack layout
-- helper/rulegen resource resolution is only manifest-aware for translation-pack discovery so far
+- helper/rulegen resource resolution is still only partially manifest-aware outside translation and frequency defaults
+- frequency packs still keep pack-specific SQLite filenames during migration rather than a fully unified `main.sqlite` contract
 
 ## Normalized Runtime Format By Pack Family
 
@@ -392,9 +392,9 @@ Detailed execution plan:
 1. Frequency normalization
    - install under `frequency_packs/<pack_id>/`
    - write `manifest.json`
-   - standardize on one canonical artifact path such as `main.sqlite`
-   - keep the current SQLite writer, but begin tightening toward canonical columns like `lemma_lc`, `rank`, and `pmw`
-   - migrate runtime/settings resolution to manifest-backed pack refs before removing filename assumptions
+   - keep the current SQLite writer and current pack-specific SQLite filenames during the first migration slice
+   - begin tightening toward canonical columns like `lemma_lc`, `rank`, and `pmw`
+   - migrate runtime/settings resolution to manifest-backed pack refs before removing filename assumptions or renaming artifacts to `main.sqlite`
 
 2. Embedding normalization
    - install under `embedding_packs/<pack_id>/`

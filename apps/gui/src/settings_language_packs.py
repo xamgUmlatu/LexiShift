@@ -384,9 +384,12 @@ class LanguagePackPanel(
         if not pack or not row:
             return
         local_path = self._frequency_pack_paths.get(pack_id)
+        storage_dir = str(self._frequency_pack_storage_dir(pack))
         archive_path = self._frequency_archive_path(pack)
         sqlite_path = self._frequency_sqlite_path(pack)
         delete_paths = []
+        if os.path.exists(storage_dir) and self._is_frequency_pack_data_path(storage_dir):
+            delete_paths.append(storage_dir)
         if local_path and self._is_frequency_pack_data_path(local_path):
             delete_paths.append(local_path)
         if (

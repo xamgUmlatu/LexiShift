@@ -29,11 +29,14 @@ class LanguagePackPanelPathMixin:
     def _language_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
         return installed_pack_root(Path(self._language_pack_dir), pack.pack_id)
 
+    def _frequency_pack_storage_dir(self, pack: FrequencyPackInfo) -> Path:
+        return installed_pack_root(Path(self._frequency_pack_dir), pack.pack_id)
+
     def _frequency_archive_path(self, pack: FrequencyPackInfo) -> str:
-        return os.path.join(self._frequency_pack_dir, pack.filename)
+        return str(self._frequency_pack_storage_dir(pack) / pack.filename)
 
     def _frequency_sqlite_path(self, pack: FrequencyPackInfo) -> str:
-        return os.path.join(self._frequency_pack_dir, pack.sqlite_filename)
+        return str(self._frequency_pack_storage_dir(pack) / pack.sqlite_filename)
 
     def _embedding_sqlite_path(self, source_path: str) -> str:
         lowered = source_path.lower()
@@ -101,6 +104,14 @@ class LanguagePackPanelPathMixin:
     def _resolve_frequency_pack_path(self, pack: Optional[FrequencyPackInfo]) -> Optional[str]:
         if not pack:
             return None
+        manifest = load_installed_pack_manifest(Path(self._frequency_pack_dir), pack.pack_id)
+        if manifest is not None:
+            resolved_artifact = resolve_installed_pack_artifact(
+                Path(self._frequency_pack_dir),
+                pack.pack_id,
+            )
+            if resolved_artifact is not None:
+                return str(resolved_artifact)
         sqlite_path = self._frequency_sqlite_path(pack)
         if os.path.exists(sqlite_path):
             return sqlite_path

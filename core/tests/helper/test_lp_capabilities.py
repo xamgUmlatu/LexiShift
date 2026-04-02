@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
+    default_frequency_db_path,
     default_freedict_de_en_path,
     default_freedict_reverse_path,
     default_reverse_translation_dictionary_path,
@@ -201,6 +202,55 @@ class TestLpCapabilities(unittest.TestCase):
             resolved = default_reverse_translation_dictionary_path(
                 "de-en",
                 language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, artifact)
+
+    def test_en_en_default_frequency_db_prefers_manifest_backed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            pack_root = frequency_packs_dir / "freq-en-coca"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "freq-en-coca.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                frequency_packs_dir,
+                pack_id="freq-en-coca",
+                pack_kind="frequency",
+                provider="wordfrequency",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=artifact,
+                source_filename="lemmas_60k.txt",
+                sqlite_filename="freq-en-coca.sqlite",
+            )
+            resolved = default_frequency_db_path(
+                "en-en",
+                frequency_packs_dir=frequency_packs_dir,
+            )
+        self.assertEqual(resolved, artifact)
+
+    def test_de_de_default_frequency_db_prefers_manifest_backed_fallback_pack_artifact(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            pack_root = frequency_packs_dir / "freq-de-default"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "freq-de-default.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                frequency_packs_dir,
+                pack_id="freq-de-default",
+                pack_kind="frequency",
+                provider="freq-de-default",
+                local_kind="file",
+                build_mode="de_frequency_pipeline",
+                artifact_path=artifact,
+                sqlite_filename="freq-de-default.sqlite",
+            )
+            resolved = default_frequency_db_path(
+                "de-de",
+                frequency_packs_dir=frequency_packs_dir,
             )
         self.assertEqual(resolved, artifact)
 

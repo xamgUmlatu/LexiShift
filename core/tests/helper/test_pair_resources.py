@@ -11,9 +11,11 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.pair_resources import (  # noqa: E402
+    resolve_pair_resources,
     resolve_pair_translation_packs,
 )
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 
 
 class TestPairResources(unittest.TestCase):
@@ -55,3 +57,30 @@ class TestPairResources(unittest.TestCase):
         self.assertEqual(reverse.provider, "freedict")
         self.assertEqual(reverse.pack_id, "freedict_de_en")
         self.assertTrue(str(reverse.path).endswith("deu-eng.tei"))
+
+    def test_resolve_pair_resources_prefers_manifest_backed_frequency_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            pack_root = paths.frequency_packs_dir / "freq-es-cde"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "freq-es-cde.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-es-cde",
+                pack_kind="frequency",
+                provider="freq-es-cde",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=artifact,
+                sqlite_filename="freq-es-cde.sqlite",
+            )
+            _resolved_jmdict, _resolved_translation, resolved_frequency = resolve_pair_resources(
+                paths,
+                pair="en-es",
+                jmdict_path=None,
+                translation_dict_path=None,
+                freedict_de_en_path=None,
+                set_source_db=None,
+            )
+        self.assertEqual(resolved_frequency, artifact)

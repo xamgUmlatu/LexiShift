@@ -330,6 +330,7 @@ class FrequencyPackDownloadThread(QThread):
                     self.failed.emit(self._pack_id, "cancelled")
                     return
                 sqlite_path = self._convert_to_sqlite(self._archive_path)
+            self._write_manifest(sqlite_path)
             _log_download(f"[{self._pack_id}] converted sqlite={sqlite_path}")
             self.completed.emit(self._pack_id, sqlite_path)
         except Exception as exc:
@@ -387,6 +388,21 @@ class FrequencyPackDownloadThread(QThread):
         target = Path(_app_data_root()) / "language_packs"
         target.mkdir(parents=True, exist_ok=True)
         return target
+
+    def _write_manifest(self, sqlite_path: str) -> None:
+        pack_root = Path(self._sqlite_path).parent
+        write_installed_pack_manifest(
+            pack_root.parent,
+            pack_id=self._pack_id,
+            pack_kind="frequency",
+            provider=str(self._pack.source or "").strip().lower(),
+            local_kind="file",
+            build_mode=self._pack.build_mode,
+            artifact_path=Path(sqlite_path),
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            raw_retained=False,
+        )
 
     def _convert_to_sqlite(self, archive_path: str) -> str:
         source_path, cleanup_paths = self._prepare_source(archive_path)

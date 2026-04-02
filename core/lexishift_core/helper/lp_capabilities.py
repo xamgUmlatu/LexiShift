@@ -121,12 +121,23 @@ def default_frequency_db_path(
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
     if capability.default_frequency_db:
+        pack_id = Path(capability.default_frequency_db).stem
+        resolved_pack_artifact = resolve_installed_pack_artifact(frequency_packs_dir, pack_id)
+        if resolved_pack_artifact is not None:
+            return resolved_pack_artifact
         return frequency_packs_dir / capability.default_frequency_db
     target_lang = _target_language(capability.pair)
     if not target_lang:
         return None
     # Fallback convention for LPs that have not yet declared a concrete corpus filename.
-    return frequency_packs_dir / f"freq-{target_lang}-default.sqlite"
+    fallback_filename = f"freq-{target_lang}-default.sqlite"
+    resolved_pack_artifact = resolve_installed_pack_artifact(
+        frequency_packs_dir,
+        Path(fallback_filename).stem,
+    )
+    if resolved_pack_artifact is not None:
+        return resolved_pack_artifact
+    return frequency_packs_dir / fallback_filename
 
 
 def default_jmdict_path(
