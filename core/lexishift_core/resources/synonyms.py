@@ -25,8 +25,8 @@ class SynonymSources:
     jp_wordnet_sqlite_path: Optional[Path] = None
     jmdict_path: Optional[Path] = None
     cc_cedict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
-    freedict_en_de_path: Optional[Path] = None
+    translation_de_en_path: Optional[Path] = None
+    translation_en_de_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)
@@ -55,8 +55,8 @@ class SynonymGenerator:
             "jp_wordnet": 0,
             "jmdict": 0,
             "cc_cedict": 0,
-            "freedict_de_en": 0,
-            "freedict_en_de": 0,
+            "translation_de_en": 0,
+            "translation_en_de": 0,
         }
         self._embeddings: Optional[EmbeddingIndex] = None
         self._load_sources()
@@ -181,19 +181,19 @@ class SynonymGenerator:
             source_mapping = _load_cc_cedict(self._sources.cc_cedict_path)
             self._stats["cc_cedict"] = len(source_mapping)
             mappings.append(source_mapping)
-        if self._sources.freedict_de_en_path:
+        if self._sources.translation_de_en_path:
             source_mapping = _load_translation_pack(
-                self._sources.freedict_de_en_path,
+                self._sources.translation_de_en_path,
                 target_lang="en",
             )
-            self._stats["freedict_de_en"] = len(source_mapping)
+            self._stats["translation_de_en"] = len(source_mapping)
             mappings.append(source_mapping)
-        if self._sources.freedict_en_de_path:
+        if self._sources.translation_en_de_path:
             source_mapping = _load_translation_pack(
-                self._sources.freedict_en_de_path,
+                self._sources.translation_en_de_path,
                 target_lang="de",
             )
-            self._stats["freedict_en_de"] = len(source_mapping)
+            self._stats["translation_en_de"] = len(source_mapping)
             mappings.append(source_mapping)
         if not mappings:
             return

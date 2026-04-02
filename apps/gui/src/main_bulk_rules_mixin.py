@@ -126,14 +126,14 @@ class MainWindowBulkRulesMixin:
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
         jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
-        freedict_de_en_path = _resolve_translation_pack_path(
+        translation_de_en_path = _resolve_translation_pack_path(
             language_packs.get("freedict-de-en") if language_packs else None,
             sqlite_artifact_names=(
                 "freedict-de-en.sqlite",
                 "deu-eng.sqlite",
             ),
         )
-        freedict_en_de_path = _resolve_translation_pack_path(
+        translation_en_de_path = _resolve_translation_pack_path(
             language_packs.get("freedict-en-de") if language_packs else None,
             sqlite_artifact_names=(
                 "freedict-en-de.sqlite",
@@ -168,8 +168,8 @@ class MainWindowBulkRulesMixin:
                     use_jp_wordnet and jp_wordnet_path,
                     use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
                     use_jmdict and jmdict_path,
-                    use_freedict_de_en and freedict_de_en_path,
-                    use_freedict_en_de and freedict_en_de_path,
+                    use_freedict_de_en and translation_de_en_path,
+                    use_freedict_en_de and translation_en_de_path,
                     use_cc_cedict and cc_cedict_path,
                 ]
             ):
@@ -195,11 +195,11 @@ class MainWindowBulkRulesMixin:
             if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
                 missing_sources.append(t("sources.jmdict_file"))
             if use_freedict_de_en and (
-                not freedict_de_en_path or not Path(freedict_de_en_path).exists()
+                not translation_de_en_path or not Path(translation_de_en_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_de_en_file"))
             if use_freedict_en_de and (
-                not freedict_en_de_path or not Path(freedict_en_de_path).exists()
+                not translation_en_de_path or not Path(translation_en_de_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_en_de_file"))
             if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
@@ -260,14 +260,14 @@ class MainWindowBulkRulesMixin:
                     else None
                 ),
                 jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
-                freedict_de_en_path=(
-                    Path(freedict_de_en_path)
-                    if use_freedict_de_en and freedict_de_en_path
+                translation_de_en_path=(
+                    Path(translation_de_en_path)
+                    if use_freedict_de_en and translation_de_en_path
                     else None
                 ),
-                freedict_en_de_path=(
-                    Path(freedict_en_de_path)
-                    if use_freedict_en_de and freedict_en_de_path
+                translation_en_de_path=(
+                    Path(translation_en_de_path)
+                    if use_freedict_en_de and translation_en_de_path
                     else None
                 ),
                 cc_cedict_path=cc_cedict_file,
@@ -300,8 +300,8 @@ class MainWindowBulkRulesMixin:
                         jp_wordnet=stats.get("jp_wordnet", 0),
                         jmdict=stats.get("jmdict", 0),
                         cc_cedict=stats.get("cc_cedict", 0),
-                        freedict_de_en=stats.get("freedict_de_en", 0),
-                        freedict_en_de=stats.get("freedict_en_de", 0),
+                        freedict_de_en=stats.get("translation_de_en", 0),
+                        freedict_en_de=stats.get("translation_en_de", 0),
                     ),
                 )
                 continue
@@ -381,8 +381,8 @@ class MainWindowBulkRulesMixin:
             "jp-wordnet-sqlite": "jp_wordnet",
             "jmdict-ja-en": "jmdict",
             "cc-cedict-zh-en": "cc_cedict",
-            "freedict-de-en": "freedict_de_en",
-            "freedict-en-de": "freedict_en_de",
+            "freedict-de-en": "translation_de_en",
+            "freedict-en-de": "translation_en_de",
         }
         pack_to_path = {
             "wordnet-en": settings.wordnet_dir,

@@ -15,7 +15,7 @@ from lexishift_core.resources.synonyms import SynonymGenerator, SynonymSources  
 
 
 class TestSynonymTranslationPacks(unittest.TestCase):
-    def test_synonym_generator_reads_freedict_sqlite_translation_pack(self) -> None:
+    def test_synonym_generator_reads_sqlite_translation_pack(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "freedict-de-en.sqlite"
             conn = sqlite3.connect(path)
@@ -46,7 +46,7 @@ class TestSynonymTranslationPacks(unittest.TestCase):
             finally:
                 conn.close()
 
-            generator = SynonymGenerator(SynonymSources(freedict_de_en_path=path))
+            generator = SynonymGenerator(SynonymSources(translation_de_en_path=path))
             synonyms = generator.synonyms_for("Haus")
 
         self.assertEqual(synonyms, ["home", "house"])
