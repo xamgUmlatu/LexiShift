@@ -26,6 +26,7 @@ from lexishift_core.rulegen.adapters import (  # noqa: E402
     build_en_es_rulegen_config,
     run_rules_with_adapter,
 )
+from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: E402
 
 
 class TestRulegenAdapters(unittest.TestCase):
@@ -108,6 +109,26 @@ class TestRulegenAdapters(unittest.TestCase):
                     targets=("Haus",),
                     language_pair="en-de",
                     freedict_de_en_path=Path("/tmp/deu-eng.tei"),
+                )
+            )
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "house")
+        self.assertEqual(rules[0].replacement, "Haus")
+        generate.assert_called_once()
+
+    def test_en_de_dispatches_with_generic_translation_dict_path(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
+            ],
+        ) as generate:
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/deu-eng.tei"),
                 )
             )
         self.assertEqual(len(rules), 1)
@@ -219,6 +240,57 @@ class TestRulegenAdapters(unittest.TestCase):
         args, kwargs = generate.call_args
         _ = args
         self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
+
+    def test_en_es_dispatches_with_generic_translation_paths(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="casa"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                    reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        self.assertEqual(kwargs["config"].source_dict_id, "wiktionary_es_en")
+        self.assertEqual(kwargs["config"].reverse_source_dict_id, "wiktionary_en_es")
+
+    def test_en_es_config_prefers_explicit_translation_pack_metadata(self) -> None:
+        config = build_en_es_rulegen_config(
+            RulegenAdapterRequest(
+                pair="en-es",
+                targets=("casa",),
+                language_pair="en-es",
+                translation_pack=TranslationPackRef(
+                    pair="en-es",
+                    direction="forward",
+                    path=Path("/tmp/custom-es-en.sqlite"),
+                    provider="wiktionary",
+                    pack_id="wiktionary_es_en",
+                    pos_source_profile="wiktionary",
+                ),
+                reverse_translation_pack=TranslationPackRef(
+                    pair="en-es",
+                    direction="reverse",
+                    path=Path("/tmp/custom-en-es.sqlite"),
+                    provider="wiktionary",
+                    pack_id="wiktionary_en_es",
+                    pos_source_profile="wiktionary",
+                ),
+            )
+        )
+        self.assertEqual(config.freedict_es_en_path, Path("/tmp/custom-es-en.sqlite"))
+        self.assertEqual(config.reverse_freedict_en_es_path, Path("/tmp/custom-en-es.sqlite"))
+        self.assertEqual(config.source_dict_id, "wiktionary_es_en")
+        self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_es")
+        self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
 
     def test_en_es_dispatches_scoring_and_rule_caps(self) -> None:
         scoring = RuleScoringConfig(

@@ -1,0 +1,366 @@
+Rulegen PC Sweep Readout
+Date: 2026-03-28
+Audience: PC-side agent running the broad rulegen sweeps
+Status: current working brief for the first large sweep pass
+
+Purpose
+
+This file is the practical "what to test next" readout for the PC agent.
+Use this as the immediate sweep brief.
+Do not rely only on older handoff docs, because some older notes are now stale relative to the current benchmark artifact.
+
+Current Canonical State
+
+Source artifact:
+- docs/test_outputs/rulegen_benchmark_en_es_latest.json
+
+Current pair:
+- en-es
+
+Current canonical summary:
+- case_count: 57
+- top1_accuracy: 91.23%
+- top3_recall: 98.25%
+- forbidden_top1_rate: 0.00%
+- forbidden_any_rate: 3.51%
+- avg_rules_per_target: 2.98
+- objective_score: 129.474
+
+Current best config:
+- max_definitions_per_target: 3
+- max_rules_per_target: none
+- confidence_threshold: 0.0
+- semantic_demotion_scale: 1.0
+- include_variants: off
+- pos_scoring_enabled: on
+- reverse_check_enabled: on
+- reverse_check_exact_hit_ambiguity_penalty: off
+- reverse_check_exact_hit_specificity_bonus: off
+- score_weight_pos_match: 0.100
+- kaikki_policy_live_demotion: on
+- kaikki_policy_risk_families: math_geometry, government_law, hunting_fishing_tools, register_region, abbreviation_ellipsis_formof
+- kaikki_policy_late_sense_penalty: 0.10
+
+Canonical config label:
+- md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10
+
+Current exact resources used by the canonical run:
+- forward translation dictionary: wiktionary-es-en.sqlite
+- reverse translation dictionary: wiktionary-en-es.sqlite
+- forward checksum: sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464
+- reverse checksum: sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7
+
+Current frozen word_package snapshot count:
+- 57
+
+Current Remaining Triage
+
+Source artifact:
+- docs/test_outputs/rulegen_benchmark_triage_latest.json
+
+Current unresolved items:
+
+1. derecho
+- status: REVIEW
+- top1: straight
+- top3: straight, right, upright
+- interpretation: likely preference / label-boundary case, not an urgent structural failure
+
+2. cuadro
+- status: FAIL
+- top1: square
+- top3: square, frame, rectangle
+- interpretation: still the clearest hard algorithmic miss
+- likely class: lexical-sense competition / pedagogical ranking
+
+3. cuenta
+- status: REVIEW
+- top1: count
+- top3: count, account, bead
+- interpretation: ranking / preference case
+
+4. red
+- status: REVIEW
+- top1: web
+- top3: web, net, network
+- interpretation: ranking / preference case
+
+5. sacar
+- status: REVIEW
+- top1: withdraw
+- top3: withdraw, draw, unsheathe
+- interpretation: phrase-policy / short phrasal-verb admission issue more than a core scoring failure
+
+6. acabar
+- status: FAIL
+- top1: finish
+- top3: finish, cum, exhaust
+- interpretation: forbidden slang-side candidate is entering top3
+- likely class: register / slang suppression problem
+
+7. coger
+- status: FAIL
+- top1: take
+- top3: take, fuck, catch
+- interpretation: forbidden slang-side candidate is entering top3
+- likely class: register / slang suppression problem
+
+What Has Already Been Established
+
+These conclusions are already strong enough to use as working assumptions:
+
+1. Kaikki is the correct forward-source family to optimize first for en-es.
+- FreeDict had major common-word coverage problems.
+- The current canonical lane is Kaikki-based forward plus Kaikki reverse.
+- This does not mean FreeDict is useless forever.
+- It does mean the first main sweep should optimize within the Kaikki-based canonical lane.
+
+2. The benchmark and portability stack are ready.
+- pair-local resources are mirrored in the benchmark artifact
+- resource checksums are recorded
+- word_package snapshots are frozen in the benchmark artifact
+- bundle export / validate / replay exists
+- bundle README is self-describing
+
+3. The benchmark dataset is no longer tiny.
+- it started smaller and has now been expanded to 57 en-es cases
+- recent additions intentionally include sibling polysemy and phrase-sensitive verbs
+- the suite is now strong enough for a serious first broad sweep
+
+4. Newer additive signals are live, but not all of them are winning yet.
+- reverse exact-hit ambiguity exists, but current best keeps it off
+- reverse exact-hit specificity exists, but current best keeps it off
+- Kaikki live demotion now does win in the canonical best run
+- provenance late-sense penalty now also wins in the canonical best run
+
+What The First Broad Sweep Should Test
+
+The first broad sweep should answer one question cleanly:
+
+"Within the current best source family and current exposed scoring/filtering space, what is the best en-es configuration?"
+
+That means:
+- use the current 57-case en-es suite
+- use the frozen canonical bundle inputs
+- keep the resource family fixed to the current canonical Kaikki / Kaikki lane
+- explore the current exposed parameter space thoroughly
+
+This first broad sweep should NOT try to answer:
+- whether FreeDict is globally dead
+- whether multi-source agreement should exist
+- whether embeddings help
+- whether trait-conditioned routing is better than a single profile
+
+Those are later questions.
+
+Recommended Stage Order
+
+Stage A: broad sweep on the current canonical resource setup only
+
+Use:
+- Kaikki forward
+- Kaikki reverse
+- current 57-case dataset
+- frozen word_package snapshot
+
+Goal:
+- find the best configuration inside the current exposed parameter/toggle space
+- get a clean answer without confounding resource-family changes
+
+This stage should be the main heavy-compute run on the PC.
+
+Stage B: smaller resource-combination matrix after Stage A
+
+Use the best few Stage A configs, then compare resource lanes:
+- Kaikki forward + Kaikki reverse
+- Kaikki forward + FreeDict reverse
+- Kaikki forward + no reverse
+- FreeDict forward + FreeDict reverse
+
+Optional curiosity lane only if cheap:
+- FreeDict forward + no reverse
+
+Do NOT start with a giant cartesian product of:
+- all weights/toggles
+- times all resource combinations
+
+That would make interpretation much worse.
+
+Stage C: only after Stage A and Stage B
+
+Then decide whether the next engineering slice should focus on:
+- lexical-sense competition around cuadro
+- slang/register suppression around acabar / coger
+- phrase-policy around sacar
+- or benchmark-label policy around review-tier cases
+
+What Parameters / Toggles Are Worth Sweeping Now
+
+These are real and exposed enough to be included in the first broad sweep:
+
+- reverse_check_enabled
+- reverse_check_match_bonus
+- reverse_check_near_bonus
+- reverse_check_near_rank_max
+- reverse_check_far_hit_penalty
+- reverse_check_miss_penalty
+- reverse_check_exact_hit_ambiguity_threshold
+- reverse_check_exact_hit_ambiguity_penalty
+- reverse_check_exact_hit_specificity_bonus
+- kaikki_policy_live_demotion
+- kaikki_policy_risk_families
+- kaikki_policy_late_sense_penalty
+- semantic_demotion_scale
+- confidence_threshold
+- max_definitions_per_target
+- max_rules_per_target
+- include_variants
+- pos_scoring_enabled
+- pos_exact_match_bonus
+- pos_compatible_match_bonus
+- score_weight_dict_priority
+- score_weight_frequency_weight
+- score_weight_pos_match
+- score_weight_variant_penalty
+- score_weight_phrase_penalty
+
+Important note:
+- score_weight_embedding is exposed in some seams, but en-es does not currently have a real embedding signal behind it
+- do not treat embedding weight as a meaningful primary sweep dimension yet
+
+What Not To Include In The First Giant Sweep
+
+These are not ready enough for the first big cartesian sweep:
+
+1. Embeddings
+- not meaningfully live for en-es rulegen scoring yet
+
+2. Multi-source agreement
+- good long-term idea
+- not implemented as a real current scoring signal
+
+3. Trait-conditioned routing
+- documented and planned
+- not implemented yet
+- not part of the first global sweep
+
+4. Broad lexical multiword admission
+- global switch would blur too many issues
+- phrase support should be narrower and more intentional later
+
+5. Huge resource cartesian matrices
+- do resource-family comparison only after the first canonical broad sweep
+
+What We Are Looking For In Sweep Results
+
+Primary goals:
+- improve objective_score
+- preserve top1 / top3 gains
+- avoid forbidden_any regressions
+- understand which signals actually matter
+
+Specific patterns to watch:
+- can we suppress slang-side candidates for acabar / coger without hurting good everyday outputs?
+- does anything reliably improve cuadro without collateral damage?
+- do review-tier cases shift in a way that looks like true quality rather than random preference churn?
+- do any newer signals become consistent winners across a large search rather than only narrow local wins?
+
+How To Read The Current Error Pattern
+
+Current unresolved set is not uniform.
+
+Treat these differently:
+
+- cuadro:
+  real likely algorithmic miss
+
+- sacar:
+  likely phrase-policy gap, not just score tuning
+
+- acabar / coger:
+  register or slang suppression gap
+
+- derecho / cuenta / red:
+  ranking or label-boundary cases
+
+This matters because if Stage A tuning improves objective_score but leaves cuadro and slang contamination untouched, the next engineering work should probably target those failure classes directly.
+
+Resource Testing Guidance
+
+FreeDict is not banned from experimentation.
+It is simply not the first thing to optimize right now.
+
+Working assumption:
+- Kaikki should remain the main forward source for the first large sweep
+
+But later resource-matrix comparison is still valuable because:
+- FreeDict may still help as a reverse comparator
+- FreeDict may later matter for agreement features
+- Kaikki-specific tuning should still be measured against at least one legacy baseline
+
+So:
+- not now for the first giant sweep
+- yes soon after, as a smaller focused matrix
+
+Important Practical Notes
+
+1. The current canonical artifact has no preset name recorded.
+- sweep.preset is null in the current benchmark JSON
+- that is okay
+- bundle export already supports this case
+
+2. Some older docs are stale in places.
+- for example, older handoff text still says current best keeps kdem off
+- that is no longer true
+- current best clearly uses kdem on
+
+3. The broad sweep should write experiment-specific outputs, not overwrite canonical latest files casually.
+- keep canonical source-machine artifacts stable
+- write dated or clearly named PC experiment outputs
+
+4. After the broad sweep, the most useful thing to bring back first is:
+- winning config summaries
+- config-to-metric tables
+- case-level deltas for the best few runs
+- especially changes on cuadro, sacar, acabar, coger
+
+Recommended Immediate Actions For The PC Agent
+
+1. Read the bundle README first.
+2. Validate the transferred bundle.
+3. Replay the canonical run once and confirm it matches:
+- Top1 91.23%
+- Top3 98.25%
+- ForbidTop1 0.00%
+- ForbidAny 3.51%
+- objective 129.474
+4. Run the first broad sweep on the Kaikki / Kaikki canonical lane only.
+5. Summarize:
+- best configs
+- which toggles became stable winners
+- whether kdem and kprov remain winners under the larger search
+- whether xamb or xspec ever become competitive
+6. Only after that, run the smaller resource-combination matrix.
+
+If The PC Agent Needs A Decision Rule
+
+Use this rule:
+
+- first optimize within the current canonical source family
+- then compare resource families
+- then decide the next code-change target
+
+Do not invert that order.
+
+End State We Want From The PC Sweep
+
+The point of the first broad PC sweep is not only "find a better number."
+It is to answer:
+
+- which current signals are genuinely valuable
+- which newer knobs are noise
+- whether Kaikki live demotion and provenance penalties remain part of the stable winning set
+- whether reverse-related newer signals become worth keeping
+- whether the next engineering slice should target slang suppression, lexical competition, or phrase policy first
+
+That answer should be enough to choose the next implementation step with high confidence.

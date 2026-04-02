@@ -563,6 +563,41 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
             self.assertEqual(run_rulegen.call_args.kwargs.get("freedict_de_en_path"), freedict_path)
 
+    def test_run_rulegen_accepts_generic_translation_dictionary_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            translation_dict_path = root / "deu-eng.tei"
+            translation_dict_path.write_text("<TEI></TEI>", encoding="utf-8")
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output("en-de")),
+            ) as run_rulegen:
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-de",
+                        jmdict_path=None,
+                        translation_dict_path=translation_dict_path,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                    ),
+                )
+
+            self.assertEqual(result["pair"], "en-de")
+            self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
+            self.assertEqual(
+                run_rulegen.call_args.kwargs.get("translation_dict_path"),
+                translation_dict_path,
+            )
+            self.assertEqual(
+                run_rulegen.call_args.kwargs.get("freedict_de_en_path"),
+                translation_dict_path,
+            )
+
     def test_initialize_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -668,6 +703,16 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertFalse(payload["set_source_db_exists"])
             self.assertTrue(payload["translation_dict_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["translation_dict_exists"])
+            self.assertEqual(payload["translation_dict_provider"], "freedict")
+            self.assertEqual(payload["translation_pack_id"], "freedict_de_en")
+            self.assertEqual(payload["translation_pos_source_profile"], "freedict")
+            self.assertTrue(payload["translation_pack_path"].endswith("language_packs/deu-eng.tei"))
+            self.assertFalse(payload["translation_pack_exists"])
+            self.assertTrue(
+                payload["reverse_translation_pack_path"].endswith("language_packs/eng-deu.tei")
+            )
+            self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
+            self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
             self.assertTrue(payload["freedict_de_en_path"].endswith("language_packs/deu-eng.tei"))
             self.assertFalse(payload["freedict_de_en_exists"])
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
@@ -675,7 +720,9 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("translation_dict_path", missing_types)
+            self.assertIn("translation_pack_path", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
+            self.assertTrue(payload["requirements"]["requires_translation_dictionary_for_rulegen"])
 
     def test_runtime_diagnostics_reports_missing_en_es_frequency_pack(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -690,6 +737,20 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 payload["translation_dict_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )
             self.assertFalse(payload["translation_dict_exists"])
+            self.assertEqual(payload["translation_dict_provider"], "wiktionary")
+            self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
+            self.assertEqual(payload["translation_pos_source_profile"], "wiktionary")
+            self.assertTrue(
+                payload["translation_pack_path"].endswith("language_packs/wiktionary-es-en.sqlite")
+            )
+            self.assertFalse(payload["translation_pack_exists"])
+            self.assertTrue(
+                payload["reverse_translation_pack_path"].endswith(
+                    "language_packs/wiktionary-en-es.sqlite"
+                )
+            )
+            self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
+            self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
             self.assertTrue(
                 payload["freedict_de_en_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )
@@ -697,7 +758,9 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("translation_dict_path", missing_types)
+            self.assertIn("translation_pack_path", missing_types)
             self.assertIn("freedict_de_en_path", missing_types)
+            self.assertTrue(payload["requirements"]["requires_translation_dictionary_for_rulegen"])
 
     def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

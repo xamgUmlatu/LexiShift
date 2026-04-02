@@ -29,9 +29,9 @@ from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_pr
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
 )
 
 
@@ -67,10 +67,10 @@ def _resolve_pair_resource_paths(
             language_packs_dir=paths.language_packs_dir,
         )
     )
-    freedict_de_en_path = (
+    translation_dict_path = (
         Path(freedict_de_en_arg)
         if freedict_de_en_arg
-        else default_freedict_de_en_path(
+        else default_translation_dictionary_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
@@ -83,7 +83,7 @@ def _resolve_pair_resource_paths(
             frequency_packs_dir=paths.frequency_packs_dir,
         )
     )
-    return jmdict_path, freedict_de_en_path, set_source_db
+    return jmdict_path, translation_dict_path, set_source_db
 
 
 def cmd_status(args: argparse.Namespace) -> int:
@@ -163,6 +163,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                translation_dict_path=freedict_de_en_path,
                 freedict_de_en_path=freedict_de_en_path,
                 profile_id=args.profile_id or "default",
                 set_source_db=set_source_db,
@@ -223,6 +224,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
             config=SetInitializationJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                translation_dict_path=freedict_de_en_path,
                 freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
@@ -286,6 +288,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
             config=SrsRefreshJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
+                translation_dict_path=freedict_de_en_path,
                 freedict_de_en_path=freedict_de_en_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",

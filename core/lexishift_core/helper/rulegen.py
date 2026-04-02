@@ -14,8 +14,13 @@ from lexishift_core.lexicon.word_package import (
     resolve_language_tag_from_pair,
 )
 from lexishift_core.replacement.core import VocabRule
-from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path
+from lexishift_core.helper.lp_capabilities import default_reverse_translation_dictionary_path
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.translation_packs import (
+    FORWARD_PACK_DIRECTION,
+    REVERSE_PACK_DIRECTION,
+    build_translation_pack_ref,
+)
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
@@ -284,6 +289,7 @@ def run_rulegen_for_pair(
     store: SrsStore,
     settings: Optional[SrsSettings],
     jmdict_path: Optional[Path] = None,
+    translation_dict_path: Optional[Path] = None,
     freedict_de_en_path: Optional[Path] = None,
     set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
@@ -308,12 +314,16 @@ def run_rulegen_for_pair(
         pair=pair,
         targets=targets,
     )
-    resolved_reverse_freedict_path = default_freedict_reverse_path(
+    resolved_translation_dict_path = translation_dict_path or freedict_de_en_path
+    resolved_reverse_translation_dict_path = default_reverse_translation_dictionary_path(
         pair,
         language_packs_dir=paths.language_packs_dir,
     )
-    if resolved_reverse_freedict_path is not None and not resolved_reverse_freedict_path.exists():
-        resolved_reverse_freedict_path = None
+    if (
+        resolved_reverse_translation_dict_path is not None
+        and not resolved_reverse_translation_dict_path.exists()
+    ):
+        resolved_reverse_translation_dict_path = None
     rules = run_rules_with_adapter(
         RulegenAdapterRequest(
             pair=pair,
@@ -329,8 +339,20 @@ def run_rulegen_for_pair(
             reverse_check=rulegen_config.reverse_check,
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
-            freedict_de_en_path=freedict_de_en_path,
-            freedict_reverse_path=resolved_reverse_freedict_path,
+            translation_pack=build_translation_pack_ref(
+                pair,
+                resolved_translation_dict_path,
+                direction=FORWARD_PACK_DIRECTION,
+            ),
+            translation_dict_path=resolved_translation_dict_path,
+            freedict_de_en_path=resolved_translation_dict_path,
+            reverse_translation_pack=build_translation_pack_ref(
+                pair,
+                resolved_reverse_translation_dict_path,
+                direction=REVERSE_PACK_DIRECTION,
+            ),
+            reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+            freedict_reverse_path=resolved_reverse_translation_dict_path,
             word_packages_by_target=target_word_packages or None,
         )
     )

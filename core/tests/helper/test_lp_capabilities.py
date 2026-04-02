@@ -16,6 +16,8 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_reverse_translation_dictionary_path,
     default_translation_dictionary_path,
     known_pairs,
+    pair_requirements,
+    resolve_pair_capability,
     selectable_srs_pairs,
     supported_rulegen_pairs,
 )
@@ -110,6 +112,28 @@ class TestLpCapabilities(unittest.TestCase):
                 language_packs_dir=language_packs_dir,
             )
         self.assertEqual(alias, legacy)
+
+    def test_translation_dictionary_requirement_uses_generic_capability_flag(self) -> None:
+        capability = resolve_pair_capability("en-es")
+
+        self.assertTrue(capability.requires_translation_dictionary_for_rulegen)
+        self.assertTrue(capability.requires_freedict_de_en_for_rulegen)
+
+    def test_pair_requirements_preserve_generic_and_legacy_translation_flags(self) -> None:
+        requirements = pair_requirements("en-es")
+
+        self.assertTrue(requirements["requires_translation_dictionary_for_rulegen"])
+        self.assertTrue(requirements["requires_freedict_de_en_for_rulegen"])
+
+    def test_en_de_default_reverse_dictionary_uses_english_headword_direction(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_reverse_translation_dictionary_path(
+                "en-de",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("eng-deu.tei"))
 
 
 if __name__ == "__main__":

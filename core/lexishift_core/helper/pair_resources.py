@@ -5,12 +5,19 @@ from typing import Optional
 
 from lexishift_core.lexicon.word_package import resolve_language_tag_from_pair
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_reverse_translation_dictionary_path,
+    default_translation_dictionary_path,
     resolve_pair_capability,
 )
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.translation_packs import (
+    FORWARD_PACK_DIRECTION,
+    REVERSE_PACK_DIRECTION,
+    TranslationPackRef,
+    build_translation_pack_ref,
+)
 
 
 def target_language_from_pair(pair: str) -> str:
@@ -38,6 +45,7 @@ def resolve_pair_resources(
     *,
     pair: str,
     jmdict_path: Optional[Path],
+    translation_dict_path: Optional[Path] = None,
     freedict_de_en_path: Optional[Path],
     set_source_db: Optional[Path],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
@@ -47,10 +55,12 @@ def resolve_pair_resources(
         if jmdict_path is not None
         else default_jmdict_path(capability.pair, language_packs_dir=paths.language_packs_dir)
     )
-    resolved_freedict_de_en = (
-        Path(freedict_de_en_path)
+    resolved_translation_dict = (
+        Path(translation_dict_path)
+        if translation_dict_path is not None
+        else Path(freedict_de_en_path)
         if freedict_de_en_path is not None
-        else default_freedict_de_en_path(
+        else default_translation_dictionary_path(
             capability.pair,
             language_packs_dir=paths.language_packs_dir,
         )
@@ -62,4 +72,48 @@ def resolve_pair_resources(
             capability.pair, frequency_packs_dir=paths.frequency_packs_dir
         )
     )
-    return resolved_jmdict, resolved_freedict_de_en, resolved_frequency_db
+    return resolved_jmdict, resolved_translation_dict, resolved_frequency_db
+
+
+def resolve_pair_translation_packs(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    translation_dict_path: Optional[Path] = None,
+    freedict_de_en_path: Optional[Path] = None,
+    reverse_translation_dict_path: Optional[Path] = None,
+    freedict_reverse_path: Optional[Path] = None,
+) -> tuple[Optional[TranslationPackRef], Optional[TranslationPackRef]]:
+    capability = resolve_pair_capability(pair)
+    resolved_translation_dict = (
+        Path(translation_dict_path)
+        if translation_dict_path is not None
+        else Path(freedict_de_en_path)
+        if freedict_de_en_path is not None
+        else default_translation_dictionary_path(
+            capability.pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
+    )
+    resolved_reverse_translation_dict = (
+        Path(reverse_translation_dict_path)
+        if reverse_translation_dict_path is not None
+        else Path(freedict_reverse_path)
+        if freedict_reverse_path is not None
+        else default_reverse_translation_dictionary_path(
+            capability.pair,
+            language_packs_dir=paths.language_packs_dir,
+        )
+    )
+    return (
+        build_translation_pack_ref(
+            capability.pair,
+            resolved_translation_dict,
+            direction=FORWARD_PACK_DIRECTION,
+        ),
+        build_translation_pack_ref(
+            capability.pair,
+            resolved_reverse_translation_dict,
+            direction=REVERSE_PACK_DIRECTION,
+        ),
+    )

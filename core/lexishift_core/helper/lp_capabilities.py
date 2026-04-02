@@ -13,7 +13,11 @@ class PairCapability:
     srs_selectable: bool = False
     requires_jmdict_for_seed: bool = False
     requires_jmdict_for_rulegen: bool = False
-    requires_freedict_de_en_for_rulegen: bool = False
+    requires_translation_dictionary_for_rulegen: bool = False
+
+    @property
+    def requires_freedict_de_en_for_rulegen(self) -> bool:
+        return self.requires_translation_dictionary_for_rulegen
 
 
 _PAIR_CAPABILITIES: dict[str, PairCapability] = {
@@ -45,21 +49,21 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         rulegen_mode="en_de",
         default_frequency_db="freq-de-default.sqlite",
         srs_selectable=True,
-        requires_freedict_de_en_for_rulegen=True,
+        requires_translation_dictionary_for_rulegen=True,
     ),
     "en-es": PairCapability(
         pair="en-es",
         rulegen_mode="en_es",
         default_frequency_db="freq-es-cde.sqlite",
         srs_selectable=True,
-        requires_freedict_de_en_for_rulegen=True,
+        requires_translation_dictionary_for_rulegen=True,
     ),
     "es-en": PairCapability(
         pair="es-en",
         rulegen_mode="es_en",
         default_frequency_db="freq-en-coca.sqlite",
         srs_selectable=True,
-        requires_freedict_de_en_for_rulegen=True,
+        requires_translation_dictionary_for_rulegen=True,
     ),
     "es-es": PairCapability(
         pair="es-es",
@@ -132,13 +136,13 @@ def default_jmdict_path(
     return language_packs_dir / "JMdict_e"
 
 
-def default_freedict_de_en_path(
+def default_translation_dictionary_path(
     pair: str,
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
-    if not capability.requires_freedict_de_en_for_rulegen:
+    if not capability.requires_translation_dictionary_for_rulegen:
         return None
     filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
     for filename in filenames:
@@ -152,21 +156,21 @@ def default_freedict_de_en_path(
     return language_packs_dir / filenames[0]
 
 
-def default_translation_dictionary_path(
+def default_freedict_de_en_path(
     pair: str,
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
-    return default_freedict_de_en_path(pair, language_packs_dir=language_packs_dir)
+    return default_translation_dictionary_path(pair, language_packs_dir=language_packs_dir)
 
 
-def default_freedict_reverse_path(
+def default_reverse_translation_dictionary_path(
     pair: str,
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
-    if not capability.requires_freedict_de_en_for_rulegen:
+    if not capability.requires_translation_dictionary_for_rulegen:
         return None
     filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
     for filename in filenames:
@@ -180,12 +184,12 @@ def default_freedict_reverse_path(
     return language_packs_dir / filenames[0]
 
 
-def default_reverse_translation_dictionary_path(
+def default_freedict_reverse_path(
     pair: str,
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
-    return default_freedict_reverse_path(pair, language_packs_dir=language_packs_dir)
+    return default_reverse_translation_dictionary_path(pair, language_packs_dir=language_packs_dir)
 
 
 def _reverse_pair_key(pair: str) -> str:
@@ -197,6 +201,10 @@ def _reverse_pair_key(pair: str) -> str:
 
 
 def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "de-en":
+        return ("eng-deu.tei", "freedict-en-de.sqlite", "eng-deu.sqlite")
+    if pair == "en-de":
+        return ("deu-eng.tei", "freedict-de-en.sqlite", "deu-eng.sqlite")
     if pair == "en-es":
         return (
             "wiktionary-es-en.sqlite",
@@ -245,7 +253,9 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "requires_jmdict_for_seed": capability.requires_jmdict_for_seed,
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,
         "requires_translation_dictionary_for_rulegen": (
-            capability.requires_freedict_de_en_for_rulegen
+            capability.requires_translation_dictionary_for_rulegen
         ),
-        "requires_freedict_de_en_for_rulegen": capability.requires_freedict_de_en_for_rulegen,
+        "requires_freedict_de_en_for_rulegen": (
+            capability.requires_translation_dictionary_for_rulegen
+        ),
     }

@@ -23,6 +23,17 @@ from lexishift_core.srs.sampling import (
 )
 
 
+def _translation_dict_provider(path: Path | None) -> str | None:
+    if path is None:
+        return None
+    name = path.name.strip().lower()
+    if "wiktionary" in name or "kaikki" in name:
+        return "wiktionary"
+    if "freedict" in name or name.endswith(".tei"):
+        return "freedict"
+    return "unknown"
+
+
 def run_rulegen_job(
     paths: HelperPaths,
     *,
@@ -45,11 +56,12 @@ def run_rulegen_job(
         requested_top_n=config.set_top_n,
         purpose="refresh",
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+    resolved_jmdict_path, resolved_translation_dict_path, resolved_set_source_db = (
         resolve_pair_resources_fn(
             paths,
             pair=pair,
             jmdict_path=config.jmdict_path,
+            translation_dict_path=getattr(config, "translation_dict_path", None),
             freedict_de_en_path=config.freedict_de_en_path,
             set_source_db=config.set_source_db,
         )
@@ -62,7 +74,7 @@ def run_rulegen_job(
     ensure_pair_requirements_fn(
         pair=pair,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_freedict_de_en_path,
+        freedict_de_en_path=resolved_translation_dict_path,
         require_frequency_db=False,
         set_source_db=resolved_set_source_db,
         check_seed_resources=should_seed_from_frequency,
@@ -209,16 +221,23 @@ def run_rulegen_job(
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
             "translation_dict_path": (
-                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+                str(resolved_translation_dict_path) if resolved_translation_dict_path else None
             ),
             "translation_dict_exists": bool(
-                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+                resolved_translation_dict_path and resolved_translation_dict_path.exists()
             ),
+            "translation_pack_path": (
+                str(resolved_translation_dict_path) if resolved_translation_dict_path else None
+            ),
+            "translation_pack_exists": bool(
+                resolved_translation_dict_path and resolved_translation_dict_path.exists()
+            ),
+            "translation_dict_provider": _translation_dict_provider(resolved_translation_dict_path),
             "freedict_de_en_path": (
-                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+                str(resolved_translation_dict_path) if resolved_translation_dict_path else None
             ),
             "freedict_de_en_exists": bool(
-                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+                resolved_translation_dict_path and resolved_translation_dict_path.exists()
             ),
             "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
             "set_source_db_exists": bool(
@@ -246,7 +265,8 @@ def run_rulegen_job(
         store=store,
         settings=settings,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_freedict_de_en_path,
+        translation_dict_path=resolved_translation_dict_path,
+        freedict_de_en_path=resolved_translation_dict_path,
         set_init_config=set_init_config,
         rulegen_config=rulegen_config,
         targets_override=targets_override,

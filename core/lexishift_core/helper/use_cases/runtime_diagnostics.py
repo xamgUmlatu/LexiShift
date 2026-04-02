@@ -3,7 +3,11 @@ from __future__ import annotations
 import json
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
-from lexishift_core.helper.pair_resources import resolve_pair_resources, resolve_stopwords_path
+from lexishift_core.helper.pair_resources import (
+    resolve_pair_resources,
+    resolve_pair_translation_packs,
+    resolve_stopwords_path,
+)
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import load_status
 from lexishift_core.srs import load_srs_store
@@ -20,14 +24,21 @@ def get_srs_runtime_diagnostics(
     normalized_pair = capability.pair
     normalized_profile_id = paths.normalize_profile_id(profile_id)
     pair_policy = resolve_srs_pair_policy(normalized_pair)
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+    resolved_jmdict_path, resolved_translation_dict_path, resolved_set_source_db = (
         resolve_pair_resources(
             paths,
             pair=normalized_pair,
             jmdict_path=None,
+            translation_dict_path=None,
             freedict_de_en_path=None,
             set_source_db=None,
         )
+    )
+    resolved_translation_pack, resolved_reverse_translation_pack = resolve_pair_translation_packs(
+        paths,
+        pair=normalized_pair,
+        translation_dict_path=resolved_translation_dict_path,
+        reverse_translation_dict_path=None,
     )
     resolved_stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     missing_inputs: list[dict[str, object]] = []
@@ -36,16 +47,20 @@ def get_srs_runtime_diagnostics(
             missing_inputs.append({"type": "jmdict_path", "path": None})
         elif not resolved_jmdict_path.exists():
             missing_inputs.append({"type": "jmdict_path", "path": str(resolved_jmdict_path)})
-    if capability.requires_freedict_de_en_for_rulegen:
-        if not resolved_freedict_de_en_path:
+    if capability.requires_translation_dictionary_for_rulegen:
+        if not resolved_translation_dict_path:
             missing_inputs.append({"type": "translation_dict_path", "path": None})
+            missing_inputs.append({"type": "translation_pack_path", "path": None})
             missing_inputs.append({"type": "freedict_de_en_path", "path": None})
-        elif not resolved_freedict_de_en_path.exists():
+        elif not resolved_translation_dict_path.exists():
             missing_inputs.append(
-                {"type": "translation_dict_path", "path": str(resolved_freedict_de_en_path)}
+                {"type": "translation_dict_path", "path": str(resolved_translation_dict_path)}
             )
             missing_inputs.append(
-                {"type": "freedict_de_en_path", "path": str(resolved_freedict_de_en_path)}
+                {"type": "translation_pack_path", "path": str(resolved_translation_dict_path)}
+            )
+            missing_inputs.append(
+                {"type": "freedict_de_en_path", "path": str(resolved_translation_dict_path)}
             )
     if not resolved_set_source_db:
         missing_inputs.append({"type": "set_source_db", "path": None})
@@ -56,6 +71,12 @@ def get_srs_runtime_diagnostics(
     ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
     snapshot_path = paths.snapshot_path(normalized_pair, profile_id=normalized_profile_id)
     status_path = paths.srs_status_path_for(normalized_profile_id)
+    translation_dict_path_text = (
+        str(resolved_translation_dict_path) if resolved_translation_dict_path else None
+    )
+    reverse_translation_dict_path_text = (
+        str(resolved_reverse_translation_pack.path) if resolved_reverse_translation_pack else None
+    )
     diagnostics = {
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
@@ -63,17 +84,47 @@ def get_srs_runtime_diagnostics(
         "pair_policy": pair_policy_to_dict(pair_policy),
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
-        "translation_dict_path": (
-            str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
-        ),
+        "translation_dict_path": translation_dict_path_text,
         "translation_dict_exists": bool(
-            resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+            resolved_translation_dict_path and resolved_translation_dict_path.exists()
         ),
-        "freedict_de_en_path": (
-            str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+        "translation_pack_path": translation_dict_path_text,
+        "translation_pack_exists": bool(
+            resolved_translation_dict_path and resolved_translation_dict_path.exists()
         ),
+        "translation_dict_provider": (
+            resolved_translation_pack.provider if resolved_translation_pack else None
+        ),
+        "translation_pack_id": resolved_translation_pack.pack_id
+        if resolved_translation_pack
+        else None,
+        "translation_pos_source_profile": (
+            resolved_translation_pack.pos_source_profile if resolved_translation_pack else None
+        ),
+        "reverse_translation_dict_path": reverse_translation_dict_path_text,
+        "reverse_translation_dict_exists": bool(
+            resolved_reverse_translation_pack and resolved_reverse_translation_pack.path.exists()
+        ),
+        "reverse_translation_pack_path": reverse_translation_dict_path_text,
+        "reverse_translation_pack_exists": bool(
+            resolved_reverse_translation_pack and resolved_reverse_translation_pack.path.exists()
+        ),
+        "reverse_translation_dict_provider": (
+            resolved_reverse_translation_pack.provider
+            if resolved_reverse_translation_pack
+            else None
+        ),
+        "reverse_translation_pack_id": (
+            resolved_reverse_translation_pack.pack_id if resolved_reverse_translation_pack else None
+        ),
+        "reverse_translation_pos_source_profile": (
+            resolved_reverse_translation_pack.pos_source_profile
+            if resolved_reverse_translation_pack
+            else None
+        ),
+        "freedict_de_en_path": translation_dict_path_text,
         "freedict_de_en_exists": bool(
-            resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+            resolved_translation_dict_path and resolved_translation_dict_path.exists()
         ),
         "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
         "set_source_db_exists": bool(resolved_set_source_db and resolved_set_source_db.exists()),
