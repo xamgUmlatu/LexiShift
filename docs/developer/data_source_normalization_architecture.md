@@ -284,6 +284,84 @@ Current non-coverage:
 - embedding pack installs/conversions do not yet use the same manifest-backed pack layout
 - helper/rulegen resource resolution is only manifest-aware for translation-pack discovery so far
 
+## Normalized Runtime Format By Pack Family
+
+This section records the preferred final runtime artifact for each major pack family.
+The intent is to prevent future onboarding from drifting into ad hoc storage formats.
+
+### Translation Packs
+
+Preferred runtime artifact:
+
+- `main.sqlite`
+
+Rationale:
+
+- translation packs need indexed headword/candidate lookup
+- pair modules should not parse provider-native TEI/XML/JSONL directly
+- a canonical SQLite contract makes forward/reverse resource handling symmetric
+
+Migration note:
+
+- Kaikki is already close because it builds to SQLite today
+- FreeDict still needs a TEI-to-SQLite normalization step
+
+### Frequency Packs
+
+Preferred runtime artifact:
+
+- `main.sqlite`
+
+Current reality:
+
+- frequency is already directionally correct
+- app-managed installs already convert raw source files to SQLite
+- runtime already consumes SQLite through `SqliteFrequencyStore`
+
+What still needs normalization:
+
+- stable pack-id root plus `manifest.json`
+- one canonical artifact filename/layout
+- tighter semantic schema so runtime does not rely on broad column-name fallback forever
+
+Target canonical schema:
+
+- `frequency(lemma, lemma_lc, rank, pmw, pos, ...)`
+- `meta(key, value)`
+
+Compatibility rule during migration:
+
+- source-specific extra columns may still be preserved
+- runtime should gradually move toward canonical column names, with fallback logic retained only as a migration bridge
+
+### Embedding Packs
+
+Preferred runtime artifact:
+
+- `main.sqlite`
+
+Current reality:
+
+- raw `.vec` / `.bin` files are still treated as acceptable runtime inputs
+- SQLite conversion exists, but it is not the mandatory app-managed end state yet
+
+What should change:
+
+- app-managed embedding downloads should always end in SQLite
+- raw vectors should become build/import inputs only
+- runtime should prefer manifest-backed SQLite artifacts by default
+
+Target canonical schema:
+
+- `vectors(word, word_lc, dim, norm, lsh_sig, vector)`
+- `meta(key, value)`
+
+Why SQLite remains the right target for now:
+
+- exact lookup is the primary active runtime need
+- optional approximate-neighbor narrowing already exists via `lsh_sig`
+- introducing a separate ANN service or custom binary index would add operational complexity before embeddings are even a primary scorer
+
 ## Phase B: FreeDict Build Normalization
 
 Goals:
@@ -308,6 +386,28 @@ Definition of done:
 
 - pack install behavior is structurally consistent across translation, frequency, and embedding families
 - new data-source onboarding has one explicit checklist instead of source-family-specific storage improvisation
+
+Detailed execution plan:
+
+1. Frequency normalization
+   - install under `frequency_packs/<pack_id>/`
+   - write `manifest.json`
+   - standardize on one canonical artifact path such as `main.sqlite`
+   - keep the current SQLite writer, but begin tightening toward canonical columns like `lemma_lc`, `rank`, and `pmw`
+   - migrate runtime/settings resolution to manifest-backed pack refs before removing filename assumptions
+
+2. Embedding normalization
+   - install under `embedding_packs/<pack_id>/`
+   - write `manifest.json`
+   - make app-managed installs run conversion automatically so the completed state is always SQLite
+   - retain raw downloads only in explicit debug/import modes
+   - migrate runtime/settings resolution to manifest-backed pack refs and make raw `.vec/.bin` loading a compatibility path rather than the default app-managed contract
+
+3. Shared seam cleanup
+   - add installed-pack helpers for frequency and embedding families, not only translation
+   - make diagnostics report pack id, provider, artifact path, and checksum from manifests
+   - move helper/runtime/resource resolution toward pack refs instead of loose file paths
+   - preserve compatibility wrappers until all active callers use manifests
 
 ## Phase C: Unified Pack Ref And Resolver
 
@@ -358,6 +458,99 @@ The next normalization milestone should therefore be:
 - make `de-en` consume the normalized compiled artifact instead of `eng-deu.tei`
 
 That work should happen before deeper `de-en` rulegen quality tuning.
+
+## Expected User Experience Changes
+
+Most of the final behavior should feel cleaner, not stranger, but two families differ in how much user-visible change to expect.
+
+### Translation Packs
+
+Expected user experience:
+
+- mostly unchanged once manifests are in place
+- downloads still appear as one install action
+- runtime should become more reliable because helper no longer depends on filename guessing
+
+### Frequency Packs
+
+Expected user experience:
+
+- almost no intentional behavioral change
+- they already convert to SQLite during install
+- the main visible change should be more stable pack directories and clearer installed-pack identity
+
+### Embedding Packs
+
+Expected user experience:
+
+- this is the family most likely to feel different
+- today, users can keep a raw vector file around and convert later
+- under the normalized model, app-managed installs should finish in a converted SQLite state automatically
+
+Likely visible differences:
+
+- install may take longer before the UI reports completion because conversion becomes part of installation
+- disk usage may spike temporarily during conversion
+- the "use" path should become simpler because there is one canonical artifact instead of raw-file-or-sqlite ambiguity
+
+## Regression And Compatibility Risks
+
+The main risks are operational and compatibility-related, not conceptual.
+
+### Low-risk area: Frequency
+
+Why low-risk:
+
+- runtime already expects SQLite
+- install already converts to SQLite
+- the migration is mostly about manifest/layout/schema tightening
+
+Primary regression risks:
+
+- pack path migration bugs during delete/validate/status checks
+- schema-tightening mistakes if fallback resolution is removed too early
+
+Mitigation:
+
+- keep current column fallback logic until all managed frequency packs write the canonical schema
+- add manifest-aware tests for download, validate, delete, and runtime lookup
+
+### Medium-risk area: Translation
+
+Why medium-risk:
+
+- Kaikki is already close
+- FreeDict still has a real loader migration ahead from TEI to SQLite
+
+Primary regression risks:
+
+- loss of provider-specific metadata during TEI normalization
+- pair modules assuming raw provider quirks that are not preserved in the normalized loader
+
+Mitigation:
+
+- preserve provenance and source-order metadata in the normalized SQLite
+- migrate one pair at a time, with `de-en` as the first proof
+
+### Highest user-experience risk: Embeddings
+
+Why highest:
+
+- the current app/runtime still tolerates raw `.vec/.bin` as an active path
+- automatic conversion changes the timing and completion semantics of install
+
+Primary regression risks:
+
+- longer install times being perceived as failed or stuck downloads
+- conversion failures surfacing later than today if status reporting is poor
+- existing settings or runtime code still looking for raw files instead of manifest-backed SQLite
+
+Mitigation:
+
+- make conversion progress explicit in the UI
+- keep raw-file import as a compatibility path for manually supplied external files
+- treat app-managed packs and external/manual files as separate contracts
+- do not remove raw runtime fallback until manifest-backed SQLite resolution is fully wired through settings and runtime
 
 ## Questions / Remaining Decisions
 
