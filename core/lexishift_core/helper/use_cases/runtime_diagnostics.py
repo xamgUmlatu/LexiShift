@@ -31,7 +31,6 @@ def get_srs_runtime_diagnostics(
             pair=normalized_pair,
             jmdict_path=None,
             translation_dict_path=None,
-            freedict_de_en_path=None,
             set_source_db=None,
         )
     )
@@ -57,16 +56,12 @@ def get_srs_runtime_diagnostics(
         if not resolved_translation_dict_path:
             missing_inputs.append({"type": "translation_dict_path", "path": None})
             missing_inputs.append({"type": "translation_pack_path", "path": None})
-            missing_inputs.append({"type": "freedict_de_en_path", "path": None})
         elif not resolved_translation_dict_path.exists():
             missing_inputs.append(
                 {"type": "translation_dict_path", "path": str(resolved_translation_dict_path)}
             )
             missing_inputs.append(
                 {"type": "translation_pack_path", "path": str(resolved_translation_dict_path)}
-            )
-            missing_inputs.append(
-                {"type": "freedict_de_en_path", "path": str(resolved_translation_dict_path)}
             )
     if not resolved_set_source_db:
         missing_inputs.append({"type": "set_source_db", "path": None})
@@ -127,10 +122,6 @@ def get_srs_runtime_diagnostics(
             resolved_reverse_translation_pack.pos_source_profile
             if resolved_reverse_translation_pack
             else None
-        ),
-        "freedict_de_en_path": translation_dict_path_text,
-        "freedict_de_en_exists": bool(
-            resolved_translation_dict_path and resolved_translation_dict_path.exists()
         ),
         "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
         "set_source_db_exists": bool(resolved_set_source_db and resolved_set_source_db.exists()),

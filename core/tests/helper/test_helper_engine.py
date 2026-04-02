@@ -395,7 +395,7 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                     config=RulegenJobConfig(
                         pair="en-es",
                         jmdict_path=None,
-                        freedict_de_en_path=freedict_path,
+                        translation_dict_path=freedict_path,
                         set_source_db=None,
                         initialize_if_empty=False,
                         persist_store=False,
@@ -471,7 +471,7 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
                     config=RulegenJobConfig(
                         pair="en-es",
                         jmdict_path=None,
-                        freedict_de_en_path=freedict_path,
+                        translation_dict_path=freedict_path,
                         set_source_db=None,
                         initialize_if_empty=False,
                         persist_store=False,
@@ -551,7 +551,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                     config=RulegenJobConfig(
                         pair="en-de",
                         jmdict_path=None,
-                        freedict_de_en_path=freedict_path,
+                        translation_dict_path=freedict_path,
                         set_source_db=None,
                         initialize_if_empty=False,
                         persist_store=False,
@@ -562,7 +562,10 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
 
             self.assertEqual(result["pair"], "en-de")
             self.assertIsNone(run_rulegen.call_args.kwargs.get("jmdict_path"))
-            self.assertEqual(run_rulegen.call_args.kwargs.get("freedict_de_en_path"), freedict_path)
+            self.assertEqual(
+                run_rulegen.call_args.kwargs.get("translation_dict_path"),
+                freedict_path,
+            )
 
     def test_run_rulegen_allows_de_en_without_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -595,7 +598,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                 translation_dict_path,
             )
             self.assertEqual(
-                run_rulegen.call_args.kwargs.get("freedict_de_en_path"),
+                run_rulegen.call_args.kwargs.get("translation_dict_path"),
                 translation_dict_path,
             )
 
@@ -630,7 +633,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                 translation_dict_path,
             )
             self.assertEqual(
-                run_rulegen.call_args.kwargs.get("freedict_de_en_path"),
+                run_rulegen.call_args.kwargs.get("translation_dict_path"),
                 translation_dict_path,
             )
 
@@ -734,7 +737,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                     config=SetInitializationJobConfig(
                         pair="en-de",
                         jmdict_path=None,
-                        freedict_de_en_path=freedict_path,
+                        translation_dict_path=freedict_path,
                         set_source_db=source_db,
                     ),
                 )
@@ -768,7 +771,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                     config=SrsRefreshJobConfig(
                         pair="en-de",
                         jmdict_path=None,
-                        freedict_de_en_path=freedict_path,
+                        translation_dict_path=freedict_path,
                         set_source_db=source_db,
                         persist_store=False,
                     ),
@@ -825,17 +828,12 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
             self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
-            self.assertTrue(
-                payload["freedict_de_en_path"].endswith("language_packs/freedict-de-en.sqlite")
-            )
-            self.assertFalse(payload["freedict_de_en_exists"])
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
             self.assertTrue(payload["stopwords_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("translation_dict_path", missing_types)
             self.assertIn("translation_pack_path", missing_types)
-            self.assertIn("freedict_de_en_path", missing_types)
             self.assertTrue(payload["requirements"]["requires_translation_dictionary_for_rulegen"])
 
     def test_runtime_diagnostics_reports_missing_en_es_frequency_pack(self) -> None:
@@ -870,15 +868,10 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
-            self.assertTrue(
-                payload["freedict_de_en_path"].endswith("language_packs/wiktionary-es-en.sqlite")
-            )
-            self.assertFalse(payload["freedict_de_en_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("translation_dict_path", missing_types)
             self.assertIn("translation_pack_path", missing_types)
-            self.assertIn("freedict_de_en_path", missing_types)
             self.assertTrue(payload["requirements"]["requires_translation_dictionary_for_rulegen"])
 
     def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:

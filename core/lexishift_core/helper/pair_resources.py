@@ -47,8 +47,8 @@ def resolve_pair_resources(
     pair: str,
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path] = None,
-    freedict_de_en_path: Optional[Path],
-    set_source_db: Optional[Path],
+    freedict_de_en_path: Optional[Path] = None,
+    set_source_db: Optional[Path] = None,
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     capability = resolve_pair_capability(pair)
     resolved_jmdict = (

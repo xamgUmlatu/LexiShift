@@ -4,7 +4,7 @@ Status: active planning doc with first executable slice
 Role: architecture target / implementation plan
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 helper/gui path and manifest slice plus manifest-backed translation pack refs, helper/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam, and the first embedding pack-id activation/runtime-resolution seam
+Last verified: 2026-04-03 helper/gui path and manifest slice plus manifest-backed translation pack refs, helper/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam, the first embedding pack-id activation/runtime-resolution seam, and the internal helper translation-dictionary seam cleanup
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
 Execution-order companion:
@@ -303,6 +303,7 @@ Current verified progress:
 - helper translation-dictionary resolution now checks manifest-backed installed packs before falling back to filename/path guessing
 - shared translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
 - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
+- helper CLI/native-host entrypoints and the internal helper use-case seam now prefer generic `translation_dict_path` naming, and app-managed helper/runtime diagnostics no longer expose `freedict_de_en_*` keys as part of the generic contract
 - installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
 - current runtime artifacts are still mixed:
   - app-managed FreeDict translation packs now build to canonical SQLite artifacts while manual TEI files and older extracted directories remain compatibility inputs
@@ -334,7 +335,7 @@ Rationale:
 Migration note:
 
 - Kaikki is already close because it builds to SQLite today
-- FreeDict app-managed installs now have a TEI-to-SQLite normalization step; remaining work is benchmark/help-text cleanup plus the last compatibility-heavy consumer seams rather than the main helper/journey runtime path
+- FreeDict app-managed installs now have a TEI-to-SQLite normalization step; remaining work is benchmark/help-text cleanup plus a small set of residual compatibility-heavy consumer seams rather than the main helper/journey runtime path
 
 ### Frequency Packs
 
@@ -416,6 +417,7 @@ Current verified progress:
 - the journey harness resource-writing layer now lives in a dedicated helper module so storage-format normalization no longer expands the already-large scenario-support file
 - shared translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
 - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
+- helper CLI/native-host entrypoints and the internal helper use-case seam now prefer generic `translation_dict_path` naming, and app-managed helper/runtime diagnostics no longer expose `freedict_de_en_*` keys as part of the generic contract
 - installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
 
 ## Phase B2: Apply The Same Model To Other Pack Families

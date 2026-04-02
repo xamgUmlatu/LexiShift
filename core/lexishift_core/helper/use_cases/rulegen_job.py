@@ -51,8 +51,10 @@ def run_rulegen_job(
             paths,
             pair=pair,
             jmdict_path=config.jmdict_path,
-            translation_dict_path=getattr(config, "translation_dict_path", None),
-            freedict_de_en_path=config.freedict_de_en_path,
+            translation_dict_path=(
+                getattr(config, "translation_dict_path", None)
+                or getattr(config, "freedict_de_en_path", None)
+            ),
             set_source_db=config.set_source_db,
         )
     )
@@ -64,7 +66,7 @@ def run_rulegen_job(
     ensure_pair_requirements_fn(
         pair=pair,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_translation_dict_path,
+        translation_dict_path=resolved_translation_dict_path,
         require_frequency_db=False,
         set_source_db=resolved_set_source_db,
         check_seed_resources=should_seed_from_frequency,
@@ -270,12 +272,6 @@ def run_rulegen_job(
                 if resolved_reverse_translation_pack
                 else None
             ),
-            "freedict_de_en_path": (
-                str(resolved_translation_dict_path) if resolved_translation_dict_path else None
-            ),
-            "freedict_de_en_exists": bool(
-                resolved_translation_dict_path and resolved_translation_dict_path.exists()
-            ),
             "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
             "set_source_db_exists": bool(
                 resolved_set_source_db and resolved_set_source_db.exists()
@@ -303,7 +299,6 @@ def run_rulegen_job(
         settings=settings,
         jmdict_path=resolved_jmdict_path,
         translation_dict_path=resolved_translation_dict_path,
-        freedict_de_en_path=resolved_translation_dict_path,
         set_init_config=set_init_config,
         rulegen_config=rulegen_config,
         targets_override=targets_override,

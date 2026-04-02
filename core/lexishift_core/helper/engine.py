@@ -292,7 +292,7 @@ def _ensure_pair_requirements(
     *,
     pair: str,
     jmdict_path: Optional[Path],
-    freedict_de_en_path: Optional[Path],
+    translation_dict_path: Optional[Path],
     require_frequency_db: bool,
     set_source_db: Optional[Path],
     check_seed_resources: bool = False,
@@ -315,10 +315,10 @@ def _ensure_pair_requirements(
         check_rulegen_resources and capability.requires_translation_dictionary_for_rulegen
     )
     if requires_translation_dictionary:
-        if freedict_de_en_path is None:
+        if translation_dict_path is None:
             raise ValueError(f"Missing translation dictionary path for pair '{pair}'.")
-        if not freedict_de_en_path.exists():
-            raise FileNotFoundError(freedict_de_en_path)
+        if not translation_dict_path.exists():
+            raise FileNotFoundError(translation_dict_path)
     if require_frequency_db:
         if set_source_db is None:
             raise ValueError(f"Missing frequency source DB for pair '{pair}'.")

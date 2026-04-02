@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, and the first embedding pack-id activation/runtime-resolution slice
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, and the internal helper translation-dictionary seam cleanup
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## Compatibility Policy
@@ -61,13 +61,14 @@ Already landed:
 - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
+- helper CLI/native-host entrypoints and internal helper use cases now prefer generic `translation_dict_path` naming, and runtime/helper diagnostics no longer emit `freedict_de_en_*` as part of the app-managed generic contract
 
 Still intentionally transitional:
 
 - some GUI/runtime/benchmark/help-text paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still preserve direct artifact-path maps for compatibility and manual imports, but managed app-owned artifact paths no longer need to be re-persisted alongside pack-id activation
-- benchmark/help-text surfaces still contain some legacy filename/provider heuristics
+- benchmark/help-text surfaces still contain some legacy filename/provider heuristics, especially the oversized `rulegen_benchmark.py` hotspot
 
 ## Execution Order
 

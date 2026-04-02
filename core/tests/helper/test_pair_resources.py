@@ -81,7 +81,6 @@ class TestPairResources(unittest.TestCase):
                 pair="en-es",
                 jmdict_path=None,
                 translation_dict_path=None,
-                freedict_de_en_path=None,
                 set_source_db=None,
             )
         self.assertEqual(resolved_frequency, artifact)
