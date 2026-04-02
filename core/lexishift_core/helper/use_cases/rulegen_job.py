@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
+from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput, SetInitializationConfig
 from lexishift_core.rulegen.tuning import (
@@ -21,17 +22,6 @@ from lexishift_core.srs.sampling import (
     sample_store_items,
     sampling_result_to_dict,
 )
-
-
-def _translation_dict_provider(path: Path | None) -> str | None:
-    if path is None:
-        return None
-    name = path.name.strip().lower()
-    if "wiktionary" in name or "kaikki" in name:
-        return "wiktionary"
-    if "freedict" in name or name.endswith(".tei"):
-        return "freedict"
-    return "unknown"
 
 
 def run_rulegen_job(
@@ -79,6 +69,12 @@ def run_rulegen_job(
         set_source_db=resolved_set_source_db,
         check_seed_resources=should_seed_from_frequency,
         check_rulegen_resources=True,
+    )
+    resolved_translation_pack, resolved_reverse_translation_pack = resolve_pair_translation_packs(
+        paths,
+        pair=pair,
+        translation_dict_path=resolved_translation_dict_path,
+        reverse_translation_dict_path=None,
     )
     profile_id = resolve_profile_id_fn(paths, profile_id=config.profile_id)
     settings = ensure_settings_fn(paths, persist_missing=config.persist_store)
@@ -232,7 +228,48 @@ def run_rulegen_job(
             "translation_pack_exists": bool(
                 resolved_translation_dict_path and resolved_translation_dict_path.exists()
             ),
-            "translation_dict_provider": _translation_dict_provider(resolved_translation_dict_path),
+            "translation_dict_provider": (
+                resolved_translation_pack.provider if resolved_translation_pack else None
+            ),
+            "translation_pack_id": (
+                resolved_translation_pack.pack_id if resolved_translation_pack else None
+            ),
+            "translation_pos_source_profile": (
+                resolved_translation_pack.pos_source_profile if resolved_translation_pack else None
+            ),
+            "reverse_translation_dict_path": (
+                str(resolved_reverse_translation_pack.path)
+                if resolved_reverse_translation_pack
+                else None
+            ),
+            "reverse_translation_dict_exists": bool(
+                resolved_reverse_translation_pack
+                and resolved_reverse_translation_pack.path.exists()
+            ),
+            "reverse_translation_pack_path": (
+                str(resolved_reverse_translation_pack.path)
+                if resolved_reverse_translation_pack
+                else None
+            ),
+            "reverse_translation_pack_exists": bool(
+                resolved_reverse_translation_pack
+                and resolved_reverse_translation_pack.path.exists()
+            ),
+            "reverse_translation_dict_provider": (
+                resolved_reverse_translation_pack.provider
+                if resolved_reverse_translation_pack
+                else None
+            ),
+            "reverse_translation_pack_id": (
+                resolved_reverse_translation_pack.pack_id
+                if resolved_reverse_translation_pack
+                else None
+            ),
+            "reverse_translation_pos_source_profile": (
+                resolved_reverse_translation_pack.pos_source_profile
+                if resolved_reverse_translation_pack
+                else None
+            ),
             "freedict_de_en_path": (
                 str(resolved_translation_dict_path) if resolved_translation_dict_path else None
             ),

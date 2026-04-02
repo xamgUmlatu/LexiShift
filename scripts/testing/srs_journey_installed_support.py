@@ -4,10 +4,12 @@ import shutil
 from pathlib import Path
 from typing import Mapping
 
-from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path
+from lexishift_core.helper.installed_packs import load_installed_pack_manifest_for_artifact
 from lexishift_core.helper.pair_resources import (
+    resolve_pair_frequency_pack,
     resolve_pair_resources as resolve_helper_pair_resources,
     resolve_stopwords_path as resolve_helper_stopwords_path,
+    resolve_pair_translation_packs,
 )
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths
 
@@ -27,17 +29,24 @@ def installed_pair_resources_available(pair: str) -> bool:
         freedict_de_en_path=None,
         set_source_db=None,
     )
-    required = [frequency_db]
+    translation_pack, reverse_translation_pack = resolve_pair_translation_packs(
+        installed_paths,
+        pair=pair,
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=None,
+    )
+    frequency_pack = resolve_pair_frequency_pack(
+        installed_paths,
+        pair=pair,
+        set_source_db=frequency_db,
+    )
+    required = [frequency_pack.path if frequency_pack else frequency_db]
     if jmdict_path is not None:
         required.append(jmdict_path)
-    if translation_dict_path is not None:
-        required.append(translation_dict_path)
-        required.append(
-            default_freedict_reverse_path(
-                pair,
-                language_packs_dir=installed_paths.language_packs_dir,
-            )
-        )
+    if translation_pack is not None:
+        required.append(translation_pack.path)
+    if reverse_translation_pack is not None:
+        required.append(reverse_translation_pack.path)
     return all(
         path is not None and Path(path).exists() and Path(path).is_file() for path in required
     )
@@ -158,19 +167,31 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
         freedict_de_en_path=None,
         set_source_db=None,
     )
-    reverse_path = default_freedict_reverse_path(
-        pair,
-        language_packs_dir=installed_paths.language_packs_dir,
+    translation_pack, reverse_translation_pack = resolve_pair_translation_packs(
+        installed_paths,
+        pair=pair,
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=None,
+    )
+    frequency_pack = resolve_pair_frequency_pack(
+        installed_paths,
+        pair=pair,
+        set_source_db=frequency_db,
     )
     stopwords_path = resolve_helper_stopwords_path(installed_paths, pair=pair)
     resources: dict[str, Path | None] = {
-        "frequency_db": _stage_optional_file(frequency_db, paths.frequency_packs_dir),
-        "jmdict_path": _stage_optional_file(jmdict_path, paths.language_packs_dir),
-        "translation_dict_path": _stage_optional_file(
-            translation_dict_path, paths.language_packs_dir
+        "frequency_db": _stage_optional_pack_artifact(
+            frequency_pack.path if frequency_pack else frequency_db,
+            paths.frequency_packs_dir,
         ),
-        "reverse_translation_dict_path": _stage_optional_file(
-            reverse_path, paths.language_packs_dir
+        "jmdict_path": _stage_optional_file(jmdict_path, paths.language_packs_dir),
+        "translation_dict_path": _stage_optional_pack_artifact(
+            translation_pack.path if translation_pack else translation_dict_path,
+            paths.language_packs_dir,
+        ),
+        "reverse_translation_dict_path": _stage_optional_pack_artifact(
+            reverse_translation_pack.path if reverse_translation_pack else None,
+            paths.language_packs_dir,
         ),
     }
     resources["freedict_path"] = resources["translation_dict_path"]
@@ -195,3 +216,34 @@ def _stage_optional_file(source: Path | None, destination_dir: Path) -> Path | N
     except OSError:
         shutil.copy2(source_path, destination)
     return destination
+
+
+def _stage_optional_pack_artifact(source: Path | None, destination_dir: Path) -> Path | None:
+    if source is None:
+        return None
+    source_path = Path(source)
+    if not source_path.exists():
+        return None
+    manifest = load_installed_pack_manifest_for_artifact(source_path)
+    if manifest is None:
+        return _stage_optional_file(source_path, destination_dir)
+    source_pack_root = source_path if source_path.is_dir() else source_path.parent
+    destination_dir.mkdir(parents=True, exist_ok=True)
+    destination_pack_root = destination_dir / manifest.pack_id
+    _remove_existing_path(destination_pack_root)
+    try:
+        destination_pack_root.symlink_to(source_pack_root, target_is_directory=True)
+    except OSError:
+        shutil.copytree(source_pack_root, destination_pack_root)
+    if manifest.artifact_relpath == ".":
+        return destination_pack_root
+    return destination_pack_root / manifest.artifact_relpath
+
+
+def _remove_existing_path(path: Path) -> None:
+    if not path.exists() and not path.is_symlink():
+        return
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+        return
+    shutil.rmtree(path)

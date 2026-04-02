@@ -28,6 +28,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
     reset_srs_data,
     run_rulegen_job,
 )
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs import (
@@ -631,6 +632,71 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertEqual(
                 run_rulegen.call_args.kwargs.get("freedict_de_en_path"),
                 translation_dict_path,
+            )
+
+    def test_run_rulegen_debug_reports_manifest_backed_translation_pack_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            forward_root = paths.language_packs_dir / "wiktionary-es-en"
+            forward_root.mkdir(parents=True, exist_ok=True)
+            forward_artifact = forward_root / "main.sqlite"
+            forward_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.language_packs_dir,
+                pack_id="wiktionary-es-en",
+                pack_kind="language",
+                provider="wiktionary",
+                local_kind="file",
+                build_mode="kaikki_jsonl_to_sqlite",
+                artifact_path=forward_artifact,
+                sqlite_filename="wiktionary-es-en.sqlite",
+            )
+            reverse_root = paths.language_packs_dir / "wiktionary-en-es"
+            reverse_root.mkdir(parents=True, exist_ok=True)
+            reverse_artifact = reverse_root / "main.sqlite"
+            reverse_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.language_packs_dir,
+                pack_id="wiktionary-en-es",
+                pack_kind="language",
+                provider="wiktionary",
+                local_kind="file",
+                build_mode="kaikki_jsonl_to_sqlite",
+                artifact_path=reverse_artifact,
+                sqlite_filename="wiktionary-en-es.sqlite",
+            )
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                return_value=(SrsStore(), self._stub_output("en-es")),
+            ):
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-es",
+                        jmdict_path=None,
+                        translation_dict_path=forward_artifact,
+                        set_source_db=None,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                        debug=True,
+                    ),
+                )
+
+            payload = result["diagnostics"]
+            self.assertEqual(payload["translation_dict_provider"], "wiktionary")
+            self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
+            self.assertEqual(payload["translation_pos_source_profile"], "wiktionary")
+            self.assertTrue(
+                payload["translation_pack_path"].endswith("/wiktionary-es-en/main.sqlite")
+            )
+            self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
+            self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
+            self.assertEqual(payload["reverse_translation_pos_source_profile"], "wiktionary")
+            self.assertTrue(
+                payload["reverse_translation_pack_path"].endswith("/wiktionary-en-es/main.sqlite")
             )
 
     def test_initialize_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:

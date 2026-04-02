@@ -96,8 +96,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, the bulk-rules GUI resolves managed SQLite artifacts first, the synthetic SRS quality/journey harnesses default to SQLite translation resources, helper/runtime expose a first frequency pack-ref seam, and managed embedding activation now has a first pack-id-based runtime seam
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, and managed-embedding settings persistence cleanup
+- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, translation pack refs honor managed manifests, helper rulegen debug and installed journey staging both use the normalized translation-pack seam, the bulk-rules GUI resolves managed SQLite artifacts first, helper/runtime expose a first frequency pack-ref seam, and managed embedding activation now has a first pack-id-based runtime seam
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, and managed-embedding settings persistence cleanup
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -114,6 +114,9 @@ Use this file when:
     - the GUI bulk-rules FreeDict path now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
     - the synthetic SRS quality/journey harness helpers now emit SQLite translation resources by default
     - the journey harness resource-writing logic now lives in a dedicated helper module so fixture-format changes no longer grow the main scenario-support file
+    - shared translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
+    - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
+    - installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
@@ -173,12 +176,12 @@ Use this file when:
   - `core/tests/resources/test_dict_loaders_freedict_pos.py`
   - `core/tests/resources/test_synonyms_translation_packs.py`
 - Known gaps:
-  - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, but broader pack consumers still include legacy path assumptions.
-  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some pair and tooling flows even though app-managed installs now build to SQLite and the main GUI/harness consumers now prefer SQLite-first paths.
+  - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, shared translation pack refs now honor manifests, but broader benchmark/probe consumers still include legacy path assumptions.
+  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some benchmark/tooling flows even though app-managed installs now build to SQLite and the main helper/GUI/harness consumers now prefer SQLite-first paths.
   - Helper/runtime resource resolution is not yet manifest-driven for embeddings; current embedding activation still persists direct artifact paths in settings.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
   - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names inside the pack root during migration.
-  - Translation consumers and helper diagnostics still include TEI-compatible assumptions in some paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses.
+  - Translation consumers and helper diagnostics still include TEI-compatible assumptions in some benchmark/tooling paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, helper debug diagnostics, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses plus installed journey staging.
 
 ## `de-en` Baseline Rulegen Enablement
 

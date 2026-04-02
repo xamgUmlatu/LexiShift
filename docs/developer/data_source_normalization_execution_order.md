@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, the first frequency pack-ref/runtime-diagnostics seam slice, and the first embedding pack-id activation/runtime-resolution slice
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, and the first embedding pack-id activation/runtime-resolution slice
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## End State
@@ -32,16 +32,19 @@ Already landed:
 - synonym generation now reads FreeDict through the shared translation-pack loader
 - bulk-rules GUI FreeDict selection now resolves managed SQLite artifacts before TEI-compatible directory fallbacks
 - synthetic SRS quality/journey harness fixtures now default to SQLite translation resources instead of raw TEI
+- translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
+- helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
+- installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
 - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
 
 Still intentionally transitional:
 
-- some GUI/runtime/harness paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
+- some GUI/runtime/benchmark/help-text paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still preserve direct artifact-path maps for compatibility and manual imports, but managed app-owned artifact paths no longer need to be re-persisted alongside pack-id activation
-- generic helper/resource reporting still contains filename/provider heuristics
+- benchmark/help-text surfaces still contain some legacy filename/provider heuristics
 
 ## Execution Order
 
@@ -72,6 +75,7 @@ Concrete work:
    - remove generic logic that infers provider semantics from `.tei` or `freedict` filename patterns where a manifest-backed pack id is available
    - main hotspot:
      - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/rulegen_job.py`
+   - current checkpoint: shared translation-pack refs now honor managed manifests, helper rulegen debug payloads now report translation pack id/provider/source-profile fields, and installed journey resource staging now preserves manifest-backed translation pack roots instead of flattening them
 
 4. Benchmark/help-text compatibility cleanup
    - update user-facing help text and comments so SQLite is presented as the normal managed artifact
@@ -205,9 +209,9 @@ If continuing now, the highest-value order is:
    - move the remaining managed embedding settings/maps from path-first persistence to pack-id-first persistence
 
 3. Phase 1 residual translation cleanup
-   - `/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/helper/use_cases/rulegen_job.py`
    - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_benchmark.py`
-   - remove the remaining TEI-compatible language in generic helper/benchmark seams once pack-ref reporting is stable
+   - `/Users/takeyayuki/Documents/projects/LexiShift/scripts/testing/rulegen_probe_words.py`
+   - remove the remaining TEI-compatible language in benchmark/probe/help-text seams now that helper and journey-installed staging already use the shared translation-pack contract
 
 I would not jump to `main.sqlite` renaming across families before the remaining runtime consumers and harnesses stop assuming specific legacy filenames.
 

@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from lexishift_core.helper.installed_packs import load_installed_pack_manifest_for_artifact
 from lexishift_core.helper.lp_capabilities import normalize_pair_key
 
 FORWARD_PACK_DIRECTION = "forward"
@@ -38,7 +39,13 @@ def build_translation_pack_ref(
     if path is None:
         return None
     normalized_pair = normalize_pair_key(pair)
-    provider = infer_translation_pack_provider(path) or "freedict"
+    candidate = Path(path)
+    manifest = load_installed_pack_manifest_for_artifact(candidate)
+    provider = (
+        str(manifest.provider).strip().lower()
+        if manifest is not None and str(manifest.provider).strip()
+        else infer_translation_pack_provider(candidate) or "freedict"
+    )
     pack_id = build_translation_pack_id(
         normalized_pair,
         provider=provider,
@@ -47,7 +54,7 @@ def build_translation_pack_ref(
     return TranslationPackRef(
         pair=normalized_pair,
         direction=direction,
-        path=Path(path),
+        path=candidate,
         provider=provider,
         pack_id=pack_id,
         pos_source_profile=provider,
