@@ -277,7 +277,13 @@ class LanguagePackPanel(
             return
         self._language_pack_paths[pack_id] = path
         self._set_status_message(
-            t("language_packs.linked", name=pack.display_name(), path=path),
+            t(
+                "language_packs.installed_linked"
+                if self._is_installed_language_pack_entry(pack_id, path)
+                else "language_packs.manual_linked",
+                name=pack.display_name(),
+                path=path,
+            ),
             tone="success",
         )
         self._refresh_language_pack_table()
@@ -303,7 +309,13 @@ class LanguagePackPanel(
             return
         self._frequency_pack_paths[pack_id] = path
         self._set_status_message(
-            t("language_packs.linked", name=pack.display_name(), path=path),
+            t(
+                "language_packs.installed_linked"
+                if self._is_installed_frequency_pack_entry(pack_id, path)
+                else "language_packs.manual_linked",
+                name=pack.display_name(),
+                path=path,
+            ),
             tone="success",
         )
         self._refresh_frequency_pack_table()
@@ -329,7 +341,13 @@ class LanguagePackPanel(
             return
         self._embedding_pack_paths[pack_id] = path
         self._set_status_message(
-            t("language_packs.linked", name=pack.display_name(), path=path),
+            t(
+                "language_packs.installed_linked"
+                if self._is_installed_embedding_pack_entry(pack_id, path)
+                else "language_packs.manual_linked",
+                name=pack.display_name(),
+                path=path,
+            ),
             tone="success",
         )
         self._refresh_embedding_pack_table()
@@ -665,20 +683,20 @@ class LanguagePackPanel(
         valid, message = self._validate_language_pack_path(pack, dest_path)
         if valid:
             self._language_pack_paths[pack_id] = dest_path
-            row.status_item.setText(t("language_packs.status.local_ok"))
+            row.status_item.setText(t("language_packs.status.installed"))
             self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
             self._set_status_message(
-                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path),
+                t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
                 tone="success",
             )
         else:
             self._language_pack_paths.pop(pack_id, None)
-            row.status_item.setText(t("language_packs.status.downloaded"))
-            self._set_status_item_tone(row.status_item, "warning")
+            row.status_item.setText(t("language_packs.status.invalid"))
+            self._set_status_item_tone(row.status_item, "error")
             row.status_item.setToolTip(dest_path)
             self._set_status_message(
-                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message),
+                t("language_packs.installed_invalid", name=pack.display_name(), message=message),
                 tone="error",
             )
         row.download_button.setEnabled(True)
@@ -693,20 +711,20 @@ class LanguagePackPanel(
         valid, message = self._validate_frequency_pack_path(pack, dest_path)
         if valid:
             self._frequency_pack_paths[pack_id] = dest_path
-            row.status_item.setText(t("language_packs.status.local_ok"))
+            row.status_item.setText(t("language_packs.status.installed"))
             self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
             self._set_status_message(
-                t("language_packs.downloaded_linked", name=pack.display_name(), path=dest_path),
+                t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
                 tone="success",
             )
         else:
             self._frequency_pack_paths.pop(pack_id, None)
-            row.status_item.setText(t("language_packs.status.downloaded"))
-            self._set_status_item_tone(row.status_item, "warning")
+            row.status_item.setText(t("language_packs.status.invalid"))
+            self._set_status_item_tone(row.status_item, "error")
             row.status_item.setToolTip(dest_path)
             self._set_status_message(
-                t("language_packs.downloaded_invalid", name=pack.display_name(), message=message),
+                t("language_packs.installed_invalid", name=pack.display_name(), message=message),
                 tone="error",
             )
         row.download_button.setEnabled(True)
@@ -802,11 +820,11 @@ class LanguagePackPanel(
                 and self._is_app_data_path(prior_path, embeddings=True)
             ):
                 self._remove_path(prior_path)
-        row.status_item.setText(t("language_packs.status.local_ok"))
+        row.status_item.setText(t("language_packs.status.installed"))
         self._set_status_item_tone(row.status_item, "success")
         row.status_item.setToolTip(resolved_path)
         self._set_status_message(
-            t("language_packs.downloaded_linked", name=pack.display_name(), path=resolved_path),
+            t("language_packs.installed_linked", name=pack.display_name(), path=resolved_path),
             tone="success",
         )
         row.download_button.setEnabled(True)

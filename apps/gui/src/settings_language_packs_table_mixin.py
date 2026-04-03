@@ -23,6 +23,25 @@ from settings_language_packs_support import EmbeddingPackRow, FrequencyPackRow, 
 
 
 class LanguagePackPanelTableMixin:
+    def _language_pack_status_key(self, pack_id: str, path: str) -> str:
+        if self._is_installed_language_pack_entry(pack_id, path):
+            return "language_packs.status.installed"
+        return "language_packs.status.manual"
+
+    def _frequency_pack_status_key(self, pack_id: str, path: str) -> str:
+        if self._is_installed_frequency_pack_entry(pack_id, path):
+            return "language_packs.status.installed"
+        return "language_packs.status.manual"
+
+    def _embedding_pack_status_key(self, pack_id: str, path: str, *, active: bool) -> str:
+        if self._is_installed_embedding_pack_entry(pack_id, path):
+            if active:
+                return "language_packs.status.active_installed"
+            return "language_packs.status.installed"
+        if active:
+            return "language_packs.status.active_manual"
+        return "language_packs.status.manual"
+
     def _refresh_language_pack_table(self) -> None:
         for pack_id, row in self._language_pack_rows.items():
             pack = self._language_pack_info.get(pack_id)
@@ -36,17 +55,28 @@ class LanguagePackPanelTableMixin:
             if local_path:
                 valid, message = self._validate_language_pack_path(pack, local_path)
                 if valid:
-                    row.status_item.setText(t("language_packs.status.local_ok"))
-                    self._set_status_item_tone(row.status_item, "success")
+                    row.status_item.setText(t(self._language_pack_status_key(pack_id, local_path)))
+                    self._set_status_item_tone(
+                        row.status_item,
+                        "success"
+                        if self._is_installed_language_pack_entry(pack_id, local_path)
+                        else "info",
+                    )
                     row.status_item.setToolTip(local_path)
                 else:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
             elif resolved_path:
-                row.status_item.setText(t("language_packs.status.downloaded"))
-                self._set_status_item_tone(row.status_item, "warning")
-                row.status_item.setToolTip(resolved_path)
+                valid, message = self._validate_language_pack_path(pack, resolved_path)
+                if valid:
+                    row.status_item.setText(t("language_packs.status.installed"))
+                    self._set_status_item_tone(row.status_item, "success")
+                    row.status_item.setToolTip(resolved_path)
+                else:
+                    row.status_item.setText(t("language_packs.status.invalid"))
+                    self._set_status_item_tone(row.status_item, "error")
+                    row.status_item.setToolTip(message)
             else:
                 row.status_item.setText(t("language_packs.status.available"))
                 self._set_status_item_tone(row.status_item, "muted")
@@ -70,17 +100,28 @@ class LanguagePackPanelTableMixin:
             if local_path:
                 valid, message = self._validate_frequency_pack_path(pack, local_path)
                 if valid:
-                    row.status_item.setText(t("language_packs.status.local_ok"))
-                    self._set_status_item_tone(row.status_item, "success")
+                    row.status_item.setText(t(self._frequency_pack_status_key(pack_id, local_path)))
+                    self._set_status_item_tone(
+                        row.status_item,
+                        "success"
+                        if self._is_installed_frequency_pack_entry(pack_id, local_path)
+                        else "info",
+                    )
                     row.status_item.setToolTip(local_path)
                 else:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
             elif sqlite_path:
-                row.status_item.setText(t("language_packs.status.downloaded"))
-                self._set_status_item_tone(row.status_item, "warning")
-                row.status_item.setToolTip(sqlite_path)
+                valid, message = self._validate_frequency_pack_path(pack, sqlite_path)
+                if valid:
+                    row.status_item.setText(t("language_packs.status.installed"))
+                    self._set_status_item_tone(row.status_item, "success")
+                    row.status_item.setToolTip(sqlite_path)
+                else:
+                    row.status_item.setText(t("language_packs.status.invalid"))
+                    self._set_status_item_tone(row.status_item, "error")
+                    row.status_item.setToolTip(message)
             else:
                 row.status_item.setText(t("language_packs.status.available"))
                 self._set_status_item_tone(row.status_item, "muted")
@@ -122,20 +163,29 @@ class LanguagePackPanelTableMixin:
                 if enabled and resolved_path and os.path.abspath(resolved_path) in active_paths:
                     is_active = True
             if is_active and local_path:
-                row.status_item.setText(t("language_packs.status.active"))
+                row.status_item.setText(
+                    t(self._embedding_pack_status_key(pack_id, local_path, active=True))
+                )
                 self._set_status_item_tone(row.status_item, "info")
                 row.status_item.setToolTip(local_path)
             elif is_active and resolved_path:
-                row.status_item.setText(t("language_packs.status.active"))
+                row.status_item.setText(t("language_packs.status.active_installed"))
                 self._set_status_item_tone(row.status_item, "info")
                 row.status_item.setToolTip(resolved_path)
             elif local_path:
-                row.status_item.setText(t("language_packs.status.local_ok"))
-                self._set_status_item_tone(row.status_item, "success")
+                row.status_item.setText(
+                    t(self._embedding_pack_status_key(pack_id, local_path, active=False))
+                )
+                self._set_status_item_tone(
+                    row.status_item,
+                    "success"
+                    if self._is_installed_embedding_pack_entry(pack_id, local_path)
+                    else "info",
+                )
                 row.status_item.setToolTip(local_path)
             elif resolved_path:
-                row.status_item.setText(t("language_packs.status.downloaded"))
-                self._set_status_item_tone(row.status_item, "warning")
+                row.status_item.setText(t("language_packs.status.installed"))
+                self._set_status_item_tone(row.status_item, "success")
                 row.status_item.setToolTip(resolved_path)
             else:
                 row.status_item.setText(t("language_packs.status.available"))

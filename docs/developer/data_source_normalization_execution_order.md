@@ -4,7 +4,7 @@ Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, the internal helper translation-dictionary seam cleanup, benchmark split cleanup, generic helper alias removal, and the synonym translation-pack seam cleanup
+Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, the internal helper translation-dictionary seam cleanup, benchmark split cleanup, generic helper alias removal, the synonym translation-pack seam cleanup, and the settings UI installed-vs-manual resource classification pass
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## Compatibility Policy
@@ -104,14 +104,14 @@ Status markers:
 | Generic benchmark/probe naming cleanup | `[x]` | benchmark split landed; generic translation naming is now the normal tooling contract |
 | Adapter request contract uses generic translation-path fields | `[x]` | generic request seam no longer carries `freedict_*` aliases |
 | Synonym translation-pack seam uses generic directional fields | `[x]` | runtime seam no longer uses FreeDict-shaped field names there |
-| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids, manual entries now serialize under explicit `language_pack_paths`, but secondary language-pack flows still keep path-shaped state |
+| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids, manual entries now serialize under explicit `language_pack_paths`, and the settings UI now labels managed artifacts as installed vs manual external paths; secondary language-pack flows still keep path-shaped state |
 | Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids, manual entries now serialize under explicit `frequency_pack_paths`, and SRS runtime resolves managed ids first; remaining work is mostly schema/diagnostic cleanup |
 | Managed embedding settings/runtime fully pack-id-first | `[x]` | app-managed embedding activation is pack-id-first, old managed embedding paths now migrate out on load, and manual path storage remains separate for import/debug use |
 | Converge managed translation artifact naming to `main.sqlite` | `[x]` | app-managed translation installs now land on `main.sqlite`; legacy `<pack_id>.sqlite` names remain fallback for older/manual paths |
 | Converge managed frequency artifact naming to `main.sqlite` | `[x]` | app-managed frequency installs now land on `main.sqlite`; legacy `freq-*.sqlite` names remain fallback for older/manual paths |
 | Converge managed embedding artifact naming to `main.sqlite` | `[x]` | app-managed embedding installs already land on `main.sqlite`; manual raw/vector paths remain explicit compatibility inputs |
 | Remove remaining app-managed obsolete field names | `[~]` | most generic seams are done; settings now serialize explicit `*_pack_paths`, and remaining hits are increasingly provider-specific or tooling-local |
-| Reclassify raw TEI/raw vector paths as import/debug only | `[~]` | true for many managed flows, but not yet uniformly enforced everywhere |
+| Reclassify raw TEI/raw vector paths as import/debug only | `[~]` | settings UI now distinguishes installed artifacts from manual/import paths for translation, frequency, and embeddings, but enforcement and wording are not yet uniform across every secondary/manual surface |
 | Secondary lexical family promotion decision | `[ ]` | depends on future slice-based evaluation results |
 
 ## Current Achieved State
@@ -141,6 +141,7 @@ Already landed:
 - app-state load/update now migrates old saved managed embedding artifact paths into pack-id-first per-pair activation and strips those app-owned paths from the manual embedding maps
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
 - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
+- the settings UI now labels app-owned resolved resources as `Installed`, external/manual translation-frequency-embedding paths as `Manual`, and active embedding rows as either `Active (Installed)` or `Active (Manual)` so the managed-vs-import boundary is explicit in normal use
 - helper CLI/native-host entrypoints and internal helper use cases now prefer generic `translation_dict_path` naming, and runtime/helper diagnostics no longer emit `freedict_de_en_*` as part of the app-managed generic contract
 
 Still intentionally transitional:

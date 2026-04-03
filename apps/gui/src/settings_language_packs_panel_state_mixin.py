@@ -242,12 +242,42 @@ class LanguagePackPanelStateMixin:
             return False
         return path_text == resolved
 
+    def _is_installed_language_pack_entry(self, pack_id: str, path: str) -> bool:
+        path_text = str(path or "").strip()
+        if not path_text or not self._is_app_data_path(path_text):
+            return False
+        pack = self._language_pack_info.get(pack_id)
+        resolved = self._resolve_downloaded_path(pack)
+        if not resolved:
+            return False
+        return path_text == resolved
+
     def _is_managed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
         path_text = str(path or "").strip()
         if not path_text or not self._is_frequency_pack_data_path(path_text):
             return False
         pack = self._frequency_pack_info.get(pack_id)
         resolved = self._resolve_frequency_pack_path(pack) if pack else None
+        if not resolved:
+            return False
+        return path_text == resolved
+
+    def _is_installed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
+        path_text = str(path or "").strip()
+        if not path_text or not self._is_frequency_pack_data_path(path_text):
+            return False
+        pack = self._frequency_pack_info.get(pack_id)
+        resolved = self._resolve_frequency_pack_path(pack) if pack else None
+        if not resolved:
+            return False
+        return path_text == resolved
+
+    def _is_installed_embedding_pack_entry(self, pack_id: str, path: str) -> bool:
+        path_text = str(path or "").strip()
+        if not path_text or not self._is_app_data_path(path_text, embeddings=True):
+            return False
+        pack = self._embedding_pack_info.get(pack_id)
+        resolved = self._resolve_downloaded_path(pack, embeddings=True) if pack else None
         if not resolved:
             return False
         return path_text == resolved
