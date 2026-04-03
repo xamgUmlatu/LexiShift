@@ -105,7 +105,7 @@ Status markers:
 | Adapter request contract uses generic translation-path fields | `[x]` | generic request seam no longer carries `freedict_*` aliases |
 | Synonym translation-pack seam uses generic directional fields | `[x]` | runtime seam no longer uses FreeDict-shaped field names there |
 | Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids, manual entries now serialize under explicit `language_pack_paths`, and the settings UI now labels managed artifacts as installed vs manual external paths; secondary language-pack flows still keep path-shaped state |
-| Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids, manual entries now serialize under explicit `frequency_pack_paths`, and SRS runtime resolves managed ids first; remaining work is mostly schema/diagnostic cleanup |
+| Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids, manual entries now serialize under explicit `frequency_pack_paths`, and GUI SRS growth plus the POS probe now share the same pack-ref-oriented configured frequency-pack resolver; remaining work is mostly schema/diagnostic cleanup |
 | Managed embedding settings/runtime fully pack-id-first | `[x]` | app-managed embedding activation is pack-id-first, old managed embedding paths now migrate out on load, and manual path storage remains separate for import/debug use |
 | Converge managed translation artifact naming to `main.sqlite` | `[x]` | app-managed translation installs now land on `main.sqlite`; legacy `<pack_id>.sqlite` names remain fallback for older/manual paths |
 | Converge managed frequency artifact naming to `main.sqlite` | `[x]` | app-managed frequency installs now land on `main.sqlite`; legacy `freq-*.sqlite` names remain fallback for older/manual paths |
@@ -135,6 +135,7 @@ Already landed:
 - managed frequency settings now split app-owned frequency packs into `managed_frequency_pack_ids` plus manual `frequency_pack_paths`, and app-state loading migrates old saved managed artifact paths into that shape
 - the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
 - the bulk-rules translation path now rebuilds managed translation pack paths from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
+- GUI SRS growth and the POS normalization probe now share the same configured frequency-pack resolver in the core helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
 - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
 - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts

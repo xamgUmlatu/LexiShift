@@ -12,9 +12,11 @@ from lexishift_core import (
     resolve_allowed_pairs,
     seed_to_selector_candidates,
 )
-from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+from lexishift_core.helper.frequency_packs import (
+    FrequencyPackRef,
+    resolve_configured_frequency_pack,
+)
 from lexishift_core.helper.lp_capabilities import (
-    default_frequency_db_path,
     default_jmdict_path,
     resolve_pair_capability,
 )
@@ -41,12 +43,12 @@ class MainWindowSrsMixin:
             candidates = []
             for pair in allowed_pairs:
                 capability = resolve_pair_capability(pair)
-                frequency_db_path = self._resolve_frequency_db_for_pair(
+                frequency_pack = self._resolve_frequency_pack_for_pair(
                     pair,
                     frequency_pack_paths=frequency_pack_paths,
                     managed_frequency_pack_ids=managed_frequency_pack_ids,
                 )
-                if not frequency_db_path or not frequency_db_path.exists():
+                if not frequency_pack or not frequency_pack.path.exists():
                     continue
                 jmdict_path = self._resolve_jmdict_for_pair(
                     pair,
@@ -63,7 +65,7 @@ class MainWindowSrsMixin:
                     require_jmdict=capability.requires_jmdict_for_seed,
                 )
                 seeds = build_seed_candidates(
-                    frequency_db=frequency_db_path,
+                    frequency_db=frequency_pack.path,
                     config=seed_config,
                 )
                 candidates.extend(seed_to_selector_candidates(seeds))
@@ -102,48 +104,21 @@ class MainWindowSrsMixin:
         except Exception as exc:
             self._append_log(t("logs.srs_seed_failed", error=str(exc)))
 
-    def _resolve_frequency_db_for_pair(
+    def _resolve_frequency_pack_for_pair(
         self,
         pair: str,
         *,
         frequency_pack_paths: dict[str, str],
         managed_frequency_pack_ids: tuple[str, ...] = (),
-    ) -> Optional[Path]:
+    ) -> Optional[FrequencyPackRef]:
         frequency_dir = _app_data_dir() / "frequency_packs"
-        capability = resolve_pair_capability(pair)
-        default_db_name = None
-        default_pack_id = None
-        default_db_path = default_frequency_db_path(pair, frequency_packs_dir=frequency_dir)
-        if default_db_path:
-            default_db_name = default_db_path.name
-            default_pack_id = (
-                Path(capability.default_frequency_db).stem
-                if capability.default_frequency_db
-                else None
-            )
-        if default_pack_id and default_pack_id in managed_frequency_pack_ids:
-            managed = resolve_installed_pack_artifact(frequency_dir, default_pack_id)
-            if managed is not None and managed.is_file():
-                return managed
-        lookup_keys: list[str] = []
-        if default_db_name:
-            if default_db_name.endswith(".sqlite"):
-                lookup_keys.append(default_db_name[: -len(".sqlite")])
-            lookup_keys.append(default_db_name)
-        for key in lookup_keys:
-            raw_path = str(frequency_pack_paths.get(key, "")).strip()
-            if not raw_path:
-                continue
-            candidate = Path(raw_path)
-            if candidate.is_file():
-                return candidate
-            if candidate.is_dir() and default_db_name:
-                nested = candidate / default_db_name
-                if nested.is_file():
-                    return nested
-        if default_db_path and default_db_path.is_file():
-            return default_db_path
-        return None
+        resolved, _resolution = resolve_configured_frequency_pack(
+            pair,
+            frequency_packs_dir=frequency_dir,
+            settings_frequency_pack_paths=frequency_pack_paths,
+            managed_frequency_pack_ids=managed_frequency_pack_ids,
+        )
+        return resolved
 
     def _resolve_jmdict_for_pair(
         self,

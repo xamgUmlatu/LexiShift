@@ -97,7 +97,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
 - Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, translation pack refs honor managed manifests, helper rulegen debug and installed journey staging both use the normalized translation-pack seam, helper/runtime expose a first frequency pack-ref seam, app-state normalization migrates old managed embedding paths into pack-id-first per-pair activation, and the settings UI now makes the installed-vs-manual resource boundary explicit
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, managed-embedding settings persistence cleanup, embedding path-migration tests, helper/native-host/internal translation-dictionary seam cleanup, settings/state migration tests for managed translation/frequency/embedding pack ids, `main.sqlite` convergence for managed translation and frequency installs with legacy fallback coverage, settings-table installed/manual status coverage, and an SRS quality harness refresh
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, the shared configured frequency-pack resolver now used by GUI SRS growth and the POS probe, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, managed-embedding settings persistence cleanup, embedding path-migration tests, helper/native-host/internal translation-dictionary seam cleanup, settings/state migration tests for managed translation/frequency/embedding pack ids, `main.sqlite` convergence for managed translation and frequency installs with legacy fallback coverage, settings-table installed/manual status coverage, and an SRS quality harness refresh
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -121,6 +121,7 @@ Use this file when:
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
     - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution and runtime diagnostics can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
+    - GUI SRS growth and the POS normalization probe now share a configured frequency-pack resolver from the helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
     - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
     - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
     - GUI embedding-pack downloads now install into stable per-pack roots under `embedding_packs/<pack_id>/`
@@ -174,6 +175,7 @@ Use this file when:
   - `core/tests/helper/test_installed_packs.py`
   - `core/tests/helper/test_lp_capabilities.py`
   - `core/tests/helper/test_frequency_packs.py`
+  - `core/tests/dev/test_pos_normalization_probe.py`
   - `core/tests/helper/test_pair_resources.py`
   - `core/tests/helper/test_helper_engine.py`
   - `apps/gui/tests/test_main_settings_resource_persistence.py`
@@ -191,7 +193,7 @@ Use this file when:
   - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some benchmark/tooling flows even though app-managed installs now build to SQLite and the main helper/GUI/harness consumers now prefer SQLite-first paths.
   - Managed embedding activation no longer needs persisted app-owned artifact paths, but parts of the settings UI still build temporary path maps internally before splitting managed ids back out on save.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
-  - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names inside the pack root during migration.
+  - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names as fallback paths during migration.
   - Translation consumers still include TEI-compatible assumptions in some benchmark/tooling paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, helper/runtime diagnostics, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses plus installed journey staging.
 
 ## `de-en` Baseline Rulegen Enablement

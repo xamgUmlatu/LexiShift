@@ -17,9 +17,8 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore  # noqa: E402
-from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact  # noqa: E402
+from lexishift_core.helper.frequency_packs import resolve_configured_frequency_pack  # noqa: E402
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
-    default_frequency_db_path,
     default_jmdict_path,
     resolve_pair_capability,
 )
@@ -261,39 +260,13 @@ def _resolve_frequency_db_for_pair(
     settings_frequency_pack_paths: dict[str, str],
     managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> tuple[Path | None, str]:
-    capability = resolve_pair_capability(pair)
-    default_db_path = default_frequency_db_path(pair, frequency_packs_dir=frequency_packs_dir)
-    if default_db_path is None:
-        return None, "no_default_declared"
-    default_name = default_db_path.name
-    default_pack_id = (
-        Path(capability.default_frequency_db).stem if capability.default_frequency_db else ""
+    resolved_pack, resolution = resolve_configured_frequency_pack(
+        pair,
+        frequency_packs_dir=frequency_packs_dir,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
     )
-    if default_pack_id and default_pack_id in managed_frequency_pack_ids:
-        managed = resolve_installed_pack_artifact(frequency_packs_dir, default_pack_id)
-        if managed is not None and managed.is_file():
-            return managed, f"managed:{default_pack_id}"
-    lookup_keys: list[str] = []
-    if default_name.endswith(".sqlite"):
-        lookup_keys.append(default_name[: -len(".sqlite")])
-    lookup_keys.append(default_name)
-
-    for key in lookup_keys:
-        raw_path = str(settings_frequency_pack_paths.get(key, "")).strip()
-        if not raw_path:
-            continue
-        candidate = Path(raw_path).expanduser().resolve(strict=False)
-        if candidate.is_file():
-            return candidate, f"linked:{key}"
-        if candidate.is_dir():
-            nested = candidate / default_name
-            if nested.is_file():
-                return nested, f"linked_dir:{key}"
-
-    fallback = default_db_path.expanduser().resolve(strict=False)
-    if fallback.is_file():
-        return fallback, "fallback_default"
-    return None, "missing"
+    return (resolved_pack.path if resolved_pack is not None else None), resolution
 
 
 def _resolve_jmdict_for_pair(

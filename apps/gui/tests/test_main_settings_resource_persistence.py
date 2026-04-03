@@ -104,7 +104,7 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     assert "freq-en-coca" not in synonyms.frequency_pack_paths
 
 
-def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
+def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         pack_root = root / "frequency_packs" / "freq-en-coca"
@@ -124,10 +124,12 @@ def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_
         dummy = SimpleNamespace()
 
         with patch("main_srs_mixin._app_data_dir", return_value=root):
-            resolved = MainWindow._resolve_frequency_db_for_pair(
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
                 dummy,
                 "es-en",
                 frequency_pack_paths={},
             )
 
-    assert resolved == fallback
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == fallback.resolve(strict=False)
+    assert resolved.pack_id == "freq-en-coca"
