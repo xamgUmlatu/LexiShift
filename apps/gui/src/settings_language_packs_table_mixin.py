@@ -19,7 +19,12 @@ from language_packs import (
     FREQUENCY_PACKS,
     LANGUAGE_PACKS,
 )
-from settings_language_packs_support import EmbeddingPackRow, FrequencyPackRow, LanguagePackRow
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    EmbeddingPackRow,
+    FrequencyPackRow,
+    LanguagePackRow,
+)
 
 
 class LanguagePackPanelTableMixin:
@@ -47,20 +52,22 @@ class LanguagePackPanelTableMixin:
             pack = self._language_pack_info.get(pack_id)
             if not pack:
                 continue
+            binding = self._language_resource_binding(pack_id)
             row.status_item.setToolTip("")
             self._set_status_item_tone(row.status_item, "neutral")
             dest_path = self._download_archive_path(pack)
             resolved_path = self._resolve_downloaded_path(pack)
-            local_path = self._language_pack_paths.get(pack_id)
+            local_path = self._language_resource_effective_path(pack_id)
             if local_path:
                 valid, message = self._validate_language_pack_path(pack, local_path)
                 if valid:
-                    row.status_item.setText(t(self._language_pack_status_key(pack_id, local_path)))
+                    status_key = self._language_pack_status_key(pack_id, local_path)
+                    if binding and binding.origin == LANGUAGE_RESOURCE_ORIGIN_MANAGED:
+                        status_key = "language_packs.status.installed"
+                    row.status_item.setText(t(status_key))
                     self._set_status_item_tone(
                         row.status_item,
-                        "success"
-                        if self._is_installed_language_pack_entry(pack_id, local_path)
-                        else "info",
+                        "success" if status_key == "language_packs.status.installed" else "info",
                     )
                     row.status_item.setToolTip(local_path)
                 else:

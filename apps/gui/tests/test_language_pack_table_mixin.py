@@ -11,6 +11,13 @@ from PySide6.QtWidgets import QApplication
 
 from i18n import set_locale
 from settings_language_packs import LanguagePackPanel
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+    LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+    LanguageResourceBinding,
+)
 
 
 def _app() -> QApplication:
@@ -42,7 +49,14 @@ def test_language_pack_table_marks_managed_artifact_as_installed() -> None:
         panel._language_pack_dir = str(root / "language_packs")
         managed = root / "language_packs" / "freedict-en-es" / "main.sqlite"
         _write_sqlite_header(managed)
-        panel._language_pack_paths = {"freedict-en-es": str(managed)}
+        panel._language_resource_bindings = {
+            "freedict-en-es": LanguageResourceBinding(
+                pack_id="freedict-en-es",
+                family=LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                effective_path=str(managed),
+            )
+        }
 
         panel._refresh_language_pack_table()
 
@@ -62,13 +76,45 @@ def test_language_pack_table_marks_external_translation_source_as_manual() -> No
         manual = root / "manual" / "eng-spa.tei"
         manual.parent.mkdir(parents=True, exist_ok=True)
         manual.write_text("<tei/>", encoding="utf-8")
-        panel._language_pack_paths = {"freedict-en-es": str(manual)}
+        panel._language_resource_bindings = {
+            "freedict-en-es": LanguageResourceBinding(
+                pack_id="freedict-en-es",
+                family=LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path=str(manual),
+            )
+        }
 
         panel._refresh_language_pack_table()
 
         row = panel._language_pack_rows["freedict-en-es"]
         assert row.status_item.text() == "Manual"
         assert row.status_item.toolTip() == str(manual)
+
+
+def test_language_pack_table_marks_secondary_source_as_manual_from_binding() -> None:
+    _app()
+    set_locale("en")
+    panel = LanguagePackPanel()
+
+    with TemporaryDirectory() as temp_dir:
+        wordnet_dir = Path(temp_dir) / "wordnet"
+        wordnet_dir.mkdir(parents=True, exist_ok=True)
+        (wordnet_dir / "entries-a.json").write_text("[]", encoding="utf-8")
+        panel._language_resource_bindings = {
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path=str(wordnet_dir),
+            )
+        }
+
+        panel._refresh_language_pack_table()
+
+        row = panel._language_pack_rows["wordnet-en"]
+        assert row.status_item.text() == "Manual"
+        assert row.status_item.toolTip() == str(wordnet_dir)
 
 
 def test_frequency_pack_table_marks_managed_artifact_as_installed() -> None:

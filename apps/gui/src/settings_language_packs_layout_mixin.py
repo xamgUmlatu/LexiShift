@@ -22,6 +22,9 @@ class LanguagePackPanelLayoutMixin:
         header_row.addStretch(1)
         header_row.addWidget(self.open_language_pack_button)
         layout.addLayout(header_row)
+        description = QLabel(t("language_packs.language_description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.language_pack_table)
         return tab
 

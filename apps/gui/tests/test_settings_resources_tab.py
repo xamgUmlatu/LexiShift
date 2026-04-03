@@ -48,3 +48,14 @@ def test_resources_tab_has_dedicated_resource_subviews() -> None:
     assert tabs.tabText(1) == t("language_packs.frequency_title")
     assert tabs.tabText(2) == t("language_packs.embeddings_title")
     assert tabs.tabText(3) == t("language_packs.cross_embeddings_title")
+
+
+def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    panel = dialog.language_pack_panel
+    language_tab = panel._resource_tabs.widget(0)
+    labels = language_tab.findChildren(type(panel.language_pack_status))
+
+    assert any(label.text() == t("language_packs.language_description") for label in labels)

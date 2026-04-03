@@ -430,6 +430,7 @@
   "language_packs": {
     "title": "言語パック",
     "open_directory": "ローカルディレクトリを開く",
+    "language_description": "アプリ管理の翻訳パックは最適化済みの SQLite アーティファクトとしてインストールされます。手動で選択したものは、二次的またはカスタムなリソース向けの外部インポートパスとして扱われます。",
     "frequency_title": "頻度パック",
     "frequency_description": "頻度パックは学習や SRS の語彙重み付けに使用します。",
     "frequency_open_directory": "頻度ディレクトリを開く",

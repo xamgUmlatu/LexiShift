@@ -54,6 +54,19 @@ class LanguagePackPanelStateMixin:
     def language_resource_bindings(self) -> dict[str, LanguageResourceBinding]:
         return dict(getattr(self, "_language_resource_bindings", {}) or {})
 
+    def _language_resource_binding(self, pack_id: str) -> LanguageResourceBinding | None:
+        binding = getattr(self, "_language_resource_bindings", {}).get(pack_id)
+        return binding if isinstance(binding, LanguageResourceBinding) else None
+
+    def _language_resource_effective_path(self, pack_id: str) -> str | None:
+        binding = self._language_resource_binding(pack_id)
+        if binding:
+            path_text = str(binding.effective_path or "").strip()
+            if path_text:
+                return path_text
+        path_text = str(getattr(self, "_language_pack_paths", {}).get(pack_id, "")).strip()
+        return path_text or None
+
     def frequency_paths(self) -> dict[str, str]:
         paths: dict[str, str] = {}
         for pack_id, path in self._frequency_pack_paths.items():

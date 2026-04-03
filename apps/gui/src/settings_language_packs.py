@@ -368,7 +368,7 @@ class LanguagePackPanel(
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
             return
-        local_path = self._language_pack_paths.get(pack_id)
+        local_path = self._language_resource_effective_path(pack_id)
         storage_dir = str(self._language_pack_storage_dir(pack))
         archive_path = self._download_archive_path(pack)
         resolved_path = self._resolve_downloaded_path(pack)
@@ -655,7 +655,7 @@ class LanguagePackPanel(
 
     def _auto_link_downloaded_packs(self) -> None:
         for pack_id, pack in self._language_pack_info.items():
-            if pack_id in self._language_pack_paths or pack_id in self._managed_language_pack_ids:
+            if self._language_resource_binding(pack_id):
                 continue
             candidate = self._resolve_downloaded_path(pack)
             if not candidate:
