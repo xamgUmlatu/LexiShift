@@ -97,7 +97,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
 - Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, translation pack refs honor managed manifests, helper rulegen debug and installed journey staging both use the normalized translation-pack seam, the bulk-rules GUI resolves managed SQLite artifacts first, helper/runtime expose a first frequency pack-ref seam, managed embedding activation now has a first pack-id-based runtime seam, and the internal helper translation-dictionary contract now prefers generic naming end to end
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, managed-embedding settings persistence cleanup, helper/native-host/internal translation-dictionary seam cleanup, settings/state migration tests for managed translation/frequency pack ids, and an SRS quality harness refresh
+- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, managed-embedding settings persistence cleanup, helper/native-host/internal translation-dictionary seam cleanup, settings/state migration tests for managed translation/frequency pack ids, `main.sqlite` convergence for managed frequency installs with legacy fallback coverage, and an SRS quality harness refresh
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -121,6 +121,7 @@ Use this file when:
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
     - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution and runtime diagnostics can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
+    - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
     - GUI embedding-pack downloads now install into stable per-pack roots under `embedding_packs/<pack_id>/`
     - app-managed embedding-pack downloads now normalize to SQLite and write `manifest.json` only after successful conversion
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
@@ -134,7 +135,7 @@ Use this file when:
     - FreeDict translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files and older extracted directories remain compatibility inputs during migration
     - Kaikki translation packs already expose compiled SQLite
     - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, but secondary language-pack families still keep path-shaped settings until their promotion decision is made
-    - frequency packs already expose SQLite, but still use pack-specific artifact filenames during migration
+    - frequency packs already expose SQLite, and new app-managed installs now use `main.sqlite`, but legacy `freq-*.sqlite` names still remain valid fallback paths during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
     - managed embedding settings still keep direct artifact-path maps for compatibility/manual imports, but app-managed artifact paths no longer need to be re-persisted once pack-id activation is available
 - Evidence:
@@ -175,6 +176,7 @@ Use this file when:
   - `apps/gui/tests/test_main_settings_resource_persistence.py`
   - `apps/gui/tests/test_main_embedding_pack_resolution.py`
   - `apps/gui/tests/test_language_pack_panel_state_mixin.py`
+  - `apps/gui/tests/test_language_pack_path_mixin.py`
   - `apps/gui/tests/test_state_resource_settings_migration.py`
   - `core/tests/helper/test_embedding_packs.py`
   - `core/tests/dev/test_srs_harness_resource_normalization.py`

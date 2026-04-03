@@ -188,7 +188,7 @@ class TestLpCapabilities(unittest.TestCase):
             frequency_packs_dir = Path(tmp)
             pack_root = frequency_packs_dir / "freq-en-coca"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freq-en-coca.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 frequency_packs_dir,
@@ -199,7 +199,7 @@ class TestLpCapabilities(unittest.TestCase):
                 build_mode="convert_archive",
                 artifact_path=artifact,
                 source_filename="lemmas_60k.txt",
-                sqlite_filename="freq-en-coca.sqlite",
+                sqlite_filename="main.sqlite",
             )
             resolved = default_frequency_db_path(
                 "en-en",
@@ -214,7 +214,7 @@ class TestLpCapabilities(unittest.TestCase):
             frequency_packs_dir = Path(tmp)
             pack_root = frequency_packs_dir / "freq-de-default"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freq-de-default.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 frequency_packs_dir,
@@ -224,13 +224,24 @@ class TestLpCapabilities(unittest.TestCase):
                 local_kind="file",
                 build_mode="de_frequency_pipeline",
                 artifact_path=artifact,
-                sqlite_filename="freq-de-default.sqlite",
+                sqlite_filename="main.sqlite",
             )
             resolved = default_frequency_db_path(
                 "de-de",
                 frequency_packs_dir=frequency_packs_dir,
             )
         self.assertEqual(resolved, artifact)
+
+    def test_en_en_default_frequency_db_falls_back_to_legacy_filename_without_manifest(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            resolved = default_frequency_db_path(
+                "en-en",
+                frequency_packs_dir=frequency_packs_dir,
+            )
+        self.assertEqual(resolved, frequency_packs_dir / "freq-en-coca.sqlite")
 
 
 if __name__ == "__main__":

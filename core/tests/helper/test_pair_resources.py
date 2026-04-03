@@ -64,7 +64,7 @@ class TestPairResources(unittest.TestCase):
             paths = build_helper_paths(Path(tmp))
             pack_root = paths.frequency_packs_dir / "freq-es-cde"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freq-es-cde.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 paths.frequency_packs_dir,
@@ -74,7 +74,7 @@ class TestPairResources(unittest.TestCase):
                 local_kind="file",
                 build_mode="convert_archive",
                 artifact_path=artifact,
-                sqlite_filename="freq-es-cde.sqlite",
+                sqlite_filename="main.sqlite",
             )
             _resolved_jmdict, _resolved_translation, resolved_frequency = resolve_pair_resources(
                 paths,
@@ -100,7 +100,7 @@ class TestPairResources(unittest.TestCase):
                 local_kind="file",
                 build_mode="convert_archive",
                 artifact_path=artifact,
-                sqlite_filename="freq-en-coca.sqlite",
+                sqlite_filename="main.sqlite",
             )
             resolved = resolve_pair_frequency_pack(paths, pair="en-en")
         assert resolved is not None

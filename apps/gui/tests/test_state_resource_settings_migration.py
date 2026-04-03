@@ -42,7 +42,7 @@ def test_load_settings_migrates_managed_translation_and_frequency_paths() -> Non
             local_kind="file",
             build_mode="convert_archive",
             artifact_path=frequency_artifact,
-            sqlite_filename="freq-en-coca.sqlite",
+            sqlite_filename="main.sqlite",
         )
 
         settings_path = root / "settings.json"

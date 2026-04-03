@@ -119,7 +119,7 @@ def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_
             local_kind="file",
             build_mode="convert_archive",
             artifact_path=fallback,
-            sqlite_filename="freq-en-coca.sqlite",
+            sqlite_filename="main.sqlite",
         )
         dummy = SimpleNamespace()
 

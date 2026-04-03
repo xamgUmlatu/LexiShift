@@ -30,7 +30,7 @@ class TestFrequencyPacks(unittest.TestCase):
                 local_kind="file",
                 build_mode="convert_archive",
                 artifact_path=artifact,
-                sqlite_filename="freq-en-coca.sqlite",
+                sqlite_filename="main.sqlite",
             )
             resolved = build_frequency_pack_ref("en-en", artifact)
         assert resolved is not None
