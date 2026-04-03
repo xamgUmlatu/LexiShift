@@ -17,6 +17,7 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore  # noqa: E402
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact  # noqa: E402
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_frequency_db_path,
     default_jmdict_path,
@@ -25,6 +26,10 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
 from lexishift_core.helper.pair_resources import resolve_stopwords_path  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths, resolve_data_root  # noqa: E402
 from lexishift_core.pos.normalization import normalize_pos  # noqa: E402
+from lexishift_core.persistence.settings import (  # noqa: E402
+    SynonymSourceSettings,
+    load_app_settings,
+)
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 
 
@@ -240,22 +245,13 @@ def _counter_to_rows(counter: Counter[str], *, limit: int | None = None) -> list
     return rows
 
 
-def _load_settings_maps(settings_path: Path) -> tuple[dict[str, str], dict[str, str]]:
+def _load_synonym_settings(settings_path: Path) -> SynonymSourceSettings | None:
     if not settings_path.exists():
-        return {}, {}
+        return None
     try:
-        payload = json.loads(settings_path.read_text(encoding="utf-8"))
+        return load_app_settings(settings_path).synonyms
     except Exception:  # noqa: BLE001
-        return {}, {}
-    synonyms = payload.get("synonyms")
-    if not isinstance(synonyms, dict):
-        return {}, {}
-    language_packs = synonyms.get("language_packs")
-    frequency_packs = synonyms.get("frequency_packs")
-    return (
-        dict(language_packs) if isinstance(language_packs, dict) else {},
-        dict(frequency_packs) if isinstance(frequency_packs, dict) else {},
-    )
+        return None
 
 
 def _resolve_frequency_db_for_pair(
@@ -263,11 +259,20 @@ def _resolve_frequency_db_for_pair(
     *,
     frequency_packs_dir: Path,
     settings_frequency_packs: dict[str, str],
+    managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> tuple[Path | None, str]:
+    capability = resolve_pair_capability(pair)
     default_db_path = default_frequency_db_path(pair, frequency_packs_dir=frequency_packs_dir)
     if default_db_path is None:
         return None, "no_default_declared"
     default_name = default_db_path.name
+    default_pack_id = (
+        Path(capability.default_frequency_db).stem if capability.default_frequency_db else ""
+    )
+    if default_pack_id and default_pack_id in managed_frequency_pack_ids:
+        managed = resolve_installed_pack_artifact(frequency_packs_dir, default_pack_id)
+        if managed is not None and managed.is_file():
+            return managed, f"managed:{default_pack_id}"
     lookup_keys: list[str] = []
     if default_name.endswith(".sqlite"):
         lookup_keys.append(default_name[: -len(".sqlite")])
@@ -385,12 +390,14 @@ def _build_pair_probe(
     paths: Any,
     settings_language_packs: dict[str, str],
     settings_frequency_packs: dict[str, str],
+    managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     capability = resolve_pair_capability(pair)
     frequency_path, frequency_resolution = _resolve_frequency_db_for_pair(
         pair,
         frequency_packs_dir=paths.frequency_packs_dir,
         settings_frequency_packs=settings_frequency_packs,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
     )
     stopwords_path = resolve_stopwords_path(paths, pair=pair)
     require_jmdict = bool(capability.requires_jmdict_for_seed)
@@ -575,7 +582,12 @@ def _build_report(
     data_root: Path,
 ) -> dict[str, Any]:
     paths = build_helper_paths(root=data_root)
-    settings_language_packs, settings_frequency_packs = _load_settings_maps(paths.app_settings_path)
+    synonym_settings = _load_synonym_settings(paths.app_settings_path)
+    settings_language_packs = dict(getattr(synonym_settings, "language_packs", {}) or {})
+    settings_frequency_packs = dict(getattr(synonym_settings, "frequency_packs", {}) or {})
+    managed_frequency_pack_ids = tuple(
+        getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()
+    )
     pair_reports: dict[str, dict[str, Any]] = {}
     source_pack_reports: dict[str, dict[str, Any]] = {}
     used_frequency_paths: set[Path] = set()
@@ -588,6 +600,7 @@ def _build_report(
             paths=paths,
             settings_language_packs=settings_language_packs,
             settings_frequency_packs=settings_frequency_packs,
+            managed_frequency_pack_ids=managed_frequency_pack_ids,
         )
         pair_reports[pair] = payload
         frequency_path = payload.get("frequency_db_path")
