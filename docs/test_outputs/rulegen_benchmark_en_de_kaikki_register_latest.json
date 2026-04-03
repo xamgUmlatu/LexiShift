@@ -1,0 +1,1868 @@
+{
+  "generated_at": "2026-04-03T22:56:38.468878+00:00",
+  "dataset_path": "docs/test_inputs/rulegen_benchmark_cases",
+  "dataset_metadata": {
+    "version": 1,
+    "name": "LexiShift Rulegen Benchmark Cases",
+    "description": "Merged rulegen benchmark dataset loaded from LP-specific source files.",
+    "source_layout": "directory",
+    "source_directory": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+    "source_files": [
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_de.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/es_en.json"
+    ],
+    "pairs": [
+      "en-de",
+      "en-es",
+      "en-ja",
+      "es-en"
+    ]
+  },
+  "profile_id": "default",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "sweep": {
+    "pair_filter": [
+      "en-de"
+    ],
+    "configuration_count": 2,
+    "jobs": 1,
+    "word_package_snapshot_json": null,
+    "preset": null,
+    "objective_weights": {
+      "top1_accuracy": 100.0,
+      "top3_recall": 60.0,
+      "forbidden_top1_rate": 120.0,
+      "forbidden_any_rate": 80.0,
+      "avg_rules_per_target": 6.0,
+      "variant_top1_rate": 10.0
+    }
+  },
+  "resources": {
+    "en-de": {
+      "jmdict_path": null,
+      "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-de-en/main.sqlite",
+      "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-deu-1.9-fd1.src/eng-deu.tei",
+      "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "checksums": {
+        "jmdict_sha256": null,
+        "translation_dict_sha256": "sha256:434659f255624a5a16133016eb3c2b8bf48610e87d5931f698382c2a2391e63c",
+        "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77",
+        "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
+      }
+    }
+  },
+  "timing": {
+    "total_recorded_seconds": 0.3245549960411154,
+    "phases": {
+      "build_resource_payload": {
+        "total_seconds": 0.0010999160003848374,
+        "count": 1,
+        "avg_seconds": 0.0010999160003848374
+      },
+      "build_sweep_configs": {
+        "total_seconds": 6.854103412479162e-05,
+        "count": 1,
+        "avg_seconds": 6.854103412479162e-05
+      },
+      "build_word_packages": {
+        "total_seconds": 7.454102160409093e-05,
+        "count": 1,
+        "avg_seconds": 7.454102160409093e-05
+      },
+      "compile_pair_context": {
+        "total_seconds": 8.666014764457941e-06,
+        "count": 1,
+        "avg_seconds": 8.666014764457941e-06
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.0007988330326043069,
+        "count": 2,
+        "avg_seconds": 0.00039941651630215347
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 2,
+        "avg_seconds": 0.0
+      },
+      "load_dataset": {
+        "total_seconds": 0.003058083006180823,
+        "count": 1,
+        "avg_seconds": 0.003058083006180823
+      },
+      "load_store": {
+        "total_seconds": 0.003303124976810068,
+        "count": 1,
+        "avg_seconds": 0.003303124976810068
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 0.1011183750233613,
+        "count": 1,
+        "avg_seconds": 0.1011183750233613
+      },
+      "rehydrate_best_run_case_results": {
+        "total_seconds": 0.06462949997512624,
+        "count": 1,
+        "avg_seconds": 0.06462949997512624
+      },
+      "render_html": {
+        "total_seconds": 0.0018547910149209201,
+        "count": 1,
+        "avg_seconds": 0.0018547910149209201
+      },
+      "render_markdown": {
+        "total_seconds": 2.416700590401888e-05,
+        "count": 1,
+        "avg_seconds": 2.416700590401888e-05
+      },
+      "resolve_resources": {
+        "total_seconds": 0.003886958002112806,
+        "count": 1,
+        "avg_seconds": 0.003886958002112806
+      },
+      "run_config": {
+        "total_seconds": 0.14458008395740762,
+        "count": 2,
+        "avg_seconds": 0.07229004197870381
+      },
+      "sort_pair_runs": {
+        "total_seconds": 2.707995008677244e-06,
+        "count": 1,
+        "avg_seconds": 2.707995008677244e-06
+      },
+      "summarize_run": {
+        "total_seconds": 4.6707980800420046e-05,
+        "count": 2,
+        "avg_seconds": 2.3353990400210023e-05
+      }
+    },
+    "pairs": {
+      "en-de": {
+        "build_resource_payload": {
+          "total_seconds": 0.0010999160003848374,
+          "count": 1,
+          "avg_seconds": 0.0010999160003848374
+        },
+        "build_word_packages": {
+          "total_seconds": 7.454102160409093e-05,
+          "count": 1,
+          "avg_seconds": 7.454102160409093e-05
+        },
+        "compile_pair_context": {
+          "total_seconds": 8.666014764457941e-06,
+          "count": 1,
+          "avg_seconds": 8.666014764457941e-06
+        },
+        "evaluate_cases": {
+          "total_seconds": 0.0007988330326043069,
+          "count": 2,
+          "avg_seconds": 0.00039941651630215347
+        },
+        "group_rules": {
+          "total_seconds": 0.0,
+          "count": 2,
+          "avg_seconds": 0.0
+        },
+        "preload_translation_gloss_records": {
+          "total_seconds": 0.1011183750233613,
+          "count": 1,
+          "avg_seconds": 0.1011183750233613
+        },
+        "rehydrate_best_run_case_results": {
+          "total_seconds": 0.06462949997512624,
+          "count": 1,
+          "avg_seconds": 0.06462949997512624
+        },
+        "resolve_resources": {
+          "total_seconds": 0.003886958002112806,
+          "count": 1,
+          "avg_seconds": 0.003886958002112806
+        },
+        "run_config": {
+          "total_seconds": 0.14458008395740762,
+          "count": 2,
+          "avg_seconds": 0.07229004197870381
+        },
+        "sort_pair_runs": {
+          "total_seconds": 2.707995008677244e-06,
+          "count": 1,
+          "avg_seconds": 2.707995008677244e-06
+        },
+        "summarize_run": {
+          "total_seconds": 4.6707980800420046e-05,
+          "count": 2,
+          "avg_seconds": 2.3353990400210023e-05
+        }
+      }
+    },
+    "wall_clock_seconds": 0.3285140839871019
+  },
+  "pairs": {
+    "en-de": {
+      "case_count": 58,
+      "run_count": 2,
+      "resources": {
+        "jmdict_path": null,
+        "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-de-en/main.sqlite",
+        "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-deu-1.9-fd1.src/eng-deu.tei",
+        "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+        "checksums": {
+          "jmdict_sha256": null,
+          "translation_dict_sha256": "sha256:434659f255624a5a16133016eb3c2b8bf48610e87d5931f698382c2a2391e63c",
+          "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77",
+          "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
+        }
+      },
+      "word_package_snapshot": {
+        "Antwort": null,
+        "Arbeit": null,
+        "Auge": null,
+        "Auto": null,
+        "Baum": null,
+        "Beispiel": null,
+        "Buch": null,
+        "Chef": null,
+        "Fall": null,
+        "Familie": null,
+        "Fenster": null,
+        "Frage": null,
+        "Freund": null,
+        "Fuß": null,
+        "Garten": null,
+        "Geld": null,
+        "Geschichte": null,
+        "Gesicht": null,
+        "Gift": null,
+        "Grund": null,
+        "Hand": null,
+        "Haus": null,
+        "Herz": null,
+        "Idee": null,
+        "Jahr": null,
+        "Kind": null,
+        "Kopf": null,
+        "Leben": null,
+        "Liebe": null,
+        "Minute": null,
+        "Monat": null,
+        "Morgen": null,
+        "Mund": null,
+        "Mutter": null,
+        "Nacht": null,
+        "Name": null,
+        "Ohr": null,
+        "Preis": null,
+        "Problem": null,
+        "Schule": null,
+        "Sprache": null,
+        "Stadt": null,
+        "Stimme": null,
+        "Straße": null,
+        "Stuhl": null,
+        "Stunde": null,
+        "Tag": null,
+        "Tisch": null,
+        "Tür": null,
+        "Vater": null,
+        "Wasser": null,
+        "Weg": null,
+        "Welt": null,
+        "Woche": null,
+        "Wort": null,
+        "Zeit": null,
+        "Zimmer": null,
+        "Zug": null
+      },
+      "best_run": {
+        "pair": "en-de",
+        "run_index": 1,
+        "config": {
+          "max_definitions_per_target": 3,
+          "max_rules_per_target": 1,
+          "interleave_definition_groups": false,
+          "sense_representative_selection": true,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.6,
+          "score_weight_frequency_weight": 0.2,
+          "score_weight_pos_match": 0.0,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.2,
+          "reverse_check_near_bonus": 0.1,
+          "reverse_check_near_rank_max": 2,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.2,
+          "reverse_check_exact_hit_ambiguity_threshold": 0,
+          "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+          "kaikki_policy_register_demotion": false,
+          "kaikki_policy_live_demotion": false,
+          "kaikki_policy_risk_families": [
+            "math_geometry",
+            "government_law",
+            "hunting_fishing_tools",
+            "register_region",
+            "abbreviation_ellipsis_formof"
+          ],
+          "reverse_check_exact_hit_specificity_bonus": 0.0,
+          "kaikki_policy_late_sense_penalty": 0.0,
+          "exact_gloss_demotion_enabled": false,
+          "source_frequency_prior_enabled": true,
+          "cleaner_later_competition_penalty": 0.0
+        },
+        "config_label": "md=3 mr=1 ig=off srep=on thr=0.000 sd=1.00 xdem=off sfreq=on clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+        "summary": {
+          "pair": "en-de",
+          "case_count": 58,
+          "top1_correct_count": 54,
+          "top3_contains_expected_count": 56,
+          "forbidden_top1_count": 1,
+          "forbidden_any_count": 1,
+          "avg_rules_per_target": 1.0,
+          "avg_top1_confidence": 0.02464236059958283,
+          "variant_rule_count": 0,
+          "total_rule_count": 58,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.9310344827586207,
+          "top3_recall": 0.9655172413793104,
+          "forbidden_top1_rate": 0.017241379310344827,
+          "forbidden_any_rate": 0.017241379310344827,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 141.58620689655174
+        },
+        "case_results": [
+          {
+            "case_id": "en-de:Haus",
+            "pair": "en-de",
+            "target": "Haus",
+            "rule_count": 1,
+            "top1_source": "house",
+            "top3_sources": [
+              "house"
+            ],
+            "all_sources": [
+              "house"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "house"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Wasser",
+            "pair": "en-de",
+            "target": "Wasser",
+            "rule_count": 1,
+            "top1_source": "water",
+            "top3_sources": [
+              "water"
+            ],
+            "all_sources": [
+              "water"
+            ],
+            "top1_confidence": 0.1032047893026523,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "water"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Buch",
+            "pair": "en-de",
+            "target": "Buch",
+            "rule_count": 1,
+            "top1_source": "book",
+            "top3_sources": [
+              "book"
+            ],
+            "all_sources": [
+              "book"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "book"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Welt",
+            "pair": "en-de",
+            "target": "Welt",
+            "rule_count": 1,
+            "top1_source": "world",
+            "top3_sources": [
+              "world"
+            ],
+            "all_sources": [
+              "world"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "world"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Leben",
+            "pair": "en-de",
+            "target": "Leben",
+            "rule_count": 1,
+            "top1_source": "life",
+            "top3_sources": [
+              "life"
+            ],
+            "all_sources": [
+              "life"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "life"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stadt",
+            "pair": "en-de",
+            "target": "Stadt",
+            "rule_count": 1,
+            "top1_source": "city",
+            "top3_sources": [
+              "city"
+            ],
+            "all_sources": [
+              "city"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "city"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Familie",
+            "pair": "en-de",
+            "target": "Familie",
+            "rule_count": 1,
+            "top1_source": "family",
+            "top3_sources": [
+              "family"
+            ],
+            "all_sources": [
+              "family"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "family"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Freund",
+            "pair": "en-de",
+            "target": "Freund",
+            "rule_count": 1,
+            "top1_source": "friend",
+            "top3_sources": [
+              "friend"
+            ],
+            "all_sources": [
+              "friend"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "friend"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Mutter",
+            "pair": "en-de",
+            "target": "Mutter",
+            "rule_count": 1,
+            "top1_source": "mother",
+            "top3_sources": [
+              "mother"
+            ],
+            "all_sources": [
+              "mother"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mother"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Vater",
+            "pair": "en-de",
+            "target": "Vater",
+            "rule_count": 1,
+            "top1_source": "father",
+            "top3_sources": [
+              "father"
+            ],
+            "all_sources": [
+              "father"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "father"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Liebe",
+            "pair": "en-de",
+            "target": "Liebe",
+            "rule_count": 1,
+            "top1_source": "love",
+            "top3_sources": [
+              "love"
+            ],
+            "all_sources": [
+              "love"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "love"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Geld",
+            "pair": "en-de",
+            "target": "Geld",
+            "rule_count": 1,
+            "top1_source": "money",
+            "top3_sources": [
+              "money"
+            ],
+            "all_sources": [
+              "money"
+            ],
+            "top1_confidence": 0.1531914110436373,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "money"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Schule",
+            "pair": "en-de",
+            "target": "Schule",
+            "rule_count": 1,
+            "top1_source": "school",
+            "top3_sources": [
+              "school"
+            ],
+            "all_sources": [
+              "school"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "school"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Weg",
+            "pair": "en-de",
+            "target": "Weg",
+            "rule_count": 1,
+            "top1_source": "path",
+            "top3_sources": [
+              "path"
+            ],
+            "all_sources": [
+              "path"
+            ],
+            "top1_confidence": 0.13196299663818536,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "path"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Arbeit",
+            "pair": "en-de",
+            "target": "Arbeit",
+            "rule_count": 1,
+            "top1_source": "toil",
+            "top3_sources": [
+              "toil"
+            ],
+            "all_sources": [
+              "toil"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Zeit",
+            "pair": "en-de",
+            "target": "Zeit",
+            "rule_count": 1,
+            "top1_source": "time",
+            "top3_sources": [
+              "time"
+            ],
+            "all_sources": [
+              "time"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "time"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Kind",
+            "pair": "en-de",
+            "target": "Kind",
+            "rule_count": 1,
+            "top1_source": "kid",
+            "top3_sources": [
+              "kid"
+            ],
+            "all_sources": [
+              "kid"
+            ],
+            "top1_confidence": 0.15060623800664372,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "kid"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Sprache",
+            "pair": "en-de",
+            "target": "Sprache",
+            "rule_count": 1,
+            "top1_source": "language",
+            "top3_sources": [
+              "language"
+            ],
+            "all_sources": [
+              "language"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "language"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Frage",
+            "pair": "en-de",
+            "target": "Frage",
+            "rule_count": 1,
+            "top1_source": "question",
+            "top3_sources": [
+              "question"
+            ],
+            "all_sources": [
+              "question"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "question"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Antwort",
+            "pair": "en-de",
+            "target": "Antwort",
+            "rule_count": 1,
+            "top1_source": "answer",
+            "top3_sources": [
+              "answer"
+            ],
+            "all_sources": [
+              "answer"
+            ],
+            "top1_confidence": 0.1375285144487362,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "answer"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fenster",
+            "pair": "en-de",
+            "target": "Fenster",
+            "rule_count": 1,
+            "top1_source": "window",
+            "top3_sources": [
+              "window"
+            ],
+            "all_sources": [
+              "window"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "window"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tür",
+            "pair": "en-de",
+            "target": "Tür",
+            "rule_count": 1,
+            "top1_source": "door",
+            "top3_sources": [
+              "door"
+            ],
+            "all_sources": [
+              "door"
+            ],
+            "top1_confidence": 0.14671223101048453,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "door"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Herz",
+            "pair": "en-de",
+            "target": "Herz",
+            "rule_count": 1,
+            "top1_source": "heart",
+            "top3_sources": [
+              "heart"
+            ],
+            "all_sources": [
+              "heart"
+            ],
+            "top1_confidence": 0.14488390050308564,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "heart"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Hand",
+            "pair": "en-de",
+            "target": "Hand",
+            "rule_count": 1,
+            "top1_source": "hand",
+            "top3_sources": [
+              "hand"
+            ],
+            "all_sources": [
+              "hand"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hand"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Name",
+            "pair": "en-de",
+            "target": "Name",
+            "rule_count": 1,
+            "top1_source": "name",
+            "top3_sources": [
+              "name"
+            ],
+            "all_sources": [
+              "name"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "name"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Wort",
+            "pair": "en-de",
+            "target": "Wort",
+            "rule_count": 1,
+            "top1_source": "word",
+            "top3_sources": [
+              "word"
+            ],
+            "all_sources": [
+              "word"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "word"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Baum",
+            "pair": "en-de",
+            "target": "Baum",
+            "rule_count": 1,
+            "top1_source": "tree",
+            "top3_sources": [
+              "tree"
+            ],
+            "all_sources": [
+              "tree"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "tree"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Garten",
+            "pair": "en-de",
+            "target": "Garten",
+            "rule_count": 1,
+            "top1_source": "garden",
+            "top3_sources": [
+              "garden"
+            ],
+            "all_sources": [
+              "garden"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "garden"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tag",
+            "pair": "en-de",
+            "target": "Tag",
+            "rule_count": 1,
+            "top1_source": "day",
+            "top3_sources": [
+              "day"
+            ],
+            "all_sources": [
+              "day"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "day"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Nacht",
+            "pair": "en-de",
+            "target": "Nacht",
+            "rule_count": 1,
+            "top1_source": "night",
+            "top3_sources": [
+              "night"
+            ],
+            "all_sources": [
+              "night"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "night"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Jahr",
+            "pair": "en-de",
+            "target": "Jahr",
+            "rule_count": 1,
+            "top1_source": "year",
+            "top3_sources": [
+              "year"
+            ],
+            "all_sources": [
+              "year"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "year"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Woche",
+            "pair": "en-de",
+            "target": "Woche",
+            "rule_count": 1,
+            "top1_source": "week",
+            "top3_sources": [
+              "week"
+            ],
+            "all_sources": [
+              "week"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "week"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Monat",
+            "pair": "en-de",
+            "target": "Monat",
+            "rule_count": 1,
+            "top1_source": "month",
+            "top3_sources": [
+              "month"
+            ],
+            "all_sources": [
+              "month"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "month"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stunde",
+            "pair": "en-de",
+            "target": "Stunde",
+            "rule_count": 1,
+            "top1_source": "hour",
+            "top3_sources": [
+              "hour"
+            ],
+            "all_sources": [
+              "hour"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hour"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Minute",
+            "pair": "en-de",
+            "target": "Minute",
+            "rule_count": 1,
+            "top1_source": "minute",
+            "top3_sources": [
+              "minute"
+            ],
+            "all_sources": [
+              "minute"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "minute"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Kopf",
+            "pair": "en-de",
+            "target": "Kopf",
+            "rule_count": 1,
+            "top1_source": "head",
+            "top3_sources": [
+              "head"
+            ],
+            "all_sources": [
+              "head"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "head"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Gesicht",
+            "pair": "en-de",
+            "target": "Gesicht",
+            "rule_count": 1,
+            "top1_source": "face",
+            "top3_sources": [
+              "face"
+            ],
+            "all_sources": [
+              "face"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "face"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Auge",
+            "pair": "en-de",
+            "target": "Auge",
+            "rule_count": 1,
+            "top1_source": "eye",
+            "top3_sources": [
+              "eye"
+            ],
+            "all_sources": [
+              "eye"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "eye"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Ohr",
+            "pair": "en-de",
+            "target": "Ohr",
+            "rule_count": 1,
+            "top1_source": "ear",
+            "top3_sources": [
+              "ear"
+            ],
+            "all_sources": [
+              "ear"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "ear"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Mund",
+            "pair": "en-de",
+            "target": "Mund",
+            "rule_count": 1,
+            "top1_source": "mouth",
+            "top3_sources": [
+              "mouth"
+            ],
+            "all_sources": [
+              "mouth"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mouth"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fuß",
+            "pair": "en-de",
+            "target": "Fuß",
+            "rule_count": 1,
+            "top1_source": "foot",
+            "top3_sources": [
+              "foot"
+            ],
+            "all_sources": [
+              "foot"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "foot"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tisch",
+            "pair": "en-de",
+            "target": "Tisch",
+            "rule_count": 1,
+            "top1_source": "table",
+            "top3_sources": [
+              "table"
+            ],
+            "all_sources": [
+              "table"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "table"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stuhl",
+            "pair": "en-de",
+            "target": "Stuhl",
+            "rule_count": 1,
+            "top1_source": "chair",
+            "top3_sources": [
+              "chair"
+            ],
+            "all_sources": [
+              "chair"
+            ],
+            "top1_confidence": 0.13317823519857433,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "chair"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Zimmer",
+            "pair": "en-de",
+            "target": "Zimmer",
+            "rule_count": 1,
+            "top1_source": "room",
+            "top3_sources": [
+              "room"
+            ],
+            "all_sources": [
+              "room"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "room"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Straße",
+            "pair": "en-de",
+            "target": "Straße",
+            "rule_count": 1,
+            "top1_source": "road",
+            "top3_sources": [
+              "road"
+            ],
+            "all_sources": [
+              "road"
+            ],
+            "top1_confidence": 0.09959258424560868,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "road"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Auto",
+            "pair": "en-de",
+            "target": "Auto",
+            "rule_count": 1,
+            "top1_source": "car",
+            "top3_sources": [
+              "car"
+            ],
+            "all_sources": [
+              "car"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "car"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Problem",
+            "pair": "en-de",
+            "target": "Problem",
+            "rule_count": 1,
+            "top1_source": "problem",
+            "top3_sources": [
+              "problem"
+            ],
+            "all_sources": [
+              "problem"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "problem"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Beispiel",
+            "pair": "en-de",
+            "target": "Beispiel",
+            "rule_count": 1,
+            "top1_source": "example",
+            "top3_sources": [
+              "example"
+            ],
+            "all_sources": [
+              "example"
+            ],
+            "top1_confidence": 0.13845589383464615,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "example"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Idee",
+            "pair": "en-de",
+            "target": "Idee",
+            "rule_count": 1,
+            "top1_source": "idea",
+            "top3_sources": [
+              "idea"
+            ],
+            "all_sources": [
+              "idea"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "idea"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Preis",
+            "pair": "en-de",
+            "target": "Preis",
+            "rule_count": 1,
+            "top1_source": "price",
+            "top3_sources": [
+              "price"
+            ],
+            "all_sources": [
+              "price"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "price"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Chef",
+            "pair": "en-de",
+            "target": "Chef",
+            "rule_count": 1,
+            "top1_source": "boss",
+            "top3_sources": [
+              "boss"
+            ],
+            "all_sources": [
+              "boss"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "boss"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Gift",
+            "pair": "en-de",
+            "target": "Gift",
+            "rule_count": 1,
+            "top1_source": "poison",
+            "top3_sources": [
+              "poison"
+            ],
+            "all_sources": [
+              "poison"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "poison"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fall",
+            "pair": "en-de",
+            "target": "Fall",
+            "rule_count": 1,
+            "top1_source": "fall",
+            "top3_sources": [
+              "fall"
+            ],
+            "all_sources": [
+              "fall"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": true,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": [
+              "fall"
+            ]
+          },
+          {
+            "case_id": "en-de:Zug",
+            "pair": "en-de",
+            "target": "Zug",
+            "rule_count": 1,
+            "top1_source": "train",
+            "top3_sources": [
+              "train"
+            ],
+            "all_sources": [
+              "train"
+            ],
+            "top1_confidence": 0.08994012054354991,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "train"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stimme",
+            "pair": "en-de",
+            "target": "Stimme",
+            "rule_count": 1,
+            "top1_source": "voice",
+            "top3_sources": [
+              "voice"
+            ],
+            "all_sources": [
+              "voice"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "voice"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Morgen",
+            "pair": "en-de",
+            "target": "Morgen",
+            "rule_count": 1,
+            "top1_source": "morning",
+            "top3_sources": [
+              "morning"
+            ],
+            "all_sources": [
+              "morning"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "morning"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Geschichte",
+            "pair": "en-de",
+            "target": "Geschichte",
+            "rule_count": 1,
+            "top1_source": "history",
+            "top3_sources": [
+              "history"
+            ],
+            "all_sources": [
+              "history"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "history"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Grund",
+            "pair": "en-de",
+            "target": "Grund",
+            "rule_count": 1,
+            "top1_source": "ground",
+            "top3_sources": [
+              "ground"
+            ],
+            "all_sources": [
+              "ground"
+            ],
+            "top1_confidence": 0.0,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "ground"
+            ],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "en-de",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": true,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2,
+            "reverse_check_exact_hit_ambiguity_threshold": 0,
+            "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
+            "kaikki_policy_live_demotion": false,
+            "kaikki_policy_risk_families": [
+              "math_geometry",
+              "government_law",
+              "hunting_fishing_tools",
+              "register_region",
+              "abbreviation_ellipsis_formof"
+            ],
+            "reverse_check_exact_hit_specificity_bonus": 0.0,
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": true,
+            "cleaner_later_competition_penalty": 0.0
+          },
+          "config_label": "md=3 mr=1 ig=off srep=on thr=0.000 sd=1.00 xdem=off sfreq=on clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 58,
+            "top1_correct_count": 54,
+            "top3_contains_expected_count": 56,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 1,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.02464236059958283,
+            "variant_rule_count": 0,
+            "total_rule_count": 58,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9310344827586207,
+            "top3_recall": 0.9655172413793104,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.017241379310344827,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 141.58620689655174
+          }
+        },
+        {
+          "pair": "en-de",
+          "run_index": 2,
+          "config": {
+            "max_definitions_per_target": 3,
+            "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": true,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.6,
+            "score_weight_frequency_weight": 0.2,
+            "score_weight_pos_match": 0.0,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.2,
+            "reverse_check_near_bonus": 0.1,
+            "reverse_check_near_rank_max": 2,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.2,
+            "reverse_check_exact_hit_ambiguity_threshold": 0,
+            "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": true,
+            "kaikki_policy_live_demotion": false,
+            "kaikki_policy_risk_families": [
+              "math_geometry",
+              "government_law",
+              "hunting_fishing_tools",
+              "register_region",
+              "abbreviation_ellipsis_formof"
+            ],
+            "reverse_check_exact_hit_specificity_bonus": 0.0,
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": true,
+            "cleaner_later_competition_penalty": 0.0
+          },
+          "config_label": "md=3 mr=1 ig=off srep=on thr=0.000 sd=1.00 xdem=off sfreq=on clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=on kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "summary": {
+            "pair": "en-de",
+            "case_count": 58,
+            "top1_correct_count": 54,
+            "top3_contains_expected_count": 56,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 1,
+            "avg_rules_per_target": 1.0,
+            "avg_top1_confidence": 0.02464236059958283,
+            "variant_rule_count": 0,
+            "total_rule_count": 58,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9310344827586207,
+            "top3_recall": 0.9655172413793104,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.017241379310344827,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 141.58620689655174
+          }
+        }
+      ]
+    }
+  }
+}

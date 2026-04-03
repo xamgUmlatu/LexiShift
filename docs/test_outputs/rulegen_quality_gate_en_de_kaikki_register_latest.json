@@ -1,16 +1,16 @@
 {
-  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json",
-  "policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_quality_policy.json",
-  "baseline_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/baselines/rulegen_quality_baseline.json",
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json",
+  "policy_json": "docs/test_inputs/rulegen_quality_policy.json",
+  "baseline_json": "docs/test_outputs/baselines/rulegen_quality_baseline.json",
   "dataset_json": null,
   "pair_scope": "en-de",
-  "pos_probe_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json",
-  "pos_inventory_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json",
+  "pos_probe_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json",
+  "pos_inventory_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json",
   "strict_saturation": false,
   "fail_on_warn": false,
   "summary": {
-    "pass_count": 13,
-    "warn_count": 3,
+    "pass_count": 14,
+    "warn_count": 2,
     "fail_count": 1,
     "status": "FAIL",
     "should_fail": true
@@ -23,10 +23,10 @@
       "details": null
     },
     {
-      "level": "FAIL",
-      "code": "QUALITY_FLOOR_BREACH",
-      "message": "Quality floor failed for pair 'en-de'.",
-      "details": "top1_accuracy=0.6552 below min_top1_accuracy=0.8500"
+      "level": "PASS",
+      "code": "QUALITY_FLOOR_OK",
+      "message": "Quality floor satisfied for pair 'en-de'.",
+      "details": null
     },
     {
       "level": "WARN",
@@ -35,15 +35,15 @@
       "details": null
     },
     {
-      "level": "WARN",
-      "code": "SATURATION_TOP_VECTOR_WARN",
-      "message": "Pair 'en-de' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
-      "details": "run_count=32 unique_vectors=3 top_count=16"
+      "level": "FAIL",
+      "code": "SATURATION_TOP_VECTOR_FAIL",
+      "message": "Pair 'en-de' top metric vector share=1.000 exceeds fail threshold>0.900.",
+      "details": "run_count=2 unique_vectors=1 top_count=2"
     },
     {
       "level": "WARN",
       "code": "SATURATION_UNIQUE_VECTOR_WARN",
-      "message": "Pair 'en-de' unique metric vectors=3 below expected minimum=5.",
+      "message": "Pair 'en-de' unique metric vectors=1 below expected minimum=5.",
       "details": null
     },
     {

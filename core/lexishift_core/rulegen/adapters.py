@@ -59,6 +59,7 @@ class RulegenAdapterRequest:
     compiled_pair_context: Optional[object] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     kaikki_policy_live_demotion: bool = False
+    kaikki_policy_register_demotion: bool = False
     kaikki_policy_risk_families: Optional[Sequence[str]] = None
     kaikki_policy_late_sense_penalty: float = 0.0
     enable_exact_gloss_demotions: bool = False
@@ -127,13 +128,23 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
     if translation_pack is None:
         raise ValueError("Missing translation dictionary path for en-de rule generation.")
     translation_dict_path = translation_pack.path
+    reverse_translation_pack = _resolved_reverse_translation_pack(request)
+    reverse_translation_dict_path = (
+        reverse_translation_pack.path if reverse_translation_pack is not None else None
+    )
+    reverse_source_dict_id = (
+        reverse_translation_pack.pack_id if reverse_translation_pack is not None else None
+    )
     default_kaikki_policy = EnDeKaikkiPolicyConfig()
     config = EnDeRulegenConfig(
         freedict_de_en_path=translation_dict_path,
+        reverse_freedict_en_de_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
         source_dict_id=translation_pack.pack_id,
+        reverse_source_dict_id=reverse_source_dict_id,
         dictionary_pos_source_profile=translation_pack.pos_source_profile,
         gloss_records_by_target=request.gloss_records_by_target,
+        reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
@@ -143,6 +154,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
         scoring=request.scoring,
+        reverse_check=request.reverse_check,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
@@ -152,6 +164,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         kaikki_policy=EnDeKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),
+            enable_register_demotion=bool(request.kaikki_policy_register_demotion),
             late_sense_clean_earlier_competition_penalty=max(
                 0.0,
                 float(request.kaikki_policy_late_sense_penalty),

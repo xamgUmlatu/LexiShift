@@ -230,6 +230,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     targets=("Haus",),
                     language_pair="en-de",
                     translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    kaikki_policy_register_demotion=True,
                     kaikki_policy_live_demotion=True,
                     kaikki_policy_risk_families=("government_law",),
                     kaikki_policy_late_sense_penalty=0.2,
@@ -240,11 +241,53 @@ class TestRulegenAdapters(unittest.TestCase):
         config = kwargs["config"]
         self.assertEqual(config.source_dict_id, "wiktionary_de_en")
         self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
+        self.assertTrue(config.kaikki_policy.enable_register_demotion)
         self.assertTrue(config.kaikki_policy.enable_live_demotion)
         self.assertEqual(config.kaikki_policy.risk_families, ("government_law",))
         self.assertAlmostEqual(
             config.kaikki_policy.late_sense_clean_earlier_competition_penalty,
             0.2,
+            places=6,
+        )
+
+    def test_en_de_dispatches_reverse_check_and_reverse_metadata(self) -> None:
+        reverse_check = ReverseCheckScoringConfig(
+            enabled=True,
+            match_bonus=0.23,
+            near_bonus=0.11,
+            near_rank_max=1,
+            miss_penalty=0.19,
+            exact_hit_specificity_bonus=0.13,
+        )
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    reverse_translation_dict_path=Path("/tmp/wiktionary-en-de.sqlite"),
+                    reverse_check=reverse_check,
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        config = kwargs["config"]
+        self.assertEqual(config.reverse_freedict_en_de_path, Path("/tmp/wiktionary-en-de.sqlite"))
+        self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_de")
+        self.assertTrue(config.reverse_check.enabled)
+        self.assertAlmostEqual(config.reverse_check.match_bonus, 0.23, places=6)
+        self.assertAlmostEqual(config.reverse_check.near_bonus, 0.11, places=6)
+        self.assertEqual(config.reverse_check.near_rank_max, 1)
+        self.assertAlmostEqual(config.reverse_check.miss_penalty, 0.19, places=6)
+        self.assertAlmostEqual(
+            config.reverse_check.exact_hit_specificity_bonus,
+            0.13,
             places=6,
         )
 
@@ -1409,6 +1452,47 @@ class TestRulegenAdapters(unittest.TestCase):
             ["house", "establishment", "institution"],
         )
 
+    def test_en_de_adapter_reverse_check_promotes_exact_reverse_hit(self) -> None:
+        records = {
+            "Grund": [
+                FreedictGlossRecord(translation="motive", pos_raw="noun"),
+                FreedictGlossRecord(translation="reason", pos_raw="noun"),
+            ]
+        }
+        reverse_records = {
+            "motive": [FreedictGlossRecord(translation="Beweggrund", pos_raw="noun")],
+            "reason": [FreedictGlossRecord(translation="Grund", pos_raw="noun")],
+        }
+        without_reverse = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Grund",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                reverse_gloss_records_by_source=reverse_records,
+                include_variants=False,
+            )
+        )
+        with_reverse = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Grund",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                reverse_gloss_records_by_source=reverse_records,
+                include_variants=False,
+                reverse_check=ReverseCheckScoringConfig(
+                    enabled=True,
+                    match_bonus=0.6,
+                    miss_penalty=0.6,
+                ),
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in without_reverse], ["motive", "reason"])
+        self.assertEqual([rule.source_phrase for rule in with_reverse], ["reason", "motive"])
+
     def test_en_de_adapter_prefers_same_sense_representative_when_enabled(self) -> None:
         records = {
             "Zug": [
@@ -1658,6 +1742,47 @@ class TestRulegenAdapters(unittest.TestCase):
             [rule.source_phrase for rule in with_policy],
             ["house", "institution"],
         )
+
+    def test_en_de_adapter_uses_kaikki_register_demotion_when_register_markers_present(
+        self,
+    ) -> None:
+        records = {
+            "Kind": [
+                FreedictGlossRecord(
+                    translation="kid",
+                    pos_raw="noun",
+                    metadata={"sense_tags": ("colloquial", "regional")},
+                ),
+                FreedictGlossRecord(
+                    translation="child",
+                    pos_raw="noun",
+                    metadata={},
+                ),
+            ]
+        }
+        without_policy = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Kind",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        with_policy = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Kind",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+                kaikki_policy_register_demotion=True,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in without_policy], ["kid", "child"])
+        self.assertEqual([rule.source_phrase for rule in with_policy], ["child", "kid"])
 
     def test_en_de_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>

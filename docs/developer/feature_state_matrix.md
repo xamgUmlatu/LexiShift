@@ -231,8 +231,8 @@ Use this file when:
 ## `en-de` Advisory Quality Lane
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
-- Last documented checkpoint: `2026-04-04` `en-de` now also has experimental default-off source-frequency and Kaikki-policy scaffolding wired into the pair adapter, benchmark sweep, and probe tooling, and the app/catalog now has a managed `wiktionary-de-en` download/build path even though the canonical advisory latest lane still stays on the FreeDict source family
-- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests plus local `en-de` benchmark/gate/triage rerun over the canonical latest lane
+- Last documented checkpoint: `2026-04-04` `en-de` now also has experimental default-off source-frequency, reverse-check, and Kaikki-policy scaffolding wired into the pair adapter, benchmark sweep, and probe tooling, and the app/catalog now has a managed `wiktionary-de-en` download/build path even though the canonical advisory latest lane still stays on the FreeDict source family
+- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests plus local canonical `en-de` benchmark/gate/triage rerun and a focused Kaikki reverse experiment
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
@@ -242,6 +242,10 @@ Use this file when:
     - benchmark/config label: `sfreq=on/off`
     - benchmark CLI surface: `--source-frequency-prior-values`, `--source-frequency-db-en-de`
     - probe CLI surface: `--enable-source-frequency-prior`, `--source-frequency-db-en-de`
+  - `en-de` now also has an experimental default-off reverse-check bridge:
+    - benchmark/config labels: `rev`, `xamb`, `xspec`
+    - benchmark uses the existing reverse English->German resource resolution when `rev=on`
+    - probe flags: `--reverse-check-enabled`, `--translation-dict-en-de-reverse`
   - `en-de` now also consumes the existing Kaikki policy surface when the translation source is a Wiktionary/Kaikki-style SQLite:
     - benchmark/config labels: `kdem`, `kfam`, `kprov`
     - probe flags: `--kaikki-policy-live-demotion`, `--kaikki-policy-late-sense-penalty`
@@ -261,7 +265,7 @@ Use this file when:
     - `docs/test_outputs/rulegen_quality_gate_en_de_summary_latest.md`
     - `docs/test_outputs/rulegen_benchmark_triage_en_de_summary_latest.md`
   - The current lane intentionally stays baseline:
-    - no reverse-check
+    - no reverse-check in the canonical advisory latest lane
     - no committed `en-de` Kaikki benchmark lane or promoted Kaikki source path yet
     - dataset-expansion and lexical-choice cleanup come before pair-specific frontier work
 - Evidence:
@@ -275,6 +279,9 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_source_freq_experiment_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_reverse_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_reverse_latest.json`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/adapters.py`
   - `apps/gui/src/language_packs_catalog.py`
@@ -289,11 +296,11 @@ Use this file when:
   - The current `en-de` latest triage surface is still heavy at `21` actionable items (`16` FAIL, `5` REVIEW), including hard junk-gloss failures such as `Zeit -> spell`, `Sprache -> diction`, `Fenster -> box`, and `Tag -> tag`.
   - The dedicated `en-de` gate is now pair-scoped, but delta checks still warn until an `en-de` baseline is accepted:
     - `DELTA_SCOPE_BASELINE_MISSING`
-  - `en-de` still has no reverse-check implementation.
+  - `en-de` now has default-off reverse-check plumbing and probe support, but the first focused Kaikki reverse experiment did not beat `rev=off` (`93.10%` top1 / `96.55%` top3 -> `91.38%` / `96.55%` with the tested reverse setting).
   - The new source-frequency prior is measurable but not sufficient on its own:
     - focused experiment improved `top3` (`93.10%` -> `98.28%`) without moving `top1` (`65.52%`)
     - the mechanism currently helps expected answers re-enter top3 (`Grund`, `Straße`, `Zug`) more than it fixes junk top1 defaults
-  - `wiktionary-de-en` download/build support now exists, but there is still no committed local artifact or benchmark evidence proving that the Kaikki source family beats FreeDict for `en-de`.
+  - `wiktionary-de-en` download/build support now exists, and local Kaikki evidence is strong, but there is still no committed promoted `en-de` Kaikki lane or accepted scoped baseline.
   - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup, source-frequency recovery, and dataset expansion.
   - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
 
@@ -594,13 +601,14 @@ Use this file when:
 ## Reverse-Check Scoring
 
 - Status: `implemented`, `verified`, `default-on` = `no`
-- Last documented checkpoint: `2026-03-26` exact-hit ambiguity + exact-hit specificity reverse signals with benchmark/probe harness exposure
-- Last verified: `2026-03-26` targeted ranking/tuning/helper/harness tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 48-config reverse sweep, reverse run-matrix refresh, and focused `cuadro` probe
+- Last documented checkpoint: `2026-04-04` `en-de` now also wires reverse resource resolution, metadata emission, ranking consumption, and probe surface, with the first focused Kaikki reverse experiment recorded separately
+- Last verified: `2026-04-04` targeted ranking/adapter/probe tests, canonical `en-de` benchmark/gate/triage rerun, and focused `en-de` Kaikki reverse benchmark/gate/triage
 - Default behavior:
-  - Configurable and pair-aware for `en-es` and `es-en`.
+  - Configurable and pair-aware for `en-es`, `es-en`, and `en-de`.
   - Not yet promoted to default production tuning.
   - Reverse-check-specific evaluation now has a named `en-es` lane via `npm --prefix scripts run quality:rulegen:reverse:en-es`.
   - Parameter-set comparison is now tracked in `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`.
+  - `en-de` reverse-check is now available to the benchmark/probe seams, but remains off in the canonical advisory lane and off in the current best Kaikki lane.
   - Reverse scoring now also supports:
     - an exact-hit ambiguity penalty keyed off `reverse_check_total`
     - an additive exact-hit specificity bonus keyed off `reverse_check_total`
@@ -614,8 +622,11 @@ Use this file when:
   - `core/lexishift_core/rulegen/ranking.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
+  - `core/lexishift_core/rulegen/pairs/en_de.py`
+  - `core/lexishift_core/rulegen/adapters.py`
   - `core/lexishift_core/rulegen/tuning.py`
   - `scripts/testing/rulegen_benchmark.py`
+  - `scripts/testing/rulegen_probe_words.py`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.md`
   - `docs/test_outputs/rulegen_benchmark_triage_latest.md`
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
@@ -633,9 +644,15 @@ Use this file when:
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
   - `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_reverse_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_reverse_latest.json`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `core/tests/dev/test_rulegen_probe_words.py`
 - Known gaps:
-  - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
+  - `en-ja` still has no reverse-check implementation, and `en-de` has only a first local reverse experiment rather than a promoted pair lane.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
+  - The first focused `en-de` Kaikki reverse experiment did not beat `rev=off`; the tested `rev=on` setting dropped top1 from `93.10%` to `91.38%` while leaving top3 flat at `96.55%`.
   - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the repaired verb reverse normalization restored the best `rev=on` lane.
   - The current `en-es` reverse-enabled best run lifts `top3` to `98.25%`, but `top1` is still capped at `91.23%`; remaining work is now more about lexical choice than reverse plumbing.
   - The new exact-hit ambiguity penalty and exact-hit specificity bonus are both implemented and harness-exposed, but neither beat the existing best lane yet; current `cuadro` behavior is still more sensitive to miss/far-penalty tradeoffs and score clamping than to these exact-hit refinements alone.

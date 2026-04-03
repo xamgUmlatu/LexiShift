@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T22:04:54.502882+00:00",
+  "generated_at": "2026-04-03T22:57:09.285645+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
     "version": 1,
@@ -116,32 +116,32 @@
     }
   },
   "timing": {
-    "total_recorded_seconds": 11.212495578511152,
+    "total_recorded_seconds": 11.767950163863134,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.0005506250308826566,
+        "total_seconds": 0.0007592079928144813,
         "count": 1,
-        "avg_seconds": 0.0005506250308826566
+        "avg_seconds": 0.0007592079928144813
       },
       "build_sweep_configs": {
-        "total_seconds": 0.00018179102335125208,
+        "total_seconds": 0.0001746669877320528,
         "count": 1,
-        "avg_seconds": 0.00018179102335125208
+        "avg_seconds": 0.0001746669877320528
       },
       "build_word_packages": {
-        "total_seconds": 4.654104122892022e-05,
+        "total_seconds": 5.7500030379742384e-05,
         "count": 1,
-        "avg_seconds": 4.654104122892022e-05
+        "avg_seconds": 5.7500030379742384e-05
       },
       "compile_pair_context": {
-        "total_seconds": 3.374996595084667e-06,
+        "total_seconds": 3.0829687602818012e-06,
         "count": 1,
-        "avg_seconds": 3.374996595084667e-06
+        "avg_seconds": 3.0829687602818012e-06
       },
       "evaluate_cases": {
-        "total_seconds": 0.010784915066324174,
+        "total_seconds": 0.011263210151810199,
         "count": 32,
-        "avg_seconds": 0.00033702859582263045
+        "avg_seconds": 0.0003519753172440687
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -149,67 +149,67 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.001394915976561606,
+        "total_seconds": 0.0013026249944232404,
         "count": 1,
-        "avg_seconds": 0.001394915976561606
+        "avg_seconds": 0.0013026249944232404
       },
       "load_store": {
-        "total_seconds": 0.0014352920115925372,
+        "total_seconds": 0.0013608339941129088,
         "count": 1,
-        "avg_seconds": 0.0014352920115925372
+        "avg_seconds": 0.0013608339941129088
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 8.676776207983494,
+        "total_seconds": 8.870566833007615,
         "count": 1,
-        "avg_seconds": 8.676776207983494
+        "avg_seconds": 8.870566833007615
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.0668437919812277,
+        "total_seconds": 0.07898341701366007,
         "count": 1,
-        "avg_seconds": 0.0668437919812277
+        "avg_seconds": 0.07898341701366007
       },
       "resolve_resources": {
-        "total_seconds": 0.0014020000235177577,
+        "total_seconds": 0.001241500023752451,
         "count": 1,
-        "avg_seconds": 0.0014020000235177577
+        "avg_seconds": 0.001241500023752451
       },
       "run_config": {
-        "total_seconds": 2.452482500229962,
+        "total_seconds": 2.8016197068500333,
         "count": 32,
-        "avg_seconds": 0.07664007813218632
+        "avg_seconds": 0.08755061583906354
       },
       "sort_pair_runs": {
-        "total_seconds": 1.333298860117793e-05,
+        "total_seconds": 1.1416967026889324e-05,
         "count": 1,
-        "avg_seconds": 1.333298860117793e-05
+        "avg_seconds": 1.1416967026889324e-05
       },
       "summarize_run": {
-        "total_seconds": 0.0005802901578135788,
+        "total_seconds": 0.000606162881013006,
         "count": 32,
-        "avg_seconds": 1.813406743167434e-05
+        "avg_seconds": 1.8942590031656437e-05
       }
     },
     "pairs": {
       "en-de": {
         "build_resource_payload": {
-          "total_seconds": 0.0005506250308826566,
+          "total_seconds": 0.0007592079928144813,
           "count": 1,
-          "avg_seconds": 0.0005506250308826566
+          "avg_seconds": 0.0007592079928144813
         },
         "build_word_packages": {
-          "total_seconds": 4.654104122892022e-05,
+          "total_seconds": 5.7500030379742384e-05,
           "count": 1,
-          "avg_seconds": 4.654104122892022e-05
+          "avg_seconds": 5.7500030379742384e-05
         },
         "compile_pair_context": {
-          "total_seconds": 3.374996595084667e-06,
+          "total_seconds": 3.0829687602818012e-06,
           "count": 1,
-          "avg_seconds": 3.374996595084667e-06
+          "avg_seconds": 3.0829687602818012e-06
         },
         "evaluate_cases": {
-          "total_seconds": 0.010784915066324174,
+          "total_seconds": 0.011263210151810199,
           "count": 32,
-          "avg_seconds": 0.00033702859582263045
+          "avg_seconds": 0.0003519753172440687
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -217,38 +217,38 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 8.676776207983494,
+          "total_seconds": 8.870566833007615,
           "count": 1,
-          "avg_seconds": 8.676776207983494
+          "avg_seconds": 8.870566833007615
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.0668437919812277,
+          "total_seconds": 0.07898341701366007,
           "count": 1,
-          "avg_seconds": 0.0668437919812277
+          "avg_seconds": 0.07898341701366007
         },
         "resolve_resources": {
-          "total_seconds": 0.0014020000235177577,
+          "total_seconds": 0.001241500023752451,
           "count": 1,
-          "avg_seconds": 0.0014020000235177577
+          "avg_seconds": 0.001241500023752451
         },
         "run_config": {
-          "total_seconds": 2.452482500229962,
+          "total_seconds": 2.8016197068500333,
           "count": 32,
-          "avg_seconds": 0.07664007813218632
+          "avg_seconds": 0.08755061583906354
         },
         "sort_pair_runs": {
-          "total_seconds": 1.333298860117793e-05,
+          "total_seconds": 1.1416967026889324e-05,
           "count": 1,
-          "avg_seconds": 1.333298860117793e-05
+          "avg_seconds": 1.1416967026889324e-05
         },
         "summarize_run": {
-          "total_seconds": 0.0005802901578135788,
+          "total_seconds": 0.000606162881013006,
           "count": 32,
-          "avg_seconds": 1.813406743167434e-05
+          "avg_seconds": 1.8942590031656437e-05
         }
       }
     },
-    "wall_clock_seconds": 11.220005790994037
+    "wall_clock_seconds": 11.776686874974985
   },
   "pairs": {
     "en-de": {
@@ -354,6 +354,7 @@
           "reverse_check_miss_penalty": 0.2,
           "reverse_check_exact_hit_ambiguity_threshold": 0,
           "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+          "kaikki_policy_register_demotion": false,
           "kaikki_policy_live_demotion": false,
           "kaikki_policy_risk_families": [
             "math_geometry",
@@ -368,7 +369,7 @@
           "source_frequency_prior_enabled": false,
           "cleaner_later_competition_penalty": 0.0
         },
-        "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+        "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
         "summary": {
           "pair": "en-de",
           "case_count": 58,
@@ -2015,6 +2016,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2029,7 +2031,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2079,6 +2081,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2093,7 +2096,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2143,6 +2146,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2157,7 +2161,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2207,6 +2211,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2221,7 +2226,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2271,6 +2276,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2285,7 +2291,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2335,6 +2341,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2349,7 +2356,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2399,6 +2406,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2413,7 +2421,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2463,6 +2471,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2477,7 +2486,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2527,6 +2536,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2541,7 +2551,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2591,6 +2601,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2605,7 +2616,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2655,6 +2666,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2669,7 +2681,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2719,6 +2731,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2733,7 +2746,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2783,6 +2796,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2797,7 +2811,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2847,6 +2861,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2861,7 +2876,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2911,6 +2926,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2925,7 +2941,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2975,6 +2991,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -2989,7 +3006,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3039,6 +3056,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3053,7 +3071,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3103,6 +3121,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3117,7 +3136,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3167,6 +3186,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3181,7 +3201,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3231,6 +3251,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3245,7 +3266,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3295,6 +3316,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3309,7 +3331,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3359,6 +3381,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3373,7 +3396,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3423,6 +3446,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3437,7 +3461,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3487,6 +3511,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3501,7 +3526,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3551,6 +3576,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3565,7 +3591,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3615,6 +3641,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3629,7 +3656,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3679,6 +3706,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3693,7 +3721,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3743,6 +3771,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3757,7 +3786,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3807,6 +3836,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3821,7 +3851,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3871,6 +3901,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3885,7 +3916,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3935,6 +3966,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -3949,7 +3981,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3999,6 +4031,7 @@
             "reverse_check_miss_penalty": 0.2,
             "reverse_check_exact_hit_ambiguity_threshold": 0,
             "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
             "kaikki_policy_live_demotion": false,
             "kaikki_policy_risk_families": [
               "math_geometry",
@@ -4013,7 +4046,7 @@
             "source_frequency_prior_enabled": false,
             "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,

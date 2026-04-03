@@ -13,6 +13,7 @@ from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
 from lexishift_core.replacement.inflect import FORM_PLURAL, InflectionSpec
 from lexishift_core.resources.dict_loaders import (
     FreedictGlossRecord,
+    TranslationGlossRecord,
     load_translation_gloss_records_ordered,
 )
 from lexishift_core.rulegen.generation import (
@@ -34,7 +35,11 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     build_definition_bucket_key as _build_definition_bucket_key,
     build_gloss_provenance as _build_gloss_provenance,
     build_kaikki_policy_shadow_by_index as _build_kaikki_policy_shadow_by_index,
+    build_reverse_lookup as _build_reverse_lookup,
+    build_sense_provenance as _build_sense_provenance,
     build_target_provenance_by_index as _build_target_provenance_by_index,
+    normalize_reverse_token as _normalize_reverse_token,
+    normalize_reverse_token_with_pos as _normalize_reverse_token_with_pos,
     resolve_kaikki_policy_live_demotion as _resolve_kaikki_policy_live_demotion,
     resolve_kaikki_provenance_competition_demotion as _resolve_kaikki_provenance_competition_demotion,
 )
@@ -47,6 +52,7 @@ from lexishift_core.rulegen.pairs.pos_utils import (
 from lexishift_core.rulegen.ranking import (
     CandidateRankingContext,
     DictionaryEntryOrderRankingMechanism,
+    ReverseCheckScoringConfig,
 )
 from lexishift_core.rulegen.semantic_demotion import (
     resolve_generic_gloss_demotion,
@@ -126,6 +132,17 @@ _EN_DE_MARKED_SENSE_TAG_DEMOTIONS: Mapping[str, float] = {
     "historical": 0.55,
     "in-compounds": 0.45,
 }
+_EN_DE_REGISTER_MARKERS = ("informal", "colloquial", "slang")
+_EN_DE_REGION_MARKERS = (
+    "regional",
+    "austria",
+    "austrian",
+    "switzerland",
+    "swiss",
+    "germany",
+    "northern german",
+    "southern german",
+)
 
 
 def _should_expand_english(candidate: RuleCandidate) -> bool:
@@ -135,11 +152,14 @@ def _should_expand_english(candidate: RuleCandidate) -> bool:
 @dataclass(frozen=True)
 class EnDeRulegenConfig:
     freedict_de_en_path: Path
+    reverse_freedict_en_de_path: Optional[Path] = None
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
     language_pair: str = "en-de"
     source_dict_id: str = "freedict_de_en"
+    reverse_source_dict_id: Optional[str] = None
     dictionary_pos_source_profile: str = "freedict"
     dict_priority: float = 0.8
     confidence_threshold: float = 0.0
@@ -153,6 +173,7 @@ class EnDeRulegenConfig:
     variant_penalty: float = 0.2
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
+    reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     enable_punctuation_filter: bool = True
     enable_possessive_filter: bool = True
     enable_inflection_filter: bool = True
@@ -180,6 +201,7 @@ class EnDeRulegenConfig:
 class EnDeKaikkiPolicyConfig:
     enable_shadow_metadata: bool = True
     enable_live_demotion: bool = False
+    enable_register_demotion: bool = False
     late_sense_clean_earlier_competition_penalty: float = 0.0
     risk_families: tuple[str, ...] = (
         "math_geometry",
@@ -707,6 +729,27 @@ def _normalize_en_de_tag_values(values: object) -> tuple[str, ...]:
     return tuple(normalized)
 
 
+def _collect_lowered_metadata_markers(value: object) -> tuple[str, ...]:
+    markers: list[str] = []
+    _visit_marker_values(value, markers)
+    return tuple(markers)
+
+
+def _visit_marker_values(value: object, markers: list[str]) -> None:
+    if isinstance(value, str):
+        text = " ".join(value.strip().lower().split())
+        if text:
+            markers.append(text)
+        return
+    if isinstance(value, Mapping):
+        for item in value.values():
+            _visit_marker_values(item, markers)
+        return
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        for item in value:
+            _visit_marker_values(item, markers)
+
+
 def _resolve_en_de_marked_sense_demotion(
     metadata: Mapping[str, object],
 ) -> tuple[float, tuple[str, ...]]:
@@ -720,6 +763,36 @@ def _resolve_en_de_marked_sense_demotion(
         _EN_DE_MARKED_SENSE_TAG_DEMOTIONS[tag.removeprefix("marked_sense:")] for tag in reasons
     )
     return demotion, tuple(dict.fromkeys(reasons))
+
+
+def _resolve_en_de_kaikki_register_demotion(
+    metadata: Mapping[str, object],
+) -> tuple[float, tuple[str, ...]]:
+    marker_payload = {
+        "entry_tags": metadata.get("entry_tags"),
+        "entry_categories": metadata.get("entry_categories"),
+        "sense_tags": metadata.get("sense_tags"),
+        "sense_topics": metadata.get("sense_topics"),
+        "sense_categories": metadata.get("sense_categories"),
+        "translation_tags": metadata.get("translation_tags"),
+    }
+    markers = _collect_lowered_metadata_markers(marker_payload)
+    if not markers:
+        return 0.0, ()
+    register_hit = any(any(token in marker for token in _EN_DE_REGISTER_MARKERS) for marker in markers)
+    region_hit = any(any(token in marker for token in _EN_DE_REGION_MARKERS) for marker in markers)
+    reasons: list[str] = []
+    if register_hit:
+        reasons.append("kaikki_register")
+    if region_hit:
+        reasons.append("kaikki_region")
+    if register_hit and region_hit:
+        return 0.55, tuple(reasons)
+    if register_hit:
+        return 0.40, tuple(reasons)
+    if region_hit:
+        return 0.20, tuple(reasons)
+    return 0.0, ()
 
 
 def _apply_kaikki_policy_overlay(
@@ -795,6 +868,16 @@ def build_en_de_pipeline(
     source_frequency_provider: Optional[Callable[[str], float]] = None,
 ) -> RuleGenerationPipeline:
     records_by_target = _resolve_gloss_records(config)
+    reverse_records_by_source = (
+        _resolve_reverse_gloss_records(config)
+        if bool(config.reverse_check.enabled) or config.reverse_gloss_records_by_source is not None
+        else None
+    )
+    reverse_lookup = (
+        _build_reverse_lookup(reverse_records_by_source)
+        if reverse_records_by_source is not None
+        else None
+    )
     mapping = _records_to_gloss_mapping(records_by_target)
     source = FreedictCandidateSource(
         records_by_target=records_by_target,
@@ -802,6 +885,8 @@ def build_en_de_pipeline(
         source_type="translation",
         dictionary_pos_source_profile=config.dictionary_pos_source_profile,
         word_packages_by_target=config.word_packages_by_target,
+        reverse_lookup=reverse_lookup,
+        reverse_source_dict_id=config.reverse_source_dict_id,
         generic_gloss_demotions=(
             config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
         ),
@@ -846,10 +931,11 @@ def build_en_de_pipeline(
     )
     ranking_mechanism = (
         EnDeSourceFrequencyRankingMechanism(
+            fallback=DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check),
             prior_weight=float(config.scoring.weights.frequency_weight),
         )
         if source_frequency_provider is not None
-        else DictionaryEntryOrderRankingMechanism()
+        else DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check)
     )
     return RuleGenerationPipeline(
         sources=[source],
@@ -916,6 +1002,8 @@ class FreedictCandidateSource:
         source_type: str,
         dictionary_pos_source_profile: str = "freedict",
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
+        reverse_lookup: Optional[Mapping[str, tuple[str, ...]]] = None,
+        reverse_source_dict_id: Optional[str] = None,
         generic_gloss_demotions: Optional[Mapping[str, float]] = None,
         source_frequency_provider: Optional[Callable[[str], float]] = None,
         cleaner_later_competition_penalty: float = 0.0,
@@ -929,6 +1017,10 @@ class FreedictCandidateSource:
             str(dictionary_pos_source_profile or "").strip() or "freedict"
         )
         self._word_packages_by_target = word_packages_by_target or {}
+        self._reverse_lookup = reverse_lookup
+        self._reverse_source_dict_id = (
+            str(reverse_source_dict_id).strip() if reverse_source_dict_id is not None else None
+        )
         self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
         self._source_frequency_provider = source_frequency_provider
         self._cleaner_later_competition_penalty = _normalize_competition_penalty(
@@ -939,6 +1031,7 @@ class FreedictCandidateSource:
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
+            target_reverse_norm = _normalize_reverse_token(target)
             target_word_package = resolve_target_word_package(
                 target=target,
                 language_pair=language_pair,
@@ -1034,8 +1127,36 @@ class FreedictCandidateSource:
                 gloss_provenance = _build_gloss_provenance(entry)
                 if gloss_provenance:
                     metadata["gloss_provenance"] = gloss_provenance
+                sense_provenance = _build_sense_provenance(entry, dictionary_pos=dictionary_pos)
+                if sense_provenance:
+                    metadata["sense_provenance"] = sense_provenance
                 if target_provenance:
                     metadata["target_provenance"] = target_provenance
+                source_reverse_norm = _normalize_reverse_token_with_pos(
+                    entry.translation,
+                    pos_raw=entry.pos_raw,
+                )
+                reverse_targets = (
+                    self._reverse_lookup.get(source_reverse_norm, ())
+                    if self._reverse_lookup is not None
+                    else ()
+                )
+                reverse_rank = (
+                    reverse_targets.index(target_reverse_norm)
+                    if target_reverse_norm and target_reverse_norm in reverse_targets
+                    else None
+                )
+                metadata.update(
+                    {
+                        "reverse_check_supported": self._reverse_lookup is not None,
+                        "reverse_check_hit": reverse_rank is not None,
+                        "reverse_check_rank": reverse_rank,
+                        "reverse_check_total": len(reverse_targets),
+                        "reverse_check_source_dict": self._reverse_source_dict_id,
+                        "reverse_check_target_norm": target_reverse_norm,
+                        "reverse_check_source_norm": source_reverse_norm,
+                    }
+                )
                 demotion = resolve_generic_gloss_demotion(
                     entry.translation,
                     demotions=self._generic_gloss_demotions,
@@ -1055,6 +1176,20 @@ class FreedictCandidateSource:
                         demotion=marked_demotion,
                         reason=";".join(marked_reasons) if marked_reasons else "marked_sense",
                     )
+                if self._kaikki_policy.enable_register_demotion:
+                    register_demotion, register_reasons = _resolve_en_de_kaikki_register_demotion(
+                        entry.metadata if isinstance(entry.metadata, Mapping) else {}
+                    )
+                    if register_demotion > 0.0:
+                        _apply_semantic_demotion(
+                            metadata,
+                            demotion=register_demotion,
+                            reason=(
+                                ";".join(register_reasons)
+                                if register_reasons
+                                else "kaikki_register_or_region"
+                            ),
+                        )
                 if self._source_frequency_provider is not None:
                     metadata["source_frequency_prior"] = source_frequency_priors[index]
                 representative_index = representative_by_index.get(index)
@@ -1189,6 +1324,21 @@ def _coerce_gloss_records(
             bucket.append(FreedictGlossRecord(translation=str(entry), pos_raw=""))
         records_by_target[str(target)] = bucket
     return records_by_target
+
+
+def _resolve_reverse_gloss_records(
+    config: EnDeRulegenConfig,
+) -> Optional[dict[str, list[TranslationGlossRecord]]]:
+    if config.reverse_gloss_records_by_source is not None:
+        return _coerce_gloss_records(config.reverse_gloss_records_by_source)
+    if config.reverse_freedict_en_de_path is None:
+        return None
+    if not config.reverse_freedict_en_de_path.exists():
+        return None
+    return load_translation_gloss_records_ordered(
+        config.reverse_freedict_en_de_path,
+        target_lang="de",
+    )
 
 
 def _records_to_gloss_mapping(

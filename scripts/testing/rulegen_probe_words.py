@@ -418,6 +418,12 @@ def main() -> None:
         help="Override translation-dictionary path for en-de probe (wiktionary-de-en.sqlite / deu-eng.sqlite).",
     )
     parser.add_argument(
+        "--translation-dict-en-de-reverse",
+        dest="translation_dict_en_de_reverse",
+        type=Path,
+        help="Override reverse translation-dictionary path used for en-de reverse-check metadata.",
+    )
+    parser.add_argument(
         "--translation-dict-es-en-reverse",
         dest="translation_dict_es_en_reverse",
         type=Path,
@@ -431,7 +437,7 @@ def main() -> None:
     parser.add_argument(
         "--reverse-check-enabled",
         action="store_true",
-        help="Enable reverse-check ranking adjustments for the en-es probe.",
+        help="Enable reverse-check ranking adjustments for the en-es / en-de probe.",
     )
     parser.add_argument(
         "--reverse-check-match-bonus",
@@ -491,6 +497,11 @@ def main() -> None:
         "--kaikki-policy-live-demotion",
         action="store_true",
         help="Enable live Kaikki risk-family demotion when Kaikki/Wiktionary metadata is present.",
+    )
+    parser.add_argument(
+        "--kaikki-policy-register-demotion",
+        action="store_true",
+        help="Enable Kaikki register/region demotion when usage metadata is present.",
     )
     parser.add_argument(
         "--enable-exact-gloss-demotion",
@@ -565,6 +576,7 @@ def main() -> None:
     resolved_translation_dict_en_es: Optional[Path] = None
     resolved_reverse_translation_dict_en_es: Optional[Path] = None
     resolved_translation_dict_en_de: Optional[Path] = None
+    resolved_reverse_translation_dict_en_de: Optional[Path] = None
     resolved_source_frequency_db_en_de: Optional[Path] = None
     if spanish_targets:
         _resolved_jmdict, _resolved_translation_dict_en_es, _ = resolve_pair_resources(
@@ -598,6 +610,15 @@ def main() -> None:
             "Translation dictionary DE->EN",
             _resolved_translation_dict_en_de,
         )
+        if args.reverse_check_enabled:
+            resolved_reverse_translation_dict_en_de = _resolve_required_file(
+                "Reverse translation dictionary EN->DE",
+                args.translation_dict_en_de_reverse
+                or default_reverse_translation_dictionary_path(
+                    "en-de",
+                    language_packs_dir=paths.language_packs_dir,
+                ),
+            )
         if args.enable_source_frequency_prior:
             resolved_source_frequency_db_en_de = _resolve_required_file(
                 "Source frequency DB EN",
@@ -626,7 +647,7 @@ def main() -> None:
     resolved_japanese_targets = [lemma for lemma in japanese_targets if lemma in ja_word_packages]
 
     es_ranking = DictionaryEntryOrderRankingMechanism(reverse_check=reverse_check)
-    de_ranking = DictionaryEntryOrderRankingMechanism()
+    de_ranking = DictionaryEntryOrderRankingMechanism(reverse_check=reverse_check)
     ja_ranking = DictionaryEntryOrderRankingMechanism()
 
     # Uncapped baseline run.
@@ -666,11 +687,13 @@ def main() -> None:
                     "Translation dictionary DE->EN",
                     resolved_translation_dict_en_de,
                 ),
+                reverse_freedict_en_de_path=resolved_reverse_translation_dict_en_de,
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=None,
                 max_rules_per_target=None,
                 scoring=scoring,
+                reverse_check=reverse_check,
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
                 source_frequency_db_path=resolved_source_frequency_db_en_de,
@@ -680,6 +703,7 @@ def main() -> None:
                 ),
                 kaikki_policy=EnDeKaikkiPolicyConfig(
                     enable_live_demotion=bool(args.kaikki_policy_live_demotion),
+                    enable_register_demotion=bool(args.kaikki_policy_register_demotion),
                     late_sense_clean_earlier_competition_penalty=max(
                         0.0,
                         float(args.kaikki_policy_late_sense_penalty),
@@ -740,11 +764,13 @@ def main() -> None:
                     "Translation dictionary DE->EN",
                     resolved_translation_dict_en_de,
                 ),
+                reverse_freedict_en_de_path=resolved_reverse_translation_dict_en_de,
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=max_definitions,
                 max_rules_per_target=max_rules_per_target,
                 scoring=scoring,
+                reverse_check=reverse_check,
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
                 source_frequency_db_path=resolved_source_frequency_db_en_de,
@@ -754,6 +780,7 @@ def main() -> None:
                 ),
                 kaikki_policy=EnDeKaikkiPolicyConfig(
                     enable_live_demotion=bool(args.kaikki_policy_live_demotion),
+                    enable_register_demotion=bool(args.kaikki_policy_register_demotion),
                     late_sense_clean_earlier_competition_penalty=max(
                         0.0,
                         float(args.kaikki_policy_late_sense_penalty),
@@ -784,6 +811,7 @@ def main() -> None:
     print(f"  translation_dict_en_es: {resolved_translation_dict_en_es}")
     print(f"  translation_dict_es_en_reverse: {resolved_reverse_translation_dict_en_es}")
     print(f"  translation_dict_en_de: {resolved_translation_dict_en_de}")
+    print(f"  translation_dict_en_de_reverse: {resolved_reverse_translation_dict_en_de}")
     print(f"  source_frequency_db_en_de: {resolved_source_frequency_db_en_de}")
     print(f"  jmdict: {resolved_jmdict}")
     print(
@@ -803,6 +831,7 @@ def main() -> None:
         f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
         f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}, "
         f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}, "
+        f"kaikki_policy_register_demotion={bool(args.kaikki_policy_register_demotion)}, "
         f"kaikki_policy_live_demotion={bool(args.kaikki_policy_live_demotion)}, "
         f"enable_exact_gloss_demotion={bool(args.enable_exact_gloss_demotion)}, "
         f"enable_source_frequency_prior={bool(args.enable_source_frequency_prior)}, "
@@ -847,6 +876,7 @@ def main() -> None:
                 0.0,
                 float(args.kaikki_policy_late_sense_penalty),
             ),
+            "kaikki_policy_register_demotion": bool(args.kaikki_policy_register_demotion),
             "kaikki_policy_live_demotion": bool(args.kaikki_policy_live_demotion),
         },
         "paths": {
@@ -863,6 +893,11 @@ def main() -> None:
             ),
             "translation_dict_en_de": (
                 str(resolved_translation_dict_en_de) if resolved_translation_dict_en_de else None
+            ),
+            "translation_dict_en_de_reverse": (
+                str(resolved_reverse_translation_dict_en_de)
+                if resolved_reverse_translation_dict_en_de
+                else None
             ),
             "source_frequency_db_en_de": (
                 str(resolved_source_frequency_db_en_de)
@@ -946,7 +981,8 @@ if __name__ == "__main__":
         print(f"error: {exc}", file=sys.stderr)
         print(
             "hint: pass explicit resource paths with --jmdict, --translation-dict-en-es, "
-            "--translation-dict-es-en-reverse, --translation-dict-en-de "
+            "--translation-dict-es-en-reverse, --translation-dict-en-de, "
+            "--translation-dict-en-de-reverse "
             "or ensure language packs are installed in the LexiShift data directory.",
             file=sys.stderr,
         )

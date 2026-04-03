@@ -187,7 +187,7 @@ Definition of done:
 
 Status:
 
-- not started
+- in progress
 
 Goal:
 
@@ -226,6 +226,12 @@ Concrete work if started:
 3. add ranking-hook support
 4. add pair-specific tests
 5. add a separate reverse experimental lane before any default-on decision
+
+Current checkpoint:
+
+- reverse resource resolution, metadata emission, ranking-hook support, and pair/probe tests are now wired
+- first focused Kaikki reverse experiment exists locally, but the tested `rev=on` setting did not beat `rev=off`
+- no committed promoted reverse lane or default-on decision yet
 
 Definition of done:
 

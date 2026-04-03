@@ -243,6 +243,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.reverse_check_exact_hit_specificity_bonus_values,
         name="reverse-check-exact-hit-specificity-bonus-values",
     )
+    kaikki_policy_register_demotion_values = _parse_csv_bools(
+        args.kaikki_policy_register_demotion_values,
+        name="kaikki-policy-register-demotion-values",
+    )
     kaikki_policy_live_demotion_values = _parse_csv_bools(
         args.kaikki_policy_live_demotion_values,
         name="kaikki-policy-live-demotion-values",
@@ -285,6 +289,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_miss_penalty_values,
         reverse_check_exact_hit_ambiguity_threshold_values,
         reverse_check_exact_hit_ambiguity_penalty_values,
+        kaikki_policy_register_demotion_values,
         kaikki_policy_live_demotion_values,
         kaikki_policy_risk_family_sets,
         reverse_check_exact_hit_specificity_bonus_values,
@@ -319,10 +324,11 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_miss_penalty=float(combo[24]),
                 reverse_check_exact_hit_ambiguity_threshold=max(0, int(combo[25])),
                 reverse_check_exact_hit_ambiguity_penalty=float(combo[26]),
-                kaikki_policy_live_demotion=bool(combo[27]),
-                kaikki_policy_risk_families=tuple(combo[28]),
-                reverse_check_exact_hit_specificity_bonus=float(combo[29]),
-                kaikki_policy_late_sense_penalty=float(combo[30]),
+                kaikki_policy_register_demotion=bool(combo[27]),
+                kaikki_policy_live_demotion=bool(combo[28]),
+                kaikki_policy_risk_families=tuple(combo[29]),
+                reverse_check_exact_hit_specificity_bonus=float(combo[30]),
+                kaikki_policy_late_sense_penalty=float(combo[31]),
             )
         )
     return configs
@@ -379,6 +385,7 @@ def _build_rulegen_adapter_request(
         compiled_pair_context=context.compiled_pair_context,
         word_packages_by_target=context.word_packages_by_target,
         source_frequency_db_path=context.source_frequency_db_path,
+        kaikki_policy_register_demotion=config.kaikki_policy_register_demotion,
         kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
         kaikki_policy_risk_families=config.kaikki_policy_risk_families,
         kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,

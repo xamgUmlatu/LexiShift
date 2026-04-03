@@ -86,6 +86,7 @@ class SweepConfig:
     reverse_check_exact_hit_ambiguity_penalty: float
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
+    kaikki_policy_register_demotion: bool = False
     interleave_definition_groups: bool = False
     sense_representative_selection: bool = False
     reverse_check_exact_hit_specificity_bonus: float = 0.0
@@ -124,6 +125,7 @@ class SweepConfig:
             "reverse_check_exact_hit_ambiguity_penalty": (
                 self.reverse_check_exact_hit_ambiguity_penalty
             ),
+            "kaikki_policy_register_demotion": self.kaikki_policy_register_demotion,
             "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
             "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
             "reverse_check_exact_hit_specificity_bonus": (
@@ -155,6 +157,7 @@ class SweepConfig:
             f"xamb={_format_exact_hit_ambiguity_label(self)} "
             f"xspec={_format_exact_hit_specificity_label(self)} "
             f"w_pos={self.score_weight_pos_match:.3f} "
+            f"kreg={'on' if self.kaikki_policy_register_demotion else 'off'} "
             f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
             f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)} "
             f"kprov={_format_kaikki_provenance_label(self)}"

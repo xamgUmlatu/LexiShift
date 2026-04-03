@@ -159,6 +159,9 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         reverse_check_exact_hit_ambiguity_penalty=float(
             payload.get("reverse_check_exact_hit_ambiguity_penalty") or 0.0
         ),
+        kaikki_policy_register_demotion=bool(
+            payload.get("kaikki_policy_register_demotion", False)
+        ),
         kaikki_policy_live_demotion=bool(payload.get("kaikki_policy_live_demotion", False)),
         kaikki_policy_risk_families=normalized_families,
         reverse_check_exact_hit_specificity_bonus=float(
@@ -480,6 +483,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--reverse-check-exact-hit-specificity-bonus-values",
         default="0.0,0.1,0.2",
     )
+    parser.add_argument("--kaikki-policy-register-demotion-values", default="false")
     parser.add_argument("--kaikki-policy-live-demotion-values", default="false,true")
     parser.add_argument(
         "--kaikki-policy-risk-family-sets",
