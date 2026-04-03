@@ -181,6 +181,7 @@ def validate_benchmark_pairs(
     benchmark_payload: Mapping[str, object],
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    pair_scope: str | None = None,
 ) -> None:
     pairs_payload = benchmark_payload.get("pairs")
     if not isinstance(pairs_payload, Mapping):
@@ -193,6 +194,24 @@ def validate_benchmark_pairs(
         return
 
     available_pairs = {str(pair).strip().lower() for pair in pairs_payload.keys()}
+    scoped_pair = str(pair_scope or "").strip().lower()
+    if scoped_pair:
+        if scoped_pair not in available_pairs:
+            record(
+                findings,
+                level="FAIL",
+                code="BENCHMARK_SCOPE_PAIR_MISSING",
+                message=f"Scoped benchmark pair '{scoped_pair}' is missing from benchmark artifact.",
+            )
+        else:
+            record(
+                findings,
+                level="PASS",
+                code="BENCHMARK_SCOPE_PAIR_PRESENT",
+                message=f"Scoped benchmark pair '{scoped_pair}' is present in benchmark artifact.",
+            )
+        return
+
     required = policy_payload.get("required_benchmark_pairs")
     required_pairs = (
         [str(item).strip().lower() for item in required if str(item).strip()]
@@ -238,6 +257,7 @@ def validate_quality_floors(
     benchmark_payload: Mapping[str, object],
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    pair_scope: str | None = None,
 ) -> None:
     floors = policy_payload.get("benchmark_quality_floors")
     if not isinstance(floors, Mapping):
@@ -250,18 +270,41 @@ def validate_quality_floors(
         return
 
     best_by_pair = pair_best_summary(benchmark_payload)
-    for pair, pair_floor in floors.items():
+    scoped_pair = str(pair_scope or "").strip().lower()
+    if scoped_pair:
+        pair_floor = floors.get(scoped_pair)
+        if not isinstance(pair_floor, Mapping):
+            record(
+                findings,
+                level="WARN",
+                code="QUALITY_FLOOR_SCOPE_UNCONFIGURED",
+                message=f"No quality floor is configured for scoped pair '{scoped_pair}'; skipping floor checks.",
+            )
+            return
+        floor_items: Sequence[tuple[object, object]] = ((scoped_pair, pair_floor),)
+    else:
+        floor_items = tuple(floors.items())
+
+    for pair, pair_floor in floor_items:
         pair_key = str(pair).strip().lower()
         if not isinstance(pair_floor, Mapping):
             continue
         summary = best_by_pair.get(pair_key)
         if summary is None:
-            record(
-                findings,
-                level="WARN",
-                code="QUALITY_FLOOR_PAIR_MISSING",
-                message=f"No benchmark summary for pair '{pair_key}'; skipping its quality floor checks.",
-            )
+            if scoped_pair:
+                record(
+                    findings,
+                    level="FAIL",
+                    code="QUALITY_FLOOR_SCOPE_PAIR_MISSING",
+                    message=f"Scoped benchmark pair '{pair_key}' has no best-run summary for floor checks.",
+                )
+            else:
+                record(
+                    findings,
+                    level="WARN",
+                    code="QUALITY_FLOOR_PAIR_MISSING",
+                    message=f"No benchmark summary for pair '{pair_key}'; skipping its quality floor checks.",
+                )
             continue
 
         checks: list[tuple[str, str, float, float]] = [
@@ -334,6 +377,7 @@ def validate_delta_budgets(
     baseline_payload: Mapping[str, object] | None,
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    pair_scope: str | None = None,
 ) -> None:
     if baseline_payload is None:
         record(
@@ -371,11 +415,7 @@ def validate_delta_budgets(
     budget_forbidden_any_inc = as_float(budgets.get("max_forbidden_any_rate_increase"), default=0.0)
     budget_avg_rules_inc = as_float(budgets.get("max_avg_rules_per_target_increase"), default=0.0)
 
-    any_checked = False
-    for pair, baseline_summary in baseline_best.items():
-        pair_key = str(pair).strip().lower()
-        if not isinstance(baseline_summary, Mapping):
-            continue
+    def _evaluate_pair(pair_key: str, baseline_summary: Mapping[str, object]) -> bool:
         current_summary = best_by_pair.get(pair_key)
         if current_summary is None:
             record(
@@ -384,9 +424,8 @@ def validate_delta_budgets(
                 code="DELTA_PAIR_MISSING",
                 message=f"Pair '{pair_key}' exists in baseline but not current benchmark.",
             )
-            continue
+            return False
 
-        any_checked = True
         base_top1 = as_float(baseline_summary.get("top1_accuracy"), default=0.0)
         base_top3 = as_float(baseline_summary.get("top3_recall"), default=0.0)
         base_forbidden_top1 = as_float(baseline_summary.get("forbidden_top1_rate"), default=0.0)
@@ -442,6 +481,38 @@ def validate_delta_budgets(
                 code="DELTA_BUDGET_OK",
                 message=f"Delta budgets satisfied for pair '{pair_key}'.",
             )
+        return True
+
+    scoped_pair = str(pair_scope or "").strip().lower()
+    if scoped_pair:
+        current_summary = best_by_pair.get(scoped_pair)
+        if current_summary is None:
+            record(
+                findings,
+                level="FAIL",
+                code="DELTA_SCOPE_PAIR_MISSING",
+                message=f"Scoped benchmark pair '{scoped_pair}' has no current summary for delta checks.",
+            )
+            return
+        baseline_summary = baseline_best.get(scoped_pair)
+        if not isinstance(baseline_summary, Mapping):
+            record(
+                findings,
+                level="WARN",
+                code="DELTA_SCOPE_BASELINE_MISSING",
+                message=f"Scoped pair '{scoped_pair}' has no baseline metrics; skipping delta checks.",
+            )
+            return
+        _evaluate_pair(scoped_pair, baseline_summary)
+        return
+
+    any_checked = False
+    for pair, baseline_summary in baseline_best.items():
+        pair_key = str(pair).strip().lower()
+        if not isinstance(baseline_summary, Mapping):
+            continue
+        if _evaluate_pair(pair_key, baseline_summary):
+            any_checked = True
 
     if not any_checked:
         record(

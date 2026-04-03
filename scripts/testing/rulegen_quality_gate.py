@@ -78,6 +78,13 @@ def parse_args() -> argparse.Namespace:
         help="Optional benchmark dataset JSON override (defaults to benchmark dataset_path).",
     )
     parser.add_argument(
+        "--pair-scope",
+        help=(
+            "Optional pair key to scope pair-level checks to a single benchmark lane. "
+            "Useful for advisory per-pair latest artifacts such as en-de."
+        ),
+    )
+    parser.add_argument(
         "--pos-probe-json",
         type=Path,
         default=PROJECT_ROOT
@@ -238,21 +245,25 @@ def main() -> None:
             )
 
     if benchmark_payload is not None and policy_payload is not None:
+        pair_scope = str(args.pair_scope or "").strip().lower() or None
         validate_benchmark_pairs(
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_quality_floors(
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_delta_budgets(
             benchmark_payload=benchmark_payload,
             baseline_payload=baseline_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_saturation(
             benchmark_payload=benchmark_payload,
@@ -290,6 +301,7 @@ def main() -> None:
         policy_json=str(args.policy_json),
         baseline_json=str(args.baseline_json) if args.baseline_json else None,
         dataset_json=str(args.dataset_json) if args.dataset_json else None,
+        pair_scope=str(args.pair_scope).strip().lower() or None,
         pos_probe_json=str(args.pos_probe_json) if args.pos_probe_json else None,
         pos_inventory_json=str(args.pos_inventory_json) if args.pos_inventory_json else None,
         strict_saturation=bool(args.strict_saturation),

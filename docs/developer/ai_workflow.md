@@ -2,8 +2,8 @@
 
 Status: active workflow
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 AGENTS command review + package-script inventory check
+Last updated: 2026-04-03
+Last verified: 2026-04-03 AGENTS command review + package-script inventory check
 Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
 Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
 
@@ -88,6 +88,7 @@ The commands above remain canonical. Use these wrappers when they fit the change
 python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
 python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
 python3 scripts/testing/rulegen_auto_audit.py --pairs en-es --reverse-check-profile experiment --strict-gate
+npm --prefix scripts run quality:rulegen:en-de
 ```
 
 Wrapper responsibilities:
@@ -101,6 +102,21 @@ Wrapper responsibilities:
   - records a manifest for run provenance.
 
 Use direct commands instead of the wrappers when pair inference is ambiguous or artifact paths need manual control.
+
+For named advisory latest lanes that should stay separate from the strict `en-es` artifact gate, use pair-specific wrappers and summaries:
+
+```bash
+npm --prefix scripts run quality:rulegen:en-de
+npm --prefix scripts run quality:rulegen:en-de:summary
+```
+
+Those advisory lanes can now scope the quality gate to the selected pair so the actionable output stays focused on that pair's own floor, delta, and saturation story.
+The current `en-de` lane uses pair-scoped gate mode.
+Its remaining gate noise is only the expected:
+
+- `DELTA_SCOPE_BASELINE_MISSING`
+
+until an `en-de` baseline is accepted.
 
 ## Policy mechanics
 
@@ -189,6 +205,8 @@ Examples that should stay explicit:
 ## Future extension path
 
 Current artifact gate is strict for `en-es` and advisory for `en-ja` / `en-de` / `es-en` until those pair artifacts are produced regularly.
+
+`en-de` now has a dedicated advisory latest lane with its own preset, wrapper commands, and `*_latest` artifacts, but it is still not part of `required_benchmark_pairs`.
 
 As pair coverage matures:
 1. Add those pairs to `required_benchmark_pairs`.

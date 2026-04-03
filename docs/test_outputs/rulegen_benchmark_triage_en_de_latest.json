@@ -1,0 +1,151 @@
+{
+  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 4,
+  "items": [
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Haus",
+      "target": "Haus",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "establishment",
+      "top3_sources": [
+        "establishment",
+        "institution",
+        "house"
+      ],
+      "expected_matches": [
+        "house"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: establishment",
+          "Observed top3 sources: establishment, institution, house"
+        ],
+        "candidate_forbidden_top1": [
+          "establishment"
+        ],
+        "candidate_expected_any": [
+          "establishment",
+          "institution",
+          "house"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Schule",
+      "target": "Schule",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "pod",
+      "top3_sources": [
+        "pod",
+        "school",
+        "group"
+      ],
+      "expected_matches": [
+        "school"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: pod",
+          "Observed top3 sources: pod, school, group"
+        ],
+        "candidate_forbidden_top1": [
+          "pod"
+        ],
+        "candidate_expected_any": [
+          "pod",
+          "school",
+          "group"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Weg",
+      "target": "Weg",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "alley",
+      "top3_sources": [
+        "alley",
+        "way",
+        "walk"
+      ],
+      "expected_matches": [
+        "way"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: alley",
+          "Observed top3 sources: alley, way, walk"
+        ],
+        "candidate_forbidden_top1": [
+          "alley"
+        ],
+        "candidate_expected_any": [
+          "alley",
+          "way",
+          "walk"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Zeit",
+      "target": "Zeit",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "spell",
+      "top3_sources": [
+        "spell",
+        "time",
+        "faff"
+      ],
+      "expected_matches": [
+        "time"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: spell",
+          "Observed top3 sources: spell, time, faff"
+        ],
+        "candidate_forbidden_top1": [
+          "spell"
+        ],
+        "candidate_expected_any": [
+          "spell",
+          "time",
+          "faff"
+        ]
+      }
+    }
+  ]
+}

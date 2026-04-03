@@ -43,6 +43,9 @@ def render_summary(
         f"- Benchmark JSON: `{payload.get('benchmark_json', '')}`",
         f"- Policy JSON: `{payload.get('policy_json', '')}`",
     ]
+    pair_scope = str(payload.get("pair_scope") or "").strip()
+    if pair_scope:
+        lines.append(f"- Pair scope: `{pair_scope}`")
 
     actionable = [
         item

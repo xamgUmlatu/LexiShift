@@ -88,6 +88,8 @@ def _summarize_triage(path: Path) -> None:
 def _build_cycle_commands(
     *,
     pairs: list[str],
+    benchmark_preset: str | None,
+    quality_gate_pair_scope: str | None,
     max_definitions_values: str,
     max_rules_values: str,
     confidence_threshold_values: str,
@@ -117,42 +119,53 @@ def _build_cycle_commands(
     benchmark_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
-        "--pairs",
-        ",".join(pairs),
-        "--max-definitions-values",
-        str(max_definitions_values),
-        "--max-rules-values",
-        str(max_rules_values),
-        "--confidence-threshold-values",
-        str(confidence_threshold_values),
-        "--semantic-demotion-scale-values",
-        str(semantic_demotion_scale_values),
-        "--include-variants-values",
-        str(include_variants_values),
-        "--pos-scoring-values",
-        str(pos_scoring_values),
-        "--score-weight-pos-values",
-        str(score_weight_pos_values),
-        "--reverse-check-enabled-values",
-        str(reverse_enabled_values),
-        "--reverse-check-match-bonus-values",
-        str(reverse_match_bonus_values),
-        "--reverse-check-near-bonus-values",
-        str(reverse_near_bonus_values),
-        "--reverse-check-near-rank-max-values",
-        str(reverse_near_rank_max_values),
-        "--reverse-check-far-hit-penalty-values",
-        str(reverse_far_hit_penalty_values),
-        "--reverse-check-miss-penalty-values",
-        str(reverse_miss_penalty_values),
-        "--max-configurations",
-        str(int(max_configurations)),
-        "--top-runs",
-        str(int(top_runs)),
-        "--compute-only",
-        "--json-output",
-        str(benchmark_json),
     ]
+    if benchmark_preset:
+        benchmark_cmd.extend(["--preset", str(benchmark_preset)])
+    else:
+        benchmark_cmd.extend(
+            [
+                "--pairs",
+                ",".join(pairs),
+                "--max-definitions-values",
+                str(max_definitions_values),
+                "--max-rules-values",
+                str(max_rules_values),
+                "--confidence-threshold-values",
+                str(confidence_threshold_values),
+                "--semantic-demotion-scale-values",
+                str(semantic_demotion_scale_values),
+                "--include-variants-values",
+                str(include_variants_values),
+                "--pos-scoring-values",
+                str(pos_scoring_values),
+                "--score-weight-pos-values",
+                str(score_weight_pos_values),
+                "--reverse-check-enabled-values",
+                str(reverse_enabled_values),
+                "--reverse-check-match-bonus-values",
+                str(reverse_match_bonus_values),
+                "--reverse-check-near-bonus-values",
+                str(reverse_near_bonus_values),
+                "--reverse-check-near-rank-max-values",
+                str(reverse_near_rank_max_values),
+                "--reverse-check-far-hit-penalty-values",
+                str(reverse_far_hit_penalty_values),
+                "--reverse-check-miss-penalty-values",
+                str(reverse_miss_penalty_values),
+                "--max-configurations",
+                str(int(max_configurations)),
+            ]
+        )
+    benchmark_cmd.extend(
+        [
+            "--top-runs",
+            str(int(top_runs)),
+            "--compute-only",
+            "--json-output",
+            str(benchmark_json),
+        ]
+    )
     render_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
@@ -181,6 +194,8 @@ def _build_cycle_commands(
         "--json-out",
         str(quality_gate_json),
     ]
+    if quality_gate_pair_scope:
+        gate_cmd.extend(["--pair-scope", str(quality_gate_pair_scope)])
     triage_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark_triage.py"),
@@ -205,6 +220,22 @@ def main() -> None:
         "--pairs",
         default="en-es,en-ja",
         help="Comma-separated language pairs (default: en-es,en-ja).",
+    )
+    parser.add_argument(
+        "--benchmark-preset",
+        default=None,
+        help=(
+            "Optional named benchmark preset passed through to rulegen_benchmark.py. "
+            "When set, the preset defines the benchmark matrix and pair-specific tuning values."
+        ),
+    )
+    parser.add_argument(
+        "--quality-gate-pair-scope",
+        default=None,
+        help=(
+            "Optional pair key to scope the quality gate to one benchmark lane. "
+            "Useful for dedicated per-pair latest artifacts."
+        ),
     )
     parser.add_argument(
         "--max-definitions-values",
@@ -404,6 +435,14 @@ def main() -> None:
 
     benchmark_cmd, render_cmd, gate_cmd, triage_cmd = _build_cycle_commands(
         pairs=pairs,
+        benchmark_preset=(
+            str(args.benchmark_preset).strip() if str(args.benchmark_preset or "").strip() else None
+        ),
+        quality_gate_pair_scope=(
+            str(args.quality_gate_pair_scope).strip().lower()
+            if str(args.quality_gate_pair_scope or "").strip()
+            else None
+        ),
         max_definitions_values=str(args.max_definitions_values),
         max_rules_values=str(args.max_rules_values),
         confidence_threshold_values=str(args.confidence_threshold_values),

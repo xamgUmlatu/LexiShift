@@ -32,8 +32,8 @@ Use this file when:
 ## Rulegen Benchmark / Gate / Triage Loop
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-02-24`
-- Last verified: `2026-03-28` local benchmark/gate/triage refresh + pipeline contract doc sync
+- Last documented checkpoint: `2026-04-03` `en-de` now also has a named advisory latest lane with a dedicated preset, wrapper commands, and pair-specific benchmark/gate/triage summaries alongside the strict `en-es` artifact gate
+- Last verified: `2026-04-03` local `en-de` benchmark/gate/triage refresh plus workflow/package/doc sync
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
@@ -42,6 +42,7 @@ Use this file when:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
   - `docs/developer/rulegen_test_pipeline.md`
+  - `scripts/package.json`
   - `scripts/testing/rulegen_benchmark.py`
   - `scripts/testing/rulegen_benchmark_bundle.py`
   - `scripts/testing/rulegen_benchmark_presets.py`
@@ -58,6 +59,7 @@ Use this file when:
 - Known gaps:
   - Current `docs/test_outputs/rulegen_quality_gate_latest.json` has FAIL findings for `en-es` quality floor and delta budget.
   - Recommended pairs (`en-ja`, `en-de`, `es-en`) are still advisory rather than hard-gated.
+  - `en-de` now has a named advisory latest lane, but it is still separate from the canonical strict `en-es` lane and not yet part of `required_benchmark_pairs`.
   - Cross-machine benchmark artifacts can preserve source-machine absolute dataset paths; the gate now falls back to the repo-local dataset copy when the original path is unavailable.
   - Artifact history and pair inference still depend on wrapper usage rather than a mandatory repo-wide gate.
   - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, they now record the effective per-target `word_package` snapshot used by the run, the benchmark CLI now supports named preset methodologies from `docs/test_inputs/rulegen_benchmark_presets.json`, and portable bundle export/replay now packages the exact dataset/resources/snapshots for cross-machine reruns; the remaining ergonomic gap is optional single-file archive/import support.
@@ -224,6 +226,48 @@ Use this file when:
   - `de-en` still has no benchmark dataset or quality frontier; this slice is enablement, not tuning.
   - `de-en` still has no reverse-check implementation.
   - Helper CLI override naming still reflects legacy FreeDict terminology even though the generalized translation-dictionary seam is active underneath.
+
+## `en-de` Advisory Quality Lane
+
+- Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
+- Last documented checkpoint: `2026-04-03` `en-de` now has a dedicated advisory latest lane with a named benchmark preset, npm wrapper commands, summary commands, and a pair-specific roadmap that intentionally mirrors the `en-es` lane structure without claiming parity
+- Last verified: `2026-04-03` local `en-de` benchmark/gate/triage rerun and summary generation over the named latest lane
+- Default behavior:
+  - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
+  - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
+  - The lane now uses a named preset:
+    - `en_de_canonical_matrix`
+  - Dedicated outputs now live at:
+    - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_en_de_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_en_de_latest.html`
+    - `docs/test_outputs/rulegen_quality_gate_en_de_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_de_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_de_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_en_de_summary_latest.md`
+    - `docs/test_outputs/rulegen_quality_gate_en_de_summary_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_de_summary_latest.md`
+  - The current lane intentionally stays baseline:
+    - no reverse-check
+    - no Kaikki provenance / competition scoring
+    - dataset-expansion and lexical-choice cleanup come before pair-specific frontier work
+- Evidence:
+  - `docs/language_pairs/en_de_workstream_roadmap.md`
+  - `docs/developer/ai_workflow.md`
+  - `scripts/package.json`
+  - `docs/test_inputs/rulegen_benchmark_presets.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_latest.json`
+- Known gaps:
+  - `en-de` remains advisory and is still not part of `required_benchmark_pairs`.
+  - The benchmark case set is still only `16` targets, so the lane is measurable but not yet broad enough for `en-es`-style confidence.
+  - The current `en-de` latest run is still below the configured top-1 floor and still has four REVIEW cases (`Haus`, `Schule`, `Weg`, `Zeit`).
+  - The dedicated `en-de` gate is now pair-scoped, but delta checks still warn until an `en-de` baseline is accepted:
+    - `DELTA_SCOPE_BASELINE_MISSING`
+  - `en-de` still has no reverse-check implementation.
+  - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup and dataset expansion.
+  - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
 
 ## Rulegen Auto Audit Wrapper
 

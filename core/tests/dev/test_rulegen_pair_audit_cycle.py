@@ -30,6 +30,8 @@ class TestRulegenPairAuditCycle(unittest.TestCase):
 
             benchmark_cmd, render_cmd, gate_cmd, triage_cmd = _build_cycle_commands(
                 pairs=["en-es", "en-ja"],
+                benchmark_preset=None,
+                quality_gate_pair_scope=None,
                 max_definitions_values="3",
                 max_rules_values="none,1",
                 confidence_threshold_values="0.0,0.05",
@@ -77,6 +79,8 @@ class TestRulegenPairAuditCycle(unittest.TestCase):
             root = Path(tmp)
             benchmark_cmd, render_cmd, _, triage_cmd = _build_cycle_commands(
                 pairs=["en-es"],
+                benchmark_preset=None,
+                quality_gate_pair_scope=None,
                 max_definitions_values="3",
                 max_rules_values="none",
                 confidence_threshold_values="0.0",
@@ -119,6 +123,51 @@ class TestRulegenPairAuditCycle(unittest.TestCase):
         self.assertEqual(
             triage_cmd[triage_cmd.index("--markdown-out") + 1],
             str(root / "triage.md"),
+        )
+
+    def test_build_cycle_commands_allows_scoped_quality_gate_and_benchmark_preset(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            benchmark_cmd, _render_cmd, gate_cmd, _triage_cmd = _build_cycle_commands(
+                pairs=["en-de"],
+                benchmark_preset="en_de_canonical_matrix",
+                quality_gate_pair_scope="en-de",
+                max_definitions_values="3",
+                max_rules_values="none",
+                confidence_threshold_values="0.0",
+                semantic_demotion_scale_values="1.0",
+                include_variants_values="false",
+                pos_scoring_values="true",
+                score_weight_pos_values="0.0",
+                reverse_enabled_values="false",
+                reverse_match_bonus_values="0.2",
+                reverse_near_bonus_values="0.1",
+                reverse_near_rank_max_values="2",
+                reverse_far_hit_penalty_values="0.0",
+                reverse_miss_penalty_values="0.2",
+                top_runs=5,
+                max_configurations=8,
+                benchmark_json=root / "bench.json",
+                benchmark_markdown=root / "bench.md",
+                benchmark_html=root / "bench.html",
+                quality_gate_json=root / "gate.json",
+                triage_json=root / "triage.json",
+                triage_markdown=root / "triage.md",
+                policy_json=root / "policy.json",
+                baseline_json=root / "baseline.json",
+                pos_probe_json=root / "probe.json",
+                pos_inventory_json=root / "inventory.json",
+            )
+
+        self.assertIn("--preset", benchmark_cmd)
+        self.assertEqual(
+            benchmark_cmd[benchmark_cmd.index("--preset") + 1],
+            "en_de_canonical_matrix",
+        )
+        self.assertIn("--pair-scope", gate_cmd)
+        self.assertEqual(
+            gate_cmd[gate_cmd.index("--pair-scope") + 1],
+            "en-de",
         )
 
 

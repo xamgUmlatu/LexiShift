@@ -20,6 +20,7 @@ class QualityReport:
     policy_json: str
     baseline_json: str | None
     dataset_json: str | None
+    pair_scope: str | None
     pos_probe_json: str | None
     pos_inventory_json: str | None
     strict_saturation: bool
@@ -33,6 +34,7 @@ class QualityReport:
             "policy_json": self.policy_json,
             "baseline_json": self.baseline_json,
             "dataset_json": self.dataset_json,
+            "pair_scope": self.pair_scope,
             "pos_probe_json": self.pos_probe_json,
             "pos_inventory_json": self.pos_inventory_json,
             "strict_saturation": self.strict_saturation,
