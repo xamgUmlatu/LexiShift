@@ -25,7 +25,7 @@ class TestInstalledPacks(unittest.TestCase):
             base_dir = Path(tmp)
             pack_root = installed_pack_root(base_dir, "freedict-en-de")
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact_path = pack_root / "freedict-en-de.sqlite"
+            artifact_path = pack_root / "main.sqlite"
             artifact_path.write_bytes(b"SQLite format 3\x00")
 
             manifest_path = write_installed_pack_manifest(
@@ -37,7 +37,7 @@ class TestInstalledPacks(unittest.TestCase):
                 build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact_path,
                 source_filename="freedict-eng-deu.tar.xz",
-                sqlite_filename="freedict-en-de.sqlite",
+                sqlite_filename="main.sqlite",
                 required_files=("eng-deu.tei",),
             )
 
@@ -46,7 +46,7 @@ class TestInstalledPacks(unittest.TestCase):
             )
             manifest = load_installed_pack_manifest(base_dir, "freedict-en-de")
             assert manifest is not None
-            self.assertEqual(manifest.artifact_relpath, "freedict-en-de.sqlite")
+            self.assertEqual(manifest.artifact_relpath, "main.sqlite")
             self.assertEqual(manifest.artifact_kind, "sqlite")
             self.assertEqual(
                 resolve_installed_pack_artifact(base_dir, "freedict-en-de"), artifact_path

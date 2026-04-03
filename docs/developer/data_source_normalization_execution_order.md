@@ -48,7 +48,7 @@ This matrix is the canonical remaining-work board for the normalization program.
 
 | Family | Representative packs | Normalized managed form | Primary UX/runtime endpoints | Current state | Remaining target |
 |---|---|---|---|---|---|
-| Translation dictionaries | `freedict-de-en`, `freedict-en-de`, `freedict-es-en`, `freedict-en-es`, `wiktionary-es-en`, `wiktionary-en-es` | Pack root + `manifest.json` + compiled SQLite + translation-pack ref | settings pack manager, helper rulegen, runtime diagnostics, benchmark, bulk-rule translation expansion, SRS harness fixtures | Mostly normalized | converge artifact naming to `main.sqlite`, remove remaining provider-shaped generic names, make manifest-first resolution dominant everywhere |
+| Translation dictionaries | `freedict-de-en`, `freedict-en-de`, `freedict-es-en`, `freedict-en-es`, `wiktionary-es-en`, `wiktionary-en-es` | Pack root + `manifest.json` + compiled SQLite + translation-pack ref | settings pack manager, helper rulegen, runtime diagnostics, benchmark, bulk-rule translation expansion, SRS harness fixtures | Mostly normalized | managed installs now converge on `main.sqlite`; remaining work is provider-shaped generic naming cleanup and making manifest-first resolution dominant everywhere |
 | Frequency packs | `freq-en-coca`, `freq-ja-bccwj`, `freq-de-default`, `freq-es-cde` | Pack root + `manifest.json` + SQLite + frequency-pack ref | settings pack manager, SRS growth/admission, helper/runtime diagnostics | Mostly normalized | converge artifact naming to `main.sqlite`, tighten canonical schema, finish pack-id/manifests as the primary contract |
 | Embedding packs | `embed-en-cc`, `embed-de-cc`, `embed-ja-cc`, `embed-es-cc`, `embed-xling-*` | Pack root + `manifest.json` + SQLite + embedding-pack ref | settings pack manager, replacement filter, embedding-backed synonym behavior | Mostly normalized for app-managed installs | make pack-id-first the only normal managed contract, keep raw `.vec/.bin` only as manual import/debug, converge artifact naming to `main.sqlite` |
 | Secondary lexical packs | `wordnet-en`, `moby-en`, `openthesaurus-de`, `odenet-de`, `jp-wordnet`, `jp-wordnet-sqlite`, `jmdict-ja-en`, `cc-cedict-zh-en` | Mixed/raw today | settings pack manager, bulk add rules, some SRS/rulegen support for `jmdict` | Not normalized as a family | decision pending; either normalize into the same managed-pack model or explicitly demote to manual/legacy import status |
@@ -107,7 +107,7 @@ Status markers:
 | Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids with load-time migration for old app-owned paths, but secondary language-pack flows still keep path-shaped state |
 | Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids with load-time migration and SRS runtime resolves managed ids first, but naming/schema/artifact convergence still remains |
 | Managed embedding settings/runtime fully pack-id-first | `[~]` | pair activation is pack-id-first, but compatibility/manual path storage still exists |
-| Converge managed translation artifact naming to `main.sqlite` | `[ ]` | do this once manifest-first resolution is dominant everywhere |
+| Converge managed translation artifact naming to `main.sqlite` | `[x]` | app-managed translation installs now land on `main.sqlite`; legacy `<pack_id>.sqlite` names remain fallback for older/manual paths |
 | Converge managed frequency artifact naming to `main.sqlite` | `[x]` | app-managed frequency installs now land on `main.sqlite`; legacy `freq-*.sqlite` names remain fallback for older/manual paths |
 | Converge managed embedding artifact naming to `main.sqlite` | `[ ]` | do after managed-path persistence is fully settled |
 | Remove remaining app-managed obsolete field names | `[~]` | most generic seams are done; remaining hits are increasingly provider-specific or settings-local |
@@ -135,6 +135,7 @@ Already landed:
 - managed frequency settings now split app-owned frequency packs into `managed_frequency_pack_ids` plus manual `frequency_packs`, and app-state loading migrates old saved managed artifact paths into that shape
 - the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
 - the bulk-rules translation path now rebuilds managed translation pack paths from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
+- app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
 - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
@@ -143,6 +144,7 @@ Already landed:
 Still intentionally transitional:
 
 - some GUI/runtime/benchmark/help-text paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
+- translation packs still preserve legacy `<pack_id>.sqlite` artifact names as fallback paths during migration
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still preserve direct artifact-path maps for compatibility and manual imports, but managed app-owned artifact paths no longer need to be re-persisted alongside pack-id activation
 - benchmark/help-text surfaces still contain some legacy filename/provider heuristics, especially the oversized `rulegen_benchmark.py` hotspot

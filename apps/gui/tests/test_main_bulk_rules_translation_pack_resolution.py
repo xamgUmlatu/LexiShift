@@ -40,7 +40,7 @@ def test_resolve_translation_pack_path_prefers_manifest_backed_sqlite() -> None:
             local_kind="dir",
             build_mode="freedict_tei_to_sqlite",
             artifact_path=artifact,
-            sqlite_filename="freedict-de-en.sqlite",
+            sqlite_filename="main.sqlite",
         )
 
         resolved = _resolve_translation_pack_path(
@@ -112,7 +112,7 @@ def test_configured_language_pack_paths_include_managed_translation_pack_ids() -
             local_kind="dir",
             build_mode="freedict_tei_to_sqlite",
             artifact_path=artifact,
-            sqlite_filename="freedict-en-es.sqlite",
+            sqlite_filename="main.sqlite",
         )
         settings = SynonymSourceSettings(
             managed_language_pack_ids=("freedict-en-es",),

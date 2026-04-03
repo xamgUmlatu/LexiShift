@@ -653,7 +653,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                 local_kind="file",
                 build_mode="kaikki_jsonl_to_sqlite",
                 artifact_path=forward_artifact,
-                sqlite_filename="wiktionary-es-en.sqlite",
+                sqlite_filename="main.sqlite",
             )
             reverse_root = paths.language_packs_dir / "wiktionary-en-es"
             reverse_root.mkdir(parents=True, exist_ok=True)
@@ -667,7 +667,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
                 local_kind="file",
                 build_mode="kaikki_jsonl_to_sqlite",
                 artifact_path=reverse_artifact,
-                sqlite_filename="wiktionary-en-es.sqlite",
+                sqlite_filename="main.sqlite",
             )
             with patch(
                 "lexishift_core.helper.engine.run_rulegen_for_pair",

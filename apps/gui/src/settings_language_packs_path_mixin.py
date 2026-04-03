@@ -25,6 +25,21 @@ class LanguagePackPanelPathMixin:
             return None
         return str(self._language_pack_storage_dir(pack) / pack.sqlite_filename)
 
+    def _legacy_language_pack_sqlite_paths(self, pack: LanguagePackInfo) -> tuple[str, ...]:
+        if not pack.sqlite_filename:
+            return ()
+        legacy_name = f"{pack.pack_id}.sqlite"
+        storage_dir = self._language_pack_storage_dir(pack)
+        candidates = [
+            str(storage_dir / legacy_name),
+            str(Path(self._language_pack_dir) / legacy_name),
+        ]
+        unique: list[str] = []
+        for candidate in candidates:
+            if candidate not in unique:
+                unique.append(candidate)
+        return tuple(unique)
+
     def _language_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
         return installed_pack_root(Path(self._language_pack_dir), pack.pack_id)
 
@@ -76,9 +91,17 @@ class LanguagePackPanelPathMixin:
                 )
                 if resolved_artifact is not None:
                     return str(resolved_artifact)
-            sqlite_path = self._language_pack_sqlite_path(pack)
-            if sqlite_path and self._is_sqlite_db(sqlite_path):
-                return sqlite_path
+            sqlite_candidates = [
+                candidate
+                for candidate in (
+                    self._language_pack_sqlite_path(pack),
+                    *self._legacy_language_pack_sqlite_paths(pack),
+                )
+                if candidate
+            ]
+            for sqlite_path in sqlite_candidates:
+                if self._is_sqlite_db(sqlite_path):
+                    return sqlite_path
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
         if embeddings:
             manifest = load_installed_pack_manifest(Path(self._embedding_pack_dir), pack.pack_id)

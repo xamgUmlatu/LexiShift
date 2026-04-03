@@ -67,7 +67,7 @@ class TestTranslationPacks(unittest.TestCase):
                 local_kind="file",
                 build_mode="kaikki_jsonl_to_sqlite",
                 artifact_path=artifact,
-                sqlite_filename="wiktionary-es-en.sqlite",
+                sqlite_filename="main.sqlite",
             )
 
             ref = build_translation_pack_ref(

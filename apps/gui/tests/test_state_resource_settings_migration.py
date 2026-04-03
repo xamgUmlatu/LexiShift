@@ -27,7 +27,7 @@ def test_load_settings_migrates_managed_translation_and_frequency_paths() -> Non
             local_kind="dir",
             build_mode="freedict_tei_to_sqlite",
             artifact_path=language_artifact,
-            sqlite_filename="freedict-en-es.sqlite",
+            sqlite_filename="main.sqlite",
         )
 
         frequency_root = root / "frequency_packs" / "freq-en-coca"

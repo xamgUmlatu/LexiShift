@@ -26,7 +26,7 @@ def test_paths_omit_managed_translation_pack_artifacts() -> None:
             "freedict-en-es": SimpleNamespace(
                 pack_id="freedict-en-es",
                 build_mode="freedict_tei_to_sqlite",
-                sqlite_filename="freedict-en-es.sqlite",
+                sqlite_filename="main.sqlite",
             ),
             "wordnet-en": SimpleNamespace(
                 pack_id="wordnet-en",

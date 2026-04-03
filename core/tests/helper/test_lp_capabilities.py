@@ -128,7 +128,7 @@ class TestLpCapabilities(unittest.TestCase):
             language_packs_dir = Path(tmp)
             pack_root = language_packs_dir / "freedict-en-de"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freedict-en-de.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
@@ -139,7 +139,7 @@ class TestLpCapabilities(unittest.TestCase):
                 build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-eng-deu-1.9-fd1.src.tar.xz",
-                sqlite_filename="freedict-en-de.sqlite",
+                sqlite_filename="main.sqlite",
                 required_files=("eng-deu.tei",),
             )
             resolved = default_translation_dictionary_path(
@@ -163,7 +163,7 @@ class TestLpCapabilities(unittest.TestCase):
             language_packs_dir = Path(tmp)
             pack_root = language_packs_dir / "freedict-de-en"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freedict-de-en.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
@@ -174,7 +174,7 @@ class TestLpCapabilities(unittest.TestCase):
                 build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
-                sqlite_filename="freedict-de-en.sqlite",
+                sqlite_filename="main.sqlite",
                 required_files=("deu-eng.tei",),
             )
             resolved = default_reverse_translation_dictionary_path(
