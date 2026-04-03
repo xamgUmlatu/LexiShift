@@ -20,7 +20,7 @@ What can change aggressively now:
 
 What may still keep compatibility shims for a while:
 
-- manual external imports
+- temporary manual/external import escape hatches
 - explicit developer/debug paths
 - tests that intentionally exercise raw-format coverage
 - provider-specific converter/build tooling
@@ -29,6 +29,7 @@ Practical rule:
 
 - if a surface is part of the unreleased app/runtime/tooling contract, prefer rename/remove over preserving old `freedict_*` or TEI-first behavior
 - if a surface is explicitly about manual imports, raw-format tests, or provider-specific conversion, compatibility is still reasonable
+- do not treat generic file-picker path selection as a promoted steady-state UX; it is a transitional escape hatch and likely phase-out candidate
 
 ## End State
 
@@ -104,7 +105,7 @@ Status markers:
 | Generic benchmark/probe naming cleanup | `[x]` | benchmark split landed; generic translation naming is now the normal tooling contract |
 | Adapter request contract uses generic translation-path fields | `[x]` | generic request seam no longer carries `freedict_*` aliases |
 | Synonym translation-pack seam uses generic directional fields | `[x]` | runtime seam no longer uses FreeDict-shaped field names there |
-| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids, manual entries now serialize under explicit `language_pack_paths`, the settings panel now keeps an explicit language-resource binding layer for the mixed language-pack surface, the language-pack table/delete/autolink path now reads those bindings directly, and the UI labels managed artifacts as installed vs manual external paths; secondary language-pack flows still keep path-shaped state |
+| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids, manual entries now serialize under explicit `language_pack_paths`, the settings panel now keeps an explicit language-resource binding layer for the mixed language-pack surface, the language-pack table/delete/autolink path now reads those bindings directly, and the UI labels managed artifacts as installed vs manual external paths; secondary language-pack flows still keep path-shaped state and likely need phase-out or a stricter import model |
 | Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids, manual entries now serialize under explicit `frequency_pack_paths`, the settings panel now keeps managed frequency ids separate from manual path maps internally, and GUI SRS growth plus the POS probe now share the same pack-ref-oriented configured frequency-pack resolver; remaining work is mostly schema/diagnostic cleanup |
 | Managed embedding settings/runtime fully pack-id-first | `[x]` | app-managed embedding activation is pack-id-first, old managed embedding paths now migrate out on load, and manual path storage remains separate for import/debug use |
 | Converge managed translation artifact naming to `main.sqlite` | `[x]` | app-managed translation installs now land on `main.sqlite`; legacy `<pack_id>.sqlite` names remain fallback for older/manual paths |
@@ -136,7 +137,7 @@ Already landed:
 - the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
 - the settings panel now keeps managed translation/frequency ids in dedicated in-memory sets instead of reconstructing them from a unified path map on save
 - the mixed language-pack settings surface now has an explicit `LanguageResourceBinding` layer for managed translation packs plus secondary/manual entries, and persistence derives managed ids/manual paths from those bindings instead of ad hoc map splitting
-- the language-pack table, delete flow, and auto-link path now consume those `LanguageResourceBinding` records directly, and the language-pack tab now states that managed translation packs install optimized SQLite artifacts while manual selections remain external import paths
+- the language-pack table, delete flow, and auto-link path now consume those `LanguageResourceBinding` records directly, and the language-pack tab now states that app-managed packs are the default while manual selection is a temporary compatibility path
 - the bulk-rules translation path and source-stat logging now use a shared configured language-pack resolver to rebuild managed translation pack artifacts from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
 - GUI SRS growth and the POS normalization probe now share the same configured frequency-pack resolver in the core helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
 - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
@@ -154,6 +155,7 @@ Still intentionally transitional:
 - translation packs still preserve legacy `<pack_id>.sqlite` artifact names as fallback paths during migration
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
 - embeddings still preserve raw/manual path maps for compatibility and manual imports, but managed app-owned embedding paths no longer need to be persisted alongside pack-id activation
+- broad generic manual path selection is now treated as transitional rather than strategic, and should likely be phased out unless a concrete product use case survives
 - benchmark/help-text surfaces still contain some legacy filename/provider heuristics, especially the oversized `rulegen_benchmark.py` hotspot
 
 ## Board-Driven Execution Rule

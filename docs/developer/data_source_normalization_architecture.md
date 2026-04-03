@@ -47,7 +47,7 @@ That means:
 
 Compatibility is still reasonable only for:
 
-- manual external imports
+- temporary manual/external import escape hatches that we explicitly choose to keep
 - explicit developer/debug paths
 - provider-specific converter/build tooling
 - tests that intentionally verify raw-format coverage
@@ -56,6 +56,7 @@ So the final architecture is not just “support both forever.” It is:
 
 - aggressive cleanup for app-managed surfaces
 - explicit compatibility islands for manual/debug/provider-specific workflows
+- likely phase-out of broad generic file-picker path selection unless a concrete product use case survives
 
 ## Onboarding Rule
 

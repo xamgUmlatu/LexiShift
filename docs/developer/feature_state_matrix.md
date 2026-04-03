@@ -134,7 +134,7 @@ Use this file when:
     - app-state load/update now migrates old saved managed translation/frequency artifact paths into that split representation
     - the settings panel now keeps managed translation/frequency ids in dedicated in-memory sets instead of reconstructing those ids from unified path maps on save
     - the mixed language-pack settings surface now keeps explicit `LanguageResourceBinding` records for managed translation packs plus secondary/manual entries, and dialog persistence can derive managed ids plus manual paths from those bindings
-    - the language-pack table, delete flow, and auto-link path now consume those `LanguageResourceBinding` records directly, and the language-pack tab now explicitly states that managed translation packs install optimized SQLite artifacts while manual selections remain external import paths
+    - the language-pack table, delete flow, and auto-link path now consume those `LanguageResourceBinding` records directly, and the language-pack tab now explicitly states that app-managed packs are the default while manual selection is a temporary compatibility path
     - bulk-rules translation loading and source-stat reporting now use a shared configured language-pack resolver to rebuild managed translation artifacts from stored pack ids before falling back to manual path maps, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
     - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
     - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
@@ -145,6 +145,7 @@ Use this file when:
     - frequency packs already expose SQLite, and new app-managed installs now use `main.sqlite`, but legacy `freq-*.sqlite` names still remain valid fallback paths during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
     - managed embedding settings/runtime are now pack-id-first for app-owned installs, while manual raw/vector and external SQLite paths remain separate compatibility/import inputs
+    - broad manual file-path selection is not a promoted product feature; it is a transitional compatibility surface and likely phase-out candidate unless a concrete use case survives
 - Evidence:
   - `docs/developer/data_source_normalization_architecture.md`
   - `docs/developer/language_pair_generalization_roadmap.md`

@@ -227,6 +227,7 @@ Acceptance criteria:
 3. Finish language pack UX polish:
    - Pack-specific validators for edge layouts.
    - Clear handling for external/manual paths vs. app-managed files.
+   - Decide whether to phase out broad manual file-path selection entirely; current expectation is probably yes unless a concrete user need survives.
    - Re-enable Wiktionary when we are ready to handle large downloads.
 4. Add language selection controls tied to profiles/rulesets:
    - Monolingual vs cross-lingual toggle per profile or per ruleset.

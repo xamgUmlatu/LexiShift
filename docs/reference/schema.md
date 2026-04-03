@@ -219,10 +219,19 @@ Top-level fields
 - `use_embeddings` (bool, optional, default: false)
 - `embedding_threshold` (float, optional, default: 0.0)
 - `embedding_fallback` (bool, optional, default: true)
-- `language_packs` (object map, optional; pack_id -> local path)
-- `embedding_packs` (object map, optional; pack_id -> local path)
+- `managed_language_pack_ids` (string array, optional; app-managed translation pack ids)
+- `language_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `managed_frequency_pack_ids` (string array, optional; app-managed frequency pack ids)
+- `frequency_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `last_selected_pack_ids` (string array, optional)
+- `embedding_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `embedding_pair_pack_ids` (object map, optional; pair_key -> array of app-managed embedding pack ids)
 - `embedding_pair_paths` (object map, optional; pair_key -> list of embedding paths)
 - `embedding_pair_enabled` (object map, optional; pair_key -> bool)
+
+Notes:
+- App-managed packs should normally be selected by pack id, not by raw path.
+- `*_pack_paths` are transitional manual/external compatibility fields, not the preferred steady-state contract.
 
 Example (minimal)
 ```json
