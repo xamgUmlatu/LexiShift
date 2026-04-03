@@ -40,6 +40,7 @@ from lexishift_core import (
 from lexishift_core.helper.lp_capabilities import selectable_srs_pairs
 from i18n import available_locales, t
 from settings_language_packs import LanguagePackPanel
+from settings_language_packs_support import split_language_resource_bindings
 from helper_installer import install_helper, is_helper_installed
 from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
 from dialogs_theme_utils import _ThemedTabContainer, _coerce_float, _merge_theme, _parse_int
@@ -79,16 +80,25 @@ def build_synonym_resource_settings_from_panel(
     *,
     base_synonyms: Optional[SynonymSourceSettings] = None,
 ) -> SynonymSourceSettings:
-    managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
-    language_pack_paths = dict(panel.paths() or {})
+    bindings_fn = getattr(panel, "language_resource_bindings", None)
+    if callable(bindings_fn):
+        (
+            managed_language_pack_ids,
+            language_pack_paths,
+            wordnet_dir,
+            moby_path,
+        ) = split_language_resource_bindings(bindings_fn())
+    else:
+        managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
+        language_pack_paths = dict(panel.paths() or {})
+        wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
+        moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
     managed_frequency_pack_ids = tuple(panel.managed_frequency_pack_ids() or ())
     frequency_pack_paths = dict(panel.frequency_paths() or {})
     embedding_pack_paths = dict(panel.embedding_paths() or {})
     embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
     embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
     embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
-    wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
-    moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
     return replace(
         base_synonyms or SynonymSourceSettings(),
         wordnet_dir=wordnet_dir,

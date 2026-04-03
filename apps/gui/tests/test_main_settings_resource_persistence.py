@@ -14,6 +14,13 @@ from lexishift_core import AppSettings, SynonymSourceSettings
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from dialogs import build_synonym_resource_settings_from_panel
 from main import MainWindow
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+    LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+    LanguageResourceBinding,
+)
 
 
 def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace:
@@ -153,3 +160,34 @@ def test_build_synonym_resource_settings_from_panel_preserves_non_ui_fields() ->
     assert resolved.last_selected_pack_ids == ("freedict-en-es",)
     assert resolved.managed_language_pack_ids == ("freedict-en-es",)
     assert resolved.managed_frequency_pack_ids == ("freq-en-coca",)
+
+
+def test_build_synonym_resource_settings_from_panel_prefers_language_bindings() -> None:
+    panel = SimpleNamespace(
+        language_resource_bindings=lambda: {
+            "freedict-en-es": LanguageResourceBinding(
+                pack_id="freedict-en-es",
+                family=LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                effective_path="/tmp/freedict-en-es/main.sqlite",
+            ),
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/wordnet",
+            ),
+        },
+        managed_frequency_pack_ids=lambda: ["freq-en-coca"],
+        frequency_paths=lambda: {},
+        embedding_paths=lambda: {},
+        embedding_pair_pack_ids=lambda: {},
+        embedding_pair_paths=lambda: {},
+        embedding_pair_enabled=lambda: {},
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(panel)
+
+    assert resolved.managed_language_pack_ids == ("freedict-en-es",)
+    assert resolved.language_pack_paths == {"wordnet-en": "/tmp/wordnet"}
+    assert resolved.wordnet_dir == "/tmp/wordnet"

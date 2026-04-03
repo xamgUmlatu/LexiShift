@@ -6,6 +6,13 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 
 from lexishift_core import SynonymSourceSettings
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+    LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+    LanguageResourceBinding,
+)
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
 
 
@@ -19,10 +26,20 @@ def test_paths_omit_managed_translation_pack_artifacts() -> None:
         managed.parent.mkdir(parents=True, exist_ok=True)
         managed.write_bytes(b"SQLite format 3\x00")
         dummy = _DummyPanel()
-        dummy._language_pack_paths = {
-            "wordnet-en": "/tmp/wordnet",
+        dummy._language_resource_bindings = {
+            "freedict-en-es": LanguageResourceBinding(
+                pack_id="freedict-en-es",
+                family=LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                effective_path=str(managed),
+            ),
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/wordnet",
+            ),
         }
-        dummy._managed_language_pack_ids = {"freedict-en-es"}
         dummy._language_pack_info = {
             "freedict-en-es": SimpleNamespace(
                 pack_id="freedict-en-es",
@@ -65,9 +82,7 @@ def test_frequency_paths_omit_managed_pack_artifacts() -> None:
         manual = root / "manual.sqlite"
         manual.write_bytes(b"SQLite format 3\x00")
         dummy = _DummyPanel()
-        dummy._frequency_pack_paths = {
-            "freq-manual": str(manual),
-        }
+        dummy._frequency_pack_paths = {"freq-manual": str(manual)}
         dummy._managed_frequency_pack_ids = {"freq-en-coca"}
         dummy._frequency_pack_info = {
             "freq-en-coca": SimpleNamespace(pack_id="freq-en-coca"),
@@ -199,5 +214,12 @@ def test_seed_language_and_frequency_paths_keep_managed_ids_separate() -> None:
 
     assert dummy._managed_language_pack_ids == {"freedict-en-es"}
     assert dummy._language_pack_paths == {"wordnet-en": "/tmp/wordnet"}
+    assert (
+        dummy.language_resource_bindings()["freedict-en-es"].origin
+        == LANGUAGE_RESOURCE_ORIGIN_MANAGED
+    )
+    assert (
+        dummy.language_resource_bindings()["wordnet-en"].origin == LANGUAGE_RESOURCE_ORIGIN_MANUAL
+    )
     assert dummy._managed_frequency_pack_ids == {"freq-en-coca"}
     assert dummy._frequency_pack_paths == {"freq-manual": "/tmp/freq-manual.sqlite"}

@@ -37,6 +37,7 @@ from settings_language_packs_support import (
     EmbeddingConversionThread,
     EmbeddingPackRow,
     FrequencyPackRow,
+    LanguageResourceBinding,
     LanguagePackRow,
     embedding_pack_dir as _embedding_pack_dir,
     frequency_pack_dir as _frequency_pack_dir,
@@ -73,6 +74,7 @@ class LanguagePackPanel(
         self._language_pack_threads: list[LanguagePackDownloadThread] = []
         self._frequency_pack_threads: list[FrequencyPackDownloadThread] = []
         self._embedding_conversion_threads: list[EmbeddingConversionThread] = []
+        self._language_resource_bindings: dict[str, LanguageResourceBinding] = {}
         self._language_pack_paths: dict[str, str] = {}
         self._managed_language_pack_ids: set[str] = set()
         self._frequency_pack_paths: dict[str, str] = {}
@@ -278,7 +280,7 @@ class LanguagePackPanel(
             self._refresh_language_pack_table()
             return
         if self._is_managed_translation_pack_entry(pack_id, path):
-            self._set_managed_language_pack_entry(pack_id)
+            self._set_managed_language_pack_entry(pack_id, effective_path=path)
         else:
             self._set_manual_language_pack_entry(pack_id, path)
         self._set_status_message(
@@ -661,7 +663,7 @@ class LanguagePackPanel(
             valid, _message = self._validate_language_pack_path(pack, candidate)
             if valid:
                 if self._is_pack_id_first_translation_pack(pack):
-                    self._set_managed_language_pack_entry(pack_id)
+                    self._set_managed_language_pack_entry(pack_id, effective_path=candidate)
                 else:
                     self._set_manual_language_pack_entry(pack_id, candidate)
 
@@ -694,7 +696,7 @@ class LanguagePackPanel(
         valid, message = self._validate_language_pack_path(pack, dest_path)
         if valid:
             if self._is_pack_id_first_translation_pack(pack):
-                self._set_managed_language_pack_entry(pack_id)
+                self._set_managed_language_pack_entry(pack_id, effective_path=dest_path)
             else:
                 self._set_manual_language_pack_entry(pack_id, dest_path)
             row.status_item.setText(t("language_packs.status.installed"))

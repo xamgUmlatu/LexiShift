@@ -7,6 +7,14 @@ from PySide6.QtWidgets import QMessageBox, QTableWidgetItem
 
 from i18n import t
 from lexishift_core import SynonymSourceSettings
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+    LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+    LanguageResourceBinding,
+    split_language_resource_bindings,
+)
 from utils_paths import reveal_path
 
 _TRANSLATION_PACK_BUILD_MODES = frozenset(
@@ -32,21 +40,19 @@ class LanguagePackPanelStateMixin:
         self._refresh_cross_embedding_pack_table()
 
     def paths(self) -> dict[str, str]:
-        paths: dict[str, str] = {}
-        for pack_id, path in self._language_pack_paths.items():
-            if pack_id in getattr(self, "_managed_language_pack_ids", set()) or (
-                self._is_managed_translation_pack_entry(pack_id, path)
-            ):
-                continue
-            paths[pack_id] = path
-        return paths
+        _managed_ids, manual_paths, _wordnet_dir, _moby_path = split_language_resource_bindings(
+            getattr(self, "_language_resource_bindings", {})
+        )
+        return manual_paths
 
     def managed_language_pack_ids(self) -> list[str]:
-        pack_ids = set(getattr(self, "_managed_language_pack_ids", set()) or set())
-        for pack_id, path in self._language_pack_paths.items():
-            if self._is_managed_translation_pack_entry(pack_id, path):
-                pack_ids.add(pack_id)
-        return sorted(pack_ids)
+        managed_ids, _manual_paths, _wordnet_dir, _moby_path = split_language_resource_bindings(
+            getattr(self, "_language_resource_bindings", {})
+        )
+        return list(managed_ids)
+
+    def language_resource_bindings(self) -> dict[str, LanguageResourceBinding]:
+        return dict(getattr(self, "_language_resource_bindings", {}) or {})
 
     def frequency_paths(self) -> dict[str, str]:
         paths: dict[str, str] = {}
@@ -180,8 +186,7 @@ class LanguagePackPanelStateMixin:
         )
 
     def _seed_language_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
-        self._language_pack_paths = dict(getattr(synonym_settings, "language_pack_paths", {}) or {})
-        self._managed_language_pack_ids = set()
+        bindings: dict[str, LanguageResourceBinding] = {}
         for pack_id in tuple(getattr(synonym_settings, "managed_language_pack_ids", ()) or ()):
             pack = self._language_pack_info.get(pack_id)
             if not self._is_pack_id_first_translation_pack(pack):
@@ -190,15 +195,54 @@ class LanguagePackPanelStateMixin:
             if candidate:
                 valid, _message = self._validate_language_pack_path(pack, candidate)
                 if valid:
-                    self._managed_language_pack_ids.add(pack_id)
-        for pack_id, path in tuple(self._language_pack_paths.items()):
+                    bindings[pack_id] = LanguageResourceBinding(
+                        pack_id=pack_id,
+                        family=self._language_resource_family(pack_id),
+                        origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                        effective_path=candidate,
+                    )
+        for pack_id, path in dict(
+            getattr(synonym_settings, "language_pack_paths", {}) or {}
+        ).items():
+            path_text = str(path or "").strip()
+            if not path_text:
+                continue
             if self._is_managed_translation_pack_entry(pack_id, path):
-                self._managed_language_pack_ids.add(pack_id)
-                self._language_pack_paths.pop(pack_id, None)
+                bindings[pack_id] = LanguageResourceBinding(
+                    pack_id=pack_id,
+                    family=self._language_resource_family(pack_id),
+                    origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                    effective_path=path_text,
+                )
+            else:
+                bindings[pack_id] = LanguageResourceBinding(
+                    pack_id=pack_id,
+                    family=self._language_resource_family(pack_id),
+                    origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                    effective_path=path_text,
+                )
         if synonym_settings.wordnet_dir:
-            self._language_pack_paths.setdefault("wordnet-en", synonym_settings.wordnet_dir)
+            bindings.setdefault(
+                "wordnet-en",
+                LanguageResourceBinding(
+                    pack_id="wordnet-en",
+                    family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                    origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                    effective_path=synonym_settings.wordnet_dir,
+                ),
+            )
         if synonym_settings.moby_path:
-            self._language_pack_paths.setdefault("moby-en", synonym_settings.moby_path)
+            bindings.setdefault(
+                "moby-en",
+                LanguageResourceBinding(
+                    pack_id="moby-en",
+                    family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                    origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                    effective_path=synonym_settings.moby_path,
+                ),
+            )
+        self._language_resource_bindings = bindings
+        self._sync_language_pack_compat_state()
 
     def _seed_frequency_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._frequency_pack_paths = dict(
@@ -267,16 +311,32 @@ class LanguagePackPanelStateMixin:
         return path_text == resolved
 
     def _set_manual_language_pack_entry(self, pack_id: str, path: str) -> None:
-        self._managed_language_pack_ids.discard(pack_id)
-        self._language_pack_paths[pack_id] = path
+        self._language_resource_bindings[pack_id] = LanguageResourceBinding(
+            pack_id=pack_id,
+            family=self._language_resource_family(pack_id),
+            origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+            effective_path=path,
+        )
+        self._sync_language_pack_compat_state()
 
-    def _set_managed_language_pack_entry(self, pack_id: str) -> None:
-        self._language_pack_paths.pop(pack_id, None)
-        self._managed_language_pack_ids.add(pack_id)
+    def _set_managed_language_pack_entry(
+        self, pack_id: str, *, effective_path: str | None = None
+    ) -> None:
+        pack = self._language_pack_info.get(pack_id)
+        resolved_path = str(effective_path or "").strip() or (
+            self._resolve_downloaded_path(pack) if pack else None
+        )
+        self._language_resource_bindings[pack_id] = LanguageResourceBinding(
+            pack_id=pack_id,
+            family=self._language_resource_family(pack_id),
+            origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+            effective_path=resolved_path,
+        )
+        self._sync_language_pack_compat_state()
 
     def _clear_language_pack_entry(self, pack_id: str) -> None:
-        self._language_pack_paths.pop(pack_id, None)
-        self._managed_language_pack_ids.discard(pack_id)
+        self._language_resource_bindings.pop(pack_id, None)
+        self._sync_language_pack_compat_state()
 
     def _is_managed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
         path_text = str(path or "").strip()
@@ -299,6 +359,19 @@ class LanguagePackPanelStateMixin:
     def _clear_frequency_pack_entry(self, pack_id: str) -> None:
         self._frequency_pack_paths.pop(pack_id, None)
         self._managed_frequency_pack_ids.discard(pack_id)
+
+    def _language_resource_family(self, pack_id: str) -> str:
+        pack = self._language_pack_info.get(pack_id)
+        if self._is_pack_id_first_translation_pack(pack):
+            return LANGUAGE_RESOURCE_FAMILY_TRANSLATION
+        return LANGUAGE_RESOURCE_FAMILY_SECONDARY
+
+    def _sync_language_pack_compat_state(self) -> None:
+        managed_ids, manual_paths, _wordnet_dir, _moby_path = split_language_resource_bindings(
+            self._language_resource_bindings
+        )
+        self._managed_language_pack_ids = set(managed_ids)
+        self._language_pack_paths = manual_paths
 
     def _is_installed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
         path_text = str(path or "").strip()
