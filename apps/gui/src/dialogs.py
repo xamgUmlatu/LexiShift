@@ -74,6 +74,36 @@ def _srs_pair_options() -> list[tuple[str, str]]:
     return [(pair, _format_pair_label(pair)) for pair in selectable_srs_pairs()]
 
 
+def build_synonym_resource_settings_from_panel(
+    panel: object,
+    *,
+    base_synonyms: Optional[SynonymSourceSettings] = None,
+) -> SynonymSourceSettings:
+    managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
+    language_pack_paths = dict(panel.paths() or {})
+    managed_frequency_pack_ids = tuple(panel.managed_frequency_pack_ids() or ())
+    frequency_pack_paths = dict(panel.frequency_paths() or {})
+    embedding_pack_paths = dict(panel.embedding_paths() or {})
+    embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
+    embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
+    embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
+    wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
+    moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
+    return replace(
+        base_synonyms or SynonymSourceSettings(),
+        wordnet_dir=wordnet_dir,
+        moby_path=moby_path,
+        managed_language_pack_ids=managed_language_pack_ids,
+        language_pack_paths=language_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
+        frequency_pack_paths=frequency_pack_paths,
+        embedding_pack_paths=embedding_pack_paths,
+        embedding_pair_pack_ids=embedding_pair_pack_ids,
+        embedding_pair_paths=embedding_pair_paths,
+        embedding_pair_enabled=embedding_pair_enabled,
+    )
+
+
 class RuleMetadataDialog(QDialog):
     def __init__(self, rule: VocabRule, parent=None) -> None:
         super().__init__(parent)
@@ -200,23 +230,11 @@ class SettingsDialog(QDialog):
         )
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
         embedding_threshold = self.embedding_threshold_slider.value() / 100.0
-        managed_language_pack_ids = tuple(
-            self.language_pack_panel.managed_language_pack_ids() or ()
-        )
-        language_pack_paths = self.language_pack_panel.paths()
-        managed_frequency_pack_ids = tuple(
-            self.language_pack_panel.managed_frequency_pack_ids() or ()
-        )
-        frequency_pack_paths = self.language_pack_panel.frequency_paths()
-        embedding_pack_paths = self.language_pack_panel.embedding_paths()
-        embedding_pair_pack_ids = self.language_pack_panel.embedding_pair_pack_ids()
-        embedding_pair_paths = self.language_pack_panel.embedding_pair_paths()
-        embedding_pair_enabled = self.language_pack_panel.embedding_pair_enabled()
-        wordnet_dir = language_pack_paths.get("wordnet-en")
-        moby_path = language_pack_paths.get("moby-en")
-        synonyms = SynonymSourceSettings(
-            moby_path=moby_path.strip() if moby_path else None,
-            wordnet_dir=wordnet_dir.strip() if wordnet_dir else None,
+        synonyms = replace(
+            build_synonym_resource_settings_from_panel(
+                self.language_pack_panel,
+                base_synonyms=self._app_settings.synonyms,
+            ),
             max_synonyms=max_synonyms,
             include_phrases=self.include_phrases_check.isChecked(),
             lower_case=self.lower_case_check.isChecked(),
@@ -224,14 +242,6 @@ class SettingsDialog(QDialog):
             use_embeddings=self.use_embeddings_check.isChecked(),
             embedding_threshold=embedding_threshold,
             embedding_fallback=self.embedding_fallback_check.isChecked(),
-            managed_language_pack_ids=managed_language_pack_ids,
-            language_pack_paths=language_pack_paths,
-            managed_frequency_pack_ids=managed_frequency_pack_ids,
-            frequency_pack_paths=frequency_pack_paths,
-            embedding_pack_paths=embedding_pack_paths,
-            embedding_pair_pack_ids=embedding_pair_pack_ids,
-            embedding_pair_paths=embedding_pair_paths,
-            embedding_pair_enabled=embedding_pair_enabled,
         )
         srs_settings = self._collect_srs_settings()
         return replace(

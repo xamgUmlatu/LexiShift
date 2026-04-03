@@ -52,7 +52,11 @@ from lexishift_core import (
     VocabRule,
 )
 
-from dialogs import RuleMetadataDialog, SettingsDialog
+from dialogs import (
+    RuleMetadataDialog,
+    SettingsDialog,
+    build_synonym_resource_settings_from_panel,
+)
 from helper_ui import auto_install_helper
 from i18n import set_locale, t
 from main_mixins import (
@@ -573,30 +577,11 @@ class MainWindow(
         panel = getattr(dialog, "language_pack_panel", None)
         if panel is None:
             return
-        managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
-        language_pack_paths = dict(panel.paths() or {})
-        managed_frequency_pack_ids = tuple(panel.managed_frequency_pack_ids() or ())
-        frequency_pack_paths = dict(panel.frequency_paths() or {})
-        embedding_pack_paths = dict(panel.embedding_paths() or {})
-        embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
-        embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
-        embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
         current_settings = self.state.settings
         current_synonyms = current_settings.synonyms or SynonymSourceSettings()
-        wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
-        moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
-        updated_synonyms = replace(
-            current_synonyms,
-            wordnet_dir=wordnet_dir,
-            moby_path=moby_path,
-            managed_language_pack_ids=managed_language_pack_ids,
-            language_pack_paths=language_pack_paths,
-            managed_frequency_pack_ids=managed_frequency_pack_ids,
-            frequency_pack_paths=frequency_pack_paths,
-            embedding_pack_paths=embedding_pack_paths,
-            embedding_pair_pack_ids=embedding_pair_pack_ids,
-            embedding_pair_paths=embedding_pair_paths,
-            embedding_pair_enabled=embedding_pair_enabled,
+        updated_synonyms = build_synonym_resource_settings_from_panel(
+            panel,
+            base_synonyms=current_synonyms,
         )
         if updated_synonyms == current_synonyms:
             return

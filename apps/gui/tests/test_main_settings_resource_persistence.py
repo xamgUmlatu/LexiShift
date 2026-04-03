@@ -12,6 +12,7 @@ from PySide6.QtWidgets import QDialog
 
 from lexishift_core import AppSettings, SynonymSourceSettings
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
+from dialogs import build_synonym_resource_settings_from_panel
 from main import MainWindow
 
 
@@ -133,3 +134,22 @@ def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_dat
     assert resolved is not None
     assert resolved.path.resolve(strict=False) == fallback.resolve(strict=False)
     assert resolved.pack_id == "freq-en-coca"
+
+
+def test_build_synonym_resource_settings_from_panel_preserves_non_ui_fields() -> None:
+    base = SynonymSourceSettings(last_selected_pack_ids=("freedict-en-es",))
+    panel = _build_resource_panel(
+        frequency_paths={
+            "freq-de-default": "/tmp/freq-de-default.sqlite",
+            "freq-en-coca": "/tmp/freq-en-coca.sqlite",
+        }
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(
+        panel,
+        base_synonyms=base,
+    )
+
+    assert resolved.last_selected_pack_ids == ("freedict-en-es",)
+    assert resolved.managed_language_pack_ids == ("freedict-en-es",)
+    assert resolved.managed_frequency_pack_ids == ("freq-en-coca",)
