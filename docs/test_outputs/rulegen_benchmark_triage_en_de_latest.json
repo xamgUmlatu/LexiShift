@@ -1,7 +1,7 @@
 {
   "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 19,
+  "failing_or_review_count": 21,
   "items": [
     {
       "pair": "en-de",
@@ -115,9 +115,9 @@
       "pair": "en-de",
       "case_id": "en-de:Zeit",
       "target": "Zeit",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "spell",
       "top3_sources": [
@@ -128,12 +128,14 @@
       "expected_matches": [
         "time"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "spell"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: spell",
           "Observed top3 sources: spell, time, faff"
         ],
@@ -151,9 +153,9 @@
       "pair": "en-de",
       "case_id": "en-de:Sprache",
       "target": "Sprache",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "diction",
       "top3_sources": [
@@ -164,12 +166,14 @@
       "expected_matches": [
         "language"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "diction"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: diction",
           "Observed top3 sources: diction, language, tongue"
         ],
@@ -187,9 +191,9 @@
       "pair": "en-de",
       "case_id": "en-de:Fenster",
       "target": "Fenster",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "box",
       "top3_sources": [
@@ -200,12 +204,14 @@
       "expected_matches": [
         "window"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "box"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: box",
           "Observed top3 sources: box, window, windowed"
         ],
@@ -223,9 +229,9 @@
       "pair": "en-de",
       "case_id": "en-de:Tag",
       "target": "Tag",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "tag",
       "top3_sources": [
@@ -236,12 +242,14 @@
       "expected_matches": [
         "day"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "tag"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: tag",
           "Observed top3 sources: tag, day, doomsday"
         ],
@@ -259,9 +267,9 @@
       "pair": "en-de",
       "case_id": "en-de:Stunde",
       "target": "Stunde",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "lesson",
       "top3_sources": [
@@ -272,12 +280,14 @@
       "expected_matches": [
         "hour"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "lesson"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: lesson",
           "Observed top3 sources: lesson, hour, period"
         ],
@@ -295,9 +305,9 @@
       "pair": "en-de",
       "case_id": "en-de:Kopf",
       "target": "Kopf",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "mind",
       "top3_sources": [
@@ -308,12 +318,14 @@
       "expected_matches": [
         "head"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "mind"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: mind",
           "Observed top3 sources: mind, spirit, head"
         ],
@@ -331,9 +343,9 @@
       "pair": "en-de",
       "case_id": "en-de:Gesicht",
       "target": "Gesicht",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "facies",
       "top3_sources": [
@@ -344,12 +356,14 @@
       "expected_matches": [
         "face"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "facies"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: facies",
           "Observed top3 sources: facies, face, visage"
         ],
@@ -367,9 +381,9 @@
       "pair": "en-de",
       "case_id": "en-de:Ohr",
       "target": "Ohr",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "hearing",
       "top3_sources": [
@@ -380,12 +394,14 @@
       "expected_matches": [
         "ear"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "hearing"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: hearing",
           "Observed top3 sources: hearing, audition, ear"
         ],
@@ -403,9 +419,9 @@
       "pair": "en-de",
       "case_id": "en-de:Fuß",
       "target": "Fuß",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "base",
       "top3_sources": [
@@ -416,12 +432,14 @@
       "expected_matches": [
         "foot"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "base"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: base",
           "Observed top3 sources: base, foot, head"
         ],
@@ -441,6 +459,7 @@
       "target": "Straße",
       "status": "FAIL",
       "reasons": [
+        "forbidden_candidate_present",
         "expected_candidate_missing_from_top3"
       ],
       "top1_source": "avenue",
@@ -450,7 +469,11 @@
         "strait"
       ],
       "expected_matches": [],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "avenue",
+        "alley",
+        "strait"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
         "priority": "high",
@@ -473,9 +496,9 @@
       "pair": "en-de",
       "case_id": "en-de:Idee",
       "target": "Idee",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "notion",
       "top3_sources": [
@@ -486,12 +509,14 @@
       "expected_matches": [
         "idea"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "notion"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: notion",
           "Observed top3 sources: notion, inspiration, idea"
         ],
@@ -541,10 +566,85 @@
     },
     {
       "pair": "en-de",
+      "case_id": "en-de:Chef",
+      "target": "Chef",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "chief",
+      "top3_sources": [
+        "chief",
+        "boss"
+      ],
+      "expected_matches": [
+        "chief",
+        "boss"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: chief",
+          "Observed top3 sources: chief, boss"
+        ],
+        "candidate_forbidden_top1": [
+          "chief"
+        ],
+        "candidate_expected_any": [
+          "chief",
+          "boss"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Fall",
+      "target": "Fall",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "case",
+      "top3_sources": [
+        "case",
+        "fall",
+        "instance"
+      ],
+      "expected_matches": [
+        "case",
+        "instance"
+      ],
+      "forbidden_matches": [
+        "fall"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: case",
+          "Observed top3 sources: case, fall, instance"
+        ],
+        "candidate_forbidden_top1": [
+          "case"
+        ],
+        "candidate_expected_any": [
+          "case",
+          "fall",
+          "instance"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
       "case_id": "en-de:Zug",
       "target": "Zug",
       "status": "FAIL",
       "reasons": [
+        "forbidden_candidate_present",
         "expected_candidate_missing_from_top3"
       ],
       "top1_source": "strain",
@@ -554,7 +654,9 @@
         "characteristic"
       ],
       "expected_matches": [],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "strain"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
         "priority": "high",
@@ -577,9 +679,9 @@
       "pair": "en-de",
       "case_id": "en-de:Stimme",
       "target": "Stimme",
-      "status": "REVIEW",
+      "status": "FAIL",
       "reasons": [
-        "top1_not_in_expected_set"
+        "forbidden_candidate_present"
       ],
       "top1_source": "part",
       "top3_sources": [
@@ -590,12 +692,14 @@
       "expected_matches": [
         "voice"
       ],
-      "forbidden_matches": [],
+      "forbidden_matches": [
+        "part"
+      ],
       "suggested_case_patch": {
         "action": "review_labels",
-        "priority": "medium",
+        "priority": "high",
         "notes": [
-          "Review expected_top1_any labels or scoring weights for this case.",
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: part",
           "Observed top3 sources: part, partbook, voice"
         ],
@@ -652,6 +756,7 @@
       "target": "Grund",
       "status": "FAIL",
       "reasons": [
+        "top1_is_forbidden",
         "expected_candidate_missing_from_top3"
       ],
       "top1_source": "motive",

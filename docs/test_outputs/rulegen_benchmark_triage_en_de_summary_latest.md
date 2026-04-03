@@ -2,13 +2,13 @@
 
 - Benchmark JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json`
 - Pairs processed: 1
-- Actionable items: 19
-- FAIL items: 4
-- REVIEW items: 15
+- Actionable items: 21
+- FAIL items: 16
+- REVIEW items: 5
 
 ## Items By Pair
 
-- `en-de`: 19
+- `en-de`: 21
 
 ## Actionable Cases
 
@@ -21,25 +21,25 @@
 3. [REVIEW] `en-de` `en-de:Weg` target=`Weg`
    - Reasons: top1_not_in_expected_set
    - Observed top1: `alley`
-4. [REVIEW] `en-de` `en-de:Zeit` target=`Zeit`
-   - Reasons: top1_not_in_expected_set
+4. [FAIL] `en-de` `en-de:Zeit` target=`Zeit`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `spell`
-5. [REVIEW] `en-de` `en-de:Sprache` target=`Sprache`
-   - Reasons: top1_not_in_expected_set
+5. [FAIL] `en-de` `en-de:Sprache` target=`Sprache`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `diction`
-6. [REVIEW] `en-de` `en-de:Fenster` target=`Fenster`
-   - Reasons: top1_not_in_expected_set
+6. [FAIL] `en-de` `en-de:Fenster` target=`Fenster`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `box`
-7. [REVIEW] `en-de` `en-de:Tag` target=`Tag`
-   - Reasons: top1_not_in_expected_set
+7. [FAIL] `en-de` `en-de:Tag` target=`Tag`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `tag`
-8. [REVIEW] `en-de` `en-de:Stunde` target=`Stunde`
-   - Reasons: top1_not_in_expected_set
+8. [FAIL] `en-de` `en-de:Stunde` target=`Stunde`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `lesson`
-9. [REVIEW] `en-de` `en-de:Kopf` target=`Kopf`
-   - Reasons: top1_not_in_expected_set
+9. [FAIL] `en-de` `en-de:Kopf` target=`Kopf`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `mind`
-10. [REVIEW] `en-de` `en-de:Gesicht` target=`Gesicht`
-   - Reasons: top1_not_in_expected_set
+10. [FAIL] `en-de` `en-de:Gesicht` target=`Gesicht`
+   - Reasons: forbidden_candidate_present
    - Observed top1: `facies`
-11. Additional items omitted: 9
+11. Additional items omitted: 11

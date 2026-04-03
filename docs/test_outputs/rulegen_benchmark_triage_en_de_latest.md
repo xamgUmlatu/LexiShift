@@ -2,29 +2,31 @@
 
 - benchmark_json: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json`
 - pairs_processed: 1
-- failing_or_review_count: 19
+- failing_or_review_count: 21
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
 | en-de | `en-de:Haus` | Haus | REVIEW | top1_not_in_expected_set | establishment | establishment, institution, house |
 | en-de | `en-de:Schule` | Schule | REVIEW | top1_not_in_expected_set | pod | pod, school, group |
 | en-de | `en-de:Weg` | Weg | REVIEW | top1_not_in_expected_set | alley | alley, way, walk |
-| en-de | `en-de:Zeit` | Zeit | REVIEW | top1_not_in_expected_set | spell | spell, time, faff |
-| en-de | `en-de:Sprache` | Sprache | REVIEW | top1_not_in_expected_set | diction | diction, language, tongue |
-| en-de | `en-de:Fenster` | Fenster | REVIEW | top1_not_in_expected_set | box | box, window, windowed |
-| en-de | `en-de:Tag` | Tag | REVIEW | top1_not_in_expected_set | tag | tag, day, doomsday |
-| en-de | `en-de:Stunde` | Stunde | REVIEW | top1_not_in_expected_set | lesson | lesson, hour, period |
-| en-de | `en-de:Kopf` | Kopf | REVIEW | top1_not_in_expected_set | mind | mind, spirit, head |
-| en-de | `en-de:Gesicht` | Gesicht | REVIEW | top1_not_in_expected_set | facies | facies, face, visage |
-| en-de | `en-de:Ohr` | Ohr | REVIEW | top1_not_in_expected_set | hearing | hearing, audition, ear |
-| en-de | `en-de:Fuß` | Fuß | REVIEW | top1_not_in_expected_set | base | base, foot, head |
-| en-de | `en-de:Straße` | Straße | FAIL | expected_candidate_missing_from_top3 | avenue | avenue, alley, strait |
-| en-de | `en-de:Idee` | Idee | REVIEW | top1_not_in_expected_set | notion | notion, inspiration, idea |
+| en-de | `en-de:Zeit` | Zeit | FAIL | forbidden_candidate_present | spell | spell, time, faff |
+| en-de | `en-de:Sprache` | Sprache | FAIL | forbidden_candidate_present | diction | diction, language, tongue |
+| en-de | `en-de:Fenster` | Fenster | FAIL | forbidden_candidate_present | box | box, window, windowed |
+| en-de | `en-de:Tag` | Tag | FAIL | forbidden_candidate_present | tag | tag, day, doomsday |
+| en-de | `en-de:Stunde` | Stunde | FAIL | forbidden_candidate_present | lesson | lesson, hour, period |
+| en-de | `en-de:Kopf` | Kopf | FAIL | forbidden_candidate_present | mind | mind, spirit, head |
+| en-de | `en-de:Gesicht` | Gesicht | FAIL | forbidden_candidate_present | facies | facies, face, visage |
+| en-de | `en-de:Ohr` | Ohr | FAIL | forbidden_candidate_present | hearing | hearing, audition, ear |
+| en-de | `en-de:Fuß` | Fuß | FAIL | forbidden_candidate_present | base | base, foot, head |
+| en-de | `en-de:Straße` | Straße | FAIL | forbidden_candidate_present, expected_candidate_missing_from_top3 | avenue | avenue, alley, strait |
+| en-de | `en-de:Idee` | Idee | FAIL | forbidden_candidate_present | notion | notion, inspiration, idea |
 | en-de | `en-de:Preis` | Preis | FAIL | expected_candidate_missing_from_top3 | award | award, cost, pot |
-| en-de | `en-de:Zug` | Zug | FAIL | expected_candidate_missing_from_top3 | strain | strain, trait, characteristic |
-| en-de | `en-de:Stimme` | Stimme | REVIEW | top1_not_in_expected_set | part | part, partbook, voice |
+| en-de | `en-de:Chef` | Chef | REVIEW | top1_not_in_expected_set | chief | chief, boss |
+| en-de | `en-de:Fall` | Fall | FAIL | forbidden_candidate_present | case | case, fall, instance |
+| en-de | `en-de:Zug` | Zug | FAIL | forbidden_candidate_present, expected_candidate_missing_from_top3 | strain | strain, trait, characteristic |
+| en-de | `en-de:Stimme` | Stimme | FAIL | forbidden_candidate_present | part | part, partbook, voice |
 | en-de | `en-de:Geschichte` | Geschichte | REVIEW | top1_not_in_expected_set | tale | tale, story, history |
-| en-de | `en-de:Grund` | Grund | FAIL | expected_candidate_missing_from_top3 | motive | motive, motivation, bottom |
+| en-de | `en-de:Grund` | Grund | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | motive | motive, motivation, bottom |
 
 ## Suggested Case Patches
 
@@ -95,9 +97,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: spell",
     "Observed top3 sources: spell, time, faff"
   ],
@@ -116,9 +118,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: diction",
     "Observed top3 sources: diction, language, tongue"
   ],
@@ -137,9 +139,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: box",
     "Observed top3 sources: box, window, windowed"
   ],
@@ -158,9 +160,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: tag",
     "Observed top3 sources: tag, day, doomsday"
   ],
@@ -179,9 +181,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: lesson",
     "Observed top3 sources: lesson, hour, period"
   ],
@@ -200,9 +202,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: mind",
     "Observed top3 sources: mind, spirit, head"
   ],
@@ -221,9 +223,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: facies",
     "Observed top3 sources: facies, face, visage"
   ],
@@ -242,9 +244,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: hearing",
     "Observed top3 sources: hearing, audition, ear"
   ],
@@ -263,9 +265,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: base",
     "Observed top3 sources: base, foot, head"
   ],
@@ -305,9 +307,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: notion",
     "Observed top3 sources: notion, inspiration, idea"
   ],
@@ -343,6 +345,47 @@
 }
 ```
 
+### en-de / en-de:Chef
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: chief",
+    "Observed top3 sources: chief, boss"
+  ],
+  "candidate_forbidden_top1": [
+    "chief"
+  ],
+  "candidate_expected_any": [
+    "chief",
+    "boss"
+  ]
+}
+```
+
+### en-de / en-de:Fall
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Observed top1 source: case",
+    "Observed top3 sources: case, fall, instance"
+  ],
+  "candidate_forbidden_top1": [
+    "case"
+  ],
+  "candidate_expected_any": [
+    "case",
+    "fall",
+    "instance"
+  ]
+}
+```
+
 ### en-de / en-de:Zug
 ```json
 {
@@ -368,9 +411,9 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: part",
     "Observed top3 sources: part, partbook, voice"
   ],

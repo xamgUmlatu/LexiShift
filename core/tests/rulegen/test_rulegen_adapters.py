@@ -726,7 +726,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
         self.assertTrue(all(rule.replacement == "casa" for rule in rules))
 
-    def test_en_es_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
+    def test_en_es_adapter_keeps_exact_gloss_terms_by_default(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <text>
@@ -755,6 +755,40 @@ class TestRulegenAdapters(unittest.TestCase):
                     language_pair="en-es",
                     translation_dict_path=path,
                     include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["appearing", "looking", "house"])
+
+    def test_en_es_adapter_demotes_generic_gloss_terms_for_top_k_when_enabled(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>casa</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">appearing</quote></cit>
+          <cit type="trans"><quote xml:lang="en">looking</quote></cit>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+          <cit type="trans"><quote xml:lang="en">home</quote></cit>
+          <cit type="trans"><quote xml:lang="en">dwelling</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("casa",),
+                    language_pair="en-es",
+                    translation_dict_path=path,
+                    include_variants=False,
+                    enable_exact_gloss_demotions=True,
                 )
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
@@ -874,7 +908,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertNotIn("timing", sources)
         self.assertFalse(any(source.endswith("ed") or source.endswith("ing") for source in sources))
 
-    def test_en_ja_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
+    def test_en_ja_adapter_demotes_generic_gloss_terms_for_top_k_when_enabled(self) -> None:
         jmdict_payload = (
             "<JMdict>"
             "<entry>"
@@ -900,6 +934,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     language_pair="en-ja",
                     jmdict_path=path,
                     include_variants=False,
+                    enable_exact_gloss_demotions=True,
                     word_packages_by_target={
                         "様": {
                             "version": 1,
@@ -953,7 +988,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual([rule.source_phrase for rule in rules], ["admire", "value"])
         self.assertTrue(all(rule.replacement == "為る" for rule in rules))
 
-    def test_en_de_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
+    def test_en_de_adapter_keeps_exact_gloss_terms_by_default(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <text>
@@ -982,6 +1017,40 @@ class TestRulegenAdapters(unittest.TestCase):
                     language_pair="en-de",
                     translation_dict_path=path,
                     include_variants=False,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["appearing", "looking", "house"])
+
+    def test_en_de_adapter_demotes_generic_gloss_terms_for_top_k_when_enabled(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>haus</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">appearing</quote></cit>
+          <cit type="trans"><quote xml:lang="en">looking</quote></cit>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+          <cit type="trans"><quote xml:lang="en">home</quote></cit>
+          <cit type="trans"><quote xml:lang="en">dwelling</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "deu-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("haus",),
+                    language_pair="en-de",
+                    translation_dict_path=path,
+                    include_variants=False,
+                    enable_exact_gloss_demotions=True,
                 )
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
@@ -1083,7 +1152,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(kwargs["config"].reverse_check.near_rank_max, 2)
         self.assertAlmostEqual(kwargs["config"].reverse_check.miss_penalty, 0.18, places=6)
 
-    def test_es_en_adapter_demotes_generic_gloss_terms_for_top_k(self) -> None:
+    def test_es_en_adapter_demotes_generic_gloss_terms_for_top_k_when_enabled(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <text>
@@ -1111,6 +1180,7 @@ class TestRulegenAdapters(unittest.TestCase):
                     targets=("house",),
                     language_pair="es-en",
                     translation_dict_path=path,
+                    enable_exact_gloss_demotions=True,
                 )
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["casa", "hogar", "vivienda"])

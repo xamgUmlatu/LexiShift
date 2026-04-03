@@ -21,10 +21,14 @@ class TestRulegenProbeWords(unittest.TestCase):
         )
 
         self.assertEqual(result.returncode, 0, msg=result.stderr)
+        self.assertIn("--german-targets", result.stdout)
         self.assertIn("--translation-dict-en-es", result.stdout)
         self.assertIn("--translation-dict-es-en-reverse", result.stdout)
+        self.assertIn("--translation-dict-en-de", result.stdout)
+        self.assertIn("--enable-exact-gloss-demotion", result.stdout)
         self.assertNotIn("--freedict-es-en", result.stdout)
         self.assertNotIn("--freedict-en-es-reverse", result.stdout)
+        self.assertNotIn("--freedict-de-en", result.stdout)
 
 
 if __name__ == "__main__":

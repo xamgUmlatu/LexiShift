@@ -112,6 +112,7 @@ class DeEnRulegenConfig:
     generic_gloss_demotions: Mapping[str, float] = field(
         default_factory=lambda: resolve_pair_generic_gloss_demotions("de-en")
     )
+    enable_exact_gloss_demotions: bool = False
 
 
 def build_de_en_pipeline(config: DeEnRulegenConfig) -> RuleGenerationPipeline:
@@ -121,7 +122,9 @@ def build_de_en_pipeline(config: DeEnRulegenConfig) -> RuleGenerationPipeline:
         source_dict="freedict_en_de",
         source_type="translation",
         word_packages_by_target=config.word_packages_by_target,
-        generic_gloss_demotions=config.generic_gloss_demotions,
+        generic_gloss_demotions=(
+            config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
+        ),
     )
     normalizers = [BasicStringNormalizer()]
 

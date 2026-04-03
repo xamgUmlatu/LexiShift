@@ -88,6 +88,7 @@ class SweepConfig:
     kaikki_policy_risk_families: tuple[str, ...]
     reverse_check_exact_hit_specificity_bonus: float = 0.0
     kaikki_policy_late_sense_penalty: float = 0.0
+    exact_gloss_demotion_enabled: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -123,6 +124,7 @@ class SweepConfig:
                 self.reverse_check_exact_hit_specificity_bonus
             ),
             "kaikki_policy_late_sense_penalty": self.kaikki_policy_late_sense_penalty,
+            "exact_gloss_demotion_enabled": self.exact_gloss_demotion_enabled,
         }
 
     def label(self) -> str:
@@ -134,6 +136,7 @@ class SweepConfig:
             f"mr={_cap_text(self.max_rules_per_target)} "
             f"thr={self.confidence_threshold:.3f} "
             f"sd={self.semantic_demotion_scale:.2f} "
+            f"xdem={'on' if self.exact_gloss_demotion_enabled else 'off'} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "

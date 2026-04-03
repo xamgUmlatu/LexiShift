@@ -25,6 +25,10 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.pairs.en_de import (  # noqa: E402
+    EnDeRulegenConfig,
+    generate_en_de_results,
+)
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
     EnEsRulegenConfig,
@@ -263,6 +267,11 @@ def main() -> None:
         help="Comma-separated Spanish target lemmas for en-es probe.",
     )
     parser.add_argument(
+        "--german-targets",
+        default="",
+        help="Comma-separated German target lemmas for en-de probe.",
+    )
+    parser.add_argument(
         "--japanese-targets",
         default="様,時",
         help="Comma-separated Japanese target lemmas for en-ja probe.",
@@ -332,6 +341,12 @@ def main() -> None:
         dest="translation_dict_en_es",
         type=Path,
         help="Override translation-dictionary path for en-es probe.",
+    )
+    parser.add_argument(
+        "--translation-dict-en-de",
+        dest="translation_dict_en_de",
+        type=Path,
+        help="Override translation-dictionary path for en-de probe.",
     )
     parser.add_argument(
         "--translation-dict-es-en-reverse",
@@ -404,6 +419,11 @@ def main() -> None:
         help="Additive semantic demotion for late Kaikki senses when clean earlier competition exists.",
     )
     parser.add_argument(
+        "--enable-exact-gloss-demotion",
+        action="store_true",
+        help="Enable exact phrase-level gloss demotion overrides in probe runs.",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Optional path to save full probe output as JSON.",
@@ -412,6 +432,7 @@ def main() -> None:
 
     include_variants = not args.no_variants
     spanish_targets = _parse_csv_words(args.spanish_targets)
+    german_targets = _parse_csv_words(args.german_targets)
     japanese_targets = _parse_csv_words(args.japanese_targets)
     reading_overrides = _parse_reading_overrides(args.ja_readings)
     max_definitions = max(1, int(args.max_definitions))
@@ -453,6 +474,7 @@ def main() -> None:
 
     resolved_translation_dict_en_es: Optional[Path] = None
     resolved_reverse_translation_dict_en_es: Optional[Path] = None
+    resolved_translation_dict_en_de: Optional[Path] = None
     if spanish_targets:
         _resolved_jmdict, _resolved_translation_dict_en_es, _ = resolve_pair_resources(
             paths,
@@ -472,6 +494,18 @@ def main() -> None:
                 "en-es",
                 language_packs_dir=paths.language_packs_dir,
             ),
+        )
+    if german_targets:
+        _resolved_jmdict, _resolved_translation_dict_en_de, _ = resolve_pair_resources(
+            paths,
+            pair="en-de",
+            jmdict_path=args.jmdict,
+            translation_dict_path=args.translation_dict_en_de,
+            set_source_db=None,
+        )
+        resolved_translation_dict_en_de = _resolve_required_file(
+            "Translation dictionary DE->EN",
+            _resolved_translation_dict_en_de,
         )
 
     resolved_jmdict: Optional[Path] = None
@@ -493,6 +527,7 @@ def main() -> None:
     resolved_japanese_targets = [lemma for lemma in japanese_targets if lemma in ja_word_packages]
 
     es_ranking = DictionaryEntryOrderRankingMechanism(reverse_check=reverse_check)
+    de_ranking = DictionaryEntryOrderRankingMechanism()
     ja_ranking = DictionaryEntryOrderRankingMechanism()
 
     # Uncapped baseline run.
@@ -514,12 +549,30 @@ def main() -> None:
                 max_definitions_per_target=None,
                 max_rules_per_target=None,
                 scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 kaikki_policy=EnEsKaikkiPolicyConfig(
                     late_sense_clean_earlier_competition_penalty=max(
                         0.0,
                         float(args.kaikki_policy_late_sense_penalty),
                     )
                 ),
+            ),
+        )
+    de_uncapped: list[RuleGenerationResult] = []
+    if german_targets:
+        de_uncapped = generate_en_de_results(
+            german_targets,
+            config=EnDeRulegenConfig(
+                freedict_de_en_path=_resolve_required_file(
+                    "Translation dictionary DE->EN",
+                    resolved_translation_dict_en_de,
+                ),
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                max_definitions_per_target=None,
+                max_rules_per_target=None,
+                scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
             ),
         )
     ja_uncapped: list[RuleGenerationResult] = []
@@ -534,6 +587,7 @@ def main() -> None:
                 max_definitions_per_target=None,
                 max_rules_per_target=None,
                 scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
             ),
         )
 
@@ -556,12 +610,30 @@ def main() -> None:
                 max_definitions_per_target=max_definitions,
                 max_rules_per_target=max_rules_per_target,
                 scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 kaikki_policy=EnEsKaikkiPolicyConfig(
                     late_sense_clean_earlier_competition_penalty=max(
                         0.0,
                         float(args.kaikki_policy_late_sense_penalty),
                     )
                 ),
+            ),
+        )
+    de_capped: list[RuleGenerationResult] = []
+    if german_targets:
+        de_capped = generate_en_de_results(
+            german_targets,
+            config=EnDeRulegenConfig(
+                freedict_de_en_path=_resolve_required_file(
+                    "Translation dictionary DE->EN",
+                    resolved_translation_dict_en_de,
+                ),
+                include_variants=include_variants,
+                confidence_threshold=args.confidence_threshold,
+                max_definitions_per_target=max_definitions,
+                max_rules_per_target=max_rules_per_target,
+                scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
             ),
         )
     ja_capped: list[RuleGenerationResult] = []
@@ -576,6 +648,7 @@ def main() -> None:
                 max_definitions_per_target=max_definitions,
                 max_rules_per_target=max_rules_per_target,
                 scoring=scoring,
+                enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
             ),
         )
 
@@ -585,6 +658,7 @@ def main() -> None:
     print(f"  srs_store: {store_path}")
     print(f"  translation_dict_en_es: {resolved_translation_dict_en_es}")
     print(f"  translation_dict_es_en_reverse: {resolved_reverse_translation_dict_en_es}")
+    print(f"  translation_dict_en_de: {resolved_translation_dict_en_de}")
     print(f"  jmdict: {resolved_jmdict}")
     print(
         f"  config: max_definitions={max_definitions}, "
@@ -602,7 +676,8 @@ def main() -> None:
         f"reverse_exact_hit_ambiguity_threshold={reverse_check.exact_hit_ambiguity_threshold}, "
         f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
         f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}, "
-        f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}"
+        f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}, "
+        f"enable_exact_gloss_demotion={bool(args.enable_exact_gloss_demotion)}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -622,6 +697,7 @@ def main() -> None:
             "pos_exact_match_bonus": args.pos_exact_match_bonus,
             "pos_compatible_match_bonus": args.pos_compatible_match_bonus,
             "score_weight_pos_match": args.score_weight_pos_match,
+            "enable_exact_gloss_demotion": bool(args.enable_exact_gloss_demotion),
             "reverse_check": {
                 "enabled": reverse_check.enabled,
                 "match_bonus": reverse_check.match_bonus,
@@ -649,6 +725,9 @@ def main() -> None:
                 str(resolved_reverse_translation_dict_en_es)
                 if resolved_reverse_translation_dict_en_es
                 else None
+            ),
+            "translation_dict_en_de": (
+                str(resolved_translation_dict_en_de) if resolved_translation_dict_en_de else None
             ),
             "jmdict": str(resolved_jmdict) if resolved_jmdict else None,
         },
@@ -678,6 +757,22 @@ def main() -> None:
             "capped": capped_rows,
         }
     output_payload["pairs"] = {"en-es": es_pair_payload}
+
+    de_pair_payload: dict[str, object] = {}
+    for target in german_targets:
+        uncapped_rows = _collect_rows_for_target(de_uncapped, target=target, mechanism=de_ranking)
+        capped_rows = _collect_rows_for_target(de_capped, target=target, mechanism=de_ranking)
+        _print_target_block(
+            pair="en-de",
+            target=target,
+            uncapped_rows=uncapped_rows,
+            capped_rows=capped_rows,
+        )
+        de_pair_payload[target] = {
+            "uncapped": uncapped_rows,
+            "capped": capped_rows,
+        }
+    output_payload["pairs"]["en-de"] = de_pair_payload
 
     ja_pair_payload: dict[str, object] = {}
     for target in japanese_targets:
@@ -711,7 +806,7 @@ if __name__ == "__main__":
         print(f"error: {exc}", file=sys.stderr)
         print(
             "hint: pass explicit resource paths with --jmdict, --translation-dict-en-es, "
-            "--translation-dict-es-en-reverse "
+            "--translation-dict-es-en-reverse, --translation-dict-en-de "
             "or ensure language packs are installed in the LexiShift data directory.",
             file=sys.stderr,
         )

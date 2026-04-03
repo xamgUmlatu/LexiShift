@@ -12,8 +12,7 @@
         "home"
       ],
       "expected_top1_any": [
-        "house",
-        "home"
+        "house"
       ],
       "forbidden_top1": [],
       "forbidden_any": []
@@ -120,8 +119,7 @@
         "mom"
       ],
       "expected_top1_any": [
-        "mother",
-        "mom"
+        "mother"
       ],
       "forbidden_top1": [],
       "forbidden_any": []
@@ -135,8 +133,7 @@
         "dad"
       ],
       "expected_top1_any": [
-        "father",
-        "dad"
+        "father"
       ],
       "forbidden_top1": [],
       "forbidden_any": []
@@ -191,8 +188,7 @@
       ],
       "expected_top1_any": [
         "way",
-        "path",
-        "road"
+        "path"
       ],
       "forbidden_top1": [],
       "forbidden_any": []
@@ -227,7 +223,8 @@
         "times"
       ],
       "forbidden_any": [
-        "times"
+        "times",
+        "spell"
       ]
     },
     {
@@ -263,7 +260,9 @@
         "speech",
         "tongue"
       ],
-      "forbidden_any": [],
+      "forbidden_any": [
+        "diction"
+      ],
       "notes": "Bare-lemma default should stay with language; broader English cues are too loose as top-1."
     },
     {
@@ -307,7 +306,9 @@
         "window"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "box"
+      ]
     },
     {
       "case_id": "en-de:Tür",
@@ -411,7 +412,9 @@
         "day"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "tag"
+      ]
     },
     {
       "case_id": "en-de:Nacht",
@@ -476,7 +479,9 @@
         "hour"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "lesson"
+      ]
     },
     {
       "case_id": "en-de:Minute",
@@ -502,7 +507,9 @@
         "head"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "mind"
+      ]
     },
     {
       "case_id": "en-de:Gesicht",
@@ -515,7 +522,9 @@
         "face"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "facies"
+      ]
     },
     {
       "case_id": "en-de:Auge",
@@ -541,7 +550,9 @@
         "ear"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "hearing"
+      ]
     },
     {
       "case_id": "en-de:Mund",
@@ -567,7 +578,9 @@
         "foot"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "base"
+      ]
     },
     {
       "case_id": "en-de:Tisch",
@@ -621,7 +634,11 @@
         "road"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "avenue",
+        "alley",
+        "strait"
+      ]
     },
     {
       "case_id": "en-de:Auto",
@@ -673,7 +690,9 @@
         "idea"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "notion"
+      ]
     },
     {
       "case_id": "en-de:Preis",
@@ -703,8 +722,7 @@
         "head"
       ],
       "expected_top1_any": [
-        "boss",
-        "chief"
+        "boss"
       ],
       "forbidden_top1": [
         "chef"
@@ -746,7 +764,9 @@
       "forbidden_top1": [
         "fall"
       ],
-      "forbidden_any": [],
+      "forbidden_any": [
+        "fall"
+      ],
       "notes": "Prefer the common nominal sense case over English fall as the default learner cue."
     },
     {
@@ -764,7 +784,9 @@
         "draft",
         "move"
       ],
-      "forbidden_any": [],
+      "forbidden_any": [
+        "strain"
+      ],
       "notes": "High-risk polysemy case: train is the intended default, not the other English gloss families."
     },
     {
@@ -779,7 +801,9 @@
         "voice"
       ],
       "forbidden_top1": [],
-      "forbidden_any": [],
+      "forbidden_any": [
+        "part"
+      ],
       "notes": "Vote is attested, but voice is the safer default isolated cue."
     },
     {
@@ -795,7 +819,9 @@
       "forbidden_top1": [
         "tomorrow"
       ],
-      "forbidden_any": [],
+      "forbidden_any": [
+        "tomorrow"
+      ],
       "notes": "Noun-form cue should stay with morning rather than the adverbial tomorrow reading."
     },
     {
@@ -823,10 +849,11 @@
         "ground"
       ],
       "expected_top1_any": [
-        "reason",
-        "basis"
+        "reason"
       ],
-      "forbidden_top1": [],
+      "forbidden_top1": [
+        "motive"
+      ],
       "forbidden_any": []
     }
   ]

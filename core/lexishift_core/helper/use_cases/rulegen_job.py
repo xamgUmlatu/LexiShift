@@ -97,6 +97,7 @@ def run_rulegen_job(
         max_definitions_per_target=config.max_definitions_per_target,
         max_rules_per_target=config.max_rules_per_target,
         semantic_demotion_scale=config.semantic_demotion_scale,
+        enable_exact_gloss_demotions=config.enable_exact_gloss_demotions,
         include_variants=config.include_variants,
         allow_multiword_glosses=config.allow_multiword_glosses,
         pos_scoring_enabled=config.pos_scoring_enabled,
@@ -127,6 +128,7 @@ def run_rulegen_job(
         max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
         max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
         semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+        enable_exact_gloss_demotions=effective_rulegen_tuning.enable_exact_gloss_demotions,
         include_variants=effective_rulegen_tuning.include_variants,
         allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
         scoring=effective_rulegen_tuning.scoring,
@@ -165,6 +167,9 @@ def run_rulegen_job(
                     else None
                 ),
                 "semantic_demotion_scale": float(effective_rulegen_tuning.semantic_demotion_scale),
+                "enable_exact_gloss_demotions": bool(
+                    effective_rulegen_tuning.enable_exact_gloss_demotions
+                ),
                 "include_variants": bool(effective_rulegen_tuning.include_variants),
                 "allow_multiword_glosses": bool(effective_rulegen_tuning.allow_multiword_glosses),
                 "pos_scoring_enabled": bool(effective_rulegen_tuning.scoring.pos_match.enabled),

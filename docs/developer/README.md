@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-04-03
-Last verified: 2026-04-03 developer-doc routing review
+Last updated: 2026-04-04
+Last verified: 2026-04-04 developer-doc routing review
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -35,6 +35,7 @@ Use these first when you need current behavior or current operating commands:
 - Canonical doc integrity check: `npm --prefix scripts run check:docs`
 - Script map: `../../scripts/README.md`
 - Architecture docs map: `../README.md`
+- Rulegen LP support / mechanism guide: `../rulegen/rulegen_lp_support_guide.md`
 
 ## Planning And Workstreams
 
@@ -67,6 +68,8 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
   - `../architecture/native_messaging_design.md`
   - `../architecture/native_messaging_checklist.md`
 - SRS LP contract: `../architecture/srs_lp_architecture.md`
+- Rulegen technical design: `../rulegen/rule_generation_technical.md`
+- Rulegen LP support guide: `../rulegen/rulegen_lp_support_guide.md`
 - Global schema reference: `../reference/schema.md`
 - Glossary: `../reference/glossary.md`
 

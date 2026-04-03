@@ -25,9 +25,10 @@ Purpose:
 - Context-dependent morphology is explicitly deferred as a future/stretch goal.
 
 4) Generic gloss demotion decision (current)
-- Pair-specific generic/noisy glosses may be demoted via ranking metadata (for example `semantic_demotion`) before top-K definition selection.
-- Current rollout covers `en-ja`, `en-es`, `en-de`, and `es-en`, with pair defaults in `core/lexishift_core/rulegen/semantic_demotion.py`.
-- Sensitivity is controlled by `semantic_demotion_scale` (pair tuning + benchmark sweep knob).
+- Exact phrase-level generic/noisy gloss overrides may be demoted via ranking metadata (for example `semantic_demotion`) before top-K definition selection.
+- Current rollout covers `en-ja`, `en-es`, `en-de`, and `es-en`, with override maps in `core/lexishift_core/rulegen/semantic_demotion.py`.
+- These overrides are now default-off and intended for explicit opt-in use only, not canonical benchmark scoring.
+- Sensitivity is controlled by `semantic_demotion_scale` when the override layer is enabled.
 
 ## First Implementation Step: Architecture Investigation (Phase 0)
 

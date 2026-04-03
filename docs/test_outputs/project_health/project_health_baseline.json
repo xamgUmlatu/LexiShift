@@ -4512,10 +4512,10 @@
       "file": "core/lexishift_core/rulegen/pairs/en_es.py",
       "language": "python",
       "metrics": {
-        "lines": 356,
+        "lines": 4156,
         "imports": 16,
         "domainBreadth": 1,
-        "functions": 17
+        "functions": 101
       },
       "limits": {
         "maxLines": 900,
@@ -4524,12 +4524,15 @@
         "maxFunctions": 50
       },
       "overages": {
-        "lines": 0,
+        "lines": 3256,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 0
+        "functions": 51
       },
-      "violation_metrics": [],
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
       "warning_metrics": []
     },
     "core/lexishift_core/rulegen/pairs/es_en.py": {

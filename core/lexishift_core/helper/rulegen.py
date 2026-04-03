@@ -85,6 +85,7 @@ class RulegenConfig:
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     gloss_decay: GlossDecay = GlossDecay()
+    enable_exact_gloss_demotions: bool = False
 
 
 def _load_seed_module():
@@ -238,6 +239,7 @@ def run_en_ja_rulegen(
             gloss_decay=config.gloss_decay,
             jmdict_path=jmdict_path,
             word_packages_by_target=word_packages_by_target,
+            enable_exact_gloss_demotions=config.enable_exact_gloss_demotions,
         )
     )
 
@@ -336,6 +338,7 @@ def run_rulegen_for_pair(
             scoring=rulegen_config.scoring,
             reverse_check=rulegen_config.reverse_check,
             gloss_decay=rulegen_config.gloss_decay,
+            enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
             jmdict_path=jmdict_path,
             translation_pack=build_translation_pack_ref(
                 pair,

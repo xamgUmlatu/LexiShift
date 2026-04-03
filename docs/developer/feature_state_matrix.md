@@ -539,25 +539,30 @@ Use this file when:
   - The audit enforces structure and evidence existence, not semantic correctness of every status claim.
   - It does not yet require every status transition to update its verification date in the same commit.
 
-## Generic Gloss Demotion
+## Exact Gloss Demotion Overrides
 
-- Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-02-27`
-- Last verified: `2026-02-28` benchmark artifact review; `2026-03-21` code inspection after `en_ja` adapter/module rename
+- Status: `implemented`, `default-off`, `verified`
+- Last documented checkpoint: `2026-04-04`
+- Last verified: `2026-04-04` code inspection and canonical `en-es` / `en-de` benchmark artifact refresh
 - Default behavior:
-  - Active for current rulegen pairs through pair-specific demotion lists.
-  - Tuned via `semantic_demotion_scale`.
+  - Disabled for helper defaults and canonical benchmark lanes.
+  - Available only when `enable_exact_gloss_demotions` is explicitly enabled.
+  - `semantic_demotion_scale` only modulates this override layer when enabled.
 - Evidence:
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/rulegen/rulegen_congruity_implementation_plan.md`
+  - `docs/rulegen/rulegen_lp_support_guide.md`
   - `core/lexishift_core/rulegen/semantic_demotion.py`
+  - `core/lexishift_core/rulegen/adapters.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/pairs/en_ja.py`
+  - `docs/test_outputs/rulegen_benchmark_summary_latest.md`
+  - `docs/test_outputs/rulegen_benchmark_en_de_summary_latest.md`
 - Known gaps:
-  - Heuristic demotion is conservative and does not replace sense-level disambiguation.
-  - Current `en-es:madre` failure shows generic demotion alone is not sufficient.
+  - The override map is exact phrase-level and should not be treated as a substitute for generalizable ranking signals.
+  - Current `en-es` and `en-de` quality gaps still require richer ranking/source mechanisms.
 
 ## Reverse-Check Scoring
 

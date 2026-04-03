@@ -54,6 +54,7 @@ class RulegenAdapterRequest:
     kaikki_policy_live_demotion: bool = False
     kaikki_policy_risk_families: Optional[Sequence[str]] = None
     kaikki_policy_late_sense_penalty: float = 0.0
+    enable_exact_gloss_demotions: bool = False
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -106,6 +107,7 @@ def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         scoring=request.scoring,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
     results = generate_en_ja_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -128,6 +130,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         scoring=request.scoring,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
     results = generate_en_de_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -150,6 +153,7 @@ def _run_de_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         scoring=request.scoring,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
     results = generate_de_en_results(request.targets, config=config)
     return [result.rule for result in results]
@@ -196,6 +200,7 @@ def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenCon
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
         dictionary_pos_source_profile=dictionary_pos_source_profile,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
         kaikki_policy=EnEsKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),
@@ -237,6 +242,7 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         reverse_check=request.reverse_check,
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
     results = generate_es_en_results(request.targets, config=config)
     return [result.rule for result in results]

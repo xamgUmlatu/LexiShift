@@ -11,6 +11,10 @@ Scope
 - Focuses on precomputed rules (no runtime dictionary queries in the extension/plugin).
 - Integrates optional embeddings‑based scoring (when available) without making it mandatory.
 
+Companion current references
+- `docs/rulegen/rulegen_lp_support_guide.md` is the current implementation-facing map for LP support layers, benchmark/probe artifacts, and new-LP bring-up workflow.
+- `docs/rulegen/rulegen_congruity_implementation_plan.md` records the top-3/scoring hardening history and phase-by-phase implementation findings.
+
 Key concepts
 - **Target set S**: the words/lemmas the user is learning (the words we want to surface).
 - **Set planning**: pre-rulegen strategy selection step for initializing/updating S.
@@ -155,14 +159,15 @@ Reference plan:
 - `docs/rulegen/rulegen_congruity_implementation_plan.md` documents the temporary top-3 source limitation decision and the scoring-framework direction, plus the architecture-investigation checklist used before implementation changes.
 
 Current operational policy update:
-- Rulegen now applies pair-specific generic-gloss demotion lists (for example `appearing`, `looking`, `like` for English-source LPs) via metadata-driven ranking penalties.
-- The defaults are centralized in `core/lexishift_core/rulegen/semantic_demotion.py` and consumed by pair adapters.
-- Penalty sensitivity is controlled by `semantic_demotion_scale` (threaded through pair tuning / benchmarks; `0` disables, `1` uses base priors).
-- This is a conservative heuristic layer and remains tunable; it does not replace future context-dependent disambiguation work.
+- Rulegen supports optional exact phrase-level gloss demotion overrides (for example `appearing`, `looking`, `like`) via metadata-driven ranking penalties.
+- The override lists are centralized in `core/lexishift_core/rulegen/semantic_demotion.py` and consumed by pair adapters only when `enable_exact_gloss_demotions` is explicitly enabled.
+- Canonical benchmark lanes keep these exact overrides off by default so benchmark scores continue to reflect general ranking quality rather than hand-authored per-phrase suppression.
+- `semantic_demotion_scale` only modulates this override layer when it is enabled.
+- This is a narrow heuristic seam and does not replace future context-dependent disambiguation work.
 
 1) Generic gloss suppression
-   - Maintain pair-specific denylist/demotion lists for broad function-like terms and over-generic glosses.
-   - Apply strong penalties before final candidate ranking.
+   - Keep exact phrase-level override lists as an opt-in long-tail mechanism only.
+   - Prefer general ranking signals over benchmark-shaped lexical suppressions.
 2) POS/sense-aware filtering
    - Require POS compatibility where available.
    - Prefer primary sense; aggressively down-rank secondary/ambiguous senses unless evidence is strong.

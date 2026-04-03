@@ -679,6 +679,7 @@ class EnEsRulegenConfig:
     generic_gloss_demotions: Mapping[str, float] = field(
         default_factory=lambda: resolve_pair_generic_gloss_demotions("en-es")
     )
+    enable_exact_gloss_demotions: bool = False
     kaikki_policy: EnEsKaikkiPolicyConfig = field(default_factory=EnEsKaikkiPolicyConfig)
     compiled_resources: Optional[EnEsCompiledResources] = None
 
@@ -694,6 +695,7 @@ def build_en_es_compiled_resources(
     source_type: str = "translation",
     dictionary_pos_source_profile: str = "freedict",
     generic_gloss_demotions: Optional[Mapping[str, float]] = None,
+    enable_exact_gloss_demotions: bool = False,
     gloss_base_forms_override: Optional[Sequence[str]] = None,
 ) -> EnEsCompiledResources:
     normalized_targets = tuple(
@@ -705,8 +707,10 @@ def build_en_es_compiled_resources(
         if reverse_records_by_source is not None
         else None
     )
-    resolved_generic_gloss_demotions = dict(
-        generic_gloss_demotions or resolve_pair_generic_gloss_demotions(language_pair)
+    resolved_generic_gloss_demotions = (
+        dict(generic_gloss_demotions or resolve_pair_generic_gloss_demotions(language_pair))
+        if enable_exact_gloss_demotions
+        else {}
     )
     compiled_targets_by_target: dict[str, EnEsCompiledTargetContext] = {}
     for target in normalized_targets:
@@ -3186,7 +3190,9 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         reverse_records_by_source=reverse_records_by_source,
         reverse_source_dict=config.reverse_source_dict_id,
         word_packages_by_target=config.word_packages_by_target,
-        generic_gloss_demotions=config.generic_gloss_demotions,
+        generic_gloss_demotions=(
+            config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
+        ),
         dictionary_pos_source_profile=config.dictionary_pos_source_profile,
         kaikki_policy=config.kaikki_policy,
         compiled_resources=compiled_resources,
@@ -3302,6 +3308,8 @@ def generate_en_es_rules(
 
 
 def _can_generate_en_es_results_from_compiled_rows(config: EnEsRulegenConfig) -> bool:
+    if config.enable_exact_gloss_demotions:
+        return False
     compiled_resources = config.compiled_resources
     if compiled_resources is None or config.include_variants:
         return False

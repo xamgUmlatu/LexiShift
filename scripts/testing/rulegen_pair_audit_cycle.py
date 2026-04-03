@@ -94,6 +94,7 @@ def _build_cycle_commands(
     max_rules_values: str,
     confidence_threshold_values: str,
     semantic_demotion_scale_values: str,
+    exact_gloss_demotion_values: str,
     include_variants_values: str,
     pos_scoring_values: str,
     score_weight_pos_values: str,
@@ -135,6 +136,8 @@ def _build_cycle_commands(
                 str(confidence_threshold_values),
                 "--semantic-demotion-scale-values",
                 str(semantic_demotion_scale_values),
+                "--exact-gloss-demotion-values",
+                str(exact_gloss_demotion_values),
                 "--include-variants-values",
                 str(include_variants_values),
                 "--pos-scoring-values",
@@ -252,6 +255,10 @@ def main() -> None:
     parser.add_argument(
         "--semantic-demotion-scale-values",
         default="1.0",
+    )
+    parser.add_argument(
+        "--exact-gloss-demotion-values",
+        default="false",
     )
     parser.add_argument(
         "--include-variants-values",
@@ -447,6 +454,7 @@ def main() -> None:
         max_rules_values=str(args.max_rules_values),
         confidence_threshold_values=str(args.confidence_threshold_values),
         semantic_demotion_scale_values=str(args.semantic_demotion_scale_values),
+        exact_gloss_demotion_values=str(args.exact_gloss_demotion_values),
         include_variants_values=str(args.include_variants_values),
         pos_scoring_values=str(args.pos_scoring_values),
         score_weight_pos_values=str(args.score_weight_pos_values),

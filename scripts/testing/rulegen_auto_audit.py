@@ -263,6 +263,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-rules-values", default="none,1")
     parser.add_argument("--confidence-threshold-values", default="0.0,0.05")
     parser.add_argument("--semantic-demotion-scale-values", default="1.0")
+    parser.add_argument("--exact-gloss-demotion-values", default="false")
     parser.add_argument("--include-variants-values", default="false")
     parser.add_argument("--pos-scoring-values", default="true,false")
     parser.add_argument("--score-weight-pos-values", default="0.0,0.1")
@@ -325,6 +326,8 @@ def main() -> None:
         str(args.confidence_threshold_values),
         "--semantic-demotion-scale-values",
         str(args.semantic_demotion_scale_values),
+        "--exact-gloss-demotion-values",
+        str(args.exact_gloss_demotion_values),
         "--include-variants-values",
         str(args.include_variants_values),
         "--pos-scoring-values",

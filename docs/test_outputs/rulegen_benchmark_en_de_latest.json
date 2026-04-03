@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T17:46:55.770950+00:00",
+  "generated_at": "2026-04-03T19:03:19.384491+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
     "version": 1,
@@ -114,32 +114,32 @@
     }
   },
   "timing": {
-    "total_recorded_seconds": 9.863156326930039,
+    "total_recorded_seconds": 9.627604420762509,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.0009310839814133942,
+        "total_seconds": 0.000655875017400831,
         "count": 1,
-        "avg_seconds": 0.0009310839814133942
+        "avg_seconds": 0.000655875017400831
       },
       "build_sweep_configs": {
-        "total_seconds": 0.00017933303024619818,
+        "total_seconds": 0.00016650004545226693,
         "count": 1,
-        "avg_seconds": 0.00017933303024619818
+        "avg_seconds": 0.00016650004545226693
       },
       "build_word_packages": {
-        "total_seconds": 6.812502397224307e-05,
+        "total_seconds": 5.166599294170737e-05,
         "count": 1,
-        "avg_seconds": 6.812502397224307e-05
+        "avg_seconds": 5.166599294170737e-05
       },
       "compile_pair_context": {
-        "total_seconds": 4.041008651256561e-06,
+        "total_seconds": 3.4999684430658817e-06,
         "count": 1,
-        "avg_seconds": 4.041008651256561e-06
+        "avg_seconds": 3.4999684430658817e-06
       },
       "evaluate_cases": {
-        "total_seconds": 0.014145622961223125,
+        "total_seconds": 0.010409084963612258,
         "count": 32,
-        "avg_seconds": 0.00044205071753822267
+        "avg_seconds": 0.0003252839051128831
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -147,67 +147,67 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.0019269579788669944,
+        "total_seconds": 0.0021357079967856407,
         "count": 1,
-        "avg_seconds": 0.0019269579788669944
+        "avg_seconds": 0.0021357079967856407
       },
       "load_store": {
-        "total_seconds": 0.001705832954030484,
+        "total_seconds": 0.0020498749800026417,
         "count": 1,
-        "avg_seconds": 0.001705832954030484
+        "avg_seconds": 0.0020498749800026417
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 8.674299583013635,
+        "total_seconds": 8.454753207974136,
         "count": 1,
-        "avg_seconds": 8.674299583013635
+        "avg_seconds": 8.454753207974136
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.0294553330168128,
+        "total_seconds": 0.027509915991686285,
         "count": 1,
-        "avg_seconds": 0.0294553330168128
+        "avg_seconds": 0.027509915991686285
       },
       "resolve_resources": {
-        "total_seconds": 0.00106262497138232,
+        "total_seconds": 0.0030142919858917594,
         "count": 1,
-        "avg_seconds": 0.00106262497138232
+        "avg_seconds": 0.0030142919858917594
       },
       "run_config": {
-        "total_seconds": 1.138827333052177,
+        "total_seconds": 1.1263111670850776,
         "count": 32,
-        "avg_seconds": 0.03558835415788053
+        "avg_seconds": 0.035197223971408675
       },
       "sort_pair_runs": {
-        "total_seconds": 1.0791991371661425e-05,
+        "total_seconds": 1.083302777260542e-05,
         "count": 1,
-        "avg_seconds": 1.0791991371661425e-05
+        "avg_seconds": 1.083302777260542e-05
       },
       "summarize_run": {
-        "total_seconds": 0.0005396639462560415,
+        "total_seconds": 0.0005327957333065569,
         "count": 32,
-        "avg_seconds": 1.6864498320501298e-05
+        "avg_seconds": 1.6649866665829904e-05
       }
     },
     "pairs": {
       "en-de": {
         "build_resource_payload": {
-          "total_seconds": 0.0009310839814133942,
+          "total_seconds": 0.000655875017400831,
           "count": 1,
-          "avg_seconds": 0.0009310839814133942
+          "avg_seconds": 0.000655875017400831
         },
         "build_word_packages": {
-          "total_seconds": 6.812502397224307e-05,
+          "total_seconds": 5.166599294170737e-05,
           "count": 1,
-          "avg_seconds": 6.812502397224307e-05
+          "avg_seconds": 5.166599294170737e-05
         },
         "compile_pair_context": {
-          "total_seconds": 4.041008651256561e-06,
+          "total_seconds": 3.4999684430658817e-06,
           "count": 1,
-          "avg_seconds": 4.041008651256561e-06
+          "avg_seconds": 3.4999684430658817e-06
         },
         "evaluate_cases": {
-          "total_seconds": 0.014145622961223125,
+          "total_seconds": 0.010409084963612258,
           "count": 32,
-          "avg_seconds": 0.00044205071753822267
+          "avg_seconds": 0.0003252839051128831
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -215,38 +215,38 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 8.674299583013635,
+          "total_seconds": 8.454753207974136,
           "count": 1,
-          "avg_seconds": 8.674299583013635
+          "avg_seconds": 8.454753207974136
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.0294553330168128,
+          "total_seconds": 0.027509915991686285,
           "count": 1,
-          "avg_seconds": 0.0294553330168128
+          "avg_seconds": 0.027509915991686285
         },
         "resolve_resources": {
-          "total_seconds": 0.00106262497138232,
+          "total_seconds": 0.0030142919858917594,
           "count": 1,
-          "avg_seconds": 0.00106262497138232
+          "avg_seconds": 0.0030142919858917594
         },
         "run_config": {
-          "total_seconds": 1.138827333052177,
+          "total_seconds": 1.1263111670850776,
           "count": 32,
-          "avg_seconds": 0.03558835415788053
+          "avg_seconds": 0.035197223971408675
         },
         "sort_pair_runs": {
-          "total_seconds": 1.0791991371661425e-05,
+          "total_seconds": 1.083302777260542e-05,
           "count": 1,
-          "avg_seconds": 1.0791991371661425e-05
+          "avg_seconds": 1.083302777260542e-05
         },
         "summarize_run": {
-          "total_seconds": 0.0005396639462560415,
+          "total_seconds": 0.0005327957333065569,
           "count": 32,
-          "avg_seconds": 1.6864498320501298e-05
+          "avg_seconds": 1.6649866665829904e-05
         }
       }
     },
-    "wall_clock_seconds": 9.870826875034254
+    "wall_clock_seconds": 9.63480850000633
   },
   "pairs": {
     "en-de": {
@@ -357,28 +357,29 @@
             "abbreviation_ellipsis_formof"
           ],
           "reverse_check_exact_hit_specificity_bonus": 0.0,
-          "kaikki_policy_late_sense_penalty": 0.0
+          "kaikki_policy_late_sense_penalty": 0.0,
+          "exact_gloss_demotion_enabled": false
         },
-        "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+        "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
         "summary": {
           "pair": "en-de",
           "case_count": 58,
-          "top1_correct_count": 39,
+          "top1_correct_count": 38,
           "top3_contains_expected_count": 54,
-          "forbidden_top1_count": 0,
-          "forbidden_any_count": 0,
+          "forbidden_top1_count": 1,
+          "forbidden_any_count": 14,
           "avg_rules_per_target": 2.4827586206896552,
           "avg_top1_confidence": 0.6772413793103447,
           "variant_rule_count": 0,
           "total_rule_count": 144,
           "variant_top1_count": 0,
-          "top1_accuracy": 0.6724137931034483,
+          "top1_accuracy": 0.6551724137931034,
           "top3_recall": 0.9310344827586207,
-          "forbidden_top1_rate": 0.0,
-          "forbidden_any_rate": 0.0,
+          "forbidden_top1_rate": 0.017241379310344827,
+          "forbidden_any_rate": 0.2413793103448276,
           "variant_rule_rate": 0.0,
           "variant_top1_rate": 0.0,
-          "objective_score": 108.20689655172413
+          "objective_score": 85.10344827586206
         },
         "case_results": [
           {
@@ -803,13 +804,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "time"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "spell"
+            ]
           },
           {
             "case_id": "en-de:Kind",
@@ -859,13 +862,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "language"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "diction"
+            ]
           },
           {
             "case_id": "en-de:Frage",
@@ -946,13 +951,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "window"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "box"
+            ]
           },
           {
             "case_id": "en-de:Tür",
@@ -1162,13 +1169,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "day"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "tag"
+            ]
           },
           {
             "case_id": "en-de:Nacht",
@@ -1288,13 +1297,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "hour"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "lesson"
+            ]
           },
           {
             "case_id": "en-de:Minute",
@@ -1342,13 +1353,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "head"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "mind"
+            ]
           },
           {
             "case_id": "en-de:Gesicht",
@@ -1370,13 +1383,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "face"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "facies"
+            ]
           },
           {
             "case_id": "en-de:Auge",
@@ -1426,13 +1441,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "ear"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "hearing"
+            ]
           },
           {
             "case_id": "en-de:Mund",
@@ -1478,13 +1495,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "foot"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "base"
+            ]
           },
           {
             "case_id": "en-de:Tisch",
@@ -1582,11 +1601,15 @@
             "top1_correct": false,
             "top3_contains_expected": false,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "avenue",
+              "alley",
+              "strait"
+            ]
           },
           {
             "case_id": "en-de:Auto",
@@ -1692,13 +1715,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "idea"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "notion"
+            ]
           },
           {
             "case_id": "en-de:Preis",
@@ -1741,7 +1766,7 @@
               "boss"
             ],
             "top1_confidence": 0.6799999999999999,
-            "top1_correct": true,
+            "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
             "forbidden_any_present": false,
@@ -1801,14 +1826,16 @@
             "top1_correct": true,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "case",
               "instance"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "fall"
+            ]
           },
           {
             "case_id": "en-de:Zug",
@@ -1830,11 +1857,13 @@
             "top1_correct": false,
             "top3_contains_expected": false,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "strain"
+            ]
           },
           {
             "case_id": "en-de:Stimme",
@@ -1856,13 +1885,15 @@
             "top1_correct": false,
             "top3_contains_expected": true,
             "top1_forbidden": false,
-            "forbidden_any_present": false,
+            "forbidden_any_present": true,
             "variant_rule_count": 0,
             "top1_is_variant": false,
             "expected_matches": [
               "voice"
             ],
-            "forbidden_matches": []
+            "forbidden_matches": [
+              "part"
+            ]
           },
           {
             "case_id": "en-de:Morgen",
@@ -1938,7 +1969,7 @@
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
             "top3_contains_expected": false,
-            "top1_forbidden": false,
+            "top1_forbidden": true,
             "forbidden_any_present": false,
             "variant_rule_count": 0,
             "top1_is_variant": false,
@@ -1983,28 +2014,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2042,28 +2074,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2101,28 +2134,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2160,28 +2194,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2219,28 +2254,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2278,28 +2314,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2337,28 +2374,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2396,28 +2434,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.4827586206896552,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 108.20689655172413
+            "objective_score": 85.10344827586206
           }
         },
         {
@@ -2455,28 +2494,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2514,28 +2554,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2573,28 +2614,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2632,28 +2674,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2691,28 +2734,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2750,28 +2794,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2809,28 +2854,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2868,28 +2914,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 54,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 14,
             "avg_rules_per_target": 2.6724137931034484,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.9310344827586207,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 107.06896551724137
+            "objective_score": 83.9655172413793
           }
         },
         {
@@ -2927,28 +2974,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -2986,28 +3034,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3045,28 +3094,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3104,28 +3154,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3163,28 +3214,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3222,28 +3274,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3281,28 +3334,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3340,28 +3394,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3399,28 +3454,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3458,28 +3514,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3517,28 +3574,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3576,28 +3634,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3635,28 +3694,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3694,28 +3754,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3753,28 +3814,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         },
         {
@@ -3812,28 +3874,29 @@
               "abbreviation_ellipsis_formof"
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
-            "kaikki_policy_late_sense_penalty": 0.0
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": false
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
-            "top1_correct_count": 39,
+            "top1_correct_count": 38,
             "top3_contains_expected_count": 39,
-            "forbidden_top1_count": 0,
-            "forbidden_any_count": 0,
+            "forbidden_top1_count": 1,
+            "forbidden_any_count": 13,
             "avg_rules_per_target": 1.0,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
             "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.6724137931034483,
+            "top1_accuracy": 0.6551724137931034,
             "top3_recall": 0.6724137931034483,
-            "forbidden_top1_rate": 0.0,
-            "forbidden_any_rate": 0.0,
+            "forbidden_top1_rate": 0.017241379310344827,
+            "forbidden_any_rate": 0.22413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 101.58620689655172
+            "objective_score": 79.86206896551724
           }
         }
       ]

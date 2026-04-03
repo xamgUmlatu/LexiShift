@@ -95,6 +95,7 @@ class EsEnRulegenConfig:
     generic_gloss_demotions: Mapping[str, float] = field(
         default_factory=lambda: resolve_pair_generic_gloss_demotions("es-en")
     )
+    enable_exact_gloss_demotions: bool = False
 
 
 def build_es_en_pipeline(config: EsEnRulegenConfig) -> RuleGenerationPipeline:
@@ -107,7 +108,9 @@ def build_es_en_pipeline(config: EsEnRulegenConfig) -> RuleGenerationPipeline:
         reverse_records_by_source=reverse_records_by_source,
         reverse_source_dict="freedict_es_en",
         word_packages_by_target=config.word_packages_by_target,
-        generic_gloss_demotions=config.generic_gloss_demotions,
+        generic_gloss_demotions=(
+            config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
+        ),
     )
     normalizers = [BasicStringNormalizer()]
 

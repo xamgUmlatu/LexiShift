@@ -2,8 +2,8 @@
 
 Status: active docs routing
 Role: Canonical current
-Last updated: 2026-03-21
-Last verified: 2026-03-21 docs-routing review
+Last updated: 2026-04-04
+Last verified: 2026-04-04 docs-routing review
 Purpose: route contributors to the current documentation surfaces before planning, archive, or generated evidence
 Source-of-truth: routing guide only; defer implementation truth to source code, `developer/feature_state_matrix.md`, and linked domain docs.
 
@@ -85,6 +85,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Diagram status tracker + files: `architecture/diagrams/README.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
+- Rulegen LP support guide (mechanism stack + LP bring-up): `rulegen/rulegen_lp_support_guide.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
 - POS normalization workstream (SRS + rulegen + LP onboarding): `rulegen/pos_normalization_workstream.md`
 - LP data inventory matrix (all databases/resources): `language_pairs/lp_data_inventory_matrix.md`
