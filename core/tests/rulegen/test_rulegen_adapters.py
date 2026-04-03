@@ -20,6 +20,11 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.pairs.en_de import (  # noqa: E402
+    EnDeKaikkiPolicyConfig,
+    EnDeRulegenConfig,
+    generate_en_de_results,
+)
 from lexishift_core.rulegen.pairs.en_es import EnEsCompiledResources  # noqa: E402
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
@@ -1741,6 +1746,63 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(
             [rule.source_phrase for rule in with_policy],
             ["house", "institution"],
+        )
+
+    def test_en_de_results_mark_german_register_region_family_for_live_demotion(
+        self,
+    ) -> None:
+        records = {
+            "Kind": [
+                FreedictGlossRecord(
+                    translation="kid",
+                    pos_raw="noun",
+                    metadata={
+                        "sense_tags": ("colloquial", "Southern-Germany"),
+                        "sense_categories": ("German colloquialisms", "Regional German"),
+                    },
+                ),
+                FreedictGlossRecord(
+                    translation="child",
+                    pos_raw="noun",
+                    metadata={},
+                ),
+            ]
+        }
+        results = generate_en_de_results(
+            ["Kind"],
+            config=EnDeRulegenConfig(
+                freedict_de_en_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+                max_definitions_per_target=None,
+                kaikki_policy=EnDeKaikkiPolicyConfig(
+                    enable_shadow_metadata=True,
+                    enable_live_demotion=True,
+                    risk_families=("register_region",),
+                ),
+            ),
+        )
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        kid_metadata = by_source["kid"]
+        self.assertEqual(kid_metadata["kaikki_family_names"], ("register_region",))
+        self.assertAlmostEqual(kid_metadata["semantic_demotion"], 0.35, places=6)
+        self.assertEqual(
+            kid_metadata["semantic_demotion_reason"],
+            "kaikki_policy:register_region",
+        )
+        shadow = kid_metadata["kaikki_policy_shadow"]
+        self.assertEqual(shadow["risky_families"], ("register_region",))
+        self.assertTrue(bool(shadow["live_demotion_applied"]))
+        self.assertEqual(
+            shadow["risk_family_sources"]["register_region"],
+            (
+                "sense_tag:colloquial",
+                "sense_tag:southern-germany",
+                "sense_category:german colloquialisms",
+                "sense_category:regional german",
+            ),
         )
 
     def test_en_de_adapter_uses_kaikki_register_demotion_when_register_markers_present(

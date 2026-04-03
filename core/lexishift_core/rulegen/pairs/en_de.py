@@ -140,6 +140,8 @@ _EN_DE_REGION_MARKERS = (
     "switzerland",
     "swiss",
     "germany",
+    "northern-germany",
+    "southern-germany",
     "northern german",
     "southern german",
 )
