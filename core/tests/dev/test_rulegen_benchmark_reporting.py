@@ -9,18 +9,13 @@ SCRIPT_DIR = REPO_ROOT / "scripts" / "testing"
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from rulegen_quality_gate_core import dataset_from_payload  # noqa: E402
+from rulegen_benchmark_reporting import _resolve_path_from_report_payload  # noqa: E402
 
 
-class TestRulegenQualityGateCore(unittest.TestCase):
-    def test_dataset_from_payload_falls_back_to_repo_dataset_directory(self) -> None:
-        benchmark_payload = {
-            "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json"
-        }
-
-        resolved = dataset_from_payload(
-            benchmark_payload,
-            None,
+class TestRulegenBenchmarkReporting(unittest.TestCase):
+    def test_resolve_path_from_report_payload_falls_back_to_repo_dataset_directory(self) -> None:
+        resolved = _resolve_path_from_report_payload(
+            "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
             project_root=REPO_ROOT,
         )
 

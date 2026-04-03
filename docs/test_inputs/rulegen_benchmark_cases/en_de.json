@@ -1,0 +1,833 @@
+{
+  "version": 1,
+  "pair": "en-de",
+  "description": "LexiShift rulegen benchmark cases for en-de.",
+  "cases": [
+    {
+      "case_id": "en-de:Haus",
+      "target": "Haus",
+      "tier": "smoke",
+      "expected_any": [
+        "house",
+        "home"
+      ],
+      "expected_top1_any": [
+        "house",
+        "home"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Wasser",
+      "target": "Wasser",
+      "tier": "smoke",
+      "expected_any": [
+        "water"
+      ],
+      "expected_top1_any": [
+        "water"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Buch",
+      "target": "Buch",
+      "tier": "smoke",
+      "expected_any": [
+        "book"
+      ],
+      "expected_top1_any": [
+        "book"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Welt",
+      "target": "Welt",
+      "tier": "smoke",
+      "expected_any": [
+        "world"
+      ],
+      "expected_top1_any": [
+        "world"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Leben",
+      "target": "Leben",
+      "tier": "smoke",
+      "expected_any": [
+        "life"
+      ],
+      "expected_top1_any": [
+        "life"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Stadt",
+      "target": "Stadt",
+      "tier": "smoke",
+      "expected_any": [
+        "city",
+        "town"
+      ],
+      "expected_top1_any": [
+        "city",
+        "town"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Familie",
+      "target": "Familie",
+      "tier": "smoke",
+      "expected_any": [
+        "family"
+      ],
+      "expected_top1_any": [
+        "family"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Freund",
+      "target": "Freund",
+      "tier": "smoke",
+      "expected_any": [
+        "friend"
+      ],
+      "expected_top1_any": [
+        "friend"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Mutter",
+      "target": "Mutter",
+      "tier": "smoke",
+      "expected_any": [
+        "mother",
+        "mom"
+      ],
+      "expected_top1_any": [
+        "mother",
+        "mom"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Vater",
+      "target": "Vater",
+      "tier": "smoke",
+      "expected_any": [
+        "father",
+        "dad"
+      ],
+      "expected_top1_any": [
+        "father",
+        "dad"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Liebe",
+      "target": "Liebe",
+      "tier": "smoke",
+      "expected_any": [
+        "love"
+      ],
+      "expected_top1_any": [
+        "love"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Geld",
+      "target": "Geld",
+      "tier": "smoke",
+      "expected_any": [
+        "money"
+      ],
+      "expected_top1_any": [
+        "money"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Schule",
+      "target": "Schule",
+      "tier": "smoke",
+      "expected_any": [
+        "school"
+      ],
+      "expected_top1_any": [
+        "school"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Weg",
+      "target": "Weg",
+      "tier": "smoke",
+      "expected_any": [
+        "way",
+        "path",
+        "road"
+      ],
+      "expected_top1_any": [
+        "way",
+        "path",
+        "road"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Arbeit",
+      "target": "Arbeit",
+      "tier": "smoke",
+      "expected_any": [
+        "work",
+        "job",
+        "labor"
+      ],
+      "expected_top1_any": [
+        "work",
+        "job"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Zeit",
+      "target": "Zeit",
+      "tier": "hard",
+      "expected_any": [
+        "time"
+      ],
+      "expected_top1_any": [
+        "time"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [
+        "times"
+      ]
+    },
+    {
+      "case_id": "en-de:Kind",
+      "target": "Kind",
+      "tier": "smoke",
+      "expected_any": [
+        "child",
+        "kid"
+      ],
+      "expected_top1_any": [
+        "child"
+      ],
+      "forbidden_top1": [
+        "kind"
+      ],
+      "forbidden_any": [
+        "kind"
+      ],
+      "notes": "Prefer the stable noun gloss; colloquial kid is acceptable, but the false friend kind is not."
+    },
+    {
+      "case_id": "en-de:Sprache",
+      "target": "Sprache",
+      "tier": "smoke",
+      "expected_any": [
+        "language"
+      ],
+      "expected_top1_any": [
+        "language"
+      ],
+      "forbidden_top1": [
+        "speech",
+        "tongue"
+      ],
+      "forbidden_any": [],
+      "notes": "Bare-lemma default should stay with language; broader English cues are too loose as top-1."
+    },
+    {
+      "case_id": "en-de:Frage",
+      "target": "Frage",
+      "tier": "smoke",
+      "expected_any": [
+        "question",
+        "query"
+      ],
+      "expected_top1_any": [
+        "question"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Antwort",
+      "target": "Antwort",
+      "tier": "smoke",
+      "expected_any": [
+        "answer",
+        "reply",
+        "response"
+      ],
+      "expected_top1_any": [
+        "answer",
+        "reply"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Fenster",
+      "target": "Fenster",
+      "tier": "smoke",
+      "expected_any": [
+        "window"
+      ],
+      "expected_top1_any": [
+        "window"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Tür",
+      "target": "Tür",
+      "tier": "smoke",
+      "expected_any": [
+        "door"
+      ],
+      "expected_top1_any": [
+        "door"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Herz",
+      "target": "Herz",
+      "tier": "smoke",
+      "expected_any": [
+        "heart"
+      ],
+      "expected_top1_any": [
+        "heart"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Hand",
+      "target": "Hand",
+      "tier": "smoke",
+      "expected_any": [
+        "hand"
+      ],
+      "expected_top1_any": [
+        "hand"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Name",
+      "target": "Name",
+      "tier": "smoke",
+      "expected_any": [
+        "name"
+      ],
+      "expected_top1_any": [
+        "name"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Wort",
+      "target": "Wort",
+      "tier": "smoke",
+      "expected_any": [
+        "word"
+      ],
+      "expected_top1_any": [
+        "word"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Baum",
+      "target": "Baum",
+      "tier": "smoke",
+      "expected_any": [
+        "tree"
+      ],
+      "expected_top1_any": [
+        "tree"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Garten",
+      "target": "Garten",
+      "tier": "smoke",
+      "expected_any": [
+        "garden"
+      ],
+      "expected_top1_any": [
+        "garden"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Tag",
+      "target": "Tag",
+      "tier": "smoke",
+      "expected_any": [
+        "day"
+      ],
+      "expected_top1_any": [
+        "day"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Nacht",
+      "target": "Nacht",
+      "tier": "smoke",
+      "expected_any": [
+        "night"
+      ],
+      "expected_top1_any": [
+        "night"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Jahr",
+      "target": "Jahr",
+      "tier": "smoke",
+      "expected_any": [
+        "year"
+      ],
+      "expected_top1_any": [
+        "year"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Woche",
+      "target": "Woche",
+      "tier": "smoke",
+      "expected_any": [
+        "week"
+      ],
+      "expected_top1_any": [
+        "week"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Monat",
+      "target": "Monat",
+      "tier": "smoke",
+      "expected_any": [
+        "month"
+      ],
+      "expected_top1_any": [
+        "month"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Stunde",
+      "target": "Stunde",
+      "tier": "smoke",
+      "expected_any": [
+        "hour"
+      ],
+      "expected_top1_any": [
+        "hour"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Minute",
+      "target": "Minute",
+      "tier": "smoke",
+      "expected_any": [
+        "minute"
+      ],
+      "expected_top1_any": [
+        "minute"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Kopf",
+      "target": "Kopf",
+      "tier": "smoke",
+      "expected_any": [
+        "head"
+      ],
+      "expected_top1_any": [
+        "head"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Gesicht",
+      "target": "Gesicht",
+      "tier": "smoke",
+      "expected_any": [
+        "face"
+      ],
+      "expected_top1_any": [
+        "face"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Auge",
+      "target": "Auge",
+      "tier": "smoke",
+      "expected_any": [
+        "eye"
+      ],
+      "expected_top1_any": [
+        "eye"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Ohr",
+      "target": "Ohr",
+      "tier": "smoke",
+      "expected_any": [
+        "ear"
+      ],
+      "expected_top1_any": [
+        "ear"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Mund",
+      "target": "Mund",
+      "tier": "smoke",
+      "expected_any": [
+        "mouth"
+      ],
+      "expected_top1_any": [
+        "mouth"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Fuß",
+      "target": "Fuß",
+      "tier": "smoke",
+      "expected_any": [
+        "foot"
+      ],
+      "expected_top1_any": [
+        "foot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Tisch",
+      "target": "Tisch",
+      "tier": "smoke",
+      "expected_any": [
+        "table"
+      ],
+      "expected_top1_any": [
+        "table"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Stuhl",
+      "target": "Stuhl",
+      "tier": "smoke",
+      "expected_any": [
+        "chair"
+      ],
+      "expected_top1_any": [
+        "chair"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Zimmer",
+      "target": "Zimmer",
+      "tier": "smoke",
+      "expected_any": [
+        "room"
+      ],
+      "expected_top1_any": [
+        "room"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Straße",
+      "target": "Straße",
+      "tier": "smoke",
+      "expected_any": [
+        "street",
+        "road"
+      ],
+      "expected_top1_any": [
+        "street",
+        "road"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Auto",
+      "target": "Auto",
+      "tier": "smoke",
+      "expected_any": [
+        "car"
+      ],
+      "expected_top1_any": [
+        "car"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Problem",
+      "target": "Problem",
+      "tier": "smoke",
+      "expected_any": [
+        "problem"
+      ],
+      "expected_top1_any": [
+        "problem"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Beispiel",
+      "target": "Beispiel",
+      "tier": "smoke",
+      "expected_any": [
+        "example"
+      ],
+      "expected_top1_any": [
+        "example"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Idee",
+      "target": "Idee",
+      "tier": "smoke",
+      "expected_any": [
+        "idea"
+      ],
+      "expected_top1_any": [
+        "idea"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Preis",
+      "target": "Preis",
+      "tier": "hard",
+      "expected_any": [
+        "price"
+      ],
+      "expected_top1_any": [
+        "price"
+      ],
+      "forbidden_top1": [
+        "prize"
+      ],
+      "forbidden_any": [
+        "prize"
+      ],
+      "notes": "False-friend pressure case: the default learner cue should be price, not prize."
+    },
+    {
+      "case_id": "en-de:Chef",
+      "target": "Chef",
+      "tier": "hard",
+      "expected_any": [
+        "boss",
+        "chief",
+        "head"
+      ],
+      "expected_top1_any": [
+        "boss",
+        "chief"
+      ],
+      "forbidden_top1": [
+        "chef"
+      ],
+      "forbidden_any": [
+        "chef"
+      ],
+      "notes": "False-friend pressure case: German Chef is a superior, not a cook."
+    },
+    {
+      "case_id": "en-de:Gift",
+      "target": "Gift",
+      "tier": "hard",
+      "expected_any": [
+        "poison"
+      ],
+      "expected_top1_any": [
+        "poison"
+      ],
+      "forbidden_top1": [
+        "gift"
+      ],
+      "forbidden_any": [
+        "gift"
+      ],
+      "notes": "False-friend pressure case: German Gift should never map to gift."
+    },
+    {
+      "case_id": "en-de:Fall",
+      "target": "Fall",
+      "tier": "hard",
+      "expected_any": [
+        "case",
+        "instance"
+      ],
+      "expected_top1_any": [
+        "case"
+      ],
+      "forbidden_top1": [
+        "fall"
+      ],
+      "forbidden_any": [],
+      "notes": "Prefer the common nominal sense case over English fall as the default learner cue."
+    },
+    {
+      "case_id": "en-de:Zug",
+      "target": "Zug",
+      "tier": "hard",
+      "expected_any": [
+        "train"
+      ],
+      "expected_top1_any": [
+        "train"
+      ],
+      "forbidden_top1": [
+        "pull",
+        "draft",
+        "move"
+      ],
+      "forbidden_any": [],
+      "notes": "High-risk polysemy case: train is the intended default, not the other English gloss families."
+    },
+    {
+      "case_id": "en-de:Stimme",
+      "target": "Stimme",
+      "tier": "hard",
+      "expected_any": [
+        "voice",
+        "vote"
+      ],
+      "expected_top1_any": [
+        "voice"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Vote is attested, but voice is the safer default isolated cue."
+    },
+    {
+      "case_id": "en-de:Morgen",
+      "target": "Morgen",
+      "tier": "hard",
+      "expected_any": [
+        "morning"
+      ],
+      "expected_top1_any": [
+        "morning"
+      ],
+      "forbidden_top1": [
+        "tomorrow"
+      ],
+      "forbidden_any": [],
+      "notes": "Noun-form cue should stay with morning rather than the adverbial tomorrow reading."
+    },
+    {
+      "case_id": "en-de:Geschichte",
+      "target": "Geschichte",
+      "tier": "hard",
+      "expected_any": [
+        "story",
+        "history"
+      ],
+      "expected_top1_any": [
+        "story",
+        "history"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-de:Grund",
+      "target": "Grund",
+      "tier": "hard",
+      "expected_any": [
+        "reason",
+        "basis",
+        "ground"
+      ],
+      "expected_top1_any": [
+        "reason",
+        "basis"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    }
+  ]
+}

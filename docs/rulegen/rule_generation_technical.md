@@ -231,7 +231,7 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 - All-in-one runner (writes output files): `scripts/testing/run_en_ja_tests.py`
 - Human review sampler: `scripts/testing/en_ja_sample_review.py`
 - Pair-level benchmark sweep + leaderboard: `scripts/testing/rulegen_benchmark.py`
-  - Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+  - Dataset: `docs/test_inputs/rulegen_benchmark_cases/`
   - Outputs ranked JSON/Markdown reports for iterative tuning across pairs.
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.

@@ -56,9 +56,30 @@ def _resolve_path_from_report_payload(value: object, *, project_root: Path) -> P
     if not text:
         raise ValueError("Expected non-empty path in benchmark report payload.")
     path = Path(text)
-    if not path.is_absolute():
-        path = (project_root / path).resolve()
-    return path
+    candidates: list[Path] = []
+    if path.is_absolute() or text.startswith(("/", "\\")):
+        candidates.append(path)
+        parts = list(path.parts)
+        if "docs" in parts:
+            docs_index = parts.index("docs")
+            candidates.append((project_root / Path(*parts[docs_index:])).resolve())
+        candidates.append((project_root / "docs" / "test_inputs" / path.name).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / "docs" / "test_inputs" / path.stem).resolve())
+    else:
+        candidates.append((project_root / path).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / path.stem).resolve())
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        if resolved.exists():
+            return resolved
+    return candidates[0].resolve()
 
 
 def _summary_from_payload(payload: Mapping[str, object]) -> RulegenBenchmarkSummary:
@@ -367,8 +388,8 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--dataset",
         type=Path,
-        default=PROJECT_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_cases.json",
-        help="Path to benchmark dataset JSON.",
+        default=PROJECT_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_cases",
+        help="Path to benchmark dataset JSON file or LP-specific dataset directory.",
     )
     parser.add_argument(
         "--pairs",

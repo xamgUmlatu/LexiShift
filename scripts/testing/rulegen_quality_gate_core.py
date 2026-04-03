@@ -118,8 +118,12 @@ def dataset_from_payload(
             docs_index = parts.index("docs")
             candidates.append((project_root / Path(*parts[docs_index:])).resolve())
         candidates.append((project_root / "docs" / "test_inputs" / path.name).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / "docs" / "test_inputs" / path.stem).resolve())
     else:
         candidates.append((project_root / path).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / path.stem).resolve())
 
     seen: set[Path] = set()
     for candidate in candidates:

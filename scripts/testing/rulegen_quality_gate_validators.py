@@ -28,6 +28,7 @@ def validate_dataset_contract(
     dataset_payload: Mapping[str, object],
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    pair_scope: str | None = None,
 ) -> None:
     contract = policy_payload.get("dataset_contract")
     if not isinstance(contract, Mapping):
@@ -66,12 +67,17 @@ def validate_dataset_contract(
     hard_count_by_pair: Counter[str] = Counter()
     missing_field_rows: list[str] = []
     bad_tier_rows: list[str] = []
+    scoped_pair = str(pair_scope or "").strip().lower()
 
     for index, case in enumerate(raw_cases):
         if not isinstance(case, Mapping):
+            if scoped_pair:
+                continue
             missing_field_rows.append(f"index={index}: case is not an object")
             continue
         pair = str(case.get("pair") or "").strip().lower()
+        if scoped_pair and pair != scoped_pair:
+            continue
         if pair:
             case_count_by_pair[pair] += 1
         for field in required_case_fields:
@@ -128,7 +134,14 @@ def validate_dataset_contract(
     min_cases_per_pair = contract.get("min_cases_per_pair")
     if isinstance(min_cases_per_pair, Mapping):
         deficits: list[str] = []
-        for pair, minimum in min_cases_per_pair.items():
+        contract_items = (
+            [(scoped_pair, min_cases_per_pair.get(scoped_pair))]
+            if scoped_pair
+            else list(min_cases_per_pair.items())
+        )
+        for pair, minimum in contract_items:
+            if minimum is None:
+                continue
             pair_key = str(pair).strip().lower()
             required = as_int(minimum)
             actual = int(case_count_by_pair.get(pair_key, 0))
@@ -153,7 +166,14 @@ def validate_dataset_contract(
     min_hard_cases_per_pair = contract.get("min_hard_cases_per_pair")
     if isinstance(min_hard_cases_per_pair, Mapping):
         deficits: list[str] = []
-        for pair, minimum in min_hard_cases_per_pair.items():
+        contract_items = (
+            [(scoped_pair, min_hard_cases_per_pair.get(scoped_pair))]
+            if scoped_pair
+            else list(min_hard_cases_per_pair.items())
+        )
+        for pair, minimum in contract_items:
+            if minimum is None:
+                continue
             pair_key = str(pair).strip().lower()
             required = as_int(minimum)
             actual = int(hard_count_by_pair.get(pair_key, 0))

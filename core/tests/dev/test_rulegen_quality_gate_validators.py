@@ -11,6 +11,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from rulegen_quality_gate_validators import (  # noqa: E402
     validate_benchmark_pairs,
+    validate_dataset_contract,
     validate_delta_budgets,
     validate_quality_floors,
 )
@@ -117,3 +118,52 @@ class TestRulegenQualityGateValidators(unittest.TestCase):
 
         self.assertEqual(len(findings), 1)
         self.assertEqual(findings[0].code, "DELTA_SCOPE_BASELINE_MISSING")
+
+    def test_validate_dataset_contract_pair_scope_ignores_other_pair_minima(self) -> None:
+        findings = []
+        validate_dataset_contract(
+            dataset_payload={
+                "cases": [
+                    {
+                        "case_id": "en-de:Haus",
+                        "pair": "en-de",
+                        "target": "Haus",
+                        "expected_any": ["house"],
+                        "expected_top1_any": ["house"],
+                        "forbidden_top1": [],
+                        "forbidden_any": [],
+                        "tier": "smoke",
+                    }
+                ]
+            },
+            policy_payload={
+                "dataset_contract": {
+                    "required_case_fields": [
+                        "case_id",
+                        "pair",
+                        "target",
+                        "expected_any",
+                        "expected_top1_any",
+                        "forbidden_top1",
+                        "forbidden_any",
+                        "tier",
+                    ],
+                    "allowed_tiers": ["smoke", "hard"],
+                    "min_cases_per_pair": {"en-es": 2, "en-de": 1},
+                    "min_hard_cases_per_pair": {"en-es": 1, "en-de": 0},
+                }
+            },
+            findings=findings,
+            pair_scope="en-de",
+        )
+
+        self.assertEqual(
+            [finding.code for finding in findings],
+            [
+                "DATASET_REQUIRED_FIELDS",
+                "DATASET_TIER_VALUES",
+                "DATASET_MIN_CASES",
+                "DATASET_MIN_HARD_CASES",
+            ],
+        )
+        self.assertTrue(all(finding.level == "PASS" for finding in findings))

@@ -12,7 +12,7 @@ This runbook is for the first broad `en-es` sweep family only.
 
 It assumes:
 
-- current benchmark dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+- current benchmark dataset source: `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
 - current canonical resource family: Kaikki forward + Kaikki reverse
 - current benchmark engine: compiled `en-es` sweep path with warm-path caching and numeric `numpy` score projection
 - current expanded benchmark case count: `64`

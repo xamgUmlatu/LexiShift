@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import shutil
 from typing import Mapping
 
 
@@ -61,6 +62,38 @@ def _resolve_case(
     return None
 
 
+def _load_dataset_documents(
+    dataset_path: Path,
+) -> list[tuple[Path, dict[str, object], list[object], str]]:
+    resolved = dataset_path.resolve()
+    if resolved.is_file():
+        payload = json.loads(resolved.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"Dataset must be a JSON object: {resolved}")
+        raw_cases = payload.get("cases")
+        if not isinstance(raw_cases, list):
+            raise ValueError(f"Dataset missing `cases` list: {resolved}")
+        default_pair = str(payload.get("pair") or "").strip().lower()
+        return [(resolved, payload, raw_cases, default_pair)]
+    if resolved.is_dir():
+        documents: list[tuple[Path, dict[str, object], list[object], str]] = []
+        for child in sorted(resolved.iterdir()):
+            if not child.is_file() or child.suffix.lower() != ".json":
+                continue
+            payload = json.loads(child.read_text(encoding="utf-8"))
+            if not isinstance(payload, dict):
+                raise ValueError(f"Dataset must be a JSON object: {child}")
+            raw_cases = payload.get("cases")
+            if not isinstance(raw_cases, list):
+                raise ValueError(f"Dataset missing `cases` list: {child}")
+            default_pair = str(payload.get("pair") or "").strip().lower()
+            documents.append((child.resolve(), payload, raw_cases, default_pair))
+        if not documents:
+            raise ValueError(f"Dataset directory has no JSON files: {resolved}")
+        return documents
+    raise FileNotFoundError(f"Dataset path not found: {dataset_path}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -70,8 +103,8 @@ def main() -> None:
     parser.add_argument(
         "--dataset",
         type=Path,
-        default=Path("docs/test_inputs/rulegen_benchmark_cases.json"),
-        help="Benchmark dataset JSON to update.",
+        default=Path("docs/test_inputs/rulegen_benchmark_cases"),
+        help="Benchmark dataset JSON file or LP-specific dataset directory to update.",
     )
     parser.add_argument(
         "--labels",
@@ -94,12 +127,7 @@ def main() -> None:
     if args.in_place and args.output is not None:
         raise ValueError("Use either --in-place or --output, not both.")
 
-    dataset_payload = json.loads(args.dataset.read_text(encoding="utf-8"))
-    if not isinstance(dataset_payload, dict):
-        raise ValueError(f"Dataset must be a JSON object: {args.dataset}")
-    raw_cases = dataset_payload.get("cases")
-    if not isinstance(raw_cases, list):
-        raise ValueError(f"Dataset missing `cases` list: {args.dataset}")
+    dataset_documents = _load_dataset_documents(args.dataset)
 
     labels_payload = json.loads(args.labels.read_text(encoding="utf-8"))
     if not isinstance(labels_payload, dict):
@@ -110,16 +138,19 @@ def main() -> None:
 
     case_index: dict[tuple[str, str], dict[str, object]] = {}
     target_index: dict[tuple[str, str], dict[str, object]] = {}
-    for case in raw_cases:
-        if not isinstance(case, dict):
-            continue
-        pair = str(case.get("pair") or "").strip().lower()
-        case_id = str(case.get("case_id") or case.get("id") or "").strip()
-        target = str(case.get("target") or "").strip()
-        if pair and case_id:
-            case_index[(pair, case_id)] = case
-        if pair and target:
-            target_index.setdefault((pair, target), case)
+    case_total = 0
+    for _path, _payload, raw_cases, default_pair in dataset_documents:
+        case_total += len(raw_cases)
+        for case in raw_cases:
+            if not isinstance(case, dict):
+                continue
+            pair = str(case.get("pair") or default_pair).strip().lower()
+            case_id = str(case.get("case_id") or case.get("id") or "").strip()
+            target = str(case.get("target") or "").strip()
+            if pair and case_id:
+                case_index[(pair, case_id)] = case
+            if pair and target:
+                target_index.setdefault((pair, target), case)
 
     touched_cases = 0
     resolved_cases = 0
@@ -186,22 +217,44 @@ def main() -> None:
         case["forbidden_top1"] = _normalize_unique(forbidden_top1)
         case["forbidden_any"] = _normalize_unique(forbidden_any)
 
-    if args.in_place:
-        output_path = args.dataset
-    elif args.output is not None:
-        output_path = args.output
+    if args.dataset.resolve().is_dir():
+        if args.in_place:
+            output_dir = args.dataset
+        elif args.output is not None:
+            output_dir = args.output
+        else:
+            output_dir = args.dataset.with_name(f"{args.dataset.name}_updated")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        for source_path, payload, _raw_cases, _default_pair in dataset_documents:
+            destination = output_dir / source_path.name
+            destination.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+        readme_source = args.dataset / "README.md"
+        if readme_source.exists():
+            shutil.copy2(readme_source, output_dir / "README.md")
+        output_path = output_dir
     else:
-        output_path = args.dataset.with_name(f"{args.dataset.stem}_updated{args.dataset.suffix}")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(
-        json.dumps(dataset_payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+        dataset_payload = dataset_documents[0][1]
+        if args.in_place:
+            output_path = args.dataset
+        elif args.output is not None:
+            output_path = args.output
+        else:
+            output_path = args.dataset.with_name(
+                f"{args.dataset.stem}_updated{args.dataset.suffix}"
+            )
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(dataset_payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
     print(f"dataset: {args.dataset}")
     print(f"labels: {args.labels}")
     print(f"output: {output_path}")
-    print(f"cases_total: {len(raw_cases)}")
+    print(f"cases_total: {case_total}")
     print(f"cases_resolved: {resolved_cases}")
     print(f"cases_touched: {touched_cases}")
     print(f"cases_skipped: {skipped_cases}")

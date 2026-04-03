@@ -1,11 +1,24 @@
 {
-  "generated_at": "2026-04-03T05:00:14.522038+00:00",
-  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases.json",
+  "generated_at": "2026-04-03T17:46:55.770950+00:00",
+  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
-    "version": 2,
+    "version": 1,
     "name": "LexiShift Rulegen Benchmark Cases",
-    "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
-    "breadth": "v2-expanded-aggressive"
+    "description": "Merged rulegen benchmark dataset loaded from LP-specific source files.",
+    "source_layout": "directory",
+    "source_directory": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+    "source_files": [
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_de.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/es_en.json"
+    ],
+    "pairs": [
+      "en-de",
+      "en-es",
+      "en-ja",
+      "es-en"
+    ]
   },
   "profile_id": "default",
   "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
@@ -101,32 +114,32 @@
     }
   },
   "timing": {
-    "total_recorded_seconds": 8.000989745603874,
+    "total_recorded_seconds": 9.863156326930039,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.0005328339757397771,
+        "total_seconds": 0.0009310839814133942,
         "count": 1,
-        "avg_seconds": 0.0005328339757397771
+        "avg_seconds": 0.0009310839814133942
       },
       "build_sweep_configs": {
-        "total_seconds": 0.0001289580250158906,
+        "total_seconds": 0.00017933303024619818,
         "count": 1,
-        "avg_seconds": 0.0001289580250158906
+        "avg_seconds": 0.00017933303024619818
       },
       "build_word_packages": {
-        "total_seconds": 1.9332976080477238e-05,
+        "total_seconds": 6.812502397224307e-05,
         "count": 1,
-        "avg_seconds": 1.9332976080477238e-05
+        "avg_seconds": 6.812502397224307e-05
       },
       "compile_pair_context": {
-        "total_seconds": 2.2500171326100826e-06,
+        "total_seconds": 4.041008651256561e-06,
         "count": 1,
-        "avg_seconds": 2.2500171326100826e-06
+        "avg_seconds": 4.041008651256561e-06
       },
       "evaluate_cases": {
-        "total_seconds": 0.0025664606946520507,
+        "total_seconds": 0.014145622961223125,
         "count": 32,
-        "avg_seconds": 8.020189670787659e-05
+        "avg_seconds": 0.00044205071753822267
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -134,67 +147,67 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.0008786669932305813,
+        "total_seconds": 0.0019269579788669944,
         "count": 1,
-        "avg_seconds": 0.0008786669932305813
+        "avg_seconds": 0.0019269579788669944
       },
       "load_store": {
-        "total_seconds": 0.001513041032012552,
+        "total_seconds": 0.001705832954030484,
         "count": 1,
-        "avg_seconds": 0.001513041032012552
+        "avg_seconds": 0.001705832954030484
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 7.723257582983933,
+        "total_seconds": 8.674299583013635,
         "count": 1,
-        "avg_seconds": 7.723257582983933
+        "avg_seconds": 8.674299583013635
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.006759000010788441,
+        "total_seconds": 0.0294553330168128,
         "count": 1,
-        "avg_seconds": 0.006759000010788441
+        "avg_seconds": 0.0294553330168128
       },
       "resolve_resources": {
-        "total_seconds": 0.0021695420145988464,
+        "total_seconds": 0.00106262497138232,
         "count": 1,
-        "avg_seconds": 0.0021695420145988464
+        "avg_seconds": 0.00106262497138232
       },
       "run_config": {
-        "total_seconds": 0.26295387279242277,
+        "total_seconds": 1.138827333052177,
         "count": 32,
-        "avg_seconds": 0.008217308524763212
+        "avg_seconds": 0.03558835415788053
       },
       "sort_pair_runs": {
-        "total_seconds": 1.0000017937272787e-05,
+        "total_seconds": 1.0791991371661425e-05,
         "count": 1,
-        "avg_seconds": 1.0000017937272787e-05
+        "avg_seconds": 1.0791991371661425e-05
       },
       "summarize_run": {
-        "total_seconds": 0.00019820407032966614,
+        "total_seconds": 0.0005396639462560415,
         "count": 32,
-        "avg_seconds": 6.193877197802067e-06
+        "avg_seconds": 1.6864498320501298e-05
       }
     },
     "pairs": {
       "en-de": {
         "build_resource_payload": {
-          "total_seconds": 0.0005328339757397771,
+          "total_seconds": 0.0009310839814133942,
           "count": 1,
-          "avg_seconds": 0.0005328339757397771
+          "avg_seconds": 0.0009310839814133942
         },
         "build_word_packages": {
-          "total_seconds": 1.9332976080477238e-05,
+          "total_seconds": 6.812502397224307e-05,
           "count": 1,
-          "avg_seconds": 1.9332976080477238e-05
+          "avg_seconds": 6.812502397224307e-05
         },
         "compile_pair_context": {
-          "total_seconds": 2.2500171326100826e-06,
+          "total_seconds": 4.041008651256561e-06,
           "count": 1,
-          "avg_seconds": 2.2500171326100826e-06
+          "avg_seconds": 4.041008651256561e-06
         },
         "evaluate_cases": {
-          "total_seconds": 0.0025664606946520507,
+          "total_seconds": 0.014145622961223125,
           "count": 32,
-          "avg_seconds": 8.020189670787659e-05
+          "avg_seconds": 0.00044205071753822267
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -202,42 +215,42 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 7.723257582983933,
+          "total_seconds": 8.674299583013635,
           "count": 1,
-          "avg_seconds": 7.723257582983933
+          "avg_seconds": 8.674299583013635
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.006759000010788441,
+          "total_seconds": 0.0294553330168128,
           "count": 1,
-          "avg_seconds": 0.006759000010788441
+          "avg_seconds": 0.0294553330168128
         },
         "resolve_resources": {
-          "total_seconds": 0.0021695420145988464,
+          "total_seconds": 0.00106262497138232,
           "count": 1,
-          "avg_seconds": 0.0021695420145988464
+          "avg_seconds": 0.00106262497138232
         },
         "run_config": {
-          "total_seconds": 0.26295387279242277,
+          "total_seconds": 1.138827333052177,
           "count": 32,
-          "avg_seconds": 0.008217308524763212
+          "avg_seconds": 0.03558835415788053
         },
         "sort_pair_runs": {
-          "total_seconds": 1.0000017937272787e-05,
+          "total_seconds": 1.0791991371661425e-05,
           "count": 1,
-          "avg_seconds": 1.0000017937272787e-05
+          "avg_seconds": 1.0791991371661425e-05
         },
         "summarize_run": {
-          "total_seconds": 0.00019820407032966614,
+          "total_seconds": 0.0005396639462560415,
           "count": 32,
-          "avg_seconds": 6.193877197802067e-06
+          "avg_seconds": 1.6864498320501298e-05
         }
       }
     },
-    "wall_clock_seconds": 8.00640245899558
+    "wall_clock_seconds": 9.870826875034254
   },
   "pairs": {
     "en-de": {
-      "case_count": 16,
+      "case_count": 58,
       "run_count": 32,
       "resources": {
         "jmdict_path": null,
@@ -250,22 +263,64 @@
         }
       },
       "word_package_snapshot": {
+        "Antwort": null,
         "Arbeit": null,
+        "Auge": null,
+        "Auto": null,
+        "Baum": null,
+        "Beispiel": null,
         "Buch": null,
+        "Chef": null,
+        "Fall": null,
         "Familie": null,
+        "Fenster": null,
+        "Frage": null,
         "Freund": null,
+        "Fuß": null,
+        "Garten": null,
         "Geld": null,
+        "Geschichte": null,
+        "Gesicht": null,
+        "Gift": null,
+        "Grund": null,
+        "Hand": null,
         "Haus": null,
+        "Herz": null,
+        "Idee": null,
+        "Jahr": null,
+        "Kind": null,
+        "Kopf": null,
         "Leben": null,
         "Liebe": null,
+        "Minute": null,
+        "Monat": null,
+        "Morgen": null,
+        "Mund": null,
         "Mutter": null,
+        "Nacht": null,
+        "Name": null,
+        "Ohr": null,
+        "Preis": null,
+        "Problem": null,
         "Schule": null,
+        "Sprache": null,
         "Stadt": null,
+        "Stimme": null,
+        "Straße": null,
+        "Stuhl": null,
+        "Stunde": null,
+        "Tag": null,
+        "Tisch": null,
+        "Tür": null,
         "Vater": null,
         "Wasser": null,
         "Weg": null,
         "Welt": null,
-        "Zeit": null
+        "Woche": null,
+        "Wort": null,
+        "Zeit": null,
+        "Zimmer": null,
+        "Zug": null
       },
       "best_run": {
         "pair": "en-de",
@@ -307,23 +362,23 @@
         "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
         "summary": {
           "pair": "en-de",
-          "case_count": 16,
-          "top1_correct_count": 12,
-          "top3_contains_expected_count": 16,
+          "case_count": 58,
+          "top1_correct_count": 39,
+          "top3_contains_expected_count": 54,
           "forbidden_top1_count": 0,
           "forbidden_any_count": 0,
-          "avg_rules_per_target": 2.375,
-          "avg_top1_confidence": 0.6799999999999999,
+          "avg_rules_per_target": 2.4827586206896552,
+          "avg_top1_confidence": 0.6772413793103447,
           "variant_rule_count": 0,
-          "total_rule_count": 38,
+          "total_rule_count": 144,
           "variant_top1_count": 0,
-          "top1_accuracy": 0.75,
-          "top3_recall": 1.0,
+          "top1_accuracy": 0.6724137931034483,
+          "top3_recall": 0.9310344827586207,
           "forbidden_top1_rate": 0.0,
           "forbidden_any_rate": 0.0,
           "variant_rule_rate": 0.0,
           "variant_top1_rate": 0.0,
-          "objective_score": 120.75
+          "objective_score": 108.20689655172413
         },
         "case_results": [
           {
@@ -755,6 +810,1140 @@
               "time"
             ],
             "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Kind",
+            "pair": "en-de",
+            "target": "Kind",
+            "rule_count": 3,
+            "top1_source": "child",
+            "top3_sources": [
+              "child",
+              "bairn",
+              "infant"
+            ],
+            "all_sources": [
+              "child",
+              "bairn",
+              "infant"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "child"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Sprache",
+            "pair": "en-de",
+            "target": "Sprache",
+            "rule_count": 3,
+            "top1_source": "diction",
+            "top3_sources": [
+              "diction",
+              "language",
+              "tongue"
+            ],
+            "all_sources": [
+              "diction",
+              "language",
+              "tongue"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "language"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Frage",
+            "pair": "en-de",
+            "target": "Frage",
+            "rule_count": 3,
+            "top1_source": "question",
+            "top3_sources": [
+              "question",
+              "interrogation",
+              "query"
+            ],
+            "all_sources": [
+              "question",
+              "interrogation",
+              "query"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "question",
+              "query"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Antwort",
+            "pair": "en-de",
+            "target": "Antwort",
+            "rule_count": 3,
+            "top1_source": "answer",
+            "top3_sources": [
+              "answer",
+              "reply",
+              "response"
+            ],
+            "all_sources": [
+              "answer",
+              "reply",
+              "response"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "answer",
+              "reply",
+              "response"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fenster",
+            "pair": "en-de",
+            "target": "Fenster",
+            "rule_count": 3,
+            "top1_source": "box",
+            "top3_sources": [
+              "box",
+              "window",
+              "windowed"
+            ],
+            "all_sources": [
+              "box",
+              "window",
+              "windowed"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "window"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tür",
+            "pair": "en-de",
+            "target": "Tür",
+            "rule_count": 3,
+            "top1_source": "door",
+            "top3_sources": [
+              "door",
+              "door-to-door",
+              "doorway"
+            ],
+            "all_sources": [
+              "door",
+              "door-to-door",
+              "doorway"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "door"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Herz",
+            "pair": "en-de",
+            "target": "Herz",
+            "rule_count": 3,
+            "top1_source": "heart",
+            "top3_sources": [
+              "heart",
+              "dearly",
+              "embosom"
+            ],
+            "all_sources": [
+              "heart",
+              "dearly",
+              "embosom"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "heart"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Hand",
+            "pair": "en-de",
+            "target": "Hand",
+            "rule_count": 3,
+            "top1_source": "hand",
+            "top3_sources": [
+              "hand",
+              "manual",
+              "manually"
+            ],
+            "all_sources": [
+              "hand",
+              "manual",
+              "manually"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hand"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Name",
+            "pair": "en-de",
+            "target": "Name",
+            "rule_count": 1,
+            "top1_source": "name",
+            "top3_sources": [
+              "name"
+            ],
+            "all_sources": [
+              "name"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "name"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Wort",
+            "pair": "en-de",
+            "target": "Wort",
+            "rule_count": 2,
+            "top1_source": "word",
+            "top3_sources": [
+              "word",
+              "insistently"
+            ],
+            "all_sources": [
+              "word",
+              "insistently"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "word"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Baum",
+            "pair": "en-de",
+            "target": "Baum",
+            "rule_count": 2,
+            "top1_source": "tree",
+            "top3_sources": [
+              "tree",
+              "boom"
+            ],
+            "all_sources": [
+              "tree",
+              "boom"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "tree"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Garten",
+            "pair": "en-de",
+            "target": "Garten",
+            "rule_count": 3,
+            "top1_source": "garden",
+            "top3_sources": [
+              "garden",
+              "yard",
+              "backyard"
+            ],
+            "all_sources": [
+              "garden",
+              "yard",
+              "backyard"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "garden"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tag",
+            "pair": "en-de",
+            "target": "Tag",
+            "rule_count": 3,
+            "top1_source": "tag",
+            "top3_sources": [
+              "tag",
+              "day",
+              "doomsday"
+            ],
+            "all_sources": [
+              "tag",
+              "day",
+              "doomsday"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "day"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Nacht",
+            "pair": "en-de",
+            "target": "Nacht",
+            "rule_count": 1,
+            "top1_source": "night",
+            "top3_sources": [
+              "night"
+            ],
+            "all_sources": [
+              "night"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "night"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Jahr",
+            "pair": "en-de",
+            "target": "Jahr",
+            "rule_count": 2,
+            "top1_source": "year",
+            "top3_sources": [
+              "year",
+              "year-on-year"
+            ],
+            "all_sources": [
+              "year",
+              "year-on-year"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "year"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Woche",
+            "pair": "en-de",
+            "target": "Woche",
+            "rule_count": 1,
+            "top1_source": "week",
+            "top3_sources": [
+              "week"
+            ],
+            "all_sources": [
+              "week"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "week"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Monat",
+            "pair": "en-de",
+            "target": "Monat",
+            "rule_count": 1,
+            "top1_source": "month",
+            "top3_sources": [
+              "month"
+            ],
+            "all_sources": [
+              "month"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "month"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stunde",
+            "pair": "en-de",
+            "target": "Stunde",
+            "rule_count": 3,
+            "top1_source": "lesson",
+            "top3_sources": [
+              "lesson",
+              "hour",
+              "period"
+            ],
+            "all_sources": [
+              "lesson",
+              "hour",
+              "period"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hour"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Minute",
+            "pair": "en-de",
+            "target": "Minute",
+            "rule_count": 2,
+            "top1_source": "minute",
+            "top3_sources": [
+              "minute",
+              "last-minute"
+            ],
+            "all_sources": [
+              "minute",
+              "last-minute"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "minute"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Kopf",
+            "pair": "en-de",
+            "target": "Kopf",
+            "rule_count": 3,
+            "top1_source": "mind",
+            "top3_sources": [
+              "mind",
+              "spirit",
+              "head"
+            ],
+            "all_sources": [
+              "mind",
+              "spirit",
+              "head"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "head"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Gesicht",
+            "pair": "en-de",
+            "target": "Gesicht",
+            "rule_count": 3,
+            "top1_source": "facies",
+            "top3_sources": [
+              "facies",
+              "face",
+              "visage"
+            ],
+            "all_sources": [
+              "facies",
+              "face",
+              "visage"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "face"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Auge",
+            "pair": "en-de",
+            "target": "Auge",
+            "rule_count": 3,
+            "top1_source": "eye",
+            "top3_sources": [
+              "eye",
+              "wide-eyed",
+              "round-eyed"
+            ],
+            "all_sources": [
+              "eye",
+              "wide-eyed",
+              "round-eyed"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "eye"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Ohr",
+            "pair": "en-de",
+            "target": "Ohr",
+            "rule_count": 3,
+            "top1_source": "hearing",
+            "top3_sources": [
+              "hearing",
+              "audition",
+              "ear"
+            ],
+            "all_sources": [
+              "hearing",
+              "audition",
+              "ear"
+            ],
+            "top1_confidence": 0.58,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "ear"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Mund",
+            "pair": "en-de",
+            "target": "Mund",
+            "rule_count": 1,
+            "top1_source": "mouth",
+            "top3_sources": [
+              "mouth"
+            ],
+            "all_sources": [
+              "mouth"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mouth"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fuß",
+            "pair": "en-de",
+            "target": "Fuß",
+            "rule_count": 3,
+            "top1_source": "base",
+            "top3_sources": [
+              "base",
+              "foot",
+              "head"
+            ],
+            "all_sources": [
+              "base",
+              "foot",
+              "head"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "foot"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Tisch",
+            "pair": "en-de",
+            "target": "Tisch",
+            "rule_count": 1,
+            "top1_source": "table",
+            "top3_sources": [
+              "table"
+            ],
+            "all_sources": [
+              "table"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "table"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stuhl",
+            "pair": "en-de",
+            "target": "Stuhl",
+            "rule_count": 3,
+            "top1_source": "chair",
+            "top3_sources": [
+              "chair",
+              "stool",
+              "defaecation"
+            ],
+            "all_sources": [
+              "chair",
+              "stool",
+              "defaecation"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "chair"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Zimmer",
+            "pair": "en-de",
+            "target": "Zimmer",
+            "rule_count": 1,
+            "top1_source": "room",
+            "top3_sources": [
+              "room"
+            ],
+            "all_sources": [
+              "room"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "room"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Straße",
+            "pair": "en-de",
+            "target": "Straße",
+            "rule_count": 3,
+            "top1_source": "avenue",
+            "top3_sources": [
+              "avenue",
+              "alley",
+              "strait"
+            ],
+            "all_sources": [
+              "avenue",
+              "alley",
+              "strait"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Auto",
+            "pair": "en-de",
+            "target": "Auto",
+            "rule_count": 3,
+            "top1_source": "car",
+            "top3_sources": [
+              "car",
+              "automobile",
+              "auto"
+            ],
+            "all_sources": [
+              "car",
+              "automobile",
+              "auto"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "car"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Problem",
+            "pair": "en-de",
+            "target": "Problem",
+            "rule_count": 3,
+            "top1_source": "problem",
+            "top3_sources": [
+              "problem",
+              "snag",
+              "trouble"
+            ],
+            "all_sources": [
+              "problem",
+              "snag",
+              "trouble"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "problem"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Beispiel",
+            "pair": "en-de",
+            "target": "Beispiel",
+            "rule_count": 3,
+            "top1_source": "example",
+            "top3_sources": [
+              "example",
+              "non-example",
+              "instance"
+            ],
+            "all_sources": [
+              "example",
+              "non-example",
+              "instance"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "example"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Idee",
+            "pair": "en-de",
+            "target": "Idee",
+            "rule_count": 3,
+            "top1_source": "notion",
+            "top3_sources": [
+              "notion",
+              "inspiration",
+              "idea"
+            ],
+            "all_sources": [
+              "notion",
+              "inspiration",
+              "idea"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "idea"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Preis",
+            "pair": "en-de",
+            "target": "Preis",
+            "rule_count": 3,
+            "top1_source": "award",
+            "top3_sources": [
+              "award",
+              "cost",
+              "pot"
+            ],
+            "all_sources": [
+              "award",
+              "cost",
+              "pot"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Chef",
+            "pair": "en-de",
+            "target": "Chef",
+            "rule_count": 2,
+            "top1_source": "chief",
+            "top3_sources": [
+              "chief",
+              "boss"
+            ],
+            "all_sources": [
+              "chief",
+              "boss"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "chief",
+              "boss"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Gift",
+            "pair": "en-de",
+            "target": "Gift",
+            "rule_count": 3,
+            "top1_source": "poison",
+            "top3_sources": [
+              "poison",
+              "venom",
+              "dope"
+            ],
+            "all_sources": [
+              "poison",
+              "venom",
+              "dope"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "poison"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Fall",
+            "pair": "en-de",
+            "target": "Fall",
+            "rule_count": 3,
+            "top1_source": "case",
+            "top3_sources": [
+              "case",
+              "fall",
+              "instance"
+            ],
+            "all_sources": [
+              "case",
+              "fall",
+              "instance"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "case",
+              "instance"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Zug",
+            "pair": "en-de",
+            "target": "Zug",
+            "rule_count": 3,
+            "top1_source": "strain",
+            "top3_sources": [
+              "strain",
+              "trait",
+              "characteristic"
+            ],
+            "all_sources": [
+              "strain",
+              "trait",
+              "characteristic"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Stimme",
+            "pair": "en-de",
+            "target": "Stimme",
+            "rule_count": 3,
+            "top1_source": "part",
+            "top3_sources": [
+              "part",
+              "partbook",
+              "voice"
+            ],
+            "all_sources": [
+              "part",
+              "partbook",
+              "voice"
+            ],
+            "top1_confidence": 0.62,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "voice"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Morgen",
+            "pair": "en-de",
+            "target": "Morgen",
+            "rule_count": 2,
+            "top1_source": "morning",
+            "top3_sources": [
+              "morning",
+              "morgen"
+            ],
+            "all_sources": [
+              "morning",
+              "morgen"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "morning"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Geschichte",
+            "pair": "en-de",
+            "target": "Geschichte",
+            "rule_count": 3,
+            "top1_source": "tale",
+            "top3_sources": [
+              "tale",
+              "story",
+              "history"
+            ],
+            "all_sources": [
+              "tale",
+              "story",
+              "history"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "story",
+              "history"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-de:Grund",
+            "pair": "en-de",
+            "target": "Grund",
+            "rule_count": 3,
+            "top1_source": "motive",
+            "top3_sources": [
+              "motive",
+              "motivation",
+              "bottom"
+            ],
+            "all_sources": [
+              "motive",
+              "motivation",
+              "bottom"
+            ],
+            "top1_confidence": 0.6799999999999999,
+            "top1_correct": false,
+            "top3_contains_expected": false,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [],
+            "forbidden_matches": []
           }
         ]
       },
@@ -799,23 +1988,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -858,23 +2047,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -917,23 +2106,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -976,23 +2165,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -1035,23 +2224,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -1094,23 +2283,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -1153,23 +2342,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -1212,23 +2401,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.375,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.4827586206896552,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 38,
+            "total_rule_count": 144,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.75
+            "objective_score": 108.20689655172413
           }
         },
         {
@@ -1271,23 +2460,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1330,23 +2519,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1389,23 +2578,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1448,23 +2637,23 @@
           "config_label": "md=3 mr=none thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1507,23 +2696,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1566,23 +2755,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1625,23 +2814,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1684,23 +2873,23 @@
           "config_label": "md=3 mr=none thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 16,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 54,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
-            "avg_rules_per_target": 2.5,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_rules_per_target": 2.6724137931034484,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 40,
+            "total_rule_count": 155,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 1.0,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.9310344827586207,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 120.0
+            "objective_score": 107.06896551724137
           }
         },
         {
@@ -1743,23 +2932,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -1802,23 +2991,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -1861,23 +3050,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -1920,23 +3109,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -1979,23 +3168,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2038,23 +3227,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2097,23 +3286,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2156,23 +3345,23 @@
           "config_label": "md=3 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2215,23 +3404,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2274,23 +3463,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2333,23 +3522,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2392,23 +3581,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2451,23 +3640,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2510,23 +3699,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2569,23 +3758,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         },
         {
@@ -2628,23 +3817,23 @@
           "config_label": "md=3 mr=1 thr=0.050 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
-            "case_count": 16,
-            "top1_correct_count": 12,
-            "top3_contains_expected_count": 12,
+            "case_count": 58,
+            "top1_correct_count": 39,
+            "top3_contains_expected_count": 39,
             "forbidden_top1_count": 0,
             "forbidden_any_count": 0,
             "avg_rules_per_target": 1.0,
-            "avg_top1_confidence": 0.6799999999999999,
+            "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 16,
+            "total_rule_count": 58,
             "variant_top1_count": 0,
-            "top1_accuracy": 0.75,
-            "top3_recall": 0.75,
+            "top1_accuracy": 0.6724137931034483,
+            "top3_recall": 0.6724137931034483,
             "forbidden_top1_rate": 0.0,
             "forbidden_any_rate": 0.0,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 114.0
+            "objective_score": 101.58620689655172
           }
         }
       ]

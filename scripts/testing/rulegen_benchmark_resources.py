@@ -35,6 +35,7 @@ from lexishift_core.rulegen.utils import (
 )
 from lexishift_core.srs import SrsStore, load_srs_store
 
+from rulegen_benchmark_dataset import load_benchmark_dataset
 from rulegen_benchmark_compiled import _build_compiled_case_refs, _build_compiled_case_table
 from rulegen_benchmark_models import BenchmarkTimingCollector, PairBenchmarkContext
 
@@ -44,24 +45,7 @@ def _load_dataset_cases(
     *,
     pair_filter: Optional[set[str]],
 ) -> tuple[dict[str, object], dict[str, list[RulegenBenchmarkCase]]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, Mapping):
-        raise ValueError(f"Dataset payload must be an object: {path}")
-    raw_cases = payload.get("cases")
-    if not isinstance(raw_cases, Sequence):
-        raise ValueError(f"Dataset is missing `cases` list: {path}")
-
-    by_pair: dict[str, list[RulegenBenchmarkCase]] = {}
-    for index, raw_case in enumerate(raw_cases):
-        if not isinstance(raw_case, Mapping):
-            continue
-        case = RulegenBenchmarkCase.from_mapping(raw_case, index=index)
-        if not case.pair or not case.target:
-            continue
-        if pair_filter and case.pair not in pair_filter:
-            continue
-        by_pair.setdefault(case.pair, []).append(case)
-    return dict(payload), by_pair
+    return load_benchmark_dataset(path, pair_filter=pair_filter)
 
 
 def _load_store(paths, *, profile_id: str) -> SrsStore:

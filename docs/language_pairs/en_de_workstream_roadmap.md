@@ -272,7 +272,7 @@ Definition of done:
 - `docs/developer/ai_workflow.md`
 - `docs/developer/feature_state_matrix.md`
 - `docs/rulegen/reverse_check_rollout_matrix.md`
-- `docs/test_inputs/rulegen_benchmark_cases.json`
+- `docs/test_inputs/rulegen_benchmark_cases/en_de.json`
 - `docs/test_inputs/rulegen_benchmark_presets.json`
 - `scripts/package.json`
 

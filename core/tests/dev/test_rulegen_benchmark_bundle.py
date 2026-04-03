@@ -198,6 +198,102 @@ class TestRulegenBenchmarkBundle(unittest.TestCase):
 
             self.assertEqual(manifest["bundle_version"], 1)
 
+    def test_export_bundle_materializes_directory_backed_dataset(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            dataset_dir = root / "rulegen_benchmark_cases"
+            dataset_dir.mkdir()
+            (dataset_dir / "en_de.json").write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "pair": "en-de",
+                        "cases": [
+                            {
+                                "case_id": "en-de:Haus",
+                                "target": "Haus",
+                                "expected_any": ["house"],
+                                "expected_top1_any": ["house"],
+                                "forbidden_top1": [],
+                                "forbidden_any": [],
+                                "tier": "smoke",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (dataset_dir / "en_es.json").write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "pair": "en-es",
+                        "cases": [
+                            {
+                                "case_id": "en-es:casa",
+                                "target": "casa",
+                                "expected_any": ["house"],
+                                "expected_top1_any": ["house"],
+                                "forbidden_top1": [],
+                                "forbidden_any": [],
+                                "tier": "smoke",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            benchmark_json = root / "benchmark.json"
+            forward = root / "freedict-de-en.sqlite"
+            reverse = root / "freedict-en-de.sqlite"
+            forward.write_text("forward", encoding="utf-8")
+            reverse.write_text("reverse", encoding="utf-8")
+            benchmark_json.write_text(
+                json.dumps(
+                    {
+                        "dataset_path": str(dataset_dir),
+                        "profile_id": "default",
+                        "sweep": {
+                            "preset": {
+                                "name": "en_de_canonical_matrix",
+                                "description": "test preset",
+                                "args": ["--pairs", "en-de"],
+                            }
+                        },
+                        "pairs": {
+                            "en-de": {
+                                "case_count": 1,
+                                "resources": {
+                                    "translation_dict_path": str(forward),
+                                    "reverse_translation_dict_path": str(reverse),
+                                    "checksums": {
+                                        "translation_dict_sha256": None,
+                                        "reverse_translation_dict_sha256": None,
+                                        "jmdict_sha256": None,
+                                    },
+                                },
+                                "word_package_snapshot": {"Haus": None},
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            manifest_path = export_bundle(
+                benchmark_json=benchmark_json,
+                output_dir=root / "bundle",
+                pair_filter=None,
+                force=False,
+            )
+
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            dataset_bundle_path = root / "bundle" / str(manifest["dataset_path"])
+            dataset_payload = json.loads(dataset_bundle_path.read_text(encoding="utf-8"))
+            self.assertEqual(dataset_payload["pairs"], ["en-de"])
+            self.assertEqual(len(dataset_payload["cases"]), 1)
+            self.assertEqual(dataset_payload["cases"][0]["pair"], "en-de")
+
     def test_build_bundle_run_argv_uses_bundle_relative_inputs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             bundle_dir = Path(tmp)

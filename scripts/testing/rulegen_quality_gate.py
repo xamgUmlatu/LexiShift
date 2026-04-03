@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Mapping
 
 try:
+    from .rulegen_benchmark_dataset import load_benchmark_dataset_payload
     from .rulegen_quality_gate_support import (
         QualityFinding,
         QualityReport,
@@ -23,6 +24,7 @@ try:
         validate_saturation,
     )
 except Exception:  # noqa: BLE001
+    from rulegen_benchmark_dataset import load_benchmark_dataset_payload  # type: ignore[no-redef]
     from rulegen_quality_gate_support import (  # type: ignore[no-redef]
         QualityFinding,
         QualityReport,
@@ -75,7 +77,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dataset-json",
         type=Path,
-        help="Optional benchmark dataset JSON override (defaults to benchmark dataset_path).",
+        help=(
+            "Optional benchmark dataset file or directory override "
+            "(defaults to benchmark dataset_path)."
+        ),
     )
     parser.add_argument(
         "--pair-scope",
@@ -124,6 +129,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    pair_scope = str(args.pair_scope or "").strip().lower() or None
     findings: list[QualityFinding] = []
 
     benchmark_payload: Mapping[str, object] | None = None
@@ -227,7 +233,7 @@ def main() -> None:
             )
         elif dataset_path.exists():
             try:
-                dataset_payload = read_json(dataset_path)
+                dataset_payload = load_benchmark_dataset_payload(dataset_path)
             except Exception as exc:  # noqa: BLE001
                 record(
                     findings,
@@ -245,7 +251,6 @@ def main() -> None:
             )
 
     if benchmark_payload is not None and policy_payload is not None:
-        pair_scope = str(args.pair_scope or "").strip().lower() or None
         validate_benchmark_pairs(
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
@@ -277,6 +282,7 @@ def main() -> None:
             dataset_payload=dataset_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
 
     if policy_payload is not None:

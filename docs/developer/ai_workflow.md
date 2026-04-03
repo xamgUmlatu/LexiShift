@@ -2,8 +2,8 @@
 
 Status: active workflow
 Role: Runbook / operational
-Last updated: 2026-04-03
-Last verified: 2026-04-03 AGENTS command review + package-script inventory check
+Last updated: 2026-04-04
+Last verified: 2026-04-04 AGENTS command review + dataset-loader/tooling sync
 Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
 Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
 
@@ -26,7 +26,7 @@ The scripts and policy below enforce a tighter loop.
 
 ## Source files
 
-- Benchmark dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+- Benchmark dataset source-of-truth: `docs/test_inputs/rulegen_benchmark_cases/`
 - Quality policy: `docs/test_inputs/rulegen_quality_policy.json`
 - Baseline metrics: `docs/test_outputs/baselines/rulegen_quality_baseline.json`
 - Benchmark runner: `scripts/testing/rulegen_benchmark.py`
@@ -75,7 +75,7 @@ python3 scripts/testing/rulegen_benchmark_triage.py \
 ```
 
 4. Promote triage items into benchmark labels.
-- Update `docs/test_inputs/rulegen_benchmark_cases.json`.
+- Update the LP-specific file under `docs/test_inputs/rulegen_benchmark_cases/` (for example `en_de.json`).
 - Add/adjust `expected_top1_any`, `forbidden_top1`, `forbidden_any`, and `tier`.
 
 5. Re-run steps 1-3 until gate passes and triage is empty (or clearly justified).

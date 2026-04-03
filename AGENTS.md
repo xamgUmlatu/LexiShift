@@ -86,7 +86,7 @@ Current harness coverage:
 ## Failure-to-case promotion
 
 For each FAIL/REVIEW triage item:
-- either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases.json`,
+- either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases/<pair>.json`,
 - or document why it remains unresolved.
 
 ## Meta workflow and state tracking

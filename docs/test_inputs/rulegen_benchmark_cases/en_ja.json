@@ -1,0 +1,303 @@
+{
+  "version": 1,
+  "pair": "en-ja",
+  "description": "LexiShift rulegen benchmark cases for en-ja.",
+  "cases": [
+    {
+      "case_id": "en-ja:様",
+      "target": "様",
+      "tier": "hard",
+      "target_reading": "よう",
+      "expected_any": [
+        "form",
+        "style",
+        "design",
+        "way",
+        "kind"
+      ],
+      "expected_top1_any": [
+        "form",
+        "style",
+        "design"
+      ],
+      "forbidden_top1": [
+        "appearing",
+        "looking",
+        "like"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:時",
+      "target": "時",
+      "tier": "hard",
+      "target_reading": "とき",
+      "expected_any": [
+        "time",
+        "occasion",
+        "moment",
+        "hour",
+        "period"
+      ],
+      "expected_top1_any": [
+        "time",
+        "occasion",
+        "moment",
+        "hour"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [
+        "times"
+      ]
+    },
+    {
+      "case_id": "en-ja:仕事",
+      "target": "仕事",
+      "tier": "smoke",
+      "target_reading": "しごと",
+      "expected_any": [
+        "work",
+        "job",
+        "occupation",
+        "business"
+      ],
+      "expected_top1_any": [
+        "work",
+        "job",
+        "occupation"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:家",
+      "target": "家",
+      "tier": "smoke",
+      "target_reading": "いえ",
+      "expected_any": [
+        "house",
+        "home"
+      ],
+      "expected_top1_any": [
+        "house",
+        "home"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:友達",
+      "target": "友達",
+      "tier": "smoke",
+      "target_reading": "ともだち",
+      "expected_any": [
+        "friend",
+        "companion"
+      ],
+      "expected_top1_any": [
+        "friend"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:学校",
+      "target": "学校",
+      "tier": "smoke",
+      "target_reading": "がっこう",
+      "expected_any": [
+        "school"
+      ],
+      "expected_top1_any": [
+        "school"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:先生",
+      "target": "先生",
+      "tier": "smoke",
+      "target_reading": "せんせい",
+      "expected_any": [
+        "teacher",
+        "instructor",
+        "master"
+      ],
+      "expected_top1_any": [
+        "teacher",
+        "instructor"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:学生",
+      "target": "学生",
+      "tier": "smoke",
+      "target_reading": "がくせい",
+      "expected_any": [
+        "student",
+        "pupil"
+      ],
+      "expected_top1_any": [
+        "student",
+        "pupil"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:水",
+      "target": "水",
+      "tier": "smoke",
+      "target_reading": "みず",
+      "expected_any": [
+        "water"
+      ],
+      "expected_top1_any": [
+        "water"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:山",
+      "target": "山",
+      "tier": "smoke",
+      "target_reading": "やま",
+      "expected_any": [
+        "mountain",
+        "hill"
+      ],
+      "expected_top1_any": [
+        "mountain"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "mine"
+      ]
+    },
+    {
+      "case_id": "en-ja:川",
+      "target": "川",
+      "tier": "smoke",
+      "target_reading": "かわ",
+      "expected_any": [
+        "river",
+        "stream"
+      ],
+      "expected_top1_any": [
+        "river",
+        "stream"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:道",
+      "target": "道",
+      "tier": "smoke",
+      "target_reading": "みち",
+      "expected_any": [
+        "road",
+        "way",
+        "path",
+        "street"
+      ],
+      "expected_top1_any": [
+        "road",
+        "way",
+        "path"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:世界",
+      "target": "世界",
+      "tier": "smoke",
+      "target_reading": "せかい",
+      "expected_any": [
+        "world",
+        "society"
+      ],
+      "expected_top1_any": [
+        "world"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "circle",
+        "sphere"
+      ]
+    },
+    {
+      "case_id": "en-ja:言葉",
+      "target": "言葉",
+      "tier": "smoke",
+      "target_reading": "ことば",
+      "expected_any": [
+        "word",
+        "language",
+        "expression"
+      ],
+      "expected_top1_any": [
+        "word",
+        "language"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:愛",
+      "target": "愛",
+      "tier": "smoke",
+      "target_reading": "あい",
+      "expected_any": [
+        "love",
+        "affection"
+      ],
+      "expected_top1_any": [
+        "love"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "care"
+      ]
+    },
+    {
+      "case_id": "en-ja:父",
+      "target": "父",
+      "tier": "smoke",
+      "target_reading": "ちち",
+      "expected_any": [
+        "father",
+        "dad"
+      ],
+      "expected_top1_any": [
+        "father",
+        "dad"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:母",
+      "target": "母",
+      "tier": "smoke",
+      "target_reading": "はは",
+      "expected_any": [
+        "mother",
+        "mom"
+      ],
+      "expected_top1_any": [
+        "mother",
+        "mom"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    }
+  ]
+}

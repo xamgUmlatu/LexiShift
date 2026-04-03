@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-03
+Last updated: 2026-04-04
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -32,11 +32,12 @@ Use this file when:
 ## Rulegen Benchmark / Gate / Triage Loop
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-03` `en-de` now also has a named advisory latest lane with a dedicated preset, wrapper commands, and pair-specific benchmark/gate/triage summaries alongside the strict `en-es` artifact gate
-- Last verified: `2026-04-03` local `en-de` benchmark/gate/triage refresh plus workflow/package/doc sync
+- Last documented checkpoint: `2026-04-04` benchmark case authoring now uses LP-specific source files under `docs/test_inputs/rulegen_benchmark_cases/`, the benchmark/gate loader now accepts either a single JSON file or that directory directly, pair-scoped dataset validation now stays local to the selected LP, and bundle export now materializes a merged dataset JSON for replay
+- Last verified: `2026-04-04` focused dataset-loader/gate/bundle tests plus local `en-de` benchmark/gate/triage refresh on the directory-backed dataset
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
+  - Benchmark case source-of-truth is now the LP-specific directory `docs/test_inputs/rulegen_benchmark_cases/`; benchmark tooling merges those files on load.
   - Latest rulegen artifacts now have human-facing Markdown summaries for benchmark, gate, and triage surfaces.
 - Evidence:
   - `AGENTS.md`
