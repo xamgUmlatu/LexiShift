@@ -6,7 +6,7 @@ Purpose:
 - anchor the additions in observed current outputs under both `rev=off` and the named reverse lane
 
 Artifacts used:
-- `docs/test_inputs/rulegen_benchmark_cases.json`
+- `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
 - `docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json`
 - `docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json`
 

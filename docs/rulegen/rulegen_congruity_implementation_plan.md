@@ -315,12 +315,12 @@ Delivered:
   - HTML dashboard now includes right-click per-source labeling (greenlist/blacklist), decisions export JSON, and LP-by-LP workflow controls (Done/Skip/Next/Prev) with resume state for faster multi-pair curation.
 - Label override merge utility:
   - `scripts/testing/apply_rulegen_label_overrides.py`
-  - Applies exported labeling decisions back into `docs/test_inputs/rulegen_benchmark_cases.json` (or another dataset copy).
+  - Applies exported labeling decisions back into `docs/test_inputs/rulegen_benchmark_cases/` (or another dataset file or directory copy).
 - Starter labeled benchmark dataset:
-  - `docs/test_inputs/rulegen_benchmark_cases.json`
-  - Includes initial `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
+  - `docs/test_inputs/rulegen_benchmark_cases/`
+  - Includes LP-specific source files for `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
 - Breadth expansion (v2):
-  - `docs/test_inputs/rulegen_benchmark_cases.json` expanded to 65 labeled cases.
+  - LP-specific files under `docs/test_inputs/rulegen_benchmark_cases/` expanded the labeled dataset to 65 total cases.
   - Coverage now includes broader core-lexicon checks plus hard cases (`hora`/`時`/`様` style instability guards).
 
 Next extension path:

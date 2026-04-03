@@ -43,7 +43,7 @@ Artifacts:
 
 ## Notes
 
-1. The new benchmark cases were added to `docs/test_inputs/rulegen_benchmark_cases.json`.
+1. The new benchmark cases were added to `docs/test_inputs/rulegen_benchmark_cases/en_es.json`.
 2. `madre` already existed and remains the anchor failure case.
 3. `fondo` and `medio` are intentionally advisory in spirit, but the current benchmark schema only supports the existing `smoke` / `hard` tiering. Their labels therefore remain broad and permissive.
 4. The strongest immediate product questions remain the Red cases:
