@@ -12,7 +12,7 @@ from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from state import AppState
 
 
-def test_load_settings_migrates_managed_translation_and_frequency_paths() -> None:
+def test_load_settings_migrates_managed_translation_frequency_and_embedding_paths() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         language_root = root / "language_packs" / "freedict-en-es"
@@ -44,6 +44,20 @@ def test_load_settings_migrates_managed_translation_and_frequency_paths() -> Non
             artifact_path=frequency_artifact,
             sqlite_filename="main.sqlite",
         )
+        embedding_root = root / "embedding_packs" / "embed-xling-es"
+        embedding_root.mkdir(parents=True, exist_ok=True)
+        embedding_artifact = embedding_root / "main.sqlite"
+        embedding_artifact.write_bytes(b"SQLite format 3\x00")
+        write_installed_pack_manifest(
+            root / "embedding_packs",
+            pack_id="embed-xling-es",
+            pack_kind="embedding",
+            provider="fasttext",
+            local_kind="file",
+            build_mode="convert_to_sqlite",
+            artifact_path=embedding_artifact,
+            sqlite_filename="main.sqlite",
+        )
 
         settings_path = root / "settings.json"
         save_app_settings(
@@ -51,6 +65,8 @@ def test_load_settings_migrates_managed_translation_and_frequency_paths() -> Non
                 synonyms=SynonymSourceSettings(
                     language_packs={"freedict-en-es": str(language_artifact)},
                     frequency_packs={"freq-en-coca": str(frequency_artifact)},
+                    embedding_packs={"embed-xling-es": str(embedding_artifact)},
+                    embedding_pair_paths={"en-es": [str(embedding_artifact)]},
                 )
             ),
             settings_path,
@@ -66,3 +82,7 @@ def test_load_settings_migrates_managed_translation_and_frequency_paths() -> Non
         assert tuple(synonyms.managed_frequency_pack_ids) == ("freq-en-coca",)
         assert synonyms.language_packs == {}
         assert synonyms.frequency_packs == {}
+        assert synonyms.embedding_packs == {}
+        assert synonyms.embedding_pair_paths == {}
+        assert synonyms.embedding_pair_pack_ids == {"en-es": ["embed-xling-es"]}
+        assert synonyms.embedding_pair_enabled == {"en-es": True}

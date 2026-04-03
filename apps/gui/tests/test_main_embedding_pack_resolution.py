@@ -13,7 +13,7 @@ from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from main import MainWindow
 
 
-def test_embedding_paths_for_pair_resolves_managed_pack_ids_and_legacy_paths() -> None:
+def test_embedding_paths_for_pair_resolves_managed_pack_ids_and_manual_paths() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         managed_root = root / "embedding_packs" / "embed-xling-es"
@@ -34,9 +34,6 @@ def test_embedding_paths_for_pair_resolves_managed_pack_ids_and_legacy_paths() -
         manual_sqlite.write_bytes(b"SQLite format 3\x00")
         settings = SynonymSourceSettings(
             use_embeddings=True,
-            embedding_packs={
-                "embed-xling-es": str(managed_sqlite),
-            },
             embedding_pair_pack_ids={
                 "en-es": ["embed-xling-es"],
             },
