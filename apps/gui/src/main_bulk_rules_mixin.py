@@ -17,6 +17,7 @@ from lexishift_core import (
     SynonymSources,
     VocabRule,
 )
+from main_paths import _app_data_dir
 
 
 def _resolve_translation_pack_path(
@@ -38,6 +39,19 @@ def _resolve_translation_pack_path(
         if candidate.exists() and candidate.is_file():
             return str(candidate)
     return None
+
+
+def _configured_language_pack_paths(settings: SynonymSourceSettings) -> dict[str, str]:
+    configured = dict(settings.language_packs or {})
+    base_dir = _app_data_dir() / "language_packs"
+    for pack_id in tuple(getattr(settings, "managed_language_pack_ids", ()) or ()):
+        pack_key = str(pack_id or "").strip()
+        if not pack_key or pack_key in configured:
+            continue
+        resolved = resolve_installed_pack_artifact(base_dir, pack_key)
+        if resolved is not None:
+            configured[pack_key] = str(resolved)
+    return configured
 
 
 class MainWindowBulkRulesMixin:
@@ -80,7 +94,7 @@ class MainWindowBulkRulesMixin:
             pack_ids.add("moby-en")
         if settings.last_selected_pack_ids:
             return set(settings.last_selected_pack_ids)
-        language_packs = settings.language_packs or {}
+        language_packs = _configured_language_pack_paths(settings)
         if language_packs.get("odenet-de"):
             pack_ids.add("odenet-de")
         elif language_packs.get("openthesaurus-de"):
@@ -107,7 +121,6 @@ class MainWindowBulkRulesMixin:
     ) -> list[VocabRule]:
         settings = self.state.settings.synonyms
         selected_pack_ids = set(selected_pack_ids or [])
-        language_packs = settings.language_packs if settings else {}
         if not settings:
             QMessageBox.warning(
                 self,
@@ -115,6 +128,7 @@ class MainWindowBulkRulesMixin:
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
+        language_packs = _configured_language_pack_paths(settings)
         packs_by_pair: dict[str, set[str]] = {}
         for pack_id in selected_pack_ids:
             pair_key = self._pair_for_pack(pack_id)

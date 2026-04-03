@@ -573,7 +573,9 @@ class MainWindow(
         panel = getattr(dialog, "language_pack_panel", None)
         if panel is None:
             return
+        managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
         language_pack_paths = dict(panel.paths() or {})
+        managed_frequency_pack_ids = tuple(panel.managed_frequency_pack_ids() or ())
         frequency_pack_paths = dict(panel.frequency_paths() or {})
         embedding_pack_paths = dict(panel.embedding_paths() or {})
         embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
@@ -587,7 +589,9 @@ class MainWindow(
             current_synonyms,
             wordnet_dir=wordnet_dir,
             moby_path=moby_path,
+            managed_language_pack_ids=managed_language_pack_ids,
             language_packs=language_pack_paths,
+            managed_frequency_pack_ids=managed_frequency_pack_ids,
             frequency_packs=frequency_pack_paths,
             embedding_packs=embedding_pack_paths,
             embedding_pair_pack_ids=embedding_pair_pack_ids,

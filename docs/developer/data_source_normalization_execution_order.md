@@ -104,8 +104,8 @@ Status markers:
 | Generic benchmark/probe naming cleanup | `[x]` | benchmark split landed; generic translation naming is now the normal tooling contract |
 | Adapter request contract uses generic translation-path fields | `[x]` | generic request seam no longer carries `freedict_*` aliases |
 | Synonym translation-pack seam uses generic directional fields | `[x]` | runtime seam no longer uses FreeDict-shaped field names there |
-| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | main managed path is cleaner, but language-pack persistence is still more path-shaped than frequency/embeddings |
-| Managed frequency settings/runtime fully pack-id-first | `[~]` | runtime/diagnostics are pack-ref aware; naming/schema/artifact convergence still remains |
+| Managed translation settings persist by pack identity rather than stale raw paths | `[~]` | normalized translation packs now persist as managed pack ids with load-time migration for old app-owned paths, but secondary language-pack flows still keep path-shaped state |
+| Managed frequency settings/runtime fully pack-id-first | `[~]` | managed frequency packs now persist as pack ids with load-time migration and SRS runtime resolves managed ids first, but naming/schema/artifact convergence still remains |
 | Managed embedding settings/runtime fully pack-id-first | `[~]` | pair activation is pack-id-first, but compatibility/manual path storage still exists |
 | Converge managed translation artifact naming to `main.sqlite` | `[ ]` | do this once manifest-first resolution is dominant everywhere |
 | Converge managed frequency artifact naming to `main.sqlite` | `[ ]` | same sequencing as translation |
@@ -131,6 +131,10 @@ Already landed:
 - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
 - installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
 - helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
+- managed translation settings now split normalized app-owned translation packs into `managed_language_pack_ids` plus manual `language_packs`, and app-state loading migrates old saved managed artifact paths into that shape
+- managed frequency settings now split app-owned frequency packs into `managed_frequency_pack_ids` plus manual `frequency_packs`, and app-state loading migrates old saved managed artifact paths into that shape
+- the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
+- the bulk-rules translation path now rebuilds managed translation pack paths from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
 - helper CLI/native-host entrypoints and internal helper use cases now prefer generic `translation_dict_path` naming, and runtime/helper diagnostics no longer emit `freedict_de_en_*` as part of the app-managed generic contract

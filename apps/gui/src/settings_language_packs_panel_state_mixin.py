@@ -9,6 +9,14 @@ from i18n import t
 from lexishift_core import SynonymSourceSettings
 from utils_paths import reveal_path
 
+_TRANSLATION_PACK_BUILD_MODES = frozenset(
+    {
+        "freedict_tei_to_sqlite",
+        "kaikki_glosses_to_sqlite",
+        "kaikki_translations_to_sqlite",
+    }
+)
+
 
 class LanguagePackPanelStateMixin:
     def apply_synonym_settings(self, synonym_settings: SynonymSourceSettings) -> None:
@@ -24,10 +32,34 @@ class LanguagePackPanelStateMixin:
         self._refresh_cross_embedding_pack_table()
 
     def paths(self) -> dict[str, str]:
-        return dict(self._language_pack_paths)
+        paths: dict[str, str] = {}
+        for pack_id, path in self._language_pack_paths.items():
+            if self._is_managed_translation_pack_entry(pack_id, path):
+                continue
+            paths[pack_id] = path
+        return paths
+
+    def managed_language_pack_ids(self) -> list[str]:
+        pack_ids: list[str] = []
+        for pack_id, path in self._language_pack_paths.items():
+            if self._is_managed_translation_pack_entry(pack_id, path):
+                pack_ids.append(pack_id)
+        return sorted(pack_ids)
 
     def frequency_paths(self) -> dict[str, str]:
-        return dict(self._frequency_pack_paths)
+        paths: dict[str, str] = {}
+        for pack_id, path in self._frequency_pack_paths.items():
+            if self._is_managed_frequency_pack_entry(pack_id, path):
+                continue
+            paths[pack_id] = path
+        return paths
+
+    def managed_frequency_pack_ids(self) -> list[str]:
+        pack_ids: list[str] = []
+        for pack_id, path in self._frequency_pack_paths.items():
+            if self._is_managed_frequency_pack_entry(pack_id, path):
+                pack_ids.append(pack_id)
+        return sorted(pack_ids)
 
     def embedding_paths(self) -> dict[str, str]:
         paths: dict[str, str] = {}
@@ -145,6 +177,15 @@ class LanguagePackPanelStateMixin:
 
     def _seed_language_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._language_pack_paths = dict(getattr(synonym_settings, "language_packs", {}) or {})
+        for pack_id in tuple(getattr(synonym_settings, "managed_language_pack_ids", ()) or ()):
+            if pack_id in self._language_pack_paths:
+                continue
+            pack = self._language_pack_info.get(pack_id)
+            if not self._is_pack_id_first_translation_pack(pack):
+                continue
+            candidate = self._resolve_downloaded_path(pack)
+            if candidate:
+                self._language_pack_paths[pack_id] = candidate
         if synonym_settings.wordnet_dir:
             self._language_pack_paths.setdefault("wordnet-en", synonym_settings.wordnet_dir)
         if synonym_settings.moby_path:
@@ -152,6 +193,13 @@ class LanguagePackPanelStateMixin:
 
     def _seed_frequency_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._frequency_pack_paths = dict(getattr(synonym_settings, "frequency_packs", {}) or {})
+        for pack_id in tuple(getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()):
+            if pack_id in self._frequency_pack_paths:
+                continue
+            pack = self._frequency_pack_info.get(pack_id)
+            candidate = self._resolve_frequency_pack_path(pack) if pack else None
+            if candidate:
+                self._frequency_pack_paths[pack_id] = candidate
 
     def _seed_embedding_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._embedding_pack_paths = dict(getattr(synonym_settings, "embedding_packs", {}) or {})
@@ -172,3 +220,30 @@ class LanguagePackPanelStateMixin:
         self._embedding_pair_enabled = dict(
             getattr(synonym_settings, "embedding_pair_enabled", {}) or {}
         )
+
+    def _is_pack_id_first_translation_pack(self, pack: object) -> bool:
+        build_mode = str(getattr(pack, "build_mode", "") or "").strip().lower()
+        sqlite_filename = str(getattr(pack, "sqlite_filename", "") or "").strip()
+        return bool(sqlite_filename and build_mode in _TRANSLATION_PACK_BUILD_MODES)
+
+    def _is_managed_translation_pack_entry(self, pack_id: str, path: str) -> bool:
+        path_text = str(path or "").strip()
+        if not path_text or not self._is_app_data_path(path_text):
+            return False
+        pack = self._language_pack_info.get(pack_id)
+        if not self._is_pack_id_first_translation_pack(pack):
+            return False
+        resolved = self._resolve_downloaded_path(pack)
+        if not resolved:
+            return False
+        return path_text == resolved
+
+    def _is_managed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
+        path_text = str(path or "").strip()
+        if not path_text or not self._is_frequency_pack_data_path(path_text):
+            return False
+        pack = self._frequency_pack_info.get(pack_id)
+        resolved = self._resolve_frequency_pack_path(pack) if pack else None
+        if not resolved:
+            return False
+        return path_text == resolved

@@ -4,6 +4,7 @@ import os
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -17,7 +18,11 @@ for candidate in (str(CORE_ROOT), str(GUI_SRC)):
 from lexishift_core.helper.installed_packs import (  # noqa: E402
     write_installed_pack_manifest,
 )
-from main_bulk_rules_mixin import _resolve_translation_pack_path  # noqa: E402
+from lexishift_core import SynonymSourceSettings  # noqa: E402
+from main_bulk_rules_mixin import (  # noqa: E402
+    _configured_language_pack_paths,
+    _resolve_translation_pack_path,
+)
 
 
 def test_resolve_translation_pack_path_prefers_manifest_backed_sqlite() -> None:
@@ -90,3 +95,32 @@ def test_resolve_translation_pack_path_preserves_manual_file_paths() -> None:
         )
 
     assert resolved == str(tei)
+
+
+def test_configured_language_pack_paths_include_managed_translation_pack_ids() -> None:
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        pack_root = root / "language_packs" / "freedict-en-es"
+        pack_root.mkdir(parents=True, exist_ok=True)
+        artifact = pack_root / "main.sqlite"
+        artifact.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "language_packs",
+            pack_id="freedict-en-es",
+            pack_kind="language",
+            provider="freedict",
+            local_kind="dir",
+            build_mode="freedict_tei_to_sqlite",
+            artifact_path=artifact,
+            sqlite_filename="freedict-en-es.sqlite",
+        )
+        settings = SynonymSourceSettings(
+            managed_language_pack_ids=("freedict-en-es",),
+            language_packs={"wordnet-en": "/tmp/wordnet"},
+        )
+
+        with patch("main_bulk_rules_mixin._app_data_dir", return_value=root):
+            resolved = _configured_language_pack_paths(settings)
+
+    assert resolved["freedict-en-es"] == str(artifact)
+    assert resolved["wordnet-en"] == "/tmp/wordnet"

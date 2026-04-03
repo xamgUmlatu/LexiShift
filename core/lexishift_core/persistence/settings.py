@@ -40,7 +40,9 @@ class SynonymSourceSettings:
     use_embeddings: bool = False
     embedding_threshold: float = 0.0
     embedding_fallback: bool = True
+    managed_language_pack_ids: Sequence[str] = field(default_factory=tuple)
     language_packs: Mapping[str, str] = field(default_factory=dict)
+    managed_frequency_pack_ids: Sequence[str] = field(default_factory=tuple)
     frequency_packs: Mapping[str, str] = field(default_factory=dict)
     last_selected_pack_ids: Sequence[str] = field(default_factory=tuple)
     embedding_packs: Mapping[str, str] = field(default_factory=dict)
@@ -179,7 +181,9 @@ def _synonym_sources_from_dict(
         use_embeddings=bool(data.get("use_embeddings", False)),
         embedding_threshold=float(data.get("embedding_threshold", 0.0)),
         embedding_fallback=bool(data.get("embedding_fallback", True)),
+        managed_language_pack_ids=tuple(data.get("managed_language_pack_ids", [])),
         language_packs=dict(data.get("language_packs", {})),
+        managed_frequency_pack_ids=tuple(data.get("managed_frequency_pack_ids", [])),
         frequency_packs=dict(data.get("frequency_packs", {})),
         last_selected_pack_ids=tuple(data.get("last_selected_pack_ids", [])),
         embedding_packs=dict(data.get("embedding_packs", {})),
@@ -210,7 +214,9 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
         "use_embeddings": settings.use_embeddings,
         "embedding_threshold": settings.embedding_threshold,
         "embedding_fallback": settings.embedding_fallback,
+        "managed_language_pack_ids": list(settings.managed_language_pack_ids or []),
         "language_packs": dict(settings.language_packs or {}),
+        "managed_frequency_pack_ids": list(settings.managed_frequency_pack_ids or []),
         "frequency_packs": dict(settings.frequency_packs or {}),
         "last_selected_pack_ids": list(settings.last_selected_pack_ids or []),
         "embedding_packs": dict(settings.embedding_packs or {}),

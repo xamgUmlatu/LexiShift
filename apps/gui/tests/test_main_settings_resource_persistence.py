@@ -20,9 +20,12 @@ def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace
         paths=lambda: {
             "wordnet-en": "/tmp/wordnet",
             "moby-en": "/tmp/moby",
-            "freedict-en-es": "/tmp/freedict-eng-spa.tei",
         },
-        frequency_paths=lambda: dict(frequency_paths),
+        managed_language_pack_ids=lambda: ["freedict-en-es"],
+        frequency_paths=lambda: {
+            key: value for key, value in dict(frequency_paths).items() if key != "freq-en-coca"
+        },
+        managed_frequency_pack_ids=lambda: ["freq-en-coca"],
         embedding_paths=lambda: {"embed-es-cc": "/tmp/cc.es.300.vec"},
         embedding_pair_pack_ids=lambda: {"en-es": ["embed-es-cc"]},
         embedding_pair_paths=lambda: {"en-es": ["/tmp/cc.es.300.vec"]},
@@ -55,8 +58,10 @@ def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     assert synonyms is not None
     assert synonyms.wordnet_dir == "/tmp/wordnet"
     assert synonyms.moby_path == "/tmp/moby"
-    assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
-    assert synonyms.language_packs["freedict-en-es"] == "/tmp/freedict-eng-spa.tei"
+    assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
+    assert synonyms.managed_language_pack_ids == ("freedict-en-es",)
+    assert "freq-en-coca" not in synonyms.frequency_packs
+    assert "freedict-en-es" not in synonyms.language_packs
     assert synonyms.embedding_pair_pack_ids["en-es"] == ["embed-es-cc"]
 
 
@@ -95,7 +100,8 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     assert len(updates) == 1
     synonyms = updates[0].synonyms
     assert synonyms is not None
-    assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
+    assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
+    assert "freq-en-coca" not in synonyms.frequency_packs
 
 
 def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:

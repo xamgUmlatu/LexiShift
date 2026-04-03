@@ -11,6 +11,7 @@ from lexishift_core import (
     AppSettings,
     Profile,
     SrsStore,
+    SynonymSourceSettings,
     VocabDataset,
     load_app_settings,
     load_srs_store,
@@ -19,6 +20,12 @@ from lexishift_core import (
     save_srs_store,
     save_vocab_dataset,
 )
+from lexishift_core.helper.installed_packs import (
+    installed_pack_root,
+    load_installed_pack_manifest,
+    resolve_installed_pack_artifact,
+)
+from main_paths import _app_data_dir
 
 
 def _normalize_profile_path(path: Optional[str], *, base_dir: Path) -> Optional[str]:
@@ -104,6 +111,73 @@ def _normalize_profiles(
     return normalized, resolved_active
 
 
+def _normalize_synonym_pack_settings(
+    settings: Optional[SynonymSourceSettings],
+) -> Optional[SynonymSourceSettings]:
+    if settings is None:
+        return None
+    app_data_dir = _app_data_dir()
+    managed_language_pack_ids, language_packs = _split_managed_pack_paths(
+        base_dir=app_data_dir / "language_packs",
+        configured_paths=settings.language_packs,
+        configured_ids=settings.managed_language_pack_ids,
+    )
+    managed_frequency_pack_ids, frequency_packs = _split_managed_pack_paths(
+        base_dir=app_data_dir / "frequency_packs",
+        configured_paths=settings.frequency_packs,
+        configured_ids=settings.managed_frequency_pack_ids,
+    )
+    normalized = replace(
+        settings,
+        managed_language_pack_ids=managed_language_pack_ids,
+        language_packs=language_packs,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
+        frequency_packs=frequency_packs,
+    )
+    return normalized
+
+
+def _split_managed_pack_paths(
+    *,
+    base_dir: Path,
+    configured_paths: object,
+    configured_ids: object,
+) -> tuple[tuple[str, ...], dict[str, str]]:
+    managed_ids: set[str] = {
+        str(pack_id).strip() for pack_id in tuple(configured_ids or ()) if str(pack_id).strip()
+    }
+    manual_paths: dict[str, str] = {}
+    for pack_id, raw_path in dict(configured_paths or {}).items():
+        pack_key = str(pack_id or "").strip()
+        path_text = str(raw_path or "").strip()
+        if not pack_key or not path_text:
+            continue
+        if _is_managed_pack_path(base_dir=base_dir, pack_id=pack_key, raw_path=path_text):
+            managed_ids.add(pack_key)
+            continue
+        manual_paths[pack_key] = path_text
+    return tuple(sorted(managed_ids)), manual_paths
+
+
+def _is_managed_pack_path(*, base_dir: Path, pack_id: str, raw_path: str) -> bool:
+    manifest = load_installed_pack_manifest(base_dir, pack_id)
+    if manifest is None or str(manifest.artifact_kind or "").strip().lower() != "sqlite":
+        return False
+    resolved_artifact = resolve_installed_pack_artifact(base_dir, pack_id)
+    if resolved_artifact is None:
+        return False
+    candidate = Path(raw_path).expanduser()
+    try:
+        candidate = candidate.resolve()
+        resolved_artifact = resolved_artifact.resolve()
+        pack_root = installed_pack_root(base_dir, pack_id).resolve()
+    except OSError:
+        return False
+    return (
+        candidate == resolved_artifact or candidate == pack_root or pack_root in candidate.parents
+    )
+
+
 class AppState(QObject):
     datasetChanged = Signal(object)
     dirtyChanged = Signal(bool)
@@ -148,7 +222,13 @@ class AppState(QObject):
                 active_profile_id=loaded.active_profile_id,
                 base_dir=self._settings_path.parent,
             )
-            self._settings = replace(loaded, profiles=profiles, active_profile_id=active_id)
+            synonyms = _normalize_synonym_pack_settings(loaded.synonyms)
+            self._settings = replace(
+                loaded,
+                profiles=profiles,
+                active_profile_id=active_id,
+                synonyms=synonyms,
+            )
             if self._settings != loaded:
                 self.save_settings()
         else:
@@ -200,10 +280,12 @@ class AppState(QObject):
             active_profile_id=settings.active_profile_id,
             base_dir=self._settings_path.parent,
         )
+        normalized_synonyms = _normalize_synonym_pack_settings(settings.synonyms)
         self._settings = replace(
             settings,
             profiles=normalized_profiles,
             active_profile_id=normalized_active,
+            synonyms=normalized_synonyms,
         )
         self.save_settings()
         self.profilesChanged.emit(self._settings.profiles)

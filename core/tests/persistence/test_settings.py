@@ -38,6 +38,8 @@ class SettingsTests(unittest.TestCase):
                 moby_path="/tmp/moby.txt",
                 max_synonyms=50,
                 include_phrases=True,
+                managed_language_pack_ids=("freedict-en-es",),
+                managed_frequency_pack_ids=("freq-en-coca",),
                 embedding_packs={"embed-xling-es": "/tmp/embed-xling-es/main.sqlite"},
                 embedding_pair_pack_ids={"en-es": ("embed-xling-es",)},
                 embedding_pair_paths={"en-es": ("/tmp/manual.vec.sqlite",)},
@@ -54,6 +56,8 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(loaded.profiles[0].dataset_path, "vocab.json")
         self.assertTrue(loaded.import_export.allow_code_export)
         self.assertEqual(loaded.synonyms.max_synonyms, 50)
+        self.assertEqual(tuple(loaded.synonyms.managed_language_pack_ids), ("freedict-en-es",))
+        self.assertEqual(tuple(loaded.synonyms.managed_frequency_pack_ids), ("freq-en-coca",))
         self.assertEqual(
             list(loaded.synonyms.embedding_pair_pack_ids.get("en-es", [])),
             ["embed-xling-es"],
