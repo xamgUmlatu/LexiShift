@@ -2,7 +2,7 @@
 
 Status: active planning doc
 Role: execution roadmap / proof-LP plan
-Purpose: define the concrete `de-en` workstream as the first proof that the generalized translation-pack rulegen contract can support an additional cross-lingual LP without another infrastructure rewrite.
+Purpose: define the concrete `de-en` workstream now that baseline enablement has landed, and record when it should become the active LP workstream again after the current data-source normalization board stabilizes.
 Last updated: 2026-04-03
 Last verified: 2026-04-03
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and benchmark artifacts.
@@ -13,7 +13,7 @@ This roadmap is for the first real `de-en` rulegen enablement workstream.
 
 Primary goal:
 
-- make `de-en` a real rulegen-capable LP on top of the generalized translation-pack seam
+- make `de-en` the first benchmarked and quality-improvable proof LP on top of the generalized translation-pack seam
 
 Primary non-goals:
 
@@ -51,16 +51,59 @@ What already exists:
 - generic translation-dictionary naming and normalized pack refs are now implemented at the helper/adapter seam
 - `de-en` directional filename defaults now correctly resolve `eng-deu.tei`
 - translation language packs now have a first manifest-backed install layout, so `de-en` no longer has to rely only on flat filename discovery when the pack is app-installed
+- `de-en` now has a real rulegen mode and adapter path
+- `de-en` now has a baseline pair implementation file and targeted helper/adapter coverage
 
 What does not exist yet:
 
-- no `de-en` rulegen adapter path
-- no `de-en` pair implementation file analogous to `en_de.py`
 - no `de-en` benchmark dataset or benchmark lane
 - no `de-en` reverse-check implementation
 - no `de-en` pair-specific benchmark/tuning story
 
-So the first milestone is still enablement, not tuning.
+So the first unresolved milestone is now benchmark seeding, not enablement.
+
+## True Current State
+
+The roadmap originally started at architectural preflight and pair enablement.
+That is no longer the live state.
+
+Current reality:
+
+- Phase 0 is complete enough for the current architecture
+- Phase 1 is complete enough for a baseline `de-en` rulegen-capable LP
+- the active blocker is no longer pair enablement
+- the active blocker is that the normalization board is still tightening the managed translation/frequency/runtime contract that `de-en` should benchmark against
+
+This means the next real `de-en` re-entry point is:
+
+- Phase 2 (`de-en` benchmark seed)
+
+not:
+
+- another round of basic pair enablement
+
+## Coordination With The Normalization Board
+
+Related execution board:
+
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_execution_order.md`
+
+`de-en` should not become the primary active workstream again until the mandatory normalization items are stable enough that a new benchmark lane will not immediately drift underneath it.
+
+The key board items to watch are:
+
+1. managed translation settings/runtime should be pack-identity first rather than stale path shaped
+2. managed frequency settings/runtime should be pack-ref/manifest first
+3. managed embeddings can continue independently, but they are not a blocker for the first `de-en` benchmark
+4. artifact-name convergence to `main.sqlite` is desirable, but it should happen after manifest-first resolution is stable rather than before
+
+Practical re-entry rule:
+
+- resume `de-en` as the active LP workstream when the translation and frequency `[~]` items on the normalization board are no longer changing core helper/runtime behavior
+
+Exception:
+
+- Phase 5 (German frequency follow-through) may become relevant earlier, because it directly overlaps the normalization board and benefits multiple German-related LPs
 
 ## Lessons Carried Forward From `en-es`
 
@@ -149,6 +192,10 @@ Success is:
 
 ## Phase 0: Resource And Contract Preflight
 
+Status:
+
+- completed enough for the current architecture
+
 Goal:
 
 - verify the generalized seam really covers the first `de-en` use case without additional contract churn
@@ -165,6 +212,10 @@ Definition of done:
 - no additional provider-specific naming is required to even talk about `de-en`
 
 ## Phase 1: `de-en` Rulegen Enablement
+
+Status:
+
+- completed enough for the current architecture
 
 Goal:
 
@@ -196,6 +247,10 @@ Definition of done:
 - `de-en` can run a basic rulegen smoke through the same generic helper pipeline as existing pairs
 
 ## Phase 2: `de-en` Baseline Benchmark Seed
+
+Status:
+
+- next real `de-en` milestone once the normalization board stabilizes
 
 Goal:
 
@@ -230,6 +285,10 @@ Definition of done:
 
 ## Phase 3: Baseline `de-en` Quality Pass
 
+Status:
+
+- blocked on Phase 2
+
 Goal:
 
 - improve baseline `de-en` quality only where real failures appear
@@ -261,6 +320,10 @@ Definition of done:
 
 ## Phase 4: Reverse-Check And Lane Maturity
 
+Status:
+
+- blocked on Phase 3
+
 Goal:
 
 - decide whether `de-en` benefits materially from reverse support once the forward lane is stable
@@ -283,6 +346,10 @@ Definition of done:
 - we know whether reverse support should be part of the canonical `de-en` lane
 
 ## Phase 5: Data-Source Follow-through
+
+Status:
+
+- adjacent and potentially relevant earlier than Phases 2-4 because it overlaps the current normalization board
 
 Goal:
 
@@ -348,23 +415,21 @@ Current expectation:
 
 ## Immediate Next Step
 
-The first concrete implementation step should be:
+The next concrete `de-en` step is no longer pair enablement.
 
-- Phase 1 only: make `de-en` rulegen-capable through the generalized translation-pack seam
+It should be:
 
-That means:
+- prepare for Phase 2 while the normalization board finishes the remaining mandatory translation/frequency seam cleanup
 
-- add the `de-en` adapter path
-- add the first `de-en` pair implementation
-- wire helper/runtime entrypoints
-- add focused tests
+When the board is ready:
+
+- seed the first small but meaningful `de-en` benchmark
 
 Do not start with:
 
-- a broad `de-en` sweep
-- reverse-check tuning
-- German frequency work
-- monolingual German work
+- a broad `de-en` sweep before the benchmark exists
+- reverse-check tuning before the forward lane is benchmarked
+- large scoring matrices before admission/extraction failures are understood
 
 ## Handoff Rule
 
