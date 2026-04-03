@@ -55,7 +55,7 @@ class TestDeBuildSupport(unittest.TestCase):
             language_packs_dir = Path(tmp)
             pack_root = language_packs_dir / "freedict-de-en"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freedict-de-en.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
@@ -66,7 +66,7 @@ class TestDeBuildSupport(unittest.TestCase):
                 build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
-                sqlite_filename="freedict-de-en.sqlite",
+                sqlite_filename="main.sqlite",
                 required_files=("deu-eng.tei",),
             )
 
@@ -88,7 +88,7 @@ class TestDeBuildSupport(unittest.TestCase):
             workspace_dir.mkdir(parents=True, exist_ok=True)
             pack_root = language_packs_dir / "freedict-de-en"
             pack_root.mkdir(parents=True, exist_ok=True)
-            artifact = pack_root / "freedict-de-en.sqlite"
+            artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 language_packs_dir,
@@ -99,7 +99,7 @@ class TestDeBuildSupport(unittest.TestCase):
                 build_mode="freedict_tei_to_sqlite",
                 artifact_path=artifact,
                 source_filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
-                sqlite_filename="freedict-de-en.sqlite",
+                sqlite_filename="main.sqlite",
                 required_files=("deu-eng.tei",),
             )
 
@@ -109,6 +109,25 @@ class TestDeBuildSupport(unittest.TestCase):
             )
 
         self.assertEqual(resolved, artifact)
+
+    def test_discover_dictionary_paths_accepts_main_sqlite_without_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            pack_root = language_packs_dir / "freedict-de-en"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+
+            resolved_freedict, resolved_odenet, resolved_open = discover_dictionary_paths(
+                language_packs_dir=language_packs_dir,
+                freedict_de_en_path=None,
+                odenet_path=None,
+                openthesaurus_path=None,
+            )
+
+        self.assertEqual(resolved_freedict, artifact)
+        self.assertIsNone(resolved_odenet)
+        self.assertIsNone(resolved_open)
 
 
 if __name__ == "__main__":

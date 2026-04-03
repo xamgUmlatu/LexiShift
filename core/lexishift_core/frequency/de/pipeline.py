@@ -84,7 +84,7 @@ def default_data_root() -> Path:
 
 
 def default_frequency_output() -> Path:
-    return default_data_root() / "frequency_packs" / "freq-de-default.sqlite"
+    return default_data_root() / "frequency_packs" / "freq-de-default" / "main.sqlite"
 
 
 def default_language_packs_dir() -> Path:
@@ -94,7 +94,7 @@ def default_language_packs_dir() -> Path:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Build freq-de-default.sqlite end-to-end by downloading Leipzig corpus + "
+            "Build the managed freq-de-default SQLite artifact end-to-end by downloading Leipzig corpus + "
             "required DE lexicon resources and compiling POS hints."
         )
     )
@@ -284,6 +284,10 @@ def _ensure_freedict_de_en(
         language_packs_dir / "freedict-de-en.sqlite",
         language_packs_dir / "deu-eng.sqlite",
         language_packs_dir / "deu-eng.tei",
+        language_packs_dir / "freedict-de-en" / "main.sqlite",
+        language_packs_dir / "freedict-de-en" / "freedict-de-en.sqlite",
+        language_packs_dir / "freedict-de-en" / "deu-eng.sqlite",
+        language_packs_dir / "freedict-de-en" / "deu-eng.tei",
     )
     for candidate in legacy_candidates:
         if candidate.exists() and candidate.is_file():
@@ -291,7 +295,7 @@ def _ensure_freedict_de_en(
 
     archive_path = workspace_dir / "freedict-deu-eng-1.9-fd1.src.tar.xz"
     pack_root = installed_pack_root(language_packs_dir, "freedict-de-en")
-    target_path = pack_root / "freedict-de-en.sqlite"
+    target_path = pack_root / "main.sqlite"
     _download_file(url=FREEDICT_DE_EN_URL, dest=archive_path, cancel_cb=cancel_cb)
     convert_freedict_tei_to_sqlite(
         archive_path,
@@ -309,7 +313,7 @@ def _ensure_freedict_de_en(
         build_mode="freedict_tei_to_sqlite",
         artifact_path=target_path,
         source_filename=archive_path.name,
-        sqlite_filename="freedict-de-en.sqlite",
+        sqlite_filename="main.sqlite",
         required_files=("deu-eng.tei",),
         raw_retained=False,
     )

@@ -98,7 +98,7 @@ def parse_args() -> argparse.Namespace:
         "--freedict-de-en-path",
         type=Path,
         default=None,
-        help="Path to FreeDict DE->EN artifact (freedict-de-en.sqlite / deu-eng.tei)",
+        help="Path to FreeDict DE->EN artifact (main.sqlite / deu-eng.tei)",
     )
     parser.add_argument(
         "--odenet-path",
@@ -347,6 +347,7 @@ def discover_dictionary_paths(
             resolved_freedict = manifest_artifact
     if resolved_freedict is None:
         candidates = [
+            language_packs_dir / "freedict-de-en" / "main.sqlite",
             language_packs_dir / "freedict-de-en.sqlite",
             language_packs_dir / "deu-eng.sqlite",
             language_packs_dir / "deu-eng.tei",
