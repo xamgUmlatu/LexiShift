@@ -135,7 +135,7 @@ Already landed:
 - managed frequency settings now split app-owned frequency packs into `managed_frequency_pack_ids` plus manual `frequency_pack_paths`, and app-state loading migrates old saved managed artifact paths into that shape
 - the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
 - the settings panel now keeps managed translation/frequency ids in dedicated in-memory sets instead of reconstructing them from a unified path map on save
-- the bulk-rules translation path now rebuilds managed translation pack paths from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
+- the bulk-rules translation path and source-stat logging now use a shared configured language-pack resolver to rebuild managed translation pack artifacts from stored pack ids, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
 - GUI SRS growth and the POS normalization probe now share the same configured frequency-pack resolver in the core helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
 - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
 - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs

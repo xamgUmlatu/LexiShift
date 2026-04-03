@@ -4,7 +4,6 @@ import os
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -18,9 +17,11 @@ for candidate in (str(CORE_ROOT), str(GUI_SRC)):
 from lexishift_core.helper.installed_packs import (  # noqa: E402
     write_installed_pack_manifest,
 )
+from lexishift_core.helper.translation_packs import (  # noqa: E402
+    resolve_configured_language_pack_paths,
+)
 from lexishift_core import SynonymSourceSettings  # noqa: E402
 from main_bulk_rules_mixin import (  # noqa: E402
-    _configured_language_pack_paths,
     _resolve_translation_pack_path,
 )
 
@@ -119,8 +120,11 @@ def test_configured_language_pack_paths_include_managed_translation_pack_ids() -
             language_pack_paths={"wordnet-en": "/tmp/wordnet"},
         )
 
-        with patch("main_bulk_rules_mixin._app_data_dir", return_value=root):
-            resolved = _configured_language_pack_paths(settings)
+        resolved = resolve_configured_language_pack_paths(
+            language_packs_dir=root / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
 
     assert resolved["freedict-en-es"] == str(artifact)
     assert resolved["wordnet-en"] == "/tmp/wordnet"

@@ -9,6 +9,7 @@ from PySide6.QtWidgets import QDialog, QMessageBox
 from dialogs_code import BulkRulesDialog
 from i18n import t
 from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+from lexishift_core.helper.translation_packs import resolve_configured_language_pack_paths
 from lexishift_core import (
     RuleMetadata,
     SynonymGenerator,
@@ -39,19 +40,6 @@ def _resolve_translation_pack_path(
         if candidate.exists() and candidate.is_file():
             return str(candidate)
     return None
-
-
-def _configured_language_pack_paths(settings: SynonymSourceSettings) -> dict[str, str]:
-    configured = dict(settings.language_pack_paths or {})
-    base_dir = _app_data_dir() / "language_packs"
-    for pack_id in tuple(getattr(settings, "managed_language_pack_ids", ()) or ()):
-        pack_key = str(pack_id or "").strip()
-        if not pack_key or pack_key in configured:
-            continue
-        resolved = resolve_installed_pack_artifact(base_dir, pack_key)
-        if resolved is not None:
-            configured[pack_key] = str(resolved)
-    return configured
 
 
 class MainWindowBulkRulesMixin:
@@ -94,7 +82,11 @@ class MainWindowBulkRulesMixin:
             pack_ids.add("moby-en")
         if settings.last_selected_pack_ids:
             return set(settings.last_selected_pack_ids)
-        language_pack_paths = _configured_language_pack_paths(settings)
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
         if language_pack_paths.get("odenet-de"):
             pack_ids.add("odenet-de")
         elif language_pack_paths.get("openthesaurus-de"):
@@ -128,7 +120,11 @@ class MainWindowBulkRulesMixin:
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
-        language_pack_paths = _configured_language_pack_paths(settings)
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
         packs_by_pair: dict[str, set[str]] = {}
         for pack_id in selected_pack_ids:
             pair_key = self._pair_for_pack(pack_id)
@@ -389,7 +385,11 @@ class MainWindowBulkRulesMixin:
         if not selected_pack_ids:
             return
         settings = self.state.settings.synonyms or SynonymSourceSettings()
-        language_pack_paths = settings.language_pack_paths or {}
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
         pack_to_stat = {
             "wordnet-en": "wordnet",
             "moby-en": "moby",

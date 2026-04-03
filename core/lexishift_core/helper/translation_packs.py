@@ -2,9 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Mapping, Optional, Sequence
 
-from lexishift_core.helper.installed_packs import load_installed_pack_manifest_for_artifact
+from lexishift_core.helper.installed_packs import (
+    load_installed_pack_manifest_for_artifact,
+    resolve_installed_pack_artifact,
+)
 from lexishift_core.helper.lp_capabilities import normalize_pair_key
 
 FORWARD_PACK_DIRECTION = "forward"
@@ -59,6 +62,27 @@ def build_translation_pack_ref(
         pack_id=pack_id,
         pos_source_profile=provider,
     )
+
+
+def resolve_configured_language_pack_paths(
+    *,
+    language_packs_dir: Path,
+    settings_language_pack_paths: Mapping[str, str] | None = None,
+    managed_language_pack_ids: Sequence[str] = (),
+) -> dict[str, str]:
+    configured = {
+        str(pack_id).strip(): str(raw_path).strip()
+        for pack_id, raw_path in dict(settings_language_pack_paths or {}).items()
+        if str(pack_id).strip() and str(raw_path).strip()
+    }
+    for pack_id in tuple(managed_language_pack_ids or ()):
+        pack_key = str(pack_id or "").strip()
+        if not pack_key or pack_key in configured:
+            continue
+        resolved = resolve_installed_pack_artifact(language_packs_dir, pack_key)
+        if resolved is not None and resolved.is_file():
+            configured[pack_key] = str(resolved)
+    return configured
 
 
 def build_translation_pack_id(
