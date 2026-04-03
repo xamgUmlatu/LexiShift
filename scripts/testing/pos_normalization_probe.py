@@ -258,7 +258,7 @@ def _resolve_frequency_db_for_pair(
     pair: str,
     *,
     frequency_packs_dir: Path,
-    settings_frequency_packs: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
     managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> tuple[Path | None, str]:
     capability = resolve_pair_capability(pair)
@@ -279,7 +279,7 @@ def _resolve_frequency_db_for_pair(
     lookup_keys.append(default_name)
 
     for key in lookup_keys:
-        raw_path = str(settings_frequency_packs.get(key, "")).strip()
+        raw_path = str(settings_frequency_pack_paths.get(key, "")).strip()
         if not raw_path:
             continue
         candidate = Path(raw_path).expanduser().resolve(strict=False)
@@ -300,14 +300,14 @@ def _resolve_jmdict_for_pair(
     pair: str,
     *,
     language_packs_dir: Path,
-    settings_language_packs: dict[str, str],
+    settings_language_pack_paths: dict[str, str],
 ) -> Path | None:
     default_jmdict = default_jmdict_path(pair, language_packs_dir=language_packs_dir)
     if default_jmdict is None:
         return None
     lookup_keys = ("jmdict-ja-en", default_jmdict.name)
     for key in lookup_keys:
-        raw_path = str(settings_language_packs.get(key, "")).strip()
+        raw_path = str(settings_language_pack_paths.get(key, "")).strip()
         if not raw_path:
             continue
         candidate = Path(raw_path).expanduser().resolve(strict=False)
@@ -388,15 +388,15 @@ def _build_pair_probe(
     top_n: int,
     sample_limit: int,
     paths: Any,
-    settings_language_packs: dict[str, str],
-    settings_frequency_packs: dict[str, str],
+    settings_language_pack_paths: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
     managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     capability = resolve_pair_capability(pair)
     frequency_path, frequency_resolution = _resolve_frequency_db_for_pair(
         pair,
         frequency_packs_dir=paths.frequency_packs_dir,
-        settings_frequency_packs=settings_frequency_packs,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
         managed_frequency_pack_ids=managed_frequency_pack_ids,
     )
     stopwords_path = resolve_stopwords_path(paths, pair=pair)
@@ -406,7 +406,7 @@ def _build_pair_probe(
         jmdict_path = _resolve_jmdict_for_pair(
             pair,
             language_packs_dir=paths.language_packs_dir,
-            settings_language_packs=settings_language_packs,
+            settings_language_pack_paths=settings_language_pack_paths,
         )
 
     pair_payload: dict[str, Any] = {
@@ -583,8 +583,10 @@ def _build_report(
 ) -> dict[str, Any]:
     paths = build_helper_paths(root=data_root)
     synonym_settings = _load_synonym_settings(paths.app_settings_path)
-    settings_language_packs = dict(getattr(synonym_settings, "language_packs", {}) or {})
-    settings_frequency_packs = dict(getattr(synonym_settings, "frequency_packs", {}) or {})
+    settings_language_pack_paths = dict(getattr(synonym_settings, "language_pack_paths", {}) or {})
+    settings_frequency_pack_paths = dict(
+        getattr(synonym_settings, "frequency_pack_paths", {}) or {}
+    )
     managed_frequency_pack_ids = tuple(
         getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()
     )
@@ -598,8 +600,8 @@ def _build_report(
             top_n=top_n,
             sample_limit=sample_limit,
             paths=paths,
-            settings_language_packs=settings_language_packs,
-            settings_frequency_packs=settings_frequency_packs,
+            settings_language_pack_paths=settings_language_pack_paths,
+            settings_frequency_pack_paths=settings_frequency_pack_paths,
             managed_frequency_pack_ids=managed_frequency_pack_ids,
         )
         pair_reports[pair] = payload

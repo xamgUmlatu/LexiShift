@@ -176,7 +176,7 @@ class LanguagePackPanelStateMixin:
         )
 
     def _seed_language_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
-        self._language_pack_paths = dict(getattr(synonym_settings, "language_packs", {}) or {})
+        self._language_pack_paths = dict(getattr(synonym_settings, "language_pack_paths", {}) or {})
         for pack_id in tuple(getattr(synonym_settings, "managed_language_pack_ids", ()) or ()):
             if pack_id in self._language_pack_paths:
                 continue
@@ -192,7 +192,9 @@ class LanguagePackPanelStateMixin:
             self._language_pack_paths.setdefault("moby-en", synonym_settings.moby_path)
 
     def _seed_frequency_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
-        self._frequency_pack_paths = dict(getattr(synonym_settings, "frequency_packs", {}) or {})
+        self._frequency_pack_paths = dict(
+            getattr(synonym_settings, "frequency_pack_paths", {}) or {}
+        )
         for pack_id in tuple(getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()):
             if pack_id in self._frequency_pack_paths:
                 continue
@@ -202,7 +204,9 @@ class LanguagePackPanelStateMixin:
                 self._frequency_pack_paths[pack_id] = candidate
 
     def _seed_embedding_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
-        self._embedding_pack_paths = dict(getattr(synonym_settings, "embedding_packs", {}) or {})
+        self._embedding_pack_paths = dict(
+            getattr(synonym_settings, "embedding_pack_paths", {}) or {}
+        )
         self._embedding_pair_pack_ids = {
             key: list(value)
             for key, value in dict(

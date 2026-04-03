@@ -35,7 +35,7 @@ def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace
 
 def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     base_synonyms = SynonymSourceSettings(
-        frequency_packs={"freq-de-default": "/tmp/freq-de-default.sqlite"},
+        frequency_pack_paths={"freq-de-default": "/tmp/freq-de-default.sqlite"},
     )
     state = SimpleNamespace(
         settings=AppSettings(synonyms=base_synonyms),
@@ -60,14 +60,14 @@ def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     assert synonyms.moby_path == "/tmp/moby"
     assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
     assert synonyms.managed_language_pack_ids == ("freedict-en-es",)
-    assert "freq-en-coca" not in synonyms.frequency_packs
-    assert "freedict-en-es" not in synonyms.language_packs
+    assert "freq-en-coca" not in synonyms.frequency_pack_paths
+    assert "freedict-en-es" not in synonyms.language_pack_paths
     assert synonyms.embedding_pair_pack_ids["en-es"] == ["embed-es-cc"]
 
 
 def test_open_settings_persists_resource_links_on_cancel() -> None:
     base_synonyms = SynonymSourceSettings(
-        frequency_packs={"freq-de-default": "/tmp/freq-de-default.sqlite"},
+        frequency_pack_paths={"freq-de-default": "/tmp/freq-de-default.sqlite"},
     )
     state = SimpleNamespace(
         settings=AppSettings(synonyms=base_synonyms),
@@ -101,7 +101,7 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     synonyms = updates[0].synonyms
     assert synonyms is not None
     assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
-    assert "freq-en-coca" not in synonyms.frequency_packs
+    assert "freq-en-coca" not in synonyms.frequency_pack_paths
 
 
 def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
@@ -127,7 +127,7 @@ def test_resolve_frequency_db_for_pair_prefers_manifest_backed_default_app_data_
             resolved = MainWindow._resolve_frequency_db_for_pair(
                 dummy,
                 "es-en",
-                frequency_packs={},
+                frequency_pack_paths={},
             )
 
     assert resolved == fallback

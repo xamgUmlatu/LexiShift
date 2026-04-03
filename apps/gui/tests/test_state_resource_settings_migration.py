@@ -63,9 +63,9 @@ def test_load_settings_migrates_managed_translation_frequency_and_embedding_path
         save_app_settings(
             AppSettings(
                 synonyms=SynonymSourceSettings(
-                    language_packs={"freedict-en-es": str(language_artifact)},
-                    frequency_packs={"freq-en-coca": str(frequency_artifact)},
-                    embedding_packs={"embed-xling-es": str(embedding_artifact)},
+                    language_pack_paths={"freedict-en-es": str(language_artifact)},
+                    frequency_pack_paths={"freq-en-coca": str(frequency_artifact)},
+                    embedding_pack_paths={"embed-xling-es": str(embedding_artifact)},
                     embedding_pair_paths={"en-es": [str(embedding_artifact)]},
                 )
             ),
@@ -80,9 +80,9 @@ def test_load_settings_migrates_managed_translation_frequency_and_embedding_path
         assert synonyms is not None
         assert tuple(synonyms.managed_language_pack_ids) == ("freedict-en-es",)
         assert tuple(synonyms.managed_frequency_pack_ids) == ("freq-en-coca",)
-        assert synonyms.language_packs == {}
-        assert synonyms.frequency_packs == {}
-        assert synonyms.embedding_packs == {}
+        assert synonyms.language_pack_paths == {}
+        assert synonyms.frequency_pack_paths == {}
+        assert synonyms.embedding_pack_paths == {}
         assert synonyms.embedding_pair_paths == {}
         assert synonyms.embedding_pair_pack_ids == {"en-es": ["embed-xling-es"]}
         assert synonyms.embedding_pair_enabled == {"en-es": True}

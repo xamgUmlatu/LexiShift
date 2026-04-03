@@ -128,11 +128,12 @@ Use this file when:
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
     - managed embedding activation can now be persisted by pack id per pair, and the replacement-filter runtime resolves those pack ids back through manifest-backed SQLite artifacts
     - app-state load/update now migrates old saved managed embedding artifact paths into pack-id-first per-pair activation and strips those app-owned paths from the manual embedding maps
-    - managed translation settings now persist normalized app-owned translation packs by pack id while the saved manual `language_packs` map omits those managed artifact paths
-    - managed frequency settings now persist app-owned frequency packs by pack id while the saved manual `frequency_packs` map omits those managed artifact paths
+    - managed translation settings now persist normalized app-owned translation packs by pack id while the saved manual `language_pack_paths` map omits those managed artifact paths
+    - managed frequency settings now persist app-owned frequency packs by pack id while the saved manual `frequency_pack_paths` map omits those managed artifact paths
     - app-state load/update now migrates old saved managed translation/frequency artifact paths into that split representation
     - bulk-rules translation loading and SRS growth now rebuild managed translation/frequency artifacts from stored pack ids before falling back to manual path maps
     - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
+    - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
   - Current runtime contract is still transitional rather than final:
     - FreeDict and Kaikki translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files, older extracted directories, and legacy `<pack_id>.sqlite` filenames remain compatibility inputs during migration
     - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, but secondary language-pack families still keep path-shaped settings until their promotion decision is made

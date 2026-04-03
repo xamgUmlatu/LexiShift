@@ -125,17 +125,17 @@ def _normalize_synonym_pack_settings(
     if settings is None:
         return None
     app_data_dir = _app_data_dir()
-    managed_language_pack_ids, language_packs = _split_managed_pack_paths(
+    managed_language_pack_ids, language_pack_paths = _split_managed_pack_paths(
         base_dir=app_data_dir / "language_packs",
-        configured_paths=settings.language_packs,
+        configured_paths=settings.language_pack_paths,
         configured_ids=settings.managed_language_pack_ids,
     )
-    managed_frequency_pack_ids, frequency_packs = _split_managed_pack_paths(
+    managed_frequency_pack_ids, frequency_pack_paths = _split_managed_pack_paths(
         base_dir=app_data_dir / "frequency_packs",
-        configured_paths=settings.frequency_packs,
+        configured_paths=settings.frequency_pack_paths,
         configured_ids=settings.managed_frequency_pack_ids,
     )
-    embedding_packs, embedding_pair_pack_ids, embedding_pair_paths, embedding_pair_enabled = (
+    embedding_pack_paths, embedding_pair_pack_ids, embedding_pair_paths, embedding_pair_enabled = (
         _normalize_embedding_pack_settings(
             app_data_dir=app_data_dir,
             settings=settings,
@@ -144,10 +144,10 @@ def _normalize_synonym_pack_settings(
     normalized = replace(
         settings,
         managed_language_pack_ids=managed_language_pack_ids,
-        language_packs=language_packs,
+        language_pack_paths=language_pack_paths,
         managed_frequency_pack_ids=managed_frequency_pack_ids,
-        frequency_packs=frequency_packs,
-        embedding_packs=embedding_packs,
+        frequency_pack_paths=frequency_pack_paths,
+        embedding_pack_paths=embedding_pack_paths,
         embedding_pair_pack_ids=embedding_pair_pack_ids,
         embedding_pair_paths=embedding_pair_paths,
         embedding_pair_enabled=embedding_pair_enabled,
@@ -163,7 +163,7 @@ def _normalize_embedding_pack_settings(
     base_dir = app_data_dir / "embedding_packs"
     managed_pack_ids: set[str] = set()
     manual_embedding_packs: dict[str, str] = {}
-    for pack_id, raw_path in dict(settings.embedding_packs or {}).items():
+    for pack_id, raw_path in dict(settings.embedding_pack_paths or {}).items():
         pack_key = str(pack_id or "").strip()
         path_text = str(raw_path or "").strip()
         if not pack_key or not path_text:

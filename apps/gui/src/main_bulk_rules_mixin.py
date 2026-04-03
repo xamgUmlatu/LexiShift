@@ -42,7 +42,7 @@ def _resolve_translation_pack_path(
 
 
 def _configured_language_pack_paths(settings: SynonymSourceSettings) -> dict[str, str]:
-    configured = dict(settings.language_packs or {})
+    configured = dict(settings.language_pack_paths or {})
     base_dir = _app_data_dir() / "language_packs"
     for pack_id in tuple(getattr(settings, "managed_language_pack_ids", ()) or ()):
         pack_key = str(pack_id or "").strip()
@@ -94,17 +94,17 @@ class MainWindowBulkRulesMixin:
             pack_ids.add("moby-en")
         if settings.last_selected_pack_ids:
             return set(settings.last_selected_pack_ids)
-        language_packs = _configured_language_pack_paths(settings)
-        if language_packs.get("odenet-de"):
+        language_pack_paths = _configured_language_pack_paths(settings)
+        if language_pack_paths.get("odenet-de"):
             pack_ids.add("odenet-de")
-        elif language_packs.get("openthesaurus-de"):
+        elif language_pack_paths.get("openthesaurus-de"):
             pack_ids.add("openthesaurus-de")
-        if language_packs.get("jp-wordnet-sqlite"):
+        if language_pack_paths.get("jp-wordnet-sqlite"):
             pack_ids.add("jp-wordnet-sqlite")
-        elif language_packs.get("jp-wordnet"):
+        elif language_pack_paths.get("jp-wordnet"):
             pack_ids.add("jp-wordnet")
         for pack_id in ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en"):
-            if language_packs.get(pack_id):
+            if language_pack_paths.get(pack_id):
                 pack_ids.add(pack_id)
         return pack_ids
 
@@ -128,33 +128,37 @@ class MainWindowBulkRulesMixin:
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
-        language_packs = _configured_language_pack_paths(settings)
+        language_pack_paths = _configured_language_pack_paths(settings)
         packs_by_pair: dict[str, set[str]] = {}
         for pack_id in selected_pack_ids:
             pair_key = self._pair_for_pack(pack_id)
             if not pair_key:
                 continue
             packs_by_pair.setdefault(pair_key, set()).add(pack_id)
-        openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
-        odenet_path = language_packs.get("odenet-de") if language_packs else None
-        jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
-        jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
-        jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
+        openthesaurus_path = (
+            language_pack_paths.get("openthesaurus-de") if language_pack_paths else None
+        )
+        odenet_path = language_pack_paths.get("odenet-de") if language_pack_paths else None
+        jp_wordnet_path = language_pack_paths.get("jp-wordnet") if language_pack_paths else None
+        jp_wordnet_sqlite_path = (
+            language_pack_paths.get("jp-wordnet-sqlite") if language_pack_paths else None
+        )
+        jmdict_path = language_pack_paths.get("jmdict-ja-en") if language_pack_paths else None
         translation_de_en_path = _resolve_translation_pack_path(
-            language_packs.get("freedict-de-en") if language_packs else None,
+            language_pack_paths.get("freedict-de-en") if language_pack_paths else None,
             sqlite_artifact_names=(
                 "freedict-de-en.sqlite",
                 "deu-eng.sqlite",
             ),
         )
         translation_en_de_path = _resolve_translation_pack_path(
-            language_packs.get("freedict-en-de") if language_packs else None,
+            language_pack_paths.get("freedict-en-de") if language_pack_paths else None,
             sqlite_artifact_names=(
                 "freedict-en-de.sqlite",
                 "eng-deu.sqlite",
             ),
         )
-        cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
+        cc_cedict_path = language_pack_paths.get("cc-cedict-zh-en") if language_pack_paths else None
         if cc_cedict_path and Path(cc_cedict_path).is_dir():
             candidate = Path(cc_cedict_path) / "cedict_ts.u8"
             cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
@@ -385,7 +389,7 @@ class MainWindowBulkRulesMixin:
         if not selected_pack_ids:
             return
         settings = self.state.settings.synonyms or SynonymSourceSettings()
-        language_packs = settings.language_packs or {}
+        language_pack_paths = settings.language_pack_paths or {}
         pack_to_stat = {
             "wordnet-en": "wordnet",
             "moby-en": "moby",
@@ -401,21 +405,21 @@ class MainWindowBulkRulesMixin:
         pack_to_path = {
             "wordnet-en": settings.wordnet_dir,
             "moby-en": settings.moby_path,
-            "openthesaurus-de": language_packs.get("openthesaurus-de"),
-            "odenet-de": language_packs.get("odenet-de"),
-            "jp-wordnet": language_packs.get("jp-wordnet"),
-            "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
-            "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
-            "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
+            "openthesaurus-de": language_pack_paths.get("openthesaurus-de"),
+            "odenet-de": language_pack_paths.get("odenet-de"),
+            "jp-wordnet": language_pack_paths.get("jp-wordnet"),
+            "jp-wordnet-sqlite": language_pack_paths.get("jp-wordnet-sqlite"),
+            "jmdict-ja-en": language_pack_paths.get("jmdict-ja-en"),
+            "cc-cedict-zh-en": language_pack_paths.get("cc-cedict-zh-en"),
             "freedict-de-en": _resolve_translation_pack_path(
-                language_packs.get("freedict-de-en"),
+                language_pack_paths.get("freedict-de-en"),
                 sqlite_artifact_names=(
                     "freedict-de-en.sqlite",
                     "deu-eng.sqlite",
                 ),
             ),
             "freedict-en-de": _resolve_translation_pack_path(
-                language_packs.get("freedict-en-de"),
+                language_pack_paths.get("freedict-en-de"),
                 sqlite_artifact_names=(
                     "freedict-en-de.sqlite",
                     "eng-deu.sqlite",

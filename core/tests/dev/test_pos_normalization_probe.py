@@ -28,7 +28,7 @@ class TestPosNormalizationProbe(unittest.TestCase):
                 AppSettings(
                     synonyms=SynonymSourceSettings(
                         managed_frequency_pack_ids=("freq-en-coca",),
-                        frequency_packs={"freq-manual": "/tmp/manual.sqlite"},
+                        frequency_pack_paths={"freq-manual": "/tmp/manual.sqlite"},
                     )
                 ),
                 settings_path,
@@ -39,7 +39,10 @@ class TestPosNormalizationProbe(unittest.TestCase):
         self.assertIsNotNone(loaded)
         assert loaded is not None
         self.assertEqual(tuple(loaded.managed_frequency_pack_ids), ("freq-en-coca",))
-        self.assertEqual(dict(loaded.frequency_packs), {"freq-manual": "/tmp/manual.sqlite"})
+        self.assertEqual(
+            dict(loaded.frequency_pack_paths),
+            {"freq-manual": "/tmp/manual.sqlite"},
+        )
 
     def test_resolve_frequency_db_for_pair_prefers_managed_pack_id(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -62,7 +65,7 @@ class TestPosNormalizationProbe(unittest.TestCase):
             resolved, resolution = _resolve_frequency_db_for_pair(
                 "en-en",
                 frequency_packs_dir=frequency_packs_dir,
-                settings_frequency_packs={},
+                settings_frequency_pack_paths={},
                 managed_frequency_pack_ids=("freq-en-coca",),
             )
 

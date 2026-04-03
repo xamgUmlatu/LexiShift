@@ -116,7 +116,7 @@ def test_configured_language_pack_paths_include_managed_translation_pack_ids() -
         )
         settings = SynonymSourceSettings(
             managed_language_pack_ids=("freedict-en-es",),
-            language_packs={"wordnet-en": "/tmp/wordnet"},
+            language_pack_paths={"wordnet-en": "/tmp/wordnet"},
         )
 
         with patch("main_bulk_rules_mixin._app_data_dir", return_value=root):

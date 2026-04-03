@@ -176,7 +176,7 @@ class MainWindowReplacementFilterMixin:
             return []
         resolved_paths: list[Path] = []
         seen: set[Path] = set()
-        embedding_pack_paths = dict(settings.embedding_packs or {})
+        embedding_pack_paths = dict(settings.embedding_pack_paths or {})
         pair_pack_ids = dict(getattr(settings, "embedding_pair_pack_ids", {}) or {}).get(pair_key)
         if isinstance(pair_pack_ids, (list, tuple)):
             base_dir = _app_data_dir() / "embedding_packs"

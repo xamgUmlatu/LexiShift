@@ -41,11 +41,11 @@ class SynonymSourceSettings:
     embedding_threshold: float = 0.0
     embedding_fallback: bool = True
     managed_language_pack_ids: Sequence[str] = field(default_factory=tuple)
-    language_packs: Mapping[str, str] = field(default_factory=dict)
+    language_pack_paths: Mapping[str, str] = field(default_factory=dict)
     managed_frequency_pack_ids: Sequence[str] = field(default_factory=tuple)
-    frequency_packs: Mapping[str, str] = field(default_factory=dict)
+    frequency_pack_paths: Mapping[str, str] = field(default_factory=dict)
     last_selected_pack_ids: Sequence[str] = field(default_factory=tuple)
-    embedding_packs: Mapping[str, str] = field(default_factory=dict)
+    embedding_pack_paths: Mapping[str, str] = field(default_factory=dict)
     embedding_pair_pack_ids: Mapping[str, Sequence[str]] = field(default_factory=dict)
     embedding_pair_paths: Mapping[str, Sequence[str]] = field(default_factory=dict)
     embedding_pair_enabled: Mapping[str, bool] = field(default_factory=dict)
@@ -171,6 +171,9 @@ def _synonym_sources_from_dict(
 ) -> Optional[SynonymSourceSettings]:
     if not data:
         return None
+    language_pack_paths = data.get("language_pack_paths", data.get("language_packs", {}))
+    frequency_pack_paths = data.get("frequency_pack_paths", data.get("frequency_packs", {}))
+    embedding_pack_paths = data.get("embedding_pack_paths", data.get("embedding_packs", {}))
     return SynonymSourceSettings(
         wordnet_dir=data.get("wordnet_dir"),
         moby_path=data.get("moby_path"),
@@ -182,11 +185,11 @@ def _synonym_sources_from_dict(
         embedding_threshold=float(data.get("embedding_threshold", 0.0)),
         embedding_fallback=bool(data.get("embedding_fallback", True)),
         managed_language_pack_ids=tuple(data.get("managed_language_pack_ids", [])),
-        language_packs=dict(data.get("language_packs", {})),
+        language_pack_paths=dict(language_pack_paths),
         managed_frequency_pack_ids=tuple(data.get("managed_frequency_pack_ids", [])),
-        frequency_packs=dict(data.get("frequency_packs", {})),
+        frequency_pack_paths=dict(frequency_pack_paths),
         last_selected_pack_ids=tuple(data.get("last_selected_pack_ids", [])),
-        embedding_packs=dict(data.get("embedding_packs", {})),
+        embedding_pack_paths=dict(embedding_pack_paths),
         embedding_pair_pack_ids={
             key: list(value)
             for key, value in dict(data.get("embedding_pair_pack_ids", {})).items()
@@ -215,11 +218,11 @@ def _synonym_sources_to_dict(settings: Optional[SynonymSourceSettings]) -> Optio
         "embedding_threshold": settings.embedding_threshold,
         "embedding_fallback": settings.embedding_fallback,
         "managed_language_pack_ids": list(settings.managed_language_pack_ids or []),
-        "language_packs": dict(settings.language_packs or {}),
+        "language_pack_paths": dict(settings.language_pack_paths or {}),
         "managed_frequency_pack_ids": list(settings.managed_frequency_pack_ids or []),
-        "frequency_packs": dict(settings.frequency_packs or {}),
+        "frequency_pack_paths": dict(settings.frequency_pack_paths or {}),
         "last_selected_pack_ids": list(settings.last_selected_pack_ids or []),
-        "embedding_packs": dict(settings.embedding_packs or {}),
+        "embedding_pack_paths": dict(settings.embedding_pack_paths or {}),
         "embedding_pair_pack_ids": {
             key: list(value) for key, value in dict(settings.embedding_pair_pack_ids or {}).items()
         },

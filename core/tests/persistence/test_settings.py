@@ -40,7 +40,7 @@ class SettingsTests(unittest.TestCase):
                 include_phrases=True,
                 managed_language_pack_ids=("freedict-en-es",),
                 managed_frequency_pack_ids=("freq-en-coca",),
-                embedding_packs={"embed-xling-es": "/tmp/embed-xling-es/main.sqlite"},
+                embedding_pack_paths={"embed-xling-es": "/tmp/embed-xling-es/main.sqlite"},
                 embedding_pair_pack_ids={"en-es": ("embed-xling-es",)},
                 embedding_pair_paths={"en-es": ("/tmp/manual.vec.sqlite",)},
                 embedding_pair_enabled={"en-es": True},
