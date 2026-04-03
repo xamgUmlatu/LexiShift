@@ -2,8 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Mapping, Optional, Sequence
+from typing import Callable, Iterable, Mapping, Optional, Sequence
 
+from lexishift_core.frequency.providers import (
+    SqliteFrequencyProvider,
+    SqliteFrequencyProviderConfig,
+)
+from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
 from lexishift_core.replacement.inflect import FORM_PLURAL, InflectionSpec
 from lexishift_core.resources.dict_loaders import (
     FreedictGlossRecord,
@@ -27,6 +32,10 @@ from lexishift_core.rulegen.pairs.pos_utils import (
     extract_target_pos_component,
     normalize_pos_component,
     resolve_target_word_package,
+)
+from lexishift_core.rulegen.ranking import (
+    CandidateRankingContext,
+    DictionaryEntryOrderRankingMechanism,
 )
 from lexishift_core.rulegen.semantic_demotion import (
     resolve_generic_gloss_demotion,
@@ -84,9 +93,42 @@ class EnDeRulegenConfig:
         default_factory=lambda: resolve_pair_generic_gloss_demotions("en-de")
     )
     enable_exact_gloss_demotions: bool = False
+    enable_source_frequency_prior: bool = False
+    source_frequency_db_path: Optional[Path] = None
 
 
-def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
+def _extract_source_frequency_prior(metadata: Mapping[str, object]) -> float:
+    raw = metadata.get("source_frequency_prior")
+    if isinstance(raw, bool):
+        return 1.0 if raw else 0.0
+    if isinstance(raw, (int, float)):
+        return max(0.0, min(1.0, float(raw)))
+    return 0.0
+
+
+@dataclass(frozen=True)
+class EnDeSourceFrequencyRankingMechanism:
+    fallback: DictionaryEntryOrderRankingMechanism = field(
+        default_factory=DictionaryEntryOrderRankingMechanism
+    )
+    prior_weight: float = 0.0
+
+    def score(self, candidate: CandidateRankingContext) -> float:
+        base_score = self.fallback.score(candidate)
+        if self.prior_weight <= 0.0:
+            return base_score
+        prior = _extract_source_frequency_prior(candidate.metadata)
+        return base_score + (prior * self.prior_weight)
+
+    def bucket_key(self, candidate: CandidateRankingContext) -> str:
+        return self.fallback.bucket_key(candidate)
+
+
+def build_en_de_pipeline(
+    config: EnDeRulegenConfig,
+    *,
+    source_frequency_provider: Optional[Callable[[str], float]] = None,
+) -> RuleGenerationPipeline:
     records_by_target = _resolve_gloss_records(config)
     mapping = _records_to_gloss_mapping(records_by_target)
     source = FreedictCandidateSource(
@@ -97,6 +139,7 @@ def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
         generic_gloss_demotions=(
             config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
         ),
+        source_frequency_provider=source_frequency_provider,
     )
     normalizers: list[CandidateNormalizer] = [
         BasicStringNormalizer(),
@@ -118,11 +161,26 @@ def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
         gloss_index = candidate.metadata.get("gloss_index")
         return config.gloss_decay.multiplier(gloss_index if isinstance(gloss_index, int) else None)
 
+    frequency_provider = gloss_decay_weight
+    if source_frequency_provider is not None:
+
+        def frequency_provider(candidate: RuleCandidate) -> float:
+            return _extract_source_frequency_prior(candidate.metadata) * gloss_decay_weight(
+                candidate
+            )
+
     signal_provider = SimpleSignalProvider(
         dict_priorities={"freedict_de_en": config.dict_priority},
-        frequency_provider=gloss_decay_weight,
+        frequency_provider=frequency_provider,
         pos_match_provider=build_optional_pos_match_provider(config.scoring.pos_match),
         variant_penalty_provider=variant_penalty_provider,
+    )
+    ranking_mechanism = (
+        EnDeSourceFrequencyRankingMechanism(
+            prior_weight=float(config.scoring.weights.frequency_weight),
+        )
+        if source_frequency_provider is not None
+        else DictionaryEntryOrderRankingMechanism()
     )
     return RuleGenerationPipeline(
         sources=[source],
@@ -131,6 +189,7 @@ def build_en_de_pipeline(config: EnDeRulegenConfig) -> RuleGenerationPipeline:
         filters=_build_filters(config, mapping),
         scorer=RuleScorer(weights=config.scoring.weights),
         signal_provider=signal_provider,
+        ranking_mechanism=ranking_mechanism,
     )
 
 
@@ -139,16 +198,35 @@ def generate_en_de_results(
     *,
     config: EnDeRulegenConfig,
 ) -> list[RuleGenerationResult]:
-    pipeline = build_en_de_pipeline(config)
-    rule_config = RuleGenerationConfig(
-        language_pair=config.language_pair,
-        confidence_threshold=config.confidence_threshold,
-        max_definitions_per_target=config.max_definitions_per_target,
-        max_rules_per_target=config.max_rules_per_target,
-        semantic_demotion_scale=config.semantic_demotion_scale,
-        tags=("translation", "freedict_de_en"),
-    )
-    return pipeline.generate_results(targets, config=rule_config)
+    source_frequency_store: Optional[SqliteFrequencyProvider] = None
+    source_frequency_provider: Optional[Callable[[str], float]] = None
+    if config.enable_source_frequency_prior and config.source_frequency_db_path is not None:
+        source_frequency_store = SqliteFrequencyProvider(
+            SqliteFrequencyProviderConfig(
+                sqlite=SqliteFrequencyConfig(path=config.source_frequency_db_path)
+            )
+        )
+
+        def source_frequency_provider(source_phrase: str) -> float:
+            return source_frequency_store.weight_phrase(str(source_phrase), reducer="avg")
+
+    try:
+        pipeline = build_en_de_pipeline(
+            config,
+            source_frequency_provider=source_frequency_provider,
+        )
+        rule_config = RuleGenerationConfig(
+            language_pair=config.language_pair,
+            confidence_threshold=config.confidence_threshold,
+            max_definitions_per_target=config.max_definitions_per_target,
+            max_rules_per_target=config.max_rules_per_target,
+            semantic_demotion_scale=config.semantic_demotion_scale,
+            tags=("translation", "freedict_de_en"),
+        )
+        return pipeline.generate_results(targets, config=rule_config)
+    finally:
+        if source_frequency_store is not None:
+            source_frequency_store.close()
 
 
 def generate_en_de_rules(
@@ -168,12 +246,14 @@ class FreedictCandidateSource:
         source_type: str,
         word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
         generic_gloss_demotions: Optional[Mapping[str, float]] = None,
+        source_frequency_provider: Optional[Callable[[str], float]] = None,
     ) -> None:
         self._records_by_target = records_by_target
         self._source_dict = source_dict
         self._source_type = source_type
         self._word_packages_by_target = word_packages_by_target or {}
         self._generic_gloss_demotions = dict(generic_gloss_demotions or {})
+        self._source_frequency_provider = source_frequency_provider
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
         for target in targets:
@@ -208,6 +288,10 @@ class FreedictCandidateSource:
                 if demotion > 0.0:
                     metadata["semantic_demotion"] = demotion
                     metadata["semantic_demotion_reason"] = "generic_gloss"
+                if self._source_frequency_provider is not None:
+                    metadata["source_frequency_prior"] = self._source_frequency_provider(
+                        entry.translation
+                    )
                 if target_word_package is not None:
                     metadata["word_package"] = target_word_package
                 metadata.update(

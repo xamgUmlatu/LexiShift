@@ -236,6 +236,9 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         "en-es": args.translation_dict_en_es,
         "es-en": args.translation_dict_es_en,
     }
+    source_frequency_db_overrides: dict[str, Optional[Path]] = {
+        "en-de": args.source_frequency_db_en_de,
+    }
     reverse_translation_dict_overrides: dict[str, Optional[Path]] = {
         "en-es": args.translation_dict_es_en,
         "es-en": args.translation_dict_en_es,
@@ -256,6 +259,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             jmdict_override=args.jmdict,
             translation_dict_override=translation_dict_overrides.get(pair),
             reverse_translation_dict_override=reverse_translation_dict_overrides.get(pair),
+            source_frequency_db_override=source_frequency_db_overrides.get(pair),
             frozen_word_package_snapshots=frozen_word_package_snapshots,
             timing=timing,
         )

@@ -89,6 +89,7 @@ class SweepConfig:
     reverse_check_exact_hit_specificity_bonus: float = 0.0
     kaikki_policy_late_sense_penalty: float = 0.0
     exact_gloss_demotion_enabled: bool = False
+    source_frequency_prior_enabled: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -125,6 +126,7 @@ class SweepConfig:
             ),
             "kaikki_policy_late_sense_penalty": self.kaikki_policy_late_sense_penalty,
             "exact_gloss_demotion_enabled": self.exact_gloss_demotion_enabled,
+            "source_frequency_prior_enabled": self.source_frequency_prior_enabled,
         }
 
     def label(self) -> str:
@@ -137,6 +139,7 @@ class SweepConfig:
             f"thr={self.confidence_threshold:.3f} "
             f"sd={self.semantic_demotion_scale:.2f} "
             f"xdem={'on' if self.exact_gloss_demotion_enabled else 'off'} "
+            f"sfreq={'on' if self.source_frequency_prior_enabled else 'off'} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "
@@ -273,6 +276,7 @@ class PairBenchmarkContext:
     compiled_pair_context: Optional[object] = None
     compiled_case_refs: Sequence[CompiledBenchmarkCaseRef] = field(default_factory=tuple)
     compiled_case_table: Optional[CompiledBenchmarkCaseTable] = None
+    source_frequency_db_path: Optional[Path] = None
 
 
 @dataclass(frozen=True)

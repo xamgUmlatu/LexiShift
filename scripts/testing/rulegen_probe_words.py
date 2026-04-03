@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
+    default_frequency_db_path,
     default_reverse_translation_dictionary_path,
 )
 from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
@@ -161,6 +162,7 @@ def _serialize_result(
         "reverse_check_total": result.candidate.metadata.get("reverse_check_total"),
         "semantic_demotion": result.candidate.metadata.get("semantic_demotion"),
         "semantic_demotion_reason": result.candidate.metadata.get("semantic_demotion_reason"),
+        "source_frequency_prior": result.candidate.metadata.get("source_frequency_prior"),
         "kaikki_policy_shadow": result.candidate.metadata.get("kaikki_policy_shadow"),
     }
 
@@ -221,12 +223,16 @@ def _print_target_block(
         semantic_note = ""
         if semantic_demotion not in (None, 0, 0.0):
             semantic_note = f" semdem={float(semantic_demotion):.4f}"
+        source_frequency_prior = row.get("source_frequency_prior")
+        source_frequency_note = ""
+        if source_frequency_prior not in (None, 0, 0.0):
+            source_frequency_note = f" sfreq={float(source_frequency_prior):.4f}"
         print(
             f"    {index:02d}. [{marker}] src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
             f"bucket={bucket} gloss_index={gloss_index} "
             f"variant={variant} source_form={source_form} target_surface={target_surface}"
-            f"{reverse_note}{semantic_note}"
+            f"{reverse_note}{semantic_note}{source_frequency_note}"
         )
 
     print("  capped:")
@@ -247,10 +253,15 @@ def _print_target_block(
         semantic_note = ""
         if semantic_demotion not in (None, 0, 0.0):
             semantic_note = f" semdem={float(semantic_demotion):.4f}"
+        source_frequency_prior = row.get("source_frequency_prior")
+        source_frequency_note = ""
+        if source_frequency_prior not in (None, 0, 0.0):
+            source_frequency_note = f" sfreq={float(source_frequency_prior):.4f}"
         print(
             f"    {index:02d}. src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
-            f"bucket={bucket} gloss_index={gloss_index}{reverse_note}{semantic_note}"
+            f"bucket={bucket} gloss_index={gloss_index}"
+            f"{reverse_note}{semantic_note}{source_frequency_note}"
         )
 
 
@@ -424,6 +435,16 @@ def main() -> None:
         help="Enable exact phrase-level gloss demotion overrides in probe runs.",
     )
     parser.add_argument(
+        "--enable-source-frequency-prior",
+        action="store_true",
+        help="Enable English source-frequency prior for en-de probe runs.",
+    )
+    parser.add_argument(
+        "--source-frequency-db-en-de",
+        type=Path,
+        help="Optional English source-frequency SQLite override for en-de probe runs.",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Optional path to save full probe output as JSON.",
@@ -475,6 +496,7 @@ def main() -> None:
     resolved_translation_dict_en_es: Optional[Path] = None
     resolved_reverse_translation_dict_en_es: Optional[Path] = None
     resolved_translation_dict_en_de: Optional[Path] = None
+    resolved_source_frequency_db_en_de: Optional[Path] = None
     if spanish_targets:
         _resolved_jmdict, _resolved_translation_dict_en_es, _ = resolve_pair_resources(
             paths,
@@ -507,6 +529,14 @@ def main() -> None:
             "Translation dictionary DE->EN",
             _resolved_translation_dict_en_de,
         )
+        if args.enable_source_frequency_prior:
+            resolved_source_frequency_db_en_de = _resolve_required_file(
+                "Source frequency DB EN",
+                args.source_frequency_db_en_de
+                or default_frequency_db_path(
+                    "en-en", frequency_packs_dir=paths.frequency_packs_dir
+                ),
+            )
 
     resolved_jmdict: Optional[Path] = None
     if japanese_targets:
@@ -573,6 +603,8 @@ def main() -> None:
                 max_rules_per_target=None,
                 scoring=scoring,
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
+                enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
+                source_frequency_db_path=resolved_source_frequency_db_en_de,
             ),
         )
     ja_uncapped: list[RuleGenerationResult] = []
@@ -634,6 +666,8 @@ def main() -> None:
                 max_rules_per_target=max_rules_per_target,
                 scoring=scoring,
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
+                enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
+                source_frequency_db_path=resolved_source_frequency_db_en_de,
             ),
         )
     ja_capped: list[RuleGenerationResult] = []
@@ -659,6 +693,7 @@ def main() -> None:
     print(f"  translation_dict_en_es: {resolved_translation_dict_en_es}")
     print(f"  translation_dict_es_en_reverse: {resolved_reverse_translation_dict_en_es}")
     print(f"  translation_dict_en_de: {resolved_translation_dict_en_de}")
+    print(f"  source_frequency_db_en_de: {resolved_source_frequency_db_en_de}")
     print(f"  jmdict: {resolved_jmdict}")
     print(
         f"  config: max_definitions={max_definitions}, "
@@ -677,7 +712,8 @@ def main() -> None:
         f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
         f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}, "
         f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}, "
-        f"enable_exact_gloss_demotion={bool(args.enable_exact_gloss_demotion)}"
+        f"enable_exact_gloss_demotion={bool(args.enable_exact_gloss_demotion)}, "
+        f"enable_source_frequency_prior={bool(args.enable_source_frequency_prior)}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -698,6 +734,7 @@ def main() -> None:
             "pos_compatible_match_bonus": args.pos_compatible_match_bonus,
             "score_weight_pos_match": args.score_weight_pos_match,
             "enable_exact_gloss_demotion": bool(args.enable_exact_gloss_demotion),
+            "enable_source_frequency_prior": bool(args.enable_source_frequency_prior),
             "reverse_check": {
                 "enabled": reverse_check.enabled,
                 "match_bonus": reverse_check.match_bonus,
@@ -728,6 +765,11 @@ def main() -> None:
             ),
             "translation_dict_en_de": (
                 str(resolved_translation_dict_en_de) if resolved_translation_dict_en_de else None
+            ),
+            "source_frequency_db_en_de": (
+                str(resolved_source_frequency_db_en_de)
+                if resolved_source_frequency_db_en_de
+                else None
             ),
             "jmdict": str(resolved_jmdict) if resolved_jmdict else None,
         },

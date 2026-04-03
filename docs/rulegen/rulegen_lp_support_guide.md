@@ -85,6 +85,7 @@ Important policy:
 These are stronger LP-specific ranking layers beyond the baseline:
 
 - definition-group interleaving / cap behavior
+- source-side commonness / frequency prior
 - late-sense competition penalties
 - reverse-check scoring
 - source provenance and risk-family demotions
@@ -103,6 +104,7 @@ Use this table when evaluating a pair.
 | POS scoring | Yes | Yes | Yes | Shared weight surface; pair must emit usable POS metadata. |
 | Variants | Yes | Yes | Yes | Pair-specific morphology behavior still differs. |
 | Exact phrase-level demotion overrides | Yes | Opt-in | Opt-in | Default-off for canonical benchmarks. |
+| Source-side commonness / frequency prior | Yes | No | Experimental | `en-de` now has a default-off source-frequency prior backed by an English frequency DB; current evidence improves top3 recovery more than top1 cleanup. |
 | Reverse-check | Yes | Yes | No | `en-de` sweep exposes knobs but adapter/pair do not consume them yet. |
 | Kaikki live demotion | Yes | Yes | No | `en-de` currently has no Kaikki policy layer. |
 | Kaikki risk-family controls | Yes | Yes | No | Same as above. |

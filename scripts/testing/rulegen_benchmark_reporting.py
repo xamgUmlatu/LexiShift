@@ -131,6 +131,7 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         confidence_threshold=float(payload.get("confidence_threshold") or 0.0),
         semantic_demotion_scale=float(payload.get("semantic_demotion_scale") or 0.0),
         exact_gloss_demotion_enabled=bool(payload.get("exact_gloss_demotion_enabled", False)),
+        source_frequency_prior_enabled=bool(payload.get("source_frequency_prior_enabled", False)),
         include_variants=bool(payload.get("include_variants", False)),
         pos_scoring_enabled=bool(payload.get("pos_scoring_enabled", False)),
         pos_exact_match_bonus=float(payload.get("pos_exact_match_bonus") or 0.0),
@@ -434,11 +435,18 @@ def _build_parser() -> argparse.ArgumentParser:
         type=Path,
         help="Optional translation-dictionary override for es-en pair (eng-spa.sqlite).",
     )
+    parser.add_argument(
+        "--source-frequency-db-en-de",
+        dest="source_frequency_db_en_de",
+        type=Path,
+        help="Optional English source-frequency SQLite override for en-de experiments.",
+    )
     parser.add_argument("--max-definitions-values", default="3")
     parser.add_argument("--max-rules-values", default="none")
     parser.add_argument("--confidence-threshold-values", default="0.0")
     parser.add_argument("--semantic-demotion-scale-values", default="1.0")
     parser.add_argument("--exact-gloss-demotion-values", default="false")
+    parser.add_argument("--source-frequency-prior-values", default="false")
     parser.add_argument("--include-variants-values", default="true,false")
     parser.add_argument("--pos-scoring-values", default="true,false")
     parser.add_argument("--pos-exact-values", default="1.0")

@@ -231,13 +231,17 @@ Use this file when:
 ## `en-de` Advisory Quality Lane
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
-- Last documented checkpoint: `2026-04-03` `en-de` now has a dedicated advisory latest lane with a named benchmark preset, npm wrapper commands, summary commands, and a pair-specific roadmap that intentionally mirrors the `en-es` lane structure without claiming parity
-- Last verified: `2026-04-03` local `en-de` benchmark/gate/triage rerun and summary generation over the named latest lane
+- Last documented checkpoint: `2026-04-04` `en-de` now also has an experimental default-off source-frequency prior wired into the pair adapter, benchmark sweep, and probe tooling, with a focused benchmark/gate/triage experiment recorded separately from the canonical advisory latest lane
+- Last verified: `2026-04-04` local `en-de` benchmark/gate/triage rerun over the canonical latest lane plus a focused source-frequency experiment
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
   - The lane now uses a named preset:
     - `en_de_canonical_matrix`
+  - `en-de` now also has an experimental default-off source-frequency prior:
+    - benchmark/config label: `sfreq=on/off`
+    - benchmark CLI surface: `--source-frequency-prior-values`, `--source-frequency-db-en-de`
+    - probe CLI surface: `--enable-source-frequency-prior`, `--source-frequency-db-en-de`
   - Dedicated outputs now live at:
     - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
     - `docs/test_outputs/rulegen_benchmark_en_de_latest.md`
@@ -260,14 +264,20 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_source_freq_experiment_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_source_freq_experiment_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_source_freq_experiment_latest.json`
 - Known gaps:
   - `en-de` remains advisory and is still not part of `required_benchmark_pairs`.
-  - The benchmark case set is still only `16` targets, so the lane is measurable but not yet broad enough for `en-es`-style confidence.
-  - The current `en-de` latest run is still below the configured top-1 floor and still has four REVIEW cases (`Haus`, `Schule`, `Weg`, `Zeit`).
+  - The benchmark case set is now broader at `58` targets, but the current `en-de` latest run is still well below the configured top-1 floor (`65.52%` top1, `93.10%` top3).
+  - The current `en-de` latest triage surface is still heavy at `21` actionable items (`16` FAIL, `5` REVIEW), including hard junk-gloss failures such as `Zeit -> spell`, `Sprache -> diction`, `Fenster -> box`, and `Tag -> tag`.
   - The dedicated `en-de` gate is now pair-scoped, but delta checks still warn until an `en-de` baseline is accepted:
     - `DELTA_SCOPE_BASELINE_MISSING`
   - `en-de` still has no reverse-check implementation.
-  - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup and dataset expansion.
+  - The new source-frequency prior is measurable but not sufficient on its own:
+    - focused experiment improved `top3` (`93.10%` -> `98.28%`) without moving `top1` (`65.52%`)
+    - the mechanism currently helps expected answers re-enter top3 (`Grund`, `Straße`, `Zug`) more than it fixes junk top1 defaults
+  - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup, source-frequency recovery, and dataset expansion.
   - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
 
 ## Rulegen Auto Audit Wrapper

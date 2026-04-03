@@ -47,6 +47,7 @@ class RulegenAdapterRequest:
     translation_dict_path: Optional[Path] = None
     reverse_translation_pack: Optional[TranslationPackRef] = None
     reverse_translation_dict_path: Optional[Path] = None
+    source_frequency_db_path: Optional[Path] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_pair_context: Optional[object] = None
@@ -55,6 +56,7 @@ class RulegenAdapterRequest:
     kaikki_policy_risk_families: Optional[Sequence[str]] = None
     kaikki_policy_late_sense_penalty: float = 0.0
     enable_exact_gloss_demotions: bool = False
+    enable_source_frequency_prior: bool = False
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -131,6 +133,8 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         gloss_decay=request.gloss_decay,
         word_packages_by_target=request.word_packages_by_target,
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
+        enable_source_frequency_prior=request.enable_source_frequency_prior,
+        source_frequency_db_path=request.source_frequency_db_path,
     )
     results = generate_en_de_results(request.targets, config=config)
     return [result.rule for result in results]

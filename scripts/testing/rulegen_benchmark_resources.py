@@ -8,6 +8,7 @@ from time import perf_counter
 from typing import Mapping, Optional, Sequence
 
 from lexishift_core.helper.lp_capabilities import (
+    default_frequency_db_path,
     default_reverse_translation_dictionary_path,
     resolve_pair_capability,
 )
@@ -191,6 +192,22 @@ def _resolve_pair_resources_for_benchmark(
                 f"{reverse_translation_dict_path}"
             )
     return jmdict_path, translation_dict_path, reverse_translation_dict_path
+
+
+def _resolve_source_frequency_db_for_benchmark(
+    *,
+    paths,
+    pair: str,
+    source_frequency_db_override: Optional[Path],
+) -> Optional[Path]:
+    if source_frequency_db_override is not None:
+        return Path(source_frequency_db_override)
+    normalized = str(pair or "").strip().lower()
+    source_lang = normalized.split("-", 1)[0] if "-" in normalized else ""
+    if not source_lang:
+        return None
+    mono_pair = f"{source_lang}-{source_lang}"
+    return default_frequency_db_path(mono_pair, frequency_packs_dir=paths.frequency_packs_dir)
 
 
 def _translation_target_lang_for_pair(pair: str) -> Optional[str]:
@@ -481,6 +498,7 @@ def _build_pair_resources_payload(
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
+    source_frequency_db_path: Optional[Path] = None,
 ) -> dict[str, object]:
     return {
         "jmdict_path": str(jmdict_path) if jmdict_path else None,
@@ -488,10 +506,14 @@ def _build_pair_resources_payload(
         "reverse_translation_dict_path": (
             str(reverse_translation_dict_path) if reverse_translation_dict_path else None
         ),
+        "source_frequency_db_path": str(source_frequency_db_path)
+        if source_frequency_db_path
+        else None,
         "checksums": {
             "jmdict_sha256": _compute_file_sha256(jmdict_path),
             "translation_dict_sha256": _compute_file_sha256(translation_dict_path),
             "reverse_translation_dict_sha256": _compute_file_sha256(reverse_translation_dict_path),
+            "source_frequency_db_sha256": _compute_file_sha256(source_frequency_db_path),
         },
     }
 
@@ -505,6 +527,7 @@ def _build_pair_benchmark_context(
     jmdict_override: Optional[Path],
     translation_dict_override: Optional[Path],
     reverse_translation_dict_override: Optional[Path],
+    source_frequency_db_override: Optional[Path],
     frozen_word_package_snapshots: Mapping[str, Mapping[str, object]],
     timing: Optional[BenchmarkTimingCollector] = None,
 ) -> PairBenchmarkContext:
@@ -521,11 +544,18 @@ def _build_pair_benchmark_context(
     if timing is not None:
         timing.add("resolve_resources", perf_counter() - started, pair=pair)
 
+    source_frequency_db_path = _resolve_source_frequency_db_for_benchmark(
+        paths=paths,
+        pair=pair,
+        source_frequency_db_override=source_frequency_db_override,
+    )
+
     started = perf_counter()
     resources = _build_pair_resources_payload(
         jmdict_path=jmdict_path,
         translation_dict_path=translation_dict_path,
         reverse_translation_dict_path=reverse_translation_dict_path,
+        source_frequency_db_path=source_frequency_db_path,
     )
     if timing is not None:
         timing.add("build_resource_payload", perf_counter() - started, pair=pair)
@@ -603,6 +633,7 @@ def _build_pair_benchmark_context(
         jmdict_path=jmdict_path,
         translation_dict_path=translation_dict_path,
         reverse_translation_dict_path=reverse_translation_dict_path,
+        source_frequency_db_path=source_frequency_db_path,
         resources=resources,
         word_package_snapshot=word_package_snapshot,
         word_packages_by_target=word_packages,

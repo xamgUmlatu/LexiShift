@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -1055,6 +1056,72 @@ class TestRulegenAdapters(unittest.TestCase):
             )
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
         self.assertTrue(all(rule.replacement == "haus" for rule in rules))
+
+    def test_en_de_adapter_uses_source_frequency_prior_when_enabled(self) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>Haus</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">establishment</quote></cit>
+          <cit type="trans"><quote xml:lang="en">institution</quote></cit>
+          <cit type="trans"><quote xml:lang="en">house</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            path = base / "deu-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+                    [
+                        ("establishment", 800.0, 1.0),
+                        ("institution", 700.0, 2.0),
+                        ("house", 1.0, 1000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_prior = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=path,
+                    include_variants=False,
+                )
+            )
+            with_prior = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=path,
+                    include_variants=False,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=1.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                )
+            )
+        self.assertEqual(
+            [rule.source_phrase for rule in without_prior],
+            ["establishment", "institution", "house"],
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in with_prior],
+            ["house", "establishment", "institution"],
+        )
 
     def test_en_de_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
