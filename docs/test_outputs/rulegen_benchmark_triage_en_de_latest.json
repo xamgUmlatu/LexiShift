@@ -123,7 +123,7 @@
       "top3_sources": [
         "spell",
         "time",
-        "faff"
+        "most"
       ],
       "expected_matches": [
         "time"
@@ -137,7 +137,7 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: spell",
-          "Observed top3 sources: spell, time, faff"
+          "Observed top3 sources: spell, time, most"
         ],
         "candidate_forbidden_top1": [
           "spell"
@@ -145,7 +145,7 @@
         "candidate_expected_any": [
           "spell",
           "time",
-          "faff"
+          "most"
         ]
       }
     },
@@ -199,7 +199,7 @@
       "top3_sources": [
         "box",
         "window",
-        "windowed"
+        "out"
       ],
       "expected_matches": [
         "window"
@@ -213,7 +213,7 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: box",
-          "Observed top3 sources: box, window, windowed"
+          "Observed top3 sources: box, window, out"
         ],
         "candidate_forbidden_top1": [
           "box"
@@ -221,7 +221,7 @@
         "candidate_expected_any": [
           "box",
           "window",
-          "windowed"
+          "out"
         ]
       }
     },
@@ -237,7 +237,7 @@
       "top3_sources": [
         "tag",
         "day",
-        "doomsday"
+        "most"
       ],
       "expected_matches": [
         "day"
@@ -251,7 +251,7 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: tag",
-          "Observed top3 sources: tag, day, doomsday"
+          "Observed top3 sources: tag, day, most"
         ],
         "candidate_forbidden_top1": [
           "tag"
@@ -259,7 +259,7 @@
         "candidate_expected_any": [
           "tag",
           "day",
-          "doomsday"
+          "most"
         ]
       }
     },
@@ -350,8 +350,8 @@
       "top1_source": "facies",
       "top3_sources": [
         "facies",
-        "face",
-        "visage"
+        "appearance",
+        "face"
       ],
       "expected_matches": [
         "face"
@@ -365,15 +365,15 @@
         "notes": [
           "Review case labels and pair tuning; this case violates hard quality expectations.",
           "Observed top1 source: facies",
-          "Observed top3 sources: facies, face, visage"
+          "Observed top3 sources: facies, appearance, face"
         ],
         "candidate_forbidden_top1": [
           "facies"
         ],
         "candidate_expected_any": [
           "facies",
-          "face",
-          "visage"
+          "appearance",
+          "face"
         ]
       }
     },

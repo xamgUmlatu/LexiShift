@@ -86,15 +86,20 @@ class SweepConfig:
     reverse_check_exact_hit_ambiguity_penalty: float
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
+    interleave_definition_groups: bool = False
+    sense_representative_selection: bool = False
     reverse_check_exact_hit_specificity_bonus: float = 0.0
     kaikki_policy_late_sense_penalty: float = 0.0
     exact_gloss_demotion_enabled: bool = False
     source_frequency_prior_enabled: bool = False
+    cleaner_later_competition_penalty: float = 0.0
 
     def to_dict(self) -> dict[str, object]:
         return {
             "max_definitions_per_target": self.max_definitions_per_target,
             "max_rules_per_target": self.max_rules_per_target,
+            "interleave_definition_groups": self.interleave_definition_groups,
+            "sense_representative_selection": self.sense_representative_selection,
             "confidence_threshold": self.confidence_threshold,
             "semantic_demotion_scale": self.semantic_demotion_scale,
             "include_variants": self.include_variants,
@@ -127,6 +132,7 @@ class SweepConfig:
             "kaikki_policy_late_sense_penalty": self.kaikki_policy_late_sense_penalty,
             "exact_gloss_demotion_enabled": self.exact_gloss_demotion_enabled,
             "source_frequency_prior_enabled": self.source_frequency_prior_enabled,
+            "cleaner_later_competition_penalty": self.cleaner_later_competition_penalty,
         }
 
     def label(self) -> str:
@@ -136,10 +142,13 @@ class SweepConfig:
         return (
             f"md={_cap_text(self.max_definitions_per_target)} "
             f"mr={_cap_text(self.max_rules_per_target)} "
+            f"ig={'on' if self.interleave_definition_groups else 'off'} "
+            f"srep={'on' if self.sense_representative_selection else 'off'} "
             f"thr={self.confidence_threshold:.3f} "
             f"sd={self.semantic_demotion_scale:.2f} "
             f"xdem={'on' if self.exact_gloss_demotion_enabled else 'off'} "
             f"sfreq={'on' if self.source_frequency_prior_enabled else 'off'} "
+            f"clcmp={'off' if self.cleaner_later_competition_penalty <= 0.0 else f'{self.cleaner_later_competition_penalty:.2f}'} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "

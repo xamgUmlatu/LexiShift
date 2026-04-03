@@ -20,6 +20,17 @@ from lexishift_core.helper.translation_packs import (  # noqa: E402
 
 
 class TestTranslationPacks(unittest.TestCase):
+    def test_builds_forward_wiktionary_pack_ref_for_en_de(self) -> None:
+        ref = build_translation_pack_ref(
+            "en-de",
+            Path("/tmp/wiktionary-de-en.sqlite"),
+            direction=FORWARD_PACK_DIRECTION,
+        )
+        assert ref is not None
+        self.assertEqual(ref.provider, "wiktionary")
+        self.assertEqual(ref.pack_id, "wiktionary_de_en")
+        self.assertEqual(ref.pos_source_profile, "wiktionary")
+
     def test_builds_forward_wiktionary_pack_ref_for_en_es(self) -> None:
         ref = build_translation_pack_ref(
             "en-es",

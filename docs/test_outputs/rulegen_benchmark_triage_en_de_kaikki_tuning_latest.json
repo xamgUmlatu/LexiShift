@@ -1,0 +1,135 @@
+{
+  "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_latest.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 4,
+  "items": [
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Arbeit",
+      "target": "Arbeit",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "toil",
+      "top3_sources": [
+        "toil"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: toil",
+          "Observed top3 sources: toil"
+        ],
+        "candidate_forbidden_top1": [
+          "toil"
+        ],
+        "candidate_expected_any": [
+          "toil"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Kind",
+      "target": "Kind",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "kid",
+      "top3_sources": [
+        "kid"
+      ],
+      "expected_matches": [
+        "kid"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: kid",
+          "Observed top3 sources: kid"
+        ],
+        "candidate_forbidden_top1": [
+          "kid"
+        ],
+        "candidate_expected_any": [
+          "kid"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Fall",
+      "target": "Fall",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "fall",
+      "top3_sources": [
+        "fall"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [
+        "fall"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: fall",
+          "Observed top3 sources: fall"
+        ],
+        "candidate_forbidden_top1": [
+          "fall"
+        ],
+        "candidate_expected_any": [
+          "fall"
+        ]
+      }
+    },
+    {
+      "pair": "en-de",
+      "case_id": "en-de:Grund",
+      "target": "Grund",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "ground",
+      "top3_sources": [
+        "ground"
+      ],
+      "expected_matches": [
+        "ground"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: ground",
+          "Observed top3 sources: ground"
+        ],
+        "candidate_forbidden_top1": [
+          "ground"
+        ],
+        "candidate_expected_any": [
+          "ground"
+        ]
+      }
+    }
+  ]
+}

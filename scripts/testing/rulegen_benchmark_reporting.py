@@ -128,10 +128,15 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
             if payload.get("max_rules_per_target") is not None
             else None
         ),
+        interleave_definition_groups=bool(payload.get("interleave_definition_groups", False)),
+        sense_representative_selection=bool(payload.get("sense_representative_selection", False)),
         confidence_threshold=float(payload.get("confidence_threshold") or 0.0),
         semantic_demotion_scale=float(payload.get("semantic_demotion_scale") or 0.0),
         exact_gloss_demotion_enabled=bool(payload.get("exact_gloss_demotion_enabled", False)),
         source_frequency_prior_enabled=bool(payload.get("source_frequency_prior_enabled", False)),
+        cleaner_later_competition_penalty=float(
+            payload.get("cleaner_later_competition_penalty") or 0.0
+        ),
         include_variants=bool(payload.get("include_variants", False)),
         pos_scoring_enabled=bool(payload.get("pos_scoring_enabled", False)),
         pos_exact_match_bonus=float(payload.get("pos_exact_match_bonus") or 0.0),
@@ -418,7 +423,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "--translation-dict-en-de",
         dest="translation_dict_en_de",
         type=Path,
-        help="Optional translation-dictionary override for en-de pair (deu-eng.sqlite).",
+        help=(
+            "Optional translation-dictionary override for en-de pair "
+            "(wiktionary-de-en.sqlite / deu-eng.sqlite)."
+        ),
     )
     parser.add_argument(
         "--translation-dict-en-es",
@@ -443,10 +451,13 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--max-definitions-values", default="3")
     parser.add_argument("--max-rules-values", default="none")
+    parser.add_argument("--interleave-definition-group-values", default="false")
+    parser.add_argument("--sense-representative-selection-values", default="false")
     parser.add_argument("--confidence-threshold-values", default="0.0")
     parser.add_argument("--semantic-demotion-scale-values", default="1.0")
     parser.add_argument("--exact-gloss-demotion-values", default="false")
     parser.add_argument("--source-frequency-prior-values", default="false")
+    parser.add_argument("--cleaner-later-competition-penalty-values", default="0.0")
     parser.add_argument("--include-variants-values", default="true,false")
     parser.add_argument("--pos-scoring-values", default="true,false")
     parser.add_argument("--pos-exact-values", default="1.0")

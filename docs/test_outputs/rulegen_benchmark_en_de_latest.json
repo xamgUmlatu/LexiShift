@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T19:03:19.384491+00:00",
+  "generated_at": "2026-04-03T22:04:54.502882+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
     "version": 1,
@@ -106,40 +106,42 @@
       "jmdict_path": null,
       "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/deu-eng.tei",
       "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-deu-1.9-fd1.src/eng-deu.tei",
+      "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
       "checksums": {
         "jmdict_sha256": null,
         "translation_dict_sha256": "sha256:e13019160326db395342bdd2491b6f3d6da361ff7f0666786c68dafc4fc56776",
-        "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77"
+        "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77",
+        "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
       }
     }
   },
   "timing": {
-    "total_recorded_seconds": 9.627604420762509,
+    "total_recorded_seconds": 11.212495578511152,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.000655875017400831,
+        "total_seconds": 0.0005506250308826566,
         "count": 1,
-        "avg_seconds": 0.000655875017400831
+        "avg_seconds": 0.0005506250308826566
       },
       "build_sweep_configs": {
-        "total_seconds": 0.00016650004545226693,
+        "total_seconds": 0.00018179102335125208,
         "count": 1,
-        "avg_seconds": 0.00016650004545226693
+        "avg_seconds": 0.00018179102335125208
       },
       "build_word_packages": {
-        "total_seconds": 5.166599294170737e-05,
+        "total_seconds": 4.654104122892022e-05,
         "count": 1,
-        "avg_seconds": 5.166599294170737e-05
+        "avg_seconds": 4.654104122892022e-05
       },
       "compile_pair_context": {
-        "total_seconds": 3.4999684430658817e-06,
+        "total_seconds": 3.374996595084667e-06,
         "count": 1,
-        "avg_seconds": 3.4999684430658817e-06
+        "avg_seconds": 3.374996595084667e-06
       },
       "evaluate_cases": {
-        "total_seconds": 0.010409084963612258,
+        "total_seconds": 0.010784915066324174,
         "count": 32,
-        "avg_seconds": 0.0003252839051128831
+        "avg_seconds": 0.00033702859582263045
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -147,67 +149,67 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.0021357079967856407,
+        "total_seconds": 0.001394915976561606,
         "count": 1,
-        "avg_seconds": 0.0021357079967856407
+        "avg_seconds": 0.001394915976561606
       },
       "load_store": {
-        "total_seconds": 0.0020498749800026417,
+        "total_seconds": 0.0014352920115925372,
         "count": 1,
-        "avg_seconds": 0.0020498749800026417
+        "avg_seconds": 0.0014352920115925372
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 8.454753207974136,
+        "total_seconds": 8.676776207983494,
         "count": 1,
-        "avg_seconds": 8.454753207974136
+        "avg_seconds": 8.676776207983494
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.027509915991686285,
+        "total_seconds": 0.0668437919812277,
         "count": 1,
-        "avg_seconds": 0.027509915991686285
+        "avg_seconds": 0.0668437919812277
       },
       "resolve_resources": {
-        "total_seconds": 0.0030142919858917594,
+        "total_seconds": 0.0014020000235177577,
         "count": 1,
-        "avg_seconds": 0.0030142919858917594
+        "avg_seconds": 0.0014020000235177577
       },
       "run_config": {
-        "total_seconds": 1.1263111670850776,
+        "total_seconds": 2.452482500229962,
         "count": 32,
-        "avg_seconds": 0.035197223971408675
+        "avg_seconds": 0.07664007813218632
       },
       "sort_pair_runs": {
-        "total_seconds": 1.083302777260542e-05,
+        "total_seconds": 1.333298860117793e-05,
         "count": 1,
-        "avg_seconds": 1.083302777260542e-05
+        "avg_seconds": 1.333298860117793e-05
       },
       "summarize_run": {
-        "total_seconds": 0.0005327957333065569,
+        "total_seconds": 0.0005802901578135788,
         "count": 32,
-        "avg_seconds": 1.6649866665829904e-05
+        "avg_seconds": 1.813406743167434e-05
       }
     },
     "pairs": {
       "en-de": {
         "build_resource_payload": {
-          "total_seconds": 0.000655875017400831,
+          "total_seconds": 0.0005506250308826566,
           "count": 1,
-          "avg_seconds": 0.000655875017400831
+          "avg_seconds": 0.0005506250308826566
         },
         "build_word_packages": {
-          "total_seconds": 5.166599294170737e-05,
+          "total_seconds": 4.654104122892022e-05,
           "count": 1,
-          "avg_seconds": 5.166599294170737e-05
+          "avg_seconds": 4.654104122892022e-05
         },
         "compile_pair_context": {
-          "total_seconds": 3.4999684430658817e-06,
+          "total_seconds": 3.374996595084667e-06,
           "count": 1,
-          "avg_seconds": 3.4999684430658817e-06
+          "avg_seconds": 3.374996595084667e-06
         },
         "evaluate_cases": {
-          "total_seconds": 0.010409084963612258,
+          "total_seconds": 0.010784915066324174,
           "count": 32,
-          "avg_seconds": 0.0003252839051128831
+          "avg_seconds": 0.00033702859582263045
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -215,38 +217,38 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 8.454753207974136,
+          "total_seconds": 8.676776207983494,
           "count": 1,
-          "avg_seconds": 8.454753207974136
+          "avg_seconds": 8.676776207983494
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.027509915991686285,
+          "total_seconds": 0.0668437919812277,
           "count": 1,
-          "avg_seconds": 0.027509915991686285
+          "avg_seconds": 0.0668437919812277
         },
         "resolve_resources": {
-          "total_seconds": 0.0030142919858917594,
+          "total_seconds": 0.0014020000235177577,
           "count": 1,
-          "avg_seconds": 0.0030142919858917594
+          "avg_seconds": 0.0014020000235177577
         },
         "run_config": {
-          "total_seconds": 1.1263111670850776,
+          "total_seconds": 2.452482500229962,
           "count": 32,
-          "avg_seconds": 0.035197223971408675
+          "avg_seconds": 0.07664007813218632
         },
         "sort_pair_runs": {
-          "total_seconds": 1.083302777260542e-05,
+          "total_seconds": 1.333298860117793e-05,
           "count": 1,
-          "avg_seconds": 1.083302777260542e-05
+          "avg_seconds": 1.333298860117793e-05
         },
         "summarize_run": {
-          "total_seconds": 0.0005327957333065569,
+          "total_seconds": 0.0005802901578135788,
           "count": 32,
-          "avg_seconds": 1.6649866665829904e-05
+          "avg_seconds": 1.813406743167434e-05
         }
       }
     },
-    "wall_clock_seconds": 9.63480850000633
+    "wall_clock_seconds": 11.220005790994037
   },
   "pairs": {
     "en-de": {
@@ -256,10 +258,12 @@
         "jmdict_path": null,
         "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/deu-eng.tei",
         "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-eng-deu-1.9-fd1.src/eng-deu.tei",
+        "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
         "checksums": {
           "jmdict_sha256": null,
           "translation_dict_sha256": "sha256:e13019160326db395342bdd2491b6f3d6da361ff7f0666786c68dafc4fc56776",
-          "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77"
+          "reverse_translation_dict_sha256": "sha256:529b7565b1ecf210b5118d220f26aba6326ad30de0e38060256b0c394defba77",
+          "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
         }
       },
       "word_package_snapshot": {
@@ -328,6 +332,8 @@
         "config": {
           "max_definitions_per_target": 3,
           "max_rules_per_target": null,
+          "interleave_definition_groups": false,
+          "sense_representative_selection": false,
           "confidence_threshold": 0.0,
           "semantic_demotion_scale": 1.0,
           "include_variants": false,
@@ -358,9 +364,11 @@
           ],
           "reverse_check_exact_hit_specificity_bonus": 0.0,
           "kaikki_policy_late_sense_penalty": 0.0,
-          "exact_gloss_demotion_enabled": false
+          "exact_gloss_demotion_enabled": false,
+          "source_frequency_prior_enabled": false,
+          "cleaner_later_competition_penalty": 0.0
         },
-        "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+        "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
         "summary": {
           "pair": "en-de",
           "case_count": 58,
@@ -793,12 +801,12 @@
             "top3_sources": [
               "spell",
               "time",
-              "faff"
+              "most"
             ],
             "all_sources": [
               "spell",
               "time",
-              "faff"
+              "most"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
@@ -940,12 +948,12 @@
             "top3_sources": [
               "box",
               "window",
-              "windowed"
+              "out"
             ],
             "all_sources": [
               "box",
               "window",
-              "windowed"
+              "out"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
@@ -970,12 +978,12 @@
             "top3_sources": [
               "door",
               "door-to-door",
-              "doorway"
+              "please"
             ],
             "all_sources": [
               "door",
               "door-to-door",
-              "doorway"
+              "please"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": true,
@@ -1158,12 +1166,12 @@
             "top3_sources": [
               "tag",
               "day",
-              "doomsday"
+              "most"
             ],
             "all_sources": [
               "tag",
               "day",
-              "doomsday"
+              "most"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
@@ -1371,13 +1379,13 @@
             "top1_source": "facies",
             "top3_sources": [
               "facies",
-              "face",
-              "visage"
+              "appearance",
+              "face"
             ],
             "all_sources": [
               "facies",
-              "face",
-              "visage"
+              "appearance",
+              "face"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": false,
@@ -1538,12 +1546,12 @@
             "top3_sources": [
               "chair",
               "stool",
-              "defaecation"
+              "evacuation"
             ],
             "all_sources": [
               "chair",
               "stool",
-              "defaecation"
+              "evacuation"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": true,
@@ -1647,13 +1655,13 @@
             "top1_source": "problem",
             "top3_sources": [
               "problem",
-              "snag",
-              "trouble"
+              "one",
+              "snag"
             ],
             "all_sources": [
               "problem",
-              "snag",
-              "trouble"
+              "one",
+              "snag"
             ],
             "top1_confidence": 0.6799999999999999,
             "top1_correct": true,
@@ -1985,6 +1993,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2015,9 +2025,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2045,6 +2057,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2075,9 +2089,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2105,6 +2121,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2135,9 +2153,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2165,6 +2185,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2195,9 +2217,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2225,6 +2249,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2255,9 +2281,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2285,6 +2313,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2315,9 +2345,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2345,6 +2377,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2375,9 +2409,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2405,6 +2441,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2435,9 +2473,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -2465,6 +2505,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2495,28 +2537,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2525,6 +2569,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2555,28 +2601,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2585,6 +2633,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2615,28 +2665,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2645,6 +2697,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2675,28 +2729,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2705,6 +2761,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2735,28 +2793,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2765,6 +2825,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2795,28 +2857,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2825,6 +2889,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2855,28 +2921,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2885,6 +2953,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -2915,28 +2985,30 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
             "top1_correct_count": 38,
-            "top3_contains_expected_count": 54,
+            "top3_contains_expected_count": 53,
             "forbidden_top1_count": 1,
             "forbidden_any_count": 14,
-            "avg_rules_per_target": 2.6724137931034484,
+            "avg_rules_per_target": 2.793103448275862,
             "avg_top1_confidence": 0.6772413793103447,
             "variant_rule_count": 0,
-            "total_rule_count": 155,
+            "total_rule_count": 162,
             "variant_top1_count": 0,
             "top1_accuracy": 0.6551724137931034,
-            "top3_recall": 0.9310344827586207,
+            "top3_recall": 0.9137931034482759,
             "forbidden_top1_rate": 0.017241379310344827,
             "forbidden_any_rate": 0.2413793103448276,
             "variant_rule_rate": 0.0,
             "variant_top1_rate": 0.0,
-            "objective_score": 83.9655172413793
+            "objective_score": 82.20689655172414
           }
         },
         {
@@ -2945,6 +3017,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -2975,9 +3049,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3005,6 +3081,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3035,9 +3113,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3065,6 +3145,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3095,9 +3177,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3125,6 +3209,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3155,9 +3241,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3185,6 +3273,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3215,9 +3305,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3245,6 +3337,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3275,9 +3369,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3305,6 +3401,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3335,9 +3433,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3365,6 +3465,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.0,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3395,9 +3497,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.000 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3425,6 +3529,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3455,9 +3561,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3485,6 +3593,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3515,9 +3625,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3545,6 +3657,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3575,9 +3689,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3605,6 +3721,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": false,
@@ -3635,9 +3753,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3665,6 +3785,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3695,9 +3817,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3725,6 +3849,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3755,9 +3881,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3785,6 +3913,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3815,9 +3945,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,
@@ -3845,6 +3977,8 @@
           "config": {
             "max_definitions_per_target": 3,
             "max_rules_per_target": 1,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
             "confidence_threshold": 0.05,
             "semantic_demotion_scale": 1.0,
             "include_variants": true,
@@ -3875,9 +4009,11 @@
             ],
             "reverse_check_exact_hit_specificity_bonus": 0.0,
             "kaikki_policy_late_sense_penalty": 0.0,
-            "exact_gloss_demotion_enabled": false
+            "exact_gloss_demotion_enabled": false,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=1 thr=0.050 sd=1.00 xdem=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=1 ig=off srep=off thr=0.050 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-de",
             "case_count": 58,

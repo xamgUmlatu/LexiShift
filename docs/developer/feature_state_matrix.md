@@ -231,8 +231,8 @@ Use this file when:
 ## `en-de` Advisory Quality Lane
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
-- Last documented checkpoint: `2026-04-04` `en-de` now also has an experimental default-off source-frequency prior wired into the pair adapter, benchmark sweep, and probe tooling, with a focused benchmark/gate/triage experiment recorded separately from the canonical advisory latest lane
-- Last verified: `2026-04-04` local `en-de` benchmark/gate/triage rerun over the canonical latest lane plus a focused source-frequency experiment
+- Last documented checkpoint: `2026-04-04` `en-de` now also has experimental default-off source-frequency and Kaikki-policy scaffolding wired into the pair adapter, benchmark sweep, and probe tooling, and the app/catalog now has a managed `wiktionary-de-en` download/build path even though the canonical advisory latest lane still stays on the FreeDict source family
+- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests plus local `en-de` benchmark/gate/triage rerun over the canonical latest lane
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
@@ -242,6 +242,14 @@ Use this file when:
     - benchmark/config label: `sfreq=on/off`
     - benchmark CLI surface: `--source-frequency-prior-values`, `--source-frequency-db-en-de`
     - probe CLI surface: `--enable-source-frequency-prior`, `--source-frequency-db-en-de`
+  - `en-de` now also consumes the existing Kaikki policy surface when the translation source is a Wiktionary/Kaikki-style SQLite:
+    - benchmark/config labels: `kdem`, `kfam`, `kprov`
+    - probe flags: `--kaikki-policy-live-demotion`, `--kaikki-policy-late-sense-penalty`
+    - provider/profile inference now follows the translation-pack identity instead of hardcoding FreeDict POS normalization
+  - The app-managed translation catalog now includes:
+    - `wiktionary-de-en`
+    - build wrapper: `scripts/data/convert_kaikki_de_en_to_sqlite.py`
+    - converter path: `scripts/data/convert_kaikki_glosses_to_sqlite.py`
   - Dedicated outputs now live at:
     - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
     - `docs/test_outputs/rulegen_benchmark_en_de_latest.md`
@@ -254,7 +262,7 @@ Use this file when:
     - `docs/test_outputs/rulegen_benchmark_triage_en_de_summary_latest.md`
   - The current lane intentionally stays baseline:
     - no reverse-check
-    - no Kaikki provenance / competition scoring
+    - no committed `en-de` Kaikki benchmark lane or promoted Kaikki source path yet
     - dataset-expansion and lexical-choice cleanup come before pair-specific frontier work
 - Evidence:
   - `docs/language_pairs/en_de_workstream_roadmap.md`
@@ -267,6 +275,14 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_source_freq_experiment_latest.json`
+  - `core/lexishift_core/rulegen/pairs/en_de.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `apps/gui/src/language_packs_catalog.py`
+  - `scripts/data/convert_kaikki_de_en_to_sqlite.py`
+  - `scripts/testing/rulegen_probe_words.py`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `core/tests/dev/test_rulegen_probe_words.py`
+  - `core/tests/resources/test_kaikki_sqlite_conversion.py`
 - Known gaps:
   - `en-de` remains advisory and is still not part of `required_benchmark_pairs`.
   - The benchmark case set is now broader at `58` targets, but the current `en-de` latest run is still well below the configured top-1 floor (`65.52%` top1, `93.10%` top3).
@@ -277,6 +293,7 @@ Use this file when:
   - The new source-frequency prior is measurable but not sufficient on its own:
     - focused experiment improved `top3` (`93.10%` -> `98.28%`) without moving `top1` (`65.52%`)
     - the mechanism currently helps expected answers re-enter top3 (`Grund`, `Straße`, `Zug`) more than it fixes junk top1 defaults
+  - `wiktionary-de-en` download/build support now exists, but there is still no committed local artifact or benchmark evidence proving that the Kaikki source family beats FreeDict for `en-de`.
   - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup, source-frequency recovery, and dataset expansion.
   - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
 
@@ -629,7 +646,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-03-27` provenance scoring with second benchmark-expansion pass and live Kaikki demotion now winning
-- Last verified: `2026-03-27` targeted `en-es` provenance/adapter/benchmark tests, canonical `en-es` benchmark/gate/triage rerun over the expanded 57-case / 144-config sweep, and probe-path verification
+- Last verified: `2026-04-04` targeted `en-es` provenance coverage plus new `en-de` adapter/probe tests and canonical `en-de` benchmark/gate/triage rerun
 - Default behavior:
   - `en-es` Kaikki candidates now support a sweepable additive provenance penalty:
     - `late_sense_clean_earlier_competition_penalty`
@@ -660,7 +677,8 @@ Use this file when:
 - Known gaps:
   - only the smallest provenance signal is live so far; richer provenance/competition features are still pending
   - the current signal is now selected together with live Kaikki demotion, but it still does not solve `cuadro` or the new slang-side failures
-  - `en-de`, `en-ja`, and `es-en` do not yet have analogous provenance-scoring work
+  - `en-de` now has default-off Kaikki-policy scaffolding when a Wiktionary/Kaikki source is supplied, but there is still no committed `en-de` Kaikki benchmark lane, managed pack, or promoted default source path
+  - `en-ja` and `es-en` do not yet have analogous provenance-scoring work
   - per-family Kaikki demotion strengths, gloss-decay shape exposure, and lexical short-phrase policy are still the next nearby sweep candidates
 
 ## Trait-Conditioned Rulegen Profiles

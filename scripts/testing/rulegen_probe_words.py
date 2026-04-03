@@ -27,6 +27,7 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_de import (  # noqa: E402
+    EnDeKaikkiPolicyConfig,
     EnDeRulegenConfig,
     generate_en_de_results,
 )
@@ -163,6 +164,17 @@ def _serialize_result(
         "semantic_demotion": result.candidate.metadata.get("semantic_demotion"),
         "semantic_demotion_reason": result.candidate.metadata.get("semantic_demotion_reason"),
         "source_frequency_prior": result.candidate.metadata.get("source_frequency_prior"),
+        "cleaner_later_competition_present": result.candidate.metadata.get(
+            "cleaner_later_competition_present"
+        ),
+        "cleaner_later_competitor_phrase": result.candidate.metadata.get(
+            "cleaner_later_competitor_phrase"
+        ),
+        "cleaner_later_competitor_prior": result.candidate.metadata.get(
+            "cleaner_later_competitor_prior"
+        ),
+        "kaikki_family_names": result.candidate.metadata.get("kaikki_family_names"),
+        "dictionary_record_views": result.candidate.metadata.get("dictionary_record_views"),
         "kaikki_policy_shadow": result.candidate.metadata.get("kaikki_policy_shadow"),
     }
 
@@ -227,12 +239,35 @@ def _print_target_block(
         source_frequency_note = ""
         if source_frequency_prior not in (None, 0, 0.0):
             source_frequency_note = f" sfreq={float(source_frequency_prior):.4f}"
+        competition_note = ""
+        if bool(row.get("cleaner_later_competition_present")):
+            competitor_phrase = str(row.get("cleaner_later_competitor_phrase") or "").strip()
+            competitor_prior = row.get("cleaner_later_competitor_prior")
+            competition_note = " clcmp=on"
+            if competitor_phrase:
+                competition_note += f":{competitor_phrase}"
+            if competitor_prior not in (None, 0, 0.0):
+                competition_note += f"@{float(competitor_prior):.4f}"
+        kaikki_note = ""
+        family_names = row.get("kaikki_family_names")
+        if isinstance(family_names, list):
+            normalized_families = [
+                str(value).strip() for value in family_names if str(value).strip()
+            ]
+        elif isinstance(family_names, tuple):
+            normalized_families = [
+                str(value).strip() for value in family_names if str(value).strip()
+            ]
+        else:
+            normalized_families = []
+        if normalized_families:
+            kaikki_note = f" kfam={'+'.join(normalized_families)}"
         print(
             f"    {index:02d}. [{marker}] src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
             f"bucket={bucket} gloss_index={gloss_index} "
             f"variant={variant} source_form={source_form} target_surface={target_surface}"
-            f"{reverse_note}{semantic_note}{source_frequency_note}"
+            f"{reverse_note}{semantic_note}{source_frequency_note}{competition_note}{kaikki_note}"
         )
 
     print("  capped:")
@@ -257,11 +292,34 @@ def _print_target_block(
         source_frequency_note = ""
         if source_frequency_prior not in (None, 0, 0.0):
             source_frequency_note = f" sfreq={float(source_frequency_prior):.4f}"
+        competition_note = ""
+        if bool(row.get("cleaner_later_competition_present")):
+            competitor_phrase = str(row.get("cleaner_later_competitor_phrase") or "").strip()
+            competitor_prior = row.get("cleaner_later_competitor_prior")
+            competition_note = " clcmp=on"
+            if competitor_phrase:
+                competition_note += f":{competitor_phrase}"
+            if competitor_prior not in (None, 0, 0.0):
+                competition_note += f"@{float(competitor_prior):.4f}"
+        kaikki_note = ""
+        family_names = row.get("kaikki_family_names")
+        if isinstance(family_names, list):
+            normalized_families = [
+                str(value).strip() for value in family_names if str(value).strip()
+            ]
+        elif isinstance(family_names, tuple):
+            normalized_families = [
+                str(value).strip() for value in family_names if str(value).strip()
+            ]
+        else:
+            normalized_families = []
+        if normalized_families:
+            kaikki_note = f" kfam={'+'.join(normalized_families)}"
         print(
             f"    {index:02d}. src='{row['source_phrase']}' "
             f"conf={float(row['confidence']):.4f} rank={float(row['rank_score']):.4f} "
             f"bucket={bucket} gloss_index={gloss_index}"
-            f"{reverse_note}{semantic_note}{source_frequency_note}"
+            f"{reverse_note}{semantic_note}{source_frequency_note}{competition_note}{kaikki_note}"
         )
 
 
@@ -357,7 +415,7 @@ def main() -> None:
         "--translation-dict-en-de",
         dest="translation_dict_en_de",
         type=Path,
-        help="Override translation-dictionary path for en-de probe.",
+        help="Override translation-dictionary path for en-de probe (wiktionary-de-en.sqlite / deu-eng.sqlite).",
     )
     parser.add_argument(
         "--translation-dict-es-en-reverse",
@@ -430,6 +488,11 @@ def main() -> None:
         help="Additive semantic demotion for late Kaikki senses when clean earlier competition exists.",
     )
     parser.add_argument(
+        "--kaikki-policy-live-demotion",
+        action="store_true",
+        help="Enable live Kaikki risk-family demotion when Kaikki/Wiktionary metadata is present.",
+    )
+    parser.add_argument(
         "--enable-exact-gloss-demotion",
         action="store_true",
         help="Enable exact phrase-level gloss demotion overrides in probe runs.",
@@ -438,6 +501,12 @@ def main() -> None:
         "--enable-source-frequency-prior",
         action="store_true",
         help="Enable English source-frequency prior for en-de probe runs.",
+    )
+    parser.add_argument(
+        "--cleaner-later-competition-penalty",
+        type=float,
+        default=0.0,
+        help="Semantic demotion applied to earlier en-de candidates when a cleaner later competitor exists.",
     )
     parser.add_argument(
         "--source-frequency-db-en-de",
@@ -605,6 +674,17 @@ def main() -> None:
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
                 source_frequency_db_path=resolved_source_frequency_db_en_de,
+                cleaner_later_competition_penalty=max(
+                    0.0,
+                    float(args.cleaner_later_competition_penalty),
+                ),
+                kaikki_policy=EnDeKaikkiPolicyConfig(
+                    enable_live_demotion=bool(args.kaikki_policy_live_demotion),
+                    late_sense_clean_earlier_competition_penalty=max(
+                        0.0,
+                        float(args.kaikki_policy_late_sense_penalty),
+                    ),
+                ),
             ),
         )
     ja_uncapped: list[RuleGenerationResult] = []
@@ -668,6 +748,17 @@ def main() -> None:
                 enable_exact_gloss_demotions=bool(args.enable_exact_gloss_demotion),
                 enable_source_frequency_prior=bool(args.enable_source_frequency_prior),
                 source_frequency_db_path=resolved_source_frequency_db_en_de,
+                cleaner_later_competition_penalty=max(
+                    0.0,
+                    float(args.cleaner_later_competition_penalty),
+                ),
+                kaikki_policy=EnDeKaikkiPolicyConfig(
+                    enable_live_demotion=bool(args.kaikki_policy_live_demotion),
+                    late_sense_clean_earlier_competition_penalty=max(
+                        0.0,
+                        float(args.kaikki_policy_late_sense_penalty),
+                    ),
+                ),
             ),
         )
     ja_capped: list[RuleGenerationResult] = []
@@ -712,8 +803,10 @@ def main() -> None:
         f"reverse_exact_hit_ambiguity_penalty={reverse_check.exact_hit_ambiguity_penalty}, "
         f"reverse_exact_hit_specificity_bonus={reverse_check.exact_hit_specificity_bonus}, "
         f"kaikki_policy_late_sense_penalty={max(0.0, float(args.kaikki_policy_late_sense_penalty))}, "
+        f"kaikki_policy_live_demotion={bool(args.kaikki_policy_live_demotion)}, "
         f"enable_exact_gloss_demotion={bool(args.enable_exact_gloss_demotion)}, "
-        f"enable_source_frequency_prior={bool(args.enable_source_frequency_prior)}"
+        f"enable_source_frequency_prior={bool(args.enable_source_frequency_prior)}, "
+        f"cleaner_later_competition_penalty={max(0.0, float(args.cleaner_later_competition_penalty))}"
     )
     for note in notes:
         print(f"  note: {note}")
@@ -735,6 +828,10 @@ def main() -> None:
             "score_weight_pos_match": args.score_weight_pos_match,
             "enable_exact_gloss_demotion": bool(args.enable_exact_gloss_demotion),
             "enable_source_frequency_prior": bool(args.enable_source_frequency_prior),
+            "cleaner_later_competition_penalty": max(
+                0.0,
+                float(args.cleaner_later_competition_penalty),
+            ),
             "reverse_check": {
                 "enabled": reverse_check.enabled,
                 "match_bonus": reverse_check.match_bonus,
@@ -750,6 +847,7 @@ def main() -> None:
                 0.0,
                 float(args.kaikki_policy_late_sense_penalty),
             ),
+            "kaikki_policy_live_demotion": bool(args.kaikki_policy_live_demotion),
         },
         "paths": {
             "data_root": str(paths.data_root),

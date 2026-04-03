@@ -16,7 +16,11 @@ from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.de_en import DeEnRulegenConfig, generate_de_en_results
-from lexishift_core.rulegen.pairs.en_de import EnDeRulegenConfig, generate_en_de_results
+from lexishift_core.rulegen.pairs.en_de import (
+    EnDeKaikkiPolicyConfig,
+    EnDeRulegenConfig,
+    generate_en_de_results,
+)
 from lexishift_core.rulegen.pairs.en_es import (
     EnEsCompiledResources,
     EnEsKaikkiPolicyConfig,
@@ -36,6 +40,8 @@ class RulegenAdapterRequest:
     confidence_threshold: float = 0.0
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
+    interleave_definition_groups: bool = False
+    sense_representative_selection: bool = False
     semantic_demotion_scale: float = 1.0
     include_variants: bool = True
     allow_multiword_glosses: bool = False
@@ -57,6 +63,7 @@ class RulegenAdapterRequest:
     kaikki_policy_late_sense_penalty: float = 0.0
     enable_exact_gloss_demotions: bool = False
     enable_source_frequency_prior: bool = False
+    cleaner_later_competition_penalty: float = 0.0
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
@@ -116,16 +123,22 @@ def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
 
 
 def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
-    translation_dict_path = _resolved_translation_dict_path(request)
-    if translation_dict_path is None:
+    translation_pack = _resolved_translation_pack(request)
+    if translation_pack is None:
         raise ValueError("Missing translation dictionary path for en-de rule generation.")
+    translation_dict_path = translation_pack.path
+    default_kaikki_policy = EnDeKaikkiPolicyConfig()
     config = EnDeRulegenConfig(
         freedict_de_en_path=translation_dict_path,
         language_pair=request.language_pair,
+        source_dict_id=translation_pack.pack_id,
+        dictionary_pos_source_profile=translation_pack.pos_source_profile,
         gloss_records_by_target=request.gloss_records_by_target,
         confidence_threshold=request.confidence_threshold,
         max_definitions_per_target=request.max_definitions_per_target,
         max_rules_per_target=request.max_rules_per_target,
+        interleave_definition_groups=request.interleave_definition_groups,
+        sense_representative_selection=request.sense_representative_selection,
         semantic_demotion_scale=request.semantic_demotion_scale,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
@@ -135,6 +148,18 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
         enable_source_frequency_prior=request.enable_source_frequency_prior,
         source_frequency_db_path=request.source_frequency_db_path,
+        cleaner_later_competition_penalty=request.cleaner_later_competition_penalty,
+        kaikki_policy=EnDeKaikkiPolicyConfig(
+            enable_shadow_metadata=True,
+            enable_live_demotion=bool(request.kaikki_policy_live_demotion),
+            late_sense_clean_earlier_competition_penalty=max(
+                0.0,
+                float(request.kaikki_policy_late_sense_penalty),
+            ),
+            risk_families=tuple(
+                request.kaikki_policy_risk_families or default_kaikki_policy.risk_families
+            ),
+        ),
     )
     results = generate_en_de_results(request.targets, config=config)
     return [result.rule for result in results]

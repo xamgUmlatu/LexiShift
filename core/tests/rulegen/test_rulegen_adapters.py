@@ -217,6 +217,37 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(rules[0].replacement, "Haus")
         generate.assert_called_once()
 
+    def test_en_de_adapter_infers_wiktionary_profile_from_translation_path(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    kaikki_policy_live_demotion=True,
+                    kaikki_policy_risk_families=("government_law",),
+                    kaikki_policy_late_sense_penalty=0.2,
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        config = kwargs["config"]
+        self.assertEqual(config.source_dict_id, "wiktionary_de_en")
+        self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
+        self.assertTrue(config.kaikki_policy.enable_live_demotion)
+        self.assertEqual(config.kaikki_policy.risk_families, ("government_law",))
+        self.assertAlmostEqual(
+            config.kaikki_policy.late_sense_clean_earlier_competition_penalty,
+            0.2,
+            places=6,
+        )
+
     def test_en_de_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -1057,6 +1088,261 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual([rule.source_phrase for rule in rules], ["house", "home", "dwelling"])
         self.assertTrue(all(rule.replacement == "haus" for rule in rules))
 
+    def test_en_de_adapter_splits_semicolon_kaikki_gloss_to_recover_single_word_candidate(
+        self,
+    ) -> None:
+        records = {
+            "Leben": [
+                FreedictGlossRecord(
+                    translation="life; being alive",
+                    pos_raw="noun",
+                    metadata={"sense_tags": ("feminine",)},
+                )
+            ]
+        }
+        rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Leben",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in rules], ["life"])
+
+    def test_en_de_adapter_splits_kaikki_comma_glosses_and_strips_articles(self) -> None:
+        records = {
+            "Weg": [
+                FreedictGlossRecord(
+                    translation="path, trail, track (usually for foot traffic)",
+                    pos_raw="noun",
+                    metadata={"sense_categories": ("German terms with usage examples",)},
+                )
+            ],
+            "Stuhl": [
+                FreedictGlossRecord(
+                    translation="a chair (to sit on)",
+                    pos_raw="noun",
+                    metadata={},
+                )
+            ],
+        }
+        weg_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Weg",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        stuhl_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Stuhl",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in weg_rules], ["path", "trail", "track"])
+        self.assertEqual([rule.source_phrase for rule in stuhl_rules], ["chair"])
+
+    def test_en_de_adapter_extracts_colon_suffixes_and_drops_boilerplate_glosses(self) -> None:
+        records = {
+            "Ordentlich": [
+                FreedictGlossRecord(
+                    translation="in good condition: clean; neat; well-kept; developed",
+                    pos_raw="adjective",
+                    metadata={"sense_tags": ("predicative",)},
+                )
+            ],
+            "Es": [
+                FreedictGlossRecord(
+                    translation=(
+                        "Used to indicate that something exists (often with a certain property "
+                        "and/or in a certain location). Usually translated as there is/are or "
+                        "there exist(s)"
+                    ),
+                    pos_raw="particle",
+                    metadata={"sense_topics": ("grammar",)},
+                )
+            ],
+        }
+        ordentlich_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Ordentlich",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+                max_definitions_per_target=4,
+            )
+        )
+        es_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Es",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in ordentlich_rules],
+            ["clean", "neat", "well-kept", "developed"],
+        )
+        self.assertEqual(es_rules, [])
+
+    def test_en_de_adapter_splits_simple_slash_variants_and_strips_orphaned_delimiters(
+        self,
+    ) -> None:
+        records = {
+            "Polar": [
+                FreedictGlossRecord(
+                    translation="solid/liquid",
+                    pos_raw="adjective",
+                    metadata={},
+                )
+            ],
+            "Fragt": [
+                FreedictGlossRecord(
+                    translation="(second-person singular present of fragen",
+                    pos_raw="verb",
+                    metadata={"sense_categories": ("German verb forms",)},
+                )
+            ],
+        }
+        polar_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Polar",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        fragt_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Fragt",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in polar_rules], ["solid", "liquid"])
+        self.assertEqual(fragt_rules, [])
+
+    def test_en_de_adapter_trims_head_qualifiers_for_word_and_mouth_glosses(self) -> None:
+        records = {
+            "Wort": [
+                FreedictGlossRecord(
+                    translation="word as an isolated unit",
+                    pos_raw="noun",
+                    metadata={"sense_raw_glosses": ("word as an isolated unit",)},
+                ),
+                FreedictGlossRecord(
+                    translation="utterance, word with context",
+                    pos_raw="noun",
+                    metadata={"sense_raw_glosses": ("utterance, word with context",)},
+                ),
+            ],
+            "Mund": [
+                FreedictGlossRecord(
+                    translation="mouth of a person",
+                    pos_raw="noun",
+                    metadata={},
+                )
+            ],
+        }
+        wort_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Wort",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        mund_rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Mund",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in wort_rules], ["word", "utterance"])
+        self.assertEqual([rule.source_phrase for rule in mund_rules], ["mouth"])
+
+    def test_en_de_adapter_demotes_marked_kaikki_senses(self) -> None:
+        records = {
+            "Mund": [
+                FreedictGlossRecord(
+                    translation="hand",
+                    pos_raw="noun",
+                    metadata={"sense_tags": ("obsolete",)},
+                ),
+                FreedictGlossRecord(
+                    translation="mouth of a person",
+                    pos_raw="noun",
+                    metadata={},
+                ),
+            ]
+        }
+        rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Mund",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in rules], ["mouth", "hand"])
+
+    def test_en_de_adapter_interleaves_kaikki_sense_groups_when_enabled(self) -> None:
+        records = {
+            "Zug": [
+                FreedictGlossRecord(
+                    translation="procession, train",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1027, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="pull",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1027, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        rules = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Zug",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=records,
+                include_variants=False,
+                max_definitions_per_target=2,
+                interleave_definition_groups=True,
+            )
+        )
+        self.assertEqual([rule.source_phrase for rule in rules], ["procession", "pull", "train"])
+
     def test_en_de_adapter_uses_source_frequency_prior_when_enabled(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -1121,6 +1407,256 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertEqual(
             [rule.source_phrase for rule in with_prior],
             ["house", "establishment", "institution"],
+        )
+
+    def test_en_de_adapter_prefers_same_sense_representative_when_enabled(self) -> None:
+        records = {
+            "Zug": [
+                FreedictGlossRecord(
+                    translation="procession, train",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1027, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="pull",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 1027, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+                    [
+                        ("procession", 1000.0, 1.0),
+                        ("train", 10.0, 700.0),
+                        ("pull", 100.0, 100.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_selection = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Zug",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=2,
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                )
+            )
+            with_selection = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Zug",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=2,
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                )
+            )
+        self.assertEqual(
+            [rule.source_phrase for rule in without_selection],
+            ["procession", "train", "pull"],
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in with_selection],
+            ["train", "procession", "pull"],
+        )
+
+    def test_en_de_adapter_sense_representative_selection_keeps_direct_gloss_over_trimmed_head(
+        self,
+    ) -> None:
+        records = {
+            "Stimme": [
+                FreedictGlossRecord(
+                    translation="voice (speaking or singing), call of an animal",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 6622, "sense_ord": 0, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+                    [
+                        ("voice", 100.0, 10.0),
+                        ("call", 10.0, 500.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_selection = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Stimme",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                )
+            )
+            with_selection = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Stimme",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in without_selection], ["voice"])
+        self.assertEqual([rule.source_phrase for rule in with_selection], ["voice"])
+
+    def test_en_de_adapter_demotes_earlier_candidate_when_cleaner_later_competition_exists(
+        self,
+    ) -> None:
+        tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <text>
+    <body>
+      <entry>
+        <form><orth>Grund</orth></form>
+        <sense>
+          <cit type="trans"><quote xml:lang="en">motive</quote></cit>
+          <cit type="trans"><quote xml:lang="en">motivation</quote></cit>
+          <cit type="trans"><quote xml:lang="en">reason</quote></cit>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            path = base / "deu-eng.tei"
+            path.write_text(tei_payload, encoding="utf-8")
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("motive", 1.0),
+                        ("motivation", 1.0),
+                        ("reason", 1000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_competition = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=path,
+                    include_variants=False,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                )
+            )
+            with_competition = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=path,
+                    include_variants=False,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    cleaner_later_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual(
+            [rule.source_phrase for rule in without_competition],
+            ["motive", "motivation", "reason"],
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in with_competition],
+            ["reason", "motive", "motivation"],
+        )
+
+    def test_en_de_adapter_uses_kaikki_policy_live_demotion_when_risky_family_present(
+        self,
+    ) -> None:
+        risky_records = {
+            "Haus": [
+                FreedictGlossRecord(
+                    translation="institution",
+                    pos_raw="noun",
+                    metadata={"sense_tags": ("abbreviation",)},
+                ),
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={},
+                ),
+            ]
+        }
+        without_policy = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Haus",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=risky_records,
+                include_variants=False,
+            )
+        )
+        with_policy = run_rules_with_adapter(
+            RulegenAdapterRequest(
+                pair="en-de",
+                targets=("Haus",),
+                language_pair="en-de",
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                gloss_records_by_target=risky_records,
+                include_variants=False,
+                kaikki_policy_live_demotion=True,
+                kaikki_policy_risk_families=("abbreviation_ellipsis_formof",),
+            )
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in without_policy],
+            ["institution", "house"],
+        )
+        self.assertEqual(
+            [rule.source_phrase for rule in with_policy],
+            ["house", "institution"],
         )
 
     def test_en_de_adapter_strips_infinitive_marker_before_single_word_filter(self) -> None:

@@ -113,6 +113,10 @@ class LanguagePackDownloadThread(QThread):
                 f"[{self._pack_id}] starting download url={self._url} dest={self._dest_path} "
                 f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
             )
+            # TODO(kaikki-cache): Kaikki managed packs currently download their raw dump into
+            # each pack root independently. Cache large raw archives by shared source URL/hash
+            # and link pack-local filenames to that shared blob so users do not re-download the
+            # same multi-GB Wiktextract dump for every Kaikki-derived pack.
             request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
             with _open_request(request, timeout=30) as response:
                 status = getattr(response, "status", None)

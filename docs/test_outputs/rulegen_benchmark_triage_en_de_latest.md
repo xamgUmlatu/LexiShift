@@ -9,13 +9,13 @@
 | en-de | `en-de:Haus` | Haus | REVIEW | top1_not_in_expected_set | establishment | establishment, institution, house |
 | en-de | `en-de:Schule` | Schule | REVIEW | top1_not_in_expected_set | pod | pod, school, group |
 | en-de | `en-de:Weg` | Weg | REVIEW | top1_not_in_expected_set | alley | alley, way, walk |
-| en-de | `en-de:Zeit` | Zeit | FAIL | forbidden_candidate_present | spell | spell, time, faff |
+| en-de | `en-de:Zeit` | Zeit | FAIL | forbidden_candidate_present | spell | spell, time, most |
 | en-de | `en-de:Sprache` | Sprache | FAIL | forbidden_candidate_present | diction | diction, language, tongue |
-| en-de | `en-de:Fenster` | Fenster | FAIL | forbidden_candidate_present | box | box, window, windowed |
-| en-de | `en-de:Tag` | Tag | FAIL | forbidden_candidate_present | tag | tag, day, doomsday |
+| en-de | `en-de:Fenster` | Fenster | FAIL | forbidden_candidate_present | box | box, window, out |
+| en-de | `en-de:Tag` | Tag | FAIL | forbidden_candidate_present | tag | tag, day, most |
 | en-de | `en-de:Stunde` | Stunde | FAIL | forbidden_candidate_present | lesson | lesson, hour, period |
 | en-de | `en-de:Kopf` | Kopf | FAIL | forbidden_candidate_present | mind | mind, spirit, head |
-| en-de | `en-de:Gesicht` | Gesicht | FAIL | forbidden_candidate_present | facies | facies, face, visage |
+| en-de | `en-de:Gesicht` | Gesicht | FAIL | forbidden_candidate_present | facies | facies, appearance, face |
 | en-de | `en-de:Ohr` | Ohr | FAIL | forbidden_candidate_present | hearing | hearing, audition, ear |
 | en-de | `en-de:Fuß` | Fuß | FAIL | forbidden_candidate_present | base | base, foot, head |
 | en-de | `en-de:Straße` | Straße | FAIL | forbidden_candidate_present, expected_candidate_missing_from_top3 | avenue | avenue, alley, strait |
@@ -101,7 +101,7 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: spell",
-    "Observed top3 sources: spell, time, faff"
+    "Observed top3 sources: spell, time, most"
   ],
   "candidate_forbidden_top1": [
     "spell"
@@ -109,7 +109,7 @@
   "candidate_expected_any": [
     "spell",
     "time",
-    "faff"
+    "most"
   ]
 }
 ```
@@ -143,7 +143,7 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: box",
-    "Observed top3 sources: box, window, windowed"
+    "Observed top3 sources: box, window, out"
   ],
   "candidate_forbidden_top1": [
     "box"
@@ -151,7 +151,7 @@
   "candidate_expected_any": [
     "box",
     "window",
-    "windowed"
+    "out"
   ]
 }
 ```
@@ -164,7 +164,7 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: tag",
-    "Observed top3 sources: tag, day, doomsday"
+    "Observed top3 sources: tag, day, most"
   ],
   "candidate_forbidden_top1": [
     "tag"
@@ -172,7 +172,7 @@
   "candidate_expected_any": [
     "tag",
     "day",
-    "doomsday"
+    "most"
   ]
 }
 ```
@@ -227,15 +227,15 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: facies",
-    "Observed top3 sources: facies, face, visage"
+    "Observed top3 sources: facies, appearance, face"
   ],
   "candidate_forbidden_top1": [
     "facies"
   ],
   "candidate_expected_any": [
     "facies",
-    "face",
-    "visage"
+    "appearance",
+    "face"
   ]
 }
 ```

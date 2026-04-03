@@ -22,6 +22,48 @@ from lexishift_core.resources.kaikki_sqlite import (  # noqa: E402
 
 
 class TestKaikkiSqliteConversion(unittest.TestCase):
+    def test_converter_supports_german_to_english_gloss_exports(self) -> None:
+        records = [
+            {
+                "word": "Haus",
+                "lang": "German",
+                "lang_code": "de",
+                "pos": "noun",
+                "forms": [{"form": "Häuser", "tags": ["plural"]}],
+                "senses": [
+                    {
+                        "glosses": ["house", "building"],
+                        "raw_glosses": ["house", "building"],
+                        "topics": ["architecture"],
+                    }
+                ],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            input_path = Path(tmp) / "raw-wiktextract-data-de-en.jsonl.gz"
+            output_path = Path(tmp) / "wiktionary-de-en.sqlite"
+            with gzip.open(input_path, "wt", encoding="utf-8") as handle:
+                for record in records:
+                    handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+            metadata = convert_kaikki_glosses_to_sqlite(
+                input_path,
+                output_path,
+                source_lang_code="de",
+                gloss_language="en",
+                source_provider="wiktionary-de-en",
+                source_dump="enwiktionary",
+                overwrite=True,
+            )
+            records_by_headword = load_freedict_sqlite_gloss_records_ordered(output_path)
+            self.assertEqual(metadata["selected_records"], 1)
+            self.assertEqual(metadata["inserted_sense_rows"], 2)
+            self.assertIn("Haus", records_by_headword)
+            self.assertEqual(
+                [entry.translation for entry in records_by_headword["Haus"]],
+                ["house", "building"],
+            )
+            self.assertEqual(records_by_headword["Haus"][0].pos_raw, "noun")
+
     def test_converter_emits_compatibility_entries_and_preserves_metadata(self) -> None:
         records = [
             {

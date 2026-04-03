@@ -106,9 +106,9 @@ Use this table when evaluating a pair.
 | Exact phrase-level demotion overrides | Yes | Opt-in | Opt-in | Default-off for canonical benchmarks. |
 | Source-side commonness / frequency prior | Yes | No | Experimental | `en-de` now has a default-off source-frequency prior backed by an English frequency DB; current evidence improves top3 recovery more than top1 cleanup. |
 | Reverse-check | Yes | Yes | No | `en-de` sweep exposes knobs but adapter/pair do not consume them yet. |
-| Kaikki live demotion | Yes | Yes | No | `en-de` currently has no Kaikki policy layer. |
-| Kaikki risk-family controls | Yes | Yes | No | Same as above. |
-| Late-sense competition penalty | Yes | Yes | No | `en-es` uses this via Kaikki policy; `en-de` does not. |
+| Kaikki live demotion | Yes | Yes | Experimental | `en-de` now consumes default-off Kaikki risk-family live demotion when the translation source is a Wiktionary/Kaikki-style SQLite with metadata. |
+| Kaikki risk-family controls | Yes | Yes | Experimental | Same as above; the sweep knobs are now live for `en-de` when Kaikki metadata is present. |
+| Late-sense competition penalty | Yes | Yes | Experimental | `en-de` now has a minimal Kaikki-backed late-sense penalty path, but no committed Kaikki benchmark lane yet. |
 | Provenance competition scoring | No generic seam | Yes | No | Currently pair-specific to richer `en-es` implementation. |
 | Compiled pair resources | Partly | Yes | No | Primarily a performance/inspection advantage today. |
 
