@@ -74,7 +74,9 @@ class LanguagePackPanel(
         self._frequency_pack_threads: list[FrequencyPackDownloadThread] = []
         self._embedding_conversion_threads: list[EmbeddingConversionThread] = []
         self._language_pack_paths: dict[str, str] = {}
+        self._managed_language_pack_ids: set[str] = set()
         self._frequency_pack_paths: dict[str, str] = {}
+        self._managed_frequency_pack_ids: set[str] = set()
         self._embedding_pack_paths: dict[str, str] = {}
         self._embedding_pair_pack_ids: dict[str, list[str]] = {}
         self._embedding_pair_paths: dict[str, list[str]] = {}
@@ -272,10 +274,13 @@ class LanguagePackPanel(
         if not valid:
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
             self._set_status_message(message, tone="error")
-            self._language_pack_paths.pop(pack_id, None)
+            self._clear_language_pack_entry(pack_id)
             self._refresh_language_pack_table()
             return
-        self._language_pack_paths[pack_id] = path
+        if self._is_managed_translation_pack_entry(pack_id, path):
+            self._set_managed_language_pack_entry(pack_id)
+        else:
+            self._set_manual_language_pack_entry(pack_id, path)
         self._set_status_message(
             t(
                 "language_packs.installed_linked"
@@ -304,10 +309,13 @@ class LanguagePackPanel(
         if not valid:
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
             self._set_status_message(message, tone="error")
-            self._frequency_pack_paths.pop(pack_id, None)
+            self._clear_frequency_pack_entry(pack_id)
             self._refresh_frequency_pack_table()
             return
-        self._frequency_pack_paths[pack_id] = path
+        if self._is_managed_frequency_pack_entry(pack_id, path):
+            self._set_managed_frequency_pack_entry(pack_id)
+        else:
+            self._set_manual_frequency_pack_entry(pack_id, path)
         self._set_status_message(
             t(
                 "language_packs.installed_linked"
@@ -383,7 +391,7 @@ class LanguagePackPanel(
                 t("language_packs.title"),
                 t("language_packs.no_local_files", name=pack.display_name()),
             )
-            self._language_pack_paths.pop(pack_id, None)
+            self._clear_language_pack_entry(pack_id)
             self._refresh_language_pack_table()
             return
         if unlink_only:
@@ -399,7 +407,7 @@ class LanguagePackPanel(
         )
         if reply != QMessageBox.Yes:
             return
-        self._language_pack_paths.pop(pack_id, None)
+        self._clear_language_pack_entry(pack_id)
         for path in delete_paths:
             self._remove_path(path)
         self._set_status_message(t("language_packs.removed", name=pack.display_name()))
@@ -439,7 +447,7 @@ class LanguagePackPanel(
                 t("language_packs.frequency_title"),
                 t("language_packs.no_local_files", name=pack.display_name()),
             )
-            self._frequency_pack_paths.pop(pack_id, None)
+            self._clear_frequency_pack_entry(pack_id)
             self._refresh_frequency_pack_table()
             return
         if unlink_only:
@@ -455,7 +463,7 @@ class LanguagePackPanel(
         )
         if reply != QMessageBox.Yes:
             return
-        self._frequency_pack_paths.pop(pack_id, None)
+        self._clear_frequency_pack_entry(pack_id)
         for path in delete_paths:
             self._remove_path(path)
         self._set_status_message(t("language_packs.removed", name=pack.display_name()))
@@ -645,25 +653,28 @@ class LanguagePackPanel(
 
     def _auto_link_downloaded_packs(self) -> None:
         for pack_id, pack in self._language_pack_info.items():
-            if pack_id in self._language_pack_paths:
+            if pack_id in self._language_pack_paths or pack_id in self._managed_language_pack_ids:
                 continue
             candidate = self._resolve_downloaded_path(pack)
             if not candidate:
                 continue
             valid, _message = self._validate_language_pack_path(pack, candidate)
             if valid:
-                self._language_pack_paths[pack_id] = candidate
+                if self._is_pack_id_first_translation_pack(pack):
+                    self._set_managed_language_pack_entry(pack_id)
+                else:
+                    self._set_manual_language_pack_entry(pack_id, candidate)
 
     def _auto_link_downloaded_frequency_packs(self) -> None:
         for pack_id, pack in self._frequency_pack_info.items():
-            if pack_id in self._frequency_pack_paths:
+            if pack_id in self._frequency_pack_paths or pack_id in self._managed_frequency_pack_ids:
                 continue
             candidate = self._resolve_frequency_pack_path(pack)
             if not candidate:
                 continue
             valid, _message = self._validate_frequency_pack_path(pack, candidate)
             if valid:
-                self._frequency_pack_paths[pack_id] = candidate
+                self._set_managed_frequency_pack_entry(pack_id)
 
     def _auto_link_downloaded_embeddings(self) -> None:
         for pack_id, pack in self._embedding_pack_info.items():
@@ -682,7 +693,10 @@ class LanguagePackPanel(
             dest_path = self._normalize_wordnet_path(dest_path)
         valid, message = self._validate_language_pack_path(pack, dest_path)
         if valid:
-            self._language_pack_paths[pack_id] = dest_path
+            if self._is_pack_id_first_translation_pack(pack):
+                self._set_managed_language_pack_entry(pack_id)
+            else:
+                self._set_manual_language_pack_entry(pack_id, dest_path)
             row.status_item.setText(t("language_packs.status.installed"))
             self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
@@ -691,7 +705,7 @@ class LanguagePackPanel(
                 tone="success",
             )
         else:
-            self._language_pack_paths.pop(pack_id, None)
+            self._clear_language_pack_entry(pack_id)
             row.status_item.setText(t("language_packs.status.invalid"))
             self._set_status_item_tone(row.status_item, "error")
             row.status_item.setToolTip(dest_path)
@@ -710,7 +724,7 @@ class LanguagePackPanel(
             return
         valid, message = self._validate_frequency_pack_path(pack, dest_path)
         if valid:
-            self._frequency_pack_paths[pack_id] = dest_path
+            self._set_managed_frequency_pack_entry(pack_id)
             row.status_item.setText(t("language_packs.status.installed"))
             self._set_status_item_tone(row.status_item, "success")
             row.status_item.setToolTip(dest_path)
@@ -719,7 +733,7 @@ class LanguagePackPanel(
                 tone="success",
             )
         else:
-            self._frequency_pack_paths.pop(pack_id, None)
+            self._clear_frequency_pack_entry(pack_id)
             row.status_item.setText(t("language_packs.status.invalid"))
             self._set_status_item_tone(row.status_item, "error")
             row.status_item.setToolTip(dest_path)

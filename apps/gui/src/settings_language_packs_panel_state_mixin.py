@@ -34,31 +34,35 @@ class LanguagePackPanelStateMixin:
     def paths(self) -> dict[str, str]:
         paths: dict[str, str] = {}
         for pack_id, path in self._language_pack_paths.items():
-            if self._is_managed_translation_pack_entry(pack_id, path):
+            if pack_id in getattr(self, "_managed_language_pack_ids", set()) or (
+                self._is_managed_translation_pack_entry(pack_id, path)
+            ):
                 continue
             paths[pack_id] = path
         return paths
 
     def managed_language_pack_ids(self) -> list[str]:
-        pack_ids: list[str] = []
+        pack_ids = set(getattr(self, "_managed_language_pack_ids", set()) or set())
         for pack_id, path in self._language_pack_paths.items():
             if self._is_managed_translation_pack_entry(pack_id, path):
-                pack_ids.append(pack_id)
+                pack_ids.add(pack_id)
         return sorted(pack_ids)
 
     def frequency_paths(self) -> dict[str, str]:
         paths: dict[str, str] = {}
         for pack_id, path in self._frequency_pack_paths.items():
-            if self._is_managed_frequency_pack_entry(pack_id, path):
+            if pack_id in getattr(self, "_managed_frequency_pack_ids", set()) or (
+                self._is_managed_frequency_pack_entry(pack_id, path)
+            ):
                 continue
             paths[pack_id] = path
         return paths
 
     def managed_frequency_pack_ids(self) -> list[str]:
-        pack_ids: list[str] = []
+        pack_ids = set(getattr(self, "_managed_frequency_pack_ids", set()) or set())
         for pack_id, path in self._frequency_pack_paths.items():
             if self._is_managed_frequency_pack_entry(pack_id, path):
-                pack_ids.append(pack_id)
+                pack_ids.add(pack_id)
         return sorted(pack_ids)
 
     def embedding_paths(self) -> dict[str, str]:
@@ -177,15 +181,20 @@ class LanguagePackPanelStateMixin:
 
     def _seed_language_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._language_pack_paths = dict(getattr(synonym_settings, "language_pack_paths", {}) or {})
+        self._managed_language_pack_ids = set()
         for pack_id in tuple(getattr(synonym_settings, "managed_language_pack_ids", ()) or ()):
-            if pack_id in self._language_pack_paths:
-                continue
             pack = self._language_pack_info.get(pack_id)
             if not self._is_pack_id_first_translation_pack(pack):
                 continue
             candidate = self._resolve_downloaded_path(pack)
             if candidate:
-                self._language_pack_paths[pack_id] = candidate
+                valid, _message = self._validate_language_pack_path(pack, candidate)
+                if valid:
+                    self._managed_language_pack_ids.add(pack_id)
+        for pack_id, path in tuple(self._language_pack_paths.items()):
+            if self._is_managed_translation_pack_entry(pack_id, path):
+                self._managed_language_pack_ids.add(pack_id)
+                self._language_pack_paths.pop(pack_id, None)
         if synonym_settings.wordnet_dir:
             self._language_pack_paths.setdefault("wordnet-en", synonym_settings.wordnet_dir)
         if synonym_settings.moby_path:
@@ -195,13 +204,18 @@ class LanguagePackPanelStateMixin:
         self._frequency_pack_paths = dict(
             getattr(synonym_settings, "frequency_pack_paths", {}) or {}
         )
+        self._managed_frequency_pack_ids = set()
         for pack_id in tuple(getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()):
-            if pack_id in self._frequency_pack_paths:
-                continue
             pack = self._frequency_pack_info.get(pack_id)
             candidate = self._resolve_frequency_pack_path(pack) if pack else None
             if candidate:
-                self._frequency_pack_paths[pack_id] = candidate
+                valid, _message = self._validate_frequency_pack_path(pack, candidate)
+                if valid:
+                    self._managed_frequency_pack_ids.add(pack_id)
+        for pack_id, path in tuple(self._frequency_pack_paths.items()):
+            if self._is_managed_frequency_pack_entry(pack_id, path):
+                self._managed_frequency_pack_ids.add(pack_id)
+                self._frequency_pack_paths.pop(pack_id, None)
 
     def _seed_embedding_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
         self._embedding_pack_paths = dict(
@@ -252,6 +266,18 @@ class LanguagePackPanelStateMixin:
             return False
         return path_text == resolved
 
+    def _set_manual_language_pack_entry(self, pack_id: str, path: str) -> None:
+        self._managed_language_pack_ids.discard(pack_id)
+        self._language_pack_paths[pack_id] = path
+
+    def _set_managed_language_pack_entry(self, pack_id: str) -> None:
+        self._language_pack_paths.pop(pack_id, None)
+        self._managed_language_pack_ids.add(pack_id)
+
+    def _clear_language_pack_entry(self, pack_id: str) -> None:
+        self._language_pack_paths.pop(pack_id, None)
+        self._managed_language_pack_ids.discard(pack_id)
+
     def _is_managed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
         path_text = str(path or "").strip()
         if not path_text or not self._is_frequency_pack_data_path(path_text):
@@ -261,6 +287,18 @@ class LanguagePackPanelStateMixin:
         if not resolved:
             return False
         return path_text == resolved
+
+    def _set_manual_frequency_pack_entry(self, pack_id: str, path: str) -> None:
+        self._managed_frequency_pack_ids.discard(pack_id)
+        self._frequency_pack_paths[pack_id] = path
+
+    def _set_managed_frequency_pack_entry(self, pack_id: str) -> None:
+        self._frequency_pack_paths.pop(pack_id, None)
+        self._managed_frequency_pack_ids.add(pack_id)
+
+    def _clear_frequency_pack_entry(self, pack_id: str) -> None:
+        self._frequency_pack_paths.pop(pack_id, None)
+        self._managed_frequency_pack_ids.discard(pack_id)
 
     def _is_installed_frequency_pack_entry(self, pack_id: str, path: str) -> bool:
         path_text = str(path or "").strip()
