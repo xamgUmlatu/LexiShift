@@ -104,6 +104,9 @@ def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list
                 "scripts/dev/dev_workflow_summary.py",
                 "scripts/dev/dev_workflow_style_check.py",
                 "scripts/dev/dev_workflow_style_summary.py",
+                "scripts/dev/check_rulegen_lp_profiles.py",
+                "scripts/dev/check_rulegen_lp_conformance.py",
+                "scripts/dev/scaffold_rulegen_lp.py",
                 "scripts/dev/windows_parity_audit.py",
                 "scripts/dev/windows_parity_summary.py",
             ],
@@ -115,6 +118,14 @@ def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list
         (
             "doc_references",
             [sys.executable, "scripts/dev/check_doc_references.py"],
+        ),
+        (
+            "rulegen_lp_profiles",
+            [sys.executable, "scripts/dev/check_rulegen_lp_profiles.py"],
+        ),
+        (
+            "rulegen_lp_conformance",
+            [sys.executable, "scripts/dev/check_rulegen_lp_conformance.py"],
         ),
         (
             "repo_style_strict",

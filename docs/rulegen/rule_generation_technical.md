@@ -13,6 +13,7 @@ Scope
 
 Companion current references
 - `docs/rulegen/rulegen_lp_support_guide.md` is the current implementation-facing map for LP support layers, benchmark/probe artifacts, and new-LP bring-up workflow.
+- `docs/rulegen/lp_onboarding_operating_model.md` is the onboarding/process contract for turning those support layers into a repeatable LP golden path.
 - `docs/rulegen/rulegen_congruity_implementation_plan.md` records the top-3/scoring hardening history and phase-by-phase implementation findings.
 
 Key concepts

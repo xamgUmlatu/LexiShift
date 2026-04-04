@@ -85,6 +85,8 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Diagram status tracker + files: `architecture/diagrams/README.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
+- Rulegen LP onboarding operating model: `rulegen/lp_onboarding_operating_model.md`
+- Rulegen LP onboarding checklist template: `rulegen/lp_onboarding_checklist_template.md`
 - Rulegen LP support guide (mechanism stack + LP bring-up): `rulegen/rulegen_lp_support_guide.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
 - POS normalization workstream (SRS + rulegen + LP onboarding): `rulegen/pos_normalization_workstream.md`

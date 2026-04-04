@@ -94,7 +94,42 @@ Use this file when:
 - Known gaps:
   - Current full canonical sweep now batch-prepares compiled score inputs and selected-row tables, but case-summary reduction still executes one config at a time; the next major performance frontier is denser config-matrix evaluation over compiled candidate rows and later batch case-summary reduction.
   - The implementation is still pair-heavy in `en-es`, and the newly explicit backend-neutral resource contract is only the first slice, not the final generalized pack abstraction.
+  - `en-de` now has a compiled resource context (`EnDeCompiledResources`), candidate-row IR, and a first reusable prepared score-table plus selected-row sweep path for non-variant runs, but it still lacks the fuller `en-es` compiled filter/score-table stack and broader compiled sweep reuse.
   - Current active `en-es` benchmark path still does not have a broadly profitable GPU-shaped workload because it lacks an active embedding/neural scoring backend and is still dominated by preprocessing, selection, and resource work even though the score projection path now has both numeric `numpy` and guarded optional `torch` implementations.
+
+## Rulegen LP Onboarding Scaffold
+
+- Status: `implemented`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-04-04` rulegen LP onboarding now has a machine-readable profile contract, profile validator, a profile-to-repo conformance audit, checklist/operating-model docs, and a template-driven scaffold that can render benchmark/profile stubs plus optional roadmap, pair-module, adapter-contract starter-test, integration-handoff, and benchmark-preset-starter files for a new pair
+- Last verified: `2026-04-04` focused scaffold tests, `check:lp-profiles`, `check:docs`, and `check:state`
+- Default behavior:
+  - LP onboarding now has a documented operating model in `docs/rulegen/lp_onboarding_operating_model.md` and a reusable checklist in `docs/rulegen/lp_onboarding_checklist_template.md`.
+  - Machine-readable pair contracts now live under `docs/test_inputs/rulegen_lp_profiles/` and are validated by `npm --prefix scripts run check:lp-profiles`.
+  - Repo alignment for those profiles is now validated separately by `npm --prefix scripts run check:lp-conformance`, which audits pair-derived path conventions, preset pair wiring, latest benchmark artifact pair presence, wrapper-command pair mentions, pair-module symbol naming, pair exports in `rulegen/pairs/__init__.py`, adapter registration in `rulegen/adapters.py`, and capability-mode registration in `helper/lp_capabilities.py`.
+  - `npm --prefix scripts run scaffold:rulegen:lp -- ...` now acts as a thin scaffold orchestrator:
+    - schema-driven JSON for LP profiles and benchmark case stubs
+    - template-driven text/code rendering for roadmaps, pair-module stubs, adapter-contract starter tests, integration-handoff docs for central wiring follow-ups, and benchmark-preset starter snippets
+  - The scaffold deliberately does not invent LP-specific normalization rules, family mappings, benchmark expectations, ranking decisions, adapter registration, or quality claims.
+- Evidence:
+  - `docs/rulegen/lp_onboarding_operating_model.md`
+  - `docs/rulegen/lp_onboarding_checklist_template.md`
+  - `docs/test_inputs/rulegen_lp_profiles/README.md`
+  - `docs/test_inputs/rulegen_lp_profiles/profile.schema.json`
+  - `scripts/dev/check_rulegen_lp_profiles.py`
+  - `scripts/dev/check_rulegen_lp_conformance.py`
+  - `scripts/dev/scaffold_rulegen_lp.py`
+  - `scripts/dev/templates/rulegen_lp/workstream_roadmap.md.tmpl`
+  - `scripts/dev/templates/rulegen_lp/pair_module.py.tmpl`
+  - `scripts/dev/templates/rulegen_lp/pair_test.py.tmpl`
+  - `scripts/dev/templates/rulegen_lp/integration_handoff.md.tmpl`
+  - `scripts/dev/templates/rulegen_lp/benchmark_preset_starter.md.tmpl`
+  - `core/tests/dev/test_scaffold_rulegen_lp.py`
+  - `scripts/package.json`
+- Known gaps:
+  - The scaffold still does not wire adapter registration, benchmark presets, pair exports, or central routing updates for a new pair; it now generates those follow-ups as an explicit handoff instead of editing central files automatically.
+  - LP-specific benchmark cases, normalization profiles, metadata-family mappings, and ranking decisions remain manual by design.
+  - The scaffold is currently a generator plus templates, not yet a full profile-driven code registry updater.
+  - The conformance audit currently enforces benchmark/preset conventions plus central pair export/adapter/capability registration for profiled pairs, but it still does not inspect benchmark summary commands, package-level convenience scripts, or pair-specific roadmap freshness.
 
 ## Data Source Normalization Architecture
 
@@ -231,8 +266,8 @@ Use this file when:
 ## `en-de` Advisory Quality Lane
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
-- Last documented checkpoint: `2026-04-04` `en-de` now also has experimental default-off source-frequency, reverse-check, and Kaikki-policy scaffolding wired into the pair adapter, benchmark sweep, and probe tooling, and the app/catalog now has a managed `wiktionary-de-en` download/build path even though the canonical advisory latest lane still stays on the FreeDict source family
-- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests plus local canonical `en-de` benchmark/gate/triage rerun and a focused Kaikki reverse experiment
+- Last documented checkpoint: `2026-04-04` `en-de` now has a real Kaikki tuning lane, same-sense representative selection, German register/family enrichment, and an experimental sense-level defaultness penalty in addition to the earlier source-frequency, reverse-check, and Kaikki-policy scaffolding
+- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests, canonical `en-de` benchmark/gate/triage rerun, local Kaikki tuning rerun, focused Kaikki reverse experiment, and focused Kaikki `sdcmp` experiment
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
@@ -250,6 +285,10 @@ Use this file when:
     - benchmark/config labels: `kdem`, `kfam`, `kprov`
     - probe flags: `--kaikki-policy-live-demotion`, `--kaikki-policy-late-sense-penalty`
     - provider/profile inference now follows the translation-pack identity instead of hardcoding FreeDict POS normalization
+  - `en-de` now also has experimental default-off Kaikki sense-shaping / competition seams:
+    - same-sense representative selection surfaced as `srep`
+    - sense-level defaultness competition surfaced as `sdcmp`
+    - probe flags: `--sense-representative-penalty`, `--sense-defaultness-competition-penalty`
   - The app-managed translation catalog now includes:
     - `wiktionary-de-en`
     - build wrapper: `scripts/data/convert_kaikki_de_en_to_sqlite.py`
@@ -266,7 +305,7 @@ Use this file when:
     - `docs/test_outputs/rulegen_benchmark_triage_en_de_summary_latest.md`
   - The current lane intentionally stays baseline:
     - no reverse-check in the canonical advisory latest lane
-    - no committed `en-de` Kaikki benchmark lane or promoted Kaikki source path yet
+    - no promoted `en-de` Kaikki default source path yet
     - dataset-expansion and lexical-choice cleanup come before pair-specific frontier work
 - Evidence:
   - `docs/language_pairs/en_de_workstream_roadmap.md`
@@ -282,6 +321,13 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_reverse_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_reverse_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_reverse_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_summary_latest.md`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_tuning_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_tuning_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_sdcmp_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_sdcmp_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_sdcmp_latest.json`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/adapters.py`
   - `apps/gui/src/language_packs_catalog.py`
@@ -300,8 +346,13 @@ Use this file when:
   - The new source-frequency prior is measurable but not sufficient on its own:
     - focused experiment improved `top3` (`93.10%` -> `98.28%`) without moving `top1` (`65.52%`)
     - the mechanism currently helps expected answers re-enter top3 (`Grund`, `Straße`, `Zug`) more than it fixes junk top1 defaults
-  - `wiktionary-de-en` download/build support now exists, and local Kaikki evidence is strong, but there is still no committed promoted `en-de` Kaikki lane or accepted scoped baseline.
-  - `en-de` still has no richer pair-specific scoring frontier beyond baseline lexical-choice cleanup, source-frequency recovery, and dataset expansion.
+  - `wiktionary-de-en` download/build support now exists, and the local Kaikki tuning lane is strong (`93.10%` top1 / `96.55%` top3), but it is still a local advisory comparison rather than a promoted default source path or accepted scoped baseline.
+  - The current best local Kaikki `en-de` config still leaves the richer parity signals off:
+    - `rev=off`
+    - `kdem=off`
+    - `kprov=off`
+  - Same-sense representative selection is now a real frontier mover in local Kaikki runs, but the first sense-level defaultness penalty (`sdcmp`) proved too blunt to help.
+  - `en-de` now has a compiled resource context, candidate-row IR, and live/compiled prepared score-table plus selected-row sweep coverage, but it still lacks the fuller `en-es` prepared benchmark stack and the richer `en-es`-style provenance competition layer.
   - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
 
 ## Rulegen Auto Audit Wrapper
@@ -694,7 +745,7 @@ Use this file when:
 - Known gaps:
   - only the smallest provenance signal is live so far; richer provenance/competition features are still pending
   - the current signal is now selected together with live Kaikki demotion, but it still does not solve `cuadro` or the new slang-side failures
-  - `en-de` now has default-off Kaikki-policy scaffolding when a Wiktionary/Kaikki source is supplied, but there is still no committed `en-de` Kaikki benchmark lane, managed pack, or promoted default source path
+  - `en-de` now has default-off Kaikki-policy scaffolding plus a strong local Kaikki advisory lane when a Wiktionary/Kaikki source is supplied, but there is still no promoted default source path or richer `en-es`-style provenance competition layer
   - `en-ja` and `es-en` do not yet have analogous provenance-scoring work
   - per-family Kaikki demotion strengths, gloss-decay shape exposure, and lexical short-phrase policy are still the next nearby sweep candidates
 

@@ -1,0 +1,102 @@
+# `$pair` Integration Handoff
+
+Status: generated scaffold handoff
+Role: planning / WIP
+Purpose: enumerate the central follow-up edits still required after scaffolding `$pair`.
+Last updated: $today
+Source-of-truth: generated handoff only; implementation truth still lives in code, tests, LP profiles, and `docs/developer/feature_state_matrix.md`
+
+This file is intentionally explicit. The scaffold created the pair-local files, but it did not auto-edit central registries or benchmark presets.
+
+## Pair Identity
+
+- Pair key: `$pair`
+- Pair module: `core/lexishift_core/rulegen/pairs/$pair_underscore.py`
+- Pair config symbol: `${pair_class_prefix}RulegenConfig`
+- Pair result function: `generate_${pair_underscore}_results`
+- Pair rule function: `generate_${pair_underscore}_rules`
+- Translation lane: `$translation_family` / `$translation_pack_id` (`$translation_record_shape`)
+- Reverse lane: `$reverse_summary`
+
+## Scaffolded Files
+
+- `docs/test_inputs/rulegen_lp_profiles/$pair_underscore.json`
+- `docs/test_inputs/rulegen_benchmark_cases/$pair_underscore.json`
+$roadmap_line
+- `core/lexishift_core/rulegen/pairs/$pair_underscore.py`
+- `core/tests/rulegen/test_rulegen_${pair_underscore}_scaffold.py`
+
+## Central Wiring Still Required
+
+### Pair Exports
+
+Edit:
+- `core/lexishift_core/rulegen/pairs/__init__.py`
+
+Add:
+- import `${pair_class_prefix}RulegenConfig`
+- export `generate_${pair_underscore}_results`
+- export `generate_${pair_underscore}_rules`
+
+### Adapter Registration
+
+Edit:
+- `core/lexishift_core/rulegen/adapters.py`
+
+Add:
+- import `${pair_class_prefix}RulegenConfig` and `generate_${pair_underscore}_results`
+- pair-specific config builder if needed
+- `_run_${pair_underscore}_adapter(...)`
+- dispatch entry in `run_rules_with_adapter(...)`
+
+Do not enable the pair until the pair module has real source loading and targeted tests.
+
+### Adapter Tests
+
+Edit:
+- `core/tests/rulegen/test_rulegen_adapters.py`
+
+Replace or supplement the skipped scaffold test with:
+- request validation tests
+- dispatch smoke tests
+- one real source-loading/generation test once the pair module exists
+
+### Benchmark Wiring
+
+Edit:
+- `docs/test_inputs/rulegen_benchmark_presets.json`
+
+Suggested preset name:
+- `$preset_name`
+
+Suggested first wrapper:
+- `$wrapper_command`
+
+Only add a preset after the pair is benchmarkable and has a real case file.
+
+### Optional Convenience Commands
+
+If the pair gets its own advisory lane, consider updating:
+- `scripts/package.json`
+
+Examples to mirror:
+- `quality:rulegen:en-de`
+- `quality:rulegen:en-de:summary`
+
+### State And Support Docs
+
+When the pair becomes executable or benchmarkable, update as appropriate:
+- `docs/developer/feature_state_matrix.md`
+- `docs/rulegen/rulegen_lp_support_guide.md`
+- `docs/language_pairs/${pair_underscore}_workstream_roadmap.md`
+
+## Intentionally Not Auto-Generated
+
+The scaffold did not and should not invent:
+
+- benchmark expectations
+- normalization rules
+- metadata-family mappings
+- ranking or filtering choices
+- benchmark preset values
+- default-on quality claims

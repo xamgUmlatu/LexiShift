@@ -12,6 +12,7 @@ Related:
 - Core LP architecture contract: `docs/architecture/srs_lp_architecture.md`.
 - For extension + helper focused rollout sequencing, see `docs/language_pairs/extension_lp_generalization_checklist.md`.
 - POS normalization implementation plan: `docs/rulegen/pos_normalization_workstream.md`.
+- Rulegen onboarding operating model: `docs/rulegen/lp_onboarding_operating_model.md`.
 
 ## 0) Implementation Sequence (Use This Order Every Time)
 
@@ -19,6 +20,7 @@ Related:
    - Edit: `core/lexishift_core/helper/lp_capabilities.py`
    - Check fallback/resource logic: `core/lexishift_core/helper/pair_resources.py`
    - Validate requirement checks: `core/lexishift_core/helper/engine.py`
+   - Create/update machine-readable rulegen LP profile: `docs/test_inputs/rulegen_lp_profiles/`
 2. Register packs and conversion path.
    - Edit pack catalog: `apps/gui/src/language_packs.py`
    - Record source URLs/notes: `docs/language_pairs/language_pack_urls.txt`

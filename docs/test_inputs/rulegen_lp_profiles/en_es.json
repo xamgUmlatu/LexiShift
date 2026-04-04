@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "pair": "en-es",
+  "languages": {
+    "source": "en",
+    "target": "es"
+  },
+  "translation_lanes": [
+    {
+      "lane_id": "canonical_freedict",
+      "family": "freedict",
+      "pack_id": "freedict-es-en",
+      "record_shape": "freedict_gloss_ordered",
+      "default_for_pair": true,
+      "metadata_capabilities": [
+        "translation",
+        "gloss_index",
+        "gloss_total",
+        "dictionary_pos"
+      ]
+    },
+    {
+      "lane_id": "advisory_kaikki",
+      "family": "kaikki",
+      "pack_id": "wiktionary-es-en",
+      "record_shape": "wiktionary_kaikki_gloss_ordered",
+      "default_for_pair": false,
+      "metadata_capabilities": [
+        "entry_ord",
+        "sense_ord",
+        "gloss_ord",
+        "sense_tags",
+        "sense_topics",
+        "sense_categories",
+        "raw_glosses"
+      ]
+    }
+  ],
+  "reverse_lanes": [
+    {
+      "lane_id": "canonical_freedict_reverse",
+      "family": "freedict",
+      "pack_id": "freedict-en-es",
+      "record_shape": "freedict_gloss_ordered",
+      "default_for_pair": true,
+      "metadata_capabilities": [
+        "translation",
+        "gloss_index",
+        "gloss_total",
+        "dictionary_pos"
+      ]
+    },
+    {
+      "lane_id": "advisory_kaikki_reverse",
+      "family": "kaikki",
+      "pack_id": "wiktionary-en-es",
+      "record_shape": "wiktionary_kaikki_translation_ordered",
+      "default_for_pair": false,
+      "metadata_capabilities": [
+        "translation_tags",
+        "sense_text",
+        "english_text",
+        "roman_text",
+        "translation_note"
+      ]
+    }
+  ],
+  "pos_profile": {
+    "profile_id": "en_es_pos_v1",
+    "dictionary_profile_id": "freedict_es_en_pos_v1",
+    "compatibility_profile_id": "default_pos_compatibility_v1"
+  },
+  "normalization_profile": {
+    "profile_id": "en_es_gloss_shape_v1",
+    "rule_ids": [
+      "leading_infinitive_strip",
+      "single_word_gloss_filter",
+      "stopword_filter",
+      "shadowed_interjection_filter"
+    ]
+  },
+  "metadata_family_profile": {
+    "profile_id": "kaikki_spanish_family_mapping_v1",
+    "family_ids": [
+      "register_region",
+      "government_law",
+      "math_geometry",
+      "hunting_fishing_tools",
+      "abbreviation_ellipsis_formof"
+    ]
+  },
+  "morphology_profile": {
+    "profile_id": "en_es_paired_plural_v1",
+    "variant_policy": "paired_noun_plural_surface_mapping"
+  },
+  "mechanism_support": {
+    "pos_scoring": true,
+    "variants": true,
+    "source_frequency_prior": false,
+    "reverse_check": true,
+    "kaikki_live_demotion": true,
+    "kaikki_risk_family_controls": true,
+    "same_sense_representative_selection": false,
+    "sense_defaultness_competition": false,
+    "provenance_competition": true,
+    "compiled_resources": true,
+    "prepared_sweep_tables": true
+  },
+  "benchmark_profile": {
+    "case_file": "docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+    "preset_name": "en_es_canonical_matrix",
+    "wrapper_command": "python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es",
+    "latest_benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json"
+  }
+}

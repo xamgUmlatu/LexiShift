@@ -36,6 +36,8 @@ Use these first when you need current behavior or current operating commands:
 - Script map: `../../scripts/README.md`
 - Architecture docs map: `../README.md`
 - Rulegen LP support / mechanism guide: `../rulegen/rulegen_lp_support_guide.md`
+- Rulegen LP onboarding operating model: `../rulegen/lp_onboarding_operating_model.md`
+- Rulegen LP onboarding checklist template: `../rulegen/lp_onboarding_checklist_template.md`
 
 ## Planning And Workstreams
 
@@ -69,6 +71,8 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
   - `../architecture/native_messaging_checklist.md`
 - SRS LP contract: `../architecture/srs_lp_architecture.md`
 - Rulegen technical design: `../rulegen/rule_generation_technical.md`
+- Rulegen LP onboarding operating model: `../rulegen/lp_onboarding_operating_model.md`
+- Rulegen LP onboarding checklist template: `../rulegen/lp_onboarding_checklist_template.md`
 - Rulegen LP support guide: `../rulegen/rulegen_lp_support_guide.md`
 - Global schema reference: `../reference/schema.md`
 - Glossary: `../reference/glossary.md`

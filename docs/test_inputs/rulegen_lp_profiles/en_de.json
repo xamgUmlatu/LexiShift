@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "pair": "en-de",
+  "languages": {
+    "source": "en",
+    "target": "de"
+  },
+  "translation_lanes": [
+    {
+      "lane_id": "canonical_freedict",
+      "family": "freedict",
+      "pack_id": "freedict-de-en",
+      "record_shape": "freedict_gloss_ordered",
+      "default_for_pair": true,
+      "metadata_capabilities": [
+        "translation",
+        "gloss_index",
+        "gloss_total",
+        "dictionary_pos"
+      ]
+    },
+    {
+      "lane_id": "advisory_kaikki",
+      "family": "kaikki",
+      "pack_id": "wiktionary-de-en",
+      "record_shape": "wiktionary_kaikki_gloss_ordered",
+      "default_for_pair": false,
+      "metadata_capabilities": [
+        "entry_ord",
+        "sense_ord",
+        "gloss_ord",
+        "sense_tags",
+        "sense_topics",
+        "sense_categories",
+        "raw_glosses"
+      ]
+    }
+  ],
+  "reverse_lanes": [
+    {
+      "lane_id": "canonical_freedict_reverse",
+      "family": "freedict",
+      "pack_id": "freedict-en-de",
+      "record_shape": "freedict_gloss_ordered",
+      "default_for_pair": true,
+      "metadata_capabilities": [
+        "translation",
+        "gloss_index",
+        "gloss_total",
+        "dictionary_pos"
+      ]
+    }
+  ],
+  "pos_profile": {
+    "profile_id": "en_de_pos_v1",
+    "dictionary_profile_id": "freedict_de_en_pos_v1",
+    "compatibility_profile_id": "default_pos_compatibility_v1"
+  },
+  "normalization_profile": {
+    "profile_id": "en_de_gloss_normalization_v2",
+    "rule_ids": [
+      "leading_infinitive_strip",
+      "leading_article_strip",
+      "annotation_strip",
+      "top_level_delimiter_split",
+      "slash_simple_split",
+      "colon_label_extraction",
+      "qualifier_head_extraction",
+      "boilerplate_drop"
+    ]
+  },
+  "metadata_family_profile": {
+    "profile_id": "kaikki_german_family_mapping_v1",
+    "family_ids": [
+      "register_region",
+      "government_law",
+      "math_geometry",
+      "hunting_fishing_tools",
+      "abbreviation_ellipsis_formof"
+    ]
+  },
+  "morphology_profile": {
+    "profile_id": "en_de_plural_only_v1",
+    "variant_policy": "noun_plural_only_context_free"
+  },
+  "mechanism_support": {
+    "pos_scoring": true,
+    "variants": true,
+    "source_frequency_prior": true,
+    "reverse_check": true,
+    "kaikki_live_demotion": true,
+    "kaikki_risk_family_controls": true,
+    "same_sense_representative_selection": true,
+    "sense_defaultness_competition": true,
+    "provenance_competition": false,
+    "compiled_resources": true,
+    "prepared_sweep_tables": true
+  },
+  "benchmark_profile": {
+    "case_file": "docs/test_inputs/rulegen_benchmark_cases/en_de.json",
+    "preset_name": "en_de_canonical_matrix",
+    "wrapper_command": "npm --prefix scripts run quality:rulegen:en-de",
+    "latest_benchmark_json": "docs/test_outputs/rulegen_benchmark_en_de_latest.json"
+  }
+}
