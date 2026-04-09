@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T22:34:59Z",
+  "generated_at": "2026-04-09T23:27:44Z",
   "status": "ok",
   "inventory_status": "ok",
   "row_count": 8,
@@ -13,8 +13,10 @@
       "promotion_reasons": [
         "benchmark_target_present"
       ],
-      "drop_reason": "missing_active_pos",
-      "active_pos_values": [],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "verb"
+      ],
       "shadow_pos": "noun"
     },
     {
@@ -35,8 +37,10 @@
       "promotion_reasons": [
         "benchmark_target_present"
       ],
-      "drop_reason": "missing_active_pos",
-      "active_pos_values": [],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "verb"
+      ],
       "shadow_pos": "noun"
     },
     {

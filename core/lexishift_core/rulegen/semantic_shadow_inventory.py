@@ -6,6 +6,7 @@ from typing import Mapping, Sequence
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.pairs.en_es_support import (
     collect_sanitized_gloss_records as collect_en_es_sanitized_gloss_records,
+    normalize_reverse_token_with_pos,
 )
 from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
@@ -191,10 +192,12 @@ def _build_active_candidates_for_trigger(
     records: Sequence[TranslationGlossRecord],
     provider: str,
 ) -> list[dict[str, object]]:
+    normalized_trigger = normalize_shadow_text(trigger)
     matching_records = [
         record
         for record in records
-        if normalize_shadow_text(record.translation) == normalize_shadow_text(trigger)
+        if normalize_reverse_token_with_pos(record.translation, pos_raw=record.pos_raw)
+        == normalized_trigger
     ]
     clustered = _cluster_records(
         target_override=target,
@@ -249,6 +252,7 @@ def promote_shadow_candidates_for_policy(
         for candidate in active_candidates
         if str(candidate.get("canonical_pos") or "").strip()
     }
+    has_active_candidates = bool(active_candidates)
     has_active_pos = bool(active_pos_values)
     ranked: list[tuple[tuple[int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
@@ -270,6 +274,7 @@ def promote_shadow_candidates_for_policy(
             reviewed_trigger_support=reviewed_trigger_support,
             benchmark_target_present=benchmark_target_present,
             same_pos=same_pos,
+            has_active_candidates=has_active_candidates,
             has_active_pos=has_active_pos,
             policy=normalized_policy,
         ):
@@ -294,6 +299,7 @@ def _shadow_candidate_qualifies_for_policy(
     reviewed_trigger_support: bool,
     benchmark_target_present: bool,
     same_pos: bool,
+    has_active_candidates: bool,
     has_active_pos: bool,
     policy: str,
 ) -> bool:
@@ -308,7 +314,7 @@ def _shadow_candidate_qualifies_for_policy(
             return True
         if benchmark_target_present and same_pos:
             return True
-        return benchmark_target_present and not has_active_pos
+        return benchmark_target_present and has_active_candidates and not has_active_pos
     return False
 
 

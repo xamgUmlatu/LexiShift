@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, and first named promotion-policy comparison
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, and active-trigger matching refinement for bundled forward glosses
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -193,13 +193,16 @@ First implemented research seam:
   - zero-signal promotions can be removed,
   - but the remaining top-1 preview is still dominated by `same_pos_as_active` rather than benchmark-aligned competition evidence.
 - The follow-on policy comparison at `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md` now makes the algorithm tradeoff explicit:
-  - `same_pos_lenient_v1`: broad (`90` promoted triggers) but noisy
+  - `same_pos_lenient_v1`: broader still after active-trigger matching (`111` promoted triggers) and therefore even noisier as a runtime candidate
   - `benchmark_backed_v1`: cleaner (`19` promoted triggers) but narrow
-  - `cross_checked_v1`: narrower still (`11` promoted triggers), but currently the most plausible runtime-shaped starting point
-  - `cross_checked_backoff_missing_active_v1`: a more practical provisional candidate (`16` promoted triggers) that preserves the strict cross-checked behavior when active POS is known, but falls back to benchmark-backed promotion when active POS is missing
+  - `cross_checked_v1`: narrower still (`11` promoted triggers), and now the practical runtime-shaped starting point
+  - `cross_checked_backoff_missing_active_v1`: now converges to the same `11` promoted triggers after active-side trigger matching was improved for bundled forward glosses and benchmark-only shadow rescue was disabled when the active side is completely empty
 - The gap queue at `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md` now isolates what the stricter policy still drops:
-  - `5` rows due to missing active POS
+  - `5` rows due to missing active POS or missing active-side support
   - `3` rows due to explicit cross-POS mismatch without reviewed trigger support
+- The most useful concrete fix so far is local and interpretable:
+  - active-side trigger matching now uses the existing `en_es_support` gloss-fragment normalization, so bundled forward glosses like `to take, catch, hold, to get, to seize` can supply real active evidence for bare triggers such as `take` and `catch`
+  - this was enough to move `coger / catch -> vista` out of the provisional review queue and into the stricter gap queue, which is the right safety direction
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

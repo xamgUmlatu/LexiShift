@@ -212,6 +212,62 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(len(trigger_row["shadow_candidates"]), 1)
         self.assertEqual(trigger_row["shadow_candidates"][0]["target"], "baile")
 
+    def test_build_en_es_shadow_inventory_matches_trigger_inside_split_forward_gloss(self) -> None:
+        benchmark_targets = build_benchmark_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:coger:1",
+                    "target": "coger",
+                    "tier": "hard",
+                    "expected_any": ["take", "catch"],
+                },
+                {
+                    "case_id": "en-es:vista:1",
+                    "target": "vista",
+                    "tier": "hard",
+                    "expected_any": ["sight", "view"],
+                },
+            )
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "coger": (
+                    _record(
+                        translation="to take, catch, hold, to get, to seize",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="to take, catch, hold, to get, to seize",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "catch": (
+                    _record(
+                        translation="vista",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="the act of noticing, understanding or hearing",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="cross_checked_backoff_missing_active_v1",
+        )
+
+        coger_row = next(row for row in inventory["targets"] if row["target"] == "coger")
+        trigger_row = next(row for row in coger_row["trigger_entries"] if row["trigger"] == "catch")
+        self.assertEqual(
+            [candidate["target"] for candidate in trigger_row["active_candidates"]], ["coger"]
+        )
+        self.assertEqual(trigger_row["active_candidates"][0]["matched_trigger"], "catch")
+        self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
+
     def test_build_en_es_shadow_inventory_drops_zero_reason_promotions(self) -> None:
         benchmark_targets = build_benchmark_shadow_targets(
             (
@@ -341,10 +397,27 @@ class TestSemanticShadowInventory(unittest.TestCase):
                     "reviewed_trigger_support": False,
                 }
             ],
-            active_candidates=[],
+            active_candidates=[{"canonical_pos": ""}],
             policy="cross_checked_backoff_missing_active_v1",
         )
         self.assertEqual([candidate["target"] for candidate in promoted], ["parte"])
+
+    def test_cross_checked_backoff_missing_active_drops_benchmark_target_when_active_side_is_empty(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_for_policy(
+            shadow_candidates=[
+                {
+                    "target": "vista",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                }
+            ],
+            active_candidates=[],
+            policy="cross_checked_backoff_missing_active_v1",
+        )
+        self.assertEqual(promoted, [])
 
     def test_cross_checked_backoff_missing_active_still_drops_cross_pos_rows_when_active_pos_exists(
         self,

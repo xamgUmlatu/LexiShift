@@ -1,22 +1,31 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T22:34:59Z",
+  "generated_at": "2026-04-09T23:27:42Z",
   "status": "ok",
   "inventory_status": "ok",
   "inventory_promotion_policy": "same_pos_lenient_v1",
   "policies": {
     "same_pos_lenient_v1": {
       "summary": {
-        "promoted_trigger_count": 90,
-        "promoted_candidate_count": 221
+        "promoted_trigger_count": 111,
+        "promoted_candidate_count": 284
       },
       "top1_bucket_counts": {
-        "no_promotion": 58,
+        "same_pos_only": 92,
         "benchmark_aligned": 19,
-        "same_pos_only": 71
+        "no_promotion": 37
       },
       "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "ultimar",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
         {
           "target": "acabar",
           "trigger": "end",
@@ -188,15 +197,6 @@
             "same_pos_as_active"
           ],
           "reason_bucket": "same_pos_only"
-        },
-        {
-          "target": "caso",
-          "trigger": "case",
-          "promoted_target": "vitrina",
-          "promotion_reasons": [
-            "same_pos_as_active"
-          ],
-          "reason_bucket": "same_pos_only"
         }
       ]
     },
@@ -244,7 +244,8 @@
           "promoted_target": "llevar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -313,7 +314,8 @@
           "promoted_target": "coger",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -372,7 +374,8 @@
           "promoted_target": "quitar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -422,7 +425,8 @@
           "promoted_target": "llevar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -473,7 +477,8 @@
           "promoted_target": "coger",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -514,7 +519,8 @@
           "promoted_target": "quitar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         }
@@ -522,23 +528,14 @@
     },
     "cross_checked_backoff_missing_active_v1": {
       "summary": {
-        "promoted_trigger_count": 16,
-        "promoted_candidate_count": 16
+        "promoted_trigger_count": 11,
+        "promoted_candidate_count": 11
       },
       "top1_bucket_counts": {
-        "no_promotion": 132,
-        "benchmark_aligned": 16
+        "no_promotion": 137,
+        "benchmark_aligned": 11
       },
       "sample_rows": [
-        {
-          "target": "acabar",
-          "trigger": "end",
-          "promoted_target": "parte",
-          "promotion_reasons": [
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
-        },
         {
           "target": "cargo",
           "trigger": "job",
@@ -550,30 +547,13 @@
           "reason_bucket": "benchmark_aligned"
         },
         {
-          "target": "caso",
-          "trigger": "matter",
-          "promoted_target": "punto",
-          "promotion_reasons": [
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
-        },
-        {
           "target": "coger",
           "trigger": "take",
           "promoted_target": "llevar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
-        },
-        {
-          "target": "coger",
-          "trigger": "catch",
-          "promoted_target": "vista",
-          "promotion_reasons": [
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -624,7 +604,8 @@
           "promoted_target": "coger",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         },
@@ -650,15 +631,6 @@
           "reason_bucket": "benchmark_aligned"
         },
         {
-          "target": "plaza",
-          "trigger": "square",
-          "promoted_target": "cuadro",
-          "promotion_reasons": [
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
-        },
-        {
           "target": "punto",
           "trigger": "point",
           "promoted_target": "fondo",
@@ -674,16 +646,8 @@
           "promoted_target": "quitar",
           "promotion_reasons": [
             "reviewed_trigger_support",
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
-        },
-        {
-          "target": "subir",
-          "trigger": "rise",
-          "promoted_target": "salir",
-          "promotion_reasons": [
-            "benchmark_target_present"
+            "benchmark_target_present",
+            "same_pos_as_active"
           ],
           "reason_bucket": "benchmark_aligned"
         }

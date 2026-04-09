@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Inventory
 
 - Status: `ok`
-- Generated: `2026-04-09T22:26:17Z`
+- Generated: `2026-04-09T23:25:51Z`
 - Benchmark targets: `63`
 - Reviewed triggers: `148`
 - Data root: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift`
@@ -12,12 +12,13 @@
 
 ## Summary
 - Triggers scanned: `148`
-- Triggers with active candidates: `88`
+- Triggers with active candidates: `114`
 - Triggers with shadow candidates: `140`
-- Triggers with promoted shadow candidates: `90`
+- Triggers with promoted shadow candidates: `111`
 
 ## Promotion Preview
-- `acabar` / `end` -> `parte`
+- `acabar` / `finish` -> `ultimar, terminarse, terminar`
+- `acabar` / `end` -> `parte, ultimar, terminarse`
 - `agua` / `water` -> `wata, linfa, fluidos corporales`
 - `amigo` / `friend` -> `parcero, novio, novia`
 - `amor` / `love` -> `nada, hacer el amor, cero`
@@ -36,4 +37,3 @@
 - `cargo` / `post` -> `publicación, poste, post`
 - `cargo` / `job` -> `trabajo`
 - `casa` / `house` -> `teatro, cámara, casalicio`
-- `caso` / `case` -> `vitrina, valija, pleito`
