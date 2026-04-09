@@ -768,9 +768,9 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `planned`; first publication/payload scaffolding is implemented, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` publication-contract seam documented and first metadata/sidecar plumbing landed
-- Last verified: `2026-04-10` product/runtime doc review plus `RuleMetadata`/storage/helper publication/runtime-diagnostics code inspection
+- Status: `planned`; first publication/payload scaffolding is implemented, and `en-es` now has a narrow competition-set publication PoC, but no LP emits a live semantic-routing admission policy by default
+- Last documented checkpoint: `2026-04-10` `en-es` emitted-sibling competition-set PoC added on top of the publication-contract seam
+- Last verified: `2026-04-10` targeted semantic-publication tests plus SRS harness/summary and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -779,6 +779,10 @@ Use this file when:
     - helper publication can write a semantic inventory sidecar
     - runtime diagnostics can inspect both pointer coverage and sidecar coverage
   - That scaffolding does not mean semantic routing is active.
+  - `en-es` now has a narrow publication PoC:
+    - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
+    - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`
+  - That PoC is intentionally limited to emitted siblings already present in the batch; it is not full shadow mining.
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -802,14 +806,16 @@ Use this file when:
   - `core/lexishift_core/helper/paths.py`
   - `core/lexishift_core/helper/rulegen_outputs.py`
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `core/lexishift_core/rulegen/semantic_publication.py`
+  - `core/tests/rulegen/test_semantic_publication.py`
 - Known gaps:
-  - No LP default path emits `metadata.semantic_admission.status=ready` yet.
+  - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
     - `en-es` / `en-de`: source-sense provenance first, with FreeDict gloss fallback
     - `de-en` / `es-en`: deterministic FreeDict gloss-slot locator
     - `en-ja`: deterministic JMDict entry locator
-  - Current default output still stops at `status=unavailable` because shadow promotion is not solved.
-  - Helper publication can now generate a semantic inventory sidecar with pair capability summary, but current default output does not yet include ready competition/shadow sets.
+  - `en-es` can now emit `status=ready` in the explicit `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness.
+  - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in the emitted-sibling PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
   - There is no phrase-preemption lane separated from semantic-veto serving.
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.

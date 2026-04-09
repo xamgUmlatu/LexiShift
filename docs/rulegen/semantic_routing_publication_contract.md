@@ -276,6 +276,7 @@ LP-specific locator details stay nested in:
 Good:
 
 - `en-es` emits a `sense_provenance`-backed pointer
+- `en-es` can publish a limited `emitted_rule_siblings` competition set when real sibling senses are present in the same emitted batch
 - `de-en` emits a `freedict_gloss`-backed pointer
 - `en-ja` emits a `jmdict_entry`-backed pointer
 
@@ -295,6 +296,7 @@ The lowest-risk engineering order is:
 5. teach helper publication to write the sidecar
 6. teach runtime diagnostics to report pointer + sidecar coverage
 7. only then start emitting `status=ready` for the strongest LPs
+8. keep any first `status=ready` rollout narrow and explicit about its shadow-selection mode
 
 ## Minimum Acceptance Bar For First Implementation
 

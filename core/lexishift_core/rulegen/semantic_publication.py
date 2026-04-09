@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from hashlib import sha1
 import re
 from typing import Mapping, Sequence
@@ -11,6 +11,13 @@ from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 _WORD_RE = re.compile(r"[A-Za-z0-9]+")
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
+
+
+@dataclass(frozen=True)
+class _CompetitionPublicationContext:
+    selection_mode: str
+    selection_policy_version: str
+    sense_ids: tuple[str, ...]
 
 
 def normalize_semantic_admission_metadata(value: object) -> dict[str, object] | None:
@@ -72,7 +79,7 @@ def annotate_results_with_semantic_admission(
         except TypeError:
             setattr(raw_result, "rule", updated_rule)
             annotated.append(raw_result)
-    return annotated
+    return _promote_ready_competition_results(annotated)
 
 
 def build_semantic_inventory_from_results(
@@ -82,10 +89,12 @@ def build_semantic_inventory_from_results(
     profile_id: str,
     generated_at: str,
 ) -> dict[str, object]:
+    annotated_results = annotate_results_with_semantic_admission(results)
     triggers: dict[str, object] = {}
     senses: dict[str, object] = {}
     competition_sets: dict[str, object] = {}
-    for raw_result in results:
+    competition_contexts = _build_ready_competition_contexts(annotated_results)
+    for raw_result in annotated_results:
         rule = getattr(raw_result, "rule", None)
         candidate = getattr(raw_result, "candidate", None)
         if not isinstance(rule, VocabRule) or candidate is None:
@@ -110,7 +119,16 @@ def build_semantic_inventory_from_results(
         sense_record = _build_sense_record(candidate, semantic_admission)
         if sense_record is not None:
             senses.setdefault(str(sense_record["sense_id"]), sense_record)
-        competition_set = _build_competition_set_record(semantic_admission)
+        pair_key = str(getattr(candidate, "language_pair", "") or "").strip()
+        competition_set = _build_competition_set_record(
+            semantic_admission,
+            context=competition_contexts.get(
+                (
+                    pair_key,
+                    str(semantic_admission.get("trigger_id") or "").strip(),
+                )
+            ),
+        )
         if competition_set is not None:
             competition_sets.setdefault(str(competition_set["competition_set_id"]), competition_set)
     return {
@@ -222,20 +240,36 @@ def _build_sense_record(
 
 def _build_competition_set_record(
     semantic_admission: Mapping[str, object],
+    *,
+    context: _CompetitionPublicationContext | None = None,
 ) -> dict[str, object] | None:
     competition_set_id = str(semantic_admission.get("competition_set_id") or "").strip()
     trigger_id = str(semantic_admission.get("trigger_id") or "").strip()
     if not competition_set_id or not trigger_id:
         return None
+    active_sense_id = str(semantic_admission.get("sense_id") or "").strip()
+    if context is not None and active_sense_id:
+        shadow_sense_ids = [
+            sense_id for sense_id in context.sense_ids if sense_id and sense_id != active_sense_id
+        ]
+        if shadow_sense_ids:
+            return {
+                "competition_set_id": competition_set_id,
+                "trigger_id": trigger_id,
+                "status": "ready",
+                "active_sense_id": active_sense_id,
+                "shadow_sense_ids": shadow_sense_ids,
+                "selection_mode": context.selection_mode,
+                "selection_policy_version": context.selection_policy_version,
+            }
     record: dict[str, object] = {
         "competition_set_id": competition_set_id,
         "trigger_id": trigger_id,
         "status": "unavailable",
         "reason_code": str(semantic_admission.get("reason_code") or "missing_shadow_selection"),
     }
-    sense_id = str(semantic_admission.get("sense_id") or "").strip()
-    if sense_id:
-        record["active_sense_id"] = sense_id
+    if active_sense_id:
+        record["active_sense_id"] = active_sense_id
     return record
 
 
@@ -406,11 +440,93 @@ def _build_publication_capability_record(pair: str) -> dict[str, object]:
     return {
         "pointer_modes": list(capability.locator_modes) or ["trigger_only"],
         "default_unavailable_reason_code": capability.missing_locator_reason_code,
-        "competition_mode": "not_published",
-        "competition_reason_code": "missing_shadow_selection",
+        "competition_mode": capability.competition_publication_mode,
+        "competition_reason_code": capability.missing_competition_reason_code,
         "phrase_mode": "not_published",
         "phrase_reason_code": "missing_phrase_inventory",
     }
+
+
+def _promote_ready_competition_results(results: Sequence[object]) -> list[object]:
+    contexts = _build_ready_competition_contexts(results)
+    if not contexts:
+        return list(results)
+    promoted: list[object] = []
+    for raw_result in results:
+        rule = getattr(raw_result, "rule", None)
+        candidate = getattr(raw_result, "candidate", None)
+        if not isinstance(rule, VocabRule) or candidate is None:
+            promoted.append(raw_result)
+            continue
+        metadata = rule.metadata or RuleMetadata()
+        semantic_admission = normalize_semantic_admission_metadata(metadata.semantic_admission)
+        if semantic_admission is None:
+            promoted.append(raw_result)
+            continue
+        pair = str(getattr(candidate, "language_pair", "") or "").strip()
+        trigger_id = str(semantic_admission.get("trigger_id") or "").strip()
+        sense_id = str(semantic_admission.get("sense_id") or "").strip()
+        context = contexts.get((pair, trigger_id))
+        if context is None or not sense_id or sense_id not in context.sense_ids:
+            promoted.append(raw_result)
+            continue
+        updated_admission = dict(semantic_admission)
+        updated_admission["status"] = "ready"
+        updated_admission.pop("reason_code", None)
+        updated_rule = _replace_rule_semantic_admission(rule, updated_admission)
+        try:
+            promoted.append(replace(raw_result, rule=updated_rule))
+        except TypeError:
+            setattr(raw_result, "rule", updated_rule)
+            promoted.append(raw_result)
+    return promoted
+
+
+def _build_ready_competition_contexts(
+    results: Sequence[object],
+) -> dict[tuple[str, str], _CompetitionPublicationContext]:
+    grouped_sense_ids: dict[tuple[str, str], list[str]] = {}
+    grouped_capabilities: dict[tuple[str, str], object] = {}
+    for raw_result in results:
+        rule = getattr(raw_result, "rule", None)
+        candidate = getattr(raw_result, "candidate", None)
+        if not isinstance(rule, VocabRule) or candidate is None:
+            continue
+        pair = str(getattr(candidate, "language_pair", "") or "").strip()
+        capability = resolve_pair_capability(pair).semantic_publication
+        if capability.competition_publication_mode != "emitted_rule_siblings":
+            continue
+        metadata = rule.metadata or RuleMetadata()
+        semantic_admission = (
+            normalize_semantic_admission_metadata(metadata.semantic_admission)
+            if isinstance(metadata.semantic_admission, Mapping)
+            else _build_semantic_admission_pointer(candidate)
+        )
+        if semantic_admission is None:
+            continue
+        trigger_id = str(semantic_admission.get("trigger_id") or "").strip()
+        sense_id = str(semantic_admission.get("sense_id") or "").strip()
+        if not trigger_id or not sense_id:
+            continue
+        key = (pair, trigger_id)
+        grouped_capabilities[key] = capability
+        grouped_sense_ids.setdefault(key, [])
+        if sense_id not in grouped_sense_ids[key]:
+            grouped_sense_ids[key].append(sense_id)
+    contexts: dict[tuple[str, str], _CompetitionPublicationContext] = {}
+    for key, sense_ids in grouped_sense_ids.items():
+        if len(sense_ids) <= 1:
+            continue
+        capability = grouped_capabilities[key]
+        policy_version = str(
+            capability.competition_selection_policy_version or "emitted_rule_siblings_v1"
+        ).strip()
+        contexts[key] = _CompetitionPublicationContext(
+            selection_mode="automatic",
+            selection_policy_version=policy_version,
+            sense_ids=tuple(sense_ids),
+        )
+    return contexts
 
 
 def _build_sense_label(metadata: Mapping[str, object], *, fallback: str) -> str:

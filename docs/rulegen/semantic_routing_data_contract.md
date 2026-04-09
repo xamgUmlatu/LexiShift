@@ -218,7 +218,7 @@ Recommended top-level shape:
       "freedict_gloss"
     ],
     "default_unavailable_reason_code": "missing_source_sense_locator",
-    "competition_mode": "not_published",
+    "competition_mode": "emitted_rule_siblings",
     "competition_reason_code": "missing_shadow_selection",
     "phrase_mode": "not_published",
     "phrase_reason_code": "missing_phrase_inventory"
@@ -250,7 +250,7 @@ Example sidecar fragment:
       "freedict_gloss"
     ],
     "default_unavailable_reason_code": "missing_source_sense_locator",
-    "competition_mode": "not_published",
+    "competition_mode": "emitted_rule_siblings",
     "competition_reason_code": "missing_shadow_selection",
     "phrase_mode": "not_published",
     "phrase_reason_code": "missing_phrase_inventory"
@@ -293,8 +293,8 @@ Example sidecar fragment:
         "en-es:wiktionary:baile:11:0",
         "en-es:wiktionary:bola_mala:2:0"
       ],
-      "selection_mode": "mixed",
-      "selection_policy_version": "v1"
+      "selection_mode": "automatic",
+      "selection_policy_version": "en_es_emitted_rule_siblings_v1"
     }
   },
   "phrase_sets": {}
@@ -326,7 +326,8 @@ Recommended record responsibilities:
 - `capability`
   - which locator modes this pair can currently emit
   - which unavailable reason should be expected when locator derivation fails
-  - whether competition and phrase publication are still intentionally absent
+  - whether competition publication is still absent or using a limited PoC mode
+  - whether phrase publication is still intentionally absent
 
 - `phrase_sets`
   - phrase/idiom blockers that should preempt semantic scoring

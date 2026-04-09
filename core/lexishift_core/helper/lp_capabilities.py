@@ -11,6 +11,9 @@ from lexishift_core.helper.installed_packs import resolve_installed_pack_artifac
 class SemanticPublicationCapability:
     locator_modes: tuple[str, ...] = ()
     missing_locator_reason_code: str = "pair_lacks_sense_locator"
+    competition_publication_mode: str = "not_published"
+    competition_selection_policy_version: str = ""
+    missing_competition_reason_code: str = "missing_shadow_selection"
 
 
 @dataclass(frozen=True)
@@ -81,6 +84,8 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         semantic_publication=SemanticPublicationCapability(
             locator_modes=("sense_provenance", "freedict_gloss"),
             missing_locator_reason_code="missing_source_sense_locator",
+            competition_publication_mode="emitted_rule_siblings",
+            competition_selection_policy_version="en_es_emitted_rule_siblings_v1",
         ),
     ),
     "es-en": PairCapability(

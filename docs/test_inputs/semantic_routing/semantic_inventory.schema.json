@@ -107,7 +107,8 @@
         "competition_mode": {
           "type": "string",
           "enum": [
-            "not_published"
+            "not_published",
+            "emitted_rule_siblings"
           ]
         },
         "competition_reason_code": {

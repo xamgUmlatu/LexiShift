@@ -63,8 +63,9 @@ Top-level fields
 - `semantic_admission` (object, optional; planning-to-implementation semantic-routing pointer)
   - When present, follows the planning contract in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
   - Current default adapter/helper paths can populate this field
-  - Provenance-capable LPs currently emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
-  - No LP emits `status=ready` by default yet
+  - All current rulegen LPs can emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
+  - `en-es` now has a narrow `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`)
+  - No LP uses semantic-routing runtime admission by default yet
 
 Notes:
 - Semantic-routing sidecar publication is still a partial implementation seam rather than a default runtime feature. See `docs/rulegen/semantic_routing_publication_contract.md` and `docs/test_inputs/semantic_routing/`.
