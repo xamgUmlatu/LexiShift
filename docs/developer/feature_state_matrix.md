@@ -768,9 +768,9 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there is now a research-only `en-es` shadow inventory artifact, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` `en-es` shadow inventory research artifact added on top of the publication-contract seam
-- Last verified: `2026-04-10` targeted semantic-publication tests plus first `en-es` shadow inventory artifact and doc/state sync
+- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory plus triage artifacts, but no LP emits a live semantic-routing admission policy by default
+- Last documented checkpoint: `2026-04-10` `en-es` shadow inventory triage added on top of the inventory research seam
+- Last verified: `2026-04-10` targeted semantic-publication tests plus first `en-es` shadow inventory/triage artifacts and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -785,7 +785,8 @@ Use this file when:
   - That PoC is intentionally limited to emitted siblings already present in the batch; it is not full shadow mining.
   - `en-es` now also has a research-only shadow inventory path:
     - `scripts/testing/semantic_shadow_inventory_en_es.py` mines sibling candidates from reviewed benchmark trigger phrases plus installed translation packs
-    - the latest artifact confirms that candidate mining works broadly enough to study, but current promoted-shadow previews are still noisy and are not suitable for runtime publication as-is
+    - `scripts/testing/semantic_shadow_inventory_triage_en_es.py` scores the resulting preview into `benchmark_aligned`, `same_pos_only`, and `no_promotion` buckets
+    - the latest artifacts confirm that candidate mining works broadly enough to study, but current promoted-shadow previews are still dominated by weak `same_pos_only` signals and are not suitable for runtime publication as-is
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -814,7 +815,9 @@ Use this file when:
   - `core/tests/rulegen/test_semantic_publication.py`
   - `core/tests/rulegen/test_semantic_shadow_inventory.py`
   - `scripts/testing/semantic_shadow_inventory_en_es.py`
+  - `scripts/testing/semantic_shadow_inventory_triage_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -824,6 +827,7 @@ Use this file when:
   - `en-es` can now emit `status=ready` in the explicit `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness.
   - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in the emitted-sibling PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
   - The first live `en-es` shadow inventory artifact proves that broad sibling mining is feasible, but its current promoted-shadow preview is still too noisy to serve as a runtime blocker set.
+  - The first triage artifact shows that the stricter preview can eliminate zero-signal rows, but the remaining top-1 promotions are still mostly justified only by `same_pos_as_active`, not by clearly benchmark-aligned competition evidence.
   - There is no phrase-preemption lane separated from semantic-veto serving.
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.

@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection and first `en-es` shadow inventory artifact
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, and first triage pass over promotion quality
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -189,7 +189,9 @@ First implemented research seam:
 
 - `scripts/testing/semantic_shadow_inventory_en_es.py` can now mine a research-only `en-es` shadow inventory from reviewed benchmark trigger phrases plus installed forward/reverse translation packs.
 - The latest artifact at `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md` shows broad sibling coverage, which is encouraging.
-- It also shows that raw sibling discovery is still too noisy to publish directly as runtime truth.
+- The follow-on triage at `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md` shows why publication is still blocked:
+  - zero-signal promotions can be removed,
+  - but the remaining top-1 preview is still dominated by `same_pos_as_active` rather than benchmark-aligned competition evidence.
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

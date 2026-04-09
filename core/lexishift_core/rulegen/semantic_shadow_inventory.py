@@ -238,15 +238,7 @@ def _promote_shadow_candidates(
         reviewed_trigger_support = bool(candidate.get("reviewed_trigger_support"))
         benchmark_target_present = bool(candidate.get("benchmark_target_present"))
         same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
-        score_vector = (
-            1 if reviewed_trigger_support else 0,
-            1 if benchmark_target_present else 0,
-            1 if same_pos else 0,
-            target,
-        )
-        candidate_copy = dict(candidate)
-        candidate_copy["same_pos_as_active"] = same_pos
-        candidate_copy["promotion_reasons"] = [
+        promotion_reasons = [
             reason
             for enabled, reason in (
                 (reviewed_trigger_support, "reviewed_trigger_support"),
@@ -255,6 +247,17 @@ def _promote_shadow_candidates(
             )
             if enabled
         ]
+        if not promotion_reasons:
+            continue
+        score_vector = (
+            1 if reviewed_trigger_support else 0,
+            1 if benchmark_target_present else 0,
+            1 if same_pos else 0,
+            target,
+        )
+        candidate_copy = dict(candidate)
+        candidate_copy["same_pos_as_active"] = same_pos
+        candidate_copy["promotion_reasons"] = promotion_reasons
         ranked.append((score_vector, candidate_copy))
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:3]]

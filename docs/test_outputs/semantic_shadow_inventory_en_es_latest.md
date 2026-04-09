@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Inventory
 
 - Status: `ok`
-- Generated: `2026-04-09T22:08:58Z`
+- Generated: `2026-04-09T22:18:25Z`
 - Benchmark targets: `63`
 - Reviewed triggers: `148`
 - Data root: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift`
@@ -14,18 +14,15 @@
 - Triggers scanned: `148`
 - Triggers with active candidates: `88`
 - Triggers with shadow candidates: `140`
-- Triggers with promoted shadow candidates: `140`
+- Triggers with promoted shadow candidates: `90`
 
 ## Promotion Preview
-- `acabar` / `finish` -> `ultimar, terminarse, terminar`
-- `acabar` / `end` -> `parte, ultimar, terminarse`
+- `acabar` / `end` -> `parte`
 - `agua` / `water` -> `wata, linfa, fluidos corporales`
 - `amigo` / `friend` -> `parcero, novio, novia`
 - `amor` / `love` -> `nada, hacer el amor, cero`
-- `amor` / `affection` -> `cariño, apego, afecto`
 - `banco` / `bank` -> `terraplén, teclado, talud`
 - `banco` / `bench` -> `sillete, pretil, poyo`
-- `batería` / `battery` -> `pila, lesiones, golpes`
 - `camino` / `road` -> `ruta, carretera, calzada`
 - `camino` / `way` -> `vía, usanza, modo`
 - `camino` / `path` -> `trocha, trillo, trayectoria`
@@ -33,7 +30,10 @@
 - `campo` / `countryside` -> `provincia, campiña, campaña`
 - `campo` / `country` -> `zona, territorio, ranchera`
 - `canal` / `canal` -> `caz, cauz`
-- `canal` / `channel` -> `álveo, estrecho, encauzar`
-- `capital` / `capital` -> `versal, titular, capitel`
-- `capital` / `metropolis` -> `urbe, metrópolis`
+- `canal` / `channel` -> `álveo, estrecho`
 - `cargo` / `charge` -> `figura, encargo, embestida`
+- `cargo` / `position` -> `puesto, posición`
+- `cargo` / `post` -> `publicación, poste, post`
+- `cargo` / `job` -> `trabajo`
+- `casa` / `house` -> `teatro, cámara, casalicio`
+- `caso` / `case` -> `vitrina, valija, pleito`

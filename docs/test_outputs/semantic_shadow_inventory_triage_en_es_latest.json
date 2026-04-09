@@ -1,0 +1,588 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-09T22:19:13Z",
+  "status": "ok",
+  "inventory_status": "ok",
+  "summary": {
+    "trigger_count": 148,
+    "promoted_trigger_count": 90,
+    "promoted_candidate_count": 221
+  },
+  "top1_bucket_counts": {
+    "no_promotion": 58,
+    "benchmark_aligned": 19,
+    "same_pos_only": 71
+  },
+  "candidate_bucket_counts": {
+    "benchmark_aligned": 19,
+    "same_pos_only": 202
+  },
+  "targets_with_no_signal_top1": [],
+  "examples": {
+    "benchmark_aligned_top1": [
+      {
+        "target": "acabar",
+        "trigger": "end",
+        "promoted_target": "parte",
+        "sense_label": "extreme part",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "cargo",
+        "trigger": "job",
+        "promoted_target": "trabajo",
+        "sense_label": "task",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "caso",
+        "trigger": "matter",
+        "promoted_target": "punto",
+        "sense_label": "situation, condition, subject or affair",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "coger",
+        "trigger": "take",
+        "promoted_target": "llevar",
+        "sense_label": "to carry",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "coger",
+        "trigger": "catch",
+        "promoted_target": "vista",
+        "sense_label": "the act of noticing, understanding or hearing",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "cuadro",
+        "trigger": "table",
+        "promoted_target": "tabla",
+        "sense_label": "grid of data in rows and columns",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "cura",
+        "trigger": "priest",
+        "promoted_target": "padre",
+        "sense_label": "clergyman (clergywoman, clergyperson)",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "escuela",
+        "trigger": "school",
+        "promoted_target": "banco",
+        "sense_label": "a group of fish",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "fondo",
+        "trigger": "fund",
+        "promoted_target": "capital",
+        "sense_label": "sum or source of money",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "libro",
+        "trigger": "book",
+        "promoted_target": "sacar",
+        "sense_label": "to reserve",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "llevar",
+        "trigger": "take",
+        "promoted_target": "coger",
+        "sense_label": "to get into one's hands or control",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "malla",
+        "trigger": "net",
+        "promoted_target": "red",
+        "sense_label": "mesh of string, cord or rope",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "marco",
+        "trigger": "frame",
+        "promoted_target": "cuadro",
+        "sense_label": "piece of photographic film containing an image",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "plaza",
+        "trigger": "square",
+        "promoted_target": "cuadro",
+        "sense_label": "type of polygon",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "punto",
+        "trigger": "point",
+        "promoted_target": "fondo",
+        "sense_label": "a focus of conversation or consideration",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "punto",
+        "trigger": "period",
+        "promoted_target": "hora",
+        "sense_label": "division of school day",
+        "canonical_pos": "noun",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "sacar",
+        "trigger": "remove",
+        "promoted_target": "quitar",
+        "sense_label": "to take away",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "reviewed_trigger_support",
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": true,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "subir",
+        "trigger": "rise",
+        "promoted_target": "salir",
+        "sense_label": "of a celestial body: to appear to move from behind the horizon",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      },
+      {
+        "target": "tabla",
+        "trigger": "board",
+        "promoted_target": "subir",
+        "sense_label": "to step or climb onto",
+        "canonical_pos": "verb",
+        "reason_bucket": "benchmark_aligned",
+        "promotion_reasons": [
+          "benchmark_target_present"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": true,
+        "same_pos_as_active": false
+      }
+    ],
+    "same_pos_only_top1": [
+      {
+        "target": "agua",
+        "trigger": "water",
+        "promoted_target": "wata",
+        "sense_label": "inorganic compound H₂O",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "amigo",
+        "trigger": "friend",
+        "promoted_target": "parcero",
+        "sense_label": "person whose company one enjoys",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "amor",
+        "trigger": "love",
+        "promoted_target": "nada",
+        "sense_label": "zero",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "banco",
+        "trigger": "bank",
+        "promoted_target": "terraplén",
+        "sense_label": "embankment, an earth slope",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "banco",
+        "trigger": "bench",
+        "promoted_target": "sillete",
+        "sense_label": "sports: where players sit when not playing",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "camino",
+        "trigger": "road",
+        "promoted_target": "ruta",
+        "sense_label": "a way for travel",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "camino",
+        "trigger": "way",
+        "promoted_target": "vía",
+        "sense_label": "road, direction, path",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "camino",
+        "trigger": "path",
+        "promoted_target": "trocha",
+        "sense_label": "a trail for the use of, or worn by, pedestrians",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "campo",
+        "trigger": "field",
+        "promoted_target": "ámbito",
+        "sense_label": "course of study or domain of knowledge or practice",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "campo",
+        "trigger": "countryside",
+        "promoted_target": "provincia",
+        "sense_label": "area outside of towns and cities, or such part of a larger area",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "campo",
+        "trigger": "country",
+        "promoted_target": "zona",
+        "sense_label": "region of land",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "canal",
+        "trigger": "canal",
+        "promoted_target": "caz",
+        "sense_label": "artificial waterway",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "canal",
+        "trigger": "channel",
+        "promoted_target": "álveo",
+        "sense_label": "navigable part of a river",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "cargo",
+        "trigger": "charge",
+        "promoted_target": "figura",
+        "sense_label": "heraldry: image displayed on an escutcheon",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "cargo",
+        "trigger": "position",
+        "promoted_target": "puesto",
+        "sense_label": "post of employment",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "cargo",
+        "trigger": "post",
+        "promoted_target": "publicación",
+        "sense_label": "individual message in a forum — see also upload",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "casa",
+        "trigger": "house",
+        "promoted_target": "teatro",
+        "sense_label": "theatre",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "caso",
+        "trigger": "case",
+        "promoted_target": "vitrina",
+        "sense_label": "piece of furniture, constructed partially of transparent glass or plastic",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "ciudad",
+        "trigger": "city",
+        "promoted_target": "urbe",
+        "sense_label": "large settlement",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      },
+      {
+        "target": "clave",
+        "trigger": "key",
+        "promoted_target": "tecla",
+        "sense_label": "button on a typewriter or computer keyboard",
+        "canonical_pos": "noun",
+        "reason_bucket": "same_pos_only",
+        "promotion_reasons": [
+          "same_pos_as_active"
+        ],
+        "reviewed_trigger_support": false,
+        "benchmark_target_present": false,
+        "same_pos_as_active": true
+      }
+    ],
+    "no_signal_top1": []
+  }
+}

@@ -211,6 +211,51 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(len(trigger_row["shadow_candidates"]), 1)
         self.assertEqual(trigger_row["shadow_candidates"][0]["target"], "baile")
 
+    def test_build_en_es_shadow_inventory_drops_zero_reason_promotions(self) -> None:
+        benchmark_targets = build_benchmark_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:pelota:1",
+                    "target": "pelota",
+                    "tier": "hard",
+                    "expected_any": ["ball"],
+                },
+            )
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "pelota": (
+                    _record(
+                        translation="ball",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="object used in sports",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "ball": (
+                    _record(
+                        translation="ultimar",
+                        pos_raw="verb",
+                        entry_ord=11,
+                        sense_ord=0,
+                        sense_gloss="to put an end to, destroy",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+        )
+
+        pelota_row = next(row for row in inventory["targets"] if row["target"] == "pelota")
+        trigger_row = pelota_row["trigger_entries"][0]
+        self.assertEqual(len(trigger_row["shadow_candidates"]), 1)
+        self.assertEqual(trigger_row["shadow_candidates"][0]["target"], "ultimar")
+        self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
