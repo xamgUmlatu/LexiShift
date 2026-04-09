@@ -768,9 +768,9 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `planned`; first publication/payload scaffolding is implemented, and `en-es` now has a narrow competition-set publication PoC, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` `en-es` emitted-sibling competition-set PoC added on top of the publication-contract seam
-- Last verified: `2026-04-10` targeted semantic-publication tests plus SRS harness/summary and doc/state sync
+- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there is now a research-only `en-es` shadow inventory artifact, but no LP emits a live semantic-routing admission policy by default
+- Last documented checkpoint: `2026-04-10` `en-es` shadow inventory research artifact added on top of the publication-contract seam
+- Last verified: `2026-04-10` targeted semantic-publication tests plus first `en-es` shadow inventory artifact and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -783,6 +783,9 @@ Use this file when:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
     - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`
   - That PoC is intentionally limited to emitted siblings already present in the batch; it is not full shadow mining.
+  - `en-es` now also has a research-only shadow inventory path:
+    - `scripts/testing/semantic_shadow_inventory_en_es.py` mines sibling candidates from reviewed benchmark trigger phrases plus installed translation packs
+    - the latest artifact confirms that candidate mining works broadly enough to study, but current promoted-shadow previews are still noisy and are not suitable for runtime publication as-is
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -807,7 +810,11 @@ Use this file when:
   - `core/lexishift_core/helper/rulegen_outputs.py`
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
   - `core/lexishift_core/rulegen/semantic_publication.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
   - `core/tests/rulegen/test_semantic_publication.py`
+  - `core/tests/rulegen/test_semantic_shadow_inventory.py`
+  - `scripts/testing/semantic_shadow_inventory_en_es.py`
+  - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -816,6 +823,7 @@ Use this file when:
     - `en-ja`: deterministic JMDict entry locator
   - `en-es` can now emit `status=ready` in the explicit `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness.
   - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in the emitted-sibling PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
+  - The first live `en-es` shadow inventory artifact proves that broad sibling mining is feasible, but its current promoted-shadow preview is still too noisy to serve as a runtime blocker set.
   - There is no phrase-preemption lane separated from semantic-veto serving.
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.
