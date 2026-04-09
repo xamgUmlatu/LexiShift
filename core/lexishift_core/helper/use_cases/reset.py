@@ -45,11 +45,16 @@ def reset_srs_data(
 
     removed_snapshots = 0
     removed_rulesets = 0
+    removed_semantic_inventories = 0
     if scoped_pair:
         if _remove_file(paths.snapshot_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_snapshots += 1
         if _remove_file(paths.ruleset_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_rulesets += 1
+        if _remove_file(
+            paths.semantic_inventory_path(scoped_pair, profile_id=normalized_profile_id)
+        ):
+            removed_semantic_inventories += 1
     else:
         for snapshot in profile_srs_dir.glob("srs_rulegen_snapshot_*.json"):
             if _remove_file(snapshot):
@@ -57,6 +62,9 @@ def reset_srs_data(
         for ruleset in profile_srs_dir.glob("srs_ruleset_*.json"):
             if _remove_file(ruleset):
                 removed_rulesets += 1
+        for semantic_inventory in profile_srs_dir.glob("srs_semantic_inventory_*.json"):
+            if _remove_file(semantic_inventory):
+                removed_semantic_inventories += 1
 
     status = load_status(profile_status_path)
     save_status(
@@ -79,4 +87,5 @@ def reset_srs_data(
         "remaining_items": remaining_items,
         "removed_snapshots": removed_snapshots,
         "removed_rulesets": removed_rulesets,
+        "removed_semantic_inventories": removed_semantic_inventories,
     }

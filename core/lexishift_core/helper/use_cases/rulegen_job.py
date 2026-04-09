@@ -314,6 +314,7 @@ def run_rulegen_job(
             profile_id=profile_id,
             rules=output.rules,
             snapshot=output.snapshot,
+            semantic_inventory=getattr(output, "semantic_inventory", None),
         )
     if config.update_status:
         update_status_fn(
@@ -337,6 +338,11 @@ def run_rulegen_job(
         ),
         "ruleset_path": (
             str(paths.ruleset_path(pair, profile_id=profile_id)) if config.persist_outputs else None
+        ),
+        "semantic_inventory_path": (
+            str(paths.semantic_inventory_path(pair, profile_id=profile_id))
+            if config.persist_outputs and getattr(output, "semantic_inventory", None) is not None
+            else None
         ),
         "store_persisted": config.persist_store,
         "outputs_persisted": config.persist_outputs,

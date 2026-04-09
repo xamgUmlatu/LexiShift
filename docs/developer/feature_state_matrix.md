@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-04
+Last updated: 2026-04-10
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -774,6 +774,51 @@ Use this file when:
   - No profile bank or interpretable router is implemented.
   - Current dataset size is still better suited to coarse directional experiments than fine-grained routed-policy learning.
   - Learner-stage-aware routing is only conceptual at this point and must stay separate from lexical trait inference.
+
+## Semantic Routing Runtime Admission Layer
+
+- Status: `planned`; first publication/payload scaffolding is implemented, but no LP emits a live semantic-routing admission policy by default
+- Last documented checkpoint: `2026-04-10` publication-contract seam documented and first metadata/sidecar plumbing landed
+- Last verified: `2026-04-10` product/runtime doc review plus `RuleMetadata`/storage/helper publication/runtime-diagnostics code inspection
+- Default behavior:
+  - No semantic-routing admission layer is active in the browser runtime today.
+  - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
+  - The repo now has passive semantic-routing publication scaffolding:
+    - `metadata.semantic_admission` can be emitted on rules
+    - helper publication can write a semantic inventory sidecar
+    - runtime diagnostics can inspect both pointer coverage and sidecar coverage
+  - That scaffolding does not mean semantic routing is active.
+  - The intended future direction is a conservative admission layer that can choose among:
+    - hard replace
+    - soft affordance / annotation
+    - abstain
+  - The governing product preference for that future layer is explicit:
+    - false abstain is cheaper than harmful replacement
+  - Before any rollout, the project still needs:
+    - active-sense provenance carried from rulegen into runtime-consumable metadata
+    - automatic sibling-shadow candidate mining and a small promotion policy
+    - phrase/idiom preemption as a separate lane from semantic veto
+    - runtime observability for why a replacement applied or abstained
+- Evidence:
+  - `docs/rulegen/semantic_routing_runtime_readiness.md`
+  - `docs/rulegen/semantic_routing_publication_contract.md`
+  - `docs/rulegen/rule_generation_technical.md`
+  - `docs/architecture/extension_system_map.md`
+  - `docs/getting-started/index.md`
+  - `docs/srs/srs_roadmap.md`
+  - `core/lexishift_core/replacement/core.py`
+  - `core/lexishift_core/persistence/storage.py`
+  - `core/lexishift_core/helper/paths.py`
+  - `core/lexishift_core/helper/rulegen_outputs.py`
+  - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+- Known gaps:
+  - No LP default path emits `metadata.semantic_admission.status=ready` yet.
+  - `en-es` and `en-de` can now emit stable active-sense ids in `metadata.semantic_admission`, but current default output still stops at `status=unavailable` because shadow promotion is not solved.
+  - `en-ja`, `de-en`, and `es-en` now emit the shared pointer shape, but they still lack default locatable `sense_id` coverage.
+  - Helper publication can now generate a semantic inventory sidecar, but current default output does not yet include ready competition/shadow sets.
+  - There is no phrase-preemption lane separated from semantic-veto serving.
+  - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
+  - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.
 
 ## POS Normalization
 

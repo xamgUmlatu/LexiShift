@@ -16,6 +16,7 @@ class RulegenOutput:
     rules: Sequence[VocabRule]
     snapshot: Mapping[str, object]
     target_count: int
+    semantic_inventory: Mapping[str, object] | None = None
 
 
 def _now_iso() -> str:
@@ -64,6 +65,7 @@ def write_rulegen_outputs(
     profile_id: str = "default",
     rules: Sequence[VocabRule],
     snapshot: Mapping[str, object],
+    semantic_inventory: Mapping[str, object] | None = None,
 ) -> None:
     dataset = VocabDataset(rules=tuple(rules))
     save_vocab_dataset(dataset, paths.ruleset_path(pair, profile_id=profile_id))
@@ -71,3 +73,11 @@ def write_rulegen_outputs(
         json.dumps(snapshot, indent=2, sort_keys=True),
         encoding="utf-8",
     )
+    semantic_inventory_path = paths.semantic_inventory_path(pair, profile_id=profile_id)
+    if semantic_inventory is not None:
+        Path(semantic_inventory_path).write_text(
+            json.dumps(semantic_inventory, indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+    elif semantic_inventory_path.exists():
+        semantic_inventory_path.unlink()

@@ -22,8 +22,10 @@ from lexishift_core.helper.translation_packs import (
     build_translation_pack_ref,
 )
 from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
+from lexishift_core.rulegen.adapters import run_results_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
+from lexishift_core.rulegen.semantic_publication import build_semantic_inventory_from_results
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
@@ -324,7 +326,7 @@ def run_rulegen_for_pair(
         and not resolved_reverse_translation_dict_path.exists()
     ):
         resolved_reverse_translation_dict_path = None
-    rules = run_rules_with_adapter(
+    results = run_results_with_adapter(
         RulegenAdapterRequest(
             pair=pair,
             targets=targets,
@@ -355,11 +357,18 @@ def run_rulegen_for_pair(
             word_packages_by_target=target_word_packages or None,
         )
     )
+    rules = [result.rule for result in results]
     snapshot = build_snapshot(
         rules=rules,
         pair=pair,
         max_targets=rulegen_config.max_snapshot_targets,
         max_sources=rulegen_config.max_snapshot_sources,
+    )
+    semantic_inventory = build_semantic_inventory_from_results(
+        results=results,
+        pair=pair,
+        profile_id=profile_id,
+        generated_at=str(snapshot.get("generated_at") or ""),
     )
     if persist_store and updated_store is not store:
         save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
@@ -367,4 +376,5 @@ def run_rulegen_for_pair(
         rules=rules,
         snapshot=snapshot,
         target_count=len(targets),
+        semantic_inventory=semantic_inventory,
     )

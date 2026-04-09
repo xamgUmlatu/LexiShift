@@ -15,6 +15,9 @@ Companion current references
 - `docs/rulegen/rulegen_lp_support_guide.md` is the current implementation-facing map for LP support layers, benchmark/probe artifacts, and new-LP bring-up workflow.
 - `docs/rulegen/lp_onboarding_operating_model.md` is the onboarding/process contract for turning those support layers into a repeatable LP golden path.
 - `docs/rulegen/rulegen_congruity_implementation_plan.md` records the top-3/scoring hardening history and phase-by-phase implementation findings.
+- `docs/rulegen/semantic_routing_runtime_readiness.md` defines the future semantic-routing admission layer boundary, including what is still manual today and what must exist before safe runtime use.
+- `docs/rulegen/semantic_routing_data_contract.md` defines the recommended long-term semantic-routing payload split between emitted rules, sidecar inventory, and runtime decision records.
+- `docs/rulegen/semantic_routing_publication_contract.md` defines the future emitted-rule `metadata.semantic_admission` shape plus helper publication and diagnostics expectations for the semantic inventory sidecar.
 
 Key concepts
 - **Target set S**: the words/lemmas the user is learning (the words we want to surface).
@@ -29,7 +32,13 @@ Rule schema (canonical)
 - `confidence` (float, 0.00–1.00)
 - `source_dict` (string; dictionary id)
 - `source_type` (enum: synonym | translation | expansion | slang | phrase | inferred)
-- `metadata` (object; optional: POS, sense_id, frequency, notes, morphology)
+- `metadata` (object; optional: word-package/script metadata, POS, morphology, narrow rulegen ids)
+
+Important current boundary:
+- candidate-generation layers may carry richer pair-local provenance such as gloss order or sense-order evidence,
+- emitted runtime rules can now carry a shared `metadata.semantic_admission` contract across LPs,
+- but no LP emits a fully ready competition/shadow payload by default yet,
+- so active-sense provenance is now a partial implementation seam rather than a finished runtime guarantee.
 
 Pipeline overview
 0) **Set Planning (new scaffold)**
@@ -66,8 +75,9 @@ Pipeline overview
    - Morphology variants for selected definitions are retained.
 
 5) **Rule Emission**
-   - Emit rules with full metadata + confidence.
+   - Emit rules with persisted runtime metadata + confidence.
    - Store per language_pair ruleset.
+   - Current emission is intentionally narrower than full candidate metadata; pair-local candidate provenance used for benchmark/ranking is not yet preserved as a shared runtime sense-identity payload.
 
 Pair‑agnostic core
 - The core pipeline should operate on:

@@ -183,6 +183,7 @@ def initialize_srs_set(
         profile_id=profile_id,
         rules=rulegen_output.rules,
         snapshot=rulegen_output.snapshot,
+        semantic_inventory=getattr(rulegen_output, "semantic_inventory", None),
     )
     update_status_fn(
         paths=paths,
@@ -230,6 +231,11 @@ def initialize_srs_set(
             "rules": len(rulegen_output.rules),
             "snapshot_path": str(paths.snapshot_path(pair, profile_id=profile_id)),
             "ruleset_path": str(paths.ruleset_path(pair, profile_id=profile_id)),
+            "semantic_inventory_path": (
+                str(paths.semantic_inventory_path(pair, profile_id=profile_id))
+                if getattr(rulegen_output, "semantic_inventory", None) is not None
+                else None
+            ),
         },
         "applied": True,
         "plan": plan_payload,

@@ -125,6 +125,7 @@ class TestSrsLpE2E(unittest.TestCase):
             self.assertGreater(init["rulegen"]["rules"], 0)
             self.assertTrue(Path(init["rulegen"]["snapshot_path"]).exists())
             self.assertTrue(Path(init["rulegen"]["ruleset_path"]).exists())
+            self.assertTrue(Path(init["rulegen"]["semantic_inventory_path"]).exists())
 
             refresh = refresh_srs_set(
                 paths,
@@ -143,11 +144,13 @@ class TestSrsLpE2E(unittest.TestCase):
             self.assertGreater(refresh["rulegen"]["rules"], 0)
             self.assertTrue(Path(refresh["rulegen"]["snapshot_path"]).exists())
             self.assertTrue(Path(refresh["rulegen"]["ruleset_path"]).exists())
+            self.assertTrue(Path(refresh["rulegen"]["semantic_inventory_path"]).exists())
 
             diagnostics = get_srs_runtime_diagnostics(paths, pair=pair)
             self.assertTrue(diagnostics["store_exists"])
             self.assertTrue(diagnostics["ruleset_exists"])
             self.assertTrue(diagnostics["snapshot_exists"])
+            self.assertTrue(diagnostics["semantic_inventory_exists"])
             self.assertEqual(diagnostics["missing_inputs"], [])
             self.assertIn("pair_policy", diagnostics)
             self.assertEqual(diagnostics["pair_policy"]["pair"], pair)

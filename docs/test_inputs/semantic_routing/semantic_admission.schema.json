@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Admission Pointer",
+  "description": "Planning-only schema for future rule.metadata.semantic_admission payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "unavailable",
+        "not_applicable"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trigger_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sense_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "competition_set_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phrase_set_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ready"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "trigger_id",
+          "sense_id",
+          "competition_set_id"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "unavailable"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason_code"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "not_applicable"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason_code"
+        ]
+      }
+    }
+  ]
+}

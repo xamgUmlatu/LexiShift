@@ -70,6 +70,8 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     paths.snapshot_path("en-en").write_text("{}", encoding="utf-8")
     paths.ruleset_path("en-ja").write_text("{}", encoding="utf-8")
     paths.ruleset_path("en-en").write_text("{}", encoding="utf-8")
+    paths.semantic_inventory_path("en-ja").write_text("{}", encoding="utf-8")
+    paths.semantic_inventory_path("en-en").write_text("{}", encoding="utf-8")
     return paths
 
 
@@ -110,14 +112,17 @@ class TestHelperEngineReset(unittest.TestCase):
 
             self.assertFalse(paths.snapshot_path("en-ja").exists())
             self.assertFalse(paths.ruleset_path("en-ja").exists())
+            self.assertFalse(paths.semantic_inventory_path("en-ja").exists())
             self.assertTrue(paths.snapshot_path("en-en").exists())
             self.assertTrue(paths.ruleset_path("en-en").exists())
+            self.assertTrue(paths.semantic_inventory_path("en-en").exists())
 
             self.assertEqual(result["pair"], "en-ja")
             self.assertEqual(result["removed_items"], 1)
             self.assertEqual(result["remaining_items"], 1)
             self.assertEqual(result["removed_snapshots"], 1)
             self.assertEqual(result["removed_rulesets"], 1)
+            self.assertEqual(result["removed_semantic_inventories"], 1)
 
     def test_reset_all_removes_all_pairs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -131,12 +136,15 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertFalse(paths.snapshot_path("en-en").exists())
             self.assertFalse(paths.ruleset_path("en-ja").exists())
             self.assertFalse(paths.ruleset_path("en-en").exists())
+            self.assertFalse(paths.semantic_inventory_path("en-ja").exists())
+            self.assertFalse(paths.semantic_inventory_path("en-en").exists())
 
             self.assertEqual(result["pair"], "all")
             self.assertEqual(result["removed_items"], 2)
             self.assertEqual(result["remaining_items"], 0)
             self.assertEqual(result["removed_snapshots"], 2)
             self.assertEqual(result["removed_rulesets"], 2)
+            self.assertEqual(result["removed_semantic_inventories"], 2)
 
 
 class TestHelperEngineProfileIsolation(unittest.TestCase):
@@ -181,10 +189,16 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             paths.ruleset_path("en-ja", profile_id=default_profile).write_text(
                 "{}", encoding="utf-8"
             )
+            paths.semantic_inventory_path("en-ja", profile_id=default_profile).write_text(
+                "{}", encoding="utf-8"
+            )
             paths.snapshot_path("en-ja", profile_id=other_profile).write_text(
                 "{}", encoding="utf-8"
             )
             paths.ruleset_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
+            paths.semantic_inventory_path("en-ja", profile_id=other_profile).write_text(
+                "{}", encoding="utf-8"
+            )
 
             result = reset_srs_data(paths, pair="en-ja", profile_id=other_profile)
 
@@ -194,8 +208,14 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             self.assertEqual(len(other_store.items), 0)
             self.assertTrue(paths.snapshot_path("en-ja", profile_id=default_profile).exists())
             self.assertTrue(paths.ruleset_path("en-ja", profile_id=default_profile).exists())
+            self.assertTrue(
+                paths.semantic_inventory_path("en-ja", profile_id=default_profile).exists()
+            )
             self.assertFalse(paths.snapshot_path("en-ja", profile_id=other_profile).exists())
             self.assertFalse(paths.ruleset_path("en-ja", profile_id=other_profile).exists())
+            self.assertFalse(
+                paths.semantic_inventory_path("en-ja", profile_id=other_profile).exists()
+            )
             self.assertEqual(result["profile_id"], other_profile)
             self.assertEqual(result["removed_items"], 1)
 
@@ -244,8 +264,10 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             self.assertFalse(paths.srs_store_path.exists())
             self.assertFalse(paths.snapshot_path("en-ja").exists())
             self.assertFalse(paths.ruleset_path("en-ja").exists())
+            self.assertFalse(paths.semantic_inventory_path("en-ja").exists())
             self.assertEqual(result["snapshot_path"], None)
             self.assertEqual(result["ruleset_path"], None)
+            self.assertEqual(result["semantic_inventory_path"], None)
             self.assertEqual(result["outputs_persisted"], False)
             self.assertEqual(result["store_persisted"], False)
             write_outputs.assert_not_called()
@@ -792,9 +814,12 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertFalse(payload["store_exists"])
             self.assertFalse(payload["ruleset_exists"])
             self.assertFalse(payload["snapshot_exists"])
+            self.assertFalse(payload["semantic_inventory_exists"])
             self.assertEqual(payload["store_items_for_pair"], 0)
             self.assertEqual(payload["ruleset_rules_count"], 0)
+            self.assertEqual(payload["ruleset_rules_with_semantic_admission"], 0)
             self.assertEqual(payload["snapshot_target_count"], 0)
+            self.assertEqual(payload["semantic_inventory_trigger_count"], 0)
 
     def test_runtime_diagnostics_reports_missing_en_de_frequency_pack(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -918,16 +943,26 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             paths.ruleset_path("en-ja").write_text(
                 (
                     '{"rules":['
-                    '{"source_phrase":"one","replacement":"一","metadata":{"script_forms":{"kanji":"一"}}},'
+                    '{"source_phrase":"one","replacement":"一","metadata":{"script_forms":{"kanji":"一"},"semantic_admission":{"schema_version":1,"status":"unavailable","reason_code":"missing_sense_locator"}}},'
                     '{"source_phrase":"two","replacement":"二","metadata":{"word_package":'
                     '{"version":1,"language_tag":"ja","surface":"二","reading":"に",'
                     '"script_forms":{"kanji":"二","kana":"に","romaji":"ni"},'
-                    '"source":{"provider":"jmdict"}}}}]}'
+                    '"source":{"provider":"jmdict"}},"semantic_admission":{"schema_version":1,"status":"ready","trigger_id":"en-ja:trigger:two","sense_id":"en-ja:jmdict:二:1","competition_set_id":"en-ja:two:二:v1"}}}]}'
                 ),
                 encoding="utf-8",
             )
             paths.snapshot_path("en-ja").write_text(
                 '{"stats":{"target_count":2,"rule_count":2},"targets":[{"lemma":"一"},{"lemma":"二"}]}',
+                encoding="utf-8",
+            )
+            paths.semantic_inventory_path("en-ja").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z",'
+                    '"triggers":{"en-ja:trigger:two":{"trigger_id":"en-ja:trigger:two","source_phrase":"two","normalized_source_phrase":"two","token_count":1}},'
+                    '"senses":{"en-ja:jmdict:二:1":{"sense_id":"en-ja:jmdict:二:1","trigger_id":"en-ja:trigger:two","status":"ready","target_lemma":"二","provider":"jmdict","locator":{"provider":"jmdict","locator_kind":"jmdict_entry","kana_forms":["に"]}}},'
+                    '"competition_sets":{"en-ja:two:二:v1":{"competition_set_id":"en-ja:two:二:v1","trigger_id":"en-ja:trigger:two","status":"ready","active_sense_id":"en-ja:jmdict:二:1","shadow_sense_ids":["en-ja:jmdict:2:shadow"],"selection_mode":"manual","selection_policy_version":"v1"}},'
+                    '"phrase_sets":{}}'
+                ),
                 encoding="utf-8",
             )
             payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
@@ -941,7 +976,17 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["ruleset_rules_count"], 2)
             self.assertEqual(payload["ruleset_rules_with_script_forms"], 1)
             self.assertEqual(payload["ruleset_rules_with_word_package"], 1)
+            self.assertEqual(payload["ruleset_rules_with_semantic_admission"], 2)
+            self.assertEqual(payload["ruleset_rules_semantic_ready"], 1)
+            self.assertEqual(payload["ruleset_rules_semantic_unavailable"], 1)
+            self.assertEqual(payload["ruleset_rules_semantic_not_applicable"], 0)
             self.assertEqual(payload["snapshot_target_count"], 2)
+            self.assertTrue(payload["semantic_inventory_exists"])
+            self.assertEqual(payload["semantic_inventory_schema_version"], 1)
+            self.assertEqual(payload["semantic_inventory_trigger_count"], 1)
+            self.assertEqual(payload["semantic_inventory_sense_count"], 1)
+            self.assertEqual(payload["semantic_inventory_competition_set_count"], 1)
+            self.assertEqual(payload["semantic_inventory_phrase_set_count"], 0)
 
 
 class TestHelperEngineInitializeSrsSet(unittest.TestCase):
@@ -1748,7 +1793,22 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                     ],
                     "stats": {"target_count": 2, "rule_count": 2, "source_count": 2},
                 }
-                return store, SimpleNamespace(rules=rules, snapshot=snapshot, target_count=2)
+                semantic_inventory = {
+                    "schema_version": 1,
+                    "pair": pair,
+                    "profile_id": "default",
+                    "generated_at": "2026-04-10T00:00:00Z",
+                    "triggers": {},
+                    "senses": {},
+                    "competition_sets": {},
+                    "phrase_sets": {},
+                }
+                return store, SimpleNamespace(
+                    rules=rules,
+                    snapshot=snapshot,
+                    target_count=2,
+                    semantic_inventory=semantic_inventory,
+                )
 
             with (
                 patch(
@@ -1804,6 +1864,7 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(rulegen_payload.get("rules"), 2)
             self.assertTrue(Path(rulegen_payload.get("snapshot_path")).exists())
             self.assertTrue(Path(rulegen_payload.get("ruleset_path")).exists())
+            self.assertTrue(Path(rulegen_payload.get("semantic_inventory_path")).exists())
 
 
 class TestHelperEngineExposureOnly(unittest.TestCase):

@@ -250,6 +250,13 @@ def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") 
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
 
 
+def load_semantic_inventory(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
+    inventory_path = paths.semantic_inventory_path(pair, profile_id=profile_id)
+    if not inventory_path.exists():
+        raise FileNotFoundError(inventory_path)
+    return json.loads(inventory_path.read_text(encoding="utf-8"))
+
+
 def get_srs_runtime_diagnostics(
     paths: HelperPaths,
     *,

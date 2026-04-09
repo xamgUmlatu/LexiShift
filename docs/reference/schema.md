@@ -60,6 +60,14 @@ Top-level fields
     - `source_profile` (string, optional; normalization profile id)
     - `matched_rule` (string, optional; debug/audit rule id)
 - `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
+- `semantic_admission` (object, optional; planning-to-implementation semantic-routing pointer)
+  - When present, follows the planning contract in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
+  - Current default adapter/helper paths can populate this field
+  - Provenance-capable LPs currently emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
+  - No LP emits `status=ready` by default yet
+
+Notes:
+- Semantic-routing sidecar publication is still a partial implementation seam rather than a default runtime feature. See `docs/rulegen/semantic_routing_publication_contract.md` and `docs/test_inputs/semantic_routing/`.
 
 ### WordPackage
 - `version` (int, required; current `1`)

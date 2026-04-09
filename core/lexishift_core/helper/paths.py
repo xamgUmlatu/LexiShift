@@ -118,6 +118,10 @@ class HelperPaths:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_ruleset_{safe_pair}.json"
 
+    def semantic_inventory_path(self, pair: str, profile_id: str | None = None) -> Path:
+        safe_pair = pair.replace("/", "-").replace(":", "-")
+        return self.profile_srs_dir(profile_id) / f"srs_semantic_inventory_{safe_pair}.json"
+
 
 def build_helper_paths(root: Path | None = None) -> HelperPaths:
     data_root = root or resolve_data_root()

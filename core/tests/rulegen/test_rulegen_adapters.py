@@ -14,15 +14,18 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
-from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.rulegen.generation import (  # noqa: E402
+    RuleCandidate,
     PosMatchScoringConfig,
     RuleScoreWeights,
     RuleScoringConfig,
 )
 from lexishift_core.rulegen.pairs.en_de import (  # noqa: E402
+    EnDeCompiledResources,
     EnDeKaikkiPolicyConfig,
     EnDeRulegenConfig,
+    build_en_de_compiled_resources,
     generate_en_de_results,
 )
 from lexishift_core.rulegen.pairs.en_es import EnEsCompiledResources  # noqa: E402
@@ -36,6 +39,56 @@ from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: 
 
 
 class TestRulegenAdapters(unittest.TestCase):
+    def test_en_es_adapter_derives_semantic_admission_from_sense_provenance(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_es_results",
+            return_value=[
+                SimpleNamespace(
+                    candidate=RuleCandidate(
+                        source_phrase="account",
+                        replacement="cuenta",
+                        language_pair="en-es",
+                        source_dict="wiktionary_es_en",
+                        metadata={
+                            "sense_provenance": {
+                                "entry_ord": 20,
+                                "sense_ord": 1,
+                                "gloss_ord": 0,
+                            }
+                        },
+                    ),
+                    rule=VocabRule(
+                        source_phrase="account",
+                        replacement="cuenta",
+                        metadata=RuleMetadata(language_pair="en-es"),
+                    ),
+                    confidence=0.91,
+                )
+            ],
+        ):
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-es",
+                    targets=("cuenta",),
+                    language_pair="en-es",
+                    translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+                )
+            )
+
+        self.assertEqual(len(rules), 1)
+        metadata = rules[0].metadata
+        self.assertIsNotNone(metadata)
+        assert metadata is not None
+        self.assertEqual(metadata.semantic_admission["schema_version"], 1)
+        self.assertEqual(metadata.semantic_admission["status"], "unavailable")
+        self.assertEqual(
+            metadata.semantic_admission["reason_code"],
+            "missing_shadow_selection",
+        )
+        self.assertIn("sense_id", metadata.semantic_admission)
+        self.assertIn("competition_set_id", metadata.semantic_admission)
+        self.assertIn("trigger_id", metadata.semantic_admission)
+
     def test_de_en_requires_translation_dictionary_path(self) -> None:
         with self.assertRaises(ValueError):
             run_rules_with_adapter(
@@ -295,6 +348,32 @@ class TestRulegenAdapters(unittest.TestCase):
             0.13,
             places=6,
         )
+
+    def test_en_de_dispatches_compiled_resources(self) -> None:
+        compiled_resources = EnDeCompiledResources(
+            records_by_target={"Haus": [FreedictGlossRecord(translation="house", pos_raw="noun")]},
+            reverse_records_by_source={
+                "house": [FreedictGlossRecord(translation="Haus", pos_raw="noun")]
+            },
+        )
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_en_de_results",
+            return_value=[
+                SimpleNamespace(rule=VocabRule(source_phrase="house", replacement="Haus"))
+            ],
+        ) as generate:
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    compiled_pair_context=compiled_resources,
+                )
+            )
+        generate.assert_called_once()
+        _, kwargs = generate.call_args
+        self.assertIs(kwargs["config"].compiled_resources, compiled_resources)
 
     def test_en_de_adapter_generates_rules_from_freedict_tei(self) -> None:
         tei_payload = """<?xml version="1.0" encoding="UTF-8"?>
@@ -1700,6 +1779,467 @@ class TestRulegenAdapters(unittest.TestCase):
             ["reason", "motive", "motivation"],
         )
 
+    def test_en_de_adapter_cleaner_later_competition_ignores_later_same_sense_non_representative(
+        self,
+    ) -> None:
+        records = {
+            "Stimme": [
+                FreedictGlossRecord(
+                    translation="voice (speaking or singing), call of an animal",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 6622, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="vote",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 6622, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("voice", 100.0),
+                        ("call", 900.0),
+                        ("vote", 50.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Stimme",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    cleaner_later_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["voice"])
+
+    def test_en_de_adapter_cleaner_later_competition_uses_later_sense_representative(
+        self,
+    ) -> None:
+        records = {
+            "Grund": [
+                FreedictGlossRecord(
+                    translation="ground",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="reason",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("ground", 100.0),
+                        ("reason", 800.0),
+                        ("motive", 10.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_competition = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                )
+            )
+            with_competition = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    cleaner_later_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in without_competition], ["ground"])
+        self.assertEqual([rule.source_phrase for rule in with_competition], ["reason"])
+
+    def test_en_de_adapter_sense_defaultness_competition_promotes_later_sense(
+        self,
+    ) -> None:
+        records = {
+            "Grund": [
+                FreedictGlossRecord(
+                    translation="ground, land",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="reason",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("ground", 120.0),
+                        ("land", 110.0),
+                        ("reason", 100000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            without_defaultness = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                )
+            )
+            with_defaultness = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    sense_defaultness_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in without_defaultness], ["ground"])
+        self.assertEqual([rule.source_phrase for rule in with_defaultness], ["reason"])
+
+    def test_en_de_adapter_sense_defaultness_competition_requires_sense_representatives(
+        self,
+    ) -> None:
+        records = {
+            "Grund": [
+                FreedictGlossRecord(
+                    translation="ground, land",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="reason, motive",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("ground", 120.0),
+                        ("land", 110.0),
+                        ("reason", 900.0),
+                        ("motive", 10.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_defaultness_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["ground"])
+
+    def test_en_de_adapter_sense_defaultness_competition_promotes_cleaner_later_identity(
+        self,
+    ) -> None:
+        records = {
+            "Fall": [
+                FreedictGlossRecord(
+                    translation="fall, drop",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2723, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="case",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2723, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("fall", 120.0),
+                        ("drop", 110.0),
+                        ("case", 100000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Fall",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    sense_defaultness_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["case"])
+
+    def test_en_de_adapter_sense_defaultness_competition_uses_frequency_when_provenance_ties(
+        self,
+    ) -> None:
+        records = {
+            "Grund": [
+                FreedictGlossRecord(
+                    translation="ground",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="reason",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2884, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("ground", 120.0),
+                        ("reason", 900.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Grund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    sense_defaultness_competition_penalty=0.8,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["reason"])
+
+    def test_en_de_adapter_sense_defaultness_competition_blocks_parenthetical_later_gloss(
+        self,
+    ) -> None:
+        records = {
+            "Haus": [
+                FreedictGlossRecord(
+                    translation="house",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 27, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="home (in various phrases)",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 27, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("house", 10.0),
+                        ("home", 1000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Haus",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    sense_defaultness_competition_penalty=1.0,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["house"])
+
+    def test_en_de_adapter_sense_defaultness_competition_blocks_onomastic_later_sense(
+        self,
+    ) -> None:
+        records = {
+            "Freund": [
+                FreedictGlossRecord(
+                    translation="friend",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 2050, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="a surname",
+                    pos_raw="name",
+                    metadata={
+                        "entry_ord": 2051,
+                        "sense_ord": 0,
+                        "gloss_ord": 0,
+                        "sense_tags": ("proper-noun", "surname"),
+                        "sense_categories": ("German surnames",),
+                    },
+                ),
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            freq_db = base / "freq-en-coca.sqlite"
+            conn = sqlite3.connect(freq_db)
+            try:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, pmw REAL)")
+                conn.executemany(
+                    "INSERT INTO frequency (lemma, pmw) VALUES (?, ?)",
+                    [
+                        ("friend", 10.0),
+                        ("surname", 1000.0),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="en-de",
+                    targets=("Freund",),
+                    language_pair="en-de",
+                    translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                    gloss_records_by_target=records,
+                    include_variants=False,
+                    max_definitions_per_target=3,
+                    max_rules_per_target=1,
+                    scoring=RuleScoringConfig(weights=RuleScoreWeights(frequency_weight=0.0)),
+                    enable_source_frequency_prior=True,
+                    source_frequency_db_path=freq_db,
+                    sense_representative_selection=True,
+                    sense_defaultness_competition_penalty=1.0,
+                )
+            )
+        self.assertEqual([rule.source_phrase for rule in rules], ["friend"])
+
     def test_en_de_adapter_uses_kaikki_policy_live_demotion_when_risky_family_present(
         self,
     ) -> None:
@@ -1803,6 +2343,73 @@ class TestRulegenAdapters(unittest.TestCase):
                 "sense_category:german colloquialisms",
                 "sense_category:regional german",
             ),
+        )
+
+    def test_en_de_compiled_resources_match_live_results_with_register_demotion(self) -> None:
+        records = {
+            "Kind": [
+                FreedictGlossRecord(
+                    translation="kid",
+                    pos_raw="noun",
+                    metadata={"sense_tags": ("colloquial", "regional")},
+                ),
+                FreedictGlossRecord(
+                    translation="child",
+                    pos_raw="noun",
+                    metadata={},
+                ),
+            ]
+        }
+        base_config = EnDeRulegenConfig(
+            freedict_de_en_path=Path("/tmp/wiktionary-de-en.sqlite"),
+            gloss_records_by_target=records,
+            include_variants=False,
+            max_definitions_per_target=None,
+            kaikki_policy=EnDeKaikkiPolicyConfig(
+                enable_shadow_metadata=True,
+                enable_register_demotion=True,
+            ),
+        )
+        compiled_resources = build_en_de_compiled_resources(
+            targets=("Kind",),
+            records_by_target=records,
+            language_pair="en-de",
+            source_dict="wiktionary_de_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        compiled_config = EnDeRulegenConfig(
+            **{
+                **base_config.__dict__,
+                "compiled_resources": compiled_resources,
+                "source_dict_id": "wiktionary_de_en",
+                "dictionary_pos_source_profile": "wiktionary",
+            }
+        )
+
+        live_results = generate_en_de_results(["Kind"], config=base_config)
+        compiled_results = generate_en_de_results(["Kind"], config=compiled_config)
+
+        self.assertEqual(
+            [result.rule.source_phrase for result in compiled_results],
+            [result.rule.source_phrase for result in live_results],
+        )
+        self.assertEqual(
+            [result.confidence for result in compiled_results],
+            [result.confidence for result in live_results],
+        )
+        compiled_by_source = {
+            result.rule.source_phrase: result.candidate.metadata for result in compiled_results
+        }
+        self.assertAlmostEqual(
+            float(compiled_by_source["kid"]["semantic_demotion"]),
+            float(
+                next(
+                    result.candidate.metadata["semantic_demotion"]
+                    for result in live_results
+                    if result.rule.source_phrase == "kid"
+                )
+            ),
+            places=6,
         )
 
     def test_en_de_adapter_uses_kaikki_register_demotion_when_register_markers_present(

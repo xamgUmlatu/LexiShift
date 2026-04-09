@@ -71,6 +71,9 @@ def get_srs_runtime_diagnostics(
     store_path = paths.srs_store_path_for(normalized_profile_id)
     ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
     snapshot_path = paths.snapshot_path(normalized_pair, profile_id=normalized_profile_id)
+    semantic_inventory_path = paths.semantic_inventory_path(
+        normalized_pair, profile_id=normalized_profile_id
+    )
     status_path = paths.srs_status_path_for(normalized_profile_id)
     translation_dict_path_text = (
         str(resolved_translation_dict_path) if resolved_translation_dict_path else None
@@ -153,11 +156,23 @@ def get_srs_runtime_diagnostics(
         "ruleset_rules_count": 0,
         "ruleset_rules_with_script_forms": 0,
         "ruleset_rules_with_word_package": 0,
+        "ruleset_rules_with_semantic_admission": 0,
+        "ruleset_rules_semantic_ready": 0,
+        "ruleset_rules_semantic_unavailable": 0,
+        "ruleset_rules_semantic_not_applicable": 0,
         "ruleset_error": None,
         "snapshot_path": str(snapshot_path),
         "snapshot_exists": snapshot_path.exists(),
         "snapshot_target_count": 0,
         "snapshot_error": None,
+        "semantic_inventory_path": str(semantic_inventory_path),
+        "semantic_inventory_exists": semantic_inventory_path.exists(),
+        "semantic_inventory_schema_version": None,
+        "semantic_inventory_trigger_count": 0,
+        "semantic_inventory_sense_count": 0,
+        "semantic_inventory_competition_set_count": 0,
+        "semantic_inventory_phrase_set_count": 0,
+        "semantic_inventory_error": None,
         "status": load_status(status_path).__dict__,
     }
     if diagnostics["store_exists"]:
@@ -198,6 +213,27 @@ def get_srs_runtime_diagnostics(
                         and isinstance(rule.get("metadata", {}).get("word_package"), dict)
                     ]
                 )
+                semantic_admission_rules = [
+                    rule
+                    for rule in rules
+                    if isinstance(rule, dict)
+                    and isinstance(rule.get("metadata"), dict)
+                    and isinstance(rule.get("metadata", {}).get("semantic_admission"), dict)
+                ]
+                diagnostics["ruleset_rules_with_semantic_admission"] = len(semantic_admission_rules)
+                semantic_statuses = [
+                    str(rule.get("metadata", {}).get("semantic_admission", {}).get("status") or "")
+                    for rule in semantic_admission_rules
+                ]
+                diagnostics["ruleset_rules_semantic_ready"] = len(
+                    [status for status in semantic_statuses if status == "ready"]
+                )
+                diagnostics["ruleset_rules_semantic_unavailable"] = len(
+                    [status for status in semantic_statuses if status == "unavailable"]
+                )
+                diagnostics["ruleset_rules_semantic_not_applicable"] = len(
+                    [status for status in semantic_statuses if status == "not_applicable"]
+                )
             else:
                 diagnostics["ruleset_rules_count"] = 0
         except Exception as exc:  # noqa: BLE001
@@ -212,4 +248,26 @@ def get_srs_runtime_diagnostics(
             diagnostics["snapshot_target_count"] = int(target_count or 0)
         except Exception as exc:  # noqa: BLE001
             diagnostics["snapshot_error"] = str(exc)
+    if diagnostics["semantic_inventory_exists"]:
+        try:
+            semantic_inventory_payload = json.loads(
+                semantic_inventory_path.read_text(encoding="utf-8")
+            )
+            diagnostics["semantic_inventory_schema_version"] = semantic_inventory_payload.get(
+                "schema_version"
+            )
+            diagnostics["semantic_inventory_trigger_count"] = len(
+                semantic_inventory_payload.get("triggers", {}) or {}
+            )
+            diagnostics["semantic_inventory_sense_count"] = len(
+                semantic_inventory_payload.get("senses", {}) or {}
+            )
+            diagnostics["semantic_inventory_competition_set_count"] = len(
+                semantic_inventory_payload.get("competition_sets", {}) or {}
+            )
+            diagnostics["semantic_inventory_phrase_set_count"] = len(
+                semantic_inventory_payload.get("phrase_sets", {}) or {}
+            )
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["semantic_inventory_error"] = str(exc)
     return diagnostics

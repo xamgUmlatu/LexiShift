@@ -64,6 +64,7 @@ class RuleMetadata:
     morphology: Optional[Mapping[str, object]] = None
     pos: Optional[Mapping[str, object]] = None
     rulegen: Optional[Mapping[str, object]] = None
+    semantic_admission: Optional[Mapping[str, object]] = None
 
 
 @dataclass(frozen=True)

@@ -13,10 +13,11 @@ from lexishift_core.helper.translation_packs import (
     build_translation_pack_ref,
 )
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
-from lexishift_core.rulegen.generation import RuleScoringConfig
+from lexishift_core.rulegen.generation import RuleGenerationResult, RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.rulegen.pairs.de_en import DeEnRulegenConfig, generate_de_en_results
 from lexishift_core.rulegen.pairs.en_de import (
+    EnDeCompiledResources,
     EnDeKaikkiPolicyConfig,
     EnDeRulegenConfig,
     generate_en_de_results,
@@ -29,6 +30,7 @@ from lexishift_core.rulegen.pairs.en_es import (
 )
 from lexishift_core.rulegen.pairs.es_en import EsEnRulegenConfig, generate_es_en_results
 from lexishift_core.rulegen.pairs.en_ja import EnJaRulegenConfig, generate_en_ja_results
+from lexishift_core.rulegen.semantic_publication import annotate_results_with_semantic_admission
 from lexishift_core.scoring.weighting import GlossDecay
 
 
@@ -42,6 +44,8 @@ class RulegenAdapterRequest:
     max_rules_per_target: Optional[int] = None
     interleave_definition_groups: bool = False
     sense_representative_selection: bool = False
+    sense_representative_penalty: float = 0.60
+    sense_defaultness_competition_penalty: float = 0.0
     semantic_demotion_scale: float = 1.0
     include_variants: bool = True
     allow_multiword_glosses: bool = False
@@ -68,6 +72,7 @@ class RulegenAdapterRequest:
 
 
 RulegenAdapter = Callable[[RulegenAdapterRequest], Sequence[VocabRule]]
+RulegenResultAdapter = Callable[[RulegenAdapterRequest], Sequence[RuleGenerationResult]]
 
 
 def _resolved_translation_dict_path(request: RulegenAdapterRequest) -> Path | None:
@@ -103,6 +108,10 @@ def _resolved_reverse_translation_pack(request: RulegenAdapterRequest) -> Transl
 
 
 def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in _run_en_ja_results_adapter(request)]
+
+
+def _run_en_ja_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
     if request.jmdict_path is None:
         raise ValueError("Missing JMDict path for en-ja rule generation.")
     config = EnJaRulegenConfig(
@@ -119,11 +128,14 @@ def _run_en_ja_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         word_packages_by_target=request.word_packages_by_target,
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
-    results = generate_en_ja_results(request.targets, config=config)
-    return [result.rule for result in results]
+    return tuple(
+        annotate_results_with_semantic_admission(
+            generate_en_ja_results(request.targets, config=config)
+        )
+    )
 
 
-def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+def build_en_de_rulegen_config(request: RulegenAdapterRequest) -> EnDeRulegenConfig:
     translation_pack = _resolved_translation_pack(request)
     if translation_pack is None:
         raise ValueError("Missing translation dictionary path for en-de rule generation.")
@@ -136,7 +148,12 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         reverse_translation_pack.pack_id if reverse_translation_pack is not None else None
     )
     default_kaikki_policy = EnDeKaikkiPolicyConfig()
-    config = EnDeRulegenConfig(
+    compiled_resources = (
+        request.compiled_pair_context
+        if isinstance(request.compiled_pair_context, EnDeCompiledResources)
+        else None
+    )
+    return EnDeRulegenConfig(
         freedict_de_en_path=translation_dict_path,
         reverse_freedict_en_de_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
@@ -150,6 +167,8 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         max_rules_per_target=request.max_rules_per_target,
         interleave_definition_groups=request.interleave_definition_groups,
         sense_representative_selection=request.sense_representative_selection,
+        sense_representative_penalty=request.sense_representative_penalty,
+        sense_defaultness_competition_penalty=request.sense_defaultness_competition_penalty,
         semantic_demotion_scale=request.semantic_demotion_scale,
         include_variants=request.include_variants,
         allow_multiword_glosses=request.allow_multiword_glosses,
@@ -161,6 +180,7 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         enable_source_frequency_prior=request.enable_source_frequency_prior,
         source_frequency_db_path=request.source_frequency_db_path,
         cleaner_later_competition_penalty=request.cleaner_later_competition_penalty,
+        compiled_resources=compiled_resources,
         kaikki_policy=EnDeKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),
@@ -174,11 +194,26 @@ def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
             ),
         ),
     )
-    results = generate_en_de_results(request.targets, config=config)
-    return [result.rule for result in results]
+
+
+def _run_en_de_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in _run_en_de_results_adapter(request)]
+
+
+def _run_en_de_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
+    config = build_en_de_rulegen_config(request)
+    return tuple(
+        annotate_results_with_semantic_admission(
+            generate_en_de_results(request.targets, config=config)
+        )
+    )
 
 
 def _run_de_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in _run_de_en_results_adapter(request)]
+
+
+def _run_de_en_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
     translation_dict_path = _resolved_translation_dict_path(request)
     if translation_dict_path is None:
         raise ValueError("Missing translation dictionary path for de-en rule generation.")
@@ -197,8 +232,11 @@ def _run_de_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         word_packages_by_target=request.word_packages_by_target,
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
-    results = generate_de_en_results(request.targets, config=config)
-    return [result.rule for result in results]
+    return tuple(
+        annotate_results_with_semantic_admission(
+            generate_de_en_results(request.targets, config=config)
+        )
+    )
 
 
 def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenConfig:
@@ -259,12 +297,23 @@ def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenCon
 
 
 def _run_en_es_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in _run_en_es_results_adapter(request)]
+
+
+def _run_en_es_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
     config = build_en_es_rulegen_config(request)
-    results = generate_en_es_results(request.targets, config=config)
-    return [result.rule for result in results]
+    return tuple(
+        annotate_results_with_semantic_admission(
+            generate_en_es_results(request.targets, config=config)
+        )
+    )
 
 
 def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in _run_es_en_results_adapter(request)]
+
+
+def _run_es_en_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
     translation_dict_path = _resolved_translation_dict_path(request)
     reverse_translation_dict_path = _resolved_reverse_translation_dict_path(request)
     if translation_dict_path is None:
@@ -286,8 +335,11 @@ def _run_es_en_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
         word_packages_by_target=request.word_packages_by_target,
         enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
     )
-    results = generate_es_en_results(request.targets, config=config)
-    return [result.rule for result in results]
+    return tuple(
+        annotate_results_with_semantic_admission(
+            generate_es_en_results(request.targets, config=config)
+        )
+    )
 
 
 _RULEGEN_ADAPTERS: dict[str, RulegenAdapter] = {
@@ -298,15 +350,27 @@ _RULEGEN_ADAPTERS: dict[str, RulegenAdapter] = {
     "es_en": _run_es_en_adapter,
 }
 
+_RULEGEN_RESULT_ADAPTERS: dict[str, RulegenResultAdapter] = {
+    "de_en": _run_de_en_results_adapter,
+    "en_ja": _run_en_ja_results_adapter,
+    "en_de": _run_en_de_results_adapter,
+    "en_es": _run_en_es_results_adapter,
+    "es_en": _run_es_en_results_adapter,
+}
 
-def run_rules_with_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+
+def run_results_with_adapter(request: RulegenAdapterRequest) -> Sequence[RuleGenerationResult]:
     capability = resolve_pair_capability(request.pair)
     mode = capability.rulegen_mode
     if mode is None:
         return []
-    adapter = _RULEGEN_ADAPTERS.get(mode)
+    adapter = _RULEGEN_RESULT_ADAPTERS.get(mode)
     if adapter is None:
         raise ValueError(
-            f"No rulegen adapter registered for mode '{mode}' (pair '{capability.pair}')."
+            f"No rulegen results adapter registered for mode '{mode}' (pair '{capability.pair}')."
         )
     return adapter(request)
+
+
+def run_rules_with_adapter(request: RulegenAdapterRequest) -> Sequence[VocabRule]:
+    return [result.rule for result in run_results_with_adapter(request)]
