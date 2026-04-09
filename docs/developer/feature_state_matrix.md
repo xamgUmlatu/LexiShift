@@ -770,7 +770,7 @@ Use this file when:
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
 - Last documented checkpoint: `2026-04-10` named `en-es` shadow-promotion policy comparison added on top of the inventory research seam
-- Last verified: `2026-04-10` targeted semantic-publication tests plus first `en-es` shadow inventory/triage/policy-comparison artifacts and doc/state sync
+- Last verified: `2026-04-10` targeted semantic-publication tests plus `en-es` shadow inventory/triage/policy-comparison/gap-queue artifacts and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -787,7 +787,8 @@ Use this file when:
     - `scripts/testing/semantic_shadow_inventory_en_es.py` mines sibling candidates from reviewed benchmark trigger phrases plus installed translation packs
     - `scripts/testing/semantic_shadow_inventory_triage_en_es.py` scores the resulting preview into `benchmark_aligned`, `same_pos_only`, and `no_promotion` buckets
     - `scripts/testing/semantic_shadow_policy_compare_en_es.py` compares named promotion policies (`same_pos_lenient_v1`, `benchmark_backed_v1`, `cross_checked_v1`)
-    - the latest artifacts confirm that candidate mining works broadly enough to study, but current promoted-shadow previews are still dominated by weak `same_pos_only` signals unless a much stricter policy is used
+    - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py` isolates the small set of rows that the stricter policy still drops
+    - the latest artifacts confirm that candidate mining works broadly enough to study, and the current best provisional policy is now `cross_checked_backoff_missing_active_v1`: it keeps the strict cross-checked behavior when active POS is known, but recovers benchmark-backed rows when active POS is missing
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -818,9 +819,11 @@ Use this file when:
   - `scripts/testing/semantic_shadow_inventory_en_es.py`
   - `scripts/testing/semantic_shadow_inventory_triage_en_es.py`
   - `scripts/testing/semantic_shadow_policy_compare_en_es.py`
+  - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -834,6 +837,7 @@ Use this file when:
   - The first policy-comparison artifact makes the current algorithm tradeoff concrete:
     - `same_pos_lenient_v1` is broad but noisy
     - `benchmark_backed_v1` and especially `cross_checked_v1` are much cleaner, but probably too narrow to serve as the final default without more shadow evidence
+  - The newest policy refinement, `cross_checked_backoff_missing_active_v1`, currently looks like the best provisional candidate because it recovers the benchmark-backed rows that were lost only due to missing active POS while still excluding the explicit cross-POS mismatches.
   - There is no phrase-preemption lane separated from semantic-veto serving.
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.

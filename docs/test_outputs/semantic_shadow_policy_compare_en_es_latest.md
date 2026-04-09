@@ -1,7 +1,7 @@
 # en-es Shadow Promotion Policy Comparison
 
 - Status: `ok`
-- Generated: `2026-04-09T22:26:54Z`
+- Generated: `2026-04-09T22:34:59Z`
 - Inventory status: `ok`
 - Inventory default policy: `same_pos_lenient_v1`
 
@@ -55,3 +55,20 @@
   - `fondo` / `fund` -> `capital` (`benchmark_target_present, same_pos_as_active`)
   - `llevar` / `take` -> `coger` (`reviewed_trigger_support, benchmark_target_present`)
   - `malla` / `net` -> `red` (`reviewed_trigger_support, benchmark_target_present, same_pos_as_active`)
+
+## cross_checked_backoff_missing_active_v1
+- Promoted triggers: `16`
+- Promoted candidate rows: `16`
+- `benchmark_aligned`: `16`
+- `same_pos_only`: `0`
+- `no_signal`: `0`
+- `no_promotion`: `132`
+- Samples:
+  - `acabar` / `end` -> `parte` (`benchmark_target_present`)
+  - `cargo` / `job` -> `trabajo` (`reviewed_trigger_support, benchmark_target_present`)
+  - `caso` / `matter` -> `punto` (`benchmark_target_present`)
+  - `coger` / `take` -> `llevar` (`reviewed_trigger_support, benchmark_target_present`)
+  - `coger` / `catch` -> `vista` (`benchmark_target_present`)
+  - `cuadro` / `table` -> `tabla` (`reviewed_trigger_support, benchmark_target_present, same_pos_as_active`)
+  - `cura` / `priest` -> `padre` (`benchmark_target_present, same_pos_as_active`)
+  - `escuela` / `school` -> `banco` (`benchmark_target_present, same_pos_as_active`)

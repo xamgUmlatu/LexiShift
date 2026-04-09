@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T22:27:44Z",
+  "generated_at": "2026-04-09T22:34:59Z",
   "status": "ok",
   "inventory_status": "ok",
-  "policy": "cross_checked_v1",
+  "policy": "cross_checked_backoff_missing_active_v1",
   "focus_targets": [
     "marco",
     "cuadro",
@@ -17,7 +17,7 @@
     "banco",
     "pelota"
   ],
-  "row_count": 6,
+  "row_count": 7,
   "rows": [
     {
       "target": "coger",
@@ -252,7 +252,194 @@
             "reviewed_trigger_support",
             "benchmark_target_present"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+        }
+      ]
+    },
+    {
+      "target": "coger",
+      "trigger": "catch",
+      "active_candidates": [],
+      "promoted_shadow_candidates": [
+        {
+          "target": "vista",
+          "sense_label": "the act of noticing, understanding or hearing",
+          "canonical_pos": "noun",
+          "provider": "wiktionary",
+          "locator": {
+            "provider": "wiktionary",
+            "locator_kind": "wiktionary_ordinal",
+            "entry_ord": 2980,
+            "sense_ord": 4,
+            "gloss_ord": 5
+          },
+          "glosses": [
+            "vista"
+          ],
+          "qualifiers": {
+            "tags": [
+              "feminine"
+            ],
+            "categories": [
+              "English countable nouns",
+              "English doublets",
+              "English entries with etymology trees",
+              "English entries with incorrect language header",
+              "English irregular verbs",
+              "English lemmas",
+              "English nouns",
+              "English terms derived from Anglo-Norman",
+              "English terms derived from Late Latin",
+              "English terms derived from Latin",
+              "English terms derived from Middle English",
+              "English terms derived from Old French",
+              "English terms derived from Proto-Indo-European",
+              "English terms derived from Proto-Italic",
+              "English terms derived from Vulgar Latin",
+              "English terms derived from the Proto-Indo-European root *kap- (seize)",
+              "English terms inherited from Middle English",
+              "English terms with homophones",
+              "English uncountable nouns",
+              "English verbs",
+              "Entries with translation boxes",
+              "Pages using etymon with no ID",
+              "Pages with 2 entries",
+              "Pages with entries",
+              "Pages with etymology trees",
+              "Requests for review of Indonesian translations",
+              "Requests for review of Japanese translations",
+              "Requests for review of Norman translations",
+              "Requests for review of Romanian translations",
+              "Requests for review of Woiwurrung translations",
+              "Rhymes:English/ætʃ",
+              "Rhymes:English/ætʃ/1 syllable",
+              "Rhymes:English/ɛtʃ",
+              "Rhymes:English/ɛtʃ/1 syllable",
+              "Terms with Afar translations",
+              "Terms with Aklanon translations",
+              "Terms with Albanian translations",
+              "Terms with Ancient Greek translations",
+              "Terms with Arabic translations",
+              "Terms with Armenian translations",
+              "Terms with Assamese translations",
+              "Terms with Azerbaijani translations",
+              "Terms with Bangi translations",
+              "Terms with Bashkir translations",
+              "Terms with Basque translations",
+              "Terms with Belarusian translations",
+              "Terms with Bengali translations",
+              "Terms with Bulgarian translations",
+              "Terms with Burmese translations",
+              "Terms with Cantonese translations",
+              "Terms with Catalan translations",
+              "Terms with Cebuano translations",
+              "Terms with Central Kurdish translations",
+              "Terms with Chechen translations",
+              "Terms with Cherokee translations",
+              "Terms with Cornish translations",
+              "Terms with Czech translations",
+              "Terms with Danish translations",
+              "Terms with Dutch translations",
+              "Terms with Esperanto translations",
+              "Terms with Estonian translations",
+              "Terms with Ewe translations",
+              "Terms with Finnish translations",
+              "Terms with French translations",
+              "Terms with Friulian translations",
+              "Terms with Galician translations",
+              "Terms with Gallurese translations",
+              "Terms with Georgian translations",
+              "Terms with German translations",
+              "Terms with Greek translations",
+              "Terms with Haitian Creole translations",
+              "Terms with Hebrew translations",
+              "Terms with Hijazi Arabic translations",
+              "Terms with Hindi translations",
+              "Terms with Hokkien translations",
+              "Terms with Hungarian translations",
+              "Terms with Ido translations",
+              "Terms with Indonesian translations",
+              "Terms with Ingrian translations",
+              "Terms with Ingush translations",
+              "Terms with Irish translations",
+              "Terms with Italian translations",
+              "Terms with Japanese translations",
+              "Terms with Javanese translations",
+              "Terms with Kaitag translations",
+              "Terms with Khiamniungan Naga translations",
+              "Terms with Khmer translations",
+              "Terms with Korean translations",
+              "Terms with Latgalian translations",
+              "Terms with Latin translations",
+              "Terms with Latvian translations",
+              "Terms with Lingala translations",
+              "Terms with Lombard translations",
+              "Terms with Lower Sorbian translations",
+              "Terms with Luxembourgish translations",
+              "Terms with Malay translations",
+              "Terms with Mandarin translations",
+              "Terms with Mansaka translations",
+              "Terms with Maore Comorian translations",
+              "Terms with Maranao translations",
+              "Terms with Marathi translations",
+              "Terms with Māori translations",
+              "Terms with Ngazidja Comorian translations",
+              "Terms with Norman translations",
+              "Terms with Northern Kurdish translations",
+              "Terms with Norwegian Bokmål translations",
+              "Terms with Norwegian Nynorsk translations",
+              "Terms with Norwegian translations",
+              "Terms with Nyunga translations",
+              "Terms with Occitan translations",
+              "Terms with Old English translations",
+              "Terms with Old Javanese translations",
+              "Terms with Ottoman Turkish translations",
+              "Terms with Persian translations",
+              "Terms with Polish translations",
+              "Terms with Portuguese translations",
+              "Terms with Quechua translations",
+              "Terms with Romanian translations",
+              "Terms with Romansh translations",
+              "Terms with Russian translations",
+              "Terms with Saho translations",
+              "Terms with Sardinian translations",
+              "Terms with Sassarese translations",
+              "Terms with Scottish Gaelic translations",
+              "Terms with Serbo-Croatian translations",
+              "Terms with Sicilian translations",
+              "Terms with Slovak translations",
+              "Terms with Slovene translations",
+              "Terms with Spanish translations",
+              "Terms with Swahili translations",
+              "Terms with Swedish translations",
+              "Terms with Sylheti translations",
+              "Terms with Tajik translations",
+              "Terms with Tamil translations",
+              "Terms with Turkish translations",
+              "Terms with Tày translations",
+              "Terms with Ukrainian translations",
+              "Terms with Urdu translations",
+              "Terms with Venetan translations",
+              "Terms with Vietnamese translations",
+              "Terms with Welsh translations",
+              "Terms with Western Bukidnon Manobo translations",
+              "Terms with Woiwurrung translations",
+              "Terms with Yaghnobi translations",
+              "Terms with Yiddish translations",
+              "Terms with Yucatec Maya translations",
+              "Terms with Zazaki translations"
+            ]
+          },
+          "benchmark_target_present": true,
+          "benchmark_case_ids": [
+            "en-es:vista"
+          ],
+          "reviewed_trigger_support": false,
+          "same_pos_as_active": false,
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     },
@@ -623,7 +810,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     },
@@ -860,7 +1047,7 @@
             "reviewed_trigger_support",
             "benchmark_target_present"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     },
@@ -1127,7 +1314,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     },
@@ -1285,7 +1472,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     },
@@ -1410,7 +1597,7 @@
             "reviewed_trigger_support",
             "benchmark_target_present"
           ],
-          "promotion_policy": "cross_checked_v1"
+          "promotion_policy": "cross_checked_backoff_missing_active_v1"
         }
       ]
     }

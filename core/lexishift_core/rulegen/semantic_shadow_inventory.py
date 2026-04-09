@@ -14,6 +14,7 @@ SHADOW_PROMOTION_POLICIES = (
     DEFAULT_SHADOW_PROMOTION_POLICY,
     "benchmark_backed_v1",
     "cross_checked_v1",
+    "cross_checked_backoff_missing_active_v1",
 )
 
 
@@ -248,6 +249,7 @@ def promote_shadow_candidates_for_policy(
         for candidate in active_candidates
         if str(candidate.get("canonical_pos") or "").strip()
     }
+    has_active_pos = bool(active_pos_values)
     ranked: list[tuple[tuple[int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         target = str(candidate.get("target") or "").strip()
@@ -268,6 +270,7 @@ def promote_shadow_candidates_for_policy(
             reviewed_trigger_support=reviewed_trigger_support,
             benchmark_target_present=benchmark_target_present,
             same_pos=same_pos,
+            has_active_pos=has_active_pos,
             policy=normalized_policy,
         ):
             continue
@@ -291,6 +294,7 @@ def _shadow_candidate_qualifies_for_policy(
     reviewed_trigger_support: bool,
     benchmark_target_present: bool,
     same_pos: bool,
+    has_active_pos: bool,
     policy: str,
 ) -> bool:
     if policy == DEFAULT_SHADOW_PROMOTION_POLICY:
@@ -299,6 +303,12 @@ def _shadow_candidate_qualifies_for_policy(
         return reviewed_trigger_support or benchmark_target_present
     if policy == "cross_checked_v1":
         return reviewed_trigger_support or (benchmark_target_present and same_pos)
+    if policy == "cross_checked_backoff_missing_active_v1":
+        if reviewed_trigger_support:
+            return True
+        if benchmark_target_present and same_pos:
+            return True
+        return benchmark_target_present and not has_active_pos
     return False
 
 

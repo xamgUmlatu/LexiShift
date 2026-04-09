@@ -196,6 +196,10 @@ First implemented research seam:
   - `same_pos_lenient_v1`: broad (`90` promoted triggers) but noisy
   - `benchmark_backed_v1`: cleaner (`19` promoted triggers) but narrow
   - `cross_checked_v1`: narrower still (`11` promoted triggers), but currently the most plausible runtime-shaped starting point
+  - `cross_checked_backoff_missing_active_v1`: a more practical provisional candidate (`16` promoted triggers) that preserves the strict cross-checked behavior when active POS is known, but falls back to benchmark-backed promotion when active POS is missing
+- The gap queue at `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md` now isolates what the stricter policy still drops:
+  - `5` rows due to missing active POS
+  - `3` rows due to explicit cross-POS mismatch without reviewed trigger support
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

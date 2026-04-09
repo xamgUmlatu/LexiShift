@@ -295,6 +295,11 @@ class TestSemanticShadowInventory(unittest.TestCase):
             active_candidates=active_candidates,
             policy="cross_checked_v1",
         )
+        cross_checked_backoff = promote_shadow_candidates_for_policy(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            policy="cross_checked_backoff_missing_active_v1",
+        )
 
         self.assertEqual(
             [candidate["target"] for candidate in lenient],
@@ -302,6 +307,10 @@ class TestSemanticShadowInventory(unittest.TestCase):
         )
         self.assertEqual([candidate["target"] for candidate in benchmark_backed], ["red", "cuadro"])
         self.assertEqual([candidate["target"] for candidate in cross_checked], ["red", "cuadro"])
+        self.assertEqual(
+            [candidate["target"] for candidate in cross_checked_backoff],
+            ["red", "cuadro"],
+        )
 
     def test_cross_checked_policy_drops_benchmark_target_without_same_pos_or_reviewed_trigger(
         self,
@@ -317,6 +326,40 @@ class TestSemanticShadowInventory(unittest.TestCase):
             ],
             active_candidates=[{"canonical_pos": "verb"}],
             policy="cross_checked_v1",
+        )
+        self.assertEqual(promoted, [])
+
+    def test_cross_checked_backoff_missing_active_allows_benchmark_target_without_active_pos(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_for_policy(
+            shadow_candidates=[
+                {
+                    "target": "parte",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                }
+            ],
+            active_candidates=[],
+            policy="cross_checked_backoff_missing_active_v1",
+        )
+        self.assertEqual([candidate["target"] for candidate in promoted], ["parte"])
+
+    def test_cross_checked_backoff_missing_active_still_drops_cross_pos_rows_when_active_pos_exists(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_for_policy(
+            shadow_candidates=[
+                {
+                    "target": "subir",
+                    "canonical_pos": "verb",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                }
+            ],
+            active_candidates=[{"canonical_pos": "noun"}],
+            policy="cross_checked_backoff_missing_active_v1",
         )
         self.assertEqual(promoted, [])
 
