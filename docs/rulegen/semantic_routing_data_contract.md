@@ -40,7 +40,7 @@ Today the main flow is:
 1. SRS store selects target lemmas.
 2. Rulegen pair adapters build `RuleCandidate` objects.
 3. Pair adapters may attach rich candidate metadata.
-4. `materialize_vocab_rule(...)` converts each candidate into `VocabRule`.
+4. Pair publication helpers annotate results with `metadata.semantic_admission` when semantic-routing publication is enabled.
 5. Ruleset JSON is written by helper publication.
 6. Extension loads rules, gates by SRS, builds trie, and applies replacements.
 7. DOM spans keep a compact dataset payload for UI and feedback.
@@ -79,6 +79,7 @@ Persisted rule metadata currently includes:
 - `morphology`
 - `pos`
 - narrow `rulegen` ids only
+- optional `semantic_admission`
 
 It does not currently preserve rich candidate provenance such as:
 - `sense_provenance`
@@ -177,7 +178,7 @@ If the LP cannot populate it yet:
 {
   "schema_version": 1,
   "status": "unavailable",
-  "reason_code": "missing_sense_locator"
+  "reason_code": "missing_source_sense_locator"
 }
 ```
 
@@ -211,6 +212,17 @@ Recommended top-level shape:
   "pair": "en-es",
   "profile_id": "default",
   "generated_at": "2026-04-10T12:00:00Z",
+  "capability": {
+    "pointer_modes": [
+      "sense_provenance",
+      "freedict_gloss"
+    ],
+    "default_unavailable_reason_code": "missing_source_sense_locator",
+    "competition_mode": "not_published",
+    "competition_reason_code": "missing_shadow_selection",
+    "phrase_mode": "not_published",
+    "phrase_reason_code": "missing_phrase_inventory"
+  },
   "triggers": {},
   "senses": {},
   "competition_sets": {},
@@ -232,6 +244,17 @@ Example sidecar fragment:
   "pair": "en-es",
   "profile_id": "default",
   "generated_at": "2026-04-10T12:00:00Z",
+  "capability": {
+    "pointer_modes": [
+      "sense_provenance",
+      "freedict_gloss"
+    ],
+    "default_unavailable_reason_code": "missing_source_sense_locator",
+    "competition_mode": "not_published",
+    "competition_reason_code": "missing_shadow_selection",
+    "phrase_mode": "not_published",
+    "phrase_reason_code": "missing_phrase_inventory"
+  },
   "triggers": {
     "en-es:trigger:ball": {
       "trigger_id": "en-es:trigger:ball",
@@ -299,6 +322,11 @@ Recommended record responsibilities:
   - active sense
   - promoted shadows
   - shadow-selection policy version
+
+- `capability`
+  - which locator modes this pair can currently emit
+  - which unavailable reason should be expected when locator derivation fails
+  - whether competition and phrase publication are still intentionally absent
 
 - `phrase_sets`
   - phrase/idiom blockers that should preempt semantic scoring
@@ -423,13 +451,13 @@ The next engineering-safe direction is:
 Recommended LP capability tiers for this work:
 
 - `tier_a`: `en-es`, `en-de`
-  - already have candidate-side provenance worth serializing
+  - already have candidate-side source-sense provenance worth serializing
 
 - `tier_b`: `en-ja`
-  - likely needs explicit JMDict sense locator support before it can emit `ready`
+  - can now emit stable `jmdict_entry` locators, but still lacks source-sense provenance and shadow publication
 
 - `tier_c`: `de-en`, `es-en`
-  - can likely emit the shared contract early, but initially with weaker or unavailable sense identity
+  - can now emit stable `freedict_gloss` locators, but still rely on deterministic gloss slots rather than richer source-sense provenance
 
 ## First Concrete Steps
 
@@ -437,5 +465,5 @@ Recommended LP capability tiers for this work:
 2. Define `sense_id`, `trigger_id`, and `competition_set_id` string conventions.
 3. Define a semantic inventory sidecar schema.
 4. Audit `en-es` and `en-de` candidate provenance into that sidecar shape.
-5. Define what `en-ja`, `de-en`, and `es-en` need to emit at least `status=unavailable` symmetrically.
+5. Keep weaker LPs on the same contract while making their locator tiers explicit in the sidecar capability summary.
 6. Only after that, decide which LPs can emit `status=ready`.

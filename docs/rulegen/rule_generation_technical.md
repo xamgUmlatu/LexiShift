@@ -37,6 +37,7 @@ Rule schema (canonical)
 Important current boundary:
 - candidate-generation layers may carry richer pair-local provenance such as gloss order or sense-order evidence,
 - emitted runtime rules can now carry a shared `metadata.semantic_admission` contract across LPs,
+- current rulegen LPs can now emit stable active pointers with pair-specific locator strength (`sense_provenance`, `freedict_gloss`, or `jmdict_entry`),
 - but no LP emits a fully ready competition/shadow payload by default yet,
 - so active-sense provenance is now a partial implementation seam rather than a finished runtime guarantee.
 

@@ -120,7 +120,7 @@ If the LP cannot yet emit a runtime-usable sense pointer:
   "semantic_admission": {
     "schema_version": 1,
     "status": "unavailable",
-    "reason_code": "missing_sense_locator"
+    "reason_code": "missing_source_sense_locator"
   }
 }
 ```
@@ -208,6 +208,8 @@ Recommended additions to `get_srs_runtime_diagnostics(...)`:
 - `semantic_inventory_path`
 - `semantic_inventory_exists`
 - `semantic_inventory_schema_version`
+- `semantic_inventory_pointer_modes`
+- `semantic_inventory_default_unavailable_reason_code`
 - `semantic_inventory_error`
 - `semantic_inventory_trigger_count`
 - `semantic_inventory_sense_count`
@@ -252,7 +254,7 @@ Even if the payload is only:
 {
   "schema_version": 1,
   "status": "unavailable",
-  "reason_code": "missing_sense_locator"
+  "reason_code": "missing_source_sense_locator"
 }
 ```
 
@@ -273,8 +275,9 @@ LP-specific locator details stay nested in:
 
 Good:
 
-- `en-es` emits `status=ready`
-- `en-ja` emits `status=unavailable`
+- `en-es` emits a `sense_provenance`-backed pointer
+- `de-en` emits a `freedict_gloss`-backed pointer
+- `en-ja` emits a `jmdict_entry`-backed pointer
 
 Bad:
 

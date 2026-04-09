@@ -943,7 +943,7 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             paths.ruleset_path("en-ja").write_text(
                 (
                     '{"rules":['
-                    '{"source_phrase":"one","replacement":"一","metadata":{"script_forms":{"kanji":"一"},"semantic_admission":{"schema_version":1,"status":"unavailable","reason_code":"missing_sense_locator"}}},'
+                    '{"source_phrase":"one","replacement":"一","metadata":{"script_forms":{"kanji":"一"},"semantic_admission":{"schema_version":1,"status":"unavailable","reason_code":"missing_jmdict_entry_locator"}}},'
                     '{"source_phrase":"two","replacement":"二","metadata":{"word_package":'
                     '{"version":1,"language_tag":"ja","surface":"二","reading":"に",'
                     '"script_forms":{"kanji":"二","kana":"に","romaji":"ni"},'
@@ -958,6 +958,7 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             paths.semantic_inventory_path("en-ja").write_text(
                 (
                     '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z",'
+                    '"capability":{"pointer_modes":["jmdict_entry"],"default_unavailable_reason_code":"missing_jmdict_entry_locator","competition_mode":"not_published","competition_reason_code":"missing_shadow_selection","phrase_mode":"not_published","phrase_reason_code":"missing_phrase_inventory"},'
                     '"triggers":{"en-ja:trigger:two":{"trigger_id":"en-ja:trigger:two","source_phrase":"two","normalized_source_phrase":"two","token_count":1}},'
                     '"senses":{"en-ja:jmdict:二:1":{"sense_id":"en-ja:jmdict:二:1","trigger_id":"en-ja:trigger:two","status":"ready","target_lemma":"二","provider":"jmdict","locator":{"provider":"jmdict","locator_kind":"jmdict_entry","kana_forms":["に"]}}},'
                     '"competition_sets":{"en-ja:two:二:v1":{"competition_set_id":"en-ja:two:二:v1","trigger_id":"en-ja:trigger:two","status":"ready","active_sense_id":"en-ja:jmdict:二:1","shadow_sense_ids":["en-ja:jmdict:2:shadow"],"selection_mode":"manual","selection_policy_version":"v1"}},'
@@ -983,6 +984,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["snapshot_target_count"], 2)
             self.assertTrue(payload["semantic_inventory_exists"])
             self.assertEqual(payload["semantic_inventory_schema_version"], 1)
+            self.assertEqual(payload["semantic_inventory_pointer_modes"], ["jmdict_entry"])
+            self.assertEqual(
+                payload["semantic_inventory_default_unavailable_reason_code"],
+                "missing_jmdict_entry_locator",
+            )
             self.assertEqual(payload["semantic_inventory_trigger_count"], 1)
             self.assertEqual(payload["semantic_inventory_sense_count"], 1)
             self.assertEqual(payload["semantic_inventory_competition_set_count"], 1)

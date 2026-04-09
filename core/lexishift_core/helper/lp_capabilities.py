@@ -1,10 +1,16 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
 from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+
+
+@dataclass(frozen=True)
+class SemanticPublicationCapability:
+    locator_modes: tuple[str, ...] = ()
+    missing_locator_reason_code: str = "pair_lacks_sense_locator"
 
 
 @dataclass(frozen=True)
@@ -16,6 +22,9 @@ class PairCapability:
     requires_jmdict_for_seed: bool = False
     requires_jmdict_for_rulegen: bool = False
     requires_translation_dictionary_for_rulegen: bool = False
+    semantic_publication: SemanticPublicationCapability = field(
+        default_factory=SemanticPublicationCapability
+    )
 
 
 _PAIR_CAPABILITIES: dict[str, PairCapability] = {
@@ -26,6 +35,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         srs_selectable=True,
         requires_jmdict_for_seed=True,
         requires_jmdict_for_rulegen=True,
+        semantic_publication=SemanticPublicationCapability(
+            locator_modes=("jmdict_entry",),
+            missing_locator_reason_code="missing_jmdict_entry_locator",
+        ),
     ),
     "ja-ja": PairCapability(
         pair="ja-ja",
@@ -43,6 +56,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         default_frequency_db="freq-en-coca.sqlite",
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
+        semantic_publication=SemanticPublicationCapability(
+            locator_modes=("freedict_gloss",),
+            missing_locator_reason_code="missing_freedict_gloss_locator",
+        ),
     ),
     "en-de": PairCapability(
         pair="en-de",
@@ -50,6 +67,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         default_frequency_db="freq-de-default.sqlite",
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
+        semantic_publication=SemanticPublicationCapability(
+            locator_modes=("sense_provenance", "freedict_gloss"),
+            missing_locator_reason_code="missing_source_sense_locator",
+        ),
     ),
     "en-es": PairCapability(
         pair="en-es",
@@ -57,6 +78,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         default_frequency_db="freq-es-cde.sqlite",
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
+        semantic_publication=SemanticPublicationCapability(
+            locator_modes=("sense_provenance", "freedict_gloss"),
+            missing_locator_reason_code="missing_source_sense_locator",
+        ),
     ),
     "es-en": PairCapability(
         pair="es-en",
@@ -64,6 +89,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         default_frequency_db="freq-en-coca.sqlite",
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
+        semantic_publication=SemanticPublicationCapability(
+            locator_modes=("freedict_gloss",),
+            missing_locator_reason_code="missing_freedict_gloss_locator",
+        ),
     ),
     "es-es": PairCapability(
         pair="es-es",

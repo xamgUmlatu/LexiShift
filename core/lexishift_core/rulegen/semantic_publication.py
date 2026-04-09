@@ -5,6 +5,7 @@ from hashlib import sha1
 import re
 from typing import Mapping, Sequence
 
+from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 
@@ -117,6 +118,7 @@ def build_semantic_inventory_from_results(
         "pair": str(pair or "").strip(),
         "profile_id": str(profile_id or "").strip() or "default",
         "generated_at": str(generated_at or "").strip(),
+        "capability": _build_publication_capability_record(str(pair or "").strip()),
         "triggers": triggers,
         "senses": senses,
         "competition_sets": competition_sets,
@@ -144,16 +146,18 @@ def _build_semantic_admission_pointer(candidate: object) -> dict[str, object]:
     source_dict = str(getattr(candidate, "source_dict", "") or "").strip()
     metadata = getattr(candidate, "metadata", {})
     trigger_id = _build_trigger_id(pair, source_phrase)
+    capability = resolve_pair_capability(pair).semantic_publication
     locator = _build_locator(
         metadata if isinstance(metadata, Mapping) else {},
         target=target,
         provider=source_dict,
+        locator_modes=capability.locator_modes,
     )
     if locator is None:
         return {
             "schema_version": 1,
             "status": "unavailable",
-            "reason_code": "missing_sense_locator",
+            "reason_code": capability.missing_locator_reason_code,
             "trigger_id": trigger_id,
         }
     sense_id = _build_sense_id(pair=pair, provider=source_dict, target=target, locator=locator)
@@ -183,10 +187,16 @@ def _build_sense_record(
         return None
     target = str(getattr(candidate, "replacement", "") or "").strip()
     source_dict = str(getattr(candidate, "source_dict", "") or "").strip()
+    pair = str(getattr(candidate, "language_pair", "") or "").strip()
     metadata = getattr(candidate, "metadata", {})
     if not isinstance(metadata, Mapping):
         metadata = {}
-    locator = _build_locator(metadata, target=target, provider=source_dict)
+    locator = _build_locator(
+        metadata,
+        target=target,
+        provider=source_dict,
+        locator_modes=resolve_pair_capability(pair).semantic_publication.locator_modes,
+    )
     if locator is None:
         return None
     qualifiers = _build_qualifiers(metadata)
@@ -234,6 +244,27 @@ def _build_locator(
     *,
     target: str,
     provider: str,
+    locator_modes: Sequence[str],
+) -> dict[str, object] | None:
+    for mode in locator_modes:
+        if mode == "sense_provenance":
+            locator = _build_sense_provenance_locator(metadata, provider=provider, target=target)
+        elif mode == "freedict_gloss":
+            locator = _build_freedict_gloss_locator(metadata, provider=provider, target=target)
+        elif mode == "jmdict_entry":
+            locator = _build_jmdict_entry_locator(metadata, provider=provider)
+        else:
+            locator = None
+        if locator is not None:
+            return locator
+    return None
+
+
+def _build_sense_provenance_locator(
+    metadata: Mapping[str, object],
+    *,
+    provider: str,
+    target: str,
 ) -> dict[str, object] | None:
     sense_provenance = metadata.get("sense_provenance")
     if not isinstance(sense_provenance, Mapping):
@@ -265,6 +296,60 @@ def _build_locator(
             locator["sense_ord"] = sense_ord
         return locator
     return None
+
+
+def _build_freedict_gloss_locator(
+    metadata: Mapping[str, object],
+    *,
+    provider: str,
+    target: str,
+) -> dict[str, object] | None:
+    provider_text = str(provider or "").strip() or "unknown"
+    if "freedict" not in provider_text:
+        return None
+    gloss_index = _as_int(metadata.get("gloss_index"))
+    target_key = str(target or "").strip()
+    if gloss_index is None or not target_key:
+        return None
+    return {
+        "provider": provider_text,
+        "locator_kind": "freedict_gloss",
+        "target_key": target_key,
+        "gloss_ord": gloss_index,
+    }
+
+
+def _build_jmdict_entry_locator(
+    metadata: Mapping[str, object],
+    *,
+    provider: str,
+) -> dict[str, object] | None:
+    provider_text = str(provider or "").strip() or "unknown"
+    if "jmdict" not in provider_text:
+        return None
+    word_package = metadata.get("word_package")
+    script_forms: Mapping[str, object] = {}
+    reading = ""
+    if isinstance(word_package, Mapping):
+        raw_script_forms = word_package.get("script_forms")
+        if isinstance(raw_script_forms, Mapping):
+            script_forms = raw_script_forms
+        reading = str(word_package.get("reading") or "").strip()
+    kanji_forms = _unique_string_list(script_forms.get("kanji"))
+    kana_forms = _unique_string_list(script_forms.get("kana"))
+    if not kana_forms and reading:
+        kana_forms = [reading]
+    if not kanji_forms and not kana_forms:
+        return None
+    locator: dict[str, object] = {
+        "provider": provider_text,
+        "locator_kind": "jmdict_entry",
+    }
+    if kanji_forms:
+        locator["kanji_forms"] = kanji_forms
+    if kana_forms:
+        locator["kana_forms"] = kana_forms
+    return locator
 
 
 def _build_sense_id(
@@ -305,8 +390,27 @@ def _stable_locator_key(locator: Mapping[str, object]) -> str:
         if raw is None:
             continue
         parts.append(f"{key}={raw}")
+    for key in ("kanji_forms", "kana_forms"):
+        raw = locator.get(key)
+        if not isinstance(raw, Sequence) or isinstance(raw, (str, bytes)):
+            continue
+        values = [str(item).strip() for item in raw if str(item).strip()]
+        if values:
+            parts.append(f"{key}={','.join(values)}")
     joined = "|".join(part for part in parts if part)
     return _stable_text_key(joined)
+
+
+def _build_publication_capability_record(pair: str) -> dict[str, object]:
+    capability = resolve_pair_capability(pair).semantic_publication
+    return {
+        "pointer_modes": list(capability.locator_modes) or ["trigger_only"],
+        "default_unavailable_reason_code": capability.missing_locator_reason_code,
+        "competition_mode": "not_published",
+        "competition_reason_code": "missing_shadow_selection",
+        "phrase_mode": "not_published",
+        "phrase_reason_code": "missing_phrase_inventory",
+    }
 
 
 def _build_sense_label(metadata: Mapping[str, object], *, fallback: str) -> str:
@@ -457,3 +561,12 @@ def _string_tuple(value: object) -> tuple[str, ...]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return ()
     return tuple(str(item).strip() for item in value if str(item).strip())
+
+
+def _unique_string_list(value: object) -> list[str]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        items = [str(item).strip() for item in value if str(item).strip()]
+    else:
+        text = str(value or "").strip()
+        items = [text] if text else []
+    return list(dict.fromkeys(items))

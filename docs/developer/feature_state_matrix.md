@@ -267,7 +267,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
 - Last documented checkpoint: `2026-04-04` `en-de` now has a real Kaikki tuning lane, same-sense representative selection, German register/family enrichment, and an experimental sense-level defaultness penalty in addition to the earlier source-frequency, reverse-check, and Kaikki-policy scaffolding
-- Last verified: `2026-04-04` targeted `en-de` adapter/probe tests, canonical `en-de` benchmark/gate/triage rerun, local Kaikki tuning rerun, focused Kaikki reverse experiment, and focused Kaikki `sdcmp` experiment
+- Last verified: `2026-04-10` feature-state evidence sync against the clean branch after preserving the separate `en-de` benchmark WIP branch
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
@@ -318,16 +318,10 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_source_freq_experiment_latest.json`
-  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_reverse_latest.json`
-  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_reverse_latest.json`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_reverse_latest.json`
   - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_latest.json`
   - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_summary_latest.md`
   - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_tuning_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_tuning_latest.json`
-  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_sdcmp_latest.json`
-  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_sdcmp_latest.json`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_sdcmp_latest.json`
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/adapters.py`
   - `apps/gui/src/language_packs_catalog.py`
@@ -653,7 +647,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-04-04` `en-de` now also wires reverse resource resolution, metadata emission, ranking consumption, and probe surface, with the first focused Kaikki reverse experiment recorded separately
-- Last verified: `2026-04-04` targeted ranking/adapter/probe tests, canonical `en-de` benchmark/gate/triage rerun, and focused `en-de` Kaikki reverse benchmark/gate/triage
+- Last verified: `2026-04-10` feature-state evidence sync against the clean branch after preserving the separate `en-de` benchmark WIP branch
 - Default behavior:
   - Configurable and pair-aware for `en-es`, `es-en`, and `en-de`.
   - Not yet promoted to default production tuning.
@@ -695,9 +689,6 @@ Use this file when:
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
   - `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
-  - `docs/test_outputs/rulegen_benchmark_en_de_kaikki_reverse_latest.json`
-  - `docs/test_outputs/rulegen_quality_gate_en_de_kaikki_reverse_latest.json`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_reverse_latest.json`
   - `core/tests/rulegen/test_rulegen_adapters.py`
   - `core/tests/dev/test_rulegen_probe_words.py`
 - Known gaps:
@@ -813,9 +804,12 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
 - Known gaps:
   - No LP default path emits `metadata.semantic_admission.status=ready` yet.
-  - `en-es` and `en-de` can now emit stable active-sense ids in `metadata.semantic_admission`, but current default output still stops at `status=unavailable` because shadow promotion is not solved.
-  - `en-ja`, `de-en`, and `es-en` now emit the shared pointer shape, but they still lack default locatable `sense_id` coverage.
-  - Helper publication can now generate a semantic inventory sidecar, but current default output does not yet include ready competition/shadow sets.
+  - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
+    - `en-es` / `en-de`: source-sense provenance first, with FreeDict gloss fallback
+    - `de-en` / `es-en`: deterministic FreeDict gloss-slot locator
+    - `en-ja`: deterministic JMDict entry locator
+  - Current default output still stops at `status=unavailable` because shadow promotion is not solved.
+  - Helper publication can now generate a semantic inventory sidecar with pair capability summary, but current default output does not yet include ready competition/shadow sets.
   - There is no phrase-preemption lane separated from semantic-veto serving.
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.

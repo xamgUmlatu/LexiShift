@@ -118,11 +118,11 @@ The verified current behavior is:
 
 | LP / pair | Candidate-level sense evidence | Emitted rule-level sense pointer |
 |---|---|---|
-| `en-es` | rich candidate metadata can include `dictionary_record`, `dictionary_record_views`, `gloss_provenance`, `sense_provenance`, `target_provenance`, and shadow-risk metadata | shared `metadata.semantic_admission` is now emitted by default adapter/helper paths; it can carry stable `trigger_id`, `sense_id`, and `competition_set_id`, but currently stays `status=unavailable` because shadow promotion is not solved yet |
-| `en-de` | same general shape as `en-es` for Kaikki/provenance-aware candidate generation | shared `metadata.semantic_admission` is now emitted by default adapter/helper paths; it can carry stable `trigger_id`, `sense_id`, and `competition_set_id`, but currently stays `status=unavailable` because shadow promotion is not solved yet |
-| `en-ja` | no analogous rich sense-provenance layer today; candidate metadata is mostly gloss order, POS, script forms, and word-package information | shared `metadata.semantic_admission` shape is now emitted, but usually only with `trigger_id` and `reason_code=missing_sense_locator`; no stable locatable `sense_id` by default |
-| `de-en` | candidate metadata is mostly gloss order and POS | shared `metadata.semantic_admission` shape is now emitted, but usually only with `trigger_id` and `reason_code=missing_sense_locator`; no stable locatable `sense_id` by default |
-| `es-en` | candidate metadata is mostly gloss order, reverse-check info, and POS | shared `metadata.semantic_admission` shape is now emitted, but usually only with `trigger_id` and `reason_code=missing_sense_locator`; no stable locatable `sense_id` by default |
+| `en-es` | rich candidate metadata can include `dictionary_record`, `dictionary_record_views`, `gloss_provenance`, `sense_provenance`, `target_provenance`, and shadow-risk metadata | shared `metadata.semantic_admission` is emitted by default adapter/helper paths; it can now carry stable `trigger_id`, `sense_id`, and `competition_set_id` using `sense_provenance` first and `freedict_gloss` fallback, but currently stays `status=unavailable` because shadow promotion is not solved yet |
+| `en-de` | same general shape as `en-es` for Kaikki/provenance-aware candidate generation | shared `metadata.semantic_admission` is emitted by default adapter/helper paths; it can now carry stable `trigger_id`, `sense_id`, and `competition_set_id` using `sense_provenance` first and `freedict_gloss` fallback, but currently stays `status=unavailable` because shadow promotion is not solved yet |
+| `en-ja` | no analogous rich sense-provenance layer today; candidate metadata is mostly gloss order, POS, script forms, and word-package information | shared `metadata.semantic_admission` is emitted by default adapter/helper paths and can now carry a stable `jmdict_entry`-backed active pointer derived from target forms, but it still stays `status=unavailable` because shadow promotion is not solved and the pointer is coarser than source-sense provenance |
+| `de-en` | candidate metadata is mostly gloss order and POS | shared `metadata.semantic_admission` is emitted by default adapter/helper paths and can now carry a stable `freedict_gloss`-backed active pointer derived from deterministic gloss order, but it still stays `status=unavailable` because shadow promotion is not solved |
+| `es-en` | candidate metadata is mostly gloss order, reverse-check info, and POS | shared `metadata.semantic_admission` is emitted by default adapter/helper paths and can now carry a stable `freedict_gloss`-backed active pointer derived from deterministic gloss order, but it still stays `status=unavailable` because shadow promotion is not solved |
 
 So the current answer to:
 
@@ -135,7 +135,11 @@ is:
 What is true today is weaker:
 
 - the repo now has a shared emitted-rule semantic-routing pointer contract,
-- `en-es` and `en-de` can already preserve stable active-sense ids into that contract,
+- all current rulegen LPs can now preserve a stable active pointer into that contract,
+- pointer strength differs by pair:
+  - `en-es` / `en-de`: richest, source-sense provenance first
+  - `de-en` / `es-en`: deterministic FreeDict gloss-slot locator
+  - `en-ja`: deterministic JMDict entry locator
 - helper publication can now emit a minimal semantic inventory sidecar,
 - but no LP yet emits a fully ready competition/shadow set by default.
 
@@ -163,9 +167,10 @@ Without it:
 The current verified gap is concrete:
 
 - adapter/helper publication paths can now preserve a shared `metadata.semantic_admission` pointer,
-- provenance-capable LPs can already populate stable active-sense ids there,
+- all current rulegen LPs can now populate stable active-pointer ids there,
+- only `en-es` and `en-de` currently reach source-sense-provenance quality by default,
 - but helper publication still does not emit ready competition/shadow sets by default,
-- and weaker LPs still lack emitted locatable `sense_id` coverage by default.
+- and weaker LPs still rely on coarser entry/gloss locators rather than full source-sense provenance.
 
 ### 2. Automatic shadow-candidate mining
 

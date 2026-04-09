@@ -168,6 +168,8 @@ def get_srs_runtime_diagnostics(
         "semantic_inventory_path": str(semantic_inventory_path),
         "semantic_inventory_exists": semantic_inventory_path.exists(),
         "semantic_inventory_schema_version": None,
+        "semantic_inventory_pointer_modes": [],
+        "semantic_inventory_default_unavailable_reason_code": None,
         "semantic_inventory_trigger_count": 0,
         "semantic_inventory_sense_count": 0,
         "semantic_inventory_competition_set_count": 0,
@@ -256,6 +258,16 @@ def get_srs_runtime_diagnostics(
             diagnostics["semantic_inventory_schema_version"] = semantic_inventory_payload.get(
                 "schema_version"
             )
+            capability = semantic_inventory_payload.get("capability")
+            if isinstance(capability, dict):
+                pointer_modes = capability.get("pointer_modes")
+                if isinstance(pointer_modes, list):
+                    diagnostics["semantic_inventory_pointer_modes"] = [
+                        str(mode).strip() for mode in pointer_modes if str(mode).strip()
+                    ]
+                diagnostics["semantic_inventory_default_unavailable_reason_code"] = (
+                    str(capability.get("default_unavailable_reason_code") or "").strip() or None
+                )
             diagnostics["semantic_inventory_trigger_count"] = len(
                 semantic_inventory_payload.get("triggers", {}) or {}
             )

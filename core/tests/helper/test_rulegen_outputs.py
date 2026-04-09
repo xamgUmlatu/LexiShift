@@ -30,6 +30,14 @@ class TestRulegenOutputs(unittest.TestCase):
                     "pair": "en-es",
                     "profile_id": "default",
                     "generated_at": "2026-04-10T00:00:00Z",
+                    "capability": {
+                        "pointer_modes": ["sense_provenance", "freedict_gloss"],
+                        "default_unavailable_reason_code": "missing_source_sense_locator",
+                        "competition_mode": "not_published",
+                        "competition_reason_code": "missing_shadow_selection",
+                        "phrase_mode": "not_published",
+                        "phrase_reason_code": "missing_phrase_inventory",
+                    },
                     "triggers": {"en-es:trigger:ball": {}},
                     "senses": {},
                     "competition_sets": {},
@@ -42,6 +50,10 @@ class TestRulegenOutputs(unittest.TestCase):
             payload = json.loads(inventory_path.read_text(encoding="utf-8"))
             self.assertEqual(payload["pair"], "en-es")
             self.assertEqual(payload["schema_version"], 1)
+            self.assertEqual(
+                payload["capability"]["default_unavailable_reason_code"],
+                "missing_source_sense_locator",
+            )
 
     def test_write_rulegen_outputs_removes_stale_semantic_inventory_when_omitted(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

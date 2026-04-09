@@ -151,6 +151,8 @@ class TestSrsLpE2E(unittest.TestCase):
             self.assertTrue(diagnostics["ruleset_exists"])
             self.assertTrue(diagnostics["snapshot_exists"])
             self.assertTrue(diagnostics["semantic_inventory_exists"])
+            self.assertTrue(diagnostics["semantic_inventory_pointer_modes"])
+            self.assertIsNotNone(diagnostics["semantic_inventory_default_unavailable_reason_code"])
             self.assertEqual(diagnostics["missing_inputs"], [])
             self.assertIn("pair_policy", diagnostics)
             self.assertEqual(diagnostics["pair_policy"]["pair"], pair)

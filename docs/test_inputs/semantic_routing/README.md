@@ -12,6 +12,7 @@ Files:
 - `semantic_inventory.schema.json`
   - planned sidecar inventory published alongside ruleset/snapshot for semantic routing
   - intended future helper artifact naming: `srs_semantic_inventory_<pair>.json`
+  - includes optional pair capability summary for active-pointer modes and default unavailable reasons
 
 See also:
 - `docs/rulegen/semantic_routing_data_contract.md`
