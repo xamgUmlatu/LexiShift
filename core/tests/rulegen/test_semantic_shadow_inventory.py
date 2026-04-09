@@ -12,6 +12,7 @@ from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
+    promote_shadow_candidates_for_policy,
 )
 
 
@@ -255,6 +256,69 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(len(trigger_row["shadow_candidates"]), 1)
         self.assertEqual(trigger_row["shadow_candidates"][0]["target"], "ultimar")
         self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
+
+    def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
+        active_candidates = [{"canonical_pos": "noun"}]
+        shadow_candidates = [
+            {
+                "target": "cuadro",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": False,
+            },
+            {
+                "target": "estructura conceptual",
+                "canonical_pos": "noun",
+                "benchmark_target_present": False,
+                "reviewed_trigger_support": False,
+            },
+            {
+                "target": "red",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": True,
+            },
+        ]
+
+        lenient = promote_shadow_candidates_for_policy(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            policy="same_pos_lenient_v1",
+        )
+        benchmark_backed = promote_shadow_candidates_for_policy(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            policy="benchmark_backed_v1",
+        )
+        cross_checked = promote_shadow_candidates_for_policy(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            policy="cross_checked_v1",
+        )
+
+        self.assertEqual(
+            [candidate["target"] for candidate in lenient],
+            ["red", "cuadro", "estructura conceptual"],
+        )
+        self.assertEqual([candidate["target"] for candidate in benchmark_backed], ["red", "cuadro"])
+        self.assertEqual([candidate["target"] for candidate in cross_checked], ["red", "cuadro"])
+
+    def test_cross_checked_policy_drops_benchmark_target_without_same_pos_or_reviewed_trigger(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_for_policy(
+            shadow_candidates=[
+                {
+                    "target": "parte",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                }
+            ],
+            active_candidates=[{"canonical_pos": "verb"}],
+            policy="cross_checked_v1",
+        )
+        self.assertEqual(promoted, [])
 
 
 if __name__ == "__main__":

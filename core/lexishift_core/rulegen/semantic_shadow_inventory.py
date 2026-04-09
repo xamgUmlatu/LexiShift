@@ -9,6 +9,13 @@ from lexishift_core.rulegen.pairs.en_es_support import (
 )
 from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
+DEFAULT_SHADOW_PROMOTION_POLICY = "same_pos_lenient_v1"
+SHADOW_PROMOTION_POLICIES = (
+    DEFAULT_SHADOW_PROMOTION_POLICY,
+    "benchmark_backed_v1",
+    "cross_checked_v1",
+)
+
 
 def normalize_shadow_text(value: object) -> str:
     return " ".join(str(value or "").strip().lower().split())
@@ -76,6 +83,7 @@ def build_en_es_shadow_inventory(
     reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
     forward_provider: str,
     reverse_provider: str,
+    promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
     inventory_targets: list[dict[str, object]] = []
@@ -108,9 +116,10 @@ def build_en_es_shadow_inventory(
                 for candidate in reverse_candidates
                 if str(candidate.get("target") or "").strip() != benchmark_target.target
             ]
-            promoted_shadow_candidates = _promote_shadow_candidates(
+            promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
+                policy=promotion_policy,
             )
             trigger_entries.append(
                 {
@@ -137,6 +146,7 @@ def build_en_es_shadow_inventory(
         "reviewed_trigger_count": sum(
             len(target.reviewed_triggers) for target in benchmark_targets
         ),
+        "promotion_policy": promotion_policy,
         "providers": {
             "forward": str(forward_provider or "").strip() or "unknown",
             "reverse": str(reverse_provider or "").strip() or "unknown",
@@ -221,11 +231,18 @@ def _build_reverse_candidates(
     return clustered
 
 
-def _promote_shadow_candidates(
+def promote_shadow_candidates_for_policy(
     *,
     shadow_candidates: Sequence[Mapping[str, object]],
     active_candidates: Sequence[Mapping[str, object]],
+    policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
 ) -> list[dict[str, object]]:
+    normalized_policy = str(policy or "").strip() or DEFAULT_SHADOW_PROMOTION_POLICY
+    if normalized_policy not in SHADOW_PROMOTION_POLICIES:
+        raise ValueError(
+            f"Unsupported shadow promotion policy: {normalized_policy!r}; "
+            f"expected one of {SHADOW_PROMOTION_POLICIES!r}"
+        )
     active_pos_values = {
         str(candidate.get("canonical_pos") or "").strip().lower()
         for candidate in active_candidates
@@ -247,7 +264,12 @@ def _promote_shadow_candidates(
             )
             if enabled
         ]
-        if not promotion_reasons:
+        if not _shadow_candidate_qualifies_for_policy(
+            reviewed_trigger_support=reviewed_trigger_support,
+            benchmark_target_present=benchmark_target_present,
+            same_pos=same_pos,
+            policy=normalized_policy,
+        ):
             continue
         score_vector = (
             1 if reviewed_trigger_support else 0,
@@ -258,9 +280,26 @@ def _promote_shadow_candidates(
         candidate_copy = dict(candidate)
         candidate_copy["same_pos_as_active"] = same_pos
         candidate_copy["promotion_reasons"] = promotion_reasons
+        candidate_copy["promotion_policy"] = normalized_policy
         ranked.append((score_vector, candidate_copy))
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:3]]
+
+
+def _shadow_candidate_qualifies_for_policy(
+    *,
+    reviewed_trigger_support: bool,
+    benchmark_target_present: bool,
+    same_pos: bool,
+    policy: str,
+) -> bool:
+    if policy == DEFAULT_SHADOW_PROMOTION_POLICY:
+        return reviewed_trigger_support or benchmark_target_present or same_pos
+    if policy == "benchmark_backed_v1":
+        return reviewed_trigger_support or benchmark_target_present
+    if policy == "cross_checked_v1":
+        return reviewed_trigger_support or (benchmark_target_present and same_pos)
+    return False
 
 
 def _cluster_records(

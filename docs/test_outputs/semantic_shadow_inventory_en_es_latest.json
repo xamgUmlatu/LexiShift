@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T22:18:25Z",
+  "generated_at": "2026-04-09T22:26:17Z",
   "status": "ok",
   "benchmark_dataset": {
     "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
@@ -96,6 +96,7 @@
     "pair": "en-es",
     "target_count": 63,
     "reviewed_trigger_count": 148,
+    "promotion_policy": "same_pos_lenient_v1",
     "providers": {
       "forward": "wiktionary",
       "reverse": "wiktionary"
@@ -4847,7 +4848,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -37058,7 +37060,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "linfa",
@@ -40569,7 +40572,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "fluidos corporales",
@@ -44081,7 +44085,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -52324,7 +52329,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "novio",
@@ -52686,7 +52692,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "novia",
@@ -53048,7 +53055,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -55845,7 +55853,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "hacer el amor",
@@ -56167,7 +56176,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "cero",
@@ -56247,7 +56257,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -60568,7 +60579,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "teclado",
@@ -60627,7 +60639,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "talud",
@@ -60763,7 +60776,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -62176,7 +62190,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pretil",
@@ -62330,7 +62345,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "poyo",
@@ -62484,7 +62500,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -65182,7 +65199,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "carretera",
@@ -65474,7 +65492,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "calzada",
@@ -65763,7 +65782,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -68017,7 +68037,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "usanza",
@@ -68240,7 +68261,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "modo",
@@ -68463,7 +68485,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -70333,7 +70356,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "trillo",
@@ -70538,7 +70562,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "trayectoria",
@@ -70743,7 +70768,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -74300,7 +74326,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "terreno",
@@ -74553,7 +74580,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "rubro",
@@ -74807,7 +74835,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -75346,7 +75375,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "campiña",
@@ -75445,7 +75475,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "campaña",
@@ -75544,7 +75575,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -80619,7 +80651,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "territorio",
@@ -80888,7 +80921,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "ranchera",
@@ -81157,7 +81191,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -81853,7 +81888,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "cauz",
@@ -82012,7 +82048,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -82727,7 +82764,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "estrecho",
@@ -82852,7 +82890,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -86189,7 +86228,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "encargo",
@@ -86312,7 +86352,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "embestida",
@@ -86435,7 +86476,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -86832,7 +86874,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "posición",
@@ -86951,7 +86994,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -88930,7 +88974,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "poste",
@@ -89058,7 +89103,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "post",
@@ -89188,7 +89234,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -92622,7 +92669,8 @@
                 "promotion_reasons": [
                   "reviewed_trigger_support",
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -95581,7 +95629,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "cámara",
@@ -96079,7 +96128,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "casalicio",
@@ -96577,7 +96627,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -102508,7 +102559,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "valija",
@@ -102605,7 +102657,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pleito",
@@ -102722,7 +102775,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -103843,7 +103897,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -105133,7 +105188,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -108762,7 +108818,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "llavín",
@@ -109072,7 +109129,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "llave",
@@ -109382,7 +109440,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -110131,7 +110190,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -110676,7 +110736,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "palabra clave",
@@ -110804,7 +110865,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "contraseña",
@@ -110929,7 +110991,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -113894,7 +113957,8 @@
                 "promotion_reasons": [
                   "reviewed_trigger_support",
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -120740,7 +120804,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -125852,7 +125917,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -129003,7 +129069,8 @@
                   "reviewed_trigger_support",
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tablas",
@@ -129318,7 +129385,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mesa",
@@ -129632,7 +129700,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -131503,7 +131572,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "reporte",
@@ -131656,7 +131726,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "relato",
@@ -131809,7 +131880,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -133530,7 +133602,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "proyecto de ley",
@@ -133653,7 +133726,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "proposición de ley",
@@ -133776,7 +133850,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -135273,7 +135348,8 @@
                 "promotion_reasons": [
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "sacerdote",
@@ -135481,7 +135557,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "párroco",
@@ -135689,7 +135766,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -136753,7 +136831,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "curado",
@@ -136840,7 +136919,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "curación",
@@ -136927,7 +137007,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -140584,7 +140665,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "recto",
@@ -140805,7 +140887,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "perpendicular",
@@ -141026,7 +141109,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -141778,7 +141862,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -144072,7 +144157,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "puro",
@@ -144235,7 +144321,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "liso",
@@ -144398,7 +144485,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -149538,7 +149626,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tlaco",
@@ -149879,7 +149968,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "real",
@@ -150221,7 +150311,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -152396,7 +152487,8 @@
                 "promotion_reasons": [
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "universidad",
@@ -152701,7 +152793,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "facultad",
@@ -153006,7 +153099,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -157589,7 +157683,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "esa",
@@ -157831,7 +157926,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "aquese",
@@ -158074,7 +158170,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -158887,7 +158984,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tratamiento",
@@ -158997,7 +159095,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "honorífico",
@@ -159107,7 +159206,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -160061,7 +160161,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -161228,7 +161329,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "empresa",
@@ -161387,7 +161489,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "compañía de bomberos",
@@ -161549,7 +161652,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -162291,7 +162395,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "rúbrica",
@@ -162432,7 +162537,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pliego",
@@ -162573,7 +162679,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -165416,7 +165523,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pasivo",
@@ -165573,7 +165681,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "parte de abajo",
@@ -165730,7 +165839,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -166572,7 +166682,8 @@
                 "promotion_reasons": [
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -173164,7 +173275,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tipo",
@@ -173669,7 +173781,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mishingo",
@@ -174174,7 +174287,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -175559,7 +175673,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pabellón",
@@ -175674,7 +175789,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "gata",
@@ -175789,7 +175905,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -176439,7 +176556,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -177445,7 +177563,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tramar",
@@ -177522,7 +177641,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "subordinado a",
@@ -177599,7 +177719,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -186747,7 +186868,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "vez",
@@ -187122,7 +187244,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "veces",
@@ -187494,7 +187617,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -189863,7 +189987,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "lengüeta",
@@ -190326,7 +190451,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "argüendero",
@@ -190789,7 +190915,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -196493,7 +196620,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "álbum",
@@ -196935,7 +197063,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "libros",
@@ -197378,7 +197507,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -200344,7 +200474,8 @@
                 "promotion_reasons": [
                   "reviewed_trigger_support",
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -208034,7 +208165,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "luminaria",
@@ -208358,7 +208490,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "iluminaria",
@@ -208682,7 +208815,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -209903,7 +210037,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "engranaje",
@@ -209987,7 +210122,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -211440,7 +211576,8 @@
                   "reviewed_trigger_support",
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "net",
@@ -211646,7 +211783,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "jábega",
@@ -211852,7 +211990,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -214023,7 +214162,8 @@
                 "promotion_reasons": [
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "trasto",
@@ -214121,7 +214261,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "osamenta",
@@ -214219,7 +214360,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -214717,7 +214859,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "entramado",
@@ -214793,7 +214936,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "carapacho",
@@ -214869,7 +215013,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -216334,7 +216479,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "misa",
@@ -216441,7 +216587,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -218903,7 +219050,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tela",
@@ -219064,7 +219212,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "plata",
@@ -219228,7 +219377,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -222647,7 +222797,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "médium",
@@ -222756,7 +222907,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mitad",
@@ -222864,7 +223016,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -223174,7 +223327,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -224341,7 +224495,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -226204,7 +226359,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "movición",
@@ -226355,7 +226511,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -228103,7 +228260,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tierra",
@@ -228398,7 +228556,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "globo",
@@ -228693,7 +228852,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -232046,7 +232206,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "comanda",
@@ -232227,7 +232388,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -238442,7 +238604,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "retiro",
@@ -238648,7 +238811,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "refacción",
@@ -238852,7 +239016,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -240325,7 +240490,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "retazo",
@@ -240487,7 +240653,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pieza de artillería",
@@ -240649,7 +240816,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -241940,7 +242108,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "compartición",
@@ -242088,7 +242257,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "acción",
@@ -242236,7 +242406,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -244925,7 +245096,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "vegetable",
@@ -245241,7 +245413,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mata",
@@ -245557,7 +245730,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -247044,7 +247218,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "solera",
@@ -247225,7 +247400,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "piso",
@@ -247407,7 +247583,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -247976,7 +248153,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "azogue",
@@ -248103,7 +248281,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -252755,7 +252934,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -257033,7 +257213,8 @@
                 "promotion_reasons": [
                   "benchmark_target_present",
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "razón",
@@ -257185,7 +257366,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "punta",
@@ -257337,7 +257519,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -258515,7 +258698,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "y punto",
@@ -258634,7 +258818,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -261152,7 +261337,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "jábega",
@@ -261358,7 +261544,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "jábeca",
@@ -261564,7 +261751,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -263321,7 +263509,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "entramado",
@@ -263457,7 +263646,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -264133,7 +264323,8 @@
                 "promotion_reasons": [
                   "reviewed_trigger_support",
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -271704,7 +271895,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "de acuerdo con",
@@ -271821,7 +272013,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "de acuerdo a",
@@ -271938,7 +272131,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -275417,7 +275611,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "seña",
@@ -275597,7 +275792,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "rótulo",
@@ -275777,7 +275973,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -279707,7 +279904,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -282910,7 +283108,8 @@
                 "same_pos_as_active": false,
                 "promotion_reasons": [
                   "benchmark_target_present"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tablero",
@@ -283074,7 +283273,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "pizarrón",
@@ -283238,7 +283438,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -286392,7 +286593,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mesa",
@@ -286706,7 +286908,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "expremijo",
@@ -287017,7 +287220,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -287575,7 +287779,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "plancha",
@@ -287691,7 +287896,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "artículo",
@@ -287807,7 +288013,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -295369,7 +295576,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tajo",
@@ -295655,7 +295863,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "opus",
@@ -295940,7 +296149,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -298145,7 +298355,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "tarea",
@@ -298291,7 +298502,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "talacha",
@@ -298438,7 +298650,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -299552,7 +299765,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -300520,7 +300734,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "panorama",
@@ -300614,7 +300829,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "mira",
@@ -300708,7 +300924,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           },
@@ -302078,7 +302295,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "vistas",
@@ -302193,7 +302411,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "visión",
@@ -302308,7 +302527,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }
@@ -302973,7 +303193,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               },
               {
                 "target": "patio inglés",
@@ -303125,7 +303346,8 @@
                 "same_pos_as_active": true,
                 "promotion_reasons": [
                   "same_pos_as_active"
-                ]
+                ],
+                "promotion_policy": "same_pos_lenient_v1"
               }
             ]
           }

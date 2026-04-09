@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, and first triage pass over promotion quality
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, and first named promotion-policy comparison
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -192,6 +192,10 @@ First implemented research seam:
 - The follow-on triage at `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md` shows why publication is still blocked:
   - zero-signal promotions can be removed,
   - but the remaining top-1 preview is still dominated by `same_pos_as_active` rather than benchmark-aligned competition evidence.
+- The follow-on policy comparison at `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md` now makes the algorithm tradeoff explicit:
+  - `same_pos_lenient_v1`: broad (`90` promoted triggers) but noisy
+  - `benchmark_backed_v1`: cleaner (`19` promoted triggers) but narrow
+  - `cross_checked_v1`: narrower still (`11` promoted triggers), but currently the most plausible runtime-shaped starting point
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

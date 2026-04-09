@@ -1,0 +1,524 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-09T22:26:54Z",
+  "status": "ok",
+  "inventory_status": "ok",
+  "inventory_promotion_policy": "same_pos_lenient_v1",
+  "policies": {
+    "same_pos_lenient_v1": {
+      "summary": {
+        "promoted_trigger_count": 90,
+        "promoted_candidate_count": 221
+      },
+      "top1_bucket_counts": {
+        "no_promotion": 58,
+        "benchmark_aligned": 19,
+        "same_pos_only": 71
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "parte",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "agua",
+          "trigger": "water",
+          "promoted_target": "wata",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "amigo",
+          "trigger": "friend",
+          "promoted_target": "parcero",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "amor",
+          "trigger": "love",
+          "promoted_target": "nada",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "banco",
+          "trigger": "bank",
+          "promoted_target": "terraplén",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "banco",
+          "trigger": "bench",
+          "promoted_target": "sillete",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "ruta",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "vía",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "trocha",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "campo",
+          "trigger": "field",
+          "promoted_target": "ámbito",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "campo",
+          "trigger": "countryside",
+          "promoted_target": "provincia",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "campo",
+          "trigger": "country",
+          "promoted_target": "zona",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "caz",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "álveo",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "figura",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "puesto",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "publicación",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "casa",
+          "trigger": "house",
+          "promoted_target": "teatro",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "caso",
+          "trigger": "case",
+          "promoted_target": "vitrina",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        }
+      ]
+    },
+    "benchmark_backed_v1": {
+      "summary": {
+        "promoted_trigger_count": 19,
+        "promoted_candidate_count": 19
+      },
+      "top1_bucket_counts": {
+        "no_promotion": 129,
+        "benchmark_aligned": 19
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "parte",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "caso",
+          "trigger": "matter",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "catch",
+          "promoted_target": "vista",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "libro",
+          "trigger": "book",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "promoted_target": "coger",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "malla",
+          "trigger": "net",
+          "promoted_target": "red",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "promoted_target": "cuadro",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "plaza",
+          "trigger": "square",
+          "promoted_target": "cuadro",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "punto",
+          "trigger": "point",
+          "promoted_target": "fondo",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "punto",
+          "trigger": "period",
+          "promoted_target": "hora",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "sacar",
+          "trigger": "remove",
+          "promoted_target": "quitar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "subir",
+          "trigger": "rise",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "tabla",
+          "trigger": "board",
+          "promoted_target": "subir",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "cross_checked_v1": {
+      "summary": {
+        "promoted_trigger_count": 11,
+        "promoted_candidate_count": 11
+      },
+      "top1_bucket_counts": {
+        "no_promotion": 137,
+        "benchmark_aligned": 11
+      },
+      "sample_rows": [
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "promoted_target": "coger",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "malla",
+          "trigger": "net",
+          "promoted_target": "red",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "promoted_target": "cuadro",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "punto",
+          "trigger": "point",
+          "promoted_target": "fondo",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "sacar",
+          "trigger": "remove",
+          "promoted_target": "quitar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    }
+  }
+}

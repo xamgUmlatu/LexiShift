@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Inventory Triage
 
 - Status: `ok`
-- Generated: `2026-04-09T22:19:13Z`
+- Generated: `2026-04-09T22:26:17Z`
 - Inventory status: `ok`
 - Triggers scanned: `148`
 - Triggers with any promotion: `90`
