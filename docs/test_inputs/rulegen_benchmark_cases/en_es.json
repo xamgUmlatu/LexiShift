@@ -1355,6 +1355,147 @@
         ]
       },
       "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead while bear-like drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:empleo",
+      "target": "empleo",
+      "tier": "hard",
+      "expected_any": [
+        "employment",
+        "job",
+        "work"
+      ],
+      "expected_top1_any": [
+        "employment",
+        "job"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
+      "notes": "Job-family sibling focused on employment/job; useful for checking whether source-only shadows cover the broader work/job lane beyond trabajo."
+    },
+    {
+      "case_id": "en-es:ruta",
+      "target": "ruta",
+      "tier": "smoke",
+      "expected_any": [
+        "route",
+        "road",
+        "path"
+      ],
+      "expected_top1_any": [
+        "route",
+        "road"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling centered on route/road; expands the current camino-only coverage in the road/path lane."
+    },
+    {
+      "case_id": "en-es:sendero",
+      "target": "sendero",
+      "tier": "smoke",
+      "expected_any": [
+        "path",
+        "trail"
+      ],
+      "expected_top1_any": [
+        "path",
+        "trail"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling with a narrower path/trail reading; useful for checking whether current overblocking is a camino-specific issue or a broader route family issue."
+    },
+    {
+      "case_id": "en-es:terreno",
+      "target": "terreno",
+      "tier": "smoke",
+      "expected_any": [
+        "land",
+        "terrain",
+        "ground",
+        "field"
+      ],
+      "expected_top1_any": [
+        "land",
+        "terrain",
+        "ground"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
+      "notes": "Field-area family sibling emphasizing land/terrain/ground while still allowing field; expands the current campo-only family coverage."
+    },
+    {
+      "case_id": "en-es:rejilla",
+      "target": "rejilla",
+      "tier": "hard",
+      "expected_any": [
+        "grid",
+        "grille",
+        "mesh"
+      ],
+      "expected_top1_any": [
+        "grid",
+        "grille"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Physical-net family sibling around grid/grille/mesh; extends the current red/malla family with another surface-form realization of the mesh side."
     }
   ]
 }

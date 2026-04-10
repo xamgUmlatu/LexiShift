@@ -1,7 +1,7 @@
 {
   "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 8,
+  "failing_or_review_count": 10,
   "items": [
     {
       "pair": "en-es",
@@ -293,6 +293,77 @@
         "candidate_expected_any": [
           "drummer",
           "set"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:ruta",
+      "target": "ruta",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "highway",
+      "top3_sources": [
+        "highway",
+        "route",
+        "path"
+      ],
+      "expected_matches": [
+        "route",
+        "path"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: highway",
+          "Observed top3 sources: highway, route, path"
+        ],
+        "candidate_forbidden_top1": [
+          "highway"
+        ],
+        "candidate_expected_any": [
+          "highway",
+          "route",
+          "path"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:rejilla",
+      "target": "rejilla",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "grill",
+      "top3_sources": [
+        "grill",
+        "lattice",
+        "grating"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: grill",
+          "Observed top3 sources: grill, lattice, grating"
+        ],
+        "candidate_forbidden_top1": [
+          "grill"
+        ],
+        "candidate_expected_any": [
+          "grill",
+          "lattice",
+          "grating"
         ]
       }
     }

@@ -2,7 +2,7 @@
 
 - benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
 - pairs_processed: 1
-- failing_or_review_count: 8
+- failing_or_review_count: 10
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
@@ -14,6 +14,8 @@
 | en-es | `en-es:acabar` | acabar | FAIL | forbidden_candidate_present | finish | finish, cum, exhaust |
 | en-es | `en-es:coger` | coger | FAIL | forbidden_candidate_present | take | take, fuck, catch |
 | en-es | `en-es:batería` | batería | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | drummer | drummer, set |
+| en-es | `en-es:ruta` | ruta | REVIEW | top1_not_in_expected_set | highway | highway, route, path |
+| en-es | `en-es:rejilla` | rejilla | FAIL | expected_candidate_missing_from_top3 | grill | grill, lattice, grating |
 
 ## Suggested Case Patches
 
@@ -180,6 +182,48 @@
   "candidate_expected_any": [
     "drummer",
     "set"
+  ]
+}
+```
+
+### en-es / en-es:ruta
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: highway",
+    "Observed top3 sources: highway, route, path"
+  ],
+  "candidate_forbidden_top1": [
+    "highway"
+  ],
+  "candidate_expected_any": [
+    "highway",
+    "route",
+    "path"
+  ]
+}
+```
+
+### en-es / en-es:rejilla
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Observed top1 source: grill",
+    "Observed top3 sources: grill, lattice, grating"
+  ],
+  "candidate_forbidden_top1": [
+    "grill"
+  ],
+  "candidate_expected_any": [
+    "grill",
+    "lattice",
+    "grating"
   ]
 }
 ```
