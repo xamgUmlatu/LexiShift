@@ -184,6 +184,52 @@ li {
   overflow: hidden;
 }
 
+.node-jump-panel {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.node-jump-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.node-jump-button {
+  border: 1px solid rgba(38, 56, 83, 0.12);
+  background: rgba(255, 252, 247, 0.96);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.node-jump-button:hover,
+.node-jump-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(180, 83, 9, 0.35);
+  outline: none;
+}
+
+.node-jump-button.is-active {
+  background: rgba(180, 83, 9, 0.14);
+  border-color: rgba(180, 83, 9, 0.38);
+  color: #92400e;
+}
+
+.diagram-layout {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 0.95fr);
+  align-items: start;
+}
+
 .diagram-stage {
   min-height: 460px;
   overflow: auto;
@@ -197,6 +243,139 @@ li {
 .diagram-stage svg {
   width: 100%;
   height: auto;
+}
+
+.diagram-stage-ready .node[data-node-key] {
+  cursor: pointer;
+}
+
+.diagram-stage-ready .node[data-node-key]:focus-visible {
+  outline: none;
+}
+
+.diagram-stage-ready .node.is-selected rect,
+.diagram-stage-ready .node.is-selected path,
+.diagram-stage-ready .node.is-selected polygon,
+.diagram-stage-ready .node.is-selected circle {
+  stroke-width: 3px !important;
+  filter: drop-shadow(0 0 0.35rem rgba(180, 83, 9, 0.28));
+}
+
+.diagram-stage-ready .node.is-selected .label {
+  font-weight: 700;
+}
+
+.inspector-panel {
+  position: sticky;
+  top: 18px;
+}
+
+.inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.inspector-key {
+  font-size: 1.05rem;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.phase-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 6px 10px;
+  margin: 0 0 12px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f766e;
+  font-size: 0.84rem;
+}
+
+.inspector-section + .inspector-section {
+  margin-top: 22px;
+}
+
+.field-card-list {
+  display: grid;
+  gap: 12px;
+}
+
+.field-card {
+  border: 1px solid rgba(38, 56, 83, 0.12);
+  background: rgba(255, 252, 247, 0.92);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.field-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.field-name {
+  font-size: 0.9rem;
+}
+
+.field-origin {
+  color: #8b5e34;
+  font-size: 0.8rem;
+}
+
+.field-example,
+.json-view {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(38, 56, 83, 0.1);
+  background: rgba(27, 38, 59, 0.94);
+  color: #f9fafb;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.json-view {
+  max-height: 420px;
+}
+
+.field-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgba(38, 56, 83, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  font-size: 0.94rem;
+}
+
+.field-table th,
+.field-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(38, 56, 83, 0.08);
+  vertical-align: top;
+  text-align: left;
+}
+
+.field-table thead th {
+  background: rgba(15, 23, 42, 0.05);
+  color: #334155;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed rgba(38, 56, 83, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 252, 247, 0.72);
 }
 
 .legend-grid {
@@ -258,6 +437,14 @@ li {
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+  }
+
+  .diagram-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inspector-panel {
+    position: static;
   }
 
   .shell {
