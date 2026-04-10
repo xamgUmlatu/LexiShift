@@ -769,8 +769,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` added the first support-score sweep for `en-es` shadow promotion, showing that a scored thresholded blocker policy improves the current source-only lane materially without adding manual data
-- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed the `en-es` shadow gold-proxy, policy-compare, and support-score-sweep artifacts and synced runtime-readiness / feature-state docs
+- Last documented checkpoint: `2026-04-10` added the first trigger-support sweep for `en-es`, showing that light trigger filtering helps the `top3 + forward gloss` lane a bit more, but does not rescue the broader `all_sources` seed family
+- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed the `en-es` trigger-support-sweep artifact and synced runtime-readiness / feature-state docs
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -794,6 +794,7 @@ Use this file when:
     - `scripts/testing/semantic_shadow_seed_compare_en_es.py` holds the miner and strict promotion policy fixed while swapping only the seed trigger source (`benchmark_reviewed`, `rulegen_top3_sources`, `rulegen_all_sources`)
     - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py` sweeps the new source-only forward-gloss trigger-length knob on top of the strict seed compare
     - `scripts/testing/semantic_shadow_support_score_sweep_en_es.py` now sweeps a small explicit support score over threshold and `max_promoted_shadows`, rather than adding more named promotion branches
+    - `scripts/testing/semantic_shadow_trigger_support_sweep_en_es.py` now sweeps a compact trigger-support score before mining, while keeping the downstream shadow support policy fixed
     - the latest artifacts confirm that candidate mining works broadly enough to study, and the safer provisional runtime shape is now effectively the strict `cross_checked_v1` family: after active-side bundled-trigger matching was fixed, `cross_checked_backoff_missing_active_v1` no longer widens the promoted set and `coger / catch -> vista` falls out of the review queue
     - the new gold-proxy artifact gives the first explicit lower-bound grading surface for automation quality, without claiming sentence-level semantic-veto readiness
     - the latest miner improvement supplements reverse-headword candidates with benchmark-target forward-gloss matches for the same English trigger, which recovers real misses like `sacar/remove`, `malla/net`, and `cuadro/table`
@@ -817,6 +818,10 @@ Use this file when:
         - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss`: `47.1%` precision / `80.0%` recall / `5.1%` overblocking
         - prior `cross_checked_v1` baseline on that lane: `32.0%` precision / `80.0%` recall / `9.4%` overblocking
       - interpretation: support-scored promotion is now a better next control surface than inventing more branchy named policies
+    - the new trigger-support sweep clarifies where earlier automatic-seed noise lives:
+      - on `rulegen_top3_plus_forward_gloss`, `min_trigger_score=3` keeps recall flat at `80.0%` while improving precision from `47.1%` to `50.0%` and reducing overblocking from `5.1%` to `4.3%`
+      - on `rulegen_all_plus_forward_gloss`, trigger filtering does not improve the tradeoff meaningfully; the broader all-sources seed family remains too noisy
+      - interpretation: compact trigger scoring is useful as a light upstream filter on the better source-only seed family, but it is not a substitute for better trigger provenance or a semantic-bridge lane
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation

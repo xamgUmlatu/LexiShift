@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, and first support-score sweep for shadow promotion
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, and first trigger-support sweep for source-only seed filtering
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -367,6 +367,14 @@ First implemented research seam:
         - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` with `min_score=4` and `max_promoted=2` now reach `47.1%` candidate precision, `80.0%` candidate recall, and `5.1%` overblocking
         - relative to the old strict `cross_checked_v1` baseline on the same seed mode, that keeps recall flat but improves precision from `32.0%` to `47.1%` and reduces overblocking from `9.4%` to `5.1%`
       - on the reviewed-trigger control, the best score setting simply reconstructs the old strict frontier (`min_score=3`, `max_promoted=1`)
+    - the new trigger-support sweep at `docs/test_outputs/semantic_shadow_trigger_support_sweep_en_es_latest.md` shows where the remaining seed noise actually lives:
+      - keep the downstream shadow support policy fixed (`shadow min=4`, `max_promoted=2`), and filter only the source-only trigger seeds before mining
+      - on `rulegen_top3_plus_forward_gloss`, a modest trigger threshold (`min_trigger_score=3`) improves the tradeoff without costing recall:
+        - precision `47.1% -> 50.0%`
+        - recall stays `80.0%`
+        - overblocking `5.1% -> 4.3%`
+      - on `rulegen_all_plus_forward_gloss`, the same trigger score does not help meaningfully; the broad all-sources seed remains too noisy and collapses quickly once filtering gets strict
+      - interpretation: trigger scoring is useful as a light filter on the better seed family (`top3 + forward gloss`), but it does not rescue the broad `all_sources` lane; the next gain is more likely to come from better trigger provenance or a semantic-bridge lane than from harsher trigger thresholds alone
     - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.

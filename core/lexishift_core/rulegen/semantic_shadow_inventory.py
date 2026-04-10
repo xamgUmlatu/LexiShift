@@ -8,6 +8,10 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     collect_sanitized_gloss_records as collect_en_es_sanitized_gloss_records,
     normalize_reverse_token_with_pos,
 )
+from lexishift_core.rulegen.semantic_shadow_trigger_support import (
+    DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
+    build_trigger_support_details_from_records,
+)
 from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 DEFAULT_SHADOW_PROMOTION_POLICY = "same_pos_lenient_v1"
@@ -184,6 +188,143 @@ def augment_shadow_targets_with_forward_gloss_triggers(
             )
         )
     return augmented_targets
+
+
+def subtract_shadow_target_triggers(
+    minuend_targets: Sequence[BenchmarkShadowTarget],
+    subtrahend_targets: Sequence[BenchmarkShadowTarget],
+    *,
+    tier_label: str,
+) -> list[BenchmarkShadowTarget]:
+    subtrahend_index = {
+        target.target: {
+            trigger for trigger in target.reviewed_triggers if str(trigger or "").strip()
+        }
+        for target in subtrahend_targets
+        if str(target.target or "").strip()
+    }
+    difference_targets: list[BenchmarkShadowTarget] = []
+    for target in minuend_targets:
+        normalized_target = str(target.target or "").strip()
+        if not normalized_target:
+            continue
+        excluded = subtrahend_index.get(normalized_target, set())
+        remaining_triggers = tuple(
+            trigger
+            for trigger in target.reviewed_triggers
+            if str(trigger or "").strip() and trigger not in excluded
+        )
+        difference_targets.append(
+            BenchmarkShadowTarget(
+                target=target.target,
+                case_ids=target.case_ids,
+                tiers=tuple(value for value in (*target.tiers, tier_label) if str(value).strip()),
+                reviewed_triggers=remaining_triggers,
+            )
+        )
+    return difference_targets
+
+
+def build_shadow_trigger_source_index(
+    *,
+    source_targets_by_label: Mapping[str, Sequence[BenchmarkShadowTarget]],
+) -> dict[tuple[str, str], tuple[str, ...]]:
+    source_index: dict[tuple[str, str], list[str]] = {}
+    for label, targets in source_targets_by_label.items():
+        normalized_label = str(label or "").strip()
+        if not normalized_label:
+            continue
+        for target in targets:
+            normalized_target = str(target.target or "").strip()
+            if not normalized_target:
+                continue
+            for trigger in target.reviewed_triggers:
+                normalized_trigger = normalize_shadow_text(trigger)
+                if not normalized_trigger:
+                    continue
+                bucket = source_index.setdefault((normalized_target, normalized_trigger), [])
+                if normalized_label not in bucket:
+                    bucket.append(normalized_label)
+    return {
+        key: tuple(values) for key, values in sorted(source_index.items(), key=lambda item: item[0])
+    }
+
+
+def build_shadow_trigger_support_details(
+    *,
+    target: str,
+    trigger: str,
+    source_labels: Sequence[str],
+    forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
+    reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
+    forward_provider: str,
+    reverse_provider: str,
+    benchmark_target_map: Mapping[str, BenchmarkShadowTarget],
+) -> dict[str, object]:
+    normalized_target = str(target or "").strip()
+    normalized_trigger = normalize_shadow_text(trigger)
+    _ = forward_provider, reverse_provider
+    return build_trigger_support_details_from_records(
+        target=normalized_target,
+        trigger=normalized_trigger,
+        source_labels=source_labels,
+        forward_records=forward_records_by_target.get(normalized_target, ()),
+        reverse_records=reverse_records_by_source.get(normalized_trigger, ()),
+        benchmark_target_keys=tuple(benchmark_target_map.keys()),
+    )
+
+
+def filter_shadow_targets_by_trigger_support(
+    *,
+    seed_targets: Sequence[BenchmarkShadowTarget],
+    source_targets_by_label: Mapping[str, Sequence[BenchmarkShadowTarget]],
+    forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
+    reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
+    forward_provider: str,
+    reverse_provider: str,
+    benchmark_target_map: Mapping[str, BenchmarkShadowTarget],
+    min_score: float = DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
+    tier_label: str = "trigger_support_filtered",
+) -> tuple[list[BenchmarkShadowTarget], list[dict[str, object]]]:
+    source_index = build_shadow_trigger_source_index(
+        source_targets_by_label=source_targets_by_label
+    )
+    filtered_targets: list[BenchmarkShadowTarget] = []
+    support_rows: list[dict[str, object]] = []
+    for seed_target in seed_targets:
+        kept_triggers: list[str] = []
+        for trigger in seed_target.reviewed_triggers:
+            normalized_trigger = normalize_shadow_text(trigger)
+            details = build_shadow_trigger_support_details(
+                target=seed_target.target,
+                trigger=normalized_trigger,
+                source_labels=source_index.get((seed_target.target, normalized_trigger), ()),
+                forward_records_by_target=forward_records_by_target,
+                reverse_records_by_source=reverse_records_by_source,
+                forward_provider=forward_provider,
+                reverse_provider=reverse_provider,
+                benchmark_target_map=benchmark_target_map,
+            )
+            support_rows.append(
+                {
+                    "target": seed_target.target,
+                    "trigger": normalized_trigger,
+                    **details,
+                }
+            )
+            if float(details.get("trigger_support_score") or 0.0) >= float(min_score):
+                kept_triggers.append(normalized_trigger)
+        filtered_targets.append(
+            BenchmarkShadowTarget(
+                target=seed_target.target,
+                case_ids=seed_target.case_ids,
+                tiers=tuple(
+                    value for value in (*seed_target.tiers, tier_label) if str(value).strip()
+                ),
+                reviewed_triggers=tuple(kept_triggers),
+            )
+        )
+    return filtered_targets, support_rows
 
 
 def build_en_es_shadow_inventory(

@@ -13,11 +13,15 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     DEFAULT_FORWARD_SEED_MAX_WORDS,
     augment_shadow_targets_with_forward_gloss_triggers,
     build_shadow_candidate_support_details,
+    build_shadow_trigger_source_index,
+    build_shadow_trigger_support_details,
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
     build_rulegen_shadow_targets,
+    filter_shadow_targets_by_trigger_support,
     promote_shadow_candidates_for_policy,
     promote_shadow_candidates_with_support_score,
+    subtract_shadow_target_triggers,
 )
 
 
@@ -157,6 +161,207 @@ class TestSemanticShadowInventory(unittest.TestCase):
             sacar.reviewed_triggers,
             ("withdraw", "draw", "unsheathe", "remove", "extract", "get out", "take out"),
         )
+
+    def test_subtract_shadow_target_triggers_keeps_only_new_forward_gloss_fragments(self) -> None:
+        base_targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:sacar",
+                    "target": "sacar",
+                    "top3_sources": ["withdraw", "draw", "unsheathe"],
+                },
+            ),
+            source_field="top3_sources",
+        )
+        augmented_targets = augment_shadow_targets_with_forward_gloss_triggers(
+            base_targets,
+            forward_records_by_target={
+                "sacar": (
+                    _record(
+                        translation="to remove, to extract, to get out",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="to remove, to extract, to get out",
+                    ),
+                ),
+            },
+            max_words=DEFAULT_FORWARD_SEED_MAX_WORDS,
+        )
+
+        difference = subtract_shadow_target_triggers(
+            augmented_targets,
+            base_targets,
+            tier_label="forward_gloss_fragments",
+        )
+
+        self.assertEqual(len(difference), 1)
+        self.assertEqual(difference[0].reviewed_triggers, ("remove", "extract", "get out"))
+        self.assertIn("forward_gloss_fragments", difference[0].tiers)
+
+    def test_build_shadow_trigger_source_index_tracks_source_labels_per_trigger(self) -> None:
+        top3_targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:sacar",
+                    "target": "sacar",
+                    "top3_sources": ["withdraw", "draw"],
+                },
+            ),
+            source_field="top3_sources",
+        )
+        all_targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:sacar",
+                    "target": "sacar",
+                    "all_sources": ["withdraw", "draw", "remove"],
+                },
+            ),
+            source_field="all_sources",
+        )
+
+        source_index = build_shadow_trigger_source_index(
+            source_targets_by_label={
+                "rulegen_top3_sources": top3_targets,
+                "rulegen_all_sources": all_targets,
+            }
+        )
+
+        self.assertEqual(
+            source_index[("sacar", "withdraw")],
+            ("rulegen_top3_sources", "rulegen_all_sources"),
+        )
+        self.assertEqual(source_index[("sacar", "remove")], ("rulegen_all_sources",))
+
+    def test_build_shadow_trigger_support_details_scores_compact_source_supported_trigger(
+        self,
+    ) -> None:
+        benchmark_target_map = {
+            target.target: target
+            for target in build_benchmark_shadow_targets(
+                (
+                    {
+                        "case_id": "en-es:sacar",
+                        "target": "sacar",
+                        "expected_any": ["remove"],
+                    },
+                    {
+                        "case_id": "en-es:quitar",
+                        "target": "quitar",
+                        "expected_any": ["remove"],
+                    },
+                )
+            )
+        }
+        details = build_shadow_trigger_support_details(
+            target="sacar",
+            trigger="remove",
+            source_labels=("rulegen_top3_sources", "forward_gloss_fragments"),
+            forward_records_by_target={
+                "sacar": (
+                    _record(
+                        translation="to remove, to extract, to get out",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="to remove, to extract, to get out",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "remove": (
+                    _record(
+                        translation="quitar",
+                        pos_raw="verb",
+                        entry_ord=11,
+                        sense_ord=0,
+                        sense_gloss="to take away",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            benchmark_target_map=benchmark_target_map,
+        )
+
+        self.assertEqual(
+            details["trigger_support_features"],
+            [
+                "rulegen_top3_source",
+                "forward_gloss_fragment",
+                "multi_source_support",
+                "active_side_support",
+                "reverse_shadow_support",
+            ],
+        )
+        self.assertEqual(details["trigger_support_penalties"], [])
+        self.assertEqual(details["trigger_support_score"], 6.0)
+
+    def test_filter_shadow_targets_by_trigger_support_drops_weak_multiword_seed(self) -> None:
+        seed_targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:sacar",
+                    "target": "sacar",
+                    "top3_sources": ["remove", "take out"],
+                },
+            ),
+            source_field="top3_sources",
+        )
+        benchmark_target_map = {
+            target.target: target
+            for target in build_benchmark_shadow_targets(
+                (
+                    {
+                        "case_id": "en-es:sacar",
+                        "target": "sacar",
+                        "expected_any": ["remove", "take out"],
+                    },
+                    {
+                        "case_id": "en-es:quitar",
+                        "target": "quitar",
+                        "expected_any": ["remove"],
+                    },
+                )
+            )
+        }
+        filtered_targets, support_rows = filter_shadow_targets_by_trigger_support(
+            seed_targets=seed_targets,
+            source_targets_by_label={"rulegen_top3_sources": seed_targets},
+            forward_records_by_target={
+                "sacar": (
+                    _record(
+                        translation="to remove, to extract, to get out, to take out",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="to remove, to extract, to get out, to take out",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "remove": (
+                    _record(
+                        translation="quitar",
+                        pos_raw="verb",
+                        entry_ord=11,
+                        sense_ord=0,
+                        sense_gloss="to take away",
+                    ),
+                ),
+                "take out": (),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            benchmark_target_map=benchmark_target_map,
+            min_score=4.0,
+        )
+
+        self.assertEqual(len(filtered_targets), 1)
+        self.assertEqual(filtered_targets[0].reviewed_triggers, ("remove",))
+        score_by_trigger = {row["trigger"]: row["trigger_support_score"] for row in support_rows}
+        self.assertGreater(score_by_trigger["remove"], score_by_trigger["take out"])
 
     def test_build_en_es_shadow_inventory_promotes_reviewed_same_pos_siblings(self) -> None:
         benchmark_targets = build_benchmark_shadow_targets(
