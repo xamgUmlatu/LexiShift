@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T23:27:42Z",
+  "generated_at": "2026-04-10T01:58:05Z",
   "status": "ok",
   "inventory_status": "ok",
   "inventory_promotion_policy": "same_pos_lenient_v1",

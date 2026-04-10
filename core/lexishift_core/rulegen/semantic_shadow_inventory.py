@@ -88,6 +88,11 @@ def build_en_es_shadow_inventory(
     promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
+    forward_shadow_index = _build_forward_shadow_index(
+        benchmark_targets=benchmark_targets,
+        forward_records_by_target=forward_records_by_target,
+        provider=forward_provider,
+    )
     inventory_targets: list[dict[str, object]] = []
     for benchmark_target in benchmark_targets:
         forward_records = collect_en_es_sanitized_gloss_records(
@@ -118,6 +123,23 @@ def build_en_es_shadow_inventory(
                 for candidate in reverse_candidates
                 if str(candidate.get("target") or "").strip() != benchmark_target.target
             ]
+            existing_shadow_targets = {
+                str(candidate.get("target") or "").strip()
+                for candidate in shadow_candidates
+                if str(candidate.get("target") or "").strip()
+            }
+            for forward_candidate in forward_shadow_index.get(trigger, ()):
+                if not isinstance(forward_candidate, Mapping):
+                    continue
+                candidate_target = str(forward_candidate.get("target") or "").strip()
+                if (
+                    not candidate_target
+                    or candidate_target == benchmark_target.target
+                    or candidate_target in existing_shadow_targets
+                ):
+                    continue
+                shadow_candidates.append(dict(forward_candidate))
+                existing_shadow_targets.add(candidate_target)
             promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
@@ -156,6 +178,36 @@ def build_en_es_shadow_inventory(
         "targets": inventory_targets,
         "summary": _build_inventory_summary(inventory_targets),
     }
+
+
+def _build_forward_shadow_index(
+    *,
+    benchmark_targets: Sequence[BenchmarkShadowTarget],
+    forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
+    provider: str,
+) -> dict[str, list[dict[str, object]]]:
+    trigger_index: dict[str, list[dict[str, object]]] = {}
+    for benchmark_target in benchmark_targets:
+        forward_records = collect_en_es_sanitized_gloss_records(
+            forward_records_by_target.get(benchmark_target.target, ())
+        )
+        for trigger in benchmark_target.reviewed_triggers:
+            active_candidates = _build_active_candidates_for_trigger(
+                target=benchmark_target.target,
+                trigger=trigger,
+                records=forward_records,
+                provider=provider,
+            )
+            if not active_candidates:
+                continue
+            bucket = trigger_index.setdefault(trigger, [])
+            for candidate in active_candidates:
+                candidate_copy = dict(candidate)
+                candidate_copy["benchmark_target_present"] = True
+                candidate_copy["reviewed_trigger_support"] = True
+                candidate_copy["candidate_sources"] = ["forward_index"]
+                bucket.append(candidate_copy)
+    return trigger_index
 
 
 def _build_inventory_summary(targets: Sequence[Mapping[str, object]]) -> dict[str, object]:

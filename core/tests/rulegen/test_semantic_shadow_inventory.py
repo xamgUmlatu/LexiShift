@@ -268,6 +268,82 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(trigger_row["active_candidates"][0]["matched_trigger"], "catch")
         self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
 
+    def test_build_en_es_shadow_inventory_supplements_missing_reverse_shadow_from_forward_index(
+        self,
+    ) -> None:
+        benchmark_targets = build_benchmark_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:quitar:1",
+                    "target": "quitar",
+                    "tier": "hard",
+                    "expected_any": ["remove"],
+                },
+                {
+                    "case_id": "en-es:sacar:1",
+                    "target": "sacar",
+                    "tier": "hard",
+                    "expected_any": ["remove", "take out"],
+                },
+            )
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "quitar": (
+                    _record(
+                        translation="remove",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="to take away",
+                    ),
+                ),
+                "sacar": (
+                    _record(
+                        translation="to remove, to extract, to take out",
+                        pos_raw="verb",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="to remove, to extract, to take out",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "remove": (
+                    _record(
+                        translation="quitar",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="to take away",
+                    ),
+                    _record(
+                        translation="remover",
+                        pos_raw="verb",
+                        entry_ord=12,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="to take away",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="cross_checked_v1",
+        )
+
+        quitar_row = next(row for row in inventory["targets"] if row["target"] == "quitar")
+        trigger_row = quitar_row["trigger_entries"][0]
+        shadow_targets = [candidate["target"] for candidate in trigger_row["shadow_candidates"]]
+        self.assertIn("sacar", shadow_targets)
+        promoted = trigger_row["promoted_shadow_candidates"]
+        self.assertEqual([candidate["target"] for candidate in promoted], ["sacar"])
+        self.assertIn("forward_index", promoted[0]["candidate_sources"])
+
     def test_build_en_es_shadow_inventory_drops_zero_reason_promotions(self) -> None:
         benchmark_targets = build_benchmark_shadow_targets(
             (

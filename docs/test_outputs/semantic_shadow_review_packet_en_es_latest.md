@@ -1,7 +1,7 @@
 # en-es Shadow Review Packet
 
 - Status: `ok`
-- Generated: `2026-04-10T00:54:55Z`
+- Generated: `2026-04-10T01:58:16Z`
 - Provisional runtime policy: `cross_checked_v1`
 
 ## How To Read This Packet

@@ -211,13 +211,14 @@ First implemented research seam:
   - it scores the current shadow-promotion policies against that proxy without inventing a second benchmark surface
   - this is not a sentence-level semantic veto benchmark, but it gives immediate candidate precision/recall, trigger-hit, underblocking, and overblocking metrics for automatic shadow promotion
   - on the latest `en-es` artifact, the strict policies (`cross_checked_v1` and `cross_checked_backoff_missing_active_v1`) tie as the best current lower-bound:
-    - candidate precision `54.5%`
-    - candidate recall `60.0%`
-    - gold-trigger hit rate `60.0%`
+    - candidate precision `64.3%`
+    - candidate recall `90.0%`
+    - gold-trigger hit rate `90.0%`
     - overblocking rate `3.6%`
   - the same artifact also clarifies the current limiting factor:
-    - the mined candidate pool reaches only `60.0%` trigger-level recall against the overlap proxy
-    - so the next bottleneck is not just promotion strictness; it is also shadow-candidate coverage
+    - a new forward-index supplement now recovers benchmark-known siblings that are missing from the reverse headword rows alone
+    - that lifted mined candidate-pool recall from `60.0%` to `90.0%` against the overlap proxy
+    - the remaining clear miss is `trabajo / job -> cargo`, which points to a harder semantic-bridge problem rather than a simple reverse-pack coverage gap
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

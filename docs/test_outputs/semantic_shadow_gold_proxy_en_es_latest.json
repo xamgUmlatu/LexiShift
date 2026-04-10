@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T01:15:05Z",
+  "generated_at": "2026-04-10T01:58:16Z",
   "status": "ok",
   "benchmark_dataset": {
     "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
@@ -17,9 +17,9 @@
       "trigger_rows_total": 148,
       "gold_trigger_rows": 10,
       "gold_trigger_rows_with_active_candidates": 9,
-      "gold_trigger_rows_with_mined_overlap": 6,
+      "gold_trigger_rows_with_mined_overlap": 9,
       "gold_trigger_rows_with_exact_mined_set": 0,
-      "candidate_pool_trigger_recall": 0.6,
+      "candidate_pool_trigger_recall": 0.9,
       "candidate_pool_exact_match_rate": 0.0,
       "gold_trigger_active_support_rate": 0.9
     },
@@ -30,86 +30,26 @@
           "gold_trigger_rows": 10,
           "trigger_rows_with_active_candidates": 114,
           "promoted_trigger_rows": 111,
-          "candidate_true_positive_count": 6,
-          "candidate_false_positive_count": 278,
-          "candidate_false_negative_count": 4,
-          "gold_trigger_rows_hit": 6,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 276,
+          "candidate_false_negative_count": 1,
+          "gold_trigger_rows_hit": 9,
           "gold_trigger_rows_exact_match": 1,
-          "gold_trigger_rows_underblocked": 4,
-          "gold_trigger_rows_partial": 5,
-          "top1_gold_trigger_rows_hit": 6,
+          "gold_trigger_rows_underblocked": 1,
+          "gold_trigger_rows_partial": 8,
+          "top1_gold_trigger_rows_hit": 9,
           "no_gold_trigger_rows": 138,
           "no_gold_trigger_rows_overblocked": 101,
-          "candidate_precision": 0.02112676056338028,
-          "candidate_recall": 0.6,
-          "candidate_f1": 0.04081632653061224,
-          "gold_trigger_hit_rate": 0.6,
+          "candidate_precision": 0.031578947368421054,
+          "candidate_recall": 0.9,
+          "candidate_f1": 0.061016949152542375,
+          "gold_trigger_hit_rate": 0.9,
           "gold_trigger_exact_match_rate": 0.1,
-          "top1_gold_trigger_hit_rate": 0.6,
-          "underblocking_rate": 0.4,
+          "top1_gold_trigger_hit_rate": 0.9,
+          "underblocking_rate": 0.1,
           "overblocking_rate": 0.7318840579710145
         },
         "sample_underblocked_rows": [
-          {
-            "target": "quitar",
-            "trigger": "remove",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "sacar"
-            ],
-            "mined_shadow_targets": [
-              "detraer",
-              "remover"
-            ],
-            "promoted_targets": [
-              "remover",
-              "detraer"
-            ]
-          },
-          {
-            "target": "red",
-            "trigger": "net",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "malla"
-            ],
-            "mined_shadow_targets": [
-              "almadraba",
-              "jábeca",
-              "jábega",
-              "líquido",
-              "net",
-              "neto"
-            ],
-            "promoted_targets": [
-              "net",
-              "jábega",
-              "jábeca"
-            ]
-          },
-          {
-            "target": "tabla",
-            "trigger": "table",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "cuadro"
-            ],
-            "mined_shadow_targets": [
-              "entremijo",
-              "entremiso",
-              "expremijo",
-              "mesa",
-              "poner sobre la mesa",
-              "tablas",
-              "tabular",
-              "traer a discusión"
-            ],
-            "promoted_targets": [
-              "tablas",
-              "mesa",
-              "expremijo"
-            ]
-          },
           {
             "target": "trabajo",
             "trigger": "job",
@@ -558,6 +498,56 @@
             ]
           },
           {
+            "target": "quitar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "sacar"
+            ],
+            "mined_shadow_targets": [
+              "detraer",
+              "remover",
+              "sacar"
+            ],
+            "promoted_targets": [
+              "sacar",
+              "remover",
+              "detraer"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "detraer",
+              "remover"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "net",
+              "jábega"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "jábega",
+              "net"
+            ]
+          },
+          {
             "target": "sacar",
             "trigger": "remove",
             "active_candidate_count": 1,
@@ -579,64 +569,6 @@
               "detraer",
               "remover"
             ]
-          }
-        ]
-      },
-      "benchmark_backed_v1": {
-        "summary": {
-          "trigger_rows_total": 148,
-          "gold_trigger_rows": 10,
-          "trigger_rows_with_active_candidates": 114,
-          "promoted_trigger_rows": 19,
-          "candidate_true_positive_count": 6,
-          "candidate_false_positive_count": 13,
-          "candidate_false_negative_count": 4,
-          "gold_trigger_rows_hit": 6,
-          "gold_trigger_rows_exact_match": 6,
-          "gold_trigger_rows_underblocked": 4,
-          "gold_trigger_rows_partial": 0,
-          "top1_gold_trigger_rows_hit": 6,
-          "no_gold_trigger_rows": 138,
-          "no_gold_trigger_rows_overblocked": 13,
-          "candidate_precision": 0.3157894736842105,
-          "candidate_recall": 0.6,
-          "candidate_f1": 0.41379310344827586,
-          "gold_trigger_hit_rate": 0.6,
-          "gold_trigger_exact_match_rate": 0.6,
-          "top1_gold_trigger_hit_rate": 0.6,
-          "underblocking_rate": 0.4,
-          "overblocking_rate": 0.09420289855072464
-        },
-        "sample_underblocked_rows": [
-          {
-            "target": "quitar",
-            "trigger": "remove",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "sacar"
-            ],
-            "mined_shadow_targets": [
-              "detraer",
-              "remover"
-            ],
-            "promoted_targets": []
-          },
-          {
-            "target": "red",
-            "trigger": "net",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "malla"
-            ],
-            "mined_shadow_targets": [
-              "almadraba",
-              "jábeca",
-              "jábega",
-              "líquido",
-              "net",
-              "neto"
-            ],
-            "promoted_targets": []
           },
           {
             "target": "tabla",
@@ -646,6 +578,7 @@
               "cuadro"
             ],
             "mined_shadow_targets": [
+              "cuadro",
               "entremijo",
               "entremiso",
               "expremijo",
@@ -655,8 +588,45 @@
               "tabular",
               "traer a discusión"
             ],
-            "promoted_targets": []
-          },
+            "promoted_targets": [
+              "cuadro",
+              "tablas",
+              "mesa"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "mesa",
+              "tablas"
+            ]
+          }
+        ]
+      },
+      "benchmark_backed_v1": {
+        "summary": {
+          "trigger_rows_total": 148,
+          "gold_trigger_rows": 10,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 22,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 13,
+          "candidate_false_negative_count": 1,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 9,
+          "gold_trigger_rows_underblocked": 1,
+          "gold_trigger_rows_partial": 0,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 138,
+          "no_gold_trigger_rows_overblocked": 13,
+          "candidate_precision": 0.4090909090909091,
+          "candidate_recall": 0.9,
+          "candidate_f1": 0.5625000000000001,
+          "gold_trigger_hit_rate": 0.9,
+          "gold_trigger_exact_match_rate": 0.9,
+          "top1_gold_trigger_hit_rate": 0.9,
+          "underblocking_rate": 0.1,
+          "overblocking_rate": 0.09420289855072464
+        },
+        "sample_underblocked_rows": [
           {
             "target": "trabajo",
             "trigger": "job",
@@ -991,76 +961,27 @@
           "trigger_rows_total": 148,
           "gold_trigger_rows": 10,
           "trigger_rows_with_active_candidates": 114,
-          "promoted_trigger_rows": 11,
-          "candidate_true_positive_count": 6,
+          "promoted_trigger_rows": 14,
+          "candidate_true_positive_count": 9,
           "candidate_false_positive_count": 5,
-          "candidate_false_negative_count": 4,
-          "gold_trigger_rows_hit": 6,
-          "gold_trigger_rows_exact_match": 6,
-          "gold_trigger_rows_underblocked": 4,
+          "candidate_false_negative_count": 1,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 9,
+          "gold_trigger_rows_underblocked": 1,
           "gold_trigger_rows_partial": 0,
-          "top1_gold_trigger_rows_hit": 6,
+          "top1_gold_trigger_rows_hit": 9,
           "no_gold_trigger_rows": 138,
           "no_gold_trigger_rows_overblocked": 5,
-          "candidate_precision": 0.5454545454545454,
-          "candidate_recall": 0.6,
-          "candidate_f1": 0.5714285714285713,
-          "gold_trigger_hit_rate": 0.6,
-          "gold_trigger_exact_match_rate": 0.6,
-          "top1_gold_trigger_hit_rate": 0.6,
-          "underblocking_rate": 0.4,
+          "candidate_precision": 0.6428571428571429,
+          "candidate_recall": 0.9,
+          "candidate_f1": 0.75,
+          "gold_trigger_hit_rate": 0.9,
+          "gold_trigger_exact_match_rate": 0.9,
+          "top1_gold_trigger_hit_rate": 0.9,
+          "underblocking_rate": 0.1,
           "overblocking_rate": 0.036231884057971016
         },
         "sample_underblocked_rows": [
-          {
-            "target": "quitar",
-            "trigger": "remove",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "sacar"
-            ],
-            "mined_shadow_targets": [
-              "detraer",
-              "remover"
-            ],
-            "promoted_targets": []
-          },
-          {
-            "target": "red",
-            "trigger": "net",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "malla"
-            ],
-            "mined_shadow_targets": [
-              "almadraba",
-              "jábeca",
-              "jábega",
-              "líquido",
-              "net",
-              "neto"
-            ],
-            "promoted_targets": []
-          },
-          {
-            "target": "tabla",
-            "trigger": "table",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "cuadro"
-            ],
-            "mined_shadow_targets": [
-              "entremijo",
-              "entremiso",
-              "expremijo",
-              "mesa",
-              "poner sobre la mesa",
-              "tablas",
-              "tabular",
-              "traer a discusión"
-            ],
-            "promoted_targets": []
-          },
           {
             "target": "trabajo",
             "trigger": "job",
@@ -1205,76 +1126,27 @@
           "trigger_rows_total": 148,
           "gold_trigger_rows": 10,
           "trigger_rows_with_active_candidates": 114,
-          "promoted_trigger_rows": 11,
-          "candidate_true_positive_count": 6,
+          "promoted_trigger_rows": 14,
+          "candidate_true_positive_count": 9,
           "candidate_false_positive_count": 5,
-          "candidate_false_negative_count": 4,
-          "gold_trigger_rows_hit": 6,
-          "gold_trigger_rows_exact_match": 6,
-          "gold_trigger_rows_underblocked": 4,
+          "candidate_false_negative_count": 1,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 9,
+          "gold_trigger_rows_underblocked": 1,
           "gold_trigger_rows_partial": 0,
-          "top1_gold_trigger_rows_hit": 6,
+          "top1_gold_trigger_rows_hit": 9,
           "no_gold_trigger_rows": 138,
           "no_gold_trigger_rows_overblocked": 5,
-          "candidate_precision": 0.5454545454545454,
-          "candidate_recall": 0.6,
-          "candidate_f1": 0.5714285714285713,
-          "gold_trigger_hit_rate": 0.6,
-          "gold_trigger_exact_match_rate": 0.6,
-          "top1_gold_trigger_hit_rate": 0.6,
-          "underblocking_rate": 0.4,
+          "candidate_precision": 0.6428571428571429,
+          "candidate_recall": 0.9,
+          "candidate_f1": 0.75,
+          "gold_trigger_hit_rate": 0.9,
+          "gold_trigger_exact_match_rate": 0.9,
+          "top1_gold_trigger_hit_rate": 0.9,
+          "underblocking_rate": 0.1,
           "overblocking_rate": 0.036231884057971016
         },
         "sample_underblocked_rows": [
-          {
-            "target": "quitar",
-            "trigger": "remove",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "sacar"
-            ],
-            "mined_shadow_targets": [
-              "detraer",
-              "remover"
-            ],
-            "promoted_targets": []
-          },
-          {
-            "target": "red",
-            "trigger": "net",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "malla"
-            ],
-            "mined_shadow_targets": [
-              "almadraba",
-              "jábeca",
-              "jábega",
-              "líquido",
-              "net",
-              "neto"
-            ],
-            "promoted_targets": []
-          },
-          {
-            "target": "tabla",
-            "trigger": "table",
-            "active_candidate_count": 1,
-            "gold_shadow_targets": [
-              "cuadro"
-            ],
-            "mined_shadow_targets": [
-              "entremijo",
-              "entremiso",
-              "expremijo",
-              "mesa",
-              "poner sobre la mesa",
-              "tablas",
-              "tabular",
-              "traer a discusión"
-            ],
-            "promoted_targets": []
-          },
           {
             "target": "trabajo",
             "trigger": "job",
@@ -1560,7 +1432,8 @@
             ],
             "mined_shadow_targets": [
               "detraer",
-              "remover"
+              "remover",
+              "sacar"
             ],
             "promoted_targets": []
           },
@@ -1576,6 +1449,7 @@
               "jábeca",
               "jábega",
               "líquido",
+              "malla",
               "net",
               "neto"
             ],
@@ -1603,6 +1477,7 @@
               "cuadro"
             ],
             "mined_shadow_targets": [
+              "cuadro",
               "entremijo",
               "entremiso",
               "expremijo",

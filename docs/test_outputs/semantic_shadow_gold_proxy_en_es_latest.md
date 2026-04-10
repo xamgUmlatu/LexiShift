@@ -1,7 +1,7 @@
 # en-es Shadow Gold-Proxy Evaluation
 
 - Status: `ok`
-- Generated: `2026-04-10T01:15:05Z`
+- Generated: `2026-04-10T01:58:16Z`
 - Inventory status: `ok`
 - Proxy meaning: reviewed trigger overlaps in the rulegen benchmark act as the current lower-bound gold for which targets should compete for the same English trigger.
 - Blind spot: this proxy will under-credit real semantic blockers when the competing benchmark target does not explicitly list the same English trigger, so rows like `marco / frame -> cuadro` can appear as overblocking here even though they are useful runtime shadows.
@@ -11,22 +11,19 @@
 ## Candidate Pool
 - Gold trigger rows: `10`
 - Gold rows with active support: `9` (`90.0%`)
-- Gold rows with mined overlap: `6` (`60.0%`)
+- Gold rows with mined overlap: `9` (`90.0%`)
 - Gold rows with exact mined set: `0` (`0.0%`)
 
 ## same_pos_lenient_v1
-- Candidate precision: `2.1%`
-- Candidate recall: `60.0%`
-- Candidate F1: `4.1%`
-- Gold trigger hit rate: `60.0%`
-- Top-1 gold trigger hit rate: `60.0%`
+- Candidate precision: `3.2%`
+- Candidate recall: `90.0%`
+- Candidate F1: `6.1%`
+- Gold trigger hit rate: `90.0%`
+- Top-1 gold trigger hit rate: `90.0%`
 - Gold trigger exact-match rate: `10.0%`
-- Underblocking rows: `4`
+- Underblocking rows: `1`
 - Overblocking rows: `101`
 - Sample underblocked rows:
-  - `quitar` / `remove` gold=['sacar'] promoted=['remover', 'detraer']
-  - `red` / `net` gold=['malla'] promoted=['net', 'jábega', 'jábeca']
-  - `tabla` / `table` gold=['cuadro'] promoted=['tablas', 'mesa', 'expremijo']
   - `trabajo` / `job` gold=['cargo'] promoted=['yob', 'tarea', 'talacha']
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['ultimar', 'terminarse', 'terminar']
@@ -36,18 +33,15 @@
   - `amor` / `love` promoted=['nada', 'hacer el amor', 'cero']
 
 ## benchmark_backed_v1
-- Candidate precision: `31.6%`
-- Candidate recall: `60.0%`
-- Candidate F1: `41.4%`
-- Gold trigger hit rate: `60.0%`
-- Top-1 gold trigger hit rate: `60.0%`
-- Gold trigger exact-match rate: `60.0%`
-- Underblocking rows: `4`
+- Candidate precision: `40.9%`
+- Candidate recall: `90.0%`
+- Candidate F1: `56.3%`
+- Gold trigger hit rate: `90.0%`
+- Top-1 gold trigger hit rate: `90.0%`
+- Gold trigger exact-match rate: `90.0%`
+- Underblocking rows: `1`
 - Overblocking rows: `13`
 - Sample underblocked rows:
-  - `quitar` / `remove` gold=['sacar'] promoted=[]
-  - `red` / `net` gold=['malla'] promoted=[]
-  - `tabla` / `table` gold=['cuadro'] promoted=[]
   - `trabajo` / `job` gold=['cargo'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `end` promoted=['parte']
@@ -57,18 +51,15 @@
   - `escuela` / `school` promoted=['banco']
 
 ## cross_checked_v1
-- Candidate precision: `54.5%`
-- Candidate recall: `60.0%`
-- Candidate F1: `57.1%`
-- Gold trigger hit rate: `60.0%`
-- Top-1 gold trigger hit rate: `60.0%`
-- Gold trigger exact-match rate: `60.0%`
-- Underblocking rows: `4`
+- Candidate precision: `64.3%`
+- Candidate recall: `90.0%`
+- Candidate F1: `75.0%`
+- Gold trigger hit rate: `90.0%`
+- Top-1 gold trigger hit rate: `90.0%`
+- Gold trigger exact-match rate: `90.0%`
+- Underblocking rows: `1`
 - Overblocking rows: `5`
 - Sample underblocked rows:
-  - `quitar` / `remove` gold=['sacar'] promoted=[]
-  - `red` / `net` gold=['malla'] promoted=[]
-  - `tabla` / `table` gold=['cuadro'] promoted=[]
   - `trabajo` / `job` gold=['cargo'] promoted=[]
 - Sample overblocked rows:
   - `cura` / `priest` promoted=['padre']
@@ -78,18 +69,15 @@
   - `punto` / `point` promoted=['fondo']
 
 ## cross_checked_backoff_missing_active_v1
-- Candidate precision: `54.5%`
-- Candidate recall: `60.0%`
-- Candidate F1: `57.1%`
-- Gold trigger hit rate: `60.0%`
-- Top-1 gold trigger hit rate: `60.0%`
-- Gold trigger exact-match rate: `60.0%`
-- Underblocking rows: `4`
+- Candidate precision: `64.3%`
+- Candidate recall: `90.0%`
+- Candidate F1: `75.0%`
+- Gold trigger hit rate: `90.0%`
+- Top-1 gold trigger hit rate: `90.0%`
+- Gold trigger exact-match rate: `90.0%`
+- Underblocking rows: `1`
 - Overblocking rows: `5`
 - Sample underblocked rows:
-  - `quitar` / `remove` gold=['sacar'] promoted=[]
-  - `red` / `net` gold=['malla'] promoted=[]
-  - `tabla` / `table` gold=['cuadro'] promoted=[]
   - `trabajo` / `job` gold=['cargo'] promoted=[]
 - Sample overblocked rows:
   - `cura` / `priest` promoted=['padre']

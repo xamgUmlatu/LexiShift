@@ -1,7 +1,7 @@
 # en-es Shadow Promotion Policy Comparison
 
 - Status: `ok`
-- Generated: `2026-04-09T23:27:42Z`
+- Generated: `2026-04-10T01:58:05Z`
 - Inventory status: `ok`
 - Inventory default policy: `same_pos_lenient_v1`
 

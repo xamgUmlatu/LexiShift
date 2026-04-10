@@ -769,7 +769,7 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` added a reviewed-trigger-overlap gold-proxy grader for `en-es` auto shadow promotion
+- Last documented checkpoint: `2026-04-10` added a forward-index supplement that lifts `en-es` shadow candidate-pool recall from `60%` to `90%` on the reviewed-trigger-overlap gold proxy
 - Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed `en-es` shadow inventory/policy-comparison/review-queue/gap-queue/review-packet/gold-proxy artifacts and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
@@ -792,9 +792,10 @@ Use this file when:
     - `scripts/testing/semantic_shadow_gold_proxy_en_es.py` grades the current policies against a reviewed-trigger-overlap gold proxy derived directly from `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
     - the latest artifacts confirm that candidate mining works broadly enough to study, and the safer provisional runtime shape is now effectively the strict `cross_checked_v1` family: after active-side bundled-trigger matching was fixed, `cross_checked_backoff_missing_active_v1` no longer widens the promoted set and `coger / catch -> vista` falls out of the review queue
     - the new gold-proxy artifact gives the first explicit lower-bound grading surface for automation quality, without claiming sentence-level semantic-veto readiness
+    - the latest miner improvement supplements reverse-headword candidates with benchmark-target forward-gloss matches for the same English trigger, which recovers real misses like `sacar/remove`, `malla/net`, and `cuadro/table`
     - current lower-bound read from that proxy:
-      - `cross_checked_v1` / `cross_checked_backoff_missing_active_v1`: `54.5%` candidate precision, `60.0%` candidate recall, `60.0%` gold-trigger hit rate, `3.6%` overblocking rate
-      - candidate-pool recall is also `60.0%`, which means mining coverage is now at least as important as promotion strictness
+      - `cross_checked_v1` / `cross_checked_backoff_missing_active_v1`: `64.3%` candidate precision, `90.0%` candidate recall, `90.0%` gold-trigger hit rate, `3.6%` overblocking rate
+      - candidate-pool recall is now `90.0%`, which means the remaining bottleneck is concentrated in harder semantic-bridge cases like `cargo/job`, not simple reverse-pack asymmetry
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation

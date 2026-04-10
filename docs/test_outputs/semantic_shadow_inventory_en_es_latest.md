@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Inventory
 
 - Status: `ok`
-- Generated: `2026-04-09T23:25:51Z`
+- Generated: `2026-04-10T01:58:05Z`
 - Benchmark targets: `63`
 - Reviewed triggers: `148`
 - Data root: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift`

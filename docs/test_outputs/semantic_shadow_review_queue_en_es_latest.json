@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-09T23:27:43Z",
+  "generated_at": "2026-04-10T01:58:16Z",
   "status": "ok",
   "inventory_status": "ok",
-  "policy": "cross_checked_backoff_missing_active_v1",
+  "policy": "cross_checked_v1",
   "focus_targets": [
     "marco",
     "cuadro",
@@ -17,7 +17,7 @@
     "banco",
     "pelota"
   ],
-  "row_count": 6,
+  "row_count": 8,
   "rows": [
     {
       "target": "coger",
@@ -294,7 +294,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     },
@@ -665,7 +665,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     },
@@ -946,7 +946,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     },
@@ -1213,7 +1213,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     },
@@ -1371,7 +1371,227 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
+        }
+      ]
+    },
+    {
+      "target": "quitar",
+      "trigger": "remove",
+      "active_candidates": [
+        {
+          "target": "quitar",
+          "sense_label": "(transitive, reflexive) to take off, to remove, to disrobe, to doff (as clothes or accoutrements)",
+          "canonical_pos": "verb",
+          "provider": "wiktionary",
+          "locator": {
+            "provider": "wiktionary",
+            "locator_kind": "wiktionary_ordinal",
+            "entry_ord": 5193,
+            "sense_ord": 4,
+            "gloss_ord": 0
+          },
+          "glosses": [
+            "to remove"
+          ],
+          "qualifiers": {
+            "tags": [
+              "reflexive",
+              "transitive"
+            ],
+            "categories": [
+              "Spanish reflexive verbs",
+              "Spanish terms with usage examples",
+              "Spanish transitive verbs",
+              "Pages with 7 entries",
+              "Pages with entries",
+              "Rhymes:Spanish/aɾ",
+              "Rhymes:Spanish/aɾ/2 syllables",
+              "Spanish 2-syllable words",
+              "Spanish entries with incorrect language header",
+              "Spanish lemmas",
+              "Spanish terms derived from Late Latin",
+              "Spanish terms derived from Latin",
+              "Spanish terms derived from Medieval Latin",
+              "Spanish terms with IPA pronunciation",
+              "Spanish verbs",
+              "Spanish verbs ending in -ar"
+            ]
+          },
+          "matched_trigger": "remove"
+        }
+      ],
+      "promoted_shadow_candidates": [
+        {
+          "target": "sacar",
+          "sense_label": "(transitive) to take off, remove (e.g. clothing, footwear, jewelry)",
+          "canonical_pos": "verb",
+          "provider": "wiktionary",
+          "locator": {
+            "provider": "wiktionary",
+            "locator_kind": "wiktionary_ordinal",
+            "entry_ord": 2624,
+            "sense_ord": 19,
+            "gloss_ord": 0
+          },
+          "glosses": [
+            "to remove"
+          ],
+          "qualifiers": {
+            "tags": [
+              "transitive"
+            ],
+            "categories": [
+              "Spanish terms with usage examples",
+              "Spanish transitive verbs",
+              "Pages with 6 entries",
+              "Pages with entries",
+              "Rhymes:Spanish/aɾ",
+              "Rhymes:Spanish/aɾ/2 syllables",
+              "Spanish 2-syllable words",
+              "Spanish entries with incorrect language header",
+              "Spanish lemmas",
+              "Spanish terms derived from Gothic",
+              "Spanish terms derived from Old Spanish",
+              "Spanish terms inherited from Old Spanish",
+              "Spanish terms with IPA pronunciation",
+              "Spanish terms with audio pronunciation",
+              "Spanish verbs",
+              "Spanish verbs ending in -ar",
+              "Spanish verbs with c-qu alternation"
+            ]
+          },
+          "matched_trigger": "remove",
+          "benchmark_target_present": true,
+          "reviewed_trigger_support": true,
+          "candidate_sources": [
+            "forward_index"
+          ],
+          "same_pos_as_active": true,
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "promotion_policy": "cross_checked_v1"
+        }
+      ]
+    },
+    {
+      "target": "red",
+      "trigger": "net",
+      "active_candidates": [
+        {
+          "target": "red",
+          "sense_label": "(fishing) net",
+          "canonical_pos": "noun",
+          "provider": "wiktionary",
+          "locator": {
+            "provider": "wiktionary",
+            "locator_kind": "wiktionary_ordinal",
+            "entry_ord": 286,
+            "sense_ord": 1,
+            "gloss_ord": 0
+          },
+          "glosses": [
+            "net"
+          ],
+          "qualifiers": {
+            "tags": [
+              "feminine"
+            ],
+            "topics": [
+              "fishing",
+              "hobbies",
+              "lifestyle"
+            ],
+            "categories": [
+              "Quotation templates to be cleaned",
+              "Requests for translations of Spanish quotations",
+              "Spanish terms with quotations",
+              "es:Fishing",
+              "Pages with 19 entries",
+              "Pages with entries",
+              "Rhymes:Spanish/ed",
+              "Rhymes:Spanish/ed/1 syllable",
+              "Spanish 1-syllable words",
+              "Spanish countable nouns",
+              "Spanish entries with incorrect language header",
+              "Spanish feminine nouns",
+              "Spanish lemmas",
+              "Spanish nouns",
+              "Spanish terms derived from Latin",
+              "Spanish terms derived from Old Spanish",
+              "Spanish terms inherited from Latin",
+              "Spanish terms inherited from Old Spanish",
+              "Spanish terms with IPA pronunciation",
+              "Spanish terms with audio pronunciation",
+              "es:Arachnids",
+              "es:Tools"
+            ]
+          },
+          "matched_trigger": "net"
+        }
+      ],
+      "promoted_shadow_candidates": [
+        {
+          "target": "malla",
+          "sense_label": "mesh, net",
+          "canonical_pos": "noun",
+          "provider": "wiktionary",
+          "locator": {
+            "provider": "wiktionary",
+            "locator_kind": "wiktionary_ordinal",
+            "entry_ord": 34596,
+            "sense_ord": 0,
+            "gloss_ord": 0
+          },
+          "glosses": [
+            "net"
+          ],
+          "qualifiers": {
+            "tags": [
+              "feminine"
+            ],
+            "categories": [
+              "Pages with 8 entries",
+              "Pages with entries",
+              "Rhymes:Spanish/aʃa",
+              "Rhymes:Spanish/aʃa/2 syllables",
+              "Rhymes:Spanish/aʎa",
+              "Rhymes:Spanish/aʎa/2 syllables",
+              "Rhymes:Spanish/aʒa",
+              "Rhymes:Spanish/aʒa/2 syllables",
+              "Rhymes:Spanish/aʝa",
+              "Rhymes:Spanish/aʝa/2 syllables",
+              "Spanish 2-syllable words",
+              "Spanish countable nouns",
+              "Spanish entries with incorrect language header",
+              "Spanish feminine nouns",
+              "Spanish lemmas",
+              "Spanish non-lemma forms",
+              "Spanish nouns",
+              "Spanish terms borrowed from French",
+              "Spanish terms derived from French",
+              "Spanish terms derived from Latin",
+              "Spanish terms with IPA pronunciation",
+              "Spanish terms with audio pronunciation",
+              "Spanish verb forms"
+            ]
+          },
+          "matched_trigger": "net",
+          "benchmark_target_present": true,
+          "reviewed_trigger_support": true,
+          "candidate_sources": [
+            "forward_index"
+          ],
+          "same_pos_as_active": true,
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     },
@@ -1539,7 +1759,7 @@
             "benchmark_target_present",
             "same_pos_as_active"
           ],
-          "promotion_policy": "cross_checked_backoff_missing_active_v1"
+          "promotion_policy": "cross_checked_v1"
         }
       ]
     }
