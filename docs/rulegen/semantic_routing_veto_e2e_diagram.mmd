@@ -1,0 +1,70 @@
+flowchart TB
+  classDef offline fill:#e8f1ff,stroke:#2563eb,stroke-width:1.5px,color:#0f172a;
+  classDef runtime fill:#eefce8,stroke:#15803d,stroke-width:1.5px,color:#0f172a;
+  classDef decision fill:#fff4d6,stroke:#d97706,stroke-width:1.5px,color:#0f172a;
+  classDef output fill:#fff0f3,stroke:#be185d,stroke-width:1.5px,color:#0f172a;
+  classDef metric fill:#f3e8ff,stroke:#7e22ce,stroke-width:1.5px,color:#0f172a;
+
+  subgraph OFF["Offline Publication And Preparation"]
+    O0["Rulegen emits active candidate rule for target a"]
+    O1["Attach semantic_admission pointer<br/>sense_id • trigger_id • competition_set_id"]
+    O2["Generate trigger seeds t<br/>reviewed | rulegen_top3 | forward_gloss"]
+    O3["Trigger support filter<br/>keep only seeds with enough upstream evidence"]
+    O4["Mine shadow candidates s for each (a,t)<br/>reverse lookup + forward-index supplement + future semantic bridge"]
+    O5["Shadow support score<br/>reviewed support + benchmark target + POS + active-side support"]
+    O6["Promote a small blocker set S(a,t)<br/>keep few, high-signal competitors"]
+    O7["Publish semantic inventory sidecar<br/>triggers • senses • competition sets • phrase sets"]
+  end
+
+  subgraph RUN["Runtime Admission And Veto"]
+    R0["Browser text node contains source sentence c<br/>example: The goalkeeper punched the ball over the bar."]
+    R1["Opportunity detector finds active SRS candidate<br/>example candidate: ball -> pelota"]
+    R2["Load rule pointer + semantic inventory<br/>resolve active sense a and its trigger t"]
+    R3["Build runtime context view phi(c)<br/>raw sentence | masked sentence | window"]
+    R4["Load source-derived evidence views<br/>E(a) for active target and E(s) for each shadow in S(a,t)"]
+    R5{"Phrase or idiom preemption hit?"}
+    R6["Compute active score<br/>A = sim(phi(c), phi(E(a)))"]
+    R7["Compute strongest shadow score<br/>M = max over s in S(a,t) of sim(phi(c), phi(E(s)))"]
+    R8["Compute margin<br/>Delta = A - M"]
+    R9{"A above min_active_score?"}
+    R10{"Delta above min_margin?"}
+    R11{"Shadow still competitive<br/>or family flagged high-risk?"}
+  end
+
+  subgraph OUT["Outputs And Feedback"]
+    P0["Hard replace<br/>replace token or phrase in DOM"]
+    P1["Soft affordance<br/>annotation / hover / reveal only"]
+    P2["Abstain<br/>leave original text untouched"]
+    P3["Runtime diagnostics<br/>record scores • blockers • reason_code • source ids"]
+    P4["Research feedback loop<br/>gold proxy • veto benchmark • review packet • sweep results"]
+  end
+
+  O0 --> O1 --> O2 --> O3 --> O4 --> O5 --> O6 --> O7
+
+  R0 --> R1 --> R2 --> R3 --> R4 --> R5
+  O1 -. published rule pointer .-> R2
+  O7 -. published sidecar .-> R2
+
+  R5 -- "yes" --> P2
+  R5 -- "no" --> R6 --> R7 --> R8 --> R9
+  R9 -- "no" --> P2
+  R9 -- "yes" --> R10
+  R10 -- "no" --> P1
+  R10 -- "yes" --> R11
+  R11 -- "yes" --> P2
+  R11 -- "no" --> P0
+
+  P0 --> P3
+  P1 --> P3
+  P2 --> P3
+  P3 --> P4
+  P4 -. tune trigger scoring .-> O3
+  P4 -. tune shadow scoring .-> O5
+  P4 -. tune runtime thresholds .-> R9
+  P4 -. tune runtime thresholds .-> R10
+
+  class O0,O1,O2,O3,O4,O5,O6,O7 offline;
+  class R0,R1,R2,R3,R4,R6,R7,R8 runtime;
+  class R5,R9,R10,R11 decision;
+  class P0,P1,P2,P3 output;
+  class P4 metric;

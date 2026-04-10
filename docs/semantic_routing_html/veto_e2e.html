@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Semantic Routing Veto E2E</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="hero-card">
+          <div class="eyebrow">Mermaid Diagram</div>
+          <h1>End-to-end veto algorithm</h1>
+          <p class="lede">
+            This diagram shows the full semantic-routing path as it currently makes
+            sense architecturally: offline trigger and shadow generation, publication
+            into rule pointers plus sidecars, runtime active-vs-shadow scoring, and the
+            benchmark/diagnostic loop that tunes the system.
+          </p>
+        </article>
+        <aside class="panel">
+          <h2>Core equations</h2>
+          <div class="code-block">
+            A(a, c) = sim(phi(c), phi(E(a)))<br />
+            M(a, t, c) = max over s in S(a,t) of sim(phi(c), phi(E(s)))<br />
+            Delta(a, t, c) = A(a, c) - M(a, t, c)
+          </div>
+          <p class="muted">
+            Replace only when the active score is strong and the active-vs-shadow
+            margin is strong. Otherwise prefer soft affordance or abstain.
+          </p>
+        </aside>
+      </section>
+
+      <section class="panel diagram-panel">
+        <h2>Diagram</h2>
+        <p class="muted">
+          Source file:
+          <a href="../rulegen/semantic_routing_veto_e2e_diagram.mmd"
+            ><code>docs/rulegen/semantic_routing_veto_e2e_diagram.mmd</code></a
+          >
+        </p>
+        <div id="diagram" class="diagram-stage" aria-live="polite">Rendering diagram…</div>
+      </section>
+
+      <section class="detail-grid">
+        <article class="panel">
+          <h2>How to read it</h2>
+          <ul class="bullet-list">
+            <li>
+              The offline lane creates the blocker set <code>S(a,t)</code> for an active
+              target <code>a</code> under a trigger <code>t</code>.
+            </li>
+            <li>
+              The runtime lane never rediscovers all competitors from scratch. It loads
+              the published competition set and scores the active target against those
+              shadows.
+            </li>
+            <li>
+              The output lane makes the product bias explicit: false abstain is cheaper
+              than harmful replace.
+            </li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h2>Current repo interpretation</h2>
+          <ul class="bullet-list">
+            <li>
+              <code>top3 + forward_gloss</code> is currently the better source-only seed lane.
+            </li>
+            <li>
+              Shadow support scoring is currently the strongest numeric control surface.
+            </li>
+            <li>
+              Trigger support scoring helps lightly upstream, but does not rescue the broad
+              <code>all_sources</code> lane.
+            </li>
+            <li>
+              The remaining miss class is now more about semantic bridge recall than basic
+              reverse-pack lookup.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Legend</h2>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <span class="legend-chip chip-offline">Offline</span>
+            <p>Preparation, publication, trigger filtering, and blocker-set construction.</p>
+          </div>
+          <div class="legend-item">
+            <span class="legend-chip chip-runtime">Runtime</span>
+            <p>Browser context, semantic lookup, context building, and score computation.</p>
+          </div>
+          <div class="legend-item">
+            <span class="legend-chip chip-decision">Decision</span>
+            <p>Threshold and safety gates that decide replace, soft, or abstain.</p>
+          </div>
+          <div class="legend-item">
+            <span class="legend-chip chip-output">Output</span>
+            <p>DOM effect plus diagnostics emitted for debugging and product trust.</p>
+          </div>
+          <div class="legend-item">
+            <span class="legend-chip chip-metric">Feedback</span>
+            <p>Benchmarks, review packets, and sweeps feeding back into the offline lane.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module">
+      const stage = document.getElementById("diagram");
+
+      async function render() {
+        try {
+          const [{ default: mermaid }, diagramResponse] = await Promise.all([
+            import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"),
+            fetch("../rulegen/semantic_routing_veto_e2e_diagram.mmd"),
+          ]);
+
+          if (!diagramResponse.ok) {
+            throw new Error(`Diagram fetch failed: ${diagramResponse.status}`);
+          }
+
+          const source = await diagramResponse.text();
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: "base",
+            flowchart: { useMaxWidth: true, curve: "basis" },
+            themeVariables: {
+              background: "#fffaf4",
+              primaryTextColor: "#0f172a",
+              lineColor: "#475569",
+              fontFamily: "IBM Plex Sans, Avenir Next, Segoe UI, sans-serif",
+            },
+          });
+
+          const { svg } = await mermaid.render("semantic-routing-veto-e2e", source);
+          stage.innerHTML = svg;
+        } catch (error) {
+          stage.innerHTML =
+            `<p><strong>Diagram render failed.</strong></p><p>${String(error)}</p>`;
+        }
+      }
+
+      render();
+    </script>
+  </body>
+</html>
