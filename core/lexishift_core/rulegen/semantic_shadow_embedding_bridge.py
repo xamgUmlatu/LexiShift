@@ -133,6 +133,7 @@ def augment_inventory_with_embedding_bridge(
     inventory_targets = inventory.get("targets")
     if not isinstance(inventory_targets, Sequence) or isinstance(inventory_targets, (str, bytes)):
         return dict(inventory)
+    target_trigger_index = _build_target_trigger_index(inventory_targets)
 
     updated_targets: list[dict[str, object]] = []
     for target_row in inventory_targets:
@@ -194,7 +195,14 @@ def augment_inventory_with_embedding_bridge(
                 candidate_target = str(neighbor.get("target") or "").strip()
                 if not candidate_target or candidate_target in existing_targets:
                     continue
+                normalized_trigger = sanitize_dictionary_gloss(
+                    updated_trigger_entry.get("trigger") or ""
+                ).lower()
                 candidate_profile = target_profiles.get(candidate_target, {})
+                reviewed_trigger_support = bool(
+                    normalized_trigger
+                    and normalized_trigger in target_trigger_index.get(candidate_target, set())
+                )
                 shadow_candidates.append(
                     {
                         "target": candidate_target,
@@ -212,7 +220,7 @@ def augment_inventory_with_embedding_bridge(
                         "qualifiers": None,
                         "candidate_sources": ["semantic_embedding_bridge"],
                         "benchmark_target_present": True,
-                        "reviewed_trigger_support": False,
+                        "reviewed_trigger_support": reviewed_trigger_support,
                         "embedding_bridge_similarity": float(neighbor.get("similarity") or 0.0),
                         "embedding_bridge_text": str(
                             candidate_profile.get("card_text") or ""
@@ -280,3 +288,26 @@ def _as_mapping_sequence(value: object) -> list[Mapping[str, object]]:
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
         return [item for item in value if isinstance(item, Mapping)]
     return []
+
+
+def _build_target_trigger_index(
+    inventory_targets: Sequence[object],
+) -> dict[str, set[str]]:
+    index: dict[str, set[str]] = {}
+    for target_row in inventory_targets:
+        if not isinstance(target_row, Mapping):
+            continue
+        target = str(target_row.get("target") or "").strip()
+        if not target:
+            continue
+        reviewed_triggers = target_row.get("reviewed_triggers")
+        if not isinstance(reviewed_triggers, Sequence) or isinstance(
+            reviewed_triggers, (str, bytes)
+        ):
+            continue
+        index[target] = {
+            sanitize_dictionary_gloss(trigger).lower()
+            for trigger in reviewed_triggers
+            if sanitize_dictionary_gloss(trigger)
+        }
+    return index

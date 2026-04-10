@@ -107,6 +107,7 @@ def build_bridge_marker_frequency(
 def build_semantic_bridge_candidates(
     *,
     active_target: str,
+    trigger: str,
     active_candidates: Sequence[Mapping[str, object]],
     existing_shadow_targets: set[str],
     benchmark_target_map: Mapping[str, object],
@@ -116,6 +117,7 @@ def build_semantic_bridge_candidates(
     active_profile = target_bridge_profiles.get(active_target)
     if not isinstance(active_profile, Mapping):
         return []
+    normalized_trigger = sanitize_dictionary_gloss(trigger).lower()
     active_markers = {
         str(marker).strip()
         for marker in active_profile.get("bridge_markers", ())
@@ -165,6 +167,16 @@ def build_semantic_bridge_candidates(
         )
         if bridge_score < DEFAULT_SEMANTIC_BRIDGE_SCORE_MIN:
             continue
+        benchmark_target = benchmark_target_map.get(normalized_target)
+        reviewed_trigger_support = bool(
+            normalized_trigger
+            and normalized_trigger
+            in {
+                sanitize_dictionary_gloss(value).lower()
+                for value in (getattr(benchmark_target, "reviewed_triggers", ()) or ())
+                if sanitize_dictionary_gloss(value)
+            }
+        )
         ranked.append(
             (
                 (-bridge_score, normalized_target),
@@ -182,7 +194,8 @@ def build_semantic_bridge_candidates(
                     "qualifiers": None,
                     "candidate_sources": ["semantic_bridge"],
                     "benchmark_target_present": True,
-                    "reviewed_trigger_support": False,
+                    "reviewed_trigger_support": reviewed_trigger_support,
+                    "benchmark_case_ids": list(getattr(benchmark_target, "case_ids", ()) or ()),
                     "semantic_bridge_markers": list(shared_markers),
                     "semantic_bridge_score": bridge_score,
                 },

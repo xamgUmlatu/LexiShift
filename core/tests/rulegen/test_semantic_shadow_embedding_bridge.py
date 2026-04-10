@@ -114,6 +114,7 @@ class TestSemanticShadowEmbeddingBridge(unittest.TestCase):
             "targets": [
                 {
                     "target": "trabajo",
+                    "reviewed_triggers": ["job"],
                     "trigger_entries": [
                         {
                             "trigger": "job",
@@ -127,7 +128,12 @@ class TestSemanticShadowEmbeddingBridge(unittest.TestCase):
                             ],
                         }
                     ],
-                }
+                },
+                {
+                    "target": "cargo",
+                    "reviewed_triggers": ["position"],
+                    "trigger_entries": [],
+                },
             ]
         }
         updated = augment_inventory_with_embedding_bridge(
@@ -159,7 +165,59 @@ class TestSemanticShadowEmbeddingBridge(unittest.TestCase):
         )
         self.assertEqual(cargo["candidate_sources"], ["semantic_embedding_bridge"])
         self.assertEqual(cargo["benchmark_target_present"], True)
+        self.assertEqual(cargo["reviewed_trigger_support"], False)
         self.assertAlmostEqual(cargo["embedding_bridge_similarity"], 0.71, places=6)
+
+    def test_augment_inventory_with_embedding_bridge_inherits_seed_trigger_support(self) -> None:
+        inventory = {
+            "targets": [
+                {
+                    "target": "trabajo",
+                    "reviewed_triggers": ["job"],
+                    "trigger_entries": [
+                        {
+                            "trigger": "job",
+                            "active_candidates": [{"target": "trabajo", "canonical_pos": "noun"}],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+                {
+                    "target": "cargo",
+                    "reviewed_triggers": ["job", "position"],
+                    "trigger_entries": [],
+                },
+            ]
+        }
+
+        updated = augment_inventory_with_embedding_bridge(
+            inventory=inventory,
+            target_profiles={
+                "cargo": {
+                    "card_text": "position office function",
+                    "primary_pos": "noun",
+                    "fragments": ("position", "office", "function"),
+                }
+            },
+            neighbor_index={
+                "trabajo": [
+                    {
+                        "target": "cargo",
+                        "similarity": 0.71,
+                        "primary_pos": "noun",
+                        "fragments": ["position", "office"],
+                    }
+                ]
+            },
+        )
+
+        trigger_entry = updated["targets"][0]["trigger_entries"][0]
+        cargo = next(
+            candidate
+            for candidate in trigger_entry["shadow_candidates"]
+            if candidate["target"] == "cargo"
+        )
+        self.assertEqual(cargo["reviewed_trigger_support"], True)
 
     def test_augment_inventory_with_embedding_bridge_skips_rows_with_existing_benchmark_shadow(
         self,
@@ -168,6 +226,7 @@ class TestSemanticShadowEmbeddingBridge(unittest.TestCase):
             "targets": [
                 {
                     "target": "trabajo",
+                    "reviewed_triggers": ["job"],
                     "trigger_entries": [
                         {
                             "trigger": "job",
@@ -219,6 +278,7 @@ class TestSemanticShadowEmbeddingBridge(unittest.TestCase):
             "targets": [
                 {
                     "target": "trabajo",
+                    "reviewed_triggers": ["job"],
                     "trigger_entries": [
                         {
                             "trigger": "job",

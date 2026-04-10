@@ -1,7 +1,7 @@
 # en-es Shadow Veto Proxy Comparison
 
 - Status: `ok`
-- Generated: `2026-04-10T20:32:10Z`
+- Generated: `2026-04-10T20:56:24Z`
 - Comparison meaning: use the reviewed trigger-overlap gold as a lower-bound veto proxy.
 - Decision rule: if a shadow source emits any blockers for an ambiguous trigger row, count that row as `abstain`; otherwise count it as `allow`.
 - Limitation: this is not the sentence-level cosine veto benchmark. It measures whether a shadow source carries enough blocker structure to support abstention on the reviewed ambiguity families.

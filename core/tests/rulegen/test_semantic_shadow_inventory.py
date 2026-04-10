@@ -963,6 +963,107 @@ class TestSemanticShadowInventory(unittest.TestCase):
         promoted = trigger_row["promoted_shadow_candidates"]
         self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
 
+    def test_build_en_es_shadow_inventory_marks_semantic_bridge_candidate_with_seed_trigger_support(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo:1",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo:1",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("job", "position"),
+            ),
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="job",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="economic role for which a person is paid",
+                    ),
+                ),
+                "cargo": (
+                    _record(
+                        translation="position",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="professional or official position",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "job": (
+                    _record(
+                        translation="trabajo",
+                        pos_raw="noun",
+                        entry_ord=20,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                        extra_metadata={"entry_categories": ("en:Employment",)},
+                    ),
+                ),
+                "position": (
+                    _record(
+                        translation="puesto",
+                        pos_raw="noun",
+                        entry_ord=21,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="post of employment",
+                    ),
+                ),
+            },
+            target_reverse_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="job",
+                        pos_raw="noun",
+                        entry_ord=30,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                        extra_metadata={"entry_categories": ("en:Employment",)},
+                    ),
+                ),
+                "cargo": (
+                    _record(
+                        translation="function",
+                        pos_raw="noun",
+                        entry_ord=31,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="support_score_v1",
+        )
+
+        trabajo_row = next(row for row in inventory["targets"] if row["target"] == "trabajo")
+        trigger_row = trabajo_row["trigger_entries"][0]
+        bridge_candidate = next(
+            candidate
+            for candidate in trigger_row["shadow_candidates"]
+            if candidate["target"] == "cargo"
+        )
+        self.assertEqual(bridge_candidate["reviewed_trigger_support"], True)
+
     def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
         active_candidates = [{"canonical_pos": "noun"}]
         shadow_candidates = [

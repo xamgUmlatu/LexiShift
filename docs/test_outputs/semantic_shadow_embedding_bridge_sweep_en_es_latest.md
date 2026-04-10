@@ -1,14 +1,14 @@
 # en-es Shadow Embedding Bridge Sweep
 
 - Status: `ok`
-- Generated: `2026-04-10T20:35:36Z`
+- Generated: `2026-04-10T20:55:30Z`
 - Bridge model: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
 - Meaning: keep lexical mining and support-score promotion fixed, then inject a narrow embedding-backed backoff candidate only when lexical mining surfaced no benchmark-target shadow.
 
 ## Best Rows
 | Mode | Bridge | Min Sim | Top K | Injected | Support Min | Max Promoted | Precision | Recall | Hit Rate | Overblocking |
 |---|---|---|---|---:|---:|---:|---:|---:|---:|---:|
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `22` | `4.0` | `1` | 13.3% | 100.0% | 100.0% | 47.1% |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `22` | `5.0` | `1` | 100.0% | 100.0% | 100.0% | 0.0% |
 | `rulegen_top3_plus_forward_gloss` | `embedding_bridge` | `0.60` | `1` | `57` | `4.0` | `2` | 11.8% | 90.0% | 90.0% | 35.5% |
 
 ## Rows
@@ -23,15 +23,15 @@
 | `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `4.0` | `1` | 13.3% | 100.0% | 100.0% | 47.1% | `0` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `4.0` | `2` | 11.0% | 100.0% | 100.0% | 47.1% | `0` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `4.0` | `3` | 10.8% | 100.0% | 100.0% | 47.1% | `0` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `1` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `2` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `3` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `4.0` | `1` | 12.0% | 90.0% | 90.0% | 47.1% | `1` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `1` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `2` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `1` | `5.0` | `3` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `4.0` | `1` | 13.3% | 100.0% | 100.0% | 47.1% | `0` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `4.0` | `2` | 9.9% | 100.0% | 100.0% | 47.1% | `0` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `4.0` | `3` | 9.7% | 100.0% | 100.0% | 47.1% | `0` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `1` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `2` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
-| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `3` | 100.0% | 90.0% | 90.0% | 0.0% | `1` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `1` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `2` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
+| `benchmark_reviewed` | `embedding_bridge` | `0.60` | `2` | `5.0` | `3` | 100.0% | 100.0% | 100.0% | 0.0% | `0` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.65` | `1` | `4.0` | `1` | 15.5% | 90.0% | 90.0% | 35.5% | `1` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.65` | `1` | `4.0` | `2` | 12.2% | 90.0% | 90.0% | 35.5% | `1` |
 | `benchmark_reviewed` | `embedding_bridge` | `0.65` | `1` | `4.0` | `3` | 11.8% | 90.0% | 90.0% | 35.5% | `1` |

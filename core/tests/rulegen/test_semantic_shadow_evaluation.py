@@ -459,3 +459,68 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(summary["harmful_allow_count"], 1)
         harmful_rows = report["policies"]["support_score_v1"]["sample_harmful_allow_rows"]
         self.assertEqual([row["target"] for row in harmful_rows], ["trabajo"])
+
+    def test_evaluate_shadow_inventory_veto_proxy_support_score_promotes_seed_supported_bridge(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo",),
+                tiers=("hard",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo",),
+                tiers=("hard",),
+                reviewed_triggers=("job",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "trabajo",
+                    "trigger_entries": [
+                        {
+                            "trigger": "job",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "cargo",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                    "embedding_bridge_similarity": 0.71,
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "target": "cargo",
+                    "trigger_entries": [
+                        {
+                            "trigger": "job",
+                            "active_candidates": [],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+            ]
+        }
+
+        report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("support_score_v1",),
+            support_score_min=5.0,
+            support_score_max_promoted=1,
+        )
+
+        summary = report["policies"]["support_score_v1"]["summary"]
+        self.assertEqual(summary["ambiguous_trigger_rows"], 2)
+        self.assertEqual(summary["true_abstain_count"], 1)
+        self.assertEqual(summary["harmful_allow_count"], 1)
+        harmful_rows = report["policies"]["support_score_v1"]["sample_harmful_allow_rows"]
+        self.assertEqual([row["target"] for row in harmful_rows], ["cargo"])

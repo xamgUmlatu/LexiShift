@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T20:35:36Z",
+  "generated_at": "2026-04-10T20:55:30Z",
   "status": "ok",
   "bridge_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "rows": [
@@ -3151,38 +3151,12 @@
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3194,38 +3168,12 @@
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3237,38 +3185,12 @@
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3279,42 +3201,13 @@
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
-      "candidate_precision": 0.12,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_precision": 0.13333333333333333,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.47101449275362317,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 65,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "casa",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": [
-            "casa"
-          ]
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3360,39 +3253,12 @@
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "casa",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3404,39 +3270,12 @@
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "casa",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3448,39 +3287,12 @@
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "cargo",
-            "casa",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4526,15 +4338,15 @@
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
       "bridge_injected_candidate_count": 22,
-      "support_score_min": 4.0,
+      "support_score_min": 5.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
-      "candidate_precision": 0.13333333333333333,
+      "candidate_precision": 1.0,
       "candidate_recall": 1.0,
       "gold_trigger_hit_rate": 1.0,
-      "overblocking_rate": 0.47101449275362317,
+      "overblocking_rate": 0.0,
       "underblocked_count": 0,
-      "overblocked_count": 65,
+      "overblocked_count": 0,
       "sample_underblocked_rows": []
     }
   }

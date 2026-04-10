@@ -451,6 +451,7 @@ def build_en_es_shadow_inventory(
                 existing_shadow_targets.add(candidate_target)
             for bridge_candidate in build_semantic_bridge_candidates(
                 active_target=benchmark_target.target,
+                trigger=trigger,
                 active_candidates=active_candidates,
                 existing_shadow_targets=existing_shadow_targets,
                 benchmark_target_map=benchmark_target_map,
