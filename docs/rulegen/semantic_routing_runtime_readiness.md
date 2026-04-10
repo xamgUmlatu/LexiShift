@@ -203,6 +203,9 @@ First implemented research seam:
 - The most useful concrete fix so far is local and interpretable:
   - active-side trigger matching now uses the existing `en_es_support` gloss-fragment normalization, so bundled forward glosses like `to take, catch, hold, to get, to seize` can supply real active evidence for bare triggers such as `take` and `catch`
   - this was enough to move `coger / catch -> vista` out of the provisional review queue and into the stricter gap queue, which is the right safety direction
+- There is now a single review packet at `docs/test_outputs/semantic_shadow_review_packet_en_es_latest.md`:
+  - it combines the current policy snapshot, provisional keep rows, provisional drop rows, and the active-side evidence summary for each row
+  - it makes the current practical recommendation explicit: treat `cross_checked_v1` as the provisional `en-es` runtime-shaped policy, keep the six surviving blocker rows, and keep the eight dropped rows out of the blocker set for now
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

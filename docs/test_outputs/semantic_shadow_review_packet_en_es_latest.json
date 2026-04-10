@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T00:54:55Z",
+  "status": "ok",
+  "policy_snapshot": {
+    "same_pos_lenient_v1": {
+      "promoted_trigger_count": 111,
+      "promoted_candidate_count": 284
+    },
+    "benchmark_backed_v1": {
+      "promoted_trigger_count": 19,
+      "promoted_candidate_count": 19
+    },
+    "cross_checked_v1": {
+      "promoted_trigger_count": 11,
+      "promoted_candidate_count": 11
+    },
+    "cross_checked_backoff_missing_active_v1": {
+      "promoted_trigger_count": 11,
+      "promoted_candidate_count": 11
+    }
+  },
+  "provisional_runtime_policy": "cross_checked_v1",
+  "review_rows": [
+    {
+      "target": "coger",
+      "trigger": "take",
+      "active_candidate_count": 1,
+      "active_summary": "verb: to take (matched take)",
+      "shadow_target": "llevar",
+      "shadow_pos": "verb",
+      "shadow_label": "to carry",
+      "promotion_reasons": [
+        "reviewed_trigger_support",
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    },
+    {
+      "target": "cuadro",
+      "trigger": "table",
+      "active_candidate_count": 1,
+      "active_summary": "noun: table (matched table)",
+      "shadow_target": "tabla",
+      "shadow_pos": "noun",
+      "shadow_label": "grid of data in rows and columns",
+      "promotion_reasons": [
+        "reviewed_trigger_support",
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    },
+    {
+      "target": "llevar",
+      "trigger": "take",
+      "active_candidate_count": 1,
+      "active_summary": "verb: to take (matched take)",
+      "shadow_target": "coger",
+      "shadow_pos": "verb",
+      "shadow_label": "to get into one's hands or control",
+      "promotion_reasons": [
+        "reviewed_trigger_support",
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    },
+    {
+      "target": "malla",
+      "trigger": "net",
+      "active_candidate_count": 1,
+      "active_summary": "noun: net (matched net)",
+      "shadow_target": "red",
+      "shadow_pos": "noun",
+      "shadow_label": "mesh of string, cord or rope",
+      "promotion_reasons": [
+        "reviewed_trigger_support",
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    },
+    {
+      "target": "marco",
+      "trigger": "frame",
+      "active_candidate_count": 1,
+      "active_summary": "noun: frame (matched frame)",
+      "shadow_target": "cuadro",
+      "shadow_pos": "noun",
+      "shadow_label": "piece of photographic film containing an image",
+      "promotion_reasons": [
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    },
+    {
+      "target": "sacar",
+      "trigger": "remove",
+      "active_candidate_count": 1,
+      "active_summary": "verb: to remove (matched remove)",
+      "shadow_target": "quitar",
+      "shadow_pos": "verb",
+      "shadow_label": "to take away",
+      "promotion_reasons": [
+        "reviewed_trigger_support",
+        "benchmark_target_present",
+        "same_pos_as_active"
+      ],
+      "recommendation": "keep"
+    }
+  ],
+  "gap_rows": [
+    {
+      "target": "acabar",
+      "trigger": "end",
+      "active_candidate_count": 1,
+      "active_summary": "verb: to end (matched end)",
+      "shadow_target": "parte",
+      "shadow_pos": "noun",
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop"
+    },
+    {
+      "target": "caso",
+      "trigger": "matter",
+      "active_candidate_count": 0,
+      "active_summary": "none",
+      "shadow_target": "punto",
+      "shadow_pos": "noun",
+      "drop_reason": "missing_active_pos",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop_for_now"
+    },
+    {
+      "target": "coger",
+      "trigger": "catch",
+      "active_candidate_count": 1,
+      "active_summary": "verb: to catch (matched catch)",
+      "shadow_target": "vista",
+      "shadow_pos": "noun",
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop"
+    },
+    {
+      "target": "libro",
+      "trigger": "book",
+      "active_candidate_count": 1,
+      "active_summary": "noun: book (matched book)",
+      "shadow_target": "sacar",
+      "shadow_pos": "verb",
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop"
+    },
+    {
+      "target": "plaza",
+      "trigger": "square",
+      "active_candidate_count": 0,
+      "active_summary": "none",
+      "shadow_target": "cuadro",
+      "shadow_pos": "noun",
+      "drop_reason": "missing_active_pos",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop_for_now"
+    },
+    {
+      "target": "punto",
+      "trigger": "period",
+      "active_candidate_count": 1,
+      "active_summary": "intj: period (matched period)",
+      "shadow_target": "hora",
+      "shadow_pos": "noun",
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop"
+    },
+    {
+      "target": "subir",
+      "trigger": "rise",
+      "active_candidate_count": 0,
+      "active_summary": "none",
+      "shadow_target": "salir",
+      "shadow_pos": "verb",
+      "drop_reason": "missing_active_pos",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop_for_now"
+    },
+    {
+      "target": "tabla",
+      "trigger": "board",
+      "active_candidate_count": 1,
+      "active_summary": "noun: board (matched board)",
+      "shadow_target": "subir",
+      "shadow_pos": "verb",
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "recommendation": "drop"
+    }
+  ]
+}

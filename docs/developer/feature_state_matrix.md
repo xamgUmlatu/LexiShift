@@ -770,7 +770,7 @@ Use this file when:
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
 - Last documented checkpoint: `2026-04-10` active-trigger matching refinement removed the `coger / catch -> vista` leak from the provisional review queue
-- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` tests plus refreshed `en-es` shadow inventory/policy-comparison/review-queue/gap-queue artifacts and doc/state sync
+- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` tests plus refreshed `en-es` shadow inventory/policy-comparison/review-queue/gap-queue/review-packet artifacts and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -788,6 +788,7 @@ Use this file when:
     - `scripts/testing/semantic_shadow_inventory_triage_en_es.py` scores the resulting preview into `benchmark_aligned`, `same_pos_only`, and `no_promotion` buckets
     - `scripts/testing/semantic_shadow_policy_compare_en_es.py` compares named promotion policies (`same_pos_lenient_v1`, `benchmark_backed_v1`, `cross_checked_v1`, `cross_checked_backoff_missing_active_v1`)
     - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py` isolates the small set of rows that the stricter policy still drops
+    - `scripts/testing/semantic_shadow_review_packet_en_es.py` combines the policy snapshot, provisional keep rows, and provisional drop rows into one adjudication packet
     - the latest artifacts confirm that candidate mining works broadly enough to study, and the safer provisional runtime shape is now effectively the strict `cross_checked_v1` family: after active-side bundled-trigger matching was fixed, `cross_checked_backoff_missing_active_v1` no longer widens the promoted set and `coger / catch -> vista` falls out of the review queue
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
@@ -820,10 +821,12 @@ Use this file when:
   - `scripts/testing/semantic_shadow_inventory_triage_en_es.py`
   - `scripts/testing/semantic_shadow_policy_compare_en_es.py`
   - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py`
+  - `scripts/testing/semantic_shadow_review_packet_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_review_packet_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
