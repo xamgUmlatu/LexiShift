@@ -57,6 +57,133 @@ It does not yet prove that LexiShift can discover, select, and serve the right s
 
 That distinction matters enough to be explicit.
 
+## Lexical-Mathematical Model
+
+The semantic-routing problem is easiest to reason about if it is split into:
+
+- an offline competition-generation step,
+- and a runtime admission step.
+
+### Objects
+
+For one active learner target:
+
+- let `a` be the active target lemma or sense candidate,
+- let `t` be an English trigger phrase that justifies `a`,
+- let `E(a)` be the source-derived evidence text for the active target,
+- let `S(a, t) = {s1, s2, ..., sk}` be the shadow set for the active target under trigger `t`,
+- let `E(si)` be the source-derived evidence text for shadow `si`,
+- let `c` be the runtime sentence or transformed context view,
+- let `phi(x)` be the text representation function used for lexical matching or embedding,
+- let `sim(x, y)` be the comparison function, usually cosine similarity over embeddings.
+
+Examples of `phi(...)` today include:
+
+- masked sentence views such as `The goalkeeper punched the ___ over the bar`,
+- source-derived sense text such as `all_evidence_text`,
+- compact lexical anchor views such as `core_anchor`,
+- optional future bridge or cue views.
+
+### Offline objective: build a small blocker set
+
+The offline question is:
+
+- given active target `a` and trigger `t`, which other targets deserve membership in `S(a, t)`?
+
+In practical terms, the miner is approximating a support function:
+
+- `support(a, t, s) -> blocker worthiness`
+
+where blocker worthiness is based on evidence such as:
+
+- active-side support for `a` under trigger `t`,
+- reverse-pack support for shadow `s` under trigger `t`,
+- forward-gloss support for `s` under trigger `t`,
+- POS compatibility between `a` and `s`,
+- future semantic-bridge support when direct lexical overlap is weak.
+
+The important product constraint is that `S(a, t)` should be:
+
+- small,
+- conservative,
+- and dominated by real runtime hazards rather than exhaustive lexical neighbors.
+
+This is why current research prefers stricter policies such as `cross_checked_v1` over broader same-POS sweeps.
+
+### Runtime objective: compare active sense against its shadows
+
+Once a shadow set exists, runtime no longer needs to discover competitors from scratch.
+It needs to decide whether the local context favors the active target strongly enough over the published blocker set.
+
+For one context `c`, define:
+
+- active score:
+  - `A(a, c) = sim(phi(c), phi(E(a)))`
+- strongest shadow score:
+  - `M(a, t, c) = max_{s in S(a, t)} sim(phi(c), phi(E(s)))`
+- margin:
+  - `Delta(a, t, c) = A(a, c) - M(a, t, c)`
+
+The runtime decision policy is then conceptually:
+
+- `replace` if:
+  - `A(a, c)` is high enough,
+  - `Delta(a, t, c)` is large enough,
+  - and phrase-preemption has not already blocked the apply
+- `soft affordance` if the active score is suggestive but not trustworthy enough for auto-replace
+- `abstain` otherwise
+
+This expresses the product asymmetry directly:
+
+- a false abstain is usually acceptable,
+- a harmful replace happens when `M(a, t, c)` is actually competitive but the policy still allows replacement.
+
+### Where the current miner fits
+
+The current `en-es` shadow research is not directly optimizing runtime cosine yet.
+It is optimizing the earlier problem:
+
+- can we construct a trustworthy `S(a, t)` automatically from source data?
+
+That is why the current evaluation stack measures things like:
+
+- candidate precision,
+- candidate recall,
+- underblocking,
+- overblocking,
+- seed-source dependence.
+
+Those are offline quality signals for the blocker-set generator, not final runtime replace metrics.
+
+### Why embeddings alone are not the full answer
+
+A tempting simplification is:
+
+- embed the runtime context,
+- embed all nearby target senses,
+- choose the nearest neighbor,
+- replace if the nearest score looks high.
+
+Embeddings are useful, but that full shortcut is unsafe for product use on its own.
+The main risks are:
+
+- mirrored senses often remain near each other in embedding space,
+- nearest-neighbor selection does not automatically provide a trustworthy abstain boundary,
+- phrase or idiom failures remain mixed into the same score surface,
+- broad lexical neighbors can look plausible even when they are not blocker-worthy runtime competitors.
+
+The more stable architecture is therefore:
+
+1. lexical/provenance mining proposes a small competition set `S(a, t)`,
+2. optional semantic-bridge or embedding rescue helps recover hard misses,
+3. strict promotion keeps the blocker set small,
+4. runtime scoring compares the active target only against those blockers and prefers abstain over unsafe replace.
+
+In other words:
+
+- embeddings are promising as a recall tool and runtime comparison tool,
+- but they should sit inside a competition-based admission system rather than replace the whole pipeline.
+
 ## Boundary: Manual Vs Automatic Today
 
 | Layer | Current status | What is manual | What is automatic |
