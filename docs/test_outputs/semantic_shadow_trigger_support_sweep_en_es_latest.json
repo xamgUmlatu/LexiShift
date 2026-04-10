@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T05:29:04Z",
+  "generated_at": "2026-04-10T19:12:35Z",
   "status": "ok",
   "forward_seed_max_words": 1,
   "shadow_support_score_min": 4.0,
@@ -24,17 +24,17 @@
       "seed_trigger_count_before": 362,
       "seed_trigger_count_after": 362,
       "trigger_keep_rate": 1.0,
-      "candidate_precision": 0.47058823529411764,
+      "candidate_precision": 0.08,
       "candidate_recall": 0.8,
-      "candidate_f1": 0.5925925925925927,
+      "candidate_f1": 0.14545454545454545,
       "gold_trigger_hit_rate": 0.8,
-      "overblocking_rate": 0.050724637681159424,
+      "overblocking_rate": 0.43478260869565216,
       "gold_trigger_inventory_coverage_rate": 0.9,
       "candidate_pool_trigger_recall": 0.8,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": []
@@ -45,17 +45,17 @@
       "seed_trigger_count_before": 362,
       "seed_trigger_count_after": 165,
       "trigger_keep_rate": 0.4558011049723757,
-      "candidate_precision": 0.5,
+      "candidate_precision": 0.13559322033898305,
       "candidate_recall": 0.8,
-      "candidate_f1": 0.6153846153846154,
+      "candidate_f1": 0.23188405797101452,
       "gold_trigger_hit_rate": 0.8,
-      "overblocking_rate": 0.043478260869565216,
+      "overblocking_rate": 0.2391304347826087,
       "gold_trigger_inventory_coverage_rate": 0.9,
       "candidate_pool_trigger_recall": 0.8,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -192,17 +192,17 @@
       "seed_trigger_count_before": 362,
       "seed_trigger_count_after": 19,
       "trigger_keep_rate": 0.052486187845303865,
-      "candidate_precision": 0.6666666666666666,
+      "candidate_precision": 0.2222222222222222,
       "candidate_recall": 0.2,
-      "candidate_f1": 0.30769230769230765,
+      "candidate_f1": 0.2105263157894737,
       "gold_trigger_hit_rate": 0.2,
-      "overblocking_rate": 0.007246376811594203,
+      "overblocking_rate": 0.028985507246376812,
       "gold_trigger_inventory_coverage_rate": 0.3,
       "candidate_pool_trigger_recall": 0.3,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -349,10 +349,10 @@
       "overblocking_rate": 0.0,
       "gold_trigger_inventory_coverage_rate": 0.0,
       "candidate_pool_trigger_recall": 0.0,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -499,10 +499,10 @@
       "overblocking_rate": 0.0,
       "gold_trigger_inventory_coverage_rate": 0.0,
       "candidate_pool_trigger_recall": 0.0,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -642,17 +642,17 @@
       "seed_trigger_count_before": 364,
       "seed_trigger_count_after": 360,
       "trigger_keep_rate": 0.989010989010989,
-      "candidate_precision": 0.47058823529411764,
+      "candidate_precision": 0.08,
       "candidate_recall": 0.8,
-      "candidate_f1": 0.5925925925925927,
+      "candidate_f1": 0.14545454545454545,
       "gold_trigger_hit_rate": 0.8,
-      "overblocking_rate": 0.050724637681159424,
+      "overblocking_rate": 0.43478260869565216,
       "gold_trigger_inventory_coverage_rate": 0.9,
       "candidate_pool_trigger_recall": 0.8,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -771,17 +771,17 @@
       "seed_trigger_count_before": 364,
       "seed_trigger_count_after": 38,
       "trigger_keep_rate": 0.1043956043956044,
-      "candidate_precision": 0.4,
+      "candidate_precision": 0.14285714285714285,
       "candidate_recall": 0.2,
-      "candidate_f1": 0.26666666666666666,
+      "candidate_f1": 0.16666666666666666,
       "gold_trigger_hit_rate": 0.2,
-      "overblocking_rate": 0.007246376811594203,
+      "overblocking_rate": 0.021739130434782608,
       "gold_trigger_inventory_coverage_rate": 0.5,
       "candidate_pool_trigger_recall": 0.5,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -925,10 +925,10 @@
       "overblocking_rate": 0.0,
       "gold_trigger_inventory_coverage_rate": 0.0,
       "candidate_pool_trigger_recall": 0.0,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -1075,10 +1075,10 @@
       "overblocking_rate": 0.0,
       "gold_trigger_inventory_coverage_rate": 0.0,
       "candidate_pool_trigger_recall": 0.0,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -1225,10 +1225,10 @@
       "overblocking_rate": 0.0,
       "gold_trigger_inventory_coverage_rate": 0.0,
       "candidate_pool_trigger_recall": 0.0,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -1370,17 +1370,17 @@
       "seed_trigger_count_before": 362,
       "seed_trigger_count_after": 165,
       "trigger_keep_rate": 0.4558011049723757,
-      "candidate_precision": 0.5,
+      "candidate_precision": 0.13559322033898305,
       "candidate_recall": 0.8,
-      "candidate_f1": 0.6153846153846154,
+      "candidate_f1": 0.23188405797101452,
       "gold_trigger_hit_rate": 0.8,
-      "overblocking_rate": 0.043478260869565216,
+      "overblocking_rate": 0.2391304347826087,
       "gold_trigger_inventory_coverage_rate": 0.9,
       "candidate_pool_trigger_recall": 0.8,
-      "baseline_precision": 0.47058823529411764,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
@@ -1513,27 +1513,27 @@
     },
     "rulegen_all_plus_forward_gloss": {
       "mode_id": "rulegen_all_plus_forward_gloss",
-      "trigger_support_score_min": 2.0,
+      "trigger_support_score_min": 3.0,
       "seed_trigger_count_before": 364,
-      "seed_trigger_count_after": 360,
-      "trigger_keep_rate": 0.989010989010989,
-      "candidate_precision": 0.47058823529411764,
-      "candidate_recall": 0.8,
-      "candidate_f1": 0.5925925925925927,
-      "gold_trigger_hit_rate": 0.8,
-      "overblocking_rate": 0.050724637681159424,
-      "gold_trigger_inventory_coverage_rate": 0.9,
-      "candidate_pool_trigger_recall": 0.8,
-      "baseline_precision": 0.47058823529411764,
+      "seed_trigger_count_after": 38,
+      "trigger_keep_rate": 0.1043956043956044,
+      "candidate_precision": 0.14285714285714285,
+      "candidate_recall": 0.2,
+      "candidate_f1": 0.16666666666666666,
+      "gold_trigger_hit_rate": 0.2,
+      "overblocking_rate": 0.021739130434782608,
+      "gold_trigger_inventory_coverage_rate": 0.5,
+      "candidate_pool_trigger_recall": 0.5,
+      "baseline_precision": 0.08,
       "baseline_recall": 0.8,
-      "baseline_f1": 0.5925925925925927,
-      "baseline_overblocking": 0.050724637681159424,
+      "baseline_f1": 0.14545454545454545,
+      "baseline_overblocking": 0.43478260869565216,
       "baseline_trigger_keep_rate": 1.0,
       "baseline_gold_trigger_inventory_coverage_rate": 0.9,
       "support_row_examples": [
         {
-          "target": "hasta",
-          "trigger": "up to",
+          "target": "acabar",
+          "trigger": "finish",
           "source_labels": [
             "rulegen_all_sources"
           ],
@@ -1544,9 +1544,7 @@
             "rulegen_all_source",
             "active_side_support"
           ],
-          "trigger_support_penalties": [
-            "multi_word_penalty"
-          ],
+          "trigger_support_penalties": [],
           "trigger_support_score_breakdown": {
             "rulegen_top3_source": 0.0,
             "rulegen_all_source": 1.0,
@@ -1554,39 +1552,13 @@
             "multi_source_support": 0.0,
             "active_side_support": 1.0,
             "reverse_shadow_support": 0.0,
-            "multi_word_penalty": -1.0
+            "multi_word_penalty": 0.0
           },
-          "trigger_support_score": 1.0
+          "trigger_support_score": 2.0
         },
         {
-          "target": "hasta",
-          "trigger": "the point of",
-          "source_labels": [
-            "rulegen_all_sources"
-          ],
-          "active_candidate_count": 0,
-          "reverse_shadow_target_count": 0,
-          "reverse_shadow_targets": [],
-          "trigger_support_features": [
-            "rulegen_all_source"
-          ],
-          "trigger_support_penalties": [
-            "multi_word_penalty"
-          ],
-          "trigger_support_score_breakdown": {
-            "rulegen_top3_source": 0.0,
-            "rulegen_all_source": 1.0,
-            "forward_gloss_fragment": 0.0,
-            "multi_source_support": 0.0,
-            "active_side_support": 0.0,
-            "reverse_shadow_support": 0.0,
-            "multi_word_penalty": -1.0
-          },
-          "trigger_support_score": 0.0
-        },
-        {
-          "target": "hasta",
-          "trigger": "as much as",
+          "target": "acabar",
+          "trigger": "cum",
           "source_labels": [
             "rulegen_all_sources"
           ],
@@ -1597,9 +1569,7 @@
             "rulegen_all_source",
             "active_side_support"
           ],
-          "trigger_support_penalties": [
-            "multi_word_penalty"
-          ],
+          "trigger_support_penalties": [],
           "trigger_support_score_breakdown": {
             "rulegen_top3_source": 0.0,
             "rulegen_all_source": 1.0,
@@ -1607,13 +1577,13 @@
             "multi_source_support": 0.0,
             "active_side_support": 1.0,
             "reverse_shadow_support": 0.0,
-            "multi_word_penalty": -1.0
+            "multi_word_penalty": 0.0
           },
-          "trigger_support_score": 1.0
+          "trigger_support_score": 2.0
         },
         {
-          "target": "según",
-          "trigger": "according to",
+          "target": "acabar",
+          "trigger": "exhaust",
           "source_labels": [
             "rulegen_all_sources"
           ],
@@ -1624,9 +1594,7 @@
             "rulegen_all_source",
             "active_side_support"
           ],
-          "trigger_support_penalties": [
-            "multi_word_penalty"
-          ],
+          "trigger_support_penalties": [],
           "trigger_support_score_breakdown": {
             "rulegen_top3_source": 0.0,
             "rulegen_all_source": 1.0,
@@ -1634,9 +1602,59 @@
             "multi_source_support": 0.0,
             "active_side_support": 1.0,
             "reverse_shadow_support": 0.0,
-            "multi_word_penalty": -1.0
+            "multi_word_penalty": 0.0
           },
-          "trigger_support_score": 1.0
+          "trigger_support_score": 2.0
+        },
+        {
+          "target": "acabar",
+          "trigger": "orgasm",
+          "source_labels": [
+            "rulegen_all_sources"
+          ],
+          "active_candidate_count": 1,
+          "reverse_shadow_target_count": 0,
+          "reverse_shadow_targets": [],
+          "trigger_support_features": [
+            "rulegen_all_source",
+            "active_side_support"
+          ],
+          "trigger_support_penalties": [],
+          "trigger_support_score_breakdown": {
+            "rulegen_top3_source": 0.0,
+            "rulegen_all_source": 1.0,
+            "forward_gloss_fragment": 0.0,
+            "multi_source_support": 0.0,
+            "active_side_support": 1.0,
+            "reverse_shadow_support": 0.0,
+            "multi_word_penalty": 0.0
+          },
+          "trigger_support_score": 2.0
+        },
+        {
+          "target": "acabar",
+          "trigger": "just",
+          "source_labels": [
+            "forward_gloss_fragments"
+          ],
+          "active_candidate_count": 1,
+          "reverse_shadow_target_count": 0,
+          "reverse_shadow_targets": [],
+          "trigger_support_features": [
+            "forward_gloss_fragment",
+            "active_side_support"
+          ],
+          "trigger_support_penalties": [],
+          "trigger_support_score_breakdown": {
+            "rulegen_top3_source": 0.0,
+            "rulegen_all_source": 0.0,
+            "forward_gloss_fragment": 1.0,
+            "multi_source_support": 0.0,
+            "active_side_support": 1.0,
+            "reverse_shadow_support": 0.0,
+            "multi_word_penalty": 0.0
+          },
+          "trigger_support_score": 2.0
         }
       ]
     }

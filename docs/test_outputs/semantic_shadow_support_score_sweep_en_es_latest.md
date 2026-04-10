@@ -1,7 +1,7 @@
 # en-es Shadow Support Score Sweep
 
 - Status: `ok`
-- Generated: `2026-04-10T18:23:13Z`
+- Generated: `2026-04-10T19:12:35Z`
 - Forward seed max words: `1`
 - Sweep meaning: keep candidate mining fixed per seed mode, then vary only the support-score threshold and the maximum number of promoted shadows.
 

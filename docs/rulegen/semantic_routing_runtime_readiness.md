@@ -372,17 +372,29 @@ First implemented research seam:
     - the new support-score sweep at `docs/test_outputs/semantic_shadow_support_score_sweep_en_es_latest.md` shows the next cleaner control surface:
       - instead of adding more named promotion policies, keep one explicit support score and sweep only the threshold plus the maximum promoted-shadow count
       - on the current source-only lane, that already improves the tradeoff materially without adding manual data:
-        - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` with `min_score=4` and `max_promoted=2` now reach `47.1%` candidate precision, `80.0%` candidate recall, and `5.1%` overblocking
+        - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` with `min_score=5` and `max_promoted=2` now reach `47.1%` candidate precision, `80.0%` candidate recall, and `5.1%` overblocking
         - relative to the old strict `cross_checked_v1` baseline on the same seed mode, that keeps recall flat but improves precision from `32.0%` to `47.1%` and reduces overblocking from `9.4%` to `5.1%`
-      - on the reviewed-trigger control, the best score setting simply reconstructs the old strict frontier (`min_score=3`, `max_promoted=1`)
+      - on the reviewed-trigger control, the score sweep now exposes a real safety/coverage ladder instead of a single obvious threshold:
+        - `min_score=3`, `max_promoted=1`: `20.0%` precision / `90.0%` recall / `26.1%` overblocking
+        - `min_score=5`, `max_promoted=1`: `100.0%` precision / `80.0%` recall / `0.0%` overblocking
+      - interpretation: the support score is now a true numeric control surface for the abstain-vs-coverage tradeoff, not just a re-expression of the older strict policy
     - the new trigger-support sweep at `docs/test_outputs/semantic_shadow_trigger_support_sweep_en_es_latest.md` shows where the remaining seed noise actually lives:
       - keep the downstream shadow support policy fixed (`shadow min=4`, `max_promoted=2`), and filter only the source-only trigger seeds before mining
-      - on `rulegen_top3_plus_forward_gloss`, a modest trigger threshold (`min_trigger_score=3`) improves the tradeoff without costing recall:
-        - precision `47.1% -> 50.0%`
+      - on `rulegen_top3_plus_forward_gloss`, a modest trigger threshold (`min_trigger_score=3`) does remove some upstream junk, but only relative to the much noisier `shadow min=4` operating point:
+        - precision `8.0% -> 13.6%`
         - recall stays `80.0%`
-        - overblocking `5.1% -> 4.3%`
-      - on `rulegen_all_plus_forward_gloss`, the same trigger score does not help meaningfully; the broad all-sources seed remains too noisy and collapses quickly once filtering gets strict
-      - interpretation: trigger scoring is useful as a light filter on the better seed family (`top3 + forward gloss`), but it does not rescue the broad `all_sources` lane; the next gain is more likely to come from better trigger provenance or a semantic-bridge lane than from harsher trigger thresholds alone
+        - overblocking `43.5% -> 23.9%`
+      - on `rulegen_all_plus_forward_gloss`, the same trigger score remains too destructive:
+        - precision `8.0% -> 14.3%`
+        - recall `80.0% -> 20.0%`
+        - inventory coverage `90.0% -> 50.0%`
+      - interpretation: trigger scoring is still a coarse upstream cleanup knob, but it is no longer the best current frontier; the stronger path remains higher downstream support thresholds rather than harsher trigger pruning
+    - the new frequency sweep at `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md` probes a soft target-side Spanish lexical-frequency prior:
+      - the experiment keeps the current best lexical source-only baseline fixed (`rulegen_top3_plus_forward_gloss`, `shadow min=5`, `max_promoted=2`) and only adds a bonus for the most frequent shadow targets within a trigger bucket
+      - that bonus does not improve the current best row:
+        - baseline stays `47.1%` precision / `80.0%` recall / `5.1%` overblocking
+        - any positive frequency bonus is neutral at small weights and actively harmful at `bonus=1.0`
+      - interpretation: the current ES frequency pack is plausible as metadata, but not yet a useful default pruning signal for semantic shadows; it should remain an optional research knob, not a default promotion feature
     - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.

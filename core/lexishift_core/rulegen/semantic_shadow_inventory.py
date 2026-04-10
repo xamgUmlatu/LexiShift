@@ -8,6 +8,11 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     collect_sanitized_gloss_records as collect_en_es_sanitized_gloss_records,
     normalize_reverse_token_with_pos,
 )
+from lexishift_core.rulegen.semantic_shadow_frequency import (
+    ShadowFrequencyLookup,
+    enrich_candidate_frequency_details,
+    select_frequency_representative_targets,
+)
 from lexishift_core.rulegen.semantic_shadow_lexical_bridge import (
     build_bridge_marker_frequency,
     build_semantic_bridge_candidates,
@@ -16,6 +21,10 @@ from lexishift_core.rulegen.semantic_shadow_lexical_bridge import (
 from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
     build_forward_shadow_index,
     build_inventory_summary,
+)
+from lexishift_core.rulegen.semantic_shadow_support import (
+    DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    build_shadow_candidate_support_details,
 )
 from lexishift_core.rulegen.semantic_shadow_trigger_support import (
     DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
@@ -36,14 +45,7 @@ RULEGEN_SHADOW_SOURCE_FIELDS = ("top3_sources", "all_sources")
 DEFAULT_FORWARD_SEED_MAX_WORDS = 4
 DEFAULT_SUPPORT_SCORE_MIN = 3.0
 DEFAULT_SUPPORT_SCORE_MAX_PROMOTED = 3
-SHADOW_SUPPORT_SCORE_WEIGHTS = {
-    "reviewed_trigger_support": 2.0,
-    "benchmark_target_present": 1.0,
-    "same_pos_as_active": 1.0,
-    "active_side_support": 1.0,
-    "semantic_bridge_support": 1.0,
-    "cross_pos_mismatch_penalty": -1.0,
-}
+DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K = 0
 
 
 def normalize_shadow_text(value: object) -> str:
@@ -346,6 +348,7 @@ def build_en_es_shadow_inventory(
     forward_provider: str,
     reverse_provider: str,
     promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
+    frequency_lookup: ShadowFrequencyLookup | None = None,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
     forward_shadow_index = build_forward_shadow_index(
@@ -392,6 +395,21 @@ def build_en_es_shadow_inventory(
                 for candidate in reverse_candidates
                 if str(candidate.get("target") or "").strip() != benchmark_target.target
             ]
+            for candidate in active_candidates:
+                enrich_candidate_frequency_details(
+                    candidate=candidate,
+                    frequency_lookup=frequency_lookup,
+                )
+            for candidate in reverse_active_candidates:
+                enrich_candidate_frequency_details(
+                    candidate=candidate,
+                    frequency_lookup=frequency_lookup,
+                )
+            for candidate in shadow_candidates:
+                enrich_candidate_frequency_details(
+                    candidate=candidate,
+                    frequency_lookup=frequency_lookup,
+                )
             existing_shadow_targets = {
                 str(candidate.get("target") or "").strip()
                 for candidate in shadow_candidates
@@ -407,7 +425,12 @@ def build_en_es_shadow_inventory(
                     or candidate_target in existing_shadow_targets
                 ):
                     continue
-                shadow_candidates.append(dict(forward_candidate))
+                forward_candidate_copy = dict(forward_candidate)
+                enrich_candidate_frequency_details(
+                    candidate=forward_candidate_copy,
+                    frequency_lookup=frequency_lookup,
+                )
+                shadow_candidates.append(forward_candidate_copy)
                 existing_shadow_targets.add(candidate_target)
             for bridge_candidate in build_semantic_bridge_candidates(
                 active_target=benchmark_target.target,
@@ -420,7 +443,12 @@ def build_en_es_shadow_inventory(
                 candidate_target = str(bridge_candidate.get("target") or "").strip()
                 if not candidate_target or candidate_target in existing_shadow_targets:
                     continue
-                shadow_candidates.append(dict(bridge_candidate))
+                bridge_candidate_copy = dict(bridge_candidate)
+                enrich_candidate_frequency_details(
+                    candidate=bridge_candidate_copy,
+                    frequency_lookup=frequency_lookup,
+                )
+                shadow_candidates.append(bridge_candidate_copy)
                 existing_shadow_targets.add(candidate_target)
             promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
@@ -593,15 +621,23 @@ def promote_shadow_candidates_with_support_score(
     min_score: float = DEFAULT_SUPPORT_SCORE_MIN,
     max_promoted_shadows: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     policy: str = SUPPORT_SCORE_POLICY,
+    frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or SUPPORT_SCORE_POLICY
     normalized_max_promoted = max(1, int(max_promoted_shadows))
+    frequency_representative_targets = select_frequency_representative_targets(
+        shadow_candidates=shadow_candidates,
+        top_k=int(frequency_representative_top_k),
+    )
     ranked: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         candidate_copy = dict(candidate)
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            frequency_representative_targets=frequency_representative_targets,
+            frequency_representative_bonus=float(frequency_representative_bonus),
         )
         candidate_copy.update(support_details)
         candidate_copy["promotion_policy"] = normalized_policy
@@ -623,78 +659,6 @@ def promote_shadow_candidates_with_support_score(
         )
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:normalized_max_promoted]]
-
-
-def build_shadow_candidate_support_details(
-    *,
-    candidate: Mapping[str, object],
-    active_candidates: Sequence[Mapping[str, object]],
-) -> dict[str, object]:
-    active_pos_values = {
-        str(active_candidate.get("canonical_pos") or "").strip().lower()
-        for active_candidate in active_candidates
-        if str(active_candidate.get("canonical_pos") or "").strip()
-    }
-    has_active_candidates = bool(active_candidates)
-    has_active_pos = bool(active_pos_values)
-    canonical_pos = str(candidate.get("canonical_pos") or "").strip().lower()
-    reviewed_trigger_support = bool(candidate.get("reviewed_trigger_support"))
-    benchmark_target_present = bool(candidate.get("benchmark_target_present"))
-    same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
-    cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
-    semantic_bridge_support = bool(
-        candidate.get("semantic_bridge_markers")
-        or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
-    )
-
-    support_breakdown = {
-        "reviewed_trigger_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["reviewed_trigger_support"]
-            if reviewed_trigger_support
-            else 0.0
-        ),
-        "benchmark_target_present": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["benchmark_target_present"]
-            if benchmark_target_present
-            else 0.0
-        ),
-        "same_pos_as_active": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["same_pos_as_active"] if same_pos else 0.0
-        ),
-        "active_side_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["active_side_support"] if has_active_candidates else 0.0
-        ),
-        "semantic_bridge_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["semantic_bridge_support"]
-            if semantic_bridge_support
-            else 0.0
-        ),
-        "cross_pos_mismatch_penalty": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["cross_pos_mismatch_penalty"]
-            if cross_pos_mismatch
-            else 0.0
-        ),
-    }
-    positive_features = [
-        feature
-        for feature, value in (
-            ("reviewed_trigger_support", reviewed_trigger_support),
-            ("benchmark_target_present", benchmark_target_present),
-            ("same_pos_as_active", same_pos),
-            ("active_side_support", has_active_candidates),
-            ("semantic_bridge_support", semantic_bridge_support),
-        )
-        if value
-    ]
-    penalties = ["cross_pos_mismatch_penalty"] if cross_pos_mismatch else []
-    return {
-        "same_pos_as_active": same_pos,
-        "support_features": positive_features,
-        "support_penalties": penalties,
-        "support_score_breakdown": support_breakdown,
-        "support_score": sum(float(value) for value in support_breakdown.values()),
-        "promotion_reasons": positive_features,
-    }
 
 
 def _shadow_candidate_qualifies_for_policy(

@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import Mapping, Sequence
 
 from lexishift_core.rulegen.semantic_shadow_inventory import (
+    DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
     DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     DEFAULT_SUPPORT_SCORE_MIN,
     BenchmarkShadowTarget,
@@ -57,6 +59,8 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     policies: Sequence[str] = SHADOW_PROMOTION_POLICIES + REFERENCE_SHADOW_POLICY_MODES,
     support_score_min: float = DEFAULT_SUPPORT_SCORE_MIN,
     support_score_max_promoted: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
+    support_frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    support_frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -131,6 +135,8 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                         min_score=support_score_min,
                         max_promoted_shadows=support_score_max_promoted,
                         policy=policy,
+                        frequency_representative_bonus=support_frequency_representative_bonus,
+                        frequency_representative_top_k=support_frequency_representative_top_k,
                     )
                     promoted_targets = [
                         str(candidate.get("target") or "").strip()

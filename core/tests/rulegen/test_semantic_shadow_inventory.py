@@ -1013,6 +1013,42 @@ class TestSemanticShadowInventory(unittest.TestCase):
             ],
         )
 
+    def test_promote_shadow_candidates_with_support_score_can_prefer_frequency_representative(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=[
+                {
+                    "target": "camello",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                    "target_frequency_present": True,
+                    "target_frequency_value": 5.0,
+                    "target_frequency_rank": 50.0,
+                    "target_frequency_score": 0.20,
+                },
+                {
+                    "target": "cargo",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                    "target_frequency_present": True,
+                    "target_frequency_value": 90.0,
+                    "target_frequency_rank": 2.0,
+                    "target_frequency_score": 0.95,
+                },
+            ],
+            active_candidates=[{"canonical_pos": "noun"}],
+            min_score=3.0,
+            max_promoted_shadows=1,
+            frequency_representative_bonus=1.0,
+            frequency_representative_top_k=1,
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
+        self.assertIn("frequency_representative_bonus", promoted[0]["support_features"])
+
 
 if __name__ == "__main__":
     unittest.main()

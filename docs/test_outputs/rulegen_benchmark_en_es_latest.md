@@ -1,6 +1,6 @@
 # Rulegen Benchmark Sweep
 
-Generated: 2026-04-10T18:18:05.439711+00:00
+Generated: 2026-04-10T19:15:06.243739+00:00
 
 ## en-es
 

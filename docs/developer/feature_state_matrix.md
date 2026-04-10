@@ -769,8 +769,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` added the first embedding-bridge sweep for `en-es`, showing that source-derived target-card nearest neighbors can recover the remaining `trabajo / job -> cargo` miss only by dropping to a much noisier support-score setting, so the lexical source-only baseline is still the better current tradeoff
-- Last verified: `2026-04-10` targeted `semantic_shadow_embedding_bridge` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed the `en-es` embedding-bridge-sweep artifact and synced runtime-readiness / feature-state docs
+- Last documented checkpoint: `2026-04-11` added the first lexical-frequency sweep for `en-es`, showing that a soft Spanish target-frequency representative bonus does not improve the current best lexical source-only shadow baseline and should remain an optional research-only knob
+- Last verified: `2026-04-11` targeted `semantic_shadow_frequency` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests, refreshed the `en-es` support-score, trigger-support, and frequency-sweep artifacts, and synced runtime-readiness / feature-state docs
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -813,15 +813,28 @@ Use this file when:
       - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` now reach `80.0%` candidate recall and `80.0%` gold-trigger hit rate on the lower-bound proxy, but only at `32.0%` precision with `9.4%` overblocking
       - the numeric forward-seed sweep shows the current best source-only setting is `forward_seed_max_words=1`; allowing longer phrase fragments does not improve recall on the current proxy and only worsens overblocking
     - the new support-score sweep provides the first compact numeric promotion surface:
-      - for the reviewed-trigger control, `min_score=3` and `max_promoted=1` simply reconstruct the existing `cross_checked_v1` frontier (`64.3%` precision / `90.0%` recall / `3.6%` overblocking)
-      - for the best current source-only lane, `min_score=4` and `max_promoted=2` improves the old strict baseline materially without adding manual data:
+      - for the reviewed-trigger control, the support score now exposes a real numeric safety/coverage ladder:
+        - `min_score=3`, `max_promoted=1`: `20.0%` precision / `90.0%` recall / `26.1%` overblocking
+        - `min_score=5`, `max_promoted=1`: `100.0%` precision / `80.0%` recall / `0.0%` overblocking
+      - for the best current source-only lane, `min_score=5` and `max_promoted=2` improves the old strict baseline materially without adding manual data:
         - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss`: `47.1%` precision / `80.0%` recall / `5.1%` overblocking
         - prior `cross_checked_v1` baseline on that lane: `32.0%` precision / `80.0%` recall / `9.4%` overblocking
-      - interpretation: support-scored promotion is now a better next control surface than inventing more branchy named policies
-    - the new trigger-support sweep clarifies where earlier automatic-seed noise lives:
-      - on `rulegen_top3_plus_forward_gloss`, `min_trigger_score=3` keeps recall flat at `80.0%` while improving precision from `47.1%` to `50.0%` and reducing overblocking from `5.1%` to `4.3%`
-      - on `rulegen_all_plus_forward_gloss`, trigger filtering does not improve the tradeoff meaningfully; the broader all-sources seed family remains too noisy
-      - interpretation: compact trigger scoring is useful as a light upstream filter on the better source-only seed family, but it is not a substitute for better trigger provenance or a semantic-bridge lane
+      - interpretation: support-scored promotion is now a real numeric control surface for safety vs coverage, and a better next control surface than inventing more branchy named policies
+    - the refreshed trigger-support sweep clarifies where earlier automatic-seed noise lives:
+      - on `rulegen_top3_plus_forward_gloss`, `min_trigger_score=3` only helps relative to a much noisier downstream threshold (`shadow min=4`, `max_promoted=2`):
+        - precision `8.0% -> 13.6%`
+        - recall stays `80.0%`
+        - overblocking `43.5% -> 23.9%`
+      - on `rulegen_all_plus_forward_gloss`, the same trigger filter is too destructive:
+        - precision `8.0% -> 14.3%`
+        - recall `80.0% -> 20.0%`
+        - inventory coverage `90.0% -> 50.0%`
+      - interpretation: trigger filtering remains an upstream cleanup knob, but it is no longer the best frontier; higher downstream support thresholds still dominate it on the current miner
+    - the new lexical-frequency sweep shows that a soft Spanish target-frequency prior does not currently improve the best lexical baseline:
+      - `scripts/testing/semantic_shadow_frequency_sweep_en_es.py` keeps the current best source-only lane fixed and only adds a representative bonus for the most frequent shadow targets within each trigger bucket
+      - best current source-only row remains unchanged at `47.1%` precision / `80.0%` recall / `5.1%` overblocking
+      - higher frequency bonuses actively hurt precision and overblocking
+      - interpretation: target-side frequency is still worth preserving as optional metadata, but the current `freq-es-cde` pack does not justify making it a default blocker-selection signal
     - the first target-card embedding bridge has now been swept explicitly:
       - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py` augments the current inventories with sentence-transformer nearest neighbors over source-derived target cards, but only as a backoff candidate source
       - it can recover `trabajo / job -> cargo` at the lower support threshold (`min_score=4`), raising source-only recall from `80.0%` to `90.0%`
@@ -855,8 +868,10 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
   - `core/lexishift_core/rulegen/semantic_publication.py`
   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_frequency.py`
   - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
+  - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
   - `core/tests/rulegen/test_semantic_publication.py`
   - `core/tests/rulegen/test_semantic_shadow_inventory.py`
@@ -870,6 +885,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_coverage_gap_en_es.py`
   - `scripts/testing/semantic_shadow_seed_compare_en_es.py`
   - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py`
+  - `scripts/testing/semantic_shadow_frequency_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
@@ -880,6 +896,7 @@ Use this file when:
   - `docs/test_outputs/semantic_shadow_coverage_gap_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_seed_compare_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:

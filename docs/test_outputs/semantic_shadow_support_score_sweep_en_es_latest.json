@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T18:23:13Z",
+  "generated_at": "2026-04-10T19:12:35Z",
   "status": "ok",
   "gold_reference": {
     "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
