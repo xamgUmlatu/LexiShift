@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, and first embedding-bridge sweep over source-derived target cards
+Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, and first representative-pruning sweep
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -399,6 +399,12 @@ First implemented research seam:
         - the best source-only setting remains `sim_weight=0.0`
         - positive similarity weights are effectively inert on the current `en-es` gold proxy
       - interpretation: the current ES frequency pack is plausible as metadata, but neither raw target frequency nor active-vs-shadow frequency similarity is yet a useful default pruning signal for semantic shadows; frequency should remain an optional research knob, not a default promotion feature
+    - the new representative-pruning sweep at `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md` probes a more structural condensation idea:
+      - collapse same-POS candidates that share the same normalized `sense_label`, then keep only the highest-scoring representative from each cluster
+      - on the current `en-es` reviewed overlap proxy, that also does not improve the best row:
+        - the best source-only setting remains pruning `off`, `min_score=5`, `max_promoted=2`
+        - enabling `sense_label_pos_v1` leaves precision, recall, and overblocking unchanged on the current sweep grid
+      - interpretation: redundant same-sense lexical variants are real in the raw inventory, but they are not the current bottleneck on the reviewed scoring denominator; the support threshold is already filtering most of that noise before representative pruning matters
     - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.

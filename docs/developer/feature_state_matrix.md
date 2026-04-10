@@ -769,8 +769,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lexical-frequency sweep for `en-es`, showing that a soft Spanish target-frequency representative bonus does not improve the current best lexical source-only shadow baseline and should remain an optional research-only knob
-- Last verified: `2026-04-11` targeted `semantic_shadow_frequency` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests, refreshed the `en-es` support-score, trigger-support, and frequency-sweep artifacts, and synced runtime-readiness / feature-state docs
+- Last documented checkpoint: `2026-04-11` added the first lexical-frequency similarity sweep and the first representative-pruning sweep for `en-es`, showing that neither active-vs-shadow frequency-band matching nor same-sense representative pruning improves the current best lexical source-only shadow baseline
+- Last verified: `2026-04-11` targeted `semantic_shadow_frequency` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests, refreshed the `en-es` representative-pruning, support-score, trigger-support, and frequency-sweep artifacts, reran the canonical `en-es` benchmark/gate/triage loop, and synced runtime-readiness / feature-state docs
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -838,6 +838,12 @@ Use this file when:
         - best source-only setting still keeps `sim_weight=0.0`
         - positive similarity weights are effectively inert on the current reviewed overlap proxy
       - interpretation: target-side frequency is still worth preserving as optional metadata, but the current `freq-es-cde` pack does not justify making either raw frequency or frequency-band similarity a default blocker-selection signal
+    - the new representative-pruning sweep shows that one obvious condensation idea is not the current bottleneck:
+      - `scripts/testing/semantic_shadow_representative_pruning_sweep_en_es.py` collapses same-POS shadow candidates that share the same normalized `sense_label`, then keeps the highest-scoring representative from each cluster
+      - on the current reviewed overlap proxy, that leaves the best rows unchanged:
+        - reviewed control still prefers `off` at the current best `100.0%` precision / `80.0%` recall operating point
+        - best source-only row also still prefers pruning `off`, staying at `47.1%` precision / `80.0%` recall / `5.1%` overblocking
+      - interpretation: redundant same-sense variants exist in the raw inventory, but the present support threshold is already filtering most of them before they affect the reviewed denominator
     - the first target-card embedding bridge has now been swept explicitly:
       - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py` augments the current inventories with sentence-transformer nearest neighbors over source-derived target cards, but only as a backoff candidate source
       - it can recover `trabajo / job -> cargo` at the lower support threshold (`min_score=4`), raising source-only recall from `80.0%` to `90.0%`
@@ -889,6 +895,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_seed_compare_en_es.py`
   - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_frequency_sweep_en_es.py`
+  - `scripts/testing/semantic_shadow_representative_pruning_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
@@ -900,6 +907,7 @@ Use this file when:
   - `docs/test_outputs/semantic_shadow_seed_compare_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -918,6 +926,9 @@ Use this file when:
     - benchmark-only shadows are no longer rescued when the active side is completely empty
     - `cross_checked_backoff_missing_active_v1` now converges to the same promoted set as `cross_checked_v1` on the latest `en-es` artifacts
   - There is no phrase-preemption lane separated from semantic-veto serving.
+  - Two additional precision ideas now have negative `en-es` results on the current reviewed overlap proxy:
+    - active-vs-shadow frequency-band similarity leaves the best row unchanged, with the sweep preferring `frequency_similarity_weight=0.0`
+    - same-sense representative pruning by normalized `sense_label` plus POS also leaves the best row unchanged, with the sweep preferring pruning `off`
   - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.
 

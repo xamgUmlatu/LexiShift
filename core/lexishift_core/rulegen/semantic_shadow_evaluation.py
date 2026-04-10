@@ -5,6 +5,7 @@ from typing import Mapping, Sequence
 from lexishift_core.rulegen.semantic_shadow_inventory import (
     DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
+    DEFAULT_REPRESENTATIVE_PRUNING_MODE,
     DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     DEFAULT_SUPPORT_SCORE_MIN,
     BenchmarkShadowTarget,
@@ -67,6 +68,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     support_frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
     support_frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    support_representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -145,6 +147,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                         frequency_representative_top_k=support_frequency_representative_top_k,
                         frequency_similarity_weight=support_frequency_similarity_weight,
                         frequency_similarity_tau=support_frequency_similarity_tau,
+                        representative_pruning_mode=support_representative_pruning_mode,
                     )
                     promoted_targets = [
                         str(candidate.get("target") or "").strip()

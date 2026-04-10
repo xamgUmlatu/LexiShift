@@ -18,6 +18,9 @@ from lexishift_core.rulegen.semantic_shadow_lexical_bridge import (
     build_semantic_bridge_candidates,
     build_target_bridge_profiles,
 )
+from lexishift_core.rulegen.semantic_shadow_representative_pruning import (
+    apply_representative_pruning,
+)
 from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
     build_forward_shadow_index,
     build_inventory_summary,
@@ -36,6 +39,11 @@ from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 DEFAULT_SHADOW_PROMOTION_POLICY = "same_pos_lenient_v1"
 SUPPORT_SCORE_POLICY = "support_score_v1"
+DEFAULT_REPRESENTATIVE_PRUNING_MODE = "off"
+REPRESENTATIVE_PRUNING_MODES = (
+    DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+    "sense_label_pos_v1",
+)
 SHADOW_PROMOTION_POLICIES = (
     DEFAULT_SHADOW_PROMOTION_POLICY,
     SUPPORT_SCORE_POLICY,
@@ -627,9 +635,19 @@ def promote_shadow_candidates_with_support_score(
     frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
     frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or SUPPORT_SCORE_POLICY
     normalized_max_promoted = max(1, int(max_promoted_shadows))
+    normalized_representative_pruning_mode = (
+        str(representative_pruning_mode or "").strip() or DEFAULT_REPRESENTATIVE_PRUNING_MODE
+    )
+    if normalized_representative_pruning_mode not in REPRESENTATIVE_PRUNING_MODES:
+        raise ValueError(
+            "Unsupported representative pruning mode: "
+            f"{normalized_representative_pruning_mode!r}; expected one of "
+            f"{REPRESENTATIVE_PRUNING_MODES!r}"
+        )
     frequency_representative_targets = select_frequency_representative_targets(
         shadow_candidates=shadow_candidates,
         top_k=int(frequency_representative_top_k),
@@ -663,6 +681,13 @@ def promote_shadow_candidates_with_support_score(
                 candidate_copy,
             )
         )
+    ranked = apply_representative_pruning(
+        ranked,
+        mode=normalized_representative_pruning_mode,
+        mode_off=DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+        supported_modes=REPRESENTATIVE_PRUNING_MODES,
+        normalize_text=normalize_shadow_text,
+    )
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:normalized_max_promoted]]
 

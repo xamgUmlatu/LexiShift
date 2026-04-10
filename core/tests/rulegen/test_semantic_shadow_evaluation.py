@@ -251,3 +251,63 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(summary["candidate_true_positive_count"], 1)
         self.assertEqual(summary["candidate_false_positive_count"], 0)
         self.assertEqual(summary["gold_trigger_rows_hit"], 1)
+
+    def test_evaluate_shadow_inventory_support_score_policy_accepts_representative_pruning(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="amigo",
+                case_ids=("en-es:amigo",),
+                tiers=("hard",),
+                reviewed_triggers=("friend",),
+            ),
+            BenchmarkShadowTarget(
+                target="colega",
+                case_ids=("en-es:colega",),
+                tiers=("hard",),
+                reviewed_triggers=("friend",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "amigo",
+                    "trigger_entries": [
+                        {
+                            "trigger": "friend",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "colega",
+                                    "sense_label": "person whose company one enjoys",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                },
+                                {
+                                    "target": "chochera",
+                                    "sense_label": "person whose company one enjoys",
+                                    "reviewed_trigger_support": False,
+                                    "benchmark_target_present": False,
+                                    "canonical_pos": "noun",
+                                },
+                            ],
+                        }
+                    ],
+                }
+            ]
+        }
+
+        report = evaluate_shadow_inventory_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("support_score_v1",),
+            support_score_min=1.0,
+            support_score_max_promoted=3,
+            support_representative_pruning_mode="sense_label_pos_v1",
+        )
+
+        summary = report["policies"]["support_score_v1"]["summary"]
+        self.assertEqual(summary["candidate_true_positive_count"], 1)
+        self.assertEqual(summary["candidate_false_positive_count"], 0)

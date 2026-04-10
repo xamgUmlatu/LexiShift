@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa: E402
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     DEFAULT_FORWARD_SEED_MAX_WORDS,
+    DEFAULT_REPRESENTATIVE_PRUNING_MODE,
     BenchmarkShadowTarget,
     augment_shadow_targets_with_forward_gloss_triggers,
     build_shadow_candidate_support_details,
@@ -557,6 +558,86 @@ class TestSemanticShadowInventory(unittest.TestCase):
         )
         self.assertEqual(trigger_row["active_candidates"][0]["matched_trigger"], "catch")
         self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
+
+    def test_support_score_representative_pruning_keeps_one_sense_label_pos_representative(
+        self,
+    ) -> None:
+        active_candidates = [{"canonical_pos": "noun", "target_frequency_score": 0.8}]
+        shadow_candidates = [
+            {
+                "target": "chochera",
+                "sense_label": "person whose company one enjoys",
+                "canonical_pos": "noun",
+                "reviewed_trigger_support": False,
+                "benchmark_target_present": False,
+                "target_frequency_score": 0.2,
+            },
+            {
+                "target": "amistad",
+                "sense_label": "person whose company one enjoys",
+                "canonical_pos": "noun",
+                "reviewed_trigger_support": True,
+                "benchmark_target_present": True,
+                "target_frequency_score": 0.5,
+            },
+            {
+                "target": "colega",
+                "sense_label": "workmate or colleague",
+                "canonical_pos": "noun",
+                "reviewed_trigger_support": True,
+                "benchmark_target_present": True,
+                "target_frequency_score": 0.6,
+            },
+        ]
+
+        unpruned = promote_shadow_candidates_with_support_score(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            min_score=1.0,
+            max_promoted_shadows=3,
+            representative_pruning_mode=DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+        )
+        pruned = promote_shadow_candidates_with_support_score(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            min_score=1.0,
+            max_promoted_shadows=3,
+            representative_pruning_mode="sense_label_pos_v1",
+        )
+
+        self.assertEqual(
+            [candidate["target"] for candidate in unpruned], ["colega", "amistad", "chochera"]
+        )
+        self.assertEqual([candidate["target"] for candidate in pruned], ["colega", "amistad"])
+        amistad = next(candidate for candidate in pruned if candidate["target"] == "amistad")
+        self.assertEqual(amistad["representative_pruning_mode"], "sense_label_pos_v1")
+        self.assertEqual(amistad["representative_cluster_size"], 2)
+
+    def test_support_score_representative_pruning_falls_back_to_target_when_sense_label_missing(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=(
+                {
+                    "target": "alpha",
+                    "canonical_pos": "noun",
+                    "reviewed_trigger_support": True,
+                    "benchmark_target_present": True,
+                },
+                {
+                    "target": "beta",
+                    "canonical_pos": "noun",
+                    "reviewed_trigger_support": True,
+                    "benchmark_target_present": True,
+                },
+            ),
+            active_candidates=({"canonical_pos": "noun"},),
+            min_score=1.0,
+            max_promoted_shadows=3,
+            representative_pruning_mode="sense_label_pos_v1",
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["beta", "alpha"])
 
     def test_build_en_es_shadow_inventory_supplements_missing_reverse_shadow_from_forward_index(
         self,
