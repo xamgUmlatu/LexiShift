@@ -2,8 +2,8 @@
 
 Status: active workflow
 Role: Runbook / operational
-Last updated: 2026-04-04
-Last verified: 2026-04-04 AGENTS command review + dataset-loader/tooling sync
+Last updated: 2026-04-11
+Last verified: 2026-04-11 benchmark slice-metadata scaffold review
 Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
 Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
 
@@ -79,6 +79,60 @@ python3 scripts/testing/rulegen_benchmark_triage.py \
 - Add/adjust `expected_top1_any`, `forbidden_top1`, `forbidden_any`, and `tier`.
 
 5. Re-run steps 1-3 until gate passes and triage is empty (or clearly justified).
+
+## Benchmark slice metadata scaffolding
+
+The LP-local benchmark case files can now carry optional slice metadata without changing the core
+benchmark contract.
+
+Supported optional fields per case:
+
+- `slice_tags`: flat string tags for reusable families or hazards
+- `slice_dimensions`: flat object of dimension name -> string list
+
+Current semantic-shadow veto proxy tooling projects these case-level fields onto reviewed
+target/trigger rows, auto-adds `tier` as a slice dimension, and emits per-slice summaries in
+addition to the global report.
+
+Use this when expanding benchmark coverage so new cases can be grouped immediately by:
+
+- semantic family
+- ambiguity topology
+- POS
+- pipeline route
+- decision type
+- LP-local hazards
+
+Recommended shape:
+
+```json
+{
+  "case_id": "en-es:cargo",
+  "target": "cargo",
+  "tier": "hard",
+  "expected_any": ["post", "position", "job", "office"],
+  "expected_top1_any": ["position", "post", "job"],
+  "forbidden_top1": [],
+  "forbidden_any": [],
+  "slice_tags": [
+    "family:job_role",
+    "topology:shared_english_trigger"
+  ],
+  "slice_dimensions": {
+    "semantic_family": ["job_role"],
+    "ambiguity_topology": ["shared_english_trigger"],
+    "pos": ["noun"],
+    "decision": ["ambiguous"]
+  }
+}
+```
+
+Authoring rules:
+
+- Keep the fields optional so older cases remain valid.
+- Keep tags and dimension values stable and reusable; do not encode one-off prose there.
+- Prefer a small number of dimensions with many cases over many bespoke dimensions.
+- Treat `tier` as the default coarse slice; only add finer dimensions when they help benchmark review or research isolation.
 
 ## Preferred wrappers
 

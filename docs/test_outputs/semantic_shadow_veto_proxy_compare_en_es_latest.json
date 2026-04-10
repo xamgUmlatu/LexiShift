@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T21:26:47Z",
+  "generated_at": "2026-04-10T21:42:38Z",
   "status": "ok",
   "comparison_kind": "lower_bound_veto_proxy",
   "gold_reference": {
@@ -37,6 +37,46 @@
       "harmful_allow_count": 0,
       "true_allow_count": 138,
       "false_abstain_count": 0,
+      "slice_summaries": {
+        "dimension:tier:hard": {
+          "trigger_rows_total": 70,
+          "trigger_rows_with_active_candidates": 52,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 65,
+          "abstain_rows": 5,
+          "allow_rows": 65,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 65,
+          "false_abstain_count": 0,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.9285714285714286,
+          "abstain_rate": 0.07142857142857142,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
+        },
+        "dimension:tier:smoke": {
+          "trigger_rows_total": 78,
+          "trigger_rows_with_active_candidates": 62,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 73,
+          "abstain_rows": 5,
+          "allow_rows": 73,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 73,
+          "false_abstain_count": 0,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.9358974358974359,
+          "abstain_rate": 0.0641025641025641,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
+        }
+      },
       "sample_harmful_allow_rows": [],
       "sample_false_abstain_rows": [],
       "delta_vs_curated_overall_accuracy": 0.0,
@@ -67,6 +107,46 @@
       "harmful_allow_count": 0,
       "true_allow_count": 138,
       "false_abstain_count": 0,
+      "slice_summaries": {
+        "dimension:tier:hard": {
+          "trigger_rows_total": 70,
+          "trigger_rows_with_active_candidates": 52,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 65,
+          "abstain_rows": 5,
+          "allow_rows": 65,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 65,
+          "false_abstain_count": 0,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.9285714285714286,
+          "abstain_rate": 0.07142857142857142,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
+        },
+        "dimension:tier:smoke": {
+          "trigger_rows_total": 78,
+          "trigger_rows_with_active_candidates": 62,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 73,
+          "abstain_rows": 5,
+          "allow_rows": 73,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 73,
+          "false_abstain_count": 0,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.9358974358974359,
+          "abstain_rate": 0.0641025641025641,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
+        }
+      },
       "sample_harmful_allow_rows": [],
       "sample_false_abstain_rows": [],
       "delta_vs_curated_overall_accuracy": 0.0,
@@ -97,6 +177,46 @@
       "harmful_allow_count": 2,
       "true_allow_count": 131,
       "false_abstain_count": 7,
+      "slice_summaries": {
+        "dimension:tier:hard": {
+          "trigger_rows_total": 70,
+          "trigger_rows_with_active_candidates": 51,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 65,
+          "abstain_rows": 8,
+          "allow_rows": 62,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 1,
+          "true_allow_count": 61,
+          "false_abstain_count": 4,
+          "abstain_recall": 0.8,
+          "harmful_allow_rate": 0.2,
+          "allow_precision": 0.9838709677419355,
+          "allow_rate": 0.8857142857142857,
+          "abstain_rate": 0.11428571428571428,
+          "overblocking_rate": 0.06153846153846154,
+          "overall_accuracy": 0.9285714285714286
+        },
+        "dimension:tier:smoke": {
+          "trigger_rows_total": 78,
+          "trigger_rows_with_active_candidates": 57,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 73,
+          "abstain_rows": 7,
+          "allow_rows": 71,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 1,
+          "true_allow_count": 70,
+          "false_abstain_count": 3,
+          "abstain_recall": 0.8,
+          "harmful_allow_rate": 0.2,
+          "allow_precision": 0.9859154929577465,
+          "allow_rate": 0.9102564102564102,
+          "abstain_rate": 0.08974358974358974,
+          "overblocking_rate": 0.0410958904109589,
+          "overall_accuracy": 0.9487179487179487
+        }
+      },
       "sample_harmful_allow_rows": [
         {
           "target": "cargo",
@@ -106,7 +226,18 @@
             "trabajo"
           ],
           "mined_shadow_targets": [],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:cargo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "trabajo",
@@ -130,7 +261,18 @@
             "tarea",
             "yob"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:trabajo"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         }
       ],
       "sample_false_abstain_rows": [
@@ -149,7 +291,18 @@
           ],
           "promoted_targets": [
             "derecho"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "camino",
@@ -170,7 +323,18 @@
           ],
           "promoted_targets": [
             "medio"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "camino",
@@ -190,7 +354,18 @@
           ],
           "promoted_targets": [
             "derecho"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "campo",
@@ -214,7 +389,18 @@
           ],
           "promoted_targets": [
             "área"
-          ]
+          ],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "cargo",
@@ -229,7 +415,18 @@
           ],
           "promoted_targets": [
             "plaza"
-          ]
+          ],
+          "case_ids": [
+            "en-es:cargo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "malla",
@@ -246,7 +443,18 @@
           ],
           "promoted_targets": [
             "red"
-          ]
+          ],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "marco",
@@ -277,7 +485,18 @@
           ],
           "promoted_targets": [
             "cuadro"
-          ]
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         }
       ],
       "delta_vs_curated_overall_accuracy": -0.060810810810810856,
@@ -308,6 +527,46 @@
       "harmful_allow_count": 0,
       "true_allow_count": 128,
       "false_abstain_count": 10,
+      "slice_summaries": {
+        "dimension:tier:hard": {
+          "trigger_rows_total": 70,
+          "trigger_rows_with_active_candidates": 51,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 65,
+          "abstain_rows": 10,
+          "allow_rows": 60,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 60,
+          "false_abstain_count": 5,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
+          "overblocking_rate": 0.07692307692307693,
+          "overall_accuracy": 0.9285714285714286
+        },
+        "dimension:tier:smoke": {
+          "trigger_rows_total": 78,
+          "trigger_rows_with_active_candidates": 57,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 73,
+          "abstain_rows": 10,
+          "allow_rows": 68,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 0,
+          "true_allow_count": 68,
+          "false_abstain_count": 5,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": 1.0,
+          "allow_rate": 0.8717948717948718,
+          "abstain_rate": 0.1282051282051282,
+          "overblocking_rate": 0.0684931506849315,
+          "overall_accuracy": 0.9358974358974359
+        }
+      },
       "sample_harmful_allow_rows": [],
       "sample_false_abstain_rows": [
         {
@@ -343,7 +602,18 @@
           ],
           "promoted_targets": [
             "escuela"
-          ]
+          ],
+          "case_ids": [
+            "en-es:banco"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "camino",
@@ -360,7 +630,18 @@
           ],
           "promoted_targets": [
             "derecho"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "camino",
@@ -381,7 +662,18 @@
           ],
           "promoted_targets": [
             "medio"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "camino",
@@ -401,7 +693,18 @@
           ],
           "promoted_targets": [
             "derecho"
-          ]
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "campo",
@@ -425,7 +728,18 @@
           ],
           "promoted_targets": [
             "área"
-          ]
+          ],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "cargo",
@@ -440,7 +754,18 @@
           ],
           "promoted_targets": [
             "plaza"
-          ]
+          ],
+          "case_ids": [
+            "en-es:cargo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "cargo",
@@ -470,7 +795,18 @@
           "promoted_targets": [
             "trabajo",
             "orden"
-          ]
+          ],
+          "case_ids": [
+            "en-es:cargo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "malla",
@@ -487,7 +823,18 @@
           ],
           "promoted_targets": [
             "red"
-          ]
+          ],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "marco",
@@ -520,7 +867,18 @@
           "promoted_targets": [
             "tabla",
             "cuadro"
-          ]
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "meter",
@@ -545,7 +903,18 @@
           ],
           "promoted_targets": [
             "subir"
-          ]
+          ],
+          "case_ids": [
+            "en-es:meter"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         }
       ],
       "delta_vs_curated_overall_accuracy": -0.06756756756756754,
@@ -576,6 +945,46 @@
       "harmful_allow_count": 10,
       "true_allow_count": 138,
       "false_abstain_count": 0,
+      "slice_summaries": {
+        "dimension:tier:hard": {
+          "trigger_rows_total": 70,
+          "trigger_rows_with_active_candidates": 51,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 65,
+          "abstain_rows": 0,
+          "allow_rows": 70,
+          "true_abstain_count": 0,
+          "harmful_allow_count": 5,
+          "true_allow_count": 65,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.0,
+          "harmful_allow_rate": 1.0,
+          "allow_precision": 0.9285714285714286,
+          "allow_rate": 1.0,
+          "abstain_rate": 0.0,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9285714285714286
+        },
+        "dimension:tier:smoke": {
+          "trigger_rows_total": 78,
+          "trigger_rows_with_active_candidates": 57,
+          "ambiguous_trigger_rows": 5,
+          "clear_trigger_rows": 73,
+          "abstain_rows": 0,
+          "allow_rows": 78,
+          "true_abstain_count": 0,
+          "harmful_allow_count": 5,
+          "true_allow_count": 73,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.0,
+          "harmful_allow_rate": 1.0,
+          "allow_precision": 0.9358974358974359,
+          "allow_rate": 1.0,
+          "abstain_rate": 0.0,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9358974358974359
+        }
+      },
       "sample_harmful_allow_rows": [
         {
           "target": "cargo",
@@ -585,7 +994,18 @@
             "trabajo"
           ],
           "mined_shadow_targets": [],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:cargo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "coger",
@@ -610,7 +1030,18 @@
             "tomar",
             "violar"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:coger"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "cuadro",
@@ -632,7 +1063,18 @@
             "tabular",
             "traer a discusión"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:cuadro"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "llevar",
@@ -657,7 +1099,18 @@
             "tomar",
             "violar"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:llevar"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "malla",
@@ -675,7 +1128,18 @@
             "neto",
             "red"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "quitar",
@@ -689,7 +1153,18 @@
             "remover",
             "sacar"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:quitar"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "red",
@@ -708,7 +1183,18 @@
             "net",
             "neto"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "sacar",
@@ -723,7 +1209,18 @@
             "quitar",
             "remover"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:sacar"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         },
         {
           "target": "tabla",
@@ -744,7 +1241,18 @@
             "tabular",
             "traer a discusión"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:tabla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ]
+          }
         },
         {
           "target": "trabajo",
@@ -768,7 +1276,18 @@
             "tarea",
             "yob"
           ],
-          "promoted_targets": []
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:trabajo"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ]
+          }
         }
       ],
       "sample_false_abstain_rows": [],

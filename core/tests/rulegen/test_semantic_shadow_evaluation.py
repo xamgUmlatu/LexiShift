@@ -524,3 +524,131 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(summary["harmful_allow_count"], 1)
         harmful_rows = report["policies"]["support_score_v1"]["sample_harmful_allow_rows"]
         self.assertEqual([row["target"] for row in harmful_rows], ["cargo"])
+
+    def test_evaluate_shadow_inventory_veto_proxy_accumulates_slice_summaries(self) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo",),
+                tiers=("hard",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo",),
+                tiers=("smoke",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="casa",
+                case_ids=("en-es:casa",),
+                tiers=("smoke",),
+                reviewed_triggers=("house",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "cargo",
+                    "trigger_entries": [
+                        {
+                            "trigger": "job",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "trabajo",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "target": "trabajo",
+                    "trigger_entries": [
+                        {
+                            "trigger": "job",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+                {
+                    "target": "casa",
+                    "trigger_entries": [
+                        {
+                            "trigger": "house",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+            ]
+        }
+
+        report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            row_metadata_by_key={
+                ("cargo", "job"): {
+                    "case_ids": ["en-es:cargo"],
+                    "tiers": ["hard"],
+                    "slice_tags": ["family:job_role"],
+                    "slice_dimensions": {
+                        "semantic_family": ["job_role"],
+                        "decision": ["ambiguous"],
+                        "pos": ["noun"],
+                    },
+                },
+                ("trabajo", "job"): {
+                    "case_ids": ["en-es:trabajo"],
+                    "tiers": ["smoke"],
+                    "slice_tags": ["family:job_role"],
+                    "slice_dimensions": {
+                        "semantic_family": ["job_role"],
+                        "decision": ["ambiguous"],
+                        "pos": ["noun"],
+                    },
+                },
+                ("casa", "house"): {
+                    "case_ids": ["en-es:casa"],
+                    "tiers": ["smoke"],
+                    "slice_tags": ["family:house_home"],
+                    "slice_dimensions": {
+                        "semantic_family": ["house_home"],
+                        "decision": ["clear"],
+                        "pos": ["noun"],
+                    },
+                },
+            },
+            policies=("support_score_v1",),
+            support_score_min=5.0,
+            support_score_max_promoted=1,
+        )
+
+        policy_payload = report["policies"]["support_score_v1"]
+        harmful_rows = policy_payload["sample_harmful_allow_rows"]
+        self.assertEqual(harmful_rows[0]["case_ids"], ["en-es:trabajo"])
+        self.assertEqual(harmful_rows[0]["slice_tags"], ["family:job_role"])
+
+        slice_summaries = policy_payload["slice_summaries"]
+        job_family = slice_summaries["tag:family:job_role"]
+        self.assertEqual(job_family["trigger_rows_total"], 2)
+        self.assertEqual(job_family["ambiguous_trigger_rows"], 2)
+        self.assertEqual(job_family["true_abstain_count"], 1)
+        self.assertEqual(job_family["harmful_allow_count"], 1)
+        self.assertAlmostEqual(job_family["abstain_recall"], 0.5)
+        self.assertAlmostEqual(job_family["overall_accuracy"], 0.5)
+
+        clear_slice = slice_summaries["dimension:decision:clear"]
+        self.assertEqual(clear_slice["clear_trigger_rows"], 1)
+        self.assertEqual(clear_slice["true_allow_count"], 1)
+        self.assertAlmostEqual(clear_slice["overblocking_rate"], 0.0)
+        self.assertAlmostEqual(clear_slice["overall_accuracy"], 1.0)
+
+        tier_slice = slice_summaries["dimension:tier:smoke"]
+        self.assertEqual(tier_slice["trigger_rows_total"], 2)
+        self.assertEqual(tier_slice["harmful_allow_count"], 1)
+        self.assertEqual(tier_slice["true_allow_count"], 1)

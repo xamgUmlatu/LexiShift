@@ -22,6 +22,7 @@ from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
 )
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     build_benchmark_shadow_targets,
+    normalize_shadow_text,
 )
 from semantic_shadow_seed_compare_en_es import (  # noqa: E402
     DEFAULT_BENCHMARK_JSON,
@@ -142,6 +143,84 @@ def _collect_cases(dataset_payload: Mapping[str, object]) -> list[Mapping[str, o
     return [dict(case) for case in raw_cases if isinstance(case, Mapping)]
 
 
+def _normalize_string_list(value: object) -> list[str]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    normalized: list[str] = []
+    for item in value:
+        text = str(item or "").strip()
+        if text and text not in normalized:
+            normalized.append(text)
+    return normalized
+
+
+def _collect_reviewed_triggers(case: Mapping[str, object]) -> list[str]:
+    reviewed_values: list[str] = []
+    for key in ("expected_top1_any", "expected_any"):
+        reviewed_values.extend(_normalize_string_list(case.get(key)))
+    triggers: list[str] = []
+    for value in reviewed_values:
+        normalized = normalize_shadow_text(value)
+        if normalized and normalized not in triggers:
+            triggers.append(normalized)
+    return triggers
+
+
+def _build_trigger_row_metadata(
+    cases: Sequence[Mapping[str, object]],
+) -> dict[tuple[str, str], dict[str, object]]:
+    metadata_by_key: dict[tuple[str, str], dict[str, object]] = {}
+    for case in cases:
+        target = str(case.get("target") or "").strip()
+        if not target:
+            continue
+        case_id = str(case.get("case_id") or "").strip()
+        tiers = _normalize_string_list((case.get("tier"),))
+        slice_tags = _normalize_string_list(case.get("slice_tags"))
+        raw_dimensions = case.get("slice_dimensions")
+        slice_dimensions: dict[str, list[str]] = {}
+        if isinstance(raw_dimensions, Mapping):
+            for dimension, raw_values in raw_dimensions.items():
+                dimension_name = str(dimension or "").strip()
+                values = _normalize_string_list(raw_values)
+                if dimension_name and values:
+                    slice_dimensions[dimension_name] = values
+        if tiers:
+            slice_dimensions.setdefault("tier", [])
+            for tier in tiers:
+                if tier not in slice_dimensions["tier"]:
+                    slice_dimensions["tier"].append(tier)
+
+        for trigger in _collect_reviewed_triggers(case):
+            metadata = metadata_by_key.setdefault(
+                (target, trigger),
+                {
+                    "case_ids": [],
+                    "tiers": [],
+                    "slice_tags": [],
+                    "slice_dimensions": {},
+                },
+            )
+            if case_id and case_id not in metadata["case_ids"]:
+                metadata["case_ids"].append(case_id)
+            for tier in tiers:
+                if tier not in metadata["tiers"]:
+                    metadata["tiers"].append(tier)
+            for tag in slice_tags:
+                if tag not in metadata["slice_tags"]:
+                    metadata["slice_tags"].append(tag)
+            metadata_dimensions = metadata["slice_dimensions"]
+            if isinstance(metadata_dimensions, dict):
+                for dimension_name, values in slice_dimensions.items():
+                    bucket = metadata_dimensions.setdefault(dimension_name, [])
+                    if not isinstance(bucket, list):
+                        continue
+                    for value in values:
+                        if value not in bucket:
+                            bucket.append(value)
+    return metadata_by_key
+
+
 def _render_rate(value: object) -> str:
     if not isinstance(value, (float, int)):
         return "n/a"
@@ -152,6 +231,39 @@ def _delta(value: object, baseline: object) -> float | None:
     if not isinstance(value, (float, int)) or not isinstance(baseline, (float, int)):
         return None
     return float(value) - float(baseline)
+
+
+def _iter_sorted_slice_rows(slice_summaries: object) -> list[tuple[str, Mapping[str, object]]]:
+    if not isinstance(slice_summaries, Mapping):
+        return []
+    sortable_rows: list[tuple[str, Mapping[str, object]]] = []
+    for slice_key, summary in slice_summaries.items():
+        if not isinstance(summary, Mapping):
+            continue
+        sortable_rows.append((str(slice_key), summary))
+    return sorted(
+        sortable_rows,
+        key=lambda item: (
+            -int(item[1].get("trigger_rows_total") or 0),
+            item[0],
+        ),
+    )
+
+
+def _render_sample_metadata(sample: Mapping[str, object]) -> str:
+    suffix_parts: list[str] = []
+    case_ids = sample.get("case_ids")
+    if isinstance(case_ids, Sequence) and not isinstance(case_ids, (str, bytes)) and case_ids:
+        suffix_parts.append(f"cases={list(case_ids)}")
+    tiers = sample.get("tiers")
+    if isinstance(tiers, Sequence) and not isinstance(tiers, (str, bytes)) and tiers:
+        suffix_parts.append(f"tiers={list(tiers)}")
+    slice_tags = sample.get("slice_tags")
+    if isinstance(slice_tags, Sequence) and not isinstance(slice_tags, (str, bytes)) and slice_tags:
+        suffix_parts.append(f"tags={list(slice_tags)}")
+    if not suffix_parts:
+        return ""
+    return " " + " ".join(suffix_parts)
 
 
 def build_veto_proxy_compare_report(
@@ -165,7 +277,9 @@ def build_veto_proxy_compare_report(
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     dataset_payload = load_benchmark_dataset_payload(benchmark_dataset)
-    benchmark_targets = build_benchmark_shadow_targets(_collect_cases(dataset_payload))
+    cases = _collect_cases(dataset_payload)
+    benchmark_targets = build_benchmark_shadow_targets(cases)
+    trigger_row_metadata = _build_trigger_row_metadata(cases)
     benchmark_report = json.loads(benchmark_json.read_text(encoding="utf-8"))
     helper_paths = build_helper_paths(Path(data_root))
     forward_pack, reverse_pack = resolve_pair_translation_packs(
@@ -206,6 +320,7 @@ def build_veto_proxy_compare_report(
         veto_report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
             inventory=inventory,
             benchmark_targets=benchmark_targets,
+            row_metadata_by_key=trigger_row_metadata,
             policies=(policy,),
             support_score_min=float(source.get("support_score_min") or 0.0),
             support_score_max_promoted=int(source.get("support_score_max_promoted") or 1),
@@ -247,6 +362,11 @@ def build_veto_proxy_compare_report(
                 "harmful_allow_count": summary.get("harmful_allow_count"),
                 "true_allow_count": summary.get("true_allow_count"),
                 "false_abstain_count": summary.get("false_abstain_count"),
+                "slice_summaries": (
+                    policy_payload.get("slice_summaries", {})
+                    if isinstance(policy_payload, Mapping)
+                    else {}
+                ),
                 "sample_harmful_allow_rows": policy_payload.get("sample_harmful_allow_rows", []),
                 "sample_false_abstain_rows": policy_payload.get("sample_false_abstain_rows", []),
             }
@@ -351,6 +471,31 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                     f"- Delta vs curated overblocking: `{_render_rate(row.get('delta_vs_curated_overblocking_rate'))}`",
                 ]
             )
+        slice_rows = _iter_sorted_slice_rows(row.get("slice_summaries"))
+        if slice_rows:
+            lines.extend(
+                [
+                    "- Slice summaries:",
+                    "",
+                    "| Slice | Rows | Accuracy | Abstain Recall | Harmful Allow | Overblocking |",
+                    "| --- | ---: | ---: | ---: | ---: | ---: |",
+                ]
+            )
+            for slice_key, summary in slice_rows[:16]:
+                lines.append(
+                    "| "
+                    + " | ".join(
+                        [
+                            slice_key,
+                            str(summary.get("trigger_rows_total", "")),
+                            _render_rate(summary.get("overall_accuracy")),
+                            _render_rate(summary.get("abstain_recall")),
+                            _render_rate(summary.get("harmful_allow_rate")),
+                            _render_rate(summary.get("overblocking_rate")),
+                        ]
+                    )
+                    + " |"
+                )
         harmful_rows = row.get("sample_harmful_allow_rows")
         if (
             isinstance(harmful_rows, Sequence)
@@ -362,7 +507,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 if not isinstance(sample, Mapping):
                     continue
                 lines.append(
-                    f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` gold={sample.get('gold_shadow_targets', [])} promoted={sample.get('promoted_targets', [])}"
+                    f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` gold={sample.get('gold_shadow_targets', [])} promoted={sample.get('promoted_targets', [])}{_render_sample_metadata(sample)}"
                 )
         false_abstain_rows = row.get("sample_false_abstain_rows")
         if (
@@ -375,7 +520,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 if not isinstance(sample, Mapping):
                     continue
                 lines.append(
-                    f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` promoted={sample.get('promoted_targets', [])}"
+                    f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` promoted={sample.get('promoted_targets', [])}{_render_sample_metadata(sample)}"
                 )
     return "\n".join(lines) + "\n"
 
