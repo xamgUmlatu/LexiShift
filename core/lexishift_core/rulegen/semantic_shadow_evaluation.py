@@ -69,6 +69,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     support_frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
     support_representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+    support_score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -146,6 +147,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                     support_frequency_similarity_weight=support_frequency_similarity_weight,
                     support_frequency_similarity_tau=support_frequency_similarity_tau,
                     support_representative_pruning_mode=support_representative_pruning_mode,
+                    support_score_weights=support_score_weights,
                 )
                 _accumulate_policy_row(
                     report=policy_reports[policy],
@@ -183,6 +185,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
     support_frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
     support_representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+    support_score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -260,6 +263,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     support_frequency_similarity_weight=support_frequency_similarity_weight,
                     support_frequency_similarity_tau=support_frequency_similarity_tau,
                     support_representative_pruning_mode=support_representative_pruning_mode,
+                    support_score_weights=support_score_weights,
                 )
                 _accumulate_veto_policy_row(
                     report=policy_reports[policy],
@@ -383,6 +387,7 @@ def _resolve_promoted_targets_for_policy(
     support_frequency_similarity_weight: float,
     support_frequency_similarity_tau: float,
     support_representative_pruning_mode: str,
+    support_score_weights: Mapping[str, object] | None,
 ) -> list[str]:
     if policy == "none":
         return []
@@ -401,6 +406,7 @@ def _resolve_promoted_targets_for_policy(
             frequency_similarity_weight=support_frequency_similarity_weight,
             frequency_similarity_tau=support_frequency_similarity_tau,
             representative_pruning_mode=support_representative_pruning_mode,
+            support_score_weights=support_score_weights,
         )
         return [
             str(candidate.get("target") or "").strip()

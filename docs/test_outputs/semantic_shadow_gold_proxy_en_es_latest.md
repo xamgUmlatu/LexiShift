@@ -1,30 +1,34 @@
 # en-es Shadow Gold-Proxy Evaluation
 
 - Status: `ok`
-- Generated: `2026-04-10T18:23:28Z`
+- Generated: `2026-04-10T22:26:14Z`
 - Inventory status: `ok`
 - Proxy meaning: reviewed trigger overlaps in the rulegen benchmark act as the current lower-bound gold for which targets should compete for the same English trigger.
 - Blind spot: this proxy will under-credit real semantic blockers when the competing benchmark target does not explicitly list the same English trigger, so rows like `marco / frame -> cuadro` can appear as overblocking here even though they are useful runtime shadows.
-- Benchmark targets: `63`
-- Reviewed triggers: `148`
+- Benchmark targets: `72`
+- Reviewed triggers: `175`
 
 ## Candidate Pool
-- Gold trigger rows: `10`
-- Gold rows with active support: `9` (`90.0%`)
-- Gold rows with mined overlap: `9` (`90.0%`)
+- Gold trigger rows: `33`
+- Gold rows with active support: `14` (`42.4%`)
+- Gold rows with mined overlap: `14` (`42.4%`)
 - Gold rows with exact mined set: `0` (`0.0%`)
 
 ## same_pos_lenient_v1
-- Candidate precision: `2.8%`
-- Candidate recall: `90.0%`
-- Candidate F1: `5.5%`
-- Gold trigger hit rate: `90.0%`
-- Top-1 gold trigger hit rate: `90.0%`
+- Candidate precision: `4.1%`
+- Candidate recall: `26.0%`
+- Candidate F1: `7.1%`
+- Gold trigger hit rate: `36.4%`
+- Top-1 gold trigger hit rate: `27.3%`
 - Gold trigger exact-match rate: `0.0%`
-- Underblocking rows: `1`
-- Overblocking rows: `116`
+- Underblocking rows: `21`
+- Overblocking rows: `111`
 - Sample underblocked rows:
-  - `trabajo` / `job` gold=['cargo'] promoted=['yob', 'tarea', 'talacha']
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=['canal', 'trocha', 'trillo']
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
+  - `empleo` / `employment` gold=['ocupación'] promoted=[]
+  - `empleo` / `job` gold=['cargo', 'ocupación', 'trabajo'] promoted=[]
+  - `empleo` / `work` gold=['trabajo'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['salir', 'ultimar', 'terminarse']
   - `acabar` / `end` promoted=['salir', 'parte', 'ultimar']
@@ -34,75 +38,91 @@
 
 ## support_score_v1
 - Candidate precision: `14.1%`
-- Candidate recall: `90.0%`
-- Candidate F1: `24.3%`
-- Gold trigger hit rate: `90.0%`
-- Top-1 gold trigger hit rate: `90.0%`
-- Gold trigger exact-match rate: `50.0%`
-- Underblocking rows: `1`
-- Overblocking rows: `36`
+- Candidate recall: `18.0%`
+- Candidate F1: `15.8%`
+- Gold trigger hit rate: `27.3%`
+- Top-1 gold trigger hit rate: `27.3%`
+- Gold trigger exact-match rate: `12.1%`
+- Underblocking rows: `24`
+- Overblocking rows: `33`
 - Sample underblocked rows:
-  - `trabajo` / `job` gold=['cargo'] promoted=[]
+  - `camino` / `road` gold=['carretera', 'ruta'] promoted=['canal']
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=['canal']
+  - `campo` / `field` gold=['terreno'] promoted=[]
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
+  - `empleo` / `employment` gold=['ocupación'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['salir']
   - `acabar` / `end` promoted=['salir']
-  - `camino` / `road` promoted=['canal']
   - `camino` / `way` promoted=['canal']
-  - `camino` / `path` promoted=['canal']
+  - `canal` / `canal` promoted=['camino']
+  - `canal` / `channel` promoted=['camino']
 
 ## benchmark_backed_v1
 - Candidate precision: `10.2%`
-- Candidate recall: `90.0%`
-- Candidate F1: `18.4%`
-- Gold trigger hit rate: `90.0%`
-- Top-1 gold trigger hit rate: `90.0%`
-- Gold trigger exact-match rate: `40.0%`
-- Underblocking rows: `1`
-- Overblocking rows: `55`
+- Candidate recall: `18.0%`
+- Candidate F1: `13.0%`
+- Gold trigger hit rate: `27.3%`
+- Top-1 gold trigger hit rate: `27.3%`
+- Gold trigger exact-match rate: `12.1%`
+- Underblocking rows: `24`
+- Overblocking rows: `52`
 - Sample underblocked rows:
-  - `trabajo` / `job` gold=['cargo'] promoted=[]
+  - `camino` / `road` gold=['carretera', 'ruta'] promoted=['canal']
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=['canal']
+  - `campo` / `field` gold=['terreno'] promoted=[]
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
+  - `empleo` / `employment` gold=['ocupación'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['salir']
   - `acabar` / `end` promoted=['salir', 'parte']
-  - `camino` / `road` promoted=['canal']
   - `camino` / `way` promoted=['canal']
-  - `camino` / `path` promoted=['canal']
+  - `canal` / `canal` promoted=['camino']
+  - `canal` / `channel` promoted=['camino']
 
 ## cross_checked_v1
 - Candidate precision: `14.1%`
-- Candidate recall: `90.0%`
-- Candidate F1: `24.3%`
-- Gold trigger hit rate: `90.0%`
-- Top-1 gold trigger hit rate: `90.0%`
-- Gold trigger exact-match rate: `50.0%`
-- Underblocking rows: `1`
-- Overblocking rows: `36`
+- Candidate recall: `18.0%`
+- Candidate F1: `15.8%`
+- Gold trigger hit rate: `27.3%`
+- Top-1 gold trigger hit rate: `27.3%`
+- Gold trigger exact-match rate: `12.1%`
+- Underblocking rows: `24`
+- Overblocking rows: `33`
 - Sample underblocked rows:
-  - `trabajo` / `job` gold=['cargo'] promoted=[]
+  - `camino` / `road` gold=['carretera', 'ruta'] promoted=['canal']
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=['canal']
+  - `campo` / `field` gold=['terreno'] promoted=[]
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
+  - `empleo` / `employment` gold=['ocupación'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['salir']
   - `acabar` / `end` promoted=['salir']
-  - `camino` / `road` promoted=['canal']
   - `camino` / `way` promoted=['canal']
-  - `camino` / `path` promoted=['canal']
+  - `canal` / `canal` promoted=['camino']
+  - `canal` / `channel` promoted=['camino']
 
 ## cross_checked_backoff_missing_active_v1
 - Candidate precision: `14.1%`
-- Candidate recall: `90.0%`
-- Candidate F1: `24.3%`
-- Gold trigger hit rate: `90.0%`
-- Top-1 gold trigger hit rate: `90.0%`
-- Gold trigger exact-match rate: `50.0%`
-- Underblocking rows: `1`
-- Overblocking rows: `36`
+- Candidate recall: `18.0%`
+- Candidate F1: `15.8%`
+- Gold trigger hit rate: `27.3%`
+- Top-1 gold trigger hit rate: `27.3%`
+- Gold trigger exact-match rate: `12.1%`
+- Underblocking rows: `24`
+- Overblocking rows: `33`
 - Sample underblocked rows:
-  - `trabajo` / `job` gold=['cargo'] promoted=[]
+  - `camino` / `road` gold=['carretera', 'ruta'] promoted=['canal']
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=['canal']
+  - `campo` / `field` gold=['terreno'] promoted=[]
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
+  - `empleo` / `employment` gold=['ocupación'] promoted=[]
 - Sample overblocked rows:
   - `acabar` / `finish` promoted=['salir']
   - `acabar` / `end` promoted=['salir']
-  - `camino` / `road` promoted=['canal']
   - `camino` / `way` promoted=['canal']
-  - `camino` / `path` promoted=['canal']
+  - `canal` / `canal` promoted=['camino']
+  - `canal` / `channel` promoted=['camino']
 
 ## none
 - Candidate precision: `n/a`
@@ -111,14 +131,14 @@
 - Gold trigger hit rate: `0.0%`
 - Top-1 gold trigger hit rate: `0.0%`
 - Gold trigger exact-match rate: `0.0%`
-- Underblocking rows: `10`
+- Underblocking rows: `33`
 - Overblocking rows: `0`
 - Sample underblocked rows:
-  - `cargo` / `job` gold=['trabajo'] promoted=[]
-  - `coger` / `take` gold=['llevar'] promoted=[]
-  - `cuadro` / `table` gold=['tabla'] promoted=[]
-  - `llevar` / `take` gold=['coger'] promoted=[]
-  - `malla` / `net` gold=['red'] promoted=[]
+  - `camino` / `road` gold=['carretera', 'ruta'] promoted=[]
+  - `camino` / `path` gold=['ruta', 'sendero'] promoted=[]
+  - `campo` / `field` gold=['terreno'] promoted=[]
+  - `cargo` / `job` gold=['empleo', 'ocupación', 'trabajo'] promoted=[]
+  - `carretera` / `road` gold=['camino', 'ruta'] promoted=[]
 
 ## gold_overlap_oracle
 - Candidate precision: `100.0%`

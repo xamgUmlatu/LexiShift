@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Sequence
+from typing import Mapping, Sequence
 
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.pairs.en_es_support import (
@@ -20,6 +20,31 @@ TRIGGER_SUPPORT_SCORE_WEIGHTS = {
 }
 
 
+def resolve_trigger_support_score_weights(
+    overrides: Mapping[str, object] | None = None,
+) -> dict[str, float]:
+    resolved = {key: float(value) for key, value in TRIGGER_SUPPORT_SCORE_WEIGHTS.items()}
+    if overrides is None:
+        return resolved
+    unknown_keys = sorted(
+        str(key or "").strip()
+        for key in overrides.keys()
+        if str(key or "").strip() and str(key or "").strip() not in resolved
+    )
+    if unknown_keys:
+        raise ValueError(
+            "Unsupported trigger support score weight override(s): "
+            f"{unknown_keys!r}; expected keys drawn from "
+            f"{sorted(resolved.keys())!r}"
+        )
+    for key, value in overrides.items():
+        normalized_key = str(key or "").strip()
+        if not normalized_key:
+            continue
+        resolved[normalized_key] = float(value)
+    return resolved
+
+
 def _normalize_shadow_text(value: object) -> str:
     return " ".join(str(value or "").strip().lower().split())
 
@@ -32,7 +57,9 @@ def build_trigger_support_details_from_records(
     forward_records: Sequence[TranslationGlossRecord],
     reverse_records: Sequence[TranslationGlossRecord],
     benchmark_target_keys: Sequence[str],
+    score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
+    resolved_weights = resolve_trigger_support_score_weights(score_weights)
     normalized_target = str(target or "").strip()
     normalized_trigger = _normalize_shadow_text(trigger)
     label_set = {str(label or "").strip() for label in source_labels if str(label or "").strip()}
@@ -60,38 +87,28 @@ def build_trigger_support_details_from_records(
     )
     score_breakdown = {
         "rulegen_top3_source": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["rulegen_top3_source"]
-            if "rulegen_top3_sources" in label_set
-            else 0.0
+            resolved_weights["rulegen_top3_source"] if "rulegen_top3_sources" in label_set else 0.0
         ),
         "rulegen_all_source": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["rulegen_all_source"]
+            resolved_weights["rulegen_all_source"]
             if ("rulegen_all_sources" in label_set and "rulegen_top3_sources" not in label_set)
             else 0.0
         ),
         "forward_gloss_fragment": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["forward_gloss_fragment"]
+            resolved_weights["forward_gloss_fragment"]
             if "forward_gloss_fragments" in label_set
             else 0.0
         ),
         "multi_source_support": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["multi_source_support"]
-            if source_family_count >= 2
-            else 0.0
+            resolved_weights["multi_source_support"] if source_family_count >= 2 else 0.0
         ),
         "active_side_support": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["active_side_support"]
-            if active_candidate_count > 0
-            else 0.0
+            resolved_weights["active_side_support"] if active_candidate_count > 0 else 0.0
         ),
         "reverse_shadow_support": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["reverse_shadow_support"]
-            if reverse_shadow_targets
-            else 0.0
+            resolved_weights["reverse_shadow_support"] if reverse_shadow_targets else 0.0
         ),
-        "multi_word_penalty": (
-            TRIGGER_SUPPORT_SCORE_WEIGHTS["multi_word_penalty"] if word_count > 1 else 0.0
-        ),
+        "multi_word_penalty": (resolved_weights["multi_word_penalty"] if word_count > 1 else 0.0),
     }
     support_features = [
         feature

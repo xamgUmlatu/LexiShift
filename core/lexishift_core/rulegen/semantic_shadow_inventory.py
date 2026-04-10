@@ -31,6 +31,9 @@ from lexishift_core.rulegen.semantic_shadow_support import (
     DEFAULT_FREQUENCY_SIMILARITY_TAU,
     DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     build_shadow_candidate_support_details,
+    merge_shadow_candidate_evidence,
+    normalize_shadow_string_list,
+    parse_shadow_optional_int,
 )
 from lexishift_core.rulegen.semantic_shadow_trigger_support import (
     DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
@@ -283,6 +286,7 @@ def build_shadow_trigger_support_details(
     forward_provider: str,
     reverse_provider: str,
     benchmark_target_map: Mapping[str, BenchmarkShadowTarget],
+    trigger_support_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     normalized_target = str(target or "").strip()
     normalized_trigger = normalize_shadow_text(trigger)
@@ -294,6 +298,7 @@ def build_shadow_trigger_support_details(
         forward_records=forward_records_by_target.get(normalized_target, ()),
         reverse_records=reverse_records_by_source.get(normalized_trigger, ()),
         benchmark_target_keys=tuple(benchmark_target_map.keys()),
+        score_weights=trigger_support_weights,
     )
 
 
@@ -308,6 +313,7 @@ def filter_shadow_targets_by_trigger_support(
     benchmark_target_map: Mapping[str, BenchmarkShadowTarget],
     min_score: float = DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
     tier_label: str = "trigger_support_filtered",
+    trigger_support_weights: Mapping[str, object] | None = None,
 ) -> tuple[list[BenchmarkShadowTarget], list[dict[str, object]]]:
     source_index = build_shadow_trigger_source_index(
         source_targets_by_label=source_targets_by_label
@@ -327,6 +333,7 @@ def filter_shadow_targets_by_trigger_support(
                 forward_provider=forward_provider,
                 reverse_provider=reverse_provider,
                 benchmark_target_map=benchmark_target_map,
+                trigger_support_weights=trigger_support_weights,
             )
             support_rows.append(
                 {
@@ -360,6 +367,7 @@ def build_en_es_shadow_inventory(
     reverse_provider: str,
     promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
     frequency_lookup: ShadowFrequencyLookup | None = None,
+    support_score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
     forward_shadow_index = build_forward_shadow_index(
@@ -433,47 +441,59 @@ def build_en_es_shadow_inventory(
                 for candidate in shadow_candidates
                 if str(candidate.get("target") or "").strip()
             }
+            shadow_candidate_by_target = {
+                str(candidate.get("target") or "").strip(): candidate
+                for candidate in shadow_candidates
+                if str(candidate.get("target") or "").strip()
+            }
             for forward_candidate in forward_shadow_index.get(trigger, ()):
                 if not isinstance(forward_candidate, Mapping):
                     continue
                 candidate_target = str(forward_candidate.get("target") or "").strip()
-                if (
-                    not candidate_target
-                    or candidate_target == benchmark_target.target
-                    or candidate_target in existing_shadow_targets
-                ):
+                if not candidate_target or candidate_target == benchmark_target.target:
                     continue
                 forward_candidate_copy = dict(forward_candidate)
                 enrich_candidate_frequency_details(
                     candidate=forward_candidate_copy,
                     frequency_lookup=frequency_lookup,
                 )
+                existing_candidate = shadow_candidate_by_target.get(candidate_target)
+                if existing_candidate is not None:
+                    merge_shadow_candidate_evidence(existing_candidate, forward_candidate_copy)
+                    continue
                 shadow_candidates.append(forward_candidate_copy)
                 existing_shadow_targets.add(candidate_target)
+                shadow_candidate_by_target[candidate_target] = forward_candidate_copy
             for bridge_candidate in build_semantic_bridge_candidates(
                 active_target=benchmark_target.target,
                 trigger=trigger,
                 active_candidates=active_candidates,
-                existing_shadow_targets=existing_shadow_targets,
+                existing_shadow_targets=set(),
                 benchmark_target_map=benchmark_target_map,
                 target_bridge_profiles=target_bridge_profiles,
                 bridge_marker_frequency=bridge_marker_frequency,
             ):
                 candidate_target = str(bridge_candidate.get("target") or "").strip()
-                if not candidate_target or candidate_target in existing_shadow_targets:
+                if not candidate_target:
                     continue
                 bridge_candidate_copy = dict(bridge_candidate)
                 enrich_candidate_frequency_details(
                     candidate=bridge_candidate_copy,
                     frequency_lookup=frequency_lookup,
                 )
+                existing_candidate = shadow_candidate_by_target.get(candidate_target)
+                if existing_candidate is not None:
+                    merge_shadow_candidate_evidence(existing_candidate, bridge_candidate_copy)
+                    continue
                 shadow_candidates.append(bridge_candidate_copy)
                 existing_shadow_targets.add(candidate_target)
+                shadow_candidate_by_target[candidate_target] = bridge_candidate_copy
             promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
                 active_profile_fallback=active_profile_fallback,
                 policy=promotion_policy,
+                support_score_weights=support_score_weights,
             )
             trigger_entries.append(
                 {
@@ -568,6 +588,7 @@ def promote_shadow_candidates_for_policy(
     active_candidates: Sequence[Mapping[str, object]],
     active_profile_fallback: Mapping[str, object] | None = None,
     policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
+    support_score_weights: Mapping[str, object] | None = None,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or DEFAULT_SHADOW_PROMOTION_POLICY
     if normalized_policy not in SHADOW_PROMOTION_POLICIES:
@@ -583,6 +604,7 @@ def promote_shadow_candidates_for_policy(
             min_score=DEFAULT_SUPPORT_SCORE_MIN,
             max_promoted_shadows=DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
             policy=normalized_policy,
+            support_score_weights=support_score_weights,
         )
     active_pos_values = {
         str(candidate.get("canonical_pos") or "").strip().lower()
@@ -629,6 +651,7 @@ def promote_shadow_candidates_for_policy(
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            score_weights=support_score_weights,
         )
         candidate_copy.update(support_details)
         candidate_copy["promotion_reasons"] = promotion_reasons
@@ -650,6 +673,7 @@ def promote_shadow_candidates_with_support_score(
     frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
     representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+    support_score_weights: Mapping[str, object] | None = None,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or SUPPORT_SCORE_POLICY
     normalized_max_promoted = max(1, int(max_promoted_shadows))
@@ -679,6 +703,7 @@ def promote_shadow_candidates_with_support_score(
             frequency_representative_bonus=float(frequency_representative_bonus),
             frequency_similarity_weight=float(frequency_similarity_weight),
             frequency_similarity_tau=float(frequency_similarity_tau),
+            score_weights=support_score_weights,
         )
         candidate_copy.update(support_details)
         candidate_copy["promotion_policy"] = normalized_policy
@@ -745,9 +770,9 @@ def _cluster_records(
         target = str(target_override or record.translation or "").strip()
         if not target:
             continue
-        entry_ord = _as_int(metadata.get("entry_ord"))
-        sense_ord = _as_int(metadata.get("sense_ord"))
-        gloss_ord = _as_int(metadata.get("gloss_ord"))
+        entry_ord = parse_shadow_optional_int(metadata.get("entry_ord"))
+        sense_ord = parse_shadow_optional_int(metadata.get("sense_ord"))
+        gloss_ord = parse_shadow_optional_int(metadata.get("gloss_ord"))
         key = (target, entry_ord, sense_ord, gloss_ord)
         if entry_ord is None and sense_ord is None and gloss_ord is None:
             key = (target, None, None, index)
@@ -836,51 +861,20 @@ def _build_canonical_pos(record: TranslationGlossRecord) -> str:
 
 def _build_qualifiers(metadata: Mapping[str, object]) -> dict[str, object] | None:
     qualifiers: dict[str, list[str]] = {}
-    tags = _normalize_string_list(
+    tags = normalize_shadow_string_list(
         metadata.get("sense_tags"),
         metadata.get("translation_tags"),
         metadata.get("entry_tags"),
     )
     if tags:
         qualifiers["tags"] = tags
-    topics = _normalize_string_list(metadata.get("sense_topics"))
+    topics = normalize_shadow_string_list(metadata.get("sense_topics"))
     if topics:
         qualifiers["topics"] = topics
-    categories = _normalize_string_list(
+    categories = normalize_shadow_string_list(
         metadata.get("sense_categories"),
         metadata.get("entry_categories"),
     )
     if categories:
         qualifiers["categories"] = categories
     return qualifiers or None
-
-
-def _normalize_string_list(*values: object) -> list[str]:
-    normalized: list[str] = []
-    for value in values:
-        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-            for item in value:
-                text = str(item).strip()
-                if text and text not in normalized:
-                    normalized.append(text)
-        else:
-            text = str(value or "").strip()
-            if text and text not in normalized:
-                normalized.append(text)
-    return normalized
-
-
-def _as_int(value: object) -> int | None:
-    if isinstance(value, bool):
-        return None
-    if isinstance(value, int):
-        return int(value)
-    if isinstance(value, str):
-        text = value.strip()
-        if not text:
-            return None
-        try:
-            return int(text)
-        except ValueError:
-            return None
-    return None

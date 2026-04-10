@@ -778,7 +778,7 @@ class TestSemanticShadowInventory(unittest.TestCase):
             if candidate["target"] == "cargo"
         )
         self.assertIn("forward_index_active_profile_fallback", cargo_shadow["candidate_sources"])
-        self.assertIsNone(cargo_shadow.get("reviewed_trigger_support"))
+        self.assertTrue(cargo_shadow.get("reviewed_trigger_support"))
         self.assertEqual(cargo_shadow["forward_trigger_support"], True)
         self.assertEqual(cargo_shadow["canonical_pos"], "noun")
         self.assertEqual(cargo_shadow["locator"]["locator_kind"], "forward_target_pos_profile")
@@ -786,6 +786,107 @@ class TestSemanticShadowInventory(unittest.TestCase):
             [candidate["target"] for candidate in trigger_row["promoted_shadow_candidates"]],
             ["cargo"],
         )
+
+    def test_build_en_es_shadow_inventory_merges_duplicate_forward_index_evidence(self) -> None:
+        benchmark_targets = build_benchmark_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:trabajo:1",
+                    "target": "trabajo",
+                    "tier": "hard",
+                    "expected_any": ["work"],
+                },
+                {
+                    "case_id": "en-es:empleo:1",
+                    "target": "empleo",
+                    "tier": "hard",
+                    "expected_any": ["work", "employment"],
+                },
+            )
+        )
+
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="work",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="labour",
+                    ),
+                ),
+                "empleo": (
+                    _record(
+                        translation="work",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment work",
+                    ),
+                    _record(
+                        translation="employment",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=1,
+                        gloss_ord=0,
+                        sense_gloss="employment",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "work": (
+                    _record(
+                        translation="trabajo",
+                        pos_raw="noun",
+                        entry_ord=20,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="labour",
+                    ),
+                    _record(
+                        translation="empleo",
+                        pos_raw="noun",
+                        entry_ord=21,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment work",
+                    ),
+                ),
+                "employment": (
+                    _record(
+                        translation="empleo",
+                        pos_raw="noun",
+                        entry_ord=22,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+        )
+
+        trabajo_row = next(row for row in inventory["targets"] if row["target"] == "trabajo")
+        trigger_row = next(
+            row for row in trabajo_row["trigger_entries"] if row["trigger"] == "work"
+        )
+        empleo_shadow = next(
+            candidate
+            for candidate in trigger_row["shadow_candidates"]
+            if candidate["target"] == "empleo"
+        )
+
+        self.assertIn("reverse_lookup", empleo_shadow["candidate_sources"])
+        self.assertIn("forward_index", empleo_shadow["candidate_sources"])
+        self.assertIn("semantic_bridge", empleo_shadow["candidate_sources"])
+        self.assertTrue(empleo_shadow["benchmark_target_present"])
+        self.assertTrue(empleo_shadow["reviewed_trigger_support"])
+        self.assertTrue(empleo_shadow["forward_trigger_support"])
 
     def test_support_score_uses_active_profile_fallback_when_active_candidates_are_missing(
         self,
@@ -1216,7 +1317,7 @@ class TestSemanticShadowInventory(unittest.TestCase):
             if candidate["target"] == "cargo"
         )
         self.assertEqual(bridge_candidate["forward_trigger_support"], True)
-        self.assertIsNone(bridge_candidate.get("reviewed_trigger_support"))
+        self.assertTrue(bridge_candidate.get("reviewed_trigger_support"))
 
     def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
         active_candidates = [{"canonical_pos": "noun"}]
@@ -1384,6 +1485,24 @@ class TestSemanticShadowInventory(unittest.TestCase):
         )
         self.assertEqual(support["support_penalties"], [])
         self.assertEqual(support["support_score"], 4.0)
+
+    def test_build_shadow_candidate_support_details_adds_multi_source_candidate_feature(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "cargo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "candidate_sources": ["reverse_lookup", "forward_index"],
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+            score_weights={"multi_source_candidate_support": 1.5},
+        )
+
+        self.assertIn("multi_source_candidate_support", support["support_features"])
+        self.assertEqual(support["support_penalties"], [])
+        self.assertEqual(support["support_score"], 4.5)
 
     def test_build_shadow_candidate_support_details_adds_frequency_similarity_bonus(self) -> None:
         support = build_shadow_candidate_support_details(

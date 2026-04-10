@@ -17,9 +17,125 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "same_pos_as_active": 1.0,
     "active_side_support": 1.0,
     "active_profile_support": 1.0,
+    "multi_source_candidate_support": 0.0,
     "semantic_bridge_support": 1.0,
     "cross_pos_mismatch_penalty": -1.0,
 }
+_FORWARD_SOURCE_FAMILIES = frozenset({"forward_index", "forward_index_active_profile_fallback"})
+
+
+def resolve_shadow_support_score_weights(
+    overrides: Mapping[str, object] | None = None,
+) -> dict[str, float]:
+    resolved = {key: float(value) for key, value in SHADOW_SUPPORT_SCORE_WEIGHTS.items()}
+    if overrides is None:
+        return resolved
+    unknown_keys = sorted(
+        str(key or "").strip()
+        for key in overrides.keys()
+        if str(key or "").strip() and str(key or "").strip() not in resolved
+    )
+    if unknown_keys:
+        raise ValueError(
+            "Unsupported shadow support score weight override(s): "
+            f"{unknown_keys!r}; expected keys drawn from "
+            f"{sorted(resolved.keys())!r}"
+        )
+    for key, value in overrides.items():
+        normalized_key = str(key or "").strip()
+        if not normalized_key:
+            continue
+        resolved[normalized_key] = float(value)
+    return resolved
+
+
+def merge_shadow_candidate_evidence(
+    existing_candidate: dict[str, object],
+    incoming_candidate: Mapping[str, object],
+) -> None:
+    for field in (
+        "benchmark_target_present",
+        "reviewed_trigger_support",
+        "forward_trigger_support",
+    ):
+        if bool(incoming_candidate.get(field)):
+            existing_candidate[field] = True
+
+    existing_sources = normalize_shadow_string_list(existing_candidate.get("candidate_sources"))
+    for source in normalize_shadow_string_list(incoming_candidate.get("candidate_sources")):
+        if source not in existing_sources:
+            existing_sources.append(source)
+    if existing_sources:
+        existing_candidate["candidate_sources"] = existing_sources
+
+    existing_case_ids = normalize_shadow_string_list(existing_candidate.get("benchmark_case_ids"))
+    for case_id in normalize_shadow_string_list(incoming_candidate.get("benchmark_case_ids")):
+        if case_id not in existing_case_ids:
+            existing_case_ids.append(case_id)
+    if existing_case_ids:
+        existing_candidate["benchmark_case_ids"] = existing_case_ids
+
+    existing_markers = normalize_shadow_string_list(
+        existing_candidate.get("semantic_bridge_markers")
+    )
+    for marker in normalize_shadow_string_list(incoming_candidate.get("semantic_bridge_markers")):
+        if marker not in existing_markers:
+            existing_markers.append(marker)
+    if existing_markers:
+        existing_candidate["semantic_bridge_markers"] = existing_markers
+
+    existing_bridge_score = float(existing_candidate.get("semantic_bridge_score") or 0.0)
+    incoming_bridge_score = float(incoming_candidate.get("semantic_bridge_score") or 0.0)
+    if incoming_bridge_score > existing_bridge_score:
+        existing_candidate["semantic_bridge_score"] = incoming_bridge_score
+
+    existing_embedding_similarity = float(
+        existing_candidate.get("embedding_bridge_similarity") or 0.0
+    )
+    incoming_embedding_similarity = float(
+        incoming_candidate.get("embedding_bridge_similarity") or 0.0
+    )
+    if incoming_embedding_similarity > existing_embedding_similarity:
+        existing_candidate["embedding_bridge_similarity"] = incoming_embedding_similarity
+
+    if (
+        not str(existing_candidate.get("canonical_pos") or "").strip()
+        and str(incoming_candidate.get("canonical_pos") or "").strip()
+    ):
+        existing_candidate["canonical_pos"] = str(
+            incoming_candidate.get("canonical_pos") or ""
+        ).strip()
+
+
+def normalize_shadow_string_list(*values: object) -> list[str]:
+    normalized: list[str] = []
+    for value in values:
+        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+            for item in value:
+                text = str(item).strip()
+                if text and text not in normalized:
+                    normalized.append(text)
+        else:
+            text = str(value or "").strip()
+            if text and text not in normalized:
+                normalized.append(text)
+    return normalized
+
+
+def parse_shadow_optional_int(value: object) -> int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return int(value)
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return None
+        try:
+            return int(text)
+        except ValueError:
+            return None
+    return None
 
 
 def build_shadow_candidate_support_details(
@@ -32,7 +148,9 @@ def build_shadow_candidate_support_details(
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
+    resolved_weights = resolve_shadow_support_score_weights(score_weights)
     active_pos_values = {
         str(active_candidate.get("canonical_pos") or "").strip().lower()
         for active_candidate in active_candidates
@@ -52,6 +170,19 @@ def build_shadow_candidate_support_details(
     benchmark_target_present = bool(candidate.get("benchmark_target_present"))
     same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
     cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
+    candidate_sources = {
+        str(source or "").strip()
+        for source in (candidate.get("candidate_sources") or ())
+        if str(source or "").strip()
+    }
+    candidate_source_families = {
+        "forward_index" if source in _FORWARD_SOURCE_FAMILIES else source
+        for source in candidate_sources
+    }
+    multi_source_candidate_support = {
+        "reverse_lookup",
+        "forward_index",
+    }.issubset(candidate_source_families)
     semantic_bridge_support = bool(
         candidate.get("semantic_bridge_markers")
         or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
@@ -74,35 +205,28 @@ def build_shadow_candidate_support_details(
 
     support_breakdown = {
         "reviewed_trigger_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["reviewed_trigger_support"]
-            if reviewed_trigger_support
-            else 0.0
+            resolved_weights["reviewed_trigger_support"] if reviewed_trigger_support else 0.0
         ),
         "forward_trigger_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["forward_trigger_support"]
-            if forward_trigger_support
-            else 0.0
+            resolved_weights["forward_trigger_support"] if forward_trigger_support else 0.0
         ),
         "benchmark_target_present": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["benchmark_target_present"]
-            if benchmark_target_present
-            else 0.0
+            resolved_weights["benchmark_target_present"] if benchmark_target_present else 0.0
         ),
-        "same_pos_as_active": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["same_pos_as_active"] if same_pos else 0.0
-        ),
+        "same_pos_as_active": (resolved_weights["same_pos_as_active"] if same_pos else 0.0),
         "active_side_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["active_side_support"] if has_active_candidates else 0.0
+            resolved_weights["active_side_support"] if has_active_candidates else 0.0
         ),
         "active_profile_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["active_profile_support"]
-            if has_active_profile_support
+            resolved_weights["active_profile_support"] if has_active_profile_support else 0.0
+        ),
+        "multi_source_candidate_support": (
+            resolved_weights["multi_source_candidate_support"]
+            if multi_source_candidate_support
             else 0.0
         ),
         "semantic_bridge_support": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["semantic_bridge_support"]
-            if semantic_bridge_support
-            else 0.0
+            resolved_weights["semantic_bridge_support"] if semantic_bridge_support else 0.0
         ),
         "frequency_representative_bonus": (
             float(frequency_representative_bonus) if frequency_representative else 0.0
@@ -113,9 +237,7 @@ def build_shadow_candidate_support_details(
             else 0.0
         ),
         "cross_pos_mismatch_penalty": (
-            SHADOW_SUPPORT_SCORE_WEIGHTS["cross_pos_mismatch_penalty"]
-            if cross_pos_mismatch
-            else 0.0
+            resolved_weights["cross_pos_mismatch_penalty"] if cross_pos_mismatch else 0.0
         ),
     }
     positive_features = [
@@ -127,6 +249,7 @@ def build_shadow_candidate_support_details(
             ("same_pos_as_active", same_pos),
             ("active_side_support", has_active_candidates),
             ("active_profile_support", has_active_profile_support),
+            ("multi_source_candidate_support", multi_source_candidate_support),
             ("semantic_bridge_support", semantic_bridge_support),
             ("frequency_representative_bonus", frequency_representative),
             ("frequency_similarity_bonus", frequency_similarity_present),
