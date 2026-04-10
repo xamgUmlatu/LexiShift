@@ -15,6 +15,7 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "benchmark_target_present": 1.0,
     "same_pos_as_active": 1.0,
     "active_side_support": 1.0,
+    "active_profile_support": 1.0,
     "semantic_bridge_support": 1.0,
     "cross_pos_mismatch_penalty": -1.0,
 }
@@ -24,6 +25,8 @@ def build_shadow_candidate_support_details(
     *,
     candidate: Mapping[str, object],
     active_candidates: Sequence[Mapping[str, object]],
+    active_profile_pos: str = "",
+    active_profile_support: bool = False,
     frequency_representative_targets: Sequence[str] = (),
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
@@ -35,6 +38,12 @@ def build_shadow_candidate_support_details(
         if str(active_candidate.get("canonical_pos") or "").strip()
     }
     has_active_candidates = bool(active_candidates)
+    normalized_active_profile_pos = str(active_profile_pos or "").strip().lower()
+    has_active_profile_support = bool(
+        active_profile_support and not has_active_candidates and normalized_active_profile_pos
+    )
+    if not active_pos_values and normalized_active_profile_pos:
+        active_pos_values.add(normalized_active_profile_pos)
     has_active_pos = bool(active_pos_values)
     canonical_pos = str(candidate.get("canonical_pos") or "").strip().lower()
     reviewed_trigger_support = bool(candidate.get("reviewed_trigger_support"))
@@ -78,6 +87,11 @@ def build_shadow_candidate_support_details(
         "active_side_support": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["active_side_support"] if has_active_candidates else 0.0
         ),
+        "active_profile_support": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["active_profile_support"]
+            if has_active_profile_support
+            else 0.0
+        ),
         "semantic_bridge_support": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["semantic_bridge_support"]
             if semantic_bridge_support
@@ -104,6 +118,7 @@ def build_shadow_candidate_support_details(
             ("benchmark_target_present", benchmark_target_present),
             ("same_pos_as_active", same_pos),
             ("active_side_support", has_active_candidates),
+            ("active_profile_support", has_active_profile_support),
             ("semantic_bridge_support", semantic_bridge_support),
             ("frequency_representative_bonus", frequency_representative),
             ("frequency_similarity_bonus", frequency_similarity_present),

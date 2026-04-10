@@ -559,6 +559,105 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(trigger_row["active_candidates"][0]["matched_trigger"], "catch")
         self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
 
+    def test_build_en_es_shadow_inventory_uses_active_profile_fallback_for_unmatched_trigger(
+        self,
+    ) -> None:
+        benchmark_targets = build_benchmark_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:cargo:1",
+                    "target": "cargo",
+                    "tier": "hard",
+                    "expected_any": ["job"],
+                },
+                {
+                    "case_id": "en-es:trabajo:1",
+                    "target": "trabajo",
+                    "tier": "hard",
+                    "expected_any": ["job"],
+                },
+            )
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "cargo": (
+                    _record(
+                        translation="position",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="professional or official position",
+                    ),
+                    _record(
+                        translation="post",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=1,
+                        sense_gloss="official appointment",
+                    ),
+                ),
+                "trabajo": (
+                    _record(
+                        translation="work, job",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        sense_gloss="work, job",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "job": (
+                    _record(
+                        translation="trabajo",
+                        pos_raw="noun",
+                        entry_ord=12,
+                        sense_ord=0,
+                        sense_gloss="work, job",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="support_score_v1",
+        )
+
+        cargo_row = next(row for row in inventory["targets"] if row["target"] == "cargo")
+        trigger_row = cargo_row["trigger_entries"][0]
+        self.assertEqual(trigger_row["trigger"], "job")
+        self.assertEqual(trigger_row["active_candidates"], [])
+        self.assertEqual(trigger_row["active_profile_fallback"]["canonical_pos"], "noun")
+        self.assertEqual(trigger_row["promoted_shadow_candidates"][0]["target"], "trabajo")
+        self.assertIn(
+            "active_profile_support",
+            trigger_row["promoted_shadow_candidates"][0]["support_features"],
+        )
+
+    def test_support_score_uses_active_profile_fallback_when_active_candidates_are_missing(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=(
+                {
+                    "target": "trabajo",
+                    "canonical_pos": "noun",
+                    "reviewed_trigger_support": True,
+                    "benchmark_target_present": True,
+                },
+            ),
+            active_candidates=(),
+            active_profile_fallback={"canonical_pos": "noun"},
+            min_score=5.0,
+            max_promoted_shadows=1,
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["trabajo"])
+        self.assertEqual(promoted[0]["support_score"], 5.0)
+        self.assertEqual(promoted[0]["same_pos_as_active"], True)
+        self.assertIn("active_profile_support", promoted[0]["support_features"])
+        self.assertNotIn("active_side_support", promoted[0]["support_features"])
+
     def test_support_score_representative_pruning_keeps_one_sense_label_pos_representative(
         self,
     ) -> None:

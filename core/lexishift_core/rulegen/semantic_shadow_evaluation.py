@@ -109,6 +109,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                 continue
             trigger_entry = inventory_lookup.get((target, trigger), {})
             active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
+            active_profile_fallback = trigger_entry.get("active_profile_fallback")
             shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
             gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
             mined_shadow_targets = {
@@ -137,6 +138,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                     gold_shadow_targets=gold_shadow_targets,
                     shadow_candidates=shadow_candidates,
                     active_candidates=active_candidates,
+                    active_profile_fallback=active_profile_fallback,
                     support_score_min=support_score_min,
                     support_score_max_promoted=support_score_max_promoted,
                     support_frequency_representative_bonus=support_frequency_representative_bonus,
@@ -220,6 +222,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                 continue
             trigger_entry = inventory_lookup.get((target, trigger), {})
             active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
+            active_profile_fallback = trigger_entry.get("active_profile_fallback")
             shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
             gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
             mined_shadow_targets = {
@@ -248,6 +251,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     gold_shadow_targets=gold_shadow_targets,
                     shadow_candidates=shadow_candidates,
                     active_candidates=active_candidates,
+                    active_profile_fallback=active_profile_fallback,
                     support_score_min=support_score_min,
                     support_score_max_promoted=support_score_max_promoted,
                     support_frequency_representative_bonus=support_frequency_representative_bonus,
@@ -359,6 +363,7 @@ def _resolve_promoted_targets_for_policy(
     gold_shadow_targets: set[str],
     shadow_candidates: Sequence[object],
     active_candidates: Sequence[object],
+    active_profile_fallback: Mapping[str, object] | None,
     support_score_min: float,
     support_score_max_promoted: int,
     support_frequency_representative_bonus: float,
@@ -375,6 +380,7 @@ def _resolve_promoted_targets_for_policy(
         promoted = promote_shadow_candidates_with_support_score(
             shadow_candidates=shadow_candidates,
             active_candidates=active_candidates,
+            active_profile_fallback=active_profile_fallback,
             min_score=support_score_min,
             max_promoted_shadows=support_score_max_promoted,
             policy=policy,

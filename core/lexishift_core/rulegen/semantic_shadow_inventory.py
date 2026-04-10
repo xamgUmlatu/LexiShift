@@ -22,6 +22,7 @@ from lexishift_core.rulegen.semantic_shadow_representative_pruning import (
     apply_representative_pruning,
 )
 from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
+    build_active_profile_fallback,
     build_forward_shadow_index,
     build_inventory_summary,
 )
@@ -380,6 +381,12 @@ def build_en_es_shadow_inventory(
         forward_records = collect_en_es_sanitized_gloss_records(
             forward_records_by_target.get(benchmark_target.target, ())
         )
+        active_profile_fallback = build_active_profile_fallback(
+            target=benchmark_target.target,
+            records=forward_records,
+            provider=forward_provider,
+            canonical_pos_builder=_build_canonical_pos,
+        )
         trigger_entries: list[dict[str, object]] = []
         for trigger in benchmark_target.reviewed_triggers:
             active_candidates = _build_active_candidates_for_trigger(
@@ -463,12 +470,14 @@ def build_en_es_shadow_inventory(
             promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
+                active_profile_fallback=active_profile_fallback,
                 policy=promotion_policy,
             )
             trigger_entries.append(
                 {
                     "trigger": trigger,
                     "active_candidates": active_candidates,
+                    "active_profile_fallback": active_profile_fallback,
                     "reverse_active_candidates": reverse_active_candidates,
                     "shadow_candidates": shadow_candidates,
                     "promoted_shadow_candidates": promoted_shadow_candidates,
@@ -555,6 +564,7 @@ def promote_shadow_candidates_for_policy(
     *,
     shadow_candidates: Sequence[Mapping[str, object]],
     active_candidates: Sequence[Mapping[str, object]],
+    active_profile_fallback: Mapping[str, object] | None = None,
     policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or DEFAULT_SHADOW_PROMOTION_POLICY
@@ -567,6 +577,7 @@ def promote_shadow_candidates_for_policy(
         return promote_shadow_candidates_with_support_score(
             shadow_candidates=shadow_candidates,
             active_candidates=active_candidates,
+            active_profile_fallback=active_profile_fallback,
             min_score=DEFAULT_SUPPORT_SCORE_MIN,
             max_promoted_shadows=DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
             policy=normalized_policy,
@@ -628,6 +639,7 @@ def promote_shadow_candidates_with_support_score(
     *,
     shadow_candidates: Sequence[Mapping[str, object]],
     active_candidates: Sequence[Mapping[str, object]],
+    active_profile_fallback: Mapping[str, object] | None = None,
     min_score: float = DEFAULT_SUPPORT_SCORE_MIN,
     max_promoted_shadows: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     policy: str = SUPPORT_SCORE_POLICY,
@@ -652,12 +664,15 @@ def promote_shadow_candidates_with_support_score(
         shadow_candidates=shadow_candidates,
         top_k=int(frequency_representative_top_k),
     )
+    active_profile_pos = str((active_profile_fallback or {}).get("canonical_pos") or "").strip()
     ranked: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         candidate_copy = dict(candidate)
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            active_profile_pos=active_profile_pos,
+            active_profile_support=bool(active_profile_pos),
             frequency_representative_targets=frequency_representative_targets,
             frequency_representative_bonus=float(frequency_representative_bonus),
             frequency_similarity_weight=float(frequency_similarity_weight),

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T20:13:31Z",
+  "generated_at": "2026-04-10T20:32:10Z",
   "status": "ok",
   "comparison_kind": "lower_bound_veto_proxy",
   "gold_reference": {
@@ -54,46 +54,20 @@
       "inventory_entry_coverage_rate": 1.0,
       "gold_trigger_inventory_coverage_rate": 1.0,
       "gold_trigger_active_support_rate": 0.9,
-      "overall_accuracy": 0.9864864864864865,
-      "abstain_recall": 0.8,
-      "harmful_allow_rate": 0.2,
-      "allow_precision": 0.9857142857142858,
+      "overall_accuracy": 0.9932432432432432,
+      "abstain_recall": 0.9,
+      "harmful_allow_rate": 0.1,
+      "allow_precision": 0.9928057553956835,
       "overblocking_rate": 0.0,
-      "abstain_rate": 0.05405405405405406,
-      "allow_rate": 0.9459459459459459,
+      "abstain_rate": 0.060810810810810814,
+      "allow_rate": 0.9391891891891891,
       "ambiguous_trigger_rows": 10,
       "clear_trigger_rows": 138,
-      "true_abstain_count": 8,
-      "harmful_allow_count": 2,
+      "true_abstain_count": 9,
+      "harmful_allow_count": 1,
       "true_allow_count": 138,
       "false_abstain_count": 0,
       "sample_harmful_allow_rows": [
-        {
-          "target": "cargo",
-          "trigger": "job",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "trabajo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "punto",
-            "talacha",
-            "tarea",
-            "trabajo",
-            "yob"
-          ],
-          "promoted_targets": []
-        },
         {
           "target": "trabajo",
           "trigger": "job",
@@ -120,9 +94,9 @@
         }
       ],
       "sample_false_abstain_rows": [],
-      "delta_vs_curated_overall_accuracy": -0.013513513513513487,
-      "delta_vs_curated_abstain_recall": -0.19999999999999996,
-      "delta_vs_curated_harmful_allow_rate": 0.2,
+      "delta_vs_curated_overall_accuracy": -0.006756756756756799,
+      "delta_vs_curated_abstain_recall": -0.09999999999999998,
+      "delta_vs_curated_harmful_allow_rate": 0.1,
       "delta_vs_curated_overblocking_rate": 0.0
     },
     {

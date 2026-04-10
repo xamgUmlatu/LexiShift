@@ -43,6 +43,27 @@ def build_forward_shadow_index(
     return trigger_index
 
 
+def build_active_profile_fallback(
+    *,
+    target: str,
+    records: Sequence[TranslationGlossRecord],
+    provider: str,
+    canonical_pos_builder: Callable[[TranslationGlossRecord], str],
+) -> dict[str, object] | None:
+    canonical_pos_values = {
+        canonical_pos_builder(record) for record in records if canonical_pos_builder(record)
+    }
+    if len(canonical_pos_values) != 1:
+        return None
+    return {
+        "target": str(target or "").strip(),
+        "canonical_pos": next(iter(canonical_pos_values)),
+        "provider": str(provider or "").strip() or "unknown",
+        "profile_kind": "forward_target_pos_profile",
+        "profile_record_count": len(records),
+    }
+
+
 def build_inventory_summary(targets: Sequence[Mapping[str, object]]) -> dict[str, object]:
     trigger_count = 0
     with_active_candidates = 0
