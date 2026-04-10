@@ -770,7 +770,7 @@ Use this file when:
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
 - Last documented checkpoint: `2026-04-10` added a forward-index supplement that lifts `en-es` shadow candidate-pool recall from `60%` to `90%` on the reviewed-trigger-overlap gold proxy
-- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed `en-es` shadow inventory/policy-comparison/review-queue/gap-queue/review-packet/gold-proxy artifacts and doc/state sync
+- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed `en-es` shadow inventory/policy-comparison/review-queue/gap-queue/review-packet/gold-proxy/coverage-gap artifacts and doc/state sync
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -790,12 +790,16 @@ Use this file when:
     - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py` isolates the small set of rows that the stricter policy still drops
     - `scripts/testing/semantic_shadow_review_packet_en_es.py` combines the policy snapshot, provisional keep rows, and provisional drop rows into one adjudication packet
     - `scripts/testing/semantic_shadow_gold_proxy_en_es.py` grades the current policies against a reviewed-trigger-overlap gold proxy derived directly from `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
+    - `scripts/testing/semantic_shadow_coverage_gap_en_es.py` explains the strict-policy underblocked rows by comparing them against current inventory and rulegen benchmark source lists
     - the latest artifacts confirm that candidate mining works broadly enough to study, and the safer provisional runtime shape is now effectively the strict `cross_checked_v1` family: after active-side bundled-trigger matching was fixed, `cross_checked_backoff_missing_active_v1` no longer widens the promoted set and `coger / catch -> vista` falls out of the review queue
     - the new gold-proxy artifact gives the first explicit lower-bound grading surface for automation quality, without claiming sentence-level semantic-veto readiness
     - the latest miner improvement supplements reverse-headword candidates with benchmark-target forward-gloss matches for the same English trigger, which recovers real misses like `sacar/remove`, `malla/net`, and `cuadro/table`
     - current lower-bound read from that proxy:
       - `cross_checked_v1` / `cross_checked_backoff_missing_active_v1`: `64.3%` candidate precision, `90.0%` candidate recall, `90.0%` gold-trigger hit rate, `3.6%` overblocking rate
       - candidate-pool recall is now `90.0%`, which means the remaining bottleneck is concentrated in harder semantic-bridge cases like `cargo/job`, not simple reverse-pack asymmetry
+    - the newest gap audit confirms that remaining bottleneck explicitly:
+      - only `trabajo / job -> cargo` remains underblocked on the overlap proxy
+      - current classification is `semantic_bridge_needed`, not `rulegen_source_gap`
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -831,12 +835,14 @@ Use this file when:
   - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py`
   - `scripts/testing/semantic_shadow_review_packet_en_es.py`
   - `scripts/testing/semantic_shadow_gold_proxy_en_es.py`
+  - `scripts/testing/semantic_shadow_coverage_gap_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_review_packet_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_gold_proxy_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_coverage_gap_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:

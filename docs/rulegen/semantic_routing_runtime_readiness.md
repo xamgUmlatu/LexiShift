@@ -219,6 +219,11 @@ First implemented research seam:
     - a new forward-index supplement now recovers benchmark-known siblings that are missing from the reverse headword rows alone
     - that lifted mined candidate-pool recall from `60.0%` to `90.0%` against the overlap proxy
     - the remaining clear miss is `trabajo / job -> cargo`, which points to a harder semantic-bridge problem rather than a simple reverse-pack coverage gap
+  - the new gap audit at `docs/test_outputs/semantic_shadow_coverage_gap_en_es_latest.md` makes that remaining miss explicit:
+    - remaining gap count: `1`
+    - current classification: `semantic_bridge_needed`
+    - meaning: the missing shadow is not recoverable from the current reverse pack, the new forward-index supplement, or the current best rulegen source list
+    - next research should therefore stay separate from the strict automatic miner and focus on a distinct semantic-bridge lane
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.
