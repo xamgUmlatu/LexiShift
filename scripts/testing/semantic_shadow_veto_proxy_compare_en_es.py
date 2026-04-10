@@ -61,6 +61,14 @@ DEFAULT_SHADOW_SOURCES = (
         "support_score_max_promoted": 2,
     },
     {
+        "source_id": "borrowed_trigger_auto_shadows",
+        "label": "Source-only borrowed-trigger shadows",
+        "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+        "policy": "support_score_v1",
+        "support_score_min": 5.0,
+        "support_score_max_promoted": 2,
+    },
+    {
         "source_id": "no_shadows",
         "label": "No shadow veto",
         "seed_mode": "rulegen_top3_plus_forward_gloss",
@@ -173,6 +181,7 @@ def build_veto_proxy_compare_report(
         forward_pack=forward_pack,
         reverse_pack=reverse_pack,
         forward_seed_max_words=forward_seed_max_words,
+        include_neighbor_borrow_seed_modes=True,
     )
     seed_modes = seed_compare_report.get("seed_modes")
     if not isinstance(seed_modes, Mapping):

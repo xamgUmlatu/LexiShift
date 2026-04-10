@@ -368,6 +368,7 @@ def build_en_es_shadow_inventory(
         provider=forward_provider,
         collect_records=collect_en_es_sanitized_gloss_records,
         active_candidate_builder=_build_active_candidates_for_trigger,
+        canonical_pos_builder=_build_canonical_pos,
     )
     target_bridge_profiles = build_target_bridge_profiles(
         benchmark_targets=benchmark_targets,

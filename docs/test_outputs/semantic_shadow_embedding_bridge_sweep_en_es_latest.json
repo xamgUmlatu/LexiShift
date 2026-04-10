@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T20:55:30Z",
+  "generated_at": "2026-04-10T21:26:47Z",
   "status": "ok",
   "bridge_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "rows": [
@@ -2839,21 +2839,79 @@
       ]
     },
     {
-      "mode_id": "benchmark_reviewed",
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
       "bridge_mode": "baseline",
       "bridge_min_similarity": null,
       "bridge_top_k": null,
       "bridge_injected_candidate_count": 0,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.16981132075471697,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.3188405797101449,
-      "underblocked_count": 1,
-      "overblocked_count": 44,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.16666666666666666,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.2318840579710145,
+      "underblocked_count": 3,
+      "overblocked_count": 32,
       "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
         {
           "target": "trabajo",
           "trigger": "job",
@@ -2864,6 +2922,8 @@
           "mined_shadow_targets": [
             "brete",
             "camello",
+            "cargo",
+            "casa",
             "chamba",
             "cheje",
             "curro",
@@ -2876,9 +2936,3592 @@
             "tarea",
             "yob"
           ],
-          "promoted_targets": []
+          "promoted_targets": [
+            "casa"
+          ]
         }
       ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.12698412698412698,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2318840579710145,
+      "underblocked_count": 2,
+      "overblocked_count": 32,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.11428571428571428,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2318840579710145,
+      "underblocked_count": 2,
+      "overblocked_count": 32,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.11864406779661017,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 3,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 2,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.09195402298850575,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 2,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.11864406779661017,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 3,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.09195402298850575,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 2,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.0851063829787234,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 2,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 69,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.15555555555555556,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 3,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.12121212121212122,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1095890410958904,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 19,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.15555555555555556,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 3,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.11594202898550725,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.10526315789473684,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 28,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.15555555555555556,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 3,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.12121212121212122,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1095890410958904,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.15555555555555556,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 3,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.12121212121212122,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1095890410958904,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.2536231884057971,
+      "underblocked_count": 2,
+      "overblocked_count": 35,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.35,
+      "candidate_recall": 0.7,
+      "gold_trigger_hit_rate": 0.7,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 3,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar"
+          ]
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "cargo",
+            "casa",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": [
+            "casa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 9,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.2857142857142857,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar",
+            "ocurrir"
+          ]
+        }
+      ]
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "baseline",
+      "bridge_min_similarity": null,
+      "bridge_top_k": null,
+      "bridge_injected_candidate_count": 0,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.18518518518518517,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.3188405797101449,
+      "underblocked_count": 0,
+      "overblocked_count": 44,
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -2888,39 +6531,14 @@
       "bridge_injected_candidate_count": 0,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.13043478260869565,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.14285714285714285,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.3188405797101449,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 44,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -2930,39 +6548,14 @@
       "bridge_injected_candidate_count": 0,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.1267605633802817,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1388888888888889,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.3188405797101449,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 44,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -2972,39 +6565,14 @@
       "bridge_injected_candidate_count": 0,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3014,39 +6582,14 @@
       "bridge_injected_candidate_count": 0,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3056,46 +6599,21 @@
       "bridge_injected_candidate_count": 0,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
@@ -3112,7 +6630,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
@@ -3129,7 +6647,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
@@ -3146,7 +6664,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
@@ -3163,7 +6681,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
@@ -3180,7 +6698,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
@@ -3197,7 +6715,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
@@ -3214,11 +6732,11 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
-      "candidate_precision": 0.09900990099009901,
+      "candidate_precision": 0.1,
       "candidate_recall": 1.0,
       "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.47101449275362317,
@@ -3231,11 +6749,11 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
-      "candidate_precision": 0.0970873786407767,
+      "candidate_precision": 0.09803921568627451,
       "candidate_recall": 1.0,
       "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.47101449275362317,
@@ -3248,7 +6766,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,
@@ -3265,7 +6783,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
       "candidate_pool_trigger_recall": 1.0,
@@ -3282,7 +6800,7 @@
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 32,
+      "bridge_injected_candidate_count": 30,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
       "candidate_pool_trigger_recall": 1.0,
@@ -3302,39 +6820,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.15517241379310345,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1694915254237288,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3344,39 +6837,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.12162162162162163,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.13333333333333333,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3386,39 +6854,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.11842105263157894,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.12987012987012986,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3428,39 +6871,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3470,39 +6888,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3512,39 +6905,14 @@
       "bridge_injected_candidate_count": 5,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3554,39 +6922,14 @@
       "bridge_injected_candidate_count": 8,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.15517241379310345,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1694915254237288,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3596,39 +6939,14 @@
       "bridge_injected_candidate_count": 8,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.11688311688311688,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.1282051282051282,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3638,249 +6956,99 @@
       "bridge_injected_candidate_count": 8,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.11392405063291139,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.35507246376811596,
-      "underblocked_count": 1,
-      "overblocked_count": 49,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
-    },
-    {
-      "mode_id": "benchmark_reviewed",
-      "bridge_mode": "embedding_bridge",
-      "bridge_min_similarity": 0.65,
-      "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 8,
-      "support_score_min": 5.0,
-      "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.0,
-      "underblocked_count": 1,
-      "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
-    },
-    {
-      "mode_id": "benchmark_reviewed",
-      "bridge_mode": "embedding_bridge",
-      "bridge_min_similarity": 0.65,
-      "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 8,
-      "support_score_min": 5.0,
-      "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.0,
-      "underblocked_count": 1,
-      "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
-    },
-    {
-      "mode_id": "benchmark_reviewed",
-      "bridge_mode": "embedding_bridge",
-      "bridge_min_similarity": 0.65,
-      "bridge_top_k": 2,
-      "bridge_injected_candidate_count": 8,
-      "support_score_min": 5.0,
-      "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.0,
-      "underblocked_count": 1,
-      "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
-    },
-    {
-      "mode_id": "benchmark_reviewed",
-      "bridge_mode": "embedding_bridge",
-      "bridge_min_similarity": 0.7,
-      "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 3,
-      "support_score_min": 4.0,
-      "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.16071428571428573,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
-      "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
-      "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
-    },
-    {
-      "mode_id": "benchmark_reviewed",
-      "bridge_mode": "embedding_bridge",
-      "bridge_min_similarity": 0.7,
-      "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 3,
-      "support_score_min": 4.0,
-      "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 0.125,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.35507246376811596,
+      "underblocked_count": 0,
+      "overblocked_count": 49,
+      "sample_underblocked_rows": []
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 8,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 1.0,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.0,
+      "underblocked_count": 0,
+      "overblocked_count": 0,
+      "sample_underblocked_rows": []
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 8,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 1.0,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.0,
+      "underblocked_count": 0,
+      "overblocked_count": 0,
+      "sample_underblocked_rows": []
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.65,
+      "bridge_top_k": 2,
+      "bridge_injected_candidate_count": 8,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 3,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 1.0,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.0,
+      "underblocked_count": 0,
+      "overblocked_count": 0,
+      "sample_underblocked_rows": []
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 3,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 1,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.17543859649122806,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
+    },
+    {
+      "mode_id": "benchmark_reviewed",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.7,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 3,
+      "support_score_min": 4.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.136986301369863,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
+      "overblocking_rate": 0.34057971014492755,
+      "underblocked_count": 0,
+      "overblocked_count": 47,
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3890,39 +7058,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.12162162162162163,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.13333333333333333,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3932,39 +7075,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -3974,39 +7092,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4016,39 +7109,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4058,39 +7126,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 4.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.16071428571428573,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.17543859649122806,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4100,39 +7143,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 4.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.125,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.136986301369863,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4142,39 +7160,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 4.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
-      "candidate_precision": 0.12162162162162163,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.13333333333333333,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.34057971014492755,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 47,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4184,39 +7177,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4226,39 +7194,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 2,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     },
     {
       "mode_id": "benchmark_reviewed",
@@ -4268,39 +7211,14 @@
       "bridge_injected_candidate_count": 3,
       "support_score_min": 5.0,
       "max_promoted_shadows": 3,
-      "candidate_pool_trigger_recall": 0.9,
+      "candidate_pool_trigger_recall": 1.0,
       "candidate_precision": 1.0,
-      "candidate_recall": 0.9,
-      "gold_trigger_hit_rate": 0.9,
+      "candidate_recall": 1.0,
+      "gold_trigger_hit_rate": 1.0,
       "overblocking_rate": 0.0,
-      "underblocked_count": 1,
+      "underblocked_count": 0,
       "overblocked_count": 0,
-      "sample_underblocked_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ]
+      "sample_underblocked_rows": []
     }
   ],
   "best_rows_by_mode": {
@@ -4332,12 +7250,90 @@
         }
       ]
     },
+    "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow": {
+      "mode_id": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "bridge_mode": "embedding_bridge",
+      "bridge_min_similarity": 0.6,
+      "bridge_top_k": 1,
+      "bridge_injected_candidate_count": 50,
+      "support_score_min": 5.0,
+      "max_promoted_shadows": 2,
+      "candidate_pool_trigger_recall": 1.0,
+      "candidate_precision": 0.3076923076923077,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.07246376811594203,
+      "underblocked_count": 2,
+      "overblocked_count": 10,
+      "sample_underblocked_rows": [
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "ocurrir",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "quitar",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": [
+            "sacar",
+            "quitar"
+          ]
+        }
+      ]
+    },
     "benchmark_reviewed": {
       "mode_id": "benchmark_reviewed",
       "bridge_mode": "embedding_bridge",
       "bridge_min_similarity": 0.6,
       "bridge_top_k": 1,
-      "bridge_injected_candidate_count": 22,
+      "bridge_injected_candidate_count": 21,
       "support_score_min": 5.0,
       "max_promoted_shadows": 1,
       "candidate_pool_trigger_recall": 1.0,

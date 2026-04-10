@@ -25,6 +25,9 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     promote_shadow_candidates_with_support_score,
     subtract_shadow_target_triggers,
 )
+from lexishift_core.rulegen.semantic_shadow_seed_borrowing import (  # noqa: E402
+    augment_shadow_targets_with_neighbor_borrowed_triggers,
+)
 
 
 def _record(
@@ -203,6 +206,78 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(len(difference), 1)
         self.assertEqual(difference[0].reviewed_triggers, ("remove", "extract", "get out"))
         self.assertIn("forward_gloss_fragments", difference[0].tiers)
+
+    def test_augment_shadow_targets_with_neighbor_borrowed_triggers_adds_missing_seed_from_neighbor(
+        self,
+    ) -> None:
+        seed_targets = (
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("position",),
+            ),
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("work", "job"),
+            ),
+        )
+
+        augmented = augment_shadow_targets_with_neighbor_borrowed_triggers(
+            seed_targets,
+            neighbor_index={"cargo": [{"target": "trabajo", "similarity": 0.61}]},
+            reverse_records_by_source={
+                "work": (
+                    _record(translation="trabajo"),
+                    _record(translation="obra"),
+                ),
+                "job": (_record(translation="trabajo"),),
+            },
+            min_reverse_target_count=1,
+            max_borrowed_triggers_per_target=1,
+            max_words=1,
+        )
+
+        cargo = next(target for target in augmented if target.target == "cargo")
+        trabajo = next(target for target in augmented if target.target == "trabajo")
+        self.assertEqual(cargo.reviewed_triggers, ("position", "job"))
+        self.assertIn("neighbor_trigger_borrow", cargo.tiers)
+        self.assertEqual(trabajo.reviewed_triggers, ("work", "job"))
+
+    def test_augment_shadow_targets_with_neighbor_borrowed_triggers_skips_zero_fanout_borrow(
+        self,
+    ) -> None:
+        seed_targets = (
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("higher-up", "debit"),
+            ),
+        )
+
+        augmented = augment_shadow_targets_with_neighbor_borrowed_triggers(
+            seed_targets,
+            neighbor_index={"trabajo": [{"target": "cargo", "similarity": 0.61}]},
+            reverse_records_by_source={
+                "higher-up": (),
+                "debit": (_record(translation="débito"),),
+            },
+            min_reverse_target_count=1,
+            max_borrowed_triggers_per_target=1,
+            max_words=1,
+        )
+
+        trabajo = next(target for target in augmented if target.target == "trabajo")
+        self.assertEqual(trabajo.reviewed_triggers, ("job", "debit"))
 
     def test_build_shadow_trigger_source_index_tracks_source_labels_per_trigger(self) -> None:
         top3_targets = build_rulegen_shadow_targets(
@@ -632,6 +707,82 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertIn(
             "active_profile_support",
             trigger_row["promoted_shadow_candidates"][0]["support_features"],
+        )
+
+    def test_build_en_es_shadow_inventory_uses_profile_backed_forward_index_for_seed_only_trigger(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo:1",),
+                tiers=("neighbor_trigger_borrow",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo:1",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("job",),
+            ),
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "cargo": (
+                    _record(
+                        translation="position",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="professional or official position",
+                    ),
+                    _record(
+                        translation="post",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=1,
+                        sense_gloss="official appointment",
+                    ),
+                ),
+                "trabajo": (
+                    _record(
+                        translation="work, job",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        sense_gloss="work, job",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "job": (
+                    _record(
+                        translation="trabajo",
+                        pos_raw="noun",
+                        entry_ord=12,
+                        sense_ord=0,
+                        sense_gloss="work, job",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+        )
+
+        trabajo_row = next(row for row in inventory["targets"] if row["target"] == "trabajo")
+        trigger_row = next(row for row in trabajo_row["trigger_entries"] if row["trigger"] == "job")
+        cargo_shadow = next(
+            candidate
+            for candidate in trigger_row["shadow_candidates"]
+            if candidate["target"] == "cargo"
+        )
+        self.assertIn("forward_index_active_profile_fallback", cargo_shadow["candidate_sources"])
+        self.assertEqual(cargo_shadow["canonical_pos"], "noun")
+        self.assertEqual(cargo_shadow["locator"]["locator_kind"], "forward_target_pos_profile")
+        self.assertEqual(
+            [candidate["target"] for candidate in trigger_row["promoted_shadow_candidates"]],
+            ["cargo"],
         )
 
     def test_support_score_uses_active_profile_fallback_when_active_candidates_are_missing(

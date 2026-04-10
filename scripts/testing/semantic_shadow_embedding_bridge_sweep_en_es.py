@@ -51,7 +51,11 @@ DEFAULT_MARKDOWN_OUT = (
     / "test_outputs"
     / "semantic_shadow_embedding_bridge_sweep_en_es_latest.md"
 )
-DEFAULT_MODE_IDS = ("rulegen_top3_plus_forward_gloss", "benchmark_reviewed")
+DEFAULT_MODE_IDS = (
+    "rulegen_top3_plus_forward_gloss",
+    "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+    "benchmark_reviewed",
+)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -197,6 +201,7 @@ def build_embedding_bridge_sweep_report(
         forward_pack=forward_pack,
         reverse_pack=reverse_pack,
         forward_seed_max_words=forward_seed_max_words,
+        include_neighbor_borrow_seed_modes=True,
     )
     seed_modes = compare_report.get("seed_modes")
     if not isinstance(seed_modes, Mapping):

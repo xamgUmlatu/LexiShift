@@ -24,6 +24,12 @@ from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
     REFERENCE_SHADOW_POLICY_MODES,
     evaluate_shadow_inventory_against_benchmark_overlap_gold,
 )
+from lexishift_core.rulegen.semantic_shadow_embedding_bridge import (  # noqa: E402
+    DEFAULT_EMBEDDING_BRIDGE_MODEL,
+    DEFAULT_EMBEDDING_BRIDGE_TOP_K,
+    build_embedding_bridge_neighbor_index,
+    build_target_embedding_bridge_profiles,
+)
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     DEFAULT_FORWARD_SEED_MAX_WORDS,
     SHADOW_PROMOTION_POLICIES,
@@ -32,6 +38,12 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
     build_rulegen_shadow_targets,
+)
+from lexishift_core.rulegen.semantic_shadow_seed_borrowing import (  # noqa: E402
+    DEFAULT_NEIGHBOR_BORROW_MIN_SIMILARITY,
+    DEFAULT_NEIGHBOR_BORROW_MIN_REVERSE_TARGET_COUNT,
+    DEFAULT_NEIGHBOR_BORROW_MAX_TRIGGERS,
+    augment_shadow_targets_with_neighbor_borrowed_triggers,
 )
 from rulegen_benchmark_dataset import load_benchmark_dataset_payload  # noqa: E402
 
@@ -195,6 +207,12 @@ def build_seed_compare_report(
     forward_pack: TranslationPackRef | None,
     reverse_pack: TranslationPackRef | None,
     forward_seed_max_words: int = DEFAULT_FORWARD_SEED_MAX_WORDS,
+    include_neighbor_borrow_seed_modes: bool = False,
+    neighbor_borrow_model: str = DEFAULT_EMBEDDING_BRIDGE_MODEL,
+    neighbor_borrow_min_similarity: float = DEFAULT_NEIGHBOR_BORROW_MIN_SIMILARITY,
+    neighbor_borrow_top_k: int = DEFAULT_EMBEDDING_BRIDGE_TOP_K,
+    neighbor_borrow_min_reverse_target_count: int = DEFAULT_NEIGHBOR_BORROW_MIN_REVERSE_TARGET_COUNT,
+    neighbor_borrow_max_triggers_per_target: int = DEFAULT_NEIGHBOR_BORROW_MAX_TRIGGERS,
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     gold_targets = build_benchmark_shadow_targets(_collect_cases(dataset_payload))
@@ -253,35 +271,68 @@ def build_seed_compare_report(
         reverse_pack.path,
         translations=all_targets,
     )
+    top3_plus_forward_gloss = augment_shadow_targets_with_forward_gloss_triggers(
+        rulegen_top3_targets,
+        forward_records_by_target=forward_records_by_target,
+        max_words=forward_seed_max_words,
+    )
+    all_plus_forward_gloss = augment_shadow_targets_with_forward_gloss_triggers(
+        rulegen_all_targets,
+        forward_records_by_target=forward_records_by_target,
+        max_words=forward_seed_max_words,
+    )
     seed_modes = {
         "benchmark_reviewed": gold_targets,
         "rulegen_top3_sources": rulegen_top3_targets,
         "rulegen_all_sources": rulegen_all_targets,
-        "rulegen_top3_plus_forward_gloss": augment_shadow_targets_with_forward_gloss_triggers(
-            rulegen_top3_targets,
-            forward_records_by_target=forward_records_by_target,
-            max_words=forward_seed_max_words,
-        ),
-        "rulegen_all_plus_forward_gloss": augment_shadow_targets_with_forward_gloss_triggers(
-            rulegen_all_targets,
-            forward_records_by_target=forward_records_by_target,
-            max_words=forward_seed_max_words,
-        ),
+        "rulegen_top3_plus_forward_gloss": top3_plus_forward_gloss,
+        "rulegen_all_plus_forward_gloss": all_plus_forward_gloss,
     }
-    all_triggers = sorted(
-        {
-            trigger
-            for seed_targets in seed_modes.values()
-            for target in seed_targets
-            for trigger in target.reviewed_triggers
-            if str(trigger or "").strip()
-        }
-    )
     reverse_records_by_source = load_translation_gloss_records_ordered(
         reverse_pack.path,
         target_lang="es",
-        headwords=all_triggers,
+        headwords=sorted(
+            {
+                trigger
+                for seed_targets in seed_modes.values()
+                for target in seed_targets
+                for trigger in target.reviewed_triggers
+                if str(trigger or "").strip()
+            }
+        ),
     )
+    if include_neighbor_borrow_seed_modes:
+        target_profiles = build_target_embedding_bridge_profiles(
+            benchmark_targets=gold_targets,
+            forward_records_by_target=forward_records_by_target,
+            target_reverse_records_by_target=target_reverse_records_by_target,
+        )
+        neighbor_index = build_embedding_bridge_neighbor_index(
+            target_profiles=target_profiles,
+            model_name=neighbor_borrow_model,
+            min_similarity=float(neighbor_borrow_min_similarity),
+            top_k=int(neighbor_borrow_top_k),
+        )
+        seed_modes["rulegen_top3_plus_forward_gloss_plus_neighbor_borrow"] = (
+            augment_shadow_targets_with_neighbor_borrowed_triggers(
+                top3_plus_forward_gloss,
+                neighbor_index=neighbor_index,
+                reverse_records_by_source=reverse_records_by_source,
+                min_reverse_target_count=int(neighbor_borrow_min_reverse_target_count),
+                max_borrowed_triggers_per_target=int(neighbor_borrow_max_triggers_per_target),
+                max_words=int(forward_seed_max_words),
+            )
+        )
+        seed_modes["rulegen_all_plus_forward_gloss_plus_neighbor_borrow"] = (
+            augment_shadow_targets_with_neighbor_borrowed_triggers(
+                all_plus_forward_gloss,
+                neighbor_index=neighbor_index,
+                reverse_records_by_source=reverse_records_by_source,
+                min_reverse_target_count=int(neighbor_borrow_min_reverse_target_count),
+                max_borrowed_triggers_per_target=int(neighbor_borrow_max_triggers_per_target),
+                max_words=int(forward_seed_max_words),
+            )
+        )
     for mode_id, seed_targets in seed_modes.items():
         report["seed_modes"][mode_id] = _build_mode_payload(
             mode_id=mode_id,

@@ -12,6 +12,7 @@ def build_forward_shadow_index(
     provider: str,
     collect_records: Callable[[Sequence[TranslationGlossRecord]], Sequence[TranslationGlossRecord]],
     active_candidate_builder: Callable[..., list[dict[str, object]]],
+    canonical_pos_builder: Callable[[TranslationGlossRecord], str],
 ) -> dict[str, list[dict[str, object]]]:
     trigger_index: dict[str, list[dict[str, object]]] = {}
     for benchmark_target in benchmark_targets:
@@ -32,15 +33,66 @@ def build_forward_shadow_index(
                 provider=provider,
             )
             if not active_candidates:
+                profile_candidate = _build_forward_index_profile_candidate(
+                    target=target,
+                    trigger=trigger,
+                    records=forward_records,
+                    provider=provider,
+                    canonical_pos_builder=canonical_pos_builder,
+                )
+                if profile_candidate is not None:
+                    active_candidates = [profile_candidate]
+            if not active_candidates:
                 continue
             bucket = trigger_index.setdefault(trigger, [])
             for candidate in active_candidates:
                 candidate_copy = dict(candidate)
                 candidate_copy["benchmark_target_present"] = True
                 candidate_copy["reviewed_trigger_support"] = True
-                candidate_copy["candidate_sources"] = ["forward_index"]
+                candidate_sources = ["forward_index"]
+                if candidate_copy.get("profile_backed"):
+                    candidate_sources.append("forward_index_active_profile_fallback")
+                candidate_copy["candidate_sources"] = candidate_sources
                 bucket.append(candidate_copy)
     return trigger_index
+
+
+def _build_forward_index_profile_candidate(
+    *,
+    target: str,
+    trigger: str,
+    records: Sequence[TranslationGlossRecord],
+    provider: str,
+    canonical_pos_builder: Callable[[TranslationGlossRecord], str],
+) -> dict[str, object] | None:
+    profile = build_active_profile_fallback(
+        target=target,
+        records=records,
+        provider=provider,
+        canonical_pos_builder=canonical_pos_builder,
+    )
+    if profile is None:
+        return None
+    return {
+        "target": str(target or "").strip(),
+        "sense_label": f"seed trigger profile: {str(trigger or '').strip()}",
+        "canonical_pos": str(profile.get("canonical_pos") or "").strip(),
+        "provider": str(profile.get("provider") or provider or "").strip() or "unknown",
+        "locator": {
+            "provider": str(profile.get("provider") or provider or "").strip() or "unknown",
+            "locator_kind": "forward_target_pos_profile",
+            "target_key": str(target or "").strip(),
+            "trigger": str(trigger or "").strip(),
+        },
+        "glosses": [],
+        "qualifiers": {
+            "profile_kind": str(profile.get("profile_kind") or "").strip()
+            or "forward_target_pos_profile",
+            "profile_record_count": int(profile.get("profile_record_count") or 0),
+        },
+        "matched_trigger": str(trigger or "").strip(),
+        "profile_backed": True,
+    }
 
 
 def build_active_profile_fallback(

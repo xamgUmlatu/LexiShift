@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T20:56:24Z",
+  "generated_at": "2026-04-10T21:26:47Z",
   "status": "ok",
   "comparison_kind": "lower_bound_veto_proxy",
   "gold_reference": {
@@ -54,49 +54,24 @@
       "inventory_entry_coverage_rate": 1.0,
       "gold_trigger_inventory_coverage_rate": 1.0,
       "gold_trigger_active_support_rate": 0.9,
-      "overall_accuracy": 0.9932432432432432,
-      "abstain_recall": 0.9,
-      "harmful_allow_rate": 0.1,
-      "allow_precision": 0.9928057553956835,
+      "overall_accuracy": 1.0,
+      "abstain_recall": 1.0,
+      "harmful_allow_rate": 0.0,
+      "allow_precision": 1.0,
       "overblocking_rate": 0.0,
-      "abstain_rate": 0.060810810810810814,
-      "allow_rate": 0.9391891891891891,
+      "abstain_rate": 0.06756756756756757,
+      "allow_rate": 0.9324324324324325,
       "ambiguous_trigger_rows": 10,
       "clear_trigger_rows": 138,
-      "true_abstain_count": 9,
-      "harmful_allow_count": 1,
+      "true_abstain_count": 10,
+      "harmful_allow_count": 0,
       "true_allow_count": 138,
       "false_abstain_count": 0,
-      "sample_harmful_allow_rows": [
-        {
-          "target": "trabajo",
-          "trigger": "job",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "cargo"
-          ],
-          "mined_shadow_targets": [
-            "brete",
-            "camello",
-            "chamba",
-            "cheje",
-            "curro",
-            "empleo",
-            "encargo",
-            "jale",
-            "laburo",
-            "pega",
-            "talacha",
-            "tarea",
-            "yob"
-          ],
-          "promoted_targets": []
-        }
-      ],
+      "sample_harmful_allow_rows": [],
       "sample_false_abstain_rows": [],
-      "delta_vs_curated_overall_accuracy": -0.006756756756756799,
-      "delta_vs_curated_abstain_recall": -0.09999999999999998,
-      "delta_vs_curated_harmful_allow_rate": 0.1,
+      "delta_vs_curated_overall_accuracy": 0.0,
+      "delta_vs_curated_abstain_recall": 0.0,
+      "delta_vs_curated_harmful_allow_rate": 0.0,
       "delta_vs_curated_overblocking_rate": 0.0
     },
     {
@@ -309,6 +284,274 @@
       "delta_vs_curated_abstain_recall": -0.19999999999999996,
       "delta_vs_curated_harmful_allow_rate": 0.2,
       "delta_vs_curated_overblocking_rate": 0.050724637681159424
+    },
+    {
+      "source_id": "borrowed_trigger_auto_shadows",
+      "label": "Source-only borrowed-trigger shadows",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "support_score_min": 5.0,
+      "support_score_max_promoted": 2,
+      "inventory_entry_coverage_rate": 0.7364864864864865,
+      "gold_trigger_inventory_coverage_rate": 1.0,
+      "gold_trigger_active_support_rate": 0.9,
+      "overall_accuracy": 0.9324324324324325,
+      "abstain_recall": 1.0,
+      "harmful_allow_rate": 0.0,
+      "allow_precision": 1.0,
+      "overblocking_rate": 0.07246376811594203,
+      "abstain_rate": 0.13513513513513514,
+      "allow_rate": 0.8648648648648649,
+      "ambiguous_trigger_rows": 10,
+      "clear_trigger_rows": 138,
+      "true_abstain_count": 10,
+      "harmful_allow_count": 0,
+      "true_allow_count": 128,
+      "false_abstain_count": 10,
+      "sample_harmful_allow_rows": [],
+      "sample_false_abstain_rows": [
+        {
+          "target": "banco",
+          "trigger": "bank",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "ahorrar",
+            "almacén",
+            "amontonar",
+            "apilar",
+            "bajío",
+            "banca",
+            "depositar",
+            "escuela",
+            "hilera",
+            "hucha",
+            "ingresar",
+            "juntar",
+            "ladear",
+            "ladearse",
+            "ladeo",
+            "orilla",
+            "peraltar",
+            "recoger",
+            "ribera",
+            "sucursal",
+            "talud",
+            "teclado",
+            "tener la cuenta en",
+            "terraplén"
+          ],
+          "promoted_targets": [
+            "escuela"
+          ]
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "calle",
+            "calzada",
+            "canal",
+            "carretera",
+            "derecho",
+            "ruta"
+          ],
+          "promoted_targets": [
+            "derecho"
+          ]
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "canal",
+            "derrota",
+            "derrotero",
+            "forma",
+            "manera",
+            "medio",
+            "medios",
+            "modo",
+            "usanza",
+            "vía"
+          ],
+          "promoted_targets": [
+            "medio"
+          ]
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "canal",
+            "derecho",
+            "mixtilínea",
+            "ruta",
+            "senda",
+            "sendero",
+            "trayectoria",
+            "trillo",
+            "trocha"
+          ],
+          "promoted_targets": [
+            "derecho"
+          ]
+        },
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [
+            "área"
+          ]
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "plaza",
+            "posición",
+            "puesto",
+            "punto"
+          ],
+          "promoted_targets": [
+            "plaza"
+          ]
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "cibercolgamiento",
+            "cibercolgar",
+            "colgamiento",
+            "colgamiento cibernético",
+            "colgar",
+            "colgar cibernéticamente",
+            "correo",
+            "enviar (por correo)",
+            "fijar",
+            "orden",
+            "post",
+            "postar",
+            "poste",
+            "postear",
+            "publicación",
+            "publicar",
+            "punto",
+            "trabajo"
+          ],
+          "promoted_targets": [
+            "trabajo",
+            "orden"
+          ]
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "red"
+          ]
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "tabla",
+            "cuadro"
+          ]
+        },
+        {
+          "target": "meter",
+          "trigger": "insert",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "dentrotraer",
+            "encarte",
+            "enserir",
+            "entregerir",
+            "injerir",
+            "inserir",
+            "insertable",
+            "insertante",
+            "insertar",
+            "insertivo",
+            "inserto",
+            "interserir",
+            "recuadro",
+            "subir"
+          ],
+          "promoted_targets": [
+            "subir"
+          ]
+        }
+      ],
+      "delta_vs_curated_overall_accuracy": -0.06756756756756754,
+      "delta_vs_curated_abstain_recall": 0.0,
+      "delta_vs_curated_harmful_allow_rate": 0.0,
+      "delta_vs_curated_overblocking_rate": 0.07246376811594203
     },
     {
       "source_id": "no_shadows",
