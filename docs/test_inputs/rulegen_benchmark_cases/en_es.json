@@ -1496,6 +1496,118 @@
         ]
       },
       "notes": "Physical-net family sibling around grid/grille/mesh; extends the current red/malla family with another surface-form realization of the mesh side."
+    },
+    {
+      "case_id": "en-es:ocupación",
+      "target": "ocupación",
+      "tier": "hard",
+      "expected_any": [
+        "occupation",
+        "job",
+        "employment"
+      ],
+      "expected_top1_any": [
+        "occupation",
+        "job"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
+      "notes": "Job-family sibling centered on occupation/job; increases shared-trigger coverage beyond empleo/trabajo while staying in the same role/work noun lane."
+    },
+    {
+      "case_id": "en-es:carretera",
+      "target": "carretera",
+      "tier": "smoke",
+      "expected_any": [
+        "road",
+        "highway"
+      ],
+      "expected_top1_any": [
+        "road",
+        "highway"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling for the road/highway sub-lane; should help distinguish broad route-family blockers from camino-only noise."
+    },
+    {
+      "case_id": "en-es:reja",
+      "target": "reja",
+      "tier": "hard",
+      "expected_any": [
+        "grille",
+        "grating",
+        "mesh"
+      ],
+      "expected_top1_any": [
+        "grille",
+        "grating"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Physical-net family sibling around grille/grating/mesh; gives the current mesh/net lane another shared surface apart from malla and rejilla."
+    },
+    {
+      "case_id": "en-es:tierra",
+      "target": "tierra",
+      "tier": "smoke",
+      "expected_any": [
+        "land",
+        "earth",
+        "ground",
+        "soil"
+      ],
+      "expected_top1_any": [
+        "land",
+        "earth"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
+      "notes": "Field-area family sibling emphasizing land/earth/ground; pairs naturally with terreno and should expose whether current noun-side veto misses generalize across the land-ground lane."
     }
   ]
 }

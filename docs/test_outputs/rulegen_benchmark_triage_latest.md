@@ -2,7 +2,7 @@
 
 - benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
 - pairs_processed: 1
-- failing_or_review_count: 10
+- failing_or_review_count: 11
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
@@ -16,6 +16,7 @@
 | en-es | `en-es:batería` | batería | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | drummer | drummer, set |
 | en-es | `en-es:ruta` | ruta | REVIEW | top1_not_in_expected_set | highway | highway, route, path |
 | en-es | `en-es:rejilla` | rejilla | FAIL | expected_candidate_missing_from_top3 | grill | grill, lattice, grating |
+| en-es | `en-es:reja` | reja | REVIEW | top1_not_in_expected_set | grate | grate, plowshare, grating |
 
 ## Suggested Case Patches
 
@@ -223,6 +224,27 @@
   "candidate_expected_any": [
     "grill",
     "lattice",
+    "grating"
+  ]
+}
+```
+
+### en-es / en-es:reja
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: grate",
+    "Observed top3 sources: grate, plowshare, grating"
+  ],
+  "candidate_forbidden_top1": [
+    "grate"
+  ],
+  "candidate_expected_any": [
+    "grate",
+    "plowshare",
     "grating"
   ]
 }

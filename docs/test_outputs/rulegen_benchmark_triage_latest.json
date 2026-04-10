@@ -1,7 +1,7 @@
 {
   "benchmark_json": "docs/test_outputs/rulegen_benchmark_en_es_latest.json",
   "pairs_processed": 1,
-  "failing_or_review_count": 10,
+  "failing_or_review_count": 11,
   "items": [
     {
       "pair": "en-es",
@@ -363,6 +363,43 @@
         "candidate_expected_any": [
           "grill",
           "lattice",
+          "grating"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:reja",
+      "target": "reja",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "grate",
+      "top3_sources": [
+        "grate",
+        "plowshare",
+        "grating"
+      ],
+      "expected_matches": [
+        "grating",
+        "grille"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: grate",
+          "Observed top3 sources: grate, plowshare, grating"
+        ],
+        "candidate_forbidden_top1": [
+          "grate"
+        ],
+        "candidate_expected_any": [
+          "grate",
+          "plowshare",
           "grating"
         ]
       }
