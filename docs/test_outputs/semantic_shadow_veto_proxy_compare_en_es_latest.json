@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T20:13:31Z",
+  "status": "ok",
+  "comparison_kind": "lower_bound_veto_proxy",
+  "gold_reference": {
+    "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+    "target_count": 63,
+    "reviewed_trigger_count": 148
+  },
+  "benchmark_report": {
+    "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_es_latest.json"
+  },
+  "forward_seed_max_words": 1,
+  "rows": [
+    {
+      "source_id": "curated_shadows",
+      "label": "Curated overlap oracle",
+      "seed_mode": "benchmark_reviewed",
+      "policy": "gold_overlap_oracle",
+      "support_score_min": null,
+      "support_score_max_promoted": null,
+      "inventory_entry_coverage_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 1.0,
+      "gold_trigger_active_support_rate": 0.9,
+      "overall_accuracy": 1.0,
+      "abstain_recall": 1.0,
+      "harmful_allow_rate": 0.0,
+      "allow_precision": 1.0,
+      "overblocking_rate": 0.0,
+      "abstain_rate": 0.06756756756756757,
+      "allow_rate": 0.9324324324324325,
+      "ambiguous_trigger_rows": 10,
+      "clear_trigger_rows": 138,
+      "true_abstain_count": 10,
+      "harmful_allow_count": 0,
+      "true_allow_count": 138,
+      "false_abstain_count": 0,
+      "sample_harmful_allow_rows": [],
+      "sample_false_abstain_rows": [],
+      "delta_vs_curated_overall_accuracy": 0.0,
+      "delta_vs_curated_abstain_recall": 0.0,
+      "delta_vs_curated_harmful_allow_rate": 0.0,
+      "delta_vs_curated_overblocking_rate": 0.0
+    },
+    {
+      "source_id": "reviewed_auto_shadows",
+      "label": "Reviewed-trigger auto shadows",
+      "seed_mode": "benchmark_reviewed",
+      "policy": "support_score_v1",
+      "support_score_min": 5.0,
+      "support_score_max_promoted": 1,
+      "inventory_entry_coverage_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 1.0,
+      "gold_trigger_active_support_rate": 0.9,
+      "overall_accuracy": 0.9864864864864865,
+      "abstain_recall": 0.8,
+      "harmful_allow_rate": 0.2,
+      "allow_precision": 0.9857142857142858,
+      "overblocking_rate": 0.0,
+      "abstain_rate": 0.05405405405405406,
+      "allow_rate": 0.9459459459459459,
+      "ambiguous_trigger_rows": 10,
+      "clear_trigger_rows": 138,
+      "true_abstain_count": 8,
+      "harmful_allow_count": 2,
+      "true_allow_count": 138,
+      "false_abstain_count": 0,
+      "sample_harmful_allow_rows": [
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "trabajo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "punto",
+            "talacha",
+            "tarea",
+            "trabajo",
+            "yob"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": []
+        }
+      ],
+      "sample_false_abstain_rows": [],
+      "delta_vs_curated_overall_accuracy": -0.013513513513513487,
+      "delta_vs_curated_abstain_recall": -0.19999999999999996,
+      "delta_vs_curated_harmful_allow_rate": 0.2,
+      "delta_vs_curated_overblocking_rate": 0.0
+    },
+    {
+      "source_id": "auto_shadows",
+      "label": "Source-only auto shadows",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "policy": "support_score_v1",
+      "support_score_min": 5.0,
+      "support_score_max_promoted": 2,
+      "inventory_entry_coverage_rate": 0.7297297297297297,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "gold_trigger_active_support_rate": 0.9,
+      "overall_accuracy": 0.9391891891891891,
+      "abstain_recall": 0.8,
+      "harmful_allow_rate": 0.2,
+      "allow_precision": 0.9849624060150376,
+      "overblocking_rate": 0.050724637681159424,
+      "abstain_rate": 0.10135135135135136,
+      "allow_rate": 0.8986486486486487,
+      "ambiguous_trigger_rows": 10,
+      "clear_trigger_rows": 138,
+      "true_abstain_count": 8,
+      "harmful_allow_count": 2,
+      "true_allow_count": 131,
+      "false_abstain_count": 7,
+      "sample_harmful_allow_rows": [
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "trabajo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": []
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": []
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "camino",
+          "trigger": "road",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "calle",
+            "calzada",
+            "canal",
+            "carretera",
+            "derecho",
+            "ruta"
+          ],
+          "promoted_targets": [
+            "derecho"
+          ]
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "canal",
+            "derrota",
+            "derrotero",
+            "forma",
+            "manera",
+            "medio",
+            "medios",
+            "modo",
+            "usanza",
+            "vía"
+          ],
+          "promoted_targets": [
+            "medio"
+          ]
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "canal",
+            "derecho",
+            "mixtilínea",
+            "ruta",
+            "senda",
+            "sendero",
+            "trayectoria",
+            "trillo",
+            "trocha"
+          ],
+          "promoted_targets": [
+            "derecho"
+          ]
+        },
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [
+            "área"
+          ]
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "plaza",
+            "posición",
+            "puesto",
+            "punto"
+          ],
+          "promoted_targets": [
+            "plaza"
+          ]
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "red"
+          ]
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ]
+        }
+      ],
+      "delta_vs_curated_overall_accuracy": -0.060810810810810856,
+      "delta_vs_curated_abstain_recall": -0.19999999999999996,
+      "delta_vs_curated_harmful_allow_rate": 0.2,
+      "delta_vs_curated_overblocking_rate": 0.050724637681159424
+    },
+    {
+      "source_id": "no_shadows",
+      "label": "No shadow veto",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "policy": "none",
+      "support_score_min": null,
+      "support_score_max_promoted": null,
+      "inventory_entry_coverage_rate": 0.7297297297297297,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "gold_trigger_active_support_rate": 0.9,
+      "overall_accuracy": 0.9324324324324325,
+      "abstain_recall": 0.0,
+      "harmful_allow_rate": 1.0,
+      "allow_precision": 0.9324324324324325,
+      "overblocking_rate": 0.0,
+      "abstain_rate": 0.0,
+      "allow_rate": 1.0,
+      "ambiguous_trigger_rows": 10,
+      "clear_trigger_rows": 138,
+      "true_abstain_count": 0,
+      "harmful_allow_count": 10,
+      "true_allow_count": 138,
+      "false_abstain_count": 0,
+      "sample_harmful_allow_rows": [
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "trabajo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": []
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "llevar"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "durar",
+            "llevar",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "tabla"
+          ],
+          "mined_shadow_targets": [
+            "entremijo",
+            "entremiso",
+            "expremijo",
+            "mesa",
+            "plaza",
+            "poner sobre la mesa",
+            "presentar",
+            "tabla",
+            "tablas",
+            "tabular",
+            "traer a discusión"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "coger"
+          ],
+          "mined_shadow_targets": [
+            "aguantar",
+            "apechugar",
+            "chapar",
+            "coger",
+            "durar",
+            "opositar",
+            "prender",
+            "punto de vista",
+            "recompensa",
+            "sacar",
+            "soportar",
+            "toma",
+            "tomar",
+            "violar"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "malla",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "red"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "líquido",
+            "net",
+            "neto",
+            "red"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "quitar",
+          "trigger": "remove",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "sacar"
+          ],
+          "mined_shadow_targets": [
+            "detraer",
+            "remover",
+            "sacar"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "sacar",
+          "trigger": "remove",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "quitar"
+          ],
+          "mined_shadow_targets": [
+            "coger",
+            "detraer",
+            "quitar",
+            "remover"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "tabla",
+          "trigger": "table",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cuadro"
+          ],
+          "mined_shadow_targets": [
+            "cuadro",
+            "entremijo",
+            "entremiso",
+            "expremijo",
+            "mesa",
+            "poner sobre la mesa",
+            "presentar",
+            "tablas",
+            "tabular",
+            "traer a discusión"
+          ],
+          "promoted_targets": []
+        },
+        {
+          "target": "trabajo",
+          "trigger": "job",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cargo"
+          ],
+          "mined_shadow_targets": [
+            "brete",
+            "camello",
+            "chamba",
+            "cheje",
+            "curro",
+            "empleo",
+            "encargo",
+            "jale",
+            "laburo",
+            "pega",
+            "talacha",
+            "tarea",
+            "yob"
+          ],
+          "promoted_targets": []
+        }
+      ],
+      "sample_false_abstain_rows": [],
+      "delta_vs_curated_overall_accuracy": -0.06756756756756754,
+      "delta_vs_curated_abstain_recall": -1.0,
+      "delta_vs_curated_harmful_allow_rate": 1.0,
+      "delta_vs_curated_overblocking_rate": 0.0
+    }
+  ]
+}

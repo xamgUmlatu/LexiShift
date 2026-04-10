@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
     build_benchmark_trigger_overlap_gold,
     evaluate_shadow_inventory_against_benchmark_overlap_gold,
+    evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold,
 )
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     BenchmarkShadowTarget,
@@ -311,3 +312,85 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         summary = report["policies"]["support_score_v1"]["summary"]
         self.assertEqual(summary["candidate_true_positive_count"], 1)
         self.assertEqual(summary["candidate_false_positive_count"], 0)
+
+    def test_evaluate_shadow_inventory_veto_proxy_reports_allow_vs_abstain_outcomes(self) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="pelota",
+                case_ids=("en-es:pelota",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="baile",
+                case_ids=("en-es:baile",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="agua",
+                case_ids=("en-es:agua",),
+                tiers=("smoke",),
+                reviewed_triggers=("water",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "pelota",
+                    "trigger_entries": [
+                        {
+                            "trigger": "ball",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "baile",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "target": "agua",
+                    "trigger_entries": [
+                        {
+                            "trigger": "water",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+            ]
+        }
+
+        report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("cross_checked_v1", "none", "gold_overlap_oracle"),
+        )
+
+        cross_checked = report["policies"]["cross_checked_v1"]["summary"]
+        self.assertEqual(cross_checked["ambiguous_trigger_rows"], 2)
+        self.assertEqual(cross_checked["true_abstain_count"], 1)
+        self.assertEqual(cross_checked["harmful_allow_count"], 1)
+        self.assertEqual(cross_checked["true_allow_count"], 1)
+        self.assertEqual(cross_checked["false_abstain_count"], 0)
+        self.assertAlmostEqual(cross_checked["abstain_recall"], 0.5)
+        self.assertAlmostEqual(cross_checked["allow_precision"], 0.5)
+        self.assertAlmostEqual(cross_checked["overall_accuracy"], 2 / 3)
+
+        none_summary = report["policies"]["none"]["summary"]
+        self.assertEqual(none_summary["harmful_allow_count"], 2)
+        self.assertEqual(none_summary["true_allow_count"], 1)
+        self.assertEqual(none_summary["false_abstain_count"], 0)
+        self.assertAlmostEqual(none_summary["overall_accuracy"], 1 / 3)
+
+        oracle_summary = report["policies"]["gold_overlap_oracle"]["summary"]
+        self.assertEqual(oracle_summary["true_abstain_count"], 2)
+        self.assertEqual(oracle_summary["harmful_allow_count"], 0)
+        self.assertEqual(oracle_summary["true_allow_count"], 1)
+        self.assertEqual(oracle_summary["false_abstain_count"], 0)
+        self.assertAlmostEqual(oracle_summary["overall_accuracy"], 1.0)

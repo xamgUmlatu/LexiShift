@@ -769,8 +769,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lexical-frequency similarity sweep and the first representative-pruning sweep for `en-es`, showing that neither active-vs-shadow frequency-band matching nor same-sense representative pruning improves the current best lexical source-only shadow baseline
-- Last verified: `2026-04-11` targeted `semantic_shadow_frequency` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests, refreshed the `en-es` representative-pruning, support-score, trigger-support, and frequency-sweep artifacts, reran the canonical `en-es` benchmark/gate/triage loop, and synced runtime-readiness / feature-state docs
+- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` tests, refreshed the new `en-es` veto-proxy artifact plus the latest representative-pruning/frequency artifacts, and synced runtime-readiness / feature-state docs
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -844,6 +844,14 @@ Use this file when:
         - reviewed control still prefers `off` at the current best `100.0%` precision / `80.0%` recall operating point
         - best source-only row also still prefers pruning `off`, staying at `47.1%` precision / `80.0%` recall / `5.1%` overblocking
       - interpretation: redundant same-sense variants exist in the raw inventory, but the present support threshold is already filtering most of them before they affect the reviewed denominator
+    - the new lower-bound veto-proxy comparison is the first direct `curated_shadows` vs `auto_shadows` product-shape check:
+      - `scripts/testing/semantic_shadow_veto_proxy_compare_en_es.py` converts the reviewed overlap rows into proxy `allow` / `abstain` decisions and compares `curated_shadows`, `reviewed_auto_shadows`, `auto_shadows`, and `no_shadows`
+      - current `en-es` read:
+        - `curated_shadows`: `100.0%` abstain recall / `0.0%` harmful allow / `0.0%` overblocking
+        - `reviewed_auto_shadows`: `80.0%` abstain recall / `20.0%` harmful allow / `0.0%` overblocking
+        - `auto_shadows`: `80.0%` abstain recall / `20.0%` harmful allow / `5.1%` overblocking
+        - `no_shadows`: `0.0%` abstain recall / `100.0%` harmful allow / `0.0%` overblocking
+      - interpretation: the current source-only shadow lane already recovers most of the lower-bound veto benefit over `no_shadows`, and the remaining gap is concentrated in the unresolved `job` family rather than a broad collapse of blocker discovery
     - the first target-card embedding bridge has now been swept explicitly:
       - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py` augments the current inventories with sentence-transformer nearest neighbors over source-derived target cards, but only as a backoff candidate source
       - it can recover `trabajo / job -> cargo` at the lower support threshold (`min_score=4`), raising source-only recall from `80.0%` to `90.0%`
@@ -880,6 +888,7 @@ Use this file when:
   - `core/lexishift_core/rulegen/semantic_shadow_frequency.py`
   - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_representative_pruning.py`
   - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
   - `core/tests/rulegen/test_semantic_publication.py`
@@ -896,6 +905,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_frequency_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_representative_pruning_sweep_en_es.py`
+  - `scripts/testing/semantic_shadow_veto_proxy_compare_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
@@ -908,6 +918,7 @@ Use this file when:
   - `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_veto_proxy_compare_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:

@@ -405,6 +405,20 @@ First implemented research seam:
         - the best source-only setting remains pruning `off`, `min_score=5`, `max_promoted=2`
         - enabling `sense_label_pos_v1` leaves precision, recall, and overblocking unchanged on the current sweep grid
       - interpretation: redundant same-sense lexical variants are real in the raw inventory, but they are not the current bottleneck on the reviewed scoring denominator; the support threshold is already filtering most of that noise before representative pruning matters
+    - the new veto-proxy comparison at `docs/test_outputs/semantic_shadow_veto_proxy_compare_en_es_latest.md` adds the first lower-bound curated-vs-auto shadow benchmark:
+      - it is intentionally not the sentence-level cosine veto benchmark
+      - instead, each reviewed overlap row becomes a proxy `allow` / `abstain` decision:
+        - if the shadow source emits any blockers for an ambiguous overlap row, count `abstain`
+        - otherwise count `allow`
+      - current result:
+        - `curated_shadows`: `100.0%` overall accuracy / `100.0%` abstain recall / `0.0%` harmful allow / `0.0%` overblocking
+        - `reviewed_auto_shadows`: `98.6%` overall accuracy / `80.0%` abstain recall / `20.0%` harmful allow / `0.0%` overblocking
+        - `auto_shadows`: `93.9%` overall accuracy / `80.0%` abstain recall / `20.0%` harmful allow / `5.1%` overblocking
+        - `no_shadows`: `93.2%` overall accuracy / `0.0%` abstain recall / `100.0%` harmful allow / `0.0%` overblocking
+      - interpretation:
+        - the current source-only auto shadow lane already captures most of the lower-bound veto benefit over `no_shadows`
+        - the remaining harmful-allow gap is concentrated in the still-open `cargo / job` family
+        - the main new cost of `auto_shadows` versus `reviewed_auto_shadows` is modest false abstain (`5.1%`), not catastrophic ambiguity miss
     - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.

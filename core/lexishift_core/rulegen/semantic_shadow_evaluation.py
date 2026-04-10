@@ -132,41 +132,19 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                     candidate_pool_summary["gold_trigger_rows_with_exact_mined_set"] += 1
 
             for policy in requested_policies:
-                if policy == "none":
-                    promoted_targets: list[str] = []
-                elif policy == "gold_overlap_oracle":
-                    promoted_targets = sorted(gold_shadow_targets)
-                elif policy == SUPPORT_SCORE_POLICY:
-                    promoted = promote_shadow_candidates_with_support_score(
-                        shadow_candidates=shadow_candidates,
-                        active_candidates=active_candidates,
-                        min_score=support_score_min,
-                        max_promoted_shadows=support_score_max_promoted,
-                        policy=policy,
-                        frequency_representative_bonus=support_frequency_representative_bonus,
-                        frequency_representative_top_k=support_frequency_representative_top_k,
-                        frequency_similarity_weight=support_frequency_similarity_weight,
-                        frequency_similarity_tau=support_frequency_similarity_tau,
-                        representative_pruning_mode=support_representative_pruning_mode,
-                    )
-                    promoted_targets = [
-                        str(candidate.get("target") or "").strip()
-                        for candidate in promoted
-                        if isinstance(candidate, Mapping)
-                        and str(candidate.get("target") or "").strip()
-                    ]
-                else:
-                    promoted = promote_shadow_candidates_for_policy(
-                        shadow_candidates=shadow_candidates,
-                        active_candidates=active_candidates,
-                        policy=policy,
-                    )
-                    promoted_targets = [
-                        str(candidate.get("target") or "").strip()
-                        for candidate in promoted
-                        if isinstance(candidate, Mapping)
-                        and str(candidate.get("target") or "").strip()
-                    ]
+                promoted_targets = _resolve_promoted_targets_for_policy(
+                    policy=policy,
+                    gold_shadow_targets=gold_shadow_targets,
+                    shadow_candidates=shadow_candidates,
+                    active_candidates=active_candidates,
+                    support_score_min=support_score_min,
+                    support_score_max_promoted=support_score_max_promoted,
+                    support_frequency_representative_bonus=support_frequency_representative_bonus,
+                    support_frequency_representative_top_k=support_frequency_representative_top_k,
+                    support_frequency_similarity_weight=support_frequency_similarity_weight,
+                    support_frequency_similarity_tau=support_frequency_similarity_tau,
+                    support_representative_pruning_mode=support_representative_pruning_mode,
+                )
                 _accumulate_policy_row(
                     report=policy_reports[policy],
                     target=target,
@@ -180,6 +158,117 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     for policy_report in policy_reports.values():
         if isinstance(policy_report, Mapping):
             _finalize_policy_report(policy_report)
+
+    _finalize_candidate_pool_summary(candidate_pool_summary)
+    return {
+        "schema_version": 1,
+        "status": "ok",
+        "candidate_pool_summary": candidate_pool_summary,
+        "policies": policy_reports,
+    }
+
+
+def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+    *,
+    inventory: Mapping[str, object],
+    benchmark_targets: Sequence[BenchmarkShadowTarget],
+    policies: Sequence[str] = SHADOW_PROMOTION_POLICIES + REFERENCE_SHADOW_POLICY_MODES,
+    support_score_min: float = DEFAULT_SUPPORT_SCORE_MIN,
+    support_score_max_promoted: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
+    support_frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    support_frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
+    support_frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
+    support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    support_representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
+) -> dict[str, object]:
+    gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
+    inventory_lookup = _build_inventory_lookup(inventory)
+    requested_policies = tuple(
+        policy
+        for policy in policies
+        if policy in SHADOW_PROMOTION_POLICIES or policy in REFERENCE_SHADOW_POLICY_MODES
+    )
+    candidate_pool_summary = {
+        "trigger_rows_total": 0,
+        "trigger_rows_with_inventory_entry": 0,
+        "gold_trigger_rows": 0,
+        "gold_trigger_rows_with_inventory_entry": 0,
+        "gold_trigger_rows_with_active_candidates": 0,
+        "gold_trigger_rows_with_mined_overlap": 0,
+        "gold_trigger_rows_with_exact_mined_set": 0,
+    }
+    policy_reports: dict[str, object] = {}
+    for policy in requested_policies:
+        policy_reports[policy] = _empty_veto_policy_report()
+
+    if not isinstance(inventory.get("targets"), Sequence) or isinstance(
+        inventory.get("targets"), (str, bytes)
+    ):
+        return {
+            "schema_version": 1,
+            "status": "inventory_unavailable",
+            "candidate_pool_summary": candidate_pool_summary,
+            "policies": policy_reports,
+        }
+
+    for benchmark_target in benchmark_targets:
+        target = str(benchmark_target.target or "").strip()
+        if not target:
+            continue
+        for trigger in benchmark_target.reviewed_triggers:
+            if not trigger:
+                continue
+            trigger_entry = inventory_lookup.get((target, trigger), {})
+            active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
+            shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
+            gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
+            mined_shadow_targets = {
+                str(candidate.get("target") or "").strip()
+                for candidate in shadow_candidates
+                if isinstance(candidate, Mapping) and str(candidate.get("target") or "").strip()
+            }
+
+            candidate_pool_summary["trigger_rows_total"] += 1
+            if trigger_entry:
+                candidate_pool_summary["trigger_rows_with_inventory_entry"] += 1
+            if gold_shadow_targets:
+                candidate_pool_summary["gold_trigger_rows"] += 1
+                if trigger_entry:
+                    candidate_pool_summary["gold_trigger_rows_with_inventory_entry"] += 1
+                if active_candidates:
+                    candidate_pool_summary["gold_trigger_rows_with_active_candidates"] += 1
+                if mined_shadow_targets & gold_shadow_targets:
+                    candidate_pool_summary["gold_trigger_rows_with_mined_overlap"] += 1
+                if mined_shadow_targets == gold_shadow_targets:
+                    candidate_pool_summary["gold_trigger_rows_with_exact_mined_set"] += 1
+
+            for policy in requested_policies:
+                promoted_targets = _resolve_promoted_targets_for_policy(
+                    policy=policy,
+                    gold_shadow_targets=gold_shadow_targets,
+                    shadow_candidates=shadow_candidates,
+                    active_candidates=active_candidates,
+                    support_score_min=support_score_min,
+                    support_score_max_promoted=support_score_max_promoted,
+                    support_frequency_representative_bonus=support_frequency_representative_bonus,
+                    support_frequency_representative_top_k=support_frequency_representative_top_k,
+                    support_frequency_similarity_weight=support_frequency_similarity_weight,
+                    support_frequency_similarity_tau=support_frequency_similarity_tau,
+                    support_representative_pruning_mode=support_representative_pruning_mode,
+                )
+                _accumulate_veto_policy_row(
+                    report=policy_reports[policy],
+                    target=target,
+                    trigger=trigger,
+                    active_candidate_count=len(active_candidates),
+                    gold_shadow_targets=gold_shadow_targets,
+                    mined_shadow_targets=mined_shadow_targets,
+                    promoted_targets=promoted_targets,
+                )
+
+    for policy_report in policy_reports.values():
+        if isinstance(policy_report, Mapping):
+            _finalize_veto_policy_report(policy_report)
 
     _finalize_candidate_pool_summary(candidate_pool_summary)
     return {
@@ -239,10 +328,77 @@ def _empty_policy_report() -> dict[str, object]:
     }
 
 
+def _empty_veto_policy_report() -> dict[str, object]:
+    return {
+        "summary": {
+            "trigger_rows_total": 0,
+            "trigger_rows_with_active_candidates": 0,
+            "ambiguous_trigger_rows": 0,
+            "clear_trigger_rows": 0,
+            "abstain_rows": 0,
+            "allow_rows": 0,
+            "true_abstain_count": 0,
+            "harmful_allow_count": 0,
+            "true_allow_count": 0,
+            "false_abstain_count": 0,
+        },
+        "sample_harmful_allow_rows": [],
+        "sample_false_abstain_rows": [],
+    }
+
+
 def _as_sequence(value: object) -> Sequence[object]:
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
         return value
     return ()
+
+
+def _resolve_promoted_targets_for_policy(
+    *,
+    policy: str,
+    gold_shadow_targets: set[str],
+    shadow_candidates: Sequence[object],
+    active_candidates: Sequence[object],
+    support_score_min: float,
+    support_score_max_promoted: int,
+    support_frequency_representative_bonus: float,
+    support_frequency_representative_top_k: int,
+    support_frequency_similarity_weight: float,
+    support_frequency_similarity_tau: float,
+    support_representative_pruning_mode: str,
+) -> list[str]:
+    if policy == "none":
+        return []
+    if policy == "gold_overlap_oracle":
+        return sorted(gold_shadow_targets)
+    if policy == SUPPORT_SCORE_POLICY:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            min_score=support_score_min,
+            max_promoted_shadows=support_score_max_promoted,
+            policy=policy,
+            frequency_representative_bonus=support_frequency_representative_bonus,
+            frequency_representative_top_k=support_frequency_representative_top_k,
+            frequency_similarity_weight=support_frequency_similarity_weight,
+            frequency_similarity_tau=support_frequency_similarity_tau,
+            representative_pruning_mode=support_representative_pruning_mode,
+        )
+        return [
+            str(candidate.get("target") or "").strip()
+            for candidate in promoted
+            if isinstance(candidate, Mapping) and str(candidate.get("target") or "").strip()
+        ]
+    promoted = promote_shadow_candidates_for_policy(
+        shadow_candidates=shadow_candidates,
+        active_candidates=active_candidates,
+        policy=policy,
+    )
+    return [
+        str(candidate.get("target") or "").strip()
+        for candidate in promoted
+        if isinstance(candidate, Mapping) and str(candidate.get("target") or "").strip()
+    ]
 
 
 def _accumulate_policy_row(
@@ -308,6 +464,55 @@ def _accumulate_policy_row(
             _append_sample(report.get("sample_overblocked_rows"), row_payload)
 
 
+def _accumulate_veto_policy_row(
+    *,
+    report: Mapping[str, object],
+    target: str,
+    trigger: str,
+    active_candidate_count: int,
+    gold_shadow_targets: set[str],
+    mined_shadow_targets: set[str],
+    promoted_targets: Sequence[str],
+) -> None:
+    summary = report.get("summary")
+    if not isinstance(summary, dict):
+        return
+    promoted_target_set = {value for value in promoted_targets if value}
+    should_abstain = bool(gold_shadow_targets)
+    did_abstain = bool(promoted_target_set)
+
+    summary["trigger_rows_total"] += 1
+    if active_candidate_count:
+        summary["trigger_rows_with_active_candidates"] += 1
+    if did_abstain:
+        summary["abstain_rows"] += 1
+    else:
+        summary["allow_rows"] += 1
+
+    row_payload = {
+        "target": target,
+        "trigger": trigger,
+        "active_candidate_count": active_candidate_count,
+        "gold_shadow_targets": sorted(gold_shadow_targets),
+        "mined_shadow_targets": sorted(mined_shadow_targets),
+        "promoted_targets": list(promoted_targets),
+    }
+    if should_abstain:
+        summary["ambiguous_trigger_rows"] += 1
+        if did_abstain:
+            summary["true_abstain_count"] += 1
+        else:
+            summary["harmful_allow_count"] += 1
+            _append_sample(report.get("sample_harmful_allow_rows"), row_payload)
+    else:
+        summary["clear_trigger_rows"] += 1
+        if did_abstain:
+            summary["false_abstain_count"] += 1
+            _append_sample(report.get("sample_false_abstain_rows"), row_payload)
+        else:
+            summary["true_allow_count"] += 1
+
+
 def _append_sample(container: object, payload: Mapping[str, object], *, limit: int = 12) -> None:
     if not isinstance(container, list):
         return
@@ -359,6 +564,29 @@ def _finalize_policy_report(report: Mapping[str, object]) -> None:
         int(summary.get("no_gold_trigger_rows_overblocked") or 0),
         no_gold_rows,
     )
+
+
+def _finalize_veto_policy_report(report: Mapping[str, object]) -> None:
+    summary = report.get("summary")
+    if not isinstance(summary, dict):
+        return
+    trigger_rows = int(summary.get("trigger_rows_total") or 0)
+    ambiguous_rows = int(summary.get("ambiguous_trigger_rows") or 0)
+    clear_rows = int(summary.get("clear_trigger_rows") or 0)
+    allow_rows = int(summary.get("allow_rows") or 0)
+    abstain_rows = int(summary.get("abstain_rows") or 0)
+    true_abstain = int(summary.get("true_abstain_count") or 0)
+    harmful_allow = int(summary.get("harmful_allow_count") or 0)
+    true_allow = int(summary.get("true_allow_count") or 0)
+    false_abstain = int(summary.get("false_abstain_count") or 0)
+
+    summary["abstain_recall"] = _safe_rate(true_abstain, ambiguous_rows)
+    summary["harmful_allow_rate"] = _safe_rate(harmful_allow, ambiguous_rows)
+    summary["allow_precision"] = _safe_rate(true_allow, allow_rows)
+    summary["allow_rate"] = _safe_rate(allow_rows, trigger_rows)
+    summary["abstain_rate"] = _safe_rate(abstain_rows, trigger_rows)
+    summary["overblocking_rate"] = _safe_rate(false_abstain, clear_rows)
+    summary["overall_accuracy"] = _safe_rate(true_abstain + true_allow, trigger_rows)
 
 
 def _finalize_candidate_pool_summary(summary: Mapping[str, object]) -> None:
