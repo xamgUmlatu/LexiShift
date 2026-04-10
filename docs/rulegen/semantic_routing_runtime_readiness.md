@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, and active-trigger matching refinement for bundled forward glosses
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, and first support-score sweep for shadow promotion
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -361,7 +361,13 @@ First implemented research seam:
     - the new sweep artifact at `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md` shows the first useful numeric seed knob:
       - allowing only single-word forward-gloss-derived triggers is currently the best source-only tradeoff
       - longer phrase allowance (`2+` words) does not improve recall on the current lower-bound proxy, but it does worsen precision and overblocking
-    - conclusion: the current miner is general enough to avoid target-specific hacks, but still materially depends on reviewed-trigger seeding; the next de-coupling work should keep improving automatic seed quality rather than loosen the strict promotion policy
+    - the new support-score sweep at `docs/test_outputs/semantic_shadow_support_score_sweep_en_es_latest.md` shows the next cleaner control surface:
+      - instead of adding more named promotion policies, keep one explicit support score and sweep only the threshold plus the maximum promoted-shadow count
+      - on the current source-only lane, that already improves the tradeoff materially without adding manual data:
+        - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` with `min_score=4` and `max_promoted=2` now reach `47.1%` candidate precision, `80.0%` candidate recall, and `5.1%` overblocking
+        - relative to the old strict `cross_checked_v1` baseline on the same seed mode, that keeps recall flat but improves precision from `32.0%` to `47.1%` and reduces overblocking from `9.4%` to `5.1%`
+      - on the reviewed-trigger control, the best score setting simply reconstructs the old strict frontier (`min_score=3`, `max_promoted=1`)
+    - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

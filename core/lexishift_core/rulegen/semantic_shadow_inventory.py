@@ -11,14 +11,25 @@ from lexishift_core.rulegen.pairs.en_es_support import (
 from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 DEFAULT_SHADOW_PROMOTION_POLICY = "same_pos_lenient_v1"
+SUPPORT_SCORE_POLICY = "support_score_v1"
 SHADOW_PROMOTION_POLICIES = (
     DEFAULT_SHADOW_PROMOTION_POLICY,
+    SUPPORT_SCORE_POLICY,
     "benchmark_backed_v1",
     "cross_checked_v1",
     "cross_checked_backoff_missing_active_v1",
 )
 RULEGEN_SHADOW_SOURCE_FIELDS = ("top3_sources", "all_sources")
 DEFAULT_FORWARD_SEED_MAX_WORDS = 4
+DEFAULT_SUPPORT_SCORE_MIN = 3.0
+DEFAULT_SUPPORT_SCORE_MAX_PROMOTED = 3
+SHADOW_SUPPORT_SCORE_WEIGHTS = {
+    "reviewed_trigger_support": 2.0,
+    "benchmark_target_present": 1.0,
+    "same_pos_as_active": 1.0,
+    "active_side_support": 1.0,
+    "cross_pos_mismatch_penalty": -1.0,
+}
 
 
 def normalize_shadow_text(value: object) -> str:
@@ -373,6 +384,7 @@ def _build_reverse_candidates(
     for candidate in clustered:
         target = str(candidate.get("target") or "").strip()
         benchmark_target = benchmark_target_map.get(target)
+        candidate["candidate_sources"] = ["reverse_lookup"]
         candidate["benchmark_target_present"] = benchmark_target is not None
         if benchmark_target is not None:
             candidate["benchmark_case_ids"] = list(benchmark_target.case_ids)
@@ -395,6 +407,14 @@ def promote_shadow_candidates_for_policy(
         raise ValueError(
             f"Unsupported shadow promotion policy: {normalized_policy!r}; "
             f"expected one of {SHADOW_PROMOTION_POLICIES!r}"
+        )
+    if normalized_policy == SUPPORT_SCORE_POLICY:
+        return promote_shadow_candidates_with_support_score(
+            shadow_candidates=shadow_candidates,
+            active_candidates=active_candidates,
+            min_score=DEFAULT_SUPPORT_SCORE_MIN,
+            max_promoted_shadows=DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
+            policy=normalized_policy,
         )
     active_pos_values = {
         str(candidate.get("canonical_pos") or "").strip().lower()
@@ -438,9 +458,115 @@ def promote_shadow_candidates_for_policy(
         candidate_copy["same_pos_as_active"] = same_pos
         candidate_copy["promotion_reasons"] = promotion_reasons
         candidate_copy["promotion_policy"] = normalized_policy
+        support_details = build_shadow_candidate_support_details(
+            candidate=candidate_copy,
+            active_candidates=active_candidates,
+        )
+        candidate_copy.update(support_details)
+        candidate_copy["promotion_reasons"] = promotion_reasons
         ranked.append((score_vector, candidate_copy))
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:3]]
+
+
+def promote_shadow_candidates_with_support_score(
+    *,
+    shadow_candidates: Sequence[Mapping[str, object]],
+    active_candidates: Sequence[Mapping[str, object]],
+    min_score: float = DEFAULT_SUPPORT_SCORE_MIN,
+    max_promoted_shadows: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
+    policy: str = SUPPORT_SCORE_POLICY,
+) -> list[dict[str, object]]:
+    normalized_policy = str(policy or "").strip() or SUPPORT_SCORE_POLICY
+    normalized_max_promoted = max(1, int(max_promoted_shadows))
+    ranked: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
+    for candidate in shadow_candidates:
+        candidate_copy = dict(candidate)
+        support_details = build_shadow_candidate_support_details(
+            candidate=candidate_copy,
+            active_candidates=active_candidates,
+        )
+        candidate_copy.update(support_details)
+        candidate_copy["promotion_policy"] = normalized_policy
+        support_score = float(candidate_copy.get("support_score") or 0.0)
+        if support_score < float(min_score):
+            continue
+        ranked.append(
+            (
+                (
+                    support_score,
+                    1 if candidate_copy.get("reviewed_trigger_support") else 0,
+                    1 if candidate_copy.get("same_pos_as_active") else 0,
+                    1 if candidate_copy.get("benchmark_target_present") else 0,
+                    str(candidate_copy.get("target") or "").strip(),
+                ),
+                candidate_copy,
+            )
+        )
+    ranked.sort(reverse=True)
+    return [candidate for _score, candidate in ranked[:normalized_max_promoted]]
+
+
+def build_shadow_candidate_support_details(
+    *,
+    candidate: Mapping[str, object],
+    active_candidates: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    active_pos_values = {
+        str(active_candidate.get("canonical_pos") or "").strip().lower()
+        for active_candidate in active_candidates
+        if str(active_candidate.get("canonical_pos") or "").strip()
+    }
+    has_active_candidates = bool(active_candidates)
+    has_active_pos = bool(active_pos_values)
+    canonical_pos = str(candidate.get("canonical_pos") or "").strip().lower()
+    reviewed_trigger_support = bool(candidate.get("reviewed_trigger_support"))
+    benchmark_target_present = bool(candidate.get("benchmark_target_present"))
+    same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
+    cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
+
+    support_breakdown = {
+        "reviewed_trigger_support": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["reviewed_trigger_support"]
+            if reviewed_trigger_support
+            else 0.0
+        ),
+        "benchmark_target_present": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["benchmark_target_present"]
+            if benchmark_target_present
+            else 0.0
+        ),
+        "same_pos_as_active": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["same_pos_as_active"] if same_pos else 0.0
+        ),
+        "active_side_support": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["active_side_support"] if has_active_candidates else 0.0
+        ),
+        "cross_pos_mismatch_penalty": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["cross_pos_mismatch_penalty"]
+            if cross_pos_mismatch
+            else 0.0
+        ),
+    }
+    positive_features = [
+        feature
+        for feature, value in (
+            ("reviewed_trigger_support", reviewed_trigger_support),
+            ("benchmark_target_present", benchmark_target_present),
+            ("same_pos_as_active", same_pos),
+            ("active_side_support", has_active_candidates),
+        )
+        if value
+    ]
+    penalties = ["cross_pos_mismatch_penalty"] if cross_pos_mismatch else []
+    return {
+        "same_pos_as_active": same_pos,
+        "support_features": positive_features,
+        "support_penalties": penalties,
+        "support_score_breakdown": support_breakdown,
+        "support_score": sum(float(value) for value in support_breakdown.values()),
+        "promotion_reasons": positive_features,
+    }
 
 
 def _shadow_candidate_qualifies_for_policy(

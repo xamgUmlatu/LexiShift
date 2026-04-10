@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T01:58:05Z",
+  "generated_at": "2026-04-10T04:57:14Z",
   "status": "ok",
   "inventory_status": "ok",
   "inventory_promotion_policy": "same_pos_lenient_v1",
@@ -9,11 +9,11 @@
     "same_pos_lenient_v1": {
       "summary": {
         "promoted_trigger_count": 111,
-        "promoted_candidate_count": 284
+        "promoted_candidate_count": 285
       },
       "top1_bucket_counts": {
-        "same_pos_only": 92,
-        "benchmark_aligned": 19,
+        "same_pos_only": 89,
+        "benchmark_aligned": 22,
         "no_promotion": 37
       },
       "sample_rows": [
@@ -200,14 +200,187 @@
         }
       ]
     },
-    "benchmark_backed_v1": {
+    "support_score_v1": {
       "summary": {
-        "promoted_trigger_count": 19,
-        "promoted_candidate_count": 19
+        "promoted_trigger_count": 14,
+        "promoted_candidate_count": 14
       },
       "top1_bucket_counts": {
-        "no_promotion": 129,
-        "benchmark_aligned": 19
+        "no_promotion": 134,
+        "benchmark_aligned": 14
+      },
+      "sample_rows": [
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "llevar",
+          "trigger": "take",
+          "promoted_target": "coger",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "malla",
+          "trigger": "net",
+          "promoted_target": "red",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "promoted_target": "cuadro",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "punto",
+          "trigger": "point",
+          "promoted_target": "fondo",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "quitar",
+          "trigger": "remove",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "promoted_target": "malla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "sacar",
+          "trigger": "remove",
+          "promoted_target": "quitar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "tabla",
+          "trigger": "table",
+          "promoted_target": "cuadro",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "benchmark_backed_v1": {
+      "summary": {
+        "promoted_trigger_count": 22,
+        "promoted_candidate_count": 22
+      },
+      "top1_bucket_counts": {
+        "no_promotion": 126,
+        "benchmark_aligned": 22
       },
       "sample_rows": [
         {
@@ -369,6 +542,28 @@
           "reason_bucket": "benchmark_aligned"
         },
         {
+          "target": "quitar",
+          "trigger": "remove",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "promoted_target": "malla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
           "target": "sacar",
           "trigger": "remove",
           "promoted_target": "quitar",
@@ -387,26 +582,17 @@
             "benchmark_target_present"
           ],
           "reason_bucket": "benchmark_aligned"
-        },
-        {
-          "target": "tabla",
-          "trigger": "board",
-          "promoted_target": "subir",
-          "promotion_reasons": [
-            "benchmark_target_present"
-          ],
-          "reason_bucket": "benchmark_aligned"
         }
       ]
     },
     "cross_checked_v1": {
       "summary": {
-        "promoted_trigger_count": 11,
-        "promoted_candidate_count": 11
+        "promoted_trigger_count": 14,
+        "promoted_candidate_count": 14
       },
       "top1_bucket_counts": {
-        "no_promotion": 137,
-        "benchmark_aligned": 11
+        "no_promotion": 134,
+        "benchmark_aligned": 14
       },
       "sample_rows": [
         {
@@ -514,9 +700,42 @@
           "reason_bucket": "benchmark_aligned"
         },
         {
+          "target": "quitar",
+          "trigger": "remove",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "promoted_target": "malla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
           "target": "sacar",
           "trigger": "remove",
           "promoted_target": "quitar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "tabla",
+          "trigger": "table",
+          "promoted_target": "cuadro",
           "promotion_reasons": [
             "reviewed_trigger_support",
             "benchmark_target_present",
@@ -528,12 +747,12 @@
     },
     "cross_checked_backoff_missing_active_v1": {
       "summary": {
-        "promoted_trigger_count": 11,
-        "promoted_candidate_count": 11
+        "promoted_trigger_count": 14,
+        "promoted_candidate_count": 14
       },
       "top1_bucket_counts": {
-        "no_promotion": 137,
-        "benchmark_aligned": 11
+        "no_promotion": 134,
+        "benchmark_aligned": 14
       },
       "sample_rows": [
         {
@@ -641,9 +860,42 @@
           "reason_bucket": "benchmark_aligned"
         },
         {
+          "target": "quitar",
+          "trigger": "remove",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "promoted_target": "malla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
           "target": "sacar",
           "trigger": "remove",
           "promoted_target": "quitar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "tabla",
+          "trigger": "table",
+          "promoted_target": "cuadro",
           "promotion_reasons": [
             "reviewed_trigger_support",
             "benchmark_target_present",

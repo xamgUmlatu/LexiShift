@@ -1,7 +1,7 @@
 # en-es Shadow Gold-Proxy Evaluation
 
 - Status: `ok`
-- Generated: `2026-04-10T01:58:16Z`
+- Generated: `2026-04-10T04:57:13Z`
 - Inventory status: `ok`
 - Proxy meaning: reviewed trigger overlaps in the rulegen benchmark act as the current lower-bound gold for which targets should compete for the same English trigger.
 - Blind spot: this proxy will under-credit real semantic blockers when the competing benchmark target does not explicitly list the same English trigger, so rows like `marco / frame -> cuadro` can appear as overblocking here even though they are useful runtime shadows.
@@ -31,6 +31,24 @@
   - `agua` / `water` promoted=['wata', 'linfa', 'fluidos corporales']
   - `amigo` / `friend` promoted=['parcero', 'novio', 'novia']
   - `amor` / `love` promoted=['nada', 'hacer el amor', 'cero']
+
+## support_score_v1
+- Candidate precision: `64.3%`
+- Candidate recall: `90.0%`
+- Candidate F1: `75.0%`
+- Gold trigger hit rate: `90.0%`
+- Top-1 gold trigger hit rate: `90.0%`
+- Gold trigger exact-match rate: `90.0%`
+- Underblocking rows: `1`
+- Overblocking rows: `5`
+- Sample underblocked rows:
+  - `trabajo` / `job` gold=['cargo'] promoted=[]
+- Sample overblocked rows:
+  - `cura` / `priest` promoted=['padre']
+  - `escuela` / `school` promoted=['banco']
+  - `fondo` / `fund` promoted=['capital']
+  - `marco` / `frame` promoted=['cuadro']
+  - `punto` / `point` promoted=['fondo']
 
 ## benchmark_backed_v1
 - Candidate precision: `40.9%`

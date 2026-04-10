@@ -193,3 +193,61 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         cross_checked = report["policies"]["cross_checked_v1"]["summary"]
         self.assertEqual(cross_checked["gold_trigger_rows_underblocked"], 2)
         self.assertEqual(cross_checked["gold_trigger_rows_hit"], 0)
+
+    def test_evaluate_shadow_inventory_support_score_policy_uses_threshold_parameters(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="pelota",
+                case_ids=("en-es:pelota",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="baile",
+                case_ids=("en-es:baile",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "pelota",
+                    "trigger_entries": [
+                        {
+                            "trigger": "ball",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "baile",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                },
+                                {
+                                    "target": "vista",
+                                    "reviewed_trigger_support": False,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "verb",
+                                },
+                            ],
+                        }
+                    ],
+                }
+            ]
+        }
+
+        report = evaluate_shadow_inventory_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("support_score_v1",),
+            support_score_min=3.0,
+            support_score_max_promoted=1,
+        )
+
+        summary = report["policies"]["support_score_v1"]["summary"]
+        self.assertEqual(summary["candidate_true_positive_count"], 1)
+        self.assertEqual(summary["candidate_false_positive_count"], 0)
+        self.assertEqual(summary["gold_trigger_rows_hit"], 1)

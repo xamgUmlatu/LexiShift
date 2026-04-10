@@ -12,10 +12,12 @@ from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     DEFAULT_FORWARD_SEED_MAX_WORDS,
     augment_shadow_targets_with_forward_gloss_triggers,
+    build_shadow_candidate_support_details,
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
     build_rulegen_shadow_targets,
     promote_shadow_candidates_for_policy,
+    promote_shadow_candidates_with_support_score,
 )
 
 
@@ -590,6 +592,64 @@ class TestSemanticShadowInventory(unittest.TestCase):
             policy="cross_checked_backoff_missing_active_v1",
         )
         self.assertEqual(promoted, [])
+
+    def test_build_shadow_candidate_support_details_scores_cross_pos_mismatch_conservatively(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "vista",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": False,
+            },
+            active_candidates=[{"canonical_pos": "verb"}],
+        )
+
+        self.assertEqual(
+            support["support_features"],
+            ["benchmark_target_present", "active_side_support"],
+        )
+        self.assertEqual(support["support_penalties"], ["cross_pos_mismatch_penalty"])
+        self.assertEqual(support["support_score"], 1.0)
+
+    def test_promote_shadow_candidates_with_support_score_prefers_supported_rows(self) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=[
+                {
+                    "target": "cuadro",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                },
+                {
+                    "target": "vista",
+                    "canonical_pos": "verb",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                },
+                {
+                    "target": "estructura conceptual",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": False,
+                    "reviewed_trigger_support": False,
+                },
+            ],
+            active_candidates=[{"canonical_pos": "noun"}],
+            min_score=3.0,
+            max_promoted_shadows=2,
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["cuadro"])
+        self.assertEqual(promoted[0]["support_score"], 3.0)
+        self.assertEqual(
+            promoted[0]["promotion_reasons"],
+            [
+                "benchmark_target_present",
+                "same_pos_as_active",
+                "active_side_support",
+            ],
+        )
 
 
 if __name__ == "__main__":

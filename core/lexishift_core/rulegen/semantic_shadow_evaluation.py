@@ -3,9 +3,13 @@ from __future__ import annotations
 from typing import Mapping, Sequence
 
 from lexishift_core.rulegen.semantic_shadow_inventory import (
+    DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
+    DEFAULT_SUPPORT_SCORE_MIN,
     BenchmarkShadowTarget,
     SHADOW_PROMOTION_POLICIES,
     promote_shadow_candidates_for_policy,
+    promote_shadow_candidates_with_support_score,
+    SUPPORT_SCORE_POLICY,
 )
 
 REFERENCE_SHADOW_POLICY_MODES = ("none", "gold_overlap_oracle")
@@ -51,6 +55,8 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     inventory: Mapping[str, object],
     benchmark_targets: Sequence[BenchmarkShadowTarget],
     policies: Sequence[str] = SHADOW_PROMOTION_POLICIES + REFERENCE_SHADOW_POLICY_MODES,
+    support_score_min: float = DEFAULT_SUPPORT_SCORE_MIN,
+    support_score_max_promoted: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -118,6 +124,20 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                     promoted_targets: list[str] = []
                 elif policy == "gold_overlap_oracle":
                     promoted_targets = sorted(gold_shadow_targets)
+                elif policy == SUPPORT_SCORE_POLICY:
+                    promoted = promote_shadow_candidates_with_support_score(
+                        shadow_candidates=shadow_candidates,
+                        active_candidates=active_candidates,
+                        min_score=support_score_min,
+                        max_promoted_shadows=support_score_max_promoted,
+                        policy=policy,
+                    )
+                    promoted_targets = [
+                        str(candidate.get("target") or "").strip()
+                        for candidate in promoted
+                        if isinstance(candidate, Mapping)
+                        and str(candidate.get("target") or "").strip()
+                    ]
                 else:
                     promoted = promote_shadow_candidates_for_policy(
                         shadow_candidates=shadow_candidates,

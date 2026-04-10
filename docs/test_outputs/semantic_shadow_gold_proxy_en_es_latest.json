@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T01:58:16Z",
+  "generated_at": "2026-04-10T04:57:13Z",
   "status": "ok",
   "benchmark_dataset": {
     "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
@@ -15,10 +15,14 @@
     "status": "ok",
     "candidate_pool_summary": {
       "trigger_rows_total": 148,
+      "trigger_rows_with_inventory_entry": 148,
       "gold_trigger_rows": 10,
+      "gold_trigger_rows_with_inventory_entry": 10,
       "gold_trigger_rows_with_active_candidates": 9,
       "gold_trigger_rows_with_mined_overlap": 9,
       "gold_trigger_rows_with_exact_mined_set": 0,
+      "inventory_entry_coverage_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 1.0,
       "candidate_pool_trigger_recall": 0.9,
       "candidate_pool_exact_match_rate": 0.0,
       "gold_trigger_active_support_rate": 0.9
@@ -600,6 +604,171 @@
             ]
           }
         ]
+      },
+      "support_score_v1": {
+        "summary": {
+          "trigger_rows_total": 148,
+          "gold_trigger_rows": 10,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 14,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 5,
+          "candidate_false_negative_count": 1,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 9,
+          "gold_trigger_rows_underblocked": 1,
+          "gold_trigger_rows_partial": 0,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 138,
+          "no_gold_trigger_rows_overblocked": 5,
+          "candidate_precision": 0.6428571428571429,
+          "candidate_recall": 0.9,
+          "candidate_f1": 0.75,
+          "gold_trigger_hit_rate": 0.9,
+          "gold_trigger_exact_match_rate": 0.9,
+          "top1_gold_trigger_hit_rate": 0.9,
+          "underblocking_rate": 0.1,
+          "overblocking_rate": 0.036231884057971016
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "trabajo",
+            "trigger": "job",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "cargo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "talacha",
+              "tarea",
+              "yob"
+            ],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "cura",
+            "trigger": "priest",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "padre",
+              "párroco",
+              "sacerdote"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          },
+          {
+            "target": "escuela",
+            "trigger": "school",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "banco",
+              "cardumen",
+              "colegio",
+              "educar",
+              "escolarizar",
+              "facultad",
+              "universidad"
+            ],
+            "promoted_targets": [
+              "banco"
+            ]
+          },
+          {
+            "target": "fondo",
+            "trigger": "fund",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "capital",
+              "costear",
+              "financiar",
+              "patrocinar",
+              "sufragar"
+            ],
+            "promoted_targets": [
+              "capital"
+            ]
+          },
+          {
+            "target": "marco",
+            "trigger": "frame",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "achacar",
+              "armar",
+              "armazón",
+              "bastidor",
+              "concebir",
+              "contextualizar",
+              "cuadro",
+              "encuadrar",
+              "enmarcar",
+              "esqueleto",
+              "estructura",
+              "fotograma",
+              "hacer la cama",
+              "incriminar falsamente",
+              "inculpar falsamente",
+              "levantar la estructura",
+              "lote",
+              "osamenta",
+              "trasto"
+            ],
+            "promoted_targets": [
+              "cuadro"
+            ]
+          },
+          {
+            "target": "punto",
+            "trigger": "point",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "apuntar",
+              "argumento",
+              "asestar",
+              "baraustar",
+              "chiste",
+              "dirigir",
+              "empuntar",
+              "encaminar",
+              "encarar",
+              "encarrilar",
+              "encañonar",
+              "fondo",
+              "indicar",
+              "momento",
+              "motivo",
+              "objetivo",
+              "orientar",
+              "porqué",
+              "propósito",
+              "punta",
+              "razón"
+            ],
+            "promoted_targets": [
+              "fondo"
+            ]
+          }
+        ],
+        "sample_partial_rows": []
       },
       "benchmark_backed_v1": {
         "summary": {
