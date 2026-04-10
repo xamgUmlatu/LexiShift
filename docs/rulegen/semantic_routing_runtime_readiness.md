@@ -206,6 +206,18 @@ First implemented research seam:
 - There is now a single review packet at `docs/test_outputs/semantic_shadow_review_packet_en_es_latest.md`:
   - it combines the current policy snapshot, provisional keep rows, provisional drop rows, and the active-side evidence summary for each row
   - it makes the current practical recommendation explicit: treat `cross_checked_v1` as the provisional `en-es` runtime-shaped policy, keep the six surviving blocker rows, and keep the eight dropped rows out of the blocker set for now
+- There is now a first lower-bound grading surface at `docs/test_outputs/semantic_shadow_gold_proxy_en_es_latest.md`:
+  - it derives a reviewed-trigger-overlap gold proxy directly from `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
+  - it scores the current shadow-promotion policies against that proxy without inventing a second benchmark surface
+  - this is not a sentence-level semantic veto benchmark, but it gives immediate candidate precision/recall, trigger-hit, underblocking, and overblocking metrics for automatic shadow promotion
+  - on the latest `en-es` artifact, the strict policies (`cross_checked_v1` and `cross_checked_backoff_missing_active_v1`) tie as the best current lower-bound:
+    - candidate precision `54.5%`
+    - candidate recall `60.0%`
+    - gold-trigger hit rate `60.0%`
+    - overblocking rate `3.6%`
+  - the same artifact also clarifies the current limiting factor:
+    - the mined candidate pool reaches only `60.0%` trigger-level recall against the overlap proxy
+    - so the next bottleneck is not just promotion strictness; it is also shadow-candidate coverage
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.
