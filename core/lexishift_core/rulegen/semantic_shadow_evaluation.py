@@ -265,6 +265,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     report=policy_reports[policy],
                     target=target,
                     trigger=trigger,
+                    inventory_entry_present=bool(trigger_entry),
                     active_candidate_count=len(active_candidates),
                     gold_shadow_targets=gold_shadow_targets,
                     mined_shadow_targets=mined_shadow_targets,
@@ -486,6 +487,7 @@ def _accumulate_veto_policy_row(
     report: Mapping[str, object],
     target: str,
     trigger: str,
+    inventory_entry_present: bool,
     active_candidate_count: int,
     gold_shadow_targets: set[str],
     mined_shadow_targets: set[str],
@@ -520,6 +522,11 @@ def _accumulate_veto_policy_row(
 
     if should_abstain:
         if not did_abstain:
+            row_payload["miss_classification"] = _classify_veto_harmful_allow(
+                inventory_entry_present=inventory_entry_present,
+                gold_shadow_targets=gold_shadow_targets,
+                mined_shadow_targets=mined_shadow_targets,
+            )
             _append_sample(report.get("sample_harmful_allow_rows"), row_payload)
     elif did_abstain:
         _append_sample(report.get("sample_false_abstain_rows"), row_payload)
@@ -575,6 +582,19 @@ def _normalize_string_list(value: object) -> list[str]:
         if text and text not in normalized:
             normalized.append(text)
     return normalized
+
+
+def _classify_veto_harmful_allow(
+    *,
+    inventory_entry_present: bool,
+    gold_shadow_targets: set[str],
+    mined_shadow_targets: set[str],
+) -> str:
+    if not inventory_entry_present:
+        return "seed_missing"
+    if not gold_shadow_targets.intersection(mined_shadow_targets):
+        return "candidate_missing"
+    return "promotion_miss"
 
 
 def _accumulate_veto_summary_counts(

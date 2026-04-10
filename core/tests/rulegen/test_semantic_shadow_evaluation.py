@@ -631,6 +631,7 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         policy_payload = report["policies"]["support_score_v1"]
         harmful_rows = policy_payload["sample_harmful_allow_rows"]
         self.assertEqual(harmful_rows[0]["case_ids"], ["en-es:trabajo"])
+        self.assertEqual(harmful_rows[0]["miss_classification"], "candidate_missing")
         self.assertEqual(harmful_rows[0]["slice_tags"], ["family:job_role"])
 
         slice_summaries = policy_payload["slice_summaries"]
@@ -652,3 +653,33 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(tier_slice["trigger_rows_total"], 2)
         self.assertEqual(tier_slice["harmful_allow_count"], 1)
         self.assertEqual(tier_slice["true_allow_count"], 1)
+
+    def test_evaluate_shadow_inventory_veto_proxy_classifies_seed_missing_harmful_allow(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="pelota",
+                case_ids=("en-es:pelota",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="baile",
+                case_ids=("en-es:baile",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+        )
+        inventory = {"targets": [{"target": "pelota", "trigger_entries": []}]}
+
+        report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("none",),
+        )
+
+        harmful_rows = report["policies"]["none"]["sample_harmful_allow_rows"]
+        self.assertEqual(len(harmful_rows), 2)
+        self.assertEqual(harmful_rows[0]["miss_classification"], "seed_missing")
+        self.assertEqual(harmful_rows[1]["miss_classification"], "seed_missing")

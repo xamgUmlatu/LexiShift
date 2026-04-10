@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T22:05:50Z",
+  "generated_at": "2026-04-10T22:19:10Z",
   "status": "ok",
   "comparison_kind": "lower_bound_veto_proxy",
   "gold_reference": {
@@ -949,17 +949,17 @@
       "inventory_entry_coverage_rate": 1.0,
       "gold_trigger_inventory_coverage_rate": 1.0,
       "gold_trigger_active_support_rate": 0.7272727272727273,
-      "overall_accuracy": 0.9771428571428571,
-      "abstain_recall": 0.8787878787878788,
-      "harmful_allow_rate": 0.12121212121212122,
-      "allow_precision": 0.9726027397260274,
+      "overall_accuracy": 0.9371428571428572,
+      "abstain_recall": 0.6666666666666666,
+      "harmful_allow_rate": 0.3333333333333333,
+      "allow_precision": 0.9281045751633987,
       "overblocking_rate": 0.0,
-      "abstain_rate": 0.1657142857142857,
-      "allow_rate": 0.8342857142857143,
+      "abstain_rate": 0.12571428571428572,
+      "allow_rate": 0.8742857142857143,
       "ambiguous_trigger_rows": 33,
       "clear_trigger_rows": 142,
-      "true_abstain_count": 29,
-      "harmful_allow_count": 4,
+      "true_abstain_count": 22,
+      "harmful_allow_count": 11,
       "true_allow_count": 142,
       "false_abstain_count": 0,
       "slice_summaries": {
@@ -1006,19 +1006,19 @@
           "trigger_rows_with_active_candidates": 57,
           "ambiguous_trigger_rows": 16,
           "clear_trigger_rows": 66,
-          "abstain_rows": 16,
-          "allow_rows": 66,
-          "true_abstain_count": 16,
-          "harmful_allow_count": 0,
+          "abstain_rows": 12,
+          "allow_rows": 70,
+          "true_abstain_count": 12,
+          "harmful_allow_count": 4,
           "true_allow_count": 66,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.8048780487804879,
-          "abstain_rate": 0.1951219512195122,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9428571428571428,
+          "allow_rate": 0.8536585365853658,
+          "abstain_rate": 0.14634146341463414,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9512195121951219
         },
         "dimension:overlap_topology:singleton_trigger": {
           "trigger_rows_total": 142,
@@ -1063,57 +1063,57 @@
           "trigger_rows_with_active_candidates": 123,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 131,
-          "abstain_rows": 29,
-          "allow_rows": 135,
-          "true_abstain_count": 29,
-          "harmful_allow_count": 4,
+          "abstain_rows": 22,
+          "allow_rows": 142,
+          "true_abstain_count": 22,
+          "harmful_allow_count": 11,
           "true_allow_count": 131,
           "false_abstain_count": 0,
-          "abstain_recall": 0.8787878787878788,
-          "harmful_allow_rate": 0.12121212121212122,
-          "allow_precision": 0.9703703703703703,
-          "allow_rate": 0.823170731707317,
-          "abstain_rate": 0.17682926829268292,
+          "abstain_recall": 0.6666666666666666,
+          "harmful_allow_rate": 0.3333333333333333,
+          "allow_precision": 0.9225352112676056,
+          "allow_rate": 0.8658536585365854,
+          "abstain_rate": 0.13414634146341464,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.975609756097561
+          "overall_accuracy": 0.9329268292682927
         },
         "dimension:reviewed_expectation:top1_expected": {
           "trigger_rows_total": 140,
           "trigger_rows_with_active_candidates": 114,
           "ambiguous_trigger_rows": 25,
           "clear_trigger_rows": 115,
-          "abstain_rows": 23,
-          "allow_rows": 117,
-          "true_abstain_count": 23,
-          "harmful_allow_count": 2,
+          "abstain_rows": 16,
+          "allow_rows": 124,
+          "true_abstain_count": 16,
+          "harmful_allow_count": 9,
           "true_allow_count": 115,
           "false_abstain_count": 0,
-          "abstain_recall": 0.92,
-          "harmful_allow_rate": 0.08,
-          "allow_precision": 0.9829059829059829,
-          "allow_rate": 0.8357142857142857,
-          "abstain_rate": 0.16428571428571428,
+          "abstain_recall": 0.64,
+          "harmful_allow_rate": 0.36,
+          "allow_precision": 0.9274193548387096,
+          "allow_rate": 0.8857142857142857,
+          "abstain_rate": 0.11428571428571428,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.9857142857142858
+          "overall_accuracy": 0.9357142857142857
         },
         "dimension:pos:verb": {
           "trigger_rows_total": 15,
           "trigger_rows_with_active_candidates": 13,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 11,
-          "abstain_rows": 4,
-          "allow_rows": 11,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 12,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 11,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7333333333333333,
-          "abstain_rate": 0.26666666666666666,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9166666666666666,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9333333333333333
         },
         "dimension:semantic_family:finish_end": {
           "trigger_rows_total": 2,
@@ -1158,19 +1158,19 @@
           "trigger_rows_with_active_candidates": 74,
           "ambiguous_trigger_rows": 17,
           "clear_trigger_rows": 76,
-          "abstain_rows": 13,
-          "allow_rows": 80,
-          "true_abstain_count": 13,
-          "harmful_allow_count": 4,
+          "abstain_rows": 10,
+          "allow_rows": 83,
+          "true_abstain_count": 10,
+          "harmful_allow_count": 7,
           "true_allow_count": 76,
           "false_abstain_count": 0,
-          "abstain_recall": 0.7647058823529411,
-          "harmful_allow_rate": 0.23529411764705882,
-          "allow_precision": 0.95,
-          "allow_rate": 0.8602150537634409,
-          "abstain_rate": 0.13978494623655913,
+          "abstain_recall": 0.5882352941176471,
+          "harmful_allow_rate": 0.4117647058823529,
+          "allow_precision": 0.9156626506024096,
+          "allow_rate": 0.8924731182795699,
+          "abstain_rate": 0.10752688172043011,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.956989247311828
+          "overall_accuracy": 0.9247311827956989
         },
         "tag:family:bank_bench": {
           "trigger_rows_total": 2,
@@ -1196,19 +1196,19 @@
           "trigger_rows_with_active_candidates": 42,
           "ambiguous_trigger_rows": 29,
           "clear_trigger_rows": 31,
-          "abstain_rows": 25,
-          "allow_rows": 35,
-          "true_abstain_count": 25,
-          "harmful_allow_count": 4,
+          "abstain_rows": 19,
+          "allow_rows": 41,
+          "true_abstain_count": 19,
+          "harmful_allow_count": 10,
           "true_allow_count": 31,
           "false_abstain_count": 0,
-          "abstain_recall": 0.8620689655172413,
-          "harmful_allow_rate": 0.13793103448275862,
-          "allow_precision": 0.8857142857142857,
-          "allow_rate": 0.5833333333333334,
-          "abstain_rate": 0.4166666666666667,
+          "abstain_recall": 0.6551724137931034,
+          "harmful_allow_rate": 0.3448275862068966,
+          "allow_precision": 0.7560975609756098,
+          "allow_rate": 0.6833333333333333,
+          "abstain_rate": 0.31666666666666665,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.9333333333333333
+          "overall_accuracy": 0.8333333333333334
         },
         "dimension:semantic_family:bank_bench": {
           "trigger_rows_total": 2,
@@ -1367,19 +1367,19 @@
           "trigger_rows_with_active_candidates": 24,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 0,
-          "abstain_rows": 29,
-          "allow_rows": 4,
-          "true_abstain_count": 29,
-          "harmful_allow_count": 4,
+          "abstain_rows": 22,
+          "allow_rows": 11,
+          "true_abstain_count": 22,
+          "harmful_allow_count": 11,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.8787878787878788,
-          "harmful_allow_rate": 0.12121212121212122,
+          "abstain_recall": 0.6666666666666666,
+          "harmful_allow_rate": 0.3333333333333333,
           "allow_precision": 0.0,
-          "allow_rate": 0.12121212121212122,
-          "abstain_rate": 0.8787878787878788,
+          "allow_rate": 0.3333333333333333,
+          "abstain_rate": 0.6666666666666666,
           "overblocking_rate": null,
-          "overall_accuracy": 0.8787878787878788
+          "overall_accuracy": 0.6666666666666666
         },
         "dimension:overlap_target_count:3": {
           "trigger_rows_total": 9,
@@ -1443,19 +1443,19 @@
           "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 20,
           "clear_trigger_rows": 0,
-          "abstain_rows": 16,
-          "allow_rows": 4,
-          "true_abstain_count": 16,
-          "harmful_allow_count": 4,
+          "abstain_rows": 9,
+          "allow_rows": 11,
+          "true_abstain_count": 9,
+          "harmful_allow_count": 11,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.8,
-          "harmful_allow_rate": 0.2,
+          "abstain_recall": 0.45,
+          "harmful_allow_rate": 0.55,
           "allow_precision": 0.0,
-          "allow_rate": 0.2,
-          "abstain_rate": 0.8,
+          "allow_rate": 0.55,
+          "abstain_rate": 0.45,
           "overblocking_rate": null,
-          "overall_accuracy": 0.8
+          "overall_accuracy": 0.45
         },
         "dimension:semantic_family:field_area_country": {
           "trigger_rows_total": 11,
@@ -1481,38 +1481,38 @@
           "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 8,
-          "allow_rows": 7,
-          "true_abstain_count": 8,
-          "harmful_allow_count": 0,
+          "abstain_rows": 6,
+          "allow_rows": 9,
+          "true_abstain_count": 6,
+          "harmful_allow_count": 2,
           "true_allow_count": 7,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.4666666666666667,
-          "abstain_rate": 0.5333333333333333,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.7777777777777778,
+          "allow_rate": 0.6,
+          "abstain_rate": 0.4,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8666666666666667
         },
         "dimension:semantic_family:job": {
           "trigger_rows_total": 15,
           "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 8,
-          "allow_rows": 7,
-          "true_abstain_count": 8,
-          "harmful_allow_count": 0,
+          "abstain_rows": 6,
+          "allow_rows": 9,
+          "true_abstain_count": 6,
+          "harmful_allow_count": 2,
           "true_allow_count": 7,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.4666666666666667,
-          "abstain_rate": 0.5333333333333333,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.7777777777777778,
+          "allow_rate": 0.6,
+          "abstain_rate": 0.4,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8666666666666667
         },
         "dimension:overlap_target_count:4": {
           "trigger_rows_total": 4,
@@ -1557,19 +1557,19 @@
           "trigger_rows_with_active_candidates": 11,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "dimension:semantic_family:take_carry": {
           "trigger_rows_total": 7,
@@ -1595,57 +1595,57 @@
           "trigger_rows_with_active_candidates": 11,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "tag:family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "dimension:semantic_family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "tag:family:account_bill": {
           "trigger_rows_total": 3,
@@ -1785,79 +1785,370 @@
           "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 7,
-          "allow_rows": 3,
-          "true_abstain_count": 7,
-          "harmful_allow_count": 0,
+          "abstain_rows": 4,
+          "allow_rows": 6,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 3,
           "true_allow_count": 3,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.3,
-          "abstain_rate": 0.7,
+          "abstain_recall": 0.5714285714285714,
+          "harmful_allow_rate": 0.42857142857142855,
+          "allow_precision": 0.5,
+          "allow_rate": 0.6,
+          "abstain_rate": 0.4,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.7
         },
         "dimension:semantic_family:net_mesh_network": {
           "trigger_rows_total": 10,
           "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 7,
-          "allow_rows": 3,
-          "true_abstain_count": 7,
-          "harmful_allow_count": 0,
+          "abstain_rows": 4,
+          "allow_rows": 6,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 3,
           "true_allow_count": 3,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.3,
-          "abstain_rate": 0.7,
+          "abstain_recall": 0.5714285714285714,
+          "harmful_allow_rate": 0.42857142857142855,
+          "allow_precision": 0.5,
+          "allow_rate": 0.6,
+          "abstain_rate": 0.4,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.7
         },
         "tag:family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         },
         "dimension:semantic_family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         }
       },
       "sample_harmful_allow_rows": [
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [
+            "ocupación"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "quitar",
+          "trigger": "remove",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "sacar"
+          ],
+          "mined_shadow_targets": [
+            "detraer",
+            "remover",
+            "sacar"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:quitar"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:remove_take_out",
+            "hazard:phrase_sensitive"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "verb"
+            ],
+            "semantic_family": [
+              "remove_take_out"
+            ],
+            "hazard": [
+              "phrase_sensitive"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "reja",
+          "trigger": "grille",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "rejilla",
+          "trigger": "grille",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "reja"
+          ],
+          "mined_shadow_targets": [
+            "reja"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:rejilla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "tabla",
+          "trigger": "table",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "cuadro"
+          ],
+          "mined_shadow_targets": [
+            "cuadro",
+            "entremijo",
+            "entremiso",
+            "expremijo",
+            "mesa",
+            "poner sobre la mesa",
+            "tablas",
+            "tabular",
+            "traer a discusión"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:tabla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:table_board_chart"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "table_board_chart"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
         {
           "target": "terreno",
           "trigger": "land",
@@ -1917,7 +2208,8 @@
             "semantic_family": [
               "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "terreno",
@@ -1975,7 +2267,8 @@
             "semantic_family": [
               "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "terreno",
@@ -2030,7 +2323,8 @@
             "semantic_family": [
               "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "tierra",
@@ -2088,13 +2382,89 @@
             "semantic_family": [
               "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "trabajo",
+          "trigger": "work",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [
+            "bordar",
+            "bretear",
+            "carburar",
+            "chamba",
+            "chambear",
+            "cheje",
+            "chejear",
+            "currelar",
+            "curro",
+            "efectuarse",
+            "empleo",
+            "fermentar",
+            "funcar",
+            "funcionar",
+            "hacer funcionar",
+            "laborear",
+            "labrar",
+            "laburar",
+            "laburo",
+            "marchar",
+            "obra",
+            "obrar",
+            "obras",
+            "opus",
+            "rular",
+            "ser eficaz",
+            "tajo",
+            "tallar",
+            "torcerse",
+            "trabajal",
+            "trabajar"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:trabajo"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "promotion_miss"
         }
       ],
       "sample_false_abstain_rows": [],
-      "delta_vs_curated_overall_accuracy": -0.02285714285714291,
-      "delta_vs_curated_abstain_recall": -0.12121212121212122,
-      "delta_vs_curated_harmful_allow_rate": 0.12121212121212122,
+      "delta_vs_curated_overall_accuracy": -0.06285714285714283,
+      "delta_vs_curated_abstain_recall": -0.33333333333333337,
+      "delta_vs_curated_harmful_allow_rate": 0.3333333333333333,
       "delta_vs_curated_overblocking_rate": 0.0
     },
     {
@@ -2104,22 +2474,22 @@
       "policy": "support_score_v1",
       "support_score_min": 5.0,
       "support_score_max_promoted": 2,
-      "inventory_entry_coverage_rate": 0.6628571428571428,
-      "gold_trigger_inventory_coverage_rate": 0.6060606060606061,
-      "gold_trigger_active_support_rate": 0.6060606060606061,
-      "overall_accuracy": 0.88,
-      "abstain_recall": 0.48484848484848486,
-      "harmful_allow_rate": 0.5151515151515151,
-      "allow_precision": 0.8903225806451613,
-      "overblocking_rate": 0.028169014084507043,
-      "abstain_rate": 0.11428571428571428,
-      "allow_rate": 0.8857142857142857,
+      "inventory_entry_coverage_rate": 0.7142857142857143,
+      "gold_trigger_inventory_coverage_rate": 0.7272727272727273,
+      "gold_trigger_active_support_rate": 0.7272727272727273,
+      "overall_accuracy": 0.8742857142857143,
+      "abstain_recall": 0.42424242424242425,
+      "harmful_allow_rate": 0.5757575757575758,
+      "allow_precision": 0.879746835443038,
+      "overblocking_rate": 0.02112676056338028,
+      "abstain_rate": 0.09714285714285714,
+      "allow_rate": 0.9028571428571428,
       "ambiguous_trigger_rows": 33,
       "clear_trigger_rows": 142,
-      "true_abstain_count": 16,
-      "harmful_allow_count": 17,
-      "true_allow_count": 138,
-      "false_abstain_count": 4,
+      "true_abstain_count": 14,
+      "harmful_allow_count": 19,
+      "true_allow_count": 139,
+      "false_abstain_count": 3,
       "slice_summaries": {
         "tag:family:finish_end": {
           "trigger_rows_total": 2,
@@ -2161,117 +2531,117 @@
         },
         "dimension:tier:hard": {
           "trigger_rows_total": 82,
-          "trigger_rows_with_active_candidates": 53,
+          "trigger_rows_with_active_candidates": 56,
           "ambiguous_trigger_rows": 16,
           "clear_trigger_rows": 66,
-          "abstain_rows": 9,
-          "allow_rows": 73,
-          "true_abstain_count": 7,
-          "harmful_allow_count": 9,
+          "abstain_rows": 6,
+          "allow_rows": 76,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 12,
           "true_allow_count": 64,
           "false_abstain_count": 2,
-          "abstain_recall": 0.4375,
-          "harmful_allow_rate": 0.5625,
-          "allow_precision": 0.8767123287671232,
-          "allow_rate": 0.8902439024390244,
-          "abstain_rate": 0.10975609756097561,
+          "abstain_recall": 0.25,
+          "harmful_allow_rate": 0.75,
+          "allow_precision": 0.8421052631578947,
+          "allow_rate": 0.926829268292683,
+          "abstain_rate": 0.07317073170731707,
           "overblocking_rate": 0.030303030303030304,
-          "overall_accuracy": 0.8658536585365854
+          "overall_accuracy": 0.8292682926829268
         },
         "dimension:overlap_topology:singleton_trigger": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
-          "abstain_rows": 4,
-          "allow_rows": 138,
+          "abstain_rows": 3,
+          "allow_rows": 139,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 138,
-          "false_abstain_count": 4,
+          "true_allow_count": 139,
+          "false_abstain_count": 3,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.971830985915493,
-          "abstain_rate": 0.028169014084507043,
-          "overblocking_rate": 0.028169014084507043,
-          "overall_accuracy": 0.971830985915493
+          "allow_rate": 0.9788732394366197,
+          "abstain_rate": 0.02112676056338028,
+          "overblocking_rate": 0.02112676056338028,
+          "overall_accuracy": 0.9788732394366197
         },
         "dimension:overlap_target_count:1": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
-          "abstain_rows": 4,
-          "allow_rows": 138,
+          "abstain_rows": 3,
+          "allow_rows": 139,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 138,
-          "false_abstain_count": 4,
+          "true_allow_count": 139,
+          "false_abstain_count": 3,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.971830985915493,
-          "abstain_rate": 0.028169014084507043,
-          "overblocking_rate": 0.028169014084507043,
-          "overall_accuracy": 0.971830985915493
+          "allow_rate": 0.9788732394366197,
+          "abstain_rate": 0.02112676056338028,
+          "overblocking_rate": 0.02112676056338028,
+          "overall_accuracy": 0.9788732394366197
         },
         "dimension:trigger_shape:unigram": {
           "trigger_rows_total": 164,
-          "trigger_rows_with_active_candidates": 114,
+          "trigger_rows_with_active_candidates": 123,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 131,
-          "abstain_rows": 20,
-          "allow_rows": 144,
-          "true_abstain_count": 16,
-          "harmful_allow_count": 17,
-          "true_allow_count": 127,
-          "false_abstain_count": 4,
-          "abstain_recall": 0.48484848484848486,
-          "harmful_allow_rate": 0.5151515151515151,
-          "allow_precision": 0.8819444444444444,
-          "allow_rate": 0.8780487804878049,
-          "abstain_rate": 0.12195121951219512,
-          "overblocking_rate": 0.030534351145038167,
-          "overall_accuracy": 0.8719512195121951
+          "abstain_rows": 17,
+          "allow_rows": 147,
+          "true_abstain_count": 14,
+          "harmful_allow_count": 19,
+          "true_allow_count": 128,
+          "false_abstain_count": 3,
+          "abstain_recall": 0.42424242424242425,
+          "harmful_allow_rate": 0.5757575757575758,
+          "allow_precision": 0.8707482993197279,
+          "allow_rate": 0.8963414634146342,
+          "abstain_rate": 0.10365853658536585,
+          "overblocking_rate": 0.022900763358778626,
+          "overall_accuracy": 0.8658536585365854
         },
         "dimension:reviewed_expectation:top1_expected": {
           "trigger_rows_total": 140,
-          "trigger_rows_with_active_candidates": 102,
+          "trigger_rows_with_active_candidates": 109,
           "ambiguous_trigger_rows": 25,
           "clear_trigger_rows": 115,
-          "abstain_rows": 19,
-          "allow_rows": 121,
-          "true_abstain_count": 15,
-          "harmful_allow_count": 10,
-          "true_allow_count": 111,
-          "false_abstain_count": 4,
-          "abstain_recall": 0.6,
-          "harmful_allow_rate": 0.4,
-          "allow_precision": 0.9173553719008265,
-          "allow_rate": 0.8642857142857143,
-          "abstain_rate": 0.1357142857142857,
-          "overblocking_rate": 0.034782608695652174,
-          "overall_accuracy": 0.9
+          "abstain_rows": 15,
+          "allow_rows": 125,
+          "true_abstain_count": 12,
+          "harmful_allow_count": 13,
+          "true_allow_count": 112,
+          "false_abstain_count": 3,
+          "abstain_recall": 0.48,
+          "harmful_allow_rate": 0.52,
+          "allow_precision": 0.896,
+          "allow_rate": 0.8928571428571429,
+          "abstain_rate": 0.10714285714285714,
+          "overblocking_rate": 0.02608695652173913,
+          "overall_accuracy": 0.8857142857142857
         },
         "dimension:pos:verb": {
           "trigger_rows_total": 15,
           "trigger_rows_with_active_candidates": 11,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 11,
-          "abstain_rows": 4,
-          "allow_rows": 11,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 12,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 11,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7333333333333333,
-          "abstain_rate": 0.26666666666666666,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9166666666666666,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9333333333333333
         },
         "dimension:semantic_family:finish_end": {
           "trigger_rows_total": 2,
@@ -2313,22 +2683,22 @@
         },
         "dimension:tier:smoke": {
           "trigger_rows_total": 93,
-          "trigger_rows_with_active_candidates": 63,
+          "trigger_rows_with_active_candidates": 69,
           "ambiguous_trigger_rows": 17,
           "clear_trigger_rows": 76,
           "abstain_rows": 11,
           "allow_rows": 82,
-          "true_abstain_count": 9,
-          "harmful_allow_count": 8,
-          "true_allow_count": 74,
-          "false_abstain_count": 2,
-          "abstain_recall": 0.5294117647058824,
-          "harmful_allow_rate": 0.47058823529411764,
-          "allow_precision": 0.9024390243902439,
+          "true_abstain_count": 10,
+          "harmful_allow_count": 7,
+          "true_allow_count": 75,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.5882352941176471,
+          "harmful_allow_rate": 0.4117647058823529,
+          "allow_precision": 0.9146341463414634,
           "allow_rate": 0.8817204301075269,
           "abstain_rate": 0.11827956989247312,
-          "overblocking_rate": 0.02631578947368421,
-          "overall_accuracy": 0.8924731182795699
+          "overblocking_rate": 0.013157894736842105,
+          "overall_accuracy": 0.9139784946236559
         },
         "tag:family:bank_bench": {
           "trigger_rows_total": 2,
@@ -2351,21 +2721,21 @@
         },
         "dimension:pos:noun": {
           "trigger_rows_total": 60,
-          "trigger_rows_with_active_candidates": 32,
+          "trigger_rows_with_active_candidates": 41,
           "ambiguous_trigger_rows": 29,
           "clear_trigger_rows": 31,
-          "abstain_rows": 15,
-          "allow_rows": 45,
-          "true_abstain_count": 12,
-          "harmful_allow_count": 17,
-          "true_allow_count": 28,
-          "false_abstain_count": 3,
-          "abstain_recall": 0.41379310344827586,
-          "harmful_allow_rate": 0.5862068965517241,
-          "allow_precision": 0.6222222222222222,
-          "allow_rate": 0.75,
-          "abstain_rate": 0.25,
-          "overblocking_rate": 0.0967741935483871,
+          "abstain_rows": 13,
+          "allow_rows": 47,
+          "true_abstain_count": 11,
+          "harmful_allow_count": 18,
+          "true_allow_count": 29,
+          "false_abstain_count": 2,
+          "abstain_recall": 0.3793103448275862,
+          "harmful_allow_rate": 0.6206896551724138,
+          "allow_precision": 0.6170212765957447,
+          "allow_rate": 0.7833333333333333,
+          "abstain_rate": 0.21666666666666667,
+          "overblocking_rate": 0.06451612903225806,
           "overall_accuracy": 0.6666666666666666
         },
         "dimension:semantic_family:bank_bench": {
@@ -2484,64 +2854,64 @@
         },
         "dimension:reviewed_expectation:expected_only": {
           "trigger_rows_total": 35,
-          "trigger_rows_with_active_candidates": 14,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 27,
-          "abstain_rows": 1,
-          "allow_rows": 34,
-          "true_abstain_count": 1,
-          "harmful_allow_count": 7,
+          "abstain_rows": 2,
+          "allow_rows": 33,
+          "true_abstain_count": 2,
+          "harmful_allow_count": 6,
           "true_allow_count": 27,
           "false_abstain_count": 0,
-          "abstain_recall": 0.125,
-          "harmful_allow_rate": 0.875,
-          "allow_precision": 0.7941176470588235,
-          "allow_rate": 0.9714285714285714,
-          "abstain_rate": 0.02857142857142857,
+          "abstain_recall": 0.25,
+          "harmful_allow_rate": 0.75,
+          "allow_precision": 0.8181818181818182,
+          "allow_rate": 0.9428571428571428,
+          "abstain_rate": 0.05714285714285714,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.8
+          "overall_accuracy": 0.8285714285714286
         },
         "tag:family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
-          "abstain_rows": 6,
-          "allow_rows": 4,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 2,
-          "true_allow_count": 2,
-          "false_abstain_count": 2,
-          "abstain_recall": 0.6666666666666666,
-          "harmful_allow_rate": 0.3333333333333333,
-          "allow_precision": 0.5,
-          "allow_rate": 0.4,
-          "abstain_rate": 0.6,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.6
+          "abstain_rows": 5,
+          "allow_rows": 5,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 1,
+          "true_allow_count": 4,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.8333333333333334,
+          "harmful_allow_rate": 0.16666666666666666,
+          "allow_precision": 0.8,
+          "allow_rate": 0.5,
+          "abstain_rate": 0.5,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9
         },
         "dimension:overlap_topology:shared_trigger": {
           "trigger_rows_total": 33,
-          "trigger_rows_with_active_candidates": 20,
+          "trigger_rows_with_active_candidates": 24,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 0,
-          "abstain_rows": 16,
-          "allow_rows": 17,
-          "true_abstain_count": 16,
-          "harmful_allow_count": 17,
+          "abstain_rows": 14,
+          "allow_rows": 19,
+          "true_abstain_count": 14,
+          "harmful_allow_count": 19,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.48484848484848486,
-          "harmful_allow_rate": 0.5151515151515151,
+          "abstain_recall": 0.42424242424242425,
+          "harmful_allow_rate": 0.5757575757575758,
           "allow_precision": 0.0,
-          "allow_rate": 0.5151515151515151,
-          "abstain_rate": 0.48484848484848486,
+          "allow_rate": 0.5757575757575758,
+          "abstain_rate": 0.42424242424242425,
           "overblocking_rate": null,
-          "overall_accuracy": 0.48484848484848486
+          "overall_accuracy": 0.42424242424242425
         },
         "dimension:overlap_target_count:3": {
           "trigger_rows_total": 9,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 9,
           "clear_trigger_rows": 0,
           "abstain_rows": 5,
@@ -2560,117 +2930,117 @@
         },
         "dimension:semantic_family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
-          "abstain_rows": 6,
-          "allow_rows": 4,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 2,
-          "true_allow_count": 2,
-          "false_abstain_count": 2,
-          "abstain_recall": 0.6666666666666666,
-          "harmful_allow_rate": 0.3333333333333333,
-          "allow_precision": 0.5,
-          "allow_rate": 0.4,
-          "abstain_rate": 0.6,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.6
+          "abstain_rows": 5,
+          "allow_rows": 5,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 1,
+          "true_allow_count": 4,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.8333333333333334,
+          "harmful_allow_rate": 0.16666666666666666,
+          "allow_precision": 0.8,
+          "allow_rate": 0.5,
+          "abstain_rate": 0.5,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9
         },
         "tag:family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
-          "abstain_rows": 1,
-          "allow_rows": 10,
-          "true_abstain_count": 1,
-          "harmful_allow_count": 5,
-          "true_allow_count": 5,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.16666666666666666,
-          "harmful_allow_rate": 0.8333333333333334,
+          "abstain_rows": 3,
+          "allow_rows": 8,
+          "true_abstain_count": 2,
+          "harmful_allow_count": 4,
+          "true_allow_count": 4,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.3333333333333333,
+          "harmful_allow_rate": 0.6666666666666666,
           "allow_precision": 0.5,
-          "allow_rate": 0.9090909090909091,
-          "abstain_rate": 0.09090909090909091,
-          "overblocking_rate": 0.0,
+          "allow_rate": 0.7272727272727273,
+          "abstain_rate": 0.2727272727272727,
+          "overblocking_rate": 0.2,
           "overall_accuracy": 0.5454545454545454
         },
         "dimension:overlap_target_count:2": {
           "trigger_rows_total": 20,
-          "trigger_rows_with_active_candidates": 13,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 20,
           "clear_trigger_rows": 0,
-          "abstain_rows": 9,
-          "allow_rows": 11,
-          "true_abstain_count": 9,
-          "harmful_allow_count": 11,
+          "abstain_rows": 7,
+          "allow_rows": 13,
+          "true_abstain_count": 7,
+          "harmful_allow_count": 13,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.45,
-          "harmful_allow_rate": 0.55,
+          "abstain_recall": 0.35,
+          "harmful_allow_rate": 0.65,
           "allow_precision": 0.0,
-          "allow_rate": 0.55,
-          "abstain_rate": 0.45,
+          "allow_rate": 0.65,
+          "abstain_rate": 0.35,
           "overblocking_rate": null,
-          "overall_accuracy": 0.45
+          "overall_accuracy": 0.35
         },
         "dimension:semantic_family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
-          "abstain_rows": 1,
-          "allow_rows": 10,
-          "true_abstain_count": 1,
-          "harmful_allow_count": 5,
-          "true_allow_count": 5,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.16666666666666666,
-          "harmful_allow_rate": 0.8333333333333334,
+          "abstain_rows": 3,
+          "allow_rows": 8,
+          "true_abstain_count": 2,
+          "harmful_allow_count": 4,
+          "true_allow_count": 4,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.3333333333333333,
+          "harmful_allow_rate": 0.6666666666666666,
           "allow_precision": 0.5,
-          "allow_rate": 0.9090909090909091,
-          "abstain_rate": 0.09090909090909091,
-          "overblocking_rate": 0.0,
+          "allow_rate": 0.7272727272727273,
+          "abstain_rate": 0.2727272727272727,
+          "overblocking_rate": 0.2,
           "overall_accuracy": 0.5454545454545454
         },
         "tag:family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 3,
-          "allow_rows": 12,
+          "abstain_rows": 2,
+          "allow_rows": 13,
           "true_abstain_count": 2,
           "harmful_allow_count": 6,
-          "true_allow_count": 6,
-          "false_abstain_count": 1,
+          "true_allow_count": 7,
+          "false_abstain_count": 0,
           "abstain_recall": 0.25,
           "harmful_allow_rate": 0.75,
-          "allow_precision": 0.5,
-          "allow_rate": 0.8,
-          "abstain_rate": 0.2,
-          "overblocking_rate": 0.14285714285714285,
-          "overall_accuracy": 0.5333333333333333
+          "allow_precision": 0.5384615384615384,
+          "allow_rate": 0.8666666666666667,
+          "abstain_rate": 0.13333333333333333,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.6
         },
         "dimension:semantic_family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 3,
-          "allow_rows": 12,
+          "abstain_rows": 2,
+          "allow_rows": 13,
           "true_abstain_count": 2,
           "harmful_allow_count": 6,
-          "true_allow_count": 6,
-          "false_abstain_count": 1,
+          "true_allow_count": 7,
+          "false_abstain_count": 0,
           "abstain_recall": 0.25,
           "harmful_allow_rate": 0.75,
-          "allow_precision": 0.5,
-          "allow_rate": 0.8,
-          "abstain_rate": 0.2,
-          "overblocking_rate": 0.14285714285714285,
-          "overall_accuracy": 0.5333333333333333
+          "allow_precision": 0.5384615384615384,
+          "allow_rate": 0.8666666666666667,
+          "abstain_rate": 0.13333333333333333,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.6
         },
         "dimension:overlap_target_count:4": {
           "trigger_rows_total": 4,
@@ -2715,19 +3085,19 @@
           "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "dimension:semantic_family:take_carry": {
           "trigger_rows_total": 7,
@@ -2753,57 +3123,57 @@
           "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "tag:family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "dimension:semantic_family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "tag:family:account_bill": {
           "trigger_rows_total": 3,
@@ -2940,82 +3310,139 @@
         },
         "tag:family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 3,
-          "allow_rows": 7,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 4,
-          "true_allow_count": 3,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.42857142857142855,
-          "harmful_allow_rate": 0.5714285714285714,
-          "allow_precision": 0.42857142857142855,
-          "allow_rate": 0.7,
-          "abstain_rate": 0.3,
-          "overblocking_rate": 0.0,
-          "overall_accuracy": 0.6
+          "abstain_rows": 2,
+          "allow_rows": 8,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 6,
+          "true_allow_count": 2,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.14285714285714285,
+          "harmful_allow_rate": 0.8571428571428571,
+          "allow_precision": 0.25,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
+          "overblocking_rate": 0.3333333333333333,
+          "overall_accuracy": 0.3
         },
         "dimension:semantic_family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 3,
-          "allow_rows": 7,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 4,
-          "true_allow_count": 3,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.42857142857142855,
-          "harmful_allow_rate": 0.5714285714285714,
-          "allow_precision": 0.42857142857142855,
-          "allow_rate": 0.7,
-          "abstain_rate": 0.3,
-          "overblocking_rate": 0.0,
-          "overall_accuracy": 0.6
+          "abstain_rows": 2,
+          "allow_rows": 8,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 6,
+          "true_allow_count": 2,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.14285714285714285,
+          "harmful_allow_rate": 0.8571428571428571,
+          "allow_precision": 0.25,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
+          "overblocking_rate": 0.3333333333333333,
+          "overall_accuracy": 0.3
         },
         "tag:family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 3,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         },
         "dimension:semantic_family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 3,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         }
       },
       "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
         {
           "target": "cargo",
           "trigger": "job",
@@ -3058,50 +3485,8 @@
             "semantic_family": [
               "job"
             ]
-          }
-        },
-        {
-          "target": "carretera",
-          "trigger": "road",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "camino",
-            "ruta"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:carretera"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:path_route"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "3"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "path_route"
-            ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "empleo",
@@ -3143,7 +3528,8 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "candidate_missing"
         },
         {
           "target": "empleo",
@@ -3185,7 +3571,59 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "ocupación",
@@ -3229,7 +3667,8 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "ocupación",
@@ -3271,257 +3710,86 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
-          "target": "reja",
-          "trigger": "grille",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "rejilla"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:reja"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:net_mesh_network"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "2"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "net_mesh_network"
-            ]
-          }
-        },
-        {
-          "target": "reja",
-          "trigger": "mesh",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "malla",
-            "rejilla"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:reja"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:net_mesh_network"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "3"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "expected_only"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "net_mesh_network"
-            ]
-          }
-        },
-        {
-          "target": "rejilla",
-          "trigger": "grille",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "reja"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:rejilla"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:net_mesh_network"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "2"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "net_mesh_network"
-            ]
-          }
-        },
-        {
-          "target": "rejilla",
-          "trigger": "mesh",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "malla",
-            "reja"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:rejilla"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:net_mesh_network"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "3"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "expected_only"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "net_mesh_network"
-            ]
-          }
-        },
-        {
-          "target": "ruta",
-          "trigger": "road",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "camino",
-            "carretera"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:ruta"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:path_route"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "3"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "path_route"
-            ]
-          }
-        },
-        {
-          "target": "terreno",
-          "trigger": "land",
+          "target": "quitar",
+          "trigger": "remove",
           "active_candidate_count": 1,
           "gold_shadow_targets": [
-            "tierra"
+            "sacar"
           ],
           "mined_shadow_targets": [
-            "alunizar",
-            "amartizar",
-            "aterrar",
-            "aterrizar",
-            "atracar",
-            "baldío",
-            "conuco",
-            "finca",
-            "fundo",
-            "hacienda",
-            "patria",
-            "país",
-            "posesión",
-            "predio",
-            "propiedad",
-            "terruño",
-            "tierra",
-            "vega"
+            "detraer",
+            "remover",
+            "sacar"
           ],
           "promoted_targets": [],
           "case_ids": [
-            "en-es:terreno"
+            "en-es:quitar"
           ],
           "tiers": [
             "smoke"
           ],
           "slice_tags": [
-            "family:field_area_country"
+            "family:remove_take_out",
+            "hazard:phrase_sensitive"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "verb"
+            ],
+            "semantic_family": [
+              "remove_take_out"
+            ],
+            "hazard": [
+              "phrase_sensitive"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
           ],
           "slice_dimensions": {
             "tier": [
@@ -3543,114 +3811,145 @@
               "noun"
             ],
             "semantic_family": [
-              "field_area_country"
+              "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "reja",
+          "trigger": "grille",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "reja",
+          "trigger": "mesh",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "malla",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "rejilla",
+          "trigger": "grille",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "reja"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:rejilla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "seed_missing"
         }
       ],
       "sample_false_abstain_rows": [
-        {
-          "target": "camino",
-          "trigger": "way",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "canal",
-            "derrota",
-            "derrotero",
-            "forma",
-            "manera",
-            "medio",
-            "medios",
-            "modo",
-            "ruta",
-            "sendero",
-            "usanza",
-            "vía"
-          ],
-          "promoted_targets": [
-            "medio"
-          ],
-          "case_ids": [
-            "en-es:camino"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:path_route"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "path_route"
-            ]
-          }
-        },
-        {
-          "target": "cargo",
-          "trigger": "position",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "plaza",
-            "posición",
-            "puesto",
-            "punto"
-          ],
-          "promoted_targets": [
-            "plaza"
-          ],
-          "case_ids": [
-            "en-es:cargo"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:job"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "job"
-            ]
-          }
-        },
         {
           "target": "marco",
           "trigger": "frame",
@@ -3706,28 +4005,75 @@
           }
         },
         {
-          "target": "ruta",
-          "trigger": "route",
+          "target": "reja",
+          "trigger": "grating",
           "active_candidate_count": 1,
           "gold_shadow_targets": [],
           "mined_shadow_targets": [
-            "camino",
-            "encaminar",
-            "enrutar",
-            "itinerario",
-            "sendero"
+            "enjaretado",
+            "rejilla"
           ],
           "promoted_targets": [
-            "camino"
+            "rejilla"
           ],
           "case_ids": [
-            "en-es:ruta"
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
           ],
           "tiers": [
             "smoke"
           ],
           "slice_tags": [
-            "family:path_route"
+            "family:field_area_country"
           ],
           "slice_dimensions": {
             "tier": [
@@ -3749,15 +4095,15 @@
               "noun"
             ],
             "semantic_family": [
-              "path_route"
+              "field_area_country"
             ]
           }
         }
       ],
-      "delta_vs_curated_overall_accuracy": -0.12,
-      "delta_vs_curated_abstain_recall": -0.5151515151515151,
-      "delta_vs_curated_harmful_allow_rate": 0.5151515151515151,
-      "delta_vs_curated_overblocking_rate": 0.028169014084507043
+      "delta_vs_curated_overall_accuracy": -0.12571428571428567,
+      "delta_vs_curated_abstain_recall": -0.5757575757575757,
+      "delta_vs_curated_harmful_allow_rate": 0.5757575757575758,
+      "delta_vs_curated_overblocking_rate": 0.02112676056338028
     },
     {
       "source_id": "borrowed_trigger_auto_shadows",
@@ -3766,22 +4112,22 @@
       "policy": "support_score_v1",
       "support_score_min": 5.0,
       "support_score_max_promoted": 2,
-      "inventory_entry_coverage_rate": 0.6742857142857143,
-      "gold_trigger_inventory_coverage_rate": 0.6666666666666666,
-      "gold_trigger_active_support_rate": 0.6060606060606061,
-      "overall_accuracy": 0.88,
-      "abstain_recall": 0.5757575757575758,
-      "harmful_allow_rate": 0.42424242424242425,
-      "allow_precision": 0.9060402684563759,
-      "overblocking_rate": 0.04929577464788732,
-      "abstain_rate": 0.14857142857142858,
-      "allow_rate": 0.8514285714285714,
+      "inventory_entry_coverage_rate": 0.7314285714285714,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "gold_trigger_active_support_rate": 0.7272727272727273,
+      "overall_accuracy": 0.8914285714285715,
+      "abstain_recall": 0.5151515151515151,
+      "harmful_allow_rate": 0.48484848484848486,
+      "allow_precision": 0.896774193548387,
+      "overblocking_rate": 0.02112676056338028,
+      "abstain_rate": 0.11428571428571428,
+      "allow_rate": 0.8857142857142857,
       "ambiguous_trigger_rows": 33,
       "clear_trigger_rows": 142,
-      "true_abstain_count": 19,
-      "harmful_allow_count": 14,
-      "true_allow_count": 135,
-      "false_abstain_count": 7,
+      "true_abstain_count": 17,
+      "harmful_allow_count": 16,
+      "true_allow_count": 139,
+      "false_abstain_count": 3,
       "slice_summaries": {
         "tag:family:finish_end": {
           "trigger_rows_total": 2,
@@ -3823,117 +4169,117 @@
         },
         "dimension:tier:hard": {
           "trigger_rows_total": 82,
-          "trigger_rows_with_active_candidates": 53,
+          "trigger_rows_with_active_candidates": 56,
           "ambiguous_trigger_rows": 16,
           "clear_trigger_rows": 66,
-          "abstain_rows": 12,
-          "allow_rows": 70,
-          "true_abstain_count": 9,
-          "harmful_allow_count": 7,
-          "true_allow_count": 63,
-          "false_abstain_count": 3,
-          "abstain_recall": 0.5625,
-          "harmful_allow_rate": 0.4375,
-          "allow_precision": 0.9,
-          "allow_rate": 0.8536585365853658,
-          "abstain_rate": 0.14634146341463414,
-          "overblocking_rate": 0.045454545454545456,
-          "overall_accuracy": 0.8780487804878049
+          "abstain_rows": 9,
+          "allow_rows": 73,
+          "true_abstain_count": 7,
+          "harmful_allow_count": 9,
+          "true_allow_count": 64,
+          "false_abstain_count": 2,
+          "abstain_recall": 0.4375,
+          "harmful_allow_rate": 0.5625,
+          "allow_precision": 0.8767123287671232,
+          "allow_rate": 0.8902439024390244,
+          "abstain_rate": 0.10975609756097561,
+          "overblocking_rate": 0.030303030303030304,
+          "overall_accuracy": 0.8658536585365854
         },
         "dimension:overlap_topology:singleton_trigger": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
-          "abstain_rows": 7,
-          "allow_rows": 135,
+          "abstain_rows": 3,
+          "allow_rows": 139,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 135,
-          "false_abstain_count": 7,
+          "true_allow_count": 139,
+          "false_abstain_count": 3,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.9507042253521126,
-          "abstain_rate": 0.04929577464788732,
-          "overblocking_rate": 0.04929577464788732,
-          "overall_accuracy": 0.9507042253521126
+          "allow_rate": 0.9788732394366197,
+          "abstain_rate": 0.02112676056338028,
+          "overblocking_rate": 0.02112676056338028,
+          "overall_accuracy": 0.9788732394366197
         },
         "dimension:overlap_target_count:1": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
-          "abstain_rows": 7,
-          "allow_rows": 135,
+          "abstain_rows": 3,
+          "allow_rows": 139,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 135,
-          "false_abstain_count": 7,
+          "true_allow_count": 139,
+          "false_abstain_count": 3,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.9507042253521126,
-          "abstain_rate": 0.04929577464788732,
-          "overblocking_rate": 0.04929577464788732,
-          "overall_accuracy": 0.9507042253521126
+          "allow_rate": 0.9788732394366197,
+          "abstain_rate": 0.02112676056338028,
+          "overblocking_rate": 0.02112676056338028,
+          "overall_accuracy": 0.9788732394366197
         },
         "dimension:trigger_shape:unigram": {
           "trigger_rows_total": 164,
-          "trigger_rows_with_active_candidates": 114,
+          "trigger_rows_with_active_candidates": 123,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 131,
-          "abstain_rows": 26,
-          "allow_rows": 138,
-          "true_abstain_count": 19,
-          "harmful_allow_count": 14,
-          "true_allow_count": 124,
-          "false_abstain_count": 7,
-          "abstain_recall": 0.5757575757575758,
-          "harmful_allow_rate": 0.42424242424242425,
-          "allow_precision": 0.8985507246376812,
-          "allow_rate": 0.8414634146341463,
-          "abstain_rate": 0.15853658536585366,
-          "overblocking_rate": 0.05343511450381679,
-          "overall_accuracy": 0.8719512195121951
+          "abstain_rows": 20,
+          "allow_rows": 144,
+          "true_abstain_count": 17,
+          "harmful_allow_count": 16,
+          "true_allow_count": 128,
+          "false_abstain_count": 3,
+          "abstain_recall": 0.5151515151515151,
+          "harmful_allow_rate": 0.48484848484848486,
+          "allow_precision": 0.8888888888888888,
+          "allow_rate": 0.8780487804878049,
+          "abstain_rate": 0.12195121951219512,
+          "overblocking_rate": 0.022900763358778626,
+          "overall_accuracy": 0.8841463414634146
         },
         "dimension:reviewed_expectation:top1_expected": {
           "trigger_rows_total": 140,
-          "trigger_rows_with_active_candidates": 102,
+          "trigger_rows_with_active_candidates": 109,
           "ambiguous_trigger_rows": 25,
           "clear_trigger_rows": 115,
-          "abstain_rows": 23,
-          "allow_rows": 117,
-          "true_abstain_count": 16,
-          "harmful_allow_count": 9,
-          "true_allow_count": 108,
-          "false_abstain_count": 7,
-          "abstain_recall": 0.64,
-          "harmful_allow_rate": 0.36,
-          "allow_precision": 0.9230769230769231,
-          "allow_rate": 0.8357142857142857,
-          "abstain_rate": 0.16428571428571428,
-          "overblocking_rate": 0.06086956521739131,
-          "overall_accuracy": 0.8857142857142857
+          "abstain_rows": 16,
+          "allow_rows": 124,
+          "true_abstain_count": 13,
+          "harmful_allow_count": 12,
+          "true_allow_count": 112,
+          "false_abstain_count": 3,
+          "abstain_recall": 0.52,
+          "harmful_allow_rate": 0.48,
+          "allow_precision": 0.9032258064516129,
+          "allow_rate": 0.8857142857142857,
+          "abstain_rate": 0.11428571428571428,
+          "overblocking_rate": 0.02608695652173913,
+          "overall_accuracy": 0.8928571428571429
         },
         "dimension:pos:verb": {
           "trigger_rows_total": 15,
           "trigger_rows_with_active_candidates": 11,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 11,
-          "abstain_rows": 4,
-          "allow_rows": 11,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 12,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 11,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7333333333333333,
-          "abstain_rate": 0.26666666666666666,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9166666666666666,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9333333333333333
         },
         "dimension:semantic_family:finish_end": {
           "trigger_rows_total": 2,
@@ -3975,79 +4321,79 @@
         },
         "dimension:tier:smoke": {
           "trigger_rows_total": 93,
-          "trigger_rows_with_active_candidates": 63,
+          "trigger_rows_with_active_candidates": 69,
           "ambiguous_trigger_rows": 17,
           "clear_trigger_rows": 76,
-          "abstain_rows": 14,
-          "allow_rows": 79,
+          "abstain_rows": 11,
+          "allow_rows": 82,
           "true_abstain_count": 10,
           "harmful_allow_count": 7,
-          "true_allow_count": 72,
-          "false_abstain_count": 4,
+          "true_allow_count": 75,
+          "false_abstain_count": 1,
           "abstain_recall": 0.5882352941176471,
           "harmful_allow_rate": 0.4117647058823529,
-          "allow_precision": 0.9113924050632911,
-          "allow_rate": 0.8494623655913979,
-          "abstain_rate": 0.15053763440860216,
-          "overblocking_rate": 0.05263157894736842,
-          "overall_accuracy": 0.8817204301075269
+          "allow_precision": 0.9146341463414634,
+          "allow_rate": 0.8817204301075269,
+          "abstain_rate": 0.11827956989247312,
+          "overblocking_rate": 0.013157894736842105,
+          "overall_accuracy": 0.9139784946236559
         },
         "tag:family:bank_bench": {
           "trigger_rows_total": 2,
           "trigger_rows_with_active_candidates": 2,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 2,
-          "abstain_rows": 1,
-          "allow_rows": 1,
+          "abstain_rows": 0,
+          "allow_rows": 2,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 1,
-          "false_abstain_count": 1,
+          "true_allow_count": 2,
+          "false_abstain_count": 0,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.5,
-          "abstain_rate": 0.5,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.5
+          "allow_rate": 1.0,
+          "abstain_rate": 0.0,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
         },
         "dimension:pos:noun": {
           "trigger_rows_total": 60,
-          "trigger_rows_with_active_candidates": 32,
+          "trigger_rows_with_active_candidates": 41,
           "ambiguous_trigger_rows": 29,
           "clear_trigger_rows": 31,
-          "abstain_rows": 20,
-          "allow_rows": 40,
-          "true_abstain_count": 15,
-          "harmful_allow_count": 14,
-          "true_allow_count": 26,
-          "false_abstain_count": 5,
-          "abstain_recall": 0.5172413793103449,
-          "harmful_allow_rate": 0.4827586206896552,
-          "allow_precision": 0.65,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
-          "overblocking_rate": 0.16129032258064516,
-          "overall_accuracy": 0.6833333333333333
+          "abstain_rows": 16,
+          "allow_rows": 44,
+          "true_abstain_count": 14,
+          "harmful_allow_count": 15,
+          "true_allow_count": 29,
+          "false_abstain_count": 2,
+          "abstain_recall": 0.4827586206896552,
+          "harmful_allow_rate": 0.5172413793103449,
+          "allow_precision": 0.6590909090909091,
+          "allow_rate": 0.7333333333333333,
+          "abstain_rate": 0.26666666666666666,
+          "overblocking_rate": 0.06451612903225806,
+          "overall_accuracy": 0.7166666666666667
         },
         "dimension:semantic_family:bank_bench": {
           "trigger_rows_total": 2,
           "trigger_rows_with_active_candidates": 2,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 2,
-          "abstain_rows": 1,
-          "allow_rows": 1,
+          "abstain_rows": 0,
+          "allow_rows": 2,
           "true_abstain_count": 0,
           "harmful_allow_count": 0,
-          "true_allow_count": 1,
-          "false_abstain_count": 1,
+          "true_allow_count": 2,
+          "false_abstain_count": 0,
           "abstain_recall": null,
           "harmful_allow_rate": null,
           "allow_precision": 1.0,
-          "allow_rate": 0.5,
-          "abstain_rate": 0.5,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.5
+          "allow_rate": 1.0,
+          "abstain_rate": 0.0,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 1.0
         },
         "tag:family:battery_music": {
           "trigger_rows_total": 2,
@@ -4146,64 +4492,64 @@
         },
         "dimension:reviewed_expectation:expected_only": {
           "trigger_rows_total": 35,
-          "trigger_rows_with_active_candidates": 14,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 27,
-          "abstain_rows": 3,
-          "allow_rows": 32,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 5,
+          "abstain_rows": 4,
+          "allow_rows": 31,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 4,
           "true_allow_count": 27,
           "false_abstain_count": 0,
-          "abstain_recall": 0.375,
-          "harmful_allow_rate": 0.625,
-          "allow_precision": 0.84375,
-          "allow_rate": 0.9142857142857143,
-          "abstain_rate": 0.08571428571428572,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8709677419354839,
+          "allow_rate": 0.8857142857142857,
+          "abstain_rate": 0.11428571428571428,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 0.8571428571428571
+          "overall_accuracy": 0.8857142857142857
         },
         "tag:family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
-          "abstain_rows": 6,
-          "allow_rows": 4,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 2,
-          "true_allow_count": 2,
-          "false_abstain_count": 2,
-          "abstain_recall": 0.6666666666666666,
-          "harmful_allow_rate": 0.3333333333333333,
-          "allow_precision": 0.5,
-          "allow_rate": 0.4,
-          "abstain_rate": 0.6,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.6
+          "abstain_rows": 5,
+          "allow_rows": 5,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 1,
+          "true_allow_count": 4,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.8333333333333334,
+          "harmful_allow_rate": 0.16666666666666666,
+          "allow_precision": 0.8,
+          "allow_rate": 0.5,
+          "abstain_rate": 0.5,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9
         },
         "dimension:overlap_topology:shared_trigger": {
           "trigger_rows_total": 33,
-          "trigger_rows_with_active_candidates": 20,
+          "trigger_rows_with_active_candidates": 24,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 0,
-          "abstain_rows": 19,
-          "allow_rows": 14,
-          "true_abstain_count": 19,
-          "harmful_allow_count": 14,
+          "abstain_rows": 17,
+          "allow_rows": 16,
+          "true_abstain_count": 17,
+          "harmful_allow_count": 16,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.5757575757575758,
-          "harmful_allow_rate": 0.42424242424242425,
+          "abstain_recall": 0.5151515151515151,
+          "harmful_allow_rate": 0.48484848484848486,
           "allow_precision": 0.0,
-          "allow_rate": 0.42424242424242425,
-          "abstain_rate": 0.5757575757575758,
+          "allow_rate": 0.48484848484848486,
+          "abstain_rate": 0.5151515151515151,
           "overblocking_rate": null,
-          "overall_accuracy": 0.5757575757575758
+          "overall_accuracy": 0.5151515151515151
         },
         "dimension:overlap_target_count:3": {
           "trigger_rows_total": 9,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 9,
           "clear_trigger_rows": 0,
           "abstain_rows": 5,
@@ -4222,136 +4568,136 @@
         },
         "dimension:semantic_family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
-          "abstain_rows": 6,
-          "allow_rows": 4,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 2,
-          "true_allow_count": 2,
-          "false_abstain_count": 2,
-          "abstain_recall": 0.6666666666666666,
-          "harmful_allow_rate": 0.3333333333333333,
-          "allow_precision": 0.5,
-          "allow_rate": 0.4,
-          "abstain_rate": 0.6,
-          "overblocking_rate": 0.5,
-          "overall_accuracy": 0.6
+          "abstain_rows": 5,
+          "allow_rows": 5,
+          "true_abstain_count": 5,
+          "harmful_allow_count": 1,
+          "true_allow_count": 4,
+          "false_abstain_count": 0,
+          "abstain_recall": 0.8333333333333334,
+          "harmful_allow_rate": 0.16666666666666666,
+          "allow_precision": 0.8,
+          "allow_rate": 0.5,
+          "abstain_rate": 0.5,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.9
         },
         "tag:family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
-          "abstain_rows": 1,
-          "allow_rows": 10,
-          "true_abstain_count": 1,
-          "harmful_allow_count": 5,
-          "true_allow_count": 5,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.16666666666666666,
-          "harmful_allow_rate": 0.8333333333333334,
+          "abstain_rows": 3,
+          "allow_rows": 8,
+          "true_abstain_count": 2,
+          "harmful_allow_count": 4,
+          "true_allow_count": 4,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.3333333333333333,
+          "harmful_allow_rate": 0.6666666666666666,
           "allow_precision": 0.5,
-          "allow_rate": 0.9090909090909091,
-          "abstain_rate": 0.09090909090909091,
-          "overblocking_rate": 0.0,
+          "allow_rate": 0.7272727272727273,
+          "abstain_rate": 0.2727272727272727,
+          "overblocking_rate": 0.2,
           "overall_accuracy": 0.5454545454545454
         },
         "dimension:overlap_target_count:2": {
           "trigger_rows_total": 20,
-          "trigger_rows_with_active_candidates": 13,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 20,
           "clear_trigger_rows": 0,
-          "abstain_rows": 11,
-          "allow_rows": 9,
-          "true_abstain_count": 11,
-          "harmful_allow_count": 9,
+          "abstain_rows": 8,
+          "allow_rows": 12,
+          "true_abstain_count": 8,
+          "harmful_allow_count": 12,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.55,
-          "harmful_allow_rate": 0.45,
+          "abstain_recall": 0.4,
+          "harmful_allow_rate": 0.6,
           "allow_precision": 0.0,
-          "allow_rate": 0.45,
-          "abstain_rate": 0.55,
+          "allow_rate": 0.6,
+          "abstain_rate": 0.4,
           "overblocking_rate": null,
-          "overall_accuracy": 0.55
+          "overall_accuracy": 0.4
         },
         "dimension:semantic_family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
-          "abstain_rows": 1,
-          "allow_rows": 10,
-          "true_abstain_count": 1,
-          "harmful_allow_count": 5,
-          "true_allow_count": 5,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.16666666666666666,
-          "harmful_allow_rate": 0.8333333333333334,
+          "abstain_rows": 3,
+          "allow_rows": 8,
+          "true_abstain_count": 2,
+          "harmful_allow_count": 4,
+          "true_allow_count": 4,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.3333333333333333,
+          "harmful_allow_rate": 0.6666666666666666,
           "allow_precision": 0.5,
-          "allow_rate": 0.9090909090909091,
-          "abstain_rate": 0.09090909090909091,
-          "overblocking_rate": 0.0,
+          "allow_rate": 0.7272727272727273,
+          "abstain_rate": 0.2727272727272727,
+          "overblocking_rate": 0.2,
           "overall_accuracy": 0.5454545454545454
         },
         "tag:family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 7,
-          "allow_rows": 8,
+          "abstain_rows": 5,
+          "allow_rows": 10,
           "true_abstain_count": 5,
           "harmful_allow_count": 3,
-          "true_allow_count": 5,
-          "false_abstain_count": 2,
+          "true_allow_count": 7,
+          "false_abstain_count": 0,
           "abstain_recall": 0.625,
           "harmful_allow_rate": 0.375,
-          "allow_precision": 0.625,
-          "allow_rate": 0.5333333333333333,
-          "abstain_rate": 0.4666666666666667,
-          "overblocking_rate": 0.2857142857142857,
-          "overall_accuracy": 0.6666666666666666
+          "allow_precision": 0.7,
+          "allow_rate": 0.6666666666666666,
+          "abstain_rate": 0.3333333333333333,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.8
         },
         "dimension:semantic_family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
-          "abstain_rows": 7,
-          "allow_rows": 8,
+          "abstain_rows": 5,
+          "allow_rows": 10,
           "true_abstain_count": 5,
           "harmful_allow_count": 3,
-          "true_allow_count": 5,
-          "false_abstain_count": 2,
+          "true_allow_count": 7,
+          "false_abstain_count": 0,
           "abstain_recall": 0.625,
           "harmful_allow_rate": 0.375,
-          "allow_precision": 0.625,
-          "allow_rate": 0.5333333333333333,
-          "abstain_rate": 0.4666666666666667,
-          "overblocking_rate": 0.2857142857142857,
-          "overall_accuracy": 0.6666666666666666
+          "allow_precision": 0.7,
+          "allow_rate": 0.6666666666666666,
+          "abstain_rate": 0.3333333333333333,
+          "overblocking_rate": 0.0,
+          "overall_accuracy": 0.8
         },
         "dimension:overlap_target_count:4": {
           "trigger_rows_total": 4,
           "trigger_rows_with_active_candidates": 2,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 0,
-          "abstain_rows": 3,
-          "allow_rows": 1,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 1,
+          "abstain_rows": 4,
+          "allow_rows": 0,
+          "true_abstain_count": 4,
+          "harmful_allow_count": 0,
           "true_allow_count": 0,
           "false_abstain_count": 0,
-          "abstain_recall": 0.75,
-          "harmful_allow_rate": 0.25,
-          "allow_precision": 0.0,
-          "allow_rate": 0.25,
-          "abstain_rate": 0.75,
+          "abstain_recall": 1.0,
+          "harmful_allow_rate": 0.0,
+          "allow_precision": null,
+          "allow_rate": 0.0,
+          "abstain_rate": 1.0,
           "overblocking_rate": null,
-          "overall_accuracy": 0.75
+          "overall_accuracy": 1.0
         },
         "tag:family:take_carry": {
           "trigger_rows_total": 7,
@@ -4377,19 +4723,19 @@
           "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "dimension:semantic_family:take_carry": {
           "trigger_rows_total": 7,
@@ -4415,57 +4761,57 @@
           "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 4,
           "clear_trigger_rows": 9,
-          "abstain_rows": 4,
-          "allow_rows": 9,
-          "true_abstain_count": 4,
-          "harmful_allow_count": 0,
+          "abstain_rows": 3,
+          "allow_rows": 10,
+          "true_abstain_count": 3,
+          "harmful_allow_count": 1,
           "true_allow_count": 9,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6923076923076923,
-          "abstain_rate": 0.3076923076923077,
+          "abstain_recall": 0.75,
+          "harmful_allow_rate": 0.25,
+          "allow_precision": 0.9,
+          "allow_rate": 0.7692307692307693,
+          "abstain_rate": 0.23076923076923078,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.9230769230769231
         },
         "tag:family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "dimension:semantic_family:table_board_chart": {
           "trigger_rows_total": 7,
           "trigger_rows_with_active_candidates": 5,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 5,
-          "abstain_rows": 2,
-          "allow_rows": 5,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 6,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 5,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.7142857142857143,
-          "abstain_rate": 0.2857142857142857,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8333333333333334,
+          "allow_rate": 0.8571428571428571,
+          "abstain_rate": 0.14285714285714285,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8571428571428571
         },
         "tag:family:account_bill": {
           "trigger_rows_total": 3,
@@ -4602,110 +4948,123 @@
         },
         "tag:family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 3,
-          "allow_rows": 7,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 4,
-          "true_allow_count": 3,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.42857142857142855,
-          "harmful_allow_rate": 0.5714285714285714,
-          "allow_precision": 0.42857142857142855,
-          "allow_rate": 0.7,
-          "abstain_rate": 0.3,
-          "overblocking_rate": 0.0,
-          "overall_accuracy": 0.6
+          "abstain_rows": 2,
+          "allow_rows": 8,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 6,
+          "true_allow_count": 2,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.14285714285714285,
+          "harmful_allow_rate": 0.8571428571428571,
+          "allow_precision": 0.25,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
+          "overblocking_rate": 0.3333333333333333,
+          "overall_accuracy": 0.3
         },
         "dimension:semantic_family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
-          "abstain_rows": 3,
-          "allow_rows": 7,
-          "true_abstain_count": 3,
-          "harmful_allow_count": 4,
-          "true_allow_count": 3,
-          "false_abstain_count": 0,
-          "abstain_recall": 0.42857142857142855,
-          "harmful_allow_rate": 0.5714285714285714,
-          "allow_precision": 0.42857142857142855,
-          "allow_rate": 0.7,
-          "abstain_rate": 0.3,
-          "overblocking_rate": 0.0,
-          "overall_accuracy": 0.6
+          "abstain_rows": 2,
+          "allow_rows": 8,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 6,
+          "true_allow_count": 2,
+          "false_abstain_count": 1,
+          "abstain_recall": 0.14285714285714285,
+          "harmful_allow_rate": 0.8571428571428571,
+          "allow_precision": 0.25,
+          "allow_rate": 0.8,
+          "abstain_rate": 0.2,
+          "overblocking_rate": 0.3333333333333333,
+          "overall_accuracy": 0.3
         },
         "tag:family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 3,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         },
         "dimension:semantic_family:remove_take_out": {
           "trigger_rows_total": 6,
           "trigger_rows_with_active_candidates": 3,
           "ambiguous_trigger_rows": 2,
           "clear_trigger_rows": 4,
-          "abstain_rows": 2,
-          "allow_rows": 4,
-          "true_abstain_count": 2,
-          "harmful_allow_count": 0,
+          "abstain_rows": 1,
+          "allow_rows": 5,
+          "true_abstain_count": 1,
+          "harmful_allow_count": 1,
           "true_allow_count": 4,
           "false_abstain_count": 0,
-          "abstain_recall": 1.0,
-          "harmful_allow_rate": 0.0,
-          "allow_precision": 1.0,
-          "allow_rate": 0.6666666666666666,
-          "abstain_rate": 0.3333333333333333,
+          "abstain_recall": 0.5,
+          "harmful_allow_rate": 0.5,
+          "allow_precision": 0.8,
+          "allow_rate": 0.8333333333333334,
+          "abstain_rate": 0.16666666666666666,
           "overblocking_rate": 0.0,
-          "overall_accuracy": 1.0
+          "overall_accuracy": 0.8333333333333334
         }
       },
       "sample_harmful_allow_rows": [
         {
-          "target": "carretera",
-          "trigger": "road",
-          "active_candidate_count": 0,
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
           "gold_shadow_targets": [
-            "camino",
-            "ruta"
+            "terreno"
           ],
-          "mined_shadow_targets": [],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
           "promoted_targets": [],
           "case_ids": [
-            "en-es:carretera"
+            "en-es:campo"
           ],
           "tiers": [
-            "smoke"
+            "hard"
           ],
           "slice_tags": [
-            "family:path_route"
+            "family:field_area_country"
           ],
           "slice_dimensions": {
             "tier": [
-              "smoke"
+              "hard"
             ],
             "overlap_topology": [
               "shared_trigger"
             ],
             "overlap_target_count": [
-              "3"
+              "2"
             ],
             "trigger_shape": [
               "unigram"
@@ -4717,9 +5076,10 @@
               "noun"
             ],
             "semantic_family": [
-              "path_route"
+              "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "empleo",
@@ -4761,27 +5121,34 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "candidate_missing"
         },
         {
-          "target": "ocupación",
-          "trigger": "job",
-          "active_candidate_count": 0,
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
           "gold_shadow_targets": [
-            "cargo",
-            "empleo",
-            "trabajo"
+            "reja",
+            "rejilla"
           ],
-          "mined_shadow_targets": [],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
           "promoted_targets": [],
           "case_ids": [
-            "en-es:ocupación"
+            "en-es:malla"
           ],
           "tiers": [
             "hard"
           ],
           "slice_tags": [
-            "family:job"
+            "family:net_mesh_network"
           ],
           "slice_dimensions": {
             "tier": [
@@ -4791,7 +5158,7 @@
               "shared_trigger"
             ],
             "overlap_target_count": [
-              "4"
+              "3"
             ],
             "trigger_shape": [
               "unigram"
@@ -4803,9 +5170,10 @@
               "noun"
             ],
             "semantic_family": [
-              "job"
+              "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "ocupación",
@@ -4847,16 +5215,122 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "quitar",
+          "trigger": "remove",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "sacar"
+          ],
+          "mined_shadow_targets": [
+            "detraer",
+            "remover",
+            "sacar"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:quitar"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:remove_take_out",
+            "hazard:phrase_sensitive"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "verb"
+            ],
+            "semantic_family": [
+              "remove_take_out"
+            ],
+            "hazard": [
+              "phrase_sensitive"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "reja",
           "trigger": "grille",
-          "active_candidate_count": 0,
+          "active_candidate_count": 1,
           "gold_shadow_targets": [
             "rejilla"
           ],
-          "mined_shadow_targets": [],
+          "mined_shadow_targets": [
+            "rejilla"
+          ],
           "promoted_targets": [],
           "case_ids": [
             "en-es:reja"
@@ -4889,7 +5363,8 @@
             "semantic_family": [
               "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "reja",
@@ -4932,7 +5407,8 @@
             "semantic_family": [
               "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "rejilla",
@@ -4974,7 +5450,8 @@
             "semantic_family": [
               "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "rejilla",
@@ -5017,7 +5494,8 @@
             "semantic_family": [
               "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "ruta",
@@ -5060,48 +5538,41 @@
             "semantic_family": [
               "path_route"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
-          "target": "terreno",
-          "trigger": "land",
+          "target": "tabla",
+          "trigger": "table",
           "active_candidate_count": 1,
           "gold_shadow_targets": [
-            "tierra"
+            "cuadro"
           ],
           "mined_shadow_targets": [
-            "alunizar",
-            "amartizar",
-            "aterrar",
-            "aterrizar",
-            "atracar",
-            "baldío",
-            "conuco",
-            "finca",
-            "fundo",
-            "hacienda",
-            "patria",
-            "país",
-            "posesión",
-            "predio",
-            "propiedad",
-            "terruño",
-            "tierra",
-            "vega"
+            "cuadro",
+            "entremijo",
+            "entremiso",
+            "expremijo",
+            "mesa",
+            "poner sobre la mesa",
+            "presentar",
+            "tablas",
+            "tabular",
+            "traer a discusión"
           ],
           "promoted_targets": [],
           "case_ids": [
-            "en-es:terreno"
+            "en-es:tabla"
           ],
           "tiers": [
-            "smoke"
+            "hard"
           ],
           "slice_tags": [
-            "family:field_area_country"
+            "family:table_board_chart"
           ],
           "slice_dimensions": {
             "tier": [
-              "smoke"
+              "hard"
             ],
             "overlap_topology": [
               "shared_trigger"
@@ -5119,341 +5590,13 @@
               "noun"
             ],
             "semantic_family": [
-              "field_area_country"
+              "table_board_chart"
             ]
-          }
-        },
-        {
-          "target": "terreno",
-          "trigger": "ground",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [
-            "tierra"
-          ],
-          "mined_shadow_targets": [
-            "base",
-            "campo de futbol",
-            "castigar",
-            "cueshte",
-            "fondo",
-            "fundamento",
-            "huello",
-            "molido",
-            "motivante",
-            "motivo",
-            "picado",
-            "polo a tierra",
-            "suelo",
-            "tierra",
-            "toma de tierra"
-          ],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:terreno"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:field_area_country"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "2"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "field_area_country"
-            ]
-          }
-        },
-        {
-          "target": "terreno",
-          "trigger": "field",
-          "active_candidate_count": 0,
-          "gold_shadow_targets": [
-            "campo"
-          ],
-          "mined_shadow_targets": [],
-          "promoted_targets": [],
-          "case_ids": [
-            "en-es:terreno"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:field_area_country"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "shared_trigger"
-            ],
-            "overlap_target_count": [
-              "2"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "expected_only"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "field_area_country"
-            ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         }
       ],
       "sample_false_abstain_rows": [
-        {
-          "target": "banco",
-          "trigger": "bank",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "ahorrar",
-            "almacén",
-            "amontonar",
-            "apilar",
-            "bajío",
-            "banca",
-            "depositar",
-            "escuela",
-            "hilera",
-            "hucha",
-            "ingresar",
-            "juntar",
-            "ladear",
-            "ladearse",
-            "ladeo",
-            "orilla",
-            "peraltar",
-            "recoger",
-            "ribera",
-            "sucursal",
-            "talud",
-            "teclado",
-            "tener la cuenta en",
-            "terraplén"
-          ],
-          "promoted_targets": [
-            "escuela"
-          ],
-          "case_ids": [
-            "en-es:banco"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:bank_bench"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "bank_bench"
-            ]
-          }
-        },
-        {
-          "target": "camino",
-          "trigger": "way",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "canal",
-            "derrota",
-            "derrotero",
-            "forma",
-            "manera",
-            "medio",
-            "medios",
-            "modo",
-            "ruta",
-            "sendero",
-            "usanza",
-            "vía"
-          ],
-          "promoted_targets": [
-            "medio"
-          ],
-          "case_ids": [
-            "en-es:camino"
-          ],
-          "tiers": [
-            "smoke"
-          ],
-          "slice_tags": [
-            "family:path_route"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "smoke"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "path_route"
-            ]
-          }
-        },
-        {
-          "target": "cargo",
-          "trigger": "position",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "plaza",
-            "posición",
-            "puesto",
-            "punto"
-          ],
-          "promoted_targets": [
-            "plaza"
-          ],
-          "case_ids": [
-            "en-es:cargo"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:job"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "job"
-            ]
-          }
-        },
-        {
-          "target": "cargo",
-          "trigger": "post",
-          "active_candidate_count": 1,
-          "gold_shadow_targets": [],
-          "mined_shadow_targets": [
-            "cibercolgamiento",
-            "cibercolgar",
-            "colgamiento",
-            "colgamiento cibernético",
-            "colgar",
-            "colgar cibernéticamente",
-            "correo",
-            "enviar (por correo)",
-            "fijar",
-            "orden",
-            "post",
-            "postar",
-            "poste",
-            "postear",
-            "publicación",
-            "publicar",
-            "punto"
-          ],
-          "promoted_targets": [
-            "orden"
-          ],
-          "case_ids": [
-            "en-es:cargo"
-          ],
-          "tiers": [
-            "hard"
-          ],
-          "slice_tags": [
-            "family:job"
-          ],
-          "slice_dimensions": {
-            "tier": [
-              "hard"
-            ],
-            "overlap_topology": [
-              "singleton_trigger"
-            ],
-            "overlap_target_count": [
-              "1"
-            ],
-            "trigger_shape": [
-              "unigram"
-            ],
-            "reviewed_expectation": [
-              "top1_expected"
-            ],
-            "pos": [
-              "noun"
-            ],
-            "semantic_family": [
-              "job"
-            ]
-          }
-        },
         {
           "target": "marco",
           "trigger": "frame",
@@ -5483,7 +5626,6 @@
             "trasto"
           ],
           "promoted_targets": [
-            "tabla",
             "cuadro"
           ],
           "case_ids": [
@@ -5511,38 +5653,29 @@
           }
         },
         {
-          "target": "meter",
-          "trigger": "insert",
+          "target": "reja",
+          "trigger": "grating",
           "active_candidate_count": 1,
           "gold_shadow_targets": [],
           "mined_shadow_targets": [
-            "dentrotraer",
-            "encarte",
-            "enserir",
-            "entregerir",
-            "injerir",
-            "inserir",
-            "insertable",
-            "insertante",
-            "insertar",
-            "insertivo",
-            "inserto",
-            "interserir",
-            "recuadro",
-            "subir"
+            "enjaretado",
+            "rejilla"
           ],
           "promoted_targets": [
-            "subir"
+            "rejilla"
           ],
           "case_ids": [
-            "en-es:meter"
+            "en-es:reja"
           ],
           "tiers": [
-            "smoke"
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
           ],
           "slice_dimensions": {
             "tier": [
-              "smoke"
+              "hard"
             ],
             "overlap_topology": [
               "singleton_trigger"
@@ -5555,32 +5688,40 @@
             ],
             "reviewed_expectation": [
               "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
             ]
           }
         },
         {
-          "target": "ruta",
-          "trigger": "route",
+          "target": "tierra",
+          "trigger": "earth",
           "active_candidate_count": 1,
           "gold_shadow_targets": [],
           "mined_shadow_targets": [
-            "camino",
-            "encaminar",
-            "enrutar",
-            "itinerario",
-            "sendero"
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
           ],
           "promoted_targets": [
-            "camino"
+            "terreno"
           ],
           "case_ids": [
-            "en-es:ruta"
+            "en-es:tierra"
           ],
           "tiers": [
             "smoke"
           ],
           "slice_tags": [
-            "family:path_route"
+            "family:field_area_country"
           ],
           "slice_dimensions": {
             "tier": [
@@ -5602,15 +5743,15 @@
               "noun"
             ],
             "semantic_family": [
-              "path_route"
+              "field_area_country"
             ]
           }
         }
       ],
-      "delta_vs_curated_overall_accuracy": -0.12,
-      "delta_vs_curated_abstain_recall": -0.4242424242424242,
-      "delta_vs_curated_harmful_allow_rate": 0.42424242424242425,
-      "delta_vs_curated_overblocking_rate": 0.04929577464788732
+      "delta_vs_curated_overall_accuracy": -0.10857142857142854,
+      "delta_vs_curated_abstain_recall": -0.48484848484848486,
+      "delta_vs_curated_harmful_allow_rate": 0.48484848484848486,
+      "delta_vs_curated_overblocking_rate": 0.02112676056338028
     },
     {
       "source_id": "no_shadows",
@@ -5619,9 +5760,9 @@
       "policy": "none",
       "support_score_min": null,
       "support_score_max_promoted": null,
-      "inventory_entry_coverage_rate": 0.6628571428571428,
-      "gold_trigger_inventory_coverage_rate": 0.6060606060606061,
-      "gold_trigger_active_support_rate": 0.6060606060606061,
+      "inventory_entry_coverage_rate": 0.7142857142857143,
+      "gold_trigger_inventory_coverage_rate": 0.7272727272727273,
+      "gold_trigger_active_support_rate": 0.7272727272727273,
       "overall_accuracy": 0.8114285714285714,
       "abstain_recall": 0.0,
       "harmful_allow_rate": 1.0,
@@ -5676,7 +5817,7 @@
         },
         "dimension:tier:hard": {
           "trigger_rows_total": 82,
-          "trigger_rows_with_active_candidates": 53,
+          "trigger_rows_with_active_candidates": 56,
           "ambiguous_trigger_rows": 16,
           "clear_trigger_rows": 66,
           "abstain_rows": 0,
@@ -5695,7 +5836,7 @@
         },
         "dimension:overlap_topology:singleton_trigger": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
           "abstain_rows": 0,
@@ -5714,7 +5855,7 @@
         },
         "dimension:overlap_target_count:1": {
           "trigger_rows_total": 142,
-          "trigger_rows_with_active_candidates": 96,
+          "trigger_rows_with_active_candidates": 101,
           "ambiguous_trigger_rows": 0,
           "clear_trigger_rows": 142,
           "abstain_rows": 0,
@@ -5733,7 +5874,7 @@
         },
         "dimension:trigger_shape:unigram": {
           "trigger_rows_total": 164,
-          "trigger_rows_with_active_candidates": 114,
+          "trigger_rows_with_active_candidates": 123,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 131,
           "abstain_rows": 0,
@@ -5752,7 +5893,7 @@
         },
         "dimension:reviewed_expectation:top1_expected": {
           "trigger_rows_total": 140,
-          "trigger_rows_with_active_candidates": 102,
+          "trigger_rows_with_active_candidates": 109,
           "ambiguous_trigger_rows": 25,
           "clear_trigger_rows": 115,
           "abstain_rows": 0,
@@ -5828,7 +5969,7 @@
         },
         "dimension:tier:smoke": {
           "trigger_rows_total": 93,
-          "trigger_rows_with_active_candidates": 63,
+          "trigger_rows_with_active_candidates": 69,
           "ambiguous_trigger_rows": 17,
           "clear_trigger_rows": 76,
           "abstain_rows": 0,
@@ -5866,7 +6007,7 @@
         },
         "dimension:pos:noun": {
           "trigger_rows_total": 60,
-          "trigger_rows_with_active_candidates": 32,
+          "trigger_rows_with_active_candidates": 41,
           "ambiguous_trigger_rows": 29,
           "clear_trigger_rows": 31,
           "abstain_rows": 0,
@@ -5999,7 +6140,7 @@
         },
         "dimension:reviewed_expectation:expected_only": {
           "trigger_rows_total": 35,
-          "trigger_rows_with_active_candidates": 14,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 27,
           "abstain_rows": 0,
@@ -6018,7 +6159,7 @@
         },
         "tag:family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
           "abstain_rows": 0,
@@ -6037,7 +6178,7 @@
         },
         "dimension:overlap_topology:shared_trigger": {
           "trigger_rows_total": 33,
-          "trigger_rows_with_active_candidates": 20,
+          "trigger_rows_with_active_candidates": 24,
           "ambiguous_trigger_rows": 33,
           "clear_trigger_rows": 0,
           "abstain_rows": 0,
@@ -6056,7 +6197,7 @@
         },
         "dimension:overlap_target_count:3": {
           "trigger_rows_total": 9,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 9,
           "clear_trigger_rows": 0,
           "abstain_rows": 0,
@@ -6075,7 +6216,7 @@
         },
         "dimension:semantic_family:path_route": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 4,
           "abstain_rows": 0,
@@ -6094,7 +6235,7 @@
         },
         "tag:family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
           "abstain_rows": 0,
@@ -6113,7 +6254,7 @@
         },
         "dimension:overlap_target_count:2": {
           "trigger_rows_total": 20,
-          "trigger_rows_with_active_candidates": 13,
+          "trigger_rows_with_active_candidates": 16,
           "ambiguous_trigger_rows": 20,
           "clear_trigger_rows": 0,
           "abstain_rows": 0,
@@ -6132,7 +6273,7 @@
         },
         "dimension:semantic_family:field_area_country": {
           "trigger_rows_total": 11,
-          "trigger_rows_with_active_candidates": 5,
+          "trigger_rows_with_active_candidates": 9,
           "ambiguous_trigger_rows": 6,
           "clear_trigger_rows": 5,
           "abstain_rows": 0,
@@ -6151,7 +6292,7 @@
         },
         "tag:family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
           "abstain_rows": 0,
@@ -6170,7 +6311,7 @@
         },
         "dimension:semantic_family:job": {
           "trigger_rows_total": 15,
-          "trigger_rows_with_active_candidates": 7,
+          "trigger_rows_with_active_candidates": 8,
           "ambiguous_trigger_rows": 8,
           "clear_trigger_rows": 7,
           "abstain_rows": 0,
@@ -6455,7 +6596,7 @@
         },
         "tag:family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
           "abstain_rows": 0,
@@ -6474,7 +6615,7 @@
         },
         "dimension:semantic_family:net_mesh_network": {
           "trigger_rows_total": 10,
-          "trigger_rows_with_active_candidates": 4,
+          "trigger_rows_with_active_candidates": 6,
           "ambiguous_trigger_rows": 7,
           "clear_trigger_rows": 3,
           "abstain_rows": 0,
@@ -6580,7 +6721,8 @@
             "semantic_family": [
               "path_route"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "camino",
@@ -6633,7 +6775,8 @@
             "semantic_family": [
               "path_route"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "campo",
@@ -6689,7 +6832,8 @@
             "semantic_family": [
               "field_area_country"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "cargo",
@@ -6733,17 +6877,24 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "carretera",
           "trigger": "road",
-          "active_candidate_count": 0,
+          "active_candidate_count": 1,
           "gold_shadow_targets": [
             "camino",
             "ruta"
           ],
-          "mined_shadow_targets": [],
+          "mined_shadow_targets": [
+            "calle",
+            "calzada",
+            "camino",
+            "derecho",
+            "ruta"
+          ],
           "promoted_targets": [],
           "case_ids": [
             "en-es:carretera"
@@ -6776,7 +6927,8 @@
             "semantic_family": [
               "path_route"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "coger",
@@ -6839,7 +6991,8 @@
               "phrase_sensitive",
               "slang_leakage"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "cuadro",
@@ -6893,7 +7046,8 @@
             "semantic_family": [
               "table_board_chart"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "empleo",
@@ -6935,7 +7089,8 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "candidate_missing"
         },
         {
           "target": "empleo",
@@ -6993,7 +7148,8 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "empleo",
@@ -7035,7 +7191,8 @@
             "semantic_family": [
               "job"
             ]
-          }
+          },
+          "miss_classification": "seed_missing"
         },
         {
           "target": "llevar",
@@ -7096,7 +7253,8 @@
             "hazard": [
               "phrase_sensitive"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         },
         {
           "target": "malla",
@@ -7146,7 +7304,8 @@
             "semantic_family": [
               "net_mesh_network"
             ]
-          }
+          },
+          "miss_classification": "promotion_miss"
         }
       ],
       "sample_false_abstain_rows": [],

@@ -12,6 +12,7 @@ DEFAULT_FREQUENCY_SIMILARITY_WEIGHT = 0.0
 DEFAULT_FREQUENCY_SIMILARITY_TAU = 0.15
 SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "reviewed_trigger_support": 2.0,
+    "forward_trigger_support": 0.5,
     "benchmark_target_present": 1.0,
     "same_pos_as_active": 1.0,
     "active_side_support": 1.0,
@@ -47,6 +48,7 @@ def build_shadow_candidate_support_details(
     has_active_pos = bool(active_pos_values)
     canonical_pos = str(candidate.get("canonical_pos") or "").strip().lower()
     reviewed_trigger_support = bool(candidate.get("reviewed_trigger_support"))
+    forward_trigger_support = bool(candidate.get("forward_trigger_support"))
     benchmark_target_present = bool(candidate.get("benchmark_target_present"))
     same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
     cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
@@ -74,6 +76,11 @@ def build_shadow_candidate_support_details(
         "reviewed_trigger_support": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["reviewed_trigger_support"]
             if reviewed_trigger_support
+            else 0.0
+        ),
+        "forward_trigger_support": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["forward_trigger_support"]
+            if forward_trigger_support
             else 0.0
         ),
         "benchmark_target_present": (
@@ -115,6 +122,7 @@ def build_shadow_candidate_support_details(
         feature
         for feature, value in (
             ("reviewed_trigger_support", reviewed_trigger_support),
+            ("forward_trigger_support", forward_trigger_support),
             ("benchmark_target_present", benchmark_target_present),
             ("same_pos_as_active", same_pos),
             ("active_side_support", has_active_candidates),

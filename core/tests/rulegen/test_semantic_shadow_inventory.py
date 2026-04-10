@@ -778,6 +778,8 @@ class TestSemanticShadowInventory(unittest.TestCase):
             if candidate["target"] == "cargo"
         )
         self.assertIn("forward_index_active_profile_fallback", cargo_shadow["candidate_sources"])
+        self.assertIsNone(cargo_shadow.get("reviewed_trigger_support"))
+        self.assertEqual(cargo_shadow["forward_trigger_support"], True)
         self.assertEqual(cargo_shadow["canonical_pos"], "noun")
         self.assertEqual(cargo_shadow["locator"]["locator_kind"], "forward_target_pos_profile")
         self.assertEqual(
@@ -1114,7 +1116,7 @@ class TestSemanticShadowInventory(unittest.TestCase):
         promoted = trigger_row["promoted_shadow_candidates"]
         self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
 
-    def test_build_en_es_shadow_inventory_marks_semantic_bridge_candidate_with_seed_trigger_support(
+    def test_build_en_es_shadow_inventory_marks_forward_profile_candidate_with_seed_trigger_support(
         self,
     ) -> None:
         benchmark_targets = (
@@ -1213,7 +1215,8 @@ class TestSemanticShadowInventory(unittest.TestCase):
             for candidate in trigger_row["shadow_candidates"]
             if candidate["target"] == "cargo"
         )
-        self.assertEqual(bridge_candidate["reviewed_trigger_support"], True)
+        self.assertEqual(bridge_candidate["forward_trigger_support"], True)
+        self.assertIsNone(bridge_candidate.get("reviewed_trigger_support"))
 
     def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
         active_candidates = [{"canonical_pos": "noun"}]
@@ -1404,6 +1407,31 @@ class TestSemanticShadowInventory(unittest.TestCase):
             0.4,
         )
 
+    def test_build_shadow_candidate_support_details_treats_forward_trigger_support_as_weaker_evidence(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "cargo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "forward_trigger_support": True,
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+        )
+
+        self.assertEqual(
+            support["support_features"],
+            [
+                "forward_trigger_support",
+                "benchmark_target_present",
+                "same_pos_as_active",
+                "active_side_support",
+            ],
+        )
+        self.assertEqual(support["support_penalties"], [])
+        self.assertEqual(support["support_score"], 3.5)
+
     def test_build_shadow_candidate_support_details_counts_embedding_bridge_similarity(
         self,
     ) -> None:
@@ -1466,6 +1494,31 @@ class TestSemanticShadowInventory(unittest.TestCase):
                 "active_side_support",
             ],
         )
+
+    def test_promote_shadow_candidates_with_support_score_drops_forward_only_candidate_at_strict_threshold(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=[
+                {
+                    "target": "cargo",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "forward_trigger_support": True,
+                },
+                {
+                    "target": "trabajo",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": True,
+                },
+            ],
+            active_candidates=[{"canonical_pos": "noun"}],
+            min_score=5.0,
+            max_promoted_shadows=2,
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["trabajo"])
 
     def test_promote_shadow_candidates_with_support_score_can_prefer_frequency_representative(
         self,

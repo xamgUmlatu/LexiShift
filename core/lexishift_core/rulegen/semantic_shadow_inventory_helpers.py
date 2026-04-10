@@ -48,7 +48,7 @@ def build_forward_shadow_index(
             for candidate in active_candidates:
                 candidate_copy = dict(candidate)
                 candidate_copy["benchmark_target_present"] = True
-                candidate_copy["reviewed_trigger_support"] = True
+                candidate_copy["forward_trigger_support"] = True
                 candidate_sources = ["forward_index"]
                 if candidate_copy.get("profile_backed"):
                     candidate_sources.append("forward_index_active_profile_fallback")

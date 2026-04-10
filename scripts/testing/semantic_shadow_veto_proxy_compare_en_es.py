@@ -309,6 +309,9 @@ def _iter_sorted_slice_rows(slice_summaries: object) -> list[tuple[str, Mapping[
 
 def _render_sample_metadata(sample: Mapping[str, object]) -> str:
     suffix_parts: list[str] = []
+    miss_classification = str(sample.get("miss_classification") or "").strip()
+    if miss_classification:
+        suffix_parts.append(f"miss={miss_classification}")
     case_ids = sample.get("case_ids")
     if isinstance(case_ids, Sequence) and not isinstance(case_ids, (str, bytes)) and case_ids:
         suffix_parts.append(f"cases={list(case_ids)}")
