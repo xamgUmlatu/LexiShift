@@ -224,6 +224,11 @@ First implemented research seam:
     - current classification: `semantic_bridge_needed`
     - meaning: the missing shadow is not recoverable from the current reverse pack, the new forward-index supplement, or the current best rulegen source list
     - next research should therefore stay separate from the strict automatic miner and focus on a distinct semantic-bridge lane
+  - the new seed-comparison artifact at `docs/test_outputs/semantic_shadow_seed_compare_en_es_latest.md` makes the current benchmark-coupling boundary explicit:
+    - `benchmark_reviewed`: `64.3%` candidate precision, `90.0%` candidate recall, `90.0%` gold-trigger hit rate, `3.6%` overblocking
+    - `rulegen_top3_sources`: `36.4%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.1%` overblocking
+    - `rulegen_all_sources`: `33.3%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.8%` overblocking
+    - conclusion: the current miner is general enough to avoid target-specific hacks, but still materially depends on reviewed-trigger seeding; the next de-coupling work should improve seed quality rather than loosen the strict promotion policy
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.

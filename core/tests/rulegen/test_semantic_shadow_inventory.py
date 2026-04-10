@@ -12,6 +12,7 @@ from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
+    build_rulegen_shadow_targets,
     promote_shadow_candidates_for_policy,
 )
 
@@ -75,6 +76,37 @@ class TestSemanticShadowInventory(unittest.TestCase):
             ("en-es:pelota:1", "en-es:pelota:2"),
         )
         self.assertEqual(pelota.tiers, ("hard", "review"))
+        self.assertEqual(pelota.reviewed_triggers, ("ball", "sphere", "orb"))
+
+    def test_build_rulegen_shadow_targets_groups_rulegen_sources(self) -> None:
+        targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:pelota",
+                    "target": "pelota",
+                    "top3_sources": ["Ball", "sphere", "ball"],
+                    "all_sources": ["ball", "sphere", "orb"],
+                },
+                {
+                    "case_id": "en-es:pelota:alt",
+                    "target": "pelota",
+                    "top3_sources": ["orb"],
+                    "all_sources": ["ball", "sphere", "orb", "globe"],
+                },
+                {
+                    "case_id": "en-es:baile",
+                    "target": "baile",
+                    "top3_sources": ["dance", "ball"],
+                    "all_sources": ["dance", "ball", "gala"],
+                },
+            ),
+            source_field="top3_sources",
+        )
+
+        self.assertEqual([item.target for item in targets], ["baile", "pelota"])
+        pelota = next(item for item in targets if item.target == "pelota")
+        self.assertEqual(pelota.case_ids, ("en-es:pelota", "en-es:pelota:alt"))
+        self.assertEqual(pelota.tiers, ("rulegen_top3_sources",))
         self.assertEqual(pelota.reviewed_triggers, ("ball", "sphere", "orb"))
 
     def test_build_en_es_shadow_inventory_promotes_reviewed_same_pos_siblings(self) -> None:

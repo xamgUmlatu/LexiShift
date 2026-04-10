@@ -122,8 +122,12 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         )
 
         candidate_pool = report["candidate_pool_summary"]
-        self.assertEqual(candidate_pool["gold_trigger_rows"], 1)
+        self.assertEqual(candidate_pool["trigger_rows_total"], 3)
+        self.assertEqual(candidate_pool["trigger_rows_with_inventory_entry"], 2)
+        self.assertEqual(candidate_pool["gold_trigger_rows"], 2)
+        self.assertEqual(candidate_pool["gold_trigger_rows_with_inventory_entry"], 1)
         self.assertEqual(candidate_pool["gold_trigger_rows_with_mined_overlap"], 1)
+        self.assertAlmostEqual(candidate_pool["inventory_entry_coverage_rate"], 2 / 3)
 
         same_pos = report["policies"]["same_pos_lenient_v1"]["summary"]
         self.assertEqual(same_pos["candidate_true_positive_count"], 1)
@@ -138,13 +142,54 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(cross_checked["no_gold_trigger_rows_overblocked"], 0)
         self.assertEqual(cross_checked["gold_trigger_rows_exact_match"], 1)
         self.assertAlmostEqual(cross_checked["candidate_precision"], 1.0)
-        self.assertAlmostEqual(cross_checked["gold_trigger_hit_rate"], 1.0)
+        self.assertAlmostEqual(cross_checked["gold_trigger_hit_rate"], 0.5)
 
         none_summary = report["policies"]["none"]["summary"]
-        self.assertEqual(none_summary["gold_trigger_rows_underblocked"], 1)
+        self.assertEqual(none_summary["gold_trigger_rows_underblocked"], 2)
         self.assertEqual(none_summary["candidate_true_positive_count"], 0)
 
         oracle_summary = report["policies"]["gold_overlap_oracle"]["summary"]
-        self.assertEqual(oracle_summary["candidate_true_positive_count"], 1)
+        self.assertEqual(oracle_summary["candidate_true_positive_count"], 2)
         self.assertEqual(oracle_summary["candidate_false_positive_count"], 0)
-        self.assertEqual(oracle_summary["gold_trigger_rows_exact_match"], 1)
+        self.assertEqual(oracle_summary["gold_trigger_rows_exact_match"], 2)
+
+    def test_evaluate_shadow_inventory_counts_missing_inventory_rows_as_underblocked(self) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="pelota",
+                case_ids=("en-es:pelota",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="baile",
+                case_ids=("en-es:baile",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "pelota",
+                    "trigger_entries": [],
+                }
+            ]
+        }
+
+        report = evaluate_shadow_inventory_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("cross_checked_v1",),
+        )
+
+        candidate_pool = report["candidate_pool_summary"]
+        self.assertEqual(candidate_pool["trigger_rows_total"], 2)
+        self.assertEqual(candidate_pool["trigger_rows_with_inventory_entry"], 0)
+        self.assertEqual(candidate_pool["gold_trigger_rows"], 2)
+        self.assertEqual(candidate_pool["gold_trigger_rows_with_inventory_entry"], 0)
+        self.assertEqual(candidate_pool["gold_trigger_rows_with_mined_overlap"], 0)
+
+        cross_checked = report["policies"]["cross_checked_v1"]["summary"]
+        self.assertEqual(cross_checked["gold_trigger_rows_underblocked"], 2)
+        self.assertEqual(cross_checked["gold_trigger_rows_hit"], 0)

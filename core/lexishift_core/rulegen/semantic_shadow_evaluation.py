@@ -53,6 +53,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     policies: Sequence[str] = SHADOW_PROMOTION_POLICIES + REFERENCE_SHADOW_POLICY_MODES,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
+    inventory_lookup = _build_inventory_lookup(inventory)
     requested_policies = tuple(
         policy
         for policy in policies
@@ -60,7 +61,9 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     )
     candidate_pool_summary = {
         "trigger_rows_total": 0,
+        "trigger_rows_with_inventory_entry": 0,
         "gold_trigger_rows": 0,
+        "gold_trigger_rows_with_inventory_entry": 0,
         "gold_trigger_rows_with_active_candidates": 0,
         "gold_trigger_rows_with_mined_overlap": 0,
         "gold_trigger_rows_with_exact_mined_set": 0,
@@ -69,8 +72,9 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     for policy in requested_policies:
         policy_reports[policy] = _empty_policy_report()
 
-    targets = inventory.get("targets")
-    if not isinstance(targets, Sequence) or isinstance(targets, (str, bytes)):
+    if not isinstance(inventory.get("targets"), Sequence) or isinstance(
+        inventory.get("targets"), (str, bytes)
+    ):
         return {
             "schema_version": 1,
             "status": "inventory_unavailable",
@@ -78,21 +82,14 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
             "policies": policy_reports,
         }
 
-    for target_row in targets:
-        if not isinstance(target_row, Mapping):
-            continue
-        target = str(target_row.get("target") or "").strip()
+    for benchmark_target in benchmark_targets:
+        target = str(benchmark_target.target or "").strip()
         if not target:
             continue
-        trigger_entries = target_row.get("trigger_entries")
-        if not isinstance(trigger_entries, Sequence) or isinstance(trigger_entries, (str, bytes)):
-            continue
-        for trigger_entry in trigger_entries:
-            if not isinstance(trigger_entry, Mapping):
-                continue
-            trigger = str(trigger_entry.get("trigger") or "").strip()
+        for trigger in benchmark_target.reviewed_triggers:
             if not trigger:
                 continue
+            trigger_entry = inventory_lookup.get((target, trigger), {})
             active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
             shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
             gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
@@ -103,8 +100,12 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
             }
 
             candidate_pool_summary["trigger_rows_total"] += 1
+            if trigger_entry:
+                candidate_pool_summary["trigger_rows_with_inventory_entry"] += 1
             if gold_shadow_targets:
                 candidate_pool_summary["gold_trigger_rows"] += 1
+                if trigger_entry:
+                    candidate_pool_summary["gold_trigger_rows_with_inventory_entry"] += 1
                 if active_candidates:
                     candidate_pool_summary["gold_trigger_rows_with_active_candidates"] += 1
                 if mined_shadow_targets & gold_shadow_targets:
@@ -150,6 +151,31 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
         "candidate_pool_summary": candidate_pool_summary,
         "policies": policy_reports,
     }
+
+
+def _build_inventory_lookup(
+    inventory: Mapping[str, object],
+) -> dict[tuple[str, str], Mapping[str, object]]:
+    lookup: dict[tuple[str, str], Mapping[str, object]] = {}
+    targets = inventory.get("targets")
+    if not isinstance(targets, Sequence) or isinstance(targets, (str, bytes)):
+        return lookup
+    for target_row in targets:
+        if not isinstance(target_row, Mapping):
+            continue
+        target = str(target_row.get("target") or "").strip()
+        if not target:
+            continue
+        trigger_entries = target_row.get("trigger_entries")
+        if not isinstance(trigger_entries, Sequence) or isinstance(trigger_entries, (str, bytes)):
+            continue
+        for trigger_entry in trigger_entries:
+            if not isinstance(trigger_entry, Mapping):
+                continue
+            trigger = str(trigger_entry.get("trigger") or "").strip()
+            if trigger:
+                lookup[(target, trigger)] = trigger_entry
+    return lookup
 
 
 def _empty_policy_report() -> dict[str, object]:
@@ -299,7 +325,16 @@ def _finalize_policy_report(report: Mapping[str, object]) -> None:
 
 
 def _finalize_candidate_pool_summary(summary: Mapping[str, object]) -> None:
+    trigger_rows = int(summary.get("trigger_rows_total") or 0)
     gold_rows = int(summary.get("gold_trigger_rows") or 0)
+    summary["inventory_entry_coverage_rate"] = _safe_rate(
+        int(summary.get("trigger_rows_with_inventory_entry") or 0),
+        trigger_rows,
+    )
+    summary["gold_trigger_inventory_coverage_rate"] = _safe_rate(
+        int(summary.get("gold_trigger_rows_with_inventory_entry") or 0),
+        gold_rows,
+    )
     summary["candidate_pool_trigger_recall"] = _safe_rate(
         int(summary.get("gold_trigger_rows_with_mined_overlap") or 0),
         gold_rows,

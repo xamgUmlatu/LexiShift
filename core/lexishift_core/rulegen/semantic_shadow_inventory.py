@@ -17,6 +17,7 @@ SHADOW_PROMOTION_POLICIES = (
     "cross_checked_v1",
     "cross_checked_backoff_missing_active_v1",
 )
+RULEGEN_SHADOW_SOURCE_FIELDS = ("top3_sources", "all_sources")
 
 
 def normalize_shadow_text(value: object) -> str:
@@ -64,6 +65,55 @@ def build_benchmark_shadow_targets(
             if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
                 reviewed_values.extend(str(item).strip() for item in value if str(item).strip())
         for trigger in reviewed_values:
+            normalized = normalize_shadow_text(trigger)
+            if normalized and normalized not in bucket["reviewed_triggers"]:
+                bucket["reviewed_triggers"].append(normalized)
+    return [
+        BenchmarkShadowTarget(
+            target=target,
+            case_ids=tuple(bucket["case_ids"]),
+            tiers=tuple(bucket["tiers"]),
+            reviewed_triggers=tuple(bucket["reviewed_triggers"]),
+        )
+        for target, bucket in sorted(grouped.items())
+    ]
+
+
+def build_rulegen_shadow_targets(
+    case_results: Sequence[Mapping[str, object]],
+    *,
+    targets: Sequence[str] | None = None,
+    source_field: str = "top3_sources",
+) -> list[BenchmarkShadowTarget]:
+    normalized_source_field = str(source_field or "").strip() or "top3_sources"
+    if normalized_source_field not in RULEGEN_SHADOW_SOURCE_FIELDS:
+        raise ValueError(
+            f"Unsupported rulegen shadow source field: {normalized_source_field!r}; "
+            f"expected one of {RULEGEN_SHADOW_SOURCE_FIELDS!r}"
+        )
+    requested = {str(target).strip() for target in targets or () if str(target).strip()}
+    grouped: dict[str, dict[str, object]] = {}
+    for case in case_results:
+        target = str(case.get("target") or "").strip()
+        if not target:
+            continue
+        if requested and target not in requested:
+            continue
+        bucket = grouped.setdefault(
+            target,
+            {
+                "case_ids": [],
+                "tiers": [f"rulegen_{normalized_source_field}"],
+                "reviewed_triggers": [],
+            },
+        )
+        case_id = str(case.get("case_id") or "").strip()
+        if case_id and case_id not in bucket["case_ids"]:
+            bucket["case_ids"].append(case_id)
+        source_values = case.get(normalized_source_field)
+        if not isinstance(source_values, Sequence) or isinstance(source_values, (str, bytes)):
+            source_values = ()
+        for trigger in source_values:
             normalized = normalize_shadow_text(trigger)
             if normalized and normalized not in bucket["reviewed_triggers"]:
                 bucket["reviewed_triggers"].append(normalized)
