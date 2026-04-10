@@ -10,6 +10,8 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa: E402
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
+    DEFAULT_FORWARD_SEED_MAX_WORDS,
+    augment_shadow_targets_with_forward_gloss_triggers,
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
     build_rulegen_shadow_targets,
@@ -108,6 +110,51 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(pelota.case_ids, ("en-es:pelota", "en-es:pelota:alt"))
         self.assertEqual(pelota.tiers, ("rulegen_top3_sources",))
         self.assertEqual(pelota.reviewed_triggers, ("ball", "sphere", "orb"))
+
+    def test_augment_shadow_targets_with_forward_gloss_triggers_adds_short_source_only_fragments(
+        self,
+    ) -> None:
+        seed_targets = build_rulegen_shadow_targets(
+            (
+                {
+                    "case_id": "en-es:sacar",
+                    "target": "sacar",
+                    "top3_sources": ["withdraw", "draw", "unsheathe"],
+                },
+            ),
+            source_field="top3_sources",
+        )
+        augmented = augment_shadow_targets_with_forward_gloss_triggers(
+            seed_targets,
+            forward_records_by_target={
+                "sacar": (
+                    _record(
+                        translation="to remove, to extract, to get out, to take out",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=0,
+                        sense_gloss="to remove, to extract, to get out, to take out",
+                    ),
+                    _record(
+                        translation="to send out or move out something or somebody from some place",
+                        pos_raw="verb",
+                        entry_ord=10,
+                        sense_ord=1,
+                        sense_gloss="to send out or move out something or somebody from some place",
+                    ),
+                ),
+            },
+            max_words=DEFAULT_FORWARD_SEED_MAX_WORDS,
+        )
+
+        self.assertEqual(len(augmented), 1)
+        sacar = augmented[0]
+        self.assertEqual(sacar.target, "sacar")
+        self.assertIn("forward_gloss_fragments", sacar.tiers)
+        self.assertEqual(
+            sacar.reviewed_triggers,
+            ("withdraw", "draw", "unsheathe", "remove", "extract", "get out", "take out"),
+        )
 
     def test_build_en_es_shadow_inventory_promotes_reviewed_same_pos_siblings(self) -> None:
         benchmark_targets = build_benchmark_shadow_targets(

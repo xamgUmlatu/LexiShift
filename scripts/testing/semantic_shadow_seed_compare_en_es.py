@@ -22,8 +22,10 @@ from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
     evaluate_shadow_inventory_against_benchmark_overlap_gold,
 )
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
+    DEFAULT_FORWARD_SEED_MAX_WORDS,
     SHADOW_PROMOTION_POLICIES,
     BenchmarkShadowTarget,
+    augment_shadow_targets_with_forward_gloss_triggers,
     build_benchmark_shadow_targets,
     build_en_es_shadow_inventory,
     build_rulegen_shadow_targets,
@@ -81,6 +83,12 @@ def _parse_args() -> argparse.Namespace:
         type=Path,
         default=None,
         help="Optional explicit reverse translation pack path for en-es.",
+    )
+    parser.add_argument(
+        "--forward-seed-max-words",
+        type=int,
+        default=1,
+        help="Maximum word count for forward-gloss-derived automatic trigger seeds.",
     )
     parser.add_argument(
         "--json-out",
@@ -181,24 +189,22 @@ def build_seed_compare_report(
     data_root: Path,
     forward_pack: TranslationPackRef | None,
     reverse_pack: TranslationPackRef | None,
+    forward_seed_max_words: int = DEFAULT_FORWARD_SEED_MAX_WORDS,
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     gold_targets = build_benchmark_shadow_targets(_collect_cases(dataset_payload))
     best_run_case_results = _load_best_run_case_results(benchmark_report)
     target_filter = [target.target for target in gold_targets]
-    seed_modes = {
-        "benchmark_reviewed": gold_targets,
-        "rulegen_top3_sources": build_rulegen_shadow_targets(
-            best_run_case_results,
-            targets=target_filter,
-            source_field="top3_sources",
-        ),
-        "rulegen_all_sources": build_rulegen_shadow_targets(
-            best_run_case_results,
-            targets=target_filter,
-            source_field="all_sources",
-        ),
-    }
+    rulegen_top3_targets = build_rulegen_shadow_targets(
+        best_run_case_results,
+        targets=target_filter,
+        source_field="top3_sources",
+    )
+    rulegen_all_targets = build_rulegen_shadow_targets(
+        best_run_case_results,
+        targets=target_filter,
+        source_field="all_sources",
+    )
 
     missing_resources: list[str] = []
     if forward_pack is None or not forward_pack.path.exists():
@@ -231,13 +237,28 @@ def build_seed_compare_report(
         return report
 
     all_targets = sorted(
-        {
-            target.target
-            for seed_targets in seed_modes.values()
-            for target in seed_targets
-            if str(target.target or "").strip()
-        }
+        {target.target for target in gold_targets if str(target.target or "").strip()}
     )
+    forward_records_by_target = load_translation_gloss_records_ordered(
+        forward_pack.path,
+        target_lang="en",
+        headwords=all_targets,
+    )
+    seed_modes = {
+        "benchmark_reviewed": gold_targets,
+        "rulegen_top3_sources": rulegen_top3_targets,
+        "rulegen_all_sources": rulegen_all_targets,
+        "rulegen_top3_plus_forward_gloss": augment_shadow_targets_with_forward_gloss_triggers(
+            rulegen_top3_targets,
+            forward_records_by_target=forward_records_by_target,
+            max_words=forward_seed_max_words,
+        ),
+        "rulegen_all_plus_forward_gloss": augment_shadow_targets_with_forward_gloss_triggers(
+            rulegen_all_targets,
+            forward_records_by_target=forward_records_by_target,
+            max_words=forward_seed_max_words,
+        ),
+    }
     all_triggers = sorted(
         {
             trigger
@@ -246,11 +267,6 @@ def build_seed_compare_report(
             for trigger in target.reviewed_triggers
             if str(trigger or "").strip()
         }
-    )
-    forward_records_by_target = load_translation_gloss_records_ordered(
-        forward_pack.path,
-        target_lang="en",
-        headwords=all_targets,
     )
     reverse_records_by_source = load_translation_gloss_records_ordered(
         reverse_pack.path,
@@ -312,7 +328,13 @@ def _render_markdown(report: Mapping[str, object]) -> str:
             "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
-    for mode_id in ("benchmark_reviewed", "rulegen_top3_sources", "rulegen_all_sources"):
+    for mode_id in (
+        "benchmark_reviewed",
+        "rulegen_top3_sources",
+        "rulegen_all_sources",
+        "rulegen_top3_plus_forward_gloss",
+        "rulegen_all_plus_forward_gloss",
+    ):
         payload = seed_modes.get(mode_id)
         if not isinstance(payload, Mapping):
             continue
@@ -353,7 +375,13 @@ def _render_markdown(report: Mapping[str, object]) -> str:
             + " |"
         )
 
-    for mode_id in ("benchmark_reviewed", "rulegen_top3_sources", "rulegen_all_sources"):
+    for mode_id in (
+        "benchmark_reviewed",
+        "rulegen_top3_sources",
+        "rulegen_all_sources",
+        "rulegen_top3_plus_forward_gloss",
+        "rulegen_all_plus_forward_gloss",
+    ):
         payload = seed_modes.get(mode_id)
         if not isinstance(payload, Mapping):
             continue
@@ -435,6 +463,7 @@ def main() -> int:
         data_root=Path(args.data_root),
         forward_pack=forward_pack,
         reverse_pack=reverse_pack,
+        forward_seed_max_words=args.forward_seed_max_words,
     )
     benchmark_payload = report.get("benchmark_report")
     if isinstance(benchmark_payload, dict):

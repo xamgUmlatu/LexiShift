@@ -18,6 +18,7 @@ SHADOW_PROMOTION_POLICIES = (
     "cross_checked_backoff_missing_active_v1",
 )
 RULEGEN_SHADOW_SOURCE_FIELDS = ("top3_sources", "all_sources")
+DEFAULT_FORWARD_SEED_MAX_WORDS = 4
 
 
 def normalize_shadow_text(value: object) -> str:
@@ -126,6 +127,52 @@ def build_rulegen_shadow_targets(
         )
         for target, bucket in sorted(grouped.items())
     ]
+
+
+def augment_shadow_targets_with_forward_gloss_triggers(
+    benchmark_targets: Sequence[BenchmarkShadowTarget],
+    *,
+    forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
+    max_words: int = DEFAULT_FORWARD_SEED_MAX_WORDS,
+) -> list[BenchmarkShadowTarget]:
+    normalized_max_words = max(1, int(max_words))
+    augmented_targets: list[BenchmarkShadowTarget] = []
+    for benchmark_target in benchmark_targets:
+        trigger_values: list[str] = list(benchmark_target.reviewed_triggers)
+        seen = {trigger for trigger in trigger_values if trigger}
+        forward_records = collect_en_es_sanitized_gloss_records(
+            forward_records_by_target.get(benchmark_target.target, ())
+        )
+        for record in forward_records:
+            normalized_trigger = normalize_reverse_token_with_pos(
+                record.translation,
+                pos_raw=record.pos_raw,
+            )
+            if not normalized_trigger:
+                continue
+            if (
+                len([token for token in normalized_trigger.split(" ") if token])
+                > normalized_max_words
+            ):
+                continue
+            if normalized_trigger in seen:
+                continue
+            seen.add(normalized_trigger)
+            trigger_values.append(normalized_trigger)
+        tiers = tuple(
+            value
+            for value in (*benchmark_target.tiers, "forward_gloss_fragments")
+            if str(value).strip()
+        )
+        augmented_targets.append(
+            BenchmarkShadowTarget(
+                target=benchmark_target.target,
+                case_ids=benchmark_target.case_ids,
+                tiers=tiers,
+                reviewed_triggers=tuple(trigger_values),
+            )
+        )
+    return augmented_targets
 
 
 def build_en_es_shadow_inventory(

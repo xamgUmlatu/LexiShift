@@ -228,7 +228,13 @@ First implemented research seam:
     - `benchmark_reviewed`: `64.3%` candidate precision, `90.0%` candidate recall, `90.0%` gold-trigger hit rate, `3.6%` overblocking
     - `rulegen_top3_sources`: `36.4%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.1%` overblocking
     - `rulegen_all_sources`: `33.3%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.8%` overblocking
-    - conclusion: the current miner is general enough to avoid target-specific hacks, but still materially depends on reviewed-trigger seeding; the next de-coupling work should improve seed quality rather than loosen the strict promotion policy
+    - the new source-only augmentation lane improves that meaningfully without adding new manual data:
+      - `rulegen_top3_plus_forward_gloss` at the current best swept setting (`forward_seed_max_words=1`): `32.0%` candidate precision, `80.0%` candidate recall, `80.0%` gold-trigger hit rate, `9.4%` overblocking
+      - `rulegen_all_plus_forward_gloss` is effectively tied at the same setting
+    - the new sweep artifact at `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md` shows the first useful numeric seed knob:
+      - allowing only single-word forward-gloss-derived triggers is currently the best source-only tradeoff
+      - longer phrase allowance (`2+` words) does not improve recall on the current lower-bound proxy, but it does worsen precision and overblocking
+    - conclusion: the current miner is general enough to avoid target-specific hacks, but still materially depends on reviewed-trigger seeding; the next de-coupling work should keep improving automatic seed quality rather than loosen the strict promotion policy
 
 So this seam is no longer hypothetical.
 What remains open is the conservative promotion policy, not whether sibling mining can run at all.
