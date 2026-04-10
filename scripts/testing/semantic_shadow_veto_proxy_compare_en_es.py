@@ -166,9 +166,42 @@ def _collect_reviewed_triggers(case: Mapping[str, object]) -> list[str]:
     return triggers
 
 
+def _collect_top1_triggers(case: Mapping[str, object]) -> list[str]:
+    triggers: list[str] = []
+    for value in _normalize_string_list(case.get("expected_top1_any")):
+        normalized = normalize_shadow_text(value)
+        if normalized and normalized not in triggers:
+            triggers.append(normalized)
+    return triggers
+
+
+def _merge_slice_dimension_values(
+    dimension_map: dict[str, list[str]],
+    dimension_name: str,
+    values: Sequence[str],
+) -> None:
+    normalized_name = str(dimension_name or "").strip()
+    if not normalized_name:
+        return
+    bucket = dimension_map.setdefault(normalized_name, [])
+    for value in values:
+        normalized_value = str(value or "").strip()
+        if normalized_value and normalized_value not in bucket:
+            bucket.append(normalized_value)
+
+
 def _build_trigger_row_metadata(
     cases: Sequence[Mapping[str, object]],
 ) -> dict[tuple[str, str], dict[str, object]]:
+    trigger_to_targets: dict[str, set[str]] = {}
+    for case in cases:
+        target = str(case.get("target") or "").strip()
+        if not target:
+            continue
+        for trigger in _collect_reviewed_triggers(case):
+            bucket = trigger_to_targets.setdefault(trigger, set())
+            bucket.add(target)
+
     metadata_by_key: dict[tuple[str, str], dict[str, object]] = {}
     for case in cases:
         target = str(case.get("target") or "").strip()
@@ -176,6 +209,7 @@ def _build_trigger_row_metadata(
             continue
         case_id = str(case.get("case_id") or "").strip()
         tiers = _normalize_string_list((case.get("tier"),))
+        top1_triggers = set(_collect_top1_triggers(case))
         slice_tags = _normalize_string_list(case.get("slice_tags"))
         raw_dimensions = case.get("slice_dimensions")
         slice_dimensions: dict[str, list[str]] = {}
@@ -186,10 +220,7 @@ def _build_trigger_row_metadata(
                 if dimension_name and values:
                     slice_dimensions[dimension_name] = values
         if tiers:
-            slice_dimensions.setdefault("tier", [])
-            for tier in tiers:
-                if tier not in slice_dimensions["tier"]:
-                    slice_dimensions["tier"].append(tier)
+            _merge_slice_dimension_values(slice_dimensions, "tier", tiers)
 
         for trigger in _collect_reviewed_triggers(case):
             metadata = metadata_by_key.setdefault(
@@ -211,13 +242,29 @@ def _build_trigger_row_metadata(
                     metadata["slice_tags"].append(tag)
             metadata_dimensions = metadata["slice_dimensions"]
             if isinstance(metadata_dimensions, dict):
+                overlap_target_count = len(trigger_to_targets.get(trigger, {target}))
+                _merge_slice_dimension_values(
+                    metadata_dimensions,
+                    "overlap_topology",
+                    ("shared_trigger" if overlap_target_count > 1 else "singleton_trigger",),
+                )
+                _merge_slice_dimension_values(
+                    metadata_dimensions,
+                    "overlap_target_count",
+                    (str(max(1, overlap_target_count)),),
+                )
+                _merge_slice_dimension_values(
+                    metadata_dimensions,
+                    "trigger_shape",
+                    ("multiword" if " " in trigger else "unigram",),
+                )
+                _merge_slice_dimension_values(
+                    metadata_dimensions,
+                    "reviewed_expectation",
+                    ("top1_expected" if trigger in top1_triggers else "expected_only",),
+                )
                 for dimension_name, values in slice_dimensions.items():
-                    bucket = metadata_dimensions.setdefault(dimension_name, [])
-                    if not isinstance(bucket, list):
-                        continue
-                    for value in values:
-                        if value not in bucket:
-                            bucket.append(value)
+                    _merge_slice_dimension_values(metadata_dimensions, dimension_name, values)
     return metadata_by_key
 
 
@@ -236,11 +283,21 @@ def _delta(value: object, baseline: object) -> float | None:
 def _iter_sorted_slice_rows(slice_summaries: object) -> list[tuple[str, Mapping[str, object]]]:
     if not isinstance(slice_summaries, Mapping):
         return []
+    available_keys = {str(key) for key in slice_summaries.keys()}
     sortable_rows: list[tuple[str, Mapping[str, object]]] = []
     for slice_key, summary in slice_summaries.items():
         if not isinstance(summary, Mapping):
             continue
-        sortable_rows.append((str(slice_key), summary))
+        normalized_key = str(slice_key)
+        if normalized_key.startswith("tag:family:"):
+            family_name = normalized_key.removeprefix("tag:family:")
+            if f"dimension:semantic_family:{family_name}" in available_keys:
+                continue
+        if normalized_key.startswith("tag:hazard:"):
+            hazard_name = normalized_key.removeprefix("tag:hazard:")
+            if f"dimension:hazard:{hazard_name}" in available_keys:
+                continue
+        sortable_rows.append((normalized_key, summary))
     return sorted(
         sortable_rows,
         key=lambda item: (
@@ -481,7 +538,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                     "| --- | ---: | ---: | ---: | ---: | ---: |",
                 ]
             )
-            for slice_key, summary in slice_rows[:16]:
+            for slice_key, summary in slice_rows:
                 lines.append(
                     "| "
                     + " | ".join(

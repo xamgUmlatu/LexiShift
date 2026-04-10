@@ -38,7 +38,18 @@
       "forbidden_top1": [
         "toil"
       ],
-      "forbidden_any": []
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      }
     },
     {
       "case_id": "en-es:casa",
@@ -241,7 +252,18 @@
         "path"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      }
     },
     {
       "case_id": "en-es:banco",
@@ -257,6 +279,17 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:bank_bench"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "bank_bench"
+        ]
+      },
       "notes": "Reverse-check Green: stable polysemy anchor; both common noun senses are acceptable without context."
     },
     {
@@ -367,6 +400,21 @@
         "presumption",
         "pretence"
       ],
+      "slice_tags": [
+        "family:right_law_straight",
+        "hazard:mixed_pos"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "mixed"
+        ],
+        "semantic_family": [
+          "right_law_straight"
+        ],
+        "hazard": [
+          "mixed_pos"
+        ]
+      },
       "notes": "Reverse-check Red: current top outputs drift into low-value legal glosses instead of the dominant right/law readings."
     },
     {
@@ -391,6 +439,17 @@
       "forbidden_any": [
         "bed"
       ],
+      "slice_tags": [
+        "family:table_board_chart"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "table_board_chart"
+        ]
+      },
       "notes": "Reverse-check Red: picture/chart senses are acceptable; bed should not survive as a product-facing candidate."
     },
     {
@@ -449,6 +508,21 @@
         "calculation"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:account_bill",
+        "hazard:domain_competition"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "account_bill"
+        ],
+        "hazard": [
+          "domain_competition"
+        ]
+      },
       "notes": "Common finance/count polysemy; prefer account/bill as the default noun reading."
     },
     {
@@ -482,6 +556,17 @@
         "complaint",
         "indictment"
       ],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
       "notes": "High-value red case: avoid rare accusation senses outranking role/charge senses."
     },
     {
@@ -518,6 +603,17 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
       "notes": "Common location/domain polysemy anchor for field vs countryside country readings."
     },
     {
@@ -575,6 +671,17 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
       "notes": "Stable two-sense control for network/net without overconstraining order."
     },
     {
@@ -780,6 +887,21 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:remove_take_out",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "remove_take_out"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
       "notes": "Coverage probe for a common high-polysemy verb currently absent in FreeDict."
     },
     {
@@ -860,6 +982,17 @@
         "slab"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:table_board_chart"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "table_board_chart"
+        ]
+      },
       "notes": "Cuadro-family sibling covering board/table/plank competition without forcing a single dominant noun sense."
     },
     {
@@ -878,6 +1011,17 @@
         "leggings"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
       "notes": "Red-family physical-net sibling; protect mesh/net readings from clothing-noise drift."
     },
     {
@@ -897,6 +1041,21 @@
         "quit"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:remove_take_out",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "remove_take_out"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
       "notes": "Phrase-sensitive common removal verb; single-word remove is acceptable now, but false-friend quit should stay out of top-1."
     },
     {
@@ -981,6 +1140,21 @@
         "cum",
         "orgasm"
       ],
+      "slice_tags": [
+        "family:finish_end",
+        "hazard:slang_leakage"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "finish_end"
+        ],
+        "hazard": [
+          "slang_leakage"
+        ]
+      },
       "notes": "High-frequency verb with an undesirable sexual-slang side sense; keep finish/end and suppress the slang candidate family."
     },
     {
@@ -1004,6 +1178,23 @@
         "fuck",
         "bang"
       ],
+      "slice_tags": [
+        "family:take_carry",
+        "hazard:phrase_sensitive",
+        "hazard:slang_leakage"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "take_carry"
+        ],
+        "hazard": [
+          "phrase_sensitive",
+          "slang_leakage"
+        ]
+      },
       "notes": "Common verb with strong regional/slang leakage; take/catch should survive while sexual slang senses stay out of the candidate set."
     },
     {
@@ -1113,6 +1304,21 @@
         "set"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:battery_music",
+        "hazard:domain_competition"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "battery_music"
+        ],
+        "hazard": [
+          "domain_competition"
+        ]
+      },
       "notes": "Everyday electrical noun with music-side competition; battery should dominate the bare lemma while drummer/set stay out of top-1."
     },
     {
@@ -1133,6 +1339,21 @@
         "bear"
       ],
       "forbidden_any": [],
+      "slice_tags": [
+        "family:take_carry",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "take_carry"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
       "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead while bear-like drift stays out of top-1."
     }
   ]
