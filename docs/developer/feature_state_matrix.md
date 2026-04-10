@@ -769,8 +769,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-10` added the first trigger-support sweep for `en-es`, showing that light trigger filtering helps the `top3 + forward gloss` lane a bit more, but does not rescue the broader `all_sources` seed family
-- Last verified: `2026-04-10` targeted `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed the `en-es` trigger-support-sweep artifact and synced runtime-readiness / feature-state docs
+- Last documented checkpoint: `2026-04-10` added the first embedding-bridge sweep for `en-es`, showing that source-derived target-card nearest neighbors can recover the remaining `trabajo / job -> cargo` miss only by dropping to a much noisier support-score setting, so the lexical source-only baseline is still the better current tradeoff
+- Last verified: `2026-04-10` targeted `semantic_shadow_embedding_bridge` / `semantic_shadow_inventory` / `semantic_shadow_evaluation` tests plus refreshed the `en-es` embedding-bridge-sweep artifact and synced runtime-readiness / feature-state docs
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -822,6 +822,14 @@ Use this file when:
       - on `rulegen_top3_plus_forward_gloss`, `min_trigger_score=3` keeps recall flat at `80.0%` while improving precision from `47.1%` to `50.0%` and reducing overblocking from `5.1%` to `4.3%`
       - on `rulegen_all_plus_forward_gloss`, trigger filtering does not improve the tradeoff meaningfully; the broader all-sources seed family remains too noisy
       - interpretation: compact trigger scoring is useful as a light upstream filter on the better source-only seed family, but it is not a substitute for better trigger provenance or a semantic-bridge lane
+    - the first target-card embedding bridge has now been swept explicitly:
+      - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py` augments the current inventories with sentence-transformer nearest neighbors over source-derived target cards, but only as a backoff candidate source
+      - it can recover `trabajo / job -> cargo` at the lower support threshold (`min_score=4`), raising source-only recall from `80.0%` to `90.0%`
+      - that gain is not currently worth the noise:
+        - `rulegen_top3_plus_forward_gloss` baseline best lexical row stays `47.1%` precision / `80.0%` recall / `5.1%` overblocking
+        - best embedding-bridge row falls to `11.8%` precision / `90.0%` recall / `35.5%` overblocking
+      - at the safer lexical threshold (`min_score=5`), the bridge does not improve recall, because the remaining `cargo / job -> trabajo` miss still has no active-side support
+      - interpretation: nearest-neighbor target cards are useful as a research recall probe, but not yet a publishable improvement over the lexical baseline
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -847,7 +855,9 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
   - `core/lexishift_core/rulegen/semantic_publication.py`
   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
+  - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
   - `core/tests/rulegen/test_semantic_publication.py`
   - `core/tests/rulegen/test_semantic_shadow_inventory.py`
   - `core/tests/rulegen/test_semantic_shadow_evaluation.py`
@@ -859,6 +869,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_gold_proxy_en_es.py`
   - `scripts/testing/semantic_shadow_coverage_gap_en_es.py`
   - `scripts/testing/semantic_shadow_seed_compare_en_es.py`
+  - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`

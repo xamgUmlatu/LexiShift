@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import sqlite3
 import sys
@@ -17,6 +18,7 @@ from lexishift_core.resources.dict_loaders import (  # noqa: E402
     load_freedict_headwords,
     load_freedict_sqlite_gloss_records_ordered,
     load_freedict_tei_gloss_records_ordered,
+    load_translation_gloss_records_by_translation_ordered,
     load_translation_gloss_base_forms,
     load_translation_headwords,
 )
@@ -239,6 +241,68 @@ class TestFreedictPosLoaders(unittest.TestCase):
             records = load_freedict_sqlite_gloss_records_ordered(path, headwords=("haus",))
         self.assertIn("Haus", records)
         self.assertNotIn("Baum", records)
+
+    def test_translation_loader_can_group_rows_by_translation_target(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "eng-spa.sqlite"
+            conn = sqlite3.connect(path)
+            try:
+                conn.execute(
+                    "CREATE TABLE sense_glosses ("
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "translation TEXT, "
+                    "translation_lc TEXT, "
+                    "pos TEXT, "
+                    "entry_ord INTEGER, "
+                    "sense_ord INTEGER, "
+                    "gloss_ord INTEGER, "
+                    "raw_glosses_json TEXT, "
+                    "tags_json TEXT, "
+                    "topics_json TEXT, "
+                    "categories_json TEXT, "
+                    "form_of_json TEXT, "
+                    "alt_of_json TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "INSERT INTO sense_glosses "
+                    "(headword, headword_lc, translation, translation_lc, pos, entry_ord, sense_ord, gloss_ord, raw_glosses_json, tags_json, topics_json, categories_json, form_of_json, alt_of_json) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        "function",
+                        "function",
+                        "cargo",
+                        "cargo",
+                        "noun",
+                        1,
+                        0,
+                        0,
+                        json.dumps(["professional or official position"]),
+                        json.dumps(["masculine"]),
+                        None,
+                        json.dumps(["en:Employment"]),
+                        None,
+                        None,
+                    ),
+                )
+                conn.commit()
+            finally:
+                conn.close()
+
+            records = load_translation_gloss_records_by_translation_ordered(
+                path,
+                translations=("cargo",),
+            )
+
+        self.assertIn("cargo", records)
+        self.assertEqual(len(records["cargo"]), 1)
+        self.assertEqual(records["cargo"][0].translation, "function")
+        self.assertEqual(records["cargo"][0].pos_raw, "noun")
+        self.assertEqual(
+            records["cargo"][0].metadata.get("sense_raw_glosses"),
+            ["professional or official position"],
+        )
 
     def test_sqlite_base_form_loader_collects_sanitized_glosses(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

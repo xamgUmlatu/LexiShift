@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-10
-Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, and first trigger-support sweep for source-only seed filtering
+Last verified: 2026-04-10 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, and first embedding-bridge sweep over source-derived target cards
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -183,6 +183,14 @@ In other words:
 
 - embeddings are promising as a recall tool and runtime comparison tool,
 - but they should sit inside a competition-based admission system rather than replace the whole pipeline.
+
+The first `en-es` target-card embedding bridge now makes that caveat more concrete.
+Using source-derived target cards plus sentence-transformer nearest neighbors can recover the hard lexical miss `trabajo / job -> cargo`.
+But on the current lower-bound proxy it only helps when the support-score threshold is lowered enough that overblocking rises sharply, and it does not solve `cargo / job -> trabajo` because the active side is still unsupported there.
+So the current conclusion is:
+
+- nearest-neighbor target cards are useful as a research recall probe,
+- but they are not yet a publishable improvement over the lexical baseline.
 
 ## Boundary: Manual Vs Automatic Today
 

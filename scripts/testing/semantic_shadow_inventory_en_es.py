@@ -16,7 +16,10 @@ if str(CORE_ROOT) not in sys.path:
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths, resolve_data_root  # noqa: E402
 from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: E402
-from lexishift_core.resources.dict_loaders import load_translation_gloss_records_ordered  # noqa: E402
+from lexishift_core.resources.dict_loaders import (  # noqa: E402
+    load_translation_gloss_records_by_translation_ordered,
+    load_translation_gloss_records_ordered,
+)
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     BenchmarkShadowTarget,
     build_benchmark_shadow_targets,
@@ -163,10 +166,15 @@ def _build_report(
         target_lang="es",
         headwords=_collect_reviewed_triggers(benchmark_targets),
     )
+    target_reverse_records_by_target = load_translation_gloss_records_by_translation_ordered(
+        reverse_pack.path,
+        translations=[target.target for target in benchmark_targets],
+    )
     report["inventory"] = build_en_es_shadow_inventory(
         benchmark_targets=benchmark_targets,
         forward_records_by_target=forward_records_by_target,
         reverse_records_by_source=reverse_records_by_source,
+        target_reverse_records_by_target=target_reverse_records_by_target,
         forward_provider=forward_pack.provider,
         reverse_provider=reverse_pack.provider,
     )

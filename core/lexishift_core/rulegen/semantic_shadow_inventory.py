@@ -8,6 +8,15 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     collect_sanitized_gloss_records as collect_en_es_sanitized_gloss_records,
     normalize_reverse_token_with_pos,
 )
+from lexishift_core.rulegen.semantic_shadow_lexical_bridge import (
+    build_bridge_marker_frequency,
+    build_semantic_bridge_candidates,
+    build_target_bridge_profiles,
+)
+from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
+    build_forward_shadow_index,
+    build_inventory_summary,
+)
 from lexishift_core.rulegen.semantic_shadow_trigger_support import (
     DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
     build_trigger_support_details_from_records,
@@ -32,6 +41,7 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "benchmark_target_present": 1.0,
     "same_pos_as_active": 1.0,
     "active_side_support": 1.0,
+    "semantic_bridge_support": 1.0,
     "cross_pos_mismatch_penalty": -1.0,
 }
 
@@ -332,16 +342,26 @@ def build_en_es_shadow_inventory(
     benchmark_targets: Sequence[BenchmarkShadowTarget],
     forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
     reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
+    target_reverse_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]] | None = None,
     forward_provider: str,
     reverse_provider: str,
     promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
-    forward_shadow_index = _build_forward_shadow_index(
+    forward_shadow_index = build_forward_shadow_index(
         benchmark_targets=benchmark_targets,
         forward_records_by_target=forward_records_by_target,
         provider=forward_provider,
+        collect_records=collect_en_es_sanitized_gloss_records,
+        active_candidate_builder=_build_active_candidates_for_trigger,
     )
+    target_bridge_profiles = build_target_bridge_profiles(
+        benchmark_targets=benchmark_targets,
+        forward_records_by_target=forward_records_by_target,
+        reverse_records_by_source=reverse_records_by_source,
+        target_reverse_records_by_target=target_reverse_records_by_target,
+    )
+    bridge_marker_frequency = build_bridge_marker_frequency(target_bridge_profiles)
     inventory_targets: list[dict[str, object]] = []
     for benchmark_target in benchmark_targets:
         forward_records = collect_en_es_sanitized_gloss_records(
@@ -389,6 +409,19 @@ def build_en_es_shadow_inventory(
                     continue
                 shadow_candidates.append(dict(forward_candidate))
                 existing_shadow_targets.add(candidate_target)
+            for bridge_candidate in build_semantic_bridge_candidates(
+                active_target=benchmark_target.target,
+                active_candidates=active_candidates,
+                existing_shadow_targets=existing_shadow_targets,
+                benchmark_target_map=benchmark_target_map,
+                target_bridge_profiles=target_bridge_profiles,
+                bridge_marker_frequency=bridge_marker_frequency,
+            ):
+                candidate_target = str(bridge_candidate.get("target") or "").strip()
+                if not candidate_target or candidate_target in existing_shadow_targets:
+                    continue
+                shadow_candidates.append(dict(bridge_candidate))
+                existing_shadow_targets.add(candidate_target)
             promoted_shadow_candidates = promote_shadow_candidates_for_policy(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
@@ -425,64 +458,7 @@ def build_en_es_shadow_inventory(
             "reverse": str(reverse_provider or "").strip() or "unknown",
         },
         "targets": inventory_targets,
-        "summary": _build_inventory_summary(inventory_targets),
-    }
-
-
-def _build_forward_shadow_index(
-    *,
-    benchmark_targets: Sequence[BenchmarkShadowTarget],
-    forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
-    provider: str,
-) -> dict[str, list[dict[str, object]]]:
-    trigger_index: dict[str, list[dict[str, object]]] = {}
-    for benchmark_target in benchmark_targets:
-        forward_records = collect_en_es_sanitized_gloss_records(
-            forward_records_by_target.get(benchmark_target.target, ())
-        )
-        for trigger in benchmark_target.reviewed_triggers:
-            active_candidates = _build_active_candidates_for_trigger(
-                target=benchmark_target.target,
-                trigger=trigger,
-                records=forward_records,
-                provider=provider,
-            )
-            if not active_candidates:
-                continue
-            bucket = trigger_index.setdefault(trigger, [])
-            for candidate in active_candidates:
-                candidate_copy = dict(candidate)
-                candidate_copy["benchmark_target_present"] = True
-                candidate_copy["reviewed_trigger_support"] = True
-                candidate_copy["candidate_sources"] = ["forward_index"]
-                bucket.append(candidate_copy)
-    return trigger_index
-
-
-def _build_inventory_summary(targets: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    trigger_count = 0
-    with_active_candidates = 0
-    with_shadow_candidates = 0
-    with_promoted_shadow_candidates = 0
-    for target in targets:
-        trigger_entries = target.get("trigger_entries")
-        if not isinstance(trigger_entries, Sequence) or isinstance(trigger_entries, (str, bytes)):
-            continue
-        for trigger_entry in trigger_entries:
-            if not isinstance(trigger_entry, Mapping):
-                continue
-            trigger_count += 1
-            if trigger_entry.get("active_candidates"):
-                with_active_candidates += 1
-            if trigger_entry.get("shadow_candidates"):
-                with_shadow_candidates += 1
-            if trigger_entry.get("promoted_shadow_candidates"):
-                with_promoted_shadow_candidates += 1
-    return {
-        "trigger_count": trigger_count,
-        "triggers_with_active_candidates": with_active_candidates,
-        "triggers_with_shadow_candidates": with_shadow_candidates,
-        "triggers_with_promoted_shadow_candidates": with_promoted_shadow_candidates,
+        "summary": build_inventory_summary(inventory_targets),
     }
 
 
@@ -636,6 +612,7 @@ def promote_shadow_candidates_with_support_score(
             (
                 (
                     support_score,
+                    float(candidate_copy.get("semantic_bridge_score") or 0.0),
                     1 if candidate_copy.get("reviewed_trigger_support") else 0,
                     1 if candidate_copy.get("same_pos_as_active") else 0,
                     1 if candidate_copy.get("benchmark_target_present") else 0,
@@ -665,6 +642,10 @@ def build_shadow_candidate_support_details(
     benchmark_target_present = bool(candidate.get("benchmark_target_present"))
     same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
     cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
+    semantic_bridge_support = bool(
+        candidate.get("semantic_bridge_markers")
+        or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
+    )
 
     support_breakdown = {
         "reviewed_trigger_support": (
@@ -683,6 +664,11 @@ def build_shadow_candidate_support_details(
         "active_side_support": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["active_side_support"] if has_active_candidates else 0.0
         ),
+        "semantic_bridge_support": (
+            SHADOW_SUPPORT_SCORE_WEIGHTS["semantic_bridge_support"]
+            if semantic_bridge_support
+            else 0.0
+        ),
         "cross_pos_mismatch_penalty": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["cross_pos_mismatch_penalty"]
             if cross_pos_mismatch
@@ -696,6 +682,7 @@ def build_shadow_candidate_support_details(
             ("benchmark_target_present", benchmark_target_present),
             ("same_pos_as_active", same_pos),
             ("active_side_support", has_active_candidates),
+            ("semantic_bridge_support", semantic_bridge_support),
         )
         if value
     ]

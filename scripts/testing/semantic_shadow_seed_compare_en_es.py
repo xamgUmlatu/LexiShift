@@ -16,7 +16,10 @@ if str(CORE_ROOT) not in sys.path:
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths, resolve_data_root  # noqa: E402
 from lexishift_core.helper.translation_packs import TranslationPackRef  # noqa: E402
-from lexishift_core.resources.dict_loaders import load_translation_gloss_records_ordered  # noqa: E402
+from lexishift_core.resources.dict_loaders import (  # noqa: E402
+    load_translation_gloss_records_by_translation_ordered,
+    load_translation_gloss_records_ordered,
+)
 from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
     REFERENCE_SHADOW_POLICY_MODES,
     evaluate_shadow_inventory_against_benchmark_overlap_gold,
@@ -157,6 +160,7 @@ def _build_mode_payload(
     gold_targets: Sequence[BenchmarkShadowTarget],
     forward_records_by_target: Mapping[str, Sequence[object]],
     reverse_records_by_source: Mapping[str, Sequence[object]],
+    target_reverse_records_by_target: Mapping[str, Sequence[object]],
     forward_provider: str,
     reverse_provider: str,
 ) -> dict[str, object]:
@@ -164,6 +168,7 @@ def _build_mode_payload(
         benchmark_targets=seed_targets,
         forward_records_by_target=forward_records_by_target,
         reverse_records_by_source=reverse_records_by_source,
+        target_reverse_records_by_target=target_reverse_records_by_target,
         forward_provider=forward_provider,
         reverse_provider=reverse_provider,
     )
@@ -244,6 +249,10 @@ def build_seed_compare_report(
         target_lang="en",
         headwords=all_targets,
     )
+    target_reverse_records_by_target = load_translation_gloss_records_by_translation_ordered(
+        reverse_pack.path,
+        translations=all_targets,
+    )
     seed_modes = {
         "benchmark_reviewed": gold_targets,
         "rulegen_top3_sources": rulegen_top3_targets,
@@ -280,6 +289,7 @@ def build_seed_compare_report(
             gold_targets=gold_targets,
             forward_records_by_target=forward_records_by_target,
             reverse_records_by_source=reverse_records_by_source,
+            target_reverse_records_by_target=target_reverse_records_by_target,
             forward_provider=forward_pack.provider,
             reverse_provider=reverse_pack.provider,
         )

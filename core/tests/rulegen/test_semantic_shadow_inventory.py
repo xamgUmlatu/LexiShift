@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord  # noqa: E402
 from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
     DEFAULT_FORWARD_SEED_MAX_WORDS,
+    BenchmarkShadowTarget,
     augment_shadow_targets_with_forward_gloss_triggers,
     build_shadow_candidate_support_details,
     build_shadow_trigger_source_index,
@@ -33,6 +34,7 @@ def _record(
     sense_ord: int | None = None,
     gloss_ord: int | None = None,
     sense_gloss: str = "",
+    extra_metadata: dict[str, object] | None = None,
 ) -> TranslationGlossRecord:
     metadata: dict[str, object] = {}
     if entry_ord is not None:
@@ -44,6 +46,8 @@ def _record(
     if sense_gloss:
         metadata["sense_raw_glosses"] = (sense_gloss,)
     metadata["dictionary_pos_canonical"] = pos_raw
+    if extra_metadata:
+        metadata.update(extra_metadata)
     return TranslationGlossRecord(
         translation=translation,
         pos_raw=pos_raw,
@@ -675,6 +679,110 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(trigger_row["shadow_candidates"][0]["target"], "ultimar")
         self.assertEqual(trigger_row["promoted_shadow_candidates"], [])
 
+    def test_build_en_es_shadow_inventory_adds_semantic_bridge_candidate_from_shared_marker(
+        self,
+    ) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="trabajo",
+                case_ids=("en-es:trabajo:1",),
+                tiers=("rulegen_top3_sources",),
+                reviewed_triggers=("job",),
+            ),
+            BenchmarkShadowTarget(
+                target="cargo",
+                case_ids=("en-es:cargo:1",),
+                tiers=("rulegen_top3_sources", "forward_gloss_fragments"),
+                reviewed_triggers=("position",),
+            ),
+        )
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=benchmark_targets,
+            forward_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="job",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="economic role for which a person is paid",
+                    ),
+                ),
+                "cargo": (
+                    _record(
+                        translation="position",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="professional or official position",
+                    ),
+                ),
+            },
+            reverse_records_by_source={
+                "job": (
+                    _record(
+                        translation="trabajo",
+                        pos_raw="noun",
+                        entry_ord=20,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                        extra_metadata={"entry_categories": ("en:Employment",)},
+                    ),
+                ),
+                "position": (
+                    _record(
+                        translation="puesto",
+                        pos_raw="noun",
+                        entry_ord=21,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="post of employment",
+                    ),
+                ),
+            },
+            target_reverse_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="job",
+                        pos_raw="noun",
+                        entry_ord=30,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                        extra_metadata={"entry_categories": ("en:Employment",)},
+                    ),
+                ),
+                "cargo": (
+                    _record(
+                        translation="function",
+                        pos_raw="noun",
+                        entry_ord=31,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        sense_gloss="employment role position",
+                    ),
+                ),
+            },
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="support_score_v1",
+        )
+
+        trabajo_row = next(row for row in inventory["targets"] if row["target"] == "trabajo")
+        trigger_row = trabajo_row["trigger_entries"][0]
+        bridge_candidate = next(
+            candidate
+            for candidate in trigger_row["shadow_candidates"]
+            if candidate["target"] == "cargo"
+        )
+        self.assertEqual(bridge_candidate["candidate_sources"], ["semantic_bridge"])
+        self.assertIn("employment", bridge_candidate["semantic_bridge_markers"])
+        promoted = trigger_row["promoted_shadow_candidates"]
+        self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
+
     def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
         active_candidates = [{"canonical_pos": "noun"}]
         shadow_candidates = [
@@ -817,6 +925,55 @@ class TestSemanticShadowInventory(unittest.TestCase):
         )
         self.assertEqual(support["support_penalties"], ["cross_pos_mismatch_penalty"])
         self.assertEqual(support["support_score"], 1.0)
+
+    def test_build_shadow_candidate_support_details_adds_semantic_bridge_feature(self) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "cargo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": False,
+                "semantic_bridge_markers": ["employment"],
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+        )
+
+        self.assertEqual(
+            support["support_features"],
+            [
+                "benchmark_target_present",
+                "same_pos_as_active",
+                "active_side_support",
+                "semantic_bridge_support",
+            ],
+        )
+        self.assertEqual(support["support_penalties"], [])
+        self.assertEqual(support["support_score"], 4.0)
+
+    def test_build_shadow_candidate_support_details_counts_embedding_bridge_similarity(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "cargo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": False,
+                "embedding_bridge_similarity": 0.71,
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+        )
+
+        self.assertEqual(
+            support["support_features"],
+            [
+                "benchmark_target_present",
+                "same_pos_as_active",
+                "active_side_support",
+                "semantic_bridge_support",
+            ],
+        )
+        self.assertEqual(support["support_score"], 4.0)
 
     def test_promote_shadow_candidates_with_support_score_prefers_supported_rows(self) -> None:
         promoted = promote_shadow_candidates_with_support_score(

@@ -1,7 +1,7 @@
 # en-es Shadow Coverage Gap Audit
 
 - Status: `ok`
-- Generated: `2026-04-10T03:59:33Z`
+- Generated: `2026-04-10T18:23:28Z`
 - Remaining gaps: `1`
 - `semantic_bridge_needed`: `1`
 - `rulegen_source_gap`: `0`
