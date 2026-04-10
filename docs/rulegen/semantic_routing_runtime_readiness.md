@@ -394,7 +394,11 @@ First implemented research seam:
       - that bonus does not improve the current best row:
         - baseline stays `47.1%` precision / `80.0%` recall / `5.1%` overblocking
         - any positive frequency bonus is neutral at small weights and actively harmful at `bonus=1.0`
-      - interpretation: the current ES frequency pack is plausible as metadata, but not yet a useful default pruning signal for semantic shadows; it should remain an optional research knob, not a default promotion feature
+      - the follow-on similarity sweep keeps the same lexical baseline fixed and replaces the raw “most frequent shadow wins” idea with a continuous bonus for shadows that live in a similar normalized frequency band to the active target
+      - that also fails to improve the current best row:
+        - the best source-only setting remains `sim_weight=0.0`
+        - positive similarity weights are effectively inert on the current `en-es` gold proxy
+      - interpretation: the current ES frequency pack is plausible as metadata, but neither raw target frequency nor active-vs-shadow frequency similarity is yet a useful default pruning signal for semantic shadows; frequency should remain an optional research knob, not a default promotion feature
     - conclusion: the current miner is general enough to avoid target-specific hacks, still materially depends on reviewed-trigger seeding, and now has a more sweepable promotion surface; the next de-coupling work should improve automatic seed quality and semantic-bridge recall rather than add more branchy blocker rules
 
 So this seam is no longer hypothetical.

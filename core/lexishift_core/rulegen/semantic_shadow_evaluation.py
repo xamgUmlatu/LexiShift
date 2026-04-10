@@ -13,6 +13,10 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (
     promote_shadow_candidates_with_support_score,
     SUPPORT_SCORE_POLICY,
 )
+from lexishift_core.rulegen.semantic_shadow_support import (
+    DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
+)
 
 REFERENCE_SHADOW_POLICY_MODES = ("none", "gold_overlap_oracle")
 
@@ -61,6 +65,8 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
     support_score_max_promoted: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     support_frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     support_frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
+    support_frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
+    support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -137,6 +143,8 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                         policy=policy,
                         frequency_representative_bonus=support_frequency_representative_bonus,
                         frequency_representative_top_k=support_frequency_representative_top_k,
+                        frequency_similarity_weight=support_frequency_similarity_weight,
+                        frequency_similarity_tau=support_frequency_similarity_tau,
                     )
                     promoted_targets = [
                         str(candidate.get("target") or "").strip()

@@ -950,6 +950,28 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(support["support_penalties"], [])
         self.assertEqual(support["support_score"], 4.0)
 
+    def test_build_shadow_candidate_support_details_adds_frequency_similarity_bonus(self) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "cargo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "reviewed_trigger_support": False,
+                "target_frequency_score": 0.82,
+            },
+            active_candidates=[{"canonical_pos": "noun", "target_frequency_score": 0.80}],
+            frequency_similarity_weight=0.5,
+            frequency_similarity_tau=0.10,
+        )
+
+        self.assertIn("frequency_similarity_bonus", support["support_features"])
+        self.assertTrue(support["frequency_similarity_present"])
+        self.assertGreater(float(support["frequency_similarity_score"]), 0.8)
+        self.assertGreater(
+            float(support["support_score_breakdown"]["frequency_similarity_bonus"]),
+            0.4,
+        )
+
     def test_build_shadow_candidate_support_details_counts_embedding_bridge_similarity(
         self,
     ) -> None:
@@ -1048,6 +1070,36 @@ class TestSemanticShadowInventory(unittest.TestCase):
 
         self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
         self.assertIn("frequency_representative_bonus", promoted[0]["support_features"])
+
+    def test_promote_shadow_candidates_with_support_score_can_use_frequency_similarity(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=[
+                {
+                    "target": "cargo",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                    "target_frequency_score": 0.82,
+                },
+                {
+                    "target": "camello",
+                    "canonical_pos": "noun",
+                    "benchmark_target_present": True,
+                    "reviewed_trigger_support": False,
+                    "target_frequency_score": 0.20,
+                },
+            ],
+            active_candidates=[{"canonical_pos": "noun", "target_frequency_score": 0.80}],
+            min_score=3.4,
+            max_promoted_shadows=1,
+            frequency_similarity_weight=0.5,
+            frequency_similarity_tau=0.10,
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["cargo"])
+        self.assertIn("frequency_similarity_bonus", promoted[0]["support_features"])
 
 
 if __name__ == "__main__":

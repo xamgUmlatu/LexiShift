@@ -3,10 +3,13 @@ from __future__ import annotations
 from typing import Mapping, Sequence
 
 from lexishift_core.rulegen.semantic_shadow_frequency import (
+    build_frequency_similarity_details,
     candidate_has_frequency_representative_bonus,
 )
 
 DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS = 0.0
+DEFAULT_FREQUENCY_SIMILARITY_WEIGHT = 0.0
+DEFAULT_FREQUENCY_SIMILARITY_TAU = 0.15
 SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "reviewed_trigger_support": 2.0,
     "benchmark_target_present": 1.0,
@@ -23,6 +26,8 @@ def build_shadow_candidate_support_details(
     active_candidates: Sequence[Mapping[str, object]],
     frequency_representative_targets: Sequence[str] = (),
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
+    frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
 ) -> dict[str, object]:
     active_pos_values = {
         str(active_candidate.get("canonical_pos") or "").strip().lower()
@@ -43,6 +48,17 @@ def build_shadow_candidate_support_details(
     frequency_representative = candidate_has_frequency_representative_bonus(
         candidate=candidate,
         representative_targets=frequency_representative_targets,
+    )
+    frequency_similarity_details = build_frequency_similarity_details(
+        candidate=candidate,
+        active_candidates=active_candidates,
+        tau=float(frequency_similarity_tau),
+    )
+    frequency_similarity_present = bool(
+        frequency_similarity_details.get("frequency_similarity_present")
+    )
+    frequency_similarity_score = float(
+        frequency_similarity_details.get("frequency_similarity_score") or 0.0
     )
 
     support_breakdown = {
@@ -70,6 +86,11 @@ def build_shadow_candidate_support_details(
         "frequency_representative_bonus": (
             float(frequency_representative_bonus) if frequency_representative else 0.0
         ),
+        "frequency_similarity_bonus": (
+            float(frequency_similarity_weight) * frequency_similarity_score
+            if frequency_similarity_present and float(frequency_similarity_weight) > 0.0
+            else 0.0
+        ),
         "cross_pos_mismatch_penalty": (
             SHADOW_SUPPORT_SCORE_WEIGHTS["cross_pos_mismatch_penalty"]
             if cross_pos_mismatch
@@ -85,6 +106,7 @@ def build_shadow_candidate_support_details(
             ("active_side_support", has_active_candidates),
             ("semantic_bridge_support", semantic_bridge_support),
             ("frequency_representative_bonus", frequency_representative),
+            ("frequency_similarity_bonus", frequency_similarity_present),
         )
         if value
     ]
@@ -96,4 +118,5 @@ def build_shadow_candidate_support_details(
         "support_score_breakdown": support_breakdown,
         "support_score": sum(float(value) for value in support_breakdown.values()),
         "promotion_reasons": positive_features,
+        **frequency_similarity_details,
     }

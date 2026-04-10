@@ -52,8 +52,8 @@ DEFAULT_MODE_IDS = ("benchmark_reviewed", "rulegen_top3_plus_forward_gloss")
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Sweep a weak Spanish target-frequency representative bonus on top of the "
-            "current en-es shadow support score."
+            "Sweep Spanish target-frequency features on top of the current en-es shadow "
+            "support score, focusing on similarity between active and shadow frequency bands."
         )
     )
     parser.add_argument(
@@ -117,13 +117,23 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--frequency-bonus-values",
-        default="0,0.25,0.5,1.0",
+        default="0",
         help="Comma-separated representative bonus values to sweep.",
     )
     parser.add_argument(
         "--frequency-top-k-values",
-        default="0,1,2,3",
+        default="0",
         help="Comma-separated top-k representative counts to sweep.",
+    )
+    parser.add_argument(
+        "--frequency-similarity-weight-values",
+        default="0,0.1,0.25,0.5,1.0",
+        help="Comma-separated active-vs-shadow frequency similarity weights to sweep.",
+    )
+    parser.add_argument(
+        "--frequency-similarity-tau-values",
+        default="0.05,0.1,0.15,0.25,0.4",
+        help="Comma-separated tolerance values for active-vs-shadow frequency similarity.",
     )
     parser.add_argument(
         "--json-out",
@@ -176,6 +186,8 @@ def _evaluate_seed_targets(
     shadow_max_promoted: int,
     frequency_bonus: float,
     frequency_top_k: int,
+    frequency_similarity_weight: float,
+    frequency_similarity_tau: float,
     frequency_lookup,
 ) -> dict[str, object]:
     inventory = build_en_es_shadow_inventory(
@@ -194,6 +206,8 @@ def _evaluate_seed_targets(
         support_score_max_promoted=shadow_max_promoted,
         support_frequency_representative_bonus=frequency_bonus,
         support_frequency_representative_top_k=frequency_top_k,
+        support_frequency_similarity_weight=frequency_similarity_weight,
+        support_frequency_similarity_tau=frequency_similarity_tau,
     )
     summary = {}
     policies = evaluation.get("policies")
@@ -226,6 +240,8 @@ def build_frequency_sweep_report(
     shadow_max_promoted: int,
     frequency_bonus_values: Sequence[float],
     frequency_top_k_values: Sequence[int],
+    frequency_similarity_weight_values: Sequence[float],
+    frequency_similarity_tau_values: Sequence[float],
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     dataset_payload = load_benchmark_dataset_payload(benchmark_dataset)
@@ -309,65 +325,81 @@ def build_frequency_sweep_report(
                 shadow_max_promoted=shadow_max_promoted,
                 frequency_bonus=0.0,
                 frequency_top_k=0,
+                frequency_similarity_weight=0.0,
+                frequency_similarity_tau=0.15,
                 frequency_lookup=frequency_lookup,
             )
             baseline_summary = baseline["summary"]
             baseline_candidate_pool = baseline["candidate_pool_summary"]
             for frequency_bonus in frequency_bonus_values:
                 for frequency_top_k in frequency_top_k_values:
-                    evaluated = _evaluate_seed_targets(
-                        seed_targets=filtered_targets,
-                        gold_targets=gold_targets,
-                        forward_records_by_target=forward_records_by_target,
-                        reverse_records_by_source=reverse_records_by_source,
-                        forward_provider=forward_pack.provider,
-                        reverse_provider=reverse_pack.provider,
-                        shadow_support_score_min=shadow_support_score_min,
-                        shadow_max_promoted=shadow_max_promoted,
-                        frequency_bonus=float(frequency_bonus),
-                        frequency_top_k=int(frequency_top_k),
-                        frequency_lookup=frequency_lookup,
-                    )
-                    summary = evaluated["summary"]
-                    candidate_pool = evaluated["candidate_pool_summary"]
-                    rows.append(
-                        {
-                            "mode_id": mode_id,
-                            "trigger_support_score_min": float(trigger_support_score_min),
-                            "shadow_support_score_min": float(shadow_support_score_min),
-                            "shadow_max_promoted": int(shadow_max_promoted),
-                            "frequency_bonus": float(frequency_bonus),
-                            "frequency_top_k": int(frequency_top_k),
-                            "candidate_precision": summary.get("candidate_precision"),
-                            "candidate_recall": summary.get("candidate_recall"),
-                            "candidate_f1": _safe_f1(
-                                summary.get("candidate_precision"),
-                                summary.get("candidate_recall"),
-                            ),
-                            "gold_trigger_hit_rate": summary.get("gold_trigger_hit_rate"),
-                            "overblocking_rate": summary.get("overblocking_rate"),
-                            "candidate_pool_trigger_recall": candidate_pool.get(
-                                "candidate_pool_trigger_recall"
-                            ),
-                            "gold_trigger_inventory_coverage_rate": candidate_pool.get(
-                                "gold_trigger_inventory_coverage_rate"
-                            ),
-                            "baseline_precision": baseline_summary.get("candidate_precision"),
-                            "baseline_recall": baseline_summary.get("candidate_recall"),
-                            "baseline_f1": _safe_f1(
-                                baseline_summary.get("candidate_precision"),
-                                baseline_summary.get("candidate_recall"),
-                            ),
-                            "baseline_overblocking": baseline_summary.get("overblocking_rate"),
-                            "baseline_candidate_pool_trigger_recall": baseline_candidate_pool.get(
-                                "candidate_pool_trigger_recall"
-                            ),
-                            "frequency_lookup_available": frequency_lookup is not None,
-                            "frequency_pack_id": (
-                                frequency_lookup.pack_id if frequency_lookup is not None else ""
-                            ),
-                        }
-                    )
+                    for frequency_similarity_weight in frequency_similarity_weight_values:
+                        for frequency_similarity_tau in frequency_similarity_tau_values:
+                            evaluated = _evaluate_seed_targets(
+                                seed_targets=filtered_targets,
+                                gold_targets=gold_targets,
+                                forward_records_by_target=forward_records_by_target,
+                                reverse_records_by_source=reverse_records_by_source,
+                                forward_provider=forward_pack.provider,
+                                reverse_provider=reverse_pack.provider,
+                                shadow_support_score_min=shadow_support_score_min,
+                                shadow_max_promoted=shadow_max_promoted,
+                                frequency_bonus=float(frequency_bonus),
+                                frequency_top_k=int(frequency_top_k),
+                                frequency_similarity_weight=float(frequency_similarity_weight),
+                                frequency_similarity_tau=float(frequency_similarity_tau),
+                                frequency_lookup=frequency_lookup,
+                            )
+                            summary = evaluated["summary"]
+                            candidate_pool = evaluated["candidate_pool_summary"]
+                            rows.append(
+                                {
+                                    "mode_id": mode_id,
+                                    "trigger_support_score_min": float(trigger_support_score_min),
+                                    "shadow_support_score_min": float(shadow_support_score_min),
+                                    "shadow_max_promoted": int(shadow_max_promoted),
+                                    "frequency_bonus": float(frequency_bonus),
+                                    "frequency_top_k": int(frequency_top_k),
+                                    "frequency_similarity_weight": float(
+                                        frequency_similarity_weight
+                                    ),
+                                    "frequency_similarity_tau": float(frequency_similarity_tau),
+                                    "candidate_precision": summary.get("candidate_precision"),
+                                    "candidate_recall": summary.get("candidate_recall"),
+                                    "candidate_f1": _safe_f1(
+                                        summary.get("candidate_precision"),
+                                        summary.get("candidate_recall"),
+                                    ),
+                                    "gold_trigger_hit_rate": summary.get("gold_trigger_hit_rate"),
+                                    "overblocking_rate": summary.get("overblocking_rate"),
+                                    "candidate_pool_trigger_recall": candidate_pool.get(
+                                        "candidate_pool_trigger_recall"
+                                    ),
+                                    "gold_trigger_inventory_coverage_rate": candidate_pool.get(
+                                        "gold_trigger_inventory_coverage_rate"
+                                    ),
+                                    "baseline_precision": baseline_summary.get(
+                                        "candidate_precision"
+                                    ),
+                                    "baseline_recall": baseline_summary.get("candidate_recall"),
+                                    "baseline_f1": _safe_f1(
+                                        baseline_summary.get("candidate_precision"),
+                                        baseline_summary.get("candidate_recall"),
+                                    ),
+                                    "baseline_overblocking": baseline_summary.get(
+                                        "overblocking_rate"
+                                    ),
+                                    "baseline_candidate_pool_trigger_recall": (
+                                        baseline_candidate_pool.get("candidate_pool_trigger_recall")
+                                    ),
+                                    "frequency_lookup_available": frequency_lookup is not None,
+                                    "frequency_pack_id": (
+                                        frequency_lookup.pack_id
+                                        if frequency_lookup is not None
+                                        else ""
+                                    ),
+                                }
+                            )
             mode_rows = [row for row in rows if str(row.get("mode_id") or "") == mode_id]
             if mode_rows:
                 best_rows_by_mode[mode_id] = sorted(
@@ -377,6 +409,8 @@ def build_frequency_sweep_report(
                         -float(row.get("candidate_precision") or 0.0),
                         -float(row.get("candidate_recall") or 0.0),
                         float(row.get("overblocking_rate") or 1.0),
+                        float(row.get("frequency_similarity_weight") or 0.0),
+                        float(row.get("frequency_similarity_tau") or 0.0),
                         float(row.get("frequency_bonus") or 0.0),
                         float(row.get("frequency_top_k") or 0.0),
                     ),
@@ -396,6 +430,12 @@ def build_frequency_sweep_report(
         "mode_ids": list(mode_ids),
         "frequency_bonus_values": [float(value) for value in frequency_bonus_values],
         "frequency_top_k_values": [int(value) for value in frequency_top_k_values],
+        "frequency_similarity_weight_values": [
+            float(value) for value in frequency_similarity_weight_values
+        ],
+        "frequency_similarity_tau_values": [
+            float(value) for value in frequency_similarity_tau_values
+        ],
         "rows": rows,
         "best_rows_by_mode": best_rows_by_mode,
     }
@@ -415,8 +455,8 @@ def _render_markdown(report: Mapping[str, object]) -> str:
             f"`max_promoted={report.get('shadow_max_promoted', '')}`"
         ),
         (
-            "- Sweep meaning: keep the current lexical source-only pipeline fixed, then add a "
-            "soft bonus for the most frequent shadow targets within each trigger bucket."
+            "- Sweep meaning: keep the current lexical source-only pipeline fixed, then add "
+            "frequency-based bonuses, especially active-vs-shadow frequency similarity."
         ),
     ]
     rows = report.get("rows")
@@ -426,8 +466,8 @@ def _render_markdown(report: Mapping[str, object]) -> str:
         [
             "",
             "## Rows",
-            "| Mode | Bonus | Top-K | Precision | Recall | F1 | Gold Hit | Overblocking | Baseline Precision | Baseline Recall | Baseline F1 | Baseline Overblocking |",
-            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| Mode | Rep Bonus | Top-K | Sim Weight | Sim Tau | Precision | Recall | F1 | Gold Hit | Overblocking | Baseline Precision | Baseline Recall | Baseline F1 | Baseline Overblocking |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for row in rows:
@@ -440,6 +480,8 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                     str(row.get("mode_id", "")),
                     str(row.get("frequency_bonus", "")),
                     str(row.get("frequency_top_k", "")),
+                    str(row.get("frequency_similarity_weight", "")),
+                    str(row.get("frequency_similarity_tau", "")),
                     _render_rate(row.get("candidate_precision")),
                     _render_rate(row.get("candidate_recall")),
                     _render_rate(row.get("candidate_f1")),
@@ -461,8 +503,10 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 continue
             lines.append(
                 "- "
-                f"`{mode_id}` with `bonus={row.get('frequency_bonus')}` and "
-                f"`top_k={row.get('frequency_top_k')}`: "
+                f"`{mode_id}` with `rep_bonus={row.get('frequency_bonus')}`, "
+                f"`top_k={row.get('frequency_top_k')}`, "
+                f"`sim_weight={row.get('frequency_similarity_weight')}`, "
+                f"`sim_tau={row.get('frequency_similarity_tau')}`: "
                 f"precision `{_render_rate(row.get('candidate_precision'))}`, "
                 f"recall `{_render_rate(row.get('candidate_recall'))}`, "
                 f"F1 `{_render_rate(row.get('candidate_f1'))}`, "
@@ -486,6 +530,10 @@ def main() -> int:
         shadow_max_promoted=max(1, int(args.shadow_max_promoted)),
         frequency_bonus_values=_parse_float_csv(args.frequency_bonus_values),
         frequency_top_k_values=_parse_int_csv(args.frequency_top_k_values),
+        frequency_similarity_weight_values=_parse_float_csv(
+            args.frequency_similarity_weight_values
+        ),
+        frequency_similarity_tau_values=_parse_float_csv(args.frequency_similarity_tau_values),
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

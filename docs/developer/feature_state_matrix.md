@@ -834,7 +834,10 @@ Use this file when:
       - `scripts/testing/semantic_shadow_frequency_sweep_en_es.py` keeps the current best source-only lane fixed and only adds a representative bonus for the most frequent shadow targets within each trigger bucket
       - best current source-only row remains unchanged at `47.1%` precision / `80.0%` recall / `5.1%` overblocking
       - higher frequency bonuses actively hurt precision and overblocking
-      - interpretation: target-side frequency is still worth preserving as optional metadata, but the current `freq-es-cde` pack does not justify making it a default blocker-selection signal
+      - the follow-on active-vs-shadow frequency-similarity sweep also leaves the best row unchanged:
+        - best source-only setting still keeps `sim_weight=0.0`
+        - positive similarity weights are effectively inert on the current reviewed overlap proxy
+      - interpretation: target-side frequency is still worth preserving as optional metadata, but the current `freq-es-cde` pack does not justify making either raw frequency or frequency-band similarity a default blocker-selection signal
     - the first target-card embedding bridge has now been swept explicitly:
       - `scripts/testing/semantic_shadow_embedding_bridge_sweep_en_es.py` augments the current inventories with sentence-transformer nearest neighbors over source-derived target cards, but only as a backoff candidate source
       - it can recover `trabajo / job -> cargo` at the lower support threshold (`min_score=4`), raising source-only recall from `80.0%` to `90.0%`

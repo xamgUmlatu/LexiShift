@@ -14,6 +14,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore  # noqa: E402
 from lexishift_core.rulegen.semantic_shadow_frequency import (  # noqa: E402
     ShadowFrequencyLookup,
+    build_frequency_similarity_details,
     enrich_candidate_frequency_details,
 )
 
@@ -87,6 +88,27 @@ class TestSemanticShadowFrequency(unittest.TestCase):
         self.assertEqual(candidate["target_frequency_value"], 120.0)
         self.assertEqual(candidate["target_frequency_rank"], 1.0)
         self.assertGreater(float(candidate["target_frequency_score"]), 0.0)
+
+    def test_build_frequency_similarity_details_scores_close_frequency_band(self) -> None:
+        details = build_frequency_similarity_details(
+            candidate={"target_frequency_score": 0.82},
+            active_candidates=[{"target_frequency_score": 0.80}],
+            tau=0.10,
+        )
+
+        self.assertTrue(details["frequency_similarity_present"])
+        self.assertAlmostEqual(float(details["frequency_similarity_gap"]), 0.02, places=6)
+        self.assertGreater(float(details["frequency_similarity_score"]), 0.8)
+
+    def test_build_frequency_similarity_details_returns_zero_when_frequency_missing(self) -> None:
+        details = build_frequency_similarity_details(
+            candidate={"target_frequency_score": 0.0},
+            active_candidates=[{"target_frequency_score": 0.80}],
+            tau=0.10,
+        )
+
+        self.assertFalse(details["frequency_similarity_present"])
+        self.assertEqual(float(details["frequency_similarity_score"]), 0.0)
 
 
 if __name__ == "__main__":

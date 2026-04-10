@@ -24,6 +24,8 @@ from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
 )
 from lexishift_core.rulegen.semantic_shadow_support import (
     DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
+    DEFAULT_FREQUENCY_SIMILARITY_TAU,
+    DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
     build_shadow_candidate_support_details,
 )
 from lexishift_core.rulegen.semantic_shadow_trigger_support import (
@@ -623,6 +625,8 @@ def promote_shadow_candidates_with_support_score(
     policy: str = SUPPORT_SCORE_POLICY,
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     frequency_representative_top_k: int = DEFAULT_FREQUENCY_REPRESENTATIVE_TOP_K,
+    frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
+    frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
 ) -> list[dict[str, object]]:
     normalized_policy = str(policy or "").strip() or SUPPORT_SCORE_POLICY
     normalized_max_promoted = max(1, int(max_promoted_shadows))
@@ -638,6 +642,8 @@ def promote_shadow_candidates_with_support_score(
             active_candidates=active_candidates,
             frequency_representative_targets=frequency_representative_targets,
             frequency_representative_bonus=float(frequency_representative_bonus),
+            frequency_similarity_weight=float(frequency_similarity_weight),
+            frequency_similarity_tau=float(frequency_similarity_tau),
         )
         candidate_copy.update(support_details)
         candidate_copy["promotion_policy"] = normalized_policy

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import log1p
+from math import exp, log1p
 from typing import Mapping, Optional, Sequence
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
@@ -151,6 +151,39 @@ def candidate_has_frequency_representative_bonus(
         and target in normalized_targets
         and float(candidate.get("target_frequency_score") or 0.0) > 0.0
     )
+
+
+def build_frequency_similarity_details(
+    *,
+    candidate: Mapping[str, object],
+    active_candidates: Sequence[Mapping[str, object]],
+    tau: float,
+) -> dict[str, float | bool | None]:
+    candidate_score = float(candidate.get("target_frequency_score") or 0.0)
+    active_scores = [
+        float(active_candidate.get("target_frequency_score") or 0.0)
+        for active_candidate in active_candidates
+        if float(active_candidate.get("target_frequency_score") or 0.0) > 0.0
+    ]
+    active_score = max(active_scores) if active_scores else 0.0
+    if candidate_score <= 0.0 or active_score <= 0.0:
+        return {
+            "frequency_similarity_present": False,
+            "active_target_frequency_score": active_score or None,
+            "shadow_target_frequency_score": candidate_score or None,
+            "frequency_similarity_gap": None,
+            "frequency_similarity_score": 0.0,
+        }
+    normalized_tau = max(float(tau), 1e-6)
+    gap = abs(active_score - candidate_score)
+    similarity_score = float(exp(-(gap / normalized_tau)))
+    return {
+        "frequency_similarity_present": True,
+        "active_target_frequency_score": active_score,
+        "shadow_target_frequency_score": candidate_score,
+        "frequency_similarity_gap": gap,
+        "frequency_similarity_score": similarity_score,
+    }
 
 
 def _normalize_frequency_value(value: float | None, max_value: float | None) -> float:
