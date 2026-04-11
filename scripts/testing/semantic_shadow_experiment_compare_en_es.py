@@ -32,6 +32,7 @@ from semantic_shadow_experiment_support import (  # noqa: E402
     load_reverse_records_by_source_for_seed_modes,
 )
 from semantic_shadow_experiment_compare_support import (  # noqa: E402
+    build_candidate_feature_bucket_risk_report,
     render_experiment_compare_markdown,
 )
 
@@ -721,6 +722,10 @@ def build_experiment_compare_report(
         candidate_result=candidate_result,
         row_comparison=row_comparison,
     )
+    candidate_feature_bucket_risk = build_candidate_feature_bucket_risk_report(
+        candidate_result=candidate_result,
+        row_comparison=row_comparison,
+    )
     return {
         "schema_version": 1,
         "pair": "en-es",
@@ -733,6 +738,7 @@ def build_experiment_compare_report(
         "candidate": candidate_result,
         "row_comparison": row_comparison,
         "slice_delta_rows": slice_delta_rows,
+        "candidate_feature_bucket_risk": candidate_feature_bucket_risk,
         "frontier_read": frontier_read,
         "gold_precision_delta": _delta(
             candidate_result.get("gold_summary", {}).get("candidate_precision"),

@@ -98,6 +98,7 @@ Purpose:
 - quantify whether a promising candidate row is still buying real progress versus the current control
 - show exact row-level fixes and regressions rather than relying on sampled rows
 - expose where gains are concentrated so we can tell whether the frontier is broad or narrowing
+- expose automatic feature-bucket risk regions so we can see which upstream case shapes still dominate `harmful_allow` or `false_abstain`
 
 Primary files:
 - `scripts/testing/semantic_shadow_experiment_compare_en_es.py`

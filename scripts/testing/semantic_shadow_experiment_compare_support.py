@@ -4,6 +4,9 @@ from __future__ import annotations
 import json
 from typing import Mapping, Sequence
 
+_DEFAULT_MIN_BUCKET_ROWS = 3
+_DEFAULT_EXCLUDED_FEATURE_DIMENSIONS = frozenset({"feature_promoted_target_count"})
+
 
 def render_rate(value: object) -> str:
     if not isinstance(value, (float, int)):
@@ -58,6 +61,222 @@ def _render_metric_block(label: str, result: Mapping[str, object]) -> list[str]:
     return lines
 
 
+def build_candidate_feature_bucket_risk_report(
+    *,
+    candidate_result: Mapping[str, object],
+    row_comparison: Mapping[str, object],
+    min_bucket_rows: int = _DEFAULT_MIN_BUCKET_ROWS,
+    excluded_feature_dimensions: Sequence[str] = _DEFAULT_EXCLUDED_FEATURE_DIMENSIONS,
+) -> dict[str, object]:
+    candidate_rows = candidate_result.get("veto_row_results")
+    if not isinstance(candidate_rows, Sequence) or isinstance(candidate_rows, (str, bytes)):
+        return {
+            "minimum_bucket_rows": max(1, int(min_bucket_rows)),
+            "excluded_feature_dimensions": sorted(
+                str(value).strip() for value in excluded_feature_dimensions if str(value).strip()
+            ),
+            "harmful_allow_bucket_rows": [],
+            "false_abstain_bucket_rows": [],
+        }
+
+    excluded_dimensions = {
+        str(value).strip() for value in excluded_feature_dimensions if str(value).strip()
+    }
+    persistent_harmful_allow_keys = _collect_row_key_set(
+        row_comparison.get("persistent_harmful_allow_rows")
+    )
+    persistent_false_abstain_keys = _collect_row_key_set(
+        row_comparison.get("persistent_false_abstain_rows")
+    )
+    bucket_stats: dict[str, dict[str, object]] = {}
+    for row in candidate_rows:
+        if not isinstance(row, Mapping):
+            continue
+        target = str(row.get("target") or "").strip()
+        trigger = str(row.get("trigger") or "").strip()
+        if not target or not trigger:
+            continue
+        row_key = (target, trigger)
+        outcome = str(row.get("outcome") or "").strip()
+        should_abstain = bool(row.get("should_abstain"))
+        miss_classification = str(row.get("miss_classification") or "").strip()
+        for slice_key in _iter_feature_slice_keys_from_row(
+            row,
+            excluded_feature_dimensions=excluded_dimensions,
+        ):
+            stats = bucket_stats.setdefault(
+                slice_key,
+                {
+                    "slice_key": slice_key,
+                    "trigger_rows_total": 0,
+                    "ambiguous_trigger_rows": 0,
+                    "clear_trigger_rows": 0,
+                    "true_abstain_count": 0,
+                    "harmful_allow_count": 0,
+                    "true_allow_count": 0,
+                    "false_abstain_count": 0,
+                    "persistent_harmful_allow_count": 0,
+                    "persistent_false_abstain_count": 0,
+                    "harmful_allow_miss_counts": {
+                        "seed_missing": 0,
+                        "candidate_missing": 0,
+                        "promotion_miss": 0,
+                    },
+                },
+            )
+            stats["trigger_rows_total"] += 1
+            if should_abstain:
+                stats["ambiguous_trigger_rows"] += 1
+                if outcome == "true_abstain":
+                    stats["true_abstain_count"] += 1
+                elif outcome == "harmful_allow":
+                    stats["harmful_allow_count"] += 1
+                    if row_key in persistent_harmful_allow_keys:
+                        stats["persistent_harmful_allow_count"] += 1
+                    miss_counts = stats["harmful_allow_miss_counts"]
+                    if isinstance(miss_counts, dict) and miss_classification in miss_counts:
+                        miss_counts[miss_classification] += 1
+            else:
+                stats["clear_trigger_rows"] += 1
+                if outcome == "true_allow":
+                    stats["true_allow_count"] += 1
+                elif outcome == "false_abstain":
+                    stats["false_abstain_count"] += 1
+                    if row_key in persistent_false_abstain_keys:
+                        stats["persistent_false_abstain_count"] += 1
+
+    veto_summary = (
+        candidate_result.get("veto_summary")
+        if isinstance(candidate_result.get("veto_summary"), Mapping)
+        else {}
+    )
+    global_harmful_allow_rate = veto_summary.get("harmful_allow_rate")
+    global_false_abstain_rate = veto_summary.get("overblocking_rate")
+    harmful_allow_bucket_rows: list[dict[str, object]] = []
+    false_abstain_bucket_rows: list[dict[str, object]] = []
+    for stats in bucket_stats.values():
+        if not isinstance(stats, dict):
+            continue
+        harmful_allow_rate = _safe_rate(
+            int(stats.get("harmful_allow_count") or 0),
+            int(stats.get("ambiguous_trigger_rows") or 0),
+        )
+        false_abstain_rate = _safe_rate(
+            int(stats.get("false_abstain_count") or 0),
+            int(stats.get("clear_trigger_rows") or 0),
+        )
+        total_rows = int(stats.get("trigger_rows_total") or 0)
+        overall_accuracy = _safe_rate(
+            int(stats.get("true_abstain_count") or 0) + int(stats.get("true_allow_count") or 0),
+            total_rows,
+        )
+        finalized = {
+            **stats,
+            "harmful_allow_rate": harmful_allow_rate,
+            "false_abstain_rate": false_abstain_rate,
+            "overall_accuracy": overall_accuracy,
+            "harmful_allow_rate_lift": _delta(harmful_allow_rate, global_harmful_allow_rate),
+            "false_abstain_rate_lift": _delta(false_abstain_rate, global_false_abstain_rate),
+        }
+        if (
+            int(finalized.get("ambiguous_trigger_rows") or 0) >= max(1, int(min_bucket_rows))
+            and int(finalized.get("harmful_allow_count") or 0) > 0
+        ):
+            harmful_allow_bucket_rows.append(finalized)
+        if (
+            int(finalized.get("clear_trigger_rows") or 0) >= max(1, int(min_bucket_rows))
+            and int(finalized.get("false_abstain_count") or 0) > 0
+        ):
+            false_abstain_bucket_rows.append(finalized)
+
+    harmful_allow_bucket_rows.sort(
+        key=lambda row: (
+            int(row.get("persistent_harmful_allow_count") or 0),
+            float(row.get("harmful_allow_rate_lift") or 0.0),
+            int(row.get("harmful_allow_count") or 0),
+            int(row.get("ambiguous_trigger_rows") or 0),
+        ),
+        reverse=True,
+    )
+    false_abstain_bucket_rows.sort(
+        key=lambda row: (
+            int(row.get("persistent_false_abstain_count") or 0),
+            float(row.get("false_abstain_rate_lift") or 0.0),
+            int(row.get("false_abstain_count") or 0),
+            int(row.get("clear_trigger_rows") or 0),
+        ),
+        reverse=True,
+    )
+    return {
+        "minimum_bucket_rows": max(1, int(min_bucket_rows)),
+        "excluded_feature_dimensions": sorted(excluded_dimensions),
+        "harmful_allow_bucket_rows": harmful_allow_bucket_rows,
+        "false_abstain_bucket_rows": false_abstain_bucket_rows,
+    }
+
+
+def _collect_row_key_set(rows: object) -> set[tuple[str, str]]:
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
+        return set()
+    resolved: set[tuple[str, str]] = set()
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        target = str(row.get("target") or "").strip()
+        trigger = str(row.get("trigger") or "").strip()
+        if target and trigger:
+            resolved.add((target, trigger))
+    return resolved
+
+
+def _iter_feature_slice_keys_from_row(
+    row: Mapping[str, object],
+    *,
+    excluded_feature_dimensions: set[str],
+) -> list[str]:
+    raw_feature_dimensions = row.get("feature_dimensions")
+    if not isinstance(raw_feature_dimensions, Mapping):
+        return []
+    slice_keys: list[str] = []
+    for name, raw_values in raw_feature_dimensions.items():
+        dimension_name = str(name or "").strip()
+        if not dimension_name or dimension_name in excluded_feature_dimensions:
+            continue
+        if not isinstance(raw_values, Sequence) or isinstance(raw_values, (str, bytes)):
+            continue
+        for value in raw_values:
+            normalized_value = str(value or "").strip()
+            if not normalized_value:
+                continue
+            slice_key = f"feature:{dimension_name}:{normalized_value}"
+            if slice_key not in slice_keys:
+                slice_keys.append(slice_key)
+    return slice_keys
+
+
+def _delta(value: object, baseline: object) -> float | None:
+    if not isinstance(value, (float, int)) or not isinstance(baseline, (float, int)):
+        return None
+    return float(value) - float(baseline)
+
+
+def _safe_rate(numerator: int, denominator: int) -> float | None:
+    if denominator <= 0:
+        return None
+    return float(numerator) / float(denominator)
+
+
+def _render_miss_mix(row: Mapping[str, object]) -> str:
+    miss_counts = row.get("harmful_allow_miss_counts")
+    if not isinstance(miss_counts, Mapping):
+        return "n/a"
+    return (
+        f"seed={int(miss_counts.get('seed_missing') or 0)} "
+        f"cand={int(miss_counts.get('candidate_missing') or 0)} "
+        f"promo={int(miss_counts.get('promotion_miss') or 0)}"
+    )
+
+
 def render_experiment_compare_markdown(report: Mapping[str, object]) -> str:
     control = report.get("control") if isinstance(report.get("control"), Mapping) else {}
     candidate = report.get("candidate") if isinstance(report.get("candidate"), Mapping) else {}
@@ -70,6 +289,11 @@ def render_experiment_compare_markdown(report: Mapping[str, object]) -> str:
     slice_rows = report.get("slice_delta_rows")
     if not isinstance(slice_rows, Sequence) or isinstance(slice_rows, (str, bytes)):
         slice_rows = []
+    candidate_feature_bucket_risk = (
+        report.get("candidate_feature_bucket_risk")
+        if isinstance(report.get("candidate_feature_bucket_risk"), Mapping)
+        else {}
+    )
     beneficial_ambiguous = [
         row
         for row in slice_rows
@@ -192,6 +416,76 @@ def render_experiment_compare_markdown(report: Mapping[str, object]) -> str:
                         f"{control_false} -> {candidate_false}",
                         render_rate(row.get("delta_overblocking_rate")),
                         render_rate(row.get("delta_overall_accuracy")),
+                    ]
+                )
+                + " |"
+            )
+
+    harmful_allow_bucket_rows = candidate_feature_bucket_risk.get("harmful_allow_bucket_rows")
+    if not isinstance(harmful_allow_bucket_rows, Sequence) or isinstance(
+        harmful_allow_bucket_rows, (str, bytes)
+    ):
+        harmful_allow_bucket_rows = []
+    false_abstain_bucket_rows = candidate_feature_bucket_risk.get("false_abstain_bucket_rows")
+    if not isinstance(false_abstain_bucket_rows, Sequence) or isinstance(
+        false_abstain_bucket_rows, (str, bytes)
+    ):
+        false_abstain_bucket_rows = []
+    if harmful_allow_bucket_rows or false_abstain_bucket_rows:
+        lines.extend(
+            [
+                "",
+                "## Automatic Bucket Read",
+                "- Meaning: candidate-side automatic feature buckets ranked by error concentration; this is a diagnostic read, not yet a routing policy.",
+                f"- Minimum bucket rows shown: `{candidate_feature_bucket_risk.get('minimum_bucket_rows', '')}`",
+                f"- Excluded downstream buckets: `{list(candidate_feature_bucket_risk.get('excluded_feature_dimensions', []))}`",
+            ]
+        )
+    if harmful_allow_bucket_rows:
+        lines.extend(
+            [
+                "",
+                "### Harmful-Allow Buckets",
+                "| Bucket | Ambiguous Rows | Harmful Allow | Persistent | Rate | Lift Vs Global | Miss Mix |",
+                "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+            ]
+        )
+        for row in harmful_allow_bucket_rows[:12]:
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        str(row.get("slice_key", "")),
+                        str(row.get("ambiguous_trigger_rows", "")),
+                        str(row.get("harmful_allow_count", "")),
+                        str(row.get("persistent_harmful_allow_count", "")),
+                        render_rate(row.get("harmful_allow_rate")),
+                        render_rate(row.get("harmful_allow_rate_lift")),
+                        _render_miss_mix(row),
+                    ]
+                )
+                + " |"
+            )
+    if false_abstain_bucket_rows:
+        lines.extend(
+            [
+                "",
+                "### False-Abstain Buckets",
+                "| Bucket | Clear Rows | False Abstain | Persistent | Rate | Lift Vs Global |",
+                "| --- | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for row in false_abstain_bucket_rows[:12]:
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        str(row.get("slice_key", "")),
+                        str(row.get("clear_trigger_rows", "")),
+                        str(row.get("false_abstain_count", "")),
+                        str(row.get("persistent_false_abstain_count", "")),
+                        render_rate(row.get("false_abstain_rate")),
+                        render_rate(row.get("false_abstain_rate_lift")),
                     ]
                 )
                 + " |"
