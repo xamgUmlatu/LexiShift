@@ -2,45 +2,1019 @@
   "schema_version": 1,
   "status": "ok",
   "pair": "en-es",
-  "dataset_id": "en_es_sentence_veto_v1",
-  "generated_at": "2026-04-11T03:28:50Z",
-  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json",
+  "dataset_id": "en_es_sentence_veto_v2",
+  "generated_at": "2026-04-11T04:00:41Z",
+  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json",
   "config": {
     "scorer_id": "tfidf_cosine",
     "model_name": null,
-    "context_view": "raw_sentence",
+    "context_view": "masked_sentence",
     "evidence_view": "all_evidence_text",
-    "min_active_score": 0.35,
-    "min_margin": 0.05,
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
     "window_tokens": 4,
     "mask_token": "___"
   },
   "summary": {
-    "cases_total": 20,
-    "gold_replace_cases": 8,
-    "gold_abstain_cases": 12,
-    "gold_active_winner_cases": 8,
-    "gold_shadow_winner_cases": 8,
-    "gold_none_cases": 4,
-    "predicted_replace_cases": 0,
-    "predicted_abstain_cases": 20,
-    "true_replace_count": 0,
-    "true_abstain_count": 12,
+    "cases_total": 40,
+    "gold_replace_cases": 16,
+    "gold_abstain_cases": 24,
+    "gold_active_winner_cases": 16,
+    "gold_shadow_winner_cases": 16,
+    "gold_none_cases": 8,
+    "predicted_replace_cases": 7,
+    "predicted_abstain_cases": 33,
+    "true_replace_count": 7,
+    "true_abstain_count": 24,
     "harmful_replace_count": 0,
-    "false_abstain_count": 8,
-    "winner_labeled_cases": 16,
-    "winner_correct_count": 11,
-    "shadow_winner_labeled_cases": 8,
-    "shadow_winner_correct_count": 6,
-    "decision_accuracy": 0.6,
-    "replace_precision": null,
-    "replace_recall": 0.0,
+    "false_abstain_count": 9,
+    "winner_labeled_cases": 32,
+    "winner_correct_count": 24,
+    "shadow_winner_labeled_cases": 16,
+    "shadow_winner_correct_count": 8,
+    "decision_accuracy": 0.775,
+    "replace_precision": 1.0,
+    "replace_recall": 0.4375,
     "harmful_replace_rate": 0.0,
-    "false_abstain_rate": 1.0,
-    "winner_accuracy": 0.6875,
-    "shadow_winner_accuracy": 0.75,
-    "predicted_replace_rate": 0.0
+    "false_abstain_rate": 0.5625,
+    "winner_accuracy": 0.75,
+    "shadow_winner_accuracy": 0.5,
+    "predicted_replace_rate": 0.175
   },
+  "family_breakdown": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "shadow_targets": [
+        "baile"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "trigger": "bank",
+      "active_target": "banco",
+      "shadow_targets": [
+        "orilla"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 3,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 1,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "shadow_targets": [
+        "celda"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 2,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "shadow_targets": [
+        "lima"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 2,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "shadow_targets": [
+        "cerilla"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 1,
+        "predicted_abstain_cases": 4,
+        "true_replace_count": 1,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 1,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 3,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 1,
+        "decision_accuracy": 0.8,
+        "replace_precision": 1.0,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.2
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "shadow_targets": [
+        "fábrica"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "shadow_targets": [
+        "foca"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 2,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "shadow_targets": [
+        "resorte"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    }
+  ],
+  "slice_tag_breakdown": [
+    {
+      "slice_tag": "clear_active",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 7,
+        "predicted_abstain_cases": 9,
+        "true_replace_count": 7,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 9,
+        "winner_labeled_cases": 16,
+        "winner_correct_count": 16,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.4375,
+        "replace_precision": 1.0,
+        "replace_recall": 0.4375,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.5625,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.4375
+      }
+    },
+    {
+      "slice_tag": "clear_shadow",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 16,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 16,
+        "winner_correct_count": 8,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 8,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "phrase_control",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "verb",
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 5,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 5,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 5,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "sports",
+      "summary": {
+        "cases_total": 4,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 1,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 1,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.25,
+        "replace_precision": 1.0,
+        "replace_recall": 0.25,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.75,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.25
+      }
+    },
+    {
+      "slice_tag": "animal",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "biology",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0
+      }
+    },
+    {
+      "slice_tag": "digital",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0
+      }
+    },
+    {
+      "slice_tag": "document",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0
+      }
+    },
+    {
+      "slice_tag": "event",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.0,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "finance",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.0,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "fire",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 1,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 1,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "home",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.0,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "idiom",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 2,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "industry",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.0,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "mechanical",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.0,
+        "shadow_winner_accuracy": 0.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "nature",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 1,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 1,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "prison",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "season",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.0,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "tool",
+      "summary": {
+        "cases_total": 2,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 2,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "slice_tag": "telecom",
+      "summary": {
+        "cases_total": 1,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 1,
+        "true_replace_count": 0,
+        "true_abstain_count": 1,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    }
+  ],
+  "gold_winner_type_breakdown": [
+    {
+      "gold_winner_type": "active",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 7,
+        "predicted_abstain_cases": 9,
+        "true_replace_count": 7,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 9,
+        "winner_labeled_cases": 16,
+        "winner_correct_count": 16,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 0.4375,
+        "replace_precision": 1.0,
+        "replace_recall": 0.4375,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.5625,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.4375
+      }
+    },
+    {
+      "gold_winner_type": "shadow",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 16,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 16,
+        "winner_correct_count": 8,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 8,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 0.5,
+        "predicted_replace_rate": 0.0
+      }
+    },
+    {
+      "gold_winner_type": "none",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0
+      }
+    }
+  ],
   "row_results": [
     {
       "case_id": "en-es:sentence-veto:ball:001",
@@ -54,11 +1028,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.021471757138245524,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.021471757138245524,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The goalkeeper punched the ball over the bar.",
+      "context_text": "The goalkeeper punched the ___ over the bar.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -87,11 +1061,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.021471757138245527,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.021471757138245527,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The child kicked the ball into the street.",
+      "context_text": "The child kicked the ___ into the street.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -120,11 +1094,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.0215180021364846,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.0215180021364846,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "They danced at the royal ball until dawn.",
+      "context_text": "They danced at the royal ___ until dawn.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -153,11 +1127,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.02275797187551051,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.02275797187551051,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The charity ball raised thousands of dollars.",
+      "context_text": "The charity ___ raised thousands of dollars.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -186,11 +1160,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.06065693125001489,
+      "active_score": 0.039773566326979586,
       "strongest_shadow_score": 0.0,
-      "margin": 0.06065693125001489,
+      "margin": 0.039773566326979586,
       "strongest_shadow_id": "",
-      "context_text": "The ball is in your court now.",
+      "context_text": "The ___ is in your court now.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -217,15 +1191,15 @@
       "gold_winner": "en-es:sentence-veto:bank:banco:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.021145959674206075,
-      "strongest_shadow_score": 0.025496157007873544,
-      "margin": -0.004350197333667469,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "She deposited the cash at the bank before lunch.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "She deposited the cash at the ___ before lunch.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "finance"
@@ -250,15 +1224,15 @@
       "gold_winner": "en-es:sentence-veto:bank:banco:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.02583510285173043,
-      "strongest_shadow_score": 0.031149961920421156,
-      "margin": -0.005314859068690725,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "The bank approved our mortgage application.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ approved our mortgage application.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "finance"
@@ -285,11 +1259,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
       "predicted_winner_type": "shadow",
-      "active_score": 0.021573872681975127,
-      "strongest_shadow_score": 0.16516982859004092,
-      "margin": -0.1435959559080658,
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.1469613118501328,
+      "margin": -0.1469613118501328,
       "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "They sat on the grassy bank of the river.",
+      "context_text": "They sat on the grassy ___ of the river.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
       "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
       "slice_tags": [
@@ -316,15 +1290,15 @@
       "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
       "gold_winner_type": "shadow",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.02555111079879406,
-      "strongest_shadow_score": 0.03080754634400793,
-      "margin": -0.005256435545213871,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "Wildflowers grew along the muddy bank.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Wildflowers grew along the muddy ___",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_shadow",
         "nature"
@@ -349,15 +1323,15 @@
       "gold_winner": "none",
       "gold_winner_type": "none",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.024896302515610636,
-      "strongest_shadow_score": 0.03001802933672519,
-      "margin": -0.005121726821114555,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "You can bank on her support.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "You can ___ on her support.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "phrase_control",
         "idiom"
@@ -382,15 +1356,15 @@
       "gold_winner": "en-es:sentence-veto:plant:planta:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.025358875397403384,
-      "strongest_shadow_score": 0.028565284190763818,
-      "margin": -0.0032064087933604338,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "She watered the plant on the windowsill.",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "She watered the ___ on the windowsill.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "home"
@@ -417,13 +1391,13 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:plant:planta:active",
       "predicted_winner_type": "active",
-      "active_score": 0.044418631215166635,
-      "strongest_shadow_score": 0.02633854410659142,
-      "margin": 0.018080087108575213,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "The plant needs more sunlight in the afternoon.",
+      "active_score": 0.021968780117281657,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.021968780117281657,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ needs more sunlight in the afternoon.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "home"
@@ -448,15 +1422,15 @@
       "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
       "gold_winner_type": "shadow",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.024450028283783,
-      "strongest_shadow_score": 0.027541521280158566,
-      "margin": -0.0030914929963755666,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "The steel plant closed after the strike.",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The steel ___ closed after the strike.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_shadow",
         "industry"
@@ -481,15 +1455,15 @@
       "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
       "gold_winner_type": "shadow",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.021013839696266287,
-      "strongest_shadow_score": 0.023670856591868607,
-      "margin": -0.0026570168956023196,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "Hundreds of workers left the chemical plant at noon.",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Hundreds of workers left the chemical ___ at noon.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_shadow",
         "industry"
@@ -516,13 +1490,13 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:plant:planta:active",
       "predicted_winner_type": "active",
-      "active_score": 0.04233035511393743,
-      "strongest_shadow_score": 0.025100276499187394,
-      "margin": 0.017230078614750035,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "They tried to plant evidence in his office.",
+      "active_score": 0.020376526693660406,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.020376526693660406,
+      "strongest_shadow_id": "",
+      "context_text": "They tried to ___ evidence in his office.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "phrase_control",
         "verb"
@@ -546,16 +1520,16 @@
       "gold_decision": "replace",
       "gold_winner": "en-es:sentence-veto:cell:celula:active",
       "gold_winner_type": "active",
-      "predicted_decision": "abstain",
+      "predicted_decision": "replace",
       "predicted_winner": "en-es:sentence-veto:cell:celula:active",
       "predicted_winner_type": "active",
-      "active_score": 0.08128258169523955,
-      "strongest_shadow_score": 0.02945465470239862,
-      "margin": 0.05182792699284093,
-      "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "The scientist examined the cell under a microscope.",
+      "active_score": 0.05900522570427313,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.05900522570427313,
+      "strongest_shadow_id": "",
+      "context_text": "The scientist examined the ___ under a microscope.",
       "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
-      "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "biology"
@@ -579,14 +1553,14 @@
       "gold_decision": "replace",
       "gold_winner": "en-es:sentence-veto:cell:celula:active",
       "gold_winner_type": "active",
-      "predicted_decision": "abstain",
+      "predicted_decision": "replace",
       "predicted_winner": "en-es:sentence-veto:cell:celula:active",
       "predicted_winner_type": "active",
-      "active_score": 0.07697668411802112,
-      "strongest_shadow_score": 0.05299045048174593,
-      "margin": 0.023986233636275195,
+      "active_score": 0.05491022813244237,
+      "strongest_shadow_score": 0.025488489349922358,
+      "margin": 0.02942173878252001,
       "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "Each cell in the tissue absorbed the dye.",
+      "context_text": "Each ___ in the tissue absorbed the dye.",
       "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
       "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
       "slice_tags": [
@@ -615,11 +1589,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:cell:celda:shadow",
       "predicted_winner_type": "shadow",
-      "active_score": 0.02266144894381169,
-      "strongest_shadow_score": 0.07595191769429037,
-      "margin": -0.05329046875047868,
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.054260998631647045,
+      "margin": -0.054260998631647045,
       "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "The prisoner was returned to his cell after dinner.",
+      "context_text": "The prisoner was returned to his ___ after dinner.",
       "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
       "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
       "slice_tags": [
@@ -648,11 +1622,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:cell:celda:shadow",
       "predicted_winner_type": "shadow",
-      "active_score": 0.027581902075402804,
-      "strongest_shadow_score": 0.09244326615995303,
-      "margin": -0.06486136408455023,
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.06917333130471953,
+      "margin": -0.06917333130471953,
       "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "The guard unlocked the cell at dawn.",
+      "context_text": "The guard unlocked the ___ at dawn.",
       "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
       "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
       "slice_tags": [
@@ -681,11 +1655,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:cell:celda:shadow",
       "predicted_winner_type": "shadow",
-      "active_score": 0.02453390124273025,
-      "strongest_shadow_score": 0.05136323112500023,
-      "margin": -0.02682932988226998,
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.02436621131033865,
+      "margin": -0.02436621131033865,
       "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "My phone lost cell service in the tunnel.",
+      "context_text": "My phone lost ___ service in the tunnel.",
       "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
       "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
       "slice_tags": [
@@ -698,6 +1672,666 @@
         ],
         "family": [
           "cell"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:001",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "Warm rain usually arrives in spring.",
+      "source_phrase": "spring",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Warm rain usually arrives in ___",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "season"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:002",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "The park looks beautiful in the spring.",
+      "source_phrase": "spring",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The park looks beautiful in the ___",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "season"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:003",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "The spring inside the lock snapped suddenly.",
+      "source_phrase": "spring",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ inside the lock snapped suddenly.",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "mechanical"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:004",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "He replaced the broken spring in the toy.",
+      "source_phrase": "spring",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "He replaced the broken ___ in the toy.",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "mechanical"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:005",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "The team will spring into action at dawn.",
+      "source_phrase": "spring",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The team will ___ into action at dawn.",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "phrase_control",
+        "verb"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "none"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:seal:001",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "sentence": "The certificate carries the official seal.",
+      "source_phrase": "seal",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:seal:sello:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:sentence-veto:seal:sello:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.12942406569628803,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.12942406569628803,
+      "strongest_shadow_id": "",
+      "context_text": "The certificate carries the official ___",
+      "active_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "document"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "seal"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:seal:002",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "sentence": "She pressed the seal into the hot wax.",
+      "source_phrase": "seal",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:seal:sello:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:sentence-veto:seal:sello:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.057994956047530306,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.057994956047530306,
+      "strongest_shadow_id": "",
+      "context_text": "She pressed the ___ into the hot wax.",
+      "active_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "document"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "seal"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:seal:003",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "sentence": "A seal rested on the icy rock.",
+      "source_phrase": "seal",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:seal:foca:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.07232719381183941,
+      "margin": -0.07232719381183941,
+      "strongest_shadow_id": "en-es:sentence-veto:seal:foca:shadow",
+      "context_text": "A ___ rested on the icy rock.",
+      "active_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+      "strongest_shadow_evidence_text": "marine seal | ocean mammal with flippers | water and rock",
+      "slice_tags": [
+        "clear_shadow",
+        "animal"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "seal"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:seal:004",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "sentence": "The seal disappeared beneath the water.",
+      "source_phrase": "seal",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:seal:foca:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.06575330956625287,
+      "margin": -0.06575330956625287,
+      "strongest_shadow_id": "en-es:sentence-veto:seal:foca:shadow",
+      "context_text": "The ___ disappeared beneath the water.",
+      "active_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+      "strongest_shadow_evidence_text": "marine seal | ocean mammal with flippers | water and rock",
+      "slice_tags": [
+        "clear_shadow",
+        "animal"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "seal"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:seal:005",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "sentence": "Please seal the envelope before mailing it.",
+      "source_phrase": "seal",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:seal:sello:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Please ___ the envelope before mailing it.",
+      "active_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "phrase_control",
+        "verb"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "none"
+        ],
+        "family": [
+          "seal"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:file:001",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "sentence": "I uploaded the file to the shared folder.",
+      "source_phrase": "file",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:file:archivo:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:sentence-veto:file:archivo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.06407316958630657,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.06407316958630657,
+      "strongest_shadow_id": "",
+      "context_text": "I uploaded the ___ to the shared folder.",
+      "active_evidence_text": "digital file | stored document or data file | download and folder",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "digital"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "file"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:file:002",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "sentence": "The file was corrupted after the download.",
+      "source_phrase": "file",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:file:archivo:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:sentence-veto:file:archivo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.06429589250130952,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.06429589250130952,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ was corrupted after the download.",
+      "active_evidence_text": "digital file | stored document or data file | download and folder",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "digital"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "file"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:file:003",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "sentence": "He used a file to smooth the rough edge.",
+      "source_phrase": "file",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:file:lima:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:file:lima:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0985900044725051,
+      "margin": -0.0985900044725051,
+      "strongest_shadow_id": "en-es:sentence-veto:file:lima:shadow",
+      "context_text": "He used a ___ to smooth the rough edge.",
+      "active_evidence_text": "digital file | stored document or data file | download and folder",
+      "strongest_shadow_evidence_text": "metal file | tool with a rough surface for smoothing material | bench and edge",
+      "slice_tags": [
+        "clear_shadow",
+        "tool"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "file"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:file:004",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "sentence": "The jeweler picked up a fine file from the bench.",
+      "source_phrase": "file",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:file:lima:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:file:lima:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.04725593241859754,
+      "margin": -0.04725593241859754,
+      "strongest_shadow_id": "en-es:sentence-veto:file:lima:shadow",
+      "context_text": "The jeweler picked up a fine ___ from the bench.",
+      "active_evidence_text": "digital file | stored document or data file | download and folder",
+      "strongest_shadow_evidence_text": "metal file | tool with a rough surface for smoothing material | bench and edge",
+      "slice_tags": [
+        "clear_shadow",
+        "tool"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "file"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:file:005",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "sentence": "They will file the complaint tomorrow morning.",
+      "source_phrase": "file",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:file:archivo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "They will ___ the complaint tomorrow morning.",
+      "active_evidence_text": "digital file | stored document or data file | download and folder",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "phrase_control",
+        "verb"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "none"
+        ],
+        "family": [
+          "file"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:001",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "The match ended after extra time.",
+      "source_phrase": "match",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:match:partido:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:match:partido:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ ended after extra time.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "sports"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "match"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:002",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "The stadium filled before the match began.",
+      "source_phrase": "match",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sentence-veto:match:partido:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:sentence-veto:match:partido:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.061584330564848154,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.061584330564848154,
+      "strongest_shadow_id": "",
+      "context_text": "The stadium filled before the ___ began.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_active",
+        "sports"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "active"
+        ],
+        "family": [
+          "match"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:003",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "She lit a match beside the stove.",
+      "source_phrase": "match",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:match:cerilla:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.06826415380619869,
+      "margin": -0.06826415380619869,
+      "strongest_shadow_id": "en-es:sentence-veto:match:cerilla:shadow",
+      "context_text": "She lit a ___ beside the stove.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "matchstick | small stick used to make fire | flame and stove",
+      "slice_tags": [
+        "clear_shadow",
+        "fire"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "match"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:004",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "He dropped the burning match into the sink.",
+      "source_phrase": "match",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:match:partido:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "He dropped the burning ___ into the sink.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "fire"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "match"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:005",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "These curtains match the sofa perfectly.",
+      "source_phrase": "match",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:match:partido:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "These curtains ___ the sofa perfectly.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "phrase_control",
+        "verb"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "none"
+        ],
+        "family": [
+          "match"
         ]
       },
       "notes": ""
@@ -717,11 +2351,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.021471757138245524,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.021471757138245524,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The goalkeeper punched the ball over the bar.",
+      "context_text": "The goalkeeper punched the ___ over the bar.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -750,11 +2384,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.021471757138245527,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.021471757138245527,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The child kicked the ball into the street.",
+      "context_text": "The child kicked the ___ into the street.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -781,15 +2415,15 @@
       "gold_winner": "en-es:sentence-veto:bank:banco:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.021145959674206075,
-      "strongest_shadow_score": 0.025496157007873544,
-      "margin": -0.004350197333667469,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "She deposited the cash at the bank before lunch.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "She deposited the cash at the ___ before lunch.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "finance"
@@ -814,15 +2448,15 @@
       "gold_winner": "en-es:sentence-veto:bank:banco:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.02583510285173043,
-      "strongest_shadow_score": 0.031149961920421156,
-      "margin": -0.005314859068690725,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "The bank approved our mortgage application.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ approved our mortgage application.",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "finance"
@@ -847,15 +2481,15 @@
       "gold_winner": "en-es:sentence-veto:plant:planta:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.025358875397403384,
-      "strongest_shadow_score": 0.028565284190763818,
-      "margin": -0.0032064087933604338,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "She watered the plant on the windowsill.",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "She watered the ___ on the windowsill.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "home"
@@ -882,13 +2516,13 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:plant:planta:active",
       "predicted_winner_type": "active",
-      "active_score": 0.044418631215166635,
-      "strongest_shadow_score": 0.02633854410659142,
-      "margin": 0.018080087108575213,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "The plant needs more sunlight in the afternoon.",
+      "active_score": 0.021968780117281657,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.021968780117281657,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ needs more sunlight in the afternoon.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
         "home"
@@ -904,67 +2538,67 @@
       "notes": ""
     },
     {
-      "case_id": "en-es:sentence-veto:cell:001",
-      "family_id": "en-es:sentence-veto:cell:celula",
-      "trigger": "cell",
-      "sentence": "The scientist examined the cell under a microscope.",
-      "source_phrase": "cell",
+      "case_id": "en-es:sentence-veto:spring:001",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "Warm rain usually arrives in spring.",
+      "source_phrase": "spring",
       "gold_decision": "replace",
-      "gold_winner": "en-es:sentence-veto:cell:celula:active",
+      "gold_winner": "en-es:sentence-veto:spring:primavera:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:cell:celula:active",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
       "predicted_winner_type": "active",
-      "active_score": 0.08128258169523955,
-      "strongest_shadow_score": 0.02945465470239862,
-      "margin": 0.05182792699284093,
-      "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "The scientist examined the cell under a microscope.",
-      "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
-      "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Warm rain usually arrives in ___",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
-        "biology"
+        "season"
       ],
       "slice_dimensions": {
         "winner_type": [
           "active"
         ],
         "family": [
-          "cell"
+          "spring"
         ]
       },
       "notes": ""
     },
     {
-      "case_id": "en-es:sentence-veto:cell:002",
-      "family_id": "en-es:sentence-veto:cell:celula",
-      "trigger": "cell",
-      "sentence": "Each cell in the tissue absorbed the dye.",
-      "source_phrase": "cell",
+      "case_id": "en-es:sentence-veto:spring:002",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "The park looks beautiful in the spring.",
+      "source_phrase": "spring",
       "gold_decision": "replace",
-      "gold_winner": "en-es:sentence-veto:cell:celula:active",
+      "gold_winner": "en-es:sentence-veto:spring:primavera:active",
       "gold_winner_type": "active",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:cell:celula:active",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
       "predicted_winner_type": "active",
-      "active_score": 0.07697668411802112,
-      "strongest_shadow_score": 0.05299045048174593,
-      "margin": 0.023986233636275195,
-      "strongest_shadow_id": "en-es:sentence-veto:cell:celda:shadow",
-      "context_text": "Each cell in the tissue absorbed the dye.",
-      "active_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
-      "strongest_shadow_evidence_text": "prison cell | small room in a prison | prisoner and guard",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The park looks beautiful in the ___",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
         "clear_active",
-        "biology"
+        "season"
       ],
       "slice_dimensions": {
         "winner_type": [
           "active"
         ],
         "family": [
-          "cell"
+          "spring"
         ]
       },
       "notes": ""
@@ -983,11 +2617,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.0215180021364846,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.0215180021364846,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "They danced at the royal ball until dawn.",
+      "context_text": "They danced at the royal ___ until dawn.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -1016,11 +2650,11 @@
       "predicted_decision": "abstain",
       "predicted_winner": "en-es:sentence-veto:ball:pelota:active",
       "predicted_winner_type": "active",
-      "active_score": 0.02275797187551051,
+      "active_score": 0.0,
       "strongest_shadow_score": 0.0,
-      "margin": 0.02275797187551051,
+      "margin": 0.0,
       "strongest_shadow_id": "",
-      "context_text": "The charity ball raised thousands of dollars.",
+      "context_text": "The charity ___ raised thousands of dollars.",
       "active_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
       "strongest_shadow_evidence_text": "",
       "slice_tags": [
@@ -1038,31 +2672,31 @@
       "notes": ""
     },
     {
-      "case_id": "en-es:sentence-veto:bank:001",
+      "case_id": "en-es:sentence-veto:bank:004",
       "family_id": "en-es:sentence-veto:bank:banco",
       "trigger": "bank",
-      "sentence": "She deposited the cash at the bank before lunch.",
+      "sentence": "Wildflowers grew along the muddy bank.",
       "source_phrase": "bank",
-      "gold_decision": "replace",
-      "gold_winner": "en-es:sentence-veto:bank:banco:active",
-      "gold_winner_type": "active",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+      "gold_winner_type": "shadow",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.021145959674206075,
-      "strongest_shadow_score": 0.025496157007873544,
-      "margin": -0.004350197333667469,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "She deposited the cash at the bank before lunch.",
+      "predicted_winner": "en-es:sentence-veto:bank:banco:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Wildflowers grew along the muddy ___",
       "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
-        "clear_active",
-        "finance"
+        "clear_shadow",
+        "nature"
       ],
       "slice_dimensions": {
         "winner_type": [
-          "active"
+          "shadow"
         ],
         "family": [
           "bank"
@@ -1071,67 +2705,166 @@
       "notes": ""
     },
     {
-      "case_id": "en-es:sentence-veto:bank:002",
-      "family_id": "en-es:sentence-veto:bank:banco",
-      "trigger": "bank",
-      "sentence": "The bank approved our mortgage application.",
-      "source_phrase": "bank",
-      "gold_decision": "replace",
-      "gold_winner": "en-es:sentence-veto:bank:banco:active",
-      "gold_winner_type": "active",
-      "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:bank:orilla:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.02583510285173043,
-      "strongest_shadow_score": 0.031149961920421156,
-      "margin": -0.005314859068690725,
-      "strongest_shadow_id": "en-es:sentence-veto:bank:orilla:shadow",
-      "context_text": "The bank approved our mortgage application.",
-      "active_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
-      "strongest_shadow_evidence_text": "river bank | edge of a river or lake | waterside ground",
-      "slice_tags": [
-        "clear_active",
-        "finance"
-      ],
-      "slice_dimensions": {
-        "winner_type": [
-          "active"
-        ],
-        "family": [
-          "bank"
-        ]
-      },
-      "notes": ""
-    },
-    {
-      "case_id": "en-es:sentence-veto:plant:001",
+      "case_id": "en-es:sentence-veto:plant:003",
       "family_id": "en-es:sentence-veto:plant:planta",
       "trigger": "plant",
-      "sentence": "She watered the plant on the windowsill.",
+      "sentence": "The steel plant closed after the strike.",
       "source_phrase": "plant",
-      "gold_decision": "replace",
-      "gold_winner": "en-es:sentence-veto:plant:planta:active",
-      "gold_winner_type": "active",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+      "gold_winner_type": "shadow",
       "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-      "predicted_winner_type": "shadow",
-      "active_score": 0.025358875397403384,
-      "strongest_shadow_score": 0.028565284190763818,
-      "margin": -0.0032064087933604338,
-      "strongest_shadow_id": "en-es:sentence-veto:plant:fabrica:shadow",
-      "context_text": "She watered the plant on the windowsill.",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The steel ___ closed after the strike.",
       "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
-      "strongest_shadow_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+      "strongest_shadow_evidence_text": "",
       "slice_tags": [
-        "clear_active",
-        "home"
+        "clear_shadow",
+        "industry"
       ],
       "slice_dimensions": {
         "winner_type": [
-          "active"
+          "shadow"
         ],
         "family": [
           "plant"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:plant:004",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "sentence": "Hundreds of workers left the chemical plant at noon.",
+      "source_phrase": "plant",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Hundreds of workers left the chemical ___ at noon.",
+      "active_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "industry"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "plant"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:003",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "The spring inside the lock snapped suddenly.",
+      "source_phrase": "spring",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ inside the lock snapped suddenly.",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "mechanical"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:spring:004",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "sentence": "He replaced the broken spring in the toy.",
+      "source_phrase": "spring",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:spring:primavera:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "He replaced the broken ___ in the toy.",
+      "active_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "mechanical"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "spring"
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "case_id": "en-es:sentence-veto:match:004",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "sentence": "He dropped the burning match into the sink.",
+      "source_phrase": "match",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sentence-veto:match:partido:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "He dropped the burning ___ into the sink.",
+      "active_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+      "strongest_shadow_evidence_text": "",
+      "slice_tags": [
+        "clear_shadow",
+        "fire"
+      ],
+      "slice_dimensions": {
+        "winner_type": [
+          "shadow"
+        ],
+        "family": [
+          "match"
         ]
       },
       "notes": ""

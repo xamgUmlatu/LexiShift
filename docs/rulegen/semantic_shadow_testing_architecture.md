@@ -4,7 +4,7 @@ Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
 Last updated: 2026-04-11
-Last verified: 2026-04-11 targeted semantic-shadow/runtime-scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, canonical en-es rulegen audit, and the first sentence-level runtime-veto sweep
+Last verified: 2026-04-11 targeted semantic-shadow/runtime-scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, canonical en-es rulegen audit, the expanded sentence-level runtime-veto `v2` sweep, and a first explicit sentence-transformer model shortlist check
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
 
 ## Why this exists
@@ -134,9 +134,10 @@ Primary files:
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
 - `scripts/testing/semantic_routing_sentence_veto_support.py`
 - `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
 - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
 - `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
+- `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_latest.md`
 
 Key metrics:
 - decision accuracy

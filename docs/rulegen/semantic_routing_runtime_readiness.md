@@ -3,7 +3,7 @@
 Status: planning slice
 Role: Planning / WIP
 Last updated: 2026-04-11
-Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, and first fixed-shadow sentence-level runtime-veto sweep
+Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, the expanded fixed-shadow sentence-level runtime-veto `v2` sweep, and a first explicit sentence-transformer model shortlist
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -199,7 +199,7 @@ The repo now has a research-only harness that isolates the runtime scorer from u
 Current files:
 
 - `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
 - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
 - `scripts/testing/semantic_routing_sentence_veto_harness.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
@@ -212,8 +212,8 @@ Operational note:
 Current dataset scope:
 
 - pair: `en-es`
-- 4 ambiguity families: `ball`, `bank`, `plant`, `cell`
-- 20 labeled sentences total
+- 8 ambiguity families: `ball`, `bank`, `plant`, `cell`, `spring`, `seal`, `file`, `match`
+- 40 labeled sentences total
 - fixed active sense plus fixed shadow senses per family
 
 What this harness is for:
@@ -244,29 +244,41 @@ Current lexical read on that fixed-shadow harness:
   - `min_active_score=0.05`
   - `min_margin=0.00`
 - that row currently yields:
-  - `70.0%` decision accuracy
+  - `77.5%` decision accuracy
   - `100.0%` replace precision
-  - `25.0%` replace recall
+  - `43.8%` replace recall
   - `0.0%` harmful replace
-  - `75.0%` false abstain
+  - `56.2%` false abstain
+- the new family breakdown matters:
+  - lexical control is already perfect on `cell`, `file`, and `seal`
+  - it still fully abstains on the active rows for `ball`, `bank`, `plant`, and `spring`
 
 First explicit model-choice read:
 
-- the first focused `sentence_transformer_cosine` sweep is materially stronger on the same fixed-shadow dataset:
-  - best row: `masked_sentence + all_evidence_text + min_active_score=0.00 + min_margin=0.05`
-  - `85.0%` decision accuracy
-  - `100.0%` replace precision
-  - `62.5%` replace recall
-  - `0.0%` harmful replace
-  - `37.5%` false abstain
-- that is not production proof, but it does confirm that model choice is a real lever once the competition set is fixed
+- on the expanded `v2` dataset, model choice is still a real lever, but the picture is now more nuanced:
+  - current multilingual default (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`) best row:
+    - `masked_sentence + all_evidence_text + min_active_score=0.00 + min_margin=0.15`
+    - `75.0%` decision accuracy
+    - `100.0%` replace precision
+    - `37.5%` replace recall
+    - `0.0%` harmful replace
+    - `93.8%` winner accuracy
+    - `100.0%` shadow-winner accuracy
+  - first English-centric challenger (`sentence-transformers/all-MiniLM-L6-v2`) is worse as a gate on this dataset:
+    - `67.5%` decision accuracy
+    - `18.8%` replace recall
+    - but still `93.8%` winner accuracy and `100.0%` shadow-winner accuracy
+- interpretation:
+  - the lexical control is currently the best gate on `v2`
+  - the transformer scorers are currently the best sense-rankers on `v2`
+  - so winner ranking and safe replace gating should be treated as related but distinct optimization surfaces
 
 Interpretation:
 
 - the runtime harness is already useful, because it exposes a real gate frontier instead of collapsing everything into upstream blocker quality
-- on the current tiny lexical dataset, context masking helps
+- on the current curated dataset, context masking helps
 - the main current lexical weakness is conservative under-replacement, not harmful replacement
-- the first embedding-backed scorer materially improves both winner selection and replace recall without introducing harmful replaces on this curated slice
+- the current transformer scorers materially improve winner selection without yet beating the lexical control on final gate accuracy over the broader `v2` slice
 - this is exactly the right surface for further scorer, evidence-view, and threshold work
 
 ## Boundary: Manual Vs Automatic Today

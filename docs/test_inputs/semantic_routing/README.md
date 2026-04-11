@@ -18,10 +18,13 @@ Files:
   - intended current use: compare scorer families, context transforms, evidence views, and threshold ladders without changing the mined shadow source
 
 Datasets:
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
-  - first curated `en-es` runtime-veto harness dataset
-  - currently 4 ambiguity families / 20 labeled sentences
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+  - current curated `en-es` runtime-veto harness dataset
+  - currently 8 ambiguity families / 40 labeled sentences
   - purpose: separate runtime scorer quality from upstream shadow-mining quality
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+  - preserved earlier starter slice
+  - 4 ambiguity families / 20 labeled sentences
 
 See also:
 - `docs/rulegen/semantic_routing_data_contract.md`

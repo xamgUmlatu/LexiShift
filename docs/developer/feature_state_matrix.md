@@ -773,8 +773,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first fixed-shadow sentence-level `en-es` runtime-veto harness and sweep, widened the default threshold ladder to expose the low-score lexical frontier, and documented that harness alongside the earlier lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison, source-intake planning, semantic-bridge source toggles, and translation-pack override replays
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` / runtime-scoring tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump, together with the first sentence-veto harness and sweep artifacts
+- Last documented checkpoint: `2026-04-11` expanded the fixed-shadow `en-es` sentence-level runtime-veto dataset to `v2` (8 families / 40 rows), added family and slice breakdowns to the harness output, and ran a first explicit sentence-transformer model shortlist on top of the lexical control sweep
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` / runtime-scoring tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump, together with the expanded sentence-veto harness, lexical sweep, and explicit sentence-transformer comparison artifacts
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -890,17 +890,18 @@ Use this file when:
   - The repo now also has a research-only sentence-level runtime-veto harness:
     - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
     - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
-    - the current `en-es` starter dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+    - the current `en-es` starter dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
     - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
     - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
   - First current lexical result on that harness:
     - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
     - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
-    - that row reaches `70.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `25.0%` replace recall on the current 20-case curated dataset
+    - on the expanded `v2` dataset, that row reaches `77.5%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `43.8%` replace recall on the current 40-case curated dataset
   - First current model-choice result on that harness:
-    - the first explicit `sentence_transformer_cosine` sweep materially improves the same fixed-shadow dataset
-    - best current row is `masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.05`
-    - that row reaches `85.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `62.5%` replace recall
+    - the current multilingual default sentence-transformer row is now best understood as a ranking win, not a gate win, on the expanded `v2` dataset
+    - best current multilingual row is `masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.15`
+    - that row reaches `75.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, `37.5%` replace recall, `93.8%` winner accuracy, and `100.0%` shadow-winner accuracy
+    - first English-centric challenger `sentence-transformers/all-MiniLM-L6-v2` is worse as a gate on `v2`, at `67.5%` decision accuracy and `18.8%` replace recall
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy
@@ -966,6 +967,7 @@ Use this file when:
   - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
   - `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
   - `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_latest.md`
+  - `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_all_minilm_l6_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -977,9 +979,10 @@ Use this file when:
   - The first live `en-es` shadow inventory artifact proves that broad sibling mining is feasible, but its current promoted-shadow preview is still too noisy to serve as a runtime blocker set.
   - The new sentence-level runtime-veto harness is still intentionally small and curated:
     - only `en-es` is covered today
-    - only 4 ambiguity families / 20 rows are labeled
+    - only 8 ambiguity families / 40 rows are labeled
     - thresholds from that dataset are not production-safe defaults
     - current lexical best row is still dominated by false abstains, so model-choice and evidence-view work remain open
+    - the latest `v2` model shortlist shows that better winner ranking does not automatically translate into a better replace gate
   - The first triage artifact shows that the stricter preview can eliminate zero-signal rows, but the remaining top-1 promotions are still mostly justified only by `same_pos_as_active`, not by clearly benchmark-aligned competition evidence.
   - The first policy-comparison artifact makes the current algorithm tradeoff concrete:
     - `same_pos_lenient_v1` is broad but noisy

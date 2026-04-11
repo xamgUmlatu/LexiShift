@@ -30,7 +30,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--scorer",
         type=str,
-        default="token_jaccard",
+        default="tfidf_cosine",
         help="Similarity backend id.",
     )
     parser.add_argument(
@@ -42,7 +42,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--context-view",
         type=str,
-        default="raw_sentence",
+        default="masked_sentence",
         help="Context view id.",
     )
     parser.add_argument(
@@ -54,13 +54,13 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--min-active-score",
         type=float,
-        default=0.35,
+        default=0.05,
         help="Minimum active score required before replace is allowed.",
     )
     parser.add_argument(
         "--min-margin",
         type=float,
-        default=0.05,
+        default=0.0,
         help="Minimum active-minus-shadow margin required for replace.",
     )
     parser.add_argument(

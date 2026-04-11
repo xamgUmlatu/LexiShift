@@ -31,7 +31,7 @@ from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E
 )
 
 DEFAULT_SENTENCE_VETO_DATASET = (
-    PROJECT_ROOT / "docs" / "test_inputs" / "semantic_routing_cases" / "en_es_sentence_veto_v1.json"
+    PROJECT_ROOT / "docs" / "test_inputs" / "semantic_routing_cases" / "en_es_sentence_veto_v2.json"
 )
 DEFAULT_SENTENCE_VETO_JSON_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "semantic_routing_sentence_veto_latest.json"
@@ -147,24 +147,10 @@ def build_sentence_veto_report(
         )
     )
 
-    summary = {
-        "cases_total": 0,
-        "gold_replace_cases": 0,
-        "gold_abstain_cases": 0,
-        "gold_active_winner_cases": 0,
-        "gold_shadow_winner_cases": 0,
-        "gold_none_cases": 0,
-        "predicted_replace_cases": 0,
-        "predicted_abstain_cases": 0,
-        "true_replace_count": 0,
-        "true_abstain_count": 0,
-        "harmful_replace_count": 0,
-        "false_abstain_count": 0,
-        "winner_labeled_cases": 0,
-        "winner_correct_count": 0,
-        "shadow_winner_labeled_cases": 0,
-        "shadow_winner_correct_count": 0,
-    }
+    summary = _new_sentence_veto_summary()
+    family_breakdown: dict[str, dict[str, object]] = {}
+    slice_tag_breakdown: dict[str, dict[str, object]] = {}
+    gold_winner_type_breakdown: dict[str, dict[str, object]] = {}
     row_results: list[dict[str, object]] = []
     harmful_replace_rows: list[dict[str, object]] = []
     false_abstain_rows: list[dict[str, object]] = []
@@ -175,6 +161,20 @@ def build_sentence_veto_report(
         trigger = str(family.get("trigger") or "").strip()
         active = dict(family.get("active") or {})
         shadows = [dict(shadow) for shadow in family.get("shadows", ())]
+        family_entry = family_breakdown.setdefault(
+            family_id,
+            {
+                "family_id": family_id,
+                "trigger": trigger,
+                "active_target": str(active.get("target_lemma") or "").strip(),
+                "shadow_targets": [
+                    str(shadow.get("target_lemma") or "").strip()
+                    for shadow in shadows
+                    if str(shadow.get("target_lemma") or "").strip()
+                ],
+                "summary": _new_sentence_veto_summary(),
+            },
+        )
         for case in family.get("cases", ()):
             result = evaluate_runtime_veto_case(
                 family_id=family_id,
@@ -214,6 +214,24 @@ def build_sentence_veto_report(
             }
             row_results.append(row_payload)
             _accumulate_sentence_veto_summary(summary, result=result)
+            _accumulate_sentence_veto_summary(family_entry["summary"], result=result)
+            winner_type_entry = gold_winner_type_breakdown.setdefault(
+                result.gold_winner_type,
+                {
+                    "gold_winner_type": result.gold_winner_type,
+                    "summary": _new_sentence_veto_summary(),
+                },
+            )
+            _accumulate_sentence_veto_summary(winner_type_entry["summary"], result=result)
+            for slice_tag in row_payload["slice_tags"]:
+                slice_tag_entry = slice_tag_breakdown.setdefault(
+                    slice_tag,
+                    {
+                        "slice_tag": slice_tag,
+                        "summary": _new_sentence_veto_summary(),
+                    },
+                )
+                _accumulate_sentence_veto_summary(slice_tag_entry["summary"], result=result)
             if result.predicted_decision == "replace" and result.gold_decision != "replace":
                 _append_sample(harmful_replace_rows, row_payload)
             if result.predicted_decision != "replace" and result.gold_decision == "replace":
@@ -225,6 +243,20 @@ def build_sentence_veto_report(
                 _append_sample(winner_error_rows, row_payload)
 
     _finalize_sentence_veto_summary(summary)
+    family_breakdown_rows = _finalize_sentence_veto_breakdown_rows(
+        tuple(family_breakdown.values()),
+        primary_sort_key="family_id",
+    )
+    slice_tag_breakdown_rows = _finalize_sentence_veto_breakdown_rows(
+        tuple(slice_tag_breakdown.values()),
+        primary_sort_key="slice_tag",
+        sort_by_cases_desc=True,
+    )
+    winner_type_breakdown_rows = _finalize_sentence_veto_breakdown_rows(
+        tuple(gold_winner_type_breakdown.values()),
+        primary_sort_key="gold_winner_type",
+        preferred_order=("active", "shadow", "none"),
+    )
     return {
         "schema_version": 1,
         "status": "ok",
@@ -243,6 +275,9 @@ def build_sentence_veto_report(
             "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         },
         "summary": summary,
+        "family_breakdown": family_breakdown_rows,
+        "slice_tag_breakdown": slice_tag_breakdown_rows,
+        "gold_winner_type_breakdown": winner_type_breakdown_rows,
         "row_results": row_results,
         "sample_harmful_replace_rows": harmful_replace_rows,
         "sample_false_abstain_rows": false_abstain_rows,
@@ -384,9 +419,50 @@ def render_sentence_veto_markdown(report: Mapping[str, object]) -> str:
         f"- Winner accuracy / shadow-winner accuracy: `{_render_rate(summary.get('winner_accuracy'))}` / `{_render_rate(summary.get('shadow_winner_accuracy'))}`",
         f"- Predicted replace rate: `{_render_rate(summary.get('predicted_replace_rate'))}`",
         "",
-        "## Failure Samples",
+        "## Family Breakdown",
         "",
     ]
+    lines.extend(
+        _render_sentence_veto_breakdown_table(
+            report.get("family_breakdown"),
+            label_key="family_id",
+            label_builder=_build_family_breakdown_label,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "## Gold Winner Type Breakdown",
+            "",
+        ]
+    )
+    lines.extend(
+        _render_sentence_veto_breakdown_table(
+            report.get("gold_winner_type_breakdown"),
+            label_key="gold_winner_type",
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "## Slice Tag Breakdown",
+            "",
+        ]
+    )
+    lines.extend(
+        _render_sentence_veto_breakdown_table(
+            report.get("slice_tag_breakdown"),
+            label_key="slice_tag",
+            limit=12,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "## Failure Samples",
+            "",
+        ]
+    )
     lines.extend(
         _render_sentence_veto_failure_block(
             "Harmful replace", report.get("sample_harmful_replace_rows")
@@ -501,6 +577,65 @@ def _render_sentence_veto_sweep_row(row: Mapping[str, object]) -> list[str]:
     ]
 
 
+def _render_sentence_veto_breakdown_table(
+    rows: object,
+    *,
+    label_key: str,
+    label_builder: object | None = None,
+    limit: int | None = None,
+) -> list[str]:
+    lines = [
+        "| Slice | Cases | Decision Acc. | Replace Recall | Harmful Replace | Winner Acc. |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)) or not rows:
+        lines.append("| none | 0 | n/a | n/a | n/a | n/a |")
+        return lines
+    rendered_count = 0
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        summary = row.get("summary") if isinstance(row.get("summary"), Mapping) else {}
+        label = ""
+        if callable(label_builder):
+            label = str(label_builder(row) or "").strip()
+        if not label:
+            label = str(row.get(label_key) or "").strip()
+        if not label:
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                (
+                    label,
+                    str(int(summary.get("cases_total") or 0)),
+                    _render_rate(summary.get("decision_accuracy")),
+                    _render_rate(summary.get("replace_recall")),
+                    _render_rate(summary.get("harmful_replace_rate")),
+                    _render_rate(summary.get("winner_accuracy")),
+                )
+            )
+            + " |"
+        )
+        rendered_count += 1
+        if limit is not None and rendered_count >= max(0, int(limit)):
+            break
+    if rendered_count <= 0:
+        lines.append("| none | 0 | n/a | n/a | n/a | n/a |")
+    return lines
+
+
+def _build_family_breakdown_label(row: Mapping[str, object]) -> str:
+    trigger = str(row.get("trigger") or "").strip()
+    active_target = str(row.get("active_target") or "").strip()
+    shadow_targets = _normalize_string_list(row.get("shadow_targets"))
+    if trigger and active_target and shadow_targets:
+        return f"{trigger} -> {active_target} vs {', '.join(shadow_targets)}"
+    if trigger and active_target:
+        return f"{trigger} -> {active_target}"
+    return str(row.get("family_id") or "").strip()
+
+
 def _collect_config_texts(
     dataset: Mapping[str, object],
     *,
@@ -581,6 +716,27 @@ def _accumulate_sentence_veto_summary(
             summary["shadow_winner_correct_count"] += 1
 
 
+def _new_sentence_veto_summary() -> dict[str, object]:
+    return {
+        "cases_total": 0,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+    }
+
+
 def _finalize_sentence_veto_summary(summary: Mapping[str, object]) -> None:
     cases_total = int(summary.get("cases_total") or 0)
     gold_replace_cases = int(summary.get("gold_replace_cases") or 0)
@@ -640,6 +796,58 @@ def _coerce_metric(value: object, *, default: float) -> float:
     if isinstance(value, (float, int)):
         return float(value)
     return float(default)
+
+
+def _finalize_sentence_veto_breakdown_rows(
+    rows: object,
+    *,
+    primary_sort_key: str,
+    sort_by_cases_desc: bool = False,
+    preferred_order: Sequence[str] = (),
+) -> list[dict[str, object]]:
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
+        return []
+    preferred_order_lookup = {
+        value: index for index, value in enumerate(_normalize_string_list(preferred_order))
+    }
+    finalized_rows: list[dict[str, object]] = []
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        summary = row.get("summary")
+        if not isinstance(summary, Mapping):
+            continue
+        summary_payload = dict(summary)
+        _finalize_sentence_veto_summary(summary_payload)
+        payload = dict(row)
+        payload["summary"] = summary_payload
+        finalized_rows.append(payload)
+    if sort_by_cases_desc:
+        finalized_rows.sort(
+            key=lambda row: (
+                -int(
+                    (row.get("summary", {}) if isinstance(row.get("summary"), Mapping) else {}).get(
+                        "cases_total"
+                    )
+                    or 0
+                ),
+                str(row.get(primary_sort_key) or ""),
+            )
+        )
+        return finalized_rows
+    if preferred_order_lookup:
+        finalized_rows.sort(
+            key=lambda row: (
+                preferred_order_lookup.get(
+                    str(row.get(primary_sort_key) or "").strip(),
+                    len(preferred_order_lookup),
+                ),
+                str(row.get(primary_sort_key) or ""),
+            )
+        )
+        return finalized_rows
+    finalized_rows.sort(key=lambda row: str(row.get(primary_sort_key) or ""))
+    return finalized_rows
 
 
 def _normalize_string_list(values: object) -> list[str]:
