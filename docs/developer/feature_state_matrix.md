@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-10
+Last updated: 2026-04-11
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -773,8 +773,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, documented a source-intake plan plus approval queue for broader offline evidence expansion, added explicit semantic-bridge aux-text/example experiment toggles to the matrix harness, and added explicit forward/reverse pack overrides to the main matrix/compare runners for non-invasive source replays
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` and resource-loader tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump
+- Last documented checkpoint: `2026-04-11` added the first fixed-shadow sentence-level `en-es` runtime-veto harness and sweep, widened the default threshold ladder to expose the low-score lexical frontier, and documented that harness alongside the earlier lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison, source-intake planning, semantic-bridge source toggles, and translation-pack override replays
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` / runtime-scoring tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump, together with the first sentence-veto harness and sweep artifacts
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -887,6 +887,20 @@ Use this file when:
     - abstain
   - The governing product preference for that future layer is explicit:
     - false abstain is cheaper than harmful replacement
+  - The repo now also has a research-only sentence-level runtime-veto harness:
+    - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
+    - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
+    - the current `en-es` starter dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
+    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
+  - First current lexical result on that harness:
+    - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
+    - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
+    - that row reaches `70.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `25.0%` replace recall on the current 20-case curated dataset
+  - First current model-choice result on that harness:
+    - the first explicit `sentence_transformer_cosine` sweep materially improves the same fixed-shadow dataset
+    - best current row is `masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.05`
+    - that row reaches `85.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `62.5%` replace recall
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy
@@ -909,13 +923,18 @@ Use this file when:
   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
   - `core/lexishift_core/rulegen/semantic_shadow_frequency.py`
   - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`
+  - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
   - `core/lexishift_core/rulegen/semantic_shadow_representative_pruning.py`
   - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
+  - `core/tests/rulegen/test_semantic_routing_runtime_scoring.py`
   - `core/tests/rulegen/test_semantic_publication.py`
   - `core/tests/rulegen/test_semantic_shadow_inventory.py`
   - `core/tests/rulegen/test_semantic_shadow_evaluation.py`
+  - `scripts/testing/semantic_routing_sentence_veto_harness.py`
+  - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+  - `scripts/testing/semantic_routing_sentence_veto_support.py`
   - `scripts/testing/semantic_shadow_inventory_en_es.py`
   - `scripts/testing/semantic_shadow_inventory_triage_en_es.py`
   - `scripts/testing/semantic_shadow_policy_compare_en_es.py`
@@ -944,6 +963,9 @@ Use this file when:
   - `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_experiment_matrix_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_veto_proxy_compare_en_es_latest.md`
+  - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
+  - `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
+  - `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
@@ -953,6 +975,11 @@ Use this file when:
   - `en-es` can now emit `status=ready` in the explicit `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness.
   - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in the emitted-sibling PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
   - The first live `en-es` shadow inventory artifact proves that broad sibling mining is feasible, but its current promoted-shadow preview is still too noisy to serve as a runtime blocker set.
+  - The new sentence-level runtime-veto harness is still intentionally small and curated:
+    - only `en-es` is covered today
+    - only 4 ambiguity families / 20 rows are labeled
+    - thresholds from that dataset are not production-safe defaults
+    - current lexical best row is still dominated by false abstains, so model-choice and evidence-view work remain open
   - The first triage artifact shows that the stricter preview can eliminate zero-signal rows, but the remaining top-1 promotions are still mostly justified only by `same_pos_as_active`, not by clearly benchmark-aligned competition evidence.
   - The first policy-comparison artifact makes the current algorithm tradeoff concrete:
     - `same_pos_lenient_v1` is broad but noisy

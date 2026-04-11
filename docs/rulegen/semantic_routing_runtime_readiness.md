@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-10
-Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, and first representative-pruning sweep
+Last updated: 2026-04-11
+Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, and first fixed-shadow sentence-level runtime-veto sweep
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -191,6 +191,83 @@ So the current conclusion is:
 
 - nearest-neighbor target cards are useful as a research recall probe,
 - but they are not yet a publishable improvement over the lexical baseline.
+
+## Current Sentence-Level Runtime Harness
+
+The repo now has a research-only harness that isolates the runtime scorer from upstream shadow mining.
+
+Current files:
+
+- `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+- `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
+- `scripts/testing/semantic_routing_sentence_veto_harness.py`
+- `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+
+Operational note:
+
+- the default sweep now stays on the cheap lexical scorer family (`token_jaccard`, `tfidf_cosine`)
+- the heavier `sentence_transformer_cosine` lane is available explicitly for model-choice comparisons
+
+Current dataset scope:
+
+- pair: `en-es`
+- 4 ambiguity families: `ball`, `bank`, `plant`, `cell`
+- 20 labeled sentences total
+- fixed active sense plus fixed shadow senses per family
+
+What this harness is for:
+
+- compare scorer families with the same exact active-vs-shadow competition set
+- compare raw vs masked sentence views
+- compare full-sentence vs local-window context views
+- compare evidence views such as `sense_label`, `gloss_text`, and `all_evidence_text`
+- sweep `min_active_score` and `min_margin` without changing any upstream miner behavior
+
+What it is not for:
+
+- proving automatic shadow mining quality
+- proving end-to-end runtime readiness
+- choosing a production threshold from a tiny curated dataset
+
+Current lexical read on that fixed-shadow harness:
+
+- with the original higher default threshold ladder (`min_active >= 0.25`), both lexical scorers collapse to pure abstain:
+  - `60.0%` decision accuracy
+  - `0.0%` harmful replace
+  - `100.0%` false abstain on gold replace rows
+- after widening the threshold sweep to include lower active-score gates, the best current lexical row is:
+  - from the cheap default sweep
+  - `tfidf_cosine`
+  - `masked_sentence`
+  - `all_evidence_text`
+  - `min_active_score=0.05`
+  - `min_margin=0.00`
+- that row currently yields:
+  - `70.0%` decision accuracy
+  - `100.0%` replace precision
+  - `25.0%` replace recall
+  - `0.0%` harmful replace
+  - `75.0%` false abstain
+
+First explicit model-choice read:
+
+- the first focused `sentence_transformer_cosine` sweep is materially stronger on the same fixed-shadow dataset:
+  - best row: `masked_sentence + all_evidence_text + min_active_score=0.00 + min_margin=0.05`
+  - `85.0%` decision accuracy
+  - `100.0%` replace precision
+  - `62.5%` replace recall
+  - `0.0%` harmful replace
+  - `37.5%` false abstain
+- that is not production proof, but it does confirm that model choice is a real lever once the competition set is fixed
+
+Interpretation:
+
+- the runtime harness is already useful, because it exposes a real gate frontier instead of collapsing everything into upstream blocker quality
+- on the current tiny lexical dataset, context masking helps
+- the main current lexical weakness is conservative under-replacement, not harmful replacement
+- the first embedding-backed scorer materially improves both winner selection and replace recall without introducing harmful replaces on this curated slice
+- this is exactly the right surface for further scorer, evidence-view, and threshold work
 
 ## Boundary: Manual Vs Automatic Today
 

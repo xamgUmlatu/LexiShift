@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_sentence_veto_v1",
+  "description": "Curated sentence-level runtime veto cases over fixed active and shadow senses for early en-es scorer comparison.",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active": {
+        "sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "target_lemma": "pelota",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "ball used in games or sports",
+          "gloss_text": "object generally spherical and used in play",
+          "sense_gloss_bundle": "ball used in games or sports | sports equipment",
+          "all_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "target_lemma": "baile",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "formal dance event",
+            "gloss_text": "gala or social dance gathering",
+            "sense_gloss_bundle": "formal dance event | gala",
+            "all_evidence_text": "formal dance event | gala or social dance gathering | evening dance"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:ball:001",
+          "sentence": "The goalkeeper punched the ball over the bar.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["ball"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:002",
+          "sentence": "The child kicked the ball into the street.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["ball"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:003",
+          "sentence": "They danced at the royal ball until dawn.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "event"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["ball"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:004",
+          "sentence": "The charity ball raised thousands of dollars.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "event"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["ball"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:005",
+          "sentence": "The ball is in your court now.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "idiom"],
+          "slice_dimensions": {
+            "winner_type": ["none"],
+            "family": ["ball"]
+          }
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "trigger": "bank",
+      "active": {
+        "sense_id": "en-es:sentence-veto:bank:banco:active",
+        "target_lemma": "banco",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "financial bank",
+          "gloss_text": "financial institution that stores and lends money",
+          "sense_gloss_bundle": "financial bank | finance",
+          "all_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "target_lemma": "orilla",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "river bank",
+            "gloss_text": "edge of a river or lake",
+            "sense_gloss_bundle": "river bank | waterside edge",
+            "all_evidence_text": "river bank | edge of a river or lake | waterside ground"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:bank:001",
+          "sentence": "She deposited the cash at the bank before lunch.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "finance"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["bank"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:002",
+          "sentence": "The bank approved our mortgage application.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "finance"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["bank"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:003",
+          "sentence": "They sat on the grassy bank of the river.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "nature"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["bank"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:004",
+          "sentence": "Wildflowers grew along the muddy bank.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "nature"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["bank"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:005",
+          "sentence": "You can bank on her support.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "idiom"],
+          "slice_dimensions": {
+            "winner_type": ["none"],
+            "family": ["bank"]
+          }
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active": {
+        "sense_id": "en-es:sentence-veto:plant:planta:active",
+        "target_lemma": "planta",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "living plant",
+          "gloss_text": "living organism that grows in soil or water",
+          "sense_gloss_bundle": "living plant | botanical organism",
+          "all_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "target_lemma": "fábrica",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "industrial plant",
+            "gloss_text": "factory where goods are manufactured",
+            "sense_gloss_bundle": "industrial plant | factory",
+            "all_evidence_text": "industrial plant | factory where goods are manufactured | industrial site"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:plant:001",
+          "sentence": "She watered the plant on the windowsill.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "home"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["plant"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:002",
+          "sentence": "The plant needs more sunlight in the afternoon.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "home"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["plant"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:003",
+          "sentence": "The steel plant closed after the strike.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "industry"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["plant"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:004",
+          "sentence": "Hundreds of workers left the chemical plant at noon.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "industry"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["plant"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:005",
+          "sentence": "They tried to plant evidence in his office.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {
+            "winner_type": ["none"],
+            "family": ["plant"]
+          }
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active": {
+        "sense_id": "en-es:sentence-veto:cell:celula:active",
+        "target_lemma": "célula",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "biological cell",
+          "gloss_text": "small biological unit of a living organism",
+          "sense_gloss_bundle": "biological cell | biology",
+          "all_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "target_lemma": "celda",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "prison cell",
+            "gloss_text": "small room in a prison",
+            "sense_gloss_bundle": "prison cell | jail room",
+            "all_evidence_text": "prison cell | small room in a prison | prisoner and guard"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:cell:001",
+          "sentence": "The scientist examined the cell under a microscope.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "biology"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["cell"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:002",
+          "sentence": "Each cell in the tissue absorbed the dye.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "biology"],
+          "slice_dimensions": {
+            "winner_type": ["active"],
+            "family": ["cell"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:003",
+          "sentence": "The prisoner was returned to his cell after dinner.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "prison"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["cell"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:004",
+          "sentence": "The guard unlocked the cell at dawn.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "prison"],
+          "slice_dimensions": {
+            "winner_type": ["shadow"],
+            "family": ["cell"]
+          }
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:005",
+          "sentence": "My phone lost cell service in the tunnel.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "telecom"],
+          "slice_dimensions": {
+            "winner_type": ["none"],
+            "family": ["cell"]
+          }
+        }
+      ]
+    }
+  ]
+}

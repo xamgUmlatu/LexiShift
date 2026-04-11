@@ -1,0 +1,400 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+import re
+from typing import Mapping, Sequence
+
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from lexishift_core.rulegen.semantic_shadow_embedding_bridge import (
+    DEFAULT_EMBEDDING_BRIDGE_MODEL,
+)
+
+DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS = 4
+DEFAULT_SENTENCE_VETO_MASK_TOKEN = "___"
+DEFAULT_SENTENCE_VETO_CONTEXT_VIEW = "raw_sentence"
+DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW = "all_evidence_text"
+DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE = 0.35
+DEFAULT_SENTENCE_VETO_MIN_MARGIN = 0.05
+
+SENTENCE_VETO_CONTEXT_VIEWS = (
+    "raw_sentence",
+    "masked_sentence",
+    "raw_window",
+    "masked_window",
+)
+SENTENCE_VETO_EVIDENCE_VIEWS = (
+    "sense_label",
+    "gloss_text",
+    "sense_gloss_bundle",
+    "qualifier_text",
+    "all_evidence_text",
+)
+SENTENCE_VETO_SCORERS = (
+    "token_jaccard",
+    "tfidf_cosine",
+    "sentence_transformer_cosine",
+)
+
+_TOKEN_RE = re.compile(r"[0-9A-Za-zÀ-ÖØ-öø-ÿ']+")
+
+
+@dataclass(frozen=True)
+class RuntimeVetoCaseScore:
+    case_id: str
+    family_id: str
+    gold_decision: str
+    gold_winner: str
+    gold_winner_type: str
+    predicted_decision: str
+    predicted_winner: str
+    predicted_winner_type: str
+    active_score: float
+    strongest_shadow_score: float
+    margin: float
+    strongest_shadow_id: str
+    context_text: str
+    active_evidence_text: str
+    strongest_shadow_evidence_text: str
+
+
+def build_runtime_context_views(
+    sentence: str,
+    *,
+    source_phrase: str,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+) -> dict[str, str]:
+    normalized_sentence = str(sentence or "").strip()
+    normalized_source_phrase = str(source_phrase or "").strip()
+    if not normalized_sentence:
+        return {
+            "raw_sentence": "",
+            "masked_sentence": "",
+            "raw_window": "",
+            "masked_window": "",
+        }
+    if not normalized_source_phrase:
+        return {
+            "raw_sentence": normalized_sentence,
+            "masked_sentence": normalized_sentence,
+            "raw_window": normalized_sentence,
+            "masked_window": normalized_sentence,
+        }
+
+    tokens = normalized_sentence.split()
+    phrase_tokens = normalized_source_phrase.split()
+    match = _find_phrase_token_span(tokens, phrase_tokens)
+    if match is None:
+        return {
+            "raw_sentence": normalized_sentence,
+            "masked_sentence": normalized_sentence,
+            "raw_window": normalized_sentence,
+            "masked_window": normalized_sentence,
+        }
+    start_index, end_index = match
+    masked_tokens = list(tokens[:start_index]) + [mask_token] + list(tokens[end_index:])
+    raw_window_start = max(0, start_index - max(0, int(window_tokens)))
+    raw_window_end = min(len(tokens), end_index + max(0, int(window_tokens)))
+    raw_window_tokens = tokens[raw_window_start:raw_window_end]
+    masked_window_tokens = (
+        raw_window_tokens[: start_index - raw_window_start]
+        + [mask_token]
+        + raw_window_tokens[end_index - raw_window_start :]
+    )
+    return {
+        "raw_sentence": normalized_sentence,
+        "masked_sentence": " ".join(masked_tokens),
+        "raw_window": " ".join(raw_window_tokens),
+        "masked_window": " ".join(masked_window_tokens),
+    }
+
+
+def resolve_runtime_evidence_text(
+    sense_record: Mapping[str, object],
+    *,
+    evidence_view: str = DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW,
+) -> str:
+    evidence_views = sense_record.get("evidence_views")
+    if not isinstance(evidence_views, Mapping):
+        evidence_views = {}
+    requested = str(evidence_view or "").strip() or DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW
+    text = str(evidence_views.get(requested) or "").strip()
+    if text:
+        return text
+    for fallback_view in (
+        "all_evidence_text",
+        "sense_gloss_bundle",
+        "gloss_text",
+        "sense_label",
+        "qualifier_text",
+    ):
+        fallback_text = str(evidence_views.get(fallback_view) or "").strip()
+        if fallback_text:
+            return fallback_text
+    return str(sense_record.get("sense_label") or sense_record.get("target_lemma") or "").strip()
+
+
+def decide_runtime_veto_outcome(
+    *,
+    active_score: float,
+    strongest_shadow_score: float,
+    min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
+    min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN,
+) -> str:
+    if float(active_score) < float(min_active_score):
+        return "abstain"
+    if float(active_score) - float(strongest_shadow_score) < float(min_margin):
+        return "abstain"
+    return "replace"
+
+
+class RuntimeSimilarityBackend:
+    def __init__(
+        self,
+        *,
+        scorer_id: str,
+        model_name: str = DEFAULT_EMBEDDING_BRIDGE_MODEL,
+    ) -> None:
+        normalized_scorer_id = str(scorer_id or "").strip() or "token_jaccard"
+        if normalized_scorer_id not in SENTENCE_VETO_SCORERS:
+            raise ValueError(
+                f"Unsupported sentence-veto scorer: {normalized_scorer_id!r}; "
+                f"expected one of {SENTENCE_VETO_SCORERS!r}"
+            )
+        self.scorer_id = normalized_scorer_id
+        self.model_name = str(model_name or "").strip() or DEFAULT_EMBEDDING_BRIDGE_MODEL
+        self._token_sets: dict[str, frozenset[str]] = {}
+        self._vectorizer: TfidfVectorizer | None = None
+        self._row_lookup: dict[str, int] = {}
+        self._normalized_matrix: np.ndarray | None = None
+        self._embedding_model = None
+
+    def fit(self, texts: Sequence[str]) -> None:
+        normalized_texts = []
+        seen: set[str] = set()
+        for raw_text in texts:
+            text = str(raw_text or "").strip()
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            normalized_texts.append(text)
+        if not normalized_texts:
+            return
+        if self.scorer_id == "token_jaccard":
+            self._token_sets = {
+                text: frozenset(_normalize_text_tokens(text)) for text in normalized_texts
+            }
+            return
+        if self.scorer_id == "tfidf_cosine":
+            vectorizer = TfidfVectorizer(lowercase=True, ngram_range=(1, 2))
+            matrix = vectorizer.fit_transform(normalized_texts)
+            dense_matrix = np.asarray(matrix.toarray(), dtype=np.float64)
+            self._vectorizer = vectorizer
+            self._row_lookup = {text: index for index, text in enumerate(normalized_texts)}
+            self._normalized_matrix = _normalize_embedding_rows(dense_matrix)
+            return
+        if self.scorer_id == "sentence_transformer_cosine":
+            from sentence_transformers import SentenceTransformer
+
+            self._embedding_model = SentenceTransformer(self.model_name)
+            encoded = self._embedding_model.encode(
+                normalized_texts,
+                normalize_embeddings=True,
+            )
+            dense_matrix = np.asarray(encoded, dtype=np.float64)
+            self._row_lookup = {text: index for index, text in enumerate(normalized_texts)}
+            self._normalized_matrix = _normalize_embedding_rows(dense_matrix)
+            return
+
+    def similarity(self, left_text: str, right_text: str) -> float:
+        left = str(left_text or "").strip()
+        right = str(right_text or "").strip()
+        if not left or not right:
+            return 0.0
+        if self.scorer_id == "token_jaccard":
+            left_tokens = self._token_sets.get(left)
+            if left_tokens is None:
+                left_tokens = frozenset(_normalize_text_tokens(left))
+                self._token_sets[left] = left_tokens
+            right_tokens = self._token_sets.get(right)
+            if right_tokens is None:
+                right_tokens = frozenset(_normalize_text_tokens(right))
+                self._token_sets[right] = right_tokens
+            union = left_tokens | right_tokens
+            if not union:
+                return 0.0
+            return len(left_tokens & right_tokens) / len(union)
+        if self.scorer_id == "tfidf_cosine":
+            return self._vector_similarity(left, right)
+        if self.scorer_id == "sentence_transformer_cosine":
+            return self._vector_similarity(left, right)
+        return 0.0
+
+    def _vector_similarity(self, left_text: str, right_text: str) -> float:
+        left_index = self._resolve_row_index(left_text)
+        right_index = self._resolve_row_index(right_text)
+        if left_index is None or right_index is None or self._normalized_matrix is None:
+            return 0.0
+        cosine = float(self._normalized_matrix[left_index] @ self._normalized_matrix[right_index])
+        if self.scorer_id == "sentence_transformer_cosine":
+            return max(0.0, min(1.0, (cosine + 1.0) / 2.0))
+        return max(0.0, min(1.0, cosine))
+
+    def _resolve_row_index(self, text: str) -> int | None:
+        index = self._row_lookup.get(text)
+        if index is not None:
+            return index
+        if self.scorer_id == "tfidf_cosine" and self._vectorizer is not None:
+            matrix = self._vectorizer.transform([text])
+            dense_row = _normalize_embedding_rows(np.asarray(matrix.toarray(), dtype=np.float64))
+        elif self.scorer_id == "sentence_transformer_cosine" and self._embedding_model is not None:
+            encoded = self._embedding_model.encode([text], normalize_embeddings=True)
+            dense_row = _normalize_embedding_rows(np.asarray(encoded, dtype=np.float64))
+        else:
+            return None
+        if self._normalized_matrix is None:
+            self._normalized_matrix = dense_row
+            resolved_index = 0
+        else:
+            resolved_index = int(self._normalized_matrix.shape[0])
+            self._normalized_matrix = np.vstack([self._normalized_matrix, dense_row])
+        self._row_lookup[text] = resolved_index
+        return resolved_index
+
+
+def evaluate_runtime_veto_case(
+    *,
+    family_id: str,
+    case: Mapping[str, object],
+    active_sense: Mapping[str, object],
+    shadow_senses: Sequence[Mapping[str, object]],
+    scorer: RuntimeSimilarityBackend,
+    context_view: str = DEFAULT_SENTENCE_VETO_CONTEXT_VIEW,
+    evidence_view: str = DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW,
+    min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
+    min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN,
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+) -> RuntimeVetoCaseScore:
+    sentence = str(case.get("sentence") or "").strip()
+    source_phrase = str(case.get("source_phrase") or case.get("trigger") or "").strip()
+    context_views = build_runtime_context_views(
+        sentence,
+        source_phrase=source_phrase,
+        mask_token=mask_token,
+        window_tokens=window_tokens,
+    )
+    resolved_context_view = str(context_view or "").strip() or DEFAULT_SENTENCE_VETO_CONTEXT_VIEW
+    if resolved_context_view not in SENTENCE_VETO_CONTEXT_VIEWS:
+        raise ValueError(
+            f"Unsupported context view: {resolved_context_view!r}; "
+            f"expected one of {SENTENCE_VETO_CONTEXT_VIEWS!r}"
+        )
+    context_text = str(context_views.get(resolved_context_view) or "").strip()
+    active_evidence_text = resolve_runtime_evidence_text(
+        active_sense,
+        evidence_view=evidence_view,
+    )
+    active_score = scorer.similarity(context_text, active_evidence_text)
+
+    strongest_shadow_id = ""
+    strongest_shadow_score = 0.0
+    strongest_shadow_evidence_text = ""
+    for shadow_sense in shadow_senses:
+        shadow_id = str(shadow_sense.get("sense_id") or "").strip()
+        shadow_evidence_text = resolve_runtime_evidence_text(
+            shadow_sense,
+            evidence_view=evidence_view,
+        )
+        shadow_score = scorer.similarity(context_text, shadow_evidence_text)
+        if shadow_score > strongest_shadow_score or (
+            shadow_score == strongest_shadow_score
+            and shadow_id
+            and strongest_shadow_id
+            and shadow_id < strongest_shadow_id
+        ):
+            strongest_shadow_id = shadow_id
+            strongest_shadow_score = shadow_score
+            strongest_shadow_evidence_text = shadow_evidence_text
+
+    active_sense_id = str(active_sense.get("sense_id") or "").strip()
+    predicted_winner = active_sense_id
+    predicted_winner_type = "active"
+    if strongest_shadow_id and strongest_shadow_score > active_score:
+        predicted_winner = strongest_shadow_id
+        predicted_winner_type = "shadow"
+    margin = float(active_score) - float(strongest_shadow_score)
+    predicted_decision = decide_runtime_veto_outcome(
+        active_score=active_score,
+        strongest_shadow_score=strongest_shadow_score,
+        min_active_score=min_active_score,
+        min_margin=min_margin,
+    )
+    gold_winner = str(case.get("gold_winner") or "").strip()
+    gold_winner_type = _classify_gold_winner_type(gold_winner, active_sense_id=active_sense_id)
+    gold_decision = str(case.get("gold_decision") or "").strip().lower()
+    if gold_decision not in {"replace", "abstain"}:
+        gold_decision = "replace" if gold_winner_type == "active" else "abstain"
+
+    return RuntimeVetoCaseScore(
+        case_id=str(case.get("case_id") or "").strip(),
+        family_id=str(family_id or "").strip(),
+        gold_decision=gold_decision,
+        gold_winner=gold_winner,
+        gold_winner_type=gold_winner_type,
+        predicted_decision=predicted_decision,
+        predicted_winner=predicted_winner,
+        predicted_winner_type=predicted_winner_type,
+        active_score=float(active_score),
+        strongest_shadow_score=float(strongest_shadow_score),
+        margin=float(margin),
+        strongest_shadow_id=strongest_shadow_id,
+        context_text=context_text,
+        active_evidence_text=active_evidence_text,
+        strongest_shadow_evidence_text=strongest_shadow_evidence_text,
+    )
+
+
+def _classify_gold_winner_type(gold_winner: str, *, active_sense_id: str) -> str:
+    normalized_gold_winner = str(gold_winner or "").strip()
+    if not normalized_gold_winner or normalized_gold_winner in {"none", "abstain"}:
+        return "none"
+    if normalized_gold_winner == active_sense_id:
+        return "active"
+    return "shadow"
+
+
+def _find_phrase_token_span(
+    sentence_tokens: Sequence[str],
+    phrase_tokens: Sequence[str],
+) -> tuple[int, int] | None:
+    normalized_sentence_tokens = [_normalize_surface_token(token) for token in sentence_tokens]
+    normalized_phrase_tokens = [
+        token for token in (_normalize_surface_token(token) for token in phrase_tokens) if token
+    ]
+    if not normalized_phrase_tokens:
+        return None
+    phrase_length = len(normalized_phrase_tokens)
+    for index in range(0, len(normalized_sentence_tokens) - phrase_length + 1):
+        if normalized_sentence_tokens[index : index + phrase_length] == normalized_phrase_tokens:
+            return (index, index + phrase_length)
+    return None
+
+
+def _normalize_surface_token(token: str) -> str:
+    matches = _TOKEN_RE.findall(str(token or "").lower())
+    return matches[0] if matches else ""
+
+
+def _normalize_text_tokens(text: str) -> list[str]:
+    return [match.lower() for match in _TOKEN_RE.findall(str(text or ""))]
+
+
+def _normalize_embedding_rows(matrix: np.ndarray) -> np.ndarray:
+    if matrix.ndim != 2:
+        raise ValueError("Expected a 2D matrix for runtime-veto scoring normalization.")
+    norms = np.linalg.norm(matrix, axis=1, keepdims=True)
+    norms[norms == 0.0] = 1.0
+    return matrix / norms

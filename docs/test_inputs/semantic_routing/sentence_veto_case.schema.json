@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Sentence-Level Semantic Routing Veto Cases",
+  "description": "Curated sentence-level benchmark cases for comparing active-vs-shadow runtime scoring policies over fixed competition sets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pair",
+    "dataset_id",
+    "families"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "families": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/family"
+      }
+    }
+  },
+  "definitions": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidenceViews": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sense_label": {
+          "type": "string"
+        },
+        "gloss_text": {
+          "type": "string"
+        },
+        "sense_gloss_bundle": {
+          "type": "string"
+        },
+        "qualifier_text": {
+          "type": "string"
+        },
+        "all_evidence_text": {
+          "type": "string"
+        }
+      }
+    },
+    "sense": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sense_id",
+        "target_lemma",
+        "canonical_pos",
+        "evidence_views"
+      ],
+      "properties": {
+        "sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_lemma": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_pos": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_views": {
+          "$ref": "#/definitions/evidenceViews"
+        }
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "sentence",
+        "source_phrase",
+        "gold_winner",
+        "gold_decision"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sentence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gold_winner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gold_decision": {
+          "type": "string",
+          "enum": [
+            "replace",
+            "abstain"
+          ]
+        },
+        "slice_tags": {
+          "$ref": "#/definitions/stringArray"
+        },
+        "slice_dimensions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/stringArray"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family_id",
+        "trigger",
+        "active",
+        "shadows",
+        "cases"
+      ],
+      "properties": {
+        "family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active": {
+          "$ref": "#/definitions/sense"
+        },
+        "shadows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sense"
+          }
+        },
+        "cases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/case"
+          }
+        }
+      }
+    }
+  }
+}

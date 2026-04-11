@@ -4,7 +4,7 @@ Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
 Last updated: 2026-04-11
-Last verified: 2026-04-11 targeted semantic-shadow scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, and canonical en-es rulegen audit
+Last verified: 2026-04-11 targeted semantic-shadow/runtime-scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, canonical en-es rulegen audit, and the first sentence-level runtime-veto sweep
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
 
 ## Why this exists
@@ -119,6 +119,37 @@ Key discipline:
 - source intake should widen the offline evidence warehouse, not the runtime contract
 - each new source family should be evaluated separately for coverage gain vs discrimination gain
 - external or silver sources should stay explicit until they survive ablation against the lexical control
+
+### 8. Sentence-level runtime-veto harness
+
+Purpose:
+- hold the active sense and shadow set fixed
+- test only the runtime scorer surface
+- compare context transforms, evidence views, scorer families, and gate thresholds without conflating them with upstream mining quality
+
+Primary files:
+- `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
+- `core/tests/rulegen/test_semantic_routing_runtime_scoring.py`
+- `scripts/testing/semantic_routing_sentence_veto_harness.py`
+- `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+- `scripts/testing/semantic_routing_sentence_veto_support.py`
+- `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
+- `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
+- `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
+
+Key metrics:
+- decision accuracy
+- replace precision
+- replace recall
+- harmful replace rate
+- false abstain rate
+- winner accuracy
+- shadow-winner accuracy
+
+Interpretation rule:
+- this layer does not prove that automatic shadow mining is solved
+- it answers the narrower question: given a fixed competition set, how good is the runtime scorer and gate
 
 ## Current experiment contract
 
