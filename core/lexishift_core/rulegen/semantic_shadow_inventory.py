@@ -26,6 +26,14 @@ from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
     build_forward_shadow_index,
     build_inventory_summary,
 )
+from lexishift_core.rulegen.semantic_shadow_neighborhood import (
+    attach_target_forward_neighborhood_terms,
+    build_target_forward_neighborhood_terms,
+)
+from lexishift_core.rulegen.semantic_shadow_record_clusters import (
+    build_shadow_canonical_pos,
+    cluster_shadow_records,
+)
 from lexishift_core.rulegen.semantic_shadow_support import (
     DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     DEFAULT_FREQUENCY_SIMILARITY_TAU,
@@ -33,13 +41,11 @@ from lexishift_core.rulegen.semantic_shadow_support import (
     build_shadow_candidate_support_details,
     merge_shadow_candidate_evidence,
     normalize_shadow_string_list,
-    parse_shadow_optional_int,
 )
 from lexishift_core.rulegen.semantic_shadow_trigger_support import (
     DEFAULT_TRIGGER_SUPPORT_SCORE_MIN,
     build_trigger_support_details_from_records,
 )
-from lexishift_core.rulegen.utils import sanitize_dictionary_gloss
 
 DEFAULT_SHADOW_PROMOTION_POLICY = "same_pos_lenient_v1"
 SUPPORT_SCORE_POLICY = "support_score_v1"
@@ -370,13 +376,17 @@ def build_en_es_shadow_inventory(
     support_score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
+    target_forward_neighborhood_terms = build_target_forward_neighborhood_terms(
+        forward_records_by_target=forward_records_by_target,
+        collect_records=collect_en_es_sanitized_gloss_records,
+    )
     forward_shadow_index = build_forward_shadow_index(
         benchmark_targets=benchmark_targets,
         forward_records_by_target=forward_records_by_target,
         provider=forward_provider,
         collect_records=collect_en_es_sanitized_gloss_records,
         active_candidate_builder=_build_active_candidates_for_trigger,
-        canonical_pos_builder=_build_canonical_pos,
+        canonical_pos_builder=build_shadow_canonical_pos,
     )
     target_bridge_profiles = build_target_bridge_profiles(
         benchmark_targets=benchmark_targets,
@@ -394,8 +404,13 @@ def build_en_es_shadow_inventory(
             target=benchmark_target.target,
             records=forward_records,
             provider=forward_provider,
-            canonical_pos_builder=_build_canonical_pos,
+            canonical_pos_builder=build_shadow_canonical_pos,
         )
+        if active_profile_fallback is not None:
+            attach_target_forward_neighborhood_terms(
+                active_profile_fallback,
+                neighborhoods_by_target=target_forward_neighborhood_terms,
+            )
         trigger_entries: list[dict[str, object]] = []
         for trigger in benchmark_target.reviewed_triggers:
             active_candidates = _build_active_candidates_for_trigger(
@@ -426,15 +441,27 @@ def build_en_es_shadow_inventory(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
                 )
+                attach_target_forward_neighborhood_terms(
+                    candidate,
+                    neighborhoods_by_target=target_forward_neighborhood_terms,
+                )
             for candidate in reverse_active_candidates:
                 enrich_candidate_frequency_details(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
                 )
+                attach_target_forward_neighborhood_terms(
+                    candidate,
+                    neighborhoods_by_target=target_forward_neighborhood_terms,
+                )
             for candidate in shadow_candidates:
                 enrich_candidate_frequency_details(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
+                )
+                attach_target_forward_neighborhood_terms(
+                    candidate,
+                    neighborhoods_by_target=target_forward_neighborhood_terms,
                 )
             existing_shadow_targets = {
                 str(candidate.get("target") or "").strip()
@@ -456,6 +483,10 @@ def build_en_es_shadow_inventory(
                 enrich_candidate_frequency_details(
                     candidate=forward_candidate_copy,
                     frequency_lookup=frequency_lookup,
+                )
+                attach_target_forward_neighborhood_terms(
+                    forward_candidate_copy,
+                    neighborhoods_by_target=target_forward_neighborhood_terms,
                 )
                 existing_candidate = shadow_candidate_by_target.get(candidate_target)
                 if existing_candidate is not None:
@@ -480,6 +511,10 @@ def build_en_es_shadow_inventory(
                 enrich_candidate_frequency_details(
                     candidate=bridge_candidate_copy,
                     frequency_lookup=frequency_lookup,
+                )
+                attach_target_forward_neighborhood_terms(
+                    bridge_candidate_copy,
+                    neighborhoods_by_target=target_forward_neighborhood_terms,
                 )
                 existing_candidate = shadow_candidate_by_target.get(candidate_target)
                 if existing_candidate is not None:
@@ -545,7 +580,7 @@ def _build_active_candidates_for_trigger(
         if normalize_reverse_token_with_pos(record.translation, pos_raw=record.pos_raw)
         == normalized_trigger
     ]
-    clustered = _cluster_records(
+    clustered = cluster_shadow_records(
         target_override=target,
         records=matching_records,
         provider=provider,
@@ -562,7 +597,7 @@ def _build_reverse_candidates(
     provider: str,
     benchmark_target_map: Mapping[str, BenchmarkShadowTarget],
 ) -> list[dict[str, object]]:
-    clustered = _cluster_records(
+    clustered = cluster_shadow_records(
         target_override=None,
         records=records,
         provider=provider,
@@ -613,6 +648,10 @@ def promote_shadow_candidates_for_policy(
     }
     has_active_candidates = bool(active_candidates)
     has_active_pos = bool(active_pos_values)
+    active_profile_pos = str((active_profile_fallback or {}).get("canonical_pos") or "").strip()
+    active_profile_forward_neighborhood_terms = normalize_shadow_string_list(
+        (active_profile_fallback or {}).get("forward_neighborhood_terms")
+    )
     ranked: list[tuple[tuple[int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         target = str(candidate.get("target") or "").strip()
@@ -651,6 +690,9 @@ def promote_shadow_candidates_for_policy(
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            active_profile_pos=active_profile_pos,
+            active_profile_support=bool(active_profile_pos),
+            active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
             score_weights=support_score_weights,
         )
         candidate_copy.update(support_details)
@@ -691,6 +733,9 @@ def promote_shadow_candidates_with_support_score(
         top_k=int(frequency_representative_top_k),
     )
     active_profile_pos = str((active_profile_fallback or {}).get("canonical_pos") or "").strip()
+    active_profile_forward_neighborhood_terms = normalize_shadow_string_list(
+        (active_profile_fallback or {}).get("forward_neighborhood_terms")
+    )
     ranked: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         candidate_copy = dict(candidate)
@@ -699,6 +744,7 @@ def promote_shadow_candidates_with_support_score(
             active_candidates=active_candidates,
             active_profile_pos=active_profile_pos,
             active_profile_support=bool(active_profile_pos),
+            active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
             frequency_representative_targets=frequency_representative_targets,
             frequency_representative_bonus=float(frequency_representative_bonus),
             frequency_similarity_weight=float(frequency_similarity_weight),
@@ -756,125 +802,3 @@ def _shadow_candidate_qualifies_for_policy(
             return True
         return benchmark_target_present and has_active_candidates and not has_active_pos
     return False
-
-
-def _cluster_records(
-    *,
-    target_override: str | None,
-    records: Sequence[TranslationGlossRecord],
-    provider: str,
-) -> list[dict[str, object]]:
-    grouped: dict[tuple[str, object, object, object], dict[str, object]] = {}
-    for index, record in enumerate(records):
-        metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-        target = str(target_override or record.translation or "").strip()
-        if not target:
-            continue
-        entry_ord = parse_shadow_optional_int(metadata.get("entry_ord"))
-        sense_ord = parse_shadow_optional_int(metadata.get("sense_ord"))
-        gloss_ord = parse_shadow_optional_int(metadata.get("gloss_ord"))
-        key = (target, entry_ord, sense_ord, gloss_ord)
-        if entry_ord is None and sense_ord is None and gloss_ord is None:
-            key = (target, None, None, index)
-        bucket = grouped.get(key)
-        if bucket is None:
-            locator = _build_locator(
-                provider=provider,
-                target=target,
-                entry_ord=entry_ord,
-                sense_ord=sense_ord,
-                gloss_ord=gloss_ord,
-                fallback_index=index,
-            )
-            bucket = {
-                "target": target,
-                "sense_label": _build_sense_label(record),
-                "canonical_pos": _build_canonical_pos(record),
-                "provider": provider,
-                "locator": locator,
-                "glosses": [],
-                "qualifiers": _build_qualifiers(metadata),
-            }
-            grouped[key] = bucket
-        emitted_gloss = sanitize_dictionary_gloss(record.translation)
-        if emitted_gloss and emitted_gloss not in bucket["glosses"]:
-            bucket["glosses"].append(emitted_gloss)
-    return list(grouped.values())
-
-
-def _build_locator(
-    *,
-    provider: str,
-    target: str,
-    entry_ord: int | None,
-    sense_ord: int | None,
-    gloss_ord: int | None,
-    fallback_index: int,
-) -> dict[str, object]:
-    provider_text = str(provider or "").strip() or "unknown"
-    if "wiktionary" in provider_text and entry_ord is not None and sense_ord is not None:
-        locator: dict[str, object] = {
-            "provider": provider_text,
-            "locator_kind": "wiktionary_ordinal",
-            "entry_ord": entry_ord,
-            "sense_ord": sense_ord,
-        }
-        if gloss_ord is not None:
-            locator["gloss_ord"] = gloss_ord
-        return locator
-    if "freedict" in provider_text and gloss_ord is not None:
-        return {
-            "provider": provider_text,
-            "locator_kind": "freedict_gloss",
-            "target_key": target,
-            "gloss_ord": gloss_ord,
-        }
-    return {
-        "provider": provider_text,
-        "locator_kind": "opaque",
-        "opaque_id": f"{normalize_shadow_text(target)}:{fallback_index}",
-    }
-
-
-def _build_sense_label(record: TranslationGlossRecord) -> str:
-    metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-    raw_glosses = metadata.get("sense_raw_glosses")
-    if isinstance(raw_glosses, Sequence) and not isinstance(raw_glosses, (str, bytes)):
-        first = next((str(item).strip() for item in raw_glosses if str(item).strip()), "")
-        if first:
-            return first
-    for key in ("gloss_raw_text", "gloss_fragment_source_text", "gloss_input_text"):
-        value = str(metadata.get(key) or "").strip()
-        if value:
-            return value
-    sanitized = sanitize_dictionary_gloss(record.translation)
-    return sanitized or str(record.translation or "").strip()
-
-
-def _build_canonical_pos(record: TranslationGlossRecord) -> str:
-    metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-    candidate = str(metadata.get("dictionary_pos_canonical") or "").strip().lower()
-    if candidate:
-        return candidate
-    return str(record.pos_raw or "").strip().lower()
-
-
-def _build_qualifiers(metadata: Mapping[str, object]) -> dict[str, object] | None:
-    qualifiers: dict[str, list[str]] = {}
-    tags = normalize_shadow_string_list(
-        metadata.get("sense_tags"),
-        metadata.get("translation_tags"),
-        metadata.get("entry_tags"),
-    )
-    if tags:
-        qualifiers["tags"] = tags
-    topics = normalize_shadow_string_list(metadata.get("sense_topics"))
-    if topics:
-        qualifiers["topics"] = topics
-    categories = normalize_shadow_string_list(
-        metadata.get("sense_categories"),
-        metadata.get("entry_categories"),
-    )
-    if categories:
-        qualifiers["categories"] = categories
-    return qualifiers or None

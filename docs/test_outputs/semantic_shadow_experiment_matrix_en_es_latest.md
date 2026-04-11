@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Experiment Matrix
 
 - Status: `ok`
-- Generated: `2026-04-10T23:41:24Z`
+- Generated: `2026-04-11T01:21:02Z`
 - Manifest: `docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json`
 - Forward seed max words: `1`
 - Neighbor-borrow modes loaded: `True`
@@ -34,6 +34,12 @@
 | promotion_multi_source_candidate_1 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_multi_source_candidate_1_5 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 75.0% | 48.0% | 89.7% | 60.6% | 39.4% |
 | promotion_multi_source_candidate_2 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 75.0% | 48.0% | 89.7% | 60.6% | 39.4% |
+| promotion_multi_source_plus_forward_neighborhood_2 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 75.0% | 48.0% | 89.7% | 60.6% | 39.4% |
+| promotion_multi_source_plus_forward_neighborhood_3 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 73.5% | 50.0% | 89.1% | 60.6% | 39.4% |
+| promotion_multi_source_plus_forward_neighborhood_2_threshold_5_5 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.5 | 2 | 80.0% | 48.0% | 90.3% | 60.6% | 39.4% |
+| promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.5 | 2 | 80.0% | 48.0% | 90.3% | 60.6% | 39.4% |
+| promotion_multi_source_plus_forward_neighborhood_2_threshold_6 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 6.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
+| promotion_multi_source_plus_forward_neighborhood_3_threshold_6 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 6.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | source_only_forward_reward_off | rulegen_top3_plus_forward_gloss | 0.0 | 5.0 | 2 | 73.9% | 34.0% | 87.4% | 45.5% | 54.5% |
 | admission_threshold_2 | rulegen_top3_plus_forward_gloss | 2.0 | 5.0 | 2 | 73.9% | 34.0% | 87.4% | 45.5% | 54.5% |
 | admission_threshold_4 | rulegen_top3_plus_forward_gloss | 4.0 | 5.0 | 2 | 85.7% | 24.0% | 85.1% | 27.3% | 72.7% |
@@ -647,6 +653,158 @@
 - Sample false-abstain rows:
   - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
   - `punto` / `period` promoted=['hora'] cases=['en-es:punto'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_multi_source_plus_forward_neighborhood_2
+- Label: `Borrowed baseline with multi-source 1.5 plus neighborhood overlap 2.0`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.0` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `75.0%` / `48.0%` / `58.5%`
+- Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.7%` / `60.6%` / `39.4%` / `3.5%`
+- Veto counts: `false_abstain=5`, `harmful_allow=13`
+- Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
+- Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `punto` / `period` promoted=['hora'] cases=['en-es:punto'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_multi_source_plus_forward_neighborhood_3
+- Label: `Borrowed baseline with multi-source 1.5 plus neighborhood overlap 3.0`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.0` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `73.5%` / `50.0%` / `59.5%`
+- Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `60.6%` / `39.4%` / `4.2%`
+- Veto counts: `false_abstain=6`, `harmful_allow=13`
+- Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
+- Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `camino` / `way` promoted=['ruta'] cases=['en-es:camino'] slices=['family:path_route']
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `punto` / `period` promoted=['hora'] cases=['en-es:punto'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+
+### promotion_multi_source_plus_forward_neighborhood_2_threshold_5_5
+- Label: `Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 5.5`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.5` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
+- Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=13`
+- Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
+- Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5
+- Label: `Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 5.5`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.5` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
+- Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=13`
+- Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
+- Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_multi_source_plus_forward_neighborhood_2_threshold_6
+- Label: `Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 6.0`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `6.0` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
+- Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_multi_source_plus_forward_neighborhood_3_threshold_6
+- Label: `Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 6.0`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `6.0` / `2`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
+- Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
   - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
   - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
   - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import Mapping, Sequence
 
+from lexishift_core.rulegen.semantic_shadow_neighborhood import (
+    build_forward_neighborhood_overlap_details,
+)
 from lexishift_core.rulegen.semantic_shadow_frequency import (
     build_frequency_similarity_details,
     candidate_has_frequency_representative_bonus,
@@ -18,6 +21,7 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "active_side_support": 1.0,
     "active_profile_support": 1.0,
     "multi_source_candidate_support": 0.0,
+    "forward_neighborhood_overlap": 0.0,
     "semantic_bridge_support": 1.0,
     "cross_pos_mismatch_penalty": -1.0,
 }
@@ -144,6 +148,7 @@ def build_shadow_candidate_support_details(
     active_candidates: Sequence[Mapping[str, object]],
     active_profile_pos: str = "",
     active_profile_support: bool = False,
+    active_profile_forward_neighborhood_terms: Sequence[str] = (),
     frequency_representative_targets: Sequence[str] = (),
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
     frequency_similarity_weight: float = DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
@@ -187,6 +192,17 @@ def build_shadow_candidate_support_details(
         candidate.get("semantic_bridge_markers")
         or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
     )
+    forward_neighborhood_overlap = build_forward_neighborhood_overlap_details(
+        candidate=candidate,
+        active_candidates=active_candidates,
+        active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
+    )
+    forward_neighborhood_overlap_present = bool(
+        forward_neighborhood_overlap.get("forward_neighborhood_overlap_present")
+    )
+    forward_neighborhood_overlap_score = float(
+        forward_neighborhood_overlap.get("forward_neighborhood_overlap_score") or 0.0
+    )
     frequency_representative = candidate_has_frequency_representative_bonus(
         candidate=candidate,
         representative_targets=frequency_representative_targets,
@@ -225,6 +241,11 @@ def build_shadow_candidate_support_details(
             if multi_source_candidate_support
             else 0.0
         ),
+        "forward_neighborhood_overlap": (
+            resolved_weights["forward_neighborhood_overlap"] * forward_neighborhood_overlap_score
+            if forward_neighborhood_overlap_present
+            else 0.0
+        ),
         "semantic_bridge_support": (
             resolved_weights["semantic_bridge_support"] if semantic_bridge_support else 0.0
         ),
@@ -250,6 +271,7 @@ def build_shadow_candidate_support_details(
             ("active_side_support", has_active_candidates),
             ("active_profile_support", has_active_profile_support),
             ("multi_source_candidate_support", multi_source_candidate_support),
+            ("forward_neighborhood_overlap", forward_neighborhood_overlap_present),
             ("semantic_bridge_support", semantic_bridge_support),
             ("frequency_representative_bonus", frequency_representative),
             ("frequency_similarity_bonus", frequency_similarity_present),
@@ -264,5 +286,6 @@ def build_shadow_candidate_support_details(
         "support_score_breakdown": support_breakdown,
         "support_score": sum(float(value) for value in support_breakdown.values()),
         "promotion_reasons": positive_features,
+        **forward_neighborhood_overlap,
         **frequency_similarity_details,
     }

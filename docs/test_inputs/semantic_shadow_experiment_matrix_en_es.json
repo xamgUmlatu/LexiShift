@@ -188,6 +188,64 @@
       }
     },
     {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 2.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 3.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 6.0,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 6.0,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
       "experiment_id": "source_only_forward_reward_off",
       "label": "Source-only with forward support ablated",
       "seed_mode": "rulegen_top3_plus_forward_gloss",

@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T23:41:24Z",
+  "generated_at": "2026-04-11T01:21:02Z",
   "status": "ok",
   "manifest_path": "docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json",
   "benchmark_dataset": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
   "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_es_latest.json",
   "forward_seed_max_words": 1,
   "include_neighbor_borrow_seed_modes": true,
-  "experiment_count": 36,
+  "experiment_count": 42,
   "rows": [
     {
       "experiment_id": "reviewed_auto_control",
@@ -11619,6 +11619,3053 @@
             ],
             "reviewed_expectation": [
               "expected_only"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 2.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      },
+      "support_score_min": 5.0,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.75,
+      "gold_candidate_recall": 0.48,
+      "gold_candidate_f1": 0.5853658536585366,
+      "gold_trigger_hit_rate": 0.5757575757575758,
+      "gold_top1_hit_rate": 0.5757575757575758,
+      "gold_overblocking_rate": 0.035211267605633804,
+      "veto_overall_accuracy": 0.8971428571428571,
+      "veto_abstain_recall": 0.6060606060606061,
+      "veto_harmful_allow_rate": 0.3939393939393939,
+      "veto_allow_precision": 0.9133333333333333,
+      "veto_overblocking_rate": 0.035211267605633804,
+      "veto_false_abstain_count": 5,
+      "veto_harmful_allow_count": 13,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 6,
+        "candidate_missing": 1,
+        "promotion_miss": 5
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ]
+          }
+        },
+        {
+          "target": "punto",
+          "trigger": "period",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "de época",
+            "hora",
+            "periodo",
+            "período",
+            "y punto"
+          ],
+          "promoted_targets": [
+            "hora"
+          ],
+          "case_ids": [
+            "en-es:punto"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 3.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      },
+      "support_score_min": 5.0,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.7352941176470589,
+      "gold_candidate_recall": 0.5,
+      "gold_candidate_f1": 0.5952380952380952,
+      "gold_trigger_hit_rate": 0.5757575757575758,
+      "gold_top1_hit_rate": 0.5757575757575758,
+      "gold_overblocking_rate": 0.04225352112676056,
+      "veto_overall_accuracy": 0.8914285714285715,
+      "veto_abstain_recall": 0.6060606060606061,
+      "veto_harmful_allow_rate": 0.3939393939393939,
+      "veto_allow_precision": 0.912751677852349,
+      "veto_overblocking_rate": 0.04225352112676056,
+      "veto_false_abstain_count": 6,
+      "veto_harmful_allow_count": 13,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 6,
+        "candidate_missing": 1,
+        "promotion_miss": 5
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "camino",
+          "trigger": "way",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "canal",
+            "derrota",
+            "derrotero",
+            "forma",
+            "manera",
+            "medio",
+            "medios",
+            "modo",
+            "ruta",
+            "sendero",
+            "usanza",
+            "vía"
+          ],
+          "promoted_targets": [
+            "ruta"
+          ],
+          "case_ids": [
+            "en-es:camino"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ]
+          }
+        },
+        {
+          "target": "punto",
+          "trigger": "period",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "de época",
+            "hora",
+            "periodo",
+            "período",
+            "y punto"
+          ],
+          "promoted_targets": [
+            "hora"
+          ],
+          "case_ids": [
+            "en-es:punto"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      },
+      "support_score_min": 5.5,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.8,
+      "gold_candidate_recall": 0.48,
+      "gold_candidate_f1": 0.6,
+      "gold_trigger_hit_rate": 0.5757575757575758,
+      "gold_top1_hit_rate": 0.5757575757575758,
+      "gold_overblocking_rate": 0.028169014084507043,
+      "veto_overall_accuracy": 0.9028571428571428,
+      "veto_abstain_recall": 0.6060606060606061,
+      "veto_harmful_allow_rate": 0.3939393939393939,
+      "veto_allow_precision": 0.9139072847682119,
+      "veto_overblocking_rate": 0.028169014084507043,
+      "veto_false_abstain_count": 4,
+      "veto_harmful_allow_count": 13,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 6,
+        "candidate_missing": 1,
+        "promotion_miss": 5
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      },
+      "support_score_min": 5.5,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.8,
+      "gold_candidate_recall": 0.48,
+      "gold_candidate_f1": 0.6,
+      "gold_trigger_hit_rate": 0.5757575757575758,
+      "gold_top1_hit_rate": 0.5757575757575758,
+      "gold_overblocking_rate": 0.028169014084507043,
+      "veto_overall_accuracy": 0.9028571428571428,
+      "veto_abstain_recall": 0.6060606060606061,
+      "veto_harmful_allow_rate": 0.3939393939393939,
+      "veto_allow_precision": 0.9139072847682119,
+      "veto_overblocking_rate": 0.028169014084507043,
+      "veto_false_abstain_count": 4,
+      "veto_harmful_allow_count": 13,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 6,
+        "candidate_missing": 1,
+        "promotion_miss": 5
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      },
+      "support_score_min": 6.0,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.7857142857142857,
+      "gold_candidate_recall": 0.44,
+      "gold_candidate_f1": 0.5641025641025641,
+      "gold_trigger_hit_rate": 0.5151515151515151,
+      "gold_top1_hit_rate": 0.5151515151515151,
+      "gold_overblocking_rate": 0.028169014084507043,
+      "veto_overall_accuracy": 0.8914285714285715,
+      "veto_abstain_recall": 0.5454545454545454,
+      "veto_harmful_allow_rate": 0.45454545454545453,
+      "veto_allow_precision": 0.9019607843137255,
+      "veto_overblocking_rate": 0.028169014084507043,
+      "veto_false_abstain_count": 4,
+      "veto_harmful_allow_count": 15,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 5,
+        "candidate_missing": 1,
+        "promotion_miss": 6
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ]
+          }
+        },
+        {
+          "target": "reja",
+          "trigger": "grating",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "enjaretado",
+            "rejilla"
+          ],
+          "promoted_targets": [
+            "rejilla"
+          ],
+          "case_ids": [
+            "en-es:reja"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          }
+        },
+        {
+          "target": "ruta",
+          "trigger": "route",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "camino",
+            "encaminar",
+            "enrutar",
+            "itinerario",
+            "sendero"
+          ],
+          "promoted_targets": [
+            "camino"
+          ],
+          "case_ids": [
+            "en-es:ruta"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:path_route"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "path_route"
+            ]
+          }
+        },
+        {
+          "target": "tierra",
+          "trigger": "earth",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "aterrar",
+            "conectar a tierra",
+            "madriguera",
+            "mundo",
+            "poner a tierra",
+            "suelo",
+            "terreno"
+          ],
+          "promoted_targets": [
+            "terreno"
+          ],
+          "case_ids": [
+            "en-es:tierra"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          }
+        }
+      ],
+      "trigger_filter_examples_dropped": []
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "policy": "support_score_v1",
+      "forward_seed_max_words": 1,
+      "trigger_support_score_min": 0.0,
+      "trigger_support_weights": {},
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      },
+      "support_score_min": 6.0,
+      "support_score_max_promoted": 2,
+      "support_frequency_representative_bonus": 0.0,
+      "support_frequency_representative_top_k": 0,
+      "support_frequency_similarity_weight": 0.0,
+      "support_frequency_similarity_tau": 0.15,
+      "support_representative_pruning_mode": "off",
+      "seed_target_count": 72,
+      "seed_trigger_count_before_filter": 420,
+      "seed_trigger_count_after_filter": 420,
+      "seed_trigger_keep_rate": 1.0,
+      "gold_trigger_inventory_coverage_rate": 0.8181818181818182,
+      "candidate_pool_trigger_recall": 0.7878787878787878,
+      "candidate_pool_exact_match_rate": 0.030303030303030304,
+      "gold_candidate_precision": 0.7857142857142857,
+      "gold_candidate_recall": 0.44,
+      "gold_candidate_f1": 0.5641025641025641,
+      "gold_trigger_hit_rate": 0.5151515151515151,
+      "gold_top1_hit_rate": 0.5151515151515151,
+      "gold_overblocking_rate": 0.028169014084507043,
+      "veto_overall_accuracy": 0.8914285714285715,
+      "veto_abstain_recall": 0.5454545454545454,
+      "veto_harmful_allow_rate": 0.45454545454545453,
+      "veto_allow_precision": 0.9019607843137255,
+      "veto_overblocking_rate": 0.028169014084507043,
+      "veto_false_abstain_count": 4,
+      "veto_harmful_allow_count": 15,
+      "harmful_allow_miss_counts": {
+        "seed_missing": 5,
+        "candidate_missing": 1,
+        "promotion_miss": 6
+      },
+      "sample_harmful_allow_rows": [
+        {
+          "target": "campo",
+          "trigger": "field",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "terreno"
+          ],
+          "mined_shadow_targets": [
+            "agro",
+            "cancha",
+            "chacra",
+            "chagra",
+            "chácara",
+            "cuerpo",
+            "desplegar",
+            "implementar",
+            "rubro",
+            "sortear",
+            "terreno",
+            "ámbito",
+            "área"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:campo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:field_area_country"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "field_area_country"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "empleo",
+          "trigger": "employment",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "ocupación"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:empleo"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "candidate_missing"
+        },
+        {
+          "target": "malla",
+          "trigger": "mesh",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "reja",
+            "rejilla"
+          ],
+          "mined_shadow_targets": [
+            "encastrar",
+            "endentar",
+            "engranaje",
+            "engranar",
+            "red",
+            "rejilla"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:malla"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "3"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        },
+        {
+          "target": "ocupación",
+          "trigger": "employment",
+          "active_candidate_count": 0,
+          "gold_shadow_targets": [
+            "empleo"
+          ],
+          "mined_shadow_targets": [],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:ocupación"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_tags": [
+            "family:job"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "expected_only"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "job"
+            ]
+          },
+          "miss_classification": "seed_missing"
+        },
+        {
+          "target": "red",
+          "trigger": "net",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [
+            "malla"
+          ],
+          "mined_shadow_targets": [
+            "almadraba",
+            "jábeca",
+            "jábega",
+            "luz",
+            "líquido",
+            "malla",
+            "net",
+            "neto"
+          ],
+          "promoted_targets": [],
+          "case_ids": [
+            "en-es:red"
+          ],
+          "tiers": [
+            "smoke"
+          ],
+          "slice_tags": [
+            "family:net_mesh_network"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "smoke"
+            ],
+            "overlap_topology": [
+              "shared_trigger"
+            ],
+            "overlap_target_count": [
+              "2"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
+            ],
+            "pos": [
+              "noun"
+            ],
+            "semantic_family": [
+              "net_mesh_network"
+            ]
+          },
+          "miss_classification": "promotion_miss"
+        }
+      ],
+      "sample_false_abstain_rows": [
+        {
+          "target": "marco",
+          "trigger": "frame",
+          "active_candidate_count": 1,
+          "gold_shadow_targets": [],
+          "mined_shadow_targets": [
+            "achacar",
+            "armar",
+            "armazón",
+            "bastidor",
+            "concebir",
+            "contextualizar",
+            "cuadro",
+            "encuadrar",
+            "enmarcar",
+            "esqueleto",
+            "estructura",
+            "fotograma",
+            "hacer la cama",
+            "incriminar falsamente",
+            "inculpar falsamente",
+            "levantar la estructura",
+            "lote",
+            "osamenta",
+            "punto",
+            "tabla",
+            "trasto"
+          ],
+          "promoted_targets": [
+            "cuadro"
+          ],
+          "case_ids": [
+            "en-es:marco"
+          ],
+          "tiers": [
+            "hard"
+          ],
+          "slice_dimensions": {
+            "tier": [
+              "hard"
+            ],
+            "overlap_topology": [
+              "singleton_trigger"
+            ],
+            "overlap_target_count": [
+              "1"
+            ],
+            "trigger_shape": [
+              "unigram"
+            ],
+            "reviewed_expectation": [
+              "top1_expected"
             ]
           }
         },
