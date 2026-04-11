@@ -25,6 +25,13 @@ def _parse_float_grid(value: str) -> list[float]:
     return [float(item.strip()) for item in normalized.split(",") if item.strip()]
 
 
+def _parse_int_grid(value: str) -> list[int]:
+    normalized = str(value or "").strip()
+    if not normalized:
+        return []
+    return [int(item.strip()) for item in normalized.split(",") if item.strip()]
+
+
 def _parse_string_grid(value: str, *, default_values: Sequence[str]) -> list[str]:
     normalized = str(value or "").strip()
     if not normalized:
@@ -82,6 +89,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated margin thresholds.",
     )
     parser.add_argument(
+        "--harmful-replace-budgets",
+        type=str,
+        default="0,1,2",
+        help="Comma-separated harmful-replace count budgets for frontier reporting.",
+    )
+    parser.add_argument(
         "--window-tokens",
         type=int,
         default=4,
@@ -124,6 +137,7 @@ def main() -> int:
         ),
         min_active_scores=_parse_float_grid(args.min_active_grid),
         min_margins=_parse_float_grid(args.min_margin_grid),
+        harmful_replace_budgets=_parse_int_grid(args.harmful_replace_budgets),
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or "___",
     )
