@@ -4,7 +4,7 @@ Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
 Last updated: 2026-04-11
-Last verified: 2026-04-11 targeted semantic-shadow scoring tests plus Campaign C matrix run, promotion-gap diagnostics, experiment-row compare, and canonical en-es rulegen audit
+Last verified: 2026-04-11 targeted semantic-shadow scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, and canonical en-es rulegen audit
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
 
 ## Why this exists
@@ -686,6 +686,20 @@ python3 scripts/testing/semantic_shadow_experiment_matrix_en_es.py \
   --markdown-out docs/test_outputs/semantic_shadow_experiment_matrix_en_es_latest.md
 ```
 
+Optional source-audit replay:
+
+```bash
+python3 scripts/testing/semantic_shadow_experiment_matrix_en_es.py \
+  --manifest docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json \
+  --translation-dict /absolute/path/to/forward.sqlite \
+  --reverse-translation-dict /absolute/path/to/reverse.sqlite \
+  --json-out docs/test_outputs/semantic_shadow_experiment_matrix_en_es_candidate_pack.json \
+  --markdown-out docs/test_outputs/semantic_shadow_experiment_matrix_en_es_candidate_pack.md
+```
+
+Use explicit pack overrides when you are testing rebuilt or temporary source artifacts.
+Do not overwrite installed dictionaries just to answer a source-quality question.
+
 4. Read both direct and veto metrics.
 
 Do not accept a row based only on one surface.
@@ -710,6 +724,9 @@ python3 scripts/testing/semantic_shadow_experiment_compare_en_es.py \
   --json-out docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.json \
   --markdown-out docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.md
 ```
+
+The compare runner now accepts the same optional `--translation-dict` and
+`--reverse-translation-dict` overrides when the candidate evidence depends on a rebuilt pack.
 
 Use that report to answer:
 

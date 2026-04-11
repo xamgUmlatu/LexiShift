@@ -15,6 +15,7 @@ for candidate in (str(SCRIPT_ROOT), str(CORE_ROOT)):
     if candidate not in sys.path:
         sys.path.insert(0, candidate)
 
+from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from lexishift_core.rulegen.semantic_shadow_evaluation import (  # noqa: E402
     evaluate_shadow_inventory_against_benchmark_overlap_gold,
     evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold,
@@ -73,6 +74,24 @@ def _parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_BENCHMARK_JSON,
         help="Rulegen benchmark report JSON containing best_run case_results.",
+    )
+    parser.add_argument(
+        "--data-root",
+        type=Path,
+        default=Path(resolve_data_root()),
+        help="LexiShift data root (default: helper resolve_data_root()).",
+    )
+    parser.add_argument(
+        "--translation-dict",
+        type=Path,
+        default=None,
+        help="Optional forward translation-pack override for en-es experiments.",
+    )
+    parser.add_argument(
+        "--reverse-translation-dict",
+        type=Path,
+        default=None,
+        help="Optional reverse translation-pack override for en-es experiments.",
     )
     parser.add_argument(
         "--json-out",
@@ -220,6 +239,9 @@ def build_experiment_matrix_report(
     manifest_path: Path,
     benchmark_dataset: Path,
     benchmark_json: Path,
+    data_root: Path,
+    translation_dict: Path | None = None,
+    reverse_translation_dict: Path | None = None,
 ) -> dict[str, object]:
     manifest = _load_manifest(manifest_path)
     experiment_rows = _materialize_experiment_rows(manifest)
@@ -227,6 +249,9 @@ def build_experiment_matrix_report(
     resources = load_en_es_shadow_experiment_resources(
         benchmark_dataset=benchmark_dataset,
         benchmark_json=benchmark_json,
+        data_root=data_root,
+        translation_dict=translation_dict,
+        reverse_translation_dict=reverse_translation_dict,
     )
     forward_seed_max_words = _parse_int(
         manifest.get("forward_seed_max_words"),
@@ -488,6 +513,15 @@ def build_experiment_matrix_report(
         "manifest_path": str(manifest_path),
         "benchmark_dataset": str(benchmark_dataset),
         "benchmark_json": str(benchmark_json),
+        "data_root": str(data_root),
+        "translation_dict_path": str(translation_dict) if translation_dict is not None else None,
+        "reverse_translation_dict_path": (
+            str(reverse_translation_dict) if reverse_translation_dict is not None else None
+        ),
+        "forward_pack_path": str(resources.forward_pack.path),
+        "reverse_pack_path": str(resources.reverse_pack.path),
+        "forward_pack_provider": resources.forward_provider,
+        "reverse_pack_provider": resources.reverse_provider,
         "forward_seed_max_words": int(forward_seed_max_words),
         "include_neighbor_borrow_seed_modes": include_neighbor_borrow_seed_modes,
         "source_signal_availability": signal_availability,
@@ -503,6 +537,9 @@ def _render_markdown(report: Mapping[str, object]) -> str:
         f"- Status: `{report.get('status', 'unknown')}`",
         f"- Generated: `{report.get('generated_at', '')}`",
         f"- Manifest: `{report.get('manifest_path', '')}`",
+        f"- Data root: `{report.get('data_root', '')}`",
+        f"- Forward pack: `{report.get('forward_pack_path', '')}` ({report.get('forward_pack_provider', '')})",
+        f"- Reverse pack: `{report.get('reverse_pack_path', '')}` ({report.get('reverse_pack_provider', '')})",
         f"- Forward seed max words: `{report.get('forward_seed_max_words', '')}`",
         f"- Neighbor-borrow modes loaded: `{bool(report.get('include_neighbor_borrow_seed_modes'))}`",
         "- Matrix meaning: each row is a full experiment configuration spanning seed admission, promotion scoring, and veto evaluation.",
@@ -632,6 +669,9 @@ def main() -> int:
         manifest_path=args.manifest,
         benchmark_dataset=args.benchmark_dataset,
         benchmark_json=args.benchmark_json,
+        data_root=args.data_root,
+        translation_dict=args.translation_dict,
+        reverse_translation_dict=args.reverse_translation_dict,
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

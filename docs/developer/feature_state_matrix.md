@@ -773,8 +773,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, documented a source-intake plan plus approval queue for broader offline evidence expansion, and added explicit semantic-bridge aux-text/example experiment toggles to the matrix harness
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` and resource-loader tests plus refreshed the latest `en-es` matrix artifact for the new aux-text/example bridge rows
+- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, documented a source-intake plan plus approval queue for broader offline evidence expansion, added explicit semantic-bridge aux-text/example experiment toggles to the matrix harness, and added explicit forward/reverse pack overrides to the main matrix/compare runners for non-invasive source replays
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` and resource-loader tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -867,10 +867,16 @@ Use this file when:
     - the matrix harness now exposes explicit source toggles for the newly approved source families:
       - `semantic_bridge_include_aux_text`
       - `semantic_bridge_include_examples`
-    - current local `en-es` read on those rows is flat versus the lexical control:
+    - the matrix and compare runners now also accept explicit translation-pack overrides:
+      - `--translation-dict`
+      - `--reverse-translation-dict`
+      - intended use: replay rebuilt or temporary source artifacts without overwriting installed packs
+    - current local `en-es` read on those rows stays flat versus the lexical control even after refreshing the forward source artifact:
       - `promotion_semantic_bridge_aux_text_on` matches `source_only_borrowed`
-      - `promotion_semantic_bridge_aux_text_examples_on` also matches `source_only_borrowed`
-      - interpretation: the harness can now isolate those source families, but the currently installed packs are not yet yielding measurable extra bridge evidence on the benchmarked families
+      - `promotion_semantic_bridge_aux_text_examples_on` also leaves veto metrics flat, while lowering gold precision from `78.6%` to `75.9%`
+      - the installed `wiktionary-es-en.sqlite` forward pack is older than the new example-preserving schema and exposes `0 / 453` benchmark-target forward records with examples
+      - rebuilding the same forward pack from the local `raw-wiktextract-data.jsonl.gz` raises that benchmark-target availability to `132 / 453` records across `45` targets
+      - interpretation: forward example absence was a stale-pack issue, not a source-limitation issue, but the current examples bridge still adds mostly extra candidate mass rather than the missing blockers we need
   - The next broadening step is now explicit rather than ad hoc:
     - `docs/rulegen/semantic_shadow_source_intake_plan.md` defines the operating model for source-heavy experimentation
     - `docs/test_inputs/semantic_shadow_source_registry.json` tracks current and proposed source families together with approval state, role, and runtime-publishability
