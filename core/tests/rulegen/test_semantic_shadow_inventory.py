@@ -887,7 +887,9 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertTrue(empleo_shadow["benchmark_target_present"])
         self.assertTrue(empleo_shadow["reviewed_trigger_support"])
         self.assertTrue(empleo_shadow["forward_trigger_support"])
+        self.assertIn("employment", empleo_shadow["target_trigger_family_terms"])
         self.assertIn("employment", empleo_shadow["forward_neighborhood_terms"])
+        self.assertIn("work", trigger_row["active_candidates"][0]["target_trigger_family_terms"])
         self.assertIn("work", trigger_row["active_candidates"][0]["forward_neighborhood_terms"])
 
     def test_support_score_uses_active_profile_fallback_when_active_candidates_are_missing(
@@ -1534,6 +1536,35 @@ class TestSemanticShadowInventory(unittest.TestCase):
         )
         self.assertAlmostEqual(support["support_score"], 4.0)
 
+    def test_build_shadow_candidate_support_details_adds_trigger_family_reentry(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "terreno",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "target_trigger_family_terms": ["field", "land", "ground"],
+                "forward_neighborhood_terms": ["land", "ground", "terrain"],
+            },
+            active_candidates=[
+                {
+                    "canonical_pos": "noun",
+                    "target_trigger_family_terms": ["field", "land", "ground"],
+                    "forward_neighborhood_terms": ["field", "country", "land"],
+                }
+            ],
+            active_trigger="field",
+            score_weights={"trigger_family_reentry": 2.0},
+        )
+
+        self.assertIn("trigger_family_reentry", support["support_features"])
+        self.assertEqual(support["support_penalties"], [])
+        self.assertAlmostEqual(support["trigger_family_reentry_score"], 0.5)
+        self.assertEqual(support["trigger_family_reentry_terms"], ["ground", "land"])
+        self.assertEqual(support["trigger_family_reentry_shared_alias_count"], 2)
+        self.assertAlmostEqual(support["support_score"], 4.0)
+
     def test_build_shadow_candidate_support_details_adds_frequency_similarity_bonus(self) -> None:
         support = build_shadow_candidate_support_details(
             candidate={
@@ -1710,6 +1741,53 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual([candidate["target"] for candidate in promoted], ["tierra"])
         self.assertAlmostEqual(promoted[0]["forward_neighborhood_overlap_score"], 0.75)
         self.assertAlmostEqual(promoted[0]["support_score"], 6.5)
+
+    def test_promote_shadow_candidates_with_support_score_can_use_trigger_family_reentry(
+        self,
+    ) -> None:
+        promoted = promote_shadow_candidates_with_support_score(
+            shadow_candidates=[
+                {
+                    "target": "terreno",
+                    "canonical_pos": "noun",
+                    "reviewed_trigger_support": True,
+                    "forward_trigger_support": True,
+                    "benchmark_target_present": True,
+                    "candidate_sources": ["reverse_lookup", "forward_index"],
+                    "target_trigger_family_terms": ["field", "land", "ground"],
+                    "forward_neighborhood_terms": ["land", "ground", "terrain"],
+                },
+                {
+                    "target": "area",
+                    "canonical_pos": "noun",
+                    "reviewed_trigger_support": True,
+                    "forward_trigger_support": True,
+                    "benchmark_target_present": True,
+                    "candidate_sources": ["reverse_lookup", "forward_index"],
+                    "target_trigger_family_terms": ["field", "area"],
+                    "forward_neighborhood_terms": ["field", "area", "region"],
+                },
+            ],
+            active_candidates=[
+                {
+                    "canonical_pos": "verb",
+                    "target_trigger_family_terms": ["field", "land", "ground"],
+                    "forward_neighborhood_terms": ["field", "country", "land"],
+                }
+            ],
+            active_trigger="field",
+            min_score=5.5,
+            max_promoted_shadows=2,
+            support_score_weights={
+                "multi_source_candidate_support": 1.5,
+                "trigger_family_reentry": 2.0,
+            },
+        )
+
+        self.assertEqual([candidate["target"] for candidate in promoted], ["terreno"])
+        self.assertAlmostEqual(promoted[0]["trigger_family_reentry_score"], 0.5)
+        self.assertEqual(promoted[0]["trigger_family_reentry_shared_alias_count"], 2)
+        self.assertAlmostEqual(promoted[0]["support_score"], 6.0)
 
     def test_promote_shadow_candidates_with_support_score_can_prefer_frequency_representative(
         self,

@@ -4,6 +4,7 @@ from typing import Mapping, Sequence
 
 from lexishift_core.rulegen.semantic_shadow_neighborhood import (
     build_forward_neighborhood_overlap_details,
+    build_trigger_family_reentry_details,
 )
 from lexishift_core.rulegen.semantic_shadow_frequency import (
     build_frequency_similarity_details,
@@ -21,6 +22,7 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "active_side_support": 1.0,
     "active_profile_support": 1.0,
     "multi_source_candidate_support": 0.0,
+    "trigger_family_reentry": 0.0,
     "forward_neighborhood_overlap": 0.0,
     "semantic_bridge_support": 1.0,
     "cross_pos_mismatch_penalty": -1.0,
@@ -88,6 +90,14 @@ def merge_shadow_candidate_evidence(
     if existing_markers:
         existing_candidate["semantic_bridge_markers"] = existing_markers
 
+    for field in ("forward_neighborhood_terms", "target_trigger_family_terms"):
+        existing_values = normalize_shadow_string_list(existing_candidate.get(field))
+        for value in normalize_shadow_string_list(incoming_candidate.get(field)):
+            if value not in existing_values:
+                existing_values.append(value)
+        if existing_values:
+            existing_candidate[field] = existing_values
+
     existing_bridge_score = float(existing_candidate.get("semantic_bridge_score") or 0.0)
     incoming_bridge_score = float(incoming_candidate.get("semantic_bridge_score") or 0.0)
     if incoming_bridge_score > existing_bridge_score:
@@ -146,8 +156,10 @@ def build_shadow_candidate_support_details(
     *,
     candidate: Mapping[str, object],
     active_candidates: Sequence[Mapping[str, object]],
+    active_trigger: str = "",
     active_profile_pos: str = "",
     active_profile_support: bool = False,
+    active_profile_trigger_family_terms: Sequence[str] = (),
     active_profile_forward_neighborhood_terms: Sequence[str] = (),
     frequency_representative_targets: Sequence[str] = (),
     frequency_representative_bonus: float = DEFAULT_FREQUENCY_REPRESENTATIVE_BONUS,
@@ -197,6 +209,19 @@ def build_shadow_candidate_support_details(
         active_candidates=active_candidates,
         active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
     )
+    trigger_family_reentry = build_trigger_family_reentry_details(
+        candidate=candidate,
+        active_candidates=active_candidates,
+        active_trigger=active_trigger,
+        active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
+        active_profile_trigger_family_terms=active_profile_trigger_family_terms,
+    )
+    trigger_family_reentry_present = bool(
+        trigger_family_reentry.get("trigger_family_reentry_present")
+    )
+    trigger_family_reentry_score = float(
+        trigger_family_reentry.get("trigger_family_reentry_score") or 0.0
+    )
     forward_neighborhood_overlap_present = bool(
         forward_neighborhood_overlap.get("forward_neighborhood_overlap_present")
     )
@@ -241,6 +266,11 @@ def build_shadow_candidate_support_details(
             if multi_source_candidate_support
             else 0.0
         ),
+        "trigger_family_reentry": (
+            resolved_weights["trigger_family_reentry"] * trigger_family_reentry_score
+            if trigger_family_reentry_present
+            else 0.0
+        ),
         "forward_neighborhood_overlap": (
             resolved_weights["forward_neighborhood_overlap"] * forward_neighborhood_overlap_score
             if forward_neighborhood_overlap_present
@@ -271,6 +301,7 @@ def build_shadow_candidate_support_details(
             ("active_side_support", has_active_candidates),
             ("active_profile_support", has_active_profile_support),
             ("multi_source_candidate_support", multi_source_candidate_support),
+            ("trigger_family_reentry", trigger_family_reentry_present),
             ("forward_neighborhood_overlap", forward_neighborhood_overlap_present),
             ("semantic_bridge_support", semantic_bridge_support),
             ("frequency_representative_bonus", frequency_representative),
@@ -286,6 +317,7 @@ def build_shadow_candidate_support_details(
         "support_score_breakdown": support_breakdown,
         "support_score": sum(float(value) for value in support_breakdown.values()),
         "promotion_reasons": positive_features,
+        **trigger_family_reentry,
         **forward_neighborhood_overlap,
         **frequency_similarity_details,
     }

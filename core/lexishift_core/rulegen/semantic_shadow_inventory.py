@@ -28,7 +28,9 @@ from lexishift_core.rulegen.semantic_shadow_inventory_helpers import (
 )
 from lexishift_core.rulegen.semantic_shadow_neighborhood import (
     attach_target_forward_neighborhood_terms,
+    attach_target_trigger_family_terms,
     build_target_forward_neighborhood_terms,
+    build_target_trigger_family_terms,
 )
 from lexishift_core.rulegen.semantic_shadow_record_clusters import (
     build_shadow_canonical_pos,
@@ -376,6 +378,7 @@ def build_en_es_shadow_inventory(
     support_score_weights: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
+    target_trigger_family_terms = build_target_trigger_family_terms(benchmark_targets)
     target_forward_neighborhood_terms = build_target_forward_neighborhood_terms(
         forward_records_by_target=forward_records_by_target,
         collect_records=collect_en_es_sanitized_gloss_records,
@@ -407,6 +410,10 @@ def build_en_es_shadow_inventory(
             canonical_pos_builder=build_shadow_canonical_pos,
         )
         if active_profile_fallback is not None:
+            attach_target_trigger_family_terms(
+                active_profile_fallback,
+                trigger_families_by_target=target_trigger_family_terms,
+            )
             attach_target_forward_neighborhood_terms(
                 active_profile_fallback,
                 neighborhoods_by_target=target_forward_neighborhood_terms,
@@ -441,6 +448,10 @@ def build_en_es_shadow_inventory(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
                 )
+                attach_target_trigger_family_terms(
+                    candidate,
+                    trigger_families_by_target=target_trigger_family_terms,
+                )
                 attach_target_forward_neighborhood_terms(
                     candidate,
                     neighborhoods_by_target=target_forward_neighborhood_terms,
@@ -450,6 +461,10 @@ def build_en_es_shadow_inventory(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
                 )
+                attach_target_trigger_family_terms(
+                    candidate,
+                    trigger_families_by_target=target_trigger_family_terms,
+                )
                 attach_target_forward_neighborhood_terms(
                     candidate,
                     neighborhoods_by_target=target_forward_neighborhood_terms,
@@ -458,6 +473,10 @@ def build_en_es_shadow_inventory(
                 enrich_candidate_frequency_details(
                     candidate=candidate,
                     frequency_lookup=frequency_lookup,
+                )
+                attach_target_trigger_family_terms(
+                    candidate,
+                    trigger_families_by_target=target_trigger_family_terms,
                 )
                 attach_target_forward_neighborhood_terms(
                     candidate,
@@ -483,6 +502,10 @@ def build_en_es_shadow_inventory(
                 enrich_candidate_frequency_details(
                     candidate=forward_candidate_copy,
                     frequency_lookup=frequency_lookup,
+                )
+                attach_target_trigger_family_terms(
+                    forward_candidate_copy,
+                    trigger_families_by_target=target_trigger_family_terms,
                 )
                 attach_target_forward_neighborhood_terms(
                     forward_candidate_copy,
@@ -512,6 +535,10 @@ def build_en_es_shadow_inventory(
                     candidate=bridge_candidate_copy,
                     frequency_lookup=frequency_lookup,
                 )
+                attach_target_trigger_family_terms(
+                    bridge_candidate_copy,
+                    trigger_families_by_target=target_trigger_family_terms,
+                )
                 attach_target_forward_neighborhood_terms(
                     bridge_candidate_copy,
                     neighborhoods_by_target=target_forward_neighborhood_terms,
@@ -527,6 +554,7 @@ def build_en_es_shadow_inventory(
                 shadow_candidates=shadow_candidates,
                 active_candidates=active_candidates,
                 active_profile_fallback=active_profile_fallback,
+                active_trigger=trigger,
                 policy=promotion_policy,
                 support_score_weights=support_score_weights,
             )
@@ -622,6 +650,7 @@ def promote_shadow_candidates_for_policy(
     shadow_candidates: Sequence[Mapping[str, object]],
     active_candidates: Sequence[Mapping[str, object]],
     active_profile_fallback: Mapping[str, object] | None = None,
+    active_trigger: str = "",
     policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
     support_score_weights: Mapping[str, object] | None = None,
 ) -> list[dict[str, object]]:
@@ -636,6 +665,7 @@ def promote_shadow_candidates_for_policy(
             shadow_candidates=shadow_candidates,
             active_candidates=active_candidates,
             active_profile_fallback=active_profile_fallback,
+            active_trigger=active_trigger,
             min_score=DEFAULT_SUPPORT_SCORE_MIN,
             max_promoted_shadows=DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
             policy=normalized_policy,
@@ -649,6 +679,9 @@ def promote_shadow_candidates_for_policy(
     has_active_candidates = bool(active_candidates)
     has_active_pos = bool(active_pos_values)
     active_profile_pos = str((active_profile_fallback or {}).get("canonical_pos") or "").strip()
+    active_profile_trigger_family_terms = normalize_shadow_string_list(
+        (active_profile_fallback or {}).get("target_trigger_family_terms")
+    )
     active_profile_forward_neighborhood_terms = normalize_shadow_string_list(
         (active_profile_fallback or {}).get("forward_neighborhood_terms")
     )
@@ -690,8 +723,10 @@ def promote_shadow_candidates_for_policy(
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            active_trigger=active_trigger,
             active_profile_pos=active_profile_pos,
             active_profile_support=bool(active_profile_pos),
+            active_profile_trigger_family_terms=active_profile_trigger_family_terms,
             active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
             score_weights=support_score_weights,
         )
@@ -707,6 +742,7 @@ def promote_shadow_candidates_with_support_score(
     shadow_candidates: Sequence[Mapping[str, object]],
     active_candidates: Sequence[Mapping[str, object]],
     active_profile_fallback: Mapping[str, object] | None = None,
+    active_trigger: str = "",
     min_score: float = DEFAULT_SUPPORT_SCORE_MIN,
     max_promoted_shadows: int = DEFAULT_SUPPORT_SCORE_MAX_PROMOTED,
     policy: str = SUPPORT_SCORE_POLICY,
@@ -733,6 +769,9 @@ def promote_shadow_candidates_with_support_score(
         top_k=int(frequency_representative_top_k),
     )
     active_profile_pos = str((active_profile_fallback or {}).get("canonical_pos") or "").strip()
+    active_profile_trigger_family_terms = normalize_shadow_string_list(
+        (active_profile_fallback or {}).get("target_trigger_family_terms")
+    )
     active_profile_forward_neighborhood_terms = normalize_shadow_string_list(
         (active_profile_fallback or {}).get("forward_neighborhood_terms")
     )
@@ -742,8 +781,10 @@ def promote_shadow_candidates_with_support_score(
         support_details = build_shadow_candidate_support_details(
             candidate=candidate_copy,
             active_candidates=active_candidates,
+            active_trigger=active_trigger,
             active_profile_pos=active_profile_pos,
             active_profile_support=bool(active_profile_pos),
+            active_profile_trigger_family_terms=active_profile_trigger_family_terms,
             active_profile_forward_neighborhood_terms=active_profile_forward_neighborhood_terms,
             frequency_representative_targets=frequency_representative_targets,
             frequency_representative_bonus=float(frequency_representative_bonus),
