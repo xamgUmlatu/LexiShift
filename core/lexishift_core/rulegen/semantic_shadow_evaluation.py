@@ -14,6 +14,10 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (
     promote_shadow_candidates_with_support_score,
     SUPPORT_SCORE_POLICY,
 )
+from lexishift_core.rulegen.semantic_shadow_feature_vector import (
+    build_semantic_shadow_case_feature_vector,
+    build_semantic_shadow_feature_dimensions,
+)
 from lexishift_core.rulegen.semantic_shadow_support import (
     DEFAULT_FREQUENCY_SIMILARITY_TAU,
     DEFAULT_FREQUENCY_SIMILARITY_WEIGHT,
@@ -271,6 +275,9 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     target=target,
                     trigger=trigger,
                     inventory_entry_present=bool(trigger_entry),
+                    active_candidates=active_candidates,
+                    active_profile_fallback=active_profile_fallback,
+                    shadow_candidates=shadow_candidates,
                     active_candidate_count=len(active_candidates),
                     gold_shadow_targets=gold_shadow_targets,
                     mined_shadow_targets=mined_shadow_targets,
@@ -499,6 +506,9 @@ def _accumulate_veto_policy_row(
     target: str,
     trigger: str,
     inventory_entry_present: bool,
+    active_candidates: Sequence[object],
+    active_profile_fallback: Mapping[str, object] | None,
+    shadow_candidates: Sequence[object],
     active_candidate_count: int,
     gold_shadow_targets: set[str],
     mined_shadow_targets: set[str],
@@ -512,6 +522,13 @@ def _accumulate_veto_policy_row(
     promoted_target_set = {value for value in promoted_targets if value}
     should_abstain = bool(gold_shadow_targets)
     did_abstain = bool(promoted_target_set)
+    feature_vector = build_semantic_shadow_case_feature_vector(
+        inventory_entry_present=inventory_entry_present,
+        active_candidates=active_candidates,
+        active_profile_fallback=active_profile_fallback,
+        shadow_candidates=shadow_candidates,
+        promoted_targets=promoted_targets,
+    )
 
     row_payload = {
         "target": target,
@@ -520,8 +537,12 @@ def _accumulate_veto_policy_row(
         "gold_shadow_targets": sorted(gold_shadow_targets),
         "mined_shadow_targets": sorted(mined_shadow_targets),
         "promoted_targets": list(promoted_targets),
+        "feature_vector": feature_vector,
     }
     normalized_metadata = _normalize_veto_row_metadata(row_metadata)
+    feature_dimensions = build_semantic_shadow_feature_dimensions(feature_vector)
+    if feature_dimensions:
+        row_payload["feature_dimensions"] = feature_dimensions
     if normalized_metadata:
         row_payload.update(normalized_metadata)
     outcome = _classify_veto_row_outcome(should_abstain=should_abstain, did_abstain=did_abstain)
@@ -554,7 +575,10 @@ def _accumulate_veto_policy_row(
 
     _accumulate_veto_slice_summaries(
         report=report,
-        row_metadata=normalized_metadata,
+        row_metadata=_build_veto_slice_metadata(
+            normalized_metadata=normalized_metadata,
+            feature_dimensions=feature_dimensions,
+        ),
         active_candidate_count=active_candidate_count,
         should_abstain=should_abstain,
         did_abstain=did_abstain,
@@ -668,7 +692,28 @@ def _iter_veto_slice_keys(row_metadata: Mapping[str, object]) -> list[str]:
                 slice_key = f"dimension:{dimension_name}:{value}"
                 if slice_key not in slice_keys:
                     slice_keys.append(slice_key)
+    raw_feature_dimensions = row_metadata.get("feature_dimensions")
+    if isinstance(raw_feature_dimensions, Mapping):
+        for name, raw_values in raw_feature_dimensions.items():
+            dimension_name = str(name or "").strip()
+            if not dimension_name:
+                continue
+            for value in _normalize_string_list(raw_values):
+                slice_key = f"feature:{dimension_name}:{value}"
+                if slice_key not in slice_keys:
+                    slice_keys.append(slice_key)
     return slice_keys
+
+
+def _build_veto_slice_metadata(
+    *,
+    normalized_metadata: Mapping[str, object],
+    feature_dimensions: Mapping[str, object],
+) -> dict[str, object]:
+    combined = dict(normalized_metadata)
+    if feature_dimensions:
+        combined["feature_dimensions"] = dict(feature_dimensions)
+    return combined
 
 
 def _accumulate_veto_slice_summaries(

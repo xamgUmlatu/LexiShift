@@ -284,11 +284,11 @@ These are the next feature families worth adding because they are both useful an
 
 #### Candidate-pool structure
 
-- [ ] active candidate count as a first-class emitted feature
-- [ ] candidate-pool size
-- [ ] promoted-candidate count
-- [ ] candidate source-family histogram
-- [ ] candidate POS distribution
+- [x] active candidate count as a first-class emitted feature
+- [x] candidate-pool size
+- [x] promoted-candidate count
+- [x] candidate source-family histogram
+- [x] candidate POS distribution
 - [ ] support-score variance
 - [ ] top1-vs-top2 support margin
 
@@ -302,12 +302,18 @@ These are the next feature families worth adding because they are both useful an
 
 These are the pieces required before any serious trait-conditioned learning or profile routing can be trusted.
 
-- [ ] shared feature extractor module used by both benchmark analysis and future production paths
-- [ ] canonical per-case `feature_vector` schema
-- [ ] semantic-shadow experiment outputs that emit the feature vector per case
-- [ ] matrix and compare reports that aggregate by automatic feature buckets
+- [x] shared feature extractor module used by semantic-shadow benchmark analysis and future production paths
+- [x] canonical per-case `feature_vector` schema
+- [x] semantic-shadow experiment outputs that emit the feature vector per case
+- [x] matrix and compare reports that aggregate by automatic feature buckets
 - [ ] profile bank built on top of automatic features rather than benchmark-only labels
 - [ ] simple interpretable selector over named profiles
+
+Current implementation note:
+
+- the canonical semantic-shadow feature surface now lives in `core/lexishift_core/rulegen/semantic_shadow_feature_vector.py`
+- veto row results emit both raw `feature_vector` and bucketed `feature_dimensions`
+- automatic feature buckets now flow into the existing veto `slice_summaries`, so compare and matrix artifacts can aggregate them without a second reporting stack
 
 ### E. Current recommendation
 

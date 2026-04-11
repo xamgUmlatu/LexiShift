@@ -346,6 +346,9 @@ def build_experiment_matrix_report(
             else {}
         )
         veto_summary = veto_policy.get("summary") if isinstance(veto_policy, Mapping) else {}
+        veto_slice_summaries = (
+            veto_policy.get("slice_summaries", []) if isinstance(veto_policy, Mapping) else {}
+        )
         harmful_allow_rows = (
             veto_policy.get("sample_harmful_allow_rows", [])
             if isinstance(veto_policy, Mapping)
@@ -426,6 +429,14 @@ def build_experiment_matrix_report(
                 "veto_overblocking_rate": veto_summary.get("overblocking_rate"),
                 "veto_false_abstain_count": veto_summary.get("false_abstain_count"),
                 "veto_harmful_allow_count": veto_summary.get("harmful_allow_count"),
+                "veto_slice_summaries": veto_slice_summaries,
+                "automatic_feature_slice_count": sum(
+                    1
+                    for key in veto_slice_summaries.keys()
+                    if str(key or "").startswith("feature:")
+                )
+                if isinstance(veto_slice_summaries, Mapping)
+                else 0,
                 "harmful_allow_miss_counts": miss_counts,
                 "sample_harmful_allow_rows": harmful_allow_rows[:5]
                 if isinstance(harmful_allow_rows, Sequence)
@@ -524,6 +535,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 f"- Gold trigger hit / top1 hit / exact-pool match: `{_render_rate(row.get('gold_trigger_hit_rate'))}` / `{_render_rate(row.get('gold_top1_hit_rate'))}` / `{_render_rate(row.get('candidate_pool_exact_match_rate'))}`",
                 f"- Veto accuracy / abstain recall / harmful allow / overblocking: `{_render_rate(row.get('veto_overall_accuracy'))}` / `{_render_rate(row.get('veto_abstain_recall'))}` / `{_render_rate(row.get('veto_harmful_allow_rate'))}` / `{_render_rate(row.get('veto_overblocking_rate'))}`",
                 f"- Veto counts: `false_abstain={row.get('veto_false_abstain_count', 0)}`, `harmful_allow={row.get('veto_harmful_allow_count', 0)}`",
+                f"- Automatic feature slices tracked: `{row.get('automatic_feature_slice_count', 0)}`",
                 f"- Harmful-allow miss counts: `seed_missing={miss_counts.get('seed_missing', 0)}`, `candidate_missing={miss_counts.get('candidate_missing', 0)}`, `promotion_miss={miss_counts.get('promotion_miss', 0)}`",
             ]
         )

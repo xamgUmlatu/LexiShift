@@ -476,6 +476,14 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(len(row_results), 3)
         row_results_by_key = {(row["target"], row["trigger"]): row for row in row_results}
         self.assertEqual(row_results_by_key[("pelota", "ball")]["outcome"], "true_abstain")
+        self.assertEqual(
+            row_results_by_key[("pelota", "ball")]["feature_vector"]["active_support_mode"],
+            "active_candidates",
+        )
+        self.assertEqual(
+            row_results_by_key[("pelota", "ball")]["feature_dimensions"]["feature_inventory_entry"],
+            ["present"],
+        )
         self.assertEqual(row_results_by_key[("baile", "ball")]["outcome"], "harmful_allow")
         self.assertEqual(
             row_results_by_key[("baile", "ball")]["miss_classification"],
@@ -743,6 +751,14 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(tier_slice["trigger_rows_total"], 2)
         self.assertEqual(tier_slice["harmful_allow_count"], 1)
         self.assertEqual(tier_slice["true_allow_count"], 1)
+
+        inventory_present_slice = slice_summaries["feature:feature_inventory_entry:present"]
+        self.assertEqual(inventory_present_slice["trigger_rows_total"], 3)
+        self.assertEqual(inventory_present_slice["harmful_allow_count"], 1)
+
+        candidate_pool_slice = slice_summaries["feature:feature_shadow_candidate_count:one"]
+        self.assertEqual(candidate_pool_slice["trigger_rows_total"], 1)
+        self.assertEqual(candidate_pool_slice["true_abstain_count"], 1)
 
     def test_evaluate_shadow_inventory_veto_proxy_classifies_seed_missing_harmful_allow(
         self,

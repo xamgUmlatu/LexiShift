@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Experiment Matrix
 
 - Status: `ok`
-- Generated: `2026-04-11T01:48:34Z`
+- Generated: `2026-04-11T01:57:40Z`
 - Manifest: `docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json`
 - Forward seed max words: `1`
 - Neighbor-borrow modes loaded: `True`
@@ -70,6 +70,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `75.8%` / `75.8%` / `12.1%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `95.4%` / `75.8%` / `24.2%` / `0.0%`
 - Veto counts: `false_abstain=0`, `harmful_allow=8`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=0`, `candidate_missing=0`, `promotion_miss=8`
 - Sample harmful-allow rows:
   - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=promotion_miss
@@ -89,6 +90,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -113,6 +115,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger-filter examples dropped:
   - `acabar` / `just` score=`2.0` features=['forward_gloss_fragment', 'active_side_support']
@@ -143,6 +146,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -167,6 +171,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Trigger-filter examples dropped:
   - `acabar` / `quit` score=`1.0` features=['reverse_shadow_support']
@@ -197,6 +202,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger-filter examples dropped:
   - `acabar` / `just` score=`2.0` features=['forward_gloss_fragment', 'active_side_support']
@@ -227,6 +233,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `54.5%` / `51.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `74.9%` / `60.6%` / `39.4%` / `21.8%`
 - Veto counts: `false_abstain=31`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -252,6 +259,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `15.2%` / `15.2%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `83.4%` / `18.2%` / `81.8%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=27`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=0`, `candidate_missing=1`, `promotion_miss=11`
 - Sample harmful-allow rows:
   - `camino` / `road` gold=['carretera', 'ruta'] promoted=[] miss=promotion_miss
@@ -274,6 +282,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `48.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -298,6 +307,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -322,6 +332,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"forward_trigger_support": 0.0}`
 - Sample harmful-allow rows:
@@ -347,6 +358,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"forward_trigger_support": 0.25}`
 - Sample harmful-allow rows:
@@ -372,6 +384,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"forward_trigger_support": 1.0}`
 - Sample harmful-allow rows:
@@ -397,6 +410,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `15.2%` / `15.2%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `83.4%` / `18.2%` / `81.8%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=27`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=0`, `candidate_missing=1`, `promotion_miss=11`
 - Shadow support weights: `{"same_pos_as_active": 0.0}`
 - Sample harmful-allow rows:
@@ -420,6 +434,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"same_pos_as_active": 1.5}`
 - Sample harmful-allow rows:
@@ -445,6 +460,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=4`, `candidate_missing=1`, `promotion_miss=7`
 - Shadow support weights: `{"active_profile_support": 0.0}`
 - Sample harmful-allow rows:
@@ -470,6 +486,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"active_profile_support": 1.5}`
 - Sample harmful-allow rows:
@@ -495,6 +512,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"semantic_bridge_support": 0.0}`
 - Sample harmful-allow rows:
@@ -520,6 +538,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"semantic_bridge_support": 1.5}`
 - Sample harmful-allow rows:
@@ -545,6 +564,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"cross_pos_mismatch_penalty": 0.0}`
 - Sample harmful-allow rows:
@@ -570,6 +590,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"cross_pos_mismatch_penalty": -2.0}`
 - Sample harmful-allow rows:
@@ -595,6 +616,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"multi_source_candidate_support": 1.0}`
 - Sample harmful-allow rows:
@@ -620,6 +642,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.7%` / `60.6%` / `39.4%` / `3.5%`
 - Veto counts: `false_abstain=5`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -646,6 +669,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.7%` / `60.6%` / `39.4%` / `3.5%`
 - Veto counts: `false_abstain=5`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"multi_source_candidate_support": 2.0}`
 - Sample harmful-allow rows:
@@ -672,6 +696,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.7%` / `60.6%` / `39.4%` / `3.5%`
 - Veto counts: `false_abstain=5`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -698,6 +723,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `60.6%` / `39.4%` / `4.2%`
 - Veto counts: `false_abstain=6`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -724,6 +750,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -749,6 +776,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -774,6 +802,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"forward_neighborhood_overlap": 2.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -799,6 +828,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
 - Sample harmful-allow rows:
@@ -824,6 +854,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
 - Shadow support weights: `{"multi_source_candidate_support": 1.5, "trigger_family_reentry": 2.0}`
 - Sample harmful-allow rows:
@@ -849,6 +880,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"multi_source_candidate_support": 1.5, "trigger_family_reentry": 3.0}`
 - Sample harmful-allow rows:
@@ -874,6 +906,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `89.7%` / `60.6%` / `39.4%` / `3.5%`
 - Veto counts: `false_abstain=5`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5, "trigger_family_reentry": 2.0}`
 - Sample harmful-allow rows:
@@ -900,6 +933,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `88.6%` / `60.6%` / `39.4%` / `4.9%`
 - Veto counts: `false_abstain=7`, `harmful_allow=13`
+- Automatic feature slices tracked: `52`
 - Harmful-allow miss counts: `seed_missing=6`, `candidate_missing=1`, `promotion_miss=5`
 - Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5, "trigger_family_reentry": 3.0}`
 - Sample harmful-allow rows:
@@ -926,6 +960,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Shadow support weights: `{"forward_trigger_support": 0.0}`
 - Sample harmful-allow rows:
@@ -951,6 +986,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Sample harmful-allow rows:
   - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
@@ -975,6 +1011,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `27.3%` / `27.3%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `85.1%` / `27.3%` / `72.7%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=24`
+- Automatic feature slices tracked: `47`
 - Harmful-allow miss counts: `seed_missing=9`, `candidate_missing=0`, `promotion_miss=3`
 - Trigger-filter examples dropped:
   - `acabar` / `finish` score=`3.0` features=['rulegen_top3_source', 'active_side_support']
@@ -1003,6 +1040,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `85.7%` / `30.3%` / `69.7%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=23`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Trigger support weights: `{"forward_gloss_fragment": 0.0}`
 - Trigger-filter examples dropped:
@@ -1032,6 +1070,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `85.7%` / `30.3%` / `69.7%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=23`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Trigger support weights: `{"forward_gloss_fragment": 0.5}`
 - Trigger-filter examples dropped:
@@ -1061,6 +1100,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"forward_gloss_fragment": 1.5}`
 - Trigger-filter examples dropped:
@@ -1092,6 +1132,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"multi_source_support": 0.0}`
 - Trigger-filter examples dropped:
@@ -1123,6 +1164,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"multi_source_support": 1.5}`
 - Trigger-filter examples dropped:
@@ -1154,6 +1196,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `85.7%` / `30.3%` / `69.7%` / `1.4%`
 - Veto counts: `false_abstain=2`, `harmful_allow=23`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=7`, `candidate_missing=1`, `promotion_miss=4`
 - Trigger support weights: `{"reverse_shadow_support": 0.0}`
 - Trigger-filter examples dropped:
@@ -1183,6 +1226,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"reverse_shadow_support": 1.5}`
 - Trigger-filter examples dropped:
@@ -1214,6 +1258,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"multi_word_penalty": 0.0}`
 - Trigger-filter examples dropped:
@@ -1245,6 +1290,7 @@
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
 - Veto accuracy / abstain recall / harmful allow / overblocking: `87.4%` / `45.5%` / `54.5%` / `2.8%`
 - Veto counts: `false_abstain=4`, `harmful_allow=18`
+- Automatic feature slices tracked: `51`
 - Harmful-allow miss counts: `seed_missing=8`, `candidate_missing=1`, `promotion_miss=3`
 - Trigger support weights: `{"multi_word_penalty": -2.0}`
 - Trigger-filter examples dropped:

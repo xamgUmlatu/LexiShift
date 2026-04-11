@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Experiment Compare
 
 - Status: `ok`
-- Generated: `2026-04-11T01:50:00Z`
+- Generated: `2026-04-11T01:57:40Z`
 - Frontier read: `flat_no_row_level_change`
 - Meaning: compare the current control row against a candidate row and measure exact row-level fixes, regressions, and slice deltas.
 

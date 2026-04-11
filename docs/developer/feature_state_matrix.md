@@ -743,8 +743,8 @@ Use this file when:
 ## Trait-Conditioned Rulegen Profiles
 
 - Status: `planned`; runtime routing not implemented or verified
-- Last documented checkpoint: `2026-03-26`
-- Last verified: `2026-03-26` planning review against current benchmark and Kaikki architecture
+- Last documented checkpoint: `2026-04-11`
+- Last verified: `2026-04-11` semantic-shadow feature-vector extraction/tests plus refreshed semantic-shadow matrix/compare artifacts
 - Default behavior:
   - No runtime profile routing exists yet.
   - Current rulegen still uses one selected configuration per run rather than choosing profiles from runtime-computable target traits.
@@ -756,12 +756,16 @@ Use this file when:
   - `scripts/testing/rulegen_benchmark.py`
   - `scripts/testing/rulegen_benchmark_presets.py`
   - `scripts/testing/rulegen_benchmark_bundle.py`
+  - `scripts/testing/semantic_shadow_experiment_matrix_en_es.py`
+  - `scripts/testing/semantic_shadow_experiment_compare_en_es.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_feature_vector.py`
+  - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/kaikki_views.py`
   - `core/lexishift_core/rulegen/ranking.py`
 - Known gaps:
-  - There is no shared runtime trait extractor yet.
-  - Benchmark artifacts do not yet emit per-case feature vectors.
+  - There is no shared runtime trait extractor for the general rulegen benchmark yet; the new shared feature-vector surface currently exists only for the semantic-shadow veto analysis path.
+  - The main rulegen benchmark artifacts still do not yet emit per-case feature vectors.
   - No profile bank or interpretable router is implemented.
   - Current dataset size is still better suited to coarse directional experiments than fine-grained routed-policy learning.
   - Learner-stage-aware routing is only conceptual at this point and must stay separate from lexical trait inference.

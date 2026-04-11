@@ -447,6 +447,12 @@ def _merge_comparison_row(
         if isinstance(anchor.get("slice_tags"), Sequence)
         and not isinstance(anchor.get("slice_tags"), (str, bytes))
         else [],
+        "feature_vector": dict(anchor.get("feature_vector", {}))
+        if isinstance(anchor.get("feature_vector"), Mapping)
+        else {},
+        "feature_dimensions": dict(anchor.get("feature_dimensions", {}))
+        if isinstance(anchor.get("feature_dimensions"), Mapping)
+        else {},
     }
 
 
