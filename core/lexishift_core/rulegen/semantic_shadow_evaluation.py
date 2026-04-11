@@ -186,6 +186,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
     support_frequency_similarity_tau: float = DEFAULT_FREQUENCY_SIMILARITY_TAU,
     support_representative_pruning_mode: str = DEFAULT_REPRESENTATIVE_PRUNING_MODE,
     support_score_weights: Mapping[str, object] | None = None,
+    include_row_results: bool = False,
 ) -> dict[str, object]:
     gold_rows = build_benchmark_trigger_overlap_gold(benchmark_targets)
     inventory_lookup = _build_inventory_lookup(inventory)
@@ -205,7 +206,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
     }
     policy_reports: dict[str, object] = {}
     for policy in requested_policies:
-        policy_reports[policy] = _empty_veto_policy_report()
+        policy_reports[policy] = _empty_veto_policy_report(include_row_results=include_row_results)
 
     if not isinstance(inventory.get("targets"), Sequence) or isinstance(
         inventory.get("targets"), (str, bytes)
@@ -279,6 +280,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                         if isinstance(row_metadata_by_key, Mapping)
                         else None
                     ),
+                    include_row_results=include_row_results,
                 )
 
     for policy_report in policy_reports.values():
@@ -343,13 +345,16 @@ def _empty_policy_report() -> dict[str, object]:
     }
 
 
-def _empty_veto_policy_report() -> dict[str, object]:
-    return {
+def _empty_veto_policy_report(*, include_row_results: bool = False) -> dict[str, object]:
+    report = {
         "summary": _empty_veto_summary(),
         "slice_summaries": {},
         "sample_harmful_allow_rows": [],
         "sample_false_abstain_rows": [],
     }
+    if include_row_results:
+        report["row_results"] = []
+    return report
 
 
 def _empty_veto_summary() -> dict[str, object]:
@@ -499,6 +504,7 @@ def _accumulate_veto_policy_row(
     mined_shadow_targets: set[str],
     promoted_targets: Sequence[str],
     row_metadata: Mapping[str, object] | None = None,
+    include_row_results: bool = False,
 ) -> None:
     summary = report.get("summary")
     if not isinstance(summary, dict):
@@ -518,6 +524,7 @@ def _accumulate_veto_policy_row(
     normalized_metadata = _normalize_veto_row_metadata(row_metadata)
     if normalized_metadata:
         row_payload.update(normalized_metadata)
+    outcome = _classify_veto_row_outcome(should_abstain=should_abstain, did_abstain=did_abstain)
 
     _accumulate_veto_summary_counts(
         summary=summary,
@@ -536,6 +543,14 @@ def _accumulate_veto_policy_row(
             _append_sample(report.get("sample_harmful_allow_rows"), row_payload)
     elif did_abstain:
         _append_sample(report.get("sample_false_abstain_rows"), row_payload)
+
+    if include_row_results:
+        row_payload["outcome"] = outcome
+        row_payload["should_abstain"] = should_abstain
+        row_payload["did_abstain"] = did_abstain
+        row_results = report.get("row_results")
+        if isinstance(row_results, list):
+            row_results.append(dict(row_payload))
 
     _accumulate_veto_slice_summaries(
         report=report,
@@ -601,6 +616,12 @@ def _classify_veto_harmful_allow(
     if not gold_shadow_targets.intersection(mined_shadow_targets):
         return "candidate_missing"
     return "promotion_miss"
+
+
+def _classify_veto_row_outcome(*, should_abstain: bool, did_abstain: bool) -> str:
+    if should_abstain:
+        return "true_abstain" if did_abstain else "harmful_allow"
+    return "false_abstain" if did_abstain else "true_allow"
 
 
 def _accumulate_veto_summary_counts(

@@ -4,7 +4,7 @@ Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
 Last updated: 2026-04-11
-Last verified: 2026-04-11 targeted semantic-shadow scoring tests plus Campaign C matrix run, promotion-gap diagnostics, and canonical en-es rulegen audit
+Last verified: 2026-04-11 targeted semantic-shadow scoring tests plus Campaign C matrix run, promotion-gap diagnostics, experiment-row compare, and canonical en-es rulegen audit
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
 
 ## Why this exists
@@ -91,6 +91,17 @@ Purpose:
 Primary files:
 - `scripts/testing/semantic_shadow_promotion_gap_en_es.py`
 - `docs/test_outputs/semantic_shadow_promotion_gap_en_es_latest.md`
+
+### 6. Row-to-row frontier compare
+
+Purpose:
+- quantify whether a promising candidate row is still buying real progress versus the current control
+- show exact row-level fixes and regressions rather than relying on sampled rows
+- expose where gains are concentrated so we can tell whether the frontier is broad or narrowing
+
+Primary files:
+- `scripts/testing/semantic_shadow_experiment_compare_en_es.py`
+- `docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.md`
 
 ## Current experiment contract
 
@@ -670,6 +681,23 @@ Interpretation:
 - `seed_missing`: broaden or improve seed admission
 - `candidate_missing`: improve mining/bridge generation
 - `promotion_miss`: retune later promotion or support weights
+
+6. When one candidate row looks promising, run the row-compare script against the current control.
+
+```bash
+python3 scripts/testing/semantic_shadow_experiment_compare_en_es.py \
+  --control-experiment-id source_only_borrowed \
+  --candidate-experiment-id promotion_multi_source_candidate_1_5 \
+  --json-out docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.md
+```
+
+Use that report to answer:
+
+- how many ambiguous rows were actually fixed
+- how many clear rows regressed into false abstain
+- which semantic families improved
+- whether the frontier is still materially open or mostly trading errors
 
 ## Policy for future experiments
 

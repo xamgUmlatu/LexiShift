@@ -395,6 +395,96 @@ class TestSemanticShadowEvaluation(unittest.TestCase):
         self.assertEqual(oracle_summary["false_abstain_count"], 0)
         self.assertAlmostEqual(oracle_summary["overall_accuracy"], 1.0)
 
+    def test_evaluate_shadow_inventory_veto_proxy_can_emit_full_row_results(self) -> None:
+        benchmark_targets = (
+            BenchmarkShadowTarget(
+                target="pelota",
+                case_ids=("en-es:pelota",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="baile",
+                case_ids=("en-es:baile",),
+                tiers=("hard",),
+                reviewed_triggers=("ball",),
+            ),
+            BenchmarkShadowTarget(
+                target="agua",
+                case_ids=("en-es:agua",),
+                tiers=("smoke",),
+                reviewed_triggers=("water",),
+            ),
+        )
+        inventory = {
+            "targets": [
+                {
+                    "target": "pelota",
+                    "trigger_entries": [
+                        {
+                            "trigger": "ball",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "baile",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "target": "baile",
+                    "trigger_entries": [
+                        {
+                            "trigger": "ball",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [],
+                        }
+                    ],
+                },
+                {
+                    "target": "agua",
+                    "trigger_entries": [
+                        {
+                            "trigger": "water",
+                            "active_candidates": [{"canonical_pos": "noun"}],
+                            "shadow_candidates": [
+                                {
+                                    "target": "wata",
+                                    "reviewed_trigger_support": True,
+                                    "benchmark_target_present": True,
+                                    "canonical_pos": "noun",
+                                }
+                            ],
+                        }
+                    ],
+                },
+            ]
+        }
+
+        report = evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
+            inventory=inventory,
+            benchmark_targets=benchmark_targets,
+            policies=("cross_checked_v1",),
+            include_row_results=True,
+        )
+
+        row_results = report["policies"]["cross_checked_v1"]["row_results"]
+        self.assertEqual(len(row_results), 3)
+        row_results_by_key = {(row["target"], row["trigger"]): row for row in row_results}
+        self.assertEqual(row_results_by_key[("pelota", "ball")]["outcome"], "true_abstain")
+        self.assertEqual(row_results_by_key[("baile", "ball")]["outcome"], "harmful_allow")
+        self.assertEqual(
+            row_results_by_key[("baile", "ball")]["miss_classification"],
+            "candidate_missing",
+        )
+        self.assertEqual(row_results_by_key[("agua", "water")]["outcome"], "false_abstain")
+        self.assertFalse(row_results_by_key[("agua", "water")]["should_abstain"])
+        self.assertTrue(row_results_by_key[("agua", "water")]["did_abstain"])
+
     def test_evaluate_shadow_inventory_veto_proxy_support_score_uses_active_profile_fallback(
         self,
     ) -> None:
