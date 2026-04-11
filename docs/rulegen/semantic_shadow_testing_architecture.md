@@ -104,6 +104,22 @@ Primary files:
 - `scripts/testing/semantic_shadow_experiment_compare_en_es.py`
 - `docs/test_outputs/semantic_shadow_experiment_compare_en_es_latest.md`
 
+### 7. Source-intake campaigns
+
+Purpose:
+- prepare broad source-heavy experiments without letting them sprawl directly into runtime policy
+- keep approval state, source role, and provenance explicit before new families land in code
+- make future source-family ablations first-class instead of one-off notes in commit messages
+
+Primary files:
+- `docs/rulegen/semantic_shadow_source_intake_plan.md`
+- `docs/test_inputs/semantic_shadow_source_registry.json`
+
+Key discipline:
+- source intake should widen the offline evidence warehouse, not the runtime contract
+- each new source family should be evaluated separately for coverage gain vs discrimination gain
+- external or silver sources should stay explicit until they survive ablation against the lexical control
+
 ## Current experiment contract
 
 The matrix runner accepts one manifest row per experiment.

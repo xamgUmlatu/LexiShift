@@ -772,9 +772,9 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, and policy-comparison artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` tests, refreshed the new `en-es` veto-proxy artifact plus the latest representative-pruning/frequency artifacts, and synced runtime-readiness / feature-state docs
+- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
+- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, and documented a source-intake plan plus approval queue for broader offline evidence expansion
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` tests, refreshed the new `en-es` veto-proxy artifact plus the latest representative-pruning/frequency artifacts, and synced runtime-readiness / feature-state docs with the source-intake plan
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -864,6 +864,10 @@ Use this file when:
         - best embedding-bridge row falls to `11.8%` precision / `90.0%` recall / `35.5%` overblocking
       - at the safer lexical threshold (`min_score=5`), the bridge does not improve recall, because the remaining `cargo / job -> trabajo` miss still has no active-side support
       - interpretation: nearest-neighbor target cards are useful as a research recall probe, but not yet a publishable improvement over the lexical baseline
+  - The next broadening step is now explicit rather than ad hoc:
+    - `docs/rulegen/semantic_shadow_source_intake_plan.md` defines the operating model for source-heavy experimentation
+    - `docs/test_inputs/semantic_shadow_source_registry.json` tracks current and proposed source families together with approval state, role, and runtime-publishability
+    - the intended discipline is broad offline ingestion plus narrow runtime publication, with one coverage-heavy and one discrimination-heavy source family approved at a time
   - The intended future direction is a conservative admission layer that can choose among:
     - hard replace
     - soft affordance / annotation
@@ -877,6 +881,7 @@ Use this file when:
     - runtime observability for why a replacement applied or abstained
 - Evidence:
   - `docs/rulegen/semantic_routing_runtime_readiness.md`
+  - `docs/rulegen/semantic_shadow_source_intake_plan.md`
   - `docs/rulegen/semantic_routing_publication_contract.md`
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/architecture/extension_system_map.md`
@@ -911,6 +916,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_representative_pruning_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_veto_proxy_compare_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
+  - `docs/test_inputs/semantic_shadow_source_registry.json`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md`

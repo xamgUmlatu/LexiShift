@@ -1323,6 +1323,75 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(bridge_candidate["forward_trigger_support"], True)
         self.assertTrue(bridge_candidate.get("reviewed_trigger_support"))
 
+    def test_build_en_es_shadow_inventory_can_bridge_from_sense_examples(self) -> None:
+        inventory = build_en_es_shadow_inventory(
+            benchmark_targets=(
+                BenchmarkShadowTarget(
+                    target="trabajo",
+                    case_ids=("en-es:trabajo",),
+                    tiers=("reviewed",),
+                    reviewed_triggers=("job",),
+                ),
+                BenchmarkShadowTarget(
+                    target="cargo",
+                    case_ids=("en-es:cargo",),
+                    tiers=("reviewed",),
+                    reviewed_triggers=("position",),
+                ),
+            ),
+            forward_records_by_target={
+                "trabajo": (
+                    _record(
+                        translation="job",
+                        pos_raw="noun",
+                        entry_ord=10,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        extra_metadata={
+                            "sense_examples": (
+                                {
+                                    "text": "She accepted an office role with pension duties.",
+                                    "translation": "She accepted an office role with pension duties.",
+                                },
+                            )
+                        },
+                    ),
+                ),
+                "cargo": (
+                    _record(
+                        translation="function",
+                        pos_raw="noun",
+                        entry_ord=11,
+                        sense_ord=0,
+                        gloss_ord=0,
+                        extra_metadata={
+                            "sense_examples": (
+                                {
+                                    "text": "He took an office role with pension duties.",
+                                    "translation": "He took an office role with pension duties.",
+                                },
+                            )
+                        },
+                    ),
+                ),
+            },
+            reverse_records_by_source={"job": ()},
+            target_reverse_records_by_target={},
+            forward_provider="wiktionary",
+            reverse_provider="wiktionary",
+            promotion_policy="support_score_v1",
+        )
+
+        trabajo_row = next(row for row in inventory["targets"] if row["target"] == "trabajo")
+        trigger_row = trabajo_row["trigger_entries"][0]
+        bridge_candidate = next(
+            candidate
+            for candidate in trigger_row["shadow_candidates"]
+            if candidate["target"] == "cargo"
+        )
+        self.assertIn("office", bridge_candidate.get("semantic_bridge_markers", ()))
+        self.assertIn("pension", bridge_candidate.get("semantic_bridge_markers", ()))
+
     def test_promote_shadow_candidates_for_policy_compares_policy_strictness(self) -> None:
         active_candidates = [{"canonical_pos": "noun"}]
         shadow_candidates = [

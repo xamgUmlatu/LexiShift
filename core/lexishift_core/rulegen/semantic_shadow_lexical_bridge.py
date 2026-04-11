@@ -221,7 +221,23 @@ def extract_bridge_markers_from_metadata(metadata: Mapping[str, object]) -> set[
                 markers.update(extract_bridge_markers_from_category(item))
         else:
             markers.update(extract_bridge_markers_from_category(value))
+    for key in ("sense_examples", "examples"):
+        value = metadata.get(key)
+        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+            for item in value:
+                markers.update(_extract_bridge_markers_from_example_item(item))
+        else:
+            markers.update(_extract_bridge_markers_from_example_item(value))
     return markers
+
+
+def _extract_bridge_markers_from_example_item(value: object) -> set[str]:
+    if isinstance(value, Mapping):
+        markers: set[str] = set()
+        for key in ("text", "translation", "english", "roman"):
+            markers.update(extract_bridge_markers_from_text(value.get(key)))
+        return markers
+    return extract_bridge_markers_from_text(value)
 
 
 def extract_bridge_markers_from_category(value: object) -> set[str]:

@@ -258,6 +258,7 @@ class TestFreedictPosLoaders(unittest.TestCase):
                     "sense_ord INTEGER, "
                     "gloss_ord INTEGER, "
                     "raw_glosses_json TEXT, "
+                    "examples_json TEXT, "
                     "tags_json TEXT, "
                     "topics_json TEXT, "
                     "categories_json TEXT, "
@@ -267,8 +268,8 @@ class TestFreedictPosLoaders(unittest.TestCase):
                 )
                 conn.execute(
                     "INSERT INTO sense_glosses "
-                    "(headword, headword_lc, translation, translation_lc, pos, entry_ord, sense_ord, gloss_ord, raw_glosses_json, tags_json, topics_json, categories_json, form_of_json, alt_of_json) "
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "(headword, headword_lc, translation, translation_lc, pos, entry_ord, sense_ord, gloss_ord, raw_glosses_json, examples_json, tags_json, topics_json, categories_json, form_of_json, alt_of_json) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (
                         "function",
                         "function",
@@ -279,6 +280,7 @@ class TestFreedictPosLoaders(unittest.TestCase):
                         0,
                         0,
                         json.dumps(["professional or official position"]),
+                        None,
                         json.dumps(["masculine"]),
                         None,
                         json.dumps(["en:Employment"]),

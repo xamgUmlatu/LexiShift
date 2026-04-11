@@ -9,6 +9,7 @@ def build_auxiliary_gloss_metadata(
     sense_ord: object,
     gloss_ord: object,
     raw_glosses_json: object,
+    sense_examples_json: object,
     sense_tags_json: object,
     sense_topics_json: object,
     sense_categories_json: object,
@@ -35,6 +36,7 @@ def build_auxiliary_gloss_metadata(
     _set_json_metadata(metadata, "entry_tags", entry_tags_json)
     _set_json_metadata(metadata, "entry_categories", entry_categories_json)
     _set_json_metadata(metadata, "sense_raw_glosses", raw_glosses_json)
+    _set_json_metadata(metadata, "sense_examples", sense_examples_json)
     _set_json_metadata(metadata, "sense_tags", sense_tags_json)
     _set_json_metadata(metadata, "sense_topics", sense_topics_json)
     _set_json_metadata(metadata, "sense_categories", sense_categories_json)

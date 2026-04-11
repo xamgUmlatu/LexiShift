@@ -201,6 +201,12 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
                 "senses": [
                     {
                         "glosses": ["that"],
+                        "examples": [
+                            {
+                                "text": "Ese libro es mío.",
+                                "translation": "That book is mine.",
+                            }
+                        ],
                         "tags": ["masculine", "singular"],
                         "topics": ["grammar"],
                         "categories": ["Spanish demonstratives"],
@@ -229,9 +235,74 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
             self.assertEqual(metadata["entry_pos_title"], "determiner")
             self.assertEqual(metadata["entry_tags"], ["demonstrative"])
             self.assertEqual(metadata["entry_categories"], ["Spanish determiners"])
+            self.assertEqual(
+                metadata["sense_examples"],
+                [
+                    {
+                        "text": "Ese libro es mío.",
+                        "translation": "That book is mine.",
+                    }
+                ],
+            )
             self.assertEqual(metadata["sense_tags"], ["masculine", "singular"])
             self.assertEqual(metadata["sense_topics"], ["grammar"])
             self.assertEqual(metadata["sense_categories"], ["Spanish demonstratives"])
+
+    def test_converter_persists_kaikki_sense_examples_in_auxiliary_metadata(self) -> None:
+        records = [
+            {
+                "word": "captar",
+                "lang": "Spanish",
+                "lang_code": "es",
+                "pos": "verb",
+                "senses": [
+                    {
+                        "glosses": ["to perceive"],
+                        "examples": [
+                            {
+                                "text": "No logro captar la señal.",
+                                "translation": "I can't pick up the signal.",
+                            },
+                            "Capta el mensaje al instante.",
+                        ],
+                    }
+                ],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            input_path = Path(tmp) / "raw-wiktextract-data.jsonl.gz"
+            output_path = Path(tmp) / "wiktionary-es-en.sqlite"
+            with gzip.open(input_path, "wt", encoding="utf-8") as handle:
+                for record in records:
+                    handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+            convert_kaikki_glosses_to_sqlite(
+                input_path,
+                output_path,
+                source_lang_code="es",
+                gloss_language="en",
+                source_provider="wiktionary-es-en",
+                source_dump="enwiktionary",
+                overwrite=True,
+            )
+            records_by_headword = load_freedict_sqlite_gloss_records_ordered(output_path)
+            metadata = records_by_headword["captar"][0].metadata
+            self.assertEqual(
+                metadata["sense_examples"],
+                [
+                    {
+                        "text": "No logro captar la señal.",
+                        "translation": "I can't pick up the signal.",
+                    },
+                    "Capta el mensaje al instante.",
+                ],
+            )
+            with sqlite3.connect(output_path) as conn:
+                row = conn.execute(
+                    "SELECT examples_json FROM sense_glosses "
+                    "WHERE headword_lc = 'captar' AND sense_ord = 0 AND gloss_ord = 0"
+                ).fetchone()
+                self.assertIsNotNone(row)
+                self.assertIn("No logro captar la señal.", row[0] or "")
 
     def test_translation_converter_emits_reverse_compatibility_entries_and_metadata(self) -> None:
         records = [
