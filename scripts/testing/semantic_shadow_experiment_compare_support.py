@@ -42,6 +42,7 @@ def _render_metric_block(label: str, result: Mapping[str, object]) -> list[str]:
         f"- Seed mode / policy: `{result.get('seed_mode', '')}` / `{result.get('policy', '')}`",
         f"- Trigger filter min: `{result.get('trigger_support_score_min', '')}`",
         f"- Shadow support min / max promoted: `{result.get('support_score_min', '')}` / `{result.get('support_score_max_promoted', '')}`",
+        f"- Semantic-bridge aux text / examples: `{bool(result.get('semantic_bridge_include_aux_text'))}` / `{bool(result.get('semantic_bridge_include_examples'))}`",
         f"- Gold precision / recall / F1: `{render_rate(gold_summary.get('candidate_precision'))}` / `{render_rate(gold_summary.get('candidate_recall'))}` / `{render_rate(gold_summary.get('candidate_f1'))}`",
         f"- Veto accuracy / abstain recall / harmful allow / overblocking: `{render_rate(veto_summary.get('overall_accuracy'))}` / `{render_rate(veto_summary.get('abstain_recall'))}` / `{render_rate(veto_summary.get('harmful_allow_rate'))}` / `{render_rate(veto_summary.get('overblocking_rate'))}`",
         f"- Veto counts: `false_abstain={veto_summary.get('false_abstain_count', 0)}`, `harmful_allow={veto_summary.get('harmful_allow_count', 0)}`",

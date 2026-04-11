@@ -341,6 +341,8 @@ def build_inventory_for_seed_targets(
     reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
     promotion_policy: str,
     support_score_weights: Mapping[str, object] | None = None,
+    semantic_bridge_include_aux_text: bool = False,
+    semantic_bridge_include_examples: bool = False,
 ) -> dict[str, object]:
     return build_en_es_shadow_inventory(
         benchmark_targets=seed_targets,
@@ -351,6 +353,8 @@ def build_inventory_for_seed_targets(
         reverse_provider=resources.reverse_provider,
         promotion_policy=promotion_policy,
         support_score_weights=support_score_weights,
+        semantic_bridge_include_aux_text=semantic_bridge_include_aux_text,
+        semantic_bridge_include_examples=semantic_bridge_include_examples,
     )
 
 
@@ -477,3 +481,95 @@ def build_trigger_row_metadata_from_cases(
                 for dimension_name, values in slice_dimensions.items():
                     merge_slice_dimension_values(metadata_dimensions, dimension_name, values)
     return metadata_by_key
+
+
+def build_shadow_signal_availability_summary(
+    resources: EnEsShadowExperimentResources,
+    *,
+    reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
+) -> dict[str, object]:
+    forward_records = [
+        record
+        for records in resources.forward_records_by_target.values()
+        for record in records
+        if isinstance(record, TranslationGlossRecord)
+    ]
+    target_reverse_records = [
+        record
+        for records in resources.target_reverse_records_by_target.values()
+        for record in records
+        if isinstance(record, TranslationGlossRecord)
+    ]
+    trigger_reverse_records = [
+        record
+        for records in reverse_records_by_source.values()
+        for record in records
+        if isinstance(record, TranslationGlossRecord)
+    ]
+    return {
+        "forward_records_total": len(forward_records),
+        "forward_records_with_examples": _count_records_with_metadata_keys(
+            forward_records,
+            ("sense_examples",),
+        ),
+        "forward_targets_with_examples": _count_group_keys_with_metadata_keys(
+            resources.forward_records_by_target,
+            ("sense_examples",),
+        ),
+        "target_reverse_records_total": len(target_reverse_records),
+        "target_reverse_records_with_aux_text": _count_records_with_metadata_keys(
+            target_reverse_records,
+            ("translation_sense_text", "translation_english_text", "translation_note_text"),
+        ),
+        "target_reverse_targets_with_aux_text": _count_group_keys_with_metadata_keys(
+            resources.target_reverse_records_by_target,
+            ("translation_sense_text", "translation_english_text", "translation_note_text"),
+        ),
+        "trigger_reverse_records_total": len(trigger_reverse_records),
+        "trigger_reverse_records_with_aux_text": _count_records_with_metadata_keys(
+            trigger_reverse_records,
+            ("translation_sense_text", "translation_english_text", "translation_note_text"),
+        ),
+        "trigger_reverse_triggers_with_aux_text": _count_group_keys_with_metadata_keys(
+            reverse_records_by_source,
+            ("translation_sense_text", "translation_english_text", "translation_note_text"),
+        ),
+    }
+
+
+def _count_records_with_metadata_keys(
+    records: Sequence[TranslationGlossRecord],
+    metadata_keys: Sequence[str],
+) -> int:
+    return sum(
+        1 for record in records if _record_has_any_metadata_key(record, metadata_keys=metadata_keys)
+    )
+
+
+def _count_group_keys_with_metadata_keys(
+    record_groups: Mapping[str, Sequence[TranslationGlossRecord]],
+    metadata_keys: Sequence[str],
+) -> int:
+    count = 0
+    for records in record_groups.values():
+        if any(
+            _record_has_any_metadata_key(record, metadata_keys=metadata_keys) for record in records
+        ):
+            count += 1
+    return count
+
+
+def _record_has_any_metadata_key(
+    record: TranslationGlossRecord,
+    *,
+    metadata_keys: Sequence[str],
+) -> bool:
+    metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
+    for key in metadata_keys:
+        value = metadata.get(key)
+        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+            if any(str(item or "").strip() for item in value):
+                return True
+        elif str(value or "").strip():
+            return True
+    return False

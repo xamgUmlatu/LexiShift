@@ -773,8 +773,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, and documented a source-intake plan plus approval queue for broader offline evidence expansion
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` tests, refreshed the new `en-es` veto-proxy artifact plus the latest representative-pruning/frequency artifacts, and synced runtime-readiness / feature-state docs with the source-intake plan
+- Last documented checkpoint: `2026-04-11` added the first lower-bound `curated_shadows` vs `auto_shadows` veto-proxy comparison for `en-es`, alongside the earlier lexical-frequency similarity and representative-pruning sweeps, documented a source-intake plan plus approval queue for broader offline evidence expansion, and added explicit semantic-bridge aux-text/example experiment toggles to the matrix harness
+- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` and resource-loader tests plus refreshed the latest `en-es` matrix artifact for the new aux-text/example bridge rows
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -864,6 +864,13 @@ Use this file when:
         - best embedding-bridge row falls to `11.8%` precision / `90.0%` recall / `35.5%` overblocking
       - at the safer lexical threshold (`min_score=5`), the bridge does not improve recall, because the remaining `cargo / job -> trabajo` miss still has no active-side support
       - interpretation: nearest-neighbor target cards are useful as a research recall probe, but not yet a publishable improvement over the lexical baseline
+    - the matrix harness now exposes explicit source toggles for the newly approved source families:
+      - `semantic_bridge_include_aux_text`
+      - `semantic_bridge_include_examples`
+    - current local `en-es` read on those rows is flat versus the lexical control:
+      - `promotion_semantic_bridge_aux_text_on` matches `source_only_borrowed`
+      - `promotion_semantic_bridge_aux_text_examples_on` also matches `source_only_borrowed`
+      - interpretation: the harness can now isolate those source families, but the currently installed packs are not yet yielding measurable extra bridge evidence on the benchmarked families
   - The next broadening step is now explicit rather than ad hoc:
     - `docs/rulegen/semantic_shadow_source_intake_plan.md` defines the operating model for source-heavy experimentation
     - `docs/test_inputs/semantic_shadow_source_registry.json` tracks current and proposed source families together with approval state, role, and runtime-publishability
@@ -916,6 +923,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_representative_pruning_sweep_en_es.py`
   - `scripts/testing/semantic_shadow_veto_proxy_compare_en_es.py`
   - `scripts/testing/semantic_shadow_forward_seed_sweep_en_es.py`
+  - `scripts/testing/semantic_shadow_experiment_matrix_en_es.py`
   - `docs/test_inputs/semantic_shadow_source_registry.json`
   - `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md`
@@ -928,6 +936,7 @@ Use this file when:
   - `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md`
+  - `docs/test_outputs/semantic_shadow_experiment_matrix_en_es_latest.md`
   - `docs/test_outputs/semantic_shadow_veto_proxy_compare_en_es_latest.md`
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.

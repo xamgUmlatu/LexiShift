@@ -306,6 +306,66 @@ class TestFreedictPosLoaders(unittest.TestCase):
             ["professional or official position"],
         )
 
+    def test_auxiliary_sqlite_loaders_accept_legacy_tables_without_examples_json(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "spa-eng.sqlite"
+            conn = sqlite3.connect(path)
+            try:
+                conn.execute(
+                    "CREATE TABLE sense_glosses ("
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "translation TEXT, "
+                    "translation_lc TEXT, "
+                    "pos TEXT, "
+                    "entry_ord INTEGER, "
+                    "sense_ord INTEGER, "
+                    "gloss_ord INTEGER, "
+                    "raw_glosses_json TEXT, "
+                    "tags_json TEXT, "
+                    "topics_json TEXT, "
+                    "categories_json TEXT, "
+                    "form_of_json TEXT, "
+                    "alt_of_json TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "INSERT INTO sense_glosses "
+                    "(headword, headword_lc, translation, translation_lc, pos, entry_ord, sense_ord, gloss_ord, raw_glosses_json, tags_json, topics_json, categories_json, form_of_json, alt_of_json) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        "cargo",
+                        "cargo",
+                        "office",
+                        "office",
+                        "noun",
+                        1,
+                        0,
+                        0,
+                        json.dumps(["professional office or role"]),
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                    ),
+                )
+                conn.commit()
+            finally:
+                conn.close()
+
+            records_by_headword = load_freedict_sqlite_gloss_records_ordered(path)
+            records_by_translation = load_translation_gloss_records_by_translation_ordered(
+                path,
+                translations=("office",),
+            )
+
+        self.assertIn("cargo", records_by_headword)
+        self.assertEqual(records_by_headword["cargo"][0].translation, "office")
+        self.assertNotIn("sense_examples", records_by_headword["cargo"][0].metadata)
+        self.assertIn("office", records_by_translation)
+        self.assertEqual(records_by_translation["office"][0].translation, "cargo")
+
     def test_sqlite_base_form_loader_collects_sanitized_glosses(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "deu-eng.sqlite"

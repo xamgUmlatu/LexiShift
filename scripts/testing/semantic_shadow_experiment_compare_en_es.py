@@ -185,6 +185,12 @@ def _load_manifest_rows(path: Path) -> dict[str, dict[str, object]]:
             "support_representative_pruning_mode": str(
                 experiment.get("support_representative_pruning_mode") or "off"
             ).strip(),
+            "semantic_bridge_include_aux_text": bool(
+                experiment.get("semantic_bridge_include_aux_text")
+            ),
+            "semantic_bridge_include_examples": bool(
+                experiment.get("semantic_bridge_include_examples")
+            ),
             "trigger_support_weights": dict(
                 experiment.get("trigger_support_weights")
                 if isinstance(experiment.get("trigger_support_weights"), Mapping)
@@ -242,6 +248,8 @@ def _build_experiment_result(
         reverse_records_by_source=reverse_records_by_source,
         promotion_policy=str(experiment.get("policy") or "support_score_v1"),
         support_score_weights=experiment.get("shadow_support_weights"),
+        semantic_bridge_include_aux_text=bool(experiment.get("semantic_bridge_include_aux_text")),
+        semantic_bridge_include_examples=bool(experiment.get("semantic_bridge_include_examples")),
     )
     gold_proxy = evaluate_shadow_inventory_against_benchmark_overlap_gold(
         inventory=inventory,
@@ -343,6 +351,12 @@ def _build_experiment_result(
         ),
         "support_representative_pruning_mode": str(
             experiment.get("support_representative_pruning_mode") or "off"
+        ),
+        "semantic_bridge_include_aux_text": bool(
+            experiment.get("semantic_bridge_include_aux_text")
+        ),
+        "semantic_bridge_include_examples": bool(
+            experiment.get("semantic_bridge_include_examples")
         ),
         "seed_target_count": len(payload.seed_targets),
         "seed_trigger_count_before_filter": original_trigger_count,

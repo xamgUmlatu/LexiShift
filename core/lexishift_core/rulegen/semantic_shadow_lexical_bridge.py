@@ -42,6 +42,8 @@ def build_target_bridge_profiles(
     forward_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]],
     reverse_records_by_source: Mapping[str, Sequence[TranslationGlossRecord]],
     target_reverse_records_by_target: Mapping[str, Sequence[TranslationGlossRecord]] | None = None,
+    include_aux_text_markers: bool = False,
+    include_example_markers: bool = False,
 ) -> dict[str, dict[str, object]]:
     profiles: dict[str, dict[str, object]] = {}
     for benchmark_target in benchmark_targets:
@@ -62,7 +64,13 @@ def build_target_bridge_profiles(
                 canonical_pos_values.append(canonical_pos)
             markers.update(extract_bridge_markers_from_text(str(record.translation or "")))
             metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-            markers.update(extract_bridge_markers_from_metadata(metadata))
+            markers.update(
+                extract_bridge_markers_from_metadata(
+                    metadata,
+                    include_aux_text_markers=include_aux_text_markers,
+                    include_example_markers=include_example_markers,
+                )
+            )
         direct_reverse_records = ()
         if target_reverse_records_by_target is not None:
             direct_reverse_records = collect_sanitized_gloss_records(
@@ -72,7 +80,13 @@ def build_target_bridge_profiles(
             for record in direct_reverse_records:
                 markers.update(extract_bridge_markers_from_text(str(record.translation or "")))
                 metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-                markers.update(extract_bridge_markers_from_metadata(metadata))
+                markers.update(
+                    extract_bridge_markers_from_metadata(
+                        metadata,
+                        include_aux_text_markers=include_aux_text_markers,
+                        include_example_markers=include_example_markers,
+                    )
+                )
         else:
             for trigger in reviewed_triggers:
                 markers.update(extract_bridge_markers_from_text(trigger))
@@ -81,7 +95,13 @@ def build_target_bridge_profiles(
                 ):
                     markers.update(extract_bridge_markers_from_text(str(record.translation or "")))
                     metadata = record.metadata if isinstance(record.metadata, Mapping) else {}
-                    markers.update(extract_bridge_markers_from_metadata(metadata))
+                    markers.update(
+                        extract_bridge_markers_from_metadata(
+                            metadata,
+                            include_aux_text_markers=include_aux_text_markers,
+                            include_example_markers=include_example_markers,
+                        )
+                    )
         primary_pos = next((value for value in canonical_pos_values if value), "")
         profiles[target] = {
             "target": target,
@@ -205,7 +225,12 @@ def build_semantic_bridge_candidates(
     return [candidate for _score, candidate in ranked]
 
 
-def extract_bridge_markers_from_metadata(metadata: Mapping[str, object]) -> set[str]:
+def extract_bridge_markers_from_metadata(
+    metadata: Mapping[str, object],
+    *,
+    include_aux_text_markers: bool = False,
+    include_example_markers: bool = False,
+) -> set[str]:
     markers: set[str] = set()
     for key in ("sense_raw_glosses", "sense_topics", "topics"):
         value = metadata.get(key)
@@ -221,13 +246,17 @@ def extract_bridge_markers_from_metadata(metadata: Mapping[str, object]) -> set[
                 markers.update(extract_bridge_markers_from_category(item))
         else:
             markers.update(extract_bridge_markers_from_category(value))
-    for key in ("sense_examples", "examples"):
-        value = metadata.get(key)
-        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-            for item in value:
-                markers.update(_extract_bridge_markers_from_example_item(item))
-        else:
-            markers.update(_extract_bridge_markers_from_example_item(value))
+    if include_aux_text_markers:
+        for key in ("translation_sense_text", "translation_english_text", "translation_note_text"):
+            markers.update(extract_bridge_markers_from_text(metadata.get(key)))
+    if include_example_markers:
+        for key in ("sense_examples", "examples"):
+            value = metadata.get(key)
+            if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+                for item in value:
+                    markers.update(_extract_bridge_markers_from_example_item(item))
+            else:
+                markers.update(_extract_bridge_markers_from_example_item(value))
     return markers
 
 

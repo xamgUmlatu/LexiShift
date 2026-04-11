@@ -1,11 +1,13 @@
 # en-es Semantic Shadow Experiment Matrix
 
 - Status: `ok`
-- Generated: `2026-04-11T01:57:40Z`
+- Generated: `2026-04-11T02:50:28Z`
 - Manifest: `docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json`
 - Forward seed max words: `1`
 - Neighbor-borrow modes loaded: `True`
 - Matrix meaning: each row is a full experiment configuration spanning seed admission, promotion scoring, and veto evaluation.
+- Forward records with examples: `0 / 453` across `0` targets
+- Reverse records with aux text: `3003 / 3003` across `371` triggers
 
 ## Summary
 | Experiment | Seed Mode | Trigger Filter | Shadow Min | Max Promoted | Gold Prec | Gold Rec | Veto Acc | Abstain Rec | Harmful Allow |
@@ -29,6 +31,8 @@
 | promotion_active_profile_high | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_semantic_bridge_off | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_semantic_bridge_high | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
+| promotion_semantic_bridge_aux_text_on | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
+| promotion_semantic_bridge_aux_text_examples_on | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_cross_pos_penalty_off | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_cross_pos_penalty_strong | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
 | promotion_multi_source_candidate_1 | rulegen_top3_plus_forward_gloss_plus_neighbor_borrow | 0.0 | 5.0 | 2 | 78.6% | 44.0% | 89.1% | 54.5% | 45.5% |
@@ -65,6 +69,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `1`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`175 / 175`)
 - Gold candidate precision / recall / F1: `100.0%` / `50.0%` / `66.7%`
 - Gold trigger hit / top1 hit / exact-pool match: `75.8%` / `75.8%` / `12.1%`
@@ -85,6 +90,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`398 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
@@ -110,6 +116,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -141,6 +148,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -166,6 +174,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `2.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `94.8%` (`398 / 420`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
@@ -197,6 +206,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `46.9%` (`197 / 420`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -228,6 +238,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `4.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `32.4%` / `46.0%` / `38.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `54.5%` / `51.5%` / `3.0%`
@@ -254,6 +265,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `6.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `72.7%` / `16.0%` / `26.2%`
 - Gold trigger hit / top1 hit / exact-pool match: `15.2%` / `15.2%` / `3.0%`
@@ -277,6 +289,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `1`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `72.7%` / `32.0%` / `44.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `48.5%` / `48.5%` / `3.0%`
@@ -302,6 +315,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `3`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -327,6 +341,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -353,6 +368,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -379,6 +395,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -405,6 +422,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `72.7%` / `16.0%` / `26.2%`
 - Gold trigger hit / top1 hit / exact-pool match: `15.2%` / `15.2%` / `3.0%`
@@ -429,6 +447,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -455,6 +474,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
@@ -481,6 +501,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -507,6 +528,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -533,6 +555,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -553,12 +576,65 @@
   - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
   - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
 
+### promotion_semantic_bridge_aux_text_on
+- Label: `Borrowed baseline with semantic-bridge aux text on`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `True` / `False`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
+- Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
+### promotion_semantic_bridge_aux_text_examples_on
+- Label: `Borrowed baseline with semantic-bridge aux text and examples on`
+- Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
+- Policy: `support_score_v1`
+- Trigger filter min: `0.0`
+- Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `True` / `True`
+- Seed trigger keep rate: `100.0%` (`420 / 420`)
+- Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
+- Automatic feature slices tracked: `52`
+- Harmful-allow miss counts: `seed_missing=5`, `candidate_missing=1`, `promotion_miss=6`
+- Sample harmful-allow rows:
+  - `campo` / `field` gold=['terreno'] promoted=[] miss=promotion_miss
+  - `empleo` / `employment` gold=['ocupación'] promoted=[] miss=candidate_missing
+  - `malla` / `mesh` gold=['reja', 'rejilla'] promoted=[] miss=promotion_miss
+  - `ocupación` / `employment` gold=['empleo'] promoted=[] miss=seed_missing
+  - `red` / `net` gold=['malla'] promoted=[] miss=promotion_miss
+- Sample false-abstain rows:
+  - `marco` / `frame` promoted=['cuadro'] cases=['en-es:marco'] slices=[]
+  - `reja` / `grating` promoted=['rejilla'] cases=['en-es:reja'] slices=['family:net_mesh_network']
+  - `ruta` / `route` promoted=['camino'] cases=['en-es:ruta'] slices=['family:path_route']
+  - `tierra` / `earth` promoted=['terreno'] cases=['en-es:tierra'] slices=['family:field_area_country']
+
 ### promotion_cross_pos_penalty_off
 - Label: `Borrowed baseline with cross-POS penalty off`
 - Seed mode: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow`
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -585,6 +661,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -611,6 +688,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `48.5%` / `3.0%`
@@ -637,6 +715,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `75.0%` / `48.0%` / `58.5%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -664,6 +743,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `75.0%` / `48.0%` / `58.5%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -691,6 +771,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `75.0%` / `48.0%` / `58.5%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -718,6 +799,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `73.5%` / `50.0%` / `59.5%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -745,6 +827,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -771,6 +854,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -797,6 +881,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `6.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
@@ -823,6 +908,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `6.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
@@ -849,6 +935,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
 - Gold trigger hit / top1 hit / exact-pool match: `51.5%` / `51.5%` / `3.0%`
@@ -875,6 +962,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -901,6 +989,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `78.1%` / `50.0%` / `61.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -928,6 +1017,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.5` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`420 / 420`)
 - Gold candidate precision / recall / F1: `71.4%` / `50.0%` / `58.8%`
 - Gold trigger hit / top1 hit / exact-pool match: `57.6%` / `57.6%` / `3.0%`
@@ -955,6 +1045,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `0.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`398 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
@@ -981,6 +1072,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `2.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `100.0%` (`398 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `3.0%`
@@ -1006,6 +1098,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `4.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `9.8%` (`39 / 398`)
 - Gold candidate precision / recall / F1: `85.7%` / `24.0%` / `37.5%`
 - Gold trigger hit / top1 hit / exact-pool match: `27.3%` / `27.3%` / `0.0%`
@@ -1035,6 +1128,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `42.7%` (`170 / 398`)
 - Gold candidate precision / recall / F1: `86.7%` / `26.0%` / `40.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
@@ -1065,6 +1159,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `42.7%` (`170 / 398`)
 - Gold candidate precision / recall / F1: `86.7%` / `26.0%` / `40.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
@@ -1095,6 +1190,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -1127,6 +1223,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -1159,6 +1256,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -1191,6 +1289,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `42.7%` (`170 / 398`)
 - Gold candidate precision / recall / F1: `86.7%` / `26.0%` / `40.0%`
 - Gold trigger hit / top1 hit / exact-pool match: `30.3%` / `30.3%` / `0.0%`
@@ -1221,6 +1320,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -1253,6 +1353,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `50.0%` (`199 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`
@@ -1285,6 +1386,7 @@
 - Policy: `support_score_v1`
 - Trigger filter min: `3.0`
 - Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
 - Seed trigger keep rate: `49.5%` (`197 / 398`)
 - Gold candidate precision / recall / F1: `73.9%` / `34.0%` / `46.6%`
 - Gold trigger hit / top1 hit / exact-pool match: `42.4%` / `39.4%` / `0.0%`

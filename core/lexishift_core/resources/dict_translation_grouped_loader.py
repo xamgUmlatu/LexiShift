@@ -11,6 +11,7 @@ def load_sqlite_gloss_records_by_translation_ordered(
 ) -> dict[str, list[object]]:
     from lexishift_core.resources.dict_loaders import (
         FreedictGlossRecord,
+        _sqlite_has_column,
         _sqlite_has_table,
     )
     from lexishift_core.resources.dict_gloss_metadata import build_auxiliary_gloss_metadata
@@ -19,6 +20,7 @@ def load_sqlite_gloss_records_by_translation_ordered(
     headword_index_by_translation: dict[str, dict[str, int]] = {}
     has_entry_meta = _sqlite_has_table(conn, "entry_meta")
     has_translation_meta = _sqlite_has_table(conn, "translation_meta")
+    has_examples_json = _sqlite_has_column(conn, "sense_glosses", "examples_json")
     entry_meta_join = (
         "LEFT JOIN entry_meta em ON em.entry_ord = sg.entry_ord" if has_entry_meta else ""
     )
@@ -46,7 +48,7 @@ def load_sqlite_gloss_records_by_translation_ordered(
             sg.sense_ord,
             sg.gloss_ord,
             sg.raw_glosses_json,
-            sg.examples_json,
+            {"sg.examples_json" if has_examples_json else "NULL"} AS examples_json,
             sg.tags_json,
             sg.topics_json,
             sg.categories_json,

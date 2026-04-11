@@ -12,6 +12,8 @@
     "support_frequency_representative_top_k": 0,
     "support_frequency_similarity_weight": 0.0,
     "support_frequency_similarity_tau": 0.15,
+    "semantic_bridge_include_aux_text": false,
+    "semantic_bridge_include_examples": false,
     "support_representative_pruning_mode": "off",
     "trigger_support_weights": {},
     "shadow_support_weights": {}
@@ -146,6 +148,19 @@
       "shadow_support_weights": {
         "semantic_bridge_support": 1.5
       }
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_aux_text_on",
+      "label": "Borrowed baseline with semantic-bridge aux text on",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "semantic_bridge_include_aux_text": true
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_aux_text_examples_on",
+      "label": "Borrowed baseline with semantic-bridge aux text and examples on",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "semantic_bridge_include_aux_text": true,
+      "semantic_bridge_include_examples": true
     },
     {
       "experiment_id": "promotion_cross_pos_penalty_off",

@@ -471,6 +471,21 @@ def _sqlite_has_table(conn: sqlite3.Connection, table_name: str) -> bool:
     return bool(row)
 
 
+def _sqlite_has_column(
+    conn: sqlite3.Connection,
+    table_name: str,
+    column_name: str,
+) -> bool:
+    normalized_column = str(column_name or "").strip()
+    if not normalized_column:
+        return False
+    try:
+        rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    except sqlite3.Error:
+        return False
+    return any(str(row[1] or "").strip() == normalized_column for row in rows if len(row) > 1)
+
+
 def _load_auxiliary_sqlite_gloss_records_ordered(
     conn: sqlite3.Connection,
     *,
@@ -480,6 +495,7 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
     translation_index_by_headword: dict[str, dict[str, int]] = {}
     has_entry_meta = _sqlite_has_table(conn, "entry_meta")
     has_translation_meta = _sqlite_has_table(conn, "translation_meta")
+    has_examples_json = _sqlite_has_column(conn, "sense_glosses", "examples_json")
     entry_meta_join = (
         "LEFT JOIN entry_meta em ON em.entry_ord = sg.entry_ord" if has_entry_meta else ""
     )
@@ -507,7 +523,7 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
             sg.sense_ord,
             sg.gloss_ord,
             sg.raw_glosses_json,
-            sg.examples_json,
+            {"sg.examples_json" if has_examples_json else "NULL"} AS examples_json,
             sg.tags_json,
             sg.topics_json,
             sg.categories_json,

@@ -1,38 +1,38 @@
 # en-es Semantic Shadow Experiment Compare
 
 - Status: `ok`
-- Generated: `2026-04-11T02:07:04Z`
+- Generated: `2026-04-11T02:49:16Z`
 - Frontier read: `flat_no_row_level_change`
 - Meaning: compare the current control row against a candidate row and measure exact row-level fixes, regressions, and slice deltas.
 
 ## Overall
-- Row outcomes: `improved=0`, `regressed=0`, `stable_correct=158`, `stable_incorrect=17`
-- Ambiguous-row changes: `fixed_harmful_allow=0`, `persistent_harmful_allow=13`
+- Row outcomes: `improved=0`, `regressed=0`, `stable_correct=156`, `stable_incorrect=19`
+- Ambiguous-row changes: `fixed_harmful_allow=0`, `persistent_harmful_allow=15`
 - Clear-row changes: `introduced_false_abstain=0`, `persistent_false_abstain=4`
 
 ## Experiments
 
 ### Control
-- Experiment: `promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5`
-- Label: `Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 5.5`
+- Experiment: `source_only_borrowed`
+- Label: `Source-only with borrowed triggers`
 - Seed mode / policy: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow` / `support_score_v1`
 - Trigger filter min: `0.0`
-- Shadow support min / max promoted: `5.5` / `2`
-- Gold precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
-- Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
-- Veto counts: `false_abstain=4`, `harmful_allow=13`
-- Shadow support weights: `{"forward_neighborhood_overlap": 3.0, "multi_source_candidate_support": 1.5}`
+- Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `False` / `False`
+- Gold precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
 
 ### Candidate
-- Experiment: `promotion_multi_source_plus_trigger_family_reentry_3_threshold_5_5`
-- Label: `Borrowed baseline with multi-source 1.5, trigger-family reentry 3.0, threshold 5.5`
+- Experiment: `promotion_semantic_bridge_aux_text_on`
+- Label: `Borrowed baseline with semantic-bridge aux text on`
 - Seed mode / policy: `rulegen_top3_plus_forward_gloss_plus_neighbor_borrow` / `support_score_v1`
 - Trigger filter min: `0.0`
-- Shadow support min / max promoted: `5.5` / `2`
-- Gold precision / recall / F1: `80.0%` / `48.0%` / `60.0%`
-- Veto accuracy / abstain recall / harmful allow / overblocking: `90.3%` / `60.6%` / `39.4%` / `2.8%`
-- Veto counts: `false_abstain=4`, `harmful_allow=13`
-- Shadow support weights: `{"multi_source_candidate_support": 1.5, "trigger_family_reentry": 3.0}`
+- Shadow support min / max promoted: `5.0` / `2`
+- Semantic-bridge aux text / examples: `True` / `False`
+- Gold precision / recall / F1: `78.6%` / `44.0%` / `56.4%`
+- Veto accuracy / abstain recall / harmful allow / overblocking: `89.1%` / `54.5%` / `45.5%` / `2.8%`
+- Veto counts: `false_abstain=4`, `harmful_allow=15`
 
 ## Deltas
 - Gold precision delta: `0.0%`
@@ -50,18 +50,18 @@
 ### Harmful-Allow Buckets
 | Bucket | Ambiguous Rows | Harmful Allow | Persistent | Rate | Lift Vs Global | Miss Mix |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| feature:feature_reviewed_trigger_support_count:none | 13 | 13 | 13 | 100.0% | 60.6% | seed=6 cand=1 promo=6 |
-| feature:feature_multi_source_candidate_count:none | 13 | 13 | 13 | 100.0% | 60.6% | seed=6 cand=1 promo=6 |
-| feature:feature_semantic_bridge_candidate_count:none | 22 | 11 | 11 | 50.0% | 10.6% | seed=6 cand=1 promo=4 |
-| feature:feature_benchmark_target_present_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_trigger_family_candidate_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_forward_neighborhood_candidate_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_shadow_candidate_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_candidate_source_family_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_candidate_source_family_signature:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_candidate_pos_count:none | 7 | 7 | 7 | 100.0% | 60.6% | seed=6 cand=1 promo=0 |
-| feature:feature_same_pos_candidate_count:none | 8 | 7 | 7 | 87.5% | 48.1% | seed=6 cand=1 promo=0 |
-| feature:feature_active_support_mode:active_candidates | 24 | 7 | 7 | 29.2% | -10.2% | seed=0 cand=1 promo=6 |
+| feature:feature_reviewed_trigger_support_count:none | 13 | 13 | 13 | 100.0% | 54.5% | seed=6 cand=1 promo=6 |
+| feature:feature_multi_source_candidate_count:none | 13 | 13 | 13 | 100.0% | 54.5% | seed=6 cand=1 promo=6 |
+| feature:feature_semantic_bridge_candidate_count:none | 22 | 13 | 13 | 59.1% | 13.6% | seed=6 cand=1 promo=6 |
+| feature:feature_active_support_mode:active_candidates | 24 | 9 | 9 | 37.5% | -8.0% | seed=0 cand=1 promo=8 |
+| feature:feature_active_candidate_count:one | 24 | 9 | 9 | 37.5% | -8.0% | seed=0 cand=1 promo=8 |
+| feature:feature_inventory_entry:present | 27 | 9 | 9 | 33.3% | -12.1% | seed=0 cand=1 promo=8 |
+| feature:feature_same_pos_candidate_count:none | 8 | 8 | 8 | 100.0% | 54.5% | seed=6 cand=1 promo=1 |
+| feature:feature_benchmark_target_present_count:none | 7 | 7 | 7 | 100.0% | 54.5% | seed=6 cand=1 promo=0 |
+| feature:feature_trigger_family_candidate_count:none | 7 | 7 | 7 | 100.0% | 54.5% | seed=6 cand=1 promo=0 |
+| feature:feature_forward_neighborhood_candidate_count:none | 7 | 7 | 7 | 100.0% | 54.5% | seed=6 cand=1 promo=0 |
+| feature:feature_shadow_candidate_count:none | 7 | 7 | 7 | 100.0% | 54.5% | seed=6 cand=1 promo=0 |
+| feature:feature_candidate_source_family_count:none | 7 | 7 | 7 | 100.0% | 54.5% | seed=6 cand=1 promo=0 |
 
 ### False-Abstain Buckets
 | Bucket | Clear Rows | False Abstain | Persistent | Rate | Lift Vs Global |

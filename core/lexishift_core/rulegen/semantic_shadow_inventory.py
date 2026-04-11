@@ -376,6 +376,8 @@ def build_en_es_shadow_inventory(
     promotion_policy: str = DEFAULT_SHADOW_PROMOTION_POLICY,
     frequency_lookup: ShadowFrequencyLookup | None = None,
     support_score_weights: Mapping[str, object] | None = None,
+    semantic_bridge_include_aux_text: bool = False,
+    semantic_bridge_include_examples: bool = False,
 ) -> dict[str, object]:
     benchmark_target_map = {target.target: target for target in benchmark_targets}
     target_trigger_family_terms = build_target_trigger_family_terms(benchmark_targets)
@@ -396,6 +398,8 @@ def build_en_es_shadow_inventory(
         forward_records_by_target=forward_records_by_target,
         reverse_records_by_source=reverse_records_by_source,
         target_reverse_records_by_target=target_reverse_records_by_target,
+        include_aux_text_markers=semantic_bridge_include_aux_text,
+        include_example_markers=semantic_bridge_include_examples,
     )
     bridge_marker_frequency = build_bridge_marker_frequency(target_bridge_profiles)
     inventory_targets: list[dict[str, object]] = []
@@ -588,6 +592,10 @@ def build_en_es_shadow_inventory(
         "providers": {
             "forward": str(forward_provider or "").strip() or "unknown",
             "reverse": str(reverse_provider or "").strip() or "unknown",
+        },
+        "semantic_bridge_options": {
+            "include_aux_text": bool(semantic_bridge_include_aux_text),
+            "include_examples": bool(semantic_bridge_include_examples),
         },
         "targets": inventory_targets,
         "summary": build_inventory_summary(inventory_targets),

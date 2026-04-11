@@ -139,6 +139,8 @@ Current sweepable inputs:
 - `support_frequency_representative_top_k`
 - `support_frequency_similarity_weight`
 - `support_frequency_similarity_tau`
+- `semantic_bridge_include_aux_text`
+- `semantic_bridge_include_examples`
 - `support_representative_pruning_mode`
 
 The important design decision is that node weights are now first-class experiment inputs.

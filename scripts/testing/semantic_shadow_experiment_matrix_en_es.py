@@ -27,6 +27,7 @@ from semantic_shadow_experiment_support import (  # noqa: E402
     DEFAULT_DATASET_PATH,
     build_en_es_seed_mode_payloads,
     build_inventory_for_seed_targets,
+    build_shadow_signal_availability_summary,
     build_trigger_row_metadata_from_cases,
     load_en_es_shadow_experiment_resources,
     load_reverse_records_by_source_for_seed_modes,
@@ -175,6 +176,12 @@ def _materialize_experiment_rows(manifest: Mapping[str, object]) -> list[dict[st
         experiment["support_representative_pruning_mode"] = str(
             experiment.get("support_representative_pruning_mode") or "off"
         ).strip()
+        experiment["semantic_bridge_include_aux_text"] = bool(
+            experiment.get("semantic_bridge_include_aux_text")
+        )
+        experiment["semantic_bridge_include_examples"] = bool(
+            experiment.get("semantic_bridge_include_examples")
+        )
         experiment["trigger_support_weights"] = dict(
             experiment.get("trigger_support_weights")
             if isinstance(experiment.get("trigger_support_weights"), Mapping)
@@ -237,6 +244,10 @@ def build_experiment_matrix_report(
         tuple(seed_mode_payloads.values()),
     )
     trigger_row_metadata = build_trigger_row_metadata_from_cases(resources.cases)
+    signal_availability = build_shadow_signal_availability_summary(
+        resources,
+        reverse_records_by_source=reverse_records_by_source,
+    )
 
     rows: list[dict[str, object]] = []
     for experiment in experiment_rows:
@@ -280,6 +291,12 @@ def build_experiment_matrix_report(
             reverse_records_by_source=reverse_records_by_source,
             promotion_policy=str(experiment.get("policy") or "support_score_v1"),
             support_score_weights=experiment.get("shadow_support_weights"),
+            semantic_bridge_include_aux_text=bool(
+                experiment.get("semantic_bridge_include_aux_text")
+            ),
+            semantic_bridge_include_examples=bool(
+                experiment.get("semantic_bridge_include_examples")
+            ),
         )
         gold_proxy = evaluate_shadow_inventory_against_benchmark_overlap_gold(
             inventory=inventory,
@@ -399,6 +416,12 @@ def build_experiment_matrix_report(
                 "support_representative_pruning_mode": str(
                     experiment.get("support_representative_pruning_mode") or "off"
                 ),
+                "semantic_bridge_include_aux_text": bool(
+                    experiment.get("semantic_bridge_include_aux_text")
+                ),
+                "semantic_bridge_include_examples": bool(
+                    experiment.get("semantic_bridge_include_examples")
+                ),
                 "seed_target_count": len(payload.seed_targets),
                 "seed_trigger_count_before_filter": original_trigger_count,
                 "seed_trigger_count_after_filter": filtered_trigger_count,
@@ -467,6 +490,7 @@ def build_experiment_matrix_report(
         "benchmark_json": str(benchmark_json),
         "forward_seed_max_words": int(forward_seed_max_words),
         "include_neighbor_borrow_seed_modes": include_neighbor_borrow_seed_modes,
+        "source_signal_availability": signal_availability,
         "experiment_count": len(rows),
         "rows": rows,
     }
@@ -483,6 +507,14 @@ def _render_markdown(report: Mapping[str, object]) -> str:
         f"- Neighbor-borrow modes loaded: `{bool(report.get('include_neighbor_borrow_seed_modes'))}`",
         "- Matrix meaning: each row is a full experiment configuration spanning seed admission, promotion scoring, and veto evaluation.",
     ]
+    signal_availability = report.get("source_signal_availability")
+    if isinstance(signal_availability, Mapping):
+        lines.extend(
+            [
+                f"- Forward records with examples: `{signal_availability.get('forward_records_with_examples', 0)} / {signal_availability.get('forward_records_total', 0)}` across `{signal_availability.get('forward_targets_with_examples', 0)}` targets",
+                f"- Reverse records with aux text: `{signal_availability.get('trigger_reverse_records_with_aux_text', 0)} / {signal_availability.get('trigger_reverse_records_total', 0)}` across `{signal_availability.get('trigger_reverse_triggers_with_aux_text', 0)}` triggers",
+            ]
+        )
     rows = report.get("rows")
     if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
         return "\n".join(lines) + "\n"
@@ -530,6 +562,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 f"- Policy: `{row.get('policy', '')}`",
                 f"- Trigger filter min: `{row.get('trigger_support_score_min', '')}`",
                 f"- Shadow support min / max promoted: `{row.get('support_score_min', '')}` / `{row.get('support_score_max_promoted', '')}`",
+                f"- Semantic-bridge aux text / examples: `{bool(row.get('semantic_bridge_include_aux_text'))}` / `{bool(row.get('semantic_bridge_include_examples'))}`",
                 f"- Seed trigger keep rate: `{_render_rate(row.get('seed_trigger_keep_rate'))}` (`{row.get('seed_trigger_count_after_filter', 0)} / {row.get('seed_trigger_count_before_filter', 0)}`)",
                 f"- Gold candidate precision / recall / F1: `{_render_rate(row.get('gold_candidate_precision'))}` / `{_render_rate(row.get('gold_candidate_recall'))}` / `{_render_rate(row.get('gold_candidate_f1'))}`",
                 f"- Gold trigger hit / top1 hit / exact-pool match: `{_render_rate(row.get('gold_trigger_hit_rate'))}` / `{_render_rate(row.get('gold_top1_hit_rate'))}` / `{_render_rate(row.get('candidate_pool_exact_match_rate'))}`",
