@@ -273,6 +273,36 @@
       runtimeState ? `- rules_srs_enabled: ${runtimeState.rules_srs_enabled ?? "n/a"}` : "- rules_srs_enabled: n/a",
       runtimeState ? `- active_rules_total: ${runtimeState.active_rules_total ?? "n/a"}` : "- active_rules_total: n/a",
       runtimeState ? `- active_rules_srs: ${runtimeState.active_rules_srs ?? "n/a"}` : "- active_rules_srs: n/a",
+      runtimeState
+        ? `- semantic_admission_enabled: ${runtimeState.semantic_admission_enabled === true}`
+        : "- semantic_admission_enabled: n/a",
+      runtimeState
+        ? `- semantic_fallback_policy: ${runtimeState.semantic_fallback_policy || "n/a"}`
+        : "- semantic_fallback_policy: n/a",
+      runtimeState
+        ? `- semantic_inventory_loaded: ${runtimeState.semantic_inventory_loaded === true}`
+        : "- semantic_inventory_loaded: n/a",
+      runtimeState
+        ? `- semantic_inventory_source: ${runtimeState.semantic_inventory_source || "n/a"}`
+        : "- semantic_inventory_source: n/a",
+      runtimeState
+        ? `- semantic_matches_eligible: ${runtimeState.semantic_matches_eligible ?? "n/a"}`
+        : "- semantic_matches_eligible: n/a",
+      runtimeState
+        ? `- semantic_policy_replaces: ${runtimeState.semantic_policy_replaces ?? "n/a"}`
+        : "- semantic_policy_replaces: n/a",
+      runtimeState
+        ? `- semantic_policy_abstains: ${runtimeState.semantic_policy_abstains ?? "n/a"}`
+        : "- semantic_policy_abstains: n/a",
+      runtimeState
+        ? `- semantic_fallback_replaces: ${runtimeState.semantic_fallback_replaces ?? "n/a"}`
+        : "- semantic_fallback_replaces: n/a",
+      runtimeState
+        ? `- semantic_fallback_abstains: ${runtimeState.semantic_fallback_abstains ?? "n/a"}`
+        : "- semantic_fallback_abstains: n/a",
+      runtimeState
+        ? `- semantic_inventory_error: ${runtimeState.semantic_inventory_error || "none"}`
+        : "- semantic_inventory_error: n/a",
       runtimeState ? `- helper_rules_error: ${runtimeState.helper_rules_error || "none"}` : "- helper_rules_error: n/a",
       runtimeState ? `- frame_type: ${runtimeState.frame_type || "n/a"}` : "- frame_type: n/a"
     ].filter(Boolean).join("\n");

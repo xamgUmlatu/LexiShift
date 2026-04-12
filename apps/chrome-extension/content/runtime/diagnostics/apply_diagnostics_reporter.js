@@ -42,6 +42,14 @@
       const srsStats = state.srsStats || null;
       const focusWord = String(state.focusWord || "");
       const focusRulesCount = Number(state.focusRulesCount || 0);
+      const semanticAdmissionEnabled = state.semanticAdmissionEnabled === true;
+      const semanticFallbackPolicy = String(state.semanticFallbackPolicy || "legacy_on_unavailable");
+      const semanticInventoryLoaded = state.semanticInventoryLoaded === true;
+      const semanticInventorySource = String(state.semanticInventorySource || "none");
+      const semanticInventoryError = state.semanticInventoryError || null;
+      const scanSummary = state.scanSummary && typeof state.scanSummary === "object"
+        ? state.scanSummary
+        : null;
       let srsRulesWithScriptForms = 0;
       let activeSrsRulesWithScriptForms = 0;
       let srsRulesWithWordPackage = 0;
@@ -66,6 +74,8 @@
         targetDisplayScript: currentSettings.targetDisplayScript || "kanji",
         srsProfileId: srsProfileId,
         srsMaxActive: currentSettings.srsMaxActive,
+        semanticAdmissionEnabled,
+        semanticFallbackPolicy,
         debugEnabled: currentSettings.debugEnabled,
         debugFocusWord: focusWord || ""
       });
@@ -108,6 +118,24 @@
           log("Helper SRS fetch error:", helperRulesError);
         }
       }
+      if (semanticAdmissionEnabled) {
+        log("Semantic admission runtime:", {
+          fallbackPolicy: semanticFallbackPolicy,
+          inventoryLoaded: semanticInventoryLoaded,
+          inventorySource: semanticInventorySource,
+          inventoryError: semanticInventoryError || ""
+        });
+      }
+      if (semanticAdmissionEnabled && scanSummary && Number(scanSummary.semanticEligible || 0) > 0) {
+        log("Semantic admission apply summary:", {
+          eligible: Number(scanSummary.semanticEligible || 0),
+          ready: Number(scanSummary.semanticReady || 0),
+          policyReplaces: Number(scanSummary.semanticPolicyReplaces || 0),
+          policyAbstains: Number(scanSummary.semanticPolicyAbstains || 0),
+          fallbackReplaces: Number(scanSummary.semanticFallbackReplaces || 0),
+          fallbackAbstains: Number(scanSummary.semanticFallbackAbstains || 0)
+        });
+      }
       persistRuntimeState({
         ts: new Date().toISOString(),
         pair: currentSettings.srsPair || "",
@@ -123,6 +151,17 @@
         active_rules_srs_with_script_forms: activeSrsRulesWithScriptForms,
         rules_srs_with_word_package: srsRulesWithWordPackage,
         active_rules_srs_with_word_package: activeSrsRulesWithWordPackage,
+        semantic_admission_enabled: semanticAdmissionEnabled,
+        semantic_fallback_policy: semanticFallbackPolicy,
+        semantic_inventory_loaded: semanticInventoryLoaded,
+        semantic_inventory_source: semanticInventorySource,
+        semantic_inventory_error: semanticInventoryError || "",
+        semantic_matches_eligible: scanSummary ? Number(scanSummary.semanticEligible || 0) : 0,
+        semantic_matches_ready: scanSummary ? Number(scanSummary.semanticReady || 0) : 0,
+        semantic_policy_replaces: scanSummary ? Number(scanSummary.semanticPolicyReplaces || 0) : 0,
+        semantic_policy_abstains: scanSummary ? Number(scanSummary.semanticPolicyAbstains || 0) : 0,
+        semantic_fallback_replaces: scanSummary ? Number(scanSummary.semanticFallbackReplaces || 0) : 0,
+        semantic_fallback_abstains: scanSummary ? Number(scanSummary.semanticFallbackAbstains || 0) : 0,
         srs_stats: srsStats || null,
         helper_rules_error: helperRulesError || "",
         page_url: window.location ? window.location.href : "",

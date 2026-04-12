@@ -96,6 +96,17 @@
         ? activeRulesState.srsStats
         : null;
       const activeOriginCounts = normalizeOriginCounts(activeRulesState && activeRulesState.activeOriginCounts);
+      const semanticAdmissionEnabled = activeRulesState && activeRulesState.semanticAdmissionEnabled === true;
+      const semanticFallbackPolicy = activeRulesState && activeRulesState.semanticFallbackPolicy
+        ? activeRulesState.semanticFallbackPolicy
+        : "legacy_on_unavailable";
+      const semanticInventoryLoaded = activeRulesState && activeRulesState.semanticInventoryLoaded === true;
+      const semanticInventorySource = activeRulesState && activeRulesState.semanticInventorySource
+        ? activeRulesState.semanticInventorySource
+        : "none";
+      const semanticInventoryError = activeRulesState && activeRulesState.semanticInventoryError
+        ? activeRulesState.semanticInventoryError
+        : null;
 
       if (!isTokenCurrent()) {
         return { stale: true };
@@ -105,6 +116,19 @@
       const focusRulesCount = focusWord
         ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord).length
         : 0;
+      let runtimeApplyResult = null;
+      if (applyRuntimeActions && typeof applyRuntimeActions.run === "function") {
+        runtimeApplyResult = await applyRuntimeActions.run({
+          currentSettings: nextSettings,
+          activeRules,
+          focusWord
+        });
+      }
+
+      if (!isTokenCurrent()) {
+        return { stale: true };
+      }
+
       if (applyDiagnosticsReporter && typeof applyDiagnosticsReporter.report === "function") {
         applyDiagnosticsReporter.report({
           currentSettings: nextSettings,
@@ -118,14 +142,15 @@
           srsProfileId,
           srsStats,
           focusWord,
-          focusRulesCount
-        });
-      }
-      if (applyRuntimeActions && typeof applyRuntimeActions.run === "function") {
-        applyRuntimeActions.run({
-          currentSettings: nextSettings,
-          activeRules,
-          focusWord
+          focusRulesCount,
+          semanticAdmissionEnabled,
+          semanticFallbackPolicy,
+          semanticInventoryLoaded,
+          semanticInventorySource,
+          semanticInventoryError,
+          scanSummary: runtimeApplyResult && runtimeApplyResult.scanSummary
+            ? runtimeApplyResult.scanSummary
+            : null
         });
       }
 

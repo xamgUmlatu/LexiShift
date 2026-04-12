@@ -23,6 +23,7 @@
       : (_rule) => String(opts.ruleOriginRuleset || "ruleset");
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
+    const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
 
     function countRulesByOrigin(rules) {
       const counts = {
@@ -65,9 +66,16 @@
       const helperAvailable = runtime.helperAvailable !== false;
       const currentSettings = settings && typeof settings === "object" ? settings : {};
       const srsProfileId = normalizeProfileId(currentSettings.srsProfileId);
+      const semanticAdmissionEnabled = currentSettings.srsSemanticAdmissionEnabled === true;
+      const semanticFallbackPolicy = String(
+        currentSettings.srsSemanticAdmissionFallbackPolicy || DEFAULT_SEMANTIC_FALLBACK_POLICY
+      ).trim() || DEFAULT_SEMANTIC_FALLBACK_POLICY;
 
       let rulesSource = "local";
       let helperRulesError = null;
+      let semanticInventoryLoaded = false;
+      let semanticInventorySource = "none";
+      let semanticInventoryError = null;
       const customRulesetEnabled = currentSettings.customRulesetEnabled !== false;
       const localRules = [
         ...tagRulesWithOrigin(currentSettings.profileRules, ruleOriginRuleset),
@@ -96,6 +104,31 @@
         }
       }
 
+      if (
+        semanticAdmissionEnabled
+        && currentSettings.srsEnabled
+        && helperAvailable
+        && helperRulesRuntime
+        && typeof helperRulesRuntime.resolveSemanticInventory === "function"
+      ) {
+        const semanticResolution = await helperRulesRuntime.resolveSemanticInventory(
+          currentSettings.srsPair,
+          srsProfileId
+        );
+        const semanticInventory = semanticResolution && typeof semanticResolution === "object"
+          ? semanticResolution.inventory
+          : null;
+        semanticInventoryLoaded = Boolean(semanticInventory && typeof semanticInventory === "object");
+        semanticInventorySource = semanticResolution && semanticResolution.source
+          ? semanticResolution.source
+          : "none";
+        semanticInventoryError = semanticResolution && semanticResolution.error
+          ? semanticResolution.error
+          : null;
+      } else if (semanticAdmissionEnabled && currentSettings.srsEnabled && !helperAvailable) {
+        semanticInventoryError = "Helper client unavailable.";
+      }
+
       const rawRules = [...localRules, ...helperRules];
       const normalizedRules = normalizeRules(rawRules);
       const enabledRules = normalizedRules.filter((rule) => rule.enabled !== false);
@@ -122,7 +155,12 @@
         activeRules,
         activeOriginCounts,
         srsActiveLemmas,
-        srsStats
+        srsStats,
+        semanticAdmissionEnabled,
+        semanticFallbackPolicy,
+        semanticInventoryLoaded,
+        semanticInventorySource,
+        semanticInventoryError
       };
     }
 

@@ -21,6 +21,8 @@
     && typeof root.contentHelperRulesRuntime.createRuntime === "function"
     && root.contentActiveRulesRuntime
     && typeof root.contentActiveRulesRuntime.createRuntime === "function"
+    && root.contentSemanticGateRuntime
+    && typeof root.contentSemanticGateRuntime.createRuntime === "function"
     && root.contentApplyDiagnosticsReporter
     && typeof root.contentApplyDiagnosticsReporter.createReporter === "function"
     && root.contentFeedbackRuntimeController
@@ -184,39 +186,16 @@
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
 
-  const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
   const helperRulesRuntimeFactory = root.contentHelperRulesRuntime.createRuntime;
   const activeRulesRuntimeFactory = root.contentActiveRulesRuntime.createRuntime;
+  const semanticGateRuntimeFactory = root.contentSemanticGateRuntime.createRuntime;
+  const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
   const applyDiagnosticsReporterFactory = root.contentApplyDiagnosticsReporter.createReporter;
   const feedbackRuntimeFactory = root.contentFeedbackRuntimeController.createController;
   const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
   const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
 
-  const domScanRuntime = domScanRuntimeFactory({
-    getCurrentSettings: () => currentSettings,
-    getCurrentTrie: () => currentTrie,
-    getProcessedNodes: () => processedNodes,
-    setProcessedNodes: (next) => {
-      processedNodes = next;
-    },
-    isApplyingChanges: () => applyingChanges === true,
-    getFocusWord,
-    getFocusInfo,
-    normalizeRuleOrigin,
-    buildReplacementFragment,
-    describeElement,
-    shorten,
-    describeCodepoints,
-    countOccurrences,
-    collectTextNodes,
-    srsMetrics,
-    lemmatizer,
-    popupModuleHistoryStore,
-    isPopupModuleEnabled,
-    normalizeProfileId,
-    log
-  });
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
     helperCache,
@@ -233,6 +212,39 @@
     getRuleOrigin,
     ruleOriginSrs: RULE_ORIGIN_SRS,
     ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const semanticGateRuntime = semanticGateRuntimeFactory({
+    helperRulesRuntime,
+    getRuleOrigin,
+    normalizeProfileId,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET,
+    log
+  });
+  const domScanRuntime = domScanRuntimeFactory({
+    getCurrentSettings: () => currentSettings,
+    getCurrentTrie: () => currentTrie,
+    getProcessedNodes: () => processedNodes,
+    setProcessedNodes: (next) => {
+      processedNodes = next;
+    },
+    isApplyingChanges: () => applyingChanges === true,
+    getFocusWord,
+    getFocusInfo,
+    normalizeRuleOrigin,
+    buildReplacementFragment,
+    semanticGateRuntime,
+    describeElement,
+    shorten,
+    describeCodepoints,
+    countOccurrences,
+    collectTextNodes,
+    srsMetrics,
+    lemmatizer,
+    popupModuleHistoryStore,
+    isPopupModuleEnabled,
+    normalizeProfileId,
+    log
   });
   const applyDiagnosticsReporter = applyDiagnosticsReporterFactory({
     log,

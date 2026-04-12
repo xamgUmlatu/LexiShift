@@ -31,6 +31,35 @@
       active_rules_srs: Number.isFinite(Number(state.active_rules_srs))
         ? Number(state.active_rules_srs)
         : 0,
+      semantic_admission_enabled: state.semantic_admission_enabled === true,
+      semantic_fallback_policy: state.semantic_fallback_policy
+        ? String(state.semantic_fallback_policy)
+        : "legacy_on_unavailable",
+      semantic_inventory_loaded: state.semantic_inventory_loaded === true,
+      semantic_inventory_source: state.semantic_inventory_source
+        ? String(state.semantic_inventory_source)
+        : "none",
+      semantic_inventory_error: state.semantic_inventory_error
+        ? String(state.semantic_inventory_error)
+        : "",
+      semantic_matches_eligible: Number.isFinite(Number(state.semantic_matches_eligible))
+        ? Number(state.semantic_matches_eligible)
+        : 0,
+      semantic_matches_ready: Number.isFinite(Number(state.semantic_matches_ready))
+        ? Number(state.semantic_matches_ready)
+        : 0,
+      semantic_policy_replaces: Number.isFinite(Number(state.semantic_policy_replaces))
+        ? Number(state.semantic_policy_replaces)
+        : 0,
+      semantic_policy_abstains: Number.isFinite(Number(state.semantic_policy_abstains))
+        ? Number(state.semantic_policy_abstains)
+        : 0,
+      semantic_fallback_replaces: Number.isFinite(Number(state.semantic_fallback_replaces))
+        ? Number(state.semantic_fallback_replaces)
+        : 0,
+      semantic_fallback_abstains: Number.isFinite(Number(state.semantic_fallback_abstains))
+        ? Number(state.semantic_fallback_abstains)
+        : 0,
       srs_stats: state.srs_stats && typeof state.srs_stats === "object"
         ? state.srs_stats
         : null,

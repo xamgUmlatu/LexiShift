@@ -48,6 +48,7 @@
         "content/runtime/dom_scan_runtime.js",
         "content/runtime/rules/helper_rules_runtime.js",
         "content/runtime/rules/active_rules_runtime.js",
+        "content/runtime/semantic/semantic_gate_runtime.js",
         "content/runtime/diagnostics/apply_diagnostics_reporter.js",
         "content/runtime/apply_runtime_actions.js",
         "content/runtime/apply_settings_pipeline.js",

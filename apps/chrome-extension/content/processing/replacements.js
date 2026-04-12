@@ -250,7 +250,15 @@
     return `... ${excerptWords.join(" ")} ...`;
   }
 
-  function buildReplacementFragment(text, trie, settings, onTextNode, originResolver, budget) {
+  async function buildReplacementFragment(
+    text,
+    trie,
+    settings,
+    onTextNode,
+    originResolver,
+    budget,
+    semanticGateRuntime
+  ) {
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
     const budgetKeys = budget ? [] : null;
@@ -280,9 +288,42 @@
     }
 
     const selectionSeed = createSelectionSeed(text, settings);
-    const finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
+    let finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
+    let semanticDecisionMap = null;
+    let semanticSummary = null;
+    if (
+      semanticGateRuntime
+      && typeof semanticGateRuntime.admitMatches === "function"
+      && finalMatches.length
+    ) {
+      const semanticResult = await semanticGateRuntime.admitMatches({
+        text,
+        tokens,
+        wordPositions,
+        matches: finalMatches,
+        settings
+      });
+      if (semanticResult && Array.isArray(semanticResult.matches)) {
+        finalMatches = semanticResult.matches;
+        semanticDecisionMap = semanticResult.decisionMap instanceof Map
+          ? semanticResult.decisionMap
+          : null;
+        semanticSummary = semanticResult.summary && typeof semanticResult.summary === "object"
+          ? semanticResult.summary
+          : null;
+      }
+    }
     if (!finalMatches.length) {
-      return null;
+      if (!semanticSummary) {
+        return null;
+      }
+      return {
+        fragment: null,
+        replacements: 0,
+        details,
+        budgetKeys,
+        semanticSummary
+      };
     }
 
     const fragment = document.createDocumentFragment();
@@ -304,6 +345,7 @@
       const origin = originResolver
         ? originResolver(match.rule, displayPayload.displayReplacement)
         : null;
+      const semanticDecision = semanticDecisionMap ? semanticDecisionMap.get(match) : null;
       if (budgetKeys) {
         budgetKeys.push(displayPayload.canonicalReplacement);
       }
@@ -325,7 +367,28 @@
           language_tag: displayPayload.wordPackage
             ? String(displayPayload.wordPackage.language_tag || "")
             : "",
-          word_package: displayPayload.wordPackage || null
+          word_package: displayPayload.wordPackage || null,
+          semantic_decision: semanticDecision
+            ? {
+                decision: String(semanticDecision.decision || ""),
+                decision_source: String(semanticDecision.decision_source || ""),
+                reason_codes: Array.isArray(semanticDecision.reason_codes)
+                  ? semanticDecision.reason_codes.map((code) => String(code || "")).filter(Boolean)
+                  : [],
+                sense_id: String(semanticDecision.sense_id || ""),
+                competition_set_id: String(semanticDecision.competition_set_id || ""),
+                score_margin: Number.isFinite(Number(semanticDecision.score_margin))
+                  ? Number(semanticDecision.score_margin)
+                  : null,
+                active_score: Number.isFinite(Number(semanticDecision.active_score))
+                  ? Number(semanticDecision.active_score)
+                  : null,
+                top_shadow_score: Number.isFinite(Number(semanticDecision.top_shadow_score))
+                  ? Number(semanticDecision.top_shadow_score)
+                  : null,
+                phrase_preempted: semanticDecision.phrase_preempted === true
+              }
+            : null
         });
       }
       tokenCursor = endTokenIdx + 1;
@@ -338,7 +401,13 @@
         if (onTextNode) onTextNode(textNode);
       }
     }
-    return { fragment, replacements: finalMatches.length, details, budgetKeys };
+    return {
+      fragment,
+      replacements: finalMatches.length,
+      details,
+      budgetKeys,
+      semanticSummary
+    };
   }
 
   root.replacements = { buildReplacementFragment, createReplacementSpan };

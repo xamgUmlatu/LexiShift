@@ -43,6 +43,9 @@
     const buildReplacementFragment = typeof opts.buildReplacementFragment === "function"
       ? opts.buildReplacementFragment
       : null;
+    const semanticGateRuntime = opts.semanticGateRuntime && typeof opts.semanticGateRuntime === "object"
+      ? opts.semanticGateRuntime
+      : null;
     const describeElement = typeof opts.describeElement === "function"
       ? opts.describeElement
       : (() => "<unknown>");
@@ -90,6 +93,7 @@
     let observer = null;
     let observedBody = null;
     let pageBudgetState = null;
+    let scanQueue = Promise.resolve();
 
     function hash32(value) {
       const text = String(value || "");
@@ -173,7 +177,15 @@
         focusSubstringNoToken: 0,
         focusDetailLogs: 0,
         focusDetailLimit,
-        focusDetailTruncated: false
+        focusDetailTruncated: false,
+        semanticEligible: 0,
+        semanticReady: 0,
+        semanticPolicyReplaces: 0,
+        semanticPolicyAbstains: 0,
+        semanticPolicySoftAffordances: 0,
+        semanticFallbackReplaces: 0,
+        semanticFallbackAbstains: 0,
+        semanticFallbackSoftAffordances: 0
       };
     }
 
@@ -242,6 +254,7 @@
           getCurrentTrie,
           getProcessedNodes,
           buildReplacementFragment,
+          semanticGateRuntime,
           getFocusInfo,
           describeElement,
           shorten,
@@ -258,15 +271,26 @@
           updatePageBudgetUsage: pageBudgetTracker.updatePageBudgetUsage
         })
       : {
-          processTextNode: (_node, _counter) => {}
+          processTextNode: async (_node, _counter) => {}
         };
 
-    function processDocument() {
+    function enqueueScan(task) {
+      const scheduled = scanQueue.then(() => task());
+      scanQueue = scheduled.catch((error) => {
+        log(
+          "DOM scan failed:",
+          error && error.message ? error.message : String(error || "Unknown error.")
+        );
+      });
+      return scheduled;
+    }
+
+    async function processDocumentInternal() {
       const currentSettings = getCurrentSettings();
       const counter = scanCounters.createFullScanCounter(currentSettings);
       if (!document.body) {
         log("Document body not ready.");
-        return;
+        return counter;
       }
       pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
       if (currentSettings.debugEnabled && counter.focusWord) {
@@ -280,12 +304,22 @@
       const nodes = collectTextNodes(document.body);
       const scanNodes = reorderNodesForScan(nodes, currentSettings);
       for (const node of scanNodes) {
-        textNodeProcessor.processTextNode(node, counter);
+        await textNodeProcessor.processTextNode(node, counter);
       }
       if (currentSettings.debugEnabled) {
         log(
           `Scan summary: ${counter.totalNodes} total text node(s), ${counter.emptyNodes} empty, ${counter.whitespaceNodes} whitespace-only, ${counter.scanned} scanned, ${counter.skippedCached} cached, ${counter.skippedEditable} editable skipped, ${counter.skippedExcluded} excluded skipped, ${counter.skippedLexi} replaced skipped, ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`
         );
+        if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
+          log("Semantic admission scan summary:", {
+            eligible: counter.semanticEligible,
+            ready: counter.semanticReady,
+            policyReplaces: counter.semanticPolicyReplaces,
+            policyAbstains: counter.semanticPolicyAbstains,
+            fallbackReplaces: counter.semanticFallbackReplaces,
+            fallbackAbstains: counter.semanticFallbackAbstains
+          });
+        }
         if (counter.focusWord) {
           log(
             `Focus word "${counter.focusWord}": ${counter.focusSubstringNodes} node(s) contain substring, ${counter.focusTokenNodes} contain token, ${counter.focusReplaced} replaced, ${counter.focusUnmatched} without match, ${counter.focusSubstringNoToken} substring-only, ${counter.focusSkippedCached} cached, ${counter.focusSkippedEditable} in editable, ${counter.focusSkippedExcluded} excluded, ${counter.focusSkippedLexi} already replaced.`
@@ -300,6 +334,11 @@
       } else if (counter.replacements > 0) {
         log(`Applied ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`);
       }
+      return counter;
+    }
+
+    function processDocument() {
+      return enqueueScan(() => processDocumentInternal());
     }
 
     function observeChanges() {
@@ -315,38 +354,50 @@
         if (isApplyingChanges()) {
           return;
         }
-        const currentSettings = getCurrentSettings();
-        const counter = scanCounters.createMutationCounter(currentSettings);
-        pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
-        for (const mutation of mutations) {
-          if (mutation.type === "characterData") {
-            textNodeProcessor.processTextNode(mutation.target, counter);
-          } else if (mutation.type === "childList") {
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === Node.TEXT_NODE) {
-                textNodeProcessor.processTextNode(node, counter);
-              } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const textNodes = collectTextNodes(node);
-                for (const textNode of textNodes) {
-                  textNodeProcessor.processTextNode(textNode, counter);
+        enqueueScan(async () => {
+          const currentSettings = getCurrentSettings();
+          const counter = scanCounters.createMutationCounter(currentSettings);
+          pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
+          for (const mutation of mutations) {
+            if (mutation.type === "characterData") {
+              await textNodeProcessor.processTextNode(mutation.target, counter);
+            } else if (mutation.type === "childList") {
+              for (const node of mutation.addedNodes) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                  await textNodeProcessor.processTextNode(node, counter);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                  const textNodes = collectTextNodes(node);
+                  for (const textNode of textNodes) {
+                    await textNodeProcessor.processTextNode(textNode, counter);
+                  }
                 }
               }
-            });
+            }
           }
-        }
-        if (currentSettings.debugEnabled) {
-          if (counter.replacements > 0) {
+          if (currentSettings.debugEnabled) {
+            if (counter.replacements > 0) {
+              log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
+            }
+            if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
+              log("Semantic admission mutation summary:", {
+                eligible: counter.semanticEligible,
+                ready: counter.semanticReady,
+                policyReplaces: counter.semanticPolicyReplaces,
+                policyAbstains: counter.semanticPolicyAbstains,
+                fallbackReplaces: counter.semanticFallbackReplaces,
+                fallbackAbstains: counter.semanticFallbackAbstains
+              });
+            }
+            if (counter.detailTruncated) {
+              log(`Detail logs truncated after ${counter.detailLimit} replacement(s).`);
+            }
+            if (counter.focusDetailTruncated) {
+              log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
+            }
+          } else if (counter.replacements > 0) {
             log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
           }
-          if (counter.detailTruncated) {
-            log(`Detail logs truncated after ${counter.detailLimit} replacement(s).`);
-          }
-          if (counter.focusDetailTruncated) {
-            log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
-          }
-        } else if (counter.replacements > 0) {
-          log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
-        }
+        });
       });
       observer.observe(observedBody, { childList: true, subtree: true, characterData: true });
     }
@@ -360,7 +411,7 @@
       if (reason) {
         log(`Rescan triggered: ${reason}`);
       }
-      processDocument();
+      void processDocument();
     }
 
     function ensureObserver() {

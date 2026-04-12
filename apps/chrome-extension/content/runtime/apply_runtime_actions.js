@@ -43,13 +43,14 @@
       : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
-    function run(context) {
+    async function run(context) {
       const ctx = context && typeof context === "object" ? context : {};
       const currentSettings = ctx.currentSettings && typeof ctx.currentSettings === "object"
         ? ctx.currentSettings
         : {};
       const activeRules = Array.isArray(ctx.activeRules) ? ctx.activeRules : [];
       const focusWord = String(ctx.focusWord || "");
+      let scanSummary = null;
 
       if (ensureStyle) {
         ensureStyle(
@@ -101,11 +102,15 @@
         const nextTrie = buildTrie ? buildTrie(activeRules) : null;
         setCurrentTrie(nextTrie);
         if (domScanRuntime && typeof domScanRuntime.processDocument === "function") {
-          domScanRuntime.processDocument();
+          scanSummary = await domScanRuntime.processDocument();
         }
       } finally {
         setApplyingChanges(false);
       }
+
+      return {
+        scanSummary
+      };
     }
 
     return {

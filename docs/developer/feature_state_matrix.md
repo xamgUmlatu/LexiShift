@@ -772,20 +772,23 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-13` landed the first Phase 3 helper-side semantic-admission service: a shared named policy registry now resolves `en_es_sentence_veto_v1`, helper/native-host can answer `semantic_admit_batch`, fallback behavior is explicit per request, and the sentence-veto harness now reuses shared production-policy evaluation logic instead of keeping rescue logic only in script-local code
-- Last verified: `2026-04-13` targeted runtime-policy/helper/native-host tests plus the existing sentence-veto support regression tests, together with helper/doc/state checks on the new Phase 3 serving path
+- Status: `implemented`, `default-off`, `verified`
+- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
+- Last verified: `2026-04-13` targeted extension JS syntax checks, extension-structure tests, targeted runtime-policy/helper/native-host tests, the existing sentence-veto support regression tests, and helper/doc/state checks on the new runtime path
 - Default behavior:
-  - No semantic-routing admission layer is active in the browser runtime today.
-  - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
+  - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
+  - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
   - The repo now has passive semantic-routing publication scaffolding:
     - `metadata.semantic_admission` can be emitted on rules
     - helper publication can write a semantic inventory sidecar
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - runtime diagnostics can inspect both pointer coverage and sidecar coverage
-    - helper/native-host can now also answer a first `semantic_admit_batch` request using a named shared policy registry, though browser runtime does not yet call that service
-  - That scaffolding does not mean semantic routing is active.
+    - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
+  - The shipped runtime gate is still intentionally conservative:
+    - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
+    - `srsSemanticAdmissionFallbackPolicy` defaults to `legacy_on_unavailable`, so missing readiness/package/service does not change default replacement behavior
+    - `soft_affordance` decisions are currently treated as keep-original in the DOM path because the runtime still only renders hard replacements
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
     - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`
@@ -923,18 +926,35 @@ Use this file when:
   - `core/lexishift_core/helper/paths.py`
   - `core/lexishift_core/helper/rulegen_outputs.py`
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `core/lexishift_core/helper/use_cases/semantic_admission.py`
   - `core/lexishift_core/rulegen/semantic_publication.py`
   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
   - `core/lexishift_core/rulegen/semantic_shadow_frequency.py`
   - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`
+  - `core/lexishift_core/rulegen/semantic_routing_runtime_policy.py`
   - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
   - `core/lexishift_core/rulegen/semantic_shadow_representative_pruning.py`
+  - `apps/chrome-extension/content/processing/replacements.js`
+  - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
+  - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+  - `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
+  - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
+  - `apps/chrome-extension/content/runtime/apply_runtime_actions.js`
+  - `apps/chrome-extension/content/runtime/apply_settings_pipeline.js`
+  - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
+  - `apps/chrome-extension/shared/settings/settings_defaults.js`
+  - `apps/chrome-extension/shared/srs/srs_runtime_diagnostics.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/formatters.js`
+  - `apps/chrome-extension/content_script.js`
   - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
+  - `core/tests/rulegen/test_semantic_routing_runtime_policy.py`
   - `core/tests/rulegen/test_semantic_routing_runtime_scoring.py`
   - `core/tests/rulegen/test_semantic_publication.py`
   - `core/tests/rulegen/test_semantic_shadow_inventory.py`
+  - `core/tests/architecture/test_extension_structure.py`
   - `core/tests/rulegen/test_semantic_shadow_evaluation.py`
   - `scripts/testing/semantic_routing_sentence_veto_harness.py`
   - `scripts/testing/semantic_routing_sentence_veto_sweep.py`

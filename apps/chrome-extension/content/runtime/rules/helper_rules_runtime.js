@@ -82,6 +82,21 @@
       return { inventory: response.data || null, error: null };
     }
 
+    async function requestSemanticAdmitBatch(payload, timeoutMs) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.semanticAdmitBatch !== "function") {
+        return { response: null, error: "Helper client unavailable." };
+      }
+      const response = await helperClient.semanticAdmitBatch(payload, timeoutMs);
+      if (!response || response.ok === false) {
+        const message = response && response.error && response.error.message
+          ? response.error.message
+          : "Failed to evaluate helper semantic admission batch.";
+        return { response: null, error: message };
+      }
+      return { response: response.data || null, error: null };
+    }
+
     async function loadCachedRules(pair, profileId) {
       const key = rulesCacheKey(pair, profileId);
       if (!key) {
@@ -211,9 +226,23 @@
       };
     }
 
+    async function semanticAdmitBatch(payload, timeoutMs) {
+      try {
+        return await requestSemanticAdmitBatch(payload, timeoutMs);
+      } catch (error) {
+        return {
+          response: null,
+          error: error && error.message
+            ? error.message
+            : "Failed to evaluate helper semantic admission batch."
+        };
+      }
+    }
+
     return {
       resolveHelperRules,
-      resolveSemanticInventory
+      resolveSemanticInventory,
+      semanticAdmitBatch
     };
   }
 

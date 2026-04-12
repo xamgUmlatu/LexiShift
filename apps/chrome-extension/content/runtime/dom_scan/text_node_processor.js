@@ -15,6 +15,9 @@
     const buildReplacementFragment = typeof opts.buildReplacementFragment === "function"
       ? opts.buildReplacementFragment
       : null;
+    const semanticGateRuntime = opts.semanticGateRuntime && typeof opts.semanticGateRuntime === "object"
+      ? opts.semanticGateRuntime
+      : null;
     const getFocusInfo = typeof opts.getFocusInfo === "function"
       ? opts.getFocusInfo
       : ((_text, _focusWord) => ({ substring: false, token: false, index: -1 }));
@@ -78,7 +81,21 @@
       return String(parts[1] || "").trim().toLowerCase();
     }
 
-    function processTextNode(node, counter) {
+    function mergeSemanticSummary(counter, summary) {
+      if (!counter || !summary || typeof summary !== "object") {
+        return;
+      }
+      counter.semanticEligible += Number(summary.eligible || 0);
+      counter.semanticReady += Number(summary.ready || 0);
+      counter.semanticPolicyReplaces += Number(summary.policyReplaces || 0);
+      counter.semanticPolicyAbstains += Number(summary.policyAbstains || 0);
+      counter.semanticPolicySoftAffordances += Number(summary.policySoftAffordances || 0);
+      counter.semanticFallbackReplaces += Number(summary.fallbackReplaces || 0);
+      counter.semanticFallbackAbstains += Number(summary.fallbackAbstains || 0);
+      counter.semanticFallbackSoftAffordances += Number(summary.fallbackSoftAffordances || 0);
+    }
+
+    async function processTextNode(node, counter) {
       if (!node || !node.nodeValue) {
         if (counter) counter.emptyNodes += 1;
         return;
@@ -166,7 +183,7 @@
       const originResolver = (rule) => {
         return String(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
       };
-      const result = buildReplacementFragment(
+      const result = await buildReplacementFragment(
         node.nodeValue,
         currentTrie,
         currentSettings,
@@ -174,9 +191,13 @@
           processedNodes.set(textNode, textNode.nodeValue);
         },
         originResolver,
-        pageBudgetState
+        pageBudgetState,
+        semanticGateRuntime
       );
-      if (result) {
+      if (result && result.semanticSummary) {
+        mergeSemanticSummary(counter, result.semanticSummary);
+      }
+      if (result && result.fragment) {
         const parent = node.parentNode;
         if (parent) {
           parent.replaceChild(result.fragment, node);
@@ -289,13 +310,23 @@
       } else {
         if (focusEnabled && focusInfo.token && counter) {
           counter.focusUnmatched += 1;
+          const semanticFiltered = Boolean(
+            result
+            && result.semanticSummary
+            && Number(result.semanticSummary.eligible || 0) > 0
+          );
           if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
             const parent = node.parentElement;
             log(
-              `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
-                node.nodeValue,
-                140
-              )}"`
+              semanticFiltered
+                ? `Focus word "${focusWord}" matched lexically but semantic admission kept original in ${describeElement(parent)}: "${shorten(
+                  node.nodeValue,
+                  140
+                )}"`
+                : `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
+                  node.nodeValue,
+                  140
+                )}"`
             );
             counter.focusDetailLogs += 1;
           } else if (currentSettings.debugEnabled) {
