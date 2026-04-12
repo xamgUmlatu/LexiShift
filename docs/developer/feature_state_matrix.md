@@ -773,7 +773,7 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-off`, `verified`
-- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
+- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service and explicitly documented the current shipped E2E/default behavior: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
 - Last verified: `2026-04-13` targeted extension JS syntax checks, extension-structure tests, targeted runtime-policy/helper/native-host tests, the existing sentence-veto support regression tests, and helper/doc/state checks on the new runtime path
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
@@ -788,7 +788,13 @@ Use this file when:
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
     - `srsSemanticAdmissionFallbackPolicy` defaults to `legacy_on_unavailable`, so missing readiness/package/service does not change default replacement behavior
-    - `soft_affordance` decisions are currently treated as keep-original in the DOM path because the runtime still only renders hard replacements
+    - the schema still reserves `soft_affordance` as a future optional non-replace outcome, but current DOM behavior only acts on `replace` and otherwise keeps the original text
+  - Current implemented E2E is now explicit:
+    - offline helper artifacts stay local
+    - extension loads ruleset plus semantic inventory from helper/cache
+    - lexical trie matching happens first
+    - eligible matches are batched to helper `semantic_admit_batch`
+    - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
     - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`

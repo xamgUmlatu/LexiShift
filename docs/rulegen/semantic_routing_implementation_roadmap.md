@@ -164,6 +164,29 @@ The intended final flow is:
 The current runtime seam for this is match-time filtering, not active-rule resolution.
 In repo terms, that means semantic gating belongs downstream of trie matching and upstream of span creation.
 
+## Current E2E Checkpoint
+
+As of the current Phase 4 checkpoint, the real implemented browser-extension path is:
+
+1. offline helper/rulegen writes:
+   - ruleset
+   - semantic inventory sidecar
+2. extension loads those artifacts from the local helper/native-host path, with local extension cache as fallback
+3. extension scans a text node and finds normal trie/rule matches first
+4. only eligible SRS matches that already carry `metadata.semantic_admission` are batched to helper `semantic_admit_batch`
+5. helper runs the named decision policy against local semantic inventory plus sentence context
+6. runtime replaces only matches whose decision is `replace`
+7. runtime keeps the original text for:
+   - `abstain`
+   - fallback keep-original cases
+   - the currently reserved `soft_affordance` outcome
+
+Important current boundaries:
+
+- data is local today, not cloud-served in the runtime path
+- this path is implemented for the browser extension, not yet the chat/plugin surface
+- the whole semantic gate is still default-off
+
 ## Current Baseline
 
 Already in place:
@@ -171,17 +194,20 @@ Already in place:
 - `semantic_admission` pointer scaffolding on emitted rules
 - semantic inventory sidecar publication path
 - helper diagnostics for semantic inventory presence and counts
+- helper API for semantic inventory fetch and semantic admission
+- extension runtime consumption of semantic inventory and helper-side semantic admission
+- a production policy registry plus production fallback policy
+- runtime diagnostics for semantic-admission enablement, inventory state, and decision counts
 - research-only runtime scorer and sweep harnesses
 - a strong current `en-es` sentence-veto prototype frontier
 
 Still missing:
 
-- runtime consumption of semantic inventory
-- helper API for semantic inventory fetch and semantic admission
-- a production policy registry
-- a production fallback policy
 - phrase sets in the default published sidecar
-- real runtime observability for semantic decisions
+- chat/plugin runtime integration
+- user-facing settings/UX for semantic-admission rollout
+- a distinct rendered affordance for non-replace semantic outcomes
+- any future cloud transport or remote artifact-serving choice
 
 ## Roadmap Phases
 
