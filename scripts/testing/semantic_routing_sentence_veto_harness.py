@@ -70,6 +70,12 @@ def _parse_args() -> argparse.Namespace:
         help="Phrase/frame control mode id.",
     )
     parser.add_argument(
+        "--active-rescue-mode",
+        type=str,
+        default="off",
+        help="Active-side rescue mode id.",
+    )
+    parser.add_argument(
         "--window-tokens",
         type=int,
         default=4,
@@ -107,6 +113,7 @@ def main() -> int:
         min_active_score=float(args.min_active_score),
         min_margin=float(args.min_margin),
         phrase_control_mode=str(args.phrase_control_mode or "").strip(),
+        active_rescue_mode=str(args.active_rescue_mode or "").strip(),
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or "___",
     )

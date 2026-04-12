@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
+from types import SimpleNamespace
 from typing import Mapping, Sequence
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -57,6 +58,14 @@ DEFAULT_SENTENCE_VETO_SWEEP_JSON_OUT = (
 DEFAULT_SENTENCE_VETO_SWEEP_MARKDOWN_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "semantic_routing_sentence_veto_sweep_latest.md"
 )
+DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE = "off"
+SENTENCE_VETO_ACTIVE_RESCUE_MODES = (
+    "off",
+    "sense_label_near_tie_active_rescue",
+)
+_ACTIVE_RESCUE_PRIMARY_MARGIN_FLOOR = -0.02
+_ACTIVE_RESCUE_BACKUP_MARGIN_FLOOR = 0.02
+_ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW = "sense_label"
 
 
 def load_sentence_veto_dataset(path: Path) -> dict[str, object]:
@@ -140,6 +149,7 @@ def build_sentence_veto_report(
     min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
     min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN,
     phrase_control_mode: str = DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,
+    active_rescue_mode: str = DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE,
     model_name: str | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
@@ -159,6 +169,29 @@ def build_sentence_veto_report(
             mask_token=mask_token,
         )
     )
+    resolved_active_rescue_mode = (
+        str(active_rescue_mode or "").strip() or DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE
+    )
+    if resolved_active_rescue_mode not in SENTENCE_VETO_ACTIVE_RESCUE_MODES:
+        raise ValueError(
+            f"Unsupported sentence-veto active rescue mode: {resolved_active_rescue_mode!r}; "
+            f"expected one of {SENTENCE_VETO_ACTIVE_RESCUE_MODES!r}"
+        )
+    backup_backend: RuntimeSimilarityBackend | None = None
+    if resolved_active_rescue_mode != DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE:
+        backup_backend = RuntimeSimilarityBackend(
+            scorer_id=scorer_id,
+            model_name=str(model_name or "").strip(),
+        )
+        backup_backend.fit(
+            _collect_config_texts(
+                dataset,
+                context_view=context_view,
+                evidence_view=_ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW,
+                window_tokens=window_tokens,
+                mask_token=mask_token,
+            )
+        )
 
     summary = _new_sentence_veto_summary()
     family_breakdown: dict[str, dict[str, object]] = {}
@@ -212,18 +245,66 @@ def build_sentence_veto_report(
                 window_tokens=window_tokens,
                 mask_token=mask_token,
             )
+            rescue_backup_result = None
+            active_rescue_applied = False
+            active_rescue_reason_code = ""
+            summary_result_payload = dict(result.__dict__)
+            summary_result_payload["active_rescue_applied"] = False
+            summary_result_payload["active_rescue_reason_code"] = ""
+            summary_result = SimpleNamespace(**summary_result_payload)
+            if (
+                backup_backend is not None
+                and result.predicted_decision != "replace"
+                and not result.phrase_preemption_hit
+                and float(result.margin) >= _ACTIVE_RESCUE_PRIMARY_MARGIN_FLOOR
+            ):
+                rescue_backup_result = evaluate_runtime_veto_case(
+                    family_id=family_id,
+                    case=case,
+                    active_sense=active,
+                    shadow_senses=shadows,
+                    scorer=backup_backend,
+                    context_view=context_view,
+                    evidence_view=_ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW,
+                    min_active_score=min_active_score,
+                    min_margin=min_margin,
+                    phrase_control_mode=phrase_control_mode,
+                    family_pos_tags=family_pos_tags,
+                    window_tokens=window_tokens,
+                    mask_token=mask_token,
+                )
+                if (
+                    rescue_backup_result.predicted_decision == "replace"
+                    and rescue_backup_result.predicted_winner_type == "active"
+                    and float(rescue_backup_result.margin) >= _ACTIVE_RESCUE_BACKUP_MARGIN_FLOOR
+                ):
+                    summary_result_payload = dict(result.__dict__)
+                    summary_result_payload["predicted_decision"] = "replace"
+                    summary_result_payload["predicted_winner"] = (
+                        rescue_backup_result.predicted_winner
+                    )
+                    summary_result_payload["predicted_winner_type"] = (
+                        rescue_backup_result.predicted_winner_type
+                    )
+                    summary_result_payload["active_rescue_applied"] = True
+                    summary_result_payload["active_rescue_reason_code"] = (
+                        "sense_label_near_tie_active_rescue"
+                    )
+                    summary_result = SimpleNamespace(**summary_result_payload)
+                    active_rescue_applied = True
+                    active_rescue_reason_code = "sense_label_near_tie_active_rescue"
             row_payload = {
-                "case_id": result.case_id,
-                "family_id": result.family_id,
+                "case_id": summary_result.case_id,
+                "family_id": summary_result.family_id,
                 "trigger": trigger,
                 "sentence": str(case.get("sentence") or "").strip(),
                 "source_phrase": str(case.get("source_phrase") or "").strip(),
-                "gold_decision": result.gold_decision,
-                "gold_winner": result.gold_winner,
-                "gold_winner_type": result.gold_winner_type,
-                "predicted_decision": result.predicted_decision,
-                "predicted_winner": result.predicted_winner,
-                "predicted_winner_type": result.predicted_winner_type,
+                "gold_decision": summary_result.gold_decision,
+                "gold_winner": summary_result.gold_winner,
+                "gold_winner_type": summary_result.gold_winner_type,
+                "predicted_decision": summary_result.predicted_decision,
+                "predicted_winner": summary_result.predicted_winner,
+                "predicted_winner_type": summary_result.predicted_winner_type,
                 "active_score": result.active_score,
                 "strongest_shadow_score": result.strongest_shadow_score,
                 "margin": result.margin,
@@ -234,21 +315,41 @@ def build_sentence_veto_report(
                 "phrase_preemption_hit": bool(result.phrase_preemption_hit),
                 "matched_phrase_pattern": result.matched_phrase_pattern,
                 "phrase_reason_code": result.phrase_reason_code,
+                "active_rescue_mode": resolved_active_rescue_mode,
+                "active_rescue_applied": active_rescue_applied,
+                "active_rescue_reason_code": active_rescue_reason_code,
+                "active_rescue_primary_margin": result.margin,
+                "active_rescue_backup_margin": (
+                    rescue_backup_result.margin if rescue_backup_result is not None else None
+                ),
+                "active_rescue_backup_predicted_decision": (
+                    rescue_backup_result.predicted_decision
+                    if rescue_backup_result is not None
+                    else ""
+                ),
+                "active_rescue_backup_predicted_winner": (
+                    rescue_backup_result.predicted_winner
+                    if rescue_backup_result is not None
+                    else ""
+                ),
+                "active_rescue_backup_evidence_view": (
+                    _ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW if rescue_backup_result is not None else ""
+                ),
                 "slice_tags": _normalize_string_list(case.get("slice_tags")),
                 "slice_dimensions": _normalize_slice_dimensions(case.get("slice_dimensions")),
                 "notes": str(case.get("notes") or "").strip(),
             }
             row_results.append(row_payload)
-            _accumulate_sentence_veto_summary(summary, result=result)
-            _accumulate_sentence_veto_summary(family_entry["summary"], result=result)
+            _accumulate_sentence_veto_summary(summary, result=summary_result)
+            _accumulate_sentence_veto_summary(family_entry["summary"], result=summary_result)
             winner_type_entry = gold_winner_type_breakdown.setdefault(
-                result.gold_winner_type,
+                summary_result.gold_winner_type,
                 {
-                    "gold_winner_type": result.gold_winner_type,
+                    "gold_winner_type": summary_result.gold_winner_type,
                     "summary": _new_sentence_veto_summary(),
                 },
             )
-            _accumulate_sentence_veto_summary(winner_type_entry["summary"], result=result)
+            _accumulate_sentence_veto_summary(winner_type_entry["summary"], result=summary_result)
             for slice_tag in row_payload["slice_tags"]:
                 slice_tag_entry = slice_tag_breakdown.setdefault(
                     slice_tag,
@@ -257,14 +358,23 @@ def build_sentence_veto_report(
                         "summary": _new_sentence_veto_summary(),
                     },
                 )
-                _accumulate_sentence_veto_summary(slice_tag_entry["summary"], result=result)
-            if result.predicted_decision == "replace" and result.gold_decision != "replace":
+                _accumulate_sentence_veto_summary(
+                    slice_tag_entry["summary"],
+                    result=summary_result,
+                )
+            if (
+                summary_result.predicted_decision == "replace"
+                and summary_result.gold_decision != "replace"
+            ):
                 _append_sample(harmful_replace_rows, row_payload)
-            if result.predicted_decision != "replace" and result.gold_decision == "replace":
+            if (
+                summary_result.predicted_decision != "replace"
+                and summary_result.gold_decision == "replace"
+            ):
                 _append_sample(false_abstain_rows, row_payload)
             if (
-                result.gold_winner_type in {"active", "shadow"}
-                and result.predicted_winner != result.gold_winner
+                summary_result.gold_winner_type in {"active", "shadow"}
+                and summary_result.predicted_winner != summary_result.gold_winner
             ):
                 _append_sample(winner_error_rows, row_payload)
 
@@ -298,6 +408,7 @@ def build_sentence_veto_report(
             "min_active_score": float(min_active_score),
             "min_margin": float(min_margin),
             "phrase_control_mode": phrase_control_mode,
+            "active_rescue_mode": resolved_active_rescue_mode,
             "window_tokens": int(window_tokens),
             "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         },
@@ -321,6 +432,7 @@ def build_sentence_veto_sweep_report(
     min_active_scores: Sequence[float],
     min_margins: Sequence[float],
     phrase_control_modes: Sequence[str] = (DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,),
+    active_rescue_modes: Sequence[str] = (DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE,),
     harmful_replace_budgets: Sequence[int] = (0, 1, 2),
     model_name: str | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
@@ -348,6 +460,11 @@ def build_sentence_veto_sweep_report(
         for value in _normalize_string_list(phrase_control_modes)
         if value in SENTENCE_VETO_PHRASE_CONTROL_MODES
     ]
+    normalized_active_rescue_modes = [
+        value
+        for value in _normalize_string_list(active_rescue_modes)
+        if value in SENTENCE_VETO_ACTIVE_RESCUE_MODES
+    ]
     normalized_harmful_replace_budgets = sorted(
         {max(0, int(value)) for value in harmful_replace_budgets if isinstance(value, (int, float))}
     )
@@ -358,9 +475,10 @@ def build_sentence_veto_sweep_report(
         or not normalized_context_views
         or not normalized_evidence_views
         or not normalized_phrase_control_modes
+        or not normalized_active_rescue_modes
     ):
         raise ValueError(
-            "Sentence-veto sweep requires non-empty scorer, context-view, evidence-view, and phrase-control mode sets."
+            "Sentence-veto sweep requires non-empty scorer, context-view, evidence-view, phrase-control mode, and active-rescue mode sets."
         )
     if not normalized_min_active_scores or not normalized_min_margins:
         raise ValueError("Sentence-veto sweep requires non-empty min-active and min-margin grids.")
@@ -371,61 +489,80 @@ def build_sentence_veto_sweep_report(
         for context_view in normalized_context_views:
             for evidence_view in normalized_evidence_views:
                 for phrase_control_mode in normalized_phrase_control_modes:
-                    for min_active_score in normalized_min_active_scores:
-                        for min_margin in normalized_min_margins:
-                            report = build_sentence_veto_report(
-                                dataset_path=dataset_path,
-                                scorer_id=scorer_id,
-                                context_view=context_view,
-                                evidence_view=evidence_view,
-                                min_active_score=min_active_score,
-                                min_margin=min_margin,
-                                phrase_control_mode=phrase_control_mode,
-                                model_name=model_name,
-                                window_tokens=window_tokens,
-                                mask_token=mask_token,
-                            )
-                            summary = dict(report.get("summary") or {})
-                            row = {
-                                "config_id": (
-                                    f"{scorer_id}:{context_view}:{evidence_view}:"
-                                    f"p={phrase_control_mode}:"
-                                    f"a={min_active_score:.2f}:m={min_margin:.2f}"
-                                ),
-                                "scorer_id": scorer_id,
-                                "model_name": model_name,
-                                "context_view": context_view,
-                                "evidence_view": evidence_view,
-                                "phrase_control_mode": phrase_control_mode,
-                                "min_active_score": float(min_active_score),
-                                "min_margin": float(min_margin),
-                                "decision_accuracy": summary.get("decision_accuracy"),
-                                "replace_precision": summary.get("replace_precision"),
-                                "replace_recall": summary.get("replace_recall"),
-                                "harmful_replace_rate": summary.get("harmful_replace_rate"),
-                                "false_abstain_rate": summary.get("false_abstain_rate"),
-                                "winner_accuracy": summary.get("winner_accuracy"),
-                                "shadow_winner_accuracy": summary.get("shadow_winner_accuracy"),
-                                "predicted_replace_rate": summary.get("predicted_replace_rate"),
-                                "phrase_preemption_hit_rate": summary.get(
-                                    "phrase_preemption_hit_rate"
-                                ),
-                                "phrase_preemption_precision": summary.get(
-                                    "phrase_preemption_precision"
-                                ),
-                                "phrase_preemption_hit_count": int(
-                                    summary.get("phrase_preemption_hit_count") or 0
-                                ),
-                                "harmful_replace_count": int(
-                                    summary.get("harmful_replace_count") or 0
-                                ),
-                                "false_abstain_count": int(summary.get("false_abstain_count") or 0),
-                                "gold_abstain_cases": int(summary.get("gold_abstain_cases") or 0),
-                                "gold_replace_cases": int(summary.get("gold_replace_cases") or 0),
-                                "summary": summary,
-                            }
-                            row["objective_score"] = compute_sentence_veto_objective(row)
-                            rows.append(row)
+                    for active_rescue_mode in normalized_active_rescue_modes:
+                        for min_active_score in normalized_min_active_scores:
+                            for min_margin in normalized_min_margins:
+                                report = build_sentence_veto_report(
+                                    dataset_path=dataset_path,
+                                    scorer_id=scorer_id,
+                                    context_view=context_view,
+                                    evidence_view=evidence_view,
+                                    min_active_score=min_active_score,
+                                    min_margin=min_margin,
+                                    phrase_control_mode=phrase_control_mode,
+                                    active_rescue_mode=active_rescue_mode,
+                                    model_name=model_name,
+                                    window_tokens=window_tokens,
+                                    mask_token=mask_token,
+                                )
+                                summary = dict(report.get("summary") or {})
+                                row = {
+                                    "config_id": (
+                                        f"{scorer_id}:{context_view}:{evidence_view}:"
+                                        f"p={phrase_control_mode}:"
+                                        f"r={active_rescue_mode}:"
+                                        f"a={min_active_score:.2f}:m={min_margin:.2f}"
+                                    ),
+                                    "scorer_id": scorer_id,
+                                    "model_name": model_name,
+                                    "context_view": context_view,
+                                    "evidence_view": evidence_view,
+                                    "phrase_control_mode": phrase_control_mode,
+                                    "active_rescue_mode": active_rescue_mode,
+                                    "min_active_score": float(min_active_score),
+                                    "min_margin": float(min_margin),
+                                    "decision_accuracy": summary.get("decision_accuracy"),
+                                    "replace_precision": summary.get("replace_precision"),
+                                    "replace_recall": summary.get("replace_recall"),
+                                    "harmful_replace_rate": summary.get("harmful_replace_rate"),
+                                    "false_abstain_rate": summary.get("false_abstain_rate"),
+                                    "winner_accuracy": summary.get("winner_accuracy"),
+                                    "shadow_winner_accuracy": summary.get("shadow_winner_accuracy"),
+                                    "predicted_replace_rate": summary.get("predicted_replace_rate"),
+                                    "phrase_preemption_hit_rate": summary.get(
+                                        "phrase_preemption_hit_rate"
+                                    ),
+                                    "phrase_preemption_precision": summary.get(
+                                        "phrase_preemption_precision"
+                                    ),
+                                    "phrase_preemption_hit_count": int(
+                                        summary.get("phrase_preemption_hit_count") or 0
+                                    ),
+                                    "active_rescue_applied_rate": summary.get(
+                                        "active_rescue_applied_rate"
+                                    ),
+                                    "active_rescue_precision": summary.get(
+                                        "active_rescue_precision"
+                                    ),
+                                    "active_rescue_applied_count": int(
+                                        summary.get("active_rescue_applied_count") or 0
+                                    ),
+                                    "harmful_replace_count": int(
+                                        summary.get("harmful_replace_count") or 0
+                                    ),
+                                    "false_abstain_count": int(
+                                        summary.get("false_abstain_count") or 0
+                                    ),
+                                    "gold_abstain_cases": int(
+                                        summary.get("gold_abstain_cases") or 0
+                                    ),
+                                    "gold_replace_cases": int(
+                                        summary.get("gold_replace_cases") or 0
+                                    ),
+                                    "summary": summary,
+                                }
+                                row["objective_score"] = compute_sentence_veto_objective(row)
+                                rows.append(row)
 
     rows.sort(key=sentence_veto_sweep_rank_key)
     best_row = dict(rows[0]) if rows else None
@@ -461,6 +598,7 @@ def build_sentence_veto_sweep_report(
             "context_views": normalized_context_views,
             "evidence_views": normalized_evidence_views,
             "phrase_control_modes": normalized_phrase_control_modes,
+            "active_rescue_modes": normalized_active_rescue_modes,
             "min_active_scores": normalized_min_active_scores,
             "min_margins": normalized_min_margins,
             "harmful_replace_budgets": normalized_harmful_replace_budgets,
@@ -561,6 +699,12 @@ def _accumulate_sentence_veto_summary(
             summary["phrase_preemption_harmful_block_count"] += 1
         else:
             summary["phrase_preemption_correct_abstain_count"] += 1
+    if bool(getattr(result, "active_rescue_applied", False)):
+        summary["active_rescue_applied_count"] += 1
+        if gold_decision == "replace":
+            summary["active_rescue_correct_replace_count"] += 1
+        else:
+            summary["active_rescue_harmful_replace_count"] += 1
 
 
 def _new_sentence_veto_summary() -> dict[str, object]:
@@ -584,6 +728,9 @@ def _new_sentence_veto_summary() -> dict[str, object]:
         "phrase_preemption_hit_count": 0,
         "phrase_preemption_correct_abstain_count": 0,
         "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
     }
 
 
@@ -604,6 +751,10 @@ def _finalize_sentence_veto_summary(summary: Mapping[str, object]) -> None:
     phrase_preemption_correct_abstain_count = int(
         summary.get("phrase_preemption_correct_abstain_count") or 0
     )
+    active_rescue_applied_count = int(summary.get("active_rescue_applied_count") or 0)
+    active_rescue_correct_replace_count = int(
+        summary.get("active_rescue_correct_replace_count") or 0
+    )
 
     summary["decision_accuracy"] = _safe_rate(true_replace_count + true_abstain_count, cases_total)
     summary["replace_precision"] = _safe_rate(true_replace_count, predicted_replace_cases)
@@ -620,6 +771,11 @@ def _finalize_sentence_veto_summary(summary: Mapping[str, object]) -> None:
     summary["phrase_preemption_precision"] = _safe_rate(
         phrase_preemption_correct_abstain_count,
         phrase_preemption_hit_count,
+    )
+    summary["active_rescue_applied_rate"] = _safe_rate(active_rescue_applied_count, cases_total)
+    summary["active_rescue_precision"] = _safe_rate(
+        active_rescue_correct_replace_count,
+        active_rescue_applied_count,
     )
 
 

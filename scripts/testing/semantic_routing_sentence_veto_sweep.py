@@ -95,6 +95,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated phrase/frame control mode ids.",
     )
     parser.add_argument(
+        "--active-rescue-modes",
+        type=str,
+        default="off,sense_label_near_tie_active_rescue",
+        help="Comma-separated active-side rescue mode ids.",
+    )
+    parser.add_argument(
         "--harmful-replace-budgets",
         type=str,
         default="0,1,2",
@@ -145,6 +151,10 @@ def main() -> int:
         min_margins=_parse_float_grid(args.min_margin_grid),
         phrase_control_modes=_parse_string_grid(
             args.phrase_control_modes,
+            default_values=("off",),
+        ),
+        active_rescue_modes=_parse_string_grid(
+            args.active_rescue_modes,
             default_values=("off",),
         ),
         harmful_replace_budgets=_parse_int_grid(args.harmful_replace_budgets),
