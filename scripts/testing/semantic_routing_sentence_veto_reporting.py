@@ -18,6 +18,7 @@ def render_sentence_veto_markdown(report: Mapping[str, object]) -> str:
         f"- Model: `{config.get('model_name', '') or 'n/a'}`",
         f"- Context view: `{config.get('context_view', '')}`",
         f"- Evidence view: `{config.get('evidence_view', '')}`",
+        f"- Phrase control mode: `{config.get('phrase_control_mode', 'off')}`",
         f"- Thresholds: `min_active={config.get('min_active_score', '')}`, `min_margin={config.get('min_margin', '')}`",
         "",
         "## Summary",
@@ -27,6 +28,7 @@ def render_sentence_veto_markdown(report: Mapping[str, object]) -> str:
         f"- Harmful replace / false abstain: `{_render_rate(summary.get('harmful_replace_rate'))}` / `{_render_rate(summary.get('false_abstain_rate'))}`",
         f"- Winner accuracy / shadow-winner accuracy: `{_render_rate(summary.get('winner_accuracy'))}` / `{_render_rate(summary.get('shadow_winner_accuracy'))}`",
         f"- Predicted replace rate: `{_render_rate(summary.get('predicted_replace_rate'))}`",
+        f"- Phrase preemption hit rate / precision: `{_render_rate(summary.get('phrase_preemption_hit_rate'))}` / `{_render_rate(summary.get('phrase_preemption_precision'))}`",
         "",
         "## Family Breakdown",
         "",
@@ -107,6 +109,7 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
         f"- Scorers: `{', '.join(str(value) for value in grid.get('scorers', ()))}`",
         f"- Context views: `{', '.join(str(value) for value in grid.get('context_views', ()))}`",
         f"- Evidence views: `{', '.join(str(value) for value in grid.get('evidence_views', ()))}`",
+        f"- Phrase control modes: `{', '.join(str(value) for value in grid.get('phrase_control_modes', ()))}`",
         "",
         "## Best Overall",
         "",
@@ -135,9 +138,11 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
         lines.append("")
     lines.extend(["## Top Configs", ""])
     lines.append(
-        "| Rank | Scorer | Context | Evidence | min_active | min_margin | Harmful Cnt | Decision Acc. | Harmful Replace | False Abstain | Winner Acc. |"
+        "| Rank | Scorer | Context | Evidence | Phrase Mode | min_active | min_margin | Harmful Cnt | Phrase Hits | Decision Acc. | Harmful Replace | False Abstain | Winner Acc. |"
     )
-    lines.append("| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    lines.append(
+        "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"
+    )
     for index, row in enumerate(rows[:12], start=1):
         lines.append(
             "| "
@@ -147,9 +152,11 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
                     str(row.get("scorer_id") or ""),
                     str(row.get("context_view") or ""),
                     str(row.get("evidence_view") or ""),
+                    str(row.get("phrase_control_mode") or "off"),
                     f"{float(row.get('min_active_score') or 0.0):.2f}",
                     f"{float(row.get('min_margin') or 0.0):.2f}",
                     str(int(row.get("harmful_replace_count") or 0)),
+                    str(int(row.get("phrase_preemption_hit_count") or 0)),
                     _render_rate(row.get("decision_accuracy")),
                     _render_rate(row.get("harmful_replace_rate")),
                     _render_rate(row.get("false_abstain_rate")),
@@ -185,6 +192,7 @@ def sentence_veto_sweep_rank_key(row: Mapping[str, object]) -> tuple[object, ...
         str(row.get("scorer_id") or ""),
         str(row.get("context_view") or ""),
         str(row.get("evidence_view") or ""),
+        str(row.get("phrase_control_mode") or ""),
         coerce_metric(row.get("min_active_score"), default=0.0),
         coerce_metric(row.get("min_margin"), default=0.0),
     )
@@ -227,6 +235,7 @@ def _sentence_veto_objective_rank_key(row: Mapping[str, object]) -> tuple[object
         str(row.get("scorer_id") or ""),
         str(row.get("context_view") or ""),
         str(row.get("evidence_view") or ""),
+        str(row.get("phrase_control_mode") or ""),
         -coerce_metric(row.get("min_active_score"), default=0.0),
         -coerce_metric(row.get("min_margin"), default=0.0),
     )
@@ -246,6 +255,11 @@ def _render_sentence_veto_failure_block(title: str, rows: object) -> list[str]:
             f"`{row.get('gold_decision', '')}` | trigger `{row.get('source_phrase', '')}` | "
             f"margin `{float(row.get('margin') or 0.0):.3f}`"
         )
+        if bool(row.get("phrase_preemption_hit")):
+            lines.append(
+                f"  phrase preemption: `{row.get('phrase_reason_code', '')}` | "
+                f"`{row.get('matched_phrase_pattern', '')}`"
+            )
         lines.append(f"  sentence: {row.get('sentence', '')}")
     lines.append("")
     return lines
@@ -254,9 +268,13 @@ def _render_sentence_veto_failure_block(title: str, rows: object) -> list[str]:
 def _render_sentence_veto_sweep_row(row: Mapping[str, object]) -> list[str]:
     return [
         f"- Config: `{row.get('config_id', '')}`",
+        f"- Phrase control mode: `{row.get('phrase_control_mode', 'off')}`",
         f"- Harmful replace count / false abstain count: "
         f"`{int(row.get('harmful_replace_count') or 0)}` / "
         f"`{int(row.get('false_abstain_count') or 0)}`",
+        f"- Phrase preemption hit count / precision: "
+        f"`{int(row.get('phrase_preemption_hit_count') or 0)}` / "
+        f"`{_render_rate(row.get('phrase_preemption_precision'))}`",
         f"- Decision accuracy / harmful replace / false abstain: "
         f"`{_render_rate(row.get('decision_accuracy'))}` / "
         f"`{_render_rate(row.get('harmful_replace_rate'))}` / "

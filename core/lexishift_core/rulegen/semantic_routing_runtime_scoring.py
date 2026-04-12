@@ -17,6 +17,7 @@ DEFAULT_SENTENCE_VETO_CONTEXT_VIEW = "raw_sentence"
 DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW = "all_evidence_text"
 DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE = 0.35
 DEFAULT_SENTENCE_VETO_MIN_MARGIN = 0.05
+DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE = "off"
 
 SENTENCE_VETO_CONTEXT_VIEWS = (
     "raw_sentence",
@@ -36,8 +37,44 @@ SENTENCE_VETO_SCORERS = (
     "tfidf_cosine",
     "sentence_transformer_cosine",
 )
+SENTENCE_VETO_PHRASE_CONTROL_MODES = (
+    "off",
+    "noun_family_frame_guard",
+)
 
 _TOKEN_RE = re.compile(r"[0-9A-Za-zÀ-ÖØ-öø-ÿ']+")
+_NOUN_LIKE_POS_TAGS = frozenset({"noun", "proper_noun"})
+_PHRASE_CONTROL_MODAL_TOKENS = frozenset(
+    {
+        "can",
+        "could",
+        "may",
+        "might",
+        "must",
+        "shall",
+        "should",
+        "will",
+        "would",
+    }
+)
+_PHRASE_CONTROL_DETERMINER_TOKENS = frozenset(
+    {
+        "a",
+        "an",
+        "her",
+        "his",
+        "my",
+        "our",
+        "that",
+        "the",
+        "their",
+        "these",
+        "this",
+        "those",
+        "your",
+    }
+)
+_PHRASE_CONTROL_PARTICLE_TOKENS = frozenset({"into", "on"})
 
 
 @dataclass(frozen=True)
@@ -57,6 +94,20 @@ class RuntimeVetoCaseScore:
     context_text: str
     active_evidence_text: str
     strongest_shadow_evidence_text: str
+    phrase_preemption_hit: bool
+    matched_phrase_pattern: str
+    phrase_reason_code: str
+
+
+@dataclass(frozen=True)
+class RuntimePhraseControlSignals:
+    phrase_preemption_hit: bool
+    matched_phrase_pattern: str
+    phrase_reason_code: str
+    signal_codes: tuple[str, ...]
+    preceding_token: str
+    following_token: str
+    family_pos_tags: tuple[str, ...]
 
 
 def build_runtime_context_views(
@@ -148,6 +199,111 @@ def decide_runtime_veto_outcome(
     if float(active_score) - float(strongest_shadow_score) < float(min_margin):
         return "abstain"
     return "replace"
+
+
+def extract_runtime_phrase_control_signals(
+    sentence: str,
+    *,
+    source_phrase: str,
+    family_pos_tags: Sequence[str] = (),
+) -> RuntimePhraseControlSignals:
+    normalized_sentence = str(sentence or "").strip()
+    normalized_source_phrase = str(source_phrase or "").strip()
+    normalized_family_pos_tags = tuple(
+        sorted(
+            {
+                str(value or "").strip().lower()
+                for value in family_pos_tags
+                if str(value or "").strip()
+            }
+        )
+    )
+    if not normalized_sentence or not normalized_source_phrase:
+        return RuntimePhraseControlSignals(
+            phrase_preemption_hit=False,
+            matched_phrase_pattern="",
+            phrase_reason_code="",
+            signal_codes=(),
+            preceding_token="",
+            following_token="",
+            family_pos_tags=normalized_family_pos_tags,
+        )
+    if not normalized_family_pos_tags or any(
+        tag not in _NOUN_LIKE_POS_TAGS for tag in normalized_family_pos_tags
+    ):
+        return RuntimePhraseControlSignals(
+            phrase_preemption_hit=False,
+            matched_phrase_pattern="",
+            phrase_reason_code="",
+            signal_codes=(),
+            preceding_token="",
+            following_token="",
+            family_pos_tags=normalized_family_pos_tags,
+        )
+
+    tokens = normalized_sentence.split()
+    phrase_tokens = normalized_source_phrase.split()
+    match = _find_phrase_token_span(tokens, phrase_tokens)
+    if match is None:
+        return RuntimePhraseControlSignals(
+            phrase_preemption_hit=False,
+            matched_phrase_pattern="",
+            phrase_reason_code="",
+            signal_codes=(),
+            preceding_token="",
+            following_token="",
+            family_pos_tags=normalized_family_pos_tags,
+        )
+
+    start_index, end_index = match
+    preceding_token = _normalize_surface_token(tokens[start_index - 1]) if start_index > 0 else ""
+    following_token = _normalize_surface_token(tokens[end_index]) if end_index < len(tokens) else ""
+
+    signal_codes: list[str] = []
+    matched_phrase_pattern = ""
+    phrase_reason_code = ""
+
+    def register_signal(*, reason_code: str, pattern: str) -> None:
+        nonlocal matched_phrase_pattern, phrase_reason_code
+        if reason_code not in signal_codes:
+            signal_codes.append(reason_code)
+        if not phrase_reason_code:
+            phrase_reason_code = reason_code
+        if not matched_phrase_pattern:
+            matched_phrase_pattern = pattern
+
+    strong_signal_rows: list[tuple[str, str]] = []
+    if preceding_token in _PHRASE_CONTROL_MODAL_TOKENS:
+        strong_signal_rows.append(
+            ("modal_trigger_frame", f"{preceding_token} {normalized_source_phrase}")
+        )
+    if preceding_token == "to":
+        strong_signal_rows.append(("infinitive_trigger_frame", f"to {normalized_source_phrase}"))
+    if preceding_token == "please":
+        strong_signal_rows.append(
+            ("polite_imperative_trigger_frame", f"please {normalized_source_phrase}")
+        )
+    if start_index == 0 and following_token in _PHRASE_CONTROL_DETERMINER_TOKENS:
+        strong_signal_rows.append(
+            ("sentence_initial_object_frame", f"{normalized_source_phrase} {following_token}")
+        )
+    if following_token in _PHRASE_CONTROL_PARTICLE_TOKENS and strong_signal_rows:
+        register_signal(
+            reason_code="trigger_particle_frame",
+            pattern=f"{normalized_source_phrase} {following_token}",
+        )
+    for reason_code, pattern in strong_signal_rows:
+        register_signal(reason_code=reason_code, pattern=pattern)
+
+    return RuntimePhraseControlSignals(
+        phrase_preemption_hit=bool(signal_codes),
+        matched_phrase_pattern=matched_phrase_pattern,
+        phrase_reason_code=phrase_reason_code,
+        signal_codes=tuple(signal_codes),
+        preceding_token=preceding_token,
+        following_token=following_token,
+        family_pos_tags=normalized_family_pos_tags,
+    )
 
 
 class RuntimeSimilarityBackend:
@@ -275,6 +431,8 @@ def evaluate_runtime_veto_case(
     evidence_view: str = DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW,
     min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
     min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN,
+    phrase_control_mode: str = DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,
+    family_pos_tags: Sequence[str] = (),
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> RuntimeVetoCaseScore:
@@ -332,6 +490,24 @@ def evaluate_runtime_veto_case(
         min_active_score=min_active_score,
         min_margin=min_margin,
     )
+    resolved_phrase_control_mode = (
+        str(phrase_control_mode or "").strip() or DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE
+    )
+    if resolved_phrase_control_mode not in SENTENCE_VETO_PHRASE_CONTROL_MODES:
+        raise ValueError(
+            f"Unsupported phrase control mode: {resolved_phrase_control_mode!r}; "
+            f"expected one of {SENTENCE_VETO_PHRASE_CONTROL_MODES!r}"
+        )
+    phrase_control_signals = extract_runtime_phrase_control_signals(
+        sentence,
+        source_phrase=source_phrase,
+        family_pos_tags=family_pos_tags,
+    )
+    if (
+        resolved_phrase_control_mode == "noun_family_frame_guard"
+        and phrase_control_signals.phrase_preemption_hit
+    ):
+        predicted_decision = "abstain"
     gold_winner = str(case.get("gold_winner") or "").strip()
     gold_winner_type = _classify_gold_winner_type(gold_winner, active_sense_id=active_sense_id)
     gold_decision = str(case.get("gold_decision") or "").strip().lower()
@@ -354,6 +530,9 @@ def evaluate_runtime_veto_case(
         context_text=context_text,
         active_evidence_text=active_evidence_text,
         strongest_shadow_evidence_text=strongest_shadow_evidence_text,
+        phrase_preemption_hit=phrase_control_signals.phrase_preemption_hit,
+        matched_phrase_pattern=phrase_control_signals.matched_phrase_pattern,
+        phrase_reason_code=phrase_control_signals.phrase_reason_code,
     )
 
 

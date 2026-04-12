@@ -89,6 +89,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated margin thresholds.",
     )
     parser.add_argument(
+        "--phrase-control-modes",
+        type=str,
+        default="off,noun_family_frame_guard",
+        help="Comma-separated phrase/frame control mode ids.",
+    )
+    parser.add_argument(
         "--harmful-replace-budgets",
         type=str,
         default="0,1,2",
@@ -137,6 +143,10 @@ def main() -> int:
         ),
         min_active_scores=_parse_float_grid(args.min_active_grid),
         min_margins=_parse_float_grid(args.min_margin_grid),
+        phrase_control_modes=_parse_string_grid(
+            args.phrase_control_modes,
+            default_values=("off",),
+        ),
         harmful_replace_budgets=_parse_int_grid(args.harmful_replace_budgets),
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or "___",

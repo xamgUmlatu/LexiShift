@@ -21,9 +21,11 @@ from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E
     DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
     DEFAULT_SENTENCE_VETO_MIN_MARGIN,
+    DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,
     RuntimeSimilarityBackend,
     SENTENCE_VETO_CONTEXT_VIEWS,
     SENTENCE_VETO_EVIDENCE_VIEWS,
+    SENTENCE_VETO_PHRASE_CONTROL_MODES,
     SENTENCE_VETO_SCORERS,
     build_runtime_context_views,
     evaluate_runtime_veto_case,
@@ -137,6 +139,7 @@ def build_sentence_veto_report(
     evidence_view: str = DEFAULT_SENTENCE_VETO_EVIDENCE_VIEW,
     min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE,
     min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN,
+    phrase_control_mode: str = DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,
     model_name: str | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
@@ -171,6 +174,14 @@ def build_sentence_veto_report(
         trigger = str(family.get("trigger") or "").strip()
         active = dict(family.get("active") or {})
         shadows = [dict(shadow) for shadow in family.get("shadows", ())]
+        family_pos_tags = [
+            str(value or "").strip()
+            for value in (
+                active.get("canonical_pos"),
+                *(shadow.get("canonical_pos") for shadow in shadows),
+            )
+            if str(value or "").strip()
+        ]
         family_entry = family_breakdown.setdefault(
             family_id,
             {
@@ -196,6 +207,8 @@ def build_sentence_veto_report(
                 evidence_view=evidence_view,
                 min_active_score=min_active_score,
                 min_margin=min_margin,
+                phrase_control_mode=phrase_control_mode,
+                family_pos_tags=family_pos_tags,
                 window_tokens=window_tokens,
                 mask_token=mask_token,
             )
@@ -218,6 +231,9 @@ def build_sentence_veto_report(
                 "context_text": result.context_text,
                 "active_evidence_text": result.active_evidence_text,
                 "strongest_shadow_evidence_text": result.strongest_shadow_evidence_text,
+                "phrase_preemption_hit": bool(result.phrase_preemption_hit),
+                "matched_phrase_pattern": result.matched_phrase_pattern,
+                "phrase_reason_code": result.phrase_reason_code,
                 "slice_tags": _normalize_string_list(case.get("slice_tags")),
                 "slice_dimensions": _normalize_slice_dimensions(case.get("slice_dimensions")),
                 "notes": str(case.get("notes") or "").strip(),
@@ -281,6 +297,7 @@ def build_sentence_veto_report(
             "evidence_view": evidence_view,
             "min_active_score": float(min_active_score),
             "min_margin": float(min_margin),
+            "phrase_control_mode": phrase_control_mode,
             "window_tokens": int(window_tokens),
             "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         },
@@ -303,6 +320,7 @@ def build_sentence_veto_sweep_report(
     evidence_views: Sequence[str],
     min_active_scores: Sequence[float],
     min_margins: Sequence[float],
+    phrase_control_modes: Sequence[str] = (DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE,),
     harmful_replace_budgets: Sequence[int] = (0, 1, 2),
     model_name: str | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
@@ -325,14 +343,24 @@ def build_sentence_veto_sweep_report(
         for value in _normalize_string_list(evidence_views)
         if value in SENTENCE_VETO_EVIDENCE_VIEWS
     ]
+    normalized_phrase_control_modes = [
+        value
+        for value in _normalize_string_list(phrase_control_modes)
+        if value in SENTENCE_VETO_PHRASE_CONTROL_MODES
+    ]
     normalized_harmful_replace_budgets = sorted(
         {max(0, int(value)) for value in harmful_replace_budgets if isinstance(value, (int, float))}
     )
     normalized_min_active_scores = [float(value) for value in min_active_scores]
     normalized_min_margins = [float(value) for value in min_margins]
-    if not normalized_scorers or not normalized_context_views or not normalized_evidence_views:
+    if (
+        not normalized_scorers
+        or not normalized_context_views
+        or not normalized_evidence_views
+        or not normalized_phrase_control_modes
+    ):
         raise ValueError(
-            "Sentence-veto sweep requires non-empty scorer, context-view, and evidence-view sets."
+            "Sentence-veto sweep requires non-empty scorer, context-view, evidence-view, and phrase-control mode sets."
         )
     if not normalized_min_active_scores or not normalized_min_margins:
         raise ValueError("Sentence-veto sweep requires non-empty min-active and min-margin grids.")
@@ -342,47 +370,62 @@ def build_sentence_veto_sweep_report(
     for scorer_id in normalized_scorers:
         for context_view in normalized_context_views:
             for evidence_view in normalized_evidence_views:
-                for min_active_score in normalized_min_active_scores:
-                    for min_margin in normalized_min_margins:
-                        report = build_sentence_veto_report(
-                            dataset_path=dataset_path,
-                            scorer_id=scorer_id,
-                            context_view=context_view,
-                            evidence_view=evidence_view,
-                            min_active_score=min_active_score,
-                            min_margin=min_margin,
-                            model_name=model_name,
-                            window_tokens=window_tokens,
-                            mask_token=mask_token,
-                        )
-                        summary = dict(report.get("summary") or {})
-                        row = {
-                            "config_id": (
-                                f"{scorer_id}:{context_view}:{evidence_view}:"
-                                f"a={min_active_score:.2f}:m={min_margin:.2f}"
-                            ),
-                            "scorer_id": scorer_id,
-                            "model_name": model_name,
-                            "context_view": context_view,
-                            "evidence_view": evidence_view,
-                            "min_active_score": float(min_active_score),
-                            "min_margin": float(min_margin),
-                            "decision_accuracy": summary.get("decision_accuracy"),
-                            "replace_precision": summary.get("replace_precision"),
-                            "replace_recall": summary.get("replace_recall"),
-                            "harmful_replace_rate": summary.get("harmful_replace_rate"),
-                            "false_abstain_rate": summary.get("false_abstain_rate"),
-                            "winner_accuracy": summary.get("winner_accuracy"),
-                            "shadow_winner_accuracy": summary.get("shadow_winner_accuracy"),
-                            "predicted_replace_rate": summary.get("predicted_replace_rate"),
-                            "harmful_replace_count": int(summary.get("harmful_replace_count") or 0),
-                            "false_abstain_count": int(summary.get("false_abstain_count") or 0),
-                            "gold_abstain_cases": int(summary.get("gold_abstain_cases") or 0),
-                            "gold_replace_cases": int(summary.get("gold_replace_cases") or 0),
-                            "summary": summary,
-                        }
-                        row["objective_score"] = compute_sentence_veto_objective(row)
-                        rows.append(row)
+                for phrase_control_mode in normalized_phrase_control_modes:
+                    for min_active_score in normalized_min_active_scores:
+                        for min_margin in normalized_min_margins:
+                            report = build_sentence_veto_report(
+                                dataset_path=dataset_path,
+                                scorer_id=scorer_id,
+                                context_view=context_view,
+                                evidence_view=evidence_view,
+                                min_active_score=min_active_score,
+                                min_margin=min_margin,
+                                phrase_control_mode=phrase_control_mode,
+                                model_name=model_name,
+                                window_tokens=window_tokens,
+                                mask_token=mask_token,
+                            )
+                            summary = dict(report.get("summary") or {})
+                            row = {
+                                "config_id": (
+                                    f"{scorer_id}:{context_view}:{evidence_view}:"
+                                    f"p={phrase_control_mode}:"
+                                    f"a={min_active_score:.2f}:m={min_margin:.2f}"
+                                ),
+                                "scorer_id": scorer_id,
+                                "model_name": model_name,
+                                "context_view": context_view,
+                                "evidence_view": evidence_view,
+                                "phrase_control_mode": phrase_control_mode,
+                                "min_active_score": float(min_active_score),
+                                "min_margin": float(min_margin),
+                                "decision_accuracy": summary.get("decision_accuracy"),
+                                "replace_precision": summary.get("replace_precision"),
+                                "replace_recall": summary.get("replace_recall"),
+                                "harmful_replace_rate": summary.get("harmful_replace_rate"),
+                                "false_abstain_rate": summary.get("false_abstain_rate"),
+                                "winner_accuracy": summary.get("winner_accuracy"),
+                                "shadow_winner_accuracy": summary.get("shadow_winner_accuracy"),
+                                "predicted_replace_rate": summary.get("predicted_replace_rate"),
+                                "phrase_preemption_hit_rate": summary.get(
+                                    "phrase_preemption_hit_rate"
+                                ),
+                                "phrase_preemption_precision": summary.get(
+                                    "phrase_preemption_precision"
+                                ),
+                                "phrase_preemption_hit_count": int(
+                                    summary.get("phrase_preemption_hit_count") or 0
+                                ),
+                                "harmful_replace_count": int(
+                                    summary.get("harmful_replace_count") or 0
+                                ),
+                                "false_abstain_count": int(summary.get("false_abstain_count") or 0),
+                                "gold_abstain_cases": int(summary.get("gold_abstain_cases") or 0),
+                                "gold_replace_cases": int(summary.get("gold_replace_cases") or 0),
+                                "summary": summary,
+                            }
+                            row["objective_score"] = compute_sentence_veto_objective(row)
+                            rows.append(row)
 
     rows.sort(key=sentence_veto_sweep_rank_key)
     best_row = dict(rows[0]) if rows else None
@@ -417,6 +460,7 @@ def build_sentence_veto_sweep_report(
             "scorers": normalized_scorers,
             "context_views": normalized_context_views,
             "evidence_views": normalized_evidence_views,
+            "phrase_control_modes": normalized_phrase_control_modes,
             "min_active_scores": normalized_min_active_scores,
             "min_margins": normalized_min_margins,
             "harmful_replace_budgets": normalized_harmful_replace_budgets,
@@ -511,6 +555,12 @@ def _accumulate_sentence_veto_summary(
         summary["shadow_winner_labeled_cases"] += 1
         if predicted_winner == gold_winner:
             summary["shadow_winner_correct_count"] += 1
+    if bool(getattr(result, "phrase_preemption_hit", False)):
+        summary["phrase_preemption_hit_count"] += 1
+        if gold_decision == "replace":
+            summary["phrase_preemption_harmful_block_count"] += 1
+        else:
+            summary["phrase_preemption_correct_abstain_count"] += 1
 
 
 def _new_sentence_veto_summary() -> dict[str, object]:
@@ -531,6 +581,9 @@ def _new_sentence_veto_summary() -> dict[str, object]:
         "winner_correct_count": 0,
         "shadow_winner_labeled_cases": 0,
         "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
     }
 
 
@@ -547,6 +600,10 @@ def _finalize_sentence_veto_summary(summary: Mapping[str, object]) -> None:
     false_abstain_count = int(summary.get("false_abstain_count") or 0)
     winner_correct_count = int(summary.get("winner_correct_count") or 0)
     shadow_winner_correct_count = int(summary.get("shadow_winner_correct_count") or 0)
+    phrase_preemption_hit_count = int(summary.get("phrase_preemption_hit_count") or 0)
+    phrase_preemption_correct_abstain_count = int(
+        summary.get("phrase_preemption_correct_abstain_count") or 0
+    )
 
     summary["decision_accuracy"] = _safe_rate(true_replace_count + true_abstain_count, cases_total)
     summary["replace_precision"] = _safe_rate(true_replace_count, predicted_replace_cases)
@@ -559,6 +616,11 @@ def _finalize_sentence_veto_summary(summary: Mapping[str, object]) -> None:
         shadow_winner_labeled_cases,
     )
     summary["predicted_replace_rate"] = _safe_rate(predicted_replace_cases, cases_total)
+    summary["phrase_preemption_hit_rate"] = _safe_rate(phrase_preemption_hit_count, cases_total)
+    summary["phrase_preemption_precision"] = _safe_rate(
+        phrase_preemption_correct_abstain_count,
+        phrase_preemption_hit_count,
+    )
 
 
 def _finalize_sentence_veto_breakdown_rows(
