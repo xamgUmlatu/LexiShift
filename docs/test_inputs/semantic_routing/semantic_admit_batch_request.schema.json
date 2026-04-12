@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Admit Batch Request",
+  "description": "Planning-only schema for future helper-side semantic admission batch requests from runtime surfaces such as the browser extension or chat plugin.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pair",
+    "profile_id",
+    "offset_encoding",
+    "fallback_policy",
+    "matches"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "offset_encoding": {
+      "type": "string",
+      "enum": [
+        "utf16_code_unit"
+      ]
+    },
+    "decision_policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fallback_policy": {
+      "type": "string",
+      "enum": [
+        "legacy_on_unavailable",
+        "abstain_on_unavailable",
+        "soft_affordance_on_unavailable"
+      ]
+    },
+    "surface_kind": {
+      "type": "string",
+      "enum": [
+        "browser_page",
+        "chat_message",
+        "other"
+      ]
+    },
+    "matches": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/matchRequest"
+      }
+    }
+  },
+  "definitions": {
+    "matchRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "match_id",
+        "source_phrase",
+        "context_text",
+        "match_start",
+        "match_end",
+        "semantic_admission"
+      ],
+      "properties": {
+        "match_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "match_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "match_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "semantic_admission": {
+          "$ref": "semantic_admission.schema.json"
+        },
+        "document_url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "page_language": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

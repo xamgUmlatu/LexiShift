@@ -19,7 +19,10 @@
           ruleset_exists: false,
           ruleset_rules_count: 0,
           snapshot_exists: false,
-          snapshot_target_count: 0
+          snapshot_target_count: 0,
+          semantic_inventory_exists: false,
+          semantic_inventory_competition_set_count: 0,
+          semantic_inventory_phrase_set_count: 0
         },
         runtime_state: null
       };
@@ -69,6 +72,24 @@
               : (Array.isArray(cachedSnapshot.targets) ? cachedSnapshot.targets.length : 0);
             result.cache.snapshot_exists = targetCount > 0;
             result.cache.snapshot_target_count = targetCount;
+          }
+        } catch (_err) {
+          // Cache diagnostics are best-effort.
+        }
+      }
+      if (helperCache && typeof helperCache.loadSemanticInventory === "function") {
+        try {
+          const cachedInventory = await helperCache.loadSemanticInventory(normalizedPair, { profileId });
+          if (cachedInventory && typeof cachedInventory === "object") {
+            const competitionSets = cachedInventory.competition_sets && typeof cachedInventory.competition_sets === "object"
+              ? cachedInventory.competition_sets
+              : {};
+            const phraseSets = cachedInventory.phrase_sets && typeof cachedInventory.phrase_sets === "object"
+              ? cachedInventory.phrase_sets
+              : {};
+            result.cache.semantic_inventory_exists = true;
+            result.cache.semantic_inventory_competition_set_count = Object.keys(competitionSets).length;
+            result.cache.semantic_inventory_phrase_set_count = Object.keys(phraseSets).length;
           }
         } catch (_err) {
           // Cache diagnostics are best-effort.

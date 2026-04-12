@@ -18,6 +18,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
     apply_exposure,
     apply_feedback,
     get_srs_runtime_diagnostics,
+    load_semantic_inventory,
     RulegenJobConfig,
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
@@ -27,6 +28,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
     refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
+    semantic_admit_batch,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
@@ -218,6 +220,65 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             )
             self.assertEqual(result["profile_id"], other_profile)
             self.assertEqual(result["removed_items"], 1)
+
+
+class TestHelperEngineSemanticInventoryLoad(unittest.TestCase):
+    def test_load_semantic_inventory_reads_profile_scoped_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            payload = {
+                "schema_version": 1,
+                "pair": "en-es",
+                "profile_id": "default",
+                "generated_at": "2026-04-13T00:00:00Z",
+                "triggers": {},
+                "senses": {},
+                "competition_sets": {},
+                "phrase_sets": {},
+            }
+            paths.semantic_inventory_path("en-es").write_text(
+                json.dumps(payload),
+                encoding="utf-8",
+            )
+
+            loaded = load_semantic_inventory(paths, pair="en-es")
+
+            self.assertEqual(loaded["pair"], "en-es")
+            self.assertEqual(loaded["schema_version"], 1)
+
+    def test_semantic_admit_batch_falls_back_when_inventory_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+
+            response = semantic_admit_batch(
+                paths,
+                payload={
+                    "pair": "en-es",
+                    "profile_id": "default",
+                    "fallback_policy": "abstain_on_unavailable",
+                    "matches": [
+                        {
+                            "match_id": "m1",
+                            "source_phrase": "bank",
+                            "context_text": "You can bank on her support.",
+                            "match_start": 8,
+                            "match_end": 12,
+                            "semantic_admission": {
+                                "schema_version": 1,
+                                "status": "ready",
+                                "trigger_id": "en-es:trigger:bank",
+                                "sense_id": "sense:banco",
+                                "competition_set_id": "comp:bank",
+                            },
+                        }
+                    ],
+                },
+            )
+
+            self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v1")
+            self.assertEqual(response["decisions"][0]["decision"], "abstain")
+            self.assertEqual(response["decisions"][0]["decision_source"], "fallback_policy")
+            self.assertIn("semantic_inventory_missing", response["decisions"][0]["reason_codes"])
 
 
 class TestHelperEngineRulegenPreview(unittest.TestCase):

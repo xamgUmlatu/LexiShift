@@ -72,6 +72,14 @@ def _run_rulegen_job_use_case(*args, **kwargs):
     return rulegen_job_module.run_rulegen_job(*args, **kwargs)
 
 
+def _semantic_admit_batch_use_case(*args, **kwargs):
+    semantic_admission_module = __import__(
+        "lexishift_core.helper.use_cases.semantic_admission",
+        fromlist=["semantic_admit_batch"],
+    )
+    return semantic_admission_module.semantic_admit_batch(*args, **kwargs)
+
+
 def _reset_srs_data_use_case(*args, **kwargs):
     reset_module = __import__(
         "lexishift_core.helper.use_cases.reset",
@@ -268,6 +276,14 @@ def get_srs_runtime_diagnostics(
         pair=pair,
         profile_id=profile_id,
     )
+
+
+def semantic_admit_batch(
+    paths: HelperPaths,
+    *,
+    payload: Mapping[str, object],
+) -> dict:
+    return _semantic_admit_batch_use_case(paths, payload=payload)
 
 
 def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:

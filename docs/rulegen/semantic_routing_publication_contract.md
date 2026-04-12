@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-10
-Last verified: 2026-04-10 code-path inspection across `RuleMetadata`, storage roundtrip, helper output publication, helper paths, and runtime diagnostics
+Last updated: 2026-04-13
+Last verified: 2026-04-13 code-path inspection across `RuleMetadata`, storage roundtrip, helper output publication, helper paths, runtime diagnostics, and roadmap-linking review
 Purpose: define the future emitted-rule shape and helper publication contract for semantic routing so implementation work lands on a shared LP-symmetric path
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
@@ -35,6 +35,10 @@ This document narrows the problem to:
 2. helper publication artifacts
 3. helper diagnostics visibility
 4. parity rules for all LPs
+
+Sequencing for landing those pieces now lives in:
+
+- `docs/rulegen/semantic_routing_implementation_roadmap.md`
 
 ## Current Verified Seam
 

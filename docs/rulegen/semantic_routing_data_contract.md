@@ -2,15 +2,18 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-10
-Last verified: 2026-04-10 code-path inspection across rulegen emission, helper publication, ruleset serialization, and extension runtime consumption
+Last updated: 2026-04-13
+Last verified: 2026-04-13 code-path inspection across rulegen emission, helper publication, ruleset serialization, extension runtime consumption, and roadmap-linking review
 Purpose: define the best long-term data-flow shape for semantic routing so LP support stays symmetric and runtime integration does not depend on benchmark-only candidate metadata
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
 - `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_inventory.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
 Related planning doc:
 - `docs/rulegen/semantic_routing_publication_contract.md`
+- `docs/rulegen/semantic_routing_implementation_roadmap.md`
 Verification:
 - `core/lexishift_core/rulegen/generation.py`
 - `core/lexishift_core/persistence/storage.py`
@@ -332,27 +335,131 @@ Recommended record responsibilities:
 - `phrase_sets`
   - phrase/idiom blockers that should preempt semantic scoring
 
-### Layer C. Runtime Decision Record
+### Layer C. Runtime Admission Request / Response
 
-Runtime should not write giant payloads into DOM spans.
-It should instead emit a compact structured decision record for diagnostics/logging.
+Runtime should not discover semantic competitors on its own.
+It should send a compact, concrete request to the helper-side decision engine.
 
-Recommended content:
-- `trigger_id`
-- `sense_id`
-- `competition_set_id`
-- selected context view id
-- policy id
-- active score
-- top shadow score
-- final outcome:
+Recommended request responsibilities:
+
+- identify pair and profile
+- identify offset semantics explicitly
+- state the configured `fallback_policy`
+- optionally request a specific `decision_policy_id`
+- send the matched source phrase and local context text
+- send the already-emitted `semantic_admission` pointer from the matched rule
+
+Planned schema:
+
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
+
+Recommended request fragment:
+
+```json
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "profile_id": "default",
+  "offset_encoding": "utf16_code_unit",
+  "decision_policy_id": "en_es_sentence_veto_v1",
+  "fallback_policy": "abstain_on_unavailable",
+  "surface_kind": "browser_page",
+  "matches": [
+    {
+      "match_id": "node17:ball:0",
+      "source_phrase": "ball",
+      "context_text": "The child kicked the ball into the street.",
+      "match_start": 17,
+      "match_end": 21,
+      "semantic_admission": {
+        "schema_version": 1,
+        "status": "ready",
+        "trigger_id": "en-es:trigger:ball",
+        "sense_id": "en-es:wiktionary:pelota:20:0",
+        "competition_set_id": "en-es:ball:pelota:v1",
+        "phrase_set_id": "en-es:ball:v1"
+      }
+    }
+  ]
+}
+```
+
+Recommended response responsibilities:
+
+- return the resolved `decision_policy_id`
+- echo the active `fallback_policy`
+- return the final user-facing outcome for each match:
   - `replace`
-  - `soft`
+  - `soft_affordance`
   - `abstain`
-- reason codes
+- state whether that outcome came from:
+  - the semantic decision policy
+  - or the configured fallback policy
+- expose compact diagnostics such as:
+  - `selection_policy_version`
+  - selected `context_view_id`
+  - `active_score`
+  - `top_shadow_score`
+  - `score_margin`
+  - `reason_codes`
+
+Planned schema:
+
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
+
+Recommended response fragment:
+
+```json
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "profile_id": "default",
+  "decision_policy_id": "en_es_sentence_veto_v1",
+  "fallback_policy": "abstain_on_unavailable",
+  "decisions": [
+    {
+      "match_id": "node17:ball:0",
+      "decision": "replace",
+      "decision_source": "policy",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "trigger_id": "en-es:trigger:ball",
+      "sense_id": "en-es:wiktionary:pelota:20:0",
+      "competition_set_id": "en-es:ball:pelota:v1",
+      "phrase_set_id": "en-es:ball:v1",
+      "selection_policy_version": "en_es_shadow_selection_v1",
+      "context_view_id": "masked_sentence",
+      "active_score": 0.63,
+      "top_shadow_score": 0.31,
+      "score_margin": 0.32
+    }
+  ]
+}
+```
+
+This version split is intentional:
+
+- `schema_version` governs payload shape
+- `selection_policy_version` governs offline blocker publication
+- `decision_policy_id` governs runtime semantic scoring
+- `fallback_policy` governs what happens when semantic readiness is missing or unusable
+
+The offset rule is also intentional:
+
+- request offsets are currently frozen as `utf16_code_unit`
+- that matches the browser/plugin runtime surfaces that produce the request
+- helper-side implementations must therefore treat offsets as transport values, not assume Python code-point indexing by default
+
+### Layer D. Runtime Decision Record
+
+The response itself is the canonical structured decision record.
+Runtime may derive a smaller local diagnostics record from it, but should not invent a separate semantic truth surface.
 
 Recommended location:
-- runtime diagnostics / helper debug channel
+
+- helper debug channel
+- runtime diagnostics
 - not as full DOM dataset payload
 
 The DOM span itself should stay lightweight.

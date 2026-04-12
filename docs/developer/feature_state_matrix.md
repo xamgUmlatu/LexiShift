@@ -773,15 +773,18 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `planned`; publication/payload scaffolding is implemented, `en-es` has a narrow competition-set publication PoC, and there are now research-only `en-es` shadow inventory, triage, policy-comparison, and source-intake planning artifacts, but no LP emits a live semantic-routing admission policy by default
-- Last documented checkpoint: `2026-04-11` expanded the fixed-shadow `en-es` sentence-level runtime-veto dataset to `v2` (8 families / 40 rows), added family and slice breakdowns to the harness output, and ran a first explicit sentence-transformer model shortlist on top of the lexical control sweep
-- Last verified: `2026-04-11` targeted `semantic_shadow_evaluation` / runtime-scoring tests plus refreshed matrix/compare artifacts against both the installed `en-es` forward pack and a rebuilt forward Kaikki artifact from the local raw dump, together with the expanded sentence-veto harness, lexical sweep, and explicit sentence-transformer comparison artifacts
+- Last documented checkpoint: `2026-04-13` landed the first Phase 3 helper-side semantic-admission service: a shared named policy registry now resolves `en_es_sentence_veto_v1`, helper/native-host can answer `semantic_admit_batch`, fallback behavior is explicit per request, and the sentence-veto harness now reuses shared production-policy evaluation logic instead of keeping rescue logic only in script-local code
+- Last verified: `2026-04-13` targeted runtime-policy/helper/native-host tests plus the existing sentence-veto support regression tests, together with helper/doc/state checks on the new Phase 3 serving path
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime today.
   - Current runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
   - The repo now has passive semantic-routing publication scaffolding:
     - `metadata.semantic_admission` can be emitted on rules
     - helper publication can write a semantic inventory sidecar
+    - helper/native-host can now serve that semantic inventory as a first-class artifact
+    - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - runtime diagnostics can inspect both pointer coverage and sidecar coverage
+    - helper/native-host can now also answer a first `semantic_admit_batch` request using a named shared policy registry, though browser runtime does not yet call that service
   - That scaffolding does not mean semantic routing is active.
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`

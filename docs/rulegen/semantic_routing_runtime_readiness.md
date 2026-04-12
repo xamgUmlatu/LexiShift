@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-11
-Last verified: 2026-04-11 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, the expanded fixed-shadow sentence-level runtime-veto `v2` sweep, and a first explicit sentence-transformer model shortlist
+Last updated: 2026-04-13
+Last verified: 2026-04-13 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, the expanded fixed-shadow sentence-level runtime-veto `v2` sweep, first explicit sentence-transformer model shortlist, and roadmap-linking review
 Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
 Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
 Verification:
@@ -18,6 +18,11 @@ Verification:
 - `core/lexishift_core/persistence/storage.py`
 - `core/tests/rulegen/test_rulegen_generation.py`
 - `core/tests/rulegen/test_rulegen_en_es_kaikki_provenance.py`
+
+Sequencing note:
+
+- this doc explains the readiness boundary and research posture
+- `docs/rulegen/semantic_routing_implementation_roadmap.md` now carries the concrete implementation ladder for publishing `en-es` first without forking the LP architecture
 
 ## Purpose
 
@@ -604,6 +609,11 @@ The future runtime semantic gate should be able to answer:
    - abstain.
 
 That contract should be explicit in rule metadata and runtime diagnostics before any broad default-on rollout.
+
+Current planning schemas for that contract now live at:
+
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
 
 ## First Research Steps
 

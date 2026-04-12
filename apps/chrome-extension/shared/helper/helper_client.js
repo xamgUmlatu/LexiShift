@@ -31,6 +31,18 @@
       return this.send("get_ruleset", { pair, profile_id: profileId });
     }
 
+    getSemanticInventory(pair, profileId) {
+      return this.send("get_semantic_inventory", { pair, profile_id: profileId });
+    }
+
+    semanticAdmitBatch(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "semantic_admit_batch",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
     getSrsDiagnostics(pair, profileId) {
       return this.send("srs_diagnostics", { pair, profile_id: profileId });
     }

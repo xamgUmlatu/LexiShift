@@ -29,8 +29,14 @@ from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E
     SENTENCE_VETO_PHRASE_CONTROL_MODES,
     SENTENCE_VETO_SCORERS,
     build_runtime_context_views,
-    evaluate_runtime_veto_case,
     resolve_runtime_evidence_text,
+)
+from lexishift_core.rulegen.semantic_routing_runtime_policy import (  # noqa: E402
+    DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE,
+    SENTENCE_VETO_ACTIVE_RESCUE_MODES,
+    SemanticDecisionPolicyConfig,
+    _ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW,
+    evaluate_runtime_semantic_match,
 )
 from semantic_routing_sentence_veto_reporting import (  # noqa: E402
     compute_sentence_veto_objective,
@@ -58,14 +64,6 @@ DEFAULT_SENTENCE_VETO_SWEEP_JSON_OUT = (
 DEFAULT_SENTENCE_VETO_SWEEP_MARKDOWN_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "semantic_routing_sentence_veto_sweep_latest.md"
 )
-DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE = "off"
-SENTENCE_VETO_ACTIVE_RESCUE_MODES = (
-    "off",
-    "sense_label_near_tie_active_rescue",
-)
-_ACTIVE_RESCUE_PRIMARY_MARGIN_FLOOR = -0.02
-_ACTIVE_RESCUE_BACKUP_MARGIN_FLOOR = 0.02
-_ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW = "sense_label"
 
 
 def load_sentence_veto_dataset(path: Path) -> dict[str, object]:
@@ -177,6 +175,20 @@ def build_sentence_veto_report(
             f"Unsupported sentence-veto active rescue mode: {resolved_active_rescue_mode!r}; "
             f"expected one of {SENTENCE_VETO_ACTIVE_RESCUE_MODES!r}"
         )
+    policy = SemanticDecisionPolicyConfig(
+        policy_id="sentence_veto_harness",
+        pair=str(dataset.get("pair") or "").strip() or "en-es",
+        scorer_id=scorer_id,
+        model_name=str(model_name or "").strip(),
+        context_view=context_view,
+        evidence_view=evidence_view,
+        min_active_score=float(min_active_score),
+        min_margin=float(min_margin),
+        phrase_control_mode=phrase_control_mode,
+        active_rescue_mode=resolved_active_rescue_mode,
+        window_tokens=int(window_tokens),
+        mask_token=str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    )
     backup_backend: RuntimeSimilarityBackend | None = None
     if resolved_active_rescue_mode != DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE:
         backup_backend = RuntimeSimilarityBackend(
@@ -230,69 +242,42 @@ def build_sentence_veto_report(
             },
         )
         for case in family.get("cases", ()):
-            result = evaluate_runtime_veto_case(
-                family_id=family_id,
-                case=case,
+            result = evaluate_runtime_semantic_match(
+                match_id=str(case.get("case_id") or "").strip(),
+                sentence=str(case.get("sentence") or "").strip(),
+                source_phrase=str(case.get("source_phrase") or "").strip(),
                 active_sense=active,
                 shadow_senses=shadows,
+                policy=policy,
                 scorer=backend,
-                context_view=context_view,
-                evidence_view=evidence_view,
-                min_active_score=min_active_score,
-                min_margin=min_margin,
-                phrase_control_mode=phrase_control_mode,
+                backup_scorer=backup_backend,
+                family_id=family_id,
                 family_pos_tags=family_pos_tags,
-                window_tokens=window_tokens,
-                mask_token=mask_token,
             )
-            rescue_backup_result = None
-            active_rescue_applied = False
-            active_rescue_reason_code = ""
             summary_result_payload = dict(result.__dict__)
-            summary_result_payload["active_rescue_applied"] = False
-            summary_result_payload["active_rescue_reason_code"] = ""
-            summary_result = SimpleNamespace(**summary_result_payload)
-            if (
-                backup_backend is not None
-                and result.predicted_decision != "replace"
-                and not result.phrase_preemption_hit
-                and float(result.margin) >= _ACTIVE_RESCUE_PRIMARY_MARGIN_FLOOR
-            ):
-                rescue_backup_result = evaluate_runtime_veto_case(
-                    family_id=family_id,
-                    case=case,
-                    active_sense=active,
-                    shadow_senses=shadows,
-                    scorer=backup_backend,
-                    context_view=context_view,
-                    evidence_view=_ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW,
-                    min_active_score=min_active_score,
-                    min_margin=min_margin,
-                    phrase_control_mode=phrase_control_mode,
-                    family_pos_tags=family_pos_tags,
-                    window_tokens=window_tokens,
-                    mask_token=mask_token,
+            summary_result_payload["gold_decision"] = (
+                str(case.get("gold_decision") or "").strip().lower()
+            )
+            summary_result_payload["gold_winner"] = str(case.get("gold_winner") or "").strip()
+            if summary_result_payload["gold_decision"] not in {"replace", "abstain"}:
+                summary_result_payload["gold_decision"] = (
+                    "replace"
+                    if summary_result_payload["gold_winner"]
+                    == str(active.get("sense_id") or "").strip()
+                    else "abstain"
                 )
-                if (
-                    rescue_backup_result.predicted_decision == "replace"
-                    and rescue_backup_result.predicted_winner_type == "active"
-                    and float(rescue_backup_result.margin) >= _ACTIVE_RESCUE_BACKUP_MARGIN_FLOOR
-                ):
-                    summary_result_payload = dict(result.__dict__)
-                    summary_result_payload["predicted_decision"] = "replace"
-                    summary_result_payload["predicted_winner"] = (
-                        rescue_backup_result.predicted_winner
-                    )
-                    summary_result_payload["predicted_winner_type"] = (
-                        rescue_backup_result.predicted_winner_type
-                    )
-                    summary_result_payload["active_rescue_applied"] = True
-                    summary_result_payload["active_rescue_reason_code"] = (
-                        "sense_label_near_tie_active_rescue"
-                    )
-                    summary_result = SimpleNamespace(**summary_result_payload)
-                    active_rescue_applied = True
-                    active_rescue_reason_code = "sense_label_near_tie_active_rescue"
+            if not summary_result_payload["gold_winner"] or summary_result_payload[
+                "gold_winner"
+            ] in {
+                "none",
+                "abstain",
+            }:
+                summary_result_payload["gold_winner_type"] = "none"
+            elif summary_result_payload["gold_winner"] == str(active.get("sense_id") or "").strip():
+                summary_result_payload["gold_winner_type"] = "active"
+            else:
+                summary_result_payload["gold_winner_type"] = "shadow"
+            summary_result = SimpleNamespace(**summary_result_payload)
             row_payload = {
                 "case_id": summary_result.case_id,
                 "family_id": summary_result.family_id,
@@ -316,25 +301,13 @@ def build_sentence_veto_report(
                 "matched_phrase_pattern": result.matched_phrase_pattern,
                 "phrase_reason_code": result.phrase_reason_code,
                 "active_rescue_mode": resolved_active_rescue_mode,
-                "active_rescue_applied": active_rescue_applied,
-                "active_rescue_reason_code": active_rescue_reason_code,
-                "active_rescue_primary_margin": result.margin,
-                "active_rescue_backup_margin": (
-                    rescue_backup_result.margin if rescue_backup_result is not None else None
-                ),
-                "active_rescue_backup_predicted_decision": (
-                    rescue_backup_result.predicted_decision
-                    if rescue_backup_result is not None
-                    else ""
-                ),
-                "active_rescue_backup_predicted_winner": (
-                    rescue_backup_result.predicted_winner
-                    if rescue_backup_result is not None
-                    else ""
-                ),
-                "active_rescue_backup_evidence_view": (
-                    _ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW if rescue_backup_result is not None else ""
-                ),
+                "active_rescue_applied": bool(result.active_rescue_applied),
+                "active_rescue_reason_code": result.active_rescue_reason_code,
+                "active_rescue_primary_margin": result.active_rescue_primary_margin,
+                "active_rescue_backup_margin": result.active_rescue_backup_margin,
+                "active_rescue_backup_predicted_decision": result.active_rescue_backup_predicted_decision,
+                "active_rescue_backup_predicted_winner": result.active_rescue_backup_predicted_winner,
+                "active_rescue_backup_evidence_view": result.active_rescue_backup_evidence_view,
                 "slice_tags": _normalize_string_list(case.get("slice_tags")),
                 "slice_dimensions": _normalize_slice_dimensions(case.get("slice_dimensions")),
                 "notes": str(case.get("notes") or "").strip(),

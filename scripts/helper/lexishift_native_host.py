@@ -35,12 +35,14 @@ from lexishift_core.helper.engine import (
     apply_exposure,
     apply_feedback,
     initialize_srs_set,
+    load_semantic_inventory,
     load_ruleset,
     load_snapshot,
     plan_srs_set,
     refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
+    semantic_admit_batch,
 )
 from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
 from lexishift_core.helper.os import open_path
@@ -205,9 +207,14 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "get_ruleset":
         pair = str(payload.get("pair", "en-ja"))
         return load_ruleset(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "get_semantic_inventory":
+        pair = str(payload.get("pair", "en-ja"))
+        return load_semantic_inventory(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_diagnostics":
         pair = str(payload.get("pair", "en-ja"))
         return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "semantic_admit_batch":
+        return semantic_admit_batch(paths, payload=payload)
     if msg_type == "record_feedback":
         apply_feedback(
             paths,

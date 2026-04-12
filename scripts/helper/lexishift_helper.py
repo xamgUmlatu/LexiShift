@@ -19,6 +19,7 @@ from lexishift_core.helper.engine import (
     apply_exposure,
     apply_feedback,
     initialize_srs_set,
+    load_semantic_inventory,
     load_snapshot,
     plan_srs_set,
     refresh_srs_set,
@@ -106,6 +107,28 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
                 "error": "snapshot_not_found",
                 "path": str(
                     paths.snapshot_path(args.pair, profile_id=args.profile_id or "default")
+                ),
+            }
+        )
+        return 1
+    _print_json(payload)
+    return 0
+
+
+def cmd_get_semantic_inventory(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    try:
+        payload = load_semantic_inventory(
+            paths, pair=args.pair, profile_id=args.profile_id or "default"
+        )
+    except FileNotFoundError:
+        _print_json(
+            {
+                "error": "semantic_inventory_not_found",
+                "path": str(
+                    paths.semantic_inventory_path(
+                        args.pair, profile_id=args.profile_id or "default"
+                    )
                 ),
             }
         )
@@ -365,6 +388,14 @@ def build_parser() -> argparse.ArgumentParser:
     snapshot.add_argument("--pair", default="en-ja")
     snapshot.add_argument("--profile-id", help="Profile id (default: default)")
     snapshot.set_defaults(func=cmd_get_snapshot)
+
+    semantic_inventory = sub.add_parser(
+        "get_semantic_inventory",
+        help="Print semantic inventory for a pair",
+    )
+    semantic_inventory.add_argument("--pair", default="en-ja")
+    semantic_inventory.add_argument("--profile-id", help="Profile id (default: default)")
+    semantic_inventory.set_defaults(func=cmd_get_semantic_inventory)
 
     diagnostics = sub.add_parser("srs_diagnostics", help="Show helper-side SRS runtime diagnostics")
     diagnostics.add_argument("--pair", default="en-ja")
