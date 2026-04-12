@@ -10,6 +10,7 @@ Related planning docs:
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
+- `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 Verification:
