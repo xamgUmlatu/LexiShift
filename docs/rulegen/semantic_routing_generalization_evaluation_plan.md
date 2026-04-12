@@ -164,6 +164,8 @@ Required shape:
   - control / tune families
   - held-out evaluation families
 - never choose thresholds only by aggregate metrics on the same families used to design the feature
+- keep the split explicit in:
+  - `docs/test_inputs/semantic_routing_generalization_splits_en_es.json`
 
 Interpretation:
 

@@ -161,6 +161,7 @@ Purpose:
 
 Primary files:
 - `scripts/testing/semantic_routing_generalization_bound_en_es.py`
+- `docs/test_inputs/semantic_routing_generalization_splits_en_es.json`
 - `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.json`
 - `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.md`
 

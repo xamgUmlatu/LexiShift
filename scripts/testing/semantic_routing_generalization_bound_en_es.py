@@ -21,6 +21,16 @@ from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from semantic_routing_generalization_bound_reporting import (  # noqa: E402
     render_generalization_bound_markdown,
 )
+from semantic_routing_generalization_bound_splits import (  # noqa: E402
+    build_metric_views,
+    build_split_lookup,
+    find_row,
+    load_generalization_split_manifest,
+    partition_rows_by_split,
+    resolve_overlap_family_split_id,
+    resolve_sentence_veto_split_id,
+    select_best_source_only_row,
+)
 from semantic_routing_sentence_veto_support import (  # noqa: E402
     DEFAULT_SENTENCE_VETO_DATASET,
     build_sentence_veto_report,
@@ -41,6 +51,9 @@ DEFAULT_JSON_OUT = (
 )
 DEFAULT_MARKDOWN_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "semantic_routing_generalization_bound_en_es_latest.md"
+)
+DEFAULT_SPLIT_MANIFEST = (
+    PROJECT_ROOT / "docs" / "test_inputs" / "semantic_routing_generalization_splits_en_es.json"
 )
 DEFAULT_BOOTSTRAP_ITERATIONS = 2000
 DEFAULT_RANDOM_SEED = 1729
@@ -136,6 +149,12 @@ def _parse_args() -> argparse.Namespace:
         type=int,
         default=1,
         help="Maximum word count for forward-gloss-derived trigger seeds.",
+    )
+    parser.add_argument(
+        "--family-splits-manifest",
+        type=Path,
+        default=DEFAULT_SPLIT_MANIFEST,
+        help="Explicit tune vs held-out family split manifest.",
     )
     parser.add_argument(
         "--bootstrap-iterations",
@@ -448,63 +467,6 @@ def _leave_one_cluster_out_metrics(
     }
 
 
-def _build_metric_views(
-    *,
-    point_summary: Mapping[str, object],
-    bootstrap_intervals: Mapping[str, Mapping[str, object]],
-    leave_one_cluster_out: Mapping[str, object],
-    metric_directions: Mapping[str, str],
-    confidence_level: float,
-) -> dict[str, dict[str, object]]:
-    loo_metrics = leave_one_cluster_out.get("metrics")
-    if not isinstance(loo_metrics, Mapping):
-        loo_metrics = {}
-    metric_views: dict[str, dict[str, object]] = {}
-    for metric_name, direction in metric_directions.items():
-        point_estimate = point_summary.get(metric_name)
-        bootstrap = bootstrap_intervals.get(metric_name, {})
-        loo = loo_metrics.get(metric_name, {})
-        metric_view: dict[str, object] = {
-            "direction": direction,
-            "point_estimate": point_estimate if isinstance(point_estimate, (int, float)) else None,
-            "bootstrap_interval": {
-                "confidence_level": float(confidence_level),
-                "lower": bootstrap.get("lower"),
-                "upper": bootstrap.get("upper"),
-                "sample_count": bootstrap.get("sample_count"),
-            },
-            "leave_one_cluster_out": {
-                "min": loo.get("min"),
-                "max": loo.get("max"),
-                "worst_case": loo.get("worst_case"),
-                "worst_case_omitted_cluster_id": loo.get("worst_case_omitted_cluster_id"),
-            },
-        }
-        conservative_candidates: list[float] = []
-        if direction == "lower":
-            bootstrap_upper = bootstrap.get("upper")
-            loo_worst_case = loo.get("worst_case")
-            if isinstance(bootstrap_upper, (int, float)):
-                conservative_candidates.append(float(bootstrap_upper))
-            if isinstance(loo_worst_case, (int, float)):
-                conservative_candidates.append(float(loo_worst_case))
-            metric_view["conservative_ceiling"] = (
-                max(conservative_candidates) if conservative_candidates else None
-            )
-        else:
-            bootstrap_lower = bootstrap.get("lower")
-            loo_worst_case = loo.get("worst_case")
-            if isinstance(bootstrap_lower, (int, float)):
-                conservative_candidates.append(float(bootstrap_lower))
-            if isinstance(loo_worst_case, (int, float)):
-                conservative_candidates.append(float(loo_worst_case))
-            metric_view["conservative_floor"] = (
-                min(conservative_candidates) if conservative_candidates else None
-            )
-        metric_views[metric_name] = metric_view
-    return metric_views
-
-
 def _build_surface_bound(
     *,
     label: str,
@@ -534,7 +496,7 @@ def _build_surface_bound(
         metric_names=tuple(metric_directions.keys()),
         metric_directions=metric_directions,
     )
-    metric_views = _build_metric_views(
+    metric_views = build_metric_views(
         point_summary=point_summary,
         bootstrap_intervals=bootstrap_intervals,
         leave_one_cluster_out=leave_one_cluster_out,
@@ -553,33 +515,45 @@ def _build_surface_bound(
     }
 
 
-def _select_best_source_only_row(
+def _extend_with_split_surfaces(
+    surfaces: list[dict[str, object]],
+    *,
+    label: str,
     rows: Sequence[Mapping[str, object]],
-) -> Mapping[str, object] | None:
-    candidates = []
-    for row in rows:
-        source_id = str(row.get("source_id") or "").strip()
-        if source_id not in {"auto_shadows", "borrowed_trigger_auto_shadows"}:
-            continue
-        candidates.append(row)
-    if not candidates:
-        return None
-    return max(
-        candidates,
-        key=lambda row: (
-            float(row.get("overall_accuracy") or 0.0),
-            float(row.get("abstain_recall") or 0.0),
-            -float(row.get("harmful_allow_rate") or 0.0),
-            -float(row.get("overblocking_rate") or 0.0),
-        ),
+    cluster_key_name: str,
+    summarize_rows: Callable[[Sequence[Mapping[str, object]]], dict[str, object]],
+    metric_directions: Mapping[str, str],
+    bootstrap_iterations: int,
+    random_seed: int,
+    confidence_level: float,
+    config: Mapping[str, object],
+    split_ids: Sequence[str],
+    split_lookup: Mapping[str, str],
+    resolve_split_id: Callable[[Mapping[str, object], Mapping[str, str]], str],
+) -> None:
+    split_rows, _unassigned_rows = partition_rows_by_split(
+        rows,
+        split_ids=split_ids,
+        split_lookup=split_lookup,
+        resolve_split_id=resolve_split_id,
     )
-
-
-def _find_row(rows: Sequence[Mapping[str, object]], source_id: str) -> Mapping[str, object] | None:
-    for row in rows:
-        if str(row.get("source_id") or "").strip() == source_id:
-            return row
-    return None
+    for index, split_id in enumerate(split_ids):
+        subset_rows = tuple(split_rows.get(str(split_id), ()))
+        if not subset_rows:
+            continue
+        surfaces.append(
+            _build_surface_bound(
+                label=f"{label} [{split_id}]",
+                rows=subset_rows,
+                cluster_key_name=cluster_key_name,
+                summarize_rows=summarize_rows,
+                metric_directions=metric_directions,
+                bootstrap_iterations=bootstrap_iterations,
+                random_seed=random_seed + index + 100,
+                confidence_level=confidence_level,
+                config={**dict(config), "subset_id": str(split_id)},
+            )
+        )
 
 
 def build_generalization_bound_report(
@@ -587,6 +561,7 @@ def build_generalization_bound_report(
     sentence_dataset: Path,
     benchmark_dataset: Path,
     benchmark_json: Path,
+    family_splits_manifest: Path,
     data_root: Path,
     translation_dict: Path | None,
     reverse_translation_dict: Path | None,
@@ -597,6 +572,13 @@ def build_generalization_bound_report(
     include_sentence_transformer_reference: bool,
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    split_manifest = load_generalization_split_manifest(family_splits_manifest)
+    fixed_shadow_split_ids, fixed_shadow_split_lookup = build_split_lookup(
+        dict(split_manifest.get("fixed_shadow_sentence_veto") or {})
+    )
+    reviewed_family_split_ids, reviewed_family_split_lookup = build_split_lookup(
+        dict(split_manifest.get("reviewed_overlap_semantic_families") or {})
+    )
 
     fixed_shadow_surfaces: list[dict[str, object]] = []
     fixed_shadow_control_report = build_sentence_veto_report(
@@ -609,14 +591,15 @@ def build_generalization_bound_report(
         phrase_control_mode=str(FIXED_SHADOW_CONTROL_CONFIG["phrase_control_mode"]),
         active_rescue_mode=str(FIXED_SHADOW_CONTROL_CONFIG["active_rescue_mode"]),
     )
+    fixed_shadow_control_rows = tuple(
+        row
+        for row in fixed_shadow_control_report.get("row_results", ())
+        if isinstance(row, Mapping)
+    )
     fixed_shadow_surfaces.append(
         _build_surface_bound(
             label=str(FIXED_SHADOW_CONTROL_CONFIG["label"]),
-            rows=tuple(
-                row
-                for row in fixed_shadow_control_report.get("row_results", ())
-                if isinstance(row, Mapping)
-            ),
+            rows=fixed_shadow_control_rows,
             cluster_key_name="family_id",
             summarize_rows=_summarize_sentence_veto_rows,
             metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
@@ -625,6 +608,21 @@ def build_generalization_bound_report(
             confidence_level=confidence_level,
             config=FIXED_SHADOW_CONTROL_CONFIG,
         )
+    )
+    _extend_with_split_surfaces(
+        fixed_shadow_surfaces,
+        label=str(FIXED_SHADOW_CONTROL_CONFIG["label"]),
+        rows=fixed_shadow_control_rows,
+        cluster_key_name="family_id",
+        summarize_rows=_summarize_sentence_veto_rows,
+        metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+        bootstrap_iterations=bootstrap_iterations,
+        random_seed=random_seed,
+        confidence_level=confidence_level,
+        config=FIXED_SHADOW_CONTROL_CONFIG,
+        split_ids=fixed_shadow_split_ids,
+        split_lookup=fixed_shadow_split_lookup,
+        resolve_split_id=resolve_sentence_veto_split_id,
     )
     if include_sentence_transformer_reference:
         reference_report = build_sentence_veto_report(
@@ -637,14 +635,13 @@ def build_generalization_bound_report(
             phrase_control_mode=str(FIXED_SHADOW_REFERENCE_CONFIG["phrase_control_mode"]),
             active_rescue_mode=str(FIXED_SHADOW_REFERENCE_CONFIG["active_rescue_mode"]),
         )
+        reference_rows = tuple(
+            row for row in reference_report.get("row_results", ()) if isinstance(row, Mapping)
+        )
         fixed_shadow_surfaces.append(
             _build_surface_bound(
                 label=str(FIXED_SHADOW_REFERENCE_CONFIG["label"]),
-                rows=tuple(
-                    row
-                    for row in reference_report.get("row_results", ())
-                    if isinstance(row, Mapping)
-                ),
+                rows=reference_rows,
                 cluster_key_name="family_id",
                 summarize_rows=_summarize_sentence_veto_rows,
                 metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
@@ -653,6 +650,21 @@ def build_generalization_bound_report(
                 confidence_level=confidence_level,
                 config=FIXED_SHADOW_REFERENCE_CONFIG,
             )
+        )
+        _extend_with_split_surfaces(
+            fixed_shadow_surfaces,
+            label=str(FIXED_SHADOW_REFERENCE_CONFIG["label"]),
+            rows=reference_rows,
+            cluster_key_name="family_id",
+            summarize_rows=_summarize_sentence_veto_rows,
+            metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + 1,
+            confidence_level=confidence_level,
+            config=FIXED_SHADOW_REFERENCE_CONFIG,
+            split_ids=fixed_shadow_split_ids,
+            split_lookup=fixed_shadow_split_lookup,
+            resolve_split_id=resolve_sentence_veto_split_id,
         )
 
     veto_proxy_report = build_veto_proxy_compare_report(
@@ -693,10 +705,31 @@ def build_generalization_bound_report(
                 },
             )
         )
+        _extend_with_split_surfaces(
+            veto_proxy_surfaces,
+            label=label,
+            rows=row_results,
+            cluster_key_name="trigger",
+            summarize_rows=_summarize_veto_proxy_rows,
+            metric_directions=VETO_PROXY_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + len(veto_proxy_surfaces) + 10,
+            confidence_level=confidence_level,
+            config={
+                "source_id": source_id,
+                "seed_mode": row.get("seed_mode"),
+                "policy": row.get("policy"),
+                "support_score_min": row.get("support_score_min"),
+                "support_score_max_promoted": row.get("support_score_max_promoted"),
+            },
+            split_ids=reviewed_family_split_ids,
+            split_lookup=reviewed_family_split_lookup,
+            resolve_split_id=resolve_overlap_family_split_id,
+        )
 
-    source_only_row = _select_best_source_only_row(veto_proxy_rows)
-    reviewed_auto_row = _find_row(veto_proxy_rows, "reviewed_auto_shadows")
-    curated_row = _find_row(veto_proxy_rows, "curated_shadows")
+    source_only_row = select_best_source_only_row(veto_proxy_rows)
+    reviewed_auto_row = find_row(veto_proxy_rows, "reviewed_auto_shadows")
+    curated_row = find_row(veto_proxy_rows, "curated_shadows")
     fixed_shadow_control_surface = fixed_shadow_surfaces[0] if fixed_shadow_surfaces else {}
 
     def _metric_view(surface: Mapping[str, object], metric_name: str) -> Mapping[str, object]:
@@ -805,6 +838,7 @@ def build_generalization_bound_report(
             "sentence_dataset": str(sentence_dataset),
             "benchmark_dataset": str(benchmark_dataset),
             "benchmark_json": str(benchmark_json),
+            "family_splits_manifest": str(family_splits_manifest),
             "data_root": str(data_root),
             "forward_seed_max_words": int(forward_seed_max_words),
             "translation_dict": str(translation_dict) if translation_dict else "",
@@ -824,6 +858,7 @@ def main() -> int:
         sentence_dataset=args.sentence_dataset,
         benchmark_dataset=args.benchmark_dataset,
         benchmark_json=args.benchmark_json,
+        family_splits_manifest=args.family_splits_manifest,
         data_root=args.data_root,
         translation_dict=args.translation_dict,
         reverse_translation_dict=args.reverse_translation_dict,

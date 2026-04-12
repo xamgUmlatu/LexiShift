@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "description": "Explicit tune vs held-out family split for current semantic-veto generalization evaluation. This manifest is evaluation-only and does not affect runtime publication.",
+  "fixed_shadow_sentence_veto": {
+    "label": "Fixed-shadow runtime families",
+    "split_key": "family_id",
+    "splits": {
+      "tune": [
+        "en-es:sentence-veto:ball:pelota",
+        "en-es:sentence-veto:cell:celula",
+        "en-es:sentence-veto:match:partido",
+        "en-es:sentence-veto:spring:primavera"
+      ],
+      "held_out": [
+        "en-es:sentence-veto:bank:banco",
+        "en-es:sentence-veto:file:archivo",
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:seal:sello"
+      ]
+    }
+  },
+  "reviewed_overlap_semantic_families": {
+    "label": "Reviewed overlap ambiguity families",
+    "split_key": "semantic_family",
+    "splits": {
+      "tune": [
+        "job",
+        "field_area_country",
+        "table_board_chart",
+        "take_carry",
+        "bank_bench",
+        "finish_end"
+      ],
+      "held_out": [
+        "net_mesh_network",
+        "path_route",
+        "remove_take_out",
+        "right_law_straight",
+        "account_bill",
+        "battery_music"
+      ]
+    }
+  }
+}
