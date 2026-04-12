@@ -56,6 +56,59 @@ That question has four independent subproblems:
 3. shadow-set promotion precision
 4. phrase / frame exceptions that should not be treated as ordinary sense competition
 
+## Current frozen baseline
+
+These are the control reads the next generalization campaigns should compare against.
+
+They are not proof of broad readiness.
+They are the current measured starting point.
+
+### Fixed-shadow runtime scorer control
+
+Use the best currently measured zero-harmful-replace row from the fixed-shadow sentence harness as the scorer control:
+
+- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- config: `tfidf_cosine:masked_sentence:all_evidence_text:a=0.05:m=0.00`
+- decision accuracy: `77.5%`
+- replace precision / recall: `100.0%` / `43.8%`
+- harmful replace / false abstain: `0.0%` / `56.2%`
+
+Interpretation:
+
+- the scorer/gate already has the desired abstain-first safety shape,
+- but it still misses many clear active rows even when the blocker set is fixed correctly.
+
+### Sentence-transformer reference row
+
+Keep the current sentence-transformer read as a reference, not as the main control:
+
+- config: `sentence_transformer_cosine:masked_sentence:all_evidence_text:a=0.00:m=0.15`
+- decision accuracy: `75.0%`
+- replace precision / recall: `100.0%` / `37.5%`
+- harmful replace / false abstain: `0.0%` / `62.5%`
+
+Interpretation:
+
+- the heavier scorer is not yet beating the lexical control on the fixed-shadow harness under the current strict safety budget.
+
+### Auto-shadow veto lower-bound controls
+
+Use the current veto-proxy rows as the blocker-generation baseline ladder:
+
+| Row | Meaning | Accuracy | Abstain Recall | Harmful Allow | Overblocking |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `no_shadows` | no blocker generation | `81.1%` | `0.0%` | `100.0%` | `0.0%` |
+| `auto_shadows` | best plain source-only lexical lane | `87.4%` | `42.4%` | `57.6%` | `2.1%` |
+| `borrowed_trigger_auto_shadows` | source-only plus borrowed-trigger seeds | `89.1%` | `51.5%` | `48.5%` | `2.1%` |
+| `reviewed_auto_shadows` | reviewed-trigger auto lane | `93.7%` | `66.7%` | `33.3%` | `0.0%` |
+| `curated_shadows` | current lower-bound oracle ceiling | `100.0%` | `100.0%` | `0.0%` | `0.0%` |
+
+Interpretation:
+
+- current source-only blocker generation is materially better than no veto,
+- but it is still far from the curated blocker ceiling,
+- and most of the remaining gap is still blocker-generation quality rather than scorer choice.
+
 ## Evaluation layers
 
 Use four layers and keep them separate.
@@ -136,6 +189,18 @@ Interpretation:
 
 - this is not the main training surface
 - it is the sanity-check surface before rollout
+
+### Cross-layer bound artifact
+
+Use one explicit cluster-aware bound read to summarize the current corridor:
+
+- `scripts/testing/semantic_routing_generalization_bound_en_es.py`
+- `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.md`
+
+Interpretation:
+
+- this is not a replacement for the four layers above
+- it is the current scorecard that converts those layers into one conservative `en-es` read
 
 ## Are we back to the testing lab?
 

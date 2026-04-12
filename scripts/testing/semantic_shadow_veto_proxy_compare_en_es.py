@@ -334,6 +334,7 @@ def build_veto_proxy_compare_report(
     translation_dict: Path | None,
     reverse_translation_dict: Path | None,
     forward_seed_max_words: int,
+    include_row_results: bool = False,
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     dataset_payload = load_benchmark_dataset_payload(benchmark_dataset)
@@ -384,6 +385,7 @@ def build_veto_proxy_compare_report(
             policies=(policy,),
             support_score_min=float(source.get("support_score_min") or 0.0),
             support_score_max_promoted=int(source.get("support_score_max_promoted") or 1),
+            include_row_results=bool(include_row_results),
         )
         policy_payload = veto_report.get("policies", {}).get(policy, {})
         summary = policy_payload.get("summary") if isinstance(policy_payload, Mapping) else {}
@@ -426,6 +428,11 @@ def build_veto_proxy_compare_report(
                     policy_payload.get("slice_summaries", {})
                     if isinstance(policy_payload, Mapping)
                     else {}
+                ),
+                "row_results": (
+                    policy_payload.get("row_results", [])
+                    if include_row_results and isinstance(policy_payload, Mapping)
+                    else []
                 ),
                 "sample_harmful_allow_rows": policy_payload.get("sample_harmful_allow_rows", []),
                 "sample_false_abstain_rows": policy_payload.get("sample_false_abstain_rows", []),

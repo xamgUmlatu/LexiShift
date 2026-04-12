@@ -152,6 +152,22 @@ Interpretation rule:
 - this layer does not prove that automatic shadow mining is solved
 - it answers the narrower question: given a fixed competition set, how good is the runtime scorer and gate
 
+### 9. Cluster-aware confidence-bound read
+
+Purpose:
+- estimate a current generalization corridor for `en-es` without pretending the reviewed slice is already broad deployment truth
+- quantify family-sensitive uncertainty with cluster bootstrap plus leave-one-cluster-out stress
+- keep the fixed-shadow scorer ceiling and the current blocker-generation floor visible in one reusable artifact
+
+Primary files:
+- `scripts/testing/semantic_routing_generalization_bound_en_es.py`
+- `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.json`
+- `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.md`
+
+Interpretation rule:
+- this layer still does not prove broad production readiness
+- it gives a more honest current bound than one point estimate because it treats family / trigger clustering as first-class uncertainty
+
 ## Current experiment contract
 
 The matrix runner accepts one manifest row per experiment.
